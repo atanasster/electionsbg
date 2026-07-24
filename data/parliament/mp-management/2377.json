@@ -1,1 +1,78 @@
-{"mpId":2377,"mpName":"Росен Петров Петров","generatedAt":"2026-07-03T11:12:51.630Z","total":5,"roles":[{"uic":"208150160","companyName":"Клийнинг Айдиъс","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1421","status":"active","role":"partner","positionLabel":null,"sharePercent":33.33333333333333,"addedAt":"2025-01-30T09:43:47","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207851332","companyName":"НОРДУУД","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Самоков, 2000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-05-30T09:16:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207851332","companyName":"НОРДУУД","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Самоков, 2000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-05-30T09:16:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"200661904","companyName":"АКСАКОВО СИТИ ЦЕНТЪР","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-12-08T16:19:52","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"200661904","companyName":"АКСАКОВО СИТИ ЦЕНТЪР","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2022-12-08T16:19:52","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2377,
+  "mpName": "Росен Петров Петров",
+  "generatedAt": "2026-07-24T03:35:58.440Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "208150160",
+      "companyName": "Клийнинг Айдиъс",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 33.33333333333333,
+      "addedAt": "2025-01-30T09:43:47",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207851332",
+      "companyName": "НОРДУУД",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-05-30T09:16:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207851332",
+      "companyName": "НОРДУУД",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-05-30T09:16:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "200661904",
+      "companyName": "АКСАКОВО СИТИ ЦЕНТЪР",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-12-08T16:19:52",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "200661904",
+      "companyName": "АКСАКОВО СИТИ ЦЕНТЪР",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2022-12-08T16:19:52",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-vasilev-danov-d8fdb8",
+  "nodes": [
+    {
+      "id": "official:georgi-vasilev-danov-d8fdb8",
+      "type": "official",
+      "slug": "georgi-vasilev-danov-d8fdb8",
+      "label": "Георги Василев Данов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:208139324",
+      "type": "company",
+      "label": "ДАНТРИ ТЕХ",
+      "slug": null,
+      "uic": "208139324",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЦВЕТАНОВ ТРИЛОВСКИ",
+      "type": "person",
+      "label": "Иван Цветанов Триловски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-vasilev-danov-d8fdb8",
+      "target": "company:tr:208139324",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-vasilev-danov-d8fdb8",
+      "target": "company:tr:208139324",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЦВЕТАНОВ ТРИЛОВСКИ",
+      "target": "company:tr:208139324",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЦВЕТАНОВ ТРИЛОВСКИ",
+      "target": "company:tr:208139324",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:salih-ismail-drlev-847697",
+  "nodes": [
+    {
+      "id": "official:salih-ismail-drlev-847697",
+      "type": "official",
+      "slug": "salih-ismail-drlev-847697",
+      "label": "Салих Исмаил Дърлев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205301504",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ „Краище  2018“  с.Краище",
+      "slug": null,
+      "uic": "205301504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:sabit-ismail-gagm-dd6f03",
+      "type": "official",
+      "slug": "sabit-ismail-gagm-dd6f03",
+      "label": "Сабит Исмаил Гагъм",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Белица"
+    },
+    {
+      "id": "person:ХЮСЕИН АХМЕД ШЕРИФ",
+      "type": "person",
+      "label": "Хюсеин Ахмед Шериф"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:salih-ismail-drlev-847697",
+      "target": "company:tr:205301504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sabit-ismail-gagm-dd6f03",
+      "target": "company:tr:205301504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХЮСЕИН АХМЕД ШЕРИФ",
+      "target": "company:tr:205301504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

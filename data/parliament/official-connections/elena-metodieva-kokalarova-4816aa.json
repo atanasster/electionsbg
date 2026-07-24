@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-metodieva-kokalarova-4816aa",
+  "nodes": [
+    {
+      "id": "official:elena-metodieva-kokalarova-4816aa",
+      "type": "official",
+      "slug": "elena-metodieva-kokalarova-4816aa",
+      "label": "Елена Методиева Кокаларова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:102604235",
+      "type": "company",
+      "label": "Училищно настоятелство при ОУ &quot;Елин Пелин&quot;",
+      "slug": null,
+      "uic": "102604235",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНА ДОЙЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Яна Дойчева Иванова"
+    },
+    {
+      "id": "person:РОСИЦА НЕДЯЛКОВА БАТЛЕВА-ДИМИТРОВА",
+      "type": "person",
+      "label": "Росица Недялкова Батлева-Димитрова"
+    },
+    {
+      "id": "person:ЦЕНКО ИВАНОВ ЦАНКОВ",
+      "type": "person",
+      "label": "Ценко Иванов Цанков"
+    },
+    {
+      "id": "person:МИЛИЦА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Милица Димитрова Димитрова"
+    },
+    {
+      "id": "person:ЯНКА ЦВЕТАНОВА НЕДЕВА",
+      "type": "person",
+      "label": "Янка Цветанова Недева"
+    },
+    {
+      "id": "person:РОСИЦА ТОДОРОВА ШИШМАНОВА",
+      "type": "person",
+      "label": "Росица  Тодорова Шишманова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-metodieva-kokalarova-4816aa",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-metodieva-kokalarova-4816aa",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНА ДОЙЧЕВА ИВАНОВА",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НЕДЯЛКОВА БАТЛЕВА-ДИМИТРОВА",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕНКО ИВАНОВ ЦАНКОВ",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛИЦА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ЦВЕТАНОВА НЕДЕВА",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОДОРОВА ШИШМАНОВА",
+      "target": "company:tr:102604235",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

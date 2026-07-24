@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galya-hristova-ilieva-3371bf",
+  "nodes": [
+    {
+      "id": "official:galya-hristova-ilieva-3371bf",
+      "type": "official",
+      "slug": "galya-hristova-ilieva-3371bf",
+      "label": "Галя Христова Илиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200335869",
+      "type": "company",
+      "label": "ПГ Финанс",
+      "slug": null,
+      "uic": "200335869",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАНАЙОТ ГЕОРГИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Панайот Георгиев Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-hristova-ilieva-3371bf",
+      "target": "company:tr:200335869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАНАЙОТ ГЕОРГИЕВ ИЛИЕВ",
+      "target": "company:tr:200335869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

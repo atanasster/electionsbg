@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-petrov-tityukov-5112c7",
+  "nodes": [
+    {
+      "id": "official:georgi-petrov-tityukov-5112c7",
+      "type": "official",
+      "slug": "georgi-petrov-tityukov-5112c7",
+      "label": "Георги Петров Титюков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206814805",
+      "type": "company",
+      "label": "Строево Солар ООД",
+      "slug": null,
+      "uic": "206814805",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206814680",
+      "type": "company",
+      "label": "Сън Енерджи Правище ООД",
+      "slug": null,
+      "uic": "206814680",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН АТАНАСОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Костадин Атанасов Стойчев"
+    },
+    {
+      "id": "person:КРИСТИНА ДАНАИЛОВА ТИТЮКОВА",
+      "type": "person",
+      "label": "Кристина Данаилова Титюкова"
+    },
+    {
+      "id": "official:konstantin-hristov-georgiev-ba8f1b",
+      "type": "official",
+      "slug": "konstantin-hristov-georgiev-ba8f1b",
+      "label": "Константин Христов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "type": "person",
+      "label": "Едуард Мъгърдич Сарафян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-petrov-tityukov-5112c7",
+      "target": "company:tr:206814805",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-petrov-tityukov-5112c7",
+      "target": "company:tr:206814680",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН АТАНАСОВ СТОЙЧЕВ",
+      "target": "company:tr:206814805",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДАНАИЛОВА ТИТЮКОВА",
+      "target": "company:tr:206814805",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН АТАНАСОВ СТОЙЧЕВ",
+      "target": "company:tr:206814805",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-hristov-georgiev-ba8f1b",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "target": "company:tr:206814680",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДАНАИЛОВА ТИТЮКОВА",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

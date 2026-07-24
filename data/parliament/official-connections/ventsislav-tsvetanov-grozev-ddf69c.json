@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ventsislav-tsvetanov-grozev-ddf69c",
+  "nodes": [
+    {
+      "id": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "type": "official",
+      "slug": "ventsislav-tsvetanov-grozev-ddf69c",
+      "label": "Венцислав Цветанов Грозев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114532352",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ",
+      "slug": null,
+      "uic": "114532352",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2926",
+      "type": "mp",
+      "mpId": 2926,
+      "label": "Калин Николов Поповски",
+      "partyGroupShort": "ВМРО",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "type": "official",
+      "slug": "aleksandr-vlkov-vlkov-2bcaa2",
+      "label": "Александър Вълков Вълков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "type": "official",
+      "slug": "diyan-lyubomirov-svrakov-62a7b5",
+      "label": "Диян Любомиров Свраков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "type": "person",
+      "label": "Цветан Христофоров Луканов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Димитър Живков Стойков"
+    },
+    {
+      "id": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Добромир Димитров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2926",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

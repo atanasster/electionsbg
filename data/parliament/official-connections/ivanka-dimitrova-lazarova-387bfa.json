@@ -1,0 +1,298 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivanka-dimitrova-lazarova-387bfa",
+  "nodes": [
+    {
+      "id": "official:ivanka-dimitrova-lazarova-387bfa",
+      "type": "official",
+      "slug": "ivanka-dimitrova-lazarova-387bfa",
+      "label": "Иванка Димитрова Лазарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104074472",
+      "type": "company",
+      "label": "ПРОБУЖДАНЕ-1896",
+      "slug": null,
+      "uic": "104074472",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА МОСКОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Екатерина Москова Йорданова"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Румен Иванов Стойков"
+    },
+    {
+      "id": "person:МАРИЯНА МАРИНОВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Марияна Маринова Дончева"
+    },
+    {
+      "id": "person:ЙОРДАНКА ПЕТРОВА БОНЕВА",
+      "type": "person",
+      "label": "Йорданка Петрова Бонева"
+    },
+    {
+      "id": "person:ДАНИЕЛА ЙОРДАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Даниела Йорданова Христова"
+    },
+    {
+      "id": "person:ЛОЗАНА АНДРЕЕВА ПАНЕВА",
+      "type": "person",
+      "label": "Лозана Андреева Панева"
+    },
+    {
+      "id": "person:МАРИЙКА ПЕТРОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Марийка Петрова Добрева"
+    },
+    {
+      "id": "person:СВЕТЛАНА ТРИФОНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Светлана Трифонова Иванова"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Никола Иванов Ангелов"
+    },
+    {
+      "id": "person:ИВАНКА ИВАНОВА ЧОЛАКОВА",
+      "type": "person",
+      "label": "Иванка Иванова Чолакова"
+    },
+    {
+      "id": "person:БИСЕРКА ИВАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Бисерка Иванова Атанасова"
+    },
+    {
+      "id": "person:ГАЛИНА КОСТАДИНОВА СТАЙКОВА",
+      "type": "person",
+      "label": "Галина Костадинова Стайкова"
+    },
+    {
+      "id": "person:КРАСИМИРА ЙОРДАНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Красимира Йорданова Костадинова"
+    },
+    {
+      "id": "person:МАРИЯНА ЛЮБЕНОВА АНТОНОВА",
+      "type": "person",
+      "label": "Марияна Любенова Антонова"
+    },
+    {
+      "id": "person:ХРИСТИНА СТОЯНОВА ГУГЛОВА",
+      "type": "person",
+      "label": "Христина Стоянова Гуглова"
+    },
+    {
+      "id": "person:НИКОЛА МИТЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Митев Николов"
+    },
+    {
+      "id": "person:ГАЛЯ СТОЙКОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Галя Стойкова Василева"
+    },
+    {
+      "id": "person:ВЛАДИ БОНЕВ БОНДЖУКОВ",
+      "type": "person",
+      "label": "Влади Бонев Бонджуков"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА ИВАНОВА КАРЪМОВА",
+      "type": "person",
+      "label": "Теменужка Иванова Каръмова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-dimitrova-lazarova-387bfa",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА МОСКОВА ЙОРДАНОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МАРИНОВА ДОНЧЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ПЕТРОВА БОНЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ЙОРДАНОВА ХРИСТОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАНА АНДРЕЕВА ПАНЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ПЕТРОВА ДОБРЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ТРИФОНОВА ИВАНОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ АНГЕЛОВ",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ЧОЛАКОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА КОСТАДИНОВА СТАЙКОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЙОРДАНОВА КОСТАДИНОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ЛЮБЕНОВА АНТОНОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА СТОЯНОВА ГУГЛОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ПЕТРОВА ДОБРЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МИТЕВ НИКОЛОВ",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ СТОЙКОВА ВАСИЛЕВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИ БОНЕВ БОНДЖУКОВ",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА ИВАНОВА КАРЪМОВА",
+      "target": "company:tr:104074472",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

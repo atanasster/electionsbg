@@ -1,0 +1,224 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-hristov-malinov-3df52d",
+  "nodes": [
+    {
+      "id": "official:svetoslav-hristov-malinov-3df52d",
+      "type": "official",
+      "slug": "svetoslav-hristov-malinov-3df52d",
+      "label": "Светослав Христов Малинов",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130852273",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ЗА ПОЛИТИЧЕСКИ НАУКИ",
+      "slug": null,
+      "uic": "130852273",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113"
+    },
+    {
+      "id": "mp:207",
+      "type": "mp",
+      "mpId": 207,
+      "label": "Светослав Христов Малинов",
+      "partyGroupShort": "Нова Република",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:РУМЯНА ПЕТРОВА КОЛАРОВА",
+      "type": "person",
+      "label": "Румяна Петрова Коларова"
+    },
+    {
+      "id": "person:МАРИЯ ЕНЕВА БАКАЛОВА",
+      "type": "person",
+      "label": "Мария Енева Бакалова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ АЛЕКСАНДРОВА ЗАНКИНА-КЮРКЧИЕВА",
+      "type": "person",
+      "label": "Емилия Александрова Занкина-Кюркчиева"
+    },
+    {
+      "id": "person:МИЛЕНА ХРИСТОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Милена Христова Стефанова"
+    },
+    {
+      "id": "person:МИЛЕН ТОДОРОВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Милен Тодоров Любенов"
+    },
+    {
+      "id": "person:ЕВЕЛИНА РАДОСЛАВОВА СТАЙКОВА-МИЛЕВА",
+      "type": "person",
+      "label": "Евелина Радославова Стайкова-Милева"
+    },
+    {
+      "id": "person:ТОДОР ГЕОРГИЕВ ГАЛУНОВ",
+      "type": "person",
+      "label": "Тодор Георгиев Галунов"
+    },
+    {
+      "id": "person:СТОЙЧО ПЕТРОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Стойчо Петров Стойчев"
+    },
+    {
+      "id": "person:ИЛДИКО ЛЮБЕНОВА ОТОВА",
+      "type": "person",
+      "label": "Илдико Любенова Отова"
+    },
+    {
+      "id": "person:АЛБЕНА ГЕОРГИЕВА ТАНЕВА",
+      "type": "person",
+      "label": "Албена Георгиева Танева"
+    },
+    {
+      "id": "person:ЕЛЕНА КОСТАДИНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Елена Костадинова Симеонова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ДОБРЕВА ПАСТАРМАДЖИЕВА",
+      "type": "person",
+      "label": "Даниела Добрева Пастармаджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-hristov-malinov-3df52d",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-hristov-malinov-3df52d",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:207",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:207",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЯНА ПЕТРОВА КОЛАРОВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЕНЕВА БАКАЛОВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ АЛЕКСАНДРОВА ЗАНКИНА-КЮРКЧИЕВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ХРИСТОВА СТЕФАНОВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ ЛЮБЕНОВ",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА РАДОСЛАВОВА СТАЙКОВА-МИЛЕВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ГЕОРГИЕВ ГАЛУНОВ",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ПЕТРОВ СТОЙЧЕВ",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛДИКО ЛЮБЕНОВА ОТОВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ГЕОРГИЕВА ТАНЕВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА КОСТАДИНОВА СИМЕОНОВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ДОБРЕВА ПАСТАРМАДЖИЕВА",
+      "target": "company:tr:130852273",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

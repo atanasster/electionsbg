@@ -1,1 +1,50 @@
-{"mpId":1708,"mpName":"Георги Христов Борисов","generatedAt":"2026-07-03T11:12:51.623Z","total":3,"roles":[{"uic":"208108001","companyName":"АГРО 66","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Водица, 9141","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-12-20T17:58:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208108001","companyName":"АГРО 66","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Водица, 9141","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-12-20T17:58:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207438067","companyName":"Спортен клуб по тенис на маса АЛЕКО - 2023","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Свищов, 5250","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-06-28T17:07:32","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 1708,
+  "mpName": "Георги Христов Борисов",
+  "generatedAt": "2026-07-24T03:35:58.432Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "208108001",
+      "companyName": "АГРО 66",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Водица, 9141",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-12-20T17:58:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208108001",
+      "companyName": "АГРО 66",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Водица, 9141",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-12-20T17:58:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207438067",
+      "companyName": "Спортен клуб по тенис на маса АЛЕКО - 2023",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-06-28T17:07:32",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

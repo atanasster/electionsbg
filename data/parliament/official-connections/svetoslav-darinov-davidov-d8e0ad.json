@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-darinov-davidov-d8e0ad",
+  "nodes": [
+    {
+      "id": "official:svetoslav-darinov-davidov-d8e0ad",
+      "type": "official",
+      "slug": "svetoslav-darinov-davidov-d8e0ad",
+      "label": "Светослав Даринов Давидов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111543692",
+      "type": "company",
+      "label": "ВЪРШЕЦ - НЕГОВАН",
+      "slug": null,
+      "uic": "111543692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ВЪРШЕЦ, ГР. ВЪРШЕЦ",
+      "type": "person",
+      "label": "Община Вършец, Гр. Вършец"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-darinov-davidov-d8e0ad",
+      "target": "company:tr:111543692",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-darinov-davidov-d8e0ad",
+      "target": "company:tr:111543692",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ВЪРШЕЦ, ГР. ВЪРШЕЦ",
+      "target": "company:tr:111543692",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

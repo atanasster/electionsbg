@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:bekir-redzheb-izet-9d500d",
+  "nodes": [
+    {
+      "id": "official:bekir-redzheb-izet-9d500d",
+      "type": "official",
+      "slug": "bekir-redzheb-izet-9d500d",
+      "label": "Бекир Реджеб Изет",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тутракан"
+    },
+    {
+      "id": "company:tr:000559720",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ „НОВ ЖИВОТ -1942",
+      "slug": null,
+      "uic": "000559720",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАМЕЛА КРАСИМИРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Памела Красимирова Иванова"
+    },
+    {
+      "id": "person:НУРАЛ МАРЯМ ЮСЕИН",
+      "type": "person",
+      "label": "Нурал Марям Юсеин"
+    },
+    {
+      "id": "person:ИЛКЕР КЕАШИФ РАСИМ",
+      "type": "person",
+      "label": "Илкер Кеашиф Расим"
+    },
+    {
+      "id": "person:ШИРИН ШАБАН ТАХИР",
+      "type": "person",
+      "label": "Ширин Шабан Тахир"
+    },
+    {
+      "id": "person:БЕЙХАН ДАУД АПТУЛА",
+      "type": "person",
+      "label": "Бейхан Дауд Аптула"
+    },
+    {
+      "id": "person:ПЕТРАНКА БОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Петранка Боянова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bekir-redzheb-izet-9d500d",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bekir-redzheb-izet-9d500d",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАМЕЛА КРАСИМИРОВА ИВАНОВА",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЛ МАРЯМ ЮСЕИН",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКЕР КЕАШИФ РАСИМ",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИРИН ШАБАН ТАХИР",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙХАН ДАУД АПТУЛА",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА БОЯНОВА ИВАНОВА",
+      "target": "company:tr:000559720",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

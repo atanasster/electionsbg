@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-milenov-dukov-730535",
+  "nodes": [
+    {
+      "id": "official:ivailo-milenov-dukov-730535",
+      "type": "official",
+      "slug": "ivailo-milenov-dukov-730535",
+      "label": "Ивайло Миленов Дуков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район \"Тракия\" - Пловдив"
+    },
+    {
+      "id": "company:tr:208002934",
+      "type": "company",
+      "label": "ДУРО",
+      "slug": null,
+      "uic": "208002934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА МИЛЕНОВА БОЖАНОВА",
+      "type": "person",
+      "label": "Александрина Миленова Божанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-milenov-dukov-730535",
+      "target": "company:tr:208002934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА МИЛЕНОВА БОЖАНОВА",
+      "target": "company:tr:208002934",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА МИЛЕНОВА БОЖАНОВА",
+      "target": "company:tr:208002934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

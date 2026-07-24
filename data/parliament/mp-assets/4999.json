@@ -1,1 +1,59 @@
-{"mpId":4999,"name":"Явор Илиев Хайтов","partyGroupShort":null,"isCurrent":false,"nsFolders":["43"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/D8A01BCE-CCEB-44C5-B074-F5F5AFC83153212041.xml","totalAssetsEur":1373466.5078253222,"totalDebtsEur":349999.7443540594,"netWorthEur":1023466.7634712628,"previous":null,"byCategory":{"real_estate":{"count":12,"valuedCount":12,"totalEur":225900.00153387565},"vehicle":{"count":2,"valuedCount":2,"totalEur":152638.52175291308},"cash":{"count":2,"valuedCount":2,"totalEur":43153.54606484204},"bank":{"count":4,"valuedCount":4,"totalEur":302814.66180598515},"receivable":{"count":2,"valuedCount":2,"totalEur":372220.489510847},"debt":{"count":1,"valuedCount":1,"totalEur":349999.7443540594},"investment":{"count":3,"valuedCount":3,"totalEur":63838.88170239745},"security":{"count":10,"valuedCount":10,"totalEur":212900.40545446178}}}
+{
+  "mpId": 4999,
+  "name": "Явор Илиев Хайтов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "43"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/D8A01BCE-CCEB-44C5-B074-F5F5AFC83153212041.xml",
+  "totalAssetsEur": 1373466.5078253222,
+  "totalDebtsEur": 349999.7443540594,
+  "netWorthEur": 1023466.7634712628,
+  "previous": null,
+  "byCategory": {
+    "real_estate": {
+      "count": 12,
+      "valuedCount": 12,
+      "totalEur": 225900.00153387565
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 152638.52175291308
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 43153.54606484204
+    },
+    "bank": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 302814.66180598515
+    },
+    "receivable": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 372220.489510847
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 349999.7443540594
+    },
+    "investment": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 63838.88170239745
+    },
+    "security": {
+      "count": 10,
+      "valuedCount": 10,
+      "totalEur": 212900.40545446178
+    }
+  }
+}

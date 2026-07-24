@@ -1,1 +1,341 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4768","nodes":[{"id":"mp:4768","type":"mp","mpId":4768,"label":"Иван Тодоров Ибришимов","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":["42","43","44","51"]},{"id":"company:ВИП-2006-ООД","type":"company","label":"\"ВИП-2006\" ООД","slug":"ВИП-2006-ООД","uic":"109594427","legalForm":"OOD","status":"active","seat":"Дупница"},{"id":"company:Вита-медикал-инвест-ЕООД","type":"company","label":"\"Вита медикал инвест\" ЕООД","slug":"Вита-медикал-инвест-ЕООД","uic":"204884915","legalForm":"EOOD","status":"active","seat":"Дупница"},{"id":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","type":"company","label":"\"Групова практика за първична извънболнична дентална помощ - д-р Иван Ибришимов\" ООД","slug":"Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","uic":"201470058","legalForm":"OOD","status":"active","seat":"Дупница"},{"id":"company:Медико-дентален-център-Вита-медикал-ЕООД","type":"company","label":"\"Медико-дентален център \"Вита медикал\" ЕООД","slug":"Медико-дентален-център-Вита-медикал-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"Дупница"},{"id":"company:tr:208865008","type":"company","label":"ИВ ИНВЕСТ 21 ООД","slug":null,"uic":"208865008","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Дупница, 2600"},{"id":"company:tr:206873952","type":"company","label":"МЕДИКО - ДЕНТАЛЕН ЦЕНТЪР &quot;ВИТА МЕДИКАЛ","slug":null,"uic":"206873952","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Дупница, 2600"},{"id":"person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ","type":"person","label":"Вергил Георгиев Кацов"},{"id":"company:name:РАЙ - ЮВ”","type":"company","label":"\"РАЙ - ЮВ” ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ПАВЕЛ ИВАНОВ ДАНГОВ","type":"person","label":"Павел Иванов Дангов"},{"id":"person:ПЛАМЕН МАРИНОВ ИВАНОВ","type":"person","label":"Пламен Маринов Иванов"},{"id":"person:АСЯ МАРИО ШАРЛАЧКА","type":"person","label":"Ася Марио Шарлачка"},{"id":"person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА","type":"person","label":"Илияна Георгиева Велкова"},{"id":"person:ЙОРДАН ЙОРДАНОВ ХРИСТОВ","type":"person","label":"Йордан Йорданов Христов"},{"id":"person:ДЕСИСЛАВА САВОВА СЛАВОВА","type":"person","label":"Десислава Савова Славова"},{"id":"person:НЕДЕЛИНА ГЕОРГИЕВА КУРТЕЛОВА","type":"person","label":"Неделина Георгиева Куртелова"}],"edges":[{"source":"mp:4768","target":"company:ВИП-2006-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:ВИП-2006-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:ВИП-2006-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Вита-медикал-инвест-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Вита-медикал-инвест-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Вита-медикал-инвест-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:Медико-дентален-център-Вита-медикал-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4768","target":"company:tr:208865008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4768","target":"company:tr:206873952","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4768","target":"company:tr:206873952","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ","target":"company:ВИП-2006-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:РАЙ - ЮВ”","target":"company:ВИП-2006-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ИВАНОВ ДАНГОВ","target":"company:ВИП-2006-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН МАРИНОВ ИВАНОВ","target":"company:Вита-медикал-инвест-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АСЯ МАРИО ШАРЛАЧКА","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АСЯ МАРИО ШАРЛАЧКА","target":"company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ","target":"company:tr:208865008","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ","target":"company:tr:208865008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ЙОРДАНОВ ХРИСТОВ","target":"company:tr:206873952","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА","target":"company:tr:206873952","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА САВОВА СЛАВОВА","target":"company:tr:206873952","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЕЛИНА ГЕОРГИЕВА КУРТЕЛОВА","target":"company:tr:206873952","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4768",
+  "nodes": [
+    {
+      "id": "mp:4768",
+      "type": "mp",
+      "mpId": 4768,
+      "label": "Иван Тодоров Ибришимов",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44",
+        "51"
+      ]
+    },
+    {
+      "id": "company:ВИП-2006-ООД",
+      "type": "company",
+      "label": "\"ВИП-2006\" ООД",
+      "slug": "ВИП-2006-ООД",
+      "uic": "109594427",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Дупница"
+    },
+    {
+      "id": "company:Вита-медикал-инвест-ЕООД",
+      "type": "company",
+      "label": "\"Вита медикал инвест\" ЕООД",
+      "slug": "Вита-медикал-инвест-ЕООД",
+      "uic": "204884915",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Дупница"
+    },
+    {
+      "id": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "type": "company",
+      "label": "\"Групова практика за първична извънболнична дентална помощ - д-р Иван Ибришимов\" ООД",
+      "slug": "Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "uic": "201470058",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Дупница"
+    },
+    {
+      "id": "company:Медико-дентален-център-Вита-медикал-ЕООД",
+      "type": "company",
+      "label": "\"Медико-дентален център \"Вита медикал\" ЕООД",
+      "slug": "Медико-дентален-център-Вита-медикал-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Дупница"
+    },
+    {
+      "id": "company:tr:208865008",
+      "type": "company",
+      "label": "ИВ ИНВЕСТ 21 ООД",
+      "slug": null,
+      "uic": "208865008",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Дупница, 2600"
+    },
+    {
+      "id": "company:tr:206873952",
+      "type": "company",
+      "label": "МЕДИКО - ДЕНТАЛЕН ЦЕНТЪР &quot;ВИТА МЕДИКАЛ",
+      "slug": null,
+      "uic": "206873952",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Дупница, 2600"
+    },
+    {
+      "id": "person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ",
+      "type": "person",
+      "label": "Вергил Георгиев Кацов"
+    },
+    {
+      "id": "company:name:РАЙ - ЮВ”",
+      "type": "company",
+      "label": "\"РАЙ - ЮВ” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЕЛ ИВАНОВ ДАНГОВ",
+      "type": "person",
+      "label": "Павел Иванов Дангов"
+    },
+    {
+      "id": "person:ПЛАМЕН МАРИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Маринов Иванов"
+    },
+    {
+      "id": "person:АСЯ МАРИО ШАРЛАЧКА",
+      "type": "person",
+      "label": "Ася Марио Шарлачка"
+    },
+    {
+      "id": "person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Илияна Георгиева Велкова"
+    },
+    {
+      "id": "person:ЙОРДАН ЙОРДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Йордан Йорданов Христов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА САВОВА СЛАВОВА",
+      "type": "person",
+      "label": "Десислава Савова Славова"
+    },
+    {
+      "id": "person:НЕДЕЛИНА ГЕОРГИЕВА КУРТЕЛОВА",
+      "type": "person",
+      "label": "Неделина Георгиева Куртелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4768",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Вита-медикал-инвест-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Вита-медикал-инвест-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Вита-медикал-инвест-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:Медико-дентален-център-Вита-медикал-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:tr:208865008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:tr:206873952",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4768",
+      "target": "company:tr:206873952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:РАЙ - ЮВ”",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ИВАНОВ ДАНГОВ",
+      "target": "company:ВИП-2006-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МАРИНОВ ИВАНОВ",
+      "target": "company:Вита-медикал-инвест-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ МАРИО ШАРЛАЧКА",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ МАРИО ШАРЛАЧКА",
+      "target": "company:Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ",
+      "target": "company:tr:208865008",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИЛ ГЕОРГИЕВ КАЦОВ",
+      "target": "company:tr:208865008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЙОРДАНОВ ХРИСТОВ",
+      "target": "company:tr:206873952",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ГЕОРГИЕВА ВЕЛКОВА",
+      "target": "company:tr:206873952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА САВОВА СЛАВОВА",
+      "target": "company:tr:206873952",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛИНА ГЕОРГИЕВА КУРТЕЛОВА",
+      "target": "company:tr:206873952",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

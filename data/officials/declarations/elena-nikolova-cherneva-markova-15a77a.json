@@ -166,21 +166,21 @@
     "income": [],
     "assets": [
       {
-        "category": "security",
+        "category": "debt",
         "description": "потребителски кредит",
-        "detail": "Елена Николова Чернева-Маркова",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "17685",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Пощенска банка",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17685,
+        "valueEur": 9042.196918955124,
+        "holderName": "Елена Николова Чернева-Маркова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
     ],
@@ -200,113 +200,35 @@
     "controlHash": "7F3F1B9D",
     "sourceUrl": "https://register.cacbg.bg/2016/68E3E081-916E-4647-881A-40364A5AFF5279076.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3576.486708967548
+      }
+    ],
     "assets": [
       {
-        "category": "security",
+        "category": "debt",
         "description": "потребителски кредит",
-        "detail": "Елена Николова Чернева-Маркова",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "13038",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Пощенска банка",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13038,
+        "valueEur": 6666.223547036297,
+        "holderName": "Елена Николова Чернева-Маркова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "elena-nikolova-cherneva-markova-15a77a",
@@ -322,112 +244,34 @@
     "controlHash": "86EB0731",
     "sourceUrl": "https://register.cacbg.bg/2015/68E3E081-916E-4647-881A-40364A5AFF5269140.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4407.847307792599,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
-        "category": "debt",
-        "description": "1000",
-        "detail": "1945",
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "1945",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "в страната",
+        "currency": "EUR",
+        "amount": 1000,
+        "valueEur": 994.462708926645,
+        "holderName": "Елена Николова Маркова-Чернева",
         "isSpouse": true,
-        "legalBasis": "възнаграждения",
-        "fundsOrigin": null
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4407.847307792599,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

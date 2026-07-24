@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-hristova-uzunova-e26d69",
+  "nodes": [
+    {
+      "id": "official:mariya-hristova-uzunova-e26d69",
+      "type": "official",
+      "slug": "mariya-hristova-uzunova-e26d69",
+      "label": "Мария Христова Узунова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000046135",
+      "type": "company",
+      "label": "&quot;НАРОДНО ЧИТАЛИЩЕ ИСКРА-1952Г.&quot;",
+      "slug": null,
+      "uic": "000046135",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТКА АТАНАСОВА КАРАКАЧАНОВА",
+      "type": "person",
+      "label": "Златка Атанасова Каракачанова"
+    },
+    {
+      "id": "person:СОНЯ ХРИСТОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Соня Христова Тодорова"
+    },
+    {
+      "id": "person:КОСТАДИНКА ГАНЕВА ДЖЕМПЕРИЕВА",
+      "type": "person",
+      "label": "Костадинка Ганева Джемпериева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ДОНЧЕВА КАРАБАШЕВА",
+      "type": "person",
+      "label": "Десислава Дончева Карабашева"
+    },
+    {
+      "id": "person:ДИЯНА ВАСИЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Дияна Василева Димитрова"
+    },
+    {
+      "id": "person:ГАЛИНА ИЛИЕВА КУПЕНОВА",
+      "type": "person",
+      "label": "Галина Илиева Купенова"
+    },
+    {
+      "id": "person:ПЕТРАНА ГЕОРГИЕВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Петрана Георгиева Желева"
+    },
+    {
+      "id": "person:ЖИВКА ВЪЛКОВА КУНЕВА",
+      "type": "person",
+      "label": "Живка Вълкова Кунева"
+    },
+    {
+      "id": "person:ИВЕЛИНА ИВАНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Ивелина Иванова Костадинова"
+    },
+    {
+      "id": "person:МАРИЯНА МАНОЛОВА ВЕДРИЧКОВА",
+      "type": "person",
+      "label": "Марияна Манолова Ведричкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЦАНКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Веселина Цанкова Тодорова"
+    },
+    {
+      "id": "person:СТАНКА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Станка Георгиева Димитрова"
+    },
+    {
+      "id": "person:ЖЕНЯ БОРИСЛАВОВА ГАНДИЕВА",
+      "type": "person",
+      "label": "Женя Бориславова Гандиева"
+    },
+    {
+      "id": "person:ТАНЯ ЕНЕВА ЕНЕВА",
+      "type": "person",
+      "label": "Таня Енева Енева"
+    },
+    {
+      "id": "person:ТАНЯ ЯНКОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Таня Янкова Желязкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-hristova-uzunova-e26d69",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТКА АТАНАСОВА КАРАКАЧАНОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ХРИСТОВА ТОДОРОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА ГАНЕВА ДЖЕМПЕРИЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ДОНЧЕВА КАРАБАШЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА АТАНАСОВА КАРАКАЧАНОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ВАСИЛЕВА ДИМИТРОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ИЛИЕВА КУПЕНОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНА ГЕОРГИЕВА ЖЕЛЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ВЪЛКОВА КУНЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ИВАНОВА КОСТАДИНОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МАНОЛОВА ВЕДРИЧКОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЦАНКОВА ТОДОРОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНЯ БОРИСЛАВОВА ГАНДИЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЕНЕВА ЕНЕВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЯНКОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:000046135",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

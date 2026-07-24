@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vasil-tanchov-katsarov-360372",
+  "nodes": [
+    {
+      "id": "official:vasil-tanchov-katsarov-360372",
+      "type": "official",
+      "slug": "vasil-tanchov-katsarov-360372",
+      "label": "Васил Танчов Кацаров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Стрелча"
+    },
+    {
+      "id": "company:tr:000344072",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕЩЕНИЕ-1871 Г&quot; ГР. СТРЕЛЧА",
+      "slug": null,
+      "uic": "000344072",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-veleva-ilieva-89c692",
+      "type": "official",
+      "slug": "mariya-veleva-ilieva-89c692",
+      "label": "Мария Велева Илиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стрелча"
+    },
+    {
+      "id": "person:ЦВЕТАНА САВОВА КУНЧЕВА",
+      "type": "person",
+      "label": "Цветана Савова Кунчева"
+    },
+    {
+      "id": "person:НОНКА ГЕНЧЕВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Нонка Генчева Караиванова"
+    },
+    {
+      "id": "person:АНДОН ЕНЧЕВ БОЖКОВ",
+      "type": "person",
+      "label": "Андон Енчев Божков"
+    },
+    {
+      "id": "person:СТОЯНКА ДИНЧЕВА ПАНОВА",
+      "type": "person",
+      "label": "Стоянка Динчева Панова"
+    },
+    {
+      "id": "person:ЛАКО САЛКОВ САЛКОВ",
+      "type": "person",
+      "label": "Лако Салков Салков"
+    },
+    {
+      "id": "person:ЗЛАТКА СТОЯНОВА ДЕСКОВА",
+      "type": "person",
+      "label": "Златка Стоянова Дескова"
+    },
+    {
+      "id": "person:МАРИАНА НЕЧЕВА НЯГОЛОВА",
+      "type": "person",
+      "label": "Мариана Нечева Няголова"
+    },
+    {
+      "id": "person:ИЛЬО СТОЕВ ИЛЬОВ",
+      "type": "person",
+      "label": "Ильо Стоев Ильов"
+    },
+    {
+      "id": "person:ЕНЧО ИВАНОВ БОЖКОВ",
+      "type": "person",
+      "label": "Енчо Иванов Божков"
+    },
+    {
+      "id": "person:НЕНКА ИВАНОВА МЕЛИНА",
+      "type": "person",
+      "label": "Ненка Иванова Мелина"
+    },
+    {
+      "id": "person:НИКОЛИНКА ТОДОРОВА ПАЙТАКОВА",
+      "type": "person",
+      "label": "Николинка Тодорова Пайтакова"
+    },
+    {
+      "id": "person:СТОЯНКА ГАВРАИЛОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Стоянка Гавраилова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-tanchov-katsarov-360372",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-veleva-ilieva-89c692",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНА САВОВА КУНЧЕВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НОНКА ГЕНЧЕВА КАРАИВАНОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДОН ЕНЧЕВ БОЖКОВ",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ДИНЧЕВА ПАНОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАКО САЛКОВ САЛКОВ",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА СТОЯНОВА ДЕСКОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА НЕЧЕВА НЯГОЛОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЬО СТОЕВ ИЛЬОВ",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО ИВАНОВ БОЖКОВ",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКА ИВАНОВА МЕЛИНА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА ТОДОРОВА ПАЙТАКОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ГАВРАИЛОВА НИКОЛОВА",
+      "target": "company:tr:000344072",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

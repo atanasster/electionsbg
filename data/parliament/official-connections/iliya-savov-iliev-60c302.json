@@ -1,0 +1,179 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliya-savov-iliev-60c302",
+  "nodes": [
+    {
+      "id": "official:iliya-savov-iliev-60c302",
+      "type": "official",
+      "slug": "iliya-savov-iliev-60c302",
+      "label": "ИЛИЯ САВОВ ИЛИЕВ",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131093788",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ НА КОНСУЛТАНТСКИТЕ ФИРМИ ПО ЖЕЛЕЗОПЪТНО СТРОИТЕЛСТВО",
+      "slug": null,
+      "uic": "131093788",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ЗДРАВЧЕВ",
+      "type": "person",
+      "label": "Иван Георгиев Здравчев"
+    },
+    {
+      "id": "person:ПЛАМЕНА ГЕНЧЕВА ВЪЛНАРОВА",
+      "type": "person",
+      "label": "Пламена Генчева Вълнарова"
+    },
+    {
+      "id": "person:ТОМА ЛЮБЕНОВ ЙОЦОВ",
+      "type": "person",
+      "label": "Тома Любенов Йоцов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЕТРОВ МИХАЙЛОВСКИ",
+      "type": "person",
+      "label": "Валентин Петров Михайловски"
+    },
+    {
+      "id": "person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА",
+      "type": "person",
+      "label": "Гергана Асенова Карааланова"
+    },
+    {
+      "id": "person:ПАВЛИНА НАЙДЕНОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Павлина Найденова Младенова"
+    },
+    {
+      "id": "person:СВЕТЛИН СТОЙЧЕВ ЕНЕЗЛИЕВ",
+      "type": "person",
+      "label": "Светлин Стойчев Енезлиев"
+    },
+    {
+      "id": "person:ЕЛВИРА ИВАНОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Елвира Иванова Стойкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-savov-iliev-60c302",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-savov-iliev-60c302",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ЗДРАВЧЕВ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА ГЕНЧЕВА ВЪЛНАРОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА ЛЮБЕНОВ ЙОЦОВ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ЗДРАВЧЕВ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТРОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АСЕНОВА КАРААЛАНОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА НАЙДЕНОВА МЛАДЕНОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА НАЙДЕНОВА МЛАДЕНОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН СТОЙЧЕВ ЕНЕЗЛИЕВ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛВИРА ИВАНОВА СТОЙКОВА",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТРОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:131093788",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

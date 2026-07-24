@@ -1,1 +1,59 @@
-{"obshtina":"VAR04","page":1,"totalPages":1,"count":3,"companies":[{"slug":"ЕКОСЕТ-КЪМПАНИ","displayName":"ЕКОСЕТ КЪМПАНИ","registeredOffice":"БЪЛГАРИЯ, гр. Белослав, 9178","mps":[{"mpId":4813,"mpName":"Драгомир Стефанов Петров","role":"manager","isCurrent":true},{"mpId":4813,"mpName":"Драгомир Стефанов Петров","role":"sole_owner","isCurrent":true}]},{"slug":"ЕНДЖОЙ-ИНВЕСТ","displayName":"ЕНДЖОЙ ИНВЕСТ","registeredOffice":"БЪЛГАРИЯ, гр. Белослав, 9178","mps":[{"mpId":5121,"mpName":"Атанас Петров Атанасов","role":"manager","isCurrent":true},{"mpId":5121,"mpName":"Атанас Петров Атанасов","role":"sole_owner","isCurrent":true}]},{"slug":"ТЕЦ-ВАРНА","displayName":"ТЕЦ ВАРНА","registeredOffice":"БЪЛГАРИЯ, с. Езерово, 9168","mps":[{"mpId":902,"mpName":"Ахмед Демир Доган","role":"director","isCurrent":true}]}]}
+{
+  "obshtina": "VAR04",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "ЕКОСЕТ-КЪМПАНИ",
+      "displayName": "ЕКОСЕТ КЪМПАНИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Белослав, 9178",
+      "mps": [
+        {
+          "mpId": 4813,
+          "mpName": "Драгомир Стефанов Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4813,
+          "mpName": "Драгомир Стефанов Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЕНДЖОЙ-ИНВЕСТ",
+      "displayName": "ЕНДЖОЙ ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Белослав, 9178",
+      "mps": [
+        {
+          "mpId": 5121,
+          "mpName": "Атанас Петров Атанасов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5121,
+          "mpName": "Атанас Петров Атанасов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТЕЦ-ВАРНА",
+      "displayName": "ТЕЦ ВАРНА",
+      "registeredOffice": "БЪЛГАРИЯ, с. Езерово, 9168",
+      "mps": [
+        {
+          "mpId": 902,
+          "mpName": "Ахмед Демир Доган",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

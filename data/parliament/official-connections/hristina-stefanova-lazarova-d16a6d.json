@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristina-stefanova-lazarova-d16a6d",
+  "nodes": [
+    {
+      "id": "official:hristina-stefanova-lazarova-d16a6d",
+      "type": "official",
+      "slug": "hristina-stefanova-lazarova-d16a6d",
+      "label": "Христина Стефанова Лазарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104518105",
+      "type": "company",
+      "label": "ДЮФА БЪЛГАРЧЕ",
+      "slug": null,
+      "uic": "104518105",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛИНА РАЙЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Галина Райчева Иванова"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Георгиев Петров"
+    },
+    {
+      "id": "person:МИТКО ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Митко Иванов Димитров"
+    },
+    {
+      "id": "person:АНГЕЛ МИЛКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Милков Ангелов"
+    },
+    {
+      "id": "person:АНТОН НЕДЕЛЧЕВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Антон Неделчев Стойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-stefanova-lazarova-d16a6d",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛИНА РАЙЧЕВА ИВАНОВА",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА РАЙЧЕВА ИВАНОВА",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ МИЛКОВ АНГЕЛОВ",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН НЕДЕЛЧЕВ СТОЙЧЕВ",
+      "target": "company:tr:104518105",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

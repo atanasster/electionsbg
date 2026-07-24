@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5155","nodes":[{"id":"mp:5155","type":"mp","mpId":5155,"label":"Надя Йорданова Петрова","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["48","50","51","52"]},{"id":"company:tr:115622219","type":"company","label":"АГОНА - 2001","slug":null,"uic":"115622219","legalForm":"OOD","status":"active","seat":null},{"id":"person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ","type":"person","label":"Евгени Атанасов Петров"}],"edges":[{"source":"mp:5155","target":"company:tr:115622219","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5155","target":"company:tr:115622219","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ","target":"company:tr:115622219","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ","target":"company:tr:115622219","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5155",
+  "nodes": [
+    {
+      "id": "mp:5155",
+      "type": "mp",
+      "mpId": 5155,
+      "label": "Надя Йорданова Петрова",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:115622219",
+      "type": "company",
+      "label": "АГОНА - 2001",
+      "slug": null,
+      "uic": "115622219",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:nadya-iordanova-petrova-dcc115",
+      "type": "official",
+      "slug": "nadya-iordanova-petrova-dcc115",
+      "label": "Надя Йорданова Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Евгени Атанасов Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5155",
+      "target": "company:tr:115622219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5155",
+      "target": "company:tr:115622219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadya-iordanova-petrova-dcc115",
+      "target": "company:tr:115622219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadya-iordanova-petrova-dcc115",
+      "target": "company:tr:115622219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ",
+      "target": "company:tr:115622219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ АТАНАСОВ ПЕТРОВ",
+      "target": "company:tr:115622219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

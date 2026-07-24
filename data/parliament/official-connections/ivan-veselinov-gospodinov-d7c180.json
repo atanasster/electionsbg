@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-veselinov-gospodinov-d7c180",
+  "nodes": [
+    {
+      "id": "official:ivan-veselinov-gospodinov-d7c180",
+      "type": "official",
+      "slug": "ivan-veselinov-gospodinov-d7c180",
+      "label": "Иван Веселинов Господинов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:105515902",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ''СВЕТА ПЕТКА''",
+      "slug": null,
+      "uic": "105515902",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕТА ГЕНКОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Ивета Генкова Найденова"
+    },
+    {
+      "id": "person:КИРИЛ АТАНАСОВ ГРУЕВ",
+      "type": "person",
+      "label": "Кирил Атанасов Груев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-veselinov-gospodinov-d7c180",
+      "target": "company:tr:105515902",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕТА ГЕНКОВА НАЙДЕНОВА",
+      "target": "company:tr:105515902",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ АТАНАСОВ ГРУЕВ",
+      "target": "company:tr:105515902",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

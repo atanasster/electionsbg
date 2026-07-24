@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-ivanov-stefanov-8edabb",
+  "nodes": [
+    {
+      "id": "official:plamen-ivanov-stefanov-8edabb",
+      "type": "official",
+      "slug": "plamen-ivanov-stefanov-8edabb",
+      "label": "Пламен Иванов Стефанов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176769116",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ СПАРТАК - 2014",
+      "slug": null,
+      "uic": "176769116",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ ЕНЧЕВ СТОЙКОВ",
+      "type": "person",
+      "label": "Емил Енчев Стойков"
+    },
+    {
+      "id": "person:ИВАЙЛО ЗДРАВКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Здравков Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ БАНЧЕВ",
+      "type": "person",
+      "label": "Георги Димитров Банчев"
+    },
+    {
+      "id": "person:ПЕТЪР ВЕЛИКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Великов Петров"
+    },
+    {
+      "id": "person:САЛИ ИБРЯМОВ ОСМАНОВ",
+      "type": "person",
+      "label": "Сали Ибрямов Османов"
+    },
+    {
+      "id": "person:БОРИСЛАВ БОГДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Борислав Богданов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-ivanov-stefanov-8edabb",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ ЕНЧЕВ СТОЙКОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЗДРАВКОВ ИВАНОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ЕНЧЕВ СТОЙКОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ БАНЧЕВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВЕЛИКОВ ПЕТРОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ ИБРЯМОВ ОСМАНОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ БОГДАНОВ ХРИСТОВ",
+      "target": "company:tr:176769116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

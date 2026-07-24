@@ -1,1 +1,65 @@
-{"ekatte":"05815","page":1,"totalPages":1,"count":3,"companies":[{"slug":"ПЕПИ-89","displayName":"ПЕПИ 89","registeredOffice":"БЪЛГАРИЯ, гр. Ботевград, 2140","mps":[{"mpId":5247,"mpName":"Петър Николаев Петров","role":"manager","isCurrent":true},{"mpId":5247,"mpName":"Петър Николаев Петров","role":"sole_owner","isCurrent":true}]},{"slug":"ПНП-Транс-Къмпани","displayName":"ПНП Транс Къмпани","registeredOffice":"БЪЛГАРИЯ, гр. Ботевград, 2140","mps":[{"mpId":5247,"mpName":"Петър Николаев Петров","role":"manager","isCurrent":true},{"mpId":5247,"mpName":"Петър Николаев Петров","role":"sole_owner","isCurrent":true}]},{"slug":"ЦЪКИ-ДЖИ","displayName":"ЦЪКИ ДЖИ","registeredOffice":"БЪЛГАРИЯ, гр. Ботевград, 2140","mps":[{"mpId":4466,"mpName":"Веска Маринова Ненчева","role":"sole_owner","isCurrent":true},{"mpId":4466,"mpName":"Веска Маринова Ненчева","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "05815",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "ПЕПИ-89",
+      "displayName": "ПЕПИ 89",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ботевград, 2140",
+      "mps": [
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПНП-Транс-Къмпани",
+      "displayName": "ПНП Транс Къмпани",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ботевград, 2140",
+      "mps": [
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЦЪКИ-ДЖИ",
+      "displayName": "ЦЪКИ ДЖИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ботевград, 2140",
+      "mps": [
+        {
+          "mpId": 4466,
+          "mpName": "Веска Маринова Ненчева",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4466,
+          "mpName": "Веска Маринова Ненчева",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

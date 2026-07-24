@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aivaz-hikmet-chakr-6d8089",
+  "nodes": [
+    {
+      "id": "official:aivaz-hikmet-chakr-6d8089",
+      "type": "official",
+      "slug": "aivaz-hikmet-chakr-6d8089",
+      "label": "Айваз Хикмет Чакър",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Дулово"
+    },
+    {
+      "id": "company:tr:208155061",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ДУЛОВО 2024 /МИГ ДУЛОВО 2024/",
+      "slug": null,
+      "uic": "208155061",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЦ ДУЛО - 2024",
+      "type": "person",
+      "label": "Снц Дуло - 2024"
+    },
+    {
+      "id": "person:ТД КАРАДЖАТА - ГР. ДУЛОВО",
+      "type": "person",
+      "label": "Тд Караджата - Гр. Дулово"
+    },
+    {
+      "id": "person:ЗП ХЮСЕИН ЕШРЕФ ДЖЕЛИЛ",
+      "type": "person",
+      "label": "Зп Хюсеин Ешреф Джелил"
+    },
+    {
+      "id": "person:ЗП ЮМИТ АЙСЕЛ МУТАЛИБ",
+      "type": "person",
+      "label": "Зп Юмит Айсел Муталиб"
+    },
+    {
+      "id": "company:name:МИРА",
+      "type": "company",
+      "label": "МИРА ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЦ ТАНЦОВ КЛУБ РИТМИКА",
+      "type": "person",
+      "label": "Снц Танцов Клуб Ритмика"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aivaz-hikmet-chakr-6d8089",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aivaz-hikmet-chakr-6d8089",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЦ ДУЛО - 2024",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТД КАРАДЖАТА - ГР. ДУЛОВО",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП ХЮСЕИН ЕШРЕФ ДЖЕЛИЛ",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП ЮМИТ АЙСЕЛ МУТАЛИБ",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МИРА",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЦ ТАНЦОВ КЛУБ РИТМИКА",
+      "target": "company:tr:208155061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

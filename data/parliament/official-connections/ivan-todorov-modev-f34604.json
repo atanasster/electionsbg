@@ -1,0 +1,733 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-todorov-modev-f34604",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-modev-f34604",
+      "type": "official",
+      "slug": "ivan-todorov-modev-f34604",
+      "label": "Иван Тодоров Модев",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131112219",
+      "type": "company",
+      "label": "Дом Инв ЕООД",
+      "slug": null,
+      "uic": "131112219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201045566",
+      "type": "company",
+      "label": "Ди Инвест",
+      "slug": null,
+      "uic": "201045566",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:000702879",
+      "type": "company",
+      "label": "ФЕДЕРАЦИЯ ЗА ПРИЯТЕЛСТВО С НАРОДИТЕ НА РУСИЯ И ОНД",
+      "slug": null,
+      "uic": "000702879",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "person:ВЕРГИНИЯ ВАСИЛЕВА АНГЕЛИЕВА",
+      "type": "person",
+      "label": "Вергиния Василева Ангелиева"
+    },
+    {
+      "id": "mp:1626",
+      "type": "mp",
+      "mpId": 1626,
+      "label": "Николай Василев Петев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ЗАХАРИ МИХАЙЛОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Захари Михайлов Захариев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Николай Тончев Тончев"
+    },
+    {
+      "id": "person:МАРИН НАНКОВ КОЛОНКИН",
+      "type": "person",
+      "label": "Марин Нанков Колонкин"
+    },
+    {
+      "id": "person:МИЛАН ЛЕФТЕРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Милан Лефтеров Миланов"
+    },
+    {
+      "id": "person:ПЕНЧО ГЕОРГИЕВ КИРЧЕВ",
+      "type": "person",
+      "label": "Пенчо Георгиев Кирчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТЕФАНОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Николай Стефанов Даскалов"
+    },
+    {
+      "id": "person:ЛОЗАН АЛЕКСАНДРОВ ТАКЕВ",
+      "type": "person",
+      "label": "Лозан Александров Такев"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ЕЛЕНКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Лъчезар Еленков Георгиев"
+    },
+    {
+      "id": "person:КОНСТАНТИН ДИМИТРОВ МАДЖАРОВ",
+      "type": "person",
+      "label": "Константин Димитров Маджаров"
+    },
+    {
+      "id": "person:ЛЮБОМИР СПИРИДОНОВ ЛЕВЧЕВ",
+      "type": "person",
+      "label": "Любомир Спиридонов Левчев"
+    },
+    {
+      "id": "person:ЛЮБОМИР ПАНАЙОТОВ КОЛАРОВ",
+      "type": "person",
+      "label": "Любомир Панайотов Коларов"
+    },
+    {
+      "id": "person:ЛЮБКА ЮЛИЕВА ЦАНКОВА",
+      "type": "person",
+      "label": "Любка Юлиева Цанкова"
+    },
+    {
+      "id": "person:СТОЯН НЕШЕВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Стоян Нешев Топалов"
+    },
+    {
+      "id": "person:СТОЯН ВЪЛЧЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Стоян Вълчев Андреев"
+    },
+    {
+      "id": "person:СНЕЖАНА ЦОКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Снежана Цокова Тодорова"
+    },
+    {
+      "id": "person:ДОНЧО ДОНЧЕВ КОНАКЧИЕВ",
+      "type": "person",
+      "label": "Дончо Дончев Конакчиев"
+    },
+    {
+      "id": "person:ЧАВДАР АТАНАСОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Чавдар Атанасов Добрев"
+    },
+    {
+      "id": "person:ХРИСТО ГЕНАДИЕВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Христо Генадиев Григоров"
+    },
+    {
+      "id": "person:РАЙНА ГЕНЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Райна Генчева Петрова"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ВАЧКОВ",
+      "type": "person",
+      "label": "Пламен Иванов Вачков"
+    },
+    {
+      "id": "person:ПЛАМЕН ВАСИЛЕВ ТИМЕВ",
+      "type": "person",
+      "label": "Пламен Василев Тимев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ РАЙНОВ НОВАКОВ",
+      "type": "person",
+      "label": "Станислав Райнов Новаков"
+    },
+    {
+      "id": "person:СВЕТЛАНА СТЕФАНОВА ШАРЕНКОВА",
+      "type": "person",
+      "label": "Светлана Стефанова Шаренкова"
+    },
+    {
+      "id": "person:РУСИ СТОЯНОВ КАРАРУСИНОВ",
+      "type": "person",
+      "label": "Руси Стоянов Карарусинов"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ ЕНИМАНЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Ениманев"
+    },
+    {
+      "id": "person:ВИОЛЕТА ВЛАДИМИРОВА СОТИРОВА-ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Виолета Владимирова Сотирова-Панайотова"
+    },
+    {
+      "id": "person:ВАСКО ВАСИЛЕВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Васко Василев Бояджиев"
+    },
+    {
+      "id": "person:БОРЯНА МАРИНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Боряна Маринова Илиева"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ КАДИЕВ",
+      "type": "person",
+      "label": "Димитър Николов Кадиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Иванов Иванов"
+    },
+    {
+      "id": "person:ВЕНЕЛИН ЖЕЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Венелин Жечев Иванов"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Атанас Иванов Попов"
+    },
+    {
+      "id": "person:АТАНАС СТОЯНОВ ТАСЕВ",
+      "type": "person",
+      "label": "Атанас Стоянов Тасев"
+    },
+    {
+      "id": "person:БОЯН СТЕФАНОВ ЧУКОВ",
+      "type": "person",
+      "label": "Боян Стефанов Чуков"
+    },
+    {
+      "id": "person:БЕЧО ЯКИМОВ ИВАНОВ",
+      "type": "person",
+      "label": "Бечо Якимов Иванов"
+    },
+    {
+      "id": "person:БЕЛЧО БОЙЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Белчо Бойчев Иванов"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Иванов Димитров"
+    },
+    {
+      "id": "person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илия Замфиров Илиев"
+    },
+    {
+      "id": "person:ИВАН МАРИНОВ ВЪЛОВ",
+      "type": "person",
+      "label": "Иван Маринов Вълов"
+    },
+    {
+      "id": "person:КРАСИМИР АНДРЕЕВ ПРЕМЯНОВ",
+      "type": "person",
+      "label": "Красимир Андреев Премянов"
+    },
+    {
+      "id": "person:ИЛИЯНА МИХАЙЛОВА ВЛАДОВА",
+      "type": "person",
+      "label": "Илияна Михайлова Владова"
+    },
+    {
+      "id": "person:ИВАН КИРИЛОВ ПАЛЧЕВ",
+      "type": "person",
+      "label": "Иван Кирилов Палчев"
+    },
+    {
+      "id": "person:ЕВГЕНИ ГЕОРГИЕВ ГИНДЕВ",
+      "type": "person",
+      "label": "Евгени Георгиев Гиндев"
+    },
+    {
+      "id": "person:ЕВГЕНИ ДРАГАНОВ ГЕНОВ",
+      "type": "person",
+      "label": "Евгени Драганов Генов"
+    },
+    {
+      "id": "person:ВИДИНСКИ МИТРОПОЛИТ ДОМЕТИАН",
+      "type": "person",
+      "label": "Видински Митрополит Дометиан"
+    },
+    {
+      "id": "person:ИВАН ПАВЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Иван Павлов Колев"
+    },
+    {
+      "id": "person:ЖЕЛЬО ДОБРЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Жельо Добрев Желев"
+    },
+    {
+      "id": "person:ЕНЬО ВАСИЛЕВ САВОВ",
+      "type": "person",
+      "label": "Еньо Василев Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-modev-f34604",
+      "target": "company:tr:131112219",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-modev-f34604",
+      "target": "company:tr:201045566",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-modev-f34604",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ ВАСИЛЕВА АНГЕЛИЕВА",
+      "target": "company:tr:201045566",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1626",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗАХАРИ МИХАЙЛОВ ЗАХАРИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НАНКОВ КОЛОНКИН",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛАН ЛЕФТЕРОВ МИЛАНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЧО ГЕОРГИЕВ КИРЧЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТЕФАНОВ ДАСКАЛОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАН АЛЕКСАНДРОВ ТАКЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ЕЛЕНКОВ ГЕОРГИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ДИМИТРОВ МАДЖАРОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СПИРИДОНОВ ЛЕВЧЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ПАНАЙОТОВ КОЛАРОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА ЮЛИЕВА ЦАНКОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НЕШЕВ ТОПАЛОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ВЪЛЧЕВ АНДРЕЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЦОКОВА ТОДОРОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ДОНЧЕВ КОНАКЧИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР АТАНАСОВ ДОБРЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕНАДИЕВ ГРИГОРОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ГЕНЧЕВА ПЕТРОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ВАЧКОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВАСИЛЕВ ТИМЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ РАЙНОВ НОВАКОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА СТЕФАНОВА ШАРЕНКОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСИ СТОЯНОВ КАРАРУСИНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ ЕНИМАНЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ВЛАДИМИРОВА СОТИРОВА-ПАНАЙОТОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО ВАСИЛЕВ БОЯДЖИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА МАРИНОВА ИЛИЕВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ КАДИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ЖЕЧЕВ ИВАНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ ПОПОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТОЯНОВ ТАСЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИ МИХАЙЛОВ ЗАХАРИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН СТЕФАНОВ ЧУКОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЧО ЯКИМОВ ИВАНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЛЧО БОЙЧЕВ ИВАНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРИНОВ ВЪЛОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АНДРЕЕВ ПРЕМЯНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА МИХАЙЛОВА ВЛАДОВА",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИРИЛОВ ПАЛЧЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ГЕОРГИЕВ ГИНДЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ДРАГАНОВ ГЕНОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИДИНСКИ МИТРОПОЛИТ ДОМЕТИАН",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПАВЛОВ КОЛЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЬО ДОБРЕВ ЖЕЛЕВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЬО ВАСИЛЕВ САВОВ",
+      "target": "company:tr:000702879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

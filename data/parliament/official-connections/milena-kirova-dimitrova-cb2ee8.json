@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:milena-kirova-dimitrova-cb2ee8","nodes":[{"id":"official:milena-kirova-dimitrova-cb2ee8","type":"official","slug":"milena-kirova-dimitrova-cb2ee8","label":"Милена Кирова Димитрова","tier":"municipal","role":"councillor","municipality":"Кърджали"},{"id":"company:tr:201901327","type":"company","label":"КОКОМПЮТЪРС ЕООД","slug":null,"uic":"201901327","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:milena-kirova-dimitrova-cb2ee8","target":"company:tr:201901327","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milena-kirova-dimitrova-cb2ee8",
+  "nodes": [
+    {
+      "id": "official:milena-kirova-dimitrova-cb2ee8",
+      "type": "official",
+      "slug": "milena-kirova-dimitrova-cb2ee8",
+      "label": "Милена Кирова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кърджали"
+    },
+    {
+      "id": "company:tr:201901327",
+      "type": "company",
+      "label": "КОКОМПЮТЪРС ЕООД",
+      "slug": null,
+      "uic": "201901327",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-kirova-dimitrova-cb2ee8",
+      "target": "company:tr:201901327",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

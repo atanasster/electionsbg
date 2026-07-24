@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-todorov-dosev-a11976",
+  "nodes": [
+    {
+      "id": "official:vladimir-todorov-dosev-a11976",
+      "type": "official",
+      "slug": "vladimir-todorov-dosev-a11976",
+      "label": "Владимир Тодоров Досев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205394031",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ИНИЦИАТИВА ЗА ДОБРИ ПРАКТИКИ&quot;",
+      "slug": null,
+      "uic": "205394031",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ АТАНАСОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Илия Атанасов Христов"
+    },
+    {
+      "id": "person:ЗЛАТОМИР НИКОЛОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Златомир Николов Вълчев"
+    },
+    {
+      "id": "person:ОГНЯН АСЕНОВ КАРДАШЛЪКОВ",
+      "type": "person",
+      "label": "Огнян Асенов Кардашлъков"
+    },
+    {
+      "id": "person:ДИМО АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Димо Атанасов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-todorov-dosev-a11976",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ АТАНАСОВ ХРИСТОВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИР НИКОЛОВ ВЪЛЧЕВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ АТАНАСОВ ХРИСТОВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН АСЕНОВ КАРДАШЛЪКОВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН АСЕНОВ КАРДАШЛЪКОВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:205394031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

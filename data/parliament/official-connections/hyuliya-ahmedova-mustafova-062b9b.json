@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:hyuliya-ahmedova-mustafova-062b9b","nodes":[{"id":"official:hyuliya-ahmedova-mustafova-062b9b","type":"official","slug":"hyuliya-ahmedova-mustafova-062b9b","label":"Хюлия Ахмедова Мустафова","tier":"municipal","role":"councillor","municipality":"Провадия"},{"id":"company:tr:200656056","type":"company","label":"БЕКАН ЛАЙТ","slug":null,"uic":"200656056","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛА АТАНАСОВ ИГОРОВ","type":"person","label":"Никола Атанасов Игоров"},{"id":"person:СЕВИЛ БУРХАНОВА МУСТАФОВА","type":"person","label":"Севил Бурханова Мустафова"}],"edges":[{"source":"official:hyuliya-ahmedova-mustafova-062b9b","target":"company:tr:200656056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА АТАНАСОВ ИГОРОВ","target":"company:tr:200656056","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА АТАНАСОВ ИГОРОВ","target":"company:tr:200656056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СЕВИЛ БУРХАНОВА МУСТАФОВА","target":"company:tr:200656056","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hyuliya-ahmedova-mustafova-062b9b",
+  "nodes": [
+    {
+      "id": "official:hyuliya-ahmedova-mustafova-062b9b",
+      "type": "official",
+      "slug": "hyuliya-ahmedova-mustafova-062b9b",
+      "label": "Хюлия Ахмедова Мустафова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Провадия"
+    },
+    {
+      "id": "company:tr:200656056",
+      "type": "company",
+      "label": "БЕКАН ЛАЙТ",
+      "slug": null,
+      "uic": "200656056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "type": "person",
+      "label": "Никола Атанасов Игоров"
+    },
+    {
+      "id": "person:СЕВИЛ БУРХАНОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Севил Бурханова Мустафова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hyuliya-ahmedova-mustafova-062b9b",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "target": "company:tr:200656056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИЛ БУРХАНОВА МУСТАФОВА",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

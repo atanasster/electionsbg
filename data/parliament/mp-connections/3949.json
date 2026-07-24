@@ -1,1 +1,59 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3949","nodes":[{"id":"mp:3949","type":"mp","mpId":3949,"label":"Румен Маринов Йончев","partyGroupShort":"БВ","isCurrent":false,"nsFolders":["42","43","45","46","48"]},{"id":"company:Смарт-бизнес-солушънс-ЕООД","type":"company","label":"Смарт бизнес солушънс ЕООД","slug":"Смарт-бизнес-солушънс-ЕООД","uic":"130855718","legalForm":"EOOD","status":"active","seat":"София (столица)"}],"edges":[{"source":"mp:3949","target":"company:Смарт-бизнес-солушънс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3949",
+  "nodes": [
+    {
+      "id": "mp:3949",
+      "type": "mp",
+      "mpId": 3949,
+      "label": "Румен Маринов Йончев",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "45",
+        "46",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Смарт-бизнес-солушънс-ЕООД",
+      "type": "company",
+      "label": "Смарт бизнес солушънс ЕООД",
+      "slug": "Смарт-бизнес-солушънс-ЕООД",
+      "uic": "130855718",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "official:rumen-marinov-ionchev-59baab",
+      "type": "official",
+      "slug": "rumen-marinov-ionchev-59baab",
+      "label": "Румен Маринов Йончев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3949",
+      "target": "company:Смарт-бизнес-солушънс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-marinov-ionchev-59baab",
+      "target": "company:Смарт-бизнес-солушънс-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tunchai-fevzi-akif-61173d",
+  "nodes": [
+    {
+      "id": "official:tunchai-fevzi-akif-61173d",
+      "type": "official",
+      "slug": "tunchai-fevzi-akif-61173d",
+      "label": "Тунчай Февзи Акиф",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дулово"
+    },
+    {
+      "id": "company:tr:118580164",
+      "type": "company",
+      "label": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ-ОФК-ДУЛОВО 2006",
+      "slug": null,
+      "uic": "118580164",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СОНЕР БЕДРИ АХМЕТ",
+      "type": "person",
+      "label": "Сонер Бедри Ахмет"
+    },
+    {
+      "id": "person:ДИНЧЕР ЯКУБ ЕНВЕР",
+      "type": "person",
+      "label": "Динчер Якуб Енвер"
+    },
+    {
+      "id": "person:НЕДЕЛЧО ИЛИЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Неделчо Илиев Господинов"
+    },
+    {
+      "id": "person:ХАЛИЛ БЕЛГИН КЯЗИМ",
+      "type": "person",
+      "label": "Халил Белгин Кязим"
+    },
+    {
+      "id": "person:ЛЕВЕНТ ТАХИР РЕМЗИ",
+      "type": "person",
+      "label": "Левент Тахир Ремзи"
+    },
+    {
+      "id": "person:МЕДЖИТ ТАХСИН ХАЛИД",
+      "type": "person",
+      "label": "Меджит Тахсин Халид"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tunchai-fevzi-akif-61173d",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СОНЕР БЕДРИ АХМЕТ",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЕР БЕДРИ АХМЕТ",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНЧЕР ЯКУБ ЕНВЕР",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ИЛИЕВ ГОСПОДИНОВ",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИЛ БЕЛГИН КЯЗИМ",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕВЕНТ ТАХИР РЕМЗИ",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕДЖИТ ТАХСИН ХАЛИД",
+      "target": "company:tr:118580164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

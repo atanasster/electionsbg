@@ -1,1 +1,34 @@
-{"ekatte":"48670","page":1,"totalPages":1,"count":2,"companies":[{"slug":"ВЕДА-ГРУП","displayName":"ВЕДА ГРУП","registeredOffice":"БЪЛГАРИЯ, с. Младен, 5428","mps":[{"mpId":890,"mpName":"Галина Димитрова Банковска","role":"manager","isCurrent":true}]},{"slug":"Сдружение-Заедно-за-Младен","displayName":"Сдружение \"Заедно за Младен\"","registeredOffice":"БЪЛГАРИЯ, с. Младен, 5428","mps":[{"mpId":2937,"mpName":"Иглика Иванова Иванова-Събева","role":"ngo_board","isCurrent":true}]}]}
+{
+  "ekatte": "48670",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ВЕДА-ГРУП",
+      "displayName": "ВЕДА ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, с. Младен, 5428",
+      "mps": [
+        {
+          "mpId": 890,
+          "mpName": "Галина Димитрова Банковска",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-&quot;Заедно-за-Младен&quot;",
+      "displayName": "Сдружение &quot;Заедно за Младен&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, с. Младен, 5428",
+      "mps": [
+        {
+          "mpId": 2937,
+          "mpName": "Иглика Иванова Иванова-Събева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

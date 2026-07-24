@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-petrov-iliev-5ed3fc",
+  "nodes": [
+    {
+      "id": "official:georgi-petrov-iliev-5ed3fc",
+      "type": "official",
+      "slug": "georgi-petrov-iliev-5ed3fc",
+      "label": "Георги Петров Илиев",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208581328",
+      "type": "company",
+      "label": "МСДГ Груп",
+      "slug": null,
+      "uic": "208581328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ВЛАДИМИРОВ СИМОВ",
+      "type": "person",
+      "label": "Димитър Владимиров Симов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-petrov-iliev-5ed3fc",
+      "target": "company:tr:208581328",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-petrov-iliev-5ed3fc",
+      "target": "company:tr:208581328",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЛАДИМИРОВ СИМОВ",
+      "target": "company:tr:208581328",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЛАДИМИРОВ СИМОВ",
+      "target": "company:tr:208581328",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

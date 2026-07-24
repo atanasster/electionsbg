@@ -1,0 +1,290 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:slaveya-toneva-mihailova-cbc13c",
+  "nodes": [
+    {
+      "id": "official:slaveya-toneva-mihailova-cbc13c",
+      "type": "official",
+      "slug": "slaveya-toneva-mihailova-cbc13c",
+      "label": "Славея Тонева Михайлова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207627790",
+      "type": "company",
+      "label": "Ей Ай Иновейшън Фънд",
+      "slug": null,
+      "uic": "207627790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ВЕСЕЛИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Веселинов Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Димитров Димитров"
+    },
+    {
+      "id": "person:ИВАЛИН ТОЧЕВ ИГНАТОВ",
+      "type": "person",
+      "label": "Ивалин Точев Игнатов"
+    },
+    {
+      "id": "person:ЖЕЛКА МОНЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Желка Монева Димитрова"
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ ЛИЧЕВ",
+      "type": "person",
+      "label": "Стоян Йорданов Личев"
+    },
+    {
+      "id": "person:СТЕФКА СЛАВЯНОВА МОНЧЕВА",
+      "type": "person",
+      "label": "Стефка Славянова Мончева"
+    },
+    {
+      "id": "person:ПАВЕЛ КРЪСТЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Павел Кръстев Христов"
+    },
+    {
+      "id": "person:СТОЯН НИКОЛОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Стоян Николов Павлов"
+    },
+    {
+      "id": "person:ТОДОР РУМЕНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Руменов Тодоров"
+    },
+    {
+      "id": "person:ПЕНКО ПЕТКОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Пенко Петков Върбанов"
+    },
+    {
+      "id": "person:НИКОЛАЙ КИРИЛОВ НЕШЕВ",
+      "type": "person",
+      "label": "Николай Кирилов Нешев"
+    },
+    {
+      "id": "person:МАЛИНА РАЙКОВА СЪЛКОВСКА",
+      "type": "person",
+      "label": "Малина Райкова Сълковска"
+    },
+    {
+      "id": "person:ЖИВКО ДИМИТРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Живко Димитров Миланов"
+    },
+    {
+      "id": "person:ИВАЙЛО ДИМИТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Ивайло Димитров Петров"
+    },
+    {
+      "id": "person:ХРИСТО АНГЕЛОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Ангелов Христов"
+    },
+    {
+      "id": "person:БИСЕРКА МИЛКОВА ИГНАТОВА",
+      "type": "person",
+      "label": "Бисерка Милкова Игнатова"
+    },
+    {
+      "id": "person:АНЕЛИЯ РАДОВА ПЕТРИШКА",
+      "type": "person",
+      "label": "Анелия Радова Петришка"
+    },
+    {
+      "id": "person:ТАТЯНА ПЕНЕВА ЦАВКОВА",
+      "type": "person",
+      "label": "Татяна Пенева Цавкова"
+    },
+    {
+      "id": "person:ЯНЧО ДИМИТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Янчо Димитров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slaveya-toneva-mihailova-cbc13c",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ВЕСЕЛИНОВ ИВАНОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВЕСЕЛИНОВ ИВАНОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛИН ТОЧЕВ ИГНАТОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛКА МОНЕВА ДИМИТРОВА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ ЛИЧЕВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА СЛАВЯНОВА МОНЧЕВА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ КРЪСТЕВ ХРИСТОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ПАВЛОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР РУМЕНОВ ТОДОРОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКО ПЕТКОВ ВЪРБАНОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КИРИЛОВ НЕШЕВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНА РАЙКОВА СЪЛКОВСКА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДИМИТРОВ МИЛАНОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ДИМИТРОВ ПЕТРОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО АНГЕЛОВ ХРИСТОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА МИЛКОВА ИГНАТОВА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ РАДОВА ПЕТРИШКА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ПЕНЕВА ЦАВКОВА",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНЧО ДИМИТРОВ НИКОЛОВ",
+      "target": "company:tr:207627790",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

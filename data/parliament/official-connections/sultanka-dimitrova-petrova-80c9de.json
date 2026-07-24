@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sultanka-dimitrova-petrova-80c9de",
+  "nodes": [
+    {
+      "id": "official:sultanka-dimitrova-petrova-80c9de",
+      "type": "official",
+      "slug": "sultanka-dimitrova-petrova-80c9de",
+      "label": "Султанка Димитрова Петрова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130938110",
+      "type": "company",
+      "label": "Дефанс Консулт ЕООД",
+      "slug": null,
+      "uic": "130938110",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sultanka-dimitrova-petrova-80c9de",
+      "target": "company:tr:130938110",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

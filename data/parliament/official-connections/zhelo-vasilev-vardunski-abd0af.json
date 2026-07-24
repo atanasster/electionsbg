@@ -1,1 +1,176 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:zhelo-vasilev-vardunski-abd0af","nodes":[{"id":"official:zhelo-vasilev-vardunski-abd0af","type":"official","slug":"zhelo-vasilev-vardunski-abd0af","label":"Жельо Василев Вардунски","tier":"municipal","role":"mayor","municipality":"Камено"},{"id":"company:tr:102089632","type":"company","label":"Гамитрейд ЕООД","slug":null,"uic":"102089632","legalForm":null,"status":null,"seat":null},{"id":"person:ВАНЪО СТОЯНОВ ГАЙДАРОВ","type":"person","label":"Ванъо Стоянов Гайдаров"},{"id":"person:ГАЛИНА ПЕТРОВА КОТОРОВА","type":"person","label":"Галина Петрова Которова"},{"id":"person:ДИМИТЪР ПЕТРОВ КОТОРОВ","type":"person","label":"Димитър Петров Которов"},{"id":"person:СЕВДАЛИНА ПЕТРОВА ВАРДУНСКА","type":"person","label":"Севдалина Петрова Вардунска"},{"id":"person:МИЛЕНА ДИМИТРОВА КОВАЧЕВА- ИВАНОВА","type":"person","label":"Милена Димитрова Ковачева- Иванова"}],"edges":[{"source":"official:zhelo-vasilev-vardunski-abd0af","target":"company:tr:102089632","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЪО СТОЯНОВ ГАЙДАРОВ","target":"company:tr:102089632","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ПЕТРОВА КОТОРОВА","target":"company:tr:102089632","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ КОТОРОВ","target":"company:tr:102089632","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДАЛИНА ПЕТРОВА ВАРДУНСКА","target":"company:tr:102089632","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ДИМИТРОВА КОВАЧЕВА- ИВАНОВА","target":"company:tr:102089632","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zhelo-vasilev-vardunski-abd0af",
+  "nodes": [
+    {
+      "id": "official:zhelo-vasilev-vardunski-abd0af",
+      "type": "official",
+      "slug": "zhelo-vasilev-vardunski-abd0af",
+      "label": "Жельо Василев Вардунски",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Камено"
+    },
+    {
+      "id": "company:tr:102927879",
+      "type": "company",
+      "label": "Гамитрейд 2 ЕООД",
+      "slug": null,
+      "uic": "102927879",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:102089632",
+      "type": "company",
+      "label": "Гамитрейд ООД",
+      "slug": null,
+      "uic": "102089632",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhelo-vasilev-vardunski-e7abed",
+      "type": "official",
+      "slug": "zhelo-vasilev-vardunski-e7abed",
+      "label": "Жельо Василев Вардунски",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "official:zhelo-vasilev-vardunski-c152bd",
+      "type": "official",
+      "slug": "zhelo-vasilev-vardunski-c152bd",
+      "label": "Жельо Василев Вардунски",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:СЕВДАЛИНА ПЕТРОВА ВАРДУНСКА",
+      "type": "person",
+      "label": "Севдалина Петрова Вардунска"
+    },
+    {
+      "id": "person:ВАНЪО СТОЯНОВ ГАЙДАРОВ",
+      "type": "person",
+      "label": "Ванъо Стоянов Гайдаров"
+    },
+    {
+      "id": "person:ГАЛИНА ПЕТРОВА КОТОРОВА",
+      "type": "person",
+      "label": "Галина Петрова Которова"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ КОТОРОВ",
+      "type": "person",
+      "label": "Димитър Петров Которов"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА КОВАЧЕВА- ИВАНОВА",
+      "type": "person",
+      "label": "Милена Димитрова Ковачева- Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhelo-vasilev-vardunski-abd0af",
+      "target": "company:tr:102927879",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-vasilev-vardunski-abd0af",
+      "target": "company:tr:102089632",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-vasilev-vardunski-e7abed",
+      "target": "company:tr:102927879",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-vasilev-vardunski-c152bd",
+      "target": "company:tr:102927879",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА ПЕТРОВА ВАРДУНСКА",
+      "target": "company:tr:102927879",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-vasilev-vardunski-e7abed",
+      "target": "company:tr:102089632",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-vasilev-vardunski-c152bd",
+      "target": "company:tr:102089632",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЪО СТОЯНОВ ГАЙДАРОВ",
+      "target": "company:tr:102089632",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ПЕТРОВА КОТОРОВА",
+      "target": "company:tr:102089632",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ КОТОРОВ",
+      "target": "company:tr:102089632",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА ПЕТРОВА ВАРДУНСКА",
+      "target": "company:tr:102089632",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА КОВАЧЕВА- ИВАНОВА",
+      "target": "company:tr:102089632",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

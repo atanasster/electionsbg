@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nataliya-dimitrova-efremova-334308",
+  "nodes": [
+    {
+      "id": "official:nataliya-dimitrova-efremova-334308",
+      "type": "official",
+      "slug": "nataliya-dimitrova-efremova-334308",
+      "label": "Наталия Димитрова Ефремова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175226772",
+      "type": "company",
+      "label": "СЛБ ЕООД",
+      "slug": null,
+      "uic": "175226772",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nataliya-dimitrova-efremova-334308",
+      "target": "company:tr:175226772",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

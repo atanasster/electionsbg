@@ -1,1 +1,91 @@
-{"obshtina":"BLG01","page":1,"totalPages":1,"count":5,"companies":[{"slug":"АЙ-ЕЛ-КОНСУЛТ-БАНСКО","displayName":"АЙ ЕЛ КОНСУЛТ БАНСКО","registeredOffice":"БЪЛГАРИЯ, гр. Банско, 2770","mps":[{"mpId":2977,"mpName":"Елена Владимирова Ангелинина","role":"manager","isCurrent":true},{"mpId":2977,"mpName":"Елена Владимирова Ангелинина","role":"sole_owner","isCurrent":true}]},{"slug":"Банско-Травел","displayName":"Банско Травел","registeredOffice":"БЪЛГАРИЯ, гр. Банско, 2770","mps":[{"mpId":838,"mpName":"Георги Иванов Икономов","role":"sole_owner","isCurrent":true},{"mpId":838,"mpName":"Георги Иванов Икономов","role":"manager","isCurrent":true}]},{"slug":"ИВАНИКО","displayName":"ИВАНИКО","registeredOffice":"БЪЛГАРИЯ, гр. Банско, 2770","mps":[{"mpId":838,"mpName":"Георги Иванов Икономов","role":"manager","isCurrent":true},{"mpId":838,"mpName":"Георги Иванов Икономов","role":"sole_owner","isCurrent":true}]},{"slug":"Дана-2008-ЕООД","displayName":"\"Дана 2008\" ЕООД","registeredOffice":"Добринище","mps":[{"mpId":3847,"mpName":"Надежда Данаилова Самарджиева","role":"declared_stake","isCurrent":true}]},{"slug":"Холимекс-ООД","displayName":"\"Холимекс\" ООД","registeredOffice":"Добринище","mps":[{"mpId":3847,"mpName":"Надежда Данаилова Самарджиева","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "BLG01",
+  "page": 1,
+  "totalPages": 1,
+  "count": 5,
+  "companies": [
+    {
+      "slug": "Дана-2008-ЕООД",
+      "displayName": "\"Дана 2008\" ЕООД",
+      "registeredOffice": "Добринище",
+      "mps": [
+        {
+          "mpId": 3847,
+          "mpName": "Надежда Данаилова Самарджиева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Холимекс-ООД",
+      "displayName": "\"Холимекс\" ООД",
+      "registeredOffice": "Добринище",
+      "mps": [
+        {
+          "mpId": 3847,
+          "mpName": "Надежда Данаилова Самарджиева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АЙ-ЕЛ-КОНСУЛТ-БАНСКО",
+      "displayName": "АЙ ЕЛ КОНСУЛТ БАНСКО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Банско, 2770",
+      "mps": [
+        {
+          "mpId": 2977,
+          "mpName": "Елена Владимирова Ангелинина",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2977,
+          "mpName": "Елена Владимирова Ангелинина",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Банско-Травел",
+      "displayName": "Банско Травел",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Банско, 2770",
+      "mps": [
+        {
+          "mpId": 838,
+          "mpName": "Георги Иванов Икономов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 838,
+          "mpName": "Георги Иванов Икономов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИВАНИКО",
+      "displayName": "ИВАНИКО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Банско, 2770",
+      "mps": [
+        {
+          "mpId": 838,
+          "mpName": "Георги Иванов Икономов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 838,
+          "mpName": "Георги Иванов Икономов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

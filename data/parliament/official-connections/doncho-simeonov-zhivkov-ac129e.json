@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:doncho-simeonov-zhivkov-ac129e",
+  "nodes": [
+    {
+      "id": "official:doncho-simeonov-zhivkov-ac129e",
+      "type": "official",
+      "slug": "doncho-simeonov-zhivkov-ac129e",
+      "label": "Дончо Симеонов Живков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831555095",
+      "type": "company",
+      "label": "Реставрация",
+      "slug": null,
+      "uic": "831555095",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН НЕДЕЛЧЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Валентин Неделчев Тодоров"
+    },
+    {
+      "id": "person:ВЕНЕЛИН КРЪСТЕВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Венелин Кръстев Терзиев"
+    },
+    {
+      "id": "person:ЕЛЕНА ХРИСТОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елена Христова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doncho-simeonov-zhivkov-ac129e",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:doncho-simeonov-zhivkov-ac129e",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НЕДЕЛЧЕВ ТОДОРОВ",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН КРЪСТЕВ ТЕРЗИЕВ",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА НИКОЛОВА",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА НИКОЛОВА",
+      "target": "company:tr:831555095",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

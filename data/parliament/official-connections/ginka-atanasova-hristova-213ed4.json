@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ginka-atanasova-hristova-213ed4",
+  "nodes": [
+    {
+      "id": "official:ginka-atanasova-hristova-213ed4",
+      "type": "official",
+      "slug": "ginka-atanasova-hristova-213ed4",
+      "label": "Гинка Атанасова Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добричка"
+    },
+    {
+      "id": "company:tr:207601030",
+      "type": "company",
+      "label": "Жарава 2024 ООД",
+      "slug": null,
+      "uic": "207601030",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Христов Атанасов"
+    },
+    {
+      "id": "person:ЖИВКО РАДИЧКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Живко Радичков Христов"
+    },
+    {
+      "id": "person:СИНАН БЕЙТИ МЕХМЕД",
+      "type": "person",
+      "label": "Синан Бейти Мехмед"
+    },
+    {
+      "id": "person:НУРШЕН МУСИН АХМЕД",
+      "type": "person",
+      "label": "Нуршен Мусин Ахмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ginka-atanasova-hristova-213ed4",
+      "target": "company:tr:207601030",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ginka-atanasova-hristova-213ed4",
+      "target": "company:tr:207601030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:207601030",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО РАДИЧКОВ ХРИСТОВ",
+      "target": "company:tr:207601030",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:207601030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО РАДИЧКОВ ХРИСТОВ",
+      "target": "company:tr:207601030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИНАН БЕЙТИ МЕХМЕД",
+      "target": "company:tr:207601030",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИНАН БЕЙТИ МЕХМЕД",
+      "target": "company:tr:207601030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРШЕН МУСИН АХМЕД",
+      "target": "company:tr:207601030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

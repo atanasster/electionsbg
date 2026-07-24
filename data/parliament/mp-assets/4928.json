@@ -1,1 +1,65 @@
-{"mpId":4928,"name":"Ивайло Василев Папов","partyGroupShort":null,"isCurrent":false,"nsFolders":["48","49","50"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/D0C278AD-EDA7-416B-A0E6-DD7EB69F6D4B208609.xml","totalAssetsEur":58859.92136330868,"totalDebtsEur":39369.474852108826,"netWorthEur":19490.44651119985,"previous":{"year":2023,"totalAssetsEur":42437.22613928613,"netWorthEur":3067.751287177307},"byCategory":{"real_estate":{"count":2,"valuedCount":2,"totalEur":40903.35049569748},"vehicle":{"count":2,"valuedCount":2,"totalEur":3067.751287177311},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":1,"valuedCount":1,"totalEur":14888.819580433883},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":39369.474852108826},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4928,
+  "name": "Ивайло Василев Папов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/D0C278AD-EDA7-416B-A0E6-DD7EB69F6D4B208609.xml",
+  "totalAssetsEur": 58859.92136330868,
+  "totalDebtsEur": 39369.474852108826,
+  "netWorthEur": 19490.44651119985,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 42437.22613928613,
+    "netWorthEur": 3067.751287177307
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 40903.35049569748
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 3067.751287177311
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 14888.819580433883
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 39369.474852108826
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

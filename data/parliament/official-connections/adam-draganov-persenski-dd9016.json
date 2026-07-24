@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:adam-draganov-persenski-dd9016",
+  "nodes": [
+    {
+      "id": "official:adam-draganov-persenski-dd9016",
+      "type": "official",
+      "slug": "adam-draganov-persenski-dd9016",
+      "label": "Адам Драганов Персенски",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108564349",
+      "type": "company",
+      "label": "Персенски ООД",
+      "slug": null,
+      "uic": "108564349",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202492770",
+      "type": "company",
+      "label": "Жълтуша ООД",
+      "slug": null,
+      "uic": "202492770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adam-draganov-persenski-dd9016",
+      "target": "company:tr:108564349",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:adam-draganov-persenski-dd9016",
+      "target": "company:tr:202492770",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

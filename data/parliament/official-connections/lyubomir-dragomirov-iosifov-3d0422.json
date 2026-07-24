@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-dragomirov-iosifov-3d0422",
+  "nodes": [
+    {
+      "id": "official:lyubomir-dragomirov-iosifov-3d0422",
+      "type": "official",
+      "slug": "lyubomir-dragomirov-iosifov-3d0422",
+      "label": "Любомир Драгомиров Йосифов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175033442",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА ПОЛИЦЕЙСКИТЕ НАЧАЛНИЦИ",
+      "slug": null,
+      "uic": "175033442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:biser-slavchev-kostadinov-3ef08d",
+      "type": "official",
+      "slug": "biser-slavchev-kostadinov-3ef08d",
+      "label": "Бисер Славчев Костадинов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "person:АЛЕКСИ ПЕТКОВ КЕСЯКОВ",
+      "type": "person",
+      "label": "Алекси Петков Кесяков"
+    },
+    {
+      "id": "person:ВАЛЕРИ ПЕТРОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Валери Петров Симеонов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ АРАБАДЖИЕВ",
+      "type": "person",
+      "label": "Георги Димитров Арабаджиев"
+    },
+    {
+      "id": "person:ГРИГОР НИКОЛОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "Григор Николов Вълков"
+    },
+    {
+      "id": "person:ДАРИНА СТЕФАНОВ ДИМОВА",
+      "type": "person",
+      "label": "Дарина Стефанов Димова"
+    },
+    {
+      "id": "person:НАСКО ХРИСТОВ РАФАИЛОВ",
+      "type": "person",
+      "label": "Наско Христов Рафаилов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ПЕТКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Венцислав Петков Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-dragomirov-iosifov-3d0422",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomir-dragomirov-iosifov-3d0422",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:biser-slavchev-kostadinov-3ef08d",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСИ ПЕТКОВ КЕСЯКОВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ПЕТРОВ СИМЕОНОВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ АРАБАДЖИЕВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИГОР НИКОЛОВ ВЪЛКОВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА СТЕФАНОВ ДИМОВА",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАСКО ХРИСТОВ РАФАИЛОВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ПЕТКОВ АНГЕЛОВ",
+      "target": "company:tr:175033442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

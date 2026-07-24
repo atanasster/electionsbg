@@ -1,1 +1,71 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivan-kostadinov-zlatev-12f470","nodes":[{"id":"official:ivan-kostadinov-zlatev-12f470","type":"official","slug":"ivan-kostadinov-zlatev-12f470","label":"Иван Костадинов Златев","tier":"municipal","role":"councillor","municipality":"Елена"},{"id":"company:tr:205416296","type":"company","label":"ЗЛАТЕВИ КОНСУЛТИНГ ЕООД","slug":null,"uic":"205416296","legalForm":null,"status":null,"seat":null},{"id":"company:tr:204999159","type":"company","label":"ЗЛАТЕВ ОДИТ ЕООД","slug":null,"uic":"204999159","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203885010","type":"company","label":"ЗЛАТЕВ СТИЛ ЕООД","slug":null,"uic":"203885010","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivan-kostadinov-zlatev-12f470","target":"company:tr:205416296","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-kostadinov-zlatev-12f470","target":"company:tr:204999159","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivan-kostadinov-zlatev-12f470","target":"company:tr:203885010","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-kostadinov-zlatev-12f470",
+  "nodes": [
+    {
+      "id": "official:ivan-kostadinov-zlatev-12f470",
+      "type": "official",
+      "slug": "ivan-kostadinov-zlatev-12f470",
+      "label": "Иван Костадинов Златев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елена"
+    },
+    {
+      "id": "company:tr:205416296",
+      "type": "company",
+      "label": "ЗЛАТЕВИ КОНСУЛТИНГ ЕООД",
+      "slug": null,
+      "uic": "205416296",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204999159",
+      "type": "company",
+      "label": "ЗЛАТЕВ ОДИТ ЕООД",
+      "slug": null,
+      "uic": "204999159",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203885010",
+      "type": "company",
+      "label": "ЗЛАТЕВ СТИЛ ЕООД",
+      "slug": null,
+      "uic": "203885010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-kostadinov-zlatev-12f470",
+      "target": "company:tr:205416296",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-kostadinov-zlatev-12f470",
+      "target": "company:tr:204999159",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-kostadinov-zlatev-12f470",
+      "target": "company:tr:203885010",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

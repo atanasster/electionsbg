@@ -1,1 +1,284 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3351","nodes":[{"id":"mp:3351","type":"mp","mpId":3351,"label":"Мария Василева Капон","partyGroupShort":"Идваме","isCurrent":false,"nsFolders":["40","45"]},{"id":"company:Декодизайн-Груп-ООД","type":"company","label":"Декодизайн Груп ООД","slug":"Декодизайн-Груп-ООД","uic":"115814753","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"company:Нупсън-ООД","type":"company","label":"Нупсън ООД","slug":"Нупсън-ООД","uic":null,"legalForm":null,"status":null,"seat":"Пловдив"},{"id":"company:Слънчоглед-България-ООД","type":"company","label":"Слънчоглед България ООД","slug":"Слънчоглед-България-ООД","uic":"201159452","legalForm":"OOD","status":"active","seat":"София"},{"id":"company:Фернет-България-ООД","type":"company","label":"Фернет България ООД","slug":"Фернет-България-ООД","uic":"115147345","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"company:Феър-Тийм-ЕООД","type":"company","label":"Феър Тийм ЕООД","slug":"Феър-Тийм-ЕООД","uic":"115505907","legalForm":"EOOD","status":"active","seat":"Пловдив"},{"id":"company:tr:206651468","type":"company","label":"Ние идваме","slug":null,"uic":"206651468","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ЕМИЛ МОИС КАПОН","type":"person","label":"Емил Моис Капон"},{"id":"person:СТЕФАН ВАЛЕРИЕВ ЕЛЕНКОВ","type":"person","label":"Стефан Валериев Еленков"},{"id":"mp:3395","type":"mp","mpId":3395,"label":"Арман Агоп Бабикян","partyGroupShort":"Идваме","isCurrent":false,"nsFolders":["45"]},{"id":"mp:3402","type":"mp","mpId":3402,"label":"Николай Димитров Хаджигенов","partyGroupShort":"Идваме","isCurrent":false,"nsFolders":["45"]},{"id":"person:ЦВЕТАНКА ИВАНОВА ИВАНОВА -СТОЯНОВА","type":"person","label":"Цветанка Иванова Иванова -Стоянова"},{"id":"person:АНАСТАС НАУМОВ ГЬОКОВ","type":"person","label":"Анастас Наумов Гьоков"},{"id":"person:ГЕОРГИ ВАСИЛЕВ ТАБАКОВ","type":"person","label":"Георги Василев Табаков"},{"id":"person:ВИКТОР СТЕФАНОВ ЛИЛОВ","type":"person","label":"Виктор Стефанов Лилов"}],"edges":[{"source":"mp:3351","target":"company:Декодизайн-Груп-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:Нупсън-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:Слънчоглед-България-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:Фернет-България-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:Фернет-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:Феър-Тийм-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3351","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕМИЛ МОИС КАПОН","target":"company:Фернет-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ВАЛЕРИЕВ ЕЛЕНКОВ","target":"company:Фернет-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3395","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3402","target":"company:tr:206651468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3402","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАНКА ИВАНОВА ИВАНОВА -СТОЯНОВА","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНАСТАС НАУМОВ ГЬОКОВ","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАСИЛЕВ ТАБАКОВ","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР СТЕФАНОВ ЛИЛОВ","target":"company:tr:206651468","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:3395","length":2,"nodeIds":["mp:3351","company:tr:206651468","mp:3395"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3402","length":2,"nodeIds":["mp:3351","company:tr:206651468","mp:3402"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3351",
+  "nodes": [
+    {
+      "id": "mp:3351",
+      "type": "mp",
+      "mpId": 3351,
+      "label": "Мария Василева Капон",
+      "partyGroupShort": "Идваме",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "45"
+      ]
+    },
+    {
+      "id": "company:Декодизайн-Груп-ООД",
+      "type": "company",
+      "label": "Декодизайн Груп ООД",
+      "slug": "Декодизайн-Груп-ООД",
+      "uic": "115814753",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Нупсън-ООД",
+      "type": "company",
+      "label": "Нупсън ООД",
+      "slug": "Нупсън-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Слънчоглед-България-ООД",
+      "type": "company",
+      "label": "Слънчоглед България ООД",
+      "slug": "Слънчоглед-България-ООД",
+      "uic": "201159452",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Фернет-България-ООД",
+      "type": "company",
+      "label": "Фернет България ООД",
+      "slug": "Фернет-България-ООД",
+      "uic": "115147345",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Феър-Тийм-ЕООД",
+      "type": "company",
+      "label": "Феър Тийм ЕООД",
+      "slug": "Феър-Тийм-ЕООД",
+      "uic": "115505907",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:tr:206651468",
+      "type": "company",
+      "label": "Ние идваме",
+      "slug": null,
+      "uic": "206651468",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ЕМИЛ МОИС КАПОН",
+      "type": "person",
+      "label": "Емил Моис Капон"
+    },
+    {
+      "id": "person:СТЕФАН ВАЛЕРИЕВ ЕЛЕНКОВ",
+      "type": "person",
+      "label": "Стефан Валериев Еленков"
+    },
+    {
+      "id": "mp:3395",
+      "type": "mp",
+      "mpId": 3395,
+      "label": "Арман Агоп Бабикян",
+      "partyGroupShort": "Идваме",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "mp:3402",
+      "type": "mp",
+      "mpId": 3402,
+      "label": "Николай Димитров Хаджигенов",
+      "partyGroupShort": "Идваме",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "person:ЦВЕТАНКА ИВАНОВА ИВАНОВА -СТОЯНОВА",
+      "type": "person",
+      "label": "Цветанка Иванова Иванова -Стоянова"
+    },
+    {
+      "id": "person:АНАСТАС НАУМОВ ГЬОКОВ",
+      "type": "person",
+      "label": "Анастас Наумов Гьоков"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ТАБАКОВ",
+      "type": "person",
+      "label": "Георги Василев Табаков"
+    },
+    {
+      "id": "person:ВИКТОР СТЕФАНОВ ЛИЛОВ",
+      "type": "person",
+      "label": "Виктор Стефанов Лилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3351",
+      "target": "company:Декодизайн-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:Нупсън-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:Слънчоглед-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:Фернет-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:Фернет-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:Феър-Тийм-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3351",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ МОИС КАПОН",
+      "target": "company:Фернет-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВАЛЕРИЕВ ЕЛЕНКОВ",
+      "target": "company:Фернет-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3395",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3402",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3402",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ИВАНОВА ИВАНОВА -СТОЯНОВА",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАС НАУМОВ ГЬОКОВ",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ТАБАКОВ",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР СТЕФАНОВ ЛИЛОВ",
+      "target": "company:tr:206651468",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3395",
+      "length": 2,
+      "nodeIds": [
+        "mp:3351",
+        "company:tr:206651468",
+        "mp:3395"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3402",
+      "length": 2,
+      "nodeIds": [
+        "mp:3351",
+        "company:tr:206651468",
+        "mp:3402"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,193 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5248","nodes":[{"id":"mp:5248","type":"mp","mpId":5248,"label":"Делян Александров Добрев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","46","47","48","49","50","51"]},{"id":"company:tr:131077686","type":"company","label":"НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ","slug":null,"uic":"131077686","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1839"},{"id":"mp:4838","type":"mp","mpId":4838,"label":"Александър Руменов Ненков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","46","47","48","49","50","51"]},{"id":"person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ","type":"person","label":"Атанас Димитров Георгиев"},{"id":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","type":"person","label":"Валентин Алексиев Николов"},{"id":"person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ","type":"person","label":"Емил Димитров Гаврилов"},{"id":"person:ДИМИТЪР СТОЯНОВ СТОЯНОВ","type":"person","label":"Димитър Стоянов Стоянов"},{"id":"person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ","type":"person","label":"Ангелин Николаев Цачев"},{"id":"person:СТОЯН СТОЕВ НЕШЕВ","type":"person","label":"Стоян Стоев Нешев"},{"id":"person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА","type":"person","label":"Мария Георгиева Трифонова"},{"id":"person:ПЕТЬО АНГЕЛОВ ИВАНОВ","type":"person","label":"Петьо Ангелов Иванов"}],"edges":[{"source":"mp:5248","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4838","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ СТОЯНОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН СТОЕВ НЕШЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО АНГЕЛОВ ИВАНОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4838","length":2,"nodeIds":["mp:5248","company:tr:131077686","mp:4838"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5248",
+  "nodes": [
+    {
+      "id": "mp:5248",
+      "type": "mp",
+      "mpId": 5248,
+      "label": "Делян Александров Добрев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:tr:131077686",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ",
+      "slug": null,
+      "uic": "131077686",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1839"
+    },
+    {
+      "id": "mp:4838",
+      "type": "mp",
+      "mpId": 4838,
+      "label": "Александър Руменов Ненков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Атанас Димитров Георгиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валентин Алексиев Николов"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Емил Димитров Гаврилов"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Стоянов"
+    },
+    {
+      "id": "person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ",
+      "type": "person",
+      "label": "Ангелин Николаев Цачев"
+    },
+    {
+      "id": "person:СТОЯН СТОЕВ НЕШЕВ",
+      "type": "person",
+      "label": "Стоян Стоев Нешев"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Трифонова"
+    },
+    {
+      "id": "person:ПЕТЬО АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Петьо Ангелов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5248",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН СТОЕВ НЕШЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4838",
+      "length": 2,
+      "nodeIds": [
+        "mp:5248",
+        "company:tr:131077686",
+        "mp:4838"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

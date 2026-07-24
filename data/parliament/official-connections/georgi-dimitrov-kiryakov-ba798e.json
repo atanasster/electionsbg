@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-dimitrov-kiryakov-ba798e",
+  "nodes": [
+    {
+      "id": "official:georgi-dimitrov-kiryakov-ba798e",
+      "type": "official",
+      "slug": "georgi-dimitrov-kiryakov-ba798e",
+      "label": "Георги Димитров Киряков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201115616",
+      "type": "company",
+      "label": "Белева 2 ЕООД",
+      "slug": null,
+      "uic": "201115616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202165807",
+      "type": "company",
+      "label": "Фреди 2 ЕООД",
+      "slug": null,
+      "uic": "202165807",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206602631",
+      "type": "company",
+      "label": "Ка Ди Енерджи 2 ООД",
+      "slug": null,
+      "uic": "206602631",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТКА ГЕОРГИЕВА КИРЯКОВА",
+      "type": "person",
+      "label": "Златка Георгиева Кирякова"
+    },
+    {
+      "id": "person:НЕЛИ КОСТОВА БЕЛЕВА",
+      "type": "person",
+      "label": "Нели Костова Белева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-dimitrov-kiryakov-ba798e",
+      "target": "company:tr:201115616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimitrov-kiryakov-ba798e",
+      "target": "company:tr:202165807",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimitrov-kiryakov-ba798e",
+      "target": "company:tr:206602631",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ГЕОРГИЕВА КИРЯКОВА",
+      "target": "company:tr:206602631",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ГЕОРГИЕВА КИРЯКОВА",
+      "target": "company:tr:206602631",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ КОСТОВА БЕЛЕВА",
+      "target": "company:tr:206602631",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

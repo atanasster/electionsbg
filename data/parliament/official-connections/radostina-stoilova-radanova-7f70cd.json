@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:radostina-stoilova-radanova-7f70cd",
+  "nodes": [
+    {
+      "id": "official:radostina-stoilova-radanova-7f70cd",
+      "type": "official",
+      "slug": "radostina-stoilova-radanova-7f70cd",
+      "label": "Радостина Стоилова Раданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206847673",
+      "type": "company",
+      "label": "Фаб-40",
+      "slug": null,
+      "uic": "206847673",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДИНА РАДОСЛАВОВА РАДАНОВА",
+      "type": "person",
+      "label": "Радина Радославова Раданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-stoilova-radanova-7f70cd",
+      "target": "company:tr:206847673",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДИНА РАДОСЛАВОВА РАДАНОВА",
+      "target": "company:tr:206847673",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИНА РАДОСЛАВОВА РАДАНОВА",
+      "target": "company:tr:206847673",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

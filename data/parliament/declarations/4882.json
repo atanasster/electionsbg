@@ -1,1 +1,74 @@
-[{"mpId":4882,"declarantName":"ЕРБИЛ ХАЛИМ ХАЛИМ","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-04-30","entryNumber":"Г6263","controlHash":"C4F09173","sourceUrl":"https://register.cacbg.bg/2025/84D5007F-5D04-45B8-A2D2-455B67E81CC9209218.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":8129.540911019874,"amountEurSpouse":12222.9437118768},{"parent":null,"category":"Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност","amountEurDeclarant":49165.31600394718,"amountEurSpouse":20492.578598344437},{"parent":null,"category":"Годишна данъчна основа за доходи от друга стопанска дейност","amountEurDeclarant":2083.003123993394,"amountEurSpouse":11205.98416017752}],"assets":[{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":159817,"valueEur":81713.13457713605,"holderName":"ЕРБИЛ ХАЛИМ ХАЛИМ","isSpouse":false,"legalBasis":null,"fundsOrigin":"ЗАПЛАТА, СУБСИДИИ, СПЕСТЯВАНИЯ"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":153640,"valueEur":78554.88462698701,"holderName":"РЕНГИНАР РЕДЖЕБ ХАЛИМ","isSpouse":true,"legalBasis":null,"fundsOrigin":"ЗАПЛАТА, СУБСИДИИ, СПЕСТЯВАНИЯ"}],"events":[]}]
+[
+  {
+    "mpId": 4882,
+    "declarantName": "ЕРБИЛ ХАЛИМ ХАЛИМ",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г6263",
+    "controlHash": "C4F09173",
+    "sourceUrl": "https://register.cacbg.bg/2025/84D5007F-5D04-45B8-A2D2-455B67E81CC9209218.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8129.540911019874,
+        "amountEurSpouse": 12222.9437118768
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 49165.31600394718,
+        "amountEurSpouse": 20492.578598344437
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2083.003123993394,
+        "amountEurSpouse": 11205.98416017752
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 159817,
+        "valueEur": 81713.13457713605,
+        "holderName": "ЕРБИЛ ХАЛИМ ХАЛИМ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, СУБСИДИИ, СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 153640,
+        "valueEur": 78554.88462698701,
+        "holderName": "РЕНГИНАР РЕДЖЕБ ХАЛИМ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА, СУБСИДИИ, СПЕСТЯВАНИЯ"
+      }
+    ],
+    "events": []
+  }
+]

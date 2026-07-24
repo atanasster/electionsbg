@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariyana-tsvetanova-todorova-350e92",
+  "nodes": [
+    {
+      "id": "official:mariyana-tsvetanova-todorova-350e92",
+      "type": "official",
+      "slug": "mariyana-tsvetanova-todorova-350e92",
+      "label": "Марияна Цветанова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106515734",
+      "type": "company",
+      "label": "МЕДИКО-ТЕХНИЧЕСКА ЛАБОРАТОРИЯ ПО ЗЪБОПРОТЕЗИРАНЕ",
+      "slug": null,
+      "uic": "106515734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-tsvetanova-todorova-350e92",
+      "target": "company:tr:106515734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

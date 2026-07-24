@@ -1,1 +1,50 @@
-{"mpId":4655,"mpName":"Валентин Йовков Тончев","generatedAt":"2026-07-03T11:12:51.866Z","total":3,"roles":[{"uic":"175973525","companyName":"ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ","legalForm":"FOUND","seat":"БЪЛГАРИЯ, гр. София, 1700","status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2022-11-30T12:12:16","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175973525","companyName":"ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ","legalForm":"FOUND","seat":"БЪЛГАРИЯ, гр. София, 1700","status":"ceased","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-11-22T14:45:56","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"102835669","companyName":"СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ СОЗОПОЛ&quot;","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-04-20T14:12:48","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4655,
+  "mpName": "Валентин Йовков Тончев",
+  "generatedAt": "2026-07-24T03:35:58.659Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "175973525",
+      "companyName": "ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ",
+      "legalForm": "FOUND",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700",
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-11-30T12:12:16",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175973525",
+      "companyName": "ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ",
+      "legalForm": "FOUND",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700",
+      "status": "ceased",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-11-22T14:45:56",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "102835669",
+      "companyName": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ СОЗОПОЛ&quot;",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-04-20T14:12:48",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

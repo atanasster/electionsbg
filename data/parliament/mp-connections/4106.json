@@ -1,1 +1,218 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4106","nodes":[{"id":"mp:4106","type":"mp","mpId":4106,"label":"Илина Симеонова Мутафчиева","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["48","49"]},{"id":"company:Зона-21-ООД","type":"company","label":"Зона 21 ООД","slug":"Зона-21-ООД","uic":"203053227","legalForm":"EOOD","status":"in_liquidation","seat":"София"},{"id":"company:Малки-човеци-ООД","type":"company","label":"Малки човеци ООД","slug":"Малки-човеци-ООД","uic":"206448400","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:tr:175790260","type":"company","label":"ИДЕА","slug":null,"uic":"175790260","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","type":"person","label":"Антония Венкова Йорданова"},{"id":"person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ","type":"person","label":"Георги Христов Ангелов"},{"id":"person:ТИХОМИР ЙОРДАНОВ ДОНЕВ","type":"person","label":"Тихомир Йорданов Донев"},{"id":"person:АНЕЛИЯ БОРИСЛАВОВА БОЛАНД","type":"person","label":"Анелия Бориславова Боланд"},{"id":"person:АЛЕКСАНДЪР КРУМОВ КУМАНОВ","type":"person","label":"Александър Крумов Куманов"},{"id":"person:МАРИЯ НИКОЛАЕВА ШАРАНКОВА","type":"person","label":"Мария Николаева Шаранкова"},{"id":"company:tr:206561316","type":"company","label":"ИНТЕРГРУП ЕУ","slug":null,"uic":"206561316","legalForm":"EOOD","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1387"},{"id":"mp:584","type":"mp","mpId":584,"label":"Александър Христов Филипов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:4106","target":"company:Зона-21-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4106","target":"company:Малки-човеци-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4106","target":"company:tr:175790260","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","target":"company:Зона-21-ООД","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ","target":"company:Малки-човеци-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ","target":"company:Малки-човеци-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ЙОРДАНОВ ДОНЕВ","target":"company:Малки-човеци-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ БОРИСЛАВОВА БОЛАНД","target":"company:tr:175790260","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ЙОРДАНОВ ДОНЕВ","target":"company:tr:175790260","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР КРУМОВ КУМАНОВ","target":"company:tr:175790260","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НИКОЛАЕВА ШАРАНКОВА","target":"company:tr:175790260","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"mp:584","target":"company:tr:206561316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:584","length":4,"nodeIds":["mp:4106","company:Зона-21-ООД","person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","company:tr:206561316","mp:584"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4106",
+  "nodes": [
+    {
+      "id": "mp:4106",
+      "type": "mp",
+      "mpId": 4106,
+      "label": "Илина Симеонова Мутафчиева",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:Зона-21-ООД",
+      "type": "company",
+      "label": "Зона 21 ООД",
+      "slug": "Зона-21-ООД",
+      "uic": "203053227",
+      "legalForm": "EOOD",
+      "status": "in_liquidation",
+      "seat": "София"
+    },
+    {
+      "id": "company:Малки-човеци-ООД",
+      "type": "company",
+      "label": "Малки човеци ООД",
+      "slug": "Малки-човеци-ООД",
+      "uic": "206448400",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:tr:175790260",
+      "type": "company",
+      "label": "ИДЕА",
+      "slug": null,
+      "uic": "175790260",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Антония Венкова Йорданова"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Георги Христов Ангелов"
+    },
+    {
+      "id": "person:ТИХОМИР ЙОРДАНОВ ДОНЕВ",
+      "type": "person",
+      "label": "Тихомир Йорданов Донев"
+    },
+    {
+      "id": "person:АНЕЛИЯ БОРИСЛАВОВА БОЛАНД",
+      "type": "person",
+      "label": "Анелия Бориславова Боланд"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР КРУМОВ КУМАНОВ",
+      "type": "person",
+      "label": "Александър Крумов Куманов"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛАЕВА ШАРАНКОВА",
+      "type": "person",
+      "label": "Мария Николаева Шаранкова"
+    },
+    {
+      "id": "company:tr:206561316",
+      "type": "company",
+      "label": "ИНТЕРГРУП ЕУ",
+      "slug": null,
+      "uic": "206561316",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1387"
+    },
+    {
+      "id": "mp:584",
+      "type": "mp",
+      "mpId": 584,
+      "label": "Александър Христов Филипов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4106",
+      "target": "company:Зона-21-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4106",
+      "target": "company:Малки-човеци-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4106",
+      "target": "company:tr:175790260",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "target": "company:Зона-21-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ",
+      "target": "company:Малки-човеци-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ АНГЕЛОВ",
+      "target": "company:Малки-човеци-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЙОРДАНОВ ДОНЕВ",
+      "target": "company:Малки-човеци-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ БОРИСЛАВОВА БОЛАНД",
+      "target": "company:tr:175790260",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЙОРДАНОВ ДОНЕВ",
+      "target": "company:tr:175790260",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КРУМОВ КУМАНОВ",
+      "target": "company:tr:175790260",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛАЕВА ШАРАНКОВА",
+      "target": "company:tr:175790260",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:584",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:584",
+      "length": 4,
+      "nodeIds": [
+        "mp:4106",
+        "company:Зона-21-ООД",
+        "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+        "company:tr:206561316",
+        "mp:584"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -48,13 +48,15 @@ import {
 } from "./shared";
 import { emitShards } from "./build_municipal_shards";
 import { decorateCandidateLinks } from "./candidate_links";
+import { MUNICIPAL_CATEGORY_SUBSTRING } from "../watch/sources/cacbg_local";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
 
 // Every municipal-tier category label in list.xml begins with "Кметове"; no
-// executive or MP category contains that token.
-const CATEGORY_TOKEN = "Кметове";
+// executive or MP category contains that token. Shared with the watcher and
+// the coverage report so the three cannot drift apart.
+const CATEGORY_TOKEN = MUNICIPAL_CATEGORY_SUBSTRING;
 
 // Map the verbatim `Person/Position/Name` role label to a stable bucket.
 // Checked most-specific first: "Заместник кмет" must resolve to deputy_mayor

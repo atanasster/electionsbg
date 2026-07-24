@@ -1,1 +1,205 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1580","nodes":[{"id":"mp:1580","type":"mp","mpId":1580,"label":"Желязко Иванов Желязков","partyGroupShort":"КП-РзВО","isCurrent":false,"nsFolders":[]},{"id":"company:tr:119545649","type":"company","label":"СДРУЖЕНИЕ &quot;ЛОВНО РИБАРСКО ДРУЖЕСТВО НОВА ЗАГОРА&quot;","slug":null,"uic":"119545649","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ЖЕКО ВЕЛИЧКОВ ЖЕКОВ - ПРЕДСЕДАТЕЛ НА КОНТРОЛЕН СЪВЕТ","type":"person","label":"Жеко Величков Жеков - Председател На Контролен Съвет"},{"id":"person:ЗДРАВКО АТАНАСОВ НИКОВ","type":"person","label":"Здравко Атанасов Ников"},{"id":"person:НЕНКО ЖЕРКОВ НЕНКОВ","type":"person","label":"Ненко Жерков Ненков"},{"id":"person:ГЕОРГИ МИХАЙЛОВ СГЪНАТОВ","type":"person","label":"Георги Михайлов Сгънатов"},{"id":"person:ИЛКО МАРИНОВ ИЛИЕВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ","type":"person","label":"Илко Маринов Илиев - Член На Контролен Съвет"},{"id":"person:ИВАЙЛО СИМЕОНОВ ИВАНОВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ","type":"person","label":"Ивайло Симеонов Иванов - Член На Контролен Съвет"},{"id":"person:ЮРИЙ МИЛАНОВ РАДАНОВ","type":"person","label":"Юрий Миланов Раданов"},{"id":"person:БОЖИДАР ЕДРЕВ ЖЕЛЕВ","type":"person","label":"Божидар Едрев Желев"},{"id":"person:КЪНЮ ЖЕЛЕВ ГЕОРГИЕВ","type":"person","label":"Къню Желев Георгиев"},{"id":"person:ПЛАМЕН ИВАНОВ ПРОКОПИЕВ","type":"person","label":"Пламен Иванов Прокопиев"},{"id":"person:ПЕТЪР МАРИНОВ ПЕТРОВ","type":"person","label":"Петър Маринов Петров"},{"id":"person:ЖЕЛЯЗКО МАРКОВ ЖЕЛЯЗКОВ","type":"person","label":"Желязко Марков Желязков"},{"id":"person:ПЕНКО ДИНЕВ ВЪЛЕВ","type":"person","label":"Пенко Динев Вълев"}],"edges":[{"source":"mp:1580","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЖЕКО ВЕЛИЧКОВ ЖЕКОВ - ПРЕДСЕДАТЕЛ НА КОНТРОЛЕН СЪВЕТ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО АТАНАСОВ НИКОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕНКО ЖЕРКОВ НЕНКОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИХАЙЛОВ СГЪНАТОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛКО МАРИНОВ ИЛИЕВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СИМЕОНОВ ИВАНОВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮРИЙ МИЛАНОВ РАДАНОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ЕДРЕВ ЖЕЛЕВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КЪНЮ ЖЕЛЕВ ГЕОРГИЕВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ИВАНОВ ПРОКОПИЕВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР МАРИНОВ ПЕТРОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛЯЗКО МАРКОВ ЖЕЛЯЗКОВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКО ДИНЕВ ВЪЛЕВ","target":"company:tr:119545649","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1580",
+  "nodes": [
+    {
+      "id": "mp:1580",
+      "type": "mp",
+      "mpId": 1580,
+      "label": "Желязко Иванов Желязков",
+      "partyGroupShort": "КП-РзВО",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:119545649",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО РИБАРСКО ДРУЖЕСТВО НОВА ЗАГОРА&quot;",
+      "slug": null,
+      "uic": "119545649",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕКО ВЕЛИЧКОВ ЖЕКОВ - ПРЕДСЕДАТЕЛ НА КОНТРОЛЕН СЪВЕТ",
+      "type": "person",
+      "label": "Жеко Величков Жеков - Председател На Контролен Съвет"
+    },
+    {
+      "id": "person:ЗДРАВКО АТАНАСОВ НИКОВ",
+      "type": "person",
+      "label": "Здравко Атанасов Ников"
+    },
+    {
+      "id": "person:НЕНКО ЖЕРКОВ НЕНКОВ",
+      "type": "person",
+      "label": "Ненко Жерков Ненков"
+    },
+    {
+      "id": "person:ГЕОРГИ МИХАЙЛОВ СГЪНАТОВ",
+      "type": "person",
+      "label": "Георги Михайлов Сгънатов"
+    },
+    {
+      "id": "person:ИЛКО МАРИНОВ ИЛИЕВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ",
+      "type": "person",
+      "label": "Илко Маринов Илиев - Член На Контролен Съвет"
+    },
+    {
+      "id": "person:ИВАЙЛО СИМЕОНОВ ИВАНОВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ",
+      "type": "person",
+      "label": "Ивайло Симеонов Иванов - Член На Контролен Съвет"
+    },
+    {
+      "id": "person:ЮРИЙ МИЛАНОВ РАДАНОВ",
+      "type": "person",
+      "label": "Юрий Миланов Раданов"
+    },
+    {
+      "id": "person:БОЖИДАР ЕДРЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Божидар Едрев Желев"
+    },
+    {
+      "id": "person:КЪНЮ ЖЕЛЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Къню Желев Георгиев"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ПРОКОПИЕВ",
+      "type": "person",
+      "label": "Пламен Иванов Прокопиев"
+    },
+    {
+      "id": "person:ПЕТЪР МАРИНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Маринов Петров"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО МАРКОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Желязко Марков Желязков"
+    },
+    {
+      "id": "person:ПЕНКО ДИНЕВ ВЪЛЕВ",
+      "type": "person",
+      "label": "Пенко Динев Вълев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1580",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕКО ВЕЛИЧКОВ ЖЕКОВ - ПРЕДСЕДАТЕЛ НА КОНТРОЛЕН СЪВЕТ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО АТАНАСОВ НИКОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКО ЖЕРКОВ НЕНКОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ СГЪНАТОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО МАРИНОВ ИЛИЕВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СИМЕОНОВ ИВАНОВ - ЧЛЕН НА КОНТРОЛЕН СЪВЕТ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ МИЛАНОВ РАДАНОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ЕДРЕВ ЖЕЛЕВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪНЮ ЖЕЛЕВ ГЕОРГИЕВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ПРОКОПИЕВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР МАРИНОВ ПЕТРОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО МАРКОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКО ДИНЕВ ВЪЛЕВ",
+      "target": "company:tr:119545649",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

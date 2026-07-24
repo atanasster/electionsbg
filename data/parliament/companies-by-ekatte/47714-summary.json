@@ -1,1 +1,40 @@
-{"ekatte":"47714","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"ФЕДЕРАЦИЯ-НА-БЪЛГАРСКИ-ФОЛКЛОРНИ-ГРУПИ","displayName":"ФЕДЕРАЦИЯ НА БЪЛГАРСКИ ФОЛКЛОРНИ ГРУПИ","registeredOffice":"БЪЛГАРИЯ, гр. Мездра, 3100","mps":[{"mpId":3235,"mpName":"Мирослав Иванов Аспарухов","role":"ngo_representative","isCurrent":true},{"mpId":3235,"mpName":"Мирослав Иванов Аспарухов","role":"ngo_board","isCurrent":true}]},{"slug":"Местна-инициативна-група-Мездра","displayName":"Местна инициативна група - Мездра","registeredOffice":"БЪЛГАРИЯ, гр. Мездра, 3100","mps":[{"mpId":4649,"mpName":"Генади Събков Събков","role":"ngo_representative","isCurrent":true}]}]}
+{
+  "ekatte": "47714",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ФЕДЕРАЦИЯ-НА-БЪЛГАРСКИ-ФОЛКЛОРНИ-ГРУПИ",
+      "displayName": "ФЕДЕРАЦИЯ НА БЪЛГАРСКИ ФОЛКЛОРНИ ГРУПИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Мездра, 3100",
+      "mps": [
+        {
+          "mpId": 3235,
+          "mpName": "Мирослав Иванов Аспарухов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3235,
+          "mpName": "Мирослав Иванов Аспарухов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Местна-инициативна-група-Мездра",
+      "displayName": "Местна инициативна група - Мездра",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Мездра, 3100",
+      "mps": [
+        {
+          "mpId": 4649,
+          "mpName": "Генади Събков Събков",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

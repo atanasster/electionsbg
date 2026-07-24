@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4818","nodes":[{"id":"mp:4818","type":"mp","mpId":4818,"label":"Иван Валентинов Иванов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","43","44","45","46","47","48","49","50"]},{"id":"company:Проджект-инженеринг-ООД","type":"company","label":"Проджект инженеринг ООД","slug":"Проджект-инженеринг-ООД","uic":"201999524","legalForm":"OOD","status":"ceased","seat":"Шумен"},{"id":"person:ИЛКА СТАНЧЕВА ИВАНОВА","type":"person","label":"Илка Станчева Иванова"}],"edges":[{"source":"mp:4818","target":"company:Проджект-инженеринг-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ИЛКА СТАНЧЕВА ИВАНОВА","target":"company:Проджект-инженеринг-ООД","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4818",
+  "nodes": [
+    {
+      "id": "mp:4818",
+      "type": "mp",
+      "mpId": 4818,
+      "label": "Иван Валентинов Иванов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Иван-Колев-30-ЕТ",
+      "type": "company",
+      "label": "\"Иван Колев - 30\" ЕТ",
+      "slug": "Иван-Колев-30-ЕТ",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Шумен"
+    },
+    {
+      "id": "company:Проджект-инженеринг-ООД",
+      "type": "company",
+      "label": "Проджект инженеринг ООД",
+      "slug": "Проджект-инженеринг-ООД",
+      "uic": "201999524",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "Шумен"
+    },
+    {
+      "id": "person:ИЛКА СТАНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Илка Станчева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4818",
+      "target": "company:Иван-Колев-30-ЕТ",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4818",
+      "target": "company:Проджект-инженеринг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА СТАНЧЕВА ИВАНОВА",
+      "target": "company:Проджект-инженеринг-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

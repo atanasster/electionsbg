@@ -1,1 +1,46 @@
-{"ekatte":"27632","page":1,"totalPages":1,"count":2,"companies":[{"slug":"ММ-КОНСТРУКЦИЯ","displayName":"ММ КОНСТРУКЦИЯ","registeredOffice":"БЪЛГАРИЯ, гр. Етрополе, 2180","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"РОЯЛ-БАРБЕР","displayName":"РОЯЛ БАРБЕР","registeredOffice":"БЪЛГАРИЯ, гр. Етрополе, 2180","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]}]}
+{
+  "ekatte": "27632",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ММ-КОНСТРУКЦИЯ",
+      "displayName": "ММ КОНСТРУКЦИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Етрополе, 2180",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РОЯЛ-БАРБЕР",
+      "displayName": "РОЯЛ БАРБЕР",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Етрополе, 2180",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

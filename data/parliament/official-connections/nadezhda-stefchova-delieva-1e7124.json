@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nadezhda-stefchova-delieva-1e7124",
+  "nodes": [
+    {
+      "id": "official:nadezhda-stefchova-delieva-1e7124",
+      "type": "official",
+      "slug": "nadezhda-stefchova-delieva-1e7124",
+      "label": "Надежда Стефчова Делиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206732475",
+      "type": "company",
+      "label": "Ла Каратера",
+      "slug": null,
+      "uic": "206732475",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИЧКА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Величка Димитрова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-stefchova-delieva-1e7124",
+      "target": "company:tr:206732475",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadezhda-stefchova-delieva-1e7124",
+      "target": "company:tr:206732475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:206732475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

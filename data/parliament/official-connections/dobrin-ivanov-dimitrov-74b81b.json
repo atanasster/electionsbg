@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dobrin-ivanov-dimitrov-74b81b",
+  "nodes": [
+    {
+      "id": "official:dobrin-ivanov-dimitrov-74b81b",
+      "type": "official",
+      "slug": "dobrin-ivanov-dimitrov-74b81b",
+      "label": "Добрин Иванов Димитров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204092172",
+      "type": "company",
+      "label": "Еф.Ай.Би.-Файъраут Иновейтив България",
+      "slug": null,
+      "uic": "204092172",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobrin-ivanov-dimitrov-74b81b",
+      "target": "company:tr:204092172",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dobrin-ivanov-dimitrov-74b81b",
+      "target": "company:tr:204092172",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

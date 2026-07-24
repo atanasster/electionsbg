@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-tachev-tachev-2098bb",
+  "nodes": [
+    {
+      "id": "official:konstantin-tachev-tachev-2098bb",
+      "type": "official",
+      "slug": "konstantin-tachev-tachev-2098bb",
+      "label": "Константин Тачев Тачев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "company:tr:119675945",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СДРУЖЕНИЕ НА СЕМЕЙНИТЕ ЛЕКАРИ - СЛИВЕН&quot;",
+      "slug": null,
+      "uic": "119675945",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛКА НИНОВА СЛАВОВА",
+      "type": "person",
+      "label": "Елка Нинова Славова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЛАЗАРОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Веселин Лазаров Лазаров"
+    },
+    {
+      "id": "person:НАТАША ПЕТКОВА ПОЩОВА",
+      "type": "person",
+      "label": "Наташа Петкова Пощова"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ ЩИЛИЯНОВ ТЕНЧЕВ",
+      "type": "person",
+      "label": "Евгений Щилиянов Тенчев"
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Диана Георгиева Георгиева"
+    },
+    {
+      "id": "person:СВЕТЛА ТОДОРОВА ЗЛАТЕВА -РУСЕВА",
+      "type": "person",
+      "label": "Светла Тодорова Златева -Русева"
+    },
+    {
+      "id": "person:БОЖИДАР ЦВЕТАНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Божидар Цветанов Кирилов"
+    },
+    {
+      "id": "person:ДОБРИНКА КУНЕВА КЛИСАРОВА",
+      "type": "person",
+      "label": "Добринка Кунева Клисарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-tachev-tachev-2098bb",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛКА НИНОВА СЛАВОВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЛАЗАРОВ ЛАЗАРОВ",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛКА НИНОВА СЛАВОВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША ПЕТКОВА ПОЩОВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ ЩИЛИЯНОВ ТЕНЧЕВ",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ТОДОРОВА ЗЛАТЕВА -РУСЕВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ЦВЕТАНОВ КИРИЛОВ",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ЦВЕТАНОВ КИРИЛОВ",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА КУНЕВА КЛИСАРОВА",
+      "target": "company:tr:119675945",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

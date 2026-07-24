@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:monika-todorova-doncheva-4ce8e4",
+  "nodes": [
+    {
+      "id": "official:monika-todorova-doncheva-4ce8e4",
+      "type": "official",
+      "slug": "monika-todorova-doncheva-4ce8e4",
+      "label": "Моника Тодорова Дончева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207146878",
+      "type": "company",
+      "label": "ИЗКУСТВО - 2022  гр. Ловеч",
+      "slug": null,
+      "uic": "207146878",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ИЛИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Мирослав Илиев Стоянов"
+    },
+    {
+      "id": "person:АЛБЕНА ОРЛИНОВА ЙОНЧЕВА",
+      "type": "person",
+      "label": "Албена Орлинова Йончева"
+    },
+    {
+      "id": "person:ДОРОТЕЯ ИВАНОВА ДИНКОВА",
+      "type": "person",
+      "label": "Доротея Иванова Динкова"
+    },
+    {
+      "id": "person:ВЕРГИНИЯ АТАНАСОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Вергиния Атанасова Христова"
+    },
+    {
+      "id": "person:РОСИЦА САВЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Росица Савчева Тодорова"
+    },
+    {
+      "id": "person:ПАВЛИН ТОДОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Павлин Тодоров Иванов"
+    },
+    {
+      "id": "person:ИВЕЛИНА ПЕНКОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Ивелина Пенкова Павлова"
+    },
+    {
+      "id": "person:ЛЮДМИЛ АТАНАСОВ ЦОЛОВ",
+      "type": "person",
+      "label": "Людмил Атанасов Цолов"
+    },
+    {
+      "id": "person:НАТАЛИЯ ИЛИЕВА РОШИДОВСКА",
+      "type": "person",
+      "label": "Наталия Илиева Рошидовска"
+    },
+    {
+      "id": "person:ДЕНИЦА ТОШКОВА ЦОЛОВА",
+      "type": "person",
+      "label": "Деница Тошкова Цолова"
+    },
+    {
+      "id": "person:КРИСТИАН ПАВЛИНОВ КОСТОВ",
+      "type": "person",
+      "label": "Кристиан Павлинов Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:monika-todorova-doncheva-4ce8e4",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИЛИЕВ СТОЯНОВ",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИЛИЕВ СТОЯНОВ",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ОРЛИНОВА ЙОНЧЕВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ИВАНОВА ДИНКОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ АТАНАСОВА ХРИСТОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА САВЧЕВА ТОДОРОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ПЕНКОВА ПАВЛОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ АТАНАСОВ ЦОЛОВ",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ АТАНАСОВА ХРИСТОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ИЛИЕВА РОШИДОВСКА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ТОШКОВА ЦОЛОВА",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАН ПАВЛИНОВ КОСТОВ",
+      "target": "company:tr:207146878",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

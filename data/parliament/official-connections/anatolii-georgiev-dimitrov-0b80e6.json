@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:anatolii-georgiev-dimitrov-0b80e6",
+  "nodes": [
+    {
+      "id": "official:anatolii-georgiev-dimitrov-0b80e6",
+      "type": "official",
+      "slug": "anatolii-georgiev-dimitrov-0b80e6",
+      "label": "АНАТОЛИЙ ГЕОРГИЕВ ДИМИТРОВ",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206380629",
+      "type": "company",
+      "label": "ВЗАИМОСПОМАГАТЕЛНА КАСА ПРИ ОБЛАСТНА ДИРЕКЦИЯ НА МВР-ПЛЕВЕН",
+      "slug": null,
+      "uic": "206380629",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Милена Георгиева Любенова"
+    },
+    {
+      "id": "person:ЮЛИЯН ЙОТОВ ПЕЛОВСКИ",
+      "type": "person",
+      "label": "Юлиян Йотов Пеловски"
+    },
+    {
+      "id": "person:МИТКО ПЕНКОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Митко Пенков Симеонов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Валентин Александров Георгиев"
+    },
+    {
+      "id": "person:ХРИСТО НИКОЛОВ ПОПОВ",
+      "type": "person",
+      "label": "Христо Николов Попов"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ РАДУЛОВ",
+      "type": "person",
+      "label": "Кирил Иванов Радулов"
+    },
+    {
+      "id": "person:ГЕРГАНА ГЕОРГИЕВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Гергана Георгиева Алексиева"
+    },
+    {
+      "id": "person:СНЕЖАНА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Снежана Иванова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anatolii-georgiev-dimitrov-0b80e6",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА ЛЮБЕНОВА",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ЙОТОВ ПЕЛОВСКИ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ПЕНКОВ СИМЕОНОВ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛОВ ПОПОВ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ РАДУЛОВ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ЙОТОВ ПЕЛОВСКИ",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА ЛЮБЕНОВА",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА АЛЕКСИЕВА",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:206380629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

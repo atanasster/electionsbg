@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:velko-petrov-velkov-a68095",
+  "nodes": [
+    {
+      "id": "official:velko-petrov-velkov-a68095",
+      "type": "official",
+      "slug": "velko-petrov-velkov-a68095",
+      "label": "Велко Петров Велков",
+      "tier": "executive",
+      "role": "military_command",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:147227205",
+      "type": "company",
+      "label": "ВОЕНЕН СПОРТЕН КЛУБ АТИЯ - 2007",
+      "slug": null,
+      "uic": "147227205",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯН ВЪЛКАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Деян Вълканов Господинов"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Стоянов"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Стоянов Вълчев"
+    },
+    {
+      "id": "person:ВАСИЛ ВАЛЕНТИНОВ СЪБЕВ",
+      "type": "person",
+      "label": "Васил Валентинов Събев"
+    },
+    {
+      "id": "person:ПАВЛИН ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Павлин Иванов Петков"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Христо Тодоров Генчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velko-petrov-velkov-a68095",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯН ВЪЛКАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ВЪЛЧЕВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАЛЕНТИНОВ СЪБЕВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ВЪЛЧЕВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ ГЕНЧЕВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:147227205",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

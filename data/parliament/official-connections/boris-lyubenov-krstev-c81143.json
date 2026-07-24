@@ -1,0 +1,364 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boris-lyubenov-krstev-c81143",
+  "nodes": [
+    {
+      "id": "official:boris-lyubenov-krstev-c81143",
+      "type": "official",
+      "slug": "boris-lyubenov-krstev-c81143",
+      "label": "Борис Любенов Кръстев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109540461",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ - ДУПНИЦА",
+      "slug": null,
+      "uic": "109540461",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Дупница, 2600"
+    },
+    {
+      "id": "mp:5107",
+      "type": "mp",
+      "mpId": 5107,
+      "label": "Николай Георгиев Златарски",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:КОЛЬО ВЕЛИНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Кольо Велинов Илиев"
+    },
+    {
+      "id": "person:СТЕФАН КИРИЛОВ СОТИРОВ",
+      "type": "person",
+      "label": "Стефан Кирилов Сотиров"
+    },
+    {
+      "id": "person:СТЕФАН БОГДАНОВ САПУНДЖИЕВ",
+      "type": "person",
+      "label": "Стефан Богданов Сапунджиев"
+    },
+    {
+      "id": "person:КИРИЛ ВАСИЛЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Кирил Василев Петков"
+    },
+    {
+      "id": "person:ТОДОР ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Тодор Иванов Георгиев"
+    },
+    {
+      "id": "person:ИЛИЯНА САШКОВА ВАКЪВЧИЕВА",
+      "type": "person",
+      "label": "Илияна Сашкова Вакъвчиева"
+    },
+    {
+      "id": "person:СПАС СТЕФАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Спас Стефанов Илиев"
+    },
+    {
+      "id": "person:СТЕФАН ЛЮБЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стефан Любенов Стоянов"
+    },
+    {
+      "id": "person:БОРИС КОСТАДИНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Борис Костадинов Христов"
+    },
+    {
+      "id": "person:БОЖИДАР ВАСИЛЕВ СОТИРОВ",
+      "type": "person",
+      "label": "Божидар Василев Сотиров"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ КРЪПЧАНСКИ",
+      "type": "person",
+      "label": "Георги Христов Кръпчански"
+    },
+    {
+      "id": "person:МЕТОДИ БОРИСЛАВОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Методи Бориславов Димитров"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА САПУНДЖИЕВА-ЧЕЛЕНКОВА",
+      "type": "person",
+      "label": "Даниела Стефанова Сапунджиева-Челенкова"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА САПУНДЖИЕВА - ЧЕЛЕНКОВА",
+      "type": "person",
+      "label": "Даниела Стефанова Сапунджиева - Челенкова"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ КАСТРЕВ",
+      "type": "person",
+      "label": "Емил Иванов Кастрев"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Петров"
+    },
+    {
+      "id": "person:ИЛИЯН АНГЕЛОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Илиян Ангелов Миланов"
+    },
+    {
+      "id": "person:ХРИСТО МЕТОДИЕВ МАЛАШЕВСКИ",
+      "type": "person",
+      "label": "Христо Методиев Малашевски"
+    },
+    {
+      "id": "person:БОРИСЛАВ КИРИЛОВ ДИНЕВ",
+      "type": "person",
+      "label": "Борислав Кирилов Динев"
+    },
+    {
+      "id": "person:ТОДОР ДИМИТРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Тодор Димитров Василев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-lyubenov-krstev-c81143",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5107",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5107",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОЛЬО ВЕЛИНОВ ИЛИЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН КИРИЛОВ СОТИРОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ВЕЛИНОВ ИЛИЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН БОГДАНОВ САПУНДЖИЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ВАСИЛЕВ ПЕТКОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА САШКОВА ВАКЪВЧИЕВА",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС СТЕФАНОВ ИЛИЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЛЮБЕНОВ СТОЯНОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС КОСТАДИНОВ ХРИСТОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА САШКОВА ВАКЪВЧИЕВА",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ВАСИЛЕВ СОТИРОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ КРЪПЧАНСКИ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ БОРИСЛАВОВ ДИМИТРОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА САПУНДЖИЕВА-ЧЕЛЕНКОВА",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА САПУНДЖИЕВА - ЧЕЛЕНКОВА",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА САПУНДЖИЕВА - ЧЕЛЕНКОВА",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ КАСТРЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН АНГЕЛОВ МИЛАНОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ БОРИСЛАВОВ ДИМИТРОВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МЕТОДИЕВ МАЛАШЕВСКИ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ КИРИЛОВ ДИНЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ КИРИЛОВ ДИНЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ ВАСИЛЕВ",
+      "target": "company:tr:109540461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

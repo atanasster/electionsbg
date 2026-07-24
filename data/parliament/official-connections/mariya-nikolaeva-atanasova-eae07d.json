@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-nikolaeva-atanasova-eae07d",
+  "nodes": [
+    {
+      "id": "official:mariya-nikolaeva-atanasova-eae07d",
+      "type": "official",
+      "slug": "mariya-nikolaeva-atanasova-eae07d",
+      "label": "Мария Николаева Атанасова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206738813",
+      "type": "company",
+      "label": "М МАРИЙН СЪРВИСИЗ",
+      "slug": null,
+      "uic": "206738813",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-nikolaeva-atanasova-eae07d",
+      "target": "company:tr:206738813",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-nikolaeva-atanasova-eae07d",
+      "target": "company:tr:206738813",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

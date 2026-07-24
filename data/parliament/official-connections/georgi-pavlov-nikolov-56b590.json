@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-pavlov-nikolov-56b590",
+  "nodes": [
+    {
+      "id": "official:georgi-pavlov-nikolov-56b590",
+      "type": "official",
+      "slug": "georgi-pavlov-nikolov-56b590",
+      "label": "Георги Павлов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бойчиновци"
+    },
+    {
+      "id": "company:tr:130920692",
+      "type": "company",
+      "label": "ЛИФТСЕРВИЗ",
+      "slug": null,
+      "uic": "130920692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ЙОРДАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Владимир Йорданов Николов"
+    },
+    {
+      "id": "person:ЕВГЕНИ БОРИСОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Евгени Борисов Захариев"
+    },
+    {
+      "id": "person:ДИМИТЪР СТЕФАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димитър Стефанов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-pavlov-nikolov-56b590",
+      "target": "company:tr:130920692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЙОРДАНОВ НИКОЛОВ",
+      "target": "company:tr:130920692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ БОРИСОВ ЗАХАРИЕВ",
+      "target": "company:tr:130920692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТЕФАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:130920692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

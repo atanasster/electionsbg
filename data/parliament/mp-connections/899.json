@@ -1,1 +1,47 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:899","nodes":[{"id":"mp:899","type":"mp","mpId":899,"label":"Петър Владимиров Димитров","partyGroupShort":null,"isCurrent":false,"nsFolders":["39","40"]},{"id":"company:tr:208134918","type":"company","label":"АЛТИОРА","slug":null,"uic":"208134918","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1616"}],"edges":[{"source":"mp:899","target":"company:tr:208134918","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:899","target":"company:tr:208134918","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:899",
+  "nodes": [
+    {
+      "id": "mp:899",
+      "type": "mp",
+      "mpId": 899,
+      "label": "Петър Владимиров Димитров",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "company:tr:208134918",
+      "type": "company",
+      "label": "АЛТИОРА",
+      "slug": null,
+      "uic": "208134918",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1616"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:899",
+      "target": "company:tr:208134918",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:899",
+      "target": "company:tr:208134918",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

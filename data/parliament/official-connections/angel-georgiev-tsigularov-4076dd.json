@@ -1,1 +1,280 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:angel-georgiev-tsigularov-4076dd","nodes":[{"id":"official:angel-georgiev-tsigularov-4076dd","type":"official","slug":"angel-georgiev-tsigularov-4076dd","label":"Ангел Георгиев Цигуларов","tier":"municipal","role":"councillor","municipality":"Царево"},{"id":"company:tr:202957955","type":"company","label":"ЕР-ДИ 86 ООД","slug":null,"uic":"202957955","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147122229","type":"company","label":"АИК ООД","slug":null,"uic":"147122229","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202242449","type":"company","label":"АГИД 555 ООД","slug":null,"uic":"202242449","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200357965","type":"company","label":"АЙДИ 555 ООД","slug":null,"uic":"200357965","legalForm":null,"status":null,"seat":null},{"id":"company:tr:147225135","type":"company","label":"Роксил ООД","slug":null,"uic":"147225135","legalForm":null,"status":null,"seat":null},{"id":"person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА","type":"person","label":"Ваня Василева Цигуларова"},{"id":"company:name:ВИНС ИН ХОК","type":"company","label":"\"ВИНС ИН ХОК\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:202957955","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:147122229","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:202242449","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:200357965","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:147225135","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:202957955","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:202957955","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:200357965","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"official:angel-georgiev-tsigularov-4076dd","target":"company:tr:147225135","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА","target":"company:tr:202957955","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА","target":"company:tr:202957955","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ВИНС ИН ХОК","target":"company:tr:147225135","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:angel-georgiev-tsigularov-4076dd",
+  "nodes": [
+    {
+      "id": "official:angel-georgiev-tsigularov-4076dd",
+      "type": "official",
+      "slug": "angel-georgiev-tsigularov-4076dd",
+      "label": "Ангел Георгиев Цигуларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Царево"
+    },
+    {
+      "id": "company:tr:202957955",
+      "type": "company",
+      "label": "ЕР-ДИ 86 ООД",
+      "slug": null,
+      "uic": "202957955",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147122229",
+      "type": "company",
+      "label": "АИК ООД",
+      "slug": null,
+      "uic": "147122229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202242449",
+      "type": "company",
+      "label": "АГИД 555 ООД",
+      "slug": null,
+      "uic": "202242449",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200357965",
+      "type": "company",
+      "label": "АЙДИ 555 ООД",
+      "slug": null,
+      "uic": "200357965",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:147225135",
+      "type": "company",
+      "label": "Роксил ООД",
+      "slug": null,
+      "uic": "147225135",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207280770",
+      "type": "company",
+      "label": "Варда 555 ЕООД",
+      "slug": null,
+      "uic": "207280770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208063474",
+      "type": "company",
+      "label": "Ел Джей Пропърти ЕООД",
+      "slug": null,
+      "uic": "208063474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА",
+      "type": "person",
+      "label": "Ваня Василева Цигуларова"
+    },
+    {
+      "id": "company:name:ВИНС ИН ХОК",
+      "type": "company",
+      "label": "\"ВИНС ИН ХОК\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ТОШЕВ",
+      "type": "person",
+      "label": "Александър Георгиев Тошев"
+    },
+    {
+      "id": "person:ДИМО СТОЙЧЕВ ДИМОВ",
+      "type": "person",
+      "label": "Димо Стойчев Димов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:202957955",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:147122229",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:202242449",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:200357965",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:147225135",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:207280770",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:208063474",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:202957955",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:202957955",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:200357965",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:147225135",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:207280770",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:207280770",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:208063474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-georgiev-tsigularov-4076dd",
+      "target": "company:tr:208063474",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА",
+      "target": "company:tr:202957955",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ВАСИЛЕВА ЦИГУЛАРОВА",
+      "target": "company:tr:202957955",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВИНС ИН ХОК",
+      "target": "company:tr:147225135",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ТОШЕВ",
+      "target": "company:tr:208063474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО СТОЙЧЕВ ДИМОВ",
+      "target": "company:tr:208063474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО СТОЙЧЕВ ДИМОВ",
+      "target": "company:tr:208063474",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

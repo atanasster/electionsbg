@@ -1,1 +1,372 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4043","nodes":[{"id":"mp:4043","type":"mp","mpId":4043,"label":"Иво Георгиев Атанасов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["45","46","47","48"]},{"id":"company:Интер-Солар-ООД","type":"company","label":"Интер Солар ООД","slug":"Интер-Солар-ООД","uic":"200597348","legalForm":"OOD","status":"ceased","seat":"Видин"},{"id":"company:tr:208154632","type":"company","label":"Венти Енерджи Груп","slug":null,"uic":"208154632","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:207061456","type":"company","label":"Гражданско Движение Силна България","slug":null,"uic":"207061456","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1142"},{"id":"person:ИЛИНА САШКОВА МАРИЧОВА","type":"person","label":"Илина Сашкова Маричова"},{"id":"mp:5081","type":"mp","mpId":5081,"label":"Росица Любенова Кирова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"]},{"id":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","type":"person","label":"Любен Орлинов Бишков"},{"id":"person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ","type":"person","label":"Лъчезар Славчев Райчев"},{"id":"person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ","type":"person","label":"Иво Венциславов Дановски"},{"id":"mp:3642","type":"mp","mpId":3642,"label":"Светлин Костов Стоянов","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["45","46"]},{"id":"mp:4726","type":"mp","mpId":4726,"label":"Николай Стефанов Радулов","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["46","47"]},{"id":"mp:4741","type":"mp","mpId":4741,"label":"Деян Петев Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["47"]},{"id":"mp:4873","type":"mp","mpId":4873,"label":"Кирил Атанасов Веселински","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":[]},{"id":"mp:4913","type":"mp","mpId":4913,"label":"Радостин Петев Василев","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["45","46","47","48","49"]},{"id":"person:ВЛАДИМИР ГЕОРГИЕВ ХАРИЗАНОВ","type":"person","label":"Владимир Георгиев Харизанов"}],"edges":[{"source":"mp:4043","target":"company:Интер-Солар-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4043","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4043","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИЛИНА САШКОВА МАРИЧОВА","target":"company:Интер-Солар-ООД","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"mp:5081","target":"company:tr:208154632","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","target":"company:tr:208154632","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:3642","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4726","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4741","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4873","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4913","target":"company:tr:207061456","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4913","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ХАРИЗАНОВ","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4741","length":2,"nodeIds":["mp:4043","company:tr:207061456","mp:4741"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4873","length":2,"nodeIds":["mp:4043","company:tr:207061456","mp:4873"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4726","length":2,"nodeIds":["mp:4043","company:tr:207061456","mp:4726"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4913","length":2,"nodeIds":["mp:4043","company:tr:207061456","mp:4913"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5081","length":2,"nodeIds":["mp:4043","company:tr:208154632","mp:5081"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3642","length":2,"nodeIds":["mp:4043","company:tr:207061456","mp:3642"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4043",
+  "nodes": [
+    {
+      "id": "mp:4043",
+      "type": "mp",
+      "mpId": 4043,
+      "label": "Иво Георгиев Атанасов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Интер-солар-ЕИК-200597348-софия",
+      "type": "company",
+      "label": "Интер солар ЕИК 200597348 софия",
+      "slug": "Интер-солар-ЕИК-200597348-софия",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Интер-Солар-ООД",
+      "type": "company",
+      "label": "Интер Солар ООД",
+      "slug": "Интер-Солар-ООД",
+      "uic": "200597348",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "Видин"
+    },
+    {
+      "id": "company:tr:208154632",
+      "type": "company",
+      "label": "Венти Енерджи Груп",
+      "slug": null,
+      "uic": "208154632",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:207061456",
+      "type": "company",
+      "label": "Гражданско Движение Силна България",
+      "slug": null,
+      "uic": "207061456",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "person:ИЛИНА САШКОВА МАРИЧОВА",
+      "type": "person",
+      "label": "Илина Сашкова Маричова"
+    },
+    {
+      "id": "mp:5081",
+      "type": "mp",
+      "mpId": 5081,
+      "label": "Росица Любенова Кирова",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "type": "person",
+      "label": "Любен Орлинов Бишков"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Лъчезар Славчев Райчев"
+    },
+    {
+      "id": "person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ",
+      "type": "person",
+      "label": "Иво Венциславов Дановски"
+    },
+    {
+      "id": "mp:3642",
+      "type": "mp",
+      "mpId": 3642,
+      "label": "Светлин Костов Стоянов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "mp:4726",
+      "type": "mp",
+      "mpId": 4726,
+      "label": "Николай Стефанов Радулов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "mp:4741",
+      "type": "mp",
+      "mpId": 4741,
+      "label": "Деян Петев Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "mp:4873",
+      "type": "mp",
+      "mpId": 4873,
+      "label": "Кирил Атанасов Веселински",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4913",
+      "type": "mp",
+      "mpId": 4913,
+      "label": "Радостин Петев Василев",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "official:vladimir-georgiev-harizanov-fa2b01",
+      "type": "official",
+      "slug": "vladimir-georgiev-harizanov-fa2b01",
+      "label": "Владимир Георгиев Харизанов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4043",
+      "target": "company:Интер-солар-ЕИК-200597348-софия",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4043",
+      "target": "company:Интер-Солар-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4043",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4043",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИНА САШКОВА МАРИЧОВА",
+      "target": "company:Интер-Солар-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:tr:208154632",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3642",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4726",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4741",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4873",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4913",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4913",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-georgiev-harizanov-fa2b01",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4741",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:207061456",
+        "mp:4741"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4873",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:207061456",
+        "mp:4873"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4726",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:207061456",
+        "mp:4726"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4913",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:207061456",
+        "mp:4913"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5081",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:208154632",
+        "mp:5081"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3642",
+      "length": 2,
+      "nodeIds": [
+        "mp:4043",
+        "company:tr:207061456",
+        "mp:3642"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

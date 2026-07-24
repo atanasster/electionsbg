@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-todorov-neshkov-dd764c",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-neshkov-dd764c",
+      "type": "official",
+      "slug": "ivan-todorov-neshkov-dd764c",
+      "label": "Иван Тодоров Нешков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чавдар"
+    },
+    {
+      "id": "company:tr:206862255",
+      "type": "company",
+      "label": "ФЕРМЕРСКИ СЪЮЗ-ЧЕЛОПЕЧ",
+      "slug": null,
+      "uic": "206862255",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА СТЕФАНОВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Александрина Стефанова Филипова"
+    },
+    {
+      "id": "person:ДОБРИНКА ВЕНЦИСЛАВОВА ШУМЧЕВА",
+      "type": "person",
+      "label": "Добринка Венциславова Шумчева"
+    },
+    {
+      "id": "person:ФИЛИП ПЕНКОВ ВЪТЕВ",
+      "type": "person",
+      "label": "Филип Пенков Вътев"
+    },
+    {
+      "id": "person:МАРИН НИКОЛОВ ГУГОВ",
+      "type": "person",
+      "label": "Марин Николов Гугов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ФИЛИПОВ ВЪТЕВ",
+      "type": "person",
+      "label": "Александър Филипов Вътев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-neshkov-dd764c",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА СТЕФАНОВА ФИЛИПОВА",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ВЕНЦИСЛАВОВА ШУМЧЕВА",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА СТЕФАНОВА ФИЛИПОВА",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ПЕНКОВ ВЪТЕВ",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НИКОЛОВ ГУГОВ",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ФИЛИПОВ ВЪТЕВ",
+      "target": "company:tr:206862255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,244 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5201","nodes":[{"id":"mp:5201","type":"mp","mpId":5201,"label":"Стефан Иванов Цанков","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:204968627","type":"company","label":"СДРУЖЕНИЕ &quot;СПОРТЕН КЛУБ 360 ГРАДУСА&quot;","slug":null,"uic":"204968627","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:115819024","type":"company","label":"ШУТИНГ 360","slug":null,"uic":"115819024","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:207382946","type":"company","label":"БЪЛГАРСКА ОРЪЖЕЙНА АСОЦИАЦИЯ","slug":null,"uic":"207382946","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ГЕРГАНА ДИМИТРОВА ЧОБАНОВА","type":"person","label":"Гергана Димитрова Чобанова"},{"id":"person:КОСТАДИН ВЕСЕЛИНОВ КРУШКОВ","type":"person","label":"Костадин Веселинов Крушков"},{"id":"person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА","type":"person","label":"Нели Генова Делгянска"},{"id":"person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ","type":"person","label":"Христиан Драгомир  Чехович"},{"id":"person:СТАНИСЛАВ НОНКОВ МАРИНОВ","type":"person","label":"Станислав Нонков Маринов"},{"id":"person:ИВАН ЕМИЛОВ САВОВ","type":"person","label":"Иван Емилов Савов"},{"id":"person:СВИЛЕН ХРИСТОВ ДАРГОВ","type":"person","label":"Свилен Христов Даргов"},{"id":"person:ИВАН БОЯНОВ ТАБОВ","type":"person","label":"Иван Боянов Табов"},{"id":"person:ТОДОР БОРИСОВ ТОДОРОВ","type":"person","label":"Тодор Борисов Тодоров"}],"edges":[{"source":"mp:5201","target":"company:tr:204968627","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5201","target":"company:tr:115819024","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5201","target":"company:tr:207382946","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА ДИМИТРОВА ЧОБАНОВА","target":"company:tr:204968627","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ВЕСЕЛИНОВ КРУШКОВ","target":"company:tr:204968627","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА","target":"company:tr:204968627","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ","target":"company:tr:204968627","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ","target":"company:tr:204968627","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА","target":"company:tr:115819024","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ НОНКОВ МАРИНОВ","target":"company:tr:115819024","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЕМИЛОВ САВОВ","target":"company:tr:207382946","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВИЛЕН ХРИСТОВ ДАРГОВ","target":"company:tr:207382946","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОЯНОВ ТАБОВ","target":"company:tr:207382946","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ЕМИЛОВ САВОВ","target":"company:tr:207382946","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР БОРИСОВ ТОДОРОВ","target":"company:tr:207382946","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5201",
+  "nodes": [
+    {
+      "id": "mp:5201",
+      "type": "mp",
+      "mpId": 5201,
+      "label": "Стефан Иванов Цанков",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:204968627",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СПОРТЕН КЛУБ 360 ГРАДУСА&quot;",
+      "slug": null,
+      "uic": "204968627",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:115819024",
+      "type": "company",
+      "label": "ШУТИНГ 360",
+      "slug": null,
+      "uic": "115819024",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207382946",
+      "type": "company",
+      "label": "БЪЛГАРСКА ОРЪЖЕЙНА АСОЦИАЦИЯ",
+      "slug": null,
+      "uic": "207382946",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНОВ ЦАНКОВ",
+      "type": "person",
+      "label": "Стефан Иванов Цанков"
+    },
+    {
+      "id": "person:ГЕРГАНА ДИМИТРОВА ЧОБАНОВА",
+      "type": "person",
+      "label": "Гергана Димитрова Чобанова"
+    },
+    {
+      "id": "person:КОСТАДИН ВЕСЕЛИНОВ КРУШКОВ",
+      "type": "person",
+      "label": "Костадин Веселинов Крушков"
+    },
+    {
+      "id": "person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА",
+      "type": "person",
+      "label": "Нели Генова Делгянска"
+    },
+    {
+      "id": "person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ",
+      "type": "person",
+      "label": "Христиан Драгомир  Чехович"
+    },
+    {
+      "id": "person:СТАНИСЛАВ НОНКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Станислав Нонков Маринов"
+    },
+    {
+      "id": "person:ИВАН ЕМИЛОВ САВОВ",
+      "type": "person",
+      "label": "Иван Емилов Савов"
+    },
+    {
+      "id": "person:СВИЛЕН ХРИСТОВ ДАРГОВ",
+      "type": "person",
+      "label": "Свилен Христов Даргов"
+    },
+    {
+      "id": "person:ИВАН БОЯНОВ ТАБОВ",
+      "type": "person",
+      "label": "Иван Боянов Табов"
+    },
+    {
+      "id": "person:ТОДОР БОРИСОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Борисов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5201",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5201",
+      "target": "company:tr:115819024",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5201",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ЦАНКОВ",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ДИМИТРОВА ЧОБАНОВА",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ВЕСЕЛИНОВ КРУШКОВ",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИАН ДРАГОМИР ЧЕХОВИЧ",
+      "target": "company:tr:204968627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ЦАНКОВ",
+      "target": "company:tr:115819024",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ГЕНОВА ДЕЛГЯНСКА",
+      "target": "company:tr:115819024",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ НОНКОВ МАРИНОВ",
+      "target": "company:tr:115819024",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЕМИЛОВ САВОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН ХРИСТОВ ДАРГОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОЯНОВ ТАБОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЕМИЛОВ САВОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР БОРИСОВ ТОДОРОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ЦАНКОВ",
+      "target": "company:tr:207382946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

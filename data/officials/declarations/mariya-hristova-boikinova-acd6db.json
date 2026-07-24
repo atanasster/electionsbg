@@ -16,22 +16,22 @@
     "income": [],
     "assets": [
       {
-        "category": "debt",
-        "description": "10000",
-        "detail": null,
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "в страната",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Мария Христова Бойкинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

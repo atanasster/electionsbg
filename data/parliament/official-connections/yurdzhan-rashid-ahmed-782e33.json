@@ -1,0 +1,127 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yurdzhan-rashid-ahmed-782e33",
+  "nodes": [
+    {
+      "id": "official:yurdzhan-rashid-ahmed-782e33",
+      "type": "official",
+      "slug": "yurdzhan-rashid-ahmed-782e33",
+      "label": "Юрджан Рашид Ахмед",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200817869",
+      "type": "company",
+      "label": "РЕСТЛИНГ СЕКЮРИТИ",
+      "slug": null,
+      "uic": "200817869",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КУБРАТ ИЛИЕВ КОЕВ",
+      "type": "person",
+      "label": "Кубрат Илиев Коев"
+    },
+    {
+      "id": "person:ХАЙРИЕ САЛИМОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Хайрие Салимова Мехмедова"
+    },
+    {
+      "id": "person:МУСТАФА ХЮСЕИН ЕМИН",
+      "type": "person",
+      "label": "Мустафа Хюсеин Емин"
+    },
+    {
+      "id": "person:ДАЛИЯ ЮРДЖАНОВА РАШИДОВА",
+      "type": "person",
+      "label": "Далия Юрджанова Рашидова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yurdzhan-rashid-ahmed-782e33",
+      "target": "company:tr:200817869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yurdzhan-rashid-ahmed-782e33",
+      "target": "company:tr:200817869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КУБРАТ ИЛИЕВ КОЕВ",
+      "target": "company:tr:200817869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРИЕ САЛИМОВА МЕХМЕДОВА",
+      "target": "company:tr:200817869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУБРАТ ИЛИЕВ КОЕВ",
+      "target": "company:tr:200817869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРИЕ САЛИМОВА МЕХМЕДОВА",
+      "target": "company:tr:200817869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ХЮСЕИН ЕМИН",
+      "target": "company:tr:200817869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ХЮСЕИН ЕМИН",
+      "target": "company:tr:200817869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЛИЯ ЮРДЖАНОВА РАШИДОВА",
+      "target": "company:tr:200817869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЛИЯ ЮРДЖАНОВА РАШИДОВА",
+      "target": "company:tr:200817869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

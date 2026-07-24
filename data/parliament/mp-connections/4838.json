@@ -1,1 +1,511 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4838","nodes":[{"id":"mp:4838","type":"mp","mpId":4838,"label":"Александър Руменов Ненков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","46","47","48","49","50","51"]},{"id":"company:Имобилария-платиниум","type":"company","label":"Имобилария платиниум","slug":"Имобилария-платиниум","uic":"175432338","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:tr:203740812","type":"company","label":"Фонд мениджър на финансови инструменти в България","slug":null,"uic":"203740812","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1756"},{"id":"company:tr:131077686","type":"company","label":"НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ","slug":null,"uic":"131077686","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1839"},{"id":"person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ","type":"person","label":"Евгени Стефанов Генчев"},{"id":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","type":"person","label":"Владимир Андонов Данаилов"},{"id":"person:МАРТИН МЕТОДИЕВ ГИКОВ","type":"person","label":"Мартин Методиев Гиков"},{"id":"person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА","type":"person","label":"Република България, Министерство На Иновациите И Растежа"},{"id":"person:КАМЕН МИНЧЕВ СЛАВОВ","type":"person","label":"Камен Минчев Славов"},{"id":"person:ПАВЕЛ НИКОЛАЕВ ЛИСЕВ","type":"person","label":"Павел Николаев Лисев"},{"id":"person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА","type":"person","label":"Виктория Тодорова Христова"},{"id":"person:БИСЕР ХРИСТОВ ПЕТКОВ","type":"person","label":"Бисер Христов Петков"},{"id":"person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ","type":"person","label":"Александър Ангелов Георгиев"},{"id":"mp:5248","type":"mp","mpId":5248,"label":"Делян Александров Добрев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","46","47","48","49","50","51"]},{"id":"person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ","type":"person","label":"Атанас Димитров Георгиев"},{"id":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","type":"person","label":"Валентин Алексиев Николов"},{"id":"person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ","type":"person","label":"Емил Димитров Гаврилов"},{"id":"person:ДИМИТЪР СТОЯНОВ СТОЯНОВ","type":"person","label":"Димитър Стоянов Стоянов"},{"id":"person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ","type":"person","label":"Ангелин Николаев Цачев"},{"id":"person:СТОЯН СТОЕВ НЕШЕВ","type":"person","label":"Стоян Стоев Нешев"},{"id":"person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА","type":"person","label":"Мария Георгиева Трифонова"},{"id":"person:ПЕТЬО АНГЕЛОВ ИВАНОВ","type":"person","label":"Петьо Ангелов Иванов"},{"id":"company:tr:208808612","type":"company","label":"АКОРД КЕПИТАЛ","slug":null,"uic":"208808612","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"mp:4507","type":"mp","mpId":4507,"label":"Владимир Андонов Данаилов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:831646048","type":"company","label":"АВТОМАГИСТРАЛИ","slug":null,"uic":"831646048","legalForm":"EAD","status":"active","seat":null},{"id":"mp:3271","type":"mp","mpId":3271,"label":"Георги Захаринин Попов","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["45"]}],"edges":[{"source":"mp:4838","target":"company:Имобилария-платиниум","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"mp:4838","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4838","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ","target":"company:Имобилария-платиниум","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН МЕТОДИЕВ ГИКОВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА","target":"company:tr:203740812","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕН МИНЧЕВ СЛАВОВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ НИКОЛАЕВ ЛИСЕВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:БИСЕР ХРИСТОВ ПЕТКОВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:5248","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ СТОЯНОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН СТОЕВ НЕШЕВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО АНГЕЛОВ ИВАНОВ","target":"company:tr:131077686","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ","target":"company:tr:831646048","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ","target":"company:tr:831646048","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:208808612","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:208808612","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4507","target":"company:tr:208808612","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4507","target":"company:tr:208808612","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3271","target":"company:tr:831646048","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5248","length":2,"nodeIds":["mp:4838","company:tr:131077686","mp:5248"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4507","length":4,"nodeIds":["mp:4838","company:tr:203740812","person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","company:tr:208808612","mp:4507"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3271","length":4,"nodeIds":["mp:4838","company:Имобилария-платиниум","person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ","company:tr:831646048","mp:3271"],"isAllCurrent":false,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4838",
+  "nodes": [
+    {
+      "id": "mp:4838",
+      "type": "mp",
+      "mpId": 4838,
+      "label": "Александър Руменов Ненков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Имобилария-платиниум",
+      "type": "company",
+      "label": "Имобилария платиниум",
+      "slug": "Имобилария-платиниум",
+      "uic": "175432338",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Фаст-инвест",
+      "type": "company",
+      "label": "Фаст инвест",
+      "slug": "Фаст-инвест",
+      "uic": "202959244",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:203740812",
+      "type": "company",
+      "label": "Фонд мениджър на финансови инструменти в България",
+      "slug": null,
+      "uic": "203740812",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1756"
+    },
+    {
+      "id": "company:tr:131077686",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН КОМИТЕТ НА БЪЛГАРИЯ В СВЕТОВНИЯ ЕНЕРГИЕН СЪВЕТ",
+      "slug": null,
+      "uic": "131077686",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1839"
+    },
+    {
+      "id": "person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Евгени Стефанов Генчев"
+    },
+    {
+      "id": "person:ЙОАНА ЦЕНКОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Йоана Ценкова Йорданова"
+    },
+    {
+      "id": "official:pavel-nikolaev-lisev-d2a96b",
+      "type": "official",
+      "slug": "pavel-nikolaev-lisev-d2a96b",
+      "label": "Павел Николаев Лисев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "type": "person",
+      "label": "Владимир Андонов Данаилов"
+    },
+    {
+      "id": "person:МАРТИН МЕТОДИЕВ ГИКОВ",
+      "type": "person",
+      "label": "Мартин Методиев Гиков"
+    },
+    {
+      "id": "person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА",
+      "type": "person",
+      "label": "Република България, Министерство На Иновациите И Растежа"
+    },
+    {
+      "id": "person:КАМЕН МИНЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "Камен Минчев Славов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Виктория Тодорова Христова"
+    },
+    {
+      "id": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Бисер Христов Петков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Александър Ангелов Георгиев"
+    },
+    {
+      "id": "mp:5248",
+      "type": "mp",
+      "mpId": 5248,
+      "label": "Делян Александров Добрев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Атанас Димитров Георгиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валентин Алексиев Николов"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Емил Димитров Гаврилов"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Стоянов"
+    },
+    {
+      "id": "person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ",
+      "type": "person",
+      "label": "Ангелин Николаев Цачев"
+    },
+    {
+      "id": "person:СТОЯН СТОЕВ НЕШЕВ",
+      "type": "person",
+      "label": "Стоян Стоев Нешев"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Трифонова"
+    },
+    {
+      "id": "person:ПЕТЬО АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Петьо Ангелов Иванов"
+    },
+    {
+      "id": "company:tr:208808612",
+      "type": "company",
+      "label": "АКОРД КЕПИТАЛ",
+      "slug": null,
+      "uic": "208808612",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "mp:4507",
+      "type": "mp",
+      "mpId": 4507,
+      "label": "Владимир Андонов Данаилов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:831646048",
+      "type": "company",
+      "label": "АВТОМАГИСТРАЛИ",
+      "slug": null,
+      "uic": "831646048",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3271",
+      "type": "mp",
+      "mpId": 3271,
+      "label": "Георги Захаринин Попов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4838",
+      "target": "company:Имобилария-платиниум",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:Имобилария-платиниум",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:Фаст-инвест",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ",
+      "target": "company:Имобилария-платиниум",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ЦЕНКОВА ЙОРДАНОВА",
+      "target": "company:Фаст-инвест",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:pavel-nikolaev-lisev-d2a96b",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МЕТОДИЕВ ГИКОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА",
+      "target": "company:tr:203740812",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН МИНЧЕВ СЛАВОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АНГЕЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5248",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ГАВРИЛОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИН НИКОЛАЕВ ЦАЧЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН СТОЕВ НЕШЕВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ТРИФОНОВА",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:131077686",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ",
+      "target": "company:tr:831646048",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ",
+      "target": "company:tr:831646048",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:208808612",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:208808612",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3271",
+      "target": "company:tr:831646048",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5248",
+      "length": 2,
+      "nodeIds": [
+        "mp:4838",
+        "company:tr:131077686",
+        "mp:5248"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4507",
+      "length": 4,
+      "nodeIds": [
+        "mp:4838",
+        "company:tr:203740812",
+        "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+        "company:tr:208808612",
+        "mp:4507"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3271",
+      "length": 4,
+      "nodeIds": [
+        "mp:4838",
+        "company:Имобилария-платиниум",
+        "person:ЕВГЕНИ СТЕФАНОВ ГЕНЧЕВ",
+        "company:tr:831646048",
+        "mp:3271"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

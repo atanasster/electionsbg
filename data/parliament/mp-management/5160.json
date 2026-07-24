@@ -1,1 +1,36 @@
-{"mpId":5160,"mpName":"Васил Тодоров Филев","generatedAt":"2026-07-03T11:12:51.939Z","total":2,"roles":[{"uic":"112611527","companyName":"ПАСАТ ЛИНК","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-08T17:07:32","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"822090225","companyName":"ПАСАТ АНТЕНИ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":25,"addedAt":"2026-05-08T17:01:08","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5160,
+  "mpName": "Васил Тодоров Филев",
+  "generatedAt": "2026-07-24T03:35:58.753Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "112611527",
+      "companyName": "ПАСАТ ЛИНК",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-08T17:07:32",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "822090225",
+      "companyName": "ПАСАТ АНТЕНИ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 25,
+      "addedAt": "2026-05-08T17:01:08",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

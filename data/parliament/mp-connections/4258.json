@@ -1,1 +1,382 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4258","nodes":[{"id":"mp:4258","type":"mp","mpId":4258,"label":"Вежди Летиф Рашидов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","48","49"]},{"id":"company:Рашидов-пропъртис-ООД","type":"company","label":"Рашидов пропъртис ООД","slug":"Рашидов-пропъртис-ООД","uic":"203285026","legalForm":"OOD","status":"active","seat":"гр. София, ул. Куила №8"},{"id":"company:tr:175652868","type":"company","label":"НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ ПРИРОДАТА ЗА ХОРАТА","slug":null,"uic":"175652868","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, София, 1616"},{"id":"company:tr:206896364","type":"company","label":"Център за развитие и политики","slug":null,"uic":"206896364","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА РАШИДОВА","type":"person","label":"Снежа Георгиева Бахарова Рашидова"},{"id":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА - РАШИДОВА","type":"person","label":"Снежа Георгиева Бахарова - Рашидова"},{"id":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА-РАШИДОВА","type":"person","label":"Снежа Георгиева Бахарова-Рашидова"},{"id":"person:ФИЛИП НИКОЛОВ ЦАНОВ","type":"person","label":"Филип Николов Цанов"},{"id":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","type":"person","label":"Стефан Димитров Груев"},{"id":"person:РАДОСЛАВ ВАСИЛЕВ ЯНКУЛОВ","type":"person","label":"Радослав Василев Янкулов"},{"id":"person:ЦВЕТАН АЛЕКСАНДРОВ ЦВЕТАНОВ","type":"person","label":"Цветан Александров Цветанов"},{"id":"person:ПЛАМЕН ВАСИЛЕВ ИВАНОВ","type":"person","label":"Пламен Василев Иванов"},{"id":"person:СВЕТОЗАР ТОДОРОВ АТАНАСОВ","type":"person","label":"Светозар Тодоров Атанасов"},{"id":"mp:2843","type":"mp","mpId":2843,"label":"Константин Веселинов Попов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"mp:3101","type":"mp","mpId":3101,"label":"Ивелина Веселинова Василева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["42","43","44"]},{"id":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","type":"person","label":"Добромир Валентинов Дончев"},{"id":"person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ","type":"person","label":"Ангел Николаев Тинчев"},{"id":"company:tr:208599543","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ НА ПЕНСИОНЕРСКИТЕ СЪЮЗИ И ОРГАНИЗАЦИИ","slug":null,"uic":"208599543","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"mp:3064","type":"mp","mpId":3064,"label":"Велизар Пенков Енчев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["43"]}],"edges":[{"source":"mp:4258","target":"company:Рашидов-пропъртис-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4258","target":"company:Рашидов-пропъртис-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4258","target":"company:Рашидов-пропъртис-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4258","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4258","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА РАШИДОВА","target":"company:Рашидов-пропъртис-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА - РАШИДОВА","target":"company:Рашидов-пропъртис-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖА ГЕОРГИЕВА БАХАРОВА-РАШИДОВА","target":"company:Рашидов-пропъртис-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП НИКОЛОВ ЦАНОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП НИКОЛОВ ЦАНОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ВАСИЛЕВ ЯНКУЛОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН АЛЕКСАНДРОВ ЦВЕТАНОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ВАСИЛЕВ ИВАНОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР ТОДОРОВ АТАНАСОВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2843","target":"company:tr:206896364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2843","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3101","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3064","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3101","length":2,"nodeIds":["mp:4258","company:tr:206896364","mp:3101"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2843","length":2,"nodeIds":["mp:4258","company:tr:206896364","mp:2843"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3064","length":4,"nodeIds":["mp:4258","company:tr:175652868","person:СТЕФАН ДИМИТРОВ ГРУЕВ","company:tr:208599543","mp:3064"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4258",
+  "nodes": [
+    {
+      "id": "mp:4258",
+      "type": "mp",
+      "mpId": 4258,
+      "label": "Вежди Летиф Рашидов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:Рашидов-пропъртис-ООД",
+      "type": "company",
+      "label": "Рашидов пропъртис ООД",
+      "slug": "Рашидов-пропъртис-ООД",
+      "uic": "203285026",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:175652868",
+      "type": "company",
+      "label": "НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ ПРИРОДАТА ЗА ХОРАТА",
+      "slug": null,
+      "uic": "175652868",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1616"
+    },
+    {
+      "id": "company:tr:206896364",
+      "type": "company",
+      "label": "Център за развитие и политики",
+      "slug": null,
+      "uic": "206896364",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА РАШИДОВА",
+      "type": "person",
+      "label": "Снежа Георгиева Бахарова Рашидова"
+    },
+    {
+      "id": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА - РАШИДОВА",
+      "type": "person",
+      "label": "Снежа Георгиева Бахарова - Рашидова"
+    },
+    {
+      "id": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА-РАШИДОВА",
+      "type": "person",
+      "label": "Снежа Георгиева Бахарова-Рашидова"
+    },
+    {
+      "id": "person:ФИЛИП НИКОЛОВ ЦАНОВ",
+      "type": "person",
+      "label": "Филип Николов Цанов"
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "type": "person",
+      "label": "Стефан Димитров Груев"
+    },
+    {
+      "id": "person:РАДОСЛАВ ВАСИЛЕВ ЯНКУЛОВ",
+      "type": "person",
+      "label": "Радослав Василев Янкулов"
+    },
+    {
+      "id": "person:ЦВЕТАН АЛЕКСАНДРОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Цветан Александров Цветанов"
+    },
+    {
+      "id": "person:ПЛАМЕН ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Василев Иванов"
+    },
+    {
+      "id": "person:СВЕТОЗАР ТОДОРОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Светозар Тодоров Атанасов"
+    },
+    {
+      "id": "mp:2843",
+      "type": "mp",
+      "mpId": 2843,
+      "label": "Константин Веселинов Попов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:3101",
+      "type": "mp",
+      "mpId": 3101,
+      "label": "Ивелина Веселинова Василева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Добромир Валентинов Дончев"
+    },
+    {
+      "id": "person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ",
+      "type": "person",
+      "label": "Ангел Николаев Тинчев"
+    },
+    {
+      "id": "company:tr:208599543",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ НА ПЕНСИОНЕРСКИТЕ СЪЮЗИ И ОРГАНИЗАЦИИ",
+      "slug": null,
+      "uic": "208599543",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "mp:3064",
+      "type": "mp",
+      "mpId": 3064,
+      "label": "Велизар Пенков Енчев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4258",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА РАШИДОВА",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА - РАШИДОВА",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖА ГЕОРГИЕВА БАХАРОВА-РАШИДОВА",
+      "target": "company:Рашидов-пропъртис-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП НИКОЛОВ ЦАНОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП НИКОЛОВ ЦАНОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ВАСИЛЕВ ЯНКУЛОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН АЛЕКСАНДРОВ ЦВЕТАНОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР ТОДОРОВ АТАНАСОВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2843",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2843",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3101",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3064",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3101",
+      "length": 2,
+      "nodeIds": [
+        "mp:4258",
+        "company:tr:206896364",
+        "mp:3101"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2843",
+      "length": 2,
+      "nodeIds": [
+        "mp:4258",
+        "company:tr:206896364",
+        "mp:2843"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3064",
+      "length": 4,
+      "nodeIds": [
+        "mp:4258",
+        "company:tr:175652868",
+        "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+        "company:tr:208599543",
+        "mp:3064"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,122 @@
-[{"mpId":4892,"declarantName":"РЕМЗИ ДУРМУШ ОСМАН","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-04-16","entryNumber":"Г2368","controlHash":"D10D94BF","sourceUrl":"https://register.cacbg.bg/2025/559D473A-BD0A-4A46-9BCB-C3EA547F7C9D205002.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":5859.404958508664,"amountEurSpouse":4218.1580198688025},{"parent":null,"category":"Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество","amountEurDeclarant":1227.1005148709244,"amountEurSpouse":null}],"assets":[{"category":"cash","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":30000,"valueEur":10225.83762392437,"holderName":"Ремзи Дурмуш Осман","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата-наем"},{"category":"bank","description":null,"detail":"EUR","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"EUR","amount":60000,"valueEur":61355.02574354622,"holderName":"Ремзи Дурмуш Осман","isSpouse":false,"legalBasis":null,"fundsOrigin":"спестявания-наем"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":30000,"valueEur":15338.756435886555,"holderName":"Ремзи Дурмуш Осман","isSpouse":false,"legalBasis":null,"fundsOrigin":"спестявания-наем"},{"category":"bank","description":null,"detail":"EUR","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"EUR","amount":64550,"valueEur":66007.7818624318,"holderName":"Гюлнар Вели Осман","isSpouse":true,"legalBasis":null,"fundsOrigin":"наследство - спестявания"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":28000,"valueEur":14316.172673494118,"holderName":"Гюлнар Вели Осман","isSpouse":true,"legalBasis":null,"fundsOrigin":"спестявания"}],"events":[]}]
+[
+  {
+    "mpId": 4892,
+    "declarantName": "РЕМЗИ ДУРМУШ ОСМАН",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-16",
+    "entryNumber": "Г2368",
+    "controlHash": "D10D94BF",
+    "sourceUrl": "https://register.cacbg.bg/2025/559D473A-BD0A-4A46-9BCB-C3EA547F7C9D205002.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5859.404958508664,
+        "amountEurSpouse": 4218.1580198688025
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Ремзи Дурмуш Осман",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата-наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 60000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Ремзи Дурмуш Осман",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания-наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ремзи Дурмуш Осман",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания-наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 64550,
+        "valueEur": 66007.7818624318,
+        "holderName": "Гюлнар Вели Осман",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследство - спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Гюлнар Вели Осман",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  }
+]

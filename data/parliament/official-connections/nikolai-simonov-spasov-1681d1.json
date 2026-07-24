@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-simonov-spasov-1681d1",
+  "nodes": [
+    {
+      "id": "official:nikolai-simonov-spasov-1681d1",
+      "type": "official",
+      "slug": "nikolai-simonov-spasov-1681d1",
+      "label": "Николай Симонов Спасов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207788733",
+      "type": "company",
+      "label": "СпортВент",
+      "slug": null,
+      "uic": "207788733",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dari-kirilov-iordanov-89da97",
+      "type": "official",
+      "slug": "dari-kirilov-iordanov-89da97",
+      "label": "Дари Кирилов Йорданов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:MAРИН СТЕФАНОВ МАНЕВ",
+      "type": "person",
+      "label": "Maрин Стефанов Манев"
+    },
+    {
+      "id": "person:ЕЛЕНА СИМОНОВА СПАСОВА",
+      "type": "person",
+      "label": "Елена Симонова Спасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-simonov-spasov-1681d1",
+      "target": "company:tr:207788733",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dari-kirilov-iordanov-89da97",
+      "target": "company:tr:207788733",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:MAРИН СТЕФАНОВ МАНЕВ",
+      "target": "company:tr:207788733",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:MAРИН СТЕФАНОВ МАНЕВ",
+      "target": "company:tr:207788733",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА СИМОНОВА СПАСОВА",
+      "target": "company:tr:207788733",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

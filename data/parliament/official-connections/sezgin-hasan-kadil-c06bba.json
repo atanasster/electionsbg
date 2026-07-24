@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sezgin-hasan-kadil-c06bba",
+  "nodes": [
+    {
+      "id": "official:sezgin-hasan-kadil-c06bba",
+      "type": "official",
+      "slug": "sezgin-hasan-kadil-c06bba",
+      "label": "Сезгин Хасан Кадил",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Поморие"
+    },
+    {
+      "id": "company:tr:207282611",
+      "type": "company",
+      "label": "ХАСЕ 91",
+      "slug": null,
+      "uic": "207282611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАБИБЕ ОСМАН КАДИЛ",
+      "type": "person",
+      "label": "Хабибе Осман Кадил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sezgin-hasan-kadil-c06bba",
+      "target": "company:tr:207282611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sezgin-hasan-kadil-c06bba",
+      "target": "company:tr:207282611",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАБИБЕ ОСМАН КАДИЛ",
+      "target": "company:tr:207282611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАБИБЕ ОСМАН КАДИЛ",
+      "target": "company:tr:207282611",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:silviya-dimitrova-grigorova-beb328",
+  "nodes": [
+    {
+      "id": "official:silviya-dimitrova-grigorova-beb328",
+      "type": "official",
+      "slug": "silviya-dimitrova-grigorova-beb328",
+      "label": "Силвия Димитрова Григорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200882055",
+      "type": "company",
+      "label": "ГРИЙН ЕНД БЕНЕФИТ ИНВЕСТ",
+      "slug": null,
+      "uic": "200882055",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХЕРВИГ АНДРЕАС РАЙНИНГЕР",
+      "type": "person",
+      "label": "Хервиг Андреас Райнингер"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-dimitrova-grigorova-beb328",
+      "target": "company:tr:200882055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХЕРВИГ АНДРЕАС РАЙНИНГЕР",
+      "target": "company:tr:200882055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

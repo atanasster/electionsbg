@@ -1,1 +1,36 @@
-{"mpId":5098,"mpName":"Стоян Тонев Петров","generatedAt":"2026-07-03T11:12:51.912Z","total":2,"roles":[{"uic":"204584164","companyName":"АКЕБИЯ - АМ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. Варна, 9010","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-02-12T17:25:44","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"204219357","companyName":"ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ДОБРИЧ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. Добрич, 9300","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2023-05-23T16:58:47","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"ДОБРИЧ\""}]}
+{
+  "mpId": 5098,
+  "mpName": "Стоян Тонев Петров",
+  "generatedAt": "2026-07-24T03:35:58.711Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "204584164",
+      "companyName": "АКЕБИЯ - АМ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9010",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-02-12T17:25:44",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "204219357",
+      "companyName": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ДОБРИЧ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-05-23T16:58:47",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"ДОБРИЧ\""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nevena-todorova-grigorova-2492d7",
+  "nodes": [
+    {
+      "id": "official:nevena-todorova-grigorova-2492d7",
+      "type": "official",
+      "slug": "nevena-todorova-grigorova-2492d7",
+      "label": "Невена Тодорова Григорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130083476",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПАЗАР 99",
+      "slug": null,
+      "uic": "130083476",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevena-todorova-grigorova-2492d7",
+      "target": "company:tr:130083476",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

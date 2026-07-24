@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-georgiev-barov-d851d3",
+  "nodes": [
+    {
+      "id": "official:lyubomir-georgiev-barov-d851d3",
+      "type": "official",
+      "slug": "lyubomir-georgiev-barov-d851d3",
+      "label": "Любомир Георгиев Баров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176802908",
+      "type": "company",
+      "label": "НАЦИОНАЛНА АСОЦИАЦИЯ НА ДОБРОВОЛЦИТЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176802908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТРИФОН ГАНЧЕВ ГИДИКОВ",
+      "type": "person",
+      "label": "Трифон Ганчев Гидиков"
+    },
+    {
+      "id": "person:ДАНИЕЛ ДИМИТРОВ ПАНОВ",
+      "type": "person",
+      "label": "Даниел Димитров Панов"
+    },
+    {
+      "id": "person:БЛАГОЙ ЛЮБЕНОВ ТОШЕВ",
+      "type": "person",
+      "label": "Благой Любенов Тошев"
+    },
+    {
+      "id": "person:РУСИ ИВАНОВ РУСЕВ",
+      "type": "person",
+      "label": "Руси Иванов Русев"
+    },
+    {
+      "id": "person:КРАСИМИР БИСЕРОВ ШОТАРОВ",
+      "type": "person",
+      "label": "Красимир Бисеров Шотаров"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ ВИДОЛОВСКИ",
+      "type": "person",
+      "label": "Иван Атанасов Видоловски"
+    },
+    {
+      "id": "person:ЯСЕН БОЖИДАРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Ясен Божидаров Цветков"
+    },
+    {
+      "id": "person:АТАНАС КОСТАДИНОВ ДАКОВ",
+      "type": "person",
+      "label": "Атанас Костадинов Даков"
+    },
+    {
+      "id": "person:СТЕЛИЯН ГЕОРГИЕВ ХАРАЛАНОВ",
+      "type": "person",
+      "label": "Стелиян Георгиев Хараланов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-georgiev-barov-d851d3",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТРИФОН ГАНЧЕВ ГИДИКОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ДИМИТРОВ ПАНОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ЛЮБЕНОВ ТОШЕВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСИ ИВАНОВ РУСЕВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БИСЕРОВ ШОТАРОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ ВИДОЛОВСКИ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН БОЖИДАРОВ ЦВЕТКОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КОСТАДИНОВ ДАКОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛИЯН ГЕОРГИЕВ ХАРАЛАНОВ",
+      "target": "company:tr:176802908",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

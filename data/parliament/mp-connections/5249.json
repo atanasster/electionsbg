@@ -1,1 +1,413 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5249","nodes":[{"id":"mp:5249","type":"mp","mpId":5249,"label":"Йорданка Асенова Фандъкова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["41","50","51","52"]},{"id":"company:tr:175059711","type":"company","label":"&quot;ГРАЖДАНИ ЗА ЕВРОПЕЙСКО РАЗВИТИЕ НА БЪЛГАРИЯ&quot;","slug":null,"uic":"175059711","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:131085957","type":"company","label":"ПАРК МАРИЯ ЛУИЗА","slug":null,"uic":"131085957","legalForm":"AD","status":"active","seat":null},{"id":"mp:2819","type":"mp","mpId":2819,"label":"Красимир Любомиров Велчев","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"person:СИМЕОН МЛАДЕНОВ КОЛЕВ","type":"person","label":"Симеон Младенов Колев"},{"id":"person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ","type":"person","label":"Осман Верхадов Ислямов"},{"id":"person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА","type":"person","label":"Светлана Кръстева Ломева"},{"id":"person:ЖАН-КРИСТОФ ГИ ЖАК НИВАР","type":"person","label":"Жан-Кристоф Ги Жак Нивар"},{"id":"person:ВАЛЕНТИН НИКОЛОВ ПЕТКОВ","type":"person","label":"Валентин Николов Петков"},{"id":"person:РУМЕН ТОДОРОВ ГАЙТАНСКИ-ЮНГ","type":"person","label":"Румен Тодоров Гайтански-Юнг"},{"id":"person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","type":"person","label":"Васил Александров Терзиев"},{"id":"company:tr:121399226","type":"company","label":"НАЦИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ В РЕПУБЛИКА БЪЛГАРИЯ","slug":null,"uic":"121399226","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:968","type":"mp","mpId":968,"label":"Белгин Фикри Шукри","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:4871","type":"mp","mpId":4871,"label":"Владимир Владимиров Георгиев","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":[]},{"id":"mp:63","type":"mp","mpId":63,"label":"Донка Иванова Михайлова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:1060","type":"mp","mpId":1060,"label":"Иво Тенев Димов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"mp:931","type":"mp","mpId":931,"label":"Никола Иванов Белишки","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:2821","type":"mp","mpId":2821,"label":"Станислав Иванов Владимиров","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]},{"id":"mp:4939","type":"mp","mpId":4939,"label":"Юксел Осман Ахмед","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5249","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5249","target":"company:tr:131085957","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2819","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СИМЕОН МЛАДЕНОВ КОЛЕВ","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖАН-КРИСТОФ ГИ ЖАК НИВАР","target":"company:tr:131085957","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН НИКОЛОВ ПЕТКОВ","target":"company:tr:131085957","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ТОДОРОВ ГАЙТАНСКИ-ЮНГ","target":"company:tr:131085957","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","target":"company:tr:131085957","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1060","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2821","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4871","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4939","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:63","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:931","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:968","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2819","length":2,"nodeIds":["mp:5249","company:tr:175059711","mp:2819"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:968","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:968"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4871","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:4871"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:63","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:63"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1060","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:1060"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:931","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:931"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2821","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:2821"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4939","length":4,"nodeIds":["mp:5249","company:tr:131085957","person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ","company:tr:121399226","mp:4939"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5249",
+  "nodes": [
+    {
+      "id": "mp:5249",
+      "type": "mp",
+      "mpId": 5249,
+      "label": "Йорданка Асенова Фандъкова",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "41",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:175059711",
+      "type": "company",
+      "label": "&quot;ГРАЖДАНИ ЗА ЕВРОПЕЙСКО РАЗВИТИЕ НА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "175059711",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:131085957",
+      "type": "company",
+      "label": "ПАРК МАРИЯ ЛУИЗА",
+      "slug": null,
+      "uic": "131085957",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2819",
+      "type": "mp",
+      "mpId": 2819,
+      "label": "Красимир Любомиров Велчев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "person:СИМЕОН МЛАДЕНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Симеон Младенов Колев"
+    },
+    {
+      "id": "person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ",
+      "type": "person",
+      "label": "Осман Верхадов Ислямов"
+    },
+    {
+      "id": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "type": "person",
+      "label": "Светлана Кръстева Ломева"
+    },
+    {
+      "id": "person:ЖАН-КРИСТОФ ГИ ЖАК НИВАР",
+      "type": "person",
+      "label": "Жан-Кристоф Ги Жак Нивар"
+    },
+    {
+      "id": "person:ВАЛЕНТИН НИКОЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Валентин Николов Петков"
+    },
+    {
+      "id": "person:РУМЕН ТОДОРОВ ГАЙТАНСКИ-ЮНГ",
+      "type": "person",
+      "label": "Румен Тодоров Гайтански-Юнг"
+    },
+    {
+      "id": "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Васил Александров Терзиев"
+    },
+    {
+      "id": "company:tr:121399226",
+      "type": "company",
+      "label": "НАЦИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121399226",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:968",
+      "type": "mp",
+      "mpId": 968,
+      "label": "Белгин Фикри Шукри",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4871",
+      "type": "mp",
+      "mpId": 4871,
+      "label": "Владимир Владимиров Георгиев",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:63",
+      "type": "mp",
+      "mpId": 63,
+      "label": "Донка Иванова Михайлова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:1060",
+      "type": "mp",
+      "mpId": 1060,
+      "label": "Иво Тенев Димов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:931",
+      "type": "mp",
+      "mpId": 931,
+      "label": "Никола Иванов Белишки",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:2821",
+      "type": "mp",
+      "mpId": 2821,
+      "label": "Станислав Иванов Владимиров",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "mp:4939",
+      "type": "mp",
+      "mpId": 4939,
+      "label": "Юксел Осман Ахмед",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5249",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5249",
+      "target": "company:tr:131085957",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2819",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН МЛАДЕНОВ КОЛЕВ",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАН-КРИСТОФ ГИ ЖАК НИВАР",
+      "target": "company:tr:131085957",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НИКОЛОВ ПЕТКОВ",
+      "target": "company:tr:131085957",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ТОДОРОВ ГАЙТАНСКИ-ЮНГ",
+      "target": "company:tr:131085957",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+      "target": "company:tr:131085957",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1060",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2821",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4871",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4939",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:63",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:931",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:968",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2819",
+      "length": 2,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:175059711",
+        "mp:2819"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:968",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:968"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4871",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:4871"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:63",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:63"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1060",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:1060"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:931",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:931"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2821",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:2821"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4939",
+      "length": 4,
+      "nodeIds": [
+        "mp:5249",
+        "company:tr:131085957",
+        "person:ВАСИЛ АЛЕКСАНДРОВ ТЕРЗИЕВ",
+        "company:tr:121399226",
+        "mp:4939"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

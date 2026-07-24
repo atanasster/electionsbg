@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:radostina-encheva-encheva-bb7536",
+  "nodes": [
+    {
+      "id": "official:radostina-encheva-encheva-bb7536",
+      "type": "official",
+      "slug": "radostina-encheva-encheva-bb7536",
+      "label": "Радостина Енчева Енчева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207635221",
+      "type": "company",
+      "label": "ЗА БАЛЧИК 2023",
+      "slug": null,
+      "uic": "207635221",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТРАЯНА МИТКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Траяна Миткова Димитрова"
+    },
+    {
+      "id": "person:ХРИСТО ЖЕЛЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Желев Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-encheva-encheva-bb7536",
+      "target": "company:tr:207635221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТРАЯНА МИТКОВА ДИМИТРОВА",
+      "target": "company:tr:207635221",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯНА МИТКОВА ДИМИТРОВА",
+      "target": "company:tr:207635221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЖЕЛЕВ ХРИСТОВ",
+      "target": "company:tr:207635221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

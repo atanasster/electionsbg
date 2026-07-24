@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kadir-basri-ismail-46b591",
+  "nodes": [
+    {
+      "id": "official:kadir-basri-ismail-46b591",
+      "type": "official",
+      "slug": "kadir-basri-ismail-46b591",
+      "label": "Кадир Басри Исмаил",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лозница"
+    },
+    {
+      "id": "company:tr:000499731",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ДОБРУДЖА - 1930 г.&quot;",
+      "slug": null,
+      "uic": "000499731",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЙСЕЛ МАЗЛУМ САЛИ",
+      "type": "person",
+      "label": "Айсел Мазлум Сали"
+    },
+    {
+      "id": "person:ГЮЛВЕР ФЕРХАТОВА РАХИМОВА",
+      "type": "person",
+      "label": "Гюлвер Ферхатова Рахимова"
+    },
+    {
+      "id": "person:СЕРВИНАС ШЕФКЕД ЯКУБ",
+      "type": "person",
+      "label": "Сервинас Шефкед Якуб"
+    },
+    {
+      "id": "person:ХАЛИМЕ СЕЗАИМ КАДИР",
+      "type": "person",
+      "label": "Халиме Сезаим Кадир"
+    },
+    {
+      "id": "person:ЛЕЙЛЯ АЛИЕВА ХЮСЕИН",
+      "type": "person",
+      "label": "Лейля Алиева Хюсеин"
+    },
+    {
+      "id": "person:АЙШЕ ИСМАИЛ РАИМОВА",
+      "type": "person",
+      "label": "Айше Исмаил Раимова"
+    },
+    {
+      "id": "person:МЕХРИБАН САЛИ НУРИЕВА",
+      "type": "person",
+      "label": "Мехрибан Сали Нуриева"
+    },
+    {
+      "id": "person:КЕРИМЕ МЕХМЕДОВА СЪТКЪ",
+      "type": "person",
+      "label": "Кериме Мехмедова Съткъ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kadir-basri-ismail-46b591",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙСЕЛ МАЗЛУМ САЛИ",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛВЕР ФЕРХАТОВА РАХИМОВА",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРВИНАС ШЕФКЕД ЯКУБ",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИМЕ СЕЗАИМ КАДИР",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕЙЛЯ АЛИЕВА ХЮСЕИН",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ИСМАИЛ РАИМОВА",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХРИБАН САЛИ НУРИЕВА",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕРИМЕ МЕХМЕДОВА СЪТКЪ",
+      "target": "company:tr:000499731",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

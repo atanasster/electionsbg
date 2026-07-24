@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:borislava-rumenova-iovcheva-kasabova-ac085a",
+  "nodes": [
+    {
+      "id": "official:borislava-rumenova-iovcheva-kasabova-ac085a",
+      "type": "official",
+      "slug": "borislava-rumenova-iovcheva-kasabova-ac085a",
+      "label": "Борислава Руменова Йовчева-Касабова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000500393",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НОВ ЖИВОТ - 1909г.&quot;",
+      "slug": null,
+      "uic": "000500393",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА ГАНЕВА-ТОДОРОВА",
+      "type": "person",
+      "label": "Радка Иванова Ганева-Тодорова"
+    },
+    {
+      "id": "person:МАРИЯН КАЛЧЕВ МИЧЕВ",
+      "type": "person",
+      "label": "Мариян Калчев Мичев"
+    },
+    {
+      "id": "person:КРАСИМИРА ДОНЕВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Красимира Донева Владимирова"
+    },
+    {
+      "id": "person:НЕДКА БЕЛЧЕВА МИКОВА",
+      "type": "person",
+      "label": "Недка Белчева Микова"
+    },
+    {
+      "id": "person:СТЕФАНИ ХРИСТОВА ШОПОВА",
+      "type": "person",
+      "label": "Стефани Христова Шопова"
+    },
+    {
+      "id": "person:ХРИСТО СТЕФАНОВ ШОПОВ",
+      "type": "person",
+      "label": "Христо Стефанов Шопов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislava-rumenova-iovcheva-kasabova-ac085a",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА ГАНЕВА-ТОДОРОВА",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН КАЛЧЕВ МИЧЕВ",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДОНЕВА ВЛАДИМИРОВА",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА БЕЛЧЕВА МИКОВА",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНИ ХРИСТОВА ШОПОВА",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТЕФАНОВ ШОПОВ",
+      "target": "company:tr:000500393",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

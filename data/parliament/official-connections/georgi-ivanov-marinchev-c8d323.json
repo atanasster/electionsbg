@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:georgi-ivanov-marinchev-c8d323","nodes":[{"id":"official:georgi-ivanov-marinchev-c8d323","type":"official","slug":"georgi-ivanov-marinchev-c8d323","label":"Георги Иванов Маринчев","tier":"municipal","role":"councillor","municipality":"Бургас"},{"id":"company:tr:102655436","type":"company","label":"ПЕПЕЛЯШКА ООД","slug":null,"uic":"102655436","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:georgi-ivanov-marinchev-c8d323","target":"company:tr:102655436","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-ivanov-marinchev-c8d323",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-marinchev-c8d323",
+      "type": "official",
+      "slug": "georgi-ivanov-marinchev-c8d323",
+      "label": "Георги Иванов Маринчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:102655436",
+      "type": "company",
+      "label": "ПЕПЕЛЯШКА ООД",
+      "slug": null,
+      "uic": "102655436",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-marinchev-c8d323",
+      "target": "company:tr:102655436",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

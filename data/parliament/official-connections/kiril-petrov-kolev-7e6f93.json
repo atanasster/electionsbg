@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kiril-petrov-kolev-7e6f93",
+  "nodes": [
+    {
+      "id": "official:kiril-petrov-kolev-7e6f93",
+      "type": "official",
+      "slug": "kiril-petrov-kolev-7e6f93",
+      "label": "Кирил Петров Колев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204368222",
+      "type": "company",
+      "label": "Топ Консулт 2016",
+      "slug": null,
+      "uic": "204368222",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207647273",
+      "type": "company",
+      "label": "Хънтинг Експерт",
+      "slug": null,
+      "uic": "207647273",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОАНЕТА ПЕТРОВА ИСАКОВА",
+      "type": "person",
+      "label": "Антоанета Петрова Исакова"
+    },
+    {
+      "id": "person:АНИТА ЛЮБЕНОВА БАНОВА",
+      "type": "person",
+      "label": "Анита Любенова Банова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-petrov-kolev-7e6f93",
+      "target": "company:tr:204368222",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kiril-petrov-kolev-7e6f93",
+      "target": "company:tr:207647273",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА ИСАКОВА",
+      "target": "company:tr:204368222",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА ЛЮБЕНОВА БАНОВА",
+      "target": "company:tr:204368222",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА ИСАКОВА",
+      "target": "company:tr:207647273",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ПЕТРОВА ИСАКОВА",
+      "target": "company:tr:207647273",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

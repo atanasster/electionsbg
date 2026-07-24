@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tanya-ivanova-kolchakova-yaneva-ffd65e",
+  "nodes": [
+    {
+      "id": "official:tanya-ivanova-kolchakova-yaneva-ffd65e",
+      "type": "official",
+      "slug": "tanya-ivanova-kolchakova-yaneva-ffd65e",
+      "label": "Таня Иванова Колчакова- Янева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Пазарджик"
+    },
+    {
+      "id": "company:tr:112635542",
+      "type": "company",
+      "label": "Еко Инвест Груп ЕООД",
+      "slug": null,
+      "uic": "112635542",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИВАНОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Десислава Иванова Апостолова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-ivanova-kolchakova-yaneva-ffd65e",
+      "target": "company:tr:112635542",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИВАНОВА АПОСТОЛОВА",
+      "target": "company:tr:112635542",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

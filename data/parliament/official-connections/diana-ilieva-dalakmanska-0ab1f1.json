@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:diana-ilieva-dalakmanska-0ab1f1",
+  "nodes": [
+    {
+      "id": "official:diana-ilieva-dalakmanska-0ab1f1",
+      "type": "official",
+      "slug": "diana-ilieva-dalakmanska-0ab1f1",
+      "label": "Диана Илиева Далакманска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добричка"
+    },
+    {
+      "id": "company:tr:124069600",
+      "type": "company",
+      "label": "СВЕТИ НИКОЛАЙ ЧУДОТВОРЕЦ",
+      "slug": null,
+      "uic": "124069600",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАСАН ЕФРАИМОВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Хасан Ефраимов Мехмедов"
+    },
+    {
+      "id": "person:ХАСАН МЕХМЕДОВ ЕФРАИМОВ",
+      "type": "person",
+      "label": "Хасан Мехмедов Ефраимов"
+    },
+    {
+      "id": "person:МАРИЯН ИВАНОВ ЛУНГОВ",
+      "type": "person",
+      "label": "Мариян Иванов Лунгов"
+    },
+    {
+      "id": "person:БЕКИР ЕМИНОВ САБАХТИНОВ",
+      "type": "person",
+      "label": "Бекир Еминов Сабахтинов"
+    },
+    {
+      "id": "person:ТЕРЕЗА АХИЛОВА КАРАМУЗОВА",
+      "type": "person",
+      "label": "Тереза Ахилова Карамузова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-ilieva-dalakmanska-0ab1f1",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАСАН ЕФРАИМОВ МЕХМЕДОВ",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН МЕХМЕДОВ ЕФРАИМОВ",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН ИВАНОВ ЛУНГОВ",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕКИР ЕМИНОВ САБАХТИНОВ",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРЕЗА АХИЛОВА КАРАМУЗОВА",
+      "target": "company:tr:124069600",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

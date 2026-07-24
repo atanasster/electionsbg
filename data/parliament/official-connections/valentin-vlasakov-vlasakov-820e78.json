@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-vlasakov-vlasakov-820e78",
+  "nodes": [
+    {
+      "id": "official:valentin-vlasakov-vlasakov-820e78",
+      "type": "official",
+      "slug": "valentin-vlasakov-vlasakov-820e78",
+      "label": "Валентин Власаков Власаков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000090019",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТА АННА-ВАРНА",
+      "slug": null,
+      "uic": "000090019",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:olga-nikolaeva-tomova-kutsarova-f2dac1",
+      "type": "official",
+      "slug": "olga-nikolaeva-tomova-kutsarova-f2dac1",
+      "label": "Олга Николаева Томова-Куцарова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Красимир Петров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-vlasakov-vlasakov-820e78",
+      "target": "company:tr:000090019",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:olga-nikolaeva-tomova-kutsarova-f2dac1",
+      "target": "company:tr:000090019",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:000090019",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:000090019",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

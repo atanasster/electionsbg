@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rumen-kostadinov-stoyanov-d5e5bf",
+  "nodes": [
+    {
+      "id": "official:rumen-kostadinov-stoyanov-d5e5bf",
+      "type": "official",
+      "slug": "rumen-kostadinov-stoyanov-d5e5bf",
+      "label": "Румен Костадинов Стоянов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000016054",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ДИМИТЪР БЛАГОЕВ - 1956&quot;",
+      "slug": null,
+      "uic": "000016054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ВЕНЦИСЛАВОВ СРАДКОВ",
+      "type": "person",
+      "label": "Георги Венциславов Срадков"
+    },
+    {
+      "id": "person:КРАСИМИР ЙОРДАНОВ ТАСЕВ",
+      "type": "person",
+      "label": "Красимир Йорданов Тасев"
+    },
+    {
+      "id": "person:АНДРЕЙ БОЖИДАРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Андрей Божидаров Костадинов"
+    },
+    {
+      "id": "person:ВАЛЕРИ БОРИСОВ МАНЧЕВ",
+      "type": "person",
+      "label": "Валери Борисов Манчев"
+    },
+    {
+      "id": "person:ЙОРДАН ИЛИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Йордан Илиев Николов"
+    },
+    {
+      "id": "person:ХРИСТИНА СИМЕОНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Христина Симеонова Георгиева"
+    },
+    {
+      "id": "person:БОГДАНА БОРИСОВА БАРАКОВА",
+      "type": "person",
+      "label": "Богдана Борисова Баракова"
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ ТАНЧЕВ",
+      "type": "person",
+      "label": "Живко Иванов Танчев"
+    },
+    {
+      "id": "person:МАРИЯ КОСТАДИНОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Мария Костадинова  Стойкова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА СТАНОЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Станоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-kostadinov-stoyanov-d5e5bf",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-kostadinov-stoyanov-d5e5bf",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЕНЦИСЛАВОВ СРАДКОВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЙОРДАНОВ ТАСЕВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ БОЖИДАРОВ КОСТАДИНОВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ БОРИСОВ МАНЧЕВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИЛИЕВ НИКОЛОВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА СИМЕОНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАНА БОРИСОВА БАРАКОВА",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ТАНЧЕВ",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТАДИНОВА СТОЙКОВА",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА СТАНОЕВА",
+      "target": "company:tr:000016054",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

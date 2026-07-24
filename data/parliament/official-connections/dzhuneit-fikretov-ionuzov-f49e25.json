@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dzhuneit-fikretov-ionuzov-f49e25",
+  "nodes": [
+    {
+      "id": "official:dzhuneit-fikretov-ionuzov-f49e25",
+      "type": "official",
+      "slug": "dzhuneit-fikretov-ionuzov-f49e25",
+      "label": "Джунейт Фикретов Йонузов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:207311109",
+      "type": "company",
+      "label": "\"Джони АА\"",
+      "slug": null,
+      "uic": "207311109",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖУНЕЙТ ФИКРЕТОВ ЙОНУЗОВ",
+      "type": "person",
+      "label": "Джунейт Фикретов Йонузов"
+    },
+    {
+      "id": "person:ДЕНИС ФИКРЕТОВ ЙОНУЗОВ",
+      "type": "person",
+      "label": "Денис Фикретов Йонузов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhuneit-fikretov-ionuzov-f49e25",
+      "target": "company:tr:207311109",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖУНЕЙТ ФИКРЕТОВ ЙОНУЗОВ",
+      "target": "company:tr:207311109",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖУНЕЙТ ФИКРЕТОВ ЙОНУЗОВ",
+      "target": "company:tr:207311109",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИС ФИКРЕТОВ ЙОНУЗОВ",
+      "target": "company:tr:207311109",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИС ФИКРЕТОВ ЙОНУЗОВ",
+      "target": "company:tr:207311109",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

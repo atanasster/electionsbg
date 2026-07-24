@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4523","nodes":[{"id":"mp:4523","type":"mp","mpId":4523,"label":"Вяра Методиева Тодева","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206237022","type":"company","label":"София Ин","slug":null,"uic":"206237022","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"company:tr:208286349","type":"company","label":"Археос Билд","slug":null,"uic":"208286349","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"person:МИЛЕН АНТОНОВ ТОНЕВ","type":"person","label":"Милен Антонов Тонев"},{"id":"person:МИЛЕН РОСЕНОВ ПЕШЕВ","type":"person","label":"Милен Росенов Пешев"},{"id":"person:БОРИСЛАВ ДИМИТРОВ БОГДАНОВ","type":"person","label":"Борислав Димитров Богданов"},{"id":"company:name:АМФИОН","type":"company","label":"АМФИОН ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:СОФИЯ ИН РИЪЛ ЕСТЕЙТ","type":"company","label":"София Ин Риъл Естейт ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:АМФИОН","type":"person","label":"Амфион"},{"id":"person:СОФИЯ ИН РИЪЛ ЕСТЕЙТ","type":"person","label":"София Ин Риъл Естейт"}],"edges":[{"source":"mp:4523","target":"company:tr:206237022","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4523","target":"company:tr:208286349","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕН АНТОНОВ ТОНЕВ","target":"company:tr:206237022","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН РОСЕНОВ ПЕШЕВ","target":"company:tr:206237022","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН АНТОНОВ ТОНЕВ","target":"company:tr:206237022","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ДИМИТРОВ БОГДАНОВ","target":"company:tr:208286349","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АМФИОН","target":"company:tr:208286349","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:СОФИЯ ИН РИЪЛ ЕСТЕЙТ","target":"company:tr:208286349","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АМФИОН","target":"company:tr:208286349","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ ИН РИЪЛ ЕСТЕЙТ","target":"company:tr:208286349","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4523",
+  "nodes": [
+    {
+      "id": "mp:4523",
+      "type": "mp",
+      "mpId": 4523,
+      "label": "Вяра Методиева Тодева",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206237022",
+      "type": "company",
+      "label": "София Ин",
+      "slug": null,
+      "uic": "206237022",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "company:tr:208286349",
+      "type": "company",
+      "label": "Археос Билд",
+      "slug": null,
+      "uic": "208286349",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "person:МИЛЕН АНТОНОВ ТОНЕВ",
+      "type": "person",
+      "label": "Милен Антонов Тонев"
+    },
+    {
+      "id": "person:МИЛЕН РОСЕНОВ ПЕШЕВ",
+      "type": "person",
+      "label": "Милен Росенов Пешев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ДИМИТРОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Борислав Димитров Богданов"
+    },
+    {
+      "id": "company:name:АМФИОН",
+      "type": "company",
+      "label": "АМФИОН ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СОФИЯ ИН РИЪЛ ЕСТЕЙТ",
+      "type": "company",
+      "label": "София Ин Риъл Естейт ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АМФИОН",
+      "type": "person",
+      "label": "Амфион"
+    },
+    {
+      "id": "person:СОФИЯ ИН РИЪЛ ЕСТЕЙТ",
+      "type": "person",
+      "label": "София Ин Риъл Естейт"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4523",
+      "target": "company:tr:206237022",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4523",
+      "target": "company:tr:208286349",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН АНТОНОВ ТОНЕВ",
+      "target": "company:tr:206237022",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН РОСЕНОВ ПЕШЕВ",
+      "target": "company:tr:206237022",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АНТОНОВ ТОНЕВ",
+      "target": "company:tr:206237022",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ДИМИТРОВ БОГДАНОВ",
+      "target": "company:tr:208286349",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АМФИОН",
+      "target": "company:tr:208286349",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СОФИЯ ИН РИЪЛ ЕСТЕЙТ",
+      "target": "company:tr:208286349",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АМФИОН",
+      "target": "company:tr:208286349",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ИН РИЪЛ ЕСТЕЙТ",
+      "target": "company:tr:208286349",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

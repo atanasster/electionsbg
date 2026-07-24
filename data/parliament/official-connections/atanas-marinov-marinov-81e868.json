@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-marinov-marinov-81e868",
+  "nodes": [
+    {
+      "id": "official:atanas-marinov-marinov-81e868",
+      "type": "official",
+      "slug": "atanas-marinov-marinov-81e868",
+      "label": "Атанас Маринов Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:207674352",
+      "type": "company",
+      "label": "Общински съюз пенсионерите Бургас- Алтернативен",
+      "slug": null,
+      "uic": "207674352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА РАЙКОВА МИЛУШЕВА",
+      "type": "person",
+      "label": "Иванка Райкова Милушева"
+    },
+    {
+      "id": "person:НЕДЯЛКА КЪНЕВА ВАЧКОВА",
+      "type": "person",
+      "label": "Недялка Кънева Вачкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-marinov-marinov-81e868",
+      "target": "company:tr:207674352",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-marinov-marinov-81e868",
+      "target": "company:tr:207674352",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА РАЙКОВА МИЛУШЕВА",
+      "target": "company:tr:207674352",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА КЪНЕВА ВАЧКОВА",
+      "target": "company:tr:207674352",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milen-stoikov-marinov-8d1c22",
+  "nodes": [
+    {
+      "id": "official:milen-stoikov-marinov-8d1c22",
+      "type": "official",
+      "slug": "milen-stoikov-marinov-8d1c22",
+      "label": "Милен Стойков Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Оряховица"
+    },
+    {
+      "id": "company:tr:104022340",
+      "type": "company",
+      "label": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ ЛОКОМОТИВ",
+      "slug": null,
+      "uic": "104022340",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ЛЮБОМИРОВ РУСЕВ",
+      "type": "person",
+      "label": "Владимир Любомиров Русев"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЦЕНКОВ ГАВАЗОВ",
+      "type": "person",
+      "label": "Мирослав Ценков Гавазов"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Димитров"
+    },
+    {
+      "id": "person:ПЕТЪР ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Христов Петров"
+    },
+    {
+      "id": "person:НИКОЛА МАРКОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Марков Николов"
+    },
+    {
+      "id": "person:БОЯН НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Боян Николаев Колев"
+    },
+    {
+      "id": "person:ГЕОРГИ ЕВГЕНИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Евгениев Иванов"
+    },
+    {
+      "id": "person:МИХАИЛ ЛЮБОМИРОВ ЧЕНКОВ",
+      "type": "person",
+      "label": "Михаил Любомиров Ченков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-stoikov-marinov-8d1c22",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ РУСЕВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЦЕНКОВ ГАВАЗОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ РУСЕВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МАРКОВ НИКОЛОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЕВГЕНИЕВ ИВАНОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ЛЮБОМИРОВ ЧЕНКОВ",
+      "target": "company:tr:104022340",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

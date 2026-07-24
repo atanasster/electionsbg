@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mehmed-mehmedov-ahmedov-b81e0f",
+  "nodes": [
+    {
+      "id": "official:mehmed-mehmedov-ahmedov-b81e0f",
+      "type": "official",
+      "slug": "mehmed-mehmedov-ahmedov-b81e0f",
+      "label": "Мехмед Мехмедов Ахмедов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:000869052",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО БОТЕВ-1926&quot;",
+      "slug": null,
+      "uic": "000869052",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БЕДРИ МЕХМЕДОВ БЕКИРОВ",
+      "type": "person",
+      "label": "Бедри Мехмедов Бекиров"
+    },
+    {
+      "id": "person:ГЮЛБИЕ МЕХМЕДОВА ФЕИМОВА",
+      "type": "person",
+      "label": "Гюлбие Мехмедова Феимова"
+    },
+    {
+      "id": "person:МЕХМЕД МЕХМЕДОВ СЕИДОВ",
+      "type": "person",
+      "label": "Мехмед Мехмедов Сеидов"
+    },
+    {
+      "id": "person:ГЮРСЕЛ ХАМЗОВ ХАМИДОВ",
+      "type": "person",
+      "label": "Гюрсел Хамзов Хамидов"
+    },
+    {
+      "id": "person:АХМЕД ХЮСЕИНОВ МУСТАФОВ",
+      "type": "person",
+      "label": "Ахмед Хюсеинов Мустафов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-mehmedov-ahmedov-b81e0f",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЕДРИ МЕХМЕДОВ БЕКИРОВ",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛБИЕ МЕХМЕДОВА ФЕИМОВА",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕДРИ МЕХМЕДОВ БЕКИРОВ",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛБИЕ МЕХМЕДОВА ФЕИМОВА",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД МЕХМЕДОВ СЕИДОВ",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРСЕЛ ХАМЗОВ ХАМИДОВ",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД ХЮСЕИНОВ МУСТАФОВ",
+      "target": "company:tr:000869052",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:slaveya-angelova-stoyanova-412371",
+  "nodes": [
+    {
+      "id": "official:slaveya-angelova-stoyanova-412371",
+      "type": "official",
+      "slug": "slaveya-angelova-stoyanova-412371",
+      "label": "Славея Ангелова Стоянова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108521419",
+      "type": "company",
+      "label": "\"ЗЕТ ГАЗ\" ЕООД",
+      "slug": null,
+      "uic": "108521419",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slaveya-angelova-stoyanova-412371",
+      "target": "company:tr:108521419",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

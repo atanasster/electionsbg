@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-iordanov-bakalov-70ccda",
+  "nodes": [
+    {
+      "id": "official:ivan-iordanov-bakalov-70ccda",
+      "type": "official",
+      "slug": "ivan-iordanov-bakalov-70ccda",
+      "label": "Иван Йорданов Бакалов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205213723",
+      "type": "company",
+      "label": "С-Инто ЕООД",
+      "slug": null,
+      "uic": "205213723",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iordanov-bakalov-70ccda",
+      "target": "company:tr:205213723",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

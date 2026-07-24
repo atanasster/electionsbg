@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stoil-savov-alipiev-cb3511",
+  "nodes": [
+    {
+      "id": "official:stoil-savov-alipiev-cb3511",
+      "type": "official",
+      "slug": "stoil-savov-alipiev-cb3511",
+      "label": "Стоил Савов Алипиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202056170",
+      "type": "company",
+      "label": "КАС ИМОТИ",
+      "slug": null,
+      "uic": "202056170",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoil-savov-alipiev-cb3511",
+      "target": "company:tr:202056170",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

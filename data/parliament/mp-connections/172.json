@@ -1,1 +1,172 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:172","nodes":[{"id":"mp:172","type":"mp","mpId":172,"label":"Райна Господинова Йовчева","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:175761255","type":"company","label":"СДРУЖЕНИЕ &quot;БИЗНЕС ЦЕНТЪР-МАРИЦА&quot;","slug":null,"uic":"175761255","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:126073800","type":"company","label":"РЕГИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ &quot;МАРИЦА&quot;","slug":null,"uic":"126073800","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, с. Клокотница, 6310"},{"id":"person:АННА САШКОВА НЕНОВА-ПЕЕВА","type":"person","label":"Анна Сашкова Ненова-Пеева"},{"id":"person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА","type":"person","label":"Живка Димитрова Хаджиангелова"},{"id":"person:ДАНЧО ДИМИТРОВ ТРИФОНОВ","type":"person","label":"Данчо Димитров Трифонов"},{"id":"person:НИКОЛАЙ ЯНКОВ ЯНЕВ","type":"person","label":"Николай Янков Янев"},{"id":"person:КРАСИМИРА КИРОВА АТАНАСОВА","type":"person","label":"Красимира Кирова Атанасова"},{"id":"person:АНУШКА СПАСОВА ВАЛЬОВА-КОЛЕВА","type":"person","label":"Анушка Спасова Вальова-Колева"}],"edges":[{"source":"mp:172","target":"company:tr:175761255","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:172","target":"company:tr:175761255","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:172","target":"company:tr:126073800","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АННА САШКОВА НЕНОВА-ПЕЕВА","target":"company:tr:175761255","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА","target":"company:tr:175761255","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АННА САШКОВА НЕНОВА-ПЕЕВА","target":"company:tr:175761255","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА","target":"company:tr:175761255","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНЧО ДИМИТРОВ ТРИФОНОВ","target":"company:tr:126073800","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЯНКОВ ЯНЕВ","target":"company:tr:126073800","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНЧО ДИМИТРОВ ТРИФОНОВ","target":"company:tr:126073800","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЯНКОВ ЯНЕВ","target":"company:tr:126073800","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА КИРОВА АТАНАСОВА","target":"company:tr:126073800","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНУШКА СПАСОВА ВАЛЬОВА-КОЛЕВА","target":"company:tr:126073800","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:172",
+  "nodes": [
+    {
+      "id": "mp:172",
+      "type": "mp",
+      "mpId": 172,
+      "label": "Райна Господинова Йовчева",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175761255",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БИЗНЕС ЦЕНТЪР-МАРИЦА&quot;",
+      "slug": null,
+      "uic": "175761255",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:126073800",
+      "type": "company",
+      "label": "РЕГИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ &quot;МАРИЦА&quot;",
+      "slug": null,
+      "uic": "126073800",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Клокотница, 6310"
+    },
+    {
+      "id": "person:АННА САШКОВА НЕНОВА-ПЕЕВА",
+      "type": "person",
+      "label": "Анна Сашкова Ненова-Пеева"
+    },
+    {
+      "id": "person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА",
+      "type": "person",
+      "label": "Живка Димитрова Хаджиангелова"
+    },
+    {
+      "id": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Данчо Димитров Трифонов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "type": "person",
+      "label": "Николай Янков Янев"
+    },
+    {
+      "id": "person:КРАСИМИРА КИРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Красимира Кирова Атанасова"
+    },
+    {
+      "id": "person:АНУШКА СПАСОВА ВАЛЬОВА-КОЛЕВА",
+      "type": "person",
+      "label": "Анушка Спасова Вальова-Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:172",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:172",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:172",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА САШКОВА НЕНОВА-ПЕЕВА",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА САШКОВА НЕНОВА-ПЕЕВА",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ДИМИТРОВА ХАДЖИАНГЕЛОВА",
+      "target": "company:tr:175761255",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНЧО ДИМИТРОВ ТРИФОНОВ",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЯНКОВ ЯНЕВ",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА КИРОВА АТАНАСОВА",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНУШКА СПАСОВА ВАЛЬОВА-КОЛЕВА",
+      "target": "company:tr:126073800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

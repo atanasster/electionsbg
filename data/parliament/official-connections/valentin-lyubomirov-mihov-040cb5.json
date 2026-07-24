@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-lyubomirov-mihov-040cb5",
+  "nodes": [
+    {
+      "id": "official:valentin-lyubomirov-mihov-040cb5",
+      "type": "official",
+      "slug": "valentin-lyubomirov-mihov-040cb5",
+      "label": "Валентин Любомиров Михов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204708828",
+      "type": "company",
+      "label": "Валор Адвайзърс ЕООД",
+      "slug": null,
+      "uic": "204708828",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЕРИНА ХРИСТОВА КАЛОЯНОВА",
+      "type": "person",
+      "label": "Катерина Христова Калоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-lyubomirov-mihov-040cb5",
+      "target": "company:tr:204708828",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ХРИСТОВА КАЛОЯНОВА",
+      "target": "company:tr:204708828",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

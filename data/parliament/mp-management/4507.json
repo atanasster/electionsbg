@@ -1,1 +1,64 @@
-{"mpId":4507,"mpName":"Владимир Андонов Данаилов","generatedAt":"2026-07-03T11:12:51.862Z","total":4,"roles":[{"uic":"208808612","companyName":"АКОРД КЕПИТАЛ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1463","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2026-05-12T13:09:36","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208808612","companyName":"АКОРД КЕПИТАЛ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1463","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2026-05-12T13:09:36","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207436657","companyName":"Венчър Юръп","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1463","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-06-28T08:01:24","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207233393","companyName":"Хензенен","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1700","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-23T14:18:00","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4507,
+  "mpName": "Владимир Андонов Данаилов",
+  "generatedAt": "2026-07-24T03:35:58.652Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "208808612",
+      "companyName": "АКОРД КЕПИТАЛ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-05-12T13:09:36",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208808612",
+      "companyName": "АКОРД КЕПИТАЛ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2026-05-12T13:09:36",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207436657",
+      "companyName": "Венчър Юръп",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-06-28T08:01:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207233393",
+      "companyName": "Хензенен",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-23T14:18:00",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

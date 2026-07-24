@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nina-mihailova-serkova-1b18c1",
+  "nodes": [
+    {
+      "id": "official:nina-mihailova-serkova-1b18c1",
+      "type": "official",
+      "slug": "nina-mihailova-serkova-1b18c1",
+      "label": "Нина Михайлова Серкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207002721",
+      "type": "company",
+      "label": "АНУНИТ НИН",
+      "slug": null,
+      "uic": "207002721",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНЪР СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Алексанър Стефанов Христов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Александър Стефанов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nina-mihailova-serkova-1b18c1",
+      "target": "company:tr:207002721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНЪР СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:207002721",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:207002721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

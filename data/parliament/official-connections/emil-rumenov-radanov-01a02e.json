@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:emil-rumenov-radanov-01a02e",
+  "nodes": [
+    {
+      "id": "official:emil-rumenov-radanov-01a02e",
+      "type": "official",
+      "slug": "emil-rumenov-radanov-01a02e",
+      "label": "Емил Руменов Раданов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203326035",
+      "type": "company",
+      "label": "КИБЕЛА 2014",
+      "slug": null,
+      "uic": "203326035",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:petr-sivkov-petrov-14498e",
+      "type": "official",
+      "slug": "petr-sivkov-petrov-14498e",
+      "label": "Петър Сивков Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Иванов Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-rumenov-radanov-01a02e",
+      "target": "company:tr:203326035",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-sivkov-petrov-14498e",
+      "target": "company:tr:203326035",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:203326035",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:203326035",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

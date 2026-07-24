@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-georgiev-latev-29a479",
+  "nodes": [
+    {
+      "id": "official:lyubomir-georgiev-latev-29a479",
+      "type": "official",
+      "slug": "lyubomir-georgiev-latev-29a479",
+      "label": "Любомир Георгиев Латев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207277653",
+      "type": "company",
+      "label": "ОРИСИЯ",
+      "slug": null,
+      "uic": "207277653",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГОСПОДИН ВЪЛЧЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Господин Вълчев Господинов"
+    },
+    {
+      "id": "person:ДАНИЕЛА ГОСПОДИНОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Даниела Господинова Господинова"
+    },
+    {
+      "id": "person:ГЕОРГИ ВЪЛЧЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Георги Вълчев Господинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-georgiev-latev-29a479",
+      "target": "company:tr:207277653",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГОСПОДИН ВЪЛЧЕВ ГОСПОДИНОВ",
+      "target": "company:tr:207277653",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОСПОДИН ВЪЛЧЕВ ГОСПОДИНОВ",
+      "target": "company:tr:207277653",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГОСПОДИНОВА ГОСПОДИНОВА",
+      "target": "company:tr:207277653",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЪЛЧЕВ ГОСПОДИНОВ",
+      "target": "company:tr:207277653",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

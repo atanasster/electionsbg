@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:momchil-zhivkov-dermendzhiev-142766",
+  "nodes": [
+    {
+      "id": "official:momchil-zhivkov-dermendzhiev-142766",
+      "type": "official",
+      "slug": "momchil-zhivkov-dermendzhiev-142766",
+      "label": "Момчил Живков Дерменджиев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200976622",
+      "type": "company",
+      "label": "Ж.ДЕРМЕНДЖИЕВ-ПЛАСТ",
+      "slug": null,
+      "uic": "200976622",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:MАРИН XРИСТОВ MАНОВ",
+      "type": "person",
+      "label": "Mарин Xристов Mанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-zhivkov-dermendzhiev-142766",
+      "target": "company:tr:200976622",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:MАРИН XРИСТОВ MАНОВ",
+      "target": "company:tr:200976622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:peno-krasimirov-nenov-4fab8d",
+  "nodes": [
+    {
+      "id": "official:peno-krasimirov-nenov-4fab8d",
+      "type": "official",
+      "slug": "peno-krasimirov-nenov-4fab8d",
+      "label": "Пеньо Красимиров Ненов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Бяла/Варна/"
+    },
+    {
+      "id": "company:tr:813075676",
+      "type": "company",
+      "label": "ИЗИДА",
+      "slug": null,
+      "uic": "813075676",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТКО НЕДЕЛЧЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Неделчев Петков"
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ НЕНОВ",
+      "type": "person",
+      "label": "Иван Красимиров Ненов"
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВА НЕНОВА",
+      "type": "person",
+      "label": "Ирена Иванова Ненова"
+    },
+    {
+      "id": "person:БОЯН НИКОЛАЕВ УЗУНОВ",
+      "type": "person",
+      "label": "Боян Николаев Узунов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:peno-krasimirov-nenov-4fab8d",
+      "target": "company:tr:813075676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКО НЕДЕЛЧЕВ ПЕТКОВ",
+      "target": "company:tr:813075676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ НЕНОВ",
+      "target": "company:tr:813075676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВА НЕНОВА",
+      "target": "company:tr:813075676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН НИКОЛАЕВ УЗУНОВ",
+      "target": "company:tr:813075676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

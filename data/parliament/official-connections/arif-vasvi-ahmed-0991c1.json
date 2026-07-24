@@ -1,0 +1,130 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:arif-vasvi-ahmed-0991c1",
+  "nodes": [
+    {
+      "id": "official:arif-vasvi-ahmed-0991c1",
+      "type": "official",
+      "slug": "arif-vasvi-ahmed-0991c1",
+      "label": "Ариф Васви Ахмед",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:000499845",
+      "type": "company",
+      "label": "НАЗЪМ ХИКМЕТ 1959г.",
+      "slug": null,
+      "uic": "000499845",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:elfide-ali-faik-51911a",
+      "type": "official",
+      "slug": "elfide-ali-faik-51911a",
+      "label": "Елфиде Али Фаик",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЗЕЙТИ СЮЛЕЙМАН АДЕМ",
+      "type": "person",
+      "label": "Зейти Сюлейман Адем"
+    },
+    {
+      "id": "person:АЙЛИН ФЕВЗИ НИЯЗИР",
+      "type": "person",
+      "label": "Айлин Февзи Ниязир"
+    },
+    {
+      "id": "person:РАМАДАН МУСТАФА РАМАДАН",
+      "type": "person",
+      "label": "Рамадан Мустафа Рамадан"
+    },
+    {
+      "id": "person:ЮМЕР АХМЕД МЕХМЕД",
+      "type": "person",
+      "label": "Юмер Ахмед Мехмед"
+    },
+    {
+      "id": "person:АРЗУ ЮСУФ ЗАКИР",
+      "type": "person",
+      "label": "Арзу Юсуф Закир"
+    },
+    {
+      "id": "person:ЮМЮГЮЛ ИСМЕТ ИСУФ",
+      "type": "person",
+      "label": "Юмюгюл Исмет Исуф"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:arif-vasvi-ahmed-0991c1",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elfide-ali-faik-51911a",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЕЙТИ СЮЛЕЙМАН АДЕМ",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛИН ФЕВЗИ НИЯЗИР",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАМАДАН МУСТАФА РАМАДАН",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМЕР АХМЕД МЕХМЕД",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРЗУ ЮСУФ ЗАКИР",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМЮГЮЛ ИСМЕТ ИСУФ",
+      "target": "company:tr:000499845",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

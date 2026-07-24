@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:diana-nikolova-georgieva-34fca0",
+  "nodes": [
+    {
+      "id": "official:diana-nikolova-georgieva-34fca0",
+      "type": "official",
+      "slug": "diana-nikolova-georgieva-34fca0",
+      "label": "Диана Николова Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девня"
+    },
+    {
+      "id": "company:tr:000085157",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА 1900&quot;",
+      "slug": null,
+      "uic": "000085157",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИНА РОСЕНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Дарина Росенова Кирилова"
+    },
+    {
+      "id": "person:НЕДКО ПЕТРОВ ЦАРЕВ",
+      "type": "person",
+      "label": "Недко Петров Царев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ИВАНОВ КРЪЧМАРОВ",
+      "type": "person",
+      "label": "Станислав Иванов Кръчмаров"
+    },
+    {
+      "id": "person:ИВЕЛИНА АНДОНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Ивелина Андонова Василева"
+    },
+    {
+      "id": "person:ЖАНЕТА ТОДОРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Жанета Тодорова Димитрова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ГОСПОДИНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Даниела Господинова Атанасова"
+    },
+    {
+      "id": "person:ДАНАИЛ ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Данаил Иванов Георгиев"
+    },
+    {
+      "id": "person:ЛИЛЯНА МАРИНОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Лиляна Маринова Величкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЙОРДАНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Веселина Йорданова Симеонова"
+    },
+    {
+      "id": "person:РУМЯНА ПЕТРОВА КАРАДЖОВА-ХРИСТОВА",
+      "type": "person",
+      "label": "Румяна Петрова Караджова-Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-nikolova-georgieva-34fca0",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИНА РОСЕНОВА КИРИЛОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ПЕТРОВ ЦАРЕВ",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ИВАНОВ КРЪЧМАРОВ",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ПЕТРОВ ЦАРЕВ",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА АНДОНОВА ВАСИЛЕВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА ТОДОРОВА ДИМИТРОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГОСПОДИНОВА АТАНАСОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА МАРИНОВА ВЕЛИЧКОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЙОРДАНОВА СИМЕОНОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ПЕТРОВА КАРАДЖОВА-ХРИСТОВА",
+      "target": "company:tr:000085157",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

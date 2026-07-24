@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-boyanov-taushanski-3ce8be",
+  "nodes": [
+    {
+      "id": "official:lyubomir-boyanov-taushanski-3ce8be",
+      "type": "official",
+      "slug": "lyubomir-boyanov-taushanski-3ce8be",
+      "label": "Любомир Боянов Таушански",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109523889",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР СВ. ИВАН РИЛСКИ",
+      "slug": null,
+      "uic": "109523889",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН АСПАРУХОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Стефан Аспарухов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-boyanov-taushanski-3ce8be",
+      "target": "company:tr:109523889",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН АСПАРУХОВ НИКОЛОВ",
+      "target": "company:tr:109523889",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mitko-zhivkov-zhelyazkov-7986b0",
+  "nodes": [
+    {
+      "id": "official:mitko-zhivkov-zhelyazkov-7986b0",
+      "type": "official",
+      "slug": "mitko-zhivkov-zhelyazkov-7986b0",
+      "label": "Митко Живков Желязков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:126747829",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;МАРИЦА-2008&quot;",
+      "slug": null,
+      "uic": "126747829",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ АПОСТОЛОВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Георги Апостолов Апостолов"
+    },
+    {
+      "id": "person:ДИЛЯН КАМЕНОВ КАНЕВ",
+      "type": "person",
+      "label": "Дилян Каменов Канев"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ФРЕНГОВ",
+      "type": "person",
+      "label": "Емил Димитров Френгов"
+    },
+    {
+      "id": "person:ИВАЙЛО ПЕНЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Ивайло Пенев Господинов"
+    },
+    {
+      "id": "person:ХРИСТИНА ХРИСТОВА ТАШЕВА",
+      "type": "person",
+      "label": "Христина Христова Ташева"
+    },
+    {
+      "id": "person:ЕВГЕНИ ДИМИТРОВ ГИЧЕВ",
+      "type": "person",
+      "label": "Евгени Димитров Гичев"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ТОНЕВА",
+      "type": "person",
+      "label": "Мария Иванова Тонева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-zhivkov-zhelyazkov-7986b0",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mitko-zhivkov-zhelyazkov-7986b0",
+      "target": "company:tr:126747829",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ АПОСТОЛОВ АПОСТОЛОВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АПОСТОЛОВ АПОСТОЛОВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯН КАМЕНОВ КАНЕВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ФРЕНГОВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ПЕНЕВ ГОСПОДИНОВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ХРИСТОВА ТАШЕВА",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ДИМИТРОВ ГИЧЕВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АПОСТОЛОВ АПОСТОЛОВ",
+      "target": "company:tr:126747829",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ТОНЕВА",
+      "target": "company:tr:126747829",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,66 @@
-{"mpId":4022,"name":"Имрен Исметова Мехмедова","partyGroupShort":null,"isCurrent":false,"nsFolders":["44","45","46","47"],"latestDeclarationYear":2023,"fiscalYear":2022,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2023/BEFF6FA3-5B05-42E5-8F79-02004DCB7F77146505.xml","totalAssetsEur":140790.86628183431,"totalDebtsEur":45054.52927912957,"netWorthEur":95736.33700270473,"previous":{"year":2023,"totalAssetsEur":413570.7091107101,"netWorthEur":173424.07059918297},"byCategory":{"real_estate":{"count":0,"valuedCount":0,"totalEur":0},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":1,"valuedCount":1,"totalEur":130379.42970503571},"bank":{"count":1,"valuedCount":1,"totalEur":7854.977170817505},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":4,"valuedCount":4,"totalEur":45054.52927912957},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":2556.4594059810925}}}
+{
+  "mpId": 4022,
+  "name": "Имрен Исметова Мехмедова",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "44",
+    "45",
+    "46",
+    "47"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2022,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2023/BEFF6FA3-5B05-42E5-8F79-02004DCB7F77146505.xml",
+  "totalAssetsEur": 140790.86628183431,
+  "totalDebtsEur": 45054.52927912957,
+  "netWorthEur": 95736.33700270473,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 413570.7091107101,
+    "netWorthEur": 173424.07059918297
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 130379.42970503571
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 7854.977170817505
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 45054.52927912957
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2556.4594059810925
+    }
+  }
+}

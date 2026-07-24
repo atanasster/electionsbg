@@ -1,1 +1,331 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:stefan-dimitrov-dimitrov-160832","nodes":[{"id":"official:stefan-dimitrov-dimitrov-160832","type":"official","slug":"stefan-dimitrov-dimitrov-160832","label":"Стефан Димитров Димитров","tier":"municipal","role":"councillor","municipality":"Димитровград"},{"id":"company:tr:201488608","type":"company","label":"Агро ДТ ООД","slug":null,"uic":"201488608","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202847658","type":"company","label":"ВДТ Агро ООД","slug":null,"uic":"202847658","legalForm":null,"status":null,"seat":null},{"id":"person:ТОНЮ НИКОЛОВ ТОНЕВ","type":"person","label":"Тоню Николов Тонев"},{"id":"person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ","type":"person","label":"Валентин Атанасов Тонев"}],"edges":[{"source":"official:stefan-dimitrov-dimitrov-160832","target":"company:tr:201488608","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-dimitrov-dimitrov-160832","target":"company:tr:202847658","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ТОНЮ НИКОЛОВ ТОНЕВ","target":"company:tr:201488608","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ","target":"company:tr:201488608","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОНЮ НИКОЛОВ ТОНЕВ","target":"company:tr:201488608","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ","target":"company:tr:201488608","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ","target":"company:tr:202847658","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОНЮ НИКОЛОВ ТОНЕВ","target":"company:tr:202847658","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-dimitrov-dimitrov-160832",
+  "nodes": [
+    {
+      "id": "official:stefan-dimitrov-dimitrov-160832",
+      "type": "official",
+      "slug": "stefan-dimitrov-dimitrov-160832",
+      "label": "Стефан Димитров Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:207176280",
+      "type": "company",
+      "label": "СДМ Агро ООД",
+      "slug": null,
+      "uic": "207176280",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207132704",
+      "type": "company",
+      "label": "Неоват АД",
+      "slug": null,
+      "uic": "207132704",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201488608",
+      "type": "company",
+      "label": "Агро ДТ ООД",
+      "slug": null,
+      "uic": "201488608",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202847658",
+      "type": "company",
+      "label": "ВДТ Агро ООД",
+      "slug": null,
+      "uic": "202847658",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАЯНА РУМЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Даяна Руменова Димитрова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Мирослав Димитров Димитров"
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Стефан Димитров Димитров"
+    },
+    {
+      "id": "person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА",
+      "type": "person",
+      "label": "Рая-Анна Кристиян Димитрова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ВЛАДИМИРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Александра Владимирова Димитрова"
+    },
+    {
+      "id": "person:ДИМЧО СТАЙКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димчо Стайков Георгиев"
+    },
+    {
+      "id": "person:ДЕЛЧО НИКОЛАЕВ ПЕХЛИВАНОВ",
+      "type": "person",
+      "label": "Делчо Николаев Пехливанов"
+    },
+    {
+      "id": "person:НЕОПРОФИТ",
+      "type": "person",
+      "label": "Неопрофит"
+    },
+    {
+      "id": "person:ТОНЮ НИКОЛОВ ТОНЕВ",
+      "type": "person",
+      "label": "Тоню Николов Тонев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ",
+      "type": "person",
+      "label": "Валентин Атанасов Тонев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-dimitrov-dimitrov-160832",
+      "target": "company:tr:207176280",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-dimitrov-dimitrov-160832",
+      "target": "company:tr:207132704",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-dimitrov-dimitrov-160832",
+      "target": "company:tr:201488608",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-dimitrov-dimitrov-160832",
+      "target": "company:tr:202847658",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЯНА РУМЕНОВА ДИМИТРОВА",
+      "target": "company:tr:207176280",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЯНА РУМЕНОВА ДИМИТРОВА",
+      "target": "company:tr:207176280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207176280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207176280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА",
+      "target": "company:tr:207176280",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА",
+      "target": "company:tr:207176280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ВЛАДИМИРОВА ДИМИТРОВА",
+      "target": "company:tr:207176280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО СТАЙКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО СТАЙКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО НИКОЛАЕВ ПЕХЛИВАНОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО НИКОЛАЕВ ПЕХЛИВАНОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕОПРОФИТ",
+      "target": "company:tr:207132704",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО НИКОЛАЕВ ПЕХЛИВАНОВ",
+      "target": "company:tr:207132704",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЮ НИКОЛОВ ТОНЕВ",
+      "target": "company:tr:201488608",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ",
+      "target": "company:tr:201488608",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЮ НИКОЛОВ ТОНЕВ",
+      "target": "company:tr:201488608",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ",
+      "target": "company:tr:201488608",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АТАНАСОВ ТОНЕВ",
+      "target": "company:tr:202847658",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЮ НИКОЛОВ ТОНЕВ",
+      "target": "company:tr:202847658",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

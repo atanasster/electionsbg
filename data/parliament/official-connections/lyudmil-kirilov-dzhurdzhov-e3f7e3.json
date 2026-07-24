@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyudmil-kirilov-dzhurdzhov-e3f7e3",
+  "nodes": [
+    {
+      "id": "official:lyudmil-kirilov-dzhurdzhov-e3f7e3",
+      "type": "official",
+      "slug": "lyudmil-kirilov-dzhurdzhov-e3f7e3",
+      "label": "Людмил Кирилов Джурджов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:111504134",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ - ГРУПОВА ПРАКТИКА &quot;МЕДИК-МОНТАНА&quot;",
+      "slug": null,
+      "uic": "111504134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЬО ИВАНОВ МЕТОДИЕВ",
+      "type": "person",
+      "label": "Петьо Иванов Методиев"
+    },
+    {
+      "id": "person:ЛЮБОВ ВИКТОРОВНА МИТОВА",
+      "type": "person",
+      "label": "Любов Викторовна Митова"
+    },
+    {
+      "id": "person:СИЛВИЯ ЖИВКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Силвия Живкова Георгиева"
+    },
+    {
+      "id": "person:ПАРАСКЕВА ТОДОРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Параскева Тодорова Иванова"
+    },
+    {
+      "id": "person:СНЕЖАНА АНТОНОВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Снежана Антонова Ганчева"
+    },
+    {
+      "id": "person:ИВАЙЛО ВЕЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Ивайло Велков Георгиев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ДИМИТРОВА ТОДОРОВА-ДРАГИЕВА",
+      "type": "person",
+      "label": "Емилия Димитрова Тодорова-Драгиева"
+    },
+    {
+      "id": "person:АНТОНИЯ ГАЛИНОВА ГАНЕВА",
+      "type": "person",
+      "label": "Антония Галинова Ганева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmil-kirilov-dzhurdzhov-e3f7e3",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЬО ИВАНОВ МЕТОДИЕВ",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОВ ВИКТОРОВНА МИТОВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ЖИВКОВА ГЕОРГИЕВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРАСКЕВА ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА АНТОНОВА ГАНЧЕВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ВЕЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ДИМИТРОВА ТОДОРОВА-ДРАГИЕВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ГАЛИНОВА ГАНЕВА",
+      "target": "company:tr:111504134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

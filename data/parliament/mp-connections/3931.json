@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3931",
+  "nodes": [
+    {
+      "id": "mp:3931",
+      "type": "mp",
+      "mpId": 3931,
+      "label": "Иван Маркос Христанов",
+      "partyGroupShort": "Единение",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "type": "company",
+      "label": "и ЕМ ПИ Инвест България АД",
+      "slug": "и-ЕМ-ПИ-Инвест-България-АД",
+      "uic": "203120042",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "person:ЕЛВИН ВЕХИП ГУРИ",
+      "type": "person",
+      "label": "Елвин Вехип Гури"
+    },
+    {
+      "id": "person:ТОМАС МАЙКЪЛ ХИГИНС",
+      "type": "person",
+      "label": "Томас Майкъл Хигинс"
+    },
+    {
+      "id": "person:СТАНИСЛАВ РУСАЛИНОВ НИКОЛАЕВ",
+      "type": "person",
+      "label": "Станислав Русалинов Николаев"
+    },
+    {
+      "id": "person:СЛАВЧО ПЕТРОВ ПАРУШЕВ",
+      "type": "person",
+      "label": "Славчо Петров Парушев"
+    },
+    {
+      "id": "person:ТИХОМИР НИКОЛАЕВ ДЯНКОВ",
+      "type": "person",
+      "label": "Тихомир Николаев Дянков"
+    },
+    {
+      "id": "person:ПЕНКА СТОЯНОВА ГЕОРГИЕВА - ХИГИНС",
+      "type": "person",
+      "label": "Пенка Стоянова Георгиева - Хигинс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3931",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛВИН ВЕХИП ГУРИ",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМАС МАЙКЪЛ ХИГИНС",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ РУСАЛИНОВ НИКОЛАЕВ",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ПЕТРОВ ПАРУШЕВ",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР НИКОЛАЕВ ДЯНКОВ",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА СТОЯНОВА ГЕОРГИЕВА - ХИГИНС",
+      "target": "company:и-ЕМ-ПИ-Инвест-България-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

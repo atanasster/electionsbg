@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vasil-angelov-kotetarov-2a3d83",
+  "nodes": [
+    {
+      "id": "official:vasil-angelov-kotetarov-2a3d83",
+      "type": "official",
+      "slug": "vasil-angelov-kotetarov-2a3d83",
+      "label": "Васил Ангелов Котетаров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206738987",
+      "type": "company",
+      "label": "НОВА АТЛАНТИДА",
+      "slug": null,
+      "uic": "206738987",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГИНЬО ПЕНЕВ ГЕНЕВ",
+      "type": "person",
+      "label": "Гиньо Пенев Генев"
+    },
+    {
+      "id": "person:ИЛИЯН ДИНКОВ КОЛЕВ",
+      "type": "person",
+      "label": "Илиян Динков Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-angelov-kotetarov-2a3d83",
+      "target": "company:tr:206738987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГИНЬО ПЕНЕВ ГЕНЕВ",
+      "target": "company:tr:206738987",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ДИНКОВ КОЛЕВ",
+      "target": "company:tr:206738987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНЬО ПЕНЕВ ГЕНЕВ",
+      "target": "company:tr:206738987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

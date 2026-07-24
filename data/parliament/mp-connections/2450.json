@@ -1,1 +1,97 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2450","nodes":[{"id":"mp:2450","type":"mp","mpId":2450,"label":"Ердинч Исмаил Хайрула","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["42"]},{"id":"company:tr:207158065","type":"company","label":"ДЕС СОЛАР","slug":null,"uic":"207158065","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Момчилград, 6800"},{"id":"person:ДЖАН ХАСАН КИРАЗЛЪ","type":"person","label":"Джан Хасан Киразлъ"},{"id":"person:СЕЗГИН САБРИ МУСТАФА","type":"person","label":"Сезгин Сабри Мустафа"}],"edges":[{"source":"mp:2450","target":"company:tr:207158065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДЖАН ХАСАН КИРАЗЛЪ","target":"company:tr:207158065","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЖАН ХАСАН КИРАЗЛЪ","target":"company:tr:207158065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СЕЗГИН САБРИ МУСТАФА","target":"company:tr:207158065","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2450",
+  "nodes": [
+    {
+      "id": "mp:2450",
+      "type": "mp",
+      "mpId": 2450,
+      "label": "Ердинч Исмаил Хайрула",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:207158065",
+      "type": "company",
+      "label": "ДЕС СОЛАР",
+      "slug": null,
+      "uic": "207158065",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Момчилград, 6800"
+    },
+    {
+      "id": "official:erdinch-ismail-hairula-1b54ee",
+      "type": "official",
+      "slug": "erdinch-ismail-hairula-1b54ee",
+      "label": "Ердинч Исмаил Хайрула",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "person:ДЖАН ХАСАН КИРАЗЛЪ",
+      "type": "person",
+      "label": "Джан Хасан Киразлъ"
+    },
+    {
+      "id": "person:СЕЗГИН САБРИ МУСТАФА",
+      "type": "person",
+      "label": "Сезгин Сабри Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2450",
+      "target": "company:tr:207158065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:erdinch-ismail-hairula-1b54ee",
+      "target": "company:tr:207158065",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:erdinch-ismail-hairula-1b54ee",
+      "target": "company:tr:207158065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖАН ХАСАН КИРАЗЛЪ",
+      "target": "company:tr:207158065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАН ХАСАН КИРАЗЛЪ",
+      "target": "company:tr:207158065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЗГИН САБРИ МУСТАФА",
+      "target": "company:tr:207158065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

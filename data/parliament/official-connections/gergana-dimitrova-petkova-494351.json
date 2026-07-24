@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:gergana-dimitrova-petkova-494351","nodes":[{"id":"official:gergana-dimitrova-petkova-494351","type":"official","slug":"gergana-dimitrova-petkova-494351","label":"Гергана Димитрова Петкова","tier":"municipal","role":"councillor","municipality":"Петрич"},{"id":"company:tr:206326204","type":"company","label":"АЛМА 10","slug":null,"uic":"206326204","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ","type":"person","label":"Цветослав Валериев Иванов"}],"edges":[{"source":"official:gergana-dimitrova-petkova-494351","target":"company:tr:206326204","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:gergana-dimitrova-petkova-494351","target":"company:tr:206326204","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ","target":"company:tr:206326204","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ","target":"company:tr:206326204","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gergana-dimitrova-petkova-494351",
+  "nodes": [
+    {
+      "id": "official:gergana-dimitrova-petkova-494351",
+      "type": "official",
+      "slug": "gergana-dimitrova-petkova-494351",
+      "label": "Гергана Димитрова Петкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:206326204",
+      "type": "company",
+      "label": "АЛМА 10",
+      "slug": null,
+      "uic": "206326204",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Цветослав Валериев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-dimitrova-petkova-494351",
+      "target": "company:tr:206326204",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ",
+      "target": "company:tr:206326204",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВ ВАЛЕРИЕВ ИВАНОВ",
+      "target": "company:tr:206326204",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

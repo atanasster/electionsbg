@@ -1,1 +1,50 @@
-{"mpId":877,"mpName":"Цветан Асенов Цветанов","generatedAt":"2026-07-03T11:12:51.490Z","total":3,"roles":[{"uic":"103248895","companyName":"МАРИНЕРИ И КО","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":58.80769230769231,"addedAt":"2026-04-20T14:16:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"130121927","companyName":"ГЛОБОКОМ","legalForm":"OOD","seat":null,"status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2025-04-29T11:14:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"104530118","companyName":"ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ-1899 ГРАД ЕЛЕНА","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-26T15:01:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 877,
+  "mpName": "Цветан Асенов Цветанов",
+  "generatedAt": "2026-07-24T03:35:58.270Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "103248895",
+      "companyName": "МАРИНЕРИ И КО",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 58.80769230769231,
+      "addedAt": "2026-04-20T14:16:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "130121927",
+      "companyName": "ГЛОБОКОМ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-04-29T11:14:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "104530118",
+      "companyName": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ-1899 ГРАД ЕЛЕНА",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-26T15:01:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,1 +1,51 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nikolai-boyanov-bogdanov-d97cf3","nodes":[{"id":"official:nikolai-boyanov-bogdanov-d97cf3","type":"official","slug":"nikolai-boyanov-bogdanov-d97cf3","label":"Николай Боянов Богданов","tier":"municipal","role":"councillor","municipality":"Елин Пелин"},{"id":"company:tr:206312069","type":"company","label":"АУТОЛУКС 20","slug":null,"uic":"206312069","legalForm":null,"status":null,"seat":null},{"id":"person:МАЯ ПЕТРОВА КАРАДЖОВА","type":"person","label":"Мая Петрова Караджова"}],"edges":[{"source":"official:nikolai-boyanov-bogdanov-d97cf3","target":"company:tr:206312069","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МАЯ ПЕТРОВА КАРАДЖОВА","target":"company:tr:206312069","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-boyanov-bogdanov-d97cf3",
+  "nodes": [
+    {
+      "id": "official:nikolai-boyanov-bogdanov-d97cf3",
+      "type": "official",
+      "slug": "nikolai-boyanov-bogdanov-d97cf3",
+      "label": "Николай Боянов Богданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:207885564",
+      "type": "company",
+      "label": "\"Еосфорос Кар Кеър\"",
+      "slug": null,
+      "uic": "207885564",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-boyanov-bogdanov-d97cf3",
+      "target": "company:tr:207885564",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-boyanov-bogdanov-d97cf3",
+      "target": "company:tr:207885564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-boyanov-bogdanov-d97cf3",
+      "target": "company:tr:207885564",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

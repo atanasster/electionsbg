@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mihail-ivanov-minchev-8cafb7",
+  "nodes": [
+    {
+      "id": "official:mihail-ivanov-minchev-8cafb7",
+      "type": "official",
+      "slug": "mihail-ivanov-minchev-8cafb7",
+      "label": "Михаил Иванов Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:208329843",
+      "type": "company",
+      "label": "НИК МАР 7711",
+      "slug": null,
+      "uic": "208329843",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-ivanov-minchev-8cafb7",
+      "target": "company:tr:208329843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-ivanov-minchev-8cafb7",
+      "target": "company:tr:208329843",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

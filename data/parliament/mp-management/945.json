@@ -1,1 +1,64 @@
-{"mpId":945,"mpName":"Цветан Костов Костов","generatedAt":"2026-07-03T11:12:51.531Z","total":4,"roles":[{"uic":"207637350","companyName":"ГЕНЕЗИС 2.0","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1404","status":"active","role":"partner","positionLabel":null,"sharePercent":1.3333333333333335,"addedAt":"2026-03-13T18:17:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208501455","companyName":"Примос Партнърс","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1303","status":"active","role":"partner","positionLabel":null,"sharePercent":5,"addedAt":"2025-09-29T10:28:59","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207633626","companyName":"Бизнес Център Естера","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1618","status":"ceased","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2023-12-13T13:54:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"131319036","companyName":"АТ ПРУДЕНТ","legalForm":"OOD","seat":null,"status":"in_liquidation","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2021-12-09T08:51:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 945,
+  "mpName": "Цветан Костов Костов",
+  "generatedAt": "2026-07-24T03:35:58.324Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "207637350",
+      "companyName": "ГЕНЕЗИС 2.0",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 1.3333333333333335,
+      "addedAt": "2026-03-13T18:17:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208501455",
+      "companyName": "Примос Партнърс",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 5,
+      "addedAt": "2025-09-29T10:28:59",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207633626",
+      "companyName": "Бизнес Център Естера",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618",
+      "status": "ceased",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-12-13T13:54:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "131319036",
+      "companyName": "АТ ПРУДЕНТ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "in_liquidation",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-12-09T08:51:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

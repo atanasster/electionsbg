@@ -24,10 +24,10 @@
         "areaSqm": 97,
         "builtAreaSqm": 97,
         "acquiredYear": 2008,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Явор Веселинов Янчев",
         "isSpouse": false,
         "legalBasis": null,
@@ -42,7 +42,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": null,
+        "share": "1/1",
         "currency": "BGN",
         "amount": 500,
         "valueEur": 255.64594059810923,
@@ -52,110 +52,25 @@
         "fundsOrigin": null
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "Банков кредит",
-        "detail": "Миглена Атанасова Янчева",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ПИБ",
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5092.978428595532,
+        "holderName": "Миглена Атанасова Янчева",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "чл.298, ал.1, т.1 от ТЗ",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "yavor-veselinov-yanchev-cee24f",
@@ -171,113 +86,35 @@
     "controlHash": "C1A1B283",
     "sourceUrl": "https://register.cacbg.bg/2016/764FD516-2CBC-4C62-80B4-7A06D0BA04B075820.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1331.9153505161491
+      }
+    ],
     "assets": [
       {
-        "category": "security",
+        "category": "debt",
         "description": "Банков кредит",
-        "detail": "Миглена Атанасова Янчева",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Първа инвестиционна банка",
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Миглена Атанасова Янчева",
         "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "чл.298, ал.1, т.1 от ТЗ",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "yavor-veselinov-yanchev-cee24f",
@@ -293,93 +130,21 @@
     "controlHash": "15962269",
     "sourceUrl": "https://register.cacbg.bg/2015/764FD516-2CBC-4C62-80B4-7A06D0BA04B069498.xml",
     "ownershipStakes": [],
-    "income": [],
-    "assets": [],
-    "events": [
+    "income": [
       {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 696.3795421892496,
-        "legalBasis": null
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 696.3795421892496,
+        "amountEurSpouse": null
       },
       {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 553.2178154543084,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 553.2178154543084,
+        "amountEurSpouse": null
       }
-    ]
+    ],
+    "assets": [],
+    "events": []
   }
 ]

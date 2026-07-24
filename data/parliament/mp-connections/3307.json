@@ -1,1 +1,231 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3307","nodes":[{"id":"mp:3307","type":"mp","mpId":3307,"label":"Татяна Дончева Тотева","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":["39","40","45"]},{"id":"company:tr:130951620","type":"company","label":"КУЛТУРЕН КЛУБ  ТРЯВНА","slug":null,"uic":"130951620","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:СТАНКА МАРКОВА СТАНЧЕВА","type":"person","label":"Станка Маркова Станчева"},{"id":"person:КОНСТАНТИН ТОДОРОВ КОСТАДИНОВ","type":"person","label":"Константин Тодоров Костадинов"},{"id":"person:ВАЛЕНТИН ЙОРДАНОВ МУТАФЧИЕВ","type":"person","label":"Валентин Йорданов Мутафчиев"},{"id":"person:РУМЯНА МИРЧЕВА ПАШАЛИЙСКА","type":"person","label":"Румяна Мирчева Пашалийска"},{"id":"person:ВЛАДИМИР ПЕТКОВ НАЙДЕНОВ","type":"person","label":"Владимир Петков Найденов"},{"id":"person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ","type":"person","label":"Георги Николов  Глушков"},{"id":"person:МИРЯНА ЛЮДМИЛОВА ИВАНОВА","type":"person","label":"Миряна Людмилова Иванова"},{"id":"person:ИВАЙЛО НИКОЛОВ ЧОБАНОВ","type":"person","label":"Ивайло Николов Чобанов"},{"id":"company:tr:000690735","type":"company","label":"БЪЛГАРСКИ ОЛИМПИЙСКИ КОМИТЕТ","slug":null,"uic":"000690735","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:1043","type":"mp","mpId":1043,"label":"Иван Дечков Колев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:1087","type":"mp","mpId":1087,"label":"Румен Стефанов Стоилов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:3307","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТАНКА МАРКОВА СТАНЧЕВА","target":"company:tr:130951620","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТАНКА МАРКОВА СТАНЧЕВА","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ТОДОРОВ КОСТАДИНОВ","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ЙОРДАНОВ МУТАФЧИЕВ","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА МИРЧЕВА ПАШАЛИЙСКА","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ПЕТКОВ НАЙДЕНОВ","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРЯНА ЛЮДМИЛОВА ИВАНОВА","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО НИКОЛОВ ЧОБАНОВ","target":"company:tr:130951620","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ","target":"company:tr:000690735","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1043","target":"company:tr:000690735","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1087","target":"company:tr:000690735","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:1043","length":4,"nodeIds":["mp:3307","company:tr:130951620","person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ","company:tr:000690735","mp:1043"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1087","length":4,"nodeIds":["mp:3307","company:tr:130951620","person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ","company:tr:000690735","mp:1087"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3307",
+  "nodes": [
+    {
+      "id": "mp:3307",
+      "type": "mp",
+      "mpId": 3307,
+      "label": "Татяна Дончева Тотева",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40",
+        "45"
+      ]
+    },
+    {
+      "id": "company:tr:130951620",
+      "type": "company",
+      "label": "КУЛТУРЕН КЛУБ  ТРЯВНА",
+      "slug": null,
+      "uic": "130951620",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:СТАНКА МАРКОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Станка Маркова Станчева"
+    },
+    {
+      "id": "person:КОНСТАНТИН ТОДОРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Константин Тодоров Костадинов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЙОРДАНОВ МУТАФЧИЕВ",
+      "type": "person",
+      "label": "Валентин Йорданов Мутафчиев"
+    },
+    {
+      "id": "person:РУМЯНА МИРЧЕВА ПАШАЛИЙСКА",
+      "type": "person",
+      "label": "Румяна Мирчева Пашалийска"
+    },
+    {
+      "id": "person:ВЛАДИМИР ПЕТКОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Владимир Петков Найденов"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+      "type": "person",
+      "label": "Георги Николов  Глушков"
+    },
+    {
+      "id": "person:МИРЯНА ЛЮДМИЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Миряна Людмилова Иванова"
+    },
+    {
+      "id": "person:ИВАЙЛО НИКОЛОВ ЧОБАНОВ",
+      "type": "person",
+      "label": "Ивайло Николов Чобанов"
+    },
+    {
+      "id": "company:tr:000690735",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ОЛИМПИЙСКИ КОМИТЕТ",
+      "slug": null,
+      "uic": "000690735",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1043",
+      "type": "mp",
+      "mpId": 1043,
+      "label": "Иван Дечков Колев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:1087",
+      "type": "mp",
+      "mpId": 1087,
+      "label": "Румен Стефанов Стоилов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3307",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНКА МАРКОВА СТАНЧЕВА",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА МАРКОВА СТАНЧЕВА",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ТОДОРОВ КОСТАДИНОВ",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЙОРДАНОВ МУТАФЧИЕВ",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МИРЧЕВА ПАШАЛИЙСКА",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ПЕТКОВ НАЙДЕНОВ",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЯНА ЛЮДМИЛОВА ИВАНОВА",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО НИКОЛОВ ЧОБАНОВ",
+      "target": "company:tr:130951620",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+      "target": "company:tr:000690735",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1043",
+      "target": "company:tr:000690735",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1087",
+      "target": "company:tr:000690735",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1043",
+      "length": 4,
+      "nodeIds": [
+        "mp:3307",
+        "company:tr:130951620",
+        "person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+        "company:tr:000690735",
+        "mp:1043"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1087",
+      "length": 4,
+      "nodeIds": [
+        "mp:3307",
+        "company:tr:130951620",
+        "person:ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+        "company:tr:000690735",
+        "mp:1087"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

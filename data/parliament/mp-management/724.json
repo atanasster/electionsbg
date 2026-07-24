@@ -1,1 +1,64 @@
-{"mpId":724,"mpName":"Коста Георгиев Костов","generatedAt":"2026-07-03T11:12:51.459Z","total":4,"roles":[{"uic":"175215110","companyName":"БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"ngo_representative","positionLabel":"ПРЕДСЕДАТЕЛ","sharePercent":null,"addedAt":"2026-04-30T09:40:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175215110","companyName":"БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2026-04-30T09:40:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206880821","companyName":"ЛОДЖИКОС","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Петрич, 2850","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-03-29T13:43:50","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206880821","companyName":"ЛОДЖИКОС","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Петрич, 2850","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-03-29T13:43:50","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 724,
+  "mpName": "Коста Георгиев Костов",
+  "generatedAt": "2026-07-24T03:35:58.230Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "175215110",
+      "companyName": "БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "ПРЕДСЕДАТЕЛ",
+      "sharePercent": null,
+      "addedAt": "2026-04-30T09:40:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175215110",
+      "companyName": "БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-04-30T09:40:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206880821",
+      "companyName": "ЛОДЖИКОС",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-03-29T13:43:50",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206880821",
+      "companyName": "ЛОДЖИКОС",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-03-29T13:43:50",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

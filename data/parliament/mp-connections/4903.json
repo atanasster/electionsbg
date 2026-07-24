@@ -1,1 +1,75 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4903","nodes":[{"id":"mp:4903","type":"mp","mpId":4903,"label":"Деян Цанков Дечев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","48","49","50"]},{"id":"company:tr:206411373","type":"company","label":"ИНСТИТУТ ЗА ЗДРАВНИ АКТИВНОСТИ И ТЕХНОЛОГИИ","slug":null,"uic":"206411373","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000"},{"id":"person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА","type":"person","label":"Жанета Красимирова Черпокова"},{"id":"person:КРИСТИНА ВЪРБАНОВА ГЕОРГИЕВА-ПЕШАЛОВА","type":"person","label":"Кристина Върбанова Георгиева-Пешалова"}],"edges":[{"source":"mp:4903","target":"company:tr:206411373","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА","target":"company:tr:206411373","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА","target":"company:tr:206411373","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ВЪРБАНОВА ГЕОРГИЕВА-ПЕШАЛОВА","target":"company:tr:206411373","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4903",
+  "nodes": [
+    {
+      "id": "mp:4903",
+      "type": "mp",
+      "mpId": 4903,
+      "label": "Деян Цанков Дечев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:tr:206411373",
+      "type": "company",
+      "label": "ИНСТИТУТ ЗА ЗДРАВНИ АКТИВНОСТИ И ТЕХНОЛОГИИ",
+      "slug": null,
+      "uic": "206411373",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА",
+      "type": "person",
+      "label": "Жанета Красимирова Черпокова"
+    },
+    {
+      "id": "person:КРИСТИНА ВЪРБАНОВА ГЕОРГИЕВА-ПЕШАЛОВА",
+      "type": "person",
+      "label": "Кристина Върбанова Георгиева-Пешалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4903",
+      "target": "company:tr:206411373",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА",
+      "target": "company:tr:206411373",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА КРАСИМИРОВА ЧЕРПОКОВА",
+      "target": "company:tr:206411373",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ВЪРБАНОВА ГЕОРГИЕВА-ПЕШАЛОВА",
+      "target": "company:tr:206411373",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

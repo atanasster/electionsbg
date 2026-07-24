@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:donka-nedeva-stancheva-a3876d",
+  "nodes": [
+    {
+      "id": "official:donka-nedeva-stancheva-a3876d",
+      "type": "official",
+      "slug": "donka-nedeva-stancheva-a3876d",
+      "label": "Донка Недева Станчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:836227335",
+      "type": "company",
+      "label": "НИКАДОН",
+      "slug": null,
+      "uic": "836227335",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ ЕМИЛОВА ЕМИЛОВА",
+      "type": "person",
+      "label": "Катя Емилова Емилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:donka-nedeva-stancheva-a3876d",
+      "target": "company:tr:836227335",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ЕМИЛОВА ЕМИЛОВА",
+      "target": "company:tr:836227335",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

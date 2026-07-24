@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3522",
+  "nodes": [
+    {
+      "id": "mp:3522",
+      "type": "mp",
+      "mpId": 3522,
+      "label": "Милко Асенов Пенев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208888932",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА ИЗВЪНБОЛНИЧНА МЕДИЦИНСКА ПОМОЩ - Д-Р МИЛКО ПЕНЕВ",
+      "slug": null,
+      "uic": "208888932",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3522",
+      "target": "company:tr:208888932",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3522",
+      "target": "company:tr:208888932",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

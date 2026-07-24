@@ -1,1 +1,44 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:683","nodes":[{"id":"mp:683","type":"mp","mpId":683,"label":"Христо Атанасов Механдов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207680280","type":"company","label":"Прайм Агро","slug":null,"uic":"207680280","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Стара Загора, 6000"}],"edges":[{"source":"mp:683","target":"company:tr:207680280","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:683","target":"company:tr:207680280","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:683",
+  "nodes": [
+    {
+      "id": "mp:683",
+      "type": "mp",
+      "mpId": 683,
+      "label": "Христо Атанасов Механдов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207680280",
+      "type": "company",
+      "label": "Прайм Агро",
+      "slug": null,
+      "uic": "207680280",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:683",
+      "target": "company:tr:207680280",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:683",
+      "target": "company:tr:207680280",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

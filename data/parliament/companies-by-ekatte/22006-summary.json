@@ -1,1 +1,27 @@
-{"ekatte":"22006","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"ВЕЙЗ-БЪЛГАРИЯ","displayName":"ВЕЙЗ БЪЛГАРИЯ","registeredOffice":"БЪЛГАРИЯ, гр. Долна баня, 2040","mps":[{"mpId":3177,"mpName":"Тодор Василев Василев","role":"manager","isCurrent":true},{"mpId":3177,"mpName":"Тодор Василев Василев","role":"partner","isCurrent":false}]}]}
+{
+  "ekatte": "22006",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ВЕЙЗ-БЪЛГАРИЯ",
+      "displayName": "ВЕЙЗ БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Долна баня, 2040",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

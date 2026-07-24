@@ -1,1 +1,67 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5154","nodes":[{"id":"mp:5154","type":"mp","mpId":5154,"label":"Даниела Андреева Георгиева","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:203125461","type":"company","label":"Ей Джи Стайл","slug":null,"uic":"203125461","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:АННА СВЕТЛИНОВА ГЕОРГИЕВА","type":"person","label":"Анна Светлинова Георгиева"}],"edges":[{"source":"mp:5154","target":"company:tr:203125461","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5154","target":"company:tr:203125461","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АННА СВЕТЛИНОВА ГЕОРГИЕВА","target":"company:tr:203125461","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АННА СВЕТЛИНОВА ГЕОРГИЕВА","target":"company:tr:203125461","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5154",
+  "nodes": [
+    {
+      "id": "mp:5154",
+      "type": "mp",
+      "mpId": 5154,
+      "label": "Даниела Андреева Георгиева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:203125461",
+      "type": "company",
+      "label": "Ей Джи Стайл",
+      "slug": null,
+      "uic": "203125461",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:АННА СВЕТЛИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Анна Светлинова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5154",
+      "target": "company:tr:203125461",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5154",
+      "target": "company:tr:203125461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА СВЕТЛИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:203125461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА СВЕТЛИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:203125461",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

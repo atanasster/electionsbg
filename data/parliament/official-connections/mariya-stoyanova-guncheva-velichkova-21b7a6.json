@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-stoyanova-guncheva-velichkova-21b7a6",
+  "nodes": [
+    {
+      "id": "official:mariya-stoyanova-guncheva-velichkova-21b7a6",
+      "type": "official",
+      "slug": "mariya-stoyanova-guncheva-velichkova-21b7a6",
+      "label": "Мария Стоянова Гунчева- Величкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000609122",
+      "type": "company",
+      "label": "Светлина 1925",
+      "slug": null,
+      "uic": "000609122",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2662",
+      "type": "mp",
+      "mpId": 2662,
+      "label": "Дора Илиева Янкова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Гаджева"
+    },
+    {
+      "id": "person:МАРИЯ ПЕТКОВА КЕТЕВА",
+      "type": "person",
+      "label": "Мария Петкова Кетева"
+    },
+    {
+      "id": "person:МАРИЯ РАЙЧЕВА СИМИДЧИЕВА-КАНЕВА",
+      "type": "person",
+      "label": "Мария Райчева Симидчиева-Канева"
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА ГУНЧЕВА-ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Мария Стоянова Гунчева-Величкова"
+    },
+    {
+      "id": "person:ТОДОР БЛАГОЕВ ДЕЛИЯНЧЕВ",
+      "type": "person",
+      "label": "Тодор Благоев Делиянчев"
+    },
+    {
+      "id": "person:АТАНАС ТОДОРОВ ЖЕКИН",
+      "type": "person",
+      "label": "Атанас Тодоров Жекин"
+    },
+    {
+      "id": "person:СТОЯН КОСТАДИНОВ ГРИБАЧЕВ",
+      "type": "person",
+      "label": "Стоян Костадинов Грибачев"
+    },
+    {
+      "id": "person:НЕДЯЛКА АТАНАСОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Недялка Атанасова Величкова"
+    },
+    {
+      "id": "person:ВЕСКА КОСТАДИНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Веска Костадинова Костадинова"
+    },
+    {
+      "id": "person:НИКОЛАЯ ТИХОМИРОВА НИКОВА",
+      "type": "person",
+      "label": "Николая Тихомирова Никова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-stoyanova-guncheva-velichkova-21b7a6",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2662",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ГАДЖЕВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТКОВА КЕТЕВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ РАЙЧЕВА СИМИДЧИЕВА-КАНЕВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА ГУНЧЕВА-ВЕЛИЧКОВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР БЛАГОЕВ ДЕЛИЯНЧЕВ",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ТОДОРОВ ЖЕКИН",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН КОСТАДИНОВ ГРИБАЧЕВ",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА АТАНАСОВА ВЕЛИЧКОВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА КОСТАДИНОВА КОСТАДИНОВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЯ ТИХОМИРОВА НИКОВА",
+      "target": "company:tr:000609122",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:steliyan-ivanov-totev-b48508",
+  "nodes": [
+    {
+      "id": "official:steliyan-ivanov-totev-b48508",
+      "type": "official",
+      "slug": "steliyan-ivanov-totev-b48508",
+      "label": "Стелиян Иванов Тотев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559153",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;Н.Й. ВАПЦАРОВ - 1895&quot;",
+      "slug": null,
+      "uic": "000559153",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕН ГЕОРГИЕВ ГЪРЧЕВ",
+      "type": "person",
+      "label": "Милен Георгиев Гърчев"
+    },
+    {
+      "id": "person:ПЕНЬО АНГЕЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Пеньо Ангелов Ангелов"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Милена Димова Петкова"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ МАРКОВ",
+      "type": "person",
+      "label": "Красимир Димитров Марков"
+    },
+    {
+      "id": "person:БОГДАН ПЛАМЕНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Богдан Пламенов Георгиев"
+    },
+    {
+      "id": "person:ЙОРДАНКА ЦОНЕВА КОПРИНДЖИЙСКА",
+      "type": "person",
+      "label": "Йорданка Цонева Копринджийска"
+    },
+    {
+      "id": "person:МАРИАНА ГЕОРГИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мариана Георгиева Илиева"
+    },
+    {
+      "id": "person:ВАЛЯ ДОКОВА ГУТЕВА",
+      "type": "person",
+      "label": "Валя Докова Гутева"
+    },
+    {
+      "id": "person:МАРГАРИТА ГЕОРГИЕВА РАНЧЕВА",
+      "type": "person",
+      "label": "Маргарита Георгиева Ранчева"
+    },
+    {
+      "id": "person:НИГЯР ФИКРЕТОВА МУЗАФЕРОВА-БАЙРАМ",
+      "type": "person",
+      "label": "Нигяр Фикретова Музаферова-Байрам"
+    },
+    {
+      "id": "person:МИЛЕНА ВАСИЛЕВА БОРИСОВА-АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Милена Василева Борисова-Александрова"
+    },
+    {
+      "id": "person:ИВАН МИХАЙЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Михайлов Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Георги Николов Николов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ ГУТЕВ",
+      "type": "person",
+      "label": "Николай Петров Гутев"
+    },
+    {
+      "id": "person:БОРЯНА МИХАЙЛОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Боряна Михайлова Йорданова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Валентина Георгиева Неделчева"
+    },
+    {
+      "id": "person:ИНА ГЕОРГИЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Ина Георгиева Колева"
+    },
+    {
+      "id": "person:ЗЛАТАН НЕДЕВ НИКОВ",
+      "type": "person",
+      "label": "Златан Недев Ников"
+    },
+    {
+      "id": "person:СТЕЛА ТОДОРОВА КРУМОВА",
+      "type": "person",
+      "label": "Стела Тодорова Крумова"
+    },
+    {
+      "id": "person:СТОЯНКА ИВАНОВА ГОСПОДИНОВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стоянка Иванова Господинова-Георгиева"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Неделчева"
+    },
+    {
+      "id": "person:ВЕСЕЛИНКА МАРИНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Веселинка Маринова Василева"
+    },
+    {
+      "id": "person:ВЕСИЛЕ ВЕДАТ ХАЛИЛ",
+      "type": "person",
+      "label": "Весиле Ведат Халил"
+    },
+    {
+      "id": "person:НЕЛИ АНДРЕЕВА НОНЧЕВА",
+      "type": "person",
+      "label": "Нели Андреева Нончева"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ДАЧЕВ",
+      "type": "person",
+      "label": "Пламен Иванов Дачев"
+    },
+    {
+      "id": "person:ГИНКА КОСТОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Гинка Костова Христова"
+    },
+    {
+      "id": "person:СТАНКА ЙОРДАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Станка Йорданова Илиева"
+    },
+    {
+      "id": "person:ТОНКА СЪБЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Тонка Събева Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:steliyan-ivanov-totev-b48508",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ГЕОРГИЕВ ГЪРЧЕВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЬО АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМОВА ПЕТКОВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ МАРКОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАН ПЛАМЕНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЦОНЕВА КОПРИНДЖИЙСКА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЬО АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ГЕОРГИЕВА ИЛИЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ДОКОВА ГУТЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ГЕОРГИЕВА РАНЧЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ГЕОРГИЕВА РАНЧЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИГЯР ФИКРЕТОВА МУЗАФЕРОВА-БАЙРАМ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВАСИЛЕВА БОРИСОВА-АЛЕКСАНДРОВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИХАЙЛОВ ИВАНОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ ГУТЕВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА МИХАЙЛОВА ЙОРДАНОВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНА ГЕОРГИЕВА КОЛЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН НЕДЕВ НИКОВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ТОДОРОВА КРУМОВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИВАНОВА ГОСПОДИНОВА-ГЕОРГИЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНКА МАРИНОВА ВАСИЛЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСИЛЕ ВЕДАТ ХАЛИЛ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНКА МАРИНОВА ВАСИЛЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ АНДРЕЕВА НОНЧЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ДАЧЕВ",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА КОСТОВА ХРИСТОВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ЙОРДАНОВА ИЛИЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА СЪБЕВА ИЛИЕВА",
+      "target": "company:tr:000559153",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

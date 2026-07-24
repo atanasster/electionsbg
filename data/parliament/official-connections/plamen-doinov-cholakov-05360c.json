@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-doinov-cholakov-05360c",
+  "nodes": [
+    {
+      "id": "official:plamen-doinov-cholakov-05360c",
+      "type": "official",
+      "slug": "plamen-doinov-cholakov-05360c",
+      "label": "Пламен Дойнов Чолаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:102819914",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СПОРТЕН КЛУБ НА ГЛУХИТЕ И ВЕТЕРАНИ&quot;",
+      "slug": null,
+      "uic": "102819914",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖИВКО ГЕОРГИЕВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Живко Георгиев Алексиев"
+    },
+    {
+      "id": "person:СТЕФАН БЛАГОЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Благоев Стефанов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ НЕДЕВ",
+      "type": "person",
+      "label": "Иван Димитров Недев"
+    },
+    {
+      "id": "person:ПЛАМЕН МИТЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Пламен Митев Панайотов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-doinov-cholakov-05360c",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖИВКО ГЕОРГИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН БЛАГОЕВ СТЕФАНОВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ НЕДЕВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ГЕОРГИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН БЛАГОЕВ СТЕФАНОВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МИТЕВ ПАНАЙОТОВ",
+      "target": "company:tr:102819914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

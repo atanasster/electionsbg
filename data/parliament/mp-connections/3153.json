@@ -1,1 +1,78 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3153","nodes":[{"id":"mp:3153","type":"mp","mpId":3153,"label":"Максим Колев Генчев","partyGroupShort":"Център","isCurrent":false,"nsFolders":[]},{"id":"company:tr:205529116","type":"company","label":"ДЕМА ФИЛМ","slug":null,"uic":"205529116","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Елин Пелин, 2100"},{"id":"person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ","type":"person","label":"Матей Максимов Генчев"},{"id":"person:ИВАНКА СТОЯНОВА КОВАЧЕВА","type":"person","label":"Иванка Стоянова Ковачева"}],"edges":[{"source":"mp:3153","target":"company:tr:205529116","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3153","target":"company:tr:205529116","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ","target":"company:tr:205529116","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА СТОЯНОВА КОВАЧЕВА","target":"company:tr:205529116","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ","target":"company:tr:205529116","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3153",
+  "nodes": [
+    {
+      "id": "mp:3153",
+      "type": "mp",
+      "mpId": 3153,
+      "label": "Максим Колев Генчев",
+      "partyGroupShort": "Център",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205529116",
+      "type": "company",
+      "label": "ДЕМА ФИЛМ",
+      "slug": null,
+      "uic": "205529116",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Елин Пелин, 2100"
+    },
+    {
+      "id": "person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Матей Максимов Генчев"
+    },
+    {
+      "id": "person:ИВАНКА СТОЯНОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Иванка Стоянова Ковачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3153",
+      "target": "company:tr:205529116",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3153",
+      "target": "company:tr:205529116",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ",
+      "target": "company:tr:205529116",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОЯНОВА КОВАЧЕВА",
+      "target": "company:tr:205529116",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТЕЙ МАКСИМОВ ГЕНЧЕВ",
+      "target": "company:tr:205529116",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

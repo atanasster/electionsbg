@@ -1,1 +1,70 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1582","nodes":[{"id":"mp:1582","type":"mp","mpId":1582,"label":"Ирена Георгиева Узунова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:126529015","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ХАСКОВО","slug":null,"uic":"126529015","legalForm":"AD","status":"active","seat":null},{"id":"person:ГЕОРГИ НИКОЛОВ ГЕЛОВ","type":"person","label":"Георги Николов Гелов"},{"id":"person:МИЛЕНА ГЕОРГИЕВА ЛАЗОВА","type":"person","label":"Милена Георгиева Лазова"}],"edges":[{"source":"mp:1582","target":"company:tr:126529015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ НИКОЛОВ ГЕЛОВ","target":"company:tr:126529015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ГЕОРГИЕВА ЛАЗОВА","target":"company:tr:126529015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1582",
+  "nodes": [
+    {
+      "id": "mp:1582",
+      "type": "mp",
+      "mpId": 1582,
+      "label": "Ирена Георгиева Узунова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:126529015",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ХАСКОВО",
+      "slug": null,
+      "uic": "126529015",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:georgi-nikolov-gelov-cb8320",
+      "type": "official",
+      "slug": "georgi-nikolov-gelov-cb8320",
+      "label": "Георги Николов Гелов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:milena-georgieva-lazova-d49938",
+      "type": "official",
+      "slug": "milena-georgieva-lazova-d49938",
+      "label": "Милена Георгиева Лазова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1582",
+      "target": "company:tr:126529015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-nikolov-gelov-cb8320",
+      "target": "company:tr:126529015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-georgieva-lazova-d49938",
+      "target": "company:tr:126529015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

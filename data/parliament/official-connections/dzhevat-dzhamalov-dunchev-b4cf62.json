@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dzhevat-dzhamalov-dunchev-b4cf62",
+  "nodes": [
+    {
+      "id": "official:dzhevat-dzhamalov-dunchev-b4cf62",
+      "type": "official",
+      "slug": "dzhevat-dzhamalov-dunchev-b4cf62",
+      "label": "Джеват Джамалов Дунчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207748692",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ РОДОПИ - САТОВЧА",
+      "slug": null,
+      "uic": "207748692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖАМАЛ АХМЕДОВ ДЖИЛДЖОВ",
+      "type": "person",
+      "label": "Джамал Ахмедов Джилджов"
+    },
+    {
+      "id": "person:ЗАКИР АСАНОВ СТРАНДЖЕВ",
+      "type": "person",
+      "label": "Закир Асанов Странджев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhevat-dzhamalov-dunchev-b4cf62",
+      "target": "company:tr:207748692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖАМАЛ АХМЕДОВ ДЖИЛДЖОВ",
+      "target": "company:tr:207748692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАМАЛ АХМЕДОВ ДЖИЛДЖОВ",
+      "target": "company:tr:207748692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАКИР АСАНОВ СТРАНДЖЕВ",
+      "target": "company:tr:207748692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:daniela-georgieva-dzhurkova-dbc5e3",
+  "nodes": [
+    {
+      "id": "official:daniela-georgieva-dzhurkova-dbc5e3",
+      "type": "official",
+      "slug": "daniela-georgieva-dzhurkova-dbc5e3",
+      "label": "Даниела Георгиева Джуркова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175389303",
+      "type": "company",
+      "label": "\"ДОТ АРХИТЕКТУРА\" ООД",
+      "slug": null,
+      "uic": "175389303",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-georgieva-dzhurkova-dbc5e3",
+      "target": "company:tr:175389303",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

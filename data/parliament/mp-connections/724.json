@@ -1,1 +1,153 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:724","nodes":[{"id":"mp:724","type":"mp","mpId":724,"label":"Коста Георгиев Костов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:175215110","type":"company","label":"БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ","slug":null,"uic":"175215110","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"company:tr:206880821","type":"company","label":"ЛОДЖИКОС","slug":null,"uic":"206880821","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Петрич, 2850"},{"id":"person:СТЕФАН МАРИНОВ СТЕФАНОВ","type":"person","label":"Стефан Маринов Стефанов"},{"id":"person:КРИСТИАН КОНСТАНТИНЕСКУ","type":"person","label":"Кристиан Константинеску"}],"edges":[{"source":"mp:724","target":"company:tr:175215110","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:724","target":"company:tr:175215110","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:724","target":"company:tr:206880821","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:724","target":"company:tr:206880821","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН МАРИНОВ СТЕФАНОВ","target":"company:tr:175215110","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИАН КОНСТАНТИНЕСКУ","target":"company:tr:175215110","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН МАРИНОВ СТЕФАНОВ","target":"company:tr:175215110","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:724",
+  "nodes": [
+    {
+      "id": "mp:724",
+      "type": "mp",
+      "mpId": 724,
+      "label": "Коста Георгиев Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175215110",
+      "type": "company",
+      "label": "БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ",
+      "slug": null,
+      "uic": "175215110",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:tr:206880821",
+      "type": "company",
+      "label": "ЛОДЖИКОС",
+      "slug": null,
+      "uic": "206880821",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850"
+    },
+    {
+      "id": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Маринов Стефанов"
+    },
+    {
+      "id": "person:КРИСТИАН КОНСТАНТИНЕСКУ",
+      "type": "person",
+      "label": "Кристиан Константинеску"
+    },
+    {
+      "id": "company:tr:201630096",
+      "type": "company",
+      "label": "АМБРОЗИЯ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "201630096",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2771",
+      "type": "mp",
+      "mpId": 2771,
+      "label": "Станислава Красимирова Стоянова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:724",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:724",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:724",
+      "target": "company:tr:206880821",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:724",
+      "target": "company:tr:206880821",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАН КОНСТАНТИНЕСКУ",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2771",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2771",
+      "length": 4,
+      "nodeIds": [
+        "mp:724",
+        "company:tr:175215110",
+        "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+        "company:tr:201630096",
+        "mp:2771"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

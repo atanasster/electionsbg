@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nedyalka-asenova-doikova-eb3d44","nodes":[{"id":"official:nedyalka-asenova-doikova-eb3d44","type":"official","slug":"nedyalka-asenova-doikova-eb3d44","label":"Недялка Асенова Дойкова","tier":"municipal","role":"councillor","municipality":"Доспат"},{"id":"company:tr:204562120","type":"company","label":"ИВАНИТА ЕООД","slug":null,"uic":"204562120","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nedyalka-asenova-doikova-eb3d44","target":"company:tr:204562120","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nedyalka-asenova-doikova-eb3d44",
+  "nodes": [
+    {
+      "id": "official:nedyalka-asenova-doikova-eb3d44",
+      "type": "official",
+      "slug": "nedyalka-asenova-doikova-eb3d44",
+      "label": "Недялка Асенова Дойкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:204562120",
+      "type": "company",
+      "label": "ИВАНИТА ЕООД",
+      "slug": null,
+      "uic": "204562120",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedyalka-asenova-doikova-eb3d44",
+      "target": "company:tr:204562120",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

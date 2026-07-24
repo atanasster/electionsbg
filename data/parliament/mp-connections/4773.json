@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4773",
+  "nodes": [
+    {
+      "id": "mp:4773",
+      "type": "mp",
+      "mpId": 4773,
+      "label": "Емил Димитров Трифонов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:МЕЧ-Секюрити-ЕООД",
+      "type": "company",
+      "label": "МЕЧ - Секюрити ЕООД",
+      "slug": "МЕЧ-Секюрити-ЕООД",
+      "uic": "130927366",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "person:ЮЛИАН СОТИРОВ КАЛЬОНСКИ",
+      "type": "person",
+      "label": "Юлиан Сотиров Кальонски"
+    },
+    {
+      "id": "person:ВАЛЯ СТЕФАНОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Валя Стефанова Трифонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4773",
+      "target": "company:МЕЧ-Секюрити-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН СОТИРОВ КАЛЬОНСКИ",
+      "target": "company:МЕЧ-Секюрити-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ СТЕФАНОВА ТРИФОНОВА",
+      "target": "company:МЕЧ-Секюрити-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН СОТИРОВ КАЛЬОНСКИ",
+      "target": "company:МЕЧ-Секюрити-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ СТЕФАНОВА ТРИФОНОВА",
+      "target": "company:МЕЧ-Секюрити-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

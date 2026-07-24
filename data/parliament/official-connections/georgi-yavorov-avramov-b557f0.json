@@ -1,0 +1,230 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-yavorov-avramov-b557f0",
+  "nodes": [
+    {
+      "id": "official:georgi-yavorov-avramov-b557f0",
+      "type": "official",
+      "slug": "georgi-yavorov-avramov-b557f0",
+      "label": "Георги Яворов Аврамов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203920276",
+      "type": "company",
+      "label": "Нейчърон ООД",
+      "slug": null,
+      "uic": "203920276",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203986301",
+      "type": "company",
+      "label": "Милавра ООД",
+      "slug": null,
+      "uic": "203986301",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206938888",
+      "type": "company",
+      "label": "Скраб енд Гоу ООД",
+      "slug": null,
+      "uic": "206938888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207247941",
+      "type": "company",
+      "label": "СГГ Груп ООД",
+      "slug": null,
+      "uic": "207247941",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131572317",
+      "type": "company",
+      "label": "ГИВ 2001 ООД",
+      "slug": null,
+      "uic": "131572317",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202733117",
+      "type": "company",
+      "label": "Д'Естеро ООД",
+      "slug": null,
+      "uic": "202733117",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЯВОРОВ АВРАМОВ",
+      "type": "person",
+      "label": "Георги Яворов Аврамов"
+    },
+    {
+      "id": "person:СВИЛЕН СЛАВЧЕВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Свилен Славчев Милушев"
+    },
+    {
+      "id": "person:СВЕТЛИН ДЕНЧЕВ ДЕНЧЕВ",
+      "type": "person",
+      "label": "Светлин Денчев Денчев"
+    },
+    {
+      "id": "person:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД",
+      "type": "person",
+      "label": "Иновейшън Кепитъл Фонд"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Георгиев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:203920276",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:203986301",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:206938888",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:207247941",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:131572317",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-yavorov-avramov-b557f0",
+      "target": "company:tr:202733117",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯВОРОВ АВРАМОВ",
+      "target": "company:tr:206938888",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН СЛАВЧЕВ МИЛУШЕВ",
+      "target": "company:tr:206938888",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯВОРОВ АВРАМОВ",
+      "target": "company:tr:206938888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН СЛАВЧЕВ МИЛУШЕВ",
+      "target": "company:tr:206938888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ДЕНЧЕВ ДЕНЧЕВ",
+      "target": "company:tr:206938888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД",
+      "target": "company:tr:206938888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯВОРОВ АВРАМОВ",
+      "target": "company:tr:207247941",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯВОРОВ АВРАМОВ",
+      "target": "company:tr:207247941",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН СЛАВЧЕВ МИЛУШЕВ",
+      "target": "company:tr:207247941",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:207247941",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

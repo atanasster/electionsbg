@@ -1,1 +1,387 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3694","nodes":[{"id":"mp:3694","type":"mp","mpId":3694,"label":"Атанас Димитров Михнев","partyGroupShort":"ПП","isCurrent":false,"nsFolders":["47"]},{"id":"company:Ле-Инвест-ООД","type":"company","label":"Ле Инвест ООД","slug":"Ле-Инвест-ООД","uic":"206237976","legalForm":"OOD","status":"active","seat":"София"},{"id":"company:М-консулт-33-ЕООД","type":"company","label":"М-консулт 33 ЕООД","slug":"М-консулт-33-ЕООД","uic":"204033505","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Стара Загора, 6000"},{"id":"company:Омнио-ООД","type":"company","label":"Омнио ООД","slug":"Омнио-ООД","uic":"206143854","legalForm":"OOD","status":"active","seat":"София"},{"id":"company:tr:208540107","type":"company","label":"ДВИЖЕНИЕ \"ГРАЖДАНСКИ МЕГДАН\"","slug":null,"uic":"208540107","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"company:tr:203192547","type":"company","label":"ЛигълТрек","slug":null,"uic":"203192547","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1680"},{"id":"person:СТОЯН САШЕВ ЛОЗАНОВ","type":"person","label":"Стоян Сашев Лозанов"},{"id":"person:ЙОВКА АТАНАСОВА МИХНЕВА","type":"person","label":"Йовка Атанасова Михнева"},{"id":"person:НАДЕЖДА АТАНАСОВА МИШКОВА","type":"person","label":"Надежда Атанасова Мишкова"},{"id":"company:name:ВИТОША ВЕНЧЪР ПАРТНЪРС - ФОНД I","type":"company","label":"\"Витоша Венчър Партнърс - Фонд I\" КД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ОУШЪН ИНВЕСТМЪНТС","type":"company","label":"\"Оушън Инвестмънтс\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:АЛЕКСАНДРЕА ИНВЕСТ ГРУП","type":"company","label":"\"Александреа Инвест груп\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОУШЪН ИНВЕСТМЪНТС","type":"person","label":"Оушън Инвестмънтс"},{"id":"person:АТАНАС КОСТАДИНОВ ШАРКОВ","type":"person","label":"Атанас Костадинов Шарков"},{"id":"person:КАЛИН ЦВЕТАНОВ МАНОЛОВ","type":"person","label":"Калин Цветанов Манолов"},{"id":"person:НЕВЕК КАПИТАЛ ПАРТНЪРС","type":"person","label":"Невек Капитал Партнърс"},{"id":"person:СИЛВИ ТОШКОВ ГАВРИЛОВ","type":"person","label":"Силви Тошков Гаврилов"},{"id":"person:ИВАН ДИМИТРОВ ЧОЛАКОВ","type":"person","label":"Иван Димитров Чолаков"},{"id":"person:ДЕЯН ДИМИТРОВ МИХНЕВ","type":"person","label":"Деян Димитров Михнев"},{"id":"person:ДИМИТЪР СТОЙНОВ МИХНЕВ","type":"person","label":"Димитър Стойнов Михнев"}],"edges":[{"source":"mp:3694","target":"company:Ле-Инвест-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3694","target":"company:М-консулт-33-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3694","target":"company:М-консулт-33-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3694","target":"company:Омнио-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3694","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3694","target":"company:tr:208540107","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3694","target":"company:tr:203192547","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3694","target":"company:tr:203192547","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3694","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН САШЕВ ЛОЗАНОВ","target":"company:Ле-Инвест-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА АТАНАСОВА МИХНЕВА","target":"company:М-консулт-33-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА АТАНАСОВА МИШКОВА","target":"company:М-консулт-33-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ВИТОША ВЕНЧЪР ПАРТНЪРС - ФОНД I","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН САШЕВ ЛОЗАНОВ","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА АТАНАСОВА МИШКОВА","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ОУШЪН ИНВЕСТМЪНТС","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:АЛЕКСАНДРЕА ИНВЕСТ ГРУП","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ОУШЪН ИНВЕСТМЪНТС","target":"company:Омнио-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КОСТАДИНОВ ШАРКОВ","target":"company:tr:208540107","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КОСТАДИНОВ ШАРКОВ","target":"company:tr:208540107","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ЦВЕТАНОВ МАНОЛОВ","target":"company:tr:208540107","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕК КАПИТАЛ ПАРТНЪРС","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИ ТОШКОВ ГАВРИЛОВ","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА АТАНАСОВА МИХНЕВА","target":"company:tr:203192547","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА АТАНАСОВА МИХНЕВА","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС КОСТАДИНОВ ШАРКОВ","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ЧОЛАКОВ","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ДИМИТРОВ МИХНЕВ","target":"company:tr:203192547","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЙНОВ МИХНЕВ","target":"company:tr:203192547","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3694",
+  "nodes": [
+    {
+      "id": "mp:3694",
+      "type": "mp",
+      "mpId": 3694,
+      "label": "Атанас Димитров Михнев",
+      "partyGroupShort": "ПП",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:Ле-Инвест-ООД",
+      "type": "company",
+      "label": "Ле Инвест ООД",
+      "slug": "Ле-Инвест-ООД",
+      "uic": "206237976",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:М-консулт-33-ЕООД",
+      "type": "company",
+      "label": "М-консулт 33 ЕООД",
+      "slug": "М-консулт-33-ЕООД",
+      "uic": "204033505",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "company:Омнио-ООД",
+      "type": "company",
+      "label": "Омнио ООД",
+      "slug": "Омнио-ООД",
+      "uic": "206143854",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:208540107",
+      "type": "company",
+      "label": "ДВИЖЕНИЕ \"ГРАЖДАНСКИ МЕГДАН\"",
+      "slug": null,
+      "uic": "208540107",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "company:tr:203192547",
+      "type": "company",
+      "label": "ЛигълТрек",
+      "slug": null,
+      "uic": "203192547",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680"
+    },
+    {
+      "id": "person:СТОЯН САШЕВ ЛОЗАНОВ",
+      "type": "person",
+      "label": "Стоян Сашев Лозанов"
+    },
+    {
+      "id": "person:ЙОВКА АТАНАСОВА МИХНЕВА",
+      "type": "person",
+      "label": "Йовка Атанасова Михнева"
+    },
+    {
+      "id": "person:НАДЕЖДА АТАНАСОВА МИШКОВА",
+      "type": "person",
+      "label": "Надежда Атанасова Мишкова"
+    },
+    {
+      "id": "company:name:ВИТОША ВЕНЧЪР ПАРТНЪРС - ФОНД I",
+      "type": "company",
+      "label": "\"Витоша Венчър Партнърс - Фонд I\" КД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ОУШЪН ИНВЕСТМЪНТС",
+      "type": "company",
+      "label": "\"Оушън Инвестмънтс\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АЛЕКСАНДРЕА ИНВЕСТ ГРУП",
+      "type": "company",
+      "label": "\"Александреа Инвест груп\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОУШЪН ИНВЕСТМЪНТС",
+      "type": "person",
+      "label": "Оушън Инвестмънтс"
+    },
+    {
+      "id": "person:АТАНАС КОСТАДИНОВ ШАРКОВ",
+      "type": "person",
+      "label": "Атанас Костадинов Шарков"
+    },
+    {
+      "id": "person:КАЛИН ЦВЕТАНОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Калин Цветанов Манолов"
+    },
+    {
+      "id": "person:НЕВЕК КАПИТАЛ ПАРТНЪРС",
+      "type": "person",
+      "label": "Невек Капитал Партнърс"
+    },
+    {
+      "id": "person:СИЛВИ ТОШКОВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Силви Тошков Гаврилов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Иван Димитров Чолаков"
+    },
+    {
+      "id": "person:ДЕЯН ДИМИТРОВ МИХНЕВ",
+      "type": "person",
+      "label": "Деян Димитров Михнев"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЙНОВ МИХНЕВ",
+      "type": "person",
+      "label": "Димитър Стойнов Михнев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3694",
+      "target": "company:Ле-Инвест-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:М-консулт-33-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:М-консулт-33-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:Омнио-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:tr:208540107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:tr:203192547",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3694",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН САШЕВ ЛОЗАНОВ",
+      "target": "company:Ле-Инвест-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА АТАНАСОВА МИХНЕВА",
+      "target": "company:М-консулт-33-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА АТАНАСОВА МИШКОВА",
+      "target": "company:М-консулт-33-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВИТОША ВЕНЧЪР ПАРТНЪРС - ФОНД I",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН САШЕВ ЛОЗАНОВ",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА АТАНАСОВА МИШКОВА",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ОУШЪН ИНВЕСТМЪНТС",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АЛЕКСАНДРЕА ИНВЕСТ ГРУП",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОУШЪН ИНВЕСТМЪНТС",
+      "target": "company:Омнио-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КОСТАДИНОВ ШАРКОВ",
+      "target": "company:tr:208540107",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КОСТАДИНОВ ШАРКОВ",
+      "target": "company:tr:208540107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ЦВЕТАНОВ МАНОЛОВ",
+      "target": "company:tr:208540107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕК КАПИТАЛ ПАРТНЪРС",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИ ТОШКОВ ГАВРИЛОВ",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА АТАНАСОВА МИХНЕВА",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА АТАНАСОВА МИХНЕВА",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КОСТАДИНОВ ШАРКОВ",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ЧОЛАКОВ",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ДИМИТРОВ МИХНЕВ",
+      "target": "company:tr:203192547",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЙНОВ МИХНЕВ",
+      "target": "company:tr:203192547",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

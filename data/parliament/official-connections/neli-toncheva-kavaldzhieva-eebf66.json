@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:neli-toncheva-kavaldzhieva-eebf66",
+  "nodes": [
+    {
+      "id": "official:neli-toncheva-kavaldzhieva-eebf66",
+      "type": "official",
+      "slug": "neli-toncheva-kavaldzhieva-eebf66",
+      "label": "Нели Тончева Кавалджиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:000962834",
+      "type": "company",
+      "label": "Народно читалище &quot;ПРОСВЕТА-1892&quot;",
+      "slug": null,
+      "uic": "000962834",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАСКА ПАРУШЕВА БОРИСОВА",
+      "type": "person",
+      "label": "Атанаска Парушева Борисова"
+    },
+    {
+      "id": "person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА",
+      "type": "person",
+      "label": "Надя Славчева Жечева"
+    },
+    {
+      "id": "person:ПАРУШКА ТОДОРОВА УЗУНОВА",
+      "type": "person",
+      "label": "Парушка Тодорова Узунова"
+    },
+    {
+      "id": "person:СТОЙКА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Стойка Иванова Колева"
+    },
+    {
+      "id": "person:НИКОЛАЙ БОГДАНОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Николай Богданов Богданов"
+    },
+    {
+      "id": "person:ЙОРДАНКА АНГЕЛОВА ДРАГИЕВА",
+      "type": "person",
+      "label": "Йорданка Ангелова Драгиева"
+    },
+    {
+      "id": "person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Йорданка Добрева Стоянова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Даниела Иванова Станчева"
+    },
+    {
+      "id": "person:МАЯ ЙОРДАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Мая Йорданова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-toncheva-kavaldzhieva-eebf66",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:neli-toncheva-kavaldzhieva-eebf66",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАСКА ПАРУШЕВА БОРИСОВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРУШКА ТОДОРОВА УЗУНОВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ СЛАВЧЕВА ЖЕЧЕВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БОГДАНОВ БОГДАНОВ",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА АНГЕЛОВА ДРАГИЕВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ДОБРЕВА СТОЯНОВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА СТАНЧЕВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ЙОРДАНОВА ЙОРДАНОВА",
+      "target": "company:tr:000962834",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

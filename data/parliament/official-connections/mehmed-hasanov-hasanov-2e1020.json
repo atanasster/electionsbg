@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mehmed-hasanov-hasanov-2e1020",
+  "nodes": [
+    {
+      "id": "official:mehmed-hasanov-hasanov-2e1020",
+      "type": "official",
+      "slug": "mehmed-hasanov-hasanov-2e1020",
+      "label": "Мехмед Хасанов Хасанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчидол"
+    },
+    {
+      "id": "company:tr:201242535",
+      "type": "company",
+      "label": "МЕР-ТРАНС-2010",
+      "slug": null,
+      "uic": "201242535",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-hasanov-hasanov-2e1020",
+      "target": "company:tr:201242535",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

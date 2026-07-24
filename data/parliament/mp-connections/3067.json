@@ -1,1 +1,192 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3067","nodes":[{"id":"mp:3067","type":"mp","mpId":3067,"label":"Минко Велчев Ангелов","partyGroupShort":"ПП ИСМВ","isCurrent":false,"nsFolders":[]},{"id":"company:Компютър-КОНСУЛТ-ЕООД","type":"company","label":"Компютър КОНСУЛТ-ЕООД","slug":"Компютър-КОНСУЛТ-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"ХАСКОВО"},{"id":"company:tr:836163459","type":"company","label":"КОМПЮТЪР КОНСУЛТ","slug":null,"uic":"836163459","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:126166457","type":"company","label":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО МЕХАНОЕЛЕКТРОТЕХНИКА &quot;СТОЙЧО И КИЦА МАРЧЕВИ&quot;&quot;","slug":null,"uic":"126166457","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Хасково, 6300"},{"id":"person:ТАНИ КИРИЛОВА СТАНКОВА-АНГЕЛОВА","type":"person","label":"Тани Кирилова Станкова-Ангелова"},{"id":"person:ДЕЛЧО ВЕЛЧЕВ АНГЕЛОВ","type":"person","label":"Делчо Велчев Ангелов"},{"id":"person:ВАСИЛКА КОЧЕВА МИТЕВА","type":"person","label":"Василка Кочева Митева"},{"id":"person:ГЕОРГИ СЛАВОВ СЛАВОВ","type":"person","label":"Георги Славов Славов"},{"id":"person:СТЕФАН ФИЛИПОВ МАРКОВ","type":"person","label":"Стефан Филипов Марков"},{"id":"person:ТИХОМИР ПЕТКОВ ПЕТКОВ","type":"person","label":"Тихомир Петков Петков"},{"id":"person:АНТОНИЯ ВАСИЛЕВА МИНКОВА","type":"person","label":"Антония Василева Минкова"},{"id":"person:ТАТЯНА СЛАВЕЙКОВА ЙОРДАНОВА","type":"person","label":"Татяна Славейкова Йорданова"}],"edges":[{"source":"mp:3067","target":"company:Компютър-КОНСУЛТ-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3067","target":"company:tr:836163459","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3067","target":"company:tr:126166457","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3067","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАНИ КИРИЛОВА СТАНКОВА-АНГЕЛОВА","target":"company:tr:836163459","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЧО ВЕЛЧЕВ АНГЕЛОВ","target":"company:tr:836163459","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛКА КОЧЕВА МИТЕВА","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СЛАВОВ СЛАВОВ","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ФИЛИПОВ МАРКОВ","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР ПЕТКОВ ПЕТКОВ","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СЛАВОВ СЛАВОВ","target":"company:tr:126166457","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ВАСИЛЕВА МИНКОВА","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СЛАВЕЙКОВА ЙОРДАНОВА","target":"company:tr:126166457","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3067",
+  "nodes": [
+    {
+      "id": "mp:3067",
+      "type": "mp",
+      "mpId": 3067,
+      "label": "Минко Велчев Ангелов",
+      "partyGroupShort": "ПП ИСМВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Компютър-КОНСУЛТ-ЕООД",
+      "type": "company",
+      "label": "Компютър КОНСУЛТ-ЕООД",
+      "slug": "Компютър-КОНСУЛТ-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "ХАСКОВО"
+    },
+    {
+      "id": "company:tr:836163459",
+      "type": "company",
+      "label": "КОМПЮТЪР КОНСУЛТ",
+      "slug": null,
+      "uic": "836163459",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:126166457",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО МЕХАНОЕЛЕКТРОТЕХНИКА &quot;СТОЙЧО И КИЦА МАРЧЕВИ&quot;&quot;",
+      "slug": null,
+      "uic": "126166457",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "person:ТАНИ КИРИЛОВА СТАНКОВА-АНГЕЛОВА",
+      "type": "person",
+      "label": "Тани Кирилова Станкова-Ангелова"
+    },
+    {
+      "id": "person:ДЕЛЧО ВЕЛЧЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Делчо Велчев Ангелов"
+    },
+    {
+      "id": "person:ВАСИЛКА КОЧЕВА МИТЕВА",
+      "type": "person",
+      "label": "Василка Кочева Митева"
+    },
+    {
+      "id": "person:ГЕОРГИ СЛАВОВ СЛАВОВ",
+      "type": "person",
+      "label": "Георги Славов Славов"
+    },
+    {
+      "id": "person:СТЕФАН ФИЛИПОВ МАРКОВ",
+      "type": "person",
+      "label": "Стефан Филипов Марков"
+    },
+    {
+      "id": "person:ТИХОМИР ПЕТКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Тихомир Петков Петков"
+    },
+    {
+      "id": "person:АНТОНИЯ ВАСИЛЕВА МИНКОВА",
+      "type": "person",
+      "label": "Антония Василева Минкова"
+    },
+    {
+      "id": "person:ТАТЯНА СЛАВЕЙКОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Татяна Славейкова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3067",
+      "target": "company:Компютър-КОНСУЛТ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3067",
+      "target": "company:tr:836163459",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3067",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3067",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНИ КИРИЛОВА СТАНКОВА-АНГЕЛОВА",
+      "target": "company:tr:836163459",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО ВЕЛЧЕВ АНГЕЛОВ",
+      "target": "company:tr:836163459",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА КОЧЕВА МИТЕВА",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СЛАВОВ СЛАВОВ",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ФИЛИПОВ МАРКОВ",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ПЕТКОВ ПЕТКОВ",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СЛАВОВ СЛАВОВ",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВАСИЛЕВА МИНКОВА",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СЛАВЕЙКОВА ЙОРДАНОВА",
+      "target": "company:tr:126166457",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

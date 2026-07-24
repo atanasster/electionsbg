@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-pavlikov-tulbenski-931134",
+  "nodes": [
+    {
+      "id": "official:atanas-pavlikov-tulbenski-931134",
+      "type": "official",
+      "slug": "atanas-pavlikov-tulbenski-931134",
+      "label": "Атанас Павликов Тулбенски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Драгоман"
+    },
+    {
+      "id": "company:tr:208237964",
+      "type": "company",
+      "label": "Диджитал Патолоджи Солюшънс",
+      "slug": null,
+      "uic": "208237964",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ АНТОНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Емил Антонов Димитров"
+    },
+    {
+      "id": "person:АНТОН ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Антон Петров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-pavlikov-tulbenski-931134",
+      "target": "company:tr:208237964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ АНТОНОВ ДИМИТРОВ",
+      "target": "company:tr:208237964",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ АНТОНОВ ДИМИТРОВ",
+      "target": "company:tr:208237964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:208237964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

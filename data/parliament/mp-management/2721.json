@@ -1,1 +1,106 @@
-{"mpId":2721,"mpName":"Спас Янев Панчев","generatedAt":"2026-07-03T11:12:51.692Z","total":7,"roles":[{"uic":"205253358","companyName":"ФОНДАЦИЯ &quot;ВЪРХОВЕН СЪВЕТ ЗА БЪЛГАРИЯ&quot;","legalForm":"FOUND","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-25T14:06:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"205253358","companyName":"ФОНДАЦИЯ &quot;ВЪРХОВЕН СЪВЕТ ЗА БЪЛГАРИЯ&quot;","legalForm":"FOUND","seat":null,"status":"active","role":"ngo_representative","positionLabel":"Председател на фондацията","sharePercent":null,"addedAt":"2024-04-25T14:06:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207772914","companyName":"ВЪРХОВЕН СЪВЕТ НА ДПШО ЗА БЪЛГАРИЯ","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. София, 1463","status":"active","role":"ngo_representative","positionLabel":"Председател","sharePercent":null,"addedAt":"2024-03-29T07:57:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207772914","companyName":"ВЪРХОВЕН СЪВЕТ НА ДПШО ЗА БЪЛГАРИЯ","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. София, 1463","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-03-29T07:57:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"130334334","companyName":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА-ГОРНА БАНЯ","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_representative","positionLabel":"Председател на управителния съвет","sharePercent":null,"addedAt":"2023-01-26T13:55:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"130334334","companyName":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА-ГОРНА БАНЯ","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-26T13:55:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000703225","companyName":"Съюз на българските филателисти","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-02-15T15:54:52","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2721,
+  "mpName": "Спас Янев Панчев",
+  "generatedAt": "2026-07-24T03:35:58.516Z",
+  "total": 7,
+  "roles": [
+    {
+      "uic": "205253358",
+      "companyName": "ФОНДАЦИЯ &quot;ВЪРХОВЕН СЪВЕТ ЗА БЪЛГАРИЯ&quot;",
+      "legalForm": "FOUND",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-25T14:06:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205253358",
+      "companyName": "ФОНДАЦИЯ &quot;ВЪРХОВЕН СЪВЕТ ЗА БЪЛГАРИЯ&quot;",
+      "legalForm": "FOUND",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател на фондацията",
+      "sharePercent": null,
+      "addedAt": "2024-04-25T14:06:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207772914",
+      "companyName": "ВЪРХОВЕН СЪВЕТ НА ДПШО ЗА БЪЛГАРИЯ",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател",
+      "sharePercent": null,
+      "addedAt": "2024-03-29T07:57:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207772914",
+      "companyName": "ВЪРХОВЕН СЪВЕТ НА ДПШО ЗА БЪЛГАРИЯ",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-03-29T07:57:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "130334334",
+      "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА-ГОРНА БАНЯ",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател на управителния съвет",
+      "sharePercent": null,
+      "addedAt": "2023-01-26T13:55:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "130334334",
+      "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА-ГОРНА БАНЯ",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-26T13:55:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000703225",
+      "companyName": "Съюз на българските филателисти",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-02-15T15:54:52",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

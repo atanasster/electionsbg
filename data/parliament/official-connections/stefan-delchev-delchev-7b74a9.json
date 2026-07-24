@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:stefan-delchev-delchev-7b74a9","nodes":[{"id":"official:stefan-delchev-delchev-7b74a9","type":"official","slug":"stefan-delchev-delchev-7b74a9","label":"Стефан Делчев Делчев","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"company:tr:206719008","type":"company","label":"МАРКОВО ЛЕЙКС","slug":null,"uic":"206719008","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ЦЕКОВ ВАСИЛЕВ","type":"person","label":"Иван Цеков Василев"},{"id":"person:НИКОЛАЙ ЯНКОВ КРЕМЕНАРОВ","type":"person","label":"Николай Янков Кременаров"},{"id":"person:ДОБРОМИР АТАНАСОВ ГУШЕВ","type":"person","label":"Добромир Атанасов Гушев"}],"edges":[{"source":"official:stefan-delchev-delchev-7b74a9","target":"company:tr:206719008","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:stefan-delchev-delchev-7b74a9","target":"company:tr:206719008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ЦЕКОВ ВАСИЛЕВ","target":"company:tr:206719008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЯНКОВ КРЕМЕНАРОВ","target":"company:tr:206719008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР АТАНАСОВ ГУШЕВ","target":"company:tr:206719008","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-delchev-delchev-7b74a9",
+  "nodes": [
+    {
+      "id": "official:stefan-delchev-delchev-7b74a9",
+      "type": "official",
+      "slug": "stefan-delchev-delchev-7b74a9",
+      "label": "Стефан Делчев Делчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:206719008",
+      "type": "company",
+      "label": "МАРКОВО ЛЕЙКС",
+      "slug": null,
+      "uic": "206719008",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЦЕКОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Иван Цеков Василев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЯНКОВ КРЕМЕНАРОВ",
+      "type": "person",
+      "label": "Николай Янков Кременаров"
+    },
+    {
+      "id": "person:ДОБРОМИР АТАНАСОВ ГУШЕВ",
+      "type": "person",
+      "label": "Добромир Атанасов Гушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-delchev-delchev-7b74a9",
+      "target": "company:tr:206719008",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-delchev-delchev-7b74a9",
+      "target": "company:tr:206719008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЦЕКОВ ВАСИЛЕВ",
+      "target": "company:tr:206719008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЯНКОВ КРЕМЕНАРОВ",
+      "target": "company:tr:206719008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР АТАНАСОВ ГУШЕВ",
+      "target": "company:tr:206719008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

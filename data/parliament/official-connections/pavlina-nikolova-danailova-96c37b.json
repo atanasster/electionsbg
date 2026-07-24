@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:pavlina-nikolova-danailova-96c37b",
+  "nodes": [
+    {
+      "id": "official:pavlina-nikolova-danailova-96c37b",
+      "type": "official",
+      "slug": "pavlina-nikolova-danailova-96c37b",
+      "label": "Павлина Николова Данаилова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121128506",
+      "type": "company",
+      "label": "СЪЮЗ НА МЕТРОЛОЗИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121128506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ САШОВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Георги Сашов Милушев"
+    },
+    {
+      "id": "person:ПАВЕЛ СИМЕОНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Павел Симеонов Йорданов"
+    },
+    {
+      "id": "person:НЕВЕНА ПЕТЕВА РАДОЕВА",
+      "type": "person",
+      "label": "Невена Петева Радоева"
+    },
+    {
+      "id": "person:РАДОСЛАВА ЙОРДАНОВА ШОЕВСКА",
+      "type": "person",
+      "label": "Радослава Йорданова Шоевска"
+    },
+    {
+      "id": "person:БИСЕР ИВАНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Бисер Иванов Борисов"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН КИРИЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Цветелин Кирилов Георгиев"
+    },
+    {
+      "id": "person:РАДОСТИНА МИХОВА КОТОВА",
+      "type": "person",
+      "label": "Радостина Михова Котова"
+    },
+    {
+      "id": "person:БОРИС БОРИСОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Борис Борисов Михайлов"
+    },
+    {
+      "id": "person:АНТОАНЕТА ГЕОРГИЕВА ЙОВЧЕВА",
+      "type": "person",
+      "label": "Антоанета Георгиева Йовчева"
+    },
+    {
+      "id": "person:ВЕСЕЛА РУМЕНОВА КОНСТАНТИНОВА",
+      "type": "person",
+      "label": "Весела Руменова Константинова"
+    },
+    {
+      "id": "person:ИРЕНА ИЛИЕВА БОРИСЛАВОВА",
+      "type": "person",
+      "label": "Ирена Илиева Бориславова"
+    },
+    {
+      "id": "person:ДИМКА СТОЙЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Димка Стойчева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlina-nikolova-danailova-96c37b",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ САШОВ МИЛУШЕВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ СИМЕОНОВ ЙОРДАНОВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ПЕТЕВА РАДОЕВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА ЙОРДАНОВА ШОЕВСКА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ИВАНОВ БОРИСОВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН КИРИЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА МИХОВА КОТОВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС БОРИСОВ МИХАЙЛОВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ГЕОРГИЕВА ЙОВЧЕВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА РУМЕНОВА КОНСТАНТИНОВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИЛИЕВА БОРИСЛАВОВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА СТОЙЧЕВА ИВАНОВА",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ САШОВ МИЛУШЕВ",
+      "target": "company:tr:121128506",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

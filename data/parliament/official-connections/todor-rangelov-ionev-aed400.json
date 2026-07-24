@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todor-rangelov-ionev-aed400",
+  "nodes": [
+    {
+      "id": "official:todor-rangelov-ionev-aed400",
+      "type": "official",
+      "slug": "todor-rangelov-ionev-aed400",
+      "label": "Тодор Рангелов Йонев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207370538",
+      "type": "company",
+      "label": "Проактив Фарма ООД",
+      "slug": null,
+      "uic": "207370538",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН СПАСОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Иван Спасов Даскалов"
+    },
+    {
+      "id": "person:ТОДОР РАНГЕЛОВ ЙОНЕВ",
+      "type": "person",
+      "label": "Тодор Рангелов Йонев"
+    },
+    {
+      "id": "person:АНТОНИ СТОЯНОВ ТЪРНИЦОВ",
+      "type": "person",
+      "label": "Антони Стоянов Търницов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-rangelov-ionev-aed400",
+      "target": "company:tr:207370538",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СПАСОВ ДАСКАЛОВ",
+      "target": "company:tr:207370538",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СПАСОВ ДАСКАЛОВ",
+      "target": "company:tr:207370538",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР РАНГЕЛОВ ЙОНЕВ",
+      "target": "company:tr:207370538",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИ СТОЯНОВ ТЪРНИЦОВ",
+      "target": "company:tr:207370538",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

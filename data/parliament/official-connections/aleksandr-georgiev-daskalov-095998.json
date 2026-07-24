@@ -1,1 +1,79 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:aleksandr-georgiev-daskalov-095998","nodes":[{"id":"official:aleksandr-georgiev-daskalov-095998","type":"official","slug":"aleksandr-georgiev-daskalov-095998","label":"Александър Георгиев Даскалов","tier":"municipal","role":"councillor","municipality":"Велинград"},{"id":"company:tr:202980217","type":"company","label":"Алда 2014 ЕООД","slug":null,"uic":"202980217","legalForm":null,"status":null,"seat":null},{"id":"company:tr:112008155","type":"company","label":"ВЕЛИ - 91","slug":null,"uic":"112008155","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ АЛЕКСАНДРОВ ДАСКАЛОВ","type":"person","label":"Георги Александров Даскалов"},{"id":"official:nadezhda-borisova-klyuchkova-683b12","type":"official","slug":"nadezhda-borisova-klyuchkova-683b12","label":"Надежда Борисова Ключкова","tier":"municipal","role":"councillor","municipality":"Велинград"},{"id":"person:АСЕН АЛЕКСАНДРОВ ДАСКАЛОВ","type":"person","label":"Асен Александров Даскалов"},{"id":"company:name:ВМБ 98","type":"company","label":"ВМБ 98 ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:aleksandr-georgiev-daskalov-095998","target":"company:tr:202980217","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleksandr-georgiev-daskalov-095998","target":"company:tr:112008155","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ АЛЕКСАНДРОВ ДАСКАЛОВ","target":"company:tr:202980217","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АЛЕКСАНДРОВ ДАСКАЛОВ","target":"company:tr:202980217","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:nadezhda-borisova-klyuchkova-683b12","target":"company:tr:112008155","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АСЕН АЛЕКСАНДРОВ ДАСКАЛОВ","target":"company:tr:112008155","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ВМБ 98","target":"company:tr:112008155","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-georgiev-daskalov-095998",
+  "nodes": [
+    {
+      "id": "official:aleksandr-georgiev-daskalov-095998",
+      "type": "official",
+      "slug": "aleksandr-georgiev-daskalov-095998",
+      "label": "Александър Георгиев Даскалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:112008155",
+      "type": "company",
+      "label": "ВЕЛИ - 91",
+      "slug": null,
+      "uic": "112008155",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН АЛЕКСАНДРОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Асен Александров Даскалов"
+    },
+    {
+      "id": "person:НАДЕЖДА БОРИСОВА КЛЮЧКОВА",
+      "type": "person",
+      "label": "Надежда Борисова Ключкова"
+    },
+    {
+      "id": "company:name:ВМБ 98",
+      "type": "company",
+      "label": "ВМБ 98 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-georgiev-daskalov-095998",
+      "target": "company:tr:112008155",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН АЛЕКСАНДРОВ ДАСКАЛОВ",
+      "target": "company:tr:112008155",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА БОРИСОВА КЛЮЧКОВА",
+      "target": "company:tr:112008155",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВМБ 98",
+      "target": "company:tr:112008155",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

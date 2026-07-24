@@ -1,1 +1,613 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5067","nodes":[{"id":"mp:5067","type":"mp","mpId":5067,"label":"Илин Павлинов Димитров","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":["47"]},{"id":"company:tr:103188964","type":"company","label":"СДРУЖЕНИЕ &quot;ВАРНЕНСКА ТУРИСТИЧЕСКА КАМАРА&quot;","slug":null,"uic":"103188964","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА","type":"person","label":"Людмила Петрова Ненкова"},{"id":"person:ДОНКА ПАВЛОВА ГЕОРГИЕВА","type":"person","label":"Донка Павлова Георгиева"},{"id":"person:ЕЛЕНА КОСЕВА КОСЕВА","type":"person","label":"Елена Косева Косева"},{"id":"person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА","type":"person","label":"Христина Красенова Неделчева"},{"id":"person:МАРГИТА ПЕТРОВА ТОДОРОВА","type":"person","label":"Маргита Петрова Тодорова"},{"id":"person:ЙОВКА СЕВОВА ИВАНОВА","type":"person","label":"Йовка Севова Иванова"},{"id":"person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ","type":"person","label":"Георги Христов Филипов"},{"id":"person:ИЛИЯ ПЕТРОВ РАЕВ","type":"person","label":"Илия Петров Раев"},{"id":"person:СТОЯН ПЕТКОВ МАРИНОВ","type":"person","label":"Стоян Петков Маринов"},{"id":"person:КАЛИН СТЕФАНОВ СУТЕВ","type":"person","label":"Калин Стефанов Сутев"},{"id":"person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А","type":"person","label":"Донка Павлова Георгиев А"},{"id":"person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ","type":"person","label":"Проф.д-Р Стоян Петков Маринов"},{"id":"company:tr:000703415","type":"company","label":"Сдружение &quot;Български Червен кръст&quot;","slug":null,"uic":"000703415","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1402"},{"id":"mp:3228","type":"mp","mpId":3228,"label":"Алисе Кямилова Муртезова","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:203581032","type":"company","label":"АКАДЕМИЧЕН ПАРК 2020 ХОЛИДЕЙ","slug":null,"uic":"203581032","legalForm":"EAD","status":"active","seat":null},{"id":"mp:22","type":"mp","mpId":22,"label":"Яни Димитров Янев","partyGroupShort":"НДСВ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5067","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ПАВЛОВА ГЕОРГИЕВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА КОСЕВА КОСЕВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРГИТА ПЕТРОВА ТОДОРОВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОВКА СЕВОВА ИВАНОВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ПЕТКОВ МАРИНОВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН СТЕФАНОВ СУТЕВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА","target":"company:tr:103188964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ПЕТКОВ МАРИНОВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:203581032","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:000703415","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3228","target":"company:tr:000703415","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:203581032","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:203581032","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3228","length":4,"nodeIds":["mp:5067","company:tr:103188964","person:ИЛИЯ ПЕТРОВ РАЕВ","company:tr:000703415","mp:3228"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:22","length":4,"nodeIds":["mp:5067","company:tr:103188964","person:ИЛИЯ ПЕТРОВ РАЕВ","company:tr:203581032","mp:22"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5067",
+  "nodes": [
+    {
+      "id": "mp:5067",
+      "type": "mp",
+      "mpId": 5067,
+      "label": "Илин Павлинов Димитров",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:Европейски-Институт-за-професионално-обучение",
+      "type": "company",
+      "label": "Европейски Институт за професионално обучение",
+      "slug": "Европейски-Институт-за-професионално-обучение",
+      "uic": "204923204",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:интернобмен-България-ЕООД",
+      "type": "company",
+      "label": "интернобмен България ЕООД",
+      "slug": "интернобмен-България-ЕООД",
+      "uic": "204887053",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:Интернобмен-ООД",
+      "type": "company",
+      "label": "Интернобмен ООД",
+      "slug": "Интернобмен-ООД",
+      "uic": "204198916",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:Стар-Фокс-Тийм-ЕООД",
+      "type": "company",
+      "label": "Стар Фокс Тийм ЕООД",
+      "slug": "Стар-Фокс-Тийм-ЕООД",
+      "uic": "203985936",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:tr:103188964",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ВАРНЕНСКА ТУРИСТИЧЕСКА КАМАРА&quot;",
+      "slug": null,
+      "uic": "103188964",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Иванка Маринова Димитрова"
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Красимиров Иванов"
+    },
+    {
+      "id": "person:БИСТРА ГЕНОВА БОЕВА",
+      "type": "person",
+      "label": "Бистра Генова Боева"
+    },
+    {
+      "id": "official:ilin-pavlinov-dimitrov-727cb8",
+      "type": "official",
+      "slug": "ilin-pavlinov-dimitrov-727cb8",
+      "label": "Илин Павлинов Димитров",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "type": "person",
+      "label": "Людмила Петрова Ненкова"
+    },
+    {
+      "id": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Донка Павлова Георгиева"
+    },
+    {
+      "id": "person:ЕЛЕНА КОСЕВА КОСЕВА",
+      "type": "person",
+      "label": "Елена Косева Косева"
+    },
+    {
+      "id": "person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Христина Красенова Неделчева"
+    },
+    {
+      "id": "person:МАРГИТА ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Маргита Петрова Тодорова"
+    },
+    {
+      "id": "person:ЙОВКА СЕВОВА ИВАНОВА",
+      "type": "person",
+      "label": "Йовка Севова Иванова"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Георги Христов Филипов"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "type": "person",
+      "label": "Илия Петров Раев"
+    },
+    {
+      "id": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Стоян Петков Маринов"
+    },
+    {
+      "id": "person:КАЛИН СТЕФАНОВ СУТЕВ",
+      "type": "person",
+      "label": "Калин Стефанов Сутев"
+    },
+    {
+      "id": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А",
+      "type": "person",
+      "label": "Донка Павлова Георгиев А"
+    },
+    {
+      "id": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Проф.д-Р Стоян Петков Маринов"
+    },
+    {
+      "id": "company:tr:000703415",
+      "type": "company",
+      "label": "Сдружение &quot;Български Червен кръст&quot;",
+      "slug": null,
+      "uic": "000703415",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1402"
+    },
+    {
+      "id": "mp:3228",
+      "type": "mp",
+      "mpId": 3228,
+      "label": "Алисе Кямилова Муртезова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:104119241",
+      "type": "company",
+      "label": "&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ 1884 - ВЕЛИКО ТЪРНОВО&quot;",
+      "slug": null,
+      "uic": "104119241",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "mp:31",
+      "type": "mp",
+      "mpId": 31,
+      "label": "Димитър Цвятков Йорданов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:203581032",
+      "type": "company",
+      "label": "АКАДЕМИЧЕН ПАРК 2020 ХОЛИДЕЙ",
+      "slug": null,
+      "uic": "203581032",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:22",
+      "type": "mp",
+      "mpId": 22,
+      "label": "Яни Димитров Янев",
+      "partyGroupShort": "НДСВ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5067",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:Интернобмен-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:Интернобмен-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:Стар-Фокс-Тийм-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:Стар-Фокс-Тийм-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:Европейски-Институт-за-професионално-обучение",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:интернобмен-България-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ДИМИТРОВА",
+      "target": "company:Интернобмен-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:Интернобмен-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:Интернобмен-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА ГЕНОВА БОЕВА",
+      "target": "company:Стар-Фокс-Тийм-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА ГЕНОВА БОЕВА",
+      "target": "company:Стар-Фокс-Тийм-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ilin-pavlinov-dimitrov-727cb8",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА КОСЕВА КОСЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГИТА ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА СЕВОВА ИВАНОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СТЕФАНОВ СУТЕВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:104119241",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:000703415",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3228",
+      "target": "company:tr:000703415",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:31",
+      "target": "company:tr:104119241",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:31",
+      "target": "company:tr:104119241",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3228",
+      "length": 4,
+      "nodeIds": [
+        "mp:5067",
+        "company:tr:103188964",
+        "person:ИЛИЯ ПЕТРОВ РАЕВ",
+        "company:tr:000703415",
+        "mp:3228"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:31",
+      "length": 4,
+      "nodeIds": [
+        "mp:5067",
+        "company:Европейски-Институт-за-професионално-обучение",
+        "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+        "company:tr:104119241",
+        "mp:31"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:22",
+      "length": 4,
+      "nodeIds": [
+        "mp:5067",
+        "company:tr:103188964",
+        "person:ИЛИЯ ПЕТРОВ РАЕВ",
+        "company:tr:203581032",
+        "mp:22"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4632","nodes":[{"id":"mp:4632","type":"mp","mpId":4632,"label":"Павел Алексеев Христов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["42","43","44","45","46","47","48","49"]},{"id":"company:tr:208064989","type":"company","label":"АПТА Ко.","slug":null,"uic":"208064989","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА","type":"person","label":"Андриана Людмилова Христова"}],"edges":[{"source":"mp:4632","target":"company:tr:208064989","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4632","target":"company:tr:208064989","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА","target":"company:tr:208064989","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА","target":"company:tr:208064989","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4632",
+  "nodes": [
+    {
+      "id": "mp:4632",
+      "type": "mp",
+      "mpId": 4632,
+      "label": "Павел Алексеев Христов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:tr:208064989",
+      "type": "company",
+      "label": "АПТА Ко.",
+      "slug": null,
+      "uic": "208064989",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Андриана Людмилова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4632",
+      "target": "company:tr:208064989",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4632",
+      "target": "company:tr:208064989",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА",
+      "target": "company:tr:208064989",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИАНА ЛЮДМИЛОВА ХРИСТОВА",
+      "target": "company:tr:208064989",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

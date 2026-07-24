@@ -1,1 +1,179 @@
-[{"mpId":5194,"declarantName":"Кръстьо Стоянов Врачев","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-04-29","entryNumber":"Г5659","controlHash":"D47091AC","sourceUrl":"https://register.cacbg.bg/2025/7DC046FD-428B-48B0-B81D-3D3F662AE636208600.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":50239.02895445923,"amountEurSpouse":13806.925959822684},{"parent":null,"category":"по чл. 11 от Финансовите правила на НС","amountEurDeclarant":26141.842593681456,"amountEurSpouse":null}],"assets":[{"category":"real_estate","description":"къща","detail":null,"location":"Хисаря","municipality":"Хисаря","areaSqm":0,"builtAreaSqm":94,"acquiredYear":2024,"share":"1","currency":"BGN","amount":46000,"valueEur":23519.42653502605,"holderName":"Любомира Алексиева Стойчева","isSpouse":true,"legalBasis":"собственик","fundsOrigin":"заеми"},{"category":"vehicle","description":"SUV","detail":"BMW X5","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":2024,"share":"1","currency":"BGN","amount":29000,"valueEur":14827.464554690336,"holderName":"Кръстьо Стоянов Врачев","isSpouse":false,"legalBasis":"собственик","fundsOrigin":"заеми"}],"events":[{"kind":"disposal_vehicle","description":"лек автомобил","detail":"ауди А6 олроуд","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"currency":"BGN","valueEur":5624.210693158403,"legalBasis":"продажба"}]},{"mpId":5194,"declarantName":"Кръстьо Стоянов Врачев","institution":"49-то Народно събрание","declarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","filedAt":"2024-04-26","entryNumber":"Г1358","controlHash":"EE8EB3A6","sourceUrl":"https://register.cacbg.bg/2024/7DC046FD-428B-48B0-B81D-3D3F662AE636182266.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":33190.512467852524,"amountEurSpouse":null},{"parent":null,"category":"по чл.11 от ФП на НС","amountEurDeclarant":17391.082047008174,"amountEurSpouse":null}],"assets":[{"category":"vehicle","description":"Лек автомобил","detail":"Мерцедес","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":2023,"share":"1","currency":"BGN","amount":3716,"valueEur":1899.960630525148,"holderName":"Кръстьо Стоянов Врачев","isSpouse":false,"legalBasis":"покупко-продажба","fundsOrigin":"работна заплата"},{"category":"vehicle","description":"Лек автомобил","detail":"БМВ","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":2023,"share":"1/2","currency":"BGN","amount":42910,"valueEur":21939.534622129737,"holderName":"Кръстьо Стоянов Врачев","isSpouse":false,"legalBasis":"договор за лизинг","fundsOrigin":"заем"}],"events":[]},{"mpId":5194,"declarantName":"(unknown)","institution":"49-то Народно събрание","declarationYear":2023,"fiscalYear":null,"declarationType":"Other","filedAt":"2023-04-28","entryNumber":"В449","controlHash":"723336AC","sourceUrl":"https://register.cacbg.bg/2023/7DC046FD-428B-48B0-B81D-3D3F662AE636148615.xml","ownershipStakes":[],"income":[],"assets":[],"events":[]},{"mpId":5194,"declarantName":"Кръстьо Стоянов Врачев","institution":"49-то Народно събрание","declarationYear":2023,"fiscalYear":2023,"declarationType":"Entry","filedAt":"2023-04-28","entryNumber":"В448","controlHash":"31E451C5","sourceUrl":"https://register.cacbg.bg/2023/7DC046FD-428B-48B0-B81D-3D3F662AE636148614.xml","ownershipStakes":[],"income":[],"assets":[],"events":[]}]
+[
+  {
+    "mpId": 5194,
+    "declarantName": "Кръстьо Стоянов Врачев",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г5659",
+    "controlHash": "D47091AC",
+    "sourceUrl": "https://register.cacbg.bg/2025/7DC046FD-428B-48B0-B81D-3D3F662AE636208600.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50239.02895445923,
+        "amountEurSpouse": 13806.925959822684
+      },
+      {
+        "parent": null,
+        "category": "по чл. 11 от Финансовите правила на НС",
+        "amountEurDeclarant": 26141.842593681456,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Хисаря",
+        "municipality": "Хисаря",
+        "areaSqm": 0,
+        "builtAreaSqm": 94,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
+        "holderName": "Любомира Алексиева Стойчева",
+        "isSpouse": true,
+        "legalBasis": "собственик",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "SUV",
+        "detail": "BMW X5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 29000,
+        "valueEur": 14827.464554690336,
+        "holderName": "Кръстьо Стоянов Врачев",
+        "isSpouse": false,
+        "legalBasis": "собственик",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ауди А6 олроуд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5624.210693158403,
+        "legalBasis": "продажба"
+      }
+    ]
+  },
+  {
+    "mpId": 5194,
+    "declarantName": "Кръстьо Стоянов Врачев",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-26",
+    "entryNumber": "Г1358",
+    "controlHash": "EE8EB3A6",
+    "sourceUrl": "https://register.cacbg.bg/2024/7DC046FD-428B-48B0-B81D-3D3F662AE636182266.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33190.512467852524,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл.11 от ФП на НС",
+        "amountEurDeclarant": 17391.082047008174,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3716,
+        "valueEur": 1899.960630525148,
+        "holderName": "Кръстьо Стоянов Врачев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "работна заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 42910,
+        "valueEur": 21939.534622129737,
+        "holderName": "Кръстьо Стоянов Врачев",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": "заем"
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 5194,
+    "declarantName": "(unknown)",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2023-04-28",
+    "entryNumber": "В449",
+    "controlHash": "723336AC",
+    "sourceUrl": "https://register.cacbg.bg/2023/7DC046FD-428B-48B0-B81D-3D3F662AE636148615.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  },
+  {
+    "mpId": 5194,
+    "declarantName": "Кръстьо Стоянов Врачев",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-04-28",
+    "entryNumber": "В448",
+    "controlHash": "31E451C5",
+    "sourceUrl": "https://register.cacbg.bg/2023/7DC046FD-428B-48B0-B81D-3D3F662AE636148614.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": []
+  }
+]

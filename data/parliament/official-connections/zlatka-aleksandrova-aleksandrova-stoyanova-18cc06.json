@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatka-aleksandrova-aleksandrova-stoyanova-18cc06",
+  "nodes": [
+    {
+      "id": "official:zlatka-aleksandrova-aleksandrova-stoyanova-18cc06",
+      "type": "official",
+      "slug": "zlatka-aleksandrova-aleksandrova-stoyanova-18cc06",
+      "label": "Златка Александрова Александрова-Стоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "company:tr:113025271",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ &quot;ЕРМА-96&quot;",
+      "slug": null,
+      "uic": "113025271",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ИЛЧЕВА НАКОВА",
+      "type": "person",
+      "label": "Надя Илчева Накова"
+    },
+    {
+      "id": "person:ДИМИТЪР ТОМОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Томов Димитров"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ МАНЧЕВ",
+      "type": "person",
+      "label": "Николай Иванов Манчев"
+    },
+    {
+      "id": "person:ПЕТЪР ГРИГОРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Петър Григоров Миланов"
+    },
+    {
+      "id": "person:НИКОЛА БОРИСОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Борисов Николов"
+    },
+    {
+      "id": "person:МИЛЕНА МИТКОВА САВОВА",
+      "type": "person",
+      "label": "Милена Миткова Савова"
+    },
+    {
+      "id": "person:БОРИС НИКОЛОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Борис Николов Григоров"
+    },
+    {
+      "id": "person:ЗЛАТКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА - СТОЯНОВА",
+      "type": "person",
+      "label": "Златка Александрова Александрова - Стоянова"
+    },
+    {
+      "id": "person:РАДОСТИН АНГЕЛОВ БОРИСОВ",
+      "type": "person",
+      "label": "Радостин Ангелов Борисов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatka-aleksandrova-aleksandrova-stoyanova-18cc06",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ИЛЧЕВА НАКОВА",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИЛЧЕВА НАКОВА",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ТОМОВ ДИМИТРОВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ МАНЧЕВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГРИГОРОВ МИЛАНОВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА БОРИСОВ НИКОЛОВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МИТКОВА САВОВА",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МИТКОВА САВОВА",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НИКОЛОВ ГРИГОРОВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА АЛЕКСАНДРОВА АЛЕКСАНДРОВА - СТОЯНОВА",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН АНГЕЛОВ БОРИСОВ",
+      "target": "company:tr:113025271",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

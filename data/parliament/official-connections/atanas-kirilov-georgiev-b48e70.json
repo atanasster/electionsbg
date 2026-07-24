@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-kirilov-georgiev-b48e70",
+  "nodes": [
+    {
+      "id": "official:atanas-kirilov-georgiev-b48e70",
+      "type": "official",
+      "slug": "atanas-kirilov-georgiev-b48e70",
+      "label": "Атанас Кирилов Георгиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111511773",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БЕРКОВИЦА",
+      "slug": null,
+      "uic": "111511773",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-kirilov-georgiev-b48e70",
+      "target": "company:tr:111511773",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

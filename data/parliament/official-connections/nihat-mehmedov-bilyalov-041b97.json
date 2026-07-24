@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nihat-mehmedov-bilyalov-041b97",
+  "nodes": [
+    {
+      "id": "official:nihat-mehmedov-bilyalov-041b97",
+      "type": "official",
+      "slug": "nihat-mehmedov-bilyalov-041b97",
+      "label": "Нихат Мехмедов Билялов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000868210",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАДЕЖДА-1904&quot;",
+      "slug": null,
+      "uic": "000868210",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕВЕНА АНГЕЛОВА МАДЖАРОВА",
+      "type": "person",
+      "label": "Невена Ангелова Маджарова"
+    },
+    {
+      "id": "person:ХРИСТО ХРИСТОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Христо Христов Ангелов"
+    },
+    {
+      "id": "person:МАРГАРИТА ДИМИТРОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Маргарита Димитрова Ангелова"
+    },
+    {
+      "id": "person:РОСИЦА ЙОВЧЕВА КАДЪНОВА",
+      "type": "person",
+      "label": "Росица Йовчева Кадънова"
+    },
+    {
+      "id": "person:СОНЯ АСЕНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Соня Асенова Стефанова"
+    },
+    {
+      "id": "person:АЙТЕН ЯШАРОВА БУЧАКЧИЕВА",
+      "type": "person",
+      "label": "Айтен Яшарова Бучакчиева"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ХРИСТОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Валентина Христова Вълкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nihat-mehmedov-bilyalov-041b97",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕВЕНА АНГЕЛОВА МАДЖАРОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ХРИСТОВ АНГЕЛОВ",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА АНГЕЛОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ЙОВЧЕВА КАДЪНОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ АСЕНОВА СТЕФАНОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙТЕН ЯШАРОВА БУЧАКЧИЕВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА АНГЕЛОВА МАДЖАРОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА АНГЕЛОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ХРИСТОВА ВЪЛКОВА",
+      "target": "company:tr:000868210",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,49 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:216","nodes":[{"id":"mp:216","type":"mp","mpId":216,"label":"Румен Асенов Ангелов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:102087503","type":"company","label":"ЕВРОПУЛ","slug":null,"uic":"102087503","legalForm":"AD","status":"active","seat":null},{"id":"person:РУМЕН РУМЕНОВ АНГЕЛОВ","type":"person","label":"Румен Руменов Ангелов"}],"edges":[{"source":"mp:216","target":"company:tr:102087503","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"person:РУМЕН РУМЕНОВ АНГЕЛОВ","target":"company:tr:102087503","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:216",
+  "nodes": [
+    {
+      "id": "mp:216",
+      "type": "mp",
+      "mpId": 216,
+      "label": "Румен Асенов Ангелов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:102087503",
+      "type": "company",
+      "label": "ЕВРОПУЛ",
+      "slug": null,
+      "uic": "102087503",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН РУМЕНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Румен Руменов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:216",
+      "target": "company:tr:102087503",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН РУМЕНОВ АНГЕЛОВ",
+      "target": "company:tr:102087503",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

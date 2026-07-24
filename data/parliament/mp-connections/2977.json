@@ -1,1 +1,188 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2977","nodes":[{"id":"mp:2977","type":"mp","mpId":2977,"label":"Елена Владимирова Ангелинина","partyGroupShort":"Воля","isCurrent":false,"nsFolders":[]},{"id":"company:tr:204437533","type":"company","label":"АЙ ЕЛ КОНСУЛТ БАНСКО","slug":null,"uic":"204437533","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Банско, 2770"}],"edges":[{"source":"mp:2977","target":"company:tr:204437533","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2977","target":"company:tr:204437533","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2977",
+  "nodes": [
+    {
+      "id": "mp:2977",
+      "type": "mp",
+      "mpId": 2977,
+      "label": "Елена Владимирова Ангелинина",
+      "partyGroupShort": "Воля",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Ай-Джи-Консулт-ООД",
+      "type": "company",
+      "label": "Ай Джи Консулт ООД",
+      "slug": "Ай-Джи-Консулт-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Банско-Транс-ООД",
+      "type": "company",
+      "label": "Банско Транс ООД",
+      "slug": "Банско-Транс-ООД",
+      "uic": "204145970",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Бул-Антик-ООД",
+      "type": "company",
+      "label": "Бул Антик ООД",
+      "slug": "Бул-Антик-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Ви-Ем-Ойл-ООД",
+      "type": "company",
+      "label": "Ви Ем Ойл ООД",
+      "slug": "Ви-Ем-Ойл-ООД",
+      "uic": "200975561",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Гроше-Банско-ООД",
+      "type": "company",
+      "label": "Гроше Банско ООД",
+      "slug": "Гроше-Банско-ООД",
+      "uic": "205131176",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Еделвайс-Банско-ООД",
+      "type": "company",
+      "label": "Еделвайс Банско ООД",
+      "slug": "Еделвайс-Банско-ООД",
+      "uic": "203864984",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Етем-Инвест-ООД",
+      "type": "company",
+      "label": "Етем Инвест ООД",
+      "slug": "Етем-Инвест-ООД",
+      "uic": "101681232",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:Строй-Инвест-Банско-Еоод",
+      "type": "company",
+      "label": "Строй Инвест Банско Еоод",
+      "slug": "Строй-Инвест-Банско-Еоод",
+      "uic": "200704661",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Благоевград"
+    },
+    {
+      "id": "company:tr:204437533",
+      "type": "company",
+      "label": "АЙ ЕЛ КОНСУЛТ БАНСКО",
+      "slug": null,
+      "uic": "204437533",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Банско, 2770"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2977",
+      "target": "company:Ай-Джи-Консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Банско-Транс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Бул-Антик-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Ви-Ем-Ойл-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Гроше-Банско-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Еделвайс-Банско-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Етем-Инвест-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:Строй-Инвест-Банско-Еоод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:tr:204437533",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2977",
+      "target": "company:tr:204437533",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

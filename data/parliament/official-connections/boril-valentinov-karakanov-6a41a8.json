@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boril-valentinov-karakanov-6a41a8",
+  "nodes": [
+    {
+      "id": "official:boril-valentinov-karakanov-6a41a8",
+      "type": "official",
+      "slug": "boril-valentinov-karakanov-6a41a8",
+      "label": "Борил Валентинов Караканов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Етрополе"
+    },
+    {
+      "id": "company:tr:177180302",
+      "type": "company",
+      "label": "&quot;ЗА ЕТРОПОЛЕ&quot;",
+      "slug": null,
+      "uic": "177180302",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОНСТАНТИН ИЛКОВ КАЛАЙДЖИЕВ",
+      "type": "person",
+      "label": "Константин Илков Калайджиев"
+    },
+    {
+      "id": "person:ИВАН АЛЕКСАНДРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Иван Александров Василев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boril-valentinov-karakanov-6a41a8",
+      "target": "company:tr:177180302",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boril-valentinov-karakanov-6a41a8",
+      "target": "company:tr:177180302",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОНСТАНТИН ИЛКОВ КАЛАЙДЖИЕВ",
+      "target": "company:tr:177180302",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСАНДРОВ ВАСИЛЕВ",
+      "target": "company:tr:177180302",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

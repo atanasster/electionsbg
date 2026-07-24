@@ -1,0 +1,213 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-metodiev-petkov-73651c",
+  "nodes": [
+    {
+      "id": "official:aleksandr-metodiev-petkov-73651c",
+      "type": "official",
+      "slug": "aleksandr-metodiev-petkov-73651c",
+      "label": "Александър Методиев Петков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207333408",
+      "type": "company",
+      "label": "Кресна енерджи",
+      "slug": null,
+      "uic": "207333408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207373420",
+      "type": "company",
+      "label": "ТиДиАй Холдингс България",
+      "slug": null,
+      "uic": "207373420",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Александър Методиев Петков"
+    },
+    {
+      "id": "person:МЕНАХЕМ АХАРОНИ",
+      "type": "person",
+      "label": "Менахем  Ахарони"
+    },
+    {
+      "id": "person:ЦВИ ХЕНДЛЕР",
+      "type": "person",
+      "label": "Цви Хендлер"
+    },
+    {
+      "id": "person:ТИДИАЙ ХОЛДИНГС БЪЛГАРИЯ",
+      "type": "person",
+      "label": "Тидиай Холдингс България"
+    },
+    {
+      "id": "person:ДРОР НАДАМ",
+      "type": "person",
+      "label": "Дрор Надам"
+    },
+    {
+      "id": "person:ТИДИАЙ РЕНЮЪБЪЛС ЕЛТИДИ",
+      "type": "person",
+      "label": "Тидиай Ренюъбълс Елтиди"
+    },
+    {
+      "id": "company:tr:207896506",
+      "type": "company",
+      "label": "\"Мездра уинд енерджи\" ЕООД",
+      "slug": null,
+      "uic": "207896506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-metodiev-petkov-73651c",
+      "target": "company:tr:207333408",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-metodiev-petkov-73651c",
+      "target": "company:tr:207373420",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "target": "company:tr:207333408",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕНАХЕМ АХАРОНИ",
+      "target": "company:tr:207333408",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207333408",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИДИАЙ ХОЛДИНГС БЪЛГАРИЯ",
+      "target": "company:tr:207333408",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРОР НАДАМ",
+      "target": "company:tr:207333408",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207333408",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "target": "company:tr:207373420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИДИАЙ РЕНЮЪБЪЛС ЕЛТИДИ",
+      "target": "company:tr:207373420",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207373420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРОР НАДАМ",
+      "target": "company:tr:207373420",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207373420",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:207373420",
+      "target": "company:tr:207896506",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕНАХЕМ АХАРОНИ",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

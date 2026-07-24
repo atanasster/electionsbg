@@ -1,1 +1,85 @@
-{"obshtina":"SHU30","count":14,"mpCount":10,"totalPages":1,"topCompanies":[{"slug":"ЗЛАТЕН-ВЕК","displayName":"ЗЛАТЕН ВЕК","registeredOffice":"БЪЛГАРИЯ, гр. Шумен, 9700","mps":[{"mpId":1066,"mpName":"Ивайло Георгиев Тошев","role":"ngo_board","isCurrent":true},{"mpId":1066,"mpName":"Ивайло Георгиев Тошев","role":"ngo_representative","isCurrent":true}]},{"slug":"Н.Н-АВИОХИМ","displayName":"Н.Н - АВИОХИМ","registeredOffice":"БЪЛГАРИЯ, гр. Шумен, 9700","mps":[{"mpId":4579,"mpName":"Захари Георгиев Борачев","role":"manager","isCurrent":true},{"mpId":4579,"mpName":"Захари Георгиев Борачев","role":"sole_owner","isCurrent":true}]},{"slug":"Образователни-хоризонти","displayName":"Образователни хоризонти","registeredOffice":"БЪЛГАРИЯ, гр. Шумен, 9700","mps":[{"mpId":3505,"mpName":"Антония Кънчева Димитрова","role":"ngo_representative","isCurrent":true},{"mpId":3505,"mpName":"Антония Кънчева Димитрова","role":"ngo_board","isCurrent":true}]},{"slug":"ПАН-ЕЪР","displayName":"ПАН ЕЪР","registeredOffice":"БЪЛГАРИЯ, гр. Шумен, 9700","mps":[{"mpId":4579,"mpName":"Захари Георгиев Борачев","role":"manager","isCurrent":true},{"mpId":4579,"mpName":"Захари Георгиев Борачев","role":"sole_owner","isCurrent":true}]},{"slug":"УЧИЛИЩНО-НАСТОЯТЕЛСТВО-НАДЕЖДА&quot;-ПРИ-III-ОУ-ДИМИТЪР-БЛАГОЕВ&quot;-ГР.-ШУМЕН","displayName":"УЧИЛИЩНО НАСТОЯТЕЛСТВО „НАДЕЖДА&quot; ПРИ III ОУ „ДИМИТЪР БЛАГОЕВ&quot; ГР. ШУМЕН","registeredOffice":"БЪЛГАРИЯ, гр. Шумен, 9709","mps":[{"mpId":4311,"mpName":"Нели Стойчева Димитрова","role":"ngo_representative","isCurrent":true},{"mpId":4311,"mpName":"Нели Стойчева Димитрова","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "SHU30",
+  "count": 17,
+  "mpCount": 11,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Проджект-инженеринг-ООД",
+      "displayName": "Проджект инженеринг ООД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 4818,
+          "mpName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Диалог-трейнинг-груп-ЕООД",
+      "displayName": "\"Диалог трейнинг груп\" ЕООД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 2648,
+          "mpName": "Румен Петров Генов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АЛ-и-КО-АД",
+      "displayName": "АЛ и КО АД",
+      "registeredOffice": "Шумен",
+      "mps": [
+        {
+          "mpId": 2647,
+          "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЗЛАТЕН-ВЕК",
+      "displayName": "ЗЛАТЕН ВЕК",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Шумен, 9700",
+      "mps": [
+        {
+          "mpId": 1066,
+          "mpName": "Ивайло Георгиев Тошев",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1066,
+          "mpName": "Ивайло Георгиев Тошев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Н.Н-АВИОХИМ",
+      "displayName": "Н.Н - АВИОХИМ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Шумен, 9700",
+      "mps": [
+        {
+          "mpId": 4579,
+          "mpName": "Захари Георгиев Борачев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4579,
+          "mpName": "Захари Георгиев Борачев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

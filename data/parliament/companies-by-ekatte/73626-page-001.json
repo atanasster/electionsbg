@@ -1,1 +1,213 @@
-{"ekatte":"73626","page":1,"totalPages":1,"count":11,"companies":[{"slug":"Биоелит","displayName":"\"Биоелит\"","registeredOffice":"Търговище","mps":[{"mpId":4022,"mpName":"Имрен Исметова Мехмедова","role":"declared_stake","isCurrent":true}]},{"slug":"СДРУЖЕНИЕ-&quot;ЦЕНТЪР-ЗА-РЕГИОНАЛНО-РАЗВИТИЕ&quot;","displayName":"СДРУЖЕНИЕ &quot;ЦЕНТЪР ЗА РЕГИОНАЛНО РАЗВИТИЕ&quot;","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":2414,"mpName":"Дарин Иванов Димитров","role":"ngo_representative","isCurrent":true},{"mpId":2414,"mpName":"Дарин Иванов Димитров","role":"ngo_board","isCurrent":true},{"mpId":4879,"mpName":"Танер Мехмед Али","role":"ngo_board","isCurrent":true}]},{"slug":"Асоциация-на-производителите-на-стъкло-в-България","displayName":"Асоциация на производителите на стъкло в България","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":64,"mpName":"Лидия Сантова Шулева","role":"ngo_representative","isCurrent":true},{"mpId":64,"mpName":"Лидия Сантова Шулева","role":"ngo_board","isCurrent":true}]},{"slug":"ВОЛЕЙБОЛЕН-КЛУБ-ТЪРГОВИЩЕ&quot;","displayName":"ВОЛЕЙБОЛЕН КЛУБ „ТЪРГОВИЩЕ&quot;","registeredOffice":"БЪЛГАРИЯ, Търговище, 7700","mps":[{"mpId":3421,"mpName":"Радослав Николов Бойчев","role":"ngo_representative","isCurrent":true},{"mpId":3421,"mpName":"Радослав Николов Бойчев","role":"ngo_board","isCurrent":true}]},{"slug":"ЕЙ-ДЖИ-2022","displayName":"ЕЙ-ДЖИ 2022","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ПАНАЦЕЯ-1","displayName":"ПАНАЦЕЯ 1","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":2415,"mpName":"Тунчер Мехмедов Кърджалиев","role":"manager","isCurrent":true},{"mpId":2415,"mpName":"Тунчер Мехмедов Кърджалиев","role":"sole_owner","isCurrent":true}]},{"slug":"АЛГАРА-ГРУП","displayName":"АЛГАРА ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":5003,"mpName":"Мария Димова Илиева","role":"manager","isCurrent":true}]},{"slug":"АФРОДИТА","displayName":"АФРОДИТА","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":5333,"mpName":"Таня Петрова Гюрюшева-Николова","role":"manager","isCurrent":true}]},{"slug":"ГРУПОВА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-МЕДИКА-9","displayName":"ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-МЕДИКА 9","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":2415,"mpName":"Тунчер Мехмедов Кърджалиев","role":"partner","isCurrent":true}]},{"slug":"Инициативи-за-Вас","displayName":"Инициативи за Вас","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":3421,"mpName":"Радослав Николов Бойчев","role":"ngo_representative","isCurrent":true}]},{"slug":"ТРАКИЯ-ГЛАС-БЪЛГАРИЯ","displayName":"ТРАКИЯ ГЛАС БЪЛГАРИЯ","registeredOffice":"БЪЛГАРИЯ, гр. Търговище, 7700","mps":[{"mpId":64,"mpName":"Лидия Сантова Шулева","role":"director","isCurrent":true}]}]}
+{
+  "ekatte": "73626",
+  "page": 1,
+  "totalPages": 1,
+  "count": 13,
+  "companies": [
+    {
+      "slug": "Биоелит-ЕООД",
+      "displayName": "\"Биоелит\" ЕООД",
+      "registeredOffice": "ТЪРГОВИЩЕ",
+      "mps": [
+        {
+          "mpId": 4022,
+          "mpName": "Имрен Исметова Мехмедова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;ЦЕНТЪР-ЗА-РЕГИОНАЛНО-РАЗВИТИЕ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;ЦЕНТЪР ЗА РЕГИОНАЛНО РАЗВИТИЕ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 2414,
+          "mpName": "Дарин Иванов Димитров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2414,
+          "mpName": "Дарин Иванов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4879,
+          "mpName": "Танер Мехмед Али",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Асоциация-на-производителите-на-стъкло-в-България",
+      "displayName": "Асоциация на производителите на стъкло в България",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВОЛЕЙБОЛЕН-КЛУБ-ТЪРГОВИЩЕ&quot;",
+      "displayName": "ВОЛЕЙБОЛЕН КЛУБ „ТЪРГОВИЩЕ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 3421,
+          "mpName": "Радослав Николов Бойчев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3421,
+          "mpName": "Радослав Николов Бойчев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЕЙ-ДЖИ-2022",
+      "displayName": "ЕЙ-ДЖИ 2022",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПАНАЦЕЯ-1",
+      "displayName": "ПАНАЦЕЯ 1",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 2415,
+          "mpName": "Тунчер Мехмедов Кърджалиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2415,
+          "mpName": "Тунчер Мехмедов Кърджалиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЙОТ-ГИ-ВАЛ-България-ООД",
+      "displayName": "\"ЙОТ ГИ ВАЛ България\" ООД",
+      "registeredOffice": "Търговище",
+      "mps": [
+        {
+          "mpId": 3249,
+          "mpName": "Владимир Стоянов Русев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МР-Осенец-ООД",
+      "displayName": "\"МР Осенец\" ООД",
+      "registeredOffice": "Търговище",
+      "mps": [
+        {
+          "mpId": 4116,
+          "mpName": "ИЛТЕР БЕЙЗАТОВ САДЪКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АЛГАРА-ГРУП",
+      "displayName": "АЛГАРА ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 5003,
+          "mpName": "Мария Димова Илиева",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АФРОДИТА",
+      "displayName": "АФРОДИТА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 5333,
+          "mpName": "Таня Петрова Гюрюшева-Николова",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГРУПОВА-ПРАКТИКА-ЗА-ПЪРВИЧНА-МЕДИЦИНСКА-ПОМОЩ-МЕДИКА-9",
+      "displayName": "ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-МЕДИКА 9",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 2415,
+          "mpName": "Тунчер Мехмедов Кърджалиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Инициативи-за-Вас",
+      "displayName": "Инициативи за Вас",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 3421,
+          "mpName": "Радослав Николов Бойчев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТРАКИЯ-ГЛАС-БЪЛГАРИЯ",
+      "displayName": "ТРАКИЯ ГЛАС БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "mps": [
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

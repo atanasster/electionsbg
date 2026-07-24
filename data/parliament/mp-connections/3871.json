@@ -1,1 +1,574 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3871","nodes":[{"id":"mp:3871","type":"mp","mpId":3871,"label":"Николай Кръстев Костадинов","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":[]},{"id":"company:tr:200841635","type":"company","label":"ИН ТРЕЙД 2009","slug":null,"uic":"200841635","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:207229060","type":"company","label":"Т ЛОГИСТИК","slug":null,"uic":"207229060","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9014"},{"id":"company:tr:207285073","type":"company","label":"ЧИФЛИКА БГ 23","slug":null,"uic":"207285073","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:205745904","type":"company","label":"БАНДИТС","slug":null,"uic":"205745904","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:208389840","type":"company","label":"МОЗУ","slug":null,"uic":"208389840","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1528"},{"id":"official:nikolai-krstev-kostadinov-02c8d5","type":"official","slug":"nikolai-krstev-kostadinov-02c8d5","label":"Николай Кръстев Костадинов","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ","type":"person","label":"Ивайло Николаев Петров"},{"id":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","type":"person","label":"Николай Кръстев Костадинов"},{"id":"person:СТЕФАН АНДРЕЕВ СОКОЛОВ","type":"person","label":"Стефан Андреев Соколов"},{"id":"person:АНДРЕЙ ИЛАРИОНОВ ИЛАРИОНОВ","type":"person","label":"Андрей Иларионов Иларионов"},{"id":"person:МИРОСЛАВ ЦВЯТКОВ ГЕОРГИЕВ","type":"person","label":"Мирослав Цвятков Георгиев"},{"id":"person:ГАЛИНА ТОДОРОВА СТЕФАНОВА","type":"person","label":"Галина Тодорова Стефанова"},{"id":"person:ДИМО АНДОНОВ АНДОНОВ","type":"person","label":"Димо Андонов Андонов"},{"id":"company:tr:177051663","type":"company","label":"ФУТБОЛЕН КЛУБ СПАРТАК 1918","slug":null,"uic":"177051663","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:4734","type":"mp","mpId":4734,"label":"Бранимир Николаев Балачев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["47","48","49","50","51"]},{"id":"company:tr:206887995","type":"company","label":"СЪВМЕСТНА ОНКОЛОГИЧНА НАЦИОНАЛНА МРЕЖА","slug":null,"uic":"206887995","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9009"},{"id":"mp:3185","type":"mp","mpId":3185,"label":"Григор Ангелов Горчев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:3871","target":"company:tr:200841635","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:207229060","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:207285073","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:208389840","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:208389840","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:207229060","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:207285073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:nikolai-krstev-kostadinov-02c8d5","target":"company:tr:200841635","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ","target":"company:tr:200841635","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ","target":"company:tr:200841635","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:200841635","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-krstev-kostadinov-02c8d5","target":"company:tr:207229060","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНДРЕЕВ СОКОЛОВ","target":"company:tr:207229060","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНДРЕЕВ СОКОЛОВ","target":"company:tr:207229060","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:207229060","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:207229060","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-krstev-kostadinov-02c8d5","target":"company:tr:207285073","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:207285073","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:207285073","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ ИЛАРИОНОВ ИЛАРИОНОВ","target":"company:tr:207285073","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ЦВЯТКОВ ГЕОРГИЕВ","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ТОДОРОВА СТЕФАНОВА","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО АНДОНОВ АНДОНОВ","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:208389840","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ","target":"company:tr:208389840","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ","target":"company:tr:206887995","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО АНДОНОВ АНДОНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3185","target":"company:tr:206887995","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4734","length":4,"nodeIds":["mp:3871","company:tr:205745904","person:ДИМО АНДОНОВ АНДОНОВ","company:tr:177051663","mp:4734"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3185","length":4,"nodeIds":["mp:3871","company:tr:200841635","person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ","company:tr:206887995","mp:3185"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3871",
+  "nodes": [
+    {
+      "id": "mp:3871",
+      "type": "mp",
+      "mpId": 3871,
+      "label": "Николай Кръстев Костадинов",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "48"
+      ]
+    },
+    {
+      "id": "company:Бандитс-ООД",
+      "type": "company",
+      "label": "Бандитс ООД",
+      "slug": "Бандитс-ООД",
+      "uic": "205745904",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:ИН-Трейд-2009-ООД",
+      "type": "company",
+      "label": "ИН Трейд 2009 ООД",
+      "slug": "ИН-Трейд-2009-ООД",
+      "uic": "200841635",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Палачола-ООД",
+      "type": "company",
+      "label": "Палачола ООД",
+      "slug": "Палачола-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Пригрес-13-ООД",
+      "type": "company",
+      "label": "Пригрес 13 ООД",
+      "slug": "Пригрес-13-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Т-логистик-ООД",
+      "type": "company",
+      "label": "Т логистик ООД",
+      "slug": "Т-логистик-ООД",
+      "uic": "207229060",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9014"
+    },
+    {
+      "id": "company:Чифлика-БГ-ООД",
+      "type": "company",
+      "label": "Чифлика БГ ООД",
+      "slug": "Чифлика-БГ-ООД",
+      "uic": "202906747",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "company:tr:207285073",
+      "type": "company",
+      "label": "ЧИФЛИКА БГ 23",
+      "slug": null,
+      "uic": "207285073",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:208389840",
+      "type": "company",
+      "label": "МОЗУ",
+      "slug": null,
+      "uic": "208389840",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1528"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЦВЯТКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мирослав Цвятков Георгиев"
+    },
+    {
+      "id": "person:ГАЛИНА ТОДОРОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Галина Тодорова Стефанова"
+    },
+    {
+      "id": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "type": "person",
+      "label": "Димо Андонов Андонов"
+    },
+    {
+      "id": "official:nikolai-krstev-kostadinov-02c8d5",
+      "type": "official",
+      "slug": "nikolai-krstev-kostadinov-02c8d5",
+      "label": "Николай Кръстев Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Николай Кръстев Костадинов"
+    },
+    {
+      "id": "person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Ивайло Николаев Петров"
+    },
+    {
+      "id": "person:СТЕФАН АНДРЕЕВ СОКОЛОВ",
+      "type": "person",
+      "label": "Стефан Андреев Соколов"
+    },
+    {
+      "id": "person:АНДРЕЙ ИЛАРИОНОВ ИЛАРИОНОВ",
+      "type": "person",
+      "label": "Андрей Иларионов Иларионов"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЙОРДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Валери Йорданов Георгиев"
+    },
+    {
+      "id": "person:ВЕСЕЛИН РУМЕНОВ ВЕСЕЛИНОВ",
+      "type": "person",
+      "label": "Веселин Руменов Веселинов"
+    },
+    {
+      "id": "person:РАЙКО АНДРЕЕВ РАЙКОВ",
+      "type": "person",
+      "label": "Райко Андреев Райков"
+    },
+    {
+      "id": "company:tr:177051663",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ СПАРТАК 1918",
+      "slug": null,
+      "uic": "177051663",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4734",
+      "type": "mp",
+      "mpId": 4734,
+      "label": "Бранимир Николаев Балачев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:tr:206887995",
+      "type": "company",
+      "label": "СЪВМЕСТНА ОНКОЛОГИЧНА НАЦИОНАЛНА МРЕЖА",
+      "slug": null,
+      "uic": "206887995",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9009"
+    },
+    {
+      "id": "mp:3185",
+      "type": "mp",
+      "mpId": 3185,
+      "label": "Григор Ангелов Горчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3871",
+      "target": "company:Бандитс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Палачола-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Пригрес-13-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Т-логистик-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:tr:207285073",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:tr:208389840",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:tr:208389840",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:tr:207285073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЦВЯТКОВ ГЕОРГИЕВ",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ТОДОРОВА СТЕФАНОВА",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-krstev-kostadinov-02c8d5",
+      "target": "company:Бандитс-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-krstev-kostadinov-02c8d5",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:ИН-Трейд-2009-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНДРЕЕВ СОКОЛОВ",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНДРЕЕВ СОКОЛОВ",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-krstev-kostadinov-02c8d5",
+      "target": "company:Т-логистик-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:Т-логистик-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ИЛАРИОНОВ ИЛАРИОНОВ",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН РУМЕНОВ ВЕСЕЛИНОВ",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙКО АНДРЕЕВ РАЙКОВ",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙКО АНДРЕЕВ РАЙКОВ",
+      "target": "company:Чифлика-БГ-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-krstev-kostadinov-02c8d5",
+      "target": "company:tr:207285073",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:tr:207285073",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:tr:207285073",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ИЛАРИОНОВ ИЛАРИОНОВ",
+      "target": "company:tr:207285073",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:tr:208389840",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРЪСТЕВ КОСТАДИНОВ",
+      "target": "company:tr:208389840",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ",
+      "target": "company:tr:206887995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:206887995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4734",
+      "length": 4,
+      "nodeIds": [
+        "mp:3871",
+        "company:Бандитс-ООД",
+        "person:ДИМО АНДОНОВ АНДОНОВ",
+        "company:tr:177051663",
+        "mp:4734"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3185",
+      "length": 4,
+      "nodeIds": [
+        "mp:3871",
+        "company:ИН-Трейд-2009-ООД",
+        "person:ИВАЙЛО НИКОЛАЕВ ПЕТРОВ",
+        "company:tr:206887995",
+        "mp:3185"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

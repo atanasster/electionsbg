@@ -1,1 +1,72 @@
-{"ekatte":"02508","count":4,"mpCount":3,"totalPages":1,"topCompanies":[{"slug":"АВЕНОЗ-КОНСУЛТИНГ","displayName":"АВЕНОЗ КОНСУЛТИНГ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9601","mps":[{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"manager","isCurrent":true},{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"sole_owner","isCurrent":true}]},{"slug":"АГРОЛЕС-ПРОДУКТ","displayName":"АГРОЛЕС ПРОДУКТ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9600","mps":[{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true}]},{"slug":"Абелла-888","displayName":"Абелла 888","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9600","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]},{"slug":"С-К-Т-Т-ИНТЕРНЕШЪНЪЛ","displayName":"С К Т Т  ИНТЕРНЕШЪНЪЛ","registeredOffice":"БЪЛГАРИЯ, гр. Балчик, 9601","mps":[{"mpId":3303,"mpName":"Десислава Цветанова Цонева","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "02508",
+  "count": 4,
+  "mpCount": 3,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "АВЕНОЗ-КОНСУЛТИНГ",
+      "displayName": "АВЕНОЗ КОНСУЛТИНГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9601",
+      "mps": [
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АГРОЛЕС-ПРОДУКТ",
+      "displayName": "АГРОЛЕС ПРОДУКТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9600",
+      "mps": [
+        {
+          "mpId": 2501,
+          "mpName": "Димитър Спасов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Абелла-888",
+      "displayName": "Абелла 888",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9600",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "С-К-Т-Т-ИНТЕРНЕШЪНЪЛ",
+      "displayName": "С К Т Т  ИНТЕРНЕШЪНЪЛ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Балчик, 9601",
+      "mps": [
+        {
+          "mpId": 3303,
+          "mpName": "Десислава Цветанова Цонева",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

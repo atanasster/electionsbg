@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galina-staikova-koeva-4c84ae",
+  "nodes": [
+    {
+      "id": "official:galina-staikova-koeva-4c84ae",
+      "type": "official",
+      "slug": "galina-staikova-koeva-4c84ae",
+      "label": "Галина Стайкова Коева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000804670",
+      "type": "company",
+      "label": "НАУКА - 1907",
+      "slug": null,
+      "uic": "000804670",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОРНИЦА НЕЙКОВА НЕЙКОВА",
+      "type": "person",
+      "label": "Зорница Нейкова Нейкова"
+    },
+    {
+      "id": "person:ДОБРИ ГЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Добри Генов Стоянов"
+    },
+    {
+      "id": "person:ХРИСТО КЪНЕВ КЪНЕВ",
+      "type": "person",
+      "label": "Христо Кънев Кънев"
+    },
+    {
+      "id": "person:ВЪЛКА ЖЕКОВА НАНЕВА",
+      "type": "person",
+      "label": "Вълка Жекова Нанева"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛОВА НАНЕВА",
+      "type": "person",
+      "label": "Мария Николова Нанева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-staikova-koeva-4c84ae",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОРНИЦА НЕЙКОВА НЕЙКОВА",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА НЕЙКОВА НЕЙКОВА",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ГЕНОВ СТОЯНОВ",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КЪНЕВ КЪНЕВ",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКА ЖЕКОВА НАНЕВА",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛОВА НАНЕВА",
+      "target": "company:tr:000804670",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,61 @@
-{"mpId":4029,"name":"Тихомир Недев Георгиев","partyGroupShort":null,"isCurrent":false,"nsFolders":[],"latestDeclarationYear":2023,"fiscalYear":2022,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2023/1B2CD3BD-3ADF-4D52-ADCD-642227750CA6149901.xml","totalAssetsEur":177603.37043608085,"totalDebtsEur":46177.326250236474,"netWorthEur":131426.04418584437,"previous":{"year":2023,"totalAssetsEur":177603.37043608085,"netWorthEur":131426.04418584437},"byCategory":{"real_estate":{"count":15,"valuedCount":15,"totalEur":78412.74548401446},"vehicle":{"count":1,"valuedCount":1,"totalEur":11248.421386316806},"cash":{"count":2,"valuedCount":2,"totalEur":64422.77703072353},"bank":{"count":1,"valuedCount":1,"totalEur":23519.42653502605},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":46177.326250236474},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4029,
+  "name": "Тихомир Недев Георгиев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2022,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2023/1B2CD3BD-3ADF-4D52-ADCD-642227750CA6149901.xml",
+  "totalAssetsEur": 177603.37043608085,
+  "totalDebtsEur": 46177.326250236474,
+  "netWorthEur": 131426.04418584437,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 177603.37043608085,
+    "netWorthEur": 131426.04418584437
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 15,
+      "valuedCount": 15,
+      "totalEur": 78412.74548401446
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 11248.421386316806
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 64422.77703072353
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 23519.42653502605
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 46177.326250236474
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

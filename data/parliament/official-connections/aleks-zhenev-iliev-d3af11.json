@@ -1,1 +1,179 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:aleks-zhenev-iliev-d3af11","nodes":[{"id":"official:aleks-zhenev-iliev-d3af11","type":"official","slug":"aleks-zhenev-iliev-d3af11","label":"Алекс Женев Илиев","tier":"municipal","role":"councillor","municipality":"Варна"},{"id":"company:tr:207014168","type":"company","label":"ПРИНЦИПАЛ ЕООД","slug":null,"uic":"207014168","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201093116","type":"company","label":"СТЕФАНС ЕООД","slug":null,"uic":"201093116","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206992850","type":"company","label":"БЕБЕ СВЯТ ЕООД","slug":null,"uic":"206992850","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","type":"person","label":"Алекс Женев Илиев"},{"id":"person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ","type":"person","label":"Венцислав Стефчов Славов"},{"id":"person:ТОДОР АТАНАСОВ АТАНАСОВ","type":"person","label":"Тодор Атанасов Атанасов"},{"id":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","type":"person","label":"Димитър Атанасов Атанасов"}],"edges":[{"source":"official:aleks-zhenev-iliev-d3af11","target":"company:tr:207014168","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleks-zhenev-iliev-d3af11","target":"company:tr:201093116","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:aleks-zhenev-iliev-d3af11","target":"company:tr:206992850","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:207014168","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:207014168","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ","target":"company:tr:201093116","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ","target":"company:tr:201093116","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:201093116","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:201093116","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:206992850","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР АТАНАСОВ АТАНАСОВ","target":"company:tr:206992850","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:206992850","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","target":"company:tr:206992850","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР АТАНАСОВ АТАНАСОВ","target":"company:tr:206992850","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleks-zhenev-iliev-d3af11",
+  "nodes": [
+    {
+      "id": "official:aleks-zhenev-iliev-d3af11",
+      "type": "official",
+      "slug": "aleks-zhenev-iliev-d3af11",
+      "label": "Алекс Женев Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:207014168",
+      "type": "company",
+      "label": "ПРИНЦИПАЛ ЕООД",
+      "slug": null,
+      "uic": "207014168",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201093116",
+      "type": "company",
+      "label": "СТЕФАНС ЕООД",
+      "slug": null,
+      "uic": "201093116",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206992850",
+      "type": "company",
+      "label": "БЕБЕ СВЯТ ЕООД",
+      "slug": null,
+      "uic": "206992850",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Алекс Женев Илиев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ",
+      "type": "person",
+      "label": "Венцислав Стефчов Славов"
+    },
+    {
+      "id": "person:ТОДОР АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Тодор Атанасов Атанасов"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Димитър Атанасов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleks-zhenev-iliev-d3af11",
+      "target": "company:tr:207014168",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleks-zhenev-iliev-d3af11",
+      "target": "company:tr:201093116",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleks-zhenev-iliev-d3af11",
+      "target": "company:tr:206992850",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:207014168",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:207014168",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ",
+      "target": "company:tr:201093116",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СТЕФЧОВ СЛАВОВ",
+      "target": "company:tr:201093116",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:201093116",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:201093116",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:206992850",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:206992850",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:206992850",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:206992850",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:206992850",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

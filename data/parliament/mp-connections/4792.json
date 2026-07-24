@@ -1,1 +1,152 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4792","nodes":[{"id":"mp:4792","type":"mp","mpId":4792,"label":"Стефан Иванов Бурджев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44","46"]},{"id":"company:СИД-УЕБ-ГРУПООД","type":"company","label":"\"СИД УЕБ ГРУП\"ООД","slug":"СИД-УЕБ-ГРУПООД","uic":"202907614","legalForm":"OOD","status":"active","seat":"Плевен"},{"id":"company:СЦ-ПрогресООД","type":"company","label":"\"СЦ Прогрес\"ООД","slug":"СЦ-ПрогресООД","uic":null,"legalForm":null,"status":null,"seat":"Плевен"},{"id":"person:ИВАН ИЛИЕВ ХРИСТОВ","type":"person","label":"Иван Илиев Христов"},{"id":"person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ","type":"person","label":"Десислав Сашев Василков"}],"edges":[{"source":"mp:4792","target":"company:СИД-УЕБ-ГРУПООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4792","target":"company:СЦ-ПрогресООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЕВ ХРИСТОВ","target":"company:СИД-УЕБ-ГРУПООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ","target":"company:СИД-УЕБ-ГРУПООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4792",
+  "nodes": [
+    {
+      "id": "mp:4792",
+      "type": "mp",
+      "mpId": 4792,
+      "label": "Стефан Иванов Бурджев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "46"
+      ]
+    },
+    {
+      "id": "company:СИД-УЕБ-ГРУПООД",
+      "type": "company",
+      "label": "\"СИД УЕБ ГРУП\"ООД",
+      "slug": "СИД-УЕБ-ГРУПООД",
+      "uic": "202907614",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:СЦ-ПРОГРЕСООД",
+      "type": "company",
+      "label": "\"СЦ ПРОГРЕС\"ООД",
+      "slug": "СЦ-ПРОГРЕСООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:СИД-УЕБ-Груп-ООД",
+      "type": "company",
+      "label": "СИД УЕБ Груп ООД",
+      "slug": "СИД-УЕБ-Груп-ООД",
+      "uic": "202907614",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:СЦ-Прогрес-ООД",
+      "type": "company",
+      "label": "СЦ Прогрес ООД",
+      "slug": "СЦ-Прогрес-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Плевен"
+    },
+    {
+      "id": "person:ИВАН ИЛИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Илиев Христов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ",
+      "type": "person",
+      "label": "Десислав Сашев Василков"
+    },
+    {
+      "id": "official:stefan-ivanov-burdzhev-5ecb93",
+      "type": "official",
+      "slug": "stefan-ivanov-burdzhev-5ecb93",
+      "label": "СТЕФАН ИВАНОВ БУРДЖЕВ",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4792",
+      "target": "company:СИД-УЕБ-ГРУПООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4792",
+      "target": "company:СЦ-ПРОГРЕСООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4792",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4792",
+      "target": "company:СЦ-Прогрес-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ ХРИСТОВ",
+      "target": "company:СИД-УЕБ-ГРУПООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ",
+      "target": "company:СИД-УЕБ-ГРУПООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ ХРИСТОВ",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ САШЕВ ВАСИЛКОВ",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-ivanov-burdzhev-5ecb93",
+      "target": "company:СИД-УЕБ-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

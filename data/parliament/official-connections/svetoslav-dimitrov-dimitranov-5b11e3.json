@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-dimitrov-dimitranov-5b11e3",
+  "nodes": [
+    {
+      "id": "official:svetoslav-dimitrov-dimitranov-5b11e3",
+      "type": "official",
+      "slug": "svetoslav-dimitrov-dimitranov-5b11e3",
+      "label": "Светослав Димитров Димитранов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176702039",
+      "type": "company",
+      "label": "КДП ИВАН ПАШУНКОВ",
+      "slug": null,
+      "uic": "176702039",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПАВЛИНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Георги Павлинов Узунов"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ РАДАНОВ",
+      "type": "person",
+      "label": "Димитър Иванов Раданов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Василев Николов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДИМИТРОВ ПРОКОПОВ",
+      "type": "person",
+      "label": "Веселин Димитров Прокопов"
+    },
+    {
+      "id": "person:ПАВЛИНА ЦВЕТАНОВА МИХОВА - СКАЗКО",
+      "type": "person",
+      "label": "Павлина Цветанова Михова - Сказко"
+    },
+    {
+      "id": "person:РОСИЦА МЛАДЕНОВА НЕДЕВА",
+      "type": "person",
+      "label": "Росица Младенова Недева"
+    },
+    {
+      "id": "person:МИЛКА ПЕТРОВА ПАШУНКОВА",
+      "type": "person",
+      "label": "Милка Петрова Пашункова"
+    },
+    {
+      "id": "person:НЕДКО ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Недко Иванов Димитров"
+    },
+    {
+      "id": "person:ВЪЛЧО АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Вълчо Атанасов Атанасов"
+    },
+    {
+      "id": "person:ВИЛИЯН ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Вилиян Георгиев Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-dimitrov-dimitranov-5b11e3",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ПАВЛИНОВ УЗУНОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ РАДАНОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ НИКОЛОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМИТРОВ ПРОКОПОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ЦВЕТАНОВА МИХОВА - СКАЗКО",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА МЛАДЕНОВА НЕДЕВА",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ПЕТРОВА ПАШУНКОВА",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПАВЛИНОВ УЗУНОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛЧО АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛИЯН ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:176702039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

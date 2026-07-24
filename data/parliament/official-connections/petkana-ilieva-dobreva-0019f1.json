@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:petkana-ilieva-dobreva-0019f1",
+  "nodes": [
+    {
+      "id": "official:petkana-ilieva-dobreva-0019f1",
+      "type": "official",
+      "slug": "petkana-ilieva-dobreva-0019f1",
+      "label": "Петкана Илиева Добрева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000455966",
+      "type": "company",
+      "label": "&quot;НАРОДНО ЧИТАЛИЩЕ ХРИСТО СМИРНЕНСКИ - 1929 г.&quot; - с. БЯЛА РЕКА",
+      "slug": null,
+      "uic": "000455966",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА ДИНКОВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Светлана Динкова Велчева"
+    },
+    {
+      "id": "person:МИЛЕНА ЙОРДАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Милена Йорданова Иванова"
+    },
+    {
+      "id": "person:ГАНКА СЛАВЧЕВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Ганка Славчева Славчева"
+    },
+    {
+      "id": "person:МАРИЯ ЯНКОВА ДИКОВА",
+      "type": "person",
+      "label": "Мария Янкова Дикова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ДИМИТРОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Величка Димитрова Йорданова"
+    },
+    {
+      "id": "person:НЕДЯЛКА НИКОЛОВА РАЙЧЕВА",
+      "type": "person",
+      "label": "Недялка Николова Райчева"
+    },
+    {
+      "id": "person:НЕВЕНКА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Невенка Иванова Георгиева"
+    },
+    {
+      "id": "person:СТЕФКА АНГЕЛОВА РАДИЧЕВА",
+      "type": "person",
+      "label": "Стефка Ангелова Радичева"
+    },
+    {
+      "id": "person:ДОБРИНКА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Добринка Георгиева Георгиева"
+    },
+    {
+      "id": "person:ЗДРАВКА ПЕНЕВА МИТКОВА",
+      "type": "person",
+      "label": "Здравка Пенева Миткова"
+    },
+    {
+      "id": "person:ЗЛАТКА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Златка Димитрова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petkana-ilieva-dobreva-0019f1",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДИНКОВА ВЕЛЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ЙОРДАНОВА ИВАНОВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА СЛАВЧЕВА СЛАВЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЯНКОВА ДИКОВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ДИМИТРОВА ЙОРДАНОВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА НИКОЛОВА РАЙЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНКА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДИНКОВА ВЕЛЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА АНГЕЛОВА РАДИЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА АНГЕЛОВА РАДИЧЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА ПЕНЕВА МИТКОВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:000455966",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

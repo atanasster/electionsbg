@@ -1,1 +1,153 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5146","nodes":[{"id":"mp:5146","type":"mp","mpId":5146,"label":"Фатме Хасан Рамадан","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["47","49","50","52"]},{"id":"company:tr:000046841","type":"company","label":"ЧИТАЛИЩЕ &quot;ЛЮБЕН КАРАВЕЛОВ&quot;","slug":null,"uic":"000046841","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, Каравельово, 8553"},{"id":"person:НУРШЕН ХАМЗА ХАЛИЛ","type":"person","label":"Нуршен Хамза Халил"},{"id":"person:ХЮСЕИН МУСТАФА МЕХМЕД","type":"person","label":"Хюсеин Мустафа Мехмед"},{"id":"person:ИМУХАН ЛЯТИФ МУСТАФА","type":"person","label":"Имухан Лятиф Мустафа"},{"id":"person:ГЮЛНАЗ ХЮСЕИНАЛИ ХЮСЕИН","type":"person","label":"Гюлназ Хюсеинали Хюсеин"},{"id":"person:ХАВА САЛИ МЕХМЕД","type":"person","label":"Хава Сали Мехмед"},{"id":"person:РАМАДАН ХЮСЕИН ОСМАН","type":"person","label":"Рамадан Хюсеин Осман"},{"id":"person:ИМУХАН ЛЯТИФ ИЛЯЗ","type":"person","label":"Имухан Лятиф Иляз"},{"id":"person:ФИКРЕТ АДЕМ МЕХМЕД","type":"person","label":"Фикрет Адем Мехмед"}],"edges":[{"source":"mp:5146","target":"company:tr:000046841","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5146","target":"company:tr:000046841","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НУРШЕН ХАМЗА ХАЛИЛ","target":"company:tr:000046841","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХЮСЕИН МУСТАФА МЕХМЕД","target":"company:tr:000046841","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИМУХАН ЛЯТИФ МУСТАФА","target":"company:tr:000046841","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛНАЗ ХЮСЕИНАЛИ ХЮСЕИН","target":"company:tr:000046841","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ХАВА САЛИ МЕХМЕД","target":"company:tr:000046841","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАМАДАН ХЮСЕИН ОСМАН","target":"company:tr:000046841","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИМУХАН ЛЯТИФ ИЛЯЗ","target":"company:tr:000046841","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ФИКРЕТ АДЕМ МЕХМЕД","target":"company:tr:000046841","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5146",
+  "nodes": [
+    {
+      "id": "mp:5146",
+      "type": "mp",
+      "mpId": 5146,
+      "label": "Фатме Хасан Рамадан",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "49",
+        "50",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:000046841",
+      "type": "company",
+      "label": "ЧИТАЛИЩЕ &quot;ЛЮБЕН КАРАВЕЛОВ&quot;",
+      "slug": null,
+      "uic": "000046841",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Каравельово, 8553"
+    },
+    {
+      "id": "person:НУРШЕН ХАМЗА ХАЛИЛ",
+      "type": "person",
+      "label": "Нуршен Хамза Халил"
+    },
+    {
+      "id": "person:ХЮСЕИН МУСТАФА МЕХМЕД",
+      "type": "person",
+      "label": "Хюсеин Мустафа Мехмед"
+    },
+    {
+      "id": "person:ИМУХАН ЛЯТИФ МУСТАФА",
+      "type": "person",
+      "label": "Имухан Лятиф Мустафа"
+    },
+    {
+      "id": "person:ГЮЛНАЗ ХЮСЕИНАЛИ ХЮСЕИН",
+      "type": "person",
+      "label": "Гюлназ Хюсеинали Хюсеин"
+    },
+    {
+      "id": "person:ХАВА САЛИ МЕХМЕД",
+      "type": "person",
+      "label": "Хава Сали Мехмед"
+    },
+    {
+      "id": "person:РАМАДАН ХЮСЕИН ОСМАН",
+      "type": "person",
+      "label": "Рамадан Хюсеин Осман"
+    },
+    {
+      "id": "person:ИМУХАН ЛЯТИФ ИЛЯЗ",
+      "type": "person",
+      "label": "Имухан Лятиф Иляз"
+    },
+    {
+      "id": "person:ФИКРЕТ АДЕМ МЕХМЕД",
+      "type": "person",
+      "label": "Фикрет Адем Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5146",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5146",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НУРШЕН ХАМЗА ХАЛИЛ",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН МУСТАФА МЕХМЕД",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИМУХАН ЛЯТИФ МУСТАФА",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛНАЗ ХЮСЕИНАЛИ ХЮСЕИН",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАВА САЛИ МЕХМЕД",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАМАДАН ХЮСЕИН ОСМАН",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИМУХАН ЛЯТИФ ИЛЯЗ",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИКРЕТ АДЕМ МЕХМЕД",
+      "target": "company:tr:000046841",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

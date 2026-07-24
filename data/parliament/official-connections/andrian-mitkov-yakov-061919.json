@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:andrian-mitkov-yakov-061919",
+  "nodes": [
+    {
+      "id": "official:andrian-mitkov-yakov-061919",
+      "type": "official",
+      "slug": "andrian-mitkov-yakov-061919",
+      "label": "АНДРИАН МИТКОВ ЯКОВ",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207041592",
+      "type": "company",
+      "label": "„ СЛЪНЦЕ - МИМА ЯКОВА“ ЕООД",
+      "slug": null,
+      "uic": "207041592",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИМА ИВАНОВА ЯКОВА",
+      "type": "person",
+      "label": "Мима Иванова Якова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrian-mitkov-yakov-061919",
+      "target": "company:tr:207041592",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИМА ИВАНОВА ЯКОВА",
+      "target": "company:tr:207041592",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИМА ИВАНОВА ЯКОВА",
+      "target": "company:tr:207041592",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

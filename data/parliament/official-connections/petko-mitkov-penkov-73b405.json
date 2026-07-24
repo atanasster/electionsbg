@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:petko-mitkov-penkov-73b405",
+  "nodes": [
+    {
+      "id": "official:petko-mitkov-penkov-73b405",
+      "type": "official",
+      "slug": "petko-mitkov-penkov-73b405",
+      "label": "Петко Митков Пенков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:110568333",
+      "type": "company",
+      "label": "Сдружение &quot;Училищно настоятелство при Средно училище “Васил Левски” – гр. Троян",
+      "slug": null,
+      "uic": "110568333",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО КОЛЕВ ВАРЧЕВ",
+      "type": "person",
+      "label": "Христо Колев Варчев"
+    },
+    {
+      "id": "person:ВЕСЕЛА ТИХОМИРОВА ХАДЖИЙСКА",
+      "type": "person",
+      "label": "Весела Тихомирова Хаджийска"
+    },
+    {
+      "id": "person:МАЯ ГАВРАИЛОВА ГАВРАИЛОВА",
+      "type": "person",
+      "label": "Мая Гавраилова Гавраилова"
+    },
+    {
+      "id": "person:ДАНИЕЛА АНГЕЛОВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Даниела Ангелова Тончева"
+    },
+    {
+      "id": "person:МИХАЛ КАПОУН",
+      "type": "person",
+      "label": "Михал Капоун"
+    },
+    {
+      "id": "person:МАРИЯ КРАСИМИРОВА БОРИСОВА",
+      "type": "person",
+      "label": "Мария Красимирова Борисова"
+    },
+    {
+      "id": "person:ПЕТЪР СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Стефанов Петров"
+    },
+    {
+      "id": "person:СИМЕОН ТОДОРОВ ТРИЧКОВ",
+      "type": "person",
+      "label": "Симеон Тодоров Тричков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-mitkov-penkov-73b405",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО КОЛЕВ ВАРЧЕВ",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ТИХОМИРОВА ХАДЖИЙСКА",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ГАВРАИЛОВА ГАВРАИЛОВА",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА АНГЕЛОВА ТОНЧЕВА",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЛ КАПОУН",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КРАСИМИРОВА БОРИСОВА",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТЕФАНОВ ПЕТРОВ",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ТОДОРОВ ТРИЧКОВ",
+      "target": "company:tr:110568333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

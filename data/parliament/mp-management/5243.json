@@ -1,1 +1,50 @@
-{"mpId":5243,"mpName":"Светла Вълканова Коджабашева","generatedAt":"2026-07-03T11:12:51.954Z","total":3,"roles":[{"uic":"119675429","companyName":"ДЕ ЖА ВУ ИНВЕСТМЪНТ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Сливен, 8800","status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2026-04-09T15:05:43","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"202104124","companyName":"СГ ИНВЕСТ 2","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Сливен, 8800","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-03-30T09:06:05","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"119603547","companyName":"Е.МИРОЛИО","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. Сливен, 8800","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2022-08-31T11:18:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5243,
+  "mpName": "Светла Вълканова Коджабашева",
+  "generatedAt": "2026-07-24T03:35:58.772Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "119675429",
+      "companyName": "ДЕ ЖА ВУ ИНВЕСТМЪНТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800",
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-04-09T15:05:43",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "202104124",
+      "companyName": "СГ ИНВЕСТ 2",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-03-30T09:06:05",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "119603547",
+      "companyName": "Е.МИРОЛИО",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-08-31T11:18:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

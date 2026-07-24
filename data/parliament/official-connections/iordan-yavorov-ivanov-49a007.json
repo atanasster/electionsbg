@@ -1,0 +1,163 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-yavorov-ivanov-49a007",
+  "nodes": [
+    {
+      "id": "official:iordan-yavorov-ivanov-49a007",
+      "type": "official",
+      "slug": "iordan-yavorov-ivanov-49a007",
+      "label": "Йордан Яворов Иванов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:Исит-ООД",
+      "type": "company",
+      "label": "Исит ООД",
+      "slug": "Исит-ООД",
+      "uic": "201944360",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Исит-документи-ООД",
+      "type": "company",
+      "label": "Исит документи ООД",
+      "slug": "Исит-документи-ООД",
+      "uic": "204003323",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "mp:5193",
+      "type": "mp",
+      "mpId": 5193,
+      "label": "Йордан Яворов Иванов",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЯВОР ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Явор Иванов Иванов"
+    },
+    {
+      "id": "person:ГАЛИНА ВЛАДИМИРОВА ТОШЕВА",
+      "type": "person",
+      "label": "Галина Владимирова Тошева"
+    },
+    {
+      "id": "person:ЙОРДАН ЯВОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Йордан Яворов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-yavorov-ivanov-49a007",
+      "target": "company:Исит-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-yavorov-ivanov-49a007",
+      "target": "company:Исит-документи-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:Исит-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:Исит-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ИВАНОВ ИВАНОВ",
+      "target": "company:Исит-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВЛАДИМИРОВА ТОШЕВА",
+      "target": "company:Исит-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:Исит-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЯВОРОВ ИВАНОВ",
+      "target": "company:Исит-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:Исит-документи-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВЛАДИМИРОВА ТОШЕВА",
+      "target": "company:Исит-документи-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:Исит-документи-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЯВОРОВ ИВАНОВ",
+      "target": "company:Исит-документи-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

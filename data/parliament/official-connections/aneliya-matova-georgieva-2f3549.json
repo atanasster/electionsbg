@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aneliya-matova-georgieva-2f3549",
+  "nodes": [
+    {
+      "id": "official:aneliya-matova-georgieva-2f3549",
+      "type": "official",
+      "slug": "aneliya-matova-georgieva-2f3549",
+      "label": "Анелия Матова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114090399",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ 1924",
+      "slug": null,
+      "uic": "114090399",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:iordan-magdalinov-iordanov-17c639",
+      "type": "official",
+      "slug": "iordan-magdalinov-iordanov-17c639",
+      "label": "Йордан Магдалинов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Искър"
+    },
+    {
+      "id": "person:ЦВЕТАН ГЕНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Цветан Генов Цветков"
+    },
+    {
+      "id": "person:ЙОРДАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йордан Георгиев Георгиев"
+    },
+    {
+      "id": "person:ЦВЕТАНКА СТОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Цветанка Стоянова Димитрова"
+    },
+    {
+      "id": "person:РАДКА ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Радка Петрова Тодорова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИЛИЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Валентина Илиева Ангелова"
+    },
+    {
+      "id": "person:ТОДОРКА ВАЛЕНТИНОВА САВЧЕВА",
+      "type": "person",
+      "label": "Тодорка Валентинова Савчева"
+    },
+    {
+      "id": "person:ДИЛАН НЕНОВ ДИЛАНОВ",
+      "type": "person",
+      "label": "Дилан Ненов Диланов"
+    },
+    {
+      "id": "person:НАДЕЖДА ТРИФОНОВА БОБОВСКА",
+      "type": "person",
+      "label": "Надежда Трифонова Бобовска"
+    },
+    {
+      "id": "person:АНА ВЕСЕЛИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ана Веселинова Димитрова"
+    },
+    {
+      "id": "person:ДИМИТРИНА ПЕТРОВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Димитрина Петрова Дончева"
+    },
+    {
+      "id": "person:СПАСКА ИВАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Спаска Иванова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-matova-georgieva-2f3549",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-matova-georgieva-2f3549",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-magdalinov-iordanov-17c639",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ГЕНОВ ЦВЕТКОВ",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА СТОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИЛИЕВА АНГЕЛОВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ВАЛЕНТИНОВА САВЧЕВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛАН НЕНОВ ДИЛАНОВ",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ТРИФОНОВА БОБОВСКА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ВЕСЕЛИНОВА ДИМИТРОВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ПЕТРОВА ДОНЧЕВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА ИВАНОВА ИЛИЕВА",
+      "target": "company:tr:114090399",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

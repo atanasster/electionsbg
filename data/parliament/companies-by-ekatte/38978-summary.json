@@ -1,1 +1,85 @@
-{"ekatte":"38978","count":5,"mpCount":5,"totalPages":1,"topCompanies":[{"slug":"КОСТИНБРОД-ИНВЕСТ","displayName":"КОСТИНБРОД ИНВЕСТ","registeredOffice":"БЪЛГАРИЯ, гр. Костинброд, 2230","mps":[{"mpId":2403,"mpName":"Любомир Владимиров Владимиров","role":"manager","isCurrent":true},{"mpId":2403,"mpName":"Любомир Владимиров Владимиров","role":"partner","isCurrent":true}]},{"slug":"Триумф-Илия-Илиев","displayName":"Триумф - Илия Илиев","registeredOffice":"БЪЛГАРИЯ, гр. Костинброд, 2230","mps":[{"mpId":2444,"mpName":"Илия Янков Илиев","role":"manager","isCurrent":true},{"mpId":2444,"mpName":"Илия Янков Илиев","role":"sole_owner","isCurrent":true}]},{"slug":"Евроброд-Груп-ЕООД","displayName":"Евроброд Груп ЕООД","registeredOffice":"Костинброд","mps":[{"mpId":4867,"mpName":"Димитър Иванов Григоров","role":"declared_stake","isCurrent":true}]},{"slug":"Сдружение-Общински-Ръгби-Клуб-Костинброд","displayName":"Сдружение Общински Ръгби Клуб Костинброд","registeredOffice":"БЪЛГАРИЯ, гр. Костинброд, 2230","mps":[{"mpId":871,"mpName":"Борислав Тодоров Стоянов","role":"ngo_board","isCurrent":true}]},{"slug":"ФРЕШ-ФУУД-КАРАВАН","displayName":"ФРЕШ ФУУД КАРАВАН","registeredOffice":"БЪЛГАРИЯ, гр. Костинброд, 2230","mps":[{"mpId":1077,"mpName":"Янко Иванов Здравков","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "38978",
+  "count": 5,
+  "mpCount": 5,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "КОСТИНБРОД-ИНВЕСТ",
+      "displayName": "КОСТИНБРОД ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Костинброд, 2230",
+      "mps": [
+        {
+          "mpId": 2403,
+          "mpName": "Любомир Владимиров Владимиров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2403,
+          "mpName": "Любомир Владимиров Владимиров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Триумф-Илия-Илиев",
+      "displayName": "Триумф - Илия Илиев",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Костинброд, 2230",
+      "mps": [
+        {
+          "mpId": 2444,
+          "mpName": "Илия Янков Илиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2444,
+          "mpName": "Илия Янков Илиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Евроброд-Груп-ЕООД",
+      "displayName": "Евроброд Груп ЕООД",
+      "registeredOffice": "Костинброд",
+      "mps": [
+        {
+          "mpId": 4867,
+          "mpName": "Димитър Иванов Григоров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-Общински-Ръгби-Клуб-Костинброд",
+      "displayName": "Сдружение Общински Ръгби Клуб Костинброд",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Костинброд, 2230",
+      "mps": [
+        {
+          "mpId": 871,
+          "mpName": "Борислав Тодоров Стоянов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФРЕШ-ФУУД-КАРАВАН",
+      "displayName": "ФРЕШ ФУУД КАРАВАН",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Костинброд, 2230",
+      "mps": [
+        {
+          "mpId": 1077,
+          "mpName": "Янко Иванов Здравков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

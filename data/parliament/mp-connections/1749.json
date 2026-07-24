@@ -1,1 +1,111 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1749","nodes":[{"id":"mp:1749","type":"mp","mpId":1749,"label":"Борислав Димитров Китов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:176648463","type":"company","label":"СДРУЖЕНИЕ НА ПЛОВДИВСКИТЕ НЕВРОХИРУРЗИ","slug":null,"uic":"176648463","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000"},{"id":"person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ","type":"person","label":"Христо Богданов Желязков"},{"id":"person:ИВО ИНКОВ КЕХАЙОВ","type":"person","label":"Иво Инков Кехайов"},{"id":"person:БОРИСЛАВ МИХАЙЛОВ КАЛНЕВ","type":"person","label":"Борислав Михайлов Калнев"},{"id":"person:АНЕТА СИМЕОНОВА ПЕТКОВА","type":"person","label":"Анета Симеонова Петкова"},{"id":"person:ИВАН ВАСИЛЕВ БАТАКЛИЕВ","type":"person","label":"Иван Василев Батаклиев"}],"edges":[{"source":"mp:1749","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ","target":"company:tr:176648463","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИНКОВ КЕХАЙОВ","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ МИХАЙЛОВ КАЛНЕВ","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА СИМЕОНОВА ПЕТКОВА","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАСИЛЕВ БАТАКЛИЕВ","target":"company:tr:176648463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1749",
+  "nodes": [
+    {
+      "id": "mp:1749",
+      "type": "mp",
+      "mpId": 1749,
+      "label": "Борислав Димитров Китов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:176648463",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ПЛОВДИВСКИТЕ НЕВРОХИРУРЗИ",
+      "slug": null,
+      "uic": "176648463",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Христо Богданов Желязков"
+    },
+    {
+      "id": "person:ИВО ИНКОВ КЕХАЙОВ",
+      "type": "person",
+      "label": "Иво Инков Кехайов"
+    },
+    {
+      "id": "person:БОРИСЛАВ МИХАЙЛОВ КАЛНЕВ",
+      "type": "person",
+      "label": "Борислав Михайлов Калнев"
+    },
+    {
+      "id": "person:АНЕТА СИМЕОНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Анета Симеонова Петкова"
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ БАТАКЛИЕВ",
+      "type": "person",
+      "label": "Иван Василев Батаклиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1749",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИНКОВ КЕХАЙОВ",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО БОГДАНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ МИХАЙЛОВ КАЛНЕВ",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА СИМЕОНОВА ПЕТКОВА",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ БАТАКЛИЕВ",
+      "target": "company:tr:176648463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

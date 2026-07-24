@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliyana-iordanova-vladova-fa0c60",
+  "nodes": [
+    {
+      "id": "official:iliyana-iordanova-vladova-fa0c60",
+      "type": "official",
+      "slug": "iliyana-iordanova-vladova-fa0c60",
+      "label": "Илияна Йорданова Владова",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202880940",
+      "type": "company",
+      "label": "Българска независима енергийна борса",
+      "slug": null,
+      "uic": "202880940",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР РАДОСЛАВОВ ХАНДЖИЕВ",
+      "type": "person",
+      "label": "Тодор Радославов Ханджиев"
+    },
+    {
+      "id": "person:КОНСТАНТИН ВАЛЕРИЕВ КОНСТАНТИНОВ",
+      "type": "person",
+      "label": "Константин Валериев Константинов"
+    },
+    {
+      "id": "person:ЛЮБОМИР НИКОЛАЕВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Любомир Николаев Бояджиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ЛИПЧЕВ",
+      "type": "person",
+      "label": "Георги Василев Липчев"
+    },
+    {
+      "id": "person:ДИАН КРАСИМИРОВ БОЕВ",
+      "type": "person",
+      "label": "Диан Красимиров Боев"
+    },
+    {
+      "id": "person:РОСИЦА АТАНАСОВА ВЕЛКОВА-ЖЕЛЕВА",
+      "type": "person",
+      "label": "Росица Атанасова Велкова-Желева"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Стефанов Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyana-iordanova-vladova-fa0c60",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР РАДОСЛАВОВ ХАНДЖИЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВАЛЕРИЕВ КОНСТАНТИНОВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР НИКОЛАЕВ БОЯДЖИЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ЛИПЧЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВАЛЕРИЕВ КОНСТАНТИНОВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ЛИПЧЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН КРАСИМИРОВ БОЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН КРАСИМИРОВ БОЕВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АТАНАСОВА ВЕЛКОВА-ЖЕЛЕВА",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:202880940",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

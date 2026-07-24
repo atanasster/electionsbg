@@ -1,1 +1,50 @@
-{"mpId":4160,"mpName":"Андрей Атанасов Гюров","generatedAt":"2026-07-03T11:12:51.839Z","total":3,"roles":[{"uic":"175327305","companyName":"ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. София, 1632","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2024-02-02T14:34:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175990663","companyName":"Голф-клуб Благоевград","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-01-08T10:40:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176234206","companyName":"БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2021-07-05T12:17:33","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4160,
+  "mpName": "Андрей Атанасов Гюров",
+  "generatedAt": "2026-07-24T03:35:58.626Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "175327305",
+      "companyName": "ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1632",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-02-02T14:34:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175990663",
+      "companyName": "Голф-клуб Благоевград",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-01-08T10:40:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176234206",
+      "companyName": "БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-07-05T12:17:33",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

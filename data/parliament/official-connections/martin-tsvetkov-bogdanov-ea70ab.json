@@ -1,0 +1,333 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-tsvetkov-bogdanov-ea70ab",
+  "nodes": [
+    {
+      "id": "official:martin-tsvetkov-bogdanov-ea70ab",
+      "type": "official",
+      "slug": "martin-tsvetkov-bogdanov-ea70ab",
+      "label": "Мартин Цветков Богданов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206181036",
+      "type": "company",
+      "label": "Пейсера България",
+      "slug": null,
+      "uic": "206181036",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206641958",
+      "type": "company",
+      "label": "ВМ Блю ООД",
+      "slug": null,
+      "uic": "206641958",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207217229",
+      "type": "company",
+      "label": "Ви Ем Ви Енерджи",
+      "slug": null,
+      "uic": "207217229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФИЛИП ТАКЕС МУТАФИС",
+      "type": "person",
+      "label": "Филип Такес Мутафис"
+    },
+    {
+      "id": "person:МАРТИН ЦВЕТКОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Мартин Цветков Богданов"
+    },
+    {
+      "id": "person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ",
+      "type": "person",
+      "label": "Цветомир Ангелов Досков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАЛЕРИЕВ ШЕКЕРОВ",
+      "type": "person",
+      "label": "Николай Валериев Шекеров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИКОЛОВ ЛАЧЕВ",
+      "type": "person",
+      "label": "Александър Николов Лачев"
+    },
+    {
+      "id": "person:ВИКТОР ЛЮБЧЕВ ПАВЛОВ",
+      "type": "person",
+      "label": "Виктор Любчев Павлов"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЛЮБОМИРОВ РАНКОВ",
+      "type": "person",
+      "label": "Владимир Любомиров Ранков"
+    },
+    {
+      "id": "person:НАТАЛИЯ МИКОВА МИКОВА",
+      "type": "person",
+      "label": "Наталия Микова Микова"
+    },
+    {
+      "id": "person:ЛИЛЯНА ПЕТРОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Лиляна Петрова Богданова"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА СПАСОВА АШКОВА",
+      "type": "person",
+      "label": "Екатерина Спасова Ашкова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ВЛАДИСЛАВОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Владимир Владиславов Михайлов"
+    },
+    {
+      "id": "person:КРАСИСЛАВА МАНОЛОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Красислава Манолова Благоева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Владислав Дончев Михайлов"
+    },
+    {
+      "id": "person:РОСИЦА ВЪЛЧОВА ВЪЛЧЕВА-МИХАЙЛОВА",
+      "type": "person",
+      "label": "Росица Вълчова Вълчева-Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-tsvetkov-bogdanov-ea70ab",
+      "target": "company:tr:206181036",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-tsvetkov-bogdanov-ea70ab",
+      "target": "company:tr:206641958",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-tsvetkov-bogdanov-ea70ab",
+      "target": "company:tr:207217229",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ТАКЕС МУТАФИС",
+      "target": "company:tr:206181036",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ТАКЕС МУТАФИС",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ТАКЕС МУТАФИС",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЦВЕТКОВ БОГДАНОВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАЛЕРИЕВ ШЕКЕРОВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИКОЛОВ ЛАЧЕВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАЛЕРИЕВ ШЕКЕРОВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ЛЮБЧЕВ ПАВЛОВ",
+      "target": "company:tr:206181036",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ РАНКОВ",
+      "target": "company:tr:206641958",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ МИКОВА МИКОВА",
+      "target": "company:tr:206641958",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ РАНКОВ",
+      "target": "company:tr:206641958",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ПЕТРОВА БОГДАНОВА",
+      "target": "company:tr:206641958",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА СПАСОВА АШКОВА",
+      "target": "company:tr:206641958",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ РАНКОВ",
+      "target": "company:tr:206641958",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ВЛАДИСЛАВОВ МИХАЙЛОВ",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИСЛАВА МАНОЛОВА БЛАГОЕВА",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ПЕТРОВА БОГДАНОВА",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ВЛАДИСЛАВОВ МИХАЙЛОВ",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:207217229",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ВЪЛЧОВА ВЪЛЧЕВА-МИХАЙЛОВА",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ВЪЛЧОВА ВЪЛЧЕВА-МИХАЙЛОВА",
+      "target": "company:tr:207217229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

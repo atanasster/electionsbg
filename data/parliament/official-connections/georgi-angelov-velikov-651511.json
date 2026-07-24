@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-angelov-velikov-651511",
+  "nodes": [
+    {
+      "id": "official:georgi-angelov-velikov-651511",
+      "type": "official",
+      "slug": "georgi-angelov-velikov-651511",
+      "label": "Георги Ангелов Великов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Две Могили"
+    },
+    {
+      "id": "company:tr:208224461",
+      "type": "company",
+      "label": "ГЕВАЛ 25",
+      "slug": null,
+      "uic": "208224461",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ГЕОРГИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Валентин Георгиев Стоянов"
+    },
+    {
+      "id": "person:СТЕФКА ИЛИЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Стефка Илиева Стефанова"
+    },
+    {
+      "id": "person:ИВЕЛИНА ГЕОРГИЕВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Ивелина Георгиева Вълкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-angelov-velikov-651511",
+      "target": "company:tr:208224461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-angelov-velikov-651511",
+      "target": "company:tr:208224461",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:208224461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:208224461",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ИЛИЕВА СТЕФАНОВА",
+      "target": "company:tr:208224461",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ГЕОРГИЕВА ВЪЛКОВА",
+      "target": "company:tr:208224461",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

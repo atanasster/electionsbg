@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zhivko-georgiev-zhelyazkov-c7e5f7",
+  "nodes": [
+    {
+      "id": "official:zhivko-georgiev-zhelyazkov-c7e5f7",
+      "type": "official",
+      "slug": "zhivko-georgiev-zhelyazkov-c7e5f7",
+      "label": "Живко Георгиев Желязков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тервел"
+    },
+    {
+      "id": "company:tr:207879058",
+      "type": "company",
+      "label": "АРТ ПРО СТРОЙ",
+      "slug": null,
+      "uic": "207879058",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Иванов Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-georgiev-zhelyazkov-c7e5f7",
+      "target": "company:tr:207879058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivko-georgiev-zhelyazkov-c7e5f7",
+      "target": "company:tr:207879058",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:207879058",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:207879058",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

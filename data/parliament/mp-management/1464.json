@@ -1,1 +1,50 @@
-{"mpId":1464,"mpName":"Стефан Господинов Господинов","generatedAt":"2026-07-03T11:12:51.563Z","total":3,"roles":[{"uic":"000456452","companyName":"НЧ &quot;ПРОБУДА - 1903&quot; - с. Отец Паисиево","legalForm":"CC","seat":"БЪЛГАРИЯ, с. Отец Паисиево, 4354","status":"active","role":"verifier","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-16T13:49:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"118556475","companyName":"СМГ-КОМЕРС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-08-26T13:02:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"118556475","companyName":"СМГ-КОМЕРС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2022-08-26T13:02:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 1464,
+  "mpName": "Стефан Господинов Господинов",
+  "generatedAt": "2026-07-24T03:35:58.356Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "000456452",
+      "companyName": "НЧ &quot;ПРОБУДА - 1903&quot; - с. Отец Паисиево",
+      "legalForm": "CC",
+      "seat": "БЪЛГАРИЯ, с. Отец Паисиево, 4354",
+      "status": "active",
+      "role": "verifier",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-16T13:49:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "118556475",
+      "companyName": "СМГ-КОМЕРС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-08-26T13:02:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "118556475",
+      "companyName": "СМГ-КОМЕРС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-08-26T13:02:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

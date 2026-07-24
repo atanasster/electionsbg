@@ -1,1 +1,106 @@
-{"mpId":2679,"mpName":"Боряна Любенова Георгиева","generatedAt":"2026-07-03T11:12:51.683Z","total":7,"roles":[{"uic":"206974471","companyName":"БМВ ИНВЕСТ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Варна, 9004","status":"active","role":"partner","positionLabel":null,"sharePercent":16.666666666666664,"addedAt":"2026-06-17T12:39:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208364602","companyName":"СЪН УОШ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Варна, 9004","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-06-20T10:35:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208364602","companyName":"СЪН УОШ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Варна, 9004","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-06-20T10:35:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176251020","companyName":"&quot;СДРУЖЕНИЕ АВТОМОБИЛЕН СПОРТЕН КЛУБ ВАРНА РЕЙСИНГ&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, Варна, 9020","status":"active","role":"ngo_representative","positionLabel":"Председател на УС","sharePercent":null,"addedAt":"2023-01-27T10:20:28","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176251020","companyName":"&quot;СДРУЖЕНИЕ АВТОМОБИЛЕН СПОРТЕН КЛУБ ВАРНА РЕЙСИНГ&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, Варна, 9020","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-27T10:20:28","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206974471","companyName":"БМВ ИНВЕСТ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Варна, 9004","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-13T09:22:38","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206974471","companyName":"БМВ ИНВЕСТ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Варна, 9004","status":"active","role":"partner","positionLabel":null,"sharePercent":33.33333333333333,"addedAt":"2022-06-13T09:22:38","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2679,
+  "mpName": "Боряна Любенова Георгиева",
+  "generatedAt": "2026-07-24T03:35:58.506Z",
+  "total": 7,
+  "roles": [
+    {
+      "uic": "206974471",
+      "companyName": "БМВ ИНВЕСТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9004",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 16.666666666666664,
+      "addedAt": "2026-06-17T12:39:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208364602",
+      "companyName": "СЪН УОШ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9004",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-06-20T10:35:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208364602",
+      "companyName": "СЪН УОШ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9004",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-06-20T10:35:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176251020",
+      "companyName": "&quot;СДРУЖЕНИЕ АВТОМОБИЛЕН СПОРТЕН КЛУБ ВАРНА РЕЙСИНГ&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, Варна, 9020",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател на УС",
+      "sharePercent": null,
+      "addedAt": "2023-01-27T10:20:28",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176251020",
+      "companyName": "&quot;СДРУЖЕНИЕ АВТОМОБИЛЕН СПОРТЕН КЛУБ ВАРНА РЕЙСИНГ&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, Варна, 9020",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-27T10:20:28",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206974471",
+      "companyName": "БМВ ИНВЕСТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9004",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-13T09:22:38",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206974471",
+      "companyName": "БМВ ИНВЕСТ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9004",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 33.33333333333333,
+      "addedAt": "2022-06-13T09:22:38",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

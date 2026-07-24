@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:todor-georgiev-uzunov-23f68f","nodes":[{"id":"official:todor-georgiev-uzunov-23f68f","type":"official","slug":"todor-georgiev-uzunov-23f68f","label":"Тодор Георгиев Узунов","tier":"municipal","role":"chief_architect","municipality":"Район \"Северен\" - Пловдив"},{"id":"company:tr:204572748","type":"company","label":"Л.И.П.А. ЕООД","slug":null,"uic":"204572748","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201784144","type":"company","label":"ДМ-КОНСУЛТ ЕООД","slug":null,"uic":"201784144","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206578721","type":"company","label":"ДЖЕЙ КЕЙ ПРОПЪРТИ ООД","slug":null,"uic":"206578721","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206576555","type":"company","label":"ГОРАТА ЕООД","slug":null,"uic":"206576555","legalForm":null,"status":null,"seat":null},{"id":"company:tr:202594967","type":"company","label":"АЛЕГРА 2013 ЕООД","slug":null,"uic":"202594967","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206641890","type":"company","label":"ПРЕСЛАВ 41","slug":null,"uic":"206641890","legalForm":null,"status":null,"seat":null},{"id":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","type":"person","label":"Катерина Пламенова Узунова"},{"id":"person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА","type":"person","label":"Йоана Георгиева Самуилова"},{"id":"person:ГЕОРГИ ТОДОРОВ УЗУНОВ","type":"person","label":"Георги Тодоров Узунов"}],"edges":[{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:204572748","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:201784144","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:206578721","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:206576555","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:202594967","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:206641890","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:206641890","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:202594967","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:todor-georgiev-uzunov-23f68f","target":"company:tr:202594967","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:201784144","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:201784144","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:206578721","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА","target":"company:tr:206578721","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:206578721","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА","target":"company:tr:206578721","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:206576555","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА","target":"company:tr:206576555","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ТОДОРОВ УЗУНОВ","target":"company:tr:206641890","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ТОДОРОВ УЗУНОВ","target":"company:tr:206641890","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todor-georgiev-uzunov-23f68f",
+  "nodes": [
+    {
+      "id": "official:todor-georgiev-uzunov-23f68f",
+      "type": "official",
+      "slug": "todor-georgiev-uzunov-23f68f",
+      "label": "Тодор Георгиев Узунов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Район \"Северен\" - Пловдив"
+    },
+    {
+      "id": "company:tr:204572748",
+      "type": "company",
+      "label": "Л.И.П.А. ЕООД",
+      "slug": null,
+      "uic": "204572748",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206578721",
+      "type": "company",
+      "label": "ДЖЕЙ КЕЙ ПРОПЪРТИ ООД",
+      "slug": null,
+      "uic": "206578721",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206576555",
+      "type": "company",
+      "label": "ГОРАТА ЕООД",
+      "slug": null,
+      "uic": "206576555",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202594967",
+      "type": "company",
+      "label": "АЛЕГРА 2013 ЕООД",
+      "slug": null,
+      "uic": "202594967",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА",
+      "type": "person",
+      "label": "Катерина Пламенова Узунова"
+    },
+    {
+      "id": "person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА",
+      "type": "person",
+      "label": "Йоана Георгиева Самуилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:204572748",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:206578721",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:206576555",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:202594967",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:202594967",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-georgiev-uzunov-23f68f",
+      "target": "company:tr:202594967",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА",
+      "target": "company:tr:206578721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА",
+      "target": "company:tr:206578721",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА",
+      "target": "company:tr:206578721",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ГЕОРГИЕВА САМУИЛОВА",
+      "target": "company:tr:206578721",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА",
+      "target": "company:tr:206576555",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ПЛАМЕНОВА УЗУНОВА",
+      "target": "company:tr:206576555",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,50 @@
-{"mpId":67,"mpName":"Емил Константинов Георгиев","generatedAt":"2026-07-03T11:12:51.400Z","total":2,"roles":[{"uic":"208000260","companyName":"АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ ЗДРАВЕ - 2024","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Монтана, 3400","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-10-01T15:49:17","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208000260","companyName":"АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ ЗДРАВЕ - 2024","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Монтана, 3400","status":"active","role":"partner","positionLabel":null,"sharePercent":20,"addedAt":"2024-10-01T15:49:17","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 67,
+  "mpName": "Емил Константинов Георгиев",
+  "generatedAt": "2026-07-24T03:35:58.172Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "205787885",
+      "companyName": "ЕМО ГАЗ РИПЕАР",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-07-16T09:26:20",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208000260",
+      "companyName": "АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ ЗДРАВЕ - 2024",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Монтана, 3400",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-10-01T15:49:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208000260",
+      "companyName": "АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ ЗДРАВЕ - 2024",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Монтана, 3400",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 20,
+      "addedAt": "2024-10-01T15:49:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

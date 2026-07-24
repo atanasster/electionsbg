@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-stefanov-dimitrov-0091bb",
+  "nodes": [
+    {
+      "id": "official:konstantin-stefanov-dimitrov-0091bb",
+      "type": "official",
+      "slug": "konstantin-stefanov-dimitrov-0091bb",
+      "label": "Константин Стефанов Димитров",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175460871",
+      "type": "company",
+      "label": "ВН ИМОТИ",
+      "slug": null,
+      "uic": "175460871",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:141",
+      "type": "mp",
+      "mpId": 141,
+      "label": "Константин Стефанов Димитров",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ДИМИТРИНА СТЕФАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Димитрина Стефанова Димитрова"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Теодора Иванова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-stefanov-dimitrov-0091bb",
+      "target": "company:tr:175460871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:141",
+      "target": "company:tr:175460871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТРИНА СТЕФАНОВА ДИМИТРОВА",
+      "target": "company:tr:175460871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:175460871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

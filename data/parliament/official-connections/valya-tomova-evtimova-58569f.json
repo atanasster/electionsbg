@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valya-tomova-evtimova-58569f",
+  "nodes": [
+    {
+      "id": "official:valya-tomova-evtimova-58569f",
+      "type": "official",
+      "slug": "valya-tomova-evtimova-58569f",
+      "label": "Валя Томова Евтимова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176479062",
+      "type": "company",
+      "label": "ЛАЙЪНС КЛУБ ТЪРГОВИЩЕ",
+      "slug": null,
+      "uic": "176479062",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yavor-tsekov-yakimov-366ba0",
+      "type": "official",
+      "slug": "yavor-tsekov-yakimov-366ba0",
+      "label": "Явор Цеков Якимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ТАНЯ ПЕНЕВА КИРИЛОВА",
+      "type": "person",
+      "label": "Таня Пенева Кирилова"
+    },
+    {
+      "id": "person:РЕНИ ПЕЙЧЕВА МИТЕВА",
+      "type": "person",
+      "label": "Рени Пейчева Митева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДЕЧЕВ ДЯКОВ",
+      "type": "person",
+      "label": "Николай Дечев Дяков"
+    },
+    {
+      "id": "person:СЕВГЮЛ РИЗВАНОВА АЛИОСМАНОВА-АХМЕД",
+      "type": "person",
+      "label": "Севгюл Ризванова Алиосманова-Ахмед"
+    },
+    {
+      "id": "person:СВЕТЛАНА ДЕЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Светлана Деянова Димитрова"
+    },
+    {
+      "id": "person:КРАСИМИРА ЛЮБЕНОВА НЕДКОВА",
+      "type": "person",
+      "label": "Красимира Любенова Недкова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА СТЕФАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Цветелина Стефанова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valya-tomova-evtimova-58569f",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yavor-tsekov-yakimov-366ba0",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ ПЕНЕВА КИРИЛОВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНИ ПЕЙЧЕВА МИТЕВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДЕЧЕВ ДЯКОВ",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВГЮЛ РИЗВАНОВА АЛИОСМАНОВА-АХМЕД",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДЕЯНОВА ДИМИТРОВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЛЮБЕНОВА НЕДКОВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА СТЕФАНОВА ВАСИЛЕВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДЕЯНОВА ДИМИТРОВА",
+      "target": "company:tr:176479062",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

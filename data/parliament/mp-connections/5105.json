@@ -1,1 +1,458 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5105","nodes":[{"id":"mp:5105","type":"mp","mpId":5105,"label":"Айтен Байрям Сабри","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["50","51","52"]},{"id":"company:tr:107034878","type":"company","label":"НАЦИОНАЛНА АСОЦИАЦИЯ НА СЕКРЕТАРИТЕ НА ОБЩИНИ В РЕПУБЛИКА БЪЛГАРИЯ","slug":null,"uic":"107034878","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Габрово, 5300"},{"id":"company:tr:176493237","type":"company","label":"РОДОПА","slug":null,"uic":"176493237","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Момчилград"},{"id":"person:ГЮЛТЕН ИСМАИЛОВА ЕМИНОВА","type":"person","label":"Гюлтен Исмаилова Еминова"},{"id":"person:ВАЛЯ РАДЕВА РАДЕВА","type":"person","label":"Валя Радева Радева"},{"id":"person:МАРИЯН ГЕОРГИЕВ ПАСКАЛЕВ","type":"person","label":"Мариян Георгиев Паскалев"},{"id":"person:ДИМИТЪР МИХАЙЛОВ ДИМИТРОВ","type":"person","label":"Димитър Михайлов Димитров"},{"id":"person:МАРИЯ ИВАНОВА НАЙДЕНОВА","type":"person","label":"Мария Иванова Найденова"},{"id":"person:ДЕЛЯН НЕЙКОВ ИВАНОВ","type":"person","label":"Делян Нейков Иванов"},{"id":"person:ИВАНКА ГАНЧЕВА ИВАНОВА","type":"person","label":"Иванка Ганчева Иванова"},{"id":"person:БОЖИДАР КОНСТАНТИНОВ КЪНЧЕВ","type":"person","label":"Божидар Константинов Кънчев"},{"id":"person:АНГЕЛИНА АТАНАСОВА ТОПЧИЕВА","type":"person","label":"Ангелина Атанасова Топчиева"},{"id":"person:РУМЯНА НЕНОВА ДЪЧЕВА","type":"person","label":"Румяна Ненова Дъчева"},{"id":"person:КРЕМЕНА КРАСИМИРОВА СЪБЕВА","type":"person","label":"Кремена Красимирова Събева"},{"id":"person:ИВАН АТАНАСОВ ДИНЧЕВ","type":"person","label":"Иван Атанасов Динчев"},{"id":"person:ЗИХНИ ГЮНГЬОР ДУРМУШ","type":"person","label":"Зихни Гюнгьор Дурмуш"},{"id":"person:НИКОЛАЙ ПАНАЙОТОВ ПАНАЙОТОВ","type":"person","label":"Николай Панайотов Панайотов"},{"id":"person:РОСТИСЛАВ СВЕТОСЛАВОВ ПАВЛОВ","type":"person","label":"Ростислав Светославов Павлов"},{"id":"person:КИРИЛ ЙОРДАНОВ СТОЙКОВ","type":"person","label":"Кирил Йорданов Стойков"},{"id":"person:ЦВЕТЕЛИНА РАШОВА КАЛЧЕВА","type":"person","label":"Цветелина Рашова Калчева"},{"id":"person:НЕЛИ СТОЯНОВА ДОБРЕВА","type":"person","label":"Нели Стоянова Добрева"},{"id":"person:МАРИЯ ЛАЛЕВА РАДЕВА","type":"person","label":"Мария Лалева Радева"},{"id":"person:КАМЕЛИЯ АСЕНОВА САВОВА","type":"person","label":"Камелия Асенова Савова"},{"id":"person:КАЛИНА ГОСПОДИНОВА ГЕОРГИЕВА","type":"person","label":"Калина Господинова Георгиева"},{"id":"person:ИВАН КОСТАДИНОВ ДОКТОРОВ","type":"person","label":"Иван Костадинов Докторов"},{"id":"person:ЕМИЛ ИВАЙЛОВ САРАЛИЙСКИ","type":"person","label":"Емил Ивайлов Саралийски"},{"id":"person:СОНЯ ДИМИТРОВА ГАНЕВА","type":"person","label":"Соня Димитрова Ганева"},{"id":"person:ХАЙРИЕ МЕХМЕД МЕХМЕД","type":"person","label":"Хайрие Мехмед Мехмед"},{"id":"person:САЛИХ ГЮНГЬОР ДУРМУШ","type":"person","label":"Салих Гюнгьор Дурмуш"},{"id":"person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН","type":"person","label":"Мехнур Сабри Хюсеин-Осман"},{"id":"person:МАРГАРИТА ИВАНОВА НИКОЛОВА","type":"person","label":"Маргарита Иванова Николова"}],"edges":[{"source":"mp:5105","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5105","target":"company:tr:176493237","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5105","target":"company:tr:176493237","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ГЮЛТЕН ИСМАИЛОВА ЕМИНОВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ РАДЕВА РАДЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯН ГЕОРГИЕВ ПАСКАЛЕВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР МИХАЙЛОВ ДИМИТРОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА НАЙДЕНОВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН НЕЙКОВ ИВАНОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ГАНЧЕВА ИВАНОВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР КОНСТАНТИНОВ КЪНЧЕВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИНА АТАНАСОВА ТОПЧИЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА НЕНОВА ДЪЧЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРЕМЕНА КРАСИМИРОВА СЪБЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЯ РАДЕВА РАДЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ ДИНЧЕВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗИХНИ ГЮНГЬОР ДУРМУШ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ПАНАЙОТОВ ПАНАЙОТОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСТИСЛАВ СВЕТОСЛАВОВ ПАВЛОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ЙОРДАНОВ СТОЙКОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА РАШОВА КАЛЧЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ ДИНЧЕВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ СТОЯНОВА ДОБРЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ЛАЛЕВА РАДЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ АСЕНОВА САВОВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ГОСПОДИНОВА ГЕОРГИЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КОСТАДИНОВ ДОКТОРОВ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ИВАЙЛОВ САРАЛИЙСКИ","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ ДИМИТРОВА ГАНЕВА","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАЙРИЕ МЕХМЕД МЕХМЕД","target":"company:tr:107034878","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САЛИХ ГЮНГЬОР ДУРМУШ","target":"company:tr:176493237","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН","target":"company:tr:176493237","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САЛИХ ГЮНГЬОР ДУРМУШ","target":"company:tr:176493237","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА ИВАНОВА НИКОЛОВА","target":"company:tr:176493237","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5105",
+  "nodes": [
+    {
+      "id": "mp:5105",
+      "type": "mp",
+      "mpId": 5105,
+      "label": "Айтен Байрям Сабри",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:107034878",
+      "type": "company",
+      "label": "НАЦИОНАЛНА АСОЦИАЦИЯ НА СЕКРЕТАРИТЕ НА ОБЩИНИ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "107034878",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Габрово, 5300"
+    },
+    {
+      "id": "company:tr:176493237",
+      "type": "company",
+      "label": "РОДОПА",
+      "slug": null,
+      "uic": "176493237",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Момчилград"
+    },
+    {
+      "id": "person:ГЮЛТЕН ИСМАИЛОВА ЕМИНОВА",
+      "type": "person",
+      "label": "Гюлтен Исмаилова Еминова"
+    },
+    {
+      "id": "person:ВАЛЯ РАДЕВА РАДЕВА",
+      "type": "person",
+      "label": "Валя Радева Радева"
+    },
+    {
+      "id": "person:МАРИЯН ГЕОРГИЕВ ПАСКАЛЕВ",
+      "type": "person",
+      "label": "Мариян Георгиев Паскалев"
+    },
+    {
+      "id": "person:ДИМИТЪР МИХАЙЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Михайлов Димитров"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Мария Иванова Найденова"
+    },
+    {
+      "id": "person:ДЕЛЯН НЕЙКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Делян Нейков Иванов"
+    },
+    {
+      "id": "person:ИВАНКА ГАНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Иванка Ганчева Иванова"
+    },
+    {
+      "id": "person:БОЖИДАР КОНСТАНТИНОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Божидар Константинов Кънчев"
+    },
+    {
+      "id": "person:АНГЕЛИНА АТАНАСОВА ТОПЧИЕВА",
+      "type": "person",
+      "label": "Ангелина Атанасова Топчиева"
+    },
+    {
+      "id": "person:РУМЯНА НЕНОВА ДЪЧЕВА",
+      "type": "person",
+      "label": "Румяна Ненова Дъчева"
+    },
+    {
+      "id": "person:КРЕМЕНА КРАСИМИРОВА СЪБЕВА",
+      "type": "person",
+      "label": "Кремена Красимирова Събева"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ ДИНЧЕВ",
+      "type": "person",
+      "label": "Иван Атанасов Динчев"
+    },
+    {
+      "id": "person:ЗИХНИ ГЮНГЬОР ДУРМУШ",
+      "type": "person",
+      "label": "Зихни Гюнгьор Дурмуш"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПАНАЙОТОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Николай Панайотов Панайотов"
+    },
+    {
+      "id": "person:РОСТИСЛАВ СВЕТОСЛАВОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Ростислав Светославов Павлов"
+    },
+    {
+      "id": "person:КИРИЛ ЙОРДАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Кирил Йорданов Стойков"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА РАШОВА КАЛЧЕВА",
+      "type": "person",
+      "label": "Цветелина Рашова Калчева"
+    },
+    {
+      "id": "person:НЕЛИ СТОЯНОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Нели Стоянова Добрева"
+    },
+    {
+      "id": "person:МАРИЯ ЛАЛЕВА РАДЕВА",
+      "type": "person",
+      "label": "Мария Лалева Радева"
+    },
+    {
+      "id": "person:КАМЕЛИЯ АСЕНОВА САВОВА",
+      "type": "person",
+      "label": "Камелия Асенова Савова"
+    },
+    {
+      "id": "person:КАЛИНА ГОСПОДИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Калина Господинова Георгиева"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ ДОКТОРОВ",
+      "type": "person",
+      "label": "Иван Костадинов Докторов"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАЙЛОВ САРАЛИЙСКИ",
+      "type": "person",
+      "label": "Емил Ивайлов Саралийски"
+    },
+    {
+      "id": "person:СОНЯ ДИМИТРОВА ГАНЕВА",
+      "type": "person",
+      "label": "Соня Димитрова Ганева"
+    },
+    {
+      "id": "person:ХАЙРИЕ МЕХМЕД МЕХМЕД",
+      "type": "person",
+      "label": "Хайрие Мехмед Мехмед"
+    },
+    {
+      "id": "official:salih-gyungor-durmush-91ab2b",
+      "type": "official",
+      "slug": "salih-gyungor-durmush-91ab2b",
+      "label": "Салих Гюнгьор Дурмуш",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Момчилград"
+    },
+    {
+      "id": "person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН",
+      "type": "person",
+      "label": "Мехнур Сабри Хюсеин-Осман"
+    },
+    {
+      "id": "person:МАРГАРИТА ИВАНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Маргарита Иванова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5105",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5105",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5105",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЮЛТЕН ИСМАИЛОВА ЕМИНОВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ РАДЕВА РАДЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН ГЕОРГИЕВ ПАСКАЛЕВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МИХАЙЛОВ ДИМИТРОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА НАЙДЕНОВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН НЕЙКОВ ИВАНОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГАНЧЕВА ИВАНОВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР КОНСТАНТИНОВ КЪНЧЕВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА АТАНАСОВА ТОПЧИЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА НЕНОВА ДЪЧЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА КРАСИМИРОВА СЪБЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ РАДЕВА РАДЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ ДИНЧЕВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗИХНИ ГЮНГЬОР ДУРМУШ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСТИСЛАВ СВЕТОСЛАВОВ ПАВЛОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ЙОРДАНОВ СТОЙКОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА РАШОВА КАЛЧЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ ДИНЧЕВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ СТОЯНОВА ДОБРЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЛАЛЕВА РАДЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ АСЕНОВА САВОВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ГОСПОДИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ ДОКТОРОВ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАЙЛОВ САРАЛИЙСКИ",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ДИМИТРОВА ГАНЕВА",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРИЕ МЕХМЕД МЕХМЕД",
+      "target": "company:tr:107034878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:salih-gyungor-durmush-91ab2b",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:salih-gyungor-durmush-91ab2b",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА НИКОЛОВА",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

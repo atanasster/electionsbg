@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-petrov-stefanov-94e220",
+  "nodes": [
+    {
+      "id": "official:iordan-petrov-stefanov-94e220",
+      "type": "official",
+      "slug": "iordan-petrov-stefanov-94e220",
+      "label": "Йордан Петров Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:208532427",
+      "type": "company",
+      "label": "ВИСТЕН",
+      "slug": null,
+      "uic": "208532427",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-petrov-stefanov-94e220",
+      "target": "company:tr:208532427",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-petrov-stefanov-94e220",
+      "target": "company:tr:208532427",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

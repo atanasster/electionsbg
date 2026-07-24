@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galina-ivanova-bezhanska-6d0f82",
+  "nodes": [
+    {
+      "id": "official:galina-ivanova-bezhanska-6d0f82",
+      "type": "official",
+      "slug": "galina-ivanova-bezhanska-6d0f82",
+      "label": "Галина Иванова Бежанска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130111826",
+      "type": "company",
+      "label": "ПАЗАРИ ЗАПАД",
+      "slug": null,
+      "uic": "130111826",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:atanas-lazarov-mitsikulev-995e90",
+      "type": "official",
+      "slug": "atanas-lazarov-mitsikulev-995e90",
+      "label": "Атанас Лазаров Мицикулев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:borislav-aleksandrov-borisov-b784ec",
+      "type": "official",
+      "slug": "borislav-aleksandrov-borisov-b784ec",
+      "label": "Борислав Александров Борисов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
+      "type": "person",
+      "label": "Стойчо Тодоров Томов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-ivanova-bezhanska-6d0f82",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-ivanova-bezhanska-6d0f82",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-lazarov-mitsikulev-995e90",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-aleksandrov-borisov-b784ec",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

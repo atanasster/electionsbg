@@ -1,0 +1,225 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nina-angelova-georgieva-282ef9",
+  "nodes": [
+    {
+      "id": "official:nina-angelova-georgieva-282ef9",
+      "type": "official",
+      "slug": "nina-angelova-georgieva-282ef9",
+      "label": "Нина Ангелова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000343419",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;КУЛТУРА-1910&quot; С. ВЕТРЕН ДОЛ",
+      "slug": null,
+      "uic": "000343419",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ВАСИЛЕВ КОНДУПИШЕВ",
+      "type": "person",
+      "label": "Йордан Василев Кондупишев"
+    },
+    {
+      "id": "person:КАТЕРИНА АНГЕЛОВА ДАСКАЛОВА-БРИЧЕВА",
+      "type": "person",
+      "label": "Катерина Ангелова Даскалова-Бричева"
+    },
+    {
+      "id": "person:МАРИЯ АЛЕКСАНДРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Мария Александрова Атанасова"
+    },
+    {
+      "id": "person:ЗАПРЯНКА ГЕОРГИЕВА ЗЕЛЕНГОРОВА",
+      "type": "person",
+      "label": "Запрянка Георгиева Зеленгорова"
+    },
+    {
+      "id": "person:ВИОЛЕТКА ПАВЛОВА ЦИНЦАРОВА",
+      "type": "person",
+      "label": "Виолетка Павлова Цинцарова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ВАЛЕРИЕВА ПОСТАЛКОВА",
+      "type": "person",
+      "label": "Йорданка Валериева Посталкова"
+    },
+    {
+      "id": "person:МАРИЯ ГЪЛЪБОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Мария Гълъбова Георгиева"
+    },
+    {
+      "id": "person:ВЕНЕТКА АТАНАСОВА ЯНКОВА",
+      "type": "person",
+      "label": "Венетка Атанасова Янкова"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ ПАШЕВ",
+      "type": "person",
+      "label": "Димитър Стоянов Пашев"
+    },
+    {
+      "id": "person:ДОБРОСЛАВА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Доброслава Петрова Димитрова"
+    },
+    {
+      "id": "person:СИЛВИЯ МИЛЧЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Силвия Милчева Симеонова"
+    },
+    {
+      "id": "person:ГИНКА СТАНОЕВА ХАЛАЧЕВА",
+      "type": "person",
+      "label": "Гинка Станоева Халачева"
+    },
+    {
+      "id": "person:АННА ГЕОРГИЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Анна Георгиева Ангелова"
+    },
+    {
+      "id": "person:НАТАЛИЯ НЕДЯЛКОВА ЧАВДАРОВА",
+      "type": "person",
+      "label": "Наталия Недялкова Чавдарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nina-angelova-georgieva-282ef9",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ВАСИЛЕВ КОНДУПИШЕВ",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА АНГЕЛОВА ДАСКАЛОВА-БРИЧЕВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АЛЕКСАНДРОВА АТАНАСОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАПРЯНКА ГЕОРГИЕВА ЗЕЛЕНГОРОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТКА ПАВЛОВА ЦИНЦАРОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ВАЛЕРИЕВА ПОСТАЛКОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЪЛЪБОВА ГЕОРГИЕВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТКА АТАНАСОВА ЯНКОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ПАШЕВ",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОСЛАВА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ МИЛЧЕВА СИМЕОНОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ПАШЕВ",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА СТАНОЕВА ХАЛАЧЕВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ГЕОРГИЕВА АНГЕЛОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ НЕДЯЛКОВА ЧАВДАРОВА",
+      "target": "company:tr:000343419",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

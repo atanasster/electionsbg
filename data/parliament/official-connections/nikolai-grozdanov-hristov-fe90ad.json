@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-grozdanov-hristov-fe90ad",
+  "nodes": [
+    {
+      "id": "official:nikolai-grozdanov-hristov-fe90ad",
+      "type": "official",
+      "slug": "nikolai-grozdanov-hristov-fe90ad",
+      "label": "Николай Грозданов Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203762214",
+      "type": "company",
+      "label": "ВИЛИ-ГВ",
+      "slug": null,
+      "uic": "203762214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИ АТАНАСОВ ВЕРГИЛОВ",
+      "type": "person",
+      "label": "Валери Атанасов Вергилов"
+    },
+    {
+      "id": "person:ГАЛИН НИКОЛАЕВ ГРОЗДАНОВ",
+      "type": "person",
+      "label": "Галин Николаев Грозданов"
+    },
+    {
+      "id": "person:ВИОЛЕТА ВАЛЕРИЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Виолета Валериева Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-grozdanov-hristov-fe90ad",
+      "target": "company:tr:203762214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-grozdanov-hristov-fe90ad",
+      "target": "company:tr:203762214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИ АТАНАСОВ ВЕРГИЛОВ",
+      "target": "company:tr:203762214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН НИКОЛАЕВ ГРОЗДАНОВ",
+      "target": "company:tr:203762214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ АТАНАСОВ ВЕРГИЛОВ",
+      "target": "company:tr:203762214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН НИКОЛАЕВ ГРОЗДАНОВ",
+      "target": "company:tr:203762214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ВАЛЕРИЕВА АТАНАСОВА",
+      "target": "company:tr:203762214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ВАЛЕРИЕВА АТАНАСОВА",
+      "target": "company:tr:203762214",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

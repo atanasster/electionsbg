@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:grigor-tomov-grigorov-eb4be5",
+  "nodes": [
+    {
+      "id": "official:grigor-tomov-grigorov-eb4be5",
+      "type": "official",
+      "slug": "grigor-tomov-grigorov-eb4be5",
+      "label": "Григор Томов Григоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000190101",
+      "type": "company",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР - ВРАЦА",
+      "slug": null,
+      "uic": "000190101",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ ЕЗЕКИЕВ",
+      "type": "person",
+      "label": "Георги Йорданов Езекиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grigor-tomov-grigorov-eb4be5",
+      "target": "company:tr:000190101",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ ЕЗЕКИЕВ",
+      "target": "company:tr:000190101",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatin-slavchev-tsenkov-cdb8dd",
+  "nodes": [
+    {
+      "id": "official:zlatin-slavchev-tsenkov-cdb8dd",
+      "type": "official",
+      "slug": "zlatin-slavchev-tsenkov-cdb8dd",
+      "label": "Златин Славчев Ценков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "company:tr:208479323",
+      "type": "company",
+      "label": "Спортен клуб по вдигане на тежести &quot;Бончо Димитров&quot;",
+      "slug": null,
+      "uic": "208479323",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhechka-zheleva-nedyalkova-71ef14",
+      "type": "official",
+      "slug": "zhechka-zheleva-nedyalkova-71ef14",
+      "label": "Жечка Желева Недялкова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "person:ИРИНА НИКОЛАЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Ирина Николаева Иванова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВЪРБАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Върбанов Александров"
+    },
+    {
+      "id": "person:ДАНИЕЛА ТОДОРОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Даниела Тодорова Станчева"
+    },
+    {
+      "id": "person:ВИРЖИНИЯ БОРИСОВА РАДЕНКОВА",
+      "type": "person",
+      "label": "Виржиния Борисова Раденкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatin-slavchev-tsenkov-cdb8dd",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhechka-zheleva-nedyalkova-71ef14",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА НИКОЛАЕВА ИВАНОВА",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА НИКОЛАЕВА ИВАНОВА",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВЪРБАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ТОДОРОВА СТАНЧЕВА",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИРЖИНИЯ БОРИСОВА РАДЕНКОВА",
+      "target": "company:tr:208479323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

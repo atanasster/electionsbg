@@ -1,0 +1,280 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dobrinka-nikolova-topalska-f1c447",
+  "nodes": [
+    {
+      "id": "official:dobrinka-nikolova-topalska-f1c447",
+      "type": "official",
+      "slug": "dobrinka-nikolova-topalska-f1c447",
+      "label": "Добринка Николова Топалска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветрино"
+    },
+    {
+      "id": "company:tr:000084849",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ  НАРОДНА ПРОСВЕТА 1904",
+      "slug": null,
+      "uic": "000084849",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОРКА ВЕСЕЛИНОВА БАКДОНИС",
+      "type": "person",
+      "label": "Тодорка Веселинова Бакдонис"
+    },
+    {
+      "id": "person:СТАНКА ДОБРЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Станка Добрева Георгиева"
+    },
+    {
+      "id": "person:ПЕНКА ГРУДЕВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Пенка Грудева Велкова"
+    },
+    {
+      "id": "person:КРАСИМИРА ДИМОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Красимира Димова Петрова"
+    },
+    {
+      "id": "person:ВАЛЕРИЯ ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Валерия Георгиева Петрова"
+    },
+    {
+      "id": "person:МАРИЯ КОНСТАНТИНОВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Мария Константинова Великова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА НИКОЛОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Веселка Николова Атанасова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ИВАНОВА ЖЕРКОВА",
+      "type": "person",
+      "label": "Йорданка Иванова Жеркова"
+    },
+    {
+      "id": "person:КРИСТИНА ГРИШЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Кристина Гришева Димитрова"
+    },
+    {
+      "id": "person:ТОДОР НИКОЛОВ ЗАФИРОВ",
+      "type": "person",
+      "label": "Тодор Николов Зафиров"
+    },
+    {
+      "id": "person:КРЕМЕНА ИВАНОВА МИТЕВА",
+      "type": "person",
+      "label": "Кремена Иванова Митева"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ЦОНЕВА ИВАНОВА КАЧЧАТОРЕ",
+      "type": "person",
+      "label": "Магдалена Цонева Иванова Каччаторе"
+    },
+    {
+      "id": "person:ИЗАБЕЛА ВЕСЕЛИНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Изабела Веселинова Петкова"
+    },
+    {
+      "id": "person:ПЕНКА ТЕНЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Пенка Тенева Николова"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНГЕЛОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Николай Ангелов Божилов"
+    },
+    {
+      "id": "person:ПЛАМЕН ХРИСТОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Пламен Христов Стоянов"
+    },
+    {
+      "id": "person:КРЕМЕНА ХРИСТОВА МИЛКОВА",
+      "type": "person",
+      "label": "Кремена Христова Милкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobrinka-nikolova-topalska-f1c447",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dobrinka-nikolova-topalska-f1c447",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОРКА ВЕСЕЛИНОВА БАКДОНИС",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ДОБРЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГРУДЕВА ВЕЛКОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ДИМОВА ПЕТРОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОНСТАНТИНОВА ВЕЛИКОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА НИКОЛОВА АТАНАСОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ВЕСЕЛИНОВА БАКДОНИС",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ИВАНОВА ЖЕРКОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ГРИШЕВА ДИМИТРОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР НИКОЛОВ ЗАФИРОВ",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ИВАНОВА МИТЕВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЦОНЕВА ИВАНОВА КАЧЧАТОРЕ",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЗАБЕЛА ВЕСЕЛИНОВА ПЕТКОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА НИКОЛОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНГЕЛОВ БОЖИЛОВ",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЦОНЕВА ИВАНОВА КАЧЧАТОРЕ",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ СТОЯНОВ",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ХРИСТОВА МИЛКОВА",
+      "target": "company:tr:000084849",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

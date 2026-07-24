@@ -1,1 +1,84 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5241","nodes":[{"id":"mp:5241","type":"mp","mpId":5241,"label":"Здравко Александров Огнянов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:208126056","type":"company","label":"ЗЕРО МАТ","slug":null,"uic":"208126056","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ","type":"person","label":"Румен Детелинов Колев"}],"edges":[{"source":"mp:5241","target":"company:tr:208126056","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5241","target":"company:tr:208126056","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"high"},{"source":"person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ","target":"company:tr:208126056","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ","target":"company:tr:208126056","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5241",
+  "nodes": [
+    {
+      "id": "mp:5241",
+      "type": "mp",
+      "mpId": 5241,
+      "label": "Здравко Александров Огнянов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:208126056",
+      "type": "company",
+      "label": "ЗЕРО МАТ",
+      "slug": null,
+      "uic": "208126056",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "official:zdravko-aleksandrov-ognyanov-905d57",
+      "type": "official",
+      "slug": "zdravko-aleksandrov-ognyanov-905d57",
+      "label": "Здравко Александров Огнянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Румен Детелинов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5241",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5241",
+      "target": "company:tr:208126056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zdravko-aleksandrov-ognyanov-905d57",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "target": "company:tr:208126056",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

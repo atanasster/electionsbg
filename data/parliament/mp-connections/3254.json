@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3254",
+  "nodes": [
+    {
+      "id": "mp:3254",
+      "type": "mp",
+      "mpId": 3254,
+      "label": "Атанас Петров Костадинов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45"
+      ]
+    },
+    {
+      "id": "company:Ей-Кей-Дивелъпмънт-ЕООД",
+      "type": "company",
+      "label": "Ей Кей Дивелъпмънт ЕООД",
+      "slug": "Ей-Кей-Дивелъпмънт-ЕООД",
+      "uic": "201275581",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    },
+    {
+      "id": "company:Лауреа-ООД",
+      "type": "company",
+      "label": "Лауреа ООД",
+      "slug": "Лауреа-ООД",
+      "uic": "203301441",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "person:ПЕТЪР АТАНАСОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Петър Атанасов Костадинов"
+    },
+    {
+      "id": "person:ГЕРГАНА ЖИВКОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Гергана Живкова Костадинова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА МАРЧЕВА ДИМОВА",
+      "type": "person",
+      "label": "Валентина Марчева Димова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ДОЧЕВ КИНКИН",
+      "type": "person",
+      "label": "Владимир Дочев Кинкин"
+    },
+    {
+      "id": "person:ГЕОРГИ НАЧЕВ НАЧЕВ",
+      "type": "person",
+      "label": "Георги Начев Начев"
+    },
+    {
+      "id": "company:name:АТЛЕХА",
+      "type": "company",
+      "label": "„Атлеха“ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:КУАТРО ПРОПЪРТИС",
+      "type": "company",
+      "label": "\"КУАТРО ПРОПЪРТИС\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3254",
+      "target": "company:Ей-Кей-Дивелъпмънт-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3254",
+      "target": "company:Лауреа-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АТАНАСОВ КОСТАДИНОВ",
+      "target": "company:Ей-Кей-Дивелъпмънт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЖИВКОВА КОСТАДИНОВА",
+      "target": "company:Ей-Кей-Дивелъпмънт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЖИВКОВА КОСТАДИНОВА",
+      "target": "company:Ей-Кей-Дивелъпмънт-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА МАРЧЕВА ДИМОВА",
+      "target": "company:Лауреа-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДОЧЕВ КИНКИН",
+      "target": "company:Лауреа-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НАЧЕВ НАЧЕВ",
+      "target": "company:Лауреа-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АТЛЕХА",
+      "target": "company:Лауреа-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КУАТРО ПРОПЪРТИС",
+      "target": "company:Лауреа-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

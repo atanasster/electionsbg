@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariyana-mihailova-mileva-4100a0",
+  "nodes": [
+    {
+      "id": "official:mariyana-mihailova-mileva-4100a0",
+      "type": "official",
+      "slug": "mariyana-mihailova-mileva-4100a0",
+      "label": "Марияна Михайлова Милева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000125057",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАПРЕДЪК - 1912&quot;",
+      "slug": null,
+      "uic": "000125057",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ МАРТИНОВ МАТЕЕВ",
+      "type": "person",
+      "label": "Мирослав Мартинов Матеев"
+    },
+    {
+      "id": "person:ОСМАН САИДОВ ОСМАНОВ",
+      "type": "person",
+      "label": "Осман Саидов Османов"
+    },
+    {
+      "id": "person:МИРОСЛАВ РАДОСЛАВОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Мирослав Радославов Ангелов"
+    },
+    {
+      "id": "person:ЦАНИ ЦОНЕВ БЕРОВ",
+      "type": "person",
+      "label": "Цани Цонев Беров"
+    },
+    {
+      "id": "person:КАДИР МЕХМЕДОВ МЮЙМИНОВ",
+      "type": "person",
+      "label": "Кадир Мехмедов Мюйминов"
+    },
+    {
+      "id": "person:АСЕН ДОБРИНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Асен Добринов Асенов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ АНГЕЛОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Венцислав Ангелов Минчев"
+    },
+    {
+      "id": "person:АНЕЛИЯ АСЕНОВА ИЛИЯНОВА",
+      "type": "person",
+      "label": "Анелия Асенова Илиянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-mihailova-mileva-4100a0",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-mihailova-mileva-4100a0",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ МАРТИНОВ МАТЕЕВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОСМАН САИДОВ ОСМАНОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ РАДОСЛАВОВ АНГЕЛОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦАНИ ЦОНЕВ БЕРОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДИР МЕХМЕДОВ МЮЙМИНОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ДОБРИНОВ АСЕНОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ДОБРИНОВ АСЕНОВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ АНГЕЛОВ МИНЧЕВ",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ АСЕНОВА ИЛИЯНОВА",
+      "target": "company:tr:000125057",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

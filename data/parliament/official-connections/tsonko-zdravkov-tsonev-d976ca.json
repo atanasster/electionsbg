@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tsonko-zdravkov-tsonev-d976ca",
+  "nodes": [
+    {
+      "id": "official:tsonko-zdravkov-tsonev-d976ca",
+      "type": "official",
+      "slug": "tsonko-zdravkov-tsonev-d976ca",
+      "label": "Цонко Здравков Цонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каварна"
+    },
+    {
+      "id": "company:tr:177132745",
+      "type": "company",
+      "label": "ФОНД ЗА ИНВЕСТИЦИИ В ОБЩНОСТТА - ПЕЩЕРА",
+      "slug": null,
+      "uic": "177132745",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ПЕНОВ",
+      "type": "person",
+      "label": "Иван Димитров Пенов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЕМИЛОВ КАШЪМОВ",
+      "type": "person",
+      "label": "Александър Емилов Кашъмов"
+    },
+    {
+      "id": "person:ВЕНЕТА ЗЛАТИНОВА ЗЛАТИНОВА - ПАВЛОВА",
+      "type": "person",
+      "label": "Венета Златинова Златинова - Павлова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ЛЮБОМИРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Анелия Любомирова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsonko-zdravkov-tsonev-d976ca",
+      "target": "company:tr:177132745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ПЕНОВ",
+      "target": "company:tr:177132745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЕМИЛОВ КАШЪМОВ",
+      "target": "company:tr:177132745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ЗЛАТИНОВА ЗЛАТИНОВА - ПАВЛОВА",
+      "target": "company:tr:177132745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ЛЮБОМИРОВА ДИМИТРОВА",
+      "target": "company:tr:177132745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

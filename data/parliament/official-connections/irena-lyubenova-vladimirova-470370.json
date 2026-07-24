@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:irena-lyubenova-vladimirova-470370",
+  "nodes": [
+    {
+      "id": "official:irena-lyubenova-vladimirova-470370",
+      "type": "official",
+      "slug": "irena-lyubenova-vladimirova-470370",
+      "label": "Ирена Любенова Владимирова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206597020",
+      "type": "company",
+      "label": "НИЯ МИ - 16",
+      "slug": null,
+      "uic": "206597020",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАНА ЦЕНКОВА НЕШЕВА",
+      "type": "person",
+      "label": "Цветана Ценкова Нешева"
+    },
+    {
+      "id": "person:СОНЯ ВАНКОВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Соня Ванкова Любенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-lyubenova-vladimirova-470370",
+      "target": "company:tr:206597020",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-lyubenova-vladimirova-470370",
+      "target": "company:tr:206597020",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНА ЦЕНКОВА НЕШЕВА",
+      "target": "company:tr:206597020",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ЦЕНКОВА НЕШЕВА",
+      "target": "company:tr:206597020",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ВАНКОВА ЛЮБЕНОВА",
+      "target": "company:tr:206597020",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ВАНКОВА ЛЮБЕНОВА",
+      "target": "company:tr:206597020",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

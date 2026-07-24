@@ -476,12 +476,37 @@
     "entryNumber": "Г1704",
     "controlHash": "4DDDC092",
     "sourceUrl": "https://register.cacbg.bg/2017/A53DF5A5-90EB-4872-A1FE-492EAD42666A86544.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "\"АВИА БЕЛ\"",
+        "registeredOffice": "София (столица)",
+        "valueEur": 1278.2297029905462,
+        "holderName": null,
+        "transfereeName": "Албена Божидарова Белянова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 34983.10180332646,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
-        "category": "дялове",
-        "amountEurDeclarant": 25.564594059810926,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1380.48807922979,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
         "amountEurSpouse": null
       }
     ],
@@ -495,14 +520,14 @@
         "areaSqm": 543,
         "builtAreaSqm": 70,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -513,14 +538,14 @@
         "areaSqm": 72,
         "builtAreaSqm": 72,
         "acquiredYear": 2003,
-        "share": "8445",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8445,
+        "valueEur": 4317.859936702065,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "заеми",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
@@ -531,14 +556,14 @@
         "areaSqm": 48,
         "builtAreaSqm": 48,
         "acquiredYear": 2008,
-        "share": "46000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 46000,
+        "valueEur": 23519.42653502605,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "заеми",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
         "category": "real_estate",
@@ -549,14 +574,14 @@
         "areaSqm": 72,
         "builtAreaSqm": 72,
         "acquiredYear": 2010,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -567,14 +592,14 @@
         "areaSqm": 48,
         "builtAreaSqm": 48,
         "acquiredYear": 2010,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -585,14 +610,14 @@
         "areaSqm": 600,
         "builtAreaSqm": 206,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -603,14 +628,14 @@
         "areaSqm": 9,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -621,14 +646,14 @@
         "areaSqm": 6,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -639,14 +664,14 @@
         "areaSqm": 6,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -657,14 +682,14 @@
         "areaSqm": 3,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -675,14 +700,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -693,14 +718,14 @@
         "areaSqm": 4,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -711,14 +736,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -729,14 +754,14 @@
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -747,14 +772,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -765,14 +790,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -783,14 +808,14 @@
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -801,14 +826,14 @@
         "areaSqm": 3,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -819,14 +844,14 @@
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -837,14 +862,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -855,14 +880,14 @@
         "areaSqm": 1,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -873,14 +898,14 @@
         "areaSqm": 2,
         "builtAreaSqm": null,
         "acquiredYear": 2005,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "vehicle",
@@ -891,119 +916,34 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "покупко-продажба",
+        "share": "1",
         "currency": "BGN",
         "amount": 17695,
         "valueEur": 9047.309837767087,
         "holderName": "Албена Божидарова Белянова",
         "isSpouse": false,
-        "legalBasis": "заеми",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "ипотечен кредит",
-        "detail": "Албена Божидарова Белянова",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "26898",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "\"Райфайзенбанк\"ЕАД",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 26898,
+        "valueEur": 26927.698215080043,
+        "holderName": "Албена Божидарова Белянова",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 34983.10180332646,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1380.48807922979,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

@@ -1,0 +1,136 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-asparuhov-tsanov-04138d",
+  "nodes": [
+    {
+      "id": "official:ivan-asparuhov-tsanov-04138d",
+      "type": "official",
+      "slug": "ivan-asparuhov-tsanov-04138d",
+      "label": "Иван Аспарухов Цанов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:207470015",
+      "type": "company",
+      "label": "Местна инициативна група - Мездра 2023",
+      "slug": null,
+      "uic": "207470015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА МЕЗДРА - ПРЕДСТАВЛЯВАНА ОТ ИВАН АСПАРУХОВ ЦАНОВ-КМЕТ",
+      "type": "person",
+      "label": "Община Мездра - Представлявана От Иван Аспарухов Цанов-Кмет"
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА - ПРЕДСТАВЛЯВАНО ОТ МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Народно Читалище Просвета 1925 - Мездра - Представлявано От Моника Цветанова Петкова"
+    },
+    {
+      "id": "person:ЕЛИСАВЕТА ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Елисавета  Петрова Тодорова"
+    },
+    {
+      "id": "company:name:ИВА ВУТОВА - 71 - ПРЕДСТАВЛЯВАНО ОТ ИВА КОЦЕВА ВУТОВА",
+      "type": "company",
+      "label": "ИВА ВУТОВА - 71 ЕООД - представлявано от Ива Коцева Вутова",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СВЕТЛИНА-П - ПРЕДСТАВЛЯВАНО ОТ НИКОЛАЙ ПАНЧЕВ ПЕТРОВ",
+      "type": "company",
+      "label": "СВЕТЛИНА-П ЕООД - представлявано от Николай  Панчев Петров",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА - ПРЕДСТАВЛЯВАНО ОТ БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "type": "person",
+      "label": "Народно Читалище Просвета 1925 - Мездра - Представлявано От Биляна Валентинова Костова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ИВАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Анелия Иванова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-asparuhov-tsanov-04138d",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА МЕЗДРА - ПРЕДСТАВЛЯВАНА ОТ ИВАН АСПАРУХОВ ЦАНОВ-КМЕТ",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА - ПРЕДСТАВЛЯВАНО ОТ МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИСАВЕТА ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ИВА ВУТОВА - 71 - ПРЕДСТАВЛЯВАНО ОТ ИВА КОЦЕВА ВУТОВА",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СВЕТЛИНА-П - ПРЕДСТАВЛЯВАНО ОТ НИКОЛАЙ ПАНЧЕВ ПЕТРОВ",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА - ПРЕДСТАВЛЯВАНО ОТ БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ИВАНОВА МИХАЙЛОВА",
+      "target": "company:tr:207470015",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

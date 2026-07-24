@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stanimir-stefanov-stanchev-e07c8e",
+  "nodes": [
+    {
+      "id": "official:stanimir-stefanov-stanchev-e07c8e",
+      "type": "official",
+      "slug": "stanimir-stefanov-stanchev-e07c8e",
+      "label": "Станимир Стефанов Станчев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200423461",
+      "type": "company",
+      "label": "\"Приста Финанс\" ЕООД",
+      "slug": null,
+      "uic": "200423461",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201471765",
+      "type": "company",
+      "label": "\"Бел Агро 5\" ЕООД",
+      "slug": null,
+      "uic": "201471765",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-stefanov-stanchev-e07c8e",
+      "target": "company:tr:200423461",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanimir-stefanov-stanchev-e07c8e",
+      "target": "company:tr:201471765",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristina-dinkova-miteva-81a7cf",
+  "nodes": [
+    {
+      "id": "official:hristina-dinkova-miteva-81a7cf",
+      "type": "official",
+      "slug": "hristina-dinkova-miteva-81a7cf",
+      "label": "Христина Динкова Митева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119048540",
+      "type": "company",
+      "label": "ПАЗАР ЗА ПЛОДОВЕ, ЗЕЛЕНЧУЦИ И ЦВЕТЯ",
+      "slug": null,
+      "uic": "119048540",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:borislav-stefanov-pavlov-dd2aa5",
+      "type": "official",
+      "slug": "borislav-stefanov-pavlov-dd2aa5",
+      "label": "Борислав Стефанов Павлов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:atanas-yanchev-atanasov-2e8e0b",
+      "type": "official",
+      "slug": "atanas-yanchev-atanasov-2e8e0b",
+      "label": "Атанас Янчев Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "person:ТЕОДОРА ЧАВДАРОВА ГЕРГОВА",
+      "type": "person",
+      "label": "Теодора Чавдарова Гергова"
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Елена Иванова Колева"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ БОЗУКОВ",
+      "type": "person",
+      "label": "Румен Иванов Бозуков"
+    },
+    {
+      "id": "person:РУМЕН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Румен Христов Христов"
+    },
+    {
+      "id": "person:РАЛИЦА ГРИГОРОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Ралица Григорова Григорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-dinkova-miteva-81a7cf",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-stefanov-pavlov-dd2aa5",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-yanchev-atanasov-2e8e0b",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ЧАВДАРОВА ГЕРГОВА",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ БОЗУКОВ",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ БОЗУКОВ",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ГРИГОРОВА ГРИГОРОВА",
+      "target": "company:tr:119048540",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ БОЗУКОВ",
+      "target": "company:tr:119048540",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

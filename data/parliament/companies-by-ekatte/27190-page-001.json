@@ -1,1 +1,40 @@
-{"ekatte":"27190","page":1,"totalPages":1,"count":2,"companies":[{"slug":"ЗАЕДНО-ЗА-ЕЛЕНА","displayName":"ЗАЕДНО ЗА ЕЛЕНА","registeredOffice":"БЪЛГАРИЯ, гр. Елена, 5070","mps":[{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_board","isCurrent":true},{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_representative","isCurrent":true}]},{"slug":"СДРУЖЕНИЕ-ЕЛЕНСКИ-БУТ","displayName":"СДРУЖЕНИЕ - ЕЛЕНСКИ БУТ","registeredOffice":"БЪЛГАРИЯ, гр. Елена, 5070","mps":[{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_board","isCurrent":true}]}]}
+{
+  "ekatte": "27190",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ЗАЕДНО-ЗА-ЕЛЕНА",
+      "displayName": "ЗАЕДНО ЗА ЕЛЕНА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Елена, 5070",
+      "mps": [
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-ЕЛЕНСКИ-БУТ",
+      "displayName": "СДРУЖЕНИЕ - ЕЛЕНСКИ БУТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Елена, 5070",
+      "mps": [
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

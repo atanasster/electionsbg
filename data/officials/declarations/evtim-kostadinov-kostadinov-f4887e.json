@@ -760,7 +760,14 @@
     "controlHash": "C9E0D8A4",
     "sourceUrl": "https://register.cacbg.bg/2017/F81692BF-2D29-49AF-826C-547F8BE0B04583969.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2171.45661944034
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -771,14 +778,14 @@
         "areaSqm": 17,
         "builtAreaSqm": null,
         "acquiredYear": 2016,
-        "share": "13522",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 13522,
+        "valueEur": 6913.688817535266,
         "holderName": "Евтим Костадинов Костадинов",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -789,120 +796,35 @@
         "areaSqm": 17,
         "builtAreaSqm": null,
         "acquiredYear": 2016,
-        "share": "13522",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 13522,
+        "valueEur": 6913.688817535266,
         "holderName": "Геновева Маркова Костадинова",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "receivable",
-        "description": "26633",
-        "detail": "26633",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "26633",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 26633,
+        "valueEur": 13617.236671898887,
+        "holderName": "Евтим Костадинов Костадинов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "evtim-kostadinov-kostadinov-f4887e",
@@ -917,121 +839,49 @@
     "entryNumber": "Г78",
     "controlHash": "ED1EDB31",
     "sourceUrl": "https://register.cacbg.bg/2016/F81692BF-2D29-49AF-826C-547F8BE0B04575373.xml",
-    "ownershipStakes": [],
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "34",
+        "companyName": "Гард Груп ООД",
+        "registeredOffice": "Добрич",
+        "valueEur": 5112.918811962185,
+        "holderName": null,
+        "transfereeName": "Евтим Костадинов Костадинов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
     "income": [
       {
         "parent": null,
-        "category": "дялове",
-        "amountEurDeclarant": 17.383923960671428,
-        "amountEurSpouse": null
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1911.720343792661
       }
     ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "33701",
-        "detail": null,
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 33701,
+        "valueEur": 17231.04768819376,
+        "holderName": "Евтим Костадинов Костадинов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "evtim-kostadinov-kostadinov-f4887e",
@@ -1047,7 +897,14 @@
     "controlHash": "B21876A5",
     "sourceUrl": "https://register.cacbg.bg/2015/F81692BF-2D29-49AF-826C-547F8BE0B04566852.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1317.599177842655
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -1058,119 +915,34 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "1",
         "currency": "BGN",
         "amount": 50465,
         "valueEur": 25802.344784567165,
         "holderName": "ГЕНОВЕВА и ЕВТИМ КОСТАДИНОВИ СИО",
         "isSpouse": true,
-        "legalBasis": "заем и спестявания",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и спестявания"
       },
       {
-        "category": "receivable",
-        "description": "8071",
-        "detail": null,
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 8071,
+        "valueEur": 4126.636773134679,
+        "holderName": "Евтим Костадинов Костадинов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

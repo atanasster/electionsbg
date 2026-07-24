@@ -1,1 +1,59 @@
-{"obshtina":"BLG37","page":1,"totalPages":1,"count":3,"companies":[{"slug":"Фина-холидей-ООД","displayName":"Фина холидей ООД","registeredOffice":"РАЗЛОГ","mps":[{"mpId":4702,"mpName":"Иван Красимиров Герчев","role":"manager","isCurrent":true},{"mpId":4702,"mpName":"Иван Красимиров Герчев","role":"partner","isCurrent":true},{"mpId":4702,"mpName":"ИВАН КРАСИМИРОВ ГЕРЧЕВ","role":"declared_stake","isCurrent":true}]},{"slug":"ПР-15-ЕООД","displayName":"ПР-15 ЕООД","registeredOffice":"РАЗЛОГ","mps":[{"mpId":4702,"mpName":"ИВАН КРАСИМИРОВ ГЕРЧЕВ","role":"declared_stake","isCurrent":true}]},{"slug":"Самостоятелна-медикодиагностична-лаборатория-ортолаб-ЕООД","displayName":"Самостоятелна медикодиагностична лаборатория ортолаб ЕООД","registeredOffice":"РАЗЛОГ","mps":[{"mpId":4702,"mpName":"ИВАН КРАСИМИРОВ ГЕРЧЕВ","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "BLG37",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "Фина-холидей-ООД",
+      "displayName": "Фина холидей ООД",
+      "registeredOffice": "РАЗЛОГ",
+      "mps": [
+        {
+          "mpId": 4702,
+          "mpName": "Иван Красимиров Герчев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4702,
+          "mpName": "Иван Красимиров Герчев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4702,
+          "mpName": "ИВАН КРАСИМИРОВ ГЕРЧЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПР-15-ЕООД",
+      "displayName": "ПР-15 ЕООД",
+      "registeredOffice": "РАЗЛОГ",
+      "mps": [
+        {
+          "mpId": 4702,
+          "mpName": "ИВАН КРАСИМИРОВ ГЕРЧЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Самостоятелна-медикодиагностична-лаборатория-ортолаб-ЕООД",
+      "displayName": "Самостоятелна медикодиагностична лаборатория ортолаб ЕООД",
+      "registeredOffice": "РАЗЛОГ",
+      "mps": [
+        {
+          "mpId": 4702,
+          "mpName": "ИВАН КРАСИМИРОВ ГЕРЧЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

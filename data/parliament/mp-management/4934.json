@@ -1,1 +1,50 @@
-{"mpId":4934,"mpName":"Даниел Тихомиров Александров","generatedAt":"2026-07-03T11:12:51.892Z","total":3,"roles":[{"uic":"121833060","companyName":"БОРЕКС ТРАНС","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2023-02-22T11:10:13","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176371226","companyName":"КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Дупница, 2600","status":"active","role":"ngo_representative","positionLabel":"Председател","sharePercent":null,"addedAt":"2023-02-20T12:13:24","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176371226","companyName":"КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Дупница, 2600","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-02-20T12:13:24","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4934,
+  "mpName": "Даниел Тихомиров Александров",
+  "generatedAt": "2026-07-24T03:35:58.691Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "121833060",
+      "companyName": "БОРЕКС ТРАНС",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-02-22T11:10:13",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176371226",
+      "companyName": "КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Дупница, 2600",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател",
+      "sharePercent": null,
+      "addedAt": "2023-02-20T12:13:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176371226",
+      "companyName": "КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Дупница, 2600",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-02-20T12:13:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

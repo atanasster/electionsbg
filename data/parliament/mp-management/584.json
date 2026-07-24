@@ -1,1 +1,50 @@
-{"mpId":584,"mpName":"Александър Христов Филипов","generatedAt":"2026-07-03T11:12:51.443Z","total":3,"roles":[{"uic":"207239453","companyName":"КОНСУЛТТРЕЙДИНГ СЪРВИЗ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-26T11:56:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"104684810","companyName":"СДРУЖЕНИЕ &quot;ЕВРОПЕЙСКА АСОЦИАЦИЯ НА ФОЛКЛОРНИТЕ  ФЕСТИВАЛИ-ЕАФФ&quot;","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2021-10-14T16:56:50","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206561316","companyName":"ИНТЕРГРУП ЕУ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1387","status":"ceased","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-06-23T16:08:46","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 584,
+  "mpName": "Александър Христов Филипов",
+  "generatedAt": "2026-07-24T03:35:58.211Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "207239453",
+      "companyName": "КОНСУЛТТРЕЙДИНГ СЪРВИЗ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-26T11:56:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "104684810",
+      "companyName": "СДРУЖЕНИЕ &quot;ЕВРОПЕЙСКА АСОЦИАЦИЯ НА ФОЛКЛОРНИТЕ  ФЕСТИВАЛИ-ЕАФФ&quot;",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-10-14T16:56:50",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206561316",
+      "companyName": "ИНТЕРГРУП ЕУ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1387",
+      "status": "ceased",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-06-23T16:08:46",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

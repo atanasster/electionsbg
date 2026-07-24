@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:raya-vladimirova-blagoeva-44b92c",
+  "nodes": [
+    {
+      "id": "official:raya-vladimirova-blagoeva-44b92c",
+      "type": "official",
+      "slug": "raya-vladimirova-blagoeva-44b92c",
+      "label": "Рая Владимирова Благоева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Перник"
+    },
+    {
+      "id": "company:tr:000379372",
+      "type": "company",
+      "label": "&quot;Ралица - 1969 г.&quot;",
+      "slug": null,
+      "uic": "000379372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИЯН ИВАЙЛОВ ГЕНАДИЕВ",
+      "type": "person",
+      "label": "Кристиян Ивайлов Генадиев"
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТА БОРИСОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Елизабета Борисова Стоилова"
+    },
+    {
+      "id": "person:ДИМЧО ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димчо Георгиев Иванов"
+    },
+    {
+      "id": "person:ПЕТЯ БОЙКОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Петя Бойкова Павлова"
+    },
+    {
+      "id": "person:ЕМА СТАНИСЛАВОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Ема Станиславова Йорданова"
+    },
+    {
+      "id": "person:ЛОРА РОСЕНОВА КОТЕВА",
+      "type": "person",
+      "label": "Лора Росенова Котева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:raya-vladimirova-blagoeva-44b92c",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИЯН ИВАЙЛОВ ГЕНАДИЕВ",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТА БОРИСОВА СТОИЛОВА",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ИВАЙЛОВ ГЕНАДИЕВ",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТА БОРИСОВА СТОИЛОВА",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ БОЙКОВА ПАВЛОВА",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМА СТАНИСЛАВОВА ЙОРДАНОВА",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРА РОСЕНОВА КОТЕВА",
+      "target": "company:tr:000379372",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

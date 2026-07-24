@@ -1,1 +1,447 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:703","nodes":[{"id":"mp:703","type":"mp","mpId":703,"label":"Нонка Дечева Матова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:176252987","type":"company","label":"СТРЕЛКОВИ КЛУБ ТРАКИЙСКИ ЮНАК","slug":null,"uic":"176252987","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"company:tr:115013054","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ЗА СЕЛСКИ СПОРТ","slug":null,"uic":"115013054","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"company:tr:825270716","type":"company","label":"ТРАКИЙСКО ДРУЖЕСТВО ВОЙВОДА РУСИ СЛАВОВ","slug":null,"uic":"825270716","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"company:tr:205203585","type":"company","label":"БЪЛГАРСКИ СЪЮЗ НА ТРАКИЙСКИТЕ ОРГАНИЗАЦИИ","slug":null,"uic":"205203585","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:КАМЕНКА КОСТАДИНОВА КРУШКОВА","type":"person","label":"Каменка Костадинова Крушкова"},{"id":"person:ПЕНКА ДИМИТРОВА ЕНДАРОВА","type":"person","label":"Пенка Димитрова Ендарова"},{"id":"person:ВАСИЛ АНДОНОВ ВАСИЛЕВ","type":"person","label":"Васил Андонов Василев"},{"id":"person:РОСЕН БОНЕВ РУСЕВ","type":"person","label":"Росен Бонев Русев"},{"id":"person:НИКОЛА ХРИСТЕВ ТОПАЛОВ","type":"person","label":"Никола Христев Топалов"},{"id":"person:РАДИ БОТЕВ МИНЧЕВ","type":"person","label":"Ради Ботев Минчев"},{"id":"person:ЕЛИ ВЪЛЧЕВА ГЬОРЕВА","type":"person","label":"Ели Вълчева Гьорева"},{"id":"person:ДОНКА КИРИЛОВА СТОИЛОВА","type":"person","label":"Донка Кирилова Стоилова"},{"id":"person:ДИМО МИХАЙЛОВ МАХОВ","type":"person","label":"Димо Михайлов Махов"},{"id":"person:ЛИЛЯНА ДИМИТРОВА ЙОТОВА","type":"person","label":"Лиляна Димитрова Йотова"},{"id":"person:ЯНИ СТАВРЕВ ЯНЕВ","type":"person","label":"Яни Ставрев Янев"},{"id":"person:ТОДОР ДИМИТРОВ АНГЕЛОВ","type":"person","label":"Тодор Димитров Ангелов"},{"id":"person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ","type":"person","label":"Димитър Петков Димитров"},{"id":"person:МАРИЯ ГОСПОДИНОВА ТОДОРОВА","type":"person","label":"Мария Господинова Тодорова"},{"id":"person:АНТОНИЯ ИВАНОВА ИВАНОВА","type":"person","label":"Антония Иванова Иванова"},{"id":"person:НИКОЛЕТА ДИЧКОВА РАЧЕВА","type":"person","label":"Николета Дичкова Рачева"},{"id":"person:НИКОЛАЙ ДИМОВ РАЛЕВ","type":"person","label":"Николай Димов Ралев"},{"id":"person:ГЕОРГИ ВАСИЛЕВ МАНЕВ","type":"person","label":"Георги Василев Манев"},{"id":"person:ЕВИЛИНА ДИЯНОВА ХРИСТОВА","type":"person","label":"Евилина Диянова Христова"},{"id":"person:НИНА МИТКОВА КЪНЧЕВА","type":"person","label":"Нина Миткова Кънчева"},{"id":"company:tr:204332614","type":"company","label":"БЛИТЦ ЕР","slug":null,"uic":"204332614","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:1117","type":"mp","mpId":1117,"label":"Петко Валентинов Петков","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:703","target":"company:tr:176252987","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:176252987","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:115013054","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:115013054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:703","target":"company:tr:825270716","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:КАМЕНКА КОСТАДИНОВА КРУШКОВА","target":"company:tr:176252987","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА ДИМИТРОВА ЕНДАРОВА","target":"company:tr:176252987","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ АНДОНОВ ВАСИЛЕВ","target":"company:tr:115013054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН БОНЕВ РУСЕВ","target":"company:tr:115013054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ХРИСТЕВ ТОПАЛОВ","target":"company:tr:115013054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДИ БОТЕВ МИНЧЕВ","target":"company:tr:115013054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИ ВЪЛЧЕВА ГЬОРЕВА","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНКА КИРИЛОВА СТОИЛОВА","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО МИХАЙЛОВ МАХОВ","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ДИМИТРОВА ЙОТОВА","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ХРИСТЕВ ТОПАЛОВ","target":"company:tr:825270716","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИ СТАВРЕВ ЯНЕВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯНИ СТАВРЕВ ЯНЕВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ДИМИТРОВ АНГЕЛОВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГОСПОДИНОВА ТОДОРОВА","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ИВАНОВА ИВАНОВА","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛЕТА ДИЧКОВА РАЧЕВА","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ДИМИТРОВ АНГЕЛОВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМОВ РАЛЕВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАСИЛЕВ МАНЕВ","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВИЛИНА ДИЯНОВА ХРИСТОВА","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА МИТКОВА КЪНЧЕВА","target":"company:tr:205203585","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ","target":"company:tr:204332614","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:1117","target":"company:tr:204332614","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:1117","length":4,"nodeIds":["mp:703","company:tr:205203585","person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ","company:tr:204332614","mp:1117"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:703",
+  "nodes": [
+    {
+      "id": "mp:703",
+      "type": "mp",
+      "mpId": 703,
+      "label": "Нонка Дечева Матова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176252987",
+      "type": "company",
+      "label": "СТРЕЛКОВИ КЛУБ ТРАКИЙСКИ ЮНАК",
+      "slug": null,
+      "uic": "176252987",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "company:tr:115013054",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ЗА СЕЛСКИ СПОРТ",
+      "slug": null,
+      "uic": "115013054",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "company:tr:825270716",
+      "type": "company",
+      "label": "ТРАКИЙСКО ДРУЖЕСТВО ВОЙВОДА РУСИ СЛАВОВ",
+      "slug": null,
+      "uic": "825270716",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "company:tr:205203585",
+      "type": "company",
+      "label": "БЪЛГАРСКИ СЪЮЗ НА ТРАКИЙСКИТЕ ОРГАНИЗАЦИИ",
+      "slug": null,
+      "uic": "205203585",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:КАМЕНКА КОСТАДИНОВА КРУШКОВА",
+      "type": "person",
+      "label": "Каменка Костадинова Крушкова"
+    },
+    {
+      "id": "person:ПЕНКА ДИМИТРОВА ЕНДАРОВА",
+      "type": "person",
+      "label": "Пенка Димитрова Ендарова"
+    },
+    {
+      "id": "person:ВАСИЛ АНДОНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Андонов Василев"
+    },
+    {
+      "id": "person:РОСЕН БОНЕВ РУСЕВ",
+      "type": "person",
+      "label": "Росен Бонев Русев"
+    },
+    {
+      "id": "person:НИКОЛА ХРИСТЕВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Никола Христев Топалов"
+    },
+    {
+      "id": "person:РАДИ БОТЕВ МИНЧЕВ",
+      "type": "person",
+      "label": "Ради Ботев Минчев"
+    },
+    {
+      "id": "person:ЕЛИ ВЪЛЧЕВА ГЬОРЕВА",
+      "type": "person",
+      "label": "Ели Вълчева Гьорева"
+    },
+    {
+      "id": "person:ДОНКА КИРИЛОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Донка Кирилова Стоилова"
+    },
+    {
+      "id": "person:ДИМО МИХАЙЛОВ МАХОВ",
+      "type": "person",
+      "label": "Димо Михайлов Махов"
+    },
+    {
+      "id": "person:ЛИЛЯНА ДИМИТРОВА ЙОТОВА",
+      "type": "person",
+      "label": "Лиляна Димитрова Йотова"
+    },
+    {
+      "id": "person:ЯНИ СТАВРЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Яни Ставрев Янев"
+    },
+    {
+      "id": "person:ТОДОР ДИМИТРОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Тодор Димитров Ангелов"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Петков Димитров"
+    },
+    {
+      "id": "person:МАРИЯ ГОСПОДИНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Мария Господинова Тодорова"
+    },
+    {
+      "id": "person:АНТОНИЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Антония Иванова Иванова"
+    },
+    {
+      "id": "person:НИКОЛЕТА ДИЧКОВА РАЧЕВА",
+      "type": "person",
+      "label": "Николета Дичкова Рачева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМОВ РАЛЕВ",
+      "type": "person",
+      "label": "Николай Димов Ралев"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ МАНЕВ",
+      "type": "person",
+      "label": "Георги Василев Манев"
+    },
+    {
+      "id": "person:ЕВИЛИНА ДИЯНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Евилина Диянова Христова"
+    },
+    {
+      "id": "person:НИНА МИТКОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Нина Миткова Кънчева"
+    },
+    {
+      "id": "company:tr:204332614",
+      "type": "company",
+      "label": "БЛИТЦ ЕР",
+      "slug": null,
+      "uic": "204332614",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:1117",
+      "type": "mp",
+      "mpId": 1117,
+      "label": "Петко Валентинов Петков",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:703",
+      "target": "company:tr:176252987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:176252987",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:703",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАМЕНКА КОСТАДИНОВА КРУШКОВА",
+      "target": "company:tr:176252987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДИМИТРОВА ЕНДАРОВА",
+      "target": "company:tr:176252987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ АНДОНОВ ВАСИЛЕВ",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН БОНЕВ РУСЕВ",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ХРИСТЕВ ТОПАЛОВ",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИ БОТЕВ МИНЧЕВ",
+      "target": "company:tr:115013054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИ ВЪЛЧЕВА ГЬОРЕВА",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КИРИЛОВА СТОИЛОВА",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО МИХАЙЛОВ МАХОВ",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ДИМИТРОВА ЙОТОВА",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ХРИСТЕВ ТОПАЛОВ",
+      "target": "company:tr:825270716",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИ СТАВРЕВ ЯНЕВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИ СТАВРЕВ ЯНЕВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ АНГЕЛОВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГОСПОДИНОВА ТОДОРОВА",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА ДИЧКОВА РАЧЕВА",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ АНГЕЛОВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМОВ РАЛЕВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ МАНЕВ",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВИЛИНА ДИЯНОВА ХРИСТОВА",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА МИТКОВА КЪНЧЕВА",
+      "target": "company:tr:205203585",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ",
+      "target": "company:tr:204332614",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1117",
+      "target": "company:tr:204332614",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1117",
+      "length": 4,
+      "nodeIds": [
+        "mp:703",
+        "company:tr:205203585",
+        "person:ДИМИТЪР ПЕТКОВ ДИМИТРОВ",
+        "company:tr:204332614",
+        "mp:1117"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

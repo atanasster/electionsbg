@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boiko-iordanov-todorov-ea6f16",
+  "nodes": [
+    {
+      "id": "official:boiko-iordanov-todorov-ea6f16",
+      "type": "official",
+      "slug": "boiko-iordanov-todorov-ea6f16",
+      "label": "Бойко Йорданов Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:114610922",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ ПЛЕВЕН - ЦЕНТРУМ",
+      "slug": null,
+      "uic": "114610922",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimcho-ivanov-deshev-40c547",
+      "type": "official",
+      "slug": "dimcho-ivanov-deshev-40c547",
+      "label": "Димчо Иванов Дешев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "person:ПЛАМЕН АТАНАСОВ МАРИНОВ",
+      "type": "person",
+      "label": "Пламен Атанасов Маринов"
+    },
+    {
+      "id": "person:НИНА ИГНАТОВА МИТЕВА",
+      "type": "person",
+      "label": "Нина Игнатова Митева"
+    },
+    {
+      "id": "person:ГЕОРГИ КРАСИМИРОВ ПРУСИЙСКИ",
+      "type": "person",
+      "label": "Георги Красимиров Прусийски"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОДОРОВ ЯКОВ",
+      "type": "person",
+      "label": "Николай Тодоров Яков"
+    },
+    {
+      "id": "person:ВЛАДИМИР НИКОЛАЕВ ДЪБНИШКИ",
+      "type": "person",
+      "label": "Владимир Николаев Дъбнишки"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boiko-iordanov-todorov-ea6f16",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boiko-iordanov-todorov-ea6f16",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimcho-ivanov-deshev-40c547",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН АТАНАСОВ МАРИНОВ",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ИГНАТОВА МИТЕВА",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КРАСИМИРОВ ПРУСИЙСКИ",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОДОРОВ ЯКОВ",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР НИКОЛАЕВ ДЪБНИШКИ",
+      "target": "company:tr:114610922",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

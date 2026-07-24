@@ -1,1 +1,170 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:lyubisha-blazhevski-blazhevski-28d32e","nodes":[{"id":"official:lyubisha-blazhevski-blazhevski-28d32e","type":"official","slug":"lyubisha-blazhevski-blazhevski-28d32e","label":"Любиша Блажевски Блажевски","tier":"municipal","role":"councillor","municipality":"Бяла/Варна/"},{"id":"company:tr:206946066","type":"company","label":"АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ-МЕДИЦИНСКИ ЦЕНТЪР МЕДЕКСПРЕС 2022","slug":null,"uic":"206946066","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"mp:5009","type":"mp","mpId":5009,"label":"Любиша   Блажевски","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]},{"id":"person:ВИКТОРИЯ ДАНЧЕВА СТОЯНОВА","type":"person","label":"Виктория Данчева Стоянова"},{"id":"person:ИВАН НИКОЛОВ ДЕНЧЕВ","type":"person","label":"Иван Николов Денчев"},{"id":"person:АЛЕКСАНДАР ЙОВАНОВСКИ","type":"person","label":"Александар Йовановски"},{"id":"person:ПАВЕЛ ПЕТКОВ МАРИНОВ","type":"person","label":"Павел Петков Маринов"},{"id":"person:ПЕТКО КРАСИМИРОВ АТЕВ","type":"person","label":"Петко Красимиров Атев"},{"id":"person:АНГЕЛИНА ТРЕНДАФИЛОВА БЛАЖЕВСКА","type":"person","label":"Ангелина Трендафилова Блажевска"}],"edges":[{"source":"official:lyubisha-blazhevski-blazhevski-28d32e","target":"company:tr:206946066","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:5009","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5009","target":"company:tr:206946066","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВИКТОРИЯ ДАНЧЕВА СТОЯНОВА","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НИКОЛОВ ДЕНЧЕВ","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДАР ЙОВАНОВСКИ","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ПЕТКОВ МАРИНОВ","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО КРАСИМИРОВ АТЕВ","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО КРАСИМИРОВ АТЕВ","target":"company:tr:206946066","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДАР ЙОВАНОВСКИ","target":"company:tr:206946066","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НИКОЛОВ ДЕНЧЕВ","target":"company:tr:206946066","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ПЕТКОВ МАРИНОВ","target":"company:tr:206946066","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛИНА ТРЕНДАФИЛОВА БЛАЖЕВСКА","target":"company:tr:206946066","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubisha-blazhevski-blazhevski-28d32e",
+  "nodes": [
+    {
+      "id": "official:lyubisha-blazhevski-blazhevski-28d32e",
+      "type": "official",
+      "slug": "lyubisha-blazhevski-blazhevski-28d32e",
+      "label": "Любиша Блажевски Блажевски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/"
+    },
+    {
+      "id": "company:tr:206946066",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ-МЕДИЦИНСКИ ЦЕНТЪР МЕДЕКСПРЕС 2022",
+      "slug": null,
+      "uic": "206946066",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:5009",
+      "type": "mp",
+      "mpId": 5009,
+      "label": "Любиша   Блажевски",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ВИКТОРИЯ ДАНЧЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Виктория Данчева Стоянова"
+    },
+    {
+      "id": "person:ИВАН НИКОЛОВ ДЕНЧЕВ",
+      "type": "person",
+      "label": "Иван Николов Денчев"
+    },
+    {
+      "id": "person:АЛЕКСАНДАР ЙОВАНОВСКИ",
+      "type": "person",
+      "label": "Александар Йовановски"
+    },
+    {
+      "id": "person:ПАВЕЛ ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Павел Петков Маринов"
+    },
+    {
+      "id": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "type": "person",
+      "label": "Петко Красимиров Атев"
+    },
+    {
+      "id": "person:АНГЕЛИНА ТРЕНДАФИЛОВА БЛАЖЕВСКА",
+      "type": "person",
+      "label": "Ангелина Трендафилова Блажевска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubisha-blazhevski-blazhevski-28d32e",
+      "target": "company:tr:206946066",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5009",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5009",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ДАНЧЕВА СТОЯНОВА",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДЕНЧЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДАР ЙОВАНОВСКИ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДАР ЙОВАНОВСКИ",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДЕНЧЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ТРЕНДАФИЛОВА БЛАЖЕВСКА",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

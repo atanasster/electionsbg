@@ -1,1 +1,70 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:790","nodes":[{"id":"mp:790","type":"mp","mpId":790,"label":"Деница Ивайлова Димитрова","partyGroupShort":"ПП ИСБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208092248","type":"company","label":"КАРИНО ИНВЕСТ","slug":null,"uic":"208092248","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:РУМЯНА ВАЛЕНТИН ДИМИТРОВА","type":"person","label":"Румяна Валентин Димитрова"},{"id":"person:ДИМИТЪР ВАЛЕНТИН ДИМИТРОВ","type":"person","label":"Димитър Валентин Димитров"}],"edges":[{"source":"mp:790","target":"company:tr:208092248","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:790","target":"company:tr:208092248","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"medium"},{"source":"person:РУМЯНА ВАЛЕНТИН ДИМИТРОВА","target":"company:tr:208092248","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВАЛЕНТИН ДИМИТРОВ","target":"company:tr:208092248","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:790",
+  "nodes": [
+    {
+      "id": "mp:790",
+      "type": "mp",
+      "mpId": 790,
+      "label": "Деница Ивайлова Димитрова",
+      "partyGroupShort": "ПП ИСБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208092248",
+      "type": "company",
+      "label": "КАРИНО ИНВЕСТ",
+      "slug": null,
+      "uic": "208092248",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:РУМЯНА ВАЛЕНТИН ДИМИТРОВА",
+      "type": "person",
+      "label": "Румяна Валентин Димитрова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАЛЕНТИН ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Валентин Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:790",
+      "target": "company:tr:208092248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:790",
+      "target": "company:tr:208092248",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЯНА ВАЛЕНТИН ДИМИТРОВА",
+      "target": "company:tr:208092248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАЛЕНТИН ДИМИТРОВ",
+      "target": "company:tr:208092248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

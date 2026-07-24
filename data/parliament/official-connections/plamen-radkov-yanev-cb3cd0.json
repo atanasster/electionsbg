@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-radkov-yanev-cb3cd0",
+  "nodes": [
+    {
+      "id": "official:plamen-radkov-yanev-cb3cd0",
+      "type": "official",
+      "slug": "plamen-radkov-yanev-cb3cd0",
+      "label": "Пламен Радков Янев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гулянци"
+    },
+    {
+      "id": "company:tr:205999774",
+      "type": "company",
+      "label": "\"Мостстрой Плевен\"ЕООД",
+      "slug": null,
+      "uic": "205999774",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-radkov-yanev-cb3cd0",
+      "target": "company:tr:205999774",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

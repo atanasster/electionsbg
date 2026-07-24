@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-asenov-zlatev-222795",
+  "nodes": [
+    {
+      "id": "official:atanas-asenov-zlatev-222795",
+      "type": "official",
+      "slug": "atanas-asenov-zlatev-222795",
+      "label": "Атанас Асенов Златев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207956120",
+      "type": "company",
+      "label": "Белла Дерма Клиник",
+      "slug": null,
+      "uic": "207956120",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОАНА ОГНЯНОВА МИТЕВА",
+      "type": "person",
+      "label": "Йоана Огнянова Митева"
+    },
+    {
+      "id": "company:name:ВИТАЛИКА",
+      "type": "company",
+      "label": "\"ВИТАЛИКА\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖАНЕТА МИТКОВА ФИЛЕВА",
+      "type": "person",
+      "label": "Жанета Миткова Филева"
+    },
+    {
+      "id": "person:ВИТАЛИКА",
+      "type": "person",
+      "label": "Виталика"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-asenov-zlatev-222795",
+      "target": "company:tr:207956120",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОАНА ОГНЯНОВА МИТЕВА",
+      "target": "company:tr:207956120",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ОГНЯНОВА МИТЕВА",
+      "target": "company:tr:207956120",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВИТАЛИКА",
+      "target": "company:tr:207956120",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА МИТКОВА ФИЛЕВА",
+      "target": "company:tr:207956120",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТАЛИКА",
+      "target": "company:tr:207956120",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

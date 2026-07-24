@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4905",
+  "nodes": [
+    {
+      "id": "mp:4905",
+      "type": "mp",
+      "mpId": 4905,
+      "label": "Петър Василев Кьосев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Алекса-Про-ЕООД",
+      "type": "company",
+      "label": "Алекса Про ЕООД",
+      "slug": "Алекса-Про-ЕООД",
+      "uic": "202813240",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Издателска-къща-Селекта-ЕООД",
+      "type": "company",
+      "label": "Издателска къща Селекта ЕООД",
+      "slug": "Издателска-къща-Селекта-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:Издателство-Селекта-ЕООД",
+      "type": "company",
+      "label": "Издателство Селекта ЕООД",
+      "slug": "Издателство-Селекта-ЕООД",
+      "uic": "200951672",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Бургас"
+    },
+    {
+      "id": "person:ЯНА ВАСИЛЕВА АНТОНОВА-КЬОСЕВА",
+      "type": "person",
+      "label": "Яна Василева Антонова-Кьосева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4905",
+      "target": "company:Алекса-Про-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4905",
+      "target": "company:Издателска-къща-Селекта-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4905",
+      "target": "company:Издателство-Селекта-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВАСИЛЕВА АНТОНОВА-КЬОСЕВА",
+      "target": "company:Издателство-Селекта-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВАСИЛЕВА АНТОНОВА-КЬОСЕВА",
+      "target": "company:Издателство-Селекта-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

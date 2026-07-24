@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-vasilev-minkov-7e147e",
+  "nodes": [
+    {
+      "id": "official:georgi-vasilev-minkov-7e147e",
+      "type": "official",
+      "slug": "georgi-vasilev-minkov-7e147e",
+      "label": "Георги Василев Минков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202966915",
+      "type": "company",
+      "label": "Градски транспорт Добрич",
+      "slug": null,
+      "uic": "202966915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-vasilev-minkov-7e147e",
+      "target": "company:tr:202966915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

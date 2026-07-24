@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:miroslava-ivanova-stancheva-68d0e4",
+  "nodes": [
+    {
+      "id": "official:miroslava-ivanova-stancheva-68d0e4",
+      "type": "official",
+      "slug": "miroslava-ivanova-stancheva-68d0e4",
+      "label": "Мирослава Иванова Станчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000761532",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ  1928&quot;",
+      "slug": null,
+      "uic": "000761532",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВА ДИМИТРОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Радослава Димитрова Павлова"
+    },
+    {
+      "id": "person:РАДКА КОЛЕВА АРНАУДОВА",
+      "type": "person",
+      "label": "Радка Колева Арнаудова"
+    },
+    {
+      "id": "person:АСЕНКА АСЕНОВА ШЕНТОВА",
+      "type": "person",
+      "label": "Асенка Асенова Шентова"
+    },
+    {
+      "id": "person:МИЛКА СТОИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Милка Стоилова Петрова"
+    },
+    {
+      "id": "person:ГЮРГЯ ГЕОРГИЕВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Гюргя Георгиева Станчева"
+    },
+    {
+      "id": "person:ХРИЗАНТЕМА АНГЕЛОВА БОРИСОВА",
+      "type": "person",
+      "label": "Хризантема Ангелова Борисова"
+    },
+    {
+      "id": "person:ВАСИЛКА ДИМИТРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Василка Димитрова Александрова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА СТЕФЧОВА БЛАГОЙЧЕВА",
+      "type": "person",
+      "label": "Цветелина Стефчова Благойчева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА МИЛЕНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Десислава Миленова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslava-ivanova-stancheva-68d0e4",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВА ДИМИТРОВА ПАВЛОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА КОЛЕВА АРНАУДОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕНКА АСЕНОВА ШЕНТОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА СТОИЛОВА ПЕТРОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРГЯ ГЕОРГИЕВА СТАНЧЕВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИЗАНТЕМА АНГЕЛОВА БОРИСОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ДИМИТРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА СТЕФЧОВА БЛАГОЙЧЕВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА КОЛЕВА АРНАУДОВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА МИЛЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА СТЕФЧОВА БЛАГОЙЧЕВА",
+      "target": "company:tr:000761532",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

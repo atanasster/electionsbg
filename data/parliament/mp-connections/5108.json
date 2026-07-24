@@ -1,1 +1,222 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5108","nodes":[{"id":"mp:5108","type":"mp","mpId":5108,"label":"Илко Пенков Илиев","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:125021188","type":"company","label":"МЕБЕЛ-СТИЛ","slug":null,"uic":"125021188","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:202789564","type":"company","label":"МЕБЕЛ СТИЛ ТРАНС","slug":null,"uic":"202789564","legalForm":"OOD","status":"active","seat":null},{"id":"person:ИВО ИЛКОВ ИЛИЕВ","type":"person","label":"Иво Илков Илиев"},{"id":"person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА","type":"person","label":"Десислава Илкова Данева"},{"id":"company:name:МЕБЕЛ СТИЛ","type":"company","label":"МЕБЕЛ СТИЛ ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:МЕБЕЛ-СТИЛ","type":"person","label":"Мебел-Стил"},{"id":"company:tr:205931093","type":"company","label":"АНУБИС СТРОЙ","slug":null,"uic":"205931093","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, с. Челопеч"},{"id":"mp:5113","type":"mp","mpId":5113,"label":"Георги Иванов Георгиев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]}],"edges":[{"source":"mp:5108","target":"company:tr:125021188","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5108","target":"company:tr:202789564","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:125021188","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА","target":"company:tr:125021188","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:125021188","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА","target":"company:tr:125021188","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА","target":"company:tr:202789564","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:202789564","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА","target":"company:tr:202789564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:202789564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:МЕБЕЛ СТИЛ","target":"company:tr:202789564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МЕБЕЛ-СТИЛ","target":"company:tr:202789564","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:205931093","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ИЛКОВ ИЛИЕВ","target":"company:tr:205931093","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5113","target":"company:tr:205931093","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5113","length":4,"nodeIds":["mp:5108","company:tr:125021188","person:ИВО ИЛКОВ ИЛИЕВ","company:tr:205931093","mp:5113"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5108",
+  "nodes": [
+    {
+      "id": "mp:5108",
+      "type": "mp",
+      "mpId": 5108,
+      "label": "Илко Пенков Илиев",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:125021188",
+      "type": "company",
+      "label": "МЕБЕЛ-СТИЛ",
+      "slug": null,
+      "uic": "125021188",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202789564",
+      "type": "company",
+      "label": "МЕБЕЛ СТИЛ ТРАНС",
+      "slug": null,
+      "uic": "202789564",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Иво Илков Илиев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "type": "person",
+      "label": "Десислава Илкова Данева"
+    },
+    {
+      "id": "company:name:МЕБЕЛ СТИЛ",
+      "type": "company",
+      "label": "МЕБЕЛ СТИЛ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕБЕЛ-СТИЛ",
+      "type": "person",
+      "label": "Мебел-Стил"
+    },
+    {
+      "id": "company:tr:205931093",
+      "type": "company",
+      "label": "АНУБИС СТРОЙ",
+      "slug": null,
+      "uic": "205931093",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Челопеч"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5108",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5108",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:125021188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:125021188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МЕБЕЛ СТИЛ",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕБЕЛ-СТИЛ",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:205931093",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:205931093",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:205931093",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5113",
+      "length": 4,
+      "nodeIds": [
+        "mp:5108",
+        "company:tr:125021188",
+        "person:ИВО ИЛКОВ ИЛИЕВ",
+        "company:tr:205931093",
+        "mp:5113"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

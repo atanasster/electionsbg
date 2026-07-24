@@ -1,1 +1,279 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4728","nodes":[{"id":"mp:4728","type":"mp","mpId":4728,"label":"Светослав Тодоров Тодоров","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":["49","50"]},{"id":"company:tr:208783575","type":"company","label":"Гласът на Балкана","slug":null,"uic":"208783575","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, с. Орешак, 5630"},{"id":"company:tr:208625778","type":"company","label":"Сдружение ПолеРани","slug":null,"uic":"208625778","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"company:tr:206836029","type":"company","label":"Гранд Олд Тийм","slug":null,"uic":"206836029","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:205220648","type":"company","label":"ЯНКУЛОВИ ТРАНС","slug":null,"uic":"205220648","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА","type":"person","label":"Изабела Личкова Плачкова"},{"id":"person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ","type":"person","label":"Веселин Георгиев Николов"},{"id":"person:МИНЧО СТЕФАНОВ КОПРИНСКИ","type":"person","label":"Минчо Стефанов Копрински"},{"id":"person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА","type":"person","label":"Светла Микова Николова-Гинева"},{"id":"person:ЗЛАТЕНА ВАЛЕНТИНОВА ФЪРТУНОВА","type":"person","label":"Златена Валентинова Фъртунова"},{"id":"person:МАРТИН КИРИЛОВ СТОИЛОВ","type":"person","label":"Мартин Кирилов Стоилов"},{"id":"person:ИВА РАДОСЛАВОВА ГЕШОВА","type":"person","label":"Ива Радославова Гешова"},{"id":"person:КРИСТИНА ГЕОРГИЕВА ДИМОВА","type":"person","label":"Кристина Георгиева Димова"},{"id":"person:ИВАН БОЙЧЕВ СПАСОВ","type":"person","label":"Иван Бойчев Спасов"},{"id":"person:СИМЕОН БОЙКОВ ЯНКУЛОВ","type":"person","label":"Симеон Бойков Янкулов"}],"edges":[{"source":"mp:4728","target":"company:tr:208783575","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4728","target":"company:tr:208783575","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4728","target":"company:tr:208625778","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4728","target":"company:tr:206836029","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4728","target":"company:tr:205220648","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4728","target":"company:tr:206836029","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА","target":"company:tr:208783575","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:208783575","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИНЧО СТЕФАНОВ КОПРИНСКИ","target":"company:tr:208783575","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА","target":"company:tr:208783575","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:208783575","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИНЧО СТЕФАНОВ КОПРИНСКИ","target":"company:tr:208783575","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА","target":"company:tr:208625778","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА","target":"company:tr:208625778","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТЕНА ВАЛЕНТИНОВА ФЪРТУНОВА","target":"company:tr:208625778","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН КИРИЛОВ СТОИЛОВ","target":"company:tr:208625778","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВА РАДОСЛАВОВА ГЕШОВА","target":"company:tr:208625778","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ГЕОРГИЕВА ДИМОВА","target":"company:tr:206836029","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА ГЕОРГИЕВА ДИМОВА","target":"company:tr:206836029","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОЙЧЕВ СПАСОВ","target":"company:tr:205220648","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН БОЙКОВ ЯНКУЛОВ","target":"company:tr:205220648","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4728",
+  "nodes": [
+    {
+      "id": "mp:4728",
+      "type": "mp",
+      "mpId": 4728,
+      "label": "Светослав Тодоров Тодоров",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:tr:208783575",
+      "type": "company",
+      "label": "Гласът на Балкана",
+      "slug": null,
+      "uic": "208783575",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Орешак, 5630"
+    },
+    {
+      "id": "company:tr:208625778",
+      "type": "company",
+      "label": "Сдружение ПолеРани",
+      "slug": null,
+      "uic": "208625778",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "company:tr:206836029",
+      "type": "company",
+      "label": "Гранд Олд Тийм",
+      "slug": null,
+      "uic": "206836029",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:205220648",
+      "type": "company",
+      "label": "ЯНКУЛОВИ ТРАНС",
+      "slug": null,
+      "uic": "205220648",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА",
+      "type": "person",
+      "label": "Изабела Личкова Плачкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Веселин Георгиев Николов"
+    },
+    {
+      "id": "person:МИНЧО СТЕФАНОВ КОПРИНСКИ",
+      "type": "person",
+      "label": "Минчо Стефанов Копрински"
+    },
+    {
+      "id": "person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА",
+      "type": "person",
+      "label": "Светла Микова Николова-Гинева"
+    },
+    {
+      "id": "person:ЗЛАТЕНА ВАЛЕНТИНОВА ФЪРТУНОВА",
+      "type": "person",
+      "label": "Златена Валентинова Фъртунова"
+    },
+    {
+      "id": "person:МАРТИН КИРИЛОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Мартин Кирилов Стоилов"
+    },
+    {
+      "id": "person:ИВА РАДОСЛАВОВА ГЕШОВА",
+      "type": "person",
+      "label": "Ива Радославова Гешова"
+    },
+    {
+      "id": "person:КРИСТИНА ГЕОРГИЕВА ДИМОВА",
+      "type": "person",
+      "label": "Кристина Георгиева Димова"
+    },
+    {
+      "id": "person:ИВАН БОЙЧЕВ СПАСОВ",
+      "type": "person",
+      "label": "Иван Бойчев Спасов"
+    },
+    {
+      "id": "person:СИМЕОН БОЙКОВ ЯНКУЛОВ",
+      "type": "person",
+      "label": "Симеон Бойков Янкулов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4728",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4728",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4728",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4728",
+      "target": "company:tr:206836029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4728",
+      "target": "company:tr:205220648",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4728",
+      "target": "company:tr:206836029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНЧО СТЕФАНОВ КОПРИНСКИ",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЗАБЕЛА ЛИЧКОВА ПЛАЧКОВА",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНЧО СТЕФАНОВ КОПРИНСКИ",
+      "target": "company:tr:208783575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА МИКОВА НИКОЛОВА-ГИНЕВА",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТЕНА ВАЛЕНТИНОВА ФЪРТУНОВА",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН КИРИЛОВ СТОИЛОВ",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА РАДОСЛАВОВА ГЕШОВА",
+      "target": "company:tr:208625778",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ГЕОРГИЕВА ДИМОВА",
+      "target": "company:tr:206836029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ГЕОРГИЕВА ДИМОВА",
+      "target": "company:tr:206836029",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОЙЧЕВ СПАСОВ",
+      "target": "company:tr:205220648",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН БОЙКОВ ЯНКУЛОВ",
+      "target": "company:tr:205220648",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

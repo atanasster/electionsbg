@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:lyudmil-georgiev-sofroniev-6ee15b","nodes":[{"id":"official:lyudmil-georgiev-sofroniev-6ee15b","type":"official","slug":"lyudmil-georgiev-sofroniev-6ee15b","label":"Людмил Георгиев Софрониев","tier":"municipal","role":"councillor","municipality":"Плевен"},{"id":"company:tr:206463733","type":"company","label":"РИЛЕЦ ЕНЕРДЖИ","slug":null,"uic":"206463733","legalForm":null,"status":null,"seat":null},{"id":"person:РИЛКА ВАСИЛЕВА АТАНАСОВА","type":"person","label":"Рилка Василева Атанасова"}],"edges":[{"source":"official:lyudmil-georgiev-sofroniev-6ee15b","target":"company:tr:206463733","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:lyudmil-georgiev-sofroniev-6ee15b","target":"company:tr:206463733","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:lyudmil-georgiev-sofroniev-6ee15b","target":"company:tr:206463733","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:РИЛКА ВАСИЛЕВА АТАНАСОВА","target":"company:tr:206463733","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyudmil-georgiev-sofroniev-6ee15b",
+  "nodes": [
+    {
+      "id": "official:lyudmil-georgiev-sofroniev-6ee15b",
+      "type": "official",
+      "slug": "lyudmil-georgiev-sofroniev-6ee15b",
+      "label": "Людмил Георгиев Софрониев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:206463733",
+      "type": "company",
+      "label": "РИЛЕЦ ЕНЕРДЖИ",
+      "slug": null,
+      "uic": "206463733",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РИЛКА ВАСИЛЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Рилка Василева Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmil-georgiev-sofroniev-6ee15b",
+      "target": "company:tr:206463733",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyudmil-georgiev-sofroniev-6ee15b",
+      "target": "company:tr:206463733",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РИЛКА ВАСИЛЕВА АТАНАСОВА",
+      "target": "company:tr:206463733",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

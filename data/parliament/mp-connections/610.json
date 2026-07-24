@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:610","nodes":[{"id":"mp:610","type":"mp","mpId":610,"label":"Николай Евтимов Младенов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:206497130","type":"company","label":"СТРАТИДЖИК ЕНГЕЙДЖМЕНТ","slug":null,"uic":"206497130","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1330"}],"edges":[{"source":"mp:610","target":"company:tr:206497130","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:610","target":"company:tr:206497130","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:610",
+  "nodes": [
+    {
+      "id": "mp:610",
+      "type": "mp",
+      "mpId": 610,
+      "label": "Николай Евтимов Младенов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206497130",
+      "type": "company",
+      "label": "СТРАТИДЖИК ЕНГЕЙДЖМЕНТ",
+      "slug": null,
+      "uic": "206497130",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1330"
+    },
+    {
+      "id": "official:gergana-stoyanova-mladenova-08bab0",
+      "type": "official",
+      "slug": "gergana-stoyanova-mladenova-08bab0",
+      "label": "Гергана Стоянова Младенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:610",
+      "target": "company:tr:206497130",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:610",
+      "target": "company:tr:206497130",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-stoyanova-mladenova-08bab0",
+      "target": "company:tr:206497130",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

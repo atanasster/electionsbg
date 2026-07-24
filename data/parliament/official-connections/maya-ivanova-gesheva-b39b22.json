@@ -1,0 +1,197 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:maya-ivanova-gesheva-b39b22",
+  "nodes": [
+    {
+      "id": "official:maya-ivanova-gesheva-b39b22",
+      "type": "official",
+      "slug": "maya-ivanova-gesheva-b39b22",
+      "label": "Мая Иванова Гешева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175089680",
+      "type": "company",
+      "label": "Асоциация на учителите по български език и литература",
+      "slug": null,
+      "uic": "175089680",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОНИЯ МИХАЙЛОВА БАНДАРМАЛИЕВА",
+      "type": "person",
+      "label": "Антония Михайлова Бандармалиева"
+    },
+    {
+      "id": "person:ЕВГЕНИ ХРИСТОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Евгени Христов Ганчев"
+    },
+    {
+      "id": "person:ВИОЛИНА ЙОРДАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Виолина Йорданова Йорданова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ НАЙЧОВА ВЪРЛАКОВА",
+      "type": "person",
+      "label": "Емилия Найчова Върлакова"
+    },
+    {
+      "id": "person:МАРИАНА ВАСИЛЕВА БАКЪРДЖИЕВА",
+      "type": "person",
+      "label": "Мариана Василева Бакърджиева"
+    },
+    {
+      "id": "person:ИВЕЛИНА ЦВЕТАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ивелина Цветанова Иванова"
+    },
+    {
+      "id": "person:КРАСИМИРА ПЕНЧЕВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Красимира Пенчева Найденова"
+    },
+    {
+      "id": "person:СТЕЛА МИХАЙЛОВА ТАНЕВА",
+      "type": "person",
+      "label": "Стела Михайлова Танева"
+    },
+    {
+      "id": "person:ДАНИЕЛА СИМЕОНОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Даниела Симеонова Величкова"
+    },
+    {
+      "id": "person:СВЕТЛА СТЕФАНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Светла Стефанова Борисова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-ivanova-gesheva-b39b22",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИЯ МИХАЙЛОВА БАНДАРМАЛИЕВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ХРИСТОВ ГАНЧЕВ",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИНА ЙОРДАНОВА ЙОРДАНОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ МИХАЙЛОВА БАНДАРМАЛИЕВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ХРИСТОВ ГАНЧЕВ",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ НАЙЧОВА ВЪРЛАКОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ВАСИЛЕВА БАКЪРДЖИЕВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ЦВЕТАНОВА ИВАНОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ПЕНЧЕВА НАЙДЕНОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА МИХАЙЛОВА ТАНЕВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИНА ЙОРДАНОВА ЙОРДАНОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СИМЕОНОВА ВЕЛИЧКОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ЦВЕТАНОВА ИВАНОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА СТЕФАНОВА БОРИСОВА",
+      "target": "company:tr:175089680",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

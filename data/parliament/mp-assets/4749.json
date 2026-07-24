@@ -1,1 +1,65 @@
-{"mpId":4749,"name":"Мартин Николаев Харизанов","partyGroupShort":null,"isCurrent":false,"nsFolders":["48","49","50"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/9B6FFBD5-1DDB-4A22-8FD9-46076AE82DCF215500.xml","totalAssetsEur":151369.4953037841,"totalDebtsEur":187899.76633961033,"netWorthEur":-36530.27103582624,"previous":{"year":2023,"totalAssetsEur":164773.01196934294,"netWorthEur":-23126.754370267387},"byCategory":{"real_estate":{"count":24,"valuedCount":24,"totalEur":4828.12923413589},"vehicle":{"count":1,"valuedCount":1,"totalEur":766.9378217943278},"cash":{"count":2,"valuedCount":2,"totalEur":127822.97029905462},"bank":{"count":2,"valuedCount":2,"totalEur":17946.34502998727},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":6,"valuedCount":6,"totalEur":187899.76633961033},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":5.112918811962185}}}
+{
+  "mpId": 4749,
+  "name": "Мартин Николаев Харизанов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/9B6FFBD5-1DDB-4A22-8FD9-46076AE82DCF215500.xml",
+  "totalAssetsEur": 151369.4953037841,
+  "totalDebtsEur": 187899.76633961033,
+  "netWorthEur": -36530.27103582624,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 164773.01196934294,
+    "netWorthEur": -23126.754370267387
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 24,
+      "valuedCount": 24,
+      "totalEur": 4828.12923413589
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 766.9378217943278
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 127822.97029905462
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 17946.34502998727
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 6,
+      "valuedCount": 6,
+      "totalEur": 187899.76633961033
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 5.112918811962185
+    }
+  }
+}

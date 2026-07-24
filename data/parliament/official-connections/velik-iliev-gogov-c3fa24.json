@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:velik-iliev-gogov-c3fa24","nodes":[{"id":"official:velik-iliev-gogov-c3fa24","type":"official","slug":"velik-iliev-gogov-c3fa24","label":"Велик Илиев Гогов","tier":"municipal","role":"councillor","municipality":"Петрич"},{"id":"company:tr:207022396","type":"company","label":"БЕЛЛА БИЛД ООД","slug":null,"uic":"207022396","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ИВАНОВ ГОВЕДАРСКИ","type":"person","label":"Иван Иванов Говедарски"}],"edges":[{"source":"official:velik-iliev-gogov-c3fa24","target":"company:tr:207022396","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:velik-iliev-gogov-c3fa24","target":"company:tr:207022396","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ИВАНОВ ГОВЕДАРСКИ","target":"company:tr:207022396","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИВАНОВ ГОВЕДАРСКИ","target":"company:tr:207022396","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:velik-iliev-gogov-c3fa24",
+  "nodes": [
+    {
+      "id": "official:velik-iliev-gogov-c3fa24",
+      "type": "official",
+      "slug": "velik-iliev-gogov-c3fa24",
+      "label": "Велик Илиев Гогов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:207022396",
+      "type": "company",
+      "label": "БЕЛЛА БИЛД ООД",
+      "slug": null,
+      "uic": "207022396",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ИВАНОВ ГОВЕДАРСКИ",
+      "type": "person",
+      "label": "Иван Иванов Говедарски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velik-iliev-gogov-c3fa24",
+      "target": "company:tr:207022396",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velik-iliev-gogov-c3fa24",
+      "target": "company:tr:207022396",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ИВАНОВ ГОВЕДАРСКИ",
+      "target": "company:tr:207022396",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИВАНОВ ГОВЕДАРСКИ",
+      "target": "company:tr:207022396",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

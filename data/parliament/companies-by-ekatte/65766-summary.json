@@ -1,1 +1,91 @@
-{"ekatte":"65766","count":8,"mpCount":6,"totalPages":1,"topCompanies":[{"slug":"АКАДЕМИЧНА-ЕТИКА-И-РЕФОРМИ-В-ОБРАЗОВАНИЕТО","displayName":"АКАДЕМИЧНА ЕТИКА И РЕФОРМИ В ОБРАЗОВАНИЕТО","registeredOffice":"БЪЛГАРИЯ, гр. Свищов, 5250","mps":[{"mpId":2775,"mpName":"Милен Василев Михов","role":"ngo_representative","isCurrent":true},{"mpId":2775,"mpName":"Милен Василев Михов","role":"ngo_board","isCurrent":true}]},{"slug":"ИВАНОВ-ГРУП-ИНЖЕНЕРИНГ","displayName":"ИВАНОВ ГРУП ИНЖЕНЕРИНГ","registeredOffice":"БЪЛГАРИЯ, гр. Свищов, 5250","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"КРОНОС-82","displayName":"КРОНОС 82","registeredOffice":"БЪЛГАРИЯ, гр. Свищов, 5250","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"Рийд-България","displayName":"Рийд България","registeredOffice":"БЪЛГАРИЯ, гр. Свищов, 5250","mps":[{"mpId":3372,"mpName":"Васил Йорданов Георгиев","role":"sole_owner","isCurrent":true},{"mpId":3372,"mpName":"Васил Йорданов Георгиев","role":"partner","isCurrent":false}]},{"slug":"УСТРЕМ","displayName":"УСТРЕМ","registeredOffice":"БЪЛГАРИЯ, гр. Свищов, 5250","mps":[{"mpId":913,"mpName":"Евгений Василев Узунов","role":"representative","isCurrent":true},{"mpId":913,"mpName":"Евгений Василев Узунов","role":"director","isCurrent":true}]}]}
+{
+  "ekatte": "65766",
+  "count": 8,
+  "mpCount": 6,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Добри-и-Майкъл-ООД",
+      "displayName": "\"Добри и Майкъл\" ООД",
+      "registeredOffice": "Свищов",
+      "mps": [
+        {
+          "mpId": 3316,
+          "mpName": "Христо Михайлов Дочев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Екс-Натура-ЕООД",
+      "displayName": "Екс Натура ЕООД",
+      "registeredOffice": "Свищов",
+      "mps": [
+        {
+          "mpId": 3372,
+          "mpName": "Васил Йорданов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АКАДЕМИЧНА-ЕТИКА-И-РЕФОРМИ-В-ОБРАЗОВАНИЕТО",
+      "displayName": "АКАДЕМИЧНА ЕТИКА И РЕФОРМИ В ОБРАЗОВАНИЕТО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "mps": [
+        {
+          "mpId": 2775,
+          "mpName": "Милен Василев Михов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2775,
+          "mpName": "Милен Василев Михов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИВАНОВ-ГРУП-ИНЖЕНЕРИНГ",
+      "displayName": "ИВАНОВ ГРУП ИНЖЕНЕРИНГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КРОНОС-82",
+      "displayName": "КРОНОС 82",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

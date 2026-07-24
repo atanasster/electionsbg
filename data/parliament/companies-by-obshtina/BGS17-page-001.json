@@ -1,1 +1,34 @@
-{"obshtina":"BGS17","page":1,"totalPages":1,"count":6,"companies":[{"slug":"РУ-СТРОЙ-22","displayName":"РУ - СТРОЙ 22","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":4624,"mpName":"Радостин Колев Колев","role":"partner","isCurrent":true},{"mpId":4624,"mpName":"Радостин Колев Колев","role":"manager","isCurrent":true},{"mpId":4624,"mpName":"Радостин Колев Колев","role":"sole_owner","isCurrent":false}]},{"slug":"СРЕДЕЦ-ЕКО-ЕНЕРДЖИ","displayName":"СРЕДЕЦ ЕКО ЕНЕРДЖИ","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":4624,"mpName":"Радостин Колев Колев","role":"manager","isCurrent":true},{"mpId":4624,"mpName":"Радостин Колев Колев","role":"partner","isCurrent":true}]},{"slug":"СРЕДЕЦ-ЕНЕРДЖИ-ГРУП","displayName":"СРЕДЕЦ ЕНЕРДЖИ ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":4624,"mpName":"Радостин Колев Колев","role":"manager","isCurrent":true},{"mpId":4624,"mpName":"Радостин Колев Колев","role":"partner","isCurrent":true}]},{"slug":"Болнично-настоятелство-при-МБАЛ-ПОМОРИЕ-ЕООД","displayName":"Болнично  настоятелство при МБАЛ ПОМОРИЕ ЕООД","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":2308,"mpName":"Ива Димитрова Кусева","role":"ngo_board","isCurrent":true}]},{"slug":"ГРАЖДАНСКО-ДВИЖЕНИЕ-БЪДЕЩЕ-ЗА-ОБЩИНА-ПОМОРИЕ","displayName":"ГРАЖДАНСКО ДВИЖЕНИЕ БЪДЕЩЕ ЗА ОБЩИНА ПОМОРИЕ","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":4624,"mpName":"Радостин Колев Колев","role":"ngo_board","isCurrent":true}]},{"slug":"УЧИЛИЩНО-НАСТОЯТЕЛСТВО-ПРИ-СУ-ИВАН-ВАЗОВ","displayName":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ \"ИВАН ВАЗОВ\"","registeredOffice":"БЪЛГАРИЯ, гр. Поморие, 8200","mps":[{"mpId":2742,"mpName":"Ася Атанасова Пеева","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "BGS17",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "Болнично-настоятелство-при-МБАЛ-ПОМОРИЕ-ЕООД",
+      "displayName": "Болнично  настоятелство при МБАЛ ПОМОРИЕ ЕООД",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Поморие, 8200",
+      "mps": [
+        {
+          "mpId": 2308,
+          "mpName": "Ива Димитрова Кусева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "УЧИЛИЩНО-НАСТОЯТЕЛСТВО-ПРИ-СУ-ИВАН-ВАЗОВ",
+      "displayName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ \"ИВАН ВАЗОВ\"",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Поморие, 8200",
+      "mps": [
+        {
+          "mpId": 2742,
+          "mpName": "Ася Атанасова Пеева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,36 @@
-{"mpId":899,"mpName":"Петър Владимиров Димитров","generatedAt":"2026-07-03T11:12:51.499Z","total":2,"roles":[{"uic":"208134918","companyName":"АЛТИОРА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1616","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-21T09:07:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208134918","companyName":"АЛТИОРА","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1616","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-01-21T09:07:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 899,
+  "mpName": "Петър Владимиров Димитров",
+  "generatedAt": "2026-07-24T03:35:58.282Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "208134918",
+      "companyName": "АЛТИОРА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1616",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-21T09:07:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208134918",
+      "companyName": "АЛТИОРА",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1616",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-01-21T09:07:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

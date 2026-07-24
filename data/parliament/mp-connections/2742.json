@@ -1,1 +1,194 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2742","nodes":[{"id":"mp:2742","type":"mp","mpId":2742,"label":"Ася Атанасова Пеева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:176213450","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ \"ИВАН ВАЗОВ\"","slug":null,"uic":"176213450","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Поморие, 8200"},{"id":"person:ТАТЯНА ДИМИТРОВА ЯНЕВА","type":"person","label":"Татяна Димитрова Янева"},{"id":"person:ТОДОР ИЛИЕВ ДЕЛЯКОВ","type":"person","label":"Тодор Илиев Деляков"},{"id":"person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА","type":"person","label":"Теодора Щерионова Стоянова"},{"id":"person:КАЛИНА ЯНЕВА ПАПАДОПУЛОВА-ТЕНЕВА","type":"person","label":"Калина Янева Пападопулова-Тенева"},{"id":"person:ЛЮБКА ДИМИТРОВА СТРАВОЛЕМОВА","type":"person","label":"Любка Димитрова Страволемова"},{"id":"person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ","type":"person","label":"Кольо Георгиев Николов"},{"id":"person:ЖИВКО СТОЙКОВ КОСТАДИНОВ","type":"person","label":"Живко Стойков Костадинов"},{"id":"company:tr:831831545","type":"company","label":"СЪЮЗ НА НАРОДНИТЕ ЧИТАЛИЩА","slug":null,"uic":"831831545","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:5093","type":"mp","mpId":5093,"label":"Данаил Лалев Петков","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"mp:2742","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАТЯНА ДИМИТРОВА ЯНЕВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ДИМИТРОВА ЯНЕВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ИЛИЕВ ДЕЛЯКОВ","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ЯНЕВА ПАПАДОПУЛОВА-ТЕНЕВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБКА ДИМИТРОВА СТРАВОЛЕМОВА","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО СТОЙКОВ КОСТАДИНОВ","target":"company:tr:176213450","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:831831545","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5093","target":"company:tr:831831545","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5093","length":4,"nodeIds":["mp:2742","company:tr:176213450","person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ","company:tr:831831545","mp:5093"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2742",
+  "nodes": [
+    {
+      "id": "mp:2742",
+      "type": "mp",
+      "mpId": 2742,
+      "label": "Ася Атанасова Пеева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176213450",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СУ \"ИВАН ВАЗОВ\"",
+      "slug": null,
+      "uic": "176213450",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Поморие, 8200"
+    },
+    {
+      "id": "person:ТАТЯНА ДИМИТРОВА ЯНЕВА",
+      "type": "person",
+      "label": "Татяна Димитрова Янева"
+    },
+    {
+      "id": "person:ТОДОР ИЛИЕВ ДЕЛЯКОВ",
+      "type": "person",
+      "label": "Тодор Илиев Деляков"
+    },
+    {
+      "id": "person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Теодора Щерионова Стоянова"
+    },
+    {
+      "id": "person:КАЛИНА ЯНЕВА ПАПАДОПУЛОВА-ТЕНЕВА",
+      "type": "person",
+      "label": "Калина Янева Пападопулова-Тенева"
+    },
+    {
+      "id": "person:ЛЮБКА ДИМИТРОВА СТРАВОЛЕМОВА",
+      "type": "person",
+      "label": "Любка Димитрова Страволемова"
+    },
+    {
+      "id": "person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Кольо Георгиев Николов"
+    },
+    {
+      "id": "person:ЖИВКО СТОЙКОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Живко Стойков Костадинов"
+    },
+    {
+      "id": "company:tr:831831545",
+      "type": "company",
+      "label": "СЪЮЗ НА НАРОДНИТЕ ЧИТАЛИЩА",
+      "slug": null,
+      "uic": "831831545",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:5093",
+      "type": "mp",
+      "mpId": 5093,
+      "label": "Данаил Лалев Петков",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2742",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЯНА ДИМИТРОВА ЯНЕВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ДИМИТРОВА ЯНЕВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ДЕЛЯКОВ",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЩЕРИОНОВА СТОЯНОВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ЯНЕВА ПАПАДОПУЛОВА-ТЕНЕВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА ДИМИТРОВА СТРАВОЛЕМОВА",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО СТОЙКОВ КОСТАДИНОВ",
+      "target": "company:tr:176213450",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:831831545",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5093",
+      "target": "company:tr:831831545",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5093",
+      "length": 4,
+      "nodeIds": [
+        "mp:2742",
+        "company:tr:176213450",
+        "person:КОЛЬО ГЕОРГИЕВ НИКОЛОВ",
+        "company:tr:831831545",
+        "mp:5093"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

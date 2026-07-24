@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:darina-ivanova-dimitrova-1b00ae",
+  "nodes": [
+    {
+      "id": "official:darina-ivanova-dimitrova-1b00ae",
+      "type": "official",
+      "slug": "darina-ivanova-dimitrova-1b00ae",
+      "label": "Дарина Иванова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208032258",
+      "type": "company",
+      "label": "КюНетик",
+      "slug": null,
+      "uic": "208032258",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОРОТЕЯ РОСЕНОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Доротея Росенова Вълева"
+    },
+    {
+      "id": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Йоана Димитрова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-ivanova-dimitrova-1b00ae",
+      "target": "company:tr:208032258",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:darina-ivanova-dimitrova-1b00ae",
+      "target": "company:tr:208032258",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОРОТЕЯ РОСЕНОВА ВЪЛЕВА",
+      "target": "company:tr:208032258",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:208032258",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

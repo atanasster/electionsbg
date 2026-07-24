@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:petya-lyubomirova-kabakchieva-dc01e6",
+  "nodes": [
+    {
+      "id": "official:petya-lyubomirova-kabakchieva-dc01e6",
+      "type": "official",
+      "slug": "petya-lyubomirova-kabakchieva-dc01e6",
+      "label": "Петя Любомирова Кабакчиева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831524005",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;ИНСТИТУТ ОТВОРЕНО ОБЩЕСТВО-СОФИЯ&quot;",
+      "slug": null,
+      "uic": "831524005",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕПКА АЛЕКСАНДРОВА БОЯДЖИЕВА-ПРЕДСЕДАТЕЛ НАСТОЯТЕЛСТВО",
+      "type": "person",
+      "label": "Пепка Александрова Бояджиева-Председател Настоятелство"
+    },
+    {
+      "id": "person:ЙОРДАН МИЛКОВ МАТЕЕВ-ЧЛЕН НАСТОЯТЕЛСТВО",
+      "type": "person",
+      "label": "Йордан Милков Матеев-Член Настоятелство"
+    },
+    {
+      "id": "person:ВАСИЛКА ДИМИТРОВА КАРАСТОЯНОВА",
+      "type": "person",
+      "label": "Василка Димитрова Карастоянова"
+    },
+    {
+      "id": "person:СВЕТЛОЗАР ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Светлозар Георгиев Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-lyubomirova-kabakchieva-dc01e6",
+      "target": "company:tr:831524005",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕПКА АЛЕКСАНДРОВА БОЯДЖИЕВА-ПРЕДСЕДАТЕЛ НАСТОЯТЕЛСТВО",
+      "target": "company:tr:831524005",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН МИЛКОВ МАТЕЕВ-ЧЛЕН НАСТОЯТЕЛСТВО",
+      "target": "company:tr:831524005",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ДИМИТРОВА КАРАСТОЯНОВА",
+      "target": "company:tr:831524005",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:831524005",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

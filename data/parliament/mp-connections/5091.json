@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5091","nodes":[{"id":"mp:5091","type":"mp","mpId":5091,"label":"Томислав Пейков Дончев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["42","43","44","45","46","47","48","49","50","51","52"]},{"id":"company:tr:107521996","type":"company","label":"СДРУЖЕНИЕ \"ВИСОКОТЕХНОЛОГИЧЕН БИЗНЕС ИНКУБАТОР\"","slug":null,"uic":"107521996","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Габрово, 5300"},{"id":"person:КАЛИН НАЧЕВ ИЛИЕВ","type":"person","label":"Калин Начев Илиев"},{"id":"person:СИЛВИЯ СТЕФАНОВА ПЕНКОВА","type":"person","label":"Силвия Стефанова Пенкова"},{"id":"person:ДЕШКА МАЛЧЕВА МАРКОВА","type":"person","label":"Дешка Малчева Маркова"}],"edges":[{"source":"mp:5091","target":"company:tr:107521996","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН НАЧЕВ ИЛИЕВ","target":"company:tr:107521996","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТЕФАНОВА ПЕНКОВА","target":"company:tr:107521996","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН НАЧЕВ ИЛИЕВ","target":"company:tr:107521996","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕШКА МАЛЧЕВА МАРКОВА","target":"company:tr:107521996","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5091",
+  "nodes": [
+    {
+      "id": "mp:5091",
+      "type": "mp",
+      "mpId": 5091,
+      "label": "Томислав Пейков Дончев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:107521996",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ \"ВИСОКОТЕХНОЛОГИЧЕН БИЗНЕС ИНКУБАТОР\"",
+      "slug": null,
+      "uic": "107521996",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Габрово, 5300"
+    },
+    {
+      "id": "person:КАЛИН НАЧЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Калин Начев Илиев"
+    },
+    {
+      "id": "person:СИЛВИЯ СТЕФАНОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Силвия Стефанова Пенкова"
+    },
+    {
+      "id": "person:ДЕШКА МАЛЧЕВА МАРКОВА",
+      "type": "person",
+      "label": "Дешка Малчева Маркова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5091",
+      "target": "company:tr:107521996",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН НАЧЕВ ИЛИЕВ",
+      "target": "company:tr:107521996",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА ПЕНКОВА",
+      "target": "company:tr:107521996",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН НАЧЕВ ИЛИЕВ",
+      "target": "company:tr:107521996",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕШКА МАЛЧЕВА МАРКОВА",
+      "target": "company:tr:107521996",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

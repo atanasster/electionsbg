@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stoyan-todorov-mavrodiev-c4cf82",
+  "nodes": [
+    {
+      "id": "official:stoyan-todorov-mavrodiev-c4cf82",
+      "type": "official",
+      "slug": "stoyan-todorov-mavrodiev-c4cf82",
+      "label": "Стоян Тодоров Мавродиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131160908",
+      "type": "company",
+      "label": "Рийл Естейт Венчърс ЕООД",
+      "slug": null,
+      "uic": "131160908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stoyan-todorov-mavrodiev-2b5960",
+      "type": "official",
+      "slug": "stoyan-todorov-mavrodiev-2b5960",
+      "label": "Стоян Тодоров Мавродиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Марусия Христова Велчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-todorov-mavrodiev-c4cf82",
+      "target": "company:tr:131160908",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-todorov-mavrodiev-2b5960",
+      "target": "company:tr:131160908",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРУСИЯ ХРИСТОВА ВЕЛЧЕВА",
+      "target": "company:tr:131160908",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

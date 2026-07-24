@@ -1,1 +1,65 @@
-{"mpId":4551,"name":"Виктория Димитрова Василева","partyGroupShort":null,"isCurrent":false,"nsFolders":["45","46","47"],"latestDeclarationYear":2024,"fiscalYear":2024,"declarationType":"Entry","sourceUrl":"https://register.cacbg.bg/2024/619F3C59-2A1C-4BA0-9BA2-EF097B836FF0188524.xml","totalAssetsEur":40328.65842123293,"totalDebtsEur":28040.78064044421,"netWorthEur":12287.877780788724,"previous":{"year":2022,"totalAssetsEur":7907.6402345807155,"netWorthEur":7907.6402345807155},"byCategory":{"real_estate":{"count":1,"valuedCount":1,"totalEur":34499.93097559604},"vehicle":{"count":1,"valuedCount":1,"totalEur":4806.143683244454},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":0,"valuedCount":0,"totalEur":0},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":28040.78064044421},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":1022.5837623924369}}}
+{
+  "mpId": 4551,
+  "name": "Виктория Димитрова Василева",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "45",
+    "46",
+    "47"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2024,
+  "declarationType": "Entry",
+  "sourceUrl": "https://register.cacbg.bg/2024/619F3C59-2A1C-4BA0-9BA2-EF097B836FF0188524.xml",
+  "totalAssetsEur": 40328.65842123293,
+  "totalDebtsEur": 28040.78064044421,
+  "netWorthEur": 12287.877780788724,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 7907.6402345807155,
+    "netWorthEur": 7907.6402345807155
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 34499.93097559604
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 4806.143683244454
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 28040.78064044421
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 1022.5837623924369
+    }
+  }
+}

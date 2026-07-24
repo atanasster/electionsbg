@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vesela-peneva-stoikova-7fa558",
+  "nodes": [
+    {
+      "id": "official:vesela-peneva-stoikova-7fa558",
+      "type": "official",
+      "slug": "vesela-peneva-stoikova-7fa558",
+      "label": "Весела Пенева Стойкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104066269",
+      "type": "company",
+      "label": "НЧ &quot;ТРЕЗВЕНОСТ - 1924&quot;",
+      "slug": null,
+      "uic": "104066269",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛИНА КАЛОЯНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Галина Калоянова Ангелова"
+    },
+    {
+      "id": "person:МИЛКО ВАСИЛЕВ ГРЪНЧАРОВ",
+      "type": "person",
+      "label": "Милко Василев Грънчаров"
+    },
+    {
+      "id": "person:ЕМАНУИЛ АЛЕКСАНДРОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Емануил Александров Манолов"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Ваня Георгиева Йорданова"
+    },
+    {
+      "id": "person:МИНКА ЯНКОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Минка Янкова Неделчева"
+    },
+    {
+      "id": "person:ЕНВЕР САЛИМОВ АСАНОВ",
+      "type": "person",
+      "label": "Енвер Салимов Асанов"
+    },
+    {
+      "id": "person:МЛАДЕН ЗАФИРОВ МАРКОВ",
+      "type": "person",
+      "label": "Младен Зафиров Марков"
+    },
+    {
+      "id": "person:ИЗАБЕЛА ХРИСТОВА ЧОРБАДЖИЕВА",
+      "type": "person",
+      "label": "Изабела Христова Чорбаджиева"
+    },
+    {
+      "id": "person:НАТАША ИВАНОВА КИРОВА",
+      "type": "person",
+      "label": "Наташа Иванова Кирова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИВАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Валентина Иванова Василева"
+    },
+    {
+      "id": "person:СЕНИХА АЛИЕВА ЮМЕРОВА",
+      "type": "person",
+      "label": "Сениха Алиева Юмерова"
+    },
+    {
+      "id": "person:МЕРАЛ ГЮРСЯЛ МЕХМЕДОВА",
+      "type": "person",
+      "label": "Мерал Гюрсял Мехмедова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vesela-peneva-stoikova-7fa558",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛИНА КАЛОЯНОВА АНГЕЛОВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ВАСИЛЕВ ГРЪНЧАРОВ",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМАНУИЛ АЛЕКСАНДРОВ МАНОЛОВ",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКА ЯНКОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНВЕР САЛИМОВ АСАНОВ",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН ЗАФИРОВ МАРКОВ",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЗАБЕЛА ХРИСТОВА ЧОРБАДЖИЕВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША ИВАНОВА КИРОВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЗАБЕЛА ХРИСТОВА ЧОРБАДЖИЕВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕНИХА АЛИЕВА ЮМЕРОВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕРАЛ ГЮРСЯЛ МЕХМЕДОВА",
+      "target": "company:tr:104066269",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

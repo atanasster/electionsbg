@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5335",
+  "nodes": [
+    {
+      "id": "mp:5335",
+      "type": "mp",
+      "mpId": 5335,
+      "label": "Христо Георгиев Гаджев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "52",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Глобъл-солюшънс-България-(ГСБ)",
+      "type": "company",
+      "label": "Глобъл солюшънс - България (ГСБ)",
+      "slug": "Глобъл-солюшънс-България-(ГСБ)",
+      "uic": "203027645",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Глобъл-Солюшънс-България-(ГСБ)",
+      "type": "company",
+      "label": "Глобъл Солюшънс България (ГСБ)",
+      "slug": "Глобъл-Солюшънс-България-(ГСБ)",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5335",
+      "target": "company:Глобъл-солюшънс-България-(ГСБ)",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5335",
+      "target": "company:Глобъл-Солюшънс-България-(ГСБ)",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

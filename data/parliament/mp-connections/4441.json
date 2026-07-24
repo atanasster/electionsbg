@@ -1,1 +1,101 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4441","nodes":[{"id":"mp:4441","type":"mp","mpId":4441,"label":"Екатерина Спасова Гечева-Захариева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["43","44","45","46","47","48","49"]},{"id":"company:А-и-а-Архитекти-ООД","type":"company","label":"\"А и а Архитекти\" ООД","slug":"А-и-а-Архитекти-ООД","uic":"131448846","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"company:Анзак-Инвест-ООД","type":"company","label":"\"Анзак Инвест\" ООД","slug":"Анзак-Инвест-ООД","uic":"203463087","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:Слоу-Дог-ООД","type":"company","label":"\"Слоу Дог\" ООД","slug":"Слоу-Дог-ООД","uic":"203465348","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ","type":"person","label":"Ангел Валериев Захариев"}],"edges":[{"source":"mp:4441","target":"company:А-и-а-Архитекти-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4441","target":"company:Анзак-Инвест-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4441","target":"company:Слоу-Дог-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ","target":"company:Анзак-Инвест-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ","target":"company:Анзак-Инвест-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4441",
+  "nodes": [
+    {
+      "id": "mp:4441",
+      "type": "mp",
+      "mpId": 4441,
+      "label": "Екатерина Спасова Гечева-Захариева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:А-и-а-Архитекти-ООД",
+      "type": "company",
+      "label": "\"А и а Архитекти\" ООД",
+      "slug": "А-и-а-Архитекти-ООД",
+      "uic": "131448846",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Анзак-Инвест-ООД",
+      "type": "company",
+      "label": "\"Анзак Инвест\" ООД",
+      "slug": "Анзак-Инвест-ООД",
+      "uic": "203463087",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Слоу-Дог-ООД",
+      "type": "company",
+      "label": "\"Слоу Дог\" ООД",
+      "slug": "Слоу-Дог-ООД",
+      "uic": "203465348",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Ангел Валериев Захариев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4441",
+      "target": "company:А-и-а-Архитекти-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4441",
+      "target": "company:Анзак-Инвест-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4441",
+      "target": "company:Слоу-Дог-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ",
+      "target": "company:Анзак-Инвест-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ВАЛЕРИЕВ ЗАХАРИЕВ",
+      "target": "company:Анзак-Инвест-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

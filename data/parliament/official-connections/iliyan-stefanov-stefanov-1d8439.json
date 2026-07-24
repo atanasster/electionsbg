@@ -1,1 +1,71 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:iliyan-stefanov-stefanov-1d8439","nodes":[{"id":"official:iliyan-stefanov-stefanov-1d8439","type":"official","slug":"iliyan-stefanov-stefanov-1d8439","label":"Илиян Стефанов Стефанов","tier":"municipal","role":"councillor","municipality":"Созопол"},{"id":"company:tr:200858435","type":"company","label":"И.С.Къмпани","slug":null,"uic":"200858435","legalForm":null,"status":null,"seat":null},{"id":"company:tr:200368221","type":"company","label":"Рай Сън 81","slug":null,"uic":"200368221","legalForm":null,"status":null,"seat":null},{"id":"company:tr:102926649","type":"company","label":"Салена 2005","slug":null,"uic":"102926649","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:iliyan-stefanov-stefanov-1d8439","target":"company:tr:200858435","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iliyan-stefanov-stefanov-1d8439","target":"company:tr:200368221","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:iliyan-stefanov-stefanov-1d8439","target":"company:tr:102926649","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliyan-stefanov-stefanov-1d8439",
+  "nodes": [
+    {
+      "id": "official:iliyan-stefanov-stefanov-1d8439",
+      "type": "official",
+      "slug": "iliyan-stefanov-stefanov-1d8439",
+      "label": "Илиян Стефанов Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:200858435",
+      "type": "company",
+      "label": "И.С.Къмпани",
+      "slug": null,
+      "uic": "200858435",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200368221",
+      "type": "company",
+      "label": "Рай Сън 81",
+      "slug": null,
+      "uic": "200368221",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:102926649",
+      "type": "company",
+      "label": "Салена 2005",
+      "slug": null,
+      "uic": "102926649",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-stefanov-stefanov-1d8439",
+      "target": "company:tr:200858435",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iliyan-stefanov-stefanov-1d8439",
+      "target": "company:tr:200368221",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iliyan-stefanov-stefanov-1d8439",
+      "target": "company:tr:102926649",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

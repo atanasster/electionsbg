@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5229",
+  "nodes": [
+    {
+      "id": "mp:5229",
+      "type": "mp",
+      "mpId": 5229,
+      "label": "Божидар Пламенов Божанов",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Мадж.ио",
+      "type": "company",
+      "label": "Мадж.ио",
+      "slug": "Мадж.ио",
+      "uic": "202934693",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:LogSentinel-B.V-(чуждестранно)",
+      "type": "company",
+      "label": "LogSentinel B.V (чуждестранно)",
+      "slug": "LogSentinel-B.V-(чуждестранно)",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:LogSentinel-B.V.-(чуждестранно)",
+      "type": "company",
+      "label": "LogSentinel B.V. (чуждестранно)",
+      "slug": "LogSentinel-B.V.-(чуждестранно)",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:name:ИМПЛЕО МЕНИДЖМЪНТ СЪРВИСИЗ",
+      "type": "company",
+      "label": "\"ИМПЛЕО МЕНИДЖМЪНТ СЪРВИСИЗ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ВЛАДИСЛАВОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Екатерина Владиславова Михайлова"
+    },
+    {
+      "id": "company:name:БАКАЛОВ ИНВЕСТМАНТ ГРУП",
+      "type": "company",
+      "label": "„Бакалов Инвестмант Груп“ АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:„БЛЕК ПИЙК КЕПИТАЛ ФЪНД КООПЕРАТИФ” У.А.",
+      "type": "person",
+      "label": "„блек Пийк Кепитал Фънд Кооператиф” У.а."
+    },
+    {
+      "id": "person:СВЕТЛА ЕМИЛОВА СИМИДЧИЕВА",
+      "type": "person",
+      "label": "Светла Емилова Симидчиева"
+    },
+    {
+      "id": "official:bozhidar-plamenov-bozhanov-d0a0bf",
+      "type": "official",
+      "slug": "bozhidar-plamenov-bozhanov-d0a0bf",
+      "label": "Божидар Пламенов Божанов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5229",
+      "target": "company:Мадж.ио",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5229",
+      "target": "company:LogSentinel-B.V-(чуждестранно)",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5229",
+      "target": "company:LogSentinel-B.V.-(чуждестранно)",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ИМПЛЕО МЕНИДЖМЪНТ СЪРВИСИЗ",
+      "target": "company:Мадж.ио",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ВЛАДИСЛАВОВА МИХАЙЛОВА",
+      "target": "company:Мадж.ио",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БАКАЛОВ ИНВЕСТМАНТ ГРУП",
+      "target": "company:Мадж.ио",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:„БЛЕК ПИЙК КЕПИТАЛ ФЪНД КООПЕРАТИФ” У.А.",
+      "target": "company:Мадж.ио",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ЕМИЛОВА СИМИДЧИЕВА",
+      "target": "company:Мадж.ио",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:bozhidar-plamenov-bozhanov-d0a0bf",
+      "target": "company:Мадж.ио",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-zhivkov-petkov-9df945",
+  "nodes": [
+    {
+      "id": "official:dimitr-zhivkov-petkov-9df945",
+      "type": "official",
+      "slug": "dimitr-zhivkov-petkov-9df945",
+      "label": "Димитър Живков Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чипровци"
+    },
+    {
+      "id": "company:tr:206519406",
+      "type": "company",
+      "label": "СЪНРАЙС -М",
+      "slug": null,
+      "uic": "206519406",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА ЗЛАТЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Маргарита Златева Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-zhivkov-petkov-9df945",
+      "target": "company:tr:206519406",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-zhivkov-petkov-9df945",
+      "target": "company:tr:206519406",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ЗЛАТЕВА ВАСИЛЕВА",
+      "target": "company:tr:206519406",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

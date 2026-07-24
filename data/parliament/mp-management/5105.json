@@ -1,1 +1,50 @@
-{"mpId":5105,"mpName":"Айтен Байрям Сабри","generatedAt":"2026-07-03T11:12:51.915Z","total":3,"roles":[{"uic":"107034878","companyName":"НАЦИОНАЛНА АСОЦИАЦИЯ НА СЕКРЕТАРИТЕ НА ОБЩИНИ В РЕПУБЛИКА БЪЛГАРИЯ","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Габрово, 5300","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-05-21T15:42:55","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176493237","companyName":"РОДОПА","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Момчилград","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-12-06T16:19:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176493237","companyName":"РОДОПА","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Момчилград","status":"active","role":"ngo_representative","positionLabel":"ПРЕДСЕДАТЕЛ","sharePercent":null,"addedAt":"2023-12-06T16:19:30","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5105,
+  "mpName": "Айтен Байрям Сабри",
+  "generatedAt": "2026-07-24T03:35:58.716Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "107034878",
+      "companyName": "НАЦИОНАЛНА АСОЦИАЦИЯ НА СЕКРЕТАРИТЕ НА ОБЩИНИ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Габрово, 5300",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-05-21T15:42:55",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176493237",
+      "companyName": "РОДОПА",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Момчилград",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-12-06T16:19:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176493237",
+      "companyName": "РОДОПА",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Момчилград",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "ПРЕДСЕДАТЕЛ",
+      "sharePercent": null,
+      "addedAt": "2023-12-06T16:19:30",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliyana-marinova-kostova-57c3b0",
+  "nodes": [
+    {
+      "id": "official:iliyana-marinova-kostova-57c3b0",
+      "type": "official",
+      "slug": "iliyana-marinova-kostova-57c3b0",
+      "label": "ИЛИЯНА МАРИНОВА КОСТОВА",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110563681",
+      "type": "company",
+      "label": "ЛТК ООД",
+      "slug": null,
+      "uic": "110563681",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyana-marinova-kostova-57c3b0",
+      "target": "company:tr:110563681",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

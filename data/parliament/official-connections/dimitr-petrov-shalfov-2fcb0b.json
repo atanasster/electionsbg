@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:dimitr-petrov-shalfov-2fcb0b","nodes":[{"id":"official:dimitr-petrov-shalfov-2fcb0b","type":"official","slug":"dimitr-petrov-shalfov-2fcb0b","label":"Димитър Петров Шалъфов","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:205288107","type":"company","label":"Обжалвай БГ ООД","slug":null,"uic":"205288107","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:dimitr-petrov-shalfov-2fcb0b","target":"company:tr:205288107","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-petrov-shalfov-2fcb0b",
+  "nodes": [
+    {
+      "id": "official:dimitr-petrov-shalfov-2fcb0b",
+      "type": "official",
+      "slug": "dimitr-petrov-shalfov-2fcb0b",
+      "label": "Димитър Петров Шалъфов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:205288107",
+      "type": "company",
+      "label": "Обжалвай БГ ООД",
+      "slug": null,
+      "uic": "205288107",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-petrov-shalfov-2fcb0b",
+      "target": "company:tr:205288107",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

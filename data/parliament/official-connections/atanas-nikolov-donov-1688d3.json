@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-nikolov-donov-1688d3",
+  "nodes": [
+    {
+      "id": "official:atanas-nikolov-donov-1688d3",
+      "type": "official",
+      "slug": "atanas-nikolov-donov-1688d3",
+      "label": "Атанас Николов Донов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брацигово"
+    },
+    {
+      "id": "company:tr:112524453",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;БРАЦИГОВО&quot;",
+      "slug": null,
+      "uic": "112524453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ЛЮБЕНОВ МИШЕВ",
+      "type": "person",
+      "label": "Христо Любенов Мишев"
+    },
+    {
+      "id": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "type": "person",
+      "label": "Пейо Николов Малинов"
+    },
+    {
+      "id": "person:ТОШО ГЕОРГИЕВ ЙОНЧЕВ",
+      "type": "person",
+      "label": "Тошо Георгиев Йончев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-nikolov-donov-1688d3",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-nikolov-donov-1688d3",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЛЮБЕНОВ МИШЕВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЛЮБЕНОВ МИШЕВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШО ГЕОРГИЕВ ЙОНЧЕВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШО ГЕОРГИЕВ ЙОНЧЕВ",
+      "target": "company:tr:112524453",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,65 @@
-{"mpId":4295,"name":"Настимир Ананиев Ананиев","partyGroupShort":null,"isCurrent":false,"nsFolders":["43","47","48"],"latestDeclarationYear":2024,"fiscalYear":2024,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2024/3242D9BC-2577-4C0C-9834-53CB4D9D4D16182374.xml","totalAssetsEur":529184.029286799,"totalDebtsEur":166183.1549776821,"netWorthEur":363000.8743091169,"previous":{"year":2023,"totalAssetsEur":89975.61137726693,"netWorthEur":-133492.1746777583},"byCategory":{"real_estate":{"count":2,"valuedCount":2,"totalEur":384488.9382001503},"vehicle":{"count":1,"valuedCount":1,"totalEur":27865.407525193907},"cash":{"count":2,"valuedCount":2,"totalEur":36084.42451542312},"bank":{"count":2,"valuedCount":2,"totalEur":18520.525812570624},"receivable":{"count":3,"valuedCount":3,"totalEur":48733.274364336365},"debt":{"count":2,"valuedCount":2,"totalEur":166183.1549776821},"investment":{"count":1,"valuedCount":1,"totalEur":4999.923306217821},"security":{"count":8,"valuedCount":8,"totalEur":8491.535562906796}}}
+{
+  "mpId": 4295,
+  "name": "Настимир Ананиев Ананиев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "43",
+    "47",
+    "48"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2024,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2024/3242D9BC-2577-4C0C-9834-53CB4D9D4D16182374.xml",
+  "totalAssetsEur": 529184.029286799,
+  "totalDebtsEur": 166183.1549776821,
+  "netWorthEur": 363000.8743091169,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 89975.61137726693,
+    "netWorthEur": -133492.1746777583
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 384488.9382001503
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 27865.407525193907
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 36084.42451542312
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 18520.525812570624
+    },
+    "receivable": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 48733.274364336365
+    },
+    "debt": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 166183.1549776821
+    },
+    "investment": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 4999.923306217821
+    },
+    "security": {
+      "count": 8,
+      "valuedCount": 8,
+      "totalEur": 8491.535562906796
+    }
+  }
+}

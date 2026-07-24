@@ -1,1 +1,60 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:velizar-viktorov-shanov-a51322","nodes":[{"id":"official:velizar-viktorov-shanov-a51322","type":"official","slug":"velizar-viktorov-shanov-a51322","label":"Велизар Викторов Шанов","tier":"municipal","role":"councillor","municipality":"Девин"},{"id":"company:tr:206848622","type":"company","label":"ВЕТАБОП","slug":null,"uic":"206848622","legalForm":null,"status":null,"seat":null},{"id":"person:РУФИЕ САБРИЕВА ШАНОВА","type":"person","label":"Руфие Сабриева Шанова"}],"edges":[{"source":"official:velizar-viktorov-shanov-a51322","target":"company:tr:206848622","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:velizar-viktorov-shanov-a51322","target":"company:tr:206848622","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:РУФИЕ САБРИЕВА ШАНОВА","target":"company:tr:206848622","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:РУФИЕ САБРИЕВА ШАНОВА","target":"company:tr:206848622","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:velizar-viktorov-shanov-a51322",
+  "nodes": [
+    {
+      "id": "official:velizar-viktorov-shanov-a51322",
+      "type": "official",
+      "slug": "velizar-viktorov-shanov-a51322",
+      "label": "Велизар Викторов Шанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девин"
+    },
+    {
+      "id": "company:tr:206848622",
+      "type": "company",
+      "label": "ВЕТАБОП",
+      "slug": null,
+      "uic": "206848622",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rufie-sabrieva-shanova-087302",
+      "type": "official",
+      "slug": "rufie-sabrieva-shanova-087302",
+      "label": "Руфие Сабриева Шанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velizar-viktorov-shanov-a51322",
+      "target": "company:tr:206848622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rufie-sabrieva-shanova-087302",
+      "target": "company:tr:206848622",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rufie-sabrieva-shanova-087302",
+      "target": "company:tr:206848622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

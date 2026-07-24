@@ -1,1 +1,122 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1500","nodes":[{"id":"mp:1500","type":"mp","mpId":1500,"label":"Аксения Бориславова Тилева","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208010315","type":"company","label":"ЕСТЕСТВЕН ИНТЕЛЕКТ","slug":null,"uic":"208010315","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, с. Розово, 6163"},{"id":"person:ВЕРОНИКА ИВАНОВА КОЕВА","type":"person","label":"Вероника Иванова Коева"},{"id":"person:БЕЛОСЛАВ МАНЧЕВ БЕЛЧЕВ","type":"person","label":"Белослав Манчев Белчев"},{"id":"person:ВЕНЦИСЛАВ АПОСТОЛОВ КОЛЕВ","type":"person","label":"Венцислав Апостолов Колев"},{"id":"person:МИХАЕЛА РУМЕНОВА ИВАНОВА","type":"person","label":"Михаела Руменова Иванова"},{"id":"person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ","type":"person","label":"Вангел Атанасов Вангелов"},{"id":"person:МИГЛЕНА АТАНАСОВА ДОГАН","type":"person","label":"Миглена Атанасова Доган"}],"edges":[{"source":"mp:1500","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕРОНИКА ИВАНОВА КОЕВА","target":"company:tr:208010315","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БЕЛОСЛАВ МАНЧЕВ БЕЛЧЕВ","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ АПОСТОЛОВ КОЛЕВ","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРОНИКА ИВАНОВА КОЕВА","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАЕЛА РУМЕНОВА ИВАНОВА","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИГЛЕНА АТАНАСОВА ДОГАН","target":"company:tr:208010315","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1500",
+  "nodes": [
+    {
+      "id": "mp:1500",
+      "type": "mp",
+      "mpId": 1500,
+      "label": "Аксения Бориславова Тилева",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208010315",
+      "type": "company",
+      "label": "ЕСТЕСТВЕН ИНТЕЛЕКТ",
+      "slug": null,
+      "uic": "208010315",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Розово, 6163"
+    },
+    {
+      "id": "person:ВЕРОНИКА ИВАНОВА КОЕВА",
+      "type": "person",
+      "label": "Вероника Иванова Коева"
+    },
+    {
+      "id": "person:БЕЛОСЛАВ МАНЧЕВ БЕЛЧЕВ",
+      "type": "person",
+      "label": "Белослав Манчев Белчев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ АПОСТОЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Венцислав Апостолов Колев"
+    },
+    {
+      "id": "person:МИХАЕЛА РУМЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Михаела Руменова Иванова"
+    },
+    {
+      "id": "person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ",
+      "type": "person",
+      "label": "Вангел Атанасов Вангелов"
+    },
+    {
+      "id": "person:МИГЛЕНА АТАНАСОВА ДОГАН",
+      "type": "person",
+      "label": "Миглена Атанасова Доган"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1500",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРОНИКА ИВАНОВА КОЕВА",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЛОСЛАВ МАНЧЕВ БЕЛЧЕВ",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ АПОСТОЛОВ КОЛЕВ",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА ИВАНОВА КОЕВА",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА РУМЕНОВА ИВАНОВА",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА АТАНАСОВА ДОГАН",
+      "target": "company:tr:208010315",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

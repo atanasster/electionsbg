@@ -1,1 +1,77 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5174","nodes":[{"id":"mp:5174","type":"mp","mpId":5174,"label":"Милева Димитрова Владкова","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:176802833","type":"company","label":"ДИЗАЙН ЗА ВСИЧКИ БЪЛГАРИЯ","slug":null,"uic":"176802833","legalForm":"FOUND","status":"active","seat":null},{"id":"person:ИВЕЛИНА БЛАГОЕВА ГАДЖЕВА","type":"person","label":"Ивелина Благоева Гаджева"},{"id":"person:БИЛЯНА БЛАГОЕВА ГАДЖЕВА","type":"person","label":"Биляна Благоева Гаджева"},{"id":"person:ЕЛЕНА ДИМИТРОВА СТОЯНОВА-НАЧЕВА","type":"person","label":"Елена Димитрова Стоянова-Начева"}],"edges":[{"source":"mp:5174","target":"company:tr:176802833","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВЕЛИНА БЛАГОЕВА ГАДЖЕВА","target":"company:tr:176802833","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА БЛАГОЕВА ГАДЖЕВА","target":"company:tr:176802833","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДИМИТРОВА СТОЯНОВА-НАЧЕВА","target":"company:tr:176802833","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5174",
+  "nodes": [
+    {
+      "id": "mp:5174",
+      "type": "mp",
+      "mpId": 5174,
+      "label": "Милева Димитрова Владкова",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:176802833",
+      "type": "company",
+      "label": "ДИЗАЙН ЗА ВСИЧКИ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176802833",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА БЛАГОЕВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Ивелина Благоева Гаджева"
+    },
+    {
+      "id": "person:БИЛЯНА БЛАГОЕВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Биляна Благоева Гаджева"
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА СТОЯНОВА-НАЧЕВА",
+      "type": "person",
+      "label": "Елена Димитрова Стоянова-Начева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5174",
+      "target": "company:tr:176802833",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА БЛАГОЕВА ГАДЖЕВА",
+      "target": "company:tr:176802833",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА БЛАГОЕВА ГАДЖЕВА",
+      "target": "company:tr:176802833",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА СТОЯНОВА-НАЧЕВА",
+      "target": "company:tr:176802833",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

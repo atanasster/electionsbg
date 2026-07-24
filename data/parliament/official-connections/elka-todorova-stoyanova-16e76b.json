@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elka-todorova-stoyanova-16e76b",
+  "nodes": [
+    {
+      "id": "official:elka-todorova-stoyanova-16e76b",
+      "type": "official",
+      "slug": "elka-todorova-stoyanova-16e76b",
+      "label": "Елка Тодорова Стоянова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121268999",
+      "type": "company",
+      "label": "ТЕЛЕТЕХ",
+      "slug": null,
+      "uic": "121268999",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ БОТЕВ",
+      "type": "person",
+      "label": "Николай Георгиев Ботев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ГЕОРГИЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Валери Георгиев Лазаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elka-todorova-stoyanova-16e76b",
+      "target": "company:tr:121268999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ БОТЕВ",
+      "target": "company:tr:121268999",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ БОТЕВ",
+      "target": "company:tr:121268999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ГЕОРГИЕВ ЛАЗАРОВ",
+      "target": "company:tr:121268999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

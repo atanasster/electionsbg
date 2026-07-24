@@ -328,7 +328,14 @@
     "controlHash": "00DF175F",
     "sourceUrl": "https://register.cacbg.bg/2017/8DA5481C-32C2-4F85-BB05-138C1109C5F284873.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2712.9147216271353,
+        "amountEurSpouse": 3031.9608554935758
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -339,120 +346,35 @@
         "areaSqm": 59,
         "builtAreaSqm": 59,
         "acquiredYear": 2016,
-        "share": "93980",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 93980,
+        "valueEur": 48051.21099482061,
         "holderName": "живко христакев петров",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "20000",
-        "detail": "20000",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "20000",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "булбанк разплащателна",
-        "isSpouse": true,
-        "legalBasis": "по Таблица 13 - ръчно",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "живко христакев петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 13 - ръчно"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2712.9147216271353,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "zhivko-hristakev-petrov-3f8bfc",
@@ -468,113 +390,41 @@
     "controlHash": "EF455BE8",
     "sourceUrl": "https://register.cacbg.bg/2016/8DA5481C-32C2-4F85-BB05-138C1109C5F278471.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3196.596841238758,
+        "amountEurSpouse": 2369.837869344473
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 61.35502574354622,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
-        "category": "debt",
-        "description": "11007",
-        "detail": "11007",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "11007",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Булбанк разплащателна",
-        "isSpouse": true,
-        "legalBasis": "по Таблица 13 - ръчно",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 11007,
+        "valueEur": 5627.789736326777,
+        "holderName": "Живко Христакев Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 13 - ръчно"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3196.596841238758,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 61.35502574354622,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "zhivko-hristakev-petrov-3f8bfc",
@@ -591,142 +441,63 @@
     "sourceUrl": "https://register.cacbg.bg/2015/8DA5481C-32C2-4F85-BB05-138C1109C5F269795.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "Дружествен дял",
         "shareSize": "2500 лева",
         "companyName": "Душаба ООД",
         "registeredOffice": "Стара Загора",
         "valueEur": 1278.2297029905462,
-        "holderName": null,
-        "transfereeName": "Славена Колева Петрова",
-        "legalBasis": "дружествен дял",
-        "fundsOrigin": null
+        "holderName": "Славена Колева Петрова",
+        "legalBasis": "други",
+        "fundsOrigin": "дружествен дял"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3083.0900436131974,
+        "amountEurSpouse": 2622.927350536601
+      }
+    ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "1000",
-        "detail": "1000",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "1000",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Живко Христакев Петров",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "11000",
-        "detail": "11000",
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "11000",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Булбанк разплащателна",
-        "isSpouse": true,
-        "legalBasis": "по Таблица 13 - ръчно",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Живко Христакев Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 13 - ръчно"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 3083.0900436131974,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

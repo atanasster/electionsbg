@@ -24,14 +24,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2007,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 2800,
         "valueEur": 1431.6172673494118,
         "holderName": "Иван Милков Антонов",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -42,14 +42,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 1750,
         "valueEur": 894.7607920933824,
         "holderName": "Иван Милков Антонов",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -60,68 +60,32 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 22500,
         "valueEur": 11504.067326914916,
         "holderName": "Иван Милков Антонов",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "bank",
         "description": null,
-        "detail": "Опел",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "Опел",
-        "amount": null,
-        "valueEur": 255.64594059810923,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
         "holderName": "Иван Милков Антонов",
         "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "Фолксваген",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Фолксваген",
-        "amount": null,
-        "valueEur": 766.9378217943278,
-        "holderName": "Иван Милков Антонов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "11000",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
     "events": [
@@ -134,8 +98,32 @@
         "areaSqm": 9700,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 3990.633132736485,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
       }
     ]
   }

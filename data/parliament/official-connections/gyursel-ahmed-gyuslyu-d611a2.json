@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gyursel-ahmed-gyuslyu-d611a2",
+  "nodes": [
+    {
+      "id": "official:gyursel-ahmed-gyuslyu-d611a2",
+      "type": "official",
+      "slug": "gyursel-ahmed-gyuslyu-d611a2",
+      "label": "Гюрсел Ахмед Гюслю",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206677598",
+      "type": "company",
+      "label": "Общинско дружество Крумовица",
+      "slug": null,
+      "uic": "206677598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА КРУМОВГРАД",
+      "type": "person",
+      "label": "Община Крумовград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyursel-ahmed-gyuslyu-d611a2",
+      "target": "company:tr:206677598",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА КРУМОВГРАД",
+      "target": "company:tr:206677598",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:seniha-fikretova-mustafa-ebcec7",
+  "nodes": [
+    {
+      "id": "official:seniha-fikretova-mustafa-ebcec7",
+      "type": "official",
+      "slug": "seniha-fikretova-mustafa-ebcec7",
+      "label": "Сениха Фикретова Мустафа",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000500219",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО БОТЕВ-1925&quot;",
+      "slug": null,
+      "uic": "000500219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕВГЮЛ САЛИМ МУСТАФА",
+      "type": "person",
+      "label": "Севгюл Салим Мустафа"
+    },
+    {
+      "id": "person:СЕЙДЕ ШУКРИ ЯКУБ",
+      "type": "person",
+      "label": "Сейде Шукри Якуб"
+    },
+    {
+      "id": "person:ЕМИНЕ ХЮСЕИН ЕШРЕФ",
+      "type": "person",
+      "label": "Емине Хюсеин Ешреф"
+    },
+    {
+      "id": "person:СЕДАТ ХАЙРЕДИН МЕХМЕД",
+      "type": "person",
+      "label": "Седат Хайредин Мехмед"
+    },
+    {
+      "id": "person:МЕЛЕГБЕР ИБРАИМ СЕЛИМАН",
+      "type": "person",
+      "label": "Мелегбер Ибраим Селиман"
+    },
+    {
+      "id": "person:ВЕСКА БОРИСОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Веска Борисова Петкова"
+    },
+    {
+      "id": "person:НУРИЕ ЕЮБОВА МУХАРЕМОВА",
+      "type": "person",
+      "label": "Нурие Еюбова Мухаремова"
+    },
+    {
+      "id": "person:ВЕСИЛЕ НЕДЖМИЕВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Весиле Неджмиева Мехмедова"
+    },
+    {
+      "id": "person:БЕХРА РАХМИ ШУКРИ",
+      "type": "person",
+      "label": "Бехра Рахми Шукри"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:seniha-fikretova-mustafa-ebcec7",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕВГЮЛ САЛИМ МУСТАФА",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙДЕ ШУКРИ ЯКУБ",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХЮСЕИН ЕШРЕФ",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕДАТ ХАЙРЕДИН МЕХМЕД",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛЕГБЕР ИБРАИМ СЕЛИМАН",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА БОРИСОВА ПЕТКОВА",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРИЕ ЕЮБОВА МУХАРЕМОВА",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСИЛЕ НЕДЖМИЕВА МЕХМЕДОВА",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХРА РАХМИ ШУКРИ",
+      "target": "company:tr:000500219",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

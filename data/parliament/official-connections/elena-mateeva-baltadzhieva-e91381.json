@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-mateeva-baltadzhieva-e91381",
+  "nodes": [
+    {
+      "id": "official:elena-mateeva-baltadzhieva-e91381",
+      "type": "official",
+      "slug": "elena-mateeva-baltadzhieva-e91381",
+      "label": "Елена Матеева Балтаджиева",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Каварна"
+    },
+    {
+      "id": "company:tr:176001209",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА - ШАБЛА- К АВАРНА - БАЛЧИК",
+      "slug": null,
+      "uic": "176001209",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТА ДИМОВ КОСТОВ - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Коста Димов Костов  - Член На Ус"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДОБРЕВ АНГЕЛОВ - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Николай Добрев Ангелов - Член На Ус"
+    },
+    {
+      "id": "person:РОСЕН ТОДОРОВ ДИМОВ - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Росен Тодоров Димов - Член На Ус"
+    },
+    {
+      "id": "person:МАРИЯН АЛЕКСАНДРОВ ЖЕЧЕВ - ПРЕДСЕДАТЕЛ НА УС",
+      "type": "person",
+      "label": "Мариян Александров Жечев  - Председател На Ус"
+    },
+    {
+      "id": "person:РАЙЧО ДРАГОСТИНОВ РАЕВ - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Райчо Драгостинов Раев  - Член На Ус"
+    },
+    {
+      "id": "person:МАРТИН ИВАНОВ СТОЯНОВ -ЧЛЕНА НА УС",
+      "type": "person",
+      "label": "Мартин Иванов Стоянов -Члена На Ус"
+    },
+    {
+      "id": "person:ХРИСТО ВАСИЛЕВ НАЧЕВ",
+      "type": "person",
+      "label": "Христо Василев Начев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-mateeva-baltadzhieva-e91381",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТА ДИМОВ КОСТОВ - ЧЛЕН НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДОБРЕВ АНГЕЛОВ - ЧЛЕН НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ТОДОРОВ ДИМОВ - ЧЛЕН НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН АЛЕКСАНДРОВ ЖЕЧЕВ - ПРЕДСЕДАТЕЛ НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙЧО ДРАГОСТИНОВ РАЕВ - ЧЛЕН НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ СТОЯНОВ -ЧЛЕНА НА УС",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАСИЛЕВ НАЧЕВ",
+      "target": "company:tr:176001209",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,662 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:237","nodes":[{"id":"mp:237","type":"mp","mpId":237,"label":"Светослав Иванов Спасов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:175536358","type":"company","label":"ДВИЖЕНИЕ ЗА ОБНОВЛЕНИЕ НА БЪЛГАРСКИТЕ РЕГИОНИ И ОБЩИНИ (ДОБРО)","slug":null,"uic":"175536358","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:208501225","type":"company","label":"СПАСОВ СТРОЙ 74","slug":null,"uic":"208501225","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:175864771","type":"company","label":"ПРО АРТ","slug":null,"uic":"175864771","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:207053048","type":"company","label":"Ес Джи Ес Инвестмънт","slug":null,"uic":"207053048","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1612"},{"id":"company:tr:000649348","type":"company","label":"НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ","slug":null,"uic":"000649348","legalForm":"EAD","status":"active","seat":null},{"id":"person:МИЛАН КИРИЛОВ МАРТИНОВ","type":"person","label":"Милан Кирилов Мартинов"},{"id":"person:ИРИНА ЗАРКОВА ГАНЧЕВА","type":"person","label":"Ирина Заркова Ганчева"},{"id":"person:ПЕТЪР ТОДОРОВ ХИТЕВ","type":"person","label":"Петър Тодоров Хитев"},{"id":"person:АЛИНА ЯНАКИЕВА ГЪРКОВА","type":"person","label":"Алина Янакиева Гъркова"},{"id":"person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ","type":"person","label":"Даниел Стоянов Йорданов"},{"id":"person:ТЕОДОР БОРИСОВ ВЪЛЧАНОВ","type":"person","label":"Теодор Борисов Вълчанов"},{"id":"person:СИЛВИЯ ИЛИЕВА АСЕНОВА","type":"person","label":"Силвия Илиева Асенова"},{"id":"person:ТЕОДОРА ИВАНОВА ЙОВЧЕВА","type":"person","label":"Теодора Иванова Йовчева"},{"id":"person:САШО ДИМИТРОВ САЗДОВ","type":"person","label":"Сашо Димитров Саздов"},{"id":"person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ","type":"person","label":"Венцислав Христов Иванов"},{"id":"person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА","type":"person","label":"Снежанка Христова Николова"},{"id":"person:ИВАНЧО СПАСОВ ИВАНОВ","type":"person","label":"Иванчо Спасов Иванов"},{"id":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","type":"person","label":"Иван Тодоров Йончев"},{"id":"person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ","type":"person","label":"Христо Величков Георгиев"},{"id":"person:МОМЧИЛ ВЕКИЛОВ ВАНОВ","type":"person","label":"Момчил Векилов Ванов"},{"id":"person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА","type":"person","label":"Вася Михайлова Николовска"},{"id":"person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ","type":"person","label":"Веселин Мирчев Петров"},{"id":"person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА","type":"person","label":"Ирена Милчева Белорешка"},{"id":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Мартин Иванов Георгиев"},{"id":"person:АНГЕЛ ПЕТРОВ ПЕТРОВ","type":"person","label":"Ангел Петров Петров"},{"id":"person:АЛБЕНА ИВАНОВА ТУДЖАРОВА","type":"person","label":"Албена Иванова Туджарова"},{"id":"person:АЛЕКСАНДЪР ЮЛИЯНОВ РУСАНОВ","type":"person","label":"Александър Юлиянов Русанов"},{"id":"person:АЛЕКСАНДЪР ЛЕНКОВ КОЛЯЧЕВ","type":"person","label":"Александър Ленков Колячев"},{"id":"person:ДЕЯН КРАСИМИРОВ ИВАНОВ","type":"person","label":"Деян Красимиров Иванов"},{"id":"person:ВИКТОРИЯ ВИТАНОВА ПЕТРОВА","type":"person","label":"Виктория Витанова Петрова"},{"id":"person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ","type":"person","label":"Георги Георгиев Добрев"},{"id":"person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА","type":"person","label":"Надя Георгиева Стефанова"},{"id":"company:tr:175030371","type":"company","label":"УЧЕНИЧЕСКИ ОТДИХ И СПОРТ","slug":null,"uic":"175030371","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1113"},{"id":"mp:3016","type":"mp","mpId":3016,"label":"Борис Цветков Цветков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]}],"edges":[{"source":"mp:237","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:208501225","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:208501225","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:175864771","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:207053048","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:175864771","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:237","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛАН КИРИЛОВ МАРТИНОВ","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ЗАРКОВА ГАНЧЕВА","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ТОДОРОВ ХИТЕВ","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛИНА ЯНАКИЕВА ГЪРКОВА","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР БОРИСОВ ВЪЛЧАНОВ","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ИЛИЕВА АСЕНОВА","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ИВАНОВА ЙОВЧЕВА","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САШО ДИМИТРОВ САЗДОВ","target":"company:tr:175536358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ","target":"company:tr:175864771","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА","target":"company:tr:175864771","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ","target":"company:tr:175864771","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА","target":"company:tr:175864771","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНЧО СПАСОВ ИВАНОВ","target":"company:tr:207053048","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","target":"company:tr:000649348","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВЕЛИЧКОВ ГЕОРГИЕВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МОМЧИЛ ВЕКИЛОВ ВАНОВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСЯ МИХАЙЛОВА НИКОЛОВСКА","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ ЙОНЧЕВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:tr:000649348","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ИВАНОВ ГЕОРГИЕВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ПЕТРОВ ПЕТРОВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ИВАНОВА ТУДЖАРОВА","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЮЛИЯНОВ РУСАНОВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЛЕНКОВ КОЛЯЧЕВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН КРАСИМИРОВ ИВАНОВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ВИТАНОВА ПЕТРОВА","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ","target":"company:tr:000649348","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ГЕОРГИЕВА СТЕФАНОВА","target":"company:tr:000649348","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ","target":"company:tr:175030371","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:3016","target":"company:tr:175030371","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3016","length":4,"nodeIds":["mp:237","company:tr:175536358","person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ","company:tr:175030371","mp:3016"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:237",
+  "nodes": [
+    {
+      "id": "mp:237",
+      "type": "mp",
+      "mpId": 237,
+      "label": "Светослав Иванов Спасов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:175536358",
+      "type": "company",
+      "label": "ДВИЖЕНИЕ ЗА ОБНОВЛЕНИЕ НА БЪЛГАРСКИТЕ РЕГИОНИ И ОБЩИНИ (ДОБРО)",
+      "slug": null,
+      "uic": "175536358",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208501225",
+      "type": "company",
+      "label": "СПАСОВ СТРОЙ 74",
+      "slug": null,
+      "uic": "208501225",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:175864771",
+      "type": "company",
+      "label": "ПРО АРТ",
+      "slug": null,
+      "uic": "175864771",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207053048",
+      "type": "company",
+      "label": "Ес Джи Ес Инвестмънт",
+      "slug": null,
+      "uic": "207053048",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612"
+    },
+    {
+      "id": "company:tr:000649348",
+      "type": "company",
+      "label": "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ",
+      "slug": null,
+      "uic": "000649348",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МИЛАН КИРИЛОВ МАРТИНОВ",
+      "type": "person",
+      "label": "Милан Кирилов Мартинов"
+    },
+    {
+      "id": "person:ИРИНА ЗАРКОВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Ирина Заркова Ганчева"
+    },
+    {
+      "id": "person:ПЕТЪР ТОДОРОВ ХИТЕВ",
+      "type": "person",
+      "label": "Петър Тодоров Хитев"
+    },
+    {
+      "id": "person:АЛИНА ЯНАКИЕВА ГЪРКОВА",
+      "type": "person",
+      "label": "Алина Янакиева Гъркова"
+    },
+    {
+      "id": "person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Даниел Стоянов Йорданов"
+    },
+    {
+      "id": "person:ТЕОДОР БОРИСОВ ВЪЛЧАНОВ",
+      "type": "person",
+      "label": "Теодор Борисов Вълчанов"
+    },
+    {
+      "id": "person:СИЛВИЯ ИЛИЕВА АСЕНОВА",
+      "type": "person",
+      "label": "Силвия Илиева Асенова"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА ЙОВЧЕВА",
+      "type": "person",
+      "label": "Теодора Иванова Йовчева"
+    },
+    {
+      "id": "person:САШО ДИМИТРОВ САЗДОВ",
+      "type": "person",
+      "label": "Сашо Димитров Саздов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "type": "person",
+      "label": "Светослав Иванов Спасов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Венцислав Христов Иванов"
+    },
+    {
+      "id": "person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Снежанка Христова Николова"
+    },
+    {
+      "id": "official:svetoslav-ivanov-spasov-f2805e",
+      "type": "official",
+      "slug": "svetoslav-ivanov-spasov-f2805e",
+      "label": "Светослав Иванов Спасов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАНЧО СПАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иванчо Спасов Иванов"
+    },
+    {
+      "id": "official:vasya-mihailova-nikolovska-07b050",
+      "type": "official",
+      "slug": "vasya-mihailova-nikolovska-07b050",
+      "label": "Вася Михайлова Николовска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:viktoriya-vitanova-petrova-43d465",
+      "type": "official",
+      "slug": "viktoriya-vitanova-petrova-43d465",
+      "label": "Виктория Витанова Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nadya-georgieva-stefanova-99bb25",
+      "type": "official",
+      "slug": "nadya-georgieva-stefanova-99bb25",
+      "label": "Надя Георгиева Стефанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:hristo-velichkov-georgiev-0898ed",
+      "type": "official",
+      "slug": "hristo-velichkov-georgiev-0898ed",
+      "label": "Христо Величков Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "type": "person",
+      "label": "Иван Тодоров Йончев"
+    },
+    {
+      "id": "person:МОМЧИЛ ВЕКИЛОВ ВАНОВ",
+      "type": "person",
+      "label": "Момчил Векилов Ванов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Веселин Мирчев Петров"
+    },
+    {
+      "id": "person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА",
+      "type": "person",
+      "label": "Ирена Милчева Белорешка"
+    },
+    {
+      "id": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мартин Иванов Георгиев"
+    },
+    {
+      "id": "person:АНГЕЛ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Ангел Петров Петров"
+    },
+    {
+      "id": "person:АЛБЕНА ИВАНОВА ТУДЖАРОВА",
+      "type": "person",
+      "label": "Албена Иванова Туджарова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЮЛИЯНОВ РУСАНОВ",
+      "type": "person",
+      "label": "Александър Юлиянов Русанов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЛЕНКОВ КОЛЯЧЕВ",
+      "type": "person",
+      "label": "Александър Ленков Колячев"
+    },
+    {
+      "id": "person:ДЕЯН КРАСИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Деян Красимиров Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Георги Георгиев Добрев"
+    },
+    {
+      "id": "company:tr:175030371",
+      "type": "company",
+      "label": "УЧЕНИЧЕСКИ ОТДИХ И СПОРТ",
+      "slug": null,
+      "uic": "175030371",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113"
+    },
+    {
+      "id": "mp:3016",
+      "type": "mp",
+      "mpId": 3016,
+      "label": "Борис Цветков Цветков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:237",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:208501225",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:208501225",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:207053048",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:237",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛАН КИРИЛОВ МАРТИНОВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ЗАРКОВА ГАНЧЕВА",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ТОДОРОВ ХИТЕВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИНА ЯНАКИЕВА ГЪРКОВА",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР БОРИСОВ ВЪЛЧАНОВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ИЛИЕВА АСЕНОВА",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ЙОВЧЕВА",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ДИМИТРОВ САЗДОВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:175536358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:208501225",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:208501225",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ХРИСТОВ ИВАНОВ",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ХРИСТОВА НИКОЛОВА",
+      "target": "company:tr:175864771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-ivanov-spasov-f2805e",
+      "target": "company:tr:207053048",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНЧО СПАСОВ ИВАНОВ",
+      "target": "company:tr:207053048",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:207053048",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vasya-mihailova-nikolovska-07b050",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktoriya-vitanova-petrova-43d465",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadya-georgieva-stefanova-99bb25",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-velichkov-georgiev-0898ed",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОМЧИЛ ВЕКИЛОВ ВАНОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ СПАСОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЙОНЧЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН МИРЧЕВ ПЕТРОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА МИЛЧЕВА БЕЛОРЕШКА",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ИВАНОВА ТУДЖАРОВА",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЮЛИЯНОВ РУСАНОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЛЕНКОВ КОЛЯЧЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
+      "target": "company:tr:000649348",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ",
+      "target": "company:tr:175030371",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3016",
+      "target": "company:tr:175030371",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3016",
+      "length": 4,
+      "nodeIds": [
+        "mp:237",
+        "company:tr:175536358",
+        "person:ДАНИЕЛ СТОЯНОВ ЙОРДАНОВ",
+        "company:tr:175030371",
+        "mp:3016"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

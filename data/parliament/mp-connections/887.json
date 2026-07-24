@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:887","nodes":[{"id":"mp:887","type":"mp","mpId":887,"label":"Мирослав Христофоров Найденов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:202437239","type":"company","label":"БЪЛГЕРИЪН МЕНИДЖМЪНТ ЕНД МАРКЕТИНГ КЪМПАНИ","slug":null,"uic":"202437239","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"person:ИТЕРУМ","type":"person","label":"Итерум"},{"id":"company:name:МИПСИМА","type":"company","label":"\"МИПСИМА\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","type":"person","label":"Димитър Петров Петров"},{"id":"person:БИО ЕМ ДИ","type":"person","label":"Био Ем Ди"},{"id":"company:tr:206900268","type":"company","label":"НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ \"СЪЕДИНЕНИЕ\" (НГСС)\"","slug":null,"uic":"206900268","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1220"},{"id":"mp:5113","type":"mp","mpId":5113,"label":"Георги Иванов Георгиев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]}],"edges":[{"source":"mp:887","target":"company:tr:202437239","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ИТЕРУМ","target":"company:tr:202437239","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:МИПСИМА","target":"company:tr:202437239","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","target":"company:tr:202437239","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БИО ЕМ ДИ","target":"company:tr:202437239","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","target":"company:tr:206900268","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","target":"company:tr:206900268","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5113","target":"company:tr:206900268","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5113","length":4,"nodeIds":["mp:887","company:tr:202437239","person:ДИМИТЪР ПЕТРОВ ПЕТРОВ","company:tr:206900268","mp:5113"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:887",
+  "nodes": [
+    {
+      "id": "mp:887",
+      "type": "mp",
+      "mpId": 887,
+      "label": "Мирослав Христофоров Найденов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:202437239",
+      "type": "company",
+      "label": "БЪЛГЕРИЪН МЕНИДЖМЪНТ ЕНД МАРКЕТИНГ КЪМПАНИ",
+      "slug": null,
+      "uic": "202437239",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "person:ИТЕРУМ",
+      "type": "person",
+      "label": "Итерум"
+    },
+    {
+      "id": "company:name:МИПСИМА",
+      "type": "company",
+      "label": "\"МИПСИМА\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Димитър Петров Петров"
+    },
+    {
+      "id": "person:БИО ЕМ ДИ",
+      "type": "person",
+      "label": "Био Ем Ди"
+    },
+    {
+      "id": "company:tr:206900268",
+      "type": "company",
+      "label": "НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ \"СЪЕДИНЕНИЕ\" (НГСС)\"",
+      "slug": null,
+      "uic": "206900268",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1220"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:887",
+      "target": "company:tr:202437239",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИТЕРУМ",
+      "target": "company:tr:202437239",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МИПСИМА",
+      "target": "company:tr:202437239",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:202437239",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИО ЕМ ДИ",
+      "target": "company:tr:202437239",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:206900268",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:206900268",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:206900268",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5113",
+      "length": 4,
+      "nodeIds": [
+        "mp:887",
+        "company:tr:202437239",
+        "person:ДИМИТЪР ПЕТРОВ ПЕТРОВ",
+        "company:tr:206900268",
+        "mp:5113"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

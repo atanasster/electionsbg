@@ -1,1 +1,200 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:234","nodes":[{"id":"mp:234","type":"mp","mpId":234,"label":"Ива Петрова Станкова","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:831072183","type":"company","label":"БЪЛГАРСКО ДРУЖЕСТВО ПО ТРАДИЦИОННА КИТАЙСКА МЕДИЦИНА","slug":null,"uic":"831072183","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:208240377","type":"company","label":"Асоциация на доставчиците на дългосрочни грижи","slug":null,"uic":"208240377","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА","type":"person","label":"Силвия Петрова Еленкова-Пожарашка"},{"id":"person:ЛЮДМИЛА ЦВЕТАНОВА КЬОСЕВА-ИВАНОВА","type":"person","label":"Людмила Цветанова Кьосева-Иванова"},{"id":"person:ДОНЧО КИРИЛОВ ЛИСИЙСКИ","type":"person","label":"Дончо Кирилов Лисийски"},{"id":"person:БОРЯН ЦАНКОВ БУЖОВ","type":"person","label":"Борян Цанков Бужов"},{"id":"person:ЕМИЛ МЕТОДИЕВ ЯНКОВ","type":"person","label":"Емил Методиев Янков"},{"id":"person:СПАС ИГНАТОВ ИГОВ","type":"person","label":"Спас Игнатов Игов"},{"id":"person:ЦВЕТОМИР ГЕОРГИЕВ СИМЕОНОВ","type":"person","label":"Цветомир Георгиев Симеонов"},{"id":"person:ИЛИАН ГЕОРГИЕВ ГРИГОРОВ","type":"person","label":"Илиан Георгиев Григоров"},{"id":"person:ДИМИТРИНА ДИМИТРОВА ЗАХАРИНОВА","type":"person","label":"Димитрина Димитрова Захаринова"},{"id":"person:МАРИЕЛА НИКОЛАЕВА КИРОВА","type":"person","label":"Мариела Николаева Кирова"}],"edges":[{"source":"mp:234","target":"company:tr:831072183","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:234","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА","target":"company:tr:831072183","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА ЦВЕТАНОВА КЬОСЕВА-ИВАНОВА","target":"company:tr:831072183","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА","target":"company:tr:831072183","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО КИРИЛОВ ЛИСИЙСКИ","target":"company:tr:831072183","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯН ЦАНКОВ БУЖОВ","target":"company:tr:831072183","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ МЕТОДИЕВ ЯНКОВ","target":"company:tr:208240377","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ МЕТОДИЕВ ЯНКОВ","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СПАС ИГНАТОВ ИГОВ","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИР ГЕОРГИЕВ СИМЕОНОВ","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИАН ГЕОРГИЕВ ГРИГОРОВ","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ДИМИТРОВА ЗАХАРИНОВА","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕЛА НИКОЛАЕВА КИРОВА","target":"company:tr:208240377","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:234",
+  "nodes": [
+    {
+      "id": "mp:234",
+      "type": "mp",
+      "mpId": 234,
+      "label": "Ива Петрова Станкова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:831072183",
+      "type": "company",
+      "label": "БЪЛГАРСКО ДРУЖЕСТВО ПО ТРАДИЦИОННА КИТАЙСКА МЕДИЦИНА",
+      "slug": null,
+      "uic": "831072183",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208240377",
+      "type": "company",
+      "label": "Асоциация на доставчиците на дългосрочни грижи",
+      "slug": null,
+      "uic": "208240377",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА",
+      "type": "person",
+      "label": "Силвия Петрова Еленкова-Пожарашка"
+    },
+    {
+      "id": "person:ЛЮДМИЛА ЦВЕТАНОВА КЬОСЕВА-ИВАНОВА",
+      "type": "person",
+      "label": "Людмила Цветанова Кьосева-Иванова"
+    },
+    {
+      "id": "person:ДОНЧО КИРИЛОВ ЛИСИЙСКИ",
+      "type": "person",
+      "label": "Дончо Кирилов Лисийски"
+    },
+    {
+      "id": "person:БОРЯН ЦАНКОВ БУЖОВ",
+      "type": "person",
+      "label": "Борян Цанков Бужов"
+    },
+    {
+      "id": "person:ЕМИЛ МЕТОДИЕВ ЯНКОВ",
+      "type": "person",
+      "label": "Емил Методиев Янков"
+    },
+    {
+      "id": "person:СПАС ИГНАТОВ ИГОВ",
+      "type": "person",
+      "label": "Спас Игнатов Игов"
+    },
+    {
+      "id": "person:ЦВЕТОМИР ГЕОРГИЕВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Цветомир Георгиев Симеонов"
+    },
+    {
+      "id": "person:ИЛИАН ГЕОРГИЕВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Илиан Георгиев Григоров"
+    },
+    {
+      "id": "person:ДИМИТРИНА ДИМИТРОВА ЗАХАРИНОВА",
+      "type": "person",
+      "label": "Димитрина Димитрова Захаринова"
+    },
+    {
+      "id": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "type": "person",
+      "label": "Мариела Николаева Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:234",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:234",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ЦВЕТАНОВА КЬОСЕВА-ИВАНОВА",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ЕЛЕНКОВА-ПОЖАРАШКА",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО КИРИЛОВ ЛИСИЙСКИ",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯН ЦАНКОВ БУЖОВ",
+      "target": "company:tr:831072183",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МЕТОДИЕВ ЯНКОВ",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МЕТОДИЕВ ЯНКОВ",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС ИГНАТОВ ИГОВ",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ГЕОРГИЕВ СИМЕОНОВ",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ГЕОРГИЕВ ГРИГОРОВ",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ДИМИТРОВА ЗАХАРИНОВА",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "target": "company:tr:208240377",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

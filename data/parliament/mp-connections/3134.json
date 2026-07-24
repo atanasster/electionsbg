@@ -1,1 +1,132 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3134","nodes":[{"id":"mp:3134","type":"mp","mpId":3134,"label":"Анастас Маринов Попдимитров","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44"]},{"id":"company:tr:175466155","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ НА РАБОТОДАТЕЛИТЕ  В ОБЛАСТТА НА КУЛТУРАТА","slug":null,"uic":"175466155","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"person:АННА ЛЮБОМИРОВА МОНОВА","type":"person","label":"Анна Любомирова Монова"},{"id":"person:ВАСИЛ СТОЯНОВ ВАСИЛЕВ","type":"person","label":"Васил Стоянов Василев"},{"id":"person:ВИКТОР ДИМИТРОВ БОЙЧЕВ","type":"person","label":"Виктор Димитров Бойчев"},{"id":"person:ЕКАТЕРИНА СТОЙЧЕВА ЦЕКОВА","type":"person","label":"Екатерина Стойчева Цекова"},{"id":"person:МАРИО НИКОЛОВ ИЛИЕВ","type":"person","label":"Марио Николов Илиев"},{"id":"person:НИНА КУБРАТОВА НАЙДЕНОВА","type":"person","label":"Нина Кубратова Найденова"}],"edges":[{"source":"mp:3134","target":"company:tr:175466155","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3134","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АННА ЛЮБОМИРОВА МОНОВА","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ СТОЯНОВ ВАСИЛЕВ","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР ДИМИТРОВ БОЙЧЕВ","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА СТОЙЧЕВА ЦЕКОВА","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО НИКОЛОВ ИЛИЕВ","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА КУБРАТОВА НАЙДЕНОВА","target":"company:tr:175466155","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3134",
+  "nodes": [
+    {
+      "id": "mp:3134",
+      "type": "mp",
+      "mpId": 3134,
+      "label": "Анастас Маринов Попдимитров",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    },
+    {
+      "id": "company:tr:175466155",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ НА РАБОТОДАТЕЛИТЕ  В ОБЛАСТТА НА КУЛТУРАТА",
+      "slug": null,
+      "uic": "175466155",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "official:viktor-dimitrov-boichev-70a4a8",
+      "type": "official",
+      "slug": "viktor-dimitrov-boichev-70a4a8",
+      "label": "Виктор Димитров Бойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ekaterina-stoicheva-tsekova-1412b9",
+      "type": "official",
+      "slug": "ekaterina-stoicheva-tsekova-1412b9",
+      "label": "Екатерина Стойчева Цекова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "person:АННА ЛЮБОМИРОВА МОНОВА",
+      "type": "person",
+      "label": "Анна Любомирова Монова"
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Стоянов Василев"
+    },
+    {
+      "id": "person:МАРИО НИКОЛОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Марио Николов Илиев"
+    },
+    {
+      "id": "person:НИНА КУБРАТОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Нина Кубратова Найденова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3134",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3134",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-dimitrov-boichev-70a4a8",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ekaterina-stoicheva-tsekova-1412b9",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ЛЮБОМИРОВА МОНОВА",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ ВАСИЛЕВ",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КУБРАТОВА НАЙДЕНОВА",
+      "target": "company:tr:175466155",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

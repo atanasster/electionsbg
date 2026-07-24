@@ -1,1 +1,213 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4805","nodes":[{"id":"mp:4805","type":"mp","mpId":4805,"label":"Красимир Димчев Дончев","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["51"]},{"id":"company:Глобал-чойс-ЕООД","type":"company","label":"Глобал чойс ЕООД","slug":"Глобал-чойс-ЕООД","uic":"115831959","legalForm":"EOOD","status":"active","seat":"Пловдив"},{"id":"company:Пропърти-груп-ТУР-ЕООД","type":"company","label":"Пропърти груп ТУР ЕООД","slug":"Пропърти-груп-ТУР-ЕООД","uic":"202221437","legalForm":"EOOD","status":"active","seat":"Пловдив"},{"id":"company:Смарт-чойс-пропърти-ООД","type":"company","label":"Смарт чойс пропърти ООД","slug":"Смарт-чойс-пропърти-ООД","uic":"206658320","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София"},{"id":"company:tr:208853244","type":"company","label":"Рестарт Консулт БГ","slug":null,"uic":"208853244","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА","type":"person","label":"Таня Николаева Козлоджова"},{"id":"person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ","type":"person","label":"Светослав Жоров Лавчиев"},{"id":"person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ","type":"person","label":"Тони Веселинов Панев"},{"id":"person:НИЯ МАРИЯ КРАСИМИРОВА ДОНЧЕВА","type":"person","label":"Ния Мария Красимирова Дончева"},{"id":"person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА","type":"person","label":"Росица Георгиева Червенлиева"}],"edges":[{"source":"mp:4805","target":"company:Глобал-чойс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4805","target":"company:Пропърти-груп-ТУР-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4805","target":"company:Смарт-чойс-пропърти-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4805","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4805","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4805","target":"company:tr:208853244","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4805","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА","target":"company:Глобал-чойс-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА","target":"company:Пропърти-груп-ТУР-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИЯ МАРИЯ КРАСИМИРОВА ДОНЧЕВА","target":"company:Смарт-чойс-пропърти-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА","target":"company:tr:208853244","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА","target":"company:tr:208853244","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4805",
+  "nodes": [
+    {
+      "id": "mp:4805",
+      "type": "mp",
+      "mpId": 4805,
+      "label": "Красимир Димчев Дончев",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:Глобал-чойс-ЕООД",
+      "type": "company",
+      "label": "Глобал чойс ЕООД",
+      "slug": "Глобал-чойс-ЕООД",
+      "uic": "115831959",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Пропърти-груп-ТУР-ЕООД",
+      "type": "company",
+      "label": "Пропърти груп ТУР ЕООД",
+      "slug": "Пропърти-груп-ТУР-ЕООД",
+      "uic": "202221437",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Смарт-чойс-пропърти-ООД",
+      "type": "company",
+      "label": "Смарт чойс пропърти ООД",
+      "slug": "Смарт-чойс-пропърти-ООД",
+      "uic": "206658320",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София"
+    },
+    {
+      "id": "company:tr:208853244",
+      "type": "company",
+      "label": "Рестарт Консулт БГ",
+      "slug": null,
+      "uic": "208853244",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА",
+      "type": "person",
+      "label": "Таня Николаева Козлоджова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ",
+      "type": "person",
+      "label": "Светослав Жоров Лавчиев"
+    },
+    {
+      "id": "person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ",
+      "type": "person",
+      "label": "Тони Веселинов Панев"
+    },
+    {
+      "id": "person:НИЯ МАРИЯ КРАСИМИРОВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Ния Мария Красимирова Дончева"
+    },
+    {
+      "id": "person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА",
+      "type": "person",
+      "label": "Росица Георгиева Червенлиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4805",
+      "target": "company:Глобал-чойс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:Пропърти-груп-ТУР-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:tr:208853244",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4805",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА",
+      "target": "company:Глобал-чойс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ НИКОЛАЕВА КОЗЛОДЖОВА",
+      "target": "company:Пропърти-груп-ТУР-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЖОРОВ ЛАВЧИЕВ",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ ВЕСЕЛИНОВ ПАНЕВ",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИЯ МАРИЯ КРАСИМИРОВА ДОНЧЕВА",
+      "target": "company:Смарт-чойс-пропърти-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА",
+      "target": "company:tr:208853244",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА ЧЕРВЕНЛИЕВА",
+      "target": "company:tr:208853244",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

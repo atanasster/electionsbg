@@ -1,1 +1,658 @@
-{"ekatte":"68134","page":15,"totalPages":15,"count":718,"companies":[{"slug":"ФУОРИКЛАСЕ-ТАЛЕНТ-ИНТЕРНЕШЪНЪЛ","displayName":"ФУОРИКЛАСЕ ТАЛЕНТ ИНТЕРНЕШЪНЪЛ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1606","mps":[{"mpId":4541,"mpName":"Етиен Херцел Леви","role":"ngo_board","isCurrent":true}]},{"slug":"Хелт-кеър-фарм-ЕООД","displayName":"Хелт кеър фарм ЕООД","registeredOffice":"София","mps":[{"mpId":2659,"mpName":"Гергана Желязкова Стефанова","role":"declared_stake","isCurrent":true}]},{"slug":"Хензенен","displayName":"Хензенен","registeredOffice":"БЪЛГАРИЯ, гр. София, 1700","mps":[{"mpId":4507,"mpName":"Владимир Андонов Данаилов","role":"manager","isCurrent":true}]},{"slug":"ХЕРОС-КЕПИТЪЛ","displayName":"ХЕРОС КЕПИТЪЛ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1504","mps":[{"mpId":5276,"mpName":"Александър Георгиев Пулев","role":"manager","isCurrent":true}]},{"slug":"ХОТЕЛИ-ЛИОН","displayName":"ХОТЕЛИ ЛИОН","registeredOffice":"БЪЛГАРИЯ, гр. София, 1172","mps":[{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"actual_owner","isCurrent":true}]},{"slug":"Хримас-ЕООД","displayName":"Хримас ЕООД","registeredOffice":"София (столица)","mps":[{"mpId":4786,"mpName":"Пламен Тачев Петров","role":"declared_stake","isCurrent":true}]},{"slug":"ЦЕНТЪР-ЗА-ЕВРОПЕЙСКА-И-АТЛАНТИЧЕСКА-ИНТЕГРАЦИЯ","displayName":"ЦЕНТЪР ЗА ЕВРОПЕЙСКА И АТЛАНТИЧЕСКА ИНТЕГРАЦИЯ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1000","mps":[{"mpId":5086,"mpName":"Иво Севдалинов Цанев","role":"ngo_board","isCurrent":true}]},{"slug":"ЦЦС-КОНСУЛТИНГ","displayName":"ЦЦС КОНСУЛТИНГ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1404","mps":[{"mpId":708,"mpName":"Ирена Иванова Маринова-Варадинова","role":"partner","isCurrent":true}]},{"slug":"Чес-Лайънс-ООД","displayName":"Чес Лайънс ООД","registeredOffice":"Софиа","mps":[{"mpId":3352,"mpName":"Антоанета Андонова Стефанова","role":"declared_stake","isCurrent":true}]},{"slug":"Чист-живот","displayName":"Чист живот","registeredOffice":"БЪЛГАРИЯ, гр. София","mps":[{"mpId":2851,"mpName":"Борис Янков Ячев","role":"partner","isCurrent":false}]},{"slug":"ЧОВЕК-ПРИРОДА-ЖИВОТ","displayName":"ЧОВЕК - ПРИРОДА - ЖИВОТ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1303","mps":[{"mpId":5005,"mpName":"Стилиана Иванова Бобчева","role":"ngo_board","isCurrent":true}]},{"slug":"ШЕСТИ-МАРЖ","displayName":"ШЕСТИ  МАРЖ","registeredOffice":"БЪЛГАРИЯ, гр. София, 1309","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]},{"slug":"ЮГОИЗТОЧНО-ЕВРОПЕЙСКИ-МЕДИЦИНСКИ-ФОРУМ","displayName":"ЮГОИЗТОЧНО-ЕВРОПЕЙСКИ МЕДИЦИНСКИ ФОРУМ","registeredOffice":"БЪЛГАРИЯ, София, 1680","mps":[{"mpId":4841,"mpName":"Васил Христов Пандов","role":"ngo_board","isCurrent":true}]},{"slug":"Юнифарма-ЕООД","displayName":"Юнифарма ЕООД","registeredOffice":"София","mps":[{"mpId":2659,"mpName":"Гергана Желязкова Стефанова","role":"declared_stake","isCurrent":true}]},{"slug":"ЮФ-МИЛЕНА","displayName":"ЮФ МИЛЕНА","registeredOffice":"БЪЛГАРИЯ, гр. София, 1000","mps":[{"mpId":746,"mpName":"Никола Богданов Николов","role":"manager","isCurrent":true}]},{"slug":"Янков-ЕООД","displayName":"Янков ЕООД","registeredOffice":"София","mps":[{"mpId":3444,"mpName":"Калоян Милков Янков","role":"declared_stake","isCurrent":true}]},{"slug":"Янков-и-Ко-ООД","displayName":"Янков и Ко ООД","registeredOffice":"София","mps":[{"mpId":3444,"mpName":"Калоян Милков Янков","role":"declared_stake","isCurrent":true}]},{"slug":"ЯСПЕТУС","displayName":"ЯСПЕТУС","registeredOffice":"БЪЛГАРИЯ, гр. София, 1000","mps":[{"mpId":222,"mpName":"Петя Илиева Гегова","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "68134",
+  "page": 15,
+  "totalPages": 16,
+  "count": 794,
+  "companies": [
+    {
+      "slug": "САНГУС",
+      "displayName": "САНГУС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1618",
+      "mps": [
+        {
+          "mpId": 20,
+          "mpName": "Борислав Николов Ралчев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "САС-Ходингс-Груп-АД",
+      "displayName": "САС Ходингс Груп АД",
+      "registeredOffice": "София (столица)",
+      "mps": [
+        {
+          "mpId": 4295,
+          "mpName": "Настимир Ананиев Ананиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-БЪЛГАРСКА-АСОЦИАЦИЯ-ЗА-РЕГИОНАЛНИ-ИЗСЛЕДВАНИЯ",
+      "displayName": "СДРУЖЕНИЕ  БЪЛГАРСКА АСОЦИАЦИЯ ЗА РЕГИОНАЛНИ ИЗСЛЕДВАНИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
+      "mps": [
+        {
+          "mpId": 2699,
+          "mpName": "Николай Иванов Цонков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-ОБЕДИНЕНИ-ЗЕМЕДЕЛСКИ-ПРОИЗВОДИТЕЛИ",
+      "displayName": "СДРУЖЕНИЕ  ОБЕДИНЕНИ ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София",
+      "mps": [
+        {
+          "mpId": 5269,
+          "mpName": "Тодор Любенов Джиков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-БУРГАСКА-АКАДЕМИЧНА-АСОЦИАЦИЯ",
+      "displayName": "СДРУЖЕНИЕ \"БУРГАСКА АКАДЕМИЧНА АСОЦИАЦИЯ\"",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1700",
+      "mps": [
+        {
+          "mpId": 2376,
+          "mpName": "Костадин Иванов Марков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-БЪЛГАРСКА-АСОЦИАЦИЯ-НА-РЕГИОНАЛНИТЕ-МЕДИИ",
+      "displayName": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ НА РЕГИОНАЛНИТЕ МЕДИИ\"",
+      "registeredOffice": "БЪЛГАРИЯ, София, 1164",
+      "mps": [
+        {
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-РОМСКО-ОБЕДИНЕНИЕ-МЕШЕРЕ",
+      "displayName": "СДРУЖЕНИЕ \"РОМСКО ОБЕДИНЕНИЕ МЕШЕРЕ\"",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1309",
+      "mps": [
+        {
+          "mpId": 5143,
+          "mpName": "Васил Иванов Горанов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;АСОЦИАЦИЯ-НА-УНИВЕРСИТЕТСКИТЕ-БОЛНИЦИ-В-РЕПУБЛИКА-БЪЛГАРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УНИВЕРСИТЕТСКИТЕ БОЛНИЦИ В РЕПУБЛИКА БЪЛГАРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, София, 1431",
+      "mps": [
+        {
+          "mpId": 5075,
+          "mpName": "Костадин Георгиев Ангелов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;БЪЛГАРСКА-АСОЦИАЦИЯ-НА-СОФТУЕРНИТЕ-КОМПАНИИ-/БАСКОМ/&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ НА СОФТУЕРНИТЕ КОМПАНИИ /БАСКОМ/&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1124",
+      "mps": [
+        {
+          "mpId": 1558,
+          "mpName": "Доброслав Дилянов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;БЪЛГАРСКА-НАЦИОНАЛНА-ФЕДЕРАЦИЯ-КАРАТЕ-/БНФК/&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА НАЦИОНАЛНА ФЕДЕРАЦИЯ КАРАТЕ /БНФК/&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1142",
+      "mps": [
+        {
+          "mpId": 5129,
+          "mpName": "Ивет Иванова Горанова",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-&quot;Български-Червен-кръст&quot;",
+      "displayName": "Сдружение &quot;Български Червен кръст&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1402",
+      "mps": [
+        {
+          "mpId": 3228,
+          "mpName": "Алисе Кямилова Муртезова",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;БЪЛГАРСКО-ДРУЖЕСТВО-ПО-КЛИНИЧНА-ЛАБОРАТОРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;БЪЛГАРСКО ДРУЖЕСТВО ПО КЛИНИЧНА ЛАБОРАТОРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1431",
+      "mps": [
+        {
+          "mpId": 739,
+          "mpName": "Недялко Иванов Калъчев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;КАРИНА-БЪЛГАРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;КАРИНА БЪЛГАРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
+      "mps": [
+        {
+          "mpId": 1493,
+          "mpName": "Христо Цветанов Монов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;НАУЧНО-ТЕХНИЧЕСКИ-СЪЮЗ-ПО-ВОДНО-ДЕЛО-В-БЪЛГАРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;НАУЧНО-ТЕХНИЧЕСКИ СЪЮЗ ПО ВОДНО ДЕЛО В БЪЛГАРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, София, 1000",
+      "mps": [
+        {
+          "mpId": 3181,
+          "mpName": "Галя Маринова Бърдарска",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;ОБЕДИНЕНА-ВЕЛИКА-ЛОЖА-НА-БЪЛГАРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;ОБЕДИНЕНА ВЕЛИКА ЛОЖА НА БЪЛГАРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1202",
+      "mps": [
+        {
+          "mpId": 645,
+          "mpName": "Георги Веселинов Пасков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;СДРУЖЕНИЕ-ЗА-МЕЖДУНАРОДНИ-СЪСТЕЗАНИЯ-ПО-ПРАВО&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;СДРУЖЕНИЕ ЗА МЕЖДУНАРОДНИ СЪСТЕЗАНИЯ ПО ПРАВО&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1124",
+      "mps": [
+        {
+          "mpId": 3794,
+          "mpName": "Димитър Колев Гочев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;СЪЮЗ-НА-ПАРАШУТИСТИТЕ-В-БЪЛГАРИЯ&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;СЪЮЗ НА ПАРАШУТИСТИТЕ В БЪЛГАРИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 3371,
+          "mpName": "Билян Боримиров Кършовски",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-Академия-бъдеще-за-бизнес-развитие",
+      "displayName": "Сдружение Академия бъдеще за бизнес развитие",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1111",
+      "mps": [
+        {
+          "mpId": 5192,
+          "mpName": "Христо Симеонов Симеонов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-БЪЛГАРСКА-АСОЦИАЦИЯ-ЗА-ТУРИЗЪМ",
+      "displayName": "СДРУЖЕНИЕ БЪЛГАРСКА АСОЦИАЦИЯ ЗА ТУРИЗЪМ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1408",
+      "mps": [
+        {
+          "mpId": 5233,
+          "mpName": "Иво Георгиев Михайлов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-за-модерно-алтернативно-развитие-на-териториите-България",
+      "displayName": "Сдружение за модерно алтернативно развитие на териториите - България",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 4746,
+          "mpName": "Цветан Иванов Енчев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-НАЦИОНАЛНА-ГРАЖДАНСКА-ИНИЦИАТИВА-АЛТЕРНАТИВА-ЗА-БЪЛГАРСКО-ВЪЗРАЖДАНЕ-/НГИ-АБВ/",
+      "displayName": "СДРУЖЕНИЕ НАЦИОНАЛНА ГРАЖДАНСКА ИНИЦИАТИВА АЛТЕРНАТИВА ЗА БЪЛГАРСКО ВЪЗРАЖДАНЕ /НГИ АБВ/",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 943,
+          "mpName": "Румен Йорданов Петков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-ПолеРани",
+      "displayName": "Сдружение ПолеРани",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1504",
+      "mps": [
+        {
+          "mpId": 4728,
+          "mpName": "Светослав Тодоров Тодоров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЕЛИМИНОВО-СОЛАР-3",
+      "displayName": "СЕЛИМИНОВО СОЛАР 3",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1434",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "Калоян Тонев Икономов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сердика-спортни-имоти",
+      "displayName": "Сердика спортни имоти",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СИ-БИ-ЕЛ-Компания",
+      "displayName": "СИ БИ ЕЛ Компания",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4723,
+          "mpName": "Тошко Йорданов Хаджитодоров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Си-И-Ел-Трейд",
+      "displayName": "Си И Ел Трейд",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1220",
+      "mps": [
+        {
+          "mpId": 2936,
+          "mpName": "Миглена Дойкова Александрова",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сиал-2018-ЕООД",
+      "displayName": "Сиал 2018 ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4999,
+          "mpName": "Явор Илиев Хайтов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Слипдриймс",
+      "displayName": "Слипдриймс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1505",
+      "mps": [
+        {
+          "mpId": 3241,
+          "mpName": "Николай Цветанов Сираков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СНЦ-ИЗГРЕВ-ЗА-ДЕЦАТА",
+      "displayName": "СНЦ \"ИЗГРЕВ ЗА ДЕЦАТА\"",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 645,
+          "mpName": "Георги Веселинов Пасков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СОЛАР-ЕСТЕЙТС",
+      "displayName": "СОЛАР ЕСТЕЙТС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
+      "mps": [
+        {
+          "mpId": 3625,
+          "mpName": "Йордан Янков Маджунков",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "Солво-ООД",
+      "displayName": "Солво ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 4170,
+          "mpName": "Ивайло Ванев Вълчев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СОМУРТО-ИНВЕСТ",
+      "displayName": "СОМУРТО ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "София-Ин",
+      "displayName": "София Ин",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
+      "mps": [
+        {
+          "mpId": 4523,
+          "mpName": "Вяра Методиева Тодева",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "София-Метрополитън-Колидж",
+      "displayName": "София Метрополитън Колидж",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1407",
+      "mps": [
+        {
+          "mpId": 1791,
+          "mpName": "Димитър Иванов Абаджиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Спортен-клуб-по-електронни-спортове-Амбидекс",
+      "displayName": "Спортен клуб по електронни спортове Амбидекс",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1404",
+      "mps": [
+        {
+          "mpId": 5245,
+          "mpName": "Мартин Димитров Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СПОРТНИ-ИМОТИ-БЪЛГАРСКА-АРМИЯ",
+      "displayName": "СПОРТНИ ИМОТИ БЪЛГАРСКА АРМИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Справедливост-за-България",
+      "displayName": "Справедливост за България",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1202",
+      "mps": [
+        {
+          "mpId": 2954,
+          "mpName": "Лиляна Друмева Радева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СПХ-АУТО",
+      "displayName": "СПХ  АУТО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1756",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СТАРА-ПЛАНИНА-ХОЛД",
+      "displayName": "СТАРА ПЛАНИНА ХОЛД",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1113",
+      "mps": [
+        {
+          "mpId": 913,
+          "mpName": "Евгений Василев Узунов",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СТИЛКОРД",
+      "displayName": "СТИЛКОРД",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1612",
+      "mps": [
+        {
+          "mpId": 2723,
+          "mpName": "Маргарита Николаева Николова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪВЕТ-ЗА-ЕВРОПЕЙСКО-ИНДИЙСКИ-БИЗНЕС-И-КУЛТУРНИ-ОТНОШЕНИЯ",
+      "displayName": "СЪВЕТ ЗА ЕВРОПЕЙСКО ИНДИЙСКИ БИЗНЕС И КУЛТУРНИ ОТНОШЕНИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1124",
+      "mps": [
+        {
+          "mpId": 3466,
+          "mpName": "Димитър Андреев Делчев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪВЕТ-НА-ЖЕНИТЕ-В-БИЗНЕСА-В-БЪЛГАРИЯ",
+      "displayName": "СЪВЕТ НА ЖЕНИТЕ В БИЗНЕСА В БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1113",
+      "mps": [
+        {
+          "mpId": 64,
+          "mpName": "Лидия Сантова Шулева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪСТЕЙНАБЪЛ-ЕНЕРДЖИ",
+      "displayName": "СЪСТЕЙНАБЪЛ ЕНЕРДЖИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1606",
+      "mps": [
+        {
+          "mpId": 2924,
+          "mpName": "Мартин Владимиров Тинчев",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪЮЗ-НА-ВЕТЕРИНАРНИТЕ-ЛЕКАРИ-В-БЪЛГАРИЯ",
+      "displayName": "СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1360",
+      "mps": [
+        {
+          "mpId": 4906,
+          "mpName": "Димитър Ангелов Иванов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Съюз-на-издателите-в-България",
+      "displayName": "Съюз на издателите в България",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1504",
+      "mps": [
+        {
+          "mpId": 3731,
+          "mpName": "Зарко Филипов Маринов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪЮЗ-НА-ИКОНОМИСТИТЕ-В-БЪЛГАРИЯ",
+      "displayName": "СЪЮЗ НА ИКОНОМИСТИТЕ В БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 913,
+          "mpName": "Евгений Василев Узунов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪЮЗ-НА-НАРОДНИТЕ-ЧИТАЛИЩА",
+      "displayName": "СЪЮЗ НА НАРОДНИТЕ ЧИТАЛИЩА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 5093,
+          "mpName": "Данаил Лалев Петков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СЪЮЗ-НА-ОФИЦЕРИТЕ-И-СЕРЖАНТИТЕ-ОТ-ЗАПАСА-И-РЕЗЕРВА",
+      "displayName": "СЪЮЗ НА ОФИЦЕРИТЕ И СЕРЖАНТИТЕ ОТ ЗАПАСА И РЕЗЕРВА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 3060,
+          "mpName": "Кольо Йорданов Милев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Такси-Волт",
+      "displayName": "Такси Волт",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1766",
+      "mps": [
+        {
+          "mpId": 3661,
+          "mpName": "Виктор Гасан Насър",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТГЕ-ТРАКИЯ-ГРИЙН-ЕНЕРДЖИ",
+      "displayName": "ТГЕ - ТРАКИЯ ГРИЙН ЕНЕРДЖИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. София, 1000",
+      "mps": [
+        {
+          "mpId": 2794,
+          "mpName": "Красимир Христов Янков",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

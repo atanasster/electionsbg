@@ -1,1 +1,352 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2954","nodes":[{"id":"mp:2954","type":"mp","mpId":2954,"label":"Лиляна Друмева Радева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208205977","type":"company","label":"АСОЦИАЦИЯ ПАМЕТ ЗА УТРЕ","slug":null,"uic":"208205977","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"company:tr:207813556","type":"company","label":"ИНВЕСТ ИН ПРОПЪРТИС","slug":null,"uic":"207813556","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1330"},{"id":"company:tr:207743550","type":"company","label":"ПЛАТФОРМА ГРАЖДАНСКИ БЛОК","slug":null,"uic":"207743550","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"company:tr:176695185","type":"company","label":"СЪЮЗ НА РЕПРЕСИРАНИТЕ ОТ КОМУНИЗМА - ПАМЕТ","slug":null,"uic":"176695185","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1309"},{"id":"company:tr:207449658","type":"company","label":"Справедливост за България","slug":null,"uic":"207449658","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА","type":"person","label":"Даниела Трифонова Беличовска"},{"id":"person:ИВАН ПАНЧЕВ ИВАНОВ","type":"person","label":"Иван Панчев Иванов"},{"id":"person:РАДОСЛАВ ИВАНОВ ИЛИЕВ","type":"person","label":"Радослав Иванов Илиев"},{"id":"person:ЙОРДАН СТОЯНОВ ТЕРЗИЕВ","type":"person","label":"Йордан Стоянов Терзиев"},{"id":"person:ИВАН СТОИМЕНОВ ГЕШЕВ","type":"person","label":"Иван Стоименов Гешев"},{"id":"person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА","type":"person","label":"Мария Венциславова Карагьозова"},{"id":"person:РАДОСЛАВ ЛАЗАРОВ КОСТАДИНОВ","type":"person","label":"Радослав Лазаров Костадинов"},{"id":"person:БОРИСЛАВ РУМЕНОВ РАЙЧЕВ","type":"person","label":"Борислав Руменов Райчев"},{"id":"person:ДЕНЧО ИВАНОВ ЛАЗАРОВ","type":"person","label":"Денчо Иванов Лазаров"},{"id":"person:ЦВЕТАН МИТКОВ ЦАНИНСКИ","type":"person","label":"Цветан Митков Цанински"},{"id":"person:ВЕНЕТА МИТКОВА ДОБРЕВА","type":"person","label":"Венета Миткова Добрева"},{"id":"person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ","type":"person","label":"Лазар Димитров Корбанколев"}],"edges":[{"source":"mp:2954","target":"company:tr:208205977","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:207813556","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:207813556","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:207743550","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:176695185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:176695185","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2954","target":"company:tr:207449658","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА","target":"company:tr:208205977","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА","target":"company:tr:208205977","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ПАНЧЕВ ИВАНОВ","target":"company:tr:208205977","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ИВАНОВ ИЛИЕВ","target":"company:tr:208205977","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН СТОЯНОВ ТЕРЗИЕВ","target":"company:tr:208205977","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОИМЕНОВ ГЕШЕВ","target":"company:tr:207743550","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОИМЕНОВ ГЕШЕВ","target":"company:tr:207743550","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА","target":"company:tr:207743550","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ ЛАЗАРОВ КОСТАДИНОВ","target":"company:tr:207743550","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ РУМЕНОВ РАЙЧЕВ","target":"company:tr:207743550","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНЧО ИВАНОВ ЛАЗАРОВ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН МИТКОВ ЦАНИНСКИ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕТА МИТКОВА ДОБРЕВА","target":"company:tr:176695185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕТА МИТКОВА ДОБРЕВА","target":"company:tr:176695185","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН МИТКОВ ЦАНИНСКИ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНЧО ИВАНОВ ЛАЗАРОВ","target":"company:tr:176695185","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОИМЕНОВ ГЕШЕВ","target":"company:tr:207449658","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТОИМЕНОВ ГЕШЕВ","target":"company:tr:207449658","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА","target":"company:tr:207449658","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2954",
+  "nodes": [
+    {
+      "id": "mp:2954",
+      "type": "mp",
+      "mpId": 2954,
+      "label": "Лиляна Друмева Радева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208205977",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ПАМЕТ ЗА УТРЕ",
+      "slug": null,
+      "uic": "208205977",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "company:tr:207813556",
+      "type": "company",
+      "label": "ИНВЕСТ ИН ПРОПЪРТИС",
+      "slug": null,
+      "uic": "207813556",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1330"
+    },
+    {
+      "id": "company:tr:207743550",
+      "type": "company",
+      "label": "ПЛАТФОРМА ГРАЖДАНСКИ БЛОК",
+      "slug": null,
+      "uic": "207743550",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:tr:176695185",
+      "type": "company",
+      "label": "СЪЮЗ НА РЕПРЕСИРАНИТЕ ОТ КОМУНИЗМА - ПАМЕТ",
+      "slug": null,
+      "uic": "176695185",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1309"
+    },
+    {
+      "id": "company:tr:207449658",
+      "type": "company",
+      "label": "Справедливост за България",
+      "slug": null,
+      "uic": "207449658",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА",
+      "type": "person",
+      "label": "Даниела Трифонова Беличовска"
+    },
+    {
+      "id": "person:ИВАН ПАНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Панчев Иванов"
+    },
+    {
+      "id": "person:РАДОСЛАВ ИВАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Радослав Иванов Илиев"
+    },
+    {
+      "id": "person:ЙОРДАН СТОЯНОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Йордан Стоянов Терзиев"
+    },
+    {
+      "id": "person:ИВАН СТОИМЕНОВ ГЕШЕВ",
+      "type": "person",
+      "label": "Иван Стоименов Гешев"
+    },
+    {
+      "id": "person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА",
+      "type": "person",
+      "label": "Мария Венциславова Карагьозова"
+    },
+    {
+      "id": "person:РАДОСЛАВ ЛАЗАРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Радослав Лазаров Костадинов"
+    },
+    {
+      "id": "person:БОРИСЛАВ РУМЕНОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Борислав Руменов Райчев"
+    },
+    {
+      "id": "person:ДЕНЧО ИВАНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Денчо Иванов Лазаров"
+    },
+    {
+      "id": "person:ЦВЕТАН МИТКОВ ЦАНИНСКИ",
+      "type": "person",
+      "label": "Цветан Митков Цанински"
+    },
+    {
+      "id": "person:ВЕНЕТА МИТКОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Венета Миткова Добрева"
+    },
+    {
+      "id": "person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ",
+      "type": "person",
+      "label": "Лазар Димитров Корбанколев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2954",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:207813556",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:207813556",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2954",
+      "target": "company:tr:207449658",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ТРИФОНОВА БЕЛИЧОВСКА",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПАНЧЕВ ИВАНОВ",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН СТОЯНОВ ТЕРЗИЕВ",
+      "target": "company:tr:208205977",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОИМЕНОВ ГЕШЕВ",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОИМЕНОВ ГЕШЕВ",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЛАЗАРОВ КОСТАДИНОВ",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ РУМЕНОВ РАЙЧЕВ",
+      "target": "company:tr:207743550",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНЧО ИВАНОВ ЛАЗАРОВ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН МИТКОВ ЦАНИНСКИ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА МИТКОВА ДОБРЕВА",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ДИМИТРОВ КОРБАНКОЛЕВ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА МИТКОВА ДОБРЕВА",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН МИТКОВ ЦАНИНСКИ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНЧО ИВАНОВ ЛАЗАРОВ",
+      "target": "company:tr:176695185",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОИМЕНОВ ГЕШЕВ",
+      "target": "company:tr:207449658",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОИМЕНОВ ГЕШЕВ",
+      "target": "company:tr:207449658",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЕНЦИСЛАВОВА КАРАГЬОЗОВА",
+      "target": "company:tr:207449658",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

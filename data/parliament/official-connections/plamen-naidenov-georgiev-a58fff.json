@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-naidenov-georgiev-a58fff",
+  "nodes": [
+    {
+      "id": "official:plamen-naidenov-georgiev-a58fff",
+      "type": "official",
+      "slug": "plamen-naidenov-georgiev-a58fff",
+      "label": "Пламен Найденов Георгиев",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205102930",
+      "type": "company",
+      "label": "ТИХЕРА ЕООД",
+      "slug": null,
+      "uic": "205102930",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206639314",
+      "type": "company",
+      "label": "ТРОЙКА ТС ЕООД",
+      "slug": null,
+      "uic": "206639314",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208796478",
+      "type": "company",
+      "label": "ДЕВНЯ ГРИЛ",
+      "slug": null,
+      "uic": "208796478",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТОСЛАВА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Светослава Димитрова Петрова"
+    },
+    {
+      "id": "person:ТАТЯНА ДИМИТРОВА КОЛЕВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Татяна Димитрова Колева-Георгиева"
+    },
+    {
+      "id": "person:ЛИЛИЯ ВАЛЕРИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Лилия Валериева Петрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИЛИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Николай Илиев Георгиев"
+    },
+    {
+      "id": "person:ИВАН ДАМЯНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Дамянов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-naidenov-georgiev-a58fff",
+      "target": "company:tr:205102930",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-naidenov-georgiev-a58fff",
+      "target": "company:tr:206639314",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-naidenov-georgiev-a58fff",
+      "target": "company:tr:208796478",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-naidenov-georgiev-a58fff",
+      "target": "company:tr:208796478",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:206639314",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ДИМИТРОВА КОЛЕВА-ГЕОРГИЕВА",
+      "target": "company:tr:206639314",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ВАЛЕРИЕВА ПЕТРОВА",
+      "target": "company:tr:206639314",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:206639314",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ВАЛЕРИЕВА ПЕТРОВА",
+      "target": "company:tr:206639314",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:206639314",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАМЯНОВ ИВАНОВ",
+      "target": "company:tr:208796478",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАМЯНОВ ИВАНОВ",
+      "target": "company:tr:208796478",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

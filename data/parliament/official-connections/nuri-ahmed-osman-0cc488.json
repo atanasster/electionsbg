@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nuri-ahmed-osman-0cc488",
+  "nodes": [
+    {
+      "id": "official:nuri-ahmed-osman-0cc488",
+      "type": "official",
+      "slug": "nuri-ahmed-osman-0cc488",
+      "label": "Нури Ахмед Осман",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "id": "company:tr:000046609",
+      "type": "company",
+      "label": "ИСКРА – 1927 г.",
+      "slug": null,
+      "uic": "000046609",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЗИФЕ ХЮСЕИНАЛИ ХАЛИЛ",
+      "type": "person",
+      "label": "Назифе Хюсеинали Халил"
+    },
+    {
+      "id": "person:ЙОНКА СЛАВЧЕВА ДОБРЕВА",
+      "type": "person",
+      "label": "Йонка Славчева Добрева"
+    },
+    {
+      "id": "person:КЕМИЛЯ ФИКРИ АЛИ",
+      "type": "person",
+      "label": "Кемиля Фикри Али"
+    },
+    {
+      "id": "person:ГЮЛДЖАН АКИФ МУСТАФА",
+      "type": "person",
+      "label": "Гюлджан Акиф Мустафа"
+    },
+    {
+      "id": "person:НИНА ДИМИТРОВА ТРУХЧЕВА",
+      "type": "person",
+      "label": "Нина Димитрова Трухчева"
+    },
+    {
+      "id": "person:ДОНКА ВЪЛКОВА ЯНАКИЕВА",
+      "type": "person",
+      "label": "Донка Вълкова Янакиева"
+    },
+    {
+      "id": "person:ДИМИТРА ДАЧЕВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Димитра  Дачева Великова"
+    },
+    {
+      "id": "person:ХЮСЕИН МЕХМЕД ХАСАН",
+      "type": "person",
+      "label": "Хюсеин Мехмед Хасан"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nuri-ahmed-osman-0cc488",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nuri-ahmed-osman-0cc488",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЗИФЕ ХЮСЕИНАЛИ ХАЛИЛ",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКА СЛАВЧЕВА ДОБРЕВА",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМИЛЯ ФИКРИ АЛИ",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛДЖАН АКИФ МУСТАФА",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДИМИТРОВА ТРУХЧЕВА",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ВЪЛКОВА ЯНАКИЕВА",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРА ДАЧЕВА ВЕЛИКОВА",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН МЕХМЕД ХАСАН",
+      "target": "company:tr:000046609",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

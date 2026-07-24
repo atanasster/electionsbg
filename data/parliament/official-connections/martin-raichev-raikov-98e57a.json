@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-raichev-raikov-98e57a",
+  "nodes": [
+    {
+      "id": "official:martin-raichev-raikov-98e57a",
+      "type": "official",
+      "slug": "martin-raichev-raikov-98e57a",
+      "label": "Мартин Райчев Райков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202475916",
+      "type": "company",
+      "label": "Кредит Плюс ООД",
+      "slug": null,
+      "uic": "202475916",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203325467",
+      "type": "company",
+      "label": "ДИРЕКТ АУТО",
+      "slug": null,
+      "uic": "203325467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:РИЛА 2017",
+      "type": "company",
+      "label": "РИЛА 2017 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СПАРТАН ГРУП",
+      "type": "company",
+      "label": "СПАРТАН ГРУП ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН АНГЕЛОВ АСЕНОВ",
+      "type": "person",
+      "label": "Стефан Ангелов Асенов"
+    },
+    {
+      "id": "person:ИВО РОМАНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Иво Романов Григоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-raichev-raikov-98e57a",
+      "target": "company:tr:202475916",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-raichev-raikov-98e57a",
+      "target": "company:tr:203325467",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:РИЛА 2017",
+      "target": "company:tr:202475916",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СПАРТАН ГРУП",
+      "target": "company:tr:202475916",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ АСЕНОВ",
+      "target": "company:tr:202475916",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО РОМАНОВ ГРИГОРОВ",
+      "target": "company:tr:202475916",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ АСЕНОВ",
+      "target": "company:tr:203325467",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vili-borisova-harizanova-daed66",
+  "nodes": [
+    {
+      "id": "official:vili-borisova-harizanova-daed66",
+      "type": "official",
+      "slug": "vili-borisova-harizanova-daed66",
+      "label": "ВИЛИ БОРИСОВА ХАРИЗАНОВА",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115045034",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ЗА РАСТИТЕЛНА ЗАЩИТА",
+      "slug": null,
+      "uic": "115045034",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКО ПЕТКОВ ЯНЕВ",
+      "type": "person",
+      "label": "Милко Петков Янев"
+    },
+    {
+      "id": "person:ЛАЗАР ИВАНОВ КОЧИЕВ",
+      "type": "person",
+      "label": "Лазар Иванов Кочиев"
+    },
+    {
+      "id": "person:ИЛИЯ ИВАНОВ НОВАКОВ",
+      "type": "person",
+      "label": "Илия Иванов Новаков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vili-borisova-harizanova-daed66",
+      "target": "company:tr:115045034",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКО ПЕТКОВ ЯНЕВ",
+      "target": "company:tr:115045034",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ИВАНОВ КОЧИЕВ",
+      "target": "company:tr:115045034",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ПЕТКОВ ЯНЕВ",
+      "target": "company:tr:115045034",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ИВАНОВ НОВАКОВ",
+      "target": "company:tr:115045034",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

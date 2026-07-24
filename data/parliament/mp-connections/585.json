@@ -1,1 +1,398 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:585","nodes":[{"id":"mp:585","type":"mp","mpId":585,"label":"Димитър Иванов Стефанов","partyGroupShort":"ВОЛЯ/НФСБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:175450918","type":"company","label":"АГЕНЦИЯ-УЧИЛИЩЕ 21-ВИ ВЕК","slug":null,"uic":"175450918","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:207820519","type":"company","label":"МАКРО ТРЕЙД ГРУП","slug":null,"uic":"207820519","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:207820501","type":"company","label":"ЕМ ПИКСЕЛ","slug":null,"uic":"207820501","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:207820063","type":"company","label":"ДИС БИЛДИНГ","slug":null,"uic":"207820063","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:000457209","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ 1914&quot;","slug":null,"uic":"000457209","legalForm":"CC","status":"active","seat":null},{"id":"company:tr:130471062","type":"company","label":"ЛИЗИНГОВА КОМПАНИЯ ДАНУБИЯ","slug":null,"uic":"130471062","legalForm":"OOD","status":"active","seat":null},{"id":"person:НИКОЛАЙ БОЙЧЕВ БОЕВ","type":"person","label":"Николай Бойчев Боев"},{"id":"person:НЕДКО СЛАВЧЕВ ИВАНОВ","type":"person","label":"Недко Славчев Иванов"},{"id":"person:ВЕЛИНА ИВАНОВА ГЕОРГИЕВА","type":"person","label":"Велина Иванова Георгиева"},{"id":"person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА","type":"person","label":"Мариана Иванова Биркова – Пешева"},{"id":"person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА","type":"person","label":"Елена Бонева Арабаджиева"},{"id":"person:КАРАМФИЛА НЕНЧЕВА ПЕТКОВА","type":"person","label":"Карамфила Ненчева Петкова"},{"id":"person:ПЕНКА МИНДОВА АРАБАДЖИЕВА","type":"person","label":"Пенка Миндова Арабаджиева"},{"id":"person:ВАСКА АТАНАСОВА АПОСТОЛОВА","type":"person","label":"Васка Атанасова Апостолова"},{"id":"person:ЕЛЕНА ВАСИЛЕВА ПОРТЕВА","type":"person","label":"Елена Василева Портева"},{"id":"person:СИЛВИЯ НЕШЕВА САБАКОВА","type":"person","label":"Силвия Нешева Сабакова"},{"id":"person:ДЕЯН АТАНАСОВ ДИНКОВ","type":"person","label":"Деян Атанасов Динков"},{"id":"person:ЕМИЛИЯ СТЕФАНОВА СТАВРЕВА","type":"person","label":"Емилия Стефанова Ставрева"},{"id":"person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА","type":"person","label":"Мариана Иванова Биркова-Пешева"},{"id":"person:КАМЕЛИЯ ПЕТРОВА ЛАМБОВА","type":"person","label":"Камелия Петрова Ламбова"},{"id":"person:ТЕОДОРА ЦАНКОВА МАКАРИЕВА","type":"person","label":"Теодора Цанкова Макариева"},{"id":"person:ДОНИКА ЕВГЕНИЕВА ПАСКАЛЕВА-САНКЕВА","type":"person","label":"Доника Евгениева Паскалева-Санкева"}],"edges":[{"source":"mp:585","target":"company:tr:175450918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820519","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820519","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820501","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820501","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820063","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:207820063","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"mp:585","target":"company:tr:130471062","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ БОЙЧЕВ БОЕВ","target":"company:tr:175450918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО СЛАВЧЕВ ИВАНОВ","target":"company:tr:175450918","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО СЛАВЧЕВ ИВАНОВ","target":"company:tr:175450918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИНА ИВАНОВА ГЕОРГИЕВА","target":"company:tr:175450918","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА","target":"company:tr:000457209","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА","target":"company:tr:000457209","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАРАМФИЛА НЕНЧЕВА ПЕТКОВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА МИНДОВА АРАБАДЖИЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВАСКА АТАНАСОВА АПОСТОЛОВА","target":"company:tr:000457209","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ВАСИЛЕВА ПОРТЕВА","target":"company:tr:000457209","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ НЕШЕВА САБАКОВА","target":"company:tr:000457209","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН АТАНАСОВ ДИНКОВ","target":"company:tr:000457209","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН АТАНАСОВ ДИНКОВ","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ СТЕФАНОВА СТАВРЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА","target":"company:tr:000457209","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ ПЕТРОВА ЛАМБОВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ЦАНКОВА МАКАРИЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА","target":"company:tr:000457209","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДОНИКА ЕВГЕНИЕВА ПАСКАЛЕВА-САНКЕВА","target":"company:tr:000457209","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:585",
+  "nodes": [
+    {
+      "id": "mp:585",
+      "type": "mp",
+      "mpId": 585,
+      "label": "Димитър Иванов Стефанов",
+      "partyGroupShort": "ВОЛЯ/НФСБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175450918",
+      "type": "company",
+      "label": "АГЕНЦИЯ-УЧИЛИЩЕ 21-ВИ ВЕК",
+      "slug": null,
+      "uic": "175450918",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:207820519",
+      "type": "company",
+      "label": "МАКРО ТРЕЙД ГРУП",
+      "slug": null,
+      "uic": "207820519",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:207820501",
+      "type": "company",
+      "label": "ЕМ ПИКСЕЛ",
+      "slug": null,
+      "uic": "207820501",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:207820063",
+      "type": "company",
+      "label": "ДИС БИЛДИНГ",
+      "slug": null,
+      "uic": "207820063",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:000457209",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ 1914&quot;",
+      "slug": null,
+      "uic": "000457209",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:130471062",
+      "type": "company",
+      "label": "ЛИЗИНГОВА КОМПАНИЯ ДАНУБИЯ",
+      "slug": null,
+      "uic": "130471062",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ БОЙЧЕВ БОЕВ",
+      "type": "person",
+      "label": "Николай Бойчев Боев"
+    },
+    {
+      "id": "person:НЕДКО СЛАВЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Недко Славчев Иванов"
+    },
+    {
+      "id": "person:ВЕЛИНА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Велина Иванова Георгиева"
+    },
+    {
+      "id": "person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА",
+      "type": "person",
+      "label": "Мариана Иванова Биркова – Пешева"
+    },
+    {
+      "id": "person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА",
+      "type": "person",
+      "label": "Елена Бонева Арабаджиева"
+    },
+    {
+      "id": "person:КАРАМФИЛА НЕНЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Карамфила Ненчева Петкова"
+    },
+    {
+      "id": "person:ПЕНКА МИНДОВА АРАБАДЖИЕВА",
+      "type": "person",
+      "label": "Пенка Миндова Арабаджиева"
+    },
+    {
+      "id": "person:ВАСКА АТАНАСОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Васка Атанасова Апостолова"
+    },
+    {
+      "id": "person:ЕЛЕНА ВАСИЛЕВА ПОРТЕВА",
+      "type": "person",
+      "label": "Елена Василева Портева"
+    },
+    {
+      "id": "person:СИЛВИЯ НЕШЕВА САБАКОВА",
+      "type": "person",
+      "label": "Силвия Нешева Сабакова"
+    },
+    {
+      "id": "person:ДЕЯН АТАНАСОВ ДИНКОВ",
+      "type": "person",
+      "label": "Деян Атанасов Динков"
+    },
+    {
+      "id": "person:ЕМИЛИЯ СТЕФАНОВА СТАВРЕВА",
+      "type": "person",
+      "label": "Емилия Стефанова Ставрева"
+    },
+    {
+      "id": "person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА",
+      "type": "person",
+      "label": "Мариана Иванова Биркова-Пешева"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ПЕТРОВА ЛАМБОВА",
+      "type": "person",
+      "label": "Камелия Петрова Ламбова"
+    },
+    {
+      "id": "person:ТЕОДОРА ЦАНКОВА МАКАРИЕВА",
+      "type": "person",
+      "label": "Теодора Цанкова Макариева"
+    },
+    {
+      "id": "person:ДОНИКА ЕВГЕНИЕВА ПАСКАЛЕВА-САНКЕВА",
+      "type": "person",
+      "label": "Доника Евгениева Паскалева-Санкева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:585",
+      "target": "company:tr:175450918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820519",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820519",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820501",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820501",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820063",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:207820063",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:585",
+      "target": "company:tr:130471062",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ БОЙЧЕВ БОЕВ",
+      "target": "company:tr:175450918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО СЛАВЧЕВ ИВАНОВ",
+      "target": "company:tr:175450918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО СЛАВЧЕВ ИВАНОВ",
+      "target": "company:tr:175450918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:175450918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА БОНЕВА АРАБАДЖИЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРАМФИЛА НЕНЧЕВА ПЕТКОВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА МИНДОВА АРАБАДЖИЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ИВАНОВА БИРКОВА – ПЕШЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКА АТАНАСОВА АПОСТОЛОВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВАСИЛЕВА ПОРТЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НЕШЕВА САБАКОВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН АТАНАСОВ ДИНКОВ",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН АТАНАСОВ ДИНКОВ",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ СТЕФАНОВА СТАВРЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ПЕТРОВА ЛАМБОВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЦАНКОВА МАКАРИЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ИВАНОВА БИРКОВА-ПЕШЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНИКА ЕВГЕНИЕВА ПАСКАЛЕВА-САНКЕВА",
+      "target": "company:tr:000457209",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

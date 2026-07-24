@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-yasenov-gorumov-fa6a03",
+  "nodes": [
+    {
+      "id": "official:plamen-yasenov-gorumov-fa6a03",
+      "type": "official",
+      "slug": "plamen-yasenov-gorumov-fa6a03",
+      "label": "Пламен Ясенов Горумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово"
+    },
+    {
+      "id": "company:tr:201429467",
+      "type": "company",
+      "label": "ИБЧО МЕБЕЛ",
+      "slug": null,
+      "uic": "201429467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ЯСЕНОВ ГОРУМОВ",
+      "type": "person",
+      "label": "Венцислав Ясенов Горумов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-yasenov-gorumov-fa6a03",
+      "target": "company:tr:201429467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ЯСЕНОВ ГОРУМОВ",
+      "target": "company:tr:201429467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

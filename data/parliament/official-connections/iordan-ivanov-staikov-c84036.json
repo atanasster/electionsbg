@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-ivanov-staikov-c84036",
+  "nodes": [
+    {
+      "id": "official:iordan-ivanov-staikov-c84036",
+      "type": "official",
+      "slug": "iordan-ivanov-staikov-c84036",
+      "label": "ЙОРДАН ИВАНОВ СТАЙКОВ",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203267003",
+      "type": "company",
+      "label": "Стайков Турист Сървис ЕООД",
+      "slug": null,
+      "uic": "203267003",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-ivanov-staikov-c84036",
+      "target": "company:tr:203267003",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

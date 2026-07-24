@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:marusya-dobrinova-filatova-0e6a89","nodes":[{"id":"official:marusya-dobrinova-filatova-0e6a89","type":"official","slug":"marusya-dobrinova-filatova-0e6a89","label":"Маруся Добринова Филатова","tier":"municipal","role":"deputy_mayor","municipality":"Симитли"},{"id":"company:tr:206897046","type":"company","label":"Круп Ев-Стил","slug":null,"uic":"206897046","legalForm":null,"status":null,"seat":null},{"id":"person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА","type":"person","label":"Катя Веселинова Апостолова"}],"edges":[{"source":"official:marusya-dobrinova-filatova-0e6a89","target":"company:tr:206897046","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:marusya-dobrinova-filatova-0e6a89","target":"company:tr:206897046","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА","target":"company:tr:206897046","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА","target":"company:tr:206897046","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:marusya-dobrinova-filatova-0e6a89",
+  "nodes": [
+    {
+      "id": "official:marusya-dobrinova-filatova-0e6a89",
+      "type": "official",
+      "slug": "marusya-dobrinova-filatova-0e6a89",
+      "label": "Маруся Добринова Филатова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Симитли"
+    },
+    {
+      "id": "company:tr:206897046",
+      "type": "company",
+      "label": "Круп Ев-Стил",
+      "slug": null,
+      "uic": "206897046",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Катя Веселинова Апостолова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marusya-dobrinova-filatova-0e6a89",
+      "target": "company:tr:206897046",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА",
+      "target": "company:tr:206897046",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ВЕСЕЛИНОВА АПОСТОЛОВА",
+      "target": "company:tr:206897046",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

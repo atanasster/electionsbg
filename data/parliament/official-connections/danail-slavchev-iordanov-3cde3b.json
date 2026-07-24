@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:danail-slavchev-iordanov-3cde3b",
+  "nodes": [
+    {
+      "id": "official:danail-slavchev-iordanov-3cde3b",
+      "type": "official",
+      "slug": "danail-slavchev-iordanov-3cde3b",
+      "label": "Данаил Славчев Йорданов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Суворово"
+    },
+    {
+      "id": "company:tr:208102219",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА - СУВОРОВО - ДЕВНЯ - ВЪЛЧИ ДОЛ",
+      "slug": null,
+      "uic": "208102219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВИЛЕН ЯНЧЕВ ШИТОВ",
+      "type": "person",
+      "label": "Свилен Янчев Шитов"
+    },
+    {
+      "id": "person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Калоян Красимиров Цветков"
+    },
+    {
+      "id": "person:СВЕТЛАНА СТОЙКОВА ЕНЕВА",
+      "type": "person",
+      "label": "Светлана Стойкова Енева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Николай Йорданов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:danail-slavchev-iordanov-3cde3b",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-slavchev-iordanov-3cde3b",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВИЛЕН ЯНЧЕВ ШИТОВ",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН КРАСИМИРОВ ЦВЕТКОВ",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА СТОЙКОВА ЕНЕВА",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ ХРИСТОВ",
+      "target": "company:tr:208102219",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

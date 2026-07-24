@@ -1,1 +1,78 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4500","nodes":[{"id":"mp:4500","type":"mp","mpId":4500,"label":"Христо Танчев Проданов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44","45","46","47","48","49"]},{"id":"company:Теоли-ООД","type":"company","label":"Теоли ООД","slug":"Теоли-ООД","uic":"201004181","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"company:Теоли-ООД-не-активно","type":"company","label":"Теоли ООД не активно","slug":"Теоли-ООД-не-активно","uic":null,"legalForm":null,"status":null,"seat":"София (столица)"}],"edges":[{"source":"mp:4500","target":"company:Теоли-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4500","target":"company:Теоли-ООД-не-активно","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4500",
+  "nodes": [
+    {
+      "id": "mp:4500",
+      "type": "mp",
+      "mpId": 4500,
+      "label": "Христо Танчев Проданов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:Теоли-ООД",
+      "type": "company",
+      "label": "Теоли ООД",
+      "slug": "Теоли-ООД",
+      "uic": "201004181",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Теоли-ООД-не-активно",
+      "type": "company",
+      "label": "Теоли ООД не активно",
+      "slug": "Теоли-ООД-не-активно",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "official:hristo-tanchev-prodanov-206c76",
+      "type": "official",
+      "slug": "hristo-tanchev-prodanov-206c76",
+      "label": "Христо Танчев Проданов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4500",
+      "target": "company:Теоли-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4500",
+      "target": "company:Теоли-ООД-не-активно",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-tanchev-prodanov-206c76",
+      "target": "company:Теоли-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

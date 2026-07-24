@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lalo-hristov-lalev-245445",
+  "nodes": [
+    {
+      "id": "official:lalo-hristov-lalev-245445",
+      "type": "official",
+      "slug": "lalo-hristov-lalev-245445",
+      "label": "Лальо Христов Лалев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201144753",
+      "type": "company",
+      "label": "ВИНАРСКА КЪЩА ЛАБРИС",
+      "slug": null,
+      "uic": "201144753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВА ЛАЛЕВА ЛАЛЕВА",
+      "type": "person",
+      "label": "Станислава Лалева Лалева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lalo-hristov-lalev-245445",
+      "target": "company:tr:201144753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lalo-hristov-lalev-245445",
+      "target": "company:tr:201144753",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВА ЛАЛЕВА ЛАЛЕВА",
+      "target": "company:tr:201144753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА ЛАЛЕВА ЛАЛЕВА",
+      "target": "company:tr:201144753",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

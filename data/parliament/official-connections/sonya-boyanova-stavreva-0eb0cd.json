@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:sonya-boyanova-stavreva-0eb0cd","nodes":[{"id":"official:sonya-boyanova-stavreva-0eb0cd","type":"official","slug":"sonya-boyanova-stavreva-0eb0cd","label":"Соня Боянова Ставрева","tier":"municipal","role":"councillor","municipality":"Благоевград"},{"id":"company:tr:205130590","type":"company","label":"МЕДИЯ ГРУП ПРЕС","slug":null,"uic":"205130590","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕСЕЛА КОСТАДИНОВА СУКАЛИНСКА","type":"person","label":"Весела Костадинова Сукалинска"},{"id":"person:ВАЛЕНТИНА КРУМОВА МИТОВА","type":"person","label":"Валентина Крумова Митова"},{"id":"person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА","type":"person","label":"Лилия Любомирова Иванова"}],"edges":[{"source":"official:sonya-boyanova-stavreva-0eb0cd","target":"company:tr:205130590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛА КОСТАДИНОВА СУКАЛИНСКА","target":"company:tr:205130590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИНА КРУМОВА МИТОВА","target":"company:tr:205130590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА","target":"company:tr:205130590","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА","target":"company:tr:205130590","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sonya-boyanova-stavreva-0eb0cd",
+  "nodes": [
+    {
+      "id": "official:sonya-boyanova-stavreva-0eb0cd",
+      "type": "official",
+      "slug": "sonya-boyanova-stavreva-0eb0cd",
+      "label": "Соня Боянова Ставрева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:205130590",
+      "type": "company",
+      "label": "МЕДИЯ ГРУП ПРЕС",
+      "slug": null,
+      "uic": "205130590",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛА КОСТАДИНОВА СУКАЛИНСКА",
+      "type": "person",
+      "label": "Весела Костадинова Сукалинска"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА КРУМОВА МИТОВА",
+      "type": "person",
+      "label": "Валентина Крумова Митова"
+    },
+    {
+      "id": "person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Лилия Любомирова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-boyanova-stavreva-0eb0cd",
+      "target": "company:tr:205130590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛА КОСТАДИНОВА СУКАЛИНСКА",
+      "target": "company:tr:205130590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА КРУМОВА МИТОВА",
+      "target": "company:tr:205130590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА",
+      "target": "company:tr:205130590",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ЛЮБОМИРОВА ИВАНОВА",
+      "target": "company:tr:205130590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

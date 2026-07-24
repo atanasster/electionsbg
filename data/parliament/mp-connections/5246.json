@@ -1,1 +1,142 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5246","nodes":[{"id":"mp:5246","type":"mp","mpId":5246,"label":"Велислав Величков Величков","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:177175554","type":"company","label":"Правосъдие за всеки","slug":null,"uic":"177175554","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ","type":"person","label":"Емил Александров Георгиев"},{"id":"person:ДЕЯН СТОЙКОВ ВАСИЛЕВ","type":"person","label":"Деян Стойков Василев"},{"id":"person:МАРИЯ КОСТОВА МАТЕВА","type":"person","label":"Мария Костова Матева"},{"id":"person:РОСЕН ПЕНЧЕВ РАШКОВ","type":"person","label":"Росен Пенчев Рашков"},{"id":"person:ФАНИ АРОН АРОНОВА","type":"person","label":"Фани Арон Аронова"},{"id":"person:ПЕТРОМИР ИВАНОВ КЪНЧЕВ","type":"person","label":"Петромир Иванов Кънчев"},{"id":"person:ЕКАТЕРИНА СТЕФАНОВА ЛИЧЕВА","type":"person","label":"Екатерина Стефанова Личева"},{"id":"person:СОФИЯ СТЕЛИ ГРЪНЧАРОВА","type":"person","label":"София Стели Грънчарова"}],"edges":[{"source":"mp:5246","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН СТОЙКОВ ВАСИЛЕВ","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ КОСТОВА МАТЕВА","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПЕНЧЕВ РАШКОВ","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФАНИ АРОН АРОНОВА","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРОМИР ИВАНОВ КЪНЧЕВ","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕКАТЕРИНА СТЕФАНОВА ЛИЧЕВА","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ СТЕЛИ ГРЪНЧАРОВА","target":"company:tr:177175554","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5246",
+  "nodes": [
+    {
+      "id": "mp:5246",
+      "type": "mp",
+      "mpId": 5246,
+      "label": "Велислав Величков Величков",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:177175554",
+      "type": "company",
+      "label": "Правосъдие за всеки",
+      "slug": null,
+      "uic": "177175554",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Емил Александров Георгиев"
+    },
+    {
+      "id": "person:ДЕЯН СТОЙКОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Деян Стойков Василев"
+    },
+    {
+      "id": "person:МАРИЯ КОСТОВА МАТЕВА",
+      "type": "person",
+      "label": "Мария Костова Матева"
+    },
+    {
+      "id": "person:РОСЕН ПЕНЧЕВ РАШКОВ",
+      "type": "person",
+      "label": "Росен Пенчев Рашков"
+    },
+    {
+      "id": "person:ФАНИ АРОН АРОНОВА",
+      "type": "person",
+      "label": "Фани Арон Аронова"
+    },
+    {
+      "id": "person:ПЕТРОМИР ИВАНОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Петромир Иванов Кънчев"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА СТЕФАНОВА ЛИЧЕВА",
+      "type": "person",
+      "label": "Екатерина Стефанова Личева"
+    },
+    {
+      "id": "person:СОФИЯ СТЕЛИ ГРЪНЧАРОВА",
+      "type": "person",
+      "label": "София Стели Грънчарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5246",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН СТОЙКОВ ВАСИЛЕВ",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТОВА МАТЕВА",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕНЧЕВ РАШКОВ",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНИ АРОН АРОНОВА",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРОМИР ИВАНОВ КЪНЧЕВ",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА СТЕФАНОВА ЛИЧЕВА",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ СТЕЛИ ГРЪНЧАРОВА",
+      "target": "company:tr:177175554",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

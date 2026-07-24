@@ -1,1 +1,529 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1129","nodes":[{"id":"mp:1129","type":"mp","mpId":1129,"label":"Антоний Венциславов Кръстев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:121396123","type":"company","label":"БЪЛГАРСКИ ПОЩИ","slug":null,"uic":"121396123","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"mp:938","type":"mp","mpId":938,"label":"Дарин Величков Матов","partyGroupShort":"БГ Патриоти","isCurrent":false,"nsFolders":[]},{"id":"person:ВАЛЕНТИН БОНЕВ АСЕНОВ","type":"person","label":"Валентин Бонев Асенов"},{"id":"person:ЕМИЛИЯ ДИМИТРОВА ФАЧЕВА","type":"person","label":"Емилия Димитрова Фачева"},{"id":"person:БИСЕР ЗДРАВКОВ ХРИСТОВ","type":"person","label":"Бисер Здравков Христов"},{"id":"person:КРАСИМИР ДИМИТРОВ КРАЧУНОВ","type":"person","label":"Красимир Димитров Крачунов"},{"id":"person:ДЕЯН СТОЯНОВ ДЪНЕШКИ","type":"person","label":"Деян Стоянов Дънешки"},{"id":"person:ДЪРЖАВАТА. ПРАВАТА И ЗАДЪЛЖЕНИЯТА НА ДЪРЖАВАТА, КАТО ЕДНОЛИЧЕН СОБСТВЕНИК НА КАПИТАЛА, СЕ УПРАЖНЯВАТ ОТ МИНИСТЪРА НА ТРАНСПОРТА И СЪОБЩЕНИЯТА.","type":"person","label":"Държавата. Правата И Задълженията На Държавата, Като Едноличен Собственик На Капитала, Се Упражняват От Министъра На Транспорта И Съобщенията."},{"id":"person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС","type":"person","label":"Богдан Диаманди Теофанидис"},{"id":"person:ВИКТОР СЕРГЕЕВ КАРАДЖОВ","type":"person","label":"Виктор Сергеев Караджов"},{"id":"person:ВИКТОР ЙОСИФ ФАЧЕВ","type":"person","label":"Виктор Йосиф Фачев"},{"id":"person:НАДЕЖДА СИМЕОНОВА АЛЕКСИЕВА","type":"person","label":"Надежда Симеонова Алексиева"},{"id":"person:ЛЪЧЕЗАР ПРОДАНОВ АРСОВ","type":"person","label":"Лъчезар Проданов Арсов"},{"id":"person:ПАВЕЛ ИВАНОВ МАСОВ","type":"person","label":"Павел Иванов Масов"},{"id":"person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ","type":"person","label":"Филип Николов Алексиев"},{"id":"person:МИКО СТАНИМИРОВ МИЛАНОВ","type":"person","label":"Мико Станимиров Миланов"},{"id":"person:ЕЛЕНА ГЕОРГИЕВА АЛЕКСАНДРОВА-ГЕОРГИЕВА","type":"person","label":"Елена Георгиева Александрова-Георгиева"},{"id":"person:РАДОСЛАВ СТЕФАНОВ БЕНЕВРЕШКИ","type":"person","label":"Радослав Стефанов Беневрешки"},{"id":"person:МАРТИН ЦВЕТКОВ БОГДАНОВ","type":"person","label":"Мартин Цветков Богданов"},{"id":"person:ЦВЕТИЛИЯ ИВАНОВА СТОИЛКОВА","type":"person","label":"Цветилия Иванова Стоилкова"},{"id":"person:МАРТИН РУМЕНОВ АНГЕЛОВ","type":"person","label":"Мартин Руменов Ангелов"},{"id":"person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ","type":"person","label":"Цветомир Ангелов Досков"},{"id":"person:НАДЕЖДА ПЕТРОВА МАЗОВА","type":"person","label":"Надежда Петрова Мазова"},{"id":"person:СТАНИСЛАВ ДОЧЕВ ДОЧЕВ","type":"person","label":"Станислав Дочев Дочев"},{"id":"person:ЗДРАВКО АСЕНОВ АНАКИЕВ","type":"person","label":"Здравко Асенов Анакиев"},{"id":"person:ИВАЙЛО ИВОВ ЕПИТРОПОВ","type":"person","label":"Ивайло Ивов Епитропов"},{"id":"person:ЕЛИЦА КИРИЛОВА ПОПОВА","type":"person","label":"Елица Кирилова Попова"},{"id":"person:РАДОСЛАВ БОРИСЛАВОВ БОЖКОВ","type":"person","label":"Радослав Бориславов Божков"},{"id":"company:tr:130822878","type":"company","label":"ХОЛДИНГ БЪЛГАРСКИ ДЪРЖАВНИ ЖЕЛЕЗНИЦИ","slug":null,"uic":"130822878","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1080"},{"id":"mp:139","type":"mp","mpId":139,"label":"Йордан Мирчев Митев","partyGroupShort":"Д21","isCurrent":false,"nsFolders":["39"]}],"edges":[{"source":"mp:1129","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:938","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН БОНЕВ АСЕНОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ДИМИТРОВА ФАЧЕВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БИСЕР ЗДРАВКОВ ХРИСТОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ КРАЧУНОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН СТОЯНОВ ДЪНЕШКИ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЪРЖАВАТА. ПРАВАТА И ЗАДЪЛЖЕНИЯТА НА ДЪРЖАВАТА, КАТО ЕДНОЛИЧЕН СОБСТВЕНИК НА КАПИТАЛА, СЕ УПРАЖНЯВАТ ОТ МИНИСТЪРА НА ТРАНСПОРТА И СЪОБЩЕНИЯТА.","target":"company:tr:121396123","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС","target":"company:tr:121396123","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР СЕРГЕЕВ КАРАДЖОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР ЙОСИФ ФАЧЕВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА СИМЕОНОВА АЛЕКСИЕВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР ПРОДАНОВ АРСОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ИВАНОВ МАСОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ","target":"company:tr:121396123","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИКО СТАНИМИРОВ МИЛАНОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА АЛЕКСАНДРОВА-ГЕОРГИЕВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ СТЕФАНОВ БЕНЕВРЕШКИ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ЦВЕТКОВ БОГДАНОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТИЛИЯ ИВАНОВА СТОИЛКОВА","target":"company:tr:121396123","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТИЛИЯ ИВАНОВА СТОИЛКОВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН РУМЕНОВ АНГЕЛОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НАДЕЖДА ПЕТРОВА МАЗОВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ДОЧЕВ ДОЧЕВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО АСЕНОВ АНАКИЕВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО АСЕНОВ АНАКИЕВ","target":"company:tr:121396123","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ИВОВ ЕПИТРОПОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА КИРИЛОВА ПОПОВА","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ БОРИСЛАВОВ БОЖКОВ","target":"company:tr:121396123","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН РУМЕНОВ АНГЕЛОВ","target":"company:tr:130822878","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН РУМЕНОВ АНГЕЛОВ","target":"company:tr:130822878","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:139","target":"company:tr:130822878","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:139","target":"company:tr:130822878","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:938","length":2,"nodeIds":["mp:1129","company:tr:121396123","mp:938"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:139","length":4,"nodeIds":["mp:1129","company:tr:121396123","person:МАРТИН РУМЕНОВ АНГЕЛОВ","company:tr:130822878","mp:139"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1129",
+  "nodes": [
+    {
+      "id": "mp:1129",
+      "type": "mp",
+      "mpId": 1129,
+      "label": "Антоний Венциславов Кръстев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:121396123",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ПОЩИ",
+      "slug": null,
+      "uic": "121396123",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "mp:938",
+      "type": "mp",
+      "mpId": 938,
+      "label": "Дарин Величков Матов",
+      "partyGroupShort": "БГ Патриоти",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:emiliya-dimitrova-facheva-45ed4b",
+      "type": "official",
+      "slug": "emiliya-dimitrova-facheva-45ed4b",
+      "label": "Емилия Димитрова Фачева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nadezhda-petrova-mazova-7d28a6",
+      "type": "official",
+      "slug": "nadezhda-petrova-mazova-7d28a6",
+      "label": "Надежда Петрова Мазова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:pavel-ivanov-masov-6cd57d",
+      "type": "official",
+      "slug": "pavel-ivanov-masov-6cd57d",
+      "label": "Павел Иванов Масов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:radoslav-stefanov-benevreshki-2c57c7",
+      "type": "official",
+      "slug": "radoslav-stefanov-benevreshki-2c57c7",
+      "label": "Радослав Стефанов Беневрешки",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:stanislav-dochev-dochev-e7872a",
+      "type": "official",
+      "slug": "stanislav-dochev-dochev-e7872a",
+      "label": "Станислав Дочев Дочев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "type": "official",
+      "slug": "tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "label": "Цветилия Иванова Стоилкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:elena-georgieva-aleksandrova-georgieva-a42a47",
+      "type": "official",
+      "slug": "elena-georgieva-aleksandrova-georgieva-a42a47",
+      "label": "Елена Георгиева Александрова-Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Рила"
+    },
+    {
+      "id": "person:ВАЛЕНТИН БОНЕВ АСЕНОВ",
+      "type": "person",
+      "label": "Валентин Бонев Асенов"
+    },
+    {
+      "id": "person:БИСЕР ЗДРАВКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Бисер Здравков Христов"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ КРАЧУНОВ",
+      "type": "person",
+      "label": "Красимир Димитров Крачунов"
+    },
+    {
+      "id": "person:ДЕЯН СТОЯНОВ ДЪНЕШКИ",
+      "type": "person",
+      "label": "Деян Стоянов Дънешки"
+    },
+    {
+      "id": "person:ДЪРЖАВАТА. ПРАВАТА И ЗАДЪЛЖЕНИЯТА НА ДЪРЖАВАТА, КАТО ЕДНОЛИЧЕН СОБСТВЕНИК НА КАПИТАЛА, СЕ УПРАЖНЯВАТ ОТ МИНИСТЪРА НА ТРАНСПОРТА И СЪОБЩЕНИЯТА.",
+      "type": "person",
+      "label": "Държавата. Правата И Задълженията На Държавата, Като Едноличен Собственик На Капитала, Се Упражняват От Министъра На Транспорта И Съобщенията."
+    },
+    {
+      "id": "person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС",
+      "type": "person",
+      "label": "Богдан Диаманди Теофанидис"
+    },
+    {
+      "id": "person:ВИКТОР СЕРГЕЕВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Виктор Сергеев Караджов"
+    },
+    {
+      "id": "person:ВИКТОР ЙОСИФ ФАЧЕВ",
+      "type": "person",
+      "label": "Виктор Йосиф Фачев"
+    },
+    {
+      "id": "person:НАДЕЖДА СИМЕОНОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Надежда Симеонова Алексиева"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ПРОДАНОВ АРСОВ",
+      "type": "person",
+      "label": "Лъчезар Проданов Арсов"
+    },
+    {
+      "id": "person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Филип Николов Алексиев"
+    },
+    {
+      "id": "person:МИКО СТАНИМИРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Мико Станимиров Миланов"
+    },
+    {
+      "id": "person:МАРТИН ЦВЕТКОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Мартин Цветков Богданов"
+    },
+    {
+      "id": "person:МАРТИН РУМЕНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Мартин Руменов Ангелов"
+    },
+    {
+      "id": "person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ",
+      "type": "person",
+      "label": "Цветомир Ангелов Досков"
+    },
+    {
+      "id": "person:ЗДРАВКО АСЕНОВ АНАКИЕВ",
+      "type": "person",
+      "label": "Здравко Асенов Анакиев"
+    },
+    {
+      "id": "person:ИВАЙЛО ИВОВ ЕПИТРОПОВ",
+      "type": "person",
+      "label": "Ивайло Ивов Епитропов"
+    },
+    {
+      "id": "person:ЕЛИЦА КИРИЛОВА ПОПОВА",
+      "type": "person",
+      "label": "Елица Кирилова Попова"
+    },
+    {
+      "id": "person:РАДОСЛАВ БОРИСЛАВОВ БОЖКОВ",
+      "type": "person",
+      "label": "Радослав Бориславов Божков"
+    },
+    {
+      "id": "company:tr:130822878",
+      "type": "company",
+      "label": "ХОЛДИНГ БЪЛГАРСКИ ДЪРЖАВНИ ЖЕЛЕЗНИЦИ",
+      "slug": null,
+      "uic": "130822878",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1080"
+    },
+    {
+      "id": "mp:139",
+      "type": "mp",
+      "mpId": 139,
+      "label": "Йордан Мирчев Митев",
+      "partyGroupShort": "Д21",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1129",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:938",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emiliya-dimitrova-facheva-45ed4b",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadezhda-petrova-mazova-7d28a6",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavel-ivanov-masov-6cd57d",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-stefanov-benevreshki-2c57c7",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-dochev-dochev-e7872a",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-georgieva-aleksandrova-georgieva-a42a47",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН БОНЕВ АСЕНОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ЗДРАВКОВ ХРИСТОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ КРАЧУНОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН СТОЯНОВ ДЪНЕШКИ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЪРЖАВАТА. ПРАВАТА И ЗАДЪЛЖЕНИЯТА НА ДЪРЖАВАТА, КАТО ЕДНОЛИЧЕН СОБСТВЕНИК НА КАПИТАЛА, СЕ УПРАЖНЯВАТ ОТ МИНИСТЪРА НА ТРАНСПОРТА И СЪОБЩЕНИЯТА.",
+      "target": "company:tr:121396123",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАН ДИАМАНДИ ТЕОФАНИДИС",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР СЕРГЕЕВ КАРАДЖОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ЙОСИФ ФАЧЕВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СИМЕОНОВА АЛЕКСИЕВА",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ПРОДАНОВ АРСОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП НИКОЛОВ АЛЕКСИЕВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКО СТАНИМИРОВ МИЛАНОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЦВЕТКОВ БОГДАНОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН РУМЕНОВ АНГЕЛОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР АНГЕЛОВ ДОСКОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО АСЕНОВ АНАКИЕВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО АСЕНОВ АНАКИЕВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВОВ ЕПИТРОПОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА КИРИЛОВА ПОПОВА",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ БОРИСЛАВОВ БОЖКОВ",
+      "target": "company:tr:121396123",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН РУМЕНОВ АНГЕЛОВ",
+      "target": "company:tr:130822878",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН РУМЕНОВ АНГЕЛОВ",
+      "target": "company:tr:130822878",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:139",
+      "target": "company:tr:130822878",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:139",
+      "target": "company:tr:130822878",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:938",
+      "length": 2,
+      "nodeIds": [
+        "mp:1129",
+        "company:tr:121396123",
+        "mp:938"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:139",
+      "length": 4,
+      "nodeIds": [
+        "mp:1129",
+        "company:tr:121396123",
+        "person:МАРТИН РУМЕНОВ АНГЕЛОВ",
+        "company:tr:130822878",
+        "mp:139"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

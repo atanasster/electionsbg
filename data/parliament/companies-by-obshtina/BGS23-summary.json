@@ -1,1 +1,46 @@
-{"obshtina":"BGS23","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"ГХ-Премиум","displayName":"ГХ Премиум","registeredOffice":"БЪЛГАРИЯ, с. Садово, 8463","mps":[{"mpId":4279,"mpName":"Хатидже Мехмедова Георгиева","role":"manager","isCurrent":true},{"mpId":4279,"mpName":"Хатидже Мехмедова Георгиева","role":"sole_owner","isCurrent":true}]},{"slug":"ФЕРМА-&quot;ЛУДА-КАМЧИЯ&quot;","displayName":"ФЕРМА &quot;ЛУДА КАМЧИЯ&quot;","registeredOffice":"БЪЛГАРИЯ, с. Съединение, 8430","mps":[{"mpId":2378,"mpName":"Стефан Георгиев Кенов","role":"manager","isCurrent":true},{"mpId":2378,"mpName":"Стефан Георгиев Кенов","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "BGS23",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ГХ-Премиум",
+      "displayName": "ГХ Премиум",
+      "registeredOffice": "БЪЛГАРИЯ, с. Садово, 8463",
+      "mps": [
+        {
+          "mpId": 4279,
+          "mpName": "Хатидже Мехмедова Георгиева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4279,
+          "mpName": "Хатидже Мехмедова Георгиева",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФЕРМА-&quot;ЛУДА-КАМЧИЯ&quot;",
+      "displayName": "ФЕРМА &quot;ЛУДА КАМЧИЯ&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, с. Съединение, 8430",
+      "mps": [
+        {
+          "mpId": 2378,
+          "mpName": "Стефан Георгиев Кенов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2378,
+          "mpName": "Стефан Георгиев Кенов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

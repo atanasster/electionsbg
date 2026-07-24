@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-stamenov-grbelov-0d60a1",
+  "nodes": [
+    {
+      "id": "official:vladimir-stamenov-grbelov-0d60a1",
+      "type": "official",
+      "slug": "vladimir-stamenov-grbelov-0d60a1",
+      "label": "ВЛАДИМИР СТАМЕНОВ ГЪРБЕЛОВ",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:040721467",
+      "type": "company",
+      "label": "ДРАМА ЕООД",
+      "slug": null,
+      "uic": "040721467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203459014",
+      "type": "company",
+      "label": "ПАМЛЕНДА ЕООД",
+      "slug": null,
+      "uic": "203459014",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200959886",
+      "type": "company",
+      "label": "ПАМЛЕНД ЕООД",
+      "slug": null,
+      "uic": "200959886",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:120555310",
+      "type": "company",
+      "label": "РОК ТРЕЙДИНГ",
+      "slug": null,
+      "uic": "120555310",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-stamenov-grbelov-0d60a1",
+      "target": "company:tr:040721467",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-stamenov-grbelov-0d60a1",
+      "target": "company:tr:203459014",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-stamenov-grbelov-0d60a1",
+      "target": "company:tr:200959886",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-stamenov-grbelov-0d60a1",
+      "target": "company:tr:120555310",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

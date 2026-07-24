@@ -1,0 +1,360 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivanka-slavcheva-veselinova-df102c",
+  "nodes": [
+    {
+      "id": "official:ivanka-slavcheva-veselinova-df102c",
+      "type": "official",
+      "slug": "ivanka-slavcheva-veselinova-df102c",
+      "label": "Иванка Славчева Веселинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201570119",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ДВОРЕЦ НА КУЛТУРАТА - КОНГРЕСЕН ЦЕНТЪР СОФИЯ",
+      "slug": null,
+      "uic": "201570119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:anastasiya-ilieva-marinova-c33728",
+      "type": "official",
+      "slug": "anastasiya-ilieva-marinova-c33728",
+      "label": "Анастасия Илиева Маринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:boryana-aleksandrova-lozanova-866fa7",
+      "type": "official",
+      "slug": "boryana-aleksandrova-lozanova-866fa7",
+      "label": "Боряна Александрова Лозанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:desislav-petkov-danov-578b4d",
+      "type": "official",
+      "slug": "desislav-petkov-danov-578b4d",
+      "label": "Десислав Петков Данов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕНИ ПЕТРОВА РАЕВА",
+      "type": "person",
+      "label": "Пени Петрова Раева"
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА КАРАПАУНОВА",
+      "type": "person",
+      "label": "Елена Георгиева Карапаунова"
+    },
+    {
+      "id": "person:РОСИЦА АТАНАСОВА ВЕЛКОВА-ЖЕЛЕВА",
+      "type": "person",
+      "label": "Росица Атанасова Велкова-Желева"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ДИМИТРОВА ДОЦЕВА",
+      "type": "person",
+      "label": "Екатерина Димитрова Доцева"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ПЕТРОВА ПАСКОВА-МЪНЪРИ",
+      "type": "person",
+      "label": "Веселина Петрова Паскова-Мънъри"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ДИМИТРОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "Светослав Димитров Трайков"
+    },
+    {
+      "id": "person:НАДЯ ДИМИТРОВА МИРОНОВА",
+      "type": "person",
+      "label": "Надя Димитрова Миронова"
+    },
+    {
+      "id": "person:АНДРИЯНА ПЕТКОВА ТАТАРОВА",
+      "type": "person",
+      "label": "Андрияна Петкова Татарова"
+    },
+    {
+      "id": "person:НИНА КУБРАТОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Нина Кубратова Найденова"
+    },
+    {
+      "id": "person:ПЕТЯ СТАНИСЛАВОВА ИВАНОВА",
+      "type": "person",
+      "label": "Петя Станиславова Иванова"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА - ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Марияна Христова Арсенова - Владимирова"
+    },
+    {
+      "id": "person:САШО МИТОВ ГАНОВ",
+      "type": "person",
+      "label": "Сашо Митов Ганов"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Емилия Иванова Петкова"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА-ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Марияна Христова Арсенова-Владимирова"
+    },
+    {
+      "id": "person:ИЯ ТОДОРОВА ПЕТКОВА-АНГЕЛОВА",
+      "type": "person",
+      "label": "Ия Тодорова Петкова-Ангелова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА АТАНАСОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Цветелина Атанасова Николова"
+    },
+    {
+      "id": "person:БОРИС ГЕНАДИЕВ ПАНКИН",
+      "type": "person",
+      "label": "Борис Генадиев Панкин"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ЛЮБОМИРОВ ВЕСОВ",
+      "type": "person",
+      "label": "Лъчезар Любомиров Весов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-slavcheva-veselinova-df102c",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anastasiya-ilieva-marinova-c33728",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boryana-aleksandrova-lozanova-866fa7",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:desislav-petkov-danov-578b4d",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНИ ПЕТРОВА РАЕВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА КАРАПАУНОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АТАНАСОВА ВЕЛКОВА-ЖЕЛЕВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНИ ПЕТРОВА РАЕВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ДИМИТРОВА ДОЦЕВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ПЕТРОВА ПАСКОВА-МЪНЪРИ",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ДИМИТРОВ ТРАЙКОВ",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ДИМИТРОВА МИРОНОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИЯНА ПЕТКОВА ТАТАРОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИЯНА ПЕТКОВА ТАТАРОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КУБРАТОВА НАЙДЕНОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИЯНА ПЕТКОВА ТАТАРОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ДИМИТРОВА МИРОНОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТАНИСЛАВОВА ИВАНОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА - ВЛАДИМИРОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО МИТОВ ГАНОВ",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА АРСЕНОВА-ВЛАДИМИРОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЯ ТОДОРОВА ПЕТКОВА-АНГЕЛОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЯ ТОДОРОВА ПЕТКОВА-АНГЕЛОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА АТАНАСОВА НИКОЛОВА",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ГЕНАДИЕВ ПАНКИН",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ЛЮБОМИРОВ ВЕСОВ",
+      "target": "company:tr:201570119",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

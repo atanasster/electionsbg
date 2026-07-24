@@ -1,1 +1,36 @@
-{"mpId":2750,"mpName":"Николай Асенов Тишев","generatedAt":"2026-07-03T11:12:51.697Z","total":2,"roles":[{"uic":"102004532","companyName":"ПРИСТАНИЩЕ БУРГАС","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-15T09:35:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"201847598","companyName":"Индустриален и логистичен парк - Бургас","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2024-02-23T09:44:20","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2750,
+  "mpName": "Николай Асенов Тишев",
+  "generatedAt": "2026-07-24T03:35:58.524Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "102004532",
+      "companyName": "ПРИСТАНИЩЕ БУРГАС",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-15T09:35:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201847598",
+      "companyName": "Индустриален и логистичен парк - Бургас",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-02-23T09:44:20",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

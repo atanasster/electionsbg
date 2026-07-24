@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46","nodes":[{"id":"official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46","type":"official","slug":"bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46","label":"Бахтишен Ахмедова Ахмедова-Хюсеинова","tier":"municipal","role":"councillor","municipality":"Омуртаг"},{"id":"company:tr:203946627","type":"company","label":"НВ 2016","slug":null,"uic":"203946627","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46","target":"company:tr:203946627","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46",
+  "nodes": [
+    {
+      "id": "official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46",
+      "type": "official",
+      "slug": "bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46",
+      "label": "Бахтишен Ахмедова Ахмедова-Хюсеинова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:203946627",
+      "type": "company",
+      "label": "НВ 2016",
+      "slug": null,
+      "uic": "203946627",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bahtishen-ahmedova-ahmedova-hyuseinova-ce4a46",
+      "target": "company:tr:203946627",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

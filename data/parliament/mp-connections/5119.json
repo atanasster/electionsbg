@@ -1,1 +1,119 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5119","nodes":[{"id":"mp:5119","type":"mp","mpId":5119,"label":"Весела Господинова Момчева-Таун","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:206668186","type":"company","label":"ТАУН ЪП 8","slug":null,"uic":"206668186","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:СОНЯ ПЕТРОВА НИКОЛОВА-КАДИЕВА","type":"person","label":"Соня Петрова Николова-Кадиева"},{"id":"person:ЕНКА ИНШААТ ВЕ САНАЙИ АНОНИМ ШИРКЕТИ","type":"person","label":"Енка Иншаат Ве Санайи Аноним Ширкети"},{"id":"person:КЕМАЛ ЕРДЖЕ ЕШЕР","type":"person","label":"Кемал Ердже Ешер"},{"id":"person:ДЖЕМ ЧЕЛИКЕР","type":"person","label":"Джем Челикер"},{"id":"person:ИЛХАН ГЮДЖЮЙЕНЕР","type":"person","label":"Илхан Гюджюйенер"}],"edges":[{"source":"mp:5119","target":"company:tr:206668186","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5119","target":"company:tr:206668186","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"mp:5119","target":"company:tr:206668186","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"medium"},{"source":"person:СОНЯ ПЕТРОВА НИКОЛОВА-КАДИЕВА","target":"company:tr:206668186","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕНКА ИНШААТ ВЕ САНАЙИ АНОНИМ ШИРКЕТИ","target":"company:tr:206668186","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КЕМАЛ ЕРДЖЕ ЕШЕР","target":"company:tr:206668186","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕМ ЧЕЛИКЕР","target":"company:tr:206668186","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛХАН ГЮДЖЮЙЕНЕР","target":"company:tr:206668186","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5119",
+  "nodes": [
+    {
+      "id": "mp:5119",
+      "type": "mp",
+      "mpId": 5119,
+      "label": "Весела Господинова Момчева-Таун",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:206668186",
+      "type": "company",
+      "label": "ТАУН ЪП 8",
+      "slug": null,
+      "uic": "206668186",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:СОНЯ ПЕТРОВА НИКОЛОВА-КАДИЕВА",
+      "type": "person",
+      "label": "Соня Петрова Николова-Кадиева"
+    },
+    {
+      "id": "person:ЕНКА ИНШААТ ВЕ САНАЙИ АНОНИМ ШИРКЕТИ",
+      "type": "person",
+      "label": "Енка Иншаат Ве Санайи Аноним Ширкети"
+    },
+    {
+      "id": "person:КЕМАЛ ЕРДЖЕ ЕШЕР",
+      "type": "person",
+      "label": "Кемал Ердже Ешер"
+    },
+    {
+      "id": "person:ДЖЕМ ЧЕЛИКЕР",
+      "type": "person",
+      "label": "Джем Челикер"
+    },
+    {
+      "id": "person:ИЛХАН ГЮДЖЮЙЕНЕР",
+      "type": "person",
+      "label": "Илхан Гюджюйенер"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5119",
+      "target": "company:tr:206668186",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5119",
+      "target": "company:tr:206668186",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5119",
+      "target": "company:tr:206668186",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СОНЯ ПЕТРОВА НИКОЛОВА-КАДИЕВА",
+      "target": "company:tr:206668186",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНКА ИНШААТ ВЕ САНАЙИ АНОНИМ ШИРКЕТИ",
+      "target": "company:tr:206668186",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕРДЖЕ ЕШЕР",
+      "target": "company:tr:206668186",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМ ЧЕЛИКЕР",
+      "target": "company:tr:206668186",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛХАН ГЮДЖЮЙЕНЕР",
+      "target": "company:tr:206668186",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

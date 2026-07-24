@@ -1,1 +1,310 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1076","nodes":[{"id":"mp:1076","type":"mp","mpId":1076,"label":"Вяра Димитрова Петрова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:102085032","type":"company","label":"ПЛУВЕН КЛУБ &quot;БРИЗ&quot;","slug":null,"uic":"102085032","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 800"},{"id":"company:tr:175894348","type":"company","label":"ТРАКИЙСКО ДРУЖЕСТВО КАПИТАН ПЕТКО ВОЙВОДА-КАРНОБАТ","slug":null,"uic":"175894348","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Карнобат, 8400"},{"id":"mp:74","type":"mp","mpId":74,"label":"Иглика Димитрова Иванова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"person:ИВО ДИМИТРОВ ГОЧЕВ","type":"person","label":"Иво Димитров Гочев"},{"id":"person:СОНЯ ИВАНОВА СТОЙЧЕВА","type":"person","label":"Соня Иванова Стойчева"},{"id":"person:РОСИЦА ГЕОРГИЕВА РУСЕВА","type":"person","label":"Росица Георгиева Русева"},{"id":"person:МИЛКА ПЕТКОВА СПАСОВА","type":"person","label":"Милка Петкова Спасова"},{"id":"person:КАТЯ ПЕТРОВА ОРМАНОВА","type":"person","label":"Катя Петрова Орманова"},{"id":"person:ГЮРКА НИКОЛОВА ИВАНОВА","type":"person","label":"Гюрка Николова Иванова"},{"id":"person:ТОДОРКА АНГЕЛОВА ПЕТРОВА","type":"person","label":"Тодорка Ангелова Петрова"},{"id":"person:ИРЕНА ГЕОРГИЕВА СТОЯНОВА","type":"person","label":"Ирена Георгиева Стоянова"},{"id":"person:ДИМЧО ДИМИТРОВ АПОСТОЛОВ","type":"person","label":"Димчо Димитров Апостолов"},{"id":"person:ДИЛЯНА РОСЕНОВА СИВЕНОВА","type":"person","label":"Диляна Росенова Сивенова"},{"id":"person:МИТРЬО АНГЕЛОВ МИТРЕВ","type":"person","label":"Митрьо Ангелов Митрев"},{"id":"person:МАРГАРИТА СТАМАТОВА СТАМАТОВА","type":"person","label":"Маргарита Стаматова Стаматова"},{"id":"person:ЗЛАТКО КОЛЕВ КОСТАДИНОВ","type":"person","label":"Златко Колев Костадинов"},{"id":"person:ДЕЯН ДЕЯНОВ ДРАГАНОВ","type":"person","label":"Деян Деянов Драганов"},{"id":"person:МАРА МИХАЙЛОВА КАПИТАНОВА","type":"person","label":"Мара Михайлова Капитанова"}],"edges":[{"source":"mp:1076","target":"company:tr:102085032","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1076","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1076","target":"company:tr:175894348","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:74","target":"company:tr:102085032","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВО ДИМИТРОВ ГОЧЕВ","target":"company:tr:102085032","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ ИВАНОВА СТОЙЧЕВА","target":"company:tr:102085032","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ДИМИТРОВ ГОЧЕВ","target":"company:tr:102085032","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ ИВАНОВА СТОЙЧЕВА","target":"company:tr:102085032","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ГЕОРГИЕВА РУСЕВА","target":"company:tr:102085032","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ПЕТКОВА СПАСОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ПЕТРОВА ОРМАНОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРКА НИКОЛОВА ИВАНОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОРКА АНГЕЛОВА ПЕТРОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ГЕОРГИЕВА СТОЯНОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМЧО ДИМИТРОВ АПОСТОЛОВ","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИЛЯНА РОСЕНОВА СИВЕНОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКА ПЕТКОВА СПАСОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИТРЬО АНГЕЛОВ МИТРЕВ","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА СТАМАТОВА СТАМАТОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКО КОЛЕВ КОСТАДИНОВ","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ДЕЯНОВ ДРАГАНОВ","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРА МИХАЙЛОВА КАПИТАНОВА","target":"company:tr:175894348","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:74","length":2,"nodeIds":["mp:1076","company:tr:102085032","mp:74"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1076",
+  "nodes": [
+    {
+      "id": "mp:1076",
+      "type": "mp",
+      "mpId": 1076,
+      "label": "Вяра Димитрова Петрова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:102085032",
+      "type": "company",
+      "label": "ПЛУВЕН КЛУБ &quot;БРИЗ&quot;",
+      "slug": null,
+      "uic": "102085032",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 800"
+    },
+    {
+      "id": "company:tr:175894348",
+      "type": "company",
+      "label": "ТРАКИЙСКО ДРУЖЕСТВО КАПИТАН ПЕТКО ВОЙВОДА-КАРНОБАТ",
+      "slug": null,
+      "uic": "175894348",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Карнобат, 8400"
+    },
+    {
+      "id": "mp:74",
+      "type": "mp",
+      "mpId": 74,
+      "label": "Иглика Димитрова Иванова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВО ДИМИТРОВ ГОЧЕВ",
+      "type": "person",
+      "label": "Иво Димитров Гочев"
+    },
+    {
+      "id": "person:СОНЯ ИВАНОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Соня Иванова Стойчева"
+    },
+    {
+      "id": "person:РОСИЦА ГЕОРГИЕВА РУСЕВА",
+      "type": "person",
+      "label": "Росица Георгиева Русева"
+    },
+    {
+      "id": "person:МИЛКА ПЕТКОВА СПАСОВА",
+      "type": "person",
+      "label": "Милка Петкова Спасова"
+    },
+    {
+      "id": "person:КАТЯ ПЕТРОВА ОРМАНОВА",
+      "type": "person",
+      "label": "Катя Петрова Орманова"
+    },
+    {
+      "id": "person:ГЮРКА НИКОЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Гюрка Николова Иванова"
+    },
+    {
+      "id": "person:ТОДОРКА АНГЕЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Тодорка Ангелова Петрова"
+    },
+    {
+      "id": "person:ИРЕНА ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Ирена Георгиева Стоянова"
+    },
+    {
+      "id": "person:ДИМЧО ДИМИТРОВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Димчо Димитров Апостолов"
+    },
+    {
+      "id": "person:ДИЛЯНА РОСЕНОВА СИВЕНОВА",
+      "type": "person",
+      "label": "Диляна Росенова Сивенова"
+    },
+    {
+      "id": "person:МИТРЬО АНГЕЛОВ МИТРЕВ",
+      "type": "person",
+      "label": "Митрьо Ангелов Митрев"
+    },
+    {
+      "id": "person:МАРГАРИТА СТАМАТОВА СТАМАТОВА",
+      "type": "person",
+      "label": "Маргарита Стаматова Стаматова"
+    },
+    {
+      "id": "person:ЗЛАТКО КОЛЕВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Златко Колев Костадинов"
+    },
+    {
+      "id": "person:ДЕЯН ДЕЯНОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Деян Деянов Драганов"
+    },
+    {
+      "id": "person:МАРА МИХАЙЛОВА КАПИТАНОВА",
+      "type": "person",
+      "label": "Мара Михайлова Капитанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1076",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1076",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1076",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:74",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ДИМИТРОВ ГОЧЕВ",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ИВАНОВА СТОЙЧЕВА",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ДИМИТРОВ ГОЧЕВ",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ИВАНОВА СТОЙЧЕВА",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА РУСЕВА",
+      "target": "company:tr:102085032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ПЕТКОВА СПАСОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ПЕТРОВА ОРМАНОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРКА НИКОЛОВА ИВАНОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ДИМИТРОВ АПОСТОЛОВ",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА РОСЕНОВА СИВЕНОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ПЕТКОВА СПАСОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТРЬО АНГЕЛОВ МИТРЕВ",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА СТАМАТОВА СТАМАТОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО КОЛЕВ КОСТАДИНОВ",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ДЕЯНОВ ДРАГАНОВ",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРА МИХАЙЛОВА КАПИТАНОВА",
+      "target": "company:tr:175894348",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:74",
+      "length": 2,
+      "nodeIds": [
+        "mp:1076",
+        "company:tr:102085032",
+        "mp:74"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

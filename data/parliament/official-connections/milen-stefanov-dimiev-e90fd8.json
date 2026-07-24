@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milen-stefanov-dimiev-e90fd8",
+  "nodes": [
+    {
+      "id": "official:milen-stefanov-dimiev-e90fd8",
+      "type": "official",
+      "slug": "milen-stefanov-dimiev-e90fd8",
+      "label": "Милен Стефанов Димиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121612507",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА ГЕОДЕЗИЧЕСКИТЕ ФИРМИ",
+      "slug": null,
+      "uic": "121612507",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАН АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Цветан Александров Георгиев"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ КУКОВ",
+      "type": "person",
+      "label": "Йордан Иванов Куков"
+    },
+    {
+      "id": "person:СТОЯН ПЕТКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Петков Стоянов"
+    },
+    {
+      "id": "person:РУМЕН ЖЕЛЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Румен Желев Георгиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Георги Йорданов Стефанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-stefanov-dimiev-e90fd8",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ КУКОВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ СТОЯНОВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЖЕЛЕВ ГЕОРГИЕВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ СТЕФАНОВ",
+      "target": "company:tr:121612507",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

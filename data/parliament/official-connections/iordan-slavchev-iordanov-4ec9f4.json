@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-slavchev-iordanov-4ec9f4",
+  "nodes": [
+    {
+      "id": "official:iordan-slavchev-iordanov-4ec9f4",
+      "type": "official",
+      "slug": "iordan-slavchev-iordanov-4ec9f4",
+      "label": "Йордан Славчев Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тунджа"
+    },
+    {
+      "id": "company:tr:000963555",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1935&quot;",
+      "slug": null,
+      "uic": "000963555",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИН МИТЕВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Марин Митев Апостолов"
+    },
+    {
+      "id": "person:ДИМИТЪР КРЪСТЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Кръстев Иванов"
+    },
+    {
+      "id": "person:СТОЙКА ПЕНЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стойка Пенева Георгиева"
+    },
+    {
+      "id": "person:КИНА АНГЕЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Кина Ангелова Иванова"
+    },
+    {
+      "id": "person:МАРИН СТАНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Марин Станев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-slavchev-iordanov-4ec9f4",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИН МИТЕВ АПОСТОЛОВ",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КРЪСТЕВ ИВАНОВ",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКА ПЕНЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИНА АНГЕЛОВА ИВАНОВА",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН СТАНЕВ ИВАНОВ",
+      "target": "company:tr:000963555",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

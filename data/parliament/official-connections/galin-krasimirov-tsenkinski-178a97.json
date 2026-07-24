@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galin-krasimirov-tsenkinski-178a97",
+  "nodes": [
+    {
+      "id": "official:galin-krasimirov-tsenkinski-178a97",
+      "type": "official",
+      "slug": "galin-krasimirov-tsenkinski-178a97",
+      "label": "Галин Красимиров Ценкински",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район Илинден"
+    },
+    {
+      "id": "company:tr:204710626",
+      "type": "company",
+      "label": "САМСАРА АУТО",
+      "slug": null,
+      "uic": "204710626",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНКА МИЧОВА БУЛЯШКА",
+      "type": "person",
+      "label": "Станка Мичова Буляшка"
+    },
+    {
+      "id": "person:КОЙЧО ИВАНОВ СТАЙКОВ",
+      "type": "person",
+      "label": "Койчо Иванов Стайков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galin-krasimirov-tsenkinski-178a97",
+      "target": "company:tr:204710626",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНКА МИЧОВА БУЛЯШКА",
+      "target": "company:tr:204710626",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙЧО ИВАНОВ СТАЙКОВ",
+      "target": "company:tr:204710626",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙЧО ИВАНОВ СТАЙКОВ",
+      "target": "company:tr:204710626",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

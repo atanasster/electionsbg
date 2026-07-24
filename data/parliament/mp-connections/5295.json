@@ -1,1 +1,109 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5295","nodes":[{"id":"mp:5295","type":"mp","mpId":5295,"label":"Фатима Исмаил Йълдъс","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["50","51","52"]},{"id":"company:tr:000014594","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ЗОРА 2011&quot;","slug":null,"uic":"000014594","legalForm":"CC","status":"active","seat":null},{"id":"person:ЯХЯ МУСТАФА САНТУР","type":"person","label":"Яхя Мустафа Сантур"},{"id":"person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА","type":"person","label":"Фатиме Шефкетова Гагъмова"},{"id":"person:МЕДИЕ МУСТАФОВА АНЕВА","type":"person","label":"Медие Мустафова Анева"},{"id":"person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ","type":"person","label":"Джемиле Джемал Али"},{"id":"person:АНИФЕ АХМЕД ДЖИВГОВА","type":"person","label":"Анифе Ахмед Дживгова"}],"edges":[{"source":"mp:5295","target":"company:tr:000014594","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:ЯХЯ МУСТАФА САНТУР","target":"company:tr:000014594","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА","target":"company:tr:000014594","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МЕДИЕ МУСТАФОВА АНЕВА","target":"company:tr:000014594","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ","target":"company:tr:000014594","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНИФЕ АХМЕД ДЖИВГОВА","target":"company:tr:000014594","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5295",
+  "nodes": [
+    {
+      "id": "mp:5295",
+      "type": "mp",
+      "mpId": 5295,
+      "label": "Фатима Исмаил Йълдъс",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:000014594",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЗОРА 2011&quot;",
+      "slug": null,
+      "uic": "000014594",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:yahya-mustafa-santur-0d7797",
+      "type": "official",
+      "slug": "yahya-mustafa-santur-0d7797",
+      "label": "Яхя Мустафа Сантур",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белица"
+    },
+    {
+      "id": "person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА",
+      "type": "person",
+      "label": "Фатиме Шефкетова Гагъмова"
+    },
+    {
+      "id": "person:МЕДИЕ МУСТАФОВА АНЕВА",
+      "type": "person",
+      "label": "Медие Мустафова Анева"
+    },
+    {
+      "id": "person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ",
+      "type": "person",
+      "label": "Джемиле Джемал Али"
+    },
+    {
+      "id": "person:АНИФЕ АХМЕД ДЖИВГОВА",
+      "type": "person",
+      "label": "Анифе Ахмед Дживгова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5295",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yahya-mustafa-santur-0d7797",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕДИЕ МУСТАФОВА АНЕВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИФЕ АХМЕД ДЖИВГОВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

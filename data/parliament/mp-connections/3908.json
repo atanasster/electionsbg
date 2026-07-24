@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3908","nodes":[{"id":"mp:3908","type":"mp","mpId":3908,"label":"Бойко Любомиров Клечков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["46","47","48"]},{"id":"company:Авто-груп-ООД","type":"company","label":"Авто груп ООД","slug":"Авто-груп-ООД","uic":"109606502","legalForm":"OOD","status":"active","seat":"Кюстендил"},{"id":"official:boiko-lyubomirov-klechkov-298aa7","type":"official","slug":"boiko-lyubomirov-klechkov-298aa7","label":"Бойко Любомиров Клечков","tier":"municipal","role":"deputy_mayor","municipality":"Кюстендил"}],"edges":[{"source":"mp:3908","target":"company:Авто-груп-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"official:boiko-lyubomirov-klechkov-298aa7","target":"company:Авто-груп-ООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3908",
+  "nodes": [
+    {
+      "id": "mp:3908",
+      "type": "mp",
+      "mpId": 3908,
+      "label": "Бойко Любомиров Клечков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Авто-груп-ООД",
+      "type": "company",
+      "label": "Авто груп ООД",
+      "slug": "Авто-груп-ООД",
+      "uic": "109606502",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кюстендил"
+    },
+    {
+      "id": "official:dimitr-iordanov-dimitrov-b6cecd",
+      "type": "official",
+      "slug": "dimitr-iordanov-dimitrov-b6cecd",
+      "label": "Димитър Йорданов Димитров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:boiko-lyubomirov-klechkov-298aa7",
+      "type": "official",
+      "slug": "boiko-lyubomirov-klechkov-298aa7",
+      "label": "Бойко Любомиров Клечков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Кюстендил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3908",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-iordanov-dimitrov-b6cecd",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boiko-lyubomirov-klechkov-298aa7",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

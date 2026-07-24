@@ -1,1 +1,49 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1447","nodes":[{"id":"mp:1447","type":"mp","mpId":1447,"label":"Пламен Василев Орешарски","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:206142670","type":"company","label":"БЛЕК СИЙ ФАЙНАНС","slug":null,"uic":"206142670","legalForm":"EOOD","status":"active","seat":null},{"id":"person:НИНА ПЕТКОВА СТАВРЕВА","type":"person","label":"Нина Петкова Ставрева"}],"edges":[{"source":"mp:1447","target":"company:tr:206142670","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:НИНА ПЕТКОВА СТАВРЕВА","target":"company:tr:206142670","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1447",
+  "nodes": [
+    {
+      "id": "mp:1447",
+      "type": "mp",
+      "mpId": 1447,
+      "label": "Пламен Василев Орешарски",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206142670",
+      "type": "company",
+      "label": "БЛЕК СИЙ ФАЙНАНС",
+      "slug": null,
+      "uic": "206142670",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИНА ПЕТКОВА СТАВРЕВА",
+      "type": "person",
+      "label": "Нина Петкова Ставрева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1447",
+      "target": "company:tr:206142670",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИНА ПЕТКОВА СТАВРЕВА",
+      "target": "company:tr:206142670",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

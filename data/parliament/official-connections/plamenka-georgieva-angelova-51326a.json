@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamenka-georgieva-angelova-51326a",
+  "nodes": [
+    {
+      "id": "official:plamenka-georgieva-angelova-51326a",
+      "type": "official",
+      "slug": "plamenka-georgieva-angelova-51326a",
+      "label": "Пламенка Георгиева Ангелова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:205381297",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ СТЕФАН КАРАДЖА 2018 РУСЕ",
+      "slug": null,
+      "uic": "205381297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИАН ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Илиан Иванов Йорданов"
+    },
+    {
+      "id": "person:МАРТИН АНГЕЛОВ КАЛЕНДЖИЕВ",
+      "type": "person",
+      "label": "Мартин Ангелов Календжиев"
+    },
+    {
+      "id": "person:ГЕОРГИ РАЙКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Райков Георгиев"
+    },
+    {
+      "id": "person:АНТОАНЕТА ИВАНОВА МОМЧИЛОВА",
+      "type": "person",
+      "label": "Антоанета Иванова Момчилова"
+    },
+    {
+      "id": "person:ГЕРАСИМ НИКОЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Герасим Николов Атанасов"
+    },
+    {
+      "id": "person:ИЛИЯ СИДЕРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Илия Сидеров Тодоров"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ГЕНОВ",
+      "type": "person",
+      "label": "Георги Василев Генов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamenka-georgieva-angelova-51326a",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИАН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН АНГЕЛОВ КАЛЕНДЖИЕВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ РАЙКОВ ГЕОРГИЕВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ИВАНОВА МОМЧИЛОВА",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРАСИМ НИКОЛОВ АТАНАСОВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ СИДЕРОВ ТОДОРОВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ГЕНОВ",
+      "target": "company:tr:205381297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

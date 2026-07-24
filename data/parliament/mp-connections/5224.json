@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5224",
+  "nodes": [
+    {
+      "id": "mp:5224",
+      "type": "mp",
+      "mpId": 5224,
+      "label": "Станислав Димитров Анастасов",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "43",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Карадениз-Минералс-ООД",
+      "type": "company",
+      "label": "Карадениз Минералс ООД",
+      "slug": "Карадениз-Минералс-ООД",
+      "uic": "205621618",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:МИЛОСЛАВ НЕДЕЛЧЕВ КАЦАРОВ",
+      "type": "person",
+      "label": "Милослав Неделчев Кацаров"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ АНАСТАСОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Анастасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5224",
+      "target": "company:Карадениз-Минералс-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5224",
+      "target": "company:Карадениз-Минералс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛОСЛАВ НЕДЕЛЧЕВ КАЦАРОВ",
+      "target": "company:Карадениз-Минералс-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛОСЛАВ НЕДЕЛЧЕВ КАЦАРОВ",
+      "target": "company:Карадениз-Минералс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ АНАСТАСОВ",
+      "target": "company:Карадениз-Минералс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

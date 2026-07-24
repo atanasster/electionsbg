@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-chavdarov-simeonov-bc6150",
+  "nodes": [
+    {
+      "id": "official:vladimir-chavdarov-simeonov-bc6150",
+      "type": "official",
+      "slug": "vladimir-chavdarov-simeonov-bc6150",
+      "label": "Владимир Чавдаров Симеонов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203077000",
+      "type": "company",
+      "label": "МЕДИ 2014",
+      "slug": null,
+      "uic": "203077000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИРА МИТКОВА ВРЕНЧАН",
+      "type": "person",
+      "label": "Любомира Миткова Вренчан"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-chavdarov-simeonov-bc6150",
+      "target": "company:tr:203077000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИРА МИТКОВА ВРЕНЧАН",
+      "target": "company:tr:203077000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРА МИТКОВА ВРЕНЧАН",
+      "target": "company:tr:203077000",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

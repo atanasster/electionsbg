@@ -1,0 +1,259 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ekaterina-andreeva-toshkova-ddc6d3",
+  "nodes": [
+    {
+      "id": "official:ekaterina-andreeva-toshkova-ddc6d3",
+      "type": "official",
+      "slug": "ekaterina-andreeva-toshkova-ddc6d3",
+      "label": "Екатерина Андреева Тошкова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Перущица"
+    },
+    {
+      "id": "company:tr:000457127",
+      "type": "company",
+      "label": "ПРОСВЕТА - 1862 ГР. ПЕРУЩИЦА",
+      "slug": null,
+      "uic": "000457127",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА АНГЕЛОВА ЧИНЧИЙКОВА",
+      "type": "person",
+      "label": "Иванка Ангелова Чинчийкова"
+    },
+    {
+      "id": "person:НЕВЕНКА ЙОРДАНОВА РАЕВА",
+      "type": "person",
+      "label": "Невенка Йорданова Раева"
+    },
+    {
+      "id": "person:ПЕЙКО АРЛАНОВ ТОТОВ",
+      "type": "person",
+      "label": "Пейко Арланов Тотов"
+    },
+    {
+      "id": "person:ИРИНА ВИХЪРОВА МИШЕВА",
+      "type": "person",
+      "label": "Ирина Вихърова Мишева"
+    },
+    {
+      "id": "person:ВАНЯ ИЛИЕВА ПЕНОВА",
+      "type": "person",
+      "label": "Ваня Илиева Пенова"
+    },
+    {
+      "id": "person:РАДОСВЕТА ДИМИТРОВА КУРТОВА",
+      "type": "person",
+      "label": "Радосвета Димитрова Куртова"
+    },
+    {
+      "id": "person:ДУШКА МИХАЙЛОВА КРЪСТЕНОВА",
+      "type": "person",
+      "label": "Душка Михайлова Кръстенова"
+    },
+    {
+      "id": "person:ВЕРА ДИМИТРОВА ПОШ",
+      "type": "person",
+      "label": "Вера Димитрова Пош"
+    },
+    {
+      "id": "person:ЕЛЕНА САШЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Елена Сашева Андреева"
+    },
+    {
+      "id": "person:МИРОСЛАВ ПЕТРОВ НИКОЛАКОВ",
+      "type": "person",
+      "label": "Мирослав Петров Николаков"
+    },
+    {
+      "id": "person:ЙОРДАНКА РАНГЕЛОВА ТОШКОВА",
+      "type": "person",
+      "label": "Йорданка Рангелова Тошкова"
+    },
+    {
+      "id": "person:ДИЯНА ИВАНОВА ДАЯНОВА",
+      "type": "person",
+      "label": "Дияна Иванова Даянова"
+    },
+    {
+      "id": "person:АНАСТАСИЯ ГАВРАИЛОВА МУНДЕВА-БАКАЛОВА",
+      "type": "person",
+      "label": "Анастасия Гавраилова Мундева-Бакалова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ХРИСТОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Даниела Христова Минчева"
+    },
+    {
+      "id": "person:ИВАНКА РАНГЕЛОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Иванка Рангелова Станчева"
+    },
+    {
+      "id": "person:ПАВЛИНА АЛЕКСАНДРОВА МИШЕВА",
+      "type": "person",
+      "label": "Павлина Александрова Мишева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ekaterina-andreeva-toshkova-ddc6d3",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА АНГЕЛОВА ЧИНЧИЙКОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНКА ЙОРДАНОВА РАЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА АНГЕЛОВА ЧИНЧИЙКОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙКО АРЛАНОВ ТОТОВ",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ВИХЪРОВА МИШЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИЛИЕВА ПЕНОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСВЕТА ДИМИТРОВА КУРТОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДУШКА МИХАЙЛОВА КРЪСТЕНОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА ДИМИТРОВА ПОШ",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА САШЕВА АНДРЕЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА САШЕВА АНДРЕЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПЕТРОВ НИКОЛАКОВ",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА РАНГЕЛОВА ТОШКОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ДАЯНОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ГАВРАИЛОВА МУНДЕВА-БАКАЛОВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ХРИСТОВА МИНЧЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА РАНГЕЛОВА СТАНЧЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА АЛЕКСАНДРОВА МИШЕВА",
+      "target": "company:tr:000457127",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

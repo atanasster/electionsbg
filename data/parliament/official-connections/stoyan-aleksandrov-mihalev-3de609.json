@@ -1,0 +1,376 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stoyan-aleksandrov-mihalev-3de609",
+  "nodes": [
+    {
+      "id": "official:stoyan-aleksandrov-mihalev-3de609",
+      "type": "official",
+      "slug": "stoyan-aleksandrov-mihalev-3de609",
+      "label": "Стоян Александров Михалев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район Оборище"
+    },
+    {
+      "id": "company:Продуцентска-компания-Киора-ЕООД",
+      "type": "company",
+      "label": "\"Продуцентска компания Киора\" ЕООД",
+      "slug": "Продуцентска-компания-Киора-ЕООД",
+      "uic": "203229401",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:831005050",
+      "type": "company",
+      "label": "МУЗИКАУТОР",
+      "slug": null,
+      "uic": "831005050",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4671",
+      "type": "mp",
+      "mpId": 4671,
+      "label": "Стоян Александров Михалев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ВАСИЛ КОСТАДИНОВ ГЮРОВ",
+      "type": "person",
+      "label": "Васил Костадинов Гюров"
+    },
+    {
+      "id": "person:ЯСЕН ДИМИТРОВ КОЗЕВ",
+      "type": "person",
+      "label": "Ясен Димитров Козев"
+    },
+    {
+      "id": "person:ИВАН НИКОЛАЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Иван Николаев Димитров"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ РУСЕВ",
+      "type": "person",
+      "label": "Васил Георгиев Русев"
+    },
+    {
+      "id": "person:КРАСИМИР ВЕСЕЛИНОВ КУРТЕВ",
+      "type": "person",
+      "label": "Красимир Веселинов Куртев"
+    },
+    {
+      "id": "person:ПЕТЪР РУСЕВ ДУНДАКОВ",
+      "type": "person",
+      "label": "Петър Русев Дундаков"
+    },
+    {
+      "id": "person:ГЕОРГИ АСЕНОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Георги Асенов Арнаудов"
+    },
+    {
+      "id": "person:МИНКО КИРИЛОВ ЛАМБОВ",
+      "type": "person",
+      "label": "Минко Кирилов Ламбов"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Димитър Христов Христов"
+    },
+    {
+      "id": "person:ЛЮБОМИР КИРОВ КИРОВ",
+      "type": "person",
+      "label": "Любомир Киров Киров"
+    },
+    {
+      "id": "person:НИКОЛА ТОДОРОВ ГРУЕВ",
+      "type": "person",
+      "label": "Никола Тодоров Груев"
+    },
+    {
+      "id": "person:ВЛАДИМИР НИКОЛАЕВ ДЖАМБАЗОВ",
+      "type": "person",
+      "label": "Владимир Николаев Джамбазов"
+    },
+    {
+      "id": "person:ДЕЯН КРАСИМИРОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Деян Красимиров Каменов"
+    },
+    {
+      "id": "person:ШУБЕРТ МЮЗИК ПЪБЛИШИНГ",
+      "type": "person",
+      "label": "Шуберт Мюзик Пъблишинг"
+    },
+    {
+      "id": "person:ВИРДЖИНИЯ ПЪБЛИШИНГ",
+      "type": "person",
+      "label": "Вирджиния Пъблишинг"
+    },
+    {
+      "id": "person:МАРИЯ ИЛИЕВА МУТАФЧИЕВА",
+      "type": "person",
+      "label": "Мария Илиева Мутафчиева"
+    },
+    {
+      "id": "person:ПЕТЪР ЕВЛОГИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петър Евлогиев Петков"
+    },
+    {
+      "id": "person:ЕРСИН МЕМИШ МУСТАФОВ",
+      "type": "person",
+      "label": "Ерсин  Мемиш Мустафов"
+    },
+    {
+      "id": "person:ЖИВКО СЛАВОВ КОЛЕВ",
+      "type": "person",
+      "label": "Живко Славов Колев"
+    },
+    {
+      "id": "person:СТЕФАН ТОДОРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Стефан Тодоров Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-aleksandrov-mihalev-3de609",
+      "target": "company:Продуцентска-компания-Киора-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-aleksandrov-mihalev-3de609",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-aleksandrov-mihalev-3de609",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4671",
+      "target": "company:Продуцентска-компания-Киора-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4671",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4671",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ КОСТАДИНОВ ГЮРОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ДИМИТРОВ КОЗЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛАЕВ ДИМИТРОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ РУСЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ВЕСЕЛИНОВ КУРТЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР РУСЕВ ДУНДАКОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АСЕНОВ АРНАУДОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ДИМИТРОВ КОЗЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ КОСТАДИНОВ ГЮРОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО КИРИЛОВ ЛАМБОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР КИРОВ КИРОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ТОДОРОВ ГРУЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР НИКОЛАЕВ ДЖАМБАЗОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН КРАСИМИРОВ КАМЕНОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШУБЕРТ МЮЗИК ПЪБЛИШИНГ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИРДЖИНИЯ ПЪБЛИШИНГ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИЛИЕВА МУТАФЧИЕВА",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЕВЛОГИЕВ ПЕТКОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРСИН МЕМИШ МУСТАФОВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО СЛАВОВ КОЛЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ТОДОРОВ ИЛИЕВ",
+      "target": "company:tr:831005050",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

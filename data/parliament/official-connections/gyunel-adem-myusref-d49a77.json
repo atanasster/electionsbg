@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gyunel-adem-myusref-d49a77",
+  "nodes": [
+    {
+      "id": "official:gyunel-adem-myusref-d49a77",
+      "type": "official",
+      "slug": "gyunel-adem-myusref-d49a77",
+      "label": "Гюнел Адем Мюсреф",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:000499891",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА 1927&quot;",
+      "slug": null,
+      "uic": "000499891",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕЗЕР ТАМЕР ИДИРИЗОВА",
+      "type": "person",
+      "label": "Тезер Тамер Идиризова"
+    },
+    {
+      "id": "person:РУЖДИ ОСМАН АБЕДИН",
+      "type": "person",
+      "label": "Ружди Осман Абедин"
+    },
+    {
+      "id": "person:ФАХРЕДИН МЮМЮН РАМИС",
+      "type": "person",
+      "label": "Фахредин Мюмюн Рамис"
+    },
+    {
+      "id": "person:ОРХАН АХМЕД ХАЛИМ",
+      "type": "person",
+      "label": "Орхан Ахмед Халим"
+    },
+    {
+      "id": "person:ТАНЖУ СЕБАЙТИН РАМАДАН",
+      "type": "person",
+      "label": "Танжу Себайтин Рамадан"
+    },
+    {
+      "id": "person:АЙТЕН БЕЙТИ ДЖАВИД",
+      "type": "person",
+      "label": "Айтен Бейти Джавид"
+    },
+    {
+      "id": "person:ЕМЕЛ ИСМАИЛ РИЗА",
+      "type": "person",
+      "label": "Емел Исмаил Риза"
+    },
+    {
+      "id": "person:ФИКРЕТ ФИКРЕТ ХАМИД",
+      "type": "person",
+      "label": "Фикрет Фикрет Хамид"
+    },
+    {
+      "id": "person:НИКОЛИНА ДИМИТРОВА НЕНОВА",
+      "type": "person",
+      "label": "Николина Димитрова Ненова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyunel-adem-myusref-d49a77",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕЗЕР ТАМЕР ИДИРИЗОВА",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУЖДИ ОСМАН АБЕДИН",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАХРЕДИН МЮМЮН РАМИС",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОРХАН АХМЕД ХАЛИМ",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕЗЕР ТАМЕР ИДИРИЗОВА",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЖУ СЕБАЙТИН РАМАДАН",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙТЕН БЕЙТИ ДЖАВИД",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМЕЛ ИСМАИЛ РИЗА",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИКРЕТ ФИКРЕТ ХАМИД",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИКРЕТ ФИКРЕТ ХАМИД",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ДИМИТРОВА НЕНОВА",
+      "target": "company:tr:000499891",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

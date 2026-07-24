@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-hristov-kolev-cb1295",
+  "nodes": [
+    {
+      "id": "official:martin-hristov-kolev-cb1295",
+      "type": "official",
+      "slug": "martin-hristov-kolev-cb1295",
+      "label": "Мартин Христов Колев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:207325703",
+      "type": "company",
+      "label": "АМОТИ",
+      "slug": null,
+      "uic": "207325703",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОНИ ХРИСТОВ КОЛЕВ",
+      "type": "person",
+      "label": "Антони Христов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-hristov-kolev-cb1295",
+      "target": "company:tr:207325703",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:martin-hristov-kolev-cb1295",
+      "target": "company:tr:207325703",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИ ХРИСТОВ КОЛЕВ",
+      "target": "company:tr:207325703",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

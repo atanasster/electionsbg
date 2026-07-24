@@ -1,1 +1,520 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5169","nodes":[{"id":"mp:5169","type":"mp","mpId":5169,"label":"Димитър Иванов Аврамов","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["41","44","45","46","47","48","49","50","51","52"]},{"id":"company:Гала-инвест-холдинг","type":"company","label":"Гала инвест холдинг","slug":"Гала-инвест-холдинг","uic":"111585809","legalForm":"AD","status":"active","seat":"Монтана"},{"id":"company:ГАЛА-Н-ЕООД","type":"company","label":"ГАЛА-Н ЕООД","slug":"ГАЛА-Н-ЕООД","uic":"202287070","legalForm":"EOOD","status":"active","seat":"Монтана"},{"id":"company:tr:115239039","type":"company","label":"СДРУЖЕНИЕ ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;ХАЙДУТ&quot;","slug":null,"uic":"115239039","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:175468416","type":"company","label":"ДЕМЕТРИКС","slug":null,"uic":"175468416","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, София, 1505"},{"id":"company:tr:160127875","type":"company","label":"ГРОСРЕНТ","slug":null,"uic":"160127875","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:204345791","type":"company","label":"Аврамов Транс 17","slug":null,"uic":"204345791","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:131480986","type":"company","label":"КЛАУД БГ","slug":null,"uic":"131480986","legalForm":"OOD","status":"active","seat":null},{"id":"person:ИЛОНКА ВИКТОРОВА АВРАМОВА","type":"person","label":"Илонка Викторова Аврамова"},{"id":"person:АНТОАНЕТА ДИМИТРОВА ЖЕЛЯЗКОВА","type":"person","label":"Антоанета Димитрова Желязкова"},{"id":"person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Ивайло Георгиев Иванов"},{"id":"person:ГЕОРГИ ВАСИЛЕВ КНЯЗОВ","type":"person","label":"Георги Василев Князов"},{"id":"person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ","type":"person","label":"Любомир Николаев Колев"},{"id":"person:БОРИСЛАВ РУМЕНОВ ОКОВ","type":"person","label":"Борислав Руменов Оков"},{"id":"person:ВАНЯ ДИМИТРОВА КРЪСТЕВА","type":"person","label":"Ваня Димитрова Кръстева"},{"id":"person:ЛЮБОМИР ПЕТКОВ АНГЕЛОВ","type":"person","label":"Любомир Петков Ангелов"},{"id":"person:ТОДОР ВАСКОВ КАНАРОВ","type":"person","label":"Тодор Васков Канаров"},{"id":"person:ВАСИЛ ДИМИТРОВ ТУХЛОВ","type":"person","label":"Васил Димитров Тухлов"},{"id":"person:БОЖУРА ГЕОРГИЕВА ХРИСТОВА","type":"person","label":"Божура Георгиева Христова"},{"id":"person:ВЕНЕТА СТОЯНОВА ВАСЕВА","type":"person","label":"Венета Стоянова Васева"},{"id":"person:ГАЛИНА ТОДОРОВА ГОЛОГАНОВА","type":"person","label":"Галина Тодорова Гологанова"},{"id":"person:АНЕТА ХРИСТОВА ТОНЕВА","type":"person","label":"Анета Христова Тонева"},{"id":"person:МИРОСЛАВА ВАСИЛЕВА ГОЛОГАНОВА","type":"person","label":"Мирослава Василева Гологанова"},{"id":"person:НЕНКА ХРИСТОВА СКОЧЕВА","type":"person","label":"Ненка Христова Скочева"},{"id":"person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ","type":"person","label":"Георги Христов Георгиев"},{"id":"person:ДАНАИЛ МИТКОВ СТОЙЧЕВ","type":"person","label":"Данаил Митков Стойчев"},{"id":"person:ЛИЛИЯ КАЛИНОВА ЦАЧЕВА","type":"person","label":"Лилия Калинова Цачева"},{"id":"person:АТАНАСКА ВАСИЛЕВА АВРАМОВА","type":"person","label":"Атанаска Василева Аврамова"},{"id":"company:tr:206382929","type":"company","label":"МОУШЪНСПОРТС","slug":null,"uic":"206382929","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Петрич, 2850"},{"id":"mp:3922","type":"mp","mpId":3922,"label":"Десислава Илиева Георгиева","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5169","target":"company:Гала-инвест-холдинг","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5169","target":"company:ГАЛА-Н-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5169","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:175468416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:175468416","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:160127875","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:160127875","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:204345791","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5169","target":"company:tr:131480986","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИЛОНКА ВИКТОРОВА АВРАМОВА","target":"company:Гала-инвест-холдинг","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА ДИМИТРОВА ЖЕЛЯЗКОВА","target":"company:Гала-инвест-холдинг","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ","target":"company:Гала-инвест-холдинг","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВАСИЛЕВ КНЯЗОВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ РУМЕНОВ ОКОВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДИМИТРОВА КРЪСТЕВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ПЕТКОВ АНГЕЛОВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ВАСКОВ КАНАРОВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ДИМИТРОВ ТУХЛОВ","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДИМИТРОВА КРЪСТЕВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖУРА ГЕОРГИЕВА ХРИСТОВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕТА СТОЯНОВА ВАСЕВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИНА ТОДОРОВА ГОЛОГАНОВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА ХРИСТОВА ТОНЕВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ВАСИЛЕВА ГОЛОГАНОВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НЕНКА ХРИСТОВА СКОЧЕВА","target":"company:tr:115239039","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ","target":"company:tr:175468416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ МИТКОВ СТОЙЧЕВ","target":"company:tr:175468416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛИЯ КАЛИНОВА ЦАЧЕВА","target":"company:tr:175468416","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАСКА ВАСИЛЕВА АВРАМОВА","target":"company:tr:204345791","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНАИЛ МИТКОВ СТОЙЧЕВ","target":"company:tr:131480986","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ","target":"company:tr:206382929","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ","target":"company:tr:206382929","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3922","target":"company:tr:206382929","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3922","target":"company:tr:206382929","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3922","length":4,"nodeIds":["mp:5169","company:tr:175468416","person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ","company:tr:206382929","mp:3922"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5169",
+  "nodes": [
+    {
+      "id": "mp:5169",
+      "type": "mp",
+      "mpId": 5169,
+      "label": "Димитър Иванов Аврамов",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "41",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Гала-инвест-холдинг-АД",
+      "type": "company",
+      "label": "Гала инвест холдинг АД",
+      "slug": "Гала-инвест-холдинг-АД",
+      "uic": "111585809",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "Монтана"
+    },
+    {
+      "id": "company:ГАЛА-Н-ЕООД",
+      "type": "company",
+      "label": "ГАЛА-Н ЕООД",
+      "slug": "ГАЛА-Н-ЕООД",
+      "uic": "202287070",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Монтана"
+    },
+    {
+      "id": "company:tr:115239039",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;ХАЙДУТ&quot;",
+      "slug": null,
+      "uic": "115239039",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:175468416",
+      "type": "company",
+      "label": "ДЕМЕТРИКС",
+      "slug": null,
+      "uic": "175468416",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1505"
+    },
+    {
+      "id": "company:tr:160127875",
+      "type": "company",
+      "label": "ГРОСРЕНТ",
+      "slug": null,
+      "uic": "160127875",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204345791",
+      "type": "company",
+      "label": "Аврамов Транс 17",
+      "slug": null,
+      "uic": "204345791",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:131480986",
+      "type": "company",
+      "label": "КЛАУД БГ",
+      "slug": null,
+      "uic": "131480986",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИЛОНКА ВИКТОРОВА АВРАМОВА",
+      "type": "person",
+      "label": "Илонка Викторова Аврамова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ДИМИТРОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Антоанета Димитрова Желязкова"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Иванов"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ КНЯЗОВ",
+      "type": "person",
+      "label": "Георги Василев Князов"
+    },
+    {
+      "id": "person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Любомир Николаев Колев"
+    },
+    {
+      "id": "person:БОРИСЛАВ РУМЕНОВ ОКОВ",
+      "type": "person",
+      "label": "Борислав Руменов Оков"
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Ваня Димитрова Кръстева"
+    },
+    {
+      "id": "person:ЛЮБОМИР ПЕТКОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Любомир Петков Ангелов"
+    },
+    {
+      "id": "person:ТОДОР ВАСКОВ КАНАРОВ",
+      "type": "person",
+      "label": "Тодор Васков Канаров"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ ТУХЛОВ",
+      "type": "person",
+      "label": "Васил Димитров Тухлов"
+    },
+    {
+      "id": "person:БОЖУРА ГЕОРГИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Божура Георгиева Христова"
+    },
+    {
+      "id": "person:ВЕНЕТА СТОЯНОВА ВАСЕВА",
+      "type": "person",
+      "label": "Венета Стоянова Васева"
+    },
+    {
+      "id": "person:ГАЛИНА ТОДОРОВА ГОЛОГАНОВА",
+      "type": "person",
+      "label": "Галина Тодорова Гологанова"
+    },
+    {
+      "id": "person:АНЕТА ХРИСТОВА ТОНЕВА",
+      "type": "person",
+      "label": "Анета Христова Тонева"
+    },
+    {
+      "id": "person:МИРОСЛАВА ВАСИЛЕВА ГОЛОГАНОВА",
+      "type": "person",
+      "label": "Мирослава Василева Гологанова"
+    },
+    {
+      "id": "person:НЕНКА ХРИСТОВА СКОЧЕВА",
+      "type": "person",
+      "label": "Ненка Христова Скочева"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Христов Георгиев"
+    },
+    {
+      "id": "person:ДАНАИЛ МИТКОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Данаил Митков Стойчев"
+    },
+    {
+      "id": "person:ЛИЛИЯ КАЛИНОВА ЦАЧЕВА",
+      "type": "person",
+      "label": "Лилия Калинова Цачева"
+    },
+    {
+      "id": "person:АТАНАСКА ВАСИЛЕВА АВРАМОВА",
+      "type": "person",
+      "label": "Атанаска Василева Аврамова"
+    },
+    {
+      "id": "company:tr:206382929",
+      "type": "company",
+      "label": "МОУШЪНСПОРТС",
+      "slug": null,
+      "uic": "206382929",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850"
+    },
+    {
+      "id": "mp:3922",
+      "type": "mp",
+      "mpId": 3922,
+      "label": "Десислава Илиева Георгиева",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5169",
+      "target": "company:Гала-инвест-холдинг-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:ГАЛА-Н-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:175468416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:175468416",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:160127875",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:160127875",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:204345791",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5169",
+      "target": "company:tr:131480986",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛОНКА ВИКТОРОВА АВРАМОВА",
+      "target": "company:Гала-инвест-холдинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ДИМИТРОВА ЖЕЛЯЗКОВА",
+      "target": "company:Гала-инвест-холдинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:Гала-инвест-холдинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ КНЯЗОВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ РУМЕНОВ ОКОВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА КРЪСТЕВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ПЕТКОВ АНГЕЛОВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВАСКОВ КАНАРОВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ ТУХЛОВ",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА КРЪСТЕВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖУРА ГЕОРГИЕВА ХРИСТОВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА СТОЯНОВА ВАСЕВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ТОДОРОВА ГОЛОГАНОВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ХРИСТОВА ТОНЕВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ВАСИЛЕВА ГОЛОГАНОВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКА ХРИСТОВА СКОЧЕВА",
+      "target": "company:tr:115239039",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:175468416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ МИТКОВ СТОЙЧЕВ",
+      "target": "company:tr:175468416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ КАЛИНОВА ЦАЧЕВА",
+      "target": "company:tr:175468416",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ВАСИЛЕВА АВРАМОВА",
+      "target": "company:tr:204345791",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ МИТКОВ СТОЙЧЕВ",
+      "target": "company:tr:131480986",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:206382929",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:206382929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3922",
+      "target": "company:tr:206382929",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3922",
+      "target": "company:tr:206382929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3922",
+      "length": 4,
+      "nodeIds": [
+        "mp:5169",
+        "company:tr:175468416",
+        "person:ГЕОРГИ ХРИСТОВ ГЕОРГИЕВ",
+        "company:tr:206382929",
+        "mp:3922"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-ivanov-bordinyashki-1a89c6",
+  "nodes": [
+    {
+      "id": "official:svetoslav-ivanov-bordinyashki-1a89c6",
+      "type": "official",
+      "slug": "svetoslav-ivanov-bordinyashki-1a89c6",
+      "label": "Светослав Иванов Бординяшки",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Искър"
+    },
+    {
+      "id": "company:tr:203863409",
+      "type": "company",
+      "label": "СИВ 05",
+      "slug": null,
+      "uic": "203863409",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН СВЕТОСЛАВОВ БОРДИНЯШКИ",
+      "type": "person",
+      "label": "Иван Светославов Бординяшки"
+    },
+    {
+      "id": "person:ВИОЛЕТА МАРКОВА БОРДИНЯШКА",
+      "type": "person",
+      "label": "Виолета Маркова Бординяшка"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-ivanov-bordinyashki-1a89c6",
+      "target": "company:tr:203863409",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН СВЕТОСЛАВОВ БОРДИНЯШКИ",
+      "target": "company:tr:203863409",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА МАРКОВА БОРДИНЯШКА",
+      "target": "company:tr:203863409",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

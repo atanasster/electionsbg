@@ -1,0 +1,224 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:pavel-georgiev-petelov-c4b31b",
+  "nodes": [
+    {
+      "id": "official:pavel-georgiev-petelov-c4b31b",
+      "type": "official",
+      "slug": "pavel-georgiev-petelov-c4b31b",
+      "label": "Павел Георгиев Петелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:101579195",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПМГ &quot;ЯНЕ САНДАНСКИ&quot;",
+      "slug": null,
+      "uic": "101579195",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:elka-ivanova-bozhikova-6b39ce",
+      "type": "official",
+      "slug": "elka-ivanova-bozhikova-6b39ce",
+      "label": "Елка Иванова Божикова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МАРИАННА ИВАНОВА ИВАНОВА-БОЯНОВА",
+      "type": "person",
+      "label": "Марианна Иванова Иванова-Боянова"
+    },
+    {
+      "id": "person:ЛЮДМИЛА СТОЙЧЕВА ТОДОРИЕВА",
+      "type": "person",
+      "label": "Людмила Стойчева Тодориева"
+    },
+    {
+      "id": "person:БОРЯНА ГЕОРГИЕВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Боряна Георгиева Вълчева"
+    },
+    {
+      "id": "person:МАРИЯНА ДАМЯНОВА БАШЛИЕВА",
+      "type": "person",
+      "label": "Марияна Дамянова Башлиева"
+    },
+    {
+      "id": "person:СВЕТЛАНА ДАМЯНОВА ТОШАНОВА",
+      "type": "person",
+      "label": "Светлана Дамянова Тошанова"
+    },
+    {
+      "id": "person:ЕЛЕНА АНГЕЛОВА БУСАРОВА",
+      "type": "person",
+      "label": "Елена Ангелова Бусарова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Георги Илиев Янев"
+    },
+    {
+      "id": "person:ДИМИТРИЯ ТОДОРОВА ГЮРОВА",
+      "type": "person",
+      "label": "Димитрия Тодорова Гюрова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ НИКОЛОВА ЛУКОВА",
+      "type": "person",
+      "label": "Емилия Николова Лукова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ЮЛИЯНОВА КОЛДЖИЕВА",
+      "type": "person",
+      "label": "Виолета Юлиянова Колджиева"
+    },
+    {
+      "id": "person:СТЕФКА КОСТАДИНОВА САРАНДЕВА",
+      "type": "person",
+      "label": "Стефка Костадинова Сарандева"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА АТАНАСОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Екатерина Атанасова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavel-georgiev-petelov-c4b31b",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elka-ivanova-bozhikova-6b39ce",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАННА ИВАНОВА ИВАНОВА-БОЯНОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА СТОЙЧЕВА ТОДОРИЕВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ГЕОРГИЕВА ВЪЛЧЕВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАННА ИВАНОВА ИВАНОВА-БОЯНОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ДАМЯНОВА БАШЛИЕВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДАМЯНОВА ТОШАНОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА АНГЕЛОВА БУСАРОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ЯНЕВ",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЯ ТОДОРОВА ГЮРОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ЯНЕВ",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ НИКОЛОВА ЛУКОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЮЛИЯНОВА КОЛДЖИЕВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА КОСТАДИНОВА САРАНДЕВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА АТАНАСОВА ТОДОРОВА",
+      "target": "company:tr:101579195",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

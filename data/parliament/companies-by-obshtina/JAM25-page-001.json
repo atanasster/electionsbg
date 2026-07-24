@@ -1,1 +1,53 @@
-{"obshtina":"JAM25","page":1,"totalPages":1,"count":3,"companies":[{"slug":"ЛЕОН-ПЕРСОНАЛ","displayName":"ЛЕОН ПЕРСОНАЛ","registeredOffice":"БЪЛГАРИЯ, с. Победа, 8679","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"БАКАДЖИЦИТЕ","displayName":"БАКАДЖИЦИТЕ","registeredOffice":"БЪЛГАРИЯ, с. Победа, 8679","mps":[{"mpId":5144,"mpName":"Иван Драгомиров Димитров","role":"manager","isCurrent":true}]},{"slug":"МЕСТНА-ИНИЦИАТИВНА-ГРУПА-ТУНДЖА-СЛИВЕН-Долината-на-Тунджа","displayName":"МЕСТНА ИНИЦИАТИВНА ГРУПА ТУНДЖА - СЛИВЕН - Долината на Тунджа","registeredOffice":"БЪЛГАРИЯ, с. Генерал Инзово, 8670","mps":[{"mpId":3080,"mpName":"Станчо Димитров Ставрев","role":"ngo_representative","isCurrent":true}]}]}
+{
+  "obshtina": "JAM25",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "ЛЕОН-ПЕРСОНАЛ",
+      "displayName": "ЛЕОН ПЕРСОНАЛ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Победа, 8679",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БАКАДЖИЦИТЕ",
+      "displayName": "БАКАДЖИЦИТЕ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Победа, 8679",
+      "mps": [
+        {
+          "mpId": 5144,
+          "mpName": "Иван Драгомиров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МЕСТНА-ИНИЦИАТИВНА-ГРУПА-ТУНДЖА-СЛИВЕН-Долината-на-Тунджа",
+      "displayName": "МЕСТНА ИНИЦИАТИВНА ГРУПА ТУНДЖА - СЛИВЕН - Долината на Тунджа",
+      "registeredOffice": "БЪЛГАРИЯ, с. Генерал Инзово, 8670",
+      "mps": [
+        {
+          "mpId": 3080,
+          "mpName": "Станчо Димитров Ставрев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

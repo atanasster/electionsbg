@@ -1,1 +1,122 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3825","nodes":[{"id":"mp:3825","type":"mp","mpId":3825,"label":"Жеко Георгиев Дандаринов","partyGroupShort":"ПП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206879544","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ПО ЕЛЕКТРОННИ СПОРТОВЕ","slug":null,"uic":"206879544","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:ИВАН КИНЧЕВ КИНЧЕВ","type":"person","label":"Иван Кинчев Кинчев"},{"id":"person:ПЕТЪР ИВЕЛИНОВ ВЪЛКОВ","type":"person","label":"Петър Ивелинов Вълков"},{"id":"person:ДИМИТЪР ЯНЧЕВ ИВАНОВ","type":"person","label":"Димитър Янчев Иванов"},{"id":"person:ХРИСТО НИКИФОРОВ ВАНГЕЛОВ","type":"person","label":"Христо Никифоров Вангелов"},{"id":"person:ПАВЕЛ ТОДОРОВ ЗАРКОВ","type":"person","label":"Павел Тодоров Зарков"},{"id":"person:ТОДОР РАДОСТИНОВ РАЙНОВ","type":"person","label":"Тодор Радостинов Райнов"}],"edges":[{"source":"mp:3825","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН КИНЧЕВ КИНЧЕВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КИНЧЕВ КИНЧЕВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ИВЕЛИНОВ ВЪЛКОВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЯНЧЕВ ИВАНОВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКИФОРОВ ВАНГЕЛОВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ТОДОРОВ ЗАРКОВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР РАДОСТИНОВ РАЙНОВ","target":"company:tr:206879544","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3825",
+  "nodes": [
+    {
+      "id": "mp:3825",
+      "type": "mp",
+      "mpId": 3825,
+      "label": "Жеко Георгиев Дандаринов",
+      "partyGroupShort": "ПП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206879544",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ПО ЕЛЕКТРОННИ СПОРТОВЕ",
+      "slug": null,
+      "uic": "206879544",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:ИВАН КИНЧЕВ КИНЧЕВ",
+      "type": "person",
+      "label": "Иван Кинчев Кинчев"
+    },
+    {
+      "id": "person:ПЕТЪР ИВЕЛИНОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "Петър Ивелинов Вълков"
+    },
+    {
+      "id": "person:ДИМИТЪР ЯНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Янчев Иванов"
+    },
+    {
+      "id": "person:ХРИСТО НИКИФОРОВ ВАНГЕЛОВ",
+      "type": "person",
+      "label": "Христо Никифоров Вангелов"
+    },
+    {
+      "id": "person:ПАВЕЛ ТОДОРОВ ЗАРКОВ",
+      "type": "person",
+      "label": "Павел Тодоров Зарков"
+    },
+    {
+      "id": "person:ТОДОР РАДОСТИНОВ РАЙНОВ",
+      "type": "person",
+      "label": "Тодор Радостинов Райнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3825",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН КИНЧЕВ КИНЧЕВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИНЧЕВ КИНЧЕВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВЕЛИНОВ ВЪЛКОВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЯНЧЕВ ИВАНОВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКИФОРОВ ВАНГЕЛОВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ТОДОРОВ ЗАРКОВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР РАДОСТИНОВ РАЙНОВ",
+      "target": "company:tr:206879544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,91 @@
-{"obshtina":"PDV22","count":119,"mpCount":60,"totalPages":3,"topCompanies":[{"slug":"Омега-2005-МГ-ЕООД","displayName":"\"Омега 2005 МГ\" ЕООД","registeredOffice":"Пловдив","mps":[{"mpId":4809,"mpName":"МАНОЛ ТРИФОНОВ ГЕНОВ","role":"declared_stake","isCurrent":true}]},{"slug":"Ралекс-ООД","displayName":"\"Ралекс\" ООД","registeredOffice":"Пловдив","mps":[{"mpId":4809,"mpName":"МАНОЛ ТРИФОНОВ ГЕНОВ","role":"declared_stake","isCurrent":true}]},{"slug":"Чеси-Инс-Брокер-ООД","displayName":"\"Чеси Инс Брокер\" ООД","registeredOffice":"Пловдив","mps":[{"mpId":5092,"mpName":"Богомил Иванов Петков","role":"manager","isCurrent":true},{"mpId":4802,"mpName":"Иван Богомилов Петков","role":"manager","isCurrent":true},{"mpId":4802,"mpName":"Иван Богомилов Петков","role":"partner","isCurrent":true},{"mpId":4802,"mpName":"Иван Богомилов Петков","role":"declared_stake","isCurrent":true}]},{"slug":"Смарт-чойс-пропърти-ООД","displayName":"Смарт чойс пропърти ООД","registeredOffice":"Пловдив","mps":[{"mpId":4805,"mpName":"Красимир Димчев Дончев","role":"manager","isCurrent":true},{"mpId":4805,"mpName":"Красимир Димчев Дончев","role":"partner","isCurrent":true},{"mpId":4805,"mpName":"Красимир Димчев Дончев","role":"sole_owner","isCurrent":false},{"mpId":4805,"mpName":"Красимир Димчев Дончев","role":"declared_stake","isCurrent":true}]},{"slug":"&quot;Волейболен-клуб-Локомотив-АВИА&quot;-Сдружение","displayName":"&quot;Волейболен клуб Локомотив АВИА&quot; Сдружение","registeredOffice":"БЪЛГАРИЯ, гр. Пловдив, 4004","mps":[{"mpId":2804,"mpName":"Ивайло Любенов Константинов","role":"ngo_representative","isCurrent":true},{"mpId":2804,"mpName":"Ивайло Любенов Константинов","role":"ngo_board","isCurrent":true},{"mpId":909,"mpName":"Емил Димитров Гущеров","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "PDV22",
+  "count": 140,
+  "mpCount": 63,
+  "totalPages": 3,
+  "topCompanies": [
+    {
+      "slug": "Чеси-Инс-Брокер-ООД",
+      "displayName": "\"Чеси Инс Брокер\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 5092,
+          "mpName": "Богомил Иванов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4802,
+          "mpName": "Иван Богомилов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4802,
+          "mpName": "Иван Богомилов Петков",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4802,
+          "mpName": "Иван Богомилов Петков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Омега-2005-МГ-ЕООД",
+      "displayName": "\"Омега 2005 МГ\" ЕООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ралекс-ООД",
+      "displayName": "\"Ралекс\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 4809,
+          "mpName": "МАНОЛ ТРИФОНОВ ГЕНОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Агроплан-ООД",
+      "displayName": "\"Агроплан\" ООД",
+      "registeredOffice": "Пловдив",
+      "mps": [
+        {
+          "mpId": 5152,
+          "mpName": "РУМЕН ДИМИТРОВ ХРИСТОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАСИВ-4-ООД",
+      "displayName": "МАСИВ-4 ООД",
+      "registeredOffice": "Раковски",
+      "mps": [
+        {
+          "mpId": 4807,
+          "mpName": "Младен Николов Шишков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

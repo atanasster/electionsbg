@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:anton-ruskov-shikov-b0ec66",
+  "nodes": [
+    {
+      "id": "official:anton-ruskov-shikov-b0ec66",
+      "type": "official",
+      "slug": "anton-ruskov-shikov-b0ec66",
+      "label": "Антон Русков Шиков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:207931220",
+      "type": "company",
+      "label": "Спортен клуб по Драконови лодки - ДРАКОНЪТ НА ТУНДЖА",
+      "slug": null,
+      "uic": "207931220",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЪЛКАНА ГОСПОДИНОВА АНДОНОВА",
+      "type": "person",
+      "label": "Вълкана Господинова Андонова"
+    },
+    {
+      "id": "person:АТАНАС ВАЛЕНТИНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Валентинов Атанасов"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Валентинов Димитров"
+    },
+    {
+      "id": "person:ЯВОР ИВАНОВ ДЖЕНДОВ",
+      "type": "person",
+      "label": "Явор Иванов Джендов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-ruskov-shikov-b0ec66",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЪЛКАНА ГОСПОДИНОВА АНДОНОВА",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКАНА ГОСПОДИНОВА АНДОНОВА",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ВАЛЕНТИНОВ АТАНАСОВ",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАЛЕНТИНОВ ДИМИТРОВ",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ИВАНОВ ДЖЕНДОВ",
+      "target": "company:tr:207931220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

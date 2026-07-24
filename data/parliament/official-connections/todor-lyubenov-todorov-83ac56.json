@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todor-lyubenov-todorov-83ac56",
+  "nodes": [
+    {
+      "id": "official:todor-lyubenov-todorov-83ac56",
+      "type": "official",
+      "slug": "todor-lyubenov-todorov-83ac56",
+      "label": "Тодор Любенов Тодоров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202243953",
+      "type": "company",
+      "label": "ТОДЕО ГРУП ЕООД",
+      "slug": null,
+      "uic": "202243953",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-lyubenov-todorov-83ac56",
+      "target": "company:tr:202243953",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yana-koleva-haralanova-a8939e",
+  "nodes": [
+    {
+      "id": "official:yana-koleva-haralanova-a8939e",
+      "type": "official",
+      "slug": "yana-koleva-haralanova-a8939e",
+      "label": "Яна Колева Хараланова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000084475",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot; КИРИЛ ГОСПОДИНОВ-1903&quot;",
+      "slug": null,
+      "uic": "000084475",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕНОВЕВА НЕНКОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Геновева Ненкова Стоянова"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА КОСТАДИНОВА БОШНАКОВА",
+      "type": "person",
+      "label": "Димитричка Костадинова Бошнакова"
+    },
+    {
+      "id": "person:НАДЕЖДА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Надежда Георгиева Георгиева"
+    },
+    {
+      "id": "person:ПЕТРАНКА МАРКОВА БАЕВА",
+      "type": "person",
+      "label": "Петранка Маркова Баева"
+    },
+    {
+      "id": "person:ИВАНКА ЛАЛКОВА МИТЕВА",
+      "type": "person",
+      "label": "Иванка Лалкова Митева"
+    },
+    {
+      "id": "person:РАДКА ВЕСЕЛИНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Радка Веселинова Ангелова"
+    },
+    {
+      "id": "person:ТАТЯНА АНГЕЛОВА ЯНЧЕВА",
+      "type": "person",
+      "label": "Татяна Ангелова Янчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yana-koleva-haralanova-a8939e",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕНОВЕВА НЕНКОВА СТОЯНОВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА КОСТАДИНОВА БОШНАКОВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНОВЕВА НЕНКОВА СТОЯНОВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА МАРКОВА БАЕВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЛАЛКОВА МИТЕВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ВЕСЕЛИНОВА АНГЕЛОВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА АНГЕЛОВА ЯНЧЕВА",
+      "target": "company:tr:000084475",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

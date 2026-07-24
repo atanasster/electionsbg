@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:emil-delchev-evtimov-ade060",
+  "nodes": [
+    {
+      "id": "official:emil-delchev-evtimov-ade060",
+      "type": "official",
+      "slug": "emil-delchev-evtimov-ade060",
+      "label": "Емил Делчев Евтимов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000967532",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ВЪТРЕШНИ БОЛЕСТИ - ТОПОЛОВГРАД",
+      "slug": null,
+      "uic": "000967532",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-delchev-evtimov-ade060",
+      "target": "company:tr:000967532",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

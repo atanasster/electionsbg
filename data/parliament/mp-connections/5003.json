@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5003","nodes":[{"id":"mp:5003","type":"mp","mpId":5003,"label":"Мария Димова Илиева","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206190697","type":"company","label":"ВИСТА ПЛАН","slug":null,"uic":"206190697","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:208126501","type":"company","label":"АЛГАРА ГРУП","slug":null,"uic":"208126501","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Търговище, 7700"},{"id":"company:name:АБВ БЪЛГАРИЯ","type":"company","label":"\"АБВ БЪЛГАРИЯ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ДЖАУЛ БГ","type":"company","label":"\"ДЖАУЛ БГ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"mp:5003","target":"company:tr:206190697","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5003","target":"company:tr:208126501","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"company:name:АБВ БЪЛГАРИЯ","target":"company:tr:208126501","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ДЖАУЛ БГ","target":"company:tr:208126501","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5003",
+  "nodes": [
+    {
+      "id": "mp:5003",
+      "type": "mp",
+      "mpId": 5003,
+      "label": "Мария Димова Илиева",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206190697",
+      "type": "company",
+      "label": "ВИСТА ПЛАН",
+      "slug": null,
+      "uic": "206190697",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208126501",
+      "type": "company",
+      "label": "АЛГАРА ГРУП",
+      "slug": null,
+      "uic": "208126501",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700"
+    },
+    {
+      "id": "company:name:АБВ БЪЛГАРИЯ",
+      "type": "company",
+      "label": "\"АБВ БЪЛГАРИЯ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ДЖАУЛ БГ",
+      "type": "company",
+      "label": "\"ДЖАУЛ БГ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5003",
+      "target": "company:tr:206190697",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5003",
+      "target": "company:tr:208126501",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:АБВ БЪЛГАРИЯ",
+      "target": "company:tr:208126501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖАУЛ БГ",
+      "target": "company:tr:208126501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

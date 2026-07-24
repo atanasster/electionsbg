@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:delyan-valentinov-dimitrov-e81247",
+  "nodes": [
+    {
+      "id": "official:delyan-valentinov-dimitrov-e81247",
+      "type": "official",
+      "slug": "delyan-valentinov-dimitrov-e81247",
+      "label": "Делян Валентинов Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206312891",
+      "type": "company",
+      "label": "ВХ ЕНЕРДЖИ",
+      "slug": null,
+      "uic": "206312891",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН КРАСИМИРОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Веселин Красимиров Хаджиев"
+    },
+    {
+      "id": "person:ЯНА СТЕФАНОВА ПОПОВА",
+      "type": "person",
+      "label": "Яна Стефанова Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:delyan-valentinov-dimitrov-e81247",
+      "target": "company:tr:206312891",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:delyan-valentinov-dimitrov-e81247",
+      "target": "company:tr:206312891",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН КРАСИМИРОВ ХАДЖИЕВ",
+      "target": "company:tr:206312891",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА СТЕФАНОВА ПОПОВА",
+      "target": "company:tr:206312891",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА СТЕФАНОВА ПОПОВА",
+      "target": "company:tr:206312891",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН КРАСИМИРОВ ХАДЖИЕВ",
+      "target": "company:tr:206312891",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

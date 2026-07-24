@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-tomov-savkov-20e98a",
+  "nodes": [
+    {
+      "id": "official:georgi-tomov-savkov-20e98a",
+      "type": "official",
+      "slug": "georgi-tomov-savkov-20e98a",
+      "label": "Георги Томов Савков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130128163",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - СВЕТИ НИКОЛАЙ ЧУДОТВОРЕЦ",
+      "slug": null,
+      "uic": "130128163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-tomov-savkov-20e98a",
+      "target": "company:tr:130128163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

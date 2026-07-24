@@ -1,1 +1,59 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1619","nodes":[{"id":"mp:1619","type":"mp","mpId":1619,"label":"Мирослав Николов Петков","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41"]},{"id":"company:tr:106625732","type":"company","label":"ВЕНИМА","slug":null,"uic":"106625732","legalForm":"OOD","status":"active","seat":null},{"id":"person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА","type":"person","label":"Вергиния Маркова Петкова"}],"edges":[{"source":"mp:1619","target":"company:tr:106625732","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА","target":"company:tr:106625732","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА","target":"company:tr:106625732","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1619",
+  "nodes": [
+    {
+      "id": "mp:1619",
+      "type": "mp",
+      "mpId": 1619,
+      "label": "Мирослав Николов Петков",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41"
+      ]
+    },
+    {
+      "id": "company:tr:106625732",
+      "type": "company",
+      "label": "ВЕНИМА",
+      "slug": null,
+      "uic": "106625732",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Вергиния Маркова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1619",
+      "target": "company:tr:106625732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА",
+      "target": "company:tr:106625732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ МАРКОВА ПЕТКОВА",
+      "target": "company:tr:106625732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

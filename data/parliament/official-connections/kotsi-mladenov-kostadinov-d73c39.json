@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kotsi-mladenov-kostadinov-d73c39",
+  "nodes": [
+    {
+      "id": "official:kotsi-mladenov-kostadinov-d73c39",
+      "type": "official",
+      "slug": "kotsi-mladenov-kostadinov-d73c39",
+      "label": "Коци Младенов Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Годеч"
+    },
+    {
+      "id": "company:tr:130075700",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ - КОМ 98",
+      "slug": null,
+      "uic": "130075700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Румен Иванов Павлов"
+    },
+    {
+      "id": "person:АНГЕЛ НИКОЛАЕВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Ангел Николаев Бояджиев"
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛОВ МИТКОВ",
+      "type": "person",
+      "label": "Кирил Николов Митков"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Владислав Василев  Василев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kotsi-mladenov-kostadinov-d73c39",
+      "target": "company:tr:130075700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ПАВЛОВ",
+      "target": "company:tr:130075700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛАЕВ БОЯДЖИЕВ",
+      "target": "company:tr:130075700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛОВ МИТКОВ",
+      "target": "company:tr:130075700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:130075700",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

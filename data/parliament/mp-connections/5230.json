@@ -1,1 +1,197 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5230","nodes":[{"id":"mp:5230","type":"mp","mpId":5230,"label":"Елисавета Димитрова Белобрадова","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["46","47","48","49","50","51","52"]},{"id":"company:tr:131260285","type":"company","label":"КЪЛБЕРГЛИ","slug":null,"uic":"131260285","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1606"},{"id":"company:tr:207723358","type":"company","label":"Фондация С благодарност","slug":null,"uic":"207723358","legalForm":"Фондация","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА","type":"person","label":"Кристина Александрова Шентова"},{"id":"person:ДИМИТЪР ГЕОРГИЕВ БЕЛОБРАДОВ","type":"person","label":"Димитър Георгиев Белобрадов"},{"id":"person:ПЕТЯ ЕВГЕНИЕВА НАТОВА-ГЕОРГИЕВА","type":"person","label":"Петя Евгениева Натова-Георгиева"}],"edges":[{"source":"mp:5230","target":"company:tr:131260285","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5230","target":"company:tr:207723358","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"mp:5230","target":"company:tr:207723358","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА","target":"company:tr:131260285","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ БЕЛОБРАДОВ","target":"company:tr:131260285","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА","target":"company:tr:131260285","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ЕВГЕНИЕВА НАТОВА-ГЕОРГИЕВА","target":"company:tr:131260285","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5230",
+  "nodes": [
+    {
+      "id": "mp:5230",
+      "type": "mp",
+      "mpId": 5230,
+      "label": "Елисавета Димитрова Белобрадова",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Айрън-Бюти-ООД",
+      "type": "company",
+      "label": "Айрън Бюти ООД",
+      "slug": "Айрън-Бюти-ООД",
+      "uic": "203304195",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Ивент-Проджект-ООД",
+      "type": "company",
+      "label": "Ивент Проджект ООД",
+      "slug": "Ивент-Проджект-ООД",
+      "uic": "202910610",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Прайм-Го-ООД",
+      "type": "company",
+      "label": "Прайм Го ООД",
+      "slug": "Прайм-Го-ООД",
+      "uic": "205689537",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:131260285",
+      "type": "company",
+      "label": "КЪЛБЕРГЛИ",
+      "slug": null,
+      "uic": "131260285",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
+    },
+    {
+      "id": "company:tr:207723358",
+      "type": "company",
+      "label": "Фондация С благодарност",
+      "slug": null,
+      "uic": "207723358",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "person:КРАСИМИРА ЛЮДМИЛОВА ХАДЖИИВАНОВА",
+      "type": "person",
+      "label": "Красимира Людмилова Хаджииванова"
+    },
+    {
+      "id": "person:ОЛЯ БОЯНОВА АНТОНОВА",
+      "type": "person",
+      "label": "Оля Боянова Антонова"
+    },
+    {
+      "id": "person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА",
+      "type": "person",
+      "label": "Кристина Александрова Шентова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ БЕЛОБРАДОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Белобрадов"
+    },
+    {
+      "id": "person:ПЕТЯ ЕВГЕНИЕВА НАТОВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Петя Евгениева Натова-Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5230",
+      "target": "company:Айрън-Бюти-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5230",
+      "target": "company:Ивент-Проджект-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5230",
+      "target": "company:Прайм-Го-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5230",
+      "target": "company:tr:131260285",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5230",
+      "target": "company:tr:207723358",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5230",
+      "target": "company:tr:207723358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЛЮДМИЛОВА ХАДЖИИВАНОВА",
+      "target": "company:Айрън-Бюти-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЯ БОЯНОВА АНТОНОВА",
+      "target": "company:Прайм-Го-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА",
+      "target": "company:tr:131260285",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ БЕЛОБРАДОВ",
+      "target": "company:tr:131260285",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА АЛЕКСАНДРОВА ШЕНТОВА",
+      "target": "company:tr:131260285",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЕВГЕНИЕВА НАТОВА-ГЕОРГИЕВА",
+      "target": "company:tr:131260285",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krasimir-nedkov-enchev-9b7b5c",
+  "nodes": [
+    {
+      "id": "official:krasimir-nedkov-enchev-9b7b5c",
+      "type": "official",
+      "slug": "krasimir-nedkov-enchev-9b7b5c",
+      "label": "Красимир Недков Енчев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:147245783",
+      "type": "company",
+      "label": "&quot;Фалкон-62&quot;",
+      "slug": null,
+      "uic": "147245783",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-nedkov-enchev-9b7b5c",
+      "target": "company:tr:147245783",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

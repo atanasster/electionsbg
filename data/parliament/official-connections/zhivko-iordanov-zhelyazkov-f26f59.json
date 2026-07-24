@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zhivko-iordanov-zhelyazkov-f26f59",
+  "nodes": [
+    {
+      "id": "official:zhivko-iordanov-zhelyazkov-f26f59",
+      "type": "official",
+      "slug": "zhivko-iordanov-zhelyazkov-f26f59",
+      "label": "Живко Йорданов Желязков",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119613819",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ - СЛИВЕН",
+      "slug": null,
+      "uic": "119613819",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕДУАРД ХРИСТОВ КУРИЯН",
+      "type": "person",
+      "label": "Едуард Христов Куриян"
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Красимир Петров Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-iordanov-zhelyazkov-f26f59",
+      "target": "company:tr:119613819",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivko-iordanov-zhelyazkov-f26f59",
+      "target": "company:tr:119613819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕДУАРД ХРИСТОВ КУРИЯН",
+      "target": "company:tr:119613819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ АНДРЕЕВ",
+      "target": "company:tr:119613819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

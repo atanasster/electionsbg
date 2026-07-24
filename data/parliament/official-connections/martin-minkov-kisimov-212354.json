@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-minkov-kisimov-212354",
+  "nodes": [
+    {
+      "id": "official:martin-minkov-kisimov-212354",
+      "type": "official",
+      "slug": "martin-minkov-kisimov-212354",
+      "label": "Мартин Минков Кисимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208467730",
+      "type": "company",
+      "label": "МакНутраКеър",
+      "slug": null,
+      "uic": "208467730",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-minkov-kisimov-212354",
+      "target": "company:tr:208467730",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:martin-minkov-kisimov-212354",
+      "target": "company:tr:208467730",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

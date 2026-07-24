@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-markov-nikolov-ac9e20",
+  "nodes": [
+    {
+      "id": "official:nikolai-markov-nikolov-ac9e20",
+      "type": "official",
+      "slug": "nikolai-markov-nikolov-ac9e20",
+      "label": "Николай Марков Николов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130301003",
+      "type": "company",
+      "label": "СИЛК ООД",
+      "slug": null,
+      "uic": "130301003",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130312100",
+      "type": "company",
+      "label": "СОЛВЕ Н ЕООД",
+      "slug": null,
+      "uic": "130312100",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130547554",
+      "type": "company",
+      "label": "СОЛВЕ-АН ООД",
+      "slug": null,
+      "uic": "130547554",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА СТОЯНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Гергана Стоянова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-markov-nikolov-ac9e20",
+      "target": "company:tr:130301003",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-markov-nikolov-ac9e20",
+      "target": "company:tr:130312100",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-markov-nikolov-ac9e20",
+      "target": "company:tr:130547554",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СТОЯНОВА НИКОЛОВА",
+      "target": "company:tr:130312100",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

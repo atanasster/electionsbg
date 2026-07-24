@@ -1,1 +1,41 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5014","nodes":[{"id":"mp:5014","type":"mp","mpId":5014,"label":"Васил Стефанов Стефанов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49","50"]},{"id":"company:Тирел-Инженеринг-ЕООД","type":"company","label":"\"Тирел Инженеринг\" ЕООД","slug":"Тирел-Инженеринг-ЕООД","uic":"203603183","legalForm":"EOOD","status":"active","seat":"София (столица)"}],"edges":[{"source":"mp:5014","target":"company:Тирел-Инженеринг-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5014",
+  "nodes": [
+    {
+      "id": "mp:5014",
+      "type": "mp",
+      "mpId": 5014,
+      "label": "Васил Стефанов Стефанов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Тирел-Инженеринг-ЕООД",
+      "type": "company",
+      "label": "\"Тирел Инженеринг\" ЕООД",
+      "slug": "Тирел-Инженеринг-ЕООД",
+      "uic": "203603183",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5014",
+      "target": "company:Тирел-Инженеринг-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

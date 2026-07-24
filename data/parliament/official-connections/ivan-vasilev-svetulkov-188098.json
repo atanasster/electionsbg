@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-vasilev-svetulkov-188098",
+  "nodes": [
+    {
+      "id": "official:ivan-vasilev-svetulkov-188098",
+      "type": "official",
+      "slug": "ivan-vasilev-svetulkov-188098",
+      "label": "Иван Василев Светулков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125501290",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ТЪРГОВИЩЕ",
+      "slug": null,
+      "uic": "125501290",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:plamen-vladimirov-belkolev-feafdd",
+      "type": "official",
+      "slug": "plamen-vladimirov-belkolev-feafdd",
+      "label": "Пламен Владимиров Белколев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЯВОР ДИМИТРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Явор Димитров Александров"
+    },
+    {
+      "id": "person:МИХАЕЛА ГЕОРГИЕВА КАРАДИМОВА",
+      "type": "person",
+      "label": "Михаела Георгиева Карадимова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-vasilev-svetulkov-188098",
+      "target": "company:tr:125501290",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-vladimirov-belkolev-feafdd",
+      "target": "company:tr:125501290",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯВОР ДИМИТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:125501290",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ГЕОРГИЕВА КАРАДИМОВА",
+      "target": "company:tr:125501290",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

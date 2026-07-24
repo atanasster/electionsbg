@@ -1,1 +1,73 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5235","nodes":[{"id":"mp:5235","type":"mp","mpId":5235,"label":"Рая Назар Назарян","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]},{"id":"company:tr:103921092","type":"company","label":"РУСАЛКА","slug":null,"uic":"103921092","legalForm":"EOOD","status":"ceased","seat":null},{"id":"mp:4798","type":"mp","mpId":4798,"label":"Тервел Николов Георгиев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["50"]}],"edges":[{"source":"mp:5235","target":"company:tr:103921092","kind":"tr_role","role":"liquidator","isCurrent":false,"confidence":"medium"},{"source":"mp:4798","target":"company:tr:103921092","kind":"tr_role","role":"liquidator","isCurrent":false,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4798","length":2,"nodeIds":["mp:5235","company:tr:103921092","mp:4798"],"isAllCurrent":false,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5235",
+  "nodes": [
+    {
+      "id": "mp:5235",
+      "type": "mp",
+      "mpId": 5235,
+      "label": "Рая Назар Назарян",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:103921092",
+      "type": "company",
+      "label": "РУСАЛКА",
+      "slug": null,
+      "uic": "103921092",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "mp:4798",
+      "type": "mp",
+      "mpId": 4798,
+      "label": "Тервел Николов Георгиев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "50"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5235",
+      "target": "company:tr:103921092",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4798",
+      "target": "company:tr:103921092",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": false,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4798",
+      "length": 2,
+      "nodeIds": [
+        "mp:5235",
+        "company:tr:103921092",
+        "mp:4798"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    }
+  ]
+}

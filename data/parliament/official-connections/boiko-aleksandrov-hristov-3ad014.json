@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boiko-aleksandrov-hristov-3ad014",
+  "nodes": [
+    {
+      "id": "official:boiko-aleksandrov-hristov-3ad014",
+      "type": "official",
+      "slug": "boiko-aleksandrov-hristov-3ad014",
+      "label": "Бойко Александров Христов",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200785357",
+      "type": "company",
+      "label": "\"Ноу Лимитс Груп\" ЕООД",
+      "slug": null,
+      "uic": "200785357",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boiko-aleksandrov-hristov-3ad014",
+      "target": "company:tr:200785357",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,360 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2779","nodes":[{"id":"mp:2779","type":"mp","mpId":2779,"label":"Цветан Борисов Топчиев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:105521734","type":"company","label":"ЛОВНО-РИБАРСКО ДРУЖЕСТВО - ВИДИН","slug":null,"uic":"105521734","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ДАНЧО ЕМИЛОВ ЙОРДАНОВ","type":"person","label":"Данчо Емилов Йорданов"},{"id":"person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ","type":"person","label":"Валери Георгиев Велков"},{"id":"person:ТОШО ВЕЛКОВ МАРКИН","type":"person","label":"Тошо Велков Маркин"},{"id":"person:ИЛИЯ ИВАНОВ ГЕОРГИЕВ","type":"person","label":"Илия Иванов Георгиев"},{"id":"person:ТОДОР ЕМИЛОВ ТОДОРОВ","type":"person","label":"Тодор Емилов Тодоров"},{"id":"person:ПЛАМЕН ЦАНКОВ НЕДЕЛКОВ","type":"person","label":"Пламен Цанков Неделков"},{"id":"person:ГЕНАДИ ВОЙЧЕВ ГЕОРГИЕВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","type":"person","label":"Генади Войчев Георгиев-Член На Контролно Ревизионна Комисия"},{"id":"person:ЕМИЛ АЛЕКСАНДРОВ АНГЕЛОВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","type":"person","label":"Емил Александров Ангелов-Член На Контролно Ревизионна Комисия"},{"id":"person:ЛЮДМИЛ ЦВЕТАНОВ ЦАНОВ","type":"person","label":"Людмил Цветанов Цанов"},{"id":"person:МИЛОТИН ЦВЕТАНОВ ДИМИТРОВ","type":"person","label":"Милотин Цветанов Димитров"},{"id":"person:ЛЮБОМИР САШЕВ БОРИСОВ","type":"person","label":"Любомир Сашев Борисов"},{"id":"person:ПЛАМЕН БОРИСОВ ПАНТЕВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","type":"person","label":"Пламен Борисов Пантев- Член На Контролно Ревизионна Комисия"},{"id":"person:АНЕЛИЯ СЛАВЕЙКОВА АСЕНОВА","type":"person","label":"Анелия Славейкова Асенова"},{"id":"person:АЛЕКСАНДЪР ТОШКОВ АЛЕКСАНДРОВ","type":"person","label":"Александър Тошков Александров"},{"id":"person:ВЕНЦИСЛАВ БОРИСОВ КРУМОВ","type":"person","label":"Венцислав Борисов Крумов"},{"id":"person:РУМЕН НИКОЛОВ ИВАНОВ","type":"person","label":"Румен Николов Иванов"},{"id":"person:ПЛАМЕН КРУМОВ ПАВЛОВ","type":"person","label":"Пламен Крумов Павлов"},{"id":"person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ","type":"person","label":"Красимир Йорданов Кирилов"},{"id":"person:РУМЕН ЦВЕТАНОВ РИНЦОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","type":"person","label":"Румен Цветанов Ринцов- Член На Контролно Ревизионна Комисия"},{"id":"person:СТОЙКО ПЕТРОВ ИВАНОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","type":"person","label":"Стойко Петров Иванов- Член На Контролно Ревизионна Комисия"},{"id":"company:tr:121000727","type":"company","label":"СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ","slug":null,"uic":"121000727","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1360"},{"id":"mp:4906","type":"mp","mpId":4906,"label":"Димитър Ангелов Иванов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["42","46","47","48","49","50"]}],"edges":[{"source":"mp:2779","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНЧО ЕМИЛОВ ЙОРДАНОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОШО ВЕЛКОВ МАРКИН","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ИВАНОВ ГЕОРГИЕВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ЕМИЛОВ ТОДОРОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЦАНКОВ НЕДЕЛКОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНАДИ ВОЙЧЕВ ГЕОРГИЕВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ АЛЕКСАНДРОВ АНГЕЛОВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ЦВЕТАНОВ ЦАНОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛОТИН ЦВЕТАНОВ ДИМИТРОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР САШЕВ БОРИСОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН БОРИСОВ ПАНТЕВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЕЛИЯ СЛАВЕЙКОВА АСЕНОВА","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ТОШКОВ АЛЕКСАНДРОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ БОРИСОВ КРУМОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН НИКОЛОВ ИВАНОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН КРУМОВ ПАВЛОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ЦВЕТАНОВ РИНЦОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙКО ПЕТРОВ ИВАНОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ","target":"company:tr:105521734","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ","target":"company:tr:121000727","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4906","target":"company:tr:121000727","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4906","length":4,"nodeIds":["mp:2779","company:tr:105521734","person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ","company:tr:121000727","mp:4906"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2779",
+  "nodes": [
+    {
+      "id": "mp:2779",
+      "type": "mp",
+      "mpId": 2779,
+      "label": "Цветан Борисов Топчиев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:105521734",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО - ВИДИН",
+      "slug": null,
+      "uic": "105521734",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДАНЧО ЕМИЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Данчо Емилов Йорданов"
+    },
+    {
+      "id": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "type": "person",
+      "label": "Валери Георгиев Велков"
+    },
+    {
+      "id": "person:ТОШО ВЕЛКОВ МАРКИН",
+      "type": "person",
+      "label": "Тошо Велков Маркин"
+    },
+    {
+      "id": "person:ИЛИЯ ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Илия Иванов Георгиев"
+    },
+    {
+      "id": "person:ТОДОР ЕМИЛОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Емилов Тодоров"
+    },
+    {
+      "id": "person:ПЛАМЕН ЦАНКОВ НЕДЕЛКОВ",
+      "type": "person",
+      "label": "Пламен Цанков Неделков"
+    },
+    {
+      "id": "person:ГЕНАДИ ВОЙЧЕВ ГЕОРГИЕВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "type": "person",
+      "label": "Генади Войчев Георгиев-Член На Контролно Ревизионна Комисия"
+    },
+    {
+      "id": "person:ЕМИЛ АЛЕКСАНДРОВ АНГЕЛОВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "type": "person",
+      "label": "Емил Александров Ангелов-Член На Контролно Ревизионна Комисия"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ЦВЕТАНОВ ЦАНОВ",
+      "type": "person",
+      "label": "Людмил Цветанов Цанов"
+    },
+    {
+      "id": "person:МИЛОТИН ЦВЕТАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Милотин Цветанов Димитров"
+    },
+    {
+      "id": "person:ЛЮБОМИР САШЕВ БОРИСОВ",
+      "type": "person",
+      "label": "Любомир Сашев Борисов"
+    },
+    {
+      "id": "person:ПЛАМЕН БОРИСОВ ПАНТЕВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "type": "person",
+      "label": "Пламен Борисов Пантев- Член На Контролно Ревизионна Комисия"
+    },
+    {
+      "id": "person:АНЕЛИЯ СЛАВЕЙКОВА АСЕНОВА",
+      "type": "person",
+      "label": "Анелия Славейкова Асенова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ТОШКОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Тошков Александров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ БОРИСОВ КРУМОВ",
+      "type": "person",
+      "label": "Венцислав Борисов Крумов"
+    },
+    {
+      "id": "person:РУМЕН НИКОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Румен Николов Иванов"
+    },
+    {
+      "id": "person:ПЛАМЕН КРУМОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Пламен Крумов Павлов"
+    },
+    {
+      "id": "person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Красимир Йорданов Кирилов"
+    },
+    {
+      "id": "person:РУМЕН ЦВЕТАНОВ РИНЦОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "type": "person",
+      "label": "Румен Цветанов Ринцов- Член На Контролно Ревизионна Комисия"
+    },
+    {
+      "id": "person:СТОЙКО ПЕТРОВ ИВАНОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "type": "person",
+      "label": "Стойко Петров Иванов- Член На Контролно Ревизионна Комисия"
+    },
+    {
+      "id": "company:tr:121000727",
+      "type": "company",
+      "label": "СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121000727",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1360"
+    },
+    {
+      "id": "mp:4906",
+      "type": "mp",
+      "mpId": 4906,
+      "label": "Димитър Ангелов Иванов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2779",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНЧО ЕМИЛОВ ЙОРДАНОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШО ВЕЛКОВ МАРКИН",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЕМИЛОВ ТОДОРОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЦАНКОВ НЕДЕЛКОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНАДИ ВОЙЧЕВ ГЕОРГИЕВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ АЛЕКСАНДРОВ АНГЕЛОВ-ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ЦВЕТАНОВ ЦАНОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛОТИН ЦВЕТАНОВ ДИМИТРОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР САШЕВ БОРИСОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН БОРИСОВ ПАНТЕВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ СЛАВЕЙКОВА АСЕНОВА",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ТОШКОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ БОРИСОВ КРУМОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН КРУМОВ ПАВЛОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЦВЕТАНОВ РИНЦОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКО ПЕТРОВ ИВАНОВ- ЧЛЕН НА КОНТРОЛНО РЕВИЗИОННА КОМИСИЯ",
+      "target": "company:tr:105521734",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4906",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4906",
+      "length": 4,
+      "nodeIds": [
+        "mp:2779",
+        "company:tr:105521734",
+        "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+        "company:tr:121000727",
+        "mp:4906"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

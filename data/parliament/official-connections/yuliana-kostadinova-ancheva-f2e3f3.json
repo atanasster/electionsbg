@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yuliana-kostadinova-ancheva-f2e3f3",
+  "nodes": [
+    {
+      "id": "official:yuliana-kostadinova-ancheva-f2e3f3",
+      "type": "official",
+      "slug": "yuliana-kostadinova-ancheva-f2e3f3",
+      "label": "Юлиана Костадинова Анчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:819363856",
+      "type": "company",
+      "label": "ХИГИЯ",
+      "slug": null,
+      "uic": "819363856",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliana-kostadinova-ancheva-f2e3f3",
+      "target": "company:tr:819363856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

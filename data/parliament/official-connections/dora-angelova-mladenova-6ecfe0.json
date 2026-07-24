@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dora-angelova-mladenova-6ecfe0",
+  "nodes": [
+    {
+      "id": "official:dora-angelova-mladenova-6ecfe0",
+      "type": "official",
+      "slug": "dora-angelova-mladenova-6ecfe0",
+      "label": "Дора Ангелова Младенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000184178",
+      "type": "company",
+      "label": "&quot;НАРОДНО ЧИТАЛИЩЕ ПРОБУДА-1931&quot;",
+      "slug": null,
+      "uic": "000184178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮДМИЛ БОРИСОВ ЛИЛОВ",
+      "type": "person",
+      "label": "Людмил Борисов Лилов"
+    },
+    {
+      "id": "person:КОСТАДИН МИЛАНОВ ЦЕНОВ",
+      "type": "person",
+      "label": "Костадин Миланов Ценов"
+    },
+    {
+      "id": "person:ТАНЯ ПЕТКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Таня Петкова Димитрова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ХРИСТОВА ИВАНОВА",
+      "type": "person",
+      "label": "Десислава Христова Иванова"
+    },
+    {
+      "id": "person:ЛЮДМИЛ АТАНАСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Людмил Атанасов Ангелов"
+    },
+    {
+      "id": "person:ДОРА СИМЕОНОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Дора Симеонова Трифонова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ПЕТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Владимир Петров Тодоров"
+    },
+    {
+      "id": "person:ЗОРНИЦА НИКОЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Зорница Николова Георгиева"
+    },
+    {
+      "id": "person:МИГЛЕНА ИВАНОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Миглена Иванова Богданова"
+    },
+    {
+      "id": "person:СИЛВИЯ ХРИСТОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Силвия Христова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dora-angelova-mladenova-6ecfe0",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dora-angelova-mladenova-6ecfe0",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛ БОРИСОВ ЛИЛОВ",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН МИЛАНОВ ЦЕНОВ",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ПЕТКОВА ДИМИТРОВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ХРИСТОВА ИВАНОВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ АТАНАСОВ АНГЕЛОВ",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА СИМЕОНОВА ТРИФОНОВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ПЕТРОВ ТОДОРОВ",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА НИКОЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ИВАНОВА БОГДАНОВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ХРИСТОВА ТОДОРОВА",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ БОРИСОВ ЛИЛОВ",
+      "target": "company:tr:000184178",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

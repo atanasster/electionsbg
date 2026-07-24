@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-margaritova-noneva-9f6b71",
+  "nodes": [
+    {
+      "id": "official:elena-margaritova-noneva-9f6b71",
+      "type": "official",
+      "slug": "elena-margaritova-noneva-9f6b71",
+      "label": "Елена Маргаритова Нонева",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000703244",
+      "type": "company",
+      "label": "СЪЮЗ НА ЮРИСТИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "000703244",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5145",
+      "type": "mp",
+      "mpId": 5145,
+      "label": "Елена Маргаритова Нонева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ПЕТРОВ СЛАВОВ",
+      "type": "person",
+      "label": "Владислав Петров Славов"
+    },
+    {
+      "id": "person:ЕЛКА АНТИМОВА ХАДЖИЕВА",
+      "type": "person",
+      "label": "Елка Антимова Хаджиева"
+    },
+    {
+      "id": "person:ДАНИЕЛА СВЕТОЗАРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Даниела Светозарова Христова"
+    },
+    {
+      "id": "person:ГЕОРГИ ЗЛАТЕВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Георги Златев Чолаков"
+    },
+    {
+      "id": "person:ХРИСТОФОР ИВАНОВ КОНДЕВ",
+      "type": "person",
+      "label": "Христофор Иванов Кондев"
+    },
+    {
+      "id": "person:РАЛИЦА БОСИЛКОВА НЕГЕНЦОВА",
+      "type": "person",
+      "label": "Ралица Босилкова Негенцова"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ ПАЧОЛОВ",
+      "type": "person",
+      "label": "Илия Петров Пачолов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГУНЧЕВ ГУНЧЕВ",
+      "type": "person",
+      "label": "Николай Гунчев Гунчев"
+    },
+    {
+      "id": "person:КРАСИМИР ТОДОРОВ КАТРАНДЖИЕВ",
+      "type": "person",
+      "label": "Красимир Тодоров Катранджиев"
+    },
+    {
+      "id": "person:ДЕШКА КРУМОВА РАЧЕВЕЦ",
+      "type": "person",
+      "label": "Дешка Крумова Рачевец"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СТОЯНОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "Валентин Стоянов Вълков"
+    },
+    {
+      "id": "person:ВАНЯ МАРИНОВА САВОВА",
+      "type": "person",
+      "label": "Ваня Маринова Савова"
+    },
+    {
+      "id": "person:МАРИО ДИМИТРОВ МАРИНОВ",
+      "type": "person",
+      "label": "Марио Димитров Маринов"
+    },
+    {
+      "id": "person:КЕТИ СТЕФАНОВА БОЗУКОВА-ПЕЕВА",
+      "type": "person",
+      "label": "Кети Стефанова Бозукова-Пеева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-margaritova-noneva-9f6b71",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5145",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ПЕТРОВ СЛАВОВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛКА АНТИМОВА ХАДЖИЕВА",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СВЕТОЗАРОВА ХРИСТОВА",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЗЛАТЕВ ЧОЛАКОВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТОФОР ИВАНОВ КОНДЕВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА БОСИЛКОВА НЕГЕНЦОВА",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ ПАЧОЛОВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГУНЧЕВ ГУНЧЕВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ТОДОРОВ КАТРАНДЖИЕВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕШКА КРУМОВА РАЧЕВЕЦ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТОЯНОВ ВЪЛКОВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ МАРИНОВА САВОВА",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ДИМИТРОВ МАРИНОВ",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕТИ СТЕФАНОВА БОЗУКОВА-ПЕЕВА",
+      "target": "company:tr:000703244",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

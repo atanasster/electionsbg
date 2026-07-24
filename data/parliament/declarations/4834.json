@@ -1,1 +1,159 @@
-[{"mpId":4834,"declarantName":"Христо Цветанов Расташки","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-05-14","entryNumber":"Г9611","controlHash":"199BF679","sourceUrl":"https://register.cacbg.bg/2025/12D74E53-2959-44D2-96ED-4720DE099660212658.xml","ownershipStakes":[{"table":"10","itemType":"дялове в дружество","shareSize":"90","companyName":"Расташки Консулт ООД","registeredOffice":"Ловеч","valueEur":46.01626930765966,"holderName":"Христо Расташки","legalBasis":"други","fundsOrigin":"заплата"}],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":6816.032068226788,"amountEurSpouse":null},{"parent":null,"category":"Годишна данъчна основа за доходи от друга стопанска дейност","amountEurDeclarant":21230.884074791775,"amountEurSpouse":null},{"parent":null,"category":"Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество","amountEurDeclarant":5128.257568398071,"amountEurSpouse":null}],"assets":[{"category":"real_estate","description":"апартамент","detail":null,"location":"София","municipality":"София-град (Столична)","areaSqm":158,"builtAreaSqm":158,"acquiredYear":2024,"share":"1/1","currency":"BGN","amount":317822,"valueEur":162499.80826554456,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":"покупко-продажба","fundsOrigin":"заплата"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":30000,"valueEur":15338.756435886555,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"},{"category":"debt","description":"Банков кредит","detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":357250,"valueEur":182659.02455734907,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":"договор за кредит 2,53%","fundsOrigin":null},{"category":"debt","description":"Банков кредит","detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":264300,"valueEur":135134.44420016053,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":"договор за кредит 2,5%","fundsOrigin":null},{"category":"debt","description":"Цена по нотариален акт","detail":"EUR","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"EUR","amount":152500,"valueEur":152500,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":"цена по нот акт 0 %","fundsOrigin":null},{"category":"security","description":"инвестиционно злато","detail":"Тавекс ЕООД","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":"10 бр. по 100 гр.","currency":"BGN","amount":11000,"valueEur":5624.210693158403,"holderName":"Христо Цветанов Расташки","isSpouse":false,"legalBasis":"покупко-продажба","fundsOrigin":"заплата"}],"events":[]}]
+[
+  {
+    "mpId": 4834,
+    "declarantName": "Христо Цветанов Расташки",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9611",
+    "controlHash": "199BF679",
+    "sourceUrl": "https://register.cacbg.bg/2025/12D74E53-2959-44D2-96ED-4720DE099660212658.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове в дружество",
+        "shareSize": "90",
+        "companyName": "Расташки Консулт ООД",
+        "registeredOffice": "Ловеч",
+        "valueEur": 46.01626930765966,
+        "holderName": "Христо Расташки",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Расташки-Консулт-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6816.032068226788,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 21230.884074791775,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5128.257568398071,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 158,
+        "builtAreaSqm": 158,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 317822,
+        "valueEur": 162499.80826554456,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 357250,
+        "valueEur": 182659.02455734907,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит 2,53%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 264300,
+        "valueEur": 135134.44420016053,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит 2,5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Цена по нотариален акт",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 152500,
+        "valueEur": 152500,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": "цена по нот акт 0 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "инвестиционно злато",
+        "detail": "Тавекс ЕООД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "10 бр. по 100 гр.",
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Христо Цветанов Расташки",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

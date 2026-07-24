@@ -1,0 +1,233 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolinka-eseva-pandurova-8cc781",
+  "nodes": [
+    {
+      "id": "official:nikolinka-eseva-pandurova-8cc781",
+      "type": "official",
+      "slug": "nikolinka-eseva-pandurova-8cc781",
+      "label": "Николинка Есева Пандурова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000457682",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1907, С. РЪЖЕВО КОНАРЕ",
+      "slug": null,
+      "uic": "000457682",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНЬО ДИМИТРОВ АСАНСКИ",
+      "type": "person",
+      "label": "Станьо Димитров Асански"
+    },
+    {
+      "id": "person:ЙОВКА ИВАНОВА КАЧЕВА",
+      "type": "person",
+      "label": "Йовка Иванова Качева"
+    },
+    {
+      "id": "person:ИРИНА ГЕОРГИЕВА ЖЕКОВА",
+      "type": "person",
+      "label": "Ирина Георгиева Жекова"
+    },
+    {
+      "id": "person:СТЕФКА ПЕНЕВА ВИЧЕВА",
+      "type": "person",
+      "label": "Стефка Пенева Вичева"
+    },
+    {
+      "id": "person:АТАНАСКА НАНЕВА МИНКОВА",
+      "type": "person",
+      "label": "Атанаска Нанева Минкова"
+    },
+    {
+      "id": "person:СТАНИСЛАВ АТАНАСОВ ИНДЖОВ",
+      "type": "person",
+      "label": "Станислав Атанасов Инджов"
+    },
+    {
+      "id": "person:КЕРАНА ИВАНОВА ГИНОВА",
+      "type": "person",
+      "label": "Керана Иванова Гинова"
+    },
+    {
+      "id": "person:ВЯРА ИВАНОВА СТАНДЖИКОВА",
+      "type": "person",
+      "label": "Вяра Иванова Станджикова"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ГЕНЕВА ЙОТОВСКА",
+      "type": "person",
+      "label": "Камелия Генева Йотовска"
+    },
+    {
+      "id": "person:РАЛИЦА МИРОСЛАВОВА БОРИСОВА",
+      "type": "person",
+      "label": "Ралица Мирославова Борисова"
+    },
+    {
+      "id": "person:ТАТЯНА ГЕОРГИЕВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Татяна Георгиева Станчева"
+    },
+    {
+      "id": "person:МИЛЕНА РУМЕНОВА ПОПОВА",
+      "type": "person",
+      "label": "Милена Руменова Попова"
+    },
+    {
+      "id": "person:АТАНАСКА НАНЕВА БОГОЕВА",
+      "type": "person",
+      "label": "Атанаска Нанева Богоева"
+    },
+    {
+      "id": "person:НЕДКА ТОДОРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Недка Тодорова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolinka-eseva-pandurova-8cc781",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНЬО ДИМИТРОВ АСАНСКИ",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ИВАНОВА КАЧЕВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ГЕОРГИЕВА ЖЕКОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЬО ДИМИТРОВ АСАНСКИ",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ПЕНЕВА ВИЧЕВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НАНЕВА МИНКОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ АТАНАСОВ ИНДЖОВ",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ИВАНОВА КАЧЕВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕРАНА ИВАНОВА ГИНОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ИВАНОВА СТАНДЖИКОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ГЕНЕВА ЙОТОВСКА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА МИРОСЛАВОВА БОРИСОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ГЕОРГИЕВА СТАНЧЕВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА РУМЕНОВА ПОПОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НАНЕВА БОГОЕВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ТОДОРОВА ПЕТКОВА",
+      "target": "company:tr:000457682",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,244 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:945","nodes":[{"id":"mp:945","type":"mp","mpId":945,"label":"Цветан Костов Костов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207637350","type":"company","label":"ГЕНЕЗИС 2.0","slug":null,"uic":"207637350","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"company:tr:208501455","type":"company","label":"Примос Партнърс","slug":null,"uic":"208501455","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"company:tr:207633626","type":"company","label":"Бизнес Център Естера","slug":null,"uic":"207633626","legalForm":"EAD","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"company:tr:131319036","type":"company","label":"АТ ПРУДЕНТ","slug":null,"uic":"131319036","legalForm":"OOD","status":"in_liquidation","seat":null},{"id":"person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ","type":"person","label":"Димитър Станиславов Копаров"},{"id":"company:name:АЙДИЕМ СОЛЮШЪНС","type":"company","label":"АйДиЕм солюшънс ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ПРОПЪРТИ АСИСТАНС","type":"company","label":"Пропърти асистанс ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ","type":"person","label":"Иван Илиянов Терзиев"},{"id":"person:АЛЕКСАНДРА-ЕЛЕНА УРЗУ","type":"person","label":"Александра-Елена Урзу"},{"id":"person:РУМЯН СТЕФАНОВ СТОЙНОВ","type":"person","label":"Румян Стефанов Стойнов"},{"id":"person:БАКИ ИБРАХИМ БЕДЕЛ","type":"person","label":"Баки Ибрахим Бедел"},{"id":"person:ЕЛЕНА ПЕТРОВА КОСТОВА","type":"person","label":"Елена Петрова Костова"}],"edges":[{"source":"mp:945","target":"company:tr:207637350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:945","target":"company:tr:208501455","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:945","target":"company:tr:207633626","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:945","target":"company:tr:131319036","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ","target":"company:tr:207637350","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АЙДИЕМ СОЛЮШЪНС","target":"company:tr:207637350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ПРОПЪРТИ АСИСТАНС","target":"company:tr:207637350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ","target":"company:tr:207637350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ","target":"company:tr:207637350","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ","target":"company:tr:208501455","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ","target":"company:tr:208501455","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДРА-ЕЛЕНА УРЗУ","target":"company:tr:208501455","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯН СТЕФАНОВ СТОЙНОВ","target":"company:tr:208501455","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БАКИ ИБРАХИМ БЕДЕЛ","target":"company:tr:207633626","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:БАКИ ИБРАХИМ БЕДЕЛ","target":"company:tr:207633626","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ПЕТРОВА КОСТОВА","target":"company:tr:207633626","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БАКИ ИБРАХИМ БЕДЕЛ","target":"company:tr:207633626","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:945",
+  "nodes": [
+    {
+      "id": "mp:945",
+      "type": "mp",
+      "mpId": 945,
+      "label": "Цветан Костов Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207637350",
+      "type": "company",
+      "label": "ГЕНЕЗИС 2.0",
+      "slug": null,
+      "uic": "207637350",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "company:tr:208501455",
+      "type": "company",
+      "label": "Примос Партнърс",
+      "slug": null,
+      "uic": "208501455",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "company:tr:207633626",
+      "type": "company",
+      "label": "Бизнес Център Естера",
+      "slug": null,
+      "uic": "207633626",
+      "legalForm": "EAD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "company:tr:131319036",
+      "type": "company",
+      "label": "АТ ПРУДЕНТ",
+      "slug": null,
+      "uic": "131319036",
+      "legalForm": "OOD",
+      "status": "in_liquidation",
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ",
+      "type": "person",
+      "label": "Димитър Станиславов Копаров"
+    },
+    {
+      "id": "company:name:АЙДИЕМ СОЛЮШЪНС",
+      "type": "company",
+      "label": "АйДиЕм солюшънс ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ПРОПЪРТИ АСИСТАНС",
+      "type": "company",
+      "label": "Пропърти асистанс ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Иван Илиянов Терзиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА-ЕЛЕНА УРЗУ",
+      "type": "person",
+      "label": "Александра-Елена Урзу"
+    },
+    {
+      "id": "person:РУМЯН СТЕФАНОВ СТОЙНОВ",
+      "type": "person",
+      "label": "Румян Стефанов Стойнов"
+    },
+    {
+      "id": "person:БАКИ ИБРАХИМ БЕДЕЛ",
+      "type": "person",
+      "label": "Баки Ибрахим Бедел"
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕТРОВА КОСТОВА",
+      "type": "person",
+      "label": "Елена Петрова Костова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:945",
+      "target": "company:tr:207637350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:945",
+      "target": "company:tr:208501455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:945",
+      "target": "company:tr:207633626",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:945",
+      "target": "company:tr:131319036",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ",
+      "target": "company:tr:207637350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АЙДИЕМ СОЛЮШЪНС",
+      "target": "company:tr:207637350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ПРОПЪРТИ АСИСТАНС",
+      "target": "company:tr:207637350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ",
+      "target": "company:tr:207637350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТАНИСЛАВОВ КОПАРОВ",
+      "target": "company:tr:207637350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ",
+      "target": "company:tr:208501455",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЯНОВ ТЕРЗИЕВ",
+      "target": "company:tr:208501455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА-ЕЛЕНА УРЗУ",
+      "target": "company:tr:208501455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯН СТЕФАНОВ СТОЙНОВ",
+      "target": "company:tr:208501455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАКИ ИБРАХИМ БЕДЕЛ",
+      "target": "company:tr:207633626",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАКИ ИБРАХИМ БЕДЕЛ",
+      "target": "company:tr:207633626",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВА КОСТОВА",
+      "target": "company:tr:207633626",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАКИ ИБРАХИМ БЕДЕЛ",
+      "target": "company:tr:207633626",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,40 @@
-{"ekatte":"67372","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"МАГИЯ-17","displayName":"МАГИЯ 17","registeredOffice":"БЪЛГАРИЯ, гр. Сливница, 2200","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"РепроЕнерджи","displayName":"РепроЕнерджи","registeredOffice":"БЪЛГАРИЯ, гр. Сливница, 2200","mps":[{"mpId":164,"mpName":"Атанас Димитров Щерев","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "67372",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "МАГИЯ-17",
+      "displayName": "МАГИЯ 17",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сливница, 2200",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РепроЕнерджи",
+      "displayName": "РепроЕнерджи",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Сливница, 2200",
+      "mps": [
+        {
+          "mpId": 164,
+          "mpName": "Атанас Димитров Щерев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

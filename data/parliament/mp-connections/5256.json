@@ -1,1 +1,296 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5256","nodes":[{"id":"mp:5256","type":"mp","mpId":5256,"label":"Катя Максимова Панева","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["45","46","49","50","52"]},{"id":"company:МИП-КОМ-ООД","type":"company","label":"МИП-КОМ ООД","slug":"МИП-КОМ-ООД","uic":"126624335","legalForm":"OOD","status":"active","seat":"Хасково"},{"id":"company:tr:126735855","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО при ОУ &quot;ПЕНЧО СЛАВЕЙКОВ&quot;","slug":null,"uic":"126735855","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Димитровград, 6400"},{"id":"person:РУСИ ПЕТРОВ ЖЕКОВ","type":"person","label":"Руси Петров Жеков"},{"id":"person:НАТАЛИЯ РАДКОВА СЛАВОВА","type":"person","label":"Наталия Радкова Славова"},{"id":"person:ЕЛЕНА ГЕОРГИЕВА БОРИСОВА","type":"person","label":"Елена Георгиева Борисова"},{"id":"person:РЕНЕТА ДИМИТРОВА ИВАНОВА","type":"person","label":"Ренета Димитрова Иванова"},{"id":"person:СВЕТЛАНА МИТКОВА ГЕОРГИЕВА","type":"person","label":"Светлана Миткова Георгиева"},{"id":"person:ДЕЛЯНА ГОЧЕВА ИВАНОВА","type":"person","label":"Деляна Гочева Иванова"},{"id":"person:СНЕЖАНА ЙОРДАНОВА АНГЕЛОВА","type":"person","label":"Снежана Йорданова Ангелова"},{"id":"person:ЕЛИЦА ДИМИТРИС ПЕТКОВА","type":"person","label":"Елица Димитрис Петкова"},{"id":"person:НИКОЛА КОСТАДИНОВ ВЪЛЧАНОВ","type":"person","label":"Никола Костадинов Вълчанов"},{"id":"person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА","type":"person","label":"Диана Димитрова Колева-Вълкова"},{"id":"person:ВАНЯ ИВАНОВА КАНЕВА","type":"person","label":"Ваня Иванова Канева"},{"id":"person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА","type":"person","label":"Рая-Анна Кристиян Димитрова"},{"id":"person:СЛАВЕНА ДИМИТРОВА ИВАНОВА","type":"person","label":"Славена Димитрова Иванова"},{"id":"person:ЛЮБЛЯНА ХРИСТОВА ДИМИТРОВА","type":"person","label":"Любляна Христова Димитрова"},{"id":"person:СИЛВИЯ ГЕОРГИЕВА СТОЕВА","type":"person","label":"Силвия Георгиева Стоева"}],"edges":[{"source":"mp:5256","target":"company:МИП-КОМ-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5256","target":"company:tr:126735855","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5256","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РУСИ ПЕТРОВ ЖЕКОВ","target":"company:МИП-КОМ-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НАТАЛИЯ РАДКОВА СЛАВОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА БОРИСОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РЕНЕТА ДИМИТРОВА ИВАНОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА МИТКОВА ГЕОРГИЕВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯНА ГОЧЕВА ИВАНОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА ЙОРДАНОВА АНГЕЛОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА ДИМИТРИС ПЕТКОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА КОСТАДИНОВ ВЪЛЧАНОВ","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ИВАНОВА КАНЕВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЛАВЕНА ДИМИТРОВА ИВАНОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЛЯНА ХРИСТОВА ДИМИТРОВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ГЕОРГИЕВА СТОЕВА","target":"company:tr:126735855","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5256",
+  "nodes": [
+    {
+      "id": "mp:5256",
+      "type": "mp",
+      "mpId": 5256,
+      "label": "Катя Максимова Панева",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "49",
+        "50",
+        "52"
+      ]
+    },
+    {
+      "id": "company:МИП-КОМ-ООД",
+      "type": "company",
+      "label": "МИП-КОМ ООД",
+      "slug": "МИП-КОМ-ООД",
+      "uic": "126624335",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:tr:126735855",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО при ОУ &quot;ПЕНЧО СЛАВЕЙКОВ&quot;",
+      "slug": null,
+      "uic": "126735855",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Димитровград, 6400"
+    },
+    {
+      "id": "person:РУСИ ПЕТРОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Руси Петров Жеков"
+    },
+    {
+      "id": "official:katya-maksimova-paneva-a9f8a1",
+      "type": "official",
+      "slug": "katya-maksimova-paneva-a9f8a1",
+      "label": "Катя Максимова Панева",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:НАТАЛИЯ РАДКОВА СЛАВОВА",
+      "type": "person",
+      "label": "Наталия Радкова Славова"
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА БОРИСОВА",
+      "type": "person",
+      "label": "Елена Георгиева Борисова"
+    },
+    {
+      "id": "person:РЕНЕТА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ренета Димитрова Иванова"
+    },
+    {
+      "id": "person:СВЕТЛАНА МИТКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Светлана Миткова Георгиева"
+    },
+    {
+      "id": "person:ДЕЛЯНА ГОЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Деляна Гочева Иванова"
+    },
+    {
+      "id": "person:СНЕЖАНА ЙОРДАНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Снежана Йорданова Ангелова"
+    },
+    {
+      "id": "person:ЕЛИЦА ДИМИТРИС ПЕТКОВА",
+      "type": "person",
+      "label": "Елица Димитрис Петкова"
+    },
+    {
+      "id": "person:НИКОЛА КОСТАДИНОВ ВЪЛЧАНОВ",
+      "type": "person",
+      "label": "Никола Костадинов Вълчанов"
+    },
+    {
+      "id": "person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА",
+      "type": "person",
+      "label": "Диана Димитрова Колева-Вълкова"
+    },
+    {
+      "id": "person:ВАНЯ ИВАНОВА КАНЕВА",
+      "type": "person",
+      "label": "Ваня Иванова Канева"
+    },
+    {
+      "id": "person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА",
+      "type": "person",
+      "label": "Рая-Анна Кристиян Димитрова"
+    },
+    {
+      "id": "person:СЛАВЕНА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Славена Димитрова Иванова"
+    },
+    {
+      "id": "person:ЛЮБЛЯНА ХРИСТОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Любляна Христова Димитрова"
+    },
+    {
+      "id": "person:СИЛВИЯ ГЕОРГИЕВА СТОЕВА",
+      "type": "person",
+      "label": "Силвия Георгиева Стоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5256",
+      "target": "company:МИП-КОМ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5256",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5256",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСИ ПЕТРОВ ЖЕКОВ",
+      "target": "company:МИП-КОМ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katya-maksimova-paneva-a9f8a1",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-maksimova-paneva-a9f8a1",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ РАДКОВА СЛАВОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА БОРИСОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНЕТА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА МИТКОВА ГЕОРГИЕВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯНА ГОЧЕВА ИВАНОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЙОРДАНОВА АНГЕЛОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ДИМИТРИС ПЕТКОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА КОСТАДИНОВ ВЪЛЧАНОВ",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА КОЛЕВА-ВЪЛКОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИВАНОВА КАНЕВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ-АННА КРИСТИЯН ДИМИТРОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЛЯНА ХРИСТОВА ДИМИТРОВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ГЕОРГИЕВА СТОЕВА",
+      "target": "company:tr:126735855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,192 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nigrita-hristova-razmirova-93360f",
+  "nodes": [
+    {
+      "id": "official:nigrita-hristova-razmirova-93360f",
+      "type": "official",
+      "slug": "nigrita-hristova-razmirova-93360f",
+      "label": "Нигрита Христова Размирова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207554310",
+      "type": "company",
+      "label": "ИКОНОМИЧЕСКА ЗОНА ДОБРОСЛАВЦИ",
+      "slug": null,
+      "uic": "207554310",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-gospodinov-mihov-dcd3d2",
+      "type": "official",
+      "slug": "dimitr-gospodinov-mihov-dcd3d2",
+      "label": "Димитър Господинов Михов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-milkov-kostovski-70caeb",
+      "type": "official",
+      "slug": "ivan-milkov-kostovski-70caeb",
+      "label": "Иван Милков Костовски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Иван Алексиев Алексиев"
+    },
+    {
+      "id": "person:НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ",
+      "type": "person",
+      "label": "Национална Компания Индустриални Зони"
+    },
+    {
+      "id": "person:ЦВЕТАН ПЕТРОВ ЦИРКОВ",
+      "type": "person",
+      "label": "Цветан Петров Цирков"
+    },
+    {
+      "id": "person:РАДОСТ АЛЕКСАНДРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Радост Александрова Димитрова"
+    },
+    {
+      "id": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "type": "person",
+      "label": "Християн Пламенов Султанов"
+    },
+    {
+      "id": "person:ИВАНКА ПЕТРОВА КУСЕВА",
+      "type": "person",
+      "label": "Иванка Петрова Кусева"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Димитров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nigrita-hristova-razmirova-93360f",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-gospodinov-mihov-dcd3d2",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-milkov-kostovski-70caeb",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ",
+      "target": "company:tr:207554310",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ПЕТРОВ ЦИРКОВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТ АЛЕКСАНДРОВА ДИМИТРОВА",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТ АЛЕКСАНДРОВА ДИМИТРОВА",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТРОВА КУСЕВА",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:207554310",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

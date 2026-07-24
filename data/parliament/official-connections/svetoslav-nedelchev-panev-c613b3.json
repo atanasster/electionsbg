@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-nedelchev-panev-c613b3",
+  "nodes": [
+    {
+      "id": "official:svetoslav-nedelchev-panev-c613b3",
+      "type": "official",
+      "slug": "svetoslav-nedelchev-panev-c613b3",
+      "label": "Светослав Неделчев Панев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206994075",
+      "type": "company",
+      "label": "Синфлуенс ООД",
+      "slug": null,
+      "uic": "206994075",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103789769",
+      "type": "company",
+      "label": "Светман ООД",
+      "slug": null,
+      "uic": "103789769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207348335",
+      "type": "company",
+      "label": "Фреско Бг ООД",
+      "slug": null,
+      "uic": "207348335",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИАНА МИЛЕНКОВА ШИМБОВА",
+      "type": "person",
+      "label": "Диана Миленкова Шимбова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ НЕДЕЛЧЕВ ПАНЕВ",
+      "type": "person",
+      "label": "Светослав Неделчев Панев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ИВАНОВ АВРАМОВ",
+      "type": "person",
+      "label": "Станислав Иванов Аврамов"
+    },
+    {
+      "id": "company:name:ДЖИ ЕЛ ТРЕЙД ПРО",
+      "type": "company",
+      "label": "\"ДЖИ ЕЛ ТРЕЙД про\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-nedelchev-panev-c613b3",
+      "target": "company:tr:206994075",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-nedelchev-panev-c613b3",
+      "target": "company:tr:103789769",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-nedelchev-panev-c613b3",
+      "target": "company:tr:207348335",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИЛЕНКОВА ШИМБОВА",
+      "target": "company:tr:206994075",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИЛЕНКОВА ШИМБОВА",
+      "target": "company:tr:206994075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ НЕДЕЛЧЕВ ПАНЕВ",
+      "target": "company:tr:206994075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ИВАНОВ АВРАМОВ",
+      "target": "company:tr:207348335",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ИВАНОВ АВРАМОВ",
+      "target": "company:tr:207348335",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ НЕДЕЛЧЕВ ПАНЕВ",
+      "target": "company:tr:207348335",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖИ ЕЛ ТРЕЙД ПРО",
+      "target": "company:tr:207348335",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

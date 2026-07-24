@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-tsvetanov-pelov-8ac8ea",
+  "nodes": [
+    {
+      "id": "official:plamen-tsvetanov-pelov-8ac8ea",
+      "type": "official",
+      "slug": "plamen-tsvetanov-pelov-8ac8ea",
+      "label": "Пламен Цветанов Пелов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207575322",
+      "type": "company",
+      "label": "ПИ ВИ АЙ ГРУП",
+      "slug": null,
+      "uic": "207575322",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО СЕРАФИМОВ СЕРАФИМОВ",
+      "type": "person",
+      "label": "Ивайло Серафимов Серафимов"
+    },
+    {
+      "id": "person:ВАСИЛ ПАВЛОВ ЦЕНОВ",
+      "type": "person",
+      "label": "Васил Павлов Ценов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-tsvetanov-pelov-8ac8ea",
+      "target": "company:tr:207575322",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО СЕРАФИМОВ СЕРАФИМОВ",
+      "target": "company:tr:207575322",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СЕРАФИМОВ СЕРАФИМОВ",
+      "target": "company:tr:207575322",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАВЛОВ ЦЕНОВ",
+      "target": "company:tr:207575322",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

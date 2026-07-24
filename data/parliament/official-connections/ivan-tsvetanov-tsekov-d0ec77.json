@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-tsvetanov-tsekov-d0ec77",
+  "nodes": [
+    {
+      "id": "official:ivan-tsvetanov-tsekov-d0ec77",
+      "type": "official",
+      "slug": "ivan-tsvetanov-tsekov-d0ec77",
+      "label": "Иван Цветанов Цеков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:822106163",
+      "type": "company",
+      "label": "В И К - БАТАК",
+      "slug": null,
+      "uic": "822106163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-tsvetanov-tsekov-d0ec77",
+      "target": "company:tr:822106163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

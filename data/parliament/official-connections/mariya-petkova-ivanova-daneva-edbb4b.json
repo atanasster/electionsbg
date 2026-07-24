@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-petkova-ivanova-daneva-edbb4b",
+  "nodes": [
+    {
+      "id": "official:mariya-petkova-ivanova-daneva-edbb4b",
+      "type": "official",
+      "slug": "mariya-petkova-ivanova-daneva-edbb4b",
+      "label": "Мария Петкова Иванова-Данева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "company:tr:119651879",
+      "type": "company",
+      "label": "НОВА ЗАГОРА",
+      "slug": null,
+      "uic": "119651879",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Васил Стоянов Стоянов"
+    },
+    {
+      "id": "person:СТОЯН КИРИЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стоян Кирилов Стефанов"
+    },
+    {
+      "id": "person:ДАРИНА ИВАНЧЕВА ДАНЕВА",
+      "type": "person",
+      "label": "Дарина Иванчева Данева"
+    },
+    {
+      "id": "person:ДИЯН ДИМИТРОВ ТАНЕВ",
+      "type": "person",
+      "label": "Диян Димитров Танев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-petkova-ivanova-daneva-edbb4b",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН КИРИЛОВ СТЕФАНОВ",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ИВАНЧЕВА ДАНЕВА",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН ДИМИТРОВ ТАНЕВ",
+      "target": "company:tr:119651879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

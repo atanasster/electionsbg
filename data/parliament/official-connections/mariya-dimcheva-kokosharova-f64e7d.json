@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-dimcheva-kokosharova-f64e7d",
+  "nodes": [
+    {
+      "id": "official:mariya-dimcheva-kokosharova-f64e7d",
+      "type": "official",
+      "slug": "mariya-dimcheva-kokosharova-f64e7d",
+      "label": "Мария Димчева Кокошарова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:000283655",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;БЪДЕЩЕ-1894&quot;",
+      "slug": null,
+      "uic": "000283655",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАНКА ВАСИЛЕВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Ганка Василева Цветкова"
+    },
+    {
+      "id": "person:ЛИЛЯНА ГЕОРГИЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Лиляна Георгиева Атанасова"
+    },
+    {
+      "id": "person:МАТЕЙ АНГЕЛОВ МАТЕВ",
+      "type": "person",
+      "label": "Матей Ангелов Матев"
+    },
+    {
+      "id": "person:ТИХОМИР ПЕНКОВ КОЛЕВ",
+      "type": "person",
+      "label": "Тихомир Пенков Колев"
+    },
+    {
+      "id": "person:СТЕФАН ЙОНКОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Йонков Стефанов"
+    },
+    {
+      "id": "person:СИМЕОН БОРИСОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Симеон Борисов Петров"
+    },
+    {
+      "id": "person:СНЕЖАНА ЕМИЛОВА МИХОВА",
+      "type": "person",
+      "label": "Снежана Емилова Михова"
+    },
+    {
+      "id": "person:ХРИСТИНА МАРИНОВА БУКАРЕВА",
+      "type": "person",
+      "label": "Христина Маринова Букарева"
+    },
+    {
+      "id": "person:ЕМИЛИЯ КЪНЧЕВА НАНКОВА",
+      "type": "person",
+      "label": "Емилия Кънчева Нанкова"
+    },
+    {
+      "id": "person:ВЕЛИАНА АНГЕЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Велиана Ангелова Ангелова"
+    },
+    {
+      "id": "person:ПАВЛИНКА ПЕТКОВА МИРЧЕВА",
+      "type": "person",
+      "label": "Павлинка Петкова Мирчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-dimcheva-kokosharova-f64e7d",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-dimcheva-kokosharova-f64e7d",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАНКА ВАСИЛЕВА ЦВЕТКОВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ГЕОРГИЕВА АТАНАСОВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТЕЙ АНГЕЛОВ МАТЕВ",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ПЕНКОВ КОЛЕВ",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЙОНКОВ СТЕФАНОВ",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН БОРИСОВ ПЕТРОВ",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЕМИЛОВА МИХОВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА МАРИНОВА БУКАРЕВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ КЪНЧЕВА НАНКОВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИАНА АНГЕЛОВА АНГЕЛОВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНКА ПЕТКОВА МИРЧЕВА",
+      "target": "company:tr:000283655",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

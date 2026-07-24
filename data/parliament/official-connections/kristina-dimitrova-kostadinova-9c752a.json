@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kristina-dimitrova-kostadinova-9c752a",
+  "nodes": [
+    {
+      "id": "official:kristina-dimitrova-kostadinova-9c752a",
+      "type": "official",
+      "slug": "kristina-dimitrova-kostadinova-9c752a",
+      "label": "Кристина Димитрова Костадинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:148104401",
+      "type": "company",
+      "label": "ВЪГЛЕН-1884 Г.",
+      "slug": null,
+      "uic": "148104401",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНКО НАЙДЕНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Янко Найденов Ангелов"
+    },
+    {
+      "id": "person:ДИАНА ВЕСЕЛИНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Диана Веселинова Василева"
+    },
+    {
+      "id": "person:ИВЕЛИНА СЛАВОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ивелина Славова Тодорова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ДИМЧЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Анелия Димчева Атанасова"
+    },
+    {
+      "id": "person:ТОДОРКА ГЕОРГИЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Тодорка Георгиева Маринова"
+    },
+    {
+      "id": "person:ДОБРИНА НИКОЛАЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Добрина Николаева Маринова"
+    },
+    {
+      "id": "person:ГИНА ТОДОРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Гина Тодорова Николова"
+    },
+    {
+      "id": "person:НЕДЯЛКА СТЕФАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Недялка Стефанова Маринова"
+    },
+    {
+      "id": "person:МАЯ СТЕФАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Мая Стефанова Петкова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ДИМЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Анелия Димчева Тодорова"
+    },
+    {
+      "id": "person:СЪБКА СТАНЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Събка Станева Иванова"
+    },
+    {
+      "id": "person:ГАЛЯ ВАСИЛЕВА БАНЧЕВА",
+      "type": "person",
+      "label": "Галя Василева Банчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-dimitrova-kostadinova-9c752a",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНКО НАЙДЕНОВ АНГЕЛОВ",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО НАЙДЕНОВ АНГЕЛОВ",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ВЕСЕЛИНОВА ВАСИЛЕВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА СЛАВОВА ТОДОРОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ДИМЧЕВА АТАНАСОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ГЕОРГИЕВА МАРИНОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНА НИКОЛАЕВА МАРИНОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНА ТОДОРОВА НИКОЛОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА СТЕФАНОВА МАРИНОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ СТЕФАНОВА ПЕТКОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ДИМЧЕВА ТОДОРОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА СТАНЕВА ИВАНОВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ВАСИЛЕВА БАНЧЕВА",
+      "target": "company:tr:148104401",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

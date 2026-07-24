@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-nikolov-chavov-388187",
+  "nodes": [
+    {
+      "id": "official:ivan-nikolov-chavov-388187",
+      "type": "official",
+      "slug": "ivan-nikolov-chavov-388187",
+      "label": "Иван Николов Чавов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115867364",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ТУРИСТИЧЕСКО ДРУЖЕСТВО &quot;ОРЕЛА  - 1935&quot;",
+      "slug": null,
+      "uic": "115867364",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИЯНА ИВАНОВА ДЕНКОВА",
+      "type": "person",
+      "label": "Дияна Иванова Денкова"
+    },
+    {
+      "id": "person:ДОНКА БОНКОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Донка Бонкова Вълева"
+    },
+    {
+      "id": "person:СТОЯН МИНЧЕВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Стоян Минчев Чолаков"
+    },
+    {
+      "id": "person:ВЪЛКО ГЕОРГИЕВ ПАНИЧАРСКИ",
+      "type": "person",
+      "label": "Вълко Георгиев Паничарски"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА НЕЙЧЕВА",
+      "type": "person",
+      "label": "Пенка Иванова Нейчева"
+    },
+    {
+      "id": "person:МАТО ГЕОРГИЕВ ДЖУМЕРКОВ",
+      "type": "person",
+      "label": "Мато Георгиев Джумерков"
+    },
+    {
+      "id": "person:ПЕТЪР НИКОЛОВ БОЕВ",
+      "type": "person",
+      "label": "Петър Николов Боев"
+    },
+    {
+      "id": "person:ДОЧКА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Дочка Иванова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-nikolov-chavov-388187",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ДЕНКОВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА БОНКОВА ВЪЛЕВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ДЕНКОВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН МИНЧЕВ ЧОЛАКОВ",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКО ГЕОРГИЕВ ПАНИЧАРСКИ",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА НЕЙЧЕВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА НЕЙЧЕВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТО ГЕОРГИЕВ ДЖУМЕРКОВ",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НИКОЛОВ БОЕВ",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЧКА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:115867364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

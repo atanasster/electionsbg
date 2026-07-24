@@ -1,1 +1,64 @@
-{"mpId":4160,"name":"Андрей Атанасов Гюров","partyGroupShort":null,"isCurrent":false,"nsFolders":["47","48"],"latestDeclarationYear":2023,"fiscalYear":2022,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2023/8134EC06-1A62-4D17-9543-6C6DE88759A9149906.xml","totalAssetsEur":380755.99617553677,"totalDebtsEur":0,"netWorthEur":380755.99617553677,"previous":{"year":2023,"totalAssetsEur":379733.41241314425,"netWorthEur":379733.41241314425},"byCategory":{"real_estate":{"count":8,"valuedCount":8,"totalEur":126132.63933981993},"vehicle":{"count":4,"valuedCount":4,"totalEur":51129.188119621846},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":3,"valuedCount":3,"totalEur":58798.56633756513},"receivable":{"count":1,"valuedCount":1,"totalEur":84874.45227857227},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":59821.150099957566}}}
+{
+  "mpId": 4160,
+  "name": "Андрей Атанасов Гюров",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47",
+    "48"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2022,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2023/8134EC06-1A62-4D17-9543-6C6DE88759A9149906.xml",
+  "totalAssetsEur": 380755.99617553677,
+  "totalDebtsEur": 0,
+  "netWorthEur": 380755.99617553677,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 379733.41241314425,
+    "netWorthEur": 379733.41241314425
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 8,
+      "valuedCount": 8,
+      "totalEur": 126132.63933981993
+    },
+    "vehicle": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 51129.188119621846
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 58798.56633756513
+    },
+    "receivable": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 84874.45227857227
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 59821.150099957566
+    }
+  }
+}

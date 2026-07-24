@@ -1,1 +1,64 @@
-{"mpId":5290,"mpName":"Стоян Петков Петков","generatedAt":"2026-07-03T11:12:51.970Z","total":4,"roles":[{"uic":"207172129","companyName":"ИнСинерджи Асет Мениджмънт","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1680","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-11-25T10:04:50","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206874738","companyName":"ПЕТКОВ 55","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-03-24T10:29:41","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"ЯМБОЛ\""},{"uic":"206874738","companyName":"ПЕТКОВ 55","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-03-24T10:29:41","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"ЯМБОЛ\""},{"uic":"207172129","companyName":"ИнСинерджи Асет Мениджмънт","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1680","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-11-25T10:04:50","erasedAt":"2024-05-30T10:41:57","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5290,
+  "mpName": "Стоян Петков Петков",
+  "generatedAt": "2026-07-24T03:35:58.796Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "207172129",
+      "companyName": "ИнСинерджи Асет Мениджмънт",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-11-25T10:04:50",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206874738",
+      "companyName": "ПЕТКОВ 55",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-03-24T10:29:41",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"ЯМБОЛ\""
+    },
+    {
+      "uic": "206874738",
+      "companyName": "ПЕТКОВ 55",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-03-24T10:29:41",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"ЯМБОЛ\""
+    },
+    {
+      "uic": "207172129",
+      "companyName": "ИнСинерджи Асет Мениджмънт",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-11-25T10:04:50",
+      "erasedAt": "2024-05-30T10:41:57",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

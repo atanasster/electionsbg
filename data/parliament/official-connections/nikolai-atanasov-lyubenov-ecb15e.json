@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-atanasov-lyubenov-ecb15e",
+  "nodes": [
+    {
+      "id": "official:nikolai-atanasov-lyubenov-ecb15e",
+      "type": "official",
+      "slug": "nikolai-atanasov-lyubenov-ecb15e",
+      "label": "Николай Атанасов Любенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Левски"
+    },
+    {
+      "id": "company:tr:207262256",
+      "type": "company",
+      "label": "НЕК - МЛ",
+      "slug": null,
+      "uic": "207262256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-atanasov-lyubenov-ecb15e",
+      "target": "company:tr:207262256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-atanasov-lyubenov-ecb15e",
+      "target": "company:tr:207262256",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

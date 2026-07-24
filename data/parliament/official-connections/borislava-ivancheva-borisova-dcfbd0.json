@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:borislava-ivancheva-borisova-dcfbd0",
+  "nodes": [
+    {
+      "id": "official:borislava-ivancheva-borisova-dcfbd0",
+      "type": "official",
+      "slug": "borislava-ivancheva-borisova-dcfbd0",
+      "label": "Борислава Иванчева Борисова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923169",
+      "type": "company",
+      "label": "Народно читалище &quot;Христо Ботев  - 1872&quot;",
+      "slug": null,
+      "uic": "000923169",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЯНА СТОЯНОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Татяна Стоянова Григорова"
+    },
+    {
+      "id": "person:СИЛВИЯ РУМЕНОВА МАРИНОВА-ЙОРДАНОВА",
+      "type": "person",
+      "label": "Силвия Руменова Маринова-Йорданова"
+    },
+    {
+      "id": "person:ЕМИЛ ХРИСТОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Емил Христов Мирчев"
+    },
+    {
+      "id": "person:ТОДОР РАДЕВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Тодор Радев Ганчев"
+    },
+    {
+      "id": "person:ЯННА ПАВЛОВА РУСКОВА",
+      "type": "person",
+      "label": "Янна Павлова Рускова"
+    },
+    {
+      "id": "person:МИЛКА КОСТАДИНОВА ДАНАИЛОВА",
+      "type": "person",
+      "label": "Милка Костадинова Данаилова"
+    },
+    {
+      "id": "person:ПЕТЯ ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Петя Димитрова Димитрова"
+    },
+    {
+      "id": "person:АНГЕЛ ЦВЕТКОВ СПАСОВ",
+      "type": "person",
+      "label": "Ангел Цветков Спасов"
+    },
+    {
+      "id": "person:ЗЛАТКО ИВАНОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Златко Иванов Златев"
+    },
+    {
+      "id": "person:НАДЕЖДА ТОДОРОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Надежда Тодорова Добрева"
+    },
+    {
+      "id": "person:РУМЯНА ГЕНЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Румяна Генчева Тодорова"
+    },
+    {
+      "id": "person:НАДЯ ДИМИТРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Надя Димитрова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislava-ivancheva-borisova-dcfbd0",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЯНА СТОЯНОВА ГРИГОРОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ РУМЕНОВА МАРИНОВА-ЙОРДАНОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ХРИСТОВ МИРЧЕВ",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР РАДЕВ ГАНЧЕВ",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯННА ПАВЛОВА РУСКОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА КОСТАДИНОВА ДАНАИЛОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ЦВЕТКОВ СПАСОВ",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО ИВАНОВ ЗЛАТЕВ",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ТОДОРОВА ДОБРЕВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ГЕНЧЕВА ТОДОРОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ДИМИТРОВА АТАНАСОВА",
+      "target": "company:tr:000923169",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

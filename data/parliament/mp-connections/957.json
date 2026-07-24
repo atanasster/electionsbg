@@ -1,1 +1,385 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:957","nodes":[{"id":"mp:957","type":"mp","mpId":957,"label":"Георги Георгиев Плачков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:208753190","type":"company","label":"ГиГ Строй 88","slug":null,"uic":"208753190","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Раковски, 4150"},{"id":"company:tr:202591205","type":"company","label":"4 АГРА","slug":null,"uic":"202591205","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002"},{"id":"person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА","type":"person","label":"Гергана Георгиева Лачева"},{"id":"person:ДИМИТЪР СИМЕОНОВ СИМОВ","type":"person","label":"Димитър Симеонов Симов"},{"id":"person:ИСКРЕН ИВАНОВ ИВАНОВ","type":"person","label":"Искрен Иванов Иванов"},{"id":"company:name:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ","type":"company","label":"\"Лонг тейл маркетинг лимитед България\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:Асендинг-АД","type":"company","label":"Асендинг АД","slug":"Асендинг-АД","uic":"203239527","legalForm":"AD","status":"active","seat":"СОФИЯ"},{"id":"person:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ","type":"person","label":"Лонг Тейл Маркетинг Лимитед България"},{"id":"person:АСЕНДИНГ","type":"person","label":"Асендинг"},{"id":"person:ГРЕЙНСТОР ИНВЕСТ","type":"person","label":"Грейнстор Инвест"},{"id":"person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ","type":"person","label":"Людмил Георгиев Плачков"},{"id":"person:МАГНЕЛИС","type":"person","label":"Магнелис"},{"id":"mp:5007","type":"mp","mpId":5007,"label":"Красимира Петкова Нинова-Катинчарова","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["50","51"]},{"id":"company:Изцяло-ООД","type":"company","label":"Изцяло ООД","slug":"Изцяло-ООД","uic":"206481731","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Неофит Рилски, 9223"},{"id":"mp:5006","type":"mp","mpId":5006,"label":"Ивелин Людмилов Михайлов","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["51"]},{"id":"company:3-ЕН-3-ООД","type":"company","label":"\"3 ЕН 3\" ООД","slug":"3-ЕН-3-ООД","uic":"203326551","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"mp:4324","type":"mp","mpId":4324,"label":"Искрен Николаев Митев","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49"]}],"edges":[{"source":"mp:957","target":"company:tr:208753190","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:957","target":"company:tr:208753190","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:957","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА","target":"company:tr:208753190","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА","target":"company:tr:208753190","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СИМЕОНОВ СИМОВ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРЕН ИВАНОВ ИВАНОВ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АСЕНДИНГ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГРЕЙНСТОР ИНВЕСТ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ","target":"company:tr:202591205","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАГНЕЛИС","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СИМЕОНОВ СИМОВ","target":"company:3-ЕН-3-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Асендинг-АД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:Изцяло-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"mp:4324","target":"company:3-ЕН-3-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4324","target":"company:3-ЕН-3-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:5007","length":3,"nodeIds":["mp:957","company:tr:202591205","company:Асендинг-АД","mp:5007"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5006","length":4,"nodeIds":["mp:957","company:tr:202591205","company:Асендинг-АД","company:Изцяло-ООД","mp:5006"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4324","length":4,"nodeIds":["mp:957","company:tr:202591205","person:ДИМИТЪР СИМЕОНОВ СИМОВ","company:3-ЕН-3-ООД","mp:4324"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:957",
+  "nodes": [
+    {
+      "id": "mp:957",
+      "type": "mp",
+      "mpId": 957,
+      "label": "Георги Георгиев Плачков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208753190",
+      "type": "company",
+      "label": "ГиГ Строй 88",
+      "slug": null,
+      "uic": "208753190",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Раковски, 4150"
+    },
+    {
+      "id": "company:tr:202591205",
+      "type": "company",
+      "label": "4 АГРА",
+      "slug": null,
+      "uic": "202591205",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002"
+    },
+    {
+      "id": "person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА",
+      "type": "person",
+      "label": "Гергана Георгиева Лачева"
+    },
+    {
+      "id": "person:ДИМИТЪР СИМЕОНОВ СИМОВ",
+      "type": "person",
+      "label": "Димитър Симеонов Симов"
+    },
+    {
+      "id": "person:ИСКРЕН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Искрен Иванов Иванов"
+    },
+    {
+      "id": "company:name:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ",
+      "type": "company",
+      "label": "\"Лонг тейл маркетинг лимитед България\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:Асендинг-АД",
+      "type": "company",
+      "label": "Асендинг АД",
+      "slug": "Асендинг-АД",
+      "uic": "203239527",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "person:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ",
+      "type": "person",
+      "label": "Лонг Тейл Маркетинг Лимитед България"
+    },
+    {
+      "id": "person:АСЕНДИНГ",
+      "type": "person",
+      "label": "Асендинг"
+    },
+    {
+      "id": "person:ГРЕЙНСТОР ИНВЕСТ",
+      "type": "person",
+      "label": "Грейнстор Инвест"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ",
+      "type": "person",
+      "label": "Людмил Георгиев Плачков"
+    },
+    {
+      "id": "person:МАГНЕЛИС",
+      "type": "person",
+      "label": "Магнелис"
+    },
+    {
+      "id": "mp:5007",
+      "type": "mp",
+      "mpId": 5007,
+      "label": "Красимира Петкова Нинова-Катинчарова",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Изцяло-ООД",
+      "type": "company",
+      "label": "Изцяло ООД",
+      "slug": "Изцяло-ООД",
+      "uic": "206481731",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Неофит Рилски, 9223"
+    },
+    {
+      "id": "mp:5006",
+      "type": "mp",
+      "mpId": 5006,
+      "label": "Ивелин Людмилов Михайлов",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:3-ЕН-3-ООД",
+      "type": "company",
+      "label": "\"3 ЕН 3\" ООД",
+      "slug": "3-ЕН-3-ООД",
+      "uic": "203326551",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:4324",
+      "type": "mp",
+      "mpId": 4324,
+      "label": "Искрен Николаев Митев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:957",
+      "target": "company:tr:208753190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:957",
+      "target": "company:tr:208753190",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:957",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА",
+      "target": "company:tr:208753190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА ЛАЧЕВА",
+      "target": "company:tr:208753190",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СИМЕОНОВ СИМОВ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОНГ ТЕЙЛ МАРКЕТИНГ ЛИМИТЕД БЪЛГАРИЯ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕНДИНГ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕЙНСТОР ИНВЕСТ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ",
+      "target": "company:tr:202591205",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГНЕЛИС",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ГЕОРГИЕВ ПЛАЧКОВ",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СИМЕОНОВ СИМОВ",
+      "target": "company:3-ЕН-3-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Асендинг-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4324",
+      "target": "company:3-ЕН-3-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4324",
+      "target": "company:3-ЕН-3-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5007",
+      "length": 3,
+      "nodeIds": [
+        "mp:957",
+        "company:tr:202591205",
+        "company:Асендинг-АД",
+        "mp:5007"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5006",
+      "length": 4,
+      "nodeIds": [
+        "mp:957",
+        "company:tr:202591205",
+        "company:Асендинг-АД",
+        "company:Изцяло-ООД",
+        "mp:5006"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4324",
+      "length": 4,
+      "nodeIds": [
+        "mp:957",
+        "company:tr:202591205",
+        "person:ДИМИТЪР СИМЕОНОВ СИМОВ",
+        "company:3-ЕН-3-ООД",
+        "mp:4324"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

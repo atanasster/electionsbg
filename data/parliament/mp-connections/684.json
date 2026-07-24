@@ -1,1 +1,75 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:684","nodes":[{"id":"mp:684","type":"mp","mpId":684,"label":"Петя Велкова Божикова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:102844198","type":"company","label":"СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ ПО ПЛАЖНИ СПОРТОВЕ&quot;","slug":null,"uic":"102844198","legalForm":"ASSOC","status":"ceased","seat":null},{"id":"person:ЮЛИАН ИВАНОВ АРНАУДОВ","type":"person","label":"Юлиан Иванов Арнаудов"},{"id":"person:ЛЮСИЕН ИВАНОВ ВЕЛЧЕВ","type":"person","label":"Люсиен Иванов Велчев"},{"id":"person:ПЕТЯ ВЕЛИКОВА БОЖИКОВА","type":"person","label":"Петя Великова Божикова"}],"edges":[{"source":"mp:684","target":"company:tr:102844198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЮЛИАН ИВАНОВ АРНАУДОВ","target":"company:tr:102844198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮСИЕН ИВАНОВ ВЕЛЧЕВ","target":"company:tr:102844198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ВЕЛИКОВА БОЖИКОВА","target":"company:tr:102844198","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:684",
+  "nodes": [
+    {
+      "id": "mp:684",
+      "type": "mp",
+      "mpId": 684,
+      "label": "Петя Велкова Божикова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:102844198",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА АСОЦИАЦИЯ ПО ПЛАЖНИ СПОРТОВЕ&quot;",
+      "slug": null,
+      "uic": "102844198",
+      "legalForm": "ASSOC",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:ЮЛИАН ИВАНОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Юлиан Иванов Арнаудов"
+    },
+    {
+      "id": "person:ЛЮСИЕН ИВАНОВ ВЕЛЧЕВ",
+      "type": "person",
+      "label": "Люсиен Иванов Велчев"
+    },
+    {
+      "id": "person:ПЕТЯ ВЕЛИКОВА БОЖИКОВА",
+      "type": "person",
+      "label": "Петя Великова Божикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:684",
+      "target": "company:tr:102844198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮЛИАН ИВАНОВ АРНАУДОВ",
+      "target": "company:tr:102844198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮСИЕН ИВАНОВ ВЕЛЧЕВ",
+      "target": "company:tr:102844198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ВЕЛИКОВА БОЖИКОВА",
+      "target": "company:tr:102844198",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

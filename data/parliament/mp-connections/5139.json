@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5139","nodes":[{"id":"mp:5139","type":"mp","mpId":5139,"label":"Александра Красимирова Стеркова","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["46","52"]},{"id":"company:tr:207647191","type":"company","label":"ЕЛ ЕС АЙ ПИ АР","slug":null,"uic":"207647191","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ДАНИЕЛ ГРЕГОР РОНАЛД РУТЦ","type":"person","label":"Даниел Грегор Роналд Рутц"},{"id":"person:АЛЕКСАНДЪР НЕЛЧЕВ ИВАНОВ","type":"person","label":"Александър Нелчев Иванов"}],"edges":[{"source":"mp:5139","target":"company:tr:207647191","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ГРЕГОР РОНАЛД РУТЦ","target":"company:tr:207647191","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР НЕЛЧЕВ ИВАНОВ","target":"company:tr:207647191","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5139",
+  "nodes": [
+    {
+      "id": "mp:5139",
+      "type": "mp",
+      "mpId": 5139,
+      "label": "Александра Красимирова Стеркова",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "46",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:207647191",
+      "type": "company",
+      "label": "ЕЛ ЕС АЙ ПИ АР",
+      "slug": null,
+      "uic": "207647191",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ДАНИЕЛ ГРЕГОР РОНАЛД РУТЦ",
+      "type": "person",
+      "label": "Даниел Грегор Роналд Рутц"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НЕЛЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Александър Нелчев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5139",
+      "target": "company:tr:207647191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ГРЕГОР РОНАЛД РУТЦ",
+      "target": "company:tr:207647191",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НЕЛЧЕВ ИВАНОВ",
+      "target": "company:tr:207647191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zorka-ivanova-nikolova-ccbd6a",
+  "nodes": [
+    {
+      "id": "official:zorka-ivanova-nikolova-ccbd6a",
+      "type": "official",
+      "slug": "zorka-ivanova-nikolova-ccbd6a",
+      "label": "Зорка Иванова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000343134",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ПЕТЛЕШКОВ-1874&quot; ГР. БРАЦИГОВО",
+      "slug": null,
+      "uic": "000343134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ХРИСТОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Иванка Христова Стефанова"
+    },
+    {
+      "id": "person:ГАЛИНА ВАСИЛЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Галина Василева Василева"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ КАБОВ",
+      "type": "person",
+      "label": "Георги Василев Кабов"
+    },
+    {
+      "id": "person:ИВАН ЖИВКОВ ДИМОВ",
+      "type": "person",
+      "label": "Иван Живков Димов"
+    },
+    {
+      "id": "person:МИЛАНА ИСТИЛИЯНОВА ТОДОВИЧИНА",
+      "type": "person",
+      "label": "Милана Истилиянова Тодовичина"
+    },
+    {
+      "id": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "type": "person",
+      "label": "Пейо Николов Малинов"
+    },
+    {
+      "id": "person:ТАНЯ ПЕТРОВА МИШЕВА",
+      "type": "person",
+      "label": "Таня Петрова Мишева"
+    },
+    {
+      "id": "person:АНТОНИЯ ВАЛЕНТИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Антония Валентинова Димитрова"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА СТОИМЕНОВА",
+      "type": "person",
+      "label": "Мария Иванова Стоименова"
+    },
+    {
+      "id": "person:ПЕНКА ГРУЕВА ХАРИЗАНОВА",
+      "type": "person",
+      "label": "Пенка Груева Харизанова"
+    },
+    {
+      "id": "person:МИЛКА ИВАНОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Милка Иванова Кънчева"
+    },
+    {
+      "id": "person:КОСТАДИНКА ДИМИТРОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Костадинка Димитрова Найденова"
+    },
+    {
+      "id": "person:СОНЯ АТАНАСОВА ТОДОРИЕВА",
+      "type": "person",
+      "label": "Соня Атанасова Тодориева"
+    },
+    {
+      "id": "person:ЕЛЕНА АСЕНОВА АСЕНОВА-ВАСИЛЕВА",
+      "type": "person",
+      "label": "Елена Асенова Асенова-Василева"
+    },
+    {
+      "id": "person:ЙОРДАНКА КРЪСТЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Йорданка Кръстева Василева"
+    },
+    {
+      "id": "person:МИЛЕН ВЕСЕЛИНОВ ЗДРАВКОВ",
+      "type": "person",
+      "label": "Милен Веселинов Здравков"
+    },
+    {
+      "id": "person:ЕЛЕНА АТАНАСОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Елена Атанасова Благоева"
+    },
+    {
+      "id": "person:КРИСТИНА НИКОЛАЕВА НАКОВА - ИВАНОВА",
+      "type": "person",
+      "label": "Кристина Николаева Накова - Иванова"
+    },
+    {
+      "id": "person:ПОЛЯ ВАСИЛЕВА ДРАГНЕВА",
+      "type": "person",
+      "label": "Поля Василева Драгнева"
+    },
+    {
+      "id": "person:ЙОРДАН ТЪРПОВ БАТАКЛИЕВ",
+      "type": "person",
+      "label": "Йордан Търпов Батаклиев"
+    },
+    {
+      "id": "person:ДИМИТЪР КРАСИМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Красимиров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zorka-ivanova-nikolova-ccbd6a",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ХРИСТОВА СТЕФАНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВАСИЛЕВА ВАСИЛЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ХРИСТОВА СТЕФАНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ КАБОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЖИВКОВ ДИМОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛАНА ИСТИЛИЯНОВА ТОДОВИЧИНА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ПЕТРОВА МИШЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВАЛЕНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА СТОИМЕНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГРУЕВА ХАРИЗАНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ИВАНОВА КЪНЧЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА ДИМИТРОВА НАЙДЕНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ АТАНАСОВА ТОДОРИЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА АСЕНОВА АСЕНОВА-ВАСИЛЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА КРЪСТЕВА ВАСИЛЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙО НИКОЛОВ МАЛИНОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ВЕСЕЛИНОВ ЗДРАВКОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА АТАНАСОВА БЛАГОЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА НИКОЛАЕВА НАКОВА - ИВАНОВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ВАСИЛЕВА ДРАГНЕВА",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТЪРПОВ БАТАКЛИЕВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КРАСИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:000343134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

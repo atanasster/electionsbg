@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-ivanov-angelov-811f28",
+  "nodes": [
+    {
+      "id": "official:plamen-ivanov-angelov-811f28",
+      "type": "official",
+      "slug": "plamen-ivanov-angelov-811f28",
+      "label": "Пламен Иванов Ангелов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208827228",
+      "type": "company",
+      "label": "ВЕКТОР ПАРК 2026",
+      "slug": null,
+      "uic": "208827228",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-ivanov-angelov-811f28",
+      "target": "company:tr:208827228",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-ivanov-angelov-811f28",
+      "target": "company:tr:208827228",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

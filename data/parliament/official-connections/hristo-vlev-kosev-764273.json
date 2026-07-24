@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristo-vlev-kosev-764273",
+  "nodes": [
+    {
+      "id": "official:hristo-vlev-kosev-764273",
+      "type": "official",
+      "slug": "hristo-vlev-kosev-764273",
+      "label": "Христо Вълев Кьосев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206028866",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ &quot;ВЕТЕРАНИ СПОРТИСТИ - ВАРНА&quot;",
+      "slug": null,
+      "uic": "206028866",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:bozhidar-kostadinov-chaparov-e03f7a",
+      "type": "official",
+      "slug": "bozhidar-kostadinov-chaparov-e03f7a",
+      "label": "Божидар Костадинов Чапаров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:ИЛИЯН ХРИСТОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илиян Христов Илиев"
+    },
+    {
+      "id": "person:БОРЯНА ДАМЯНОВА ШИШКОВА",
+      "type": "person",
+      "label": "Боряна Дамянова Шишкова"
+    },
+    {
+      "id": "person:СИМОНА МЛАДЕНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Симона Младенова Маринова"
+    },
+    {
+      "id": "person:ЖАНЕТА БОРИСОВА ЩЕРЕВА",
+      "type": "person",
+      "label": "Жанета Борисова Щерева"
+    },
+    {
+      "id": "person:ПЛАМЕН ГРОЗДАНОВ ТИМНЕВ",
+      "type": "person",
+      "label": "Пламен Грозданов Тимнев"
+    },
+    {
+      "id": "person:ДРАГОМИР АВРАМОВ ДРАГНЕВ",
+      "type": "person",
+      "label": "Драгомир Аврамов Драгнев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-vlev-kosev-764273",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bozhidar-kostadinov-chaparov-e03f7a",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯН ХРИСТОВ ИЛИЕВ",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ХРИСТОВ ИЛИЕВ",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ДАМЯНОВА ШИШКОВА",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА МЛАДЕНОВА МАРИНОВА",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА БОРИСОВА ЩЕРЕВА",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГРОЗДАНОВ ТИМНЕВ",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР АВРАМОВ ДРАГНЕВ",
+      "target": "company:tr:206028866",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

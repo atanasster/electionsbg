@@ -1,1 +1,963 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2822","nodes":[{"id":"mp:2822","type":"mp","mpId":2822,"label":"Любомир Бойков Бонев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:М-Контрол-ЕООД","type":"company","label":"М Контрол ЕООД","slug":"М-Контрол-ЕООД","uic":"113566864","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:Стройкомплект-АБ-ООД","type":"company","label":"Стройкомплект АБ ООД","slug":"Стройкомплект-АБ-ООД","uic":"113579858","legalForm":"OOD","status":"active","seat":"Перник"},{"id":"company:tr:113505594","type":"company","label":"ДИОМЕКС","slug":null,"uic":"113505594","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:tr:208622981","type":"company","label":"А4 Груп","slug":null,"uic":"208622981","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:tr:207434706","type":"company","label":"А2 ПРОЕКТ","slug":null,"uic":"207434706","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:tr:204901318","type":"company","label":"„МС трейд 66”","slug":null,"uic":"204901318","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:205383946","type":"company","label":"Индустриална и логистична зона - Перник","slug":null,"uic":"205383946","legalForm":"EAD","status":"active","seat":null},{"id":"person:РАДОСТИНА НИКОЛАЕВА СТОЙНЕВА-ИВАНОВА","type":"person","label":"Радостина Николаева Стойнева-Иванова"},{"id":"person:ВЕРКА ГЕОРГИЕВА БОНЕВА","type":"person","label":"Верка Георгиева Бонева"},{"id":"person:ЙОАН НИКОЛАЕВ АНДРЕЕВ","type":"person","label":"Йоан Николаев Андреев"},{"id":"person:МАРИНЕЛА БОРИСОВА ЧОЛЕВА","type":"person","label":"Маринела Борисова Чолева"},{"id":"person:ЯВОР АНТОНОВ СТАНИМИРОВ","type":"person","label":"Явор Антонов Станимиров"},{"id":"person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ","type":"person","label":"Димитър Стоянов Милчев"},{"id":"person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ","type":"person","label":"Венелин Кирилов Венев"},{"id":"person:СВЕТОЗАР БОЙКОВ БОНЕВ","type":"person","label":"Светозар Бойков Бонев"},{"id":"person:БОРИСЛАВ ДРАГОМИРОВ ДИМИТРОВ","type":"person","label":"Борислав Драгомиров Димитров"},{"id":"person:ВИКТОРИЯ ВЕСЕЛИНОВА ИЛОВА","type":"person","label":"Виктория Веселинова Илова"},{"id":"person:ВЛАДИСЛАВ СПАСОВ КАРАИЛИЕВ","type":"person","label":"Владислав Спасов Караилиев"},{"id":"person:ИВАН ВАСИЛЕВ СИМЕОНОВ","type":"person","label":"Иван Василев Симеонов"},{"id":"person:РУМЯНА НИКОЛОВА ПЕТРОВА","type":"person","label":"Румяна Николова Петрова"},{"id":"person:РАЛИЦА ВАЛЕНТИНОВА ДИМИТРОВА","type":"person","label":"Ралица Валентинова Димитрова"},{"id":"person:КИРИЛ ЛЮДМИЛОВ ВЛАДОВ","type":"person","label":"Кирил Людмилов Владов"},{"id":"person:РАДОСЛАВ РУМЕНОВ АНТОВ","type":"person","label":"Радослав Руменов Антов"}],"edges":[{"source":"mp:2822","target":"company:М-Контрол-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2822","target":"company:М-Контрол-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2822","target":"company:Стройкомплект-АБ-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2822","target":"company:tr:113505594","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:208622981","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:208622981","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:207434706","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:204901318","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:204901318","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:207434706","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:205383946","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2822","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:РАДОСТИНА НИКОЛАЕВА СТОЙНЕВА-ИВАНОВА","target":"company:М-Контрол-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРКА ГЕОРГИЕВА БОНЕВА","target":"company:М-Контрол-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРКА ГЕОРГИЕВА БОНЕВА","target":"company:Стройкомплект-АБ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАН НИКОЛАЕВ АНДРЕЕВ","target":"company:Стройкомплект-АБ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНЕЛА БОРИСОВА ЧОЛЕВА","target":"company:Стройкомплект-АБ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР АНТОНОВ СТАНИМИРОВ","target":"company:tr:113505594","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ","target":"company:tr:113505594","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ","target":"company:tr:113505594","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ","target":"company:tr:113505594","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР БОЙКОВ БОНЕВ","target":"company:tr:113505594","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР БОЙКОВ БОНЕВ","target":"company:tr:208622981","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРКА ГЕОРГИЕВА БОНЕВА","target":"company:tr:208622981","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕРКА ГЕОРГИЕВА БОНЕВА","target":"company:tr:208622981","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ДРАГОМИРОВ ДИМИТРОВ","target":"company:tr:207434706","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ВЕСЕЛИНОВА ИЛОВА","target":"company:tr:207434706","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ","target":"company:tr:204901318","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ","target":"company:tr:204901318","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ СПАСОВ КАРАИЛИЕВ","target":"company:tr:204901318","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР БОЙКОВ БОНЕВ","target":"company:tr:204901318","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОЗАР БОЙКОВ БОНЕВ","target":"company:tr:204901318","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАСИЛЕВ СИМЕОНОВ","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА НИКОЛОВА ПЕТРОВА","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ВАЛЕНТИНОВА ДИМИТРОВА","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ЛЮДМИЛОВ ВЛАДОВ","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ РУМЕНОВ АНТОВ","target":"company:tr:205383946","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ РУМЕНОВ АНТОВ","target":"company:tr:205383946","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2822",
+  "nodes": [
+    {
+      "id": "mp:2822",
+      "type": "mp",
+      "mpId": 2822,
+      "label": "Любомир Бойков Бонев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:М-Контрол-ЕООД",
+      "type": "company",
+      "label": "М Контрол ЕООД",
+      "slug": "М-Контрол-ЕООД",
+      "uic": "113566864",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:Стройкомплект-АБ-ООД",
+      "type": "company",
+      "label": "Стройкомплект АБ ООД",
+      "slug": "Стройкомплект-АБ-ООД",
+      "uic": "113579858",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Перник"
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:113505594",
+      "type": "company",
+      "label": "ДИОМЕКС",
+      "slug": null,
+      "uic": "113505594",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:tr:208622981",
+      "type": "company",
+      "label": "А4 Груп",
+      "slug": null,
+      "uic": "208622981",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:tr:207434706",
+      "type": "company",
+      "label": "А2 ПРОЕКТ",
+      "slug": null,
+      "uic": "207434706",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:tr:204901318",
+      "type": "company",
+      "label": "„МС трейд 66”",
+      "slug": null,
+      "uic": "204901318",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:205383946",
+      "type": "company",
+      "label": "Индустриална и логистична зона - Перник",
+      "slug": null,
+      "uic": "205383946",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСТИНА НИКОЛАЕВА СТОЙНЕВА-ИВАНОВА",
+      "type": "person",
+      "label": "Радостина Николаева Стойнева-Иванова"
+    },
+    {
+      "id": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "type": "person",
+      "label": "Верка Георгиева Бонева"
+    },
+    {
+      "id": "person:ЙОАН НИКОЛАЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Йоан Николаев Андреев"
+    },
+    {
+      "id": "person:МАРИНЕЛА БОРИСОВА ЧОЛЕВА",
+      "type": "person",
+      "label": "Маринела Борисова Чолева"
+    },
+    {
+      "id": "mp:3799",
+      "type": "mp",
+      "mpId": 3799,
+      "label": "Лозко Стефанов Лозев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4809",
+      "type": "mp",
+      "mpId": 4809,
+      "label": "Манол Трифонов Генов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "official:irena-kostova-georgieva-3fafc6",
+      "type": "official",
+      "slug": "irena-kostova-georgieva-3fafc6",
+      "label": "Ирена Костова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:lozko-stefanov-lozev-6ca13c",
+      "type": "official",
+      "slug": "lozko-stefanov-lozev-6ca13c",
+      "label": "Лозко Стефанов Лозев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:manol-trifonov-genov-ff91a1",
+      "type": "official",
+      "slug": "manol-trifonov-genov-ff91a1",
+      "label": "Манол Трифонов Генов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:КЪНЧО ДИМИТРОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Кънчо Димитров Кънчев"
+    },
+    {
+      "id": "person:БОРИСЛАВ КИРИЛОВ ПОПОВ",
+      "type": "person",
+      "label": "Борислав Кирилов Попов"
+    },
+    {
+      "id": "person:ИРЕНА КОСТОВА ГЕОРГИЕВА-ДЕНЕВА",
+      "type": "person",
+      "label": "Ирена Костова Георгиева-Денева"
+    },
+    {
+      "id": "person:ВЕНЕЛИН ДЕНЧЕВ ШЪКОВ",
+      "type": "person",
+      "label": "Венелин Денчев Шъков"
+    },
+    {
+      "id": "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Пламен Цветков Манолов"
+    },
+    {
+      "id": "person:ЯВОР ВЛАДИМИРОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Явор Владимиров Стойчев"
+    },
+    {
+      "id": "company:tr:828050351",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "828050351",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:826043803",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "826043803",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:824106518",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "824106518",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:830166530",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "830166530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:832046330",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "832046330",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:000225011",
+      "type": "company",
+      "label": "В и К",
+      "slug": null,
+      "uic": "000225011",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯВОР АНТОНОВ СТАНИМИРОВ",
+      "type": "person",
+      "label": "Явор Антонов Станимиров"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Стоянов Милчев"
+    },
+    {
+      "id": "person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ",
+      "type": "person",
+      "label": "Венелин Кирилов Венев"
+    },
+    {
+      "id": "person:СВЕТОЗАР БОЙКОВ БОНЕВ",
+      "type": "person",
+      "label": "Светозар Бойков Бонев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ДРАГОМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Борислав Драгомиров Димитров"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ВЕСЕЛИНОВА ИЛОВА",
+      "type": "person",
+      "label": "Виктория Веселинова Илова"
+    },
+    {
+      "id": "person:МАРИЯ РУМЕНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Мария Руменова Маринова"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ СПАСОВ КАРАИЛИЕВ",
+      "type": "person",
+      "label": "Владислав Спасов Караилиев"
+    },
+    {
+      "id": "official:radoslav-rumenov-antov-026a70",
+      "type": "official",
+      "slug": "radoslav-rumenov-antov-026a70",
+      "label": "Радослав Руменов Антов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Иван Василев Симеонов"
+    },
+    {
+      "id": "person:РУМЯНА НИКОЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Румяна Николова Петрова"
+    },
+    {
+      "id": "person:РАЛИЦА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ралица Валентинова Димитрова"
+    },
+    {
+      "id": "person:КИРИЛ ЛЮДМИЛОВ ВЛАДОВ",
+      "type": "person",
+      "label": "Кирил Людмилов Владов"
+    },
+    {
+      "id": "company:tr:831635354",
+      "type": "company",
+      "label": "НАЦИОНАЛНА СПОРТНА БАЗА",
+      "slug": null,
+      "uic": "831635354",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4716",
+      "type": "mp",
+      "mpId": 4716,
+      "label": "Венцислав Иванов Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:tr:000692965",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ФУТБОЛЕН СЪЮЗ",
+      "slug": null,
+      "uic": "000692965",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2849",
+      "type": "mp",
+      "mpId": 2849,
+      "label": "Димитър Величков Георгиев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5197",
+      "type": "mp",
+      "mpId": 5197,
+      "label": "Йордан Йовчев Йовчев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2822",
+      "target": "company:М-Контрол-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:М-Контрол-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:Стройкомплект-АБ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:113505594",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:208622981",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:208622981",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:207434706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:204901318",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:204901318",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2822",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТИНА НИКОЛАЕВА СТОЙНЕВА-ИВАНОВА",
+      "target": "company:М-Контрол-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:М-Контрол-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:Стройкомплект-АБ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАН НИКОЛАЕВ АНДРЕЕВ",
+      "target": "company:Стройкомплект-АБ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА БОРИСОВА ЧОЛЕВА",
+      "target": "company:Стройкомплект-АБ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3799",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4809",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-kostova-georgieva-3fafc6",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lozko-stefanov-lozev-6ca13c",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:manol-trifonov-genov-ff91a1",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЪНЧО ДИМИТРОВ КЪНЧЕВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ КИРИЛОВ ПОПОВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА КОСТОВА ГЕОРГИЕВА-ДЕНЕВА",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ДЕНЧЕВ ШЪКОВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ДЕНЧЕВ ШЪКОВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ВЛАДИМИРОВ СТОЙЧЕВ",
+      "target": "company:tr:206086428",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:826043803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:824106518",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:830166530",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:832046330",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР АНТОНОВ СТАНИМИРОВ",
+      "target": "company:tr:113505594",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ",
+      "target": "company:tr:113505594",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ",
+      "target": "company:tr:113505594",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ",
+      "target": "company:tr:113505594",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР БОЙКОВ БОНЕВ",
+      "target": "company:tr:113505594",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР БОЙКОВ БОНЕВ",
+      "target": "company:tr:208622981",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:tr:208622981",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:tr:208622981",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРКА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:tr:207434706",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ДРАГОМИРОВ ДИМИТРОВ",
+      "target": "company:tr:207434706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ВЕСЕЛИНОВА ИЛОВА",
+      "target": "company:tr:207434706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ РУМЕНОВА МАРИНОВА",
+      "target": "company:tr:207434706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ МИЛЧЕВ",
+      "target": "company:tr:204901318",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН КИРИЛОВ ВЕНЕВ",
+      "target": "company:tr:204901318",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ СПАСОВ КАРАИЛИЕВ",
+      "target": "company:tr:204901318",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР БОЙКОВ БОНЕВ",
+      "target": "company:tr:204901318",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР БОЙКОВ БОНЕВ",
+      "target": "company:tr:204901318",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:radoslav-rumenov-antov-026a70",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-rumenov-antov-026a70",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ СИМЕОНОВ",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ЛЮДМИЛОВ ВЛАДОВ",
+      "target": "company:tr:205383946",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+      "target": "company:tr:000692965",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5197",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2849",
+      "target": "company:tr:000692965",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3799",
+      "length": 2,
+      "nodeIds": [
+        "mp:2822",
+        "company:tr:206086428",
+        "mp:3799"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4809",
+      "length": 2,
+      "nodeIds": [
+        "mp:2822",
+        "company:tr:206086428",
+        "mp:4809"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4716",
+      "length": 4,
+      "nodeIds": [
+        "mp:2822",
+        "company:tr:206086428",
+        "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+        "company:tr:831635354",
+        "mp:4716"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2849",
+      "length": 4,
+      "nodeIds": [
+        "mp:2822",
+        "company:tr:206086428",
+        "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+        "company:tr:000692965",
+        "mp:2849"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5197",
+      "length": 4,
+      "nodeIds": [
+        "mp:2822",
+        "company:tr:206086428",
+        "person:ПЛАМЕН ЦВЕТКОВ МАНОЛОВ",
+        "company:tr:831635354",
+        "mp:5197"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

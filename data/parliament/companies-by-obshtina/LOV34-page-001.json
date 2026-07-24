@@ -1,1 +1,53 @@
-{"obshtina":"LOV34","page":1,"totalPages":1,"count":1,"companies":[{"slug":"Гласът-на-Балкана","displayName":"Гласът на Балкана","registeredOffice":"БЪЛГАРИЯ, с. Орешак, 5630","mps":[{"mpId":4728,"mpName":"Светослав Тодоров Тодоров","role":"ngo_representative","isCurrent":true},{"mpId":4728,"mpName":"Светослав Тодоров Тодоров","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "LOV34",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "Миховски-Авто-ООД",
+      "displayName": "\"Миховски Авто\" ООД",
+      "registeredOffice": "гр. Троян",
+      "mps": [
+        {
+          "mpId": 3162,
+          "mpName": "Иван Николов Миховски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Гласът-на-Балкана",
+      "displayName": "Гласът на Балкана",
+      "registeredOffice": "БЪЛГАРИЯ, с. Орешак, 5630",
+      "mps": [
+        {
+          "mpId": 4728,
+          "mpName": "Светослав Тодоров Тодоров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4728,
+          "mpName": "Светослав Тодоров Тодоров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Миховски-автоООД",
+      "displayName": "\"Миховски авто\"ООД",
+      "registeredOffice": "Троян",
+      "mps": [
+        {
+          "mpId": 3162,
+          "mpName": "Иван Николов Миховски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

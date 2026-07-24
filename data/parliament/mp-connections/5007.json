@@ -1,1 +1,812 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5007","nodes":[{"id":"mp:5007","type":"mp","mpId":5007,"label":"Красимира Петкова Нинова-Катинчарова","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["50","51"]},{"id":"company:Асендинг-АД","type":"company","label":"Асендинг АД","slug":"Асендинг-АД","uic":"203239527","legalForm":"AD","status":"active","seat":"СОФИЯ"},{"id":"company:Болярски-ДОМ-АД","type":"company","label":"Болярски ДОМ АД","slug":"Болярски-ДОМ-АД","uic":"205941358","legalForm":"AD","status":"active","seat":"ВАРНА"},{"id":"company:Величие-АД","type":"company","label":"Величие АД","slug":"Величие-АД","uic":"205248140","legalForm":"AD","status":"active","seat":"Варна"},{"id":"company:Историческо-селище-АД","type":"company","label":"Историческо селище АД","slug":"Историческо-селище-АД","uic":"206067004","legalForm":"AD","status":"active","seat":"ВАРНА"},{"id":"company:Факла-ЕАД","type":"company","label":"Факла ЕАД","slug":"Факла-ЕАД","uic":"206855549","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9002"},{"id":"person:ИВАН АТАНАСОВ БЕЛЧЕВ","type":"person","label":"Иван Атанасов Белчев"},{"id":"person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ","type":"person","label":"Пламен Яворов Кънчев"},{"id":"person:СИЛВИЯ СТЕФАНОВА ПОПОВА","type":"person","label":"Силвия Стефанова Попова"},{"id":"person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА","type":"person","label":"Елена Делчева Кънчева"},{"id":"company:Изцяло-ООД","type":"company","label":"Изцяло ООД","slug":"Изцяло-ООД","uic":"206481731","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Неофит Рилски, 9223"},{"id":"company:Наедно-ООД","type":"company","label":"Наедно ООД","slug":"Наедно-ООД","uic":"206481699","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Неофит Рилски, 9223"},{"id":"company:Обоз-ООД","type":"company","label":"Обоз ООД","slug":"Обоз-ООД","uic":"206519979","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Неофит Рилски, 9223"},{"id":"company:tr:202591205","type":"company","label":"4 АГРА","slug":null,"uic":"202591205","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002"},{"id":"person:МИЛЧО СТЕФАНОВ МИЛЕВ","type":"person","label":"Милчо Стефанов Милев"},{"id":"person:МИРОСЛАВ РУМЕНОВ СТОЯНОВ","type":"person","label":"Мирослав Руменов Стоянов"},{"id":"person:ВАСЯ ДАНЧЕВА МИХАЙЛОВА","type":"person","label":"Вася Данчева Михайлова"},{"id":"official:todor-dimitrov-popov-6034e1","type":"official","slug":"todor-dimitrov-popov-6034e1","label":"Тодор Димитров Попов","tier":"municipal","role":"councillor","municipality":"Пазарджик"},{"id":"person:ИВАЙЛО КИРИЛОВ ИВАНОВ","type":"person","label":"Ивайло Кирилов Иванов"},{"id":"person:АРГИР ЛЮБЕНОВ АРГИРОВ","type":"person","label":"Аргир Любенов Аргиров"},{"id":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","type":"person","label":"Николай Вихренов Тошев"},{"id":"mp:5006","type":"mp","mpId":5006,"label":"Ивелин Людмилов Михайлов","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["51"]},{"id":"mp:957","type":"mp","mpId":957,"label":"Георги Георгиев Плачков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207640193","type":"company","label":"КЛУБ ПО КОНЕН СПОРТ - ГОРАНОВСКИ С.АЛТИМИР","slug":null,"uic":"207640193","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, с. Алтимир, 3251"},{"id":"mp:5089","type":"mp","mpId":5089,"label":"Георги Христов Митов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:176983536","type":"company","label":"РОДОЛЮБЦИ ЗА БЪЛГАРИЯ","slug":null,"uic":"176983536","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"mp:4465","type":"mp","mpId":4465,"label":"Николай Георгиев Марков","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5007","target":"company:Асендинг-АД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Болярски-ДОМ-АД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Величие-АД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Историческо-селище-АД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Факла-ЕАД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ БЕЛЧЕВ","target":"company:Асендинг-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ","target":"company:Асендинг-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТЕФАНОВА ПОПОВА","target":"company:Асендинг-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА","target":"company:Асендинг-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:Изцяло-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:Наедно-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:Обоз-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Асендинг-АД","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ БЕЛЧЕВ","target":"company:Болярски-ДОМ-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЧО СТЕФАНОВ МИЛЕВ","target":"company:Болярски-ДОМ-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ РУМЕНОВ СТОЯНОВ","target":"company:Болярски-ДОМ-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТЕФАНОВА ПОПОВА","target":"company:Болярски-ДОМ-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАСЯ ДАНЧЕВА МИХАЙЛОВА","target":"company:Величие-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ СТЕФАНОВА ПОПОВА","target":"company:Величие-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"official:todor-dimitrov-popov-6034e1","target":"company:Величие-АД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ","target":"company:Историческо-селище-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ БЕЛЧЕВ","target":"company:Историческо-селище-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО КИРИЛОВ ИВАНОВ","target":"company:Историческо-селище-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА","target":"company:Историческо-селище-АД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ","target":"company:Историческо-селище-АД","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:АРГИР ЛЮБЕНОВ АРГИРОВ","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ БЕЛЧЕВ","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_role","role":"representative","isCurrent":false,"confidence":"medium"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"medium"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Изцяло-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"mp:5006","target":"company:Наедно-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Наедно-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Наедно-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Наедно-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"mp:5006","target":"company:Обоз-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Обоз-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Обоз-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Обоз-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:957","target":"company:tr:202591205","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАЙЛО КИРИЛОВ ИВАНОВ","target":"company:tr:207640193","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5089","target":"company:tr:207640193","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5089","target":"company:tr:207640193","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:176983536","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5006","length":2,"nodeIds":["mp:5007","company:Факла-ЕАД","mp:5006"],"isAllCurrent":true,"isAllHighConfidence":true},{"targetMpNodeId":"mp:957","length":3,"nodeIds":["mp:5007","company:Асендинг-АД","company:tr:202591205","mp:957"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5089","length":4,"nodeIds":["mp:5007","company:Историческо-селище-АД","person:ИВАЙЛО КИРИЛОВ ИВАНОВ","company:tr:207640193","mp:5089"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4465","length":4,"nodeIds":["mp:5007","company:Факла-ЕАД","person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","company:tr:176983536","mp:4465"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5007",
+  "nodes": [
+    {
+      "id": "mp:5007",
+      "type": "mp",
+      "mpId": 5007,
+      "label": "Красимира Петкова Нинова-Катинчарова",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Асендинг-АД",
+      "type": "company",
+      "label": "Асендинг АД",
+      "slug": "Асендинг-АД",
+      "uic": "203239527",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "company:Болярски-ДОМ-АД",
+      "type": "company",
+      "label": "Болярски ДОМ АД",
+      "slug": "Болярски-ДОМ-АД",
+      "uic": "205941358",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:Величие-АД",
+      "type": "company",
+      "label": "Величие АД",
+      "slug": "Величие-АД",
+      "uic": "205248140",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Историческо-селище-АД",
+      "type": "company",
+      "label": "Историческо селище АД",
+      "slug": "Историческо-селище-АД",
+      "uic": "206067004",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:Факла-ЕАД",
+      "type": "company",
+      "label": "Факла ЕАД",
+      "slug": "Факла-ЕАД",
+      "uic": "206855549",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9002"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ БЕЛЧЕВ",
+      "type": "person",
+      "label": "Иван Атанасов Белчев"
+    },
+    {
+      "id": "person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Пламен Яворов Кънчев"
+    },
+    {
+      "id": "person:СИЛВИЯ СТЕФАНОВА ПОПОВА",
+      "type": "person",
+      "label": "Силвия Стефанова Попова"
+    },
+    {
+      "id": "person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Елена Делчева Кънчева"
+    },
+    {
+      "id": "company:Изцяло-ООД",
+      "type": "company",
+      "label": "Изцяло ООД",
+      "slug": "Изцяло-ООД",
+      "uic": "206481731",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Неофит Рилски, 9223"
+    },
+    {
+      "id": "company:Наедно-ООД",
+      "type": "company",
+      "label": "Наедно ООД",
+      "slug": "Наедно-ООД",
+      "uic": "206481699",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Неофит Рилски, 9223"
+    },
+    {
+      "id": "company:Обоз-ООД",
+      "type": "company",
+      "label": "Обоз ООД",
+      "slug": "Обоз-ООД",
+      "uic": "206519979",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Неофит Рилски, 9223"
+    },
+    {
+      "id": "company:tr:202591205",
+      "type": "company",
+      "label": "4 АГРА",
+      "slug": null,
+      "uic": "202591205",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002"
+    },
+    {
+      "id": "company:tr:175442841",
+      "type": "company",
+      "label": "ТОГЕДЪР",
+      "slug": null,
+      "uic": "175442841",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЧО СТЕФАНОВ МИЛЕВ",
+      "type": "person",
+      "label": "Милчо Стефанов Милев"
+    },
+    {
+      "id": "person:МИРОСЛАВ РУМЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Мирослав Руменов Стоянов"
+    },
+    {
+      "id": "official:todor-dimitrov-popov-4393ae",
+      "type": "official",
+      "slug": "todor-dimitrov-popov-4393ae",
+      "label": "Тодор Димитров Попов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "official:todor-dimitrov-popov-ae981e",
+      "type": "official",
+      "slug": "todor-dimitrov-popov-ae981e",
+      "label": "Тодор Димитров Попов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАСЯ ДАНЧЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Вася Данчева Михайлова"
+    },
+    {
+      "id": "official:todor-dimitrov-popov-6034e1",
+      "type": "official",
+      "slug": "todor-dimitrov-popov-6034e1",
+      "label": "Тодор Димитров Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик"
+    },
+    {
+      "id": "person:ИВАЙЛО КИРИЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Кирилов Иванов"
+    },
+    {
+      "id": "person:АРГИР ЛЮБЕНОВ АРГИРОВ",
+      "type": "person",
+      "label": "Аргир Любенов Аргиров"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "type": "person",
+      "label": "Николай Вихренов Тошев"
+    },
+    {
+      "id": "mp:5006",
+      "type": "mp",
+      "mpId": 5006,
+      "label": "Ивелин Людмилов Михайлов",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "mp:957",
+      "type": "mp",
+      "mpId": 957,
+      "label": "Георги Георгиев Плачков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207640193",
+      "type": "company",
+      "label": "КЛУБ ПО КОНЕН СПОРТ - ГОРАНОВСКИ С.АЛТИМИР",
+      "slug": null,
+      "uic": "207640193",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Алтимир, 3251"
+    },
+    {
+      "id": "mp:5089",
+      "type": "mp",
+      "mpId": 5089,
+      "label": "Георги Христов Митов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:176983536",
+      "type": "company",
+      "label": "РОДОЛЮБЦИ ЗА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176983536",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "mp:4465",
+      "type": "mp",
+      "mpId": 4465,
+      "label": "Николай Георгиев Марков",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5007",
+      "target": "company:Асендинг-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Величие-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Историческо-селище-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Факла-ЕАД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ БЕЛЧЕВ",
+      "target": "company:Асендинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ",
+      "target": "company:Асендинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА ПОПОВА",
+      "target": "company:Асендинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА",
+      "target": "company:Асендинг-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:Наедно-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:Обоз-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Асендинг-АД",
+      "target": "company:tr:175442841",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ БЕЛЧЕВ",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЧО СТЕФАНОВ МИЛЕВ",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ РУМЕНОВ СТОЯНОВ",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА ПОПОВА",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-4393ae",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-ae981e",
+      "target": "company:Болярски-ДОМ-АД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСЯ ДАНЧЕВА МИХАЙЛОВА",
+      "target": "company:Величие-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА ПОПОВА",
+      "target": "company:Величие-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-4393ae",
+      "target": "company:Величие-АД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-ae981e",
+      "target": "company:Величие-АД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-6034e1",
+      "target": "company:Величие-АД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ",
+      "target": "company:Историческо-селище-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ БЕЛЧЕВ",
+      "target": "company:Историческо-селище-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ИВАНОВ",
+      "target": "company:Историческо-селище-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДЕЛЧЕВА КЪНЧЕВА",
+      "target": "company:Историческо-селище-АД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЯВОРОВ КЪНЧЕВ",
+      "target": "company:Историческо-селище-АД",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРГИР ЛЮБЕНОВ АРГИРОВ",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ БЕЛЧЕВ",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ СТЕФАНОВА ПОПОВА",
+      "target": "company:tr:175442841",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Изцяло-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Наедно-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Наедно-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Наедно-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Наедно-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Обоз-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Обоз-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Обоз-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Обоз-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:957",
+      "target": "company:tr:202591205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-4393ae",
+      "target": "company:tr:175442841",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-ae981e",
+      "target": "company:tr:175442841",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-dimitrov-popov-6034e1",
+      "target": "company:tr:175442841",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСЯ ДАНЧЕВА МИХАЙЛОВА",
+      "target": "company:tr:175442841",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ИВАНОВ",
+      "target": "company:tr:207640193",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5089",
+      "target": "company:tr:207640193",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5089",
+      "target": "company:tr:207640193",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5006",
+      "length": 2,
+      "nodeIds": [
+        "mp:5007",
+        "company:Факла-ЕАД",
+        "mp:5006"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": true
+    },
+    {
+      "targetMpNodeId": "mp:957",
+      "length": 3,
+      "nodeIds": [
+        "mp:5007",
+        "company:Асендинг-АД",
+        "company:tr:202591205",
+        "mp:957"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5089",
+      "length": 4,
+      "nodeIds": [
+        "mp:5007",
+        "company:Историческо-селище-АД",
+        "person:ИВАЙЛО КИРИЛОВ ИВАНОВ",
+        "company:tr:207640193",
+        "mp:5089"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4465",
+      "length": 4,
+      "nodeIds": [
+        "mp:5007",
+        "company:Факла-ЕАД",
+        "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+        "company:tr:176983536",
+        "mp:4465"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

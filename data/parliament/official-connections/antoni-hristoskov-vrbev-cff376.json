@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:antoni-hristoskov-vrbev-cff376",
+  "nodes": [
+    {
+      "id": "official:antoni-hristoskov-vrbev-cff376",
+      "type": "official",
+      "slug": "antoni-hristoskov-vrbev-cff376",
+      "label": "Антони Христосков Върбев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205577825",
+      "type": "company",
+      "label": "\"ДАЛТ Консулт\" ООД",
+      "slug": null,
+      "uic": "205577825",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТОСКО АНГЕЛОВ ВЪРБЕВ",
+      "type": "person",
+      "label": "Христоско Ангелов Върбев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antoni-hristoskov-vrbev-cff376",
+      "target": "company:tr:205577825",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:antoni-hristoskov-vrbev-cff376",
+      "target": "company:tr:205577825",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТОСКО АНГЕЛОВ ВЪРБЕВ",
+      "target": "company:tr:205577825",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

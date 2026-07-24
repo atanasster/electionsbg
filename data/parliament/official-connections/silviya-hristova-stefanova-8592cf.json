@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:silviya-hristova-stefanova-8592cf",
+  "nodes": [
+    {
+      "id": "official:silviya-hristova-stefanova-8592cf",
+      "type": "official",
+      "slug": "silviya-hristova-stefanova-8592cf",
+      "label": "Силвия Христова Стефанова",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104063928",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;БЪДЕЩЕ 1899&quot;",
+      "slug": null,
+      "uic": "104063928",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЬОША ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Альоша Димитров Димитров"
+    },
+    {
+      "id": "person:РАДКА СТЕФАНОВА СРЕДКОВА",
+      "type": "person",
+      "label": "Радка Стефанова Средкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА КОНСТАНТИНОВА ЗЛАТЕВА",
+      "type": "person",
+      "label": "Веселина Константинова Златева"
+    },
+    {
+      "id": "person:ДИЯНА МИЛАНОВА ВЪРБАНОВА",
+      "type": "person",
+      "label": "Дияна Миланова Върбанова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ХРИСТОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Веселина Христова Петкова"
+    },
+    {
+      "id": "person:ИВАНКА СТОЯНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Иванка Стоянова Стефанова"
+    },
+    {
+      "id": "person:ЛИЛИЯ ДИМИТРОВА БОЗАДЖИЕВА",
+      "type": "person",
+      "label": "Лилия Димитрова Бозаджиева"
+    },
+    {
+      "id": "person:СЕВЕРИН СЕРГЕЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Северин Сергеев Станев"
+    },
+    {
+      "id": "person:ПЛАМЕНА СТАНИСЛАВОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Пламена Станиславова Петрова"
+    },
+    {
+      "id": "person:ДИЯНКА ГЕНЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Диянка Генчева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-hristova-stefanova-8592cf",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЬОША ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА СТЕФАНОВА СРЕДКОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА КОНСТАНТИНОВА ЗЛАТЕВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА МИЛАНОВА ВЪРБАНОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА КОНСТАНТИНОВА ЗЛАТЕВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ХРИСТОВА ПЕТКОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОЯНОВА СТЕФАНОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ДИМИТРОВА БОЗАДЖИЕВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИН СЕРГЕЕВ СТАНЕВ",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА СТАНИСЛАВОВА ПЕТРОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНКА ГЕНЧЕВА ДИМИТРОВА",
+      "target": "company:tr:104063928",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatomira-todorova-stefanova-c06458",
+  "nodes": [
+    {
+      "id": "official:zlatomira-todorova-stefanova-c06458",
+      "type": "official",
+      "slug": "zlatomira-todorova-stefanova-c06458",
+      "label": "Златомира Тодорова Стефанова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:176461951",
+      "type": "company",
+      "label": "Русе - град на свободния дух",
+      "slug": null,
+      "uic": "176461951",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:encho-iliev-enchev-1b6e3a",
+      "type": "official",
+      "slug": "encho-iliev-enchev-1b6e3a",
+      "label": "Енчо Илиев Енчев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ПЕЕВА",
+      "type": "person",
+      "label": "Десислава Евгениева Пеева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatomira-todorova-stefanova-c06458",
+      "target": "company:tr:176461951",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:encho-iliev-enchev-1b6e3a",
+      "target": "company:tr:176461951",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ПЕЕВА",
+      "target": "company:tr:176461951",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

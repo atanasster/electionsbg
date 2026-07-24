@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-ivanov-glavchev-fe1450",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-glavchev-fe1450",
+      "type": "official",
+      "slug": "georgi-ivanov-glavchev-fe1450",
+      "label": "Георги Иванов Главчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Банско"
+    },
+    {
+      "id": "company:tr:176283032",
+      "type": "company",
+      "label": "БЪДЕЩЕ ЗА ОБЩИНА БАНСКО",
+      "slug": null,
+      "uic": "176283032",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandr-georgiev-rupchin-1a20a3",
+      "type": "official",
+      "slug": "aleksandr-georgiev-rupchin-1a20a3",
+      "label": "Александър Георгиев Рупчин",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:stoicho-metodiev-banenski-2937e4",
+      "type": "official",
+      "slug": "stoicho-metodiev-banenski-2937e4",
+      "label": "Стойчо Методиев Баненски",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Банско"
+    },
+    {
+      "id": "person:ДИМИТЪР КОСТАДИНОВ РУСКОВ",
+      "type": "person",
+      "label": "Димитър Костадинов Русков"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Йордан Иванов Ковачев"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ВАЛЕОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Валеов"
+    },
+    {
+      "id": "person:ИВАНКА ГЕОРГИЕВА МУТАФЧИЕВА",
+      "type": "person",
+      "label": "Иванка Георгиева Мутафчиева"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ БЕНИН",
+      "type": "person",
+      "label": "Георги Йорданов Бенин"
+    },
+    {
+      "id": "person:ИВАН АЛЕКСАНДРОВ ДРАГОСИНОВ",
+      "type": "person",
+      "label": "Иван Александров Драгосинов"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ПЕТАКОВ",
+      "type": "person",
+      "label": "Георги Атанасов Петаков"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Георги Иванов Златев"
+    },
+    {
+      "id": "person:ДИМИТЪР КОСТАДИНОВ ЮЛЕВ",
+      "type": "person",
+      "label": "Димитър Костадинов Юлев"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ ВИТАНОВ",
+      "type": "person",
+      "label": "Емил Иванов Витанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-glavchev-fe1450",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-georgiev-rupchin-1a20a3",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoicho-metodiev-banenski-2937e4",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР КОСТАДИНОВ РУСКОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ КОВАЧЕВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ВАЛЕОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОСТАДИНОВ РУСКОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА МУТАФЧИЕВА",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ БЕНИН",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСАНДРОВ ДРАГОСИНОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ПЕТАКОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ЗЛАТЕВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОСТАДИНОВ ЮЛЕВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ ВИТАНОВ",
+      "target": "company:tr:176283032",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

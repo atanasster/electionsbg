@@ -1,1 +1,65 @@
-{"mpId":2695,"name":"Станислав Стоянов Иванов","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","42","43"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/FE6BC899-7823-43A8-AD42-ED7CD13ACB0C133694.xml","totalAssetsEur":94640.12720942005,"totalDebtsEur":20860.708752805716,"netWorthEur":73779.41845661434,"previous":{"year":2020,"totalAssetsEur":45185.93129259701,"netWorthEur":15425.676055689917},"byCategory":{"real_estate":{"count":10,"valuedCount":5,"totalEur":36097.20681245303},"vehicle":{"count":1,"valuedCount":1,"totalEur":15594.402376484664},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":2,"valuedCount":2,"totalEur":42948.518020482355},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":3,"valuedCount":3,"totalEur":20860.708752805716},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 2695,
+  "name": "Станислав Стоянов Иванов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "42",
+    "43"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/FE6BC899-7823-43A8-AD42-ED7CD13ACB0C133694.xml",
+  "totalAssetsEur": 94640.12720942005,
+  "totalDebtsEur": 20860.708752805716,
+  "netWorthEur": 73779.41845661434,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 45185.93129259701,
+    "netWorthEur": 15425.676055689917
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 10,
+      "valuedCount": 5,
+      "totalEur": 36097.20681245303
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 15594.402376484664
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 42948.518020482355
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 20860.708752805716
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

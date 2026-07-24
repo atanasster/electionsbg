@@ -1,1 +1,368 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:904","nodes":[{"id":"mp:904","type":"mp","mpId":904,"label":"Неджми Ниязи Али","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["40"]},{"id":"company:tr:208309354","type":"company","label":"Местна инициативна група Джебел - Кърджали 63","slug":null,"uic":"208309354","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Джебел, 6850"},{"id":"person:ЕРОЛ ЕМИН МЮМЮН","type":"person","label":"Ерол Емин Мюмюн"},{"id":"person:ИНДЖИЛА ЮСЕИН МУСТАФА","type":"person","label":"Инджила Юсеин Мустафа"},{"id":"person:ФЕРИДЕ МЕХМЕД МЮМЮН","type":"person","label":"Фериде Мехмед Мюмюн"},{"id":"person:ЕРДИНЧ ИБРЯМ СЕИДАХМЕД","type":"person","label":"Ердинч Ибрям Сеидахмед"},{"id":"person:ГЮЛНАР ЕМИН КАСИМ","type":"person","label":"Гюлнар Емин Касим"},{"id":"person:АЙХАН РАШИД МЕХМЕД","type":"person","label":"Айхан Рашид Мехмед"},{"id":"person:РАДОСЛАВ СИМЕОНОВ ХРИСТОВ","type":"person","label":"Радослав Симеонов Христов"},{"id":"company:tr:121399226","type":"company","label":"НАЦИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ В РЕПУБЛИКА БЪЛГАРИЯ","slug":null,"uic":"121399226","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:968","type":"mp","mpId":968,"label":"Белгин Фикри Шукри","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:4871","type":"mp","mpId":4871,"label":"Владимир Владимиров Георгиев","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":[]},{"id":"mp:63","type":"mp","mpId":63,"label":"Донка Иванова Михайлова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:1060","type":"mp","mpId":1060,"label":"Иво Тенев Димов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"mp:931","type":"mp","mpId":931,"label":"Никола Иванов Белишки","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:2821","type":"mp","mpId":2821,"label":"Станислав Иванов Владимиров","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]},{"id":"mp:4939","type":"mp","mpId":4939,"label":"Юксел Осман Ахмед","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:904","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЕРОЛ ЕМИН МЮМЮН","target":"company:tr:208309354","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕРОЛ ЕМИН МЮМЮН","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИНДЖИЛА ЮСЕИН МУСТАФА","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФЕРИДЕ МЕХМЕД МЮМЮН","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕРДИНЧ ИБРЯМ СЕИДАХМЕД","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮЛНАР ЕМИН КАСИМ","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЙХАН РАШИД МЕХМЕД","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ СИМЕОНОВ ХРИСТОВ","target":"company:tr:208309354","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕРОЛ ЕМИН МЮМЮН","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1060","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2821","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4871","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4939","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:63","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:931","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:968","target":"company:tr:121399226","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:968","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:968"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4871","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:4871"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:63","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:63"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1060","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:1060"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:931","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:931"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2821","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:2821"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4939","length":4,"nodeIds":["mp:904","company:tr:208309354","person:ЕРОЛ ЕМИН МЮМЮН","company:tr:121399226","mp:4939"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:904",
+  "nodes": [
+    {
+      "id": "mp:904",
+      "type": "mp",
+      "mpId": 904,
+      "label": "Неджми Ниязи Али",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "40"
+      ]
+    },
+    {
+      "id": "company:tr:208309354",
+      "type": "company",
+      "label": "Местна инициативна група Джебел - Кърджали 63",
+      "slug": null,
+      "uic": "208309354",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Джебел, 6850"
+    },
+    {
+      "id": "person:ЕРОЛ ЕМИН МЮМЮН",
+      "type": "person",
+      "label": "Ерол Емин Мюмюн"
+    },
+    {
+      "id": "person:ИНДЖИЛА ЮСЕИН МУСТАФА",
+      "type": "person",
+      "label": "Инджила Юсеин Мустафа"
+    },
+    {
+      "id": "person:ФЕРИДЕ МЕХМЕД МЮМЮН",
+      "type": "person",
+      "label": "Фериде Мехмед Мюмюн"
+    },
+    {
+      "id": "person:ЕРДИНЧ ИБРЯМ СЕИДАХМЕД",
+      "type": "person",
+      "label": "Ердинч Ибрям Сеидахмед"
+    },
+    {
+      "id": "person:ГЮЛНАР ЕМИН КАСИМ",
+      "type": "person",
+      "label": "Гюлнар Емин Касим"
+    },
+    {
+      "id": "person:АЙХАН РАШИД МЕХМЕД",
+      "type": "person",
+      "label": "Айхан Рашид Мехмед"
+    },
+    {
+      "id": "person:РАДОСЛАВ СИМЕОНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Радослав Симеонов Христов"
+    },
+    {
+      "id": "company:tr:121399226",
+      "type": "company",
+      "label": "НАЦИОНАЛНО СДРУЖЕНИЕ НА ОБЩИНИТЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121399226",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:968",
+      "type": "mp",
+      "mpId": 968,
+      "label": "Белгин Фикри Шукри",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4871",
+      "type": "mp",
+      "mpId": 4871,
+      "label": "Владимир Владимиров Георгиев",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:63",
+      "type": "mp",
+      "mpId": 63,
+      "label": "Донка Иванова Михайлова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:1060",
+      "type": "mp",
+      "mpId": 1060,
+      "label": "Иво Тенев Димов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:931",
+      "type": "mp",
+      "mpId": 931,
+      "label": "Никола Иванов Белишки",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:2821",
+      "type": "mp",
+      "mpId": 2821,
+      "label": "Станислав Иванов Владимиров",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "mp:4939",
+      "type": "mp",
+      "mpId": 4939,
+      "label": "Юксел Осман Ахмед",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:904",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕРОЛ ЕМИН МЮМЮН",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРОЛ ЕМИН МЮМЮН",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНДЖИЛА ЮСЕИН МУСТАФА",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИДЕ МЕХМЕД МЮМЮН",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРДИНЧ ИБРЯМ СЕИДАХМЕД",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛНАР ЕМИН КАСИМ",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙХАН РАШИД МЕХМЕД",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ СИМЕОНОВ ХРИСТОВ",
+      "target": "company:tr:208309354",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРОЛ ЕМИН МЮМЮН",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1060",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2821",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4871",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4939",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:63",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:931",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:968",
+      "target": "company:tr:121399226",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:968",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:968"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4871",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:4871"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:63",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:63"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1060",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:1060"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:931",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:931"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2821",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:2821"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4939",
+      "length": 4,
+      "nodeIds": [
+        "mp:904",
+        "company:tr:208309354",
+        "person:ЕРОЛ ЕМИН МЮМЮН",
+        "company:tr:121399226",
+        "mp:4939"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

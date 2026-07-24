@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stanimir-petrov-iordanov-af35b4",
+  "nodes": [
+    {
+      "id": "official:stanimir-petrov-iordanov-af35b4",
+      "type": "official",
+      "slug": "stanimir-petrov-iordanov-af35b4",
+      "label": "Станимир Петров Йорданов",
+      "tier": "executive",
+      "role": "military_command",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206915747",
+      "type": "company",
+      "label": "Военен спортен клуб СпортМО  (ВСК СпортМО)",
+      "slug": null,
+      "uic": "206915747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mitko-stefanov-grigorov-45ed81",
+      "type": "official",
+      "slug": "mitko-stefanov-grigorov-45ed81",
+      "label": "Митко Стефанов Григоров",
+      "tier": "executive",
+      "role": "military_command",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР КРУМОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Димитър Крумов Илиев"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО МИХАЙЛОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Желязко Михайлов Желев"
+    },
+    {
+      "id": "person:СИЛВИЯ ПЕТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Силвия Петрова Иванова"
+    },
+    {
+      "id": "person:МЕТОДИ ГЕОРГИЕВ МЕТОДИЕВ",
+      "type": "person",
+      "label": "Методи Георгиев Методиев"
+    },
+    {
+      "id": "person:СТОЯН ЛУКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Стоян Луков Иванов"
+    },
+    {
+      "id": "person:ВЕРА САШКОВА ПЛАЧКОВА",
+      "type": "person",
+      "label": "Вера Сашкова Плачкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-petrov-iordanov-af35b4",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanimir-petrov-iordanov-af35b4",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mitko-stefanov-grigorov-45ed81",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР КРУМОВ ИЛИЕВ",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КРУМОВ ИЛИЕВ",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО МИХАЙЛОВ ЖЕЛЕВ",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ ГЕОРГИЕВ МЕТОДИЕВ",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЛУКОВ ИВАНОВ",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА САШКОВА ПЛАЧКОВА",
+      "target": "company:tr:206915747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

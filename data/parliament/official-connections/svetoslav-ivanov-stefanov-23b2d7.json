@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-ivanov-stefanov-23b2d7",
+  "nodes": [
+    {
+      "id": "official:svetoslav-ivanov-stefanov-23b2d7",
+      "type": "official",
+      "slug": "svetoslav-ivanov-stefanov-23b2d7",
+      "label": "Светослав Иванов Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:125543179",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ОБЩОПРАКТИКУВАЩИТЕ ЛЕКАРИ В ТЪРГОВИЩКА ОБЛАСТ",
+      "slug": null,
+      "uic": "125543179",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-ivanov-stefanov-23b2d7",
+      "target": "company:tr:125543179",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

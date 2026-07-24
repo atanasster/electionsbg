@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:daniel-martinov-martinov-6bcfe6","nodes":[{"id":"official:daniel-martinov-martinov-6bcfe6","type":"official","slug":"daniel-martinov-martinov-6bcfe6","label":"Даниел Мартинов Мартинов","tier":"municipal","role":"councillor","municipality":"Самоков"},{"id":"company:tr:206485548","type":"company","label":"КОНЪР БИЛД","slug":null,"uic":"206485548","legalForm":null,"status":null,"seat":null},{"id":"person:ВАСИЛ ЯНКОВ ДИШОВ","type":"person","label":"Васил Янков Дишов"}],"edges":[{"source":"official:daniel-martinov-martinov-6bcfe6","target":"company:tr:206485548","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniel-martinov-martinov-6bcfe6","target":"company:tr:206485548","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ ЯНКОВ ДИШОВ","target":"company:tr:206485548","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ЯНКОВ ДИШОВ","target":"company:tr:206485548","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:daniel-martinov-martinov-6bcfe6",
+  "nodes": [
+    {
+      "id": "official:daniel-martinov-martinov-6bcfe6",
+      "type": "official",
+      "slug": "daniel-martinov-martinov-6bcfe6",
+      "label": "Даниел Мартинов Мартинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:207928726",
+      "type": "company",
+      "label": "КОНЪР ГРУП ЕООД",
+      "slug": null,
+      "uic": "207928726",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН СЛАВЕВ МАРТИНОВ",
+      "type": "person",
+      "label": "Мартин Славев Мартинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-martinov-martinov-6bcfe6",
+      "target": "company:tr:207928726",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-martinov-martinov-6bcfe6",
+      "target": "company:tr:207928726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН СЛАВЕВ МАРТИНОВ",
+      "target": "company:tr:207928726",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН СЛАВЕВ МАРТИНОВ",
+      "target": "company:tr:207928726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-veselinova-musorlieva-b66e64",
+  "nodes": [
+    {
+      "id": "official:mariya-veselinova-musorlieva-b66e64",
+      "type": "official",
+      "slug": "mariya-veselinova-musorlieva-b66e64",
+      "label": "Мария Веселинова Мусорлиева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203469631",
+      "type": "company",
+      "label": "БЛУ АЙС ПРОДАКШЪН",
+      "slug": null,
+      "uic": "203469631",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-veselinova-musorlieva-b66e64",
+      "target": "company:tr:203469631",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-veselinova-musorlieva-b66e64",
+      "target": "company:tr:203469631",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

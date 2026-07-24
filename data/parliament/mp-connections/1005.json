@@ -1,1 +1,246 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1005","nodes":[{"id":"mp:1005","type":"mp","mpId":1005,"label":"Иван Йорданов Костов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39","40"]},{"id":"company:tr:121542489","type":"company","label":"ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;","slug":null,"uic":"121542489","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"company:tr:202553934","type":"company","label":"АНТОРНА","slug":null,"uic":"202553934","legalForm":"EOOD","status":"ceased","seat":null},{"id":"person:СТЕФКА РУМЕНОВА ПОПОВА","type":"person","label":"Стефка Руменова Попова"},{"id":"person:САШО ГЕОРГИЕВ ДОНЧЕВ","type":"person","label":"Сашо Георгиев Дончев"},{"id":"person:САВА ИВАНОВ ГРОЗДЕВ","type":"person","label":"Сава Иванов Гроздев"},{"id":"person:МАЯ ВИДЕНОВА ГРИГОРОВА","type":"person","label":"Мая Виденова Григорова"},{"id":"person:НЕЛИ ПЛАМЕНОВА ДОНЧЕВА-МИТЕВА","type":"person","label":"Нели Пламенова Дончева-Митева"},{"id":"person:ЯВОР ВЕСЕЛИНОВ МАНОИЛОВ","type":"person","label":"Явор Веселинов Маноилов"},{"id":"company:tr:176234206","type":"company","label":"БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ","slug":null,"uic":"176234206","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"mp:4160","type":"mp","mpId":4160,"label":"Андрей Атанасов Гюров","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49"]}],"edges":[{"source":"mp:1005","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1005","target":"company:tr:202553934","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФКА РУМЕНОВА ПОПОВА","target":"company:tr:121542489","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:САШО ГЕОРГИЕВ ДОНЧЕВ","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА РУМЕНОВА ПОПОВА","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА ИВАНОВ ГРОЗДЕВ","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ ВИДЕНОВА ГРИГОРОВА","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ПЛАМЕНОВА ДОНЧЕВА-МИТЕВА","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ВЕСЕЛИНОВ МАНОИЛОВ","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА ИВАНОВ ГРОЗДЕВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4160","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4160","length":4,"nodeIds":["mp:1005","company:tr:121542489","person:САВА ИВАНОВ ГРОЗДЕВ","company:tr:176234206","mp:4160"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1005",
+  "nodes": [
+    {
+      "id": "mp:1005",
+      "type": "mp",
+      "mpId": 1005,
+      "label": "Иван Йорданов Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "company:tr:121542489",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "121542489",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:202553934",
+      "type": "company",
+      "label": "АНТОРНА",
+      "slug": null,
+      "uic": "202553934",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА РУМЕНОВА ПОПОВА",
+      "type": "person",
+      "label": "Стефка Руменова Попова"
+    },
+    {
+      "id": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Сашо Георгиев Дончев"
+    },
+    {
+      "id": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "type": "person",
+      "label": "Сава Иванов Гроздев"
+    },
+    {
+      "id": "person:МАЯ ВИДЕНОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Мая Виденова Григорова"
+    },
+    {
+      "id": "person:НЕЛИ ПЛАМЕНОВА ДОНЧЕВА-МИТЕВА",
+      "type": "person",
+      "label": "Нели Пламенова Дончева-Митева"
+    },
+    {
+      "id": "person:ЯВОР ВЕСЕЛИНОВ МАНОИЛОВ",
+      "type": "person",
+      "label": "Явор Веселинов Маноилов"
+    },
+    {
+      "id": "company:tr:176234206",
+      "type": "company",
+      "label": "БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ",
+      "slug": null,
+      "uic": "176234206",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "mp:4160",
+      "type": "mp",
+      "mpId": 4160,
+      "label": "Андрей Атанасов Гюров",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:tr:130464527",
+      "type": "company",
+      "label": "Съюз на издателите в България",
+      "slug": null,
+      "uic": "130464527",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "mp:3731",
+      "type": "mp",
+      "mpId": 3731,
+      "label": "Зарко Филипов Маринов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1005",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1005",
+      "target": "company:tr:202553934",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА РУМЕНОВА ПОПОВА",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА РУМЕНОВА ПОПОВА",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ВИДЕНОВА ГРИГОРОВА",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ПЛАМЕНОВА ДОНЧЕВА-МИТЕВА",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ВЕСЕЛИНОВ МАНОИЛОВ",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4160",
+      "length": 4,
+      "nodeIds": [
+        "mp:1005",
+        "company:tr:121542489",
+        "person:САВА ИВАНОВ ГРОЗДЕВ",
+        "company:tr:176234206",
+        "mp:4160"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3731",
+      "length": 4,
+      "nodeIds": [
+        "mp:1005",
+        "company:tr:121542489",
+        "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+        "company:tr:130464527",
+        "mp:3731"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krsto-sashov-palankov-8ad92c",
+  "nodes": [
+    {
+      "id": "official:krsto-sashov-palankov-8ad92c",
+      "type": "official",
+      "slug": "krsto-sashov-palankov-8ad92c",
+      "label": "Кръстьо Сашов Паланков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:207668214",
+      "type": "company",
+      "label": "КЕЙ ЕС ПИ ГРУП",
+      "slug": null,
+      "uic": "207668214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krsto-sashov-palankov-8ad92c",
+      "target": "company:tr:207668214",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krsto-sashov-palankov-8ad92c",
+      "target": "company:tr:207668214",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

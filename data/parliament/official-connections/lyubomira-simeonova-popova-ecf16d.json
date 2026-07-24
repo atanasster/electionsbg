@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomira-simeonova-popova-ecf16d",
+  "nodes": [
+    {
+      "id": "official:lyubomira-simeonova-popova-ecf16d",
+      "type": "official",
+      "slug": "lyubomira-simeonova-popova-ecf16d",
+      "label": "Любомира Симеонова Попова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207292826",
+      "type": "company",
+      "label": "Образователен център Перспективи",
+      "slug": null,
+      "uic": "207292826",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "mp:3237",
+      "type": "mp",
+      "mpId": 3237,
+      "label": "Любомира Симеонова Попова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomira-simeonova-popova-ecf16d",
+      "target": "company:tr:207292826",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomira-simeonova-popova-ecf16d",
+      "target": "company:tr:207292826",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3237",
+      "target": "company:tr:207292826",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3237",
+      "target": "company:tr:207292826",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

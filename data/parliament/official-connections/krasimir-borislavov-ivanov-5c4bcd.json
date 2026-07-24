@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krasimir-borislavov-ivanov-5c4bcd",
+  "nodes": [
+    {
+      "id": "official:krasimir-borislavov-ivanov-5c4bcd",
+      "type": "official",
+      "slug": "krasimir-borislavov-ivanov-5c4bcd",
+      "label": "Красимир Бориславов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лом"
+    },
+    {
+      "id": "company:tr:176806447",
+      "type": "company",
+      "label": "РАДИО КЛУБ БОЛКАН КОНТЕСТ ГРУП",
+      "slug": null,
+      "uic": "176806447",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ХРИСТОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Николай Христов Енчев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАСИЛЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Валентин Василев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-borislavov-ivanov-5c4bcd",
+      "target": "company:tr:176806447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХРИСТОВ ЕНЧЕВ",
+      "target": "company:tr:176806447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАСИЛЕВ ГЕОРГИЕВ",
+      "target": "company:tr:176806447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

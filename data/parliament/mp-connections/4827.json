@@ -1,1 +1,81 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4827","nodes":[{"id":"mp:4827","type":"mp","mpId":4827,"label":"Хайри Реджебов Садъков","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["44","45","46","47","48","49","50","51"]},{"id":"company:ЕМАС-Енерджи-ЕООД","type":"company","label":"\"ЕМАС\"-Енерджи ЕООД","slug":"ЕМАС-Енерджи-ЕООД","uic":"200162883","legalForm":"OOD","status":"active","seat":"Мадан"},{"id":"company:Хессд-ООД","type":"company","label":"\"Хессд\" ООД","slug":"Хессд-ООД","uic":"205623117","legalForm":"EOOD","status":"active","seat":"Мадан"}],"edges":[{"source":"mp:4827","target":"company:ЕМАС-Енерджи-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4827","target":"company:Хессд-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4827",
+  "nodes": [
+    {
+      "id": "mp:4827",
+      "type": "mp",
+      "mpId": 4827,
+      "label": "Хайри Реджебов Садъков",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:ЕМАС-Енерджи-ООД",
+      "type": "company",
+      "label": "\"ЕМАС-Енерджи\" ООД",
+      "slug": "ЕМАС-Енерджи-ООД",
+      "uic": "200162883",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Мадан"
+    },
+    {
+      "id": "company:Хессд-ООД",
+      "type": "company",
+      "label": "\"Хессд\" ООД",
+      "slug": "Хессд-ООД",
+      "uic": "205623117",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Мадан"
+    },
+    {
+      "id": "company:Емас-Енерджи-ООД",
+      "type": "company",
+      "label": "Емас - Енерджи ООД",
+      "slug": "Емас-Енерджи-ООД",
+      "uic": "200162883",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Мадан"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4827",
+      "target": "company:ЕМАС-Енерджи-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4827",
+      "target": "company:Хессд-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4827",
+      "target": "company:Емас-Енерджи-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

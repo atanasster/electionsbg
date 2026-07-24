@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stanimir-penev-stamatev-b5a704",
+  "nodes": [
+    {
+      "id": "official:stanimir-penev-stamatev-b5a704",
+      "type": "official",
+      "slug": "stanimir-penev-stamatev-b5a704",
+      "label": "Станимир Пенев Стаматев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831917453",
+      "type": "company",
+      "label": "&quot;СТУДЕНТСКИ СТОЛОВЕ И ОБЩЕЖИТИЯ&quot; ЕАД",
+      "slug": null,
+      "uic": "831917453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА КРЪСТЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Красимира Кръстева Георгиева"
+    },
+    {
+      "id": "person:СЕРГЕЙ МИЛАНОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Сергей Миланов Миланов"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Димитров Петров"
+    },
+    {
+      "id": "person:ПЕТЪР СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Стефанов Петров"
+    },
+    {
+      "id": "person:ГЕРГАНА КРАСИМИРОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Гергана Красимирова Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-penev-stamatev-b5a704",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА КРЪСТЕВА ГЕОРГИЕВА",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ МИЛАНОВ МИЛАНОВ",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ ПЕТРОВ",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТЕФАНОВ ПЕТРОВ",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ МИЛАНОВ МИЛАНОВ",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА КРАСИМИРОВА КИРИЛОВА",
+      "target": "company:tr:831917453",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

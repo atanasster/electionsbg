@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:diana-ilieva-stoyanchova-4ed87a",
+  "nodes": [
+    {
+      "id": "official:diana-ilieva-stoyanchova-4ed87a",
+      "type": "official",
+      "slug": "diana-ilieva-stoyanchova-4ed87a",
+      "label": "Диана Илиева Стоянчова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200649859",
+      "type": "company",
+      "label": "ХОСПИС СВ. ИВАН РИЛСКИ",
+      "slug": null,
+      "uic": "200649859",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНАТОЛИ ВЕРЧОВ МИТОВ",
+      "type": "person",
+      "label": "Анатоли Верчов Митов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-ilieva-stoyanchova-4ed87a",
+      "target": "company:tr:200649859",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАТОЛИ ВЕРЧОВ МИТОВ",
+      "target": "company:tr:200649859",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

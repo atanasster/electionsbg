@@ -1,1 +1,46 @@
-{"ekatte":"36525","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"МОНИ-СТРОЙ-22","displayName":"МОНИ СТРОЙ 22","registeredOffice":"БЪЛГАРИЯ, гр. Карнобат, 8400","mps":[{"mpId":1512,"mpName":"Антоний Йорданов Йорданов","role":"manager","isCurrent":true},{"mpId":1512,"mpName":"Антоний Йорданов Йорданов","role":"sole_owner","isCurrent":true}]},{"slug":"ТРАКИЙСКО-ДРУЖЕСТВО-КАПИТАН-ПЕТКО-ВОЙВОДА-КАРНОБАТ","displayName":"ТРАКИЙСКО ДРУЖЕСТВО КАПИТАН ПЕТКО ВОЙВОДА-КАРНОБАТ","registeredOffice":"БЪЛГАРИЯ, гр. Карнобат, 8400","mps":[{"mpId":1076,"mpName":"Вяра Димитрова Петрова","role":"ngo_board","isCurrent":true},{"mpId":1076,"mpName":"Вяра Димитрова Петрова","role":"ngo_representative","isCurrent":true}]}]}
+{
+  "ekatte": "36525",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "МОНИ-СТРОЙ-22",
+      "displayName": "МОНИ СТРОЙ 22",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карнобат, 8400",
+      "mps": [
+        {
+          "mpId": 1512,
+          "mpName": "Антоний Йорданов Йорданов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1512,
+          "mpName": "Антоний Йорданов Йорданов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТРАКИЙСКО-ДРУЖЕСТВО-КАПИТАН-ПЕТКО-ВОЙВОДА-КАРНОБАТ",
+      "displayName": "ТРАКИЙСКО ДРУЖЕСТВО КАПИТАН ПЕТКО ВОЙВОДА-КАРНОБАТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карнобат, 8400",
+      "mps": [
+        {
+          "mpId": 1076,
+          "mpName": "Вяра Димитрова Петрова",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1076,
+          "mpName": "Вяра Димитрова Петрова",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

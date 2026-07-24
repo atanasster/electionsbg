@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lozana-ilieva-vasileva-1ddb41",
+  "nodes": [
+    {
+      "id": "official:lozana-ilieva-vasileva-1ddb41",
+      "type": "official",
+      "slug": "lozana-ilieva-vasileva-1ddb41",
+      "label": "Лозана Илиева Василева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202020788",
+      "type": "company",
+      "label": "Василев инс ЕООД",
+      "slug": null,
+      "uic": "202020788",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛА СИМЕОНОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Светла Симеонова Пенкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lozana-ilieva-vasileva-1ddb41",
+      "target": "company:tr:202020788",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА СИМЕОНОВА ПЕНКОВА",
+      "target": "company:tr:202020788",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА СИМЕОНОВА ПЕНКОВА",
+      "target": "company:tr:202020788",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

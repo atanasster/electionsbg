@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-zhoriev-ivanov-7c6457",
+  "nodes": [
+    {
+      "id": "official:ivan-zhoriev-ivanov-7c6457",
+      "type": "official",
+      "slug": "ivan-zhoriev-ivanov-7c6457",
+      "label": "Иван Жориев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:176101914",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ АРСЕНАЛ 2000&quot;",
+      "slug": null,
+      "uic": "176101914",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ БОНЧЕВ",
+      "type": "person",
+      "label": "Георги Стоянов Бончев"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ БОНЧЕВ - ПРЕДСЕДАТЕЛ НА УС",
+      "type": "person",
+      "label": "Георги Стоянов Бончев - Председател На Ус"
+    },
+    {
+      "id": "person:ХРИСТО НИКОЛАЕВ ИБУШЕВ",
+      "type": "person",
+      "label": "Христо Николаев Ибушев"
+    },
+    {
+      "id": "person:АТАНАС ПЕТКОВ БОЗОВ",
+      "type": "person",
+      "label": "Атанас Петков Бозов"
+    },
+    {
+      "id": "person:ДИМИТЪР ТОДОРОВ ГРАМАТИКОВ",
+      "type": "person",
+      "label": "Димитър Тодоров Граматиков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-zhoriev-ivanov-7c6457",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ БОНЧЕВ",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ БОНЧЕВ - ПРЕДСЕДАТЕЛ НА УС",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ ИБУШЕВ",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПЕТКОВ БОЗОВ",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ТОДОРОВ ГРАМАТИКОВ",
+      "target": "company:tr:176101914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

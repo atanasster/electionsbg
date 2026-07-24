@@ -1,0 +1,308 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+  "nodes": [
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-3506b8",
+      "label": "Атидже Байрямова Алиева-Вели",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:М-БЕТ-строй-ЕООД",
+      "type": "company",
+      "label": "М БЕТ строй ЕООД",
+      "slug": "М-БЕТ-строй-ЕООД",
+      "uic": "202442364",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1510"
+    },
+    {
+      "id": "company:Вели-груп-ЕООД",
+      "type": "company",
+      "label": "Вели груп ЕООД",
+      "slug": "Вели-груп-ЕООД",
+      "uic": "206963915",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "company:Ермет-солар-БГ",
+      "type": "company",
+      "label": "Ермет солар БГ",
+      "slug": "Ермет-солар-БГ",
+      "uic": "206874364",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Борино, 4824"
+    },
+    {
+      "id": "company:Кемпен-БГ",
+      "type": "company",
+      "label": "Кемпен БГ",
+      "slug": "Кемпен-БГ",
+      "uic": "206012545",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:5208",
+      "type": "mp",
+      "mpId": 5208,
+      "label": "Атидже Байрямова Алиева-Вели",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "type": "person",
+      "label": "Велина Миткова Арнаудова - Идриз"
+    },
+    {
+      "id": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "type": "person",
+      "label": "Метин Мехмед Вели"
+    },
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-6ce57d",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-6ce57d",
+      "label": "Атидже Байрямова Алиева - Вели",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-b3dff0",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-b3dff0",
+      "label": "Атидже Байрямова Алиева - Вели",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-0986c6",
+      "label": "Атидже Байрямова Алиева - Вели",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "official:erol-kemalov-aliev-836d6e",
+      "type": "official",
+      "slug": "erol-kemalov-aliev-836d6e",
+      "label": "Ерол Кемалов Алиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Борино"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "target": "company:Вели-груп-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "target": "company:Кемпен-БГ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5208",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-6ce57d",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-b3dff0",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5208",
+      "target": "company:Вели-груп-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:Вели-груп-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:Вели-груп-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "target": "company:Вели-груп-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5208",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:erol-kemalov-aliev-836d6e",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:erol-kemalov-aliev-836d6e",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:erol-kemalov-aliev-836d6e",
+      "target": "company:Ермет-солар-БГ",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5208",
+      "target": "company:Кемпен-БГ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "target": "company:Кемпен-БГ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

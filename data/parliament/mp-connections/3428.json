@@ -1,1 +1,88 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3428","nodes":[{"id":"mp:3428","type":"mp","mpId":3428,"label":"Меглена Хари Гунчева","partyGroupShort":"ПП ИСМВ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:177007161","type":"company","label":"ИНСТИТУТ ЗА ПРАВО И ПРАВОСЪДИЕ","slug":null,"uic":"177007161","legalForm":"FOUND","status":"active","seat":null},{"id":"person:ТАНЯ ПЕТРОВА ВАНКОВА","type":"person","label":"Таня Петрова Ванкова"},{"id":"person:БИСТРА СЛАВЕЕВА ДИМИТРОВА","type":"person","label":"Бистра Славеева Димитрова"},{"id":"person:МАГДАЛЕНА ПАВЛОВА КОЛЕВА","type":"person","label":"Магдалена Павлова Колева"},{"id":"person:ТАНЯ КОСТАДИНОВА СТОЙНОВА","type":"person","label":"Таня Костадинова Стойнова"}],"edges":[{"source":"mp:3428","target":"company:tr:177007161","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТАНЯ ПЕТРОВА ВАНКОВА","target":"company:tr:177007161","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БИСТРА СЛАВЕЕВА ДИМИТРОВА","target":"company:tr:177007161","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА ПАВЛОВА КОЛЕВА","target":"company:tr:177007161","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ КОСТАДИНОВА СТОЙНОВА","target":"company:tr:177007161","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3428",
+  "nodes": [
+    {
+      "id": "mp:3428",
+      "type": "mp",
+      "mpId": 3428,
+      "label": "Меглена Хари Гунчева",
+      "partyGroupShort": "ПП ИСМВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:177007161",
+      "type": "company",
+      "label": "ИНСТИТУТ ЗА ПРАВО И ПРАВОСЪДИЕ",
+      "slug": null,
+      "uic": "177007161",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ПЕТРОВА ВАНКОВА",
+      "type": "person",
+      "label": "Таня Петрова Ванкова"
+    },
+    {
+      "id": "person:БИСТРА СЛАВЕЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Бистра Славеева Димитрова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ПАВЛОВА КОЛЕВА",
+      "type": "person",
+      "label": "Магдалена Павлова Колева"
+    },
+    {
+      "id": "person:ТАНЯ КОСТАДИНОВА СТОЙНОВА",
+      "type": "person",
+      "label": "Таня Костадинова Стойнова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3428",
+      "target": "company:tr:177007161",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ ПЕТРОВА ВАНКОВА",
+      "target": "company:tr:177007161",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА СЛАВЕЕВА ДИМИТРОВА",
+      "target": "company:tr:177007161",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ПАВЛОВА КОЛЕВА",
+      "target": "company:tr:177007161",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КОСТАДИНОВА СТОЙНОВА",
+      "target": "company:tr:177007161",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

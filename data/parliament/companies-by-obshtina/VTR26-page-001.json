@@ -1,1 +1,53 @@
-{"obshtina":"VTR26","page":1,"totalPages":1,"count":3,"companies":[{"slug":"В-и-Н-Транспорт-2025","displayName":"В и Н Транспорт 2025","registeredOffice":"БЪЛГАРИЯ, гр. Полски Тръмбеш, 5100","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ЛОВНО-РИБАРСКО-ДРУЖЕСТВО-&quot;СОКОЛ&quot;-гр.-ПОЛСКИ-ТРЪМБЕШ","displayName":"ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ&quot; - гр. ПОЛСКИ ТРЪМБЕШ","registeredOffice":"БЪЛГАРИЯ, гр. Полски Тръмбеш, 5180","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"ngo_board","isCurrent":true}]},{"slug":"МИТА-СТОЙЧЕВА-1900","displayName":"МИТА СТОЙЧЕВА 1900","registeredOffice":"БЪЛГАРИЯ, с. Обединение, 5195","mps":[{"mpId":4191,"mpName":"Валентина Иванова Димова","role":"trustee","isCurrent":true}]}]}
+{
+  "obshtina": "VTR26",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "В-и-Н-Транспорт-2025",
+      "displayName": "В и Н Транспорт 2025",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Полски Тръмбеш, 5100",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛОВНО-РИБАРСКО-ДРУЖЕСТВО-&quot;СОКОЛ&quot;-гр.-ПОЛСКИ-ТРЪМБЕШ",
+      "displayName": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ&quot; - гр. ПОЛСКИ ТРЪМБЕШ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Полски Тръмбеш, 5180",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МИТА-СТОЙЧЕВА-1900",
+      "displayName": "МИТА СТОЙЧЕВА 1900",
+      "registeredOffice": "БЪЛГАРИЯ, с. Обединение, 5195",
+      "mps": [
+        {
+          "mpId": 4191,
+          "mpName": "Валентина Иванова Димова",
+          "role": "trustee",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

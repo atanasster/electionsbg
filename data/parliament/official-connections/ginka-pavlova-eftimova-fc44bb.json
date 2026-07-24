@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ginka-pavlova-eftimova-fc44bb",
+  "nodes": [
+    {
+      "id": "official:ginka-pavlova-eftimova-fc44bb",
+      "type": "official",
+      "slug": "ginka-pavlova-eftimova-fc44bb",
+      "label": "Гинка Павлова Ефтимова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831643269",
+      "type": "company",
+      "label": "ОБРАЗОВАНИЕ И НАУКА",
+      "slug": null,
+      "uic": "831643269",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНАСТАСИЯ ГРИГОРОВА БОНЕВА",
+      "type": "person",
+      "label": "Анастасия Григорова Бонева"
+    },
+    {
+      "id": "person:ЖИВКА ЛЮБОМИРОВА ТАКЕВА - ПЪВАНОВА",
+      "type": "person",
+      "label": "Живка Любомирова Такева - Пъванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ginka-pavlova-eftimova-fc44bb",
+      "target": "company:tr:831643269",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ГРИГОРОВА БОНЕВА",
+      "target": "company:tr:831643269",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ЛЮБОМИРОВА ТАКЕВА - ПЪВАНОВА",
+      "target": "company:tr:831643269",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

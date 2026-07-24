@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristina-dimitrova-eftimova-29ccfc",
+  "nodes": [
+    {
+      "id": "official:hristina-dimitrova-eftimova-29ccfc",
+      "type": "official",
+      "slug": "hristina-dimitrova-eftimova-29ccfc",
+      "label": "Христина Димитрова Ефтимова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Две Могили"
+    },
+    {
+      "id": "company:tr:000522906",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТИ СВЕТИ КИРИЛ И МЕТОДИЙ 1919&quot;",
+      "slug": null,
+      "uic": "000522906",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛИНА ХРИСТОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Галина Христова Ангелова"
+    },
+    {
+      "id": "person:АНЕЛИЯ МЕТОДИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Анелия Методиева Димитрова"
+    },
+    {
+      "id": "person:БОРЯНА МИТКОВА ФУЧЕДЖИЕВА",
+      "type": "person",
+      "label": "Боряна Миткова Фучеджиева"
+    },
+    {
+      "id": "person:НАДЕЖДА СТОЯНОВА РАЙКОВА",
+      "type": "person",
+      "label": "Надежда Стоянова Райкова"
+    },
+    {
+      "id": "person:ДИАНА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Диана Димитрова Димитрова"
+    },
+    {
+      "id": "person:ИВАНИЧКА НИКОЛАЕВА КОЕВА",
+      "type": "person",
+      "label": "Иваничка Николаева Коева"
+    },
+    {
+      "id": "person:АТАНАСКА ИЛИЕВА СТОЙКОВА",
+      "type": "person",
+      "label": "Атанаска Илиева Стойкова"
+    },
+    {
+      "id": "person:ЙОРДАНКА НИКОЛАЕВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Йорданка Николаева Алексиева"
+    },
+    {
+      "id": "person:ТАТЯНА СВЕТОСЛАВОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Татяна Светославова Петрова"
+    },
+    {
+      "id": "person:МИХАЕЛ ВЕНЦИСЛАВОВ ЛАШЕВ",
+      "type": "person",
+      "label": "Михаел Венциславов Лашев"
+    },
+    {
+      "id": "person:ТИХОМИРА ЙОРДАНОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Тихомира Йорданова Недялкова"
+    },
+    {
+      "id": "person:ТАНЯ КОЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Таня Колева Димитрова"
+    },
+    {
+      "id": "person:СНЕЖАНА ЙОРДАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Снежана Йорданова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-dimitrova-eftimova-29ccfc",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛИНА ХРИСТОВА АНГЕЛОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ МЕТОДИЕВА ДИМИТРОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА МИТКОВА ФУЧЕДЖИЕВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СТОЯНОВА РАЙКОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНИЧКА НИКОЛАЕВА КОЕВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ХРИСТОВА АНГЕЛОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ИЛИЕВА СТОЙКОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА НИКОЛАЕВА АЛЕКСИЕВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СВЕТОСЛАВОВА ПЕТРОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛ ВЕНЦИСЛАВОВ ЛАШЕВ",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ МЕТОДИЕВА ДИМИТРОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИРА ЙОРДАНОВА НЕДЯЛКОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КОЛЕВА ДИМИТРОВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ЙОРДАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000522906",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

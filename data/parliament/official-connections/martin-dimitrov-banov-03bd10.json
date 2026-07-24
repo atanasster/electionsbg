@@ -1,0 +1,353 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-dimitrov-banov-03bd10",
+  "nodes": [
+    {
+      "id": "official:martin-dimitrov-banov-03bd10",
+      "type": "official",
+      "slug": "martin-dimitrov-banov-03bd10",
+      "label": "МАРТИН ДИМИТРОВ БАНОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207484221",
+      "type": "company",
+      "label": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
+      "slug": null,
+      "uic": "207484221",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
+    },
+    {
+      "id": "mp:897",
+      "type": "mp",
+      "mpId": 897,
+      "label": "Венцислав Василев Върбанов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "official:violeta-zlateva-bozhanova-72f034",
+      "type": "official",
+      "slug": "violeta-zlateva-bozhanova-72f034",
+      "label": "Виолета Златева Божанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+      "type": "person",
+      "label": "Димитър Славчев Зоров"
+    },
+    {
+      "id": "person:СЛАВИ ДИМИТРОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Слави Димитров Трифонов"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Владислав Дончев Михайлов"
+    },
+    {
+      "id": "person:БОРИС ИВАНОВ КАЛИБАЦЕВ",
+      "type": "person",
+      "label": "Борис Иванов Калибацев"
+    },
+    {
+      "id": "person:РАДОСТИНА КУЛЕВА ДОНЕВА",
+      "type": "person",
+      "label": "Радостина Кулева Донева"
+    },
+    {
+      "id": "person:ИВАН АНГЕЛОВ ВЕНИНСКИ",
+      "type": "person",
+      "label": "Иван Ангелов Венински"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ КОСТАДИНОВ БАЛЕВ",
+      "type": "person",
+      "label": "Десислав Костадинов Балев"
+    },
+    {
+      "id": "person:ПЕТЯ НИКОЛОВА РАЕВА",
+      "type": "person",
+      "label": "Петя Николова Раева"
+    },
+    {
+      "id": "person:СВЕТЛА ВЛАДИМИРОВА ЧАМОВА",
+      "type": "person",
+      "label": "Светла Владимирова Чамова"
+    },
+    {
+      "id": "person:СТОЯН БОЯНОВ ЧУКАНОВ",
+      "type": "person",
+      "label": "Стоян Боянов Чуканов"
+    },
+    {
+      "id": "person:МИХАИЛ ВАСИЛЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Михаил Василев Михайлов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ МЕХАНДЖИЙСКИ",
+      "type": "person",
+      "label": "Иван Димитров Механджийски"
+    },
+    {
+      "id": "person:БОЙКО ФИЛИПОВ СИНАПОВ",
+      "type": "person",
+      "label": "Бойко Филипов Синапов"
+    },
+    {
+      "id": "person:МАРИАНА ПЕТРОВА МИЛТЕНОВА",
+      "type": "person",
+      "label": "Мариана Петрова Милтенова"
+    },
+    {
+      "id": "person:ВЕНЦЕСЛАВ ДИМОВ СЛАВОВ",
+      "type": "person",
+      "label": "Венцеслав Димов Славов"
+    },
+    {
+      "id": "person:МАРИАНА ВЕСЕЛИНОВА КУКУШЕВА",
+      "type": "person",
+      "label": "Мариана Веселинова Кукушева"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЪЛЪБОВ БОРИСОВ",
+      "type": "person",
+      "label": "Ивайло Гълъбов Борисов"
+    },
+    {
+      "id": "person:ДИМИТЪР МИХАЙЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Димитър Михайлов Михайлов"
+    },
+    {
+      "id": "person:ДИЛЯНА ДИМИТРОВА ПОПОВА",
+      "type": "person",
+      "label": "Диляна Димитрова Попова"
+    },
+    {
+      "id": "person:СТАНКО ДЕЛЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Станко Делчев Димитров"
+    },
+    {
+      "id": "person:ЦВЕТАН АСЕНОВ ХУБЕНОВ",
+      "type": "person",
+      "label": "Цветан Асенов Хубенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-dimitrov-banov-03bd10",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:897",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:897",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-zlateva-bozhanova-72f034",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИ ДИМИТРОВ ТРИФОНОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДОНЧЕВ МИХАЙЛОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ИВАНОВ КАЛИБАЦЕВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА КУЛЕВА ДОНЕВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АНГЕЛОВ ВЕНИНСКИ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ КОСТАДИНОВ БАЛЕВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ НИКОЛОВА РАЕВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВЛАДИМИРОВА ЧАМОВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН БОЯНОВ ЧУКАНОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ВАСИЛЕВ МИХАЙЛОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ МЕХАНДЖИЙСКИ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО ФИЛИПОВ СИНАПОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ПЕТРОВА МИЛТЕНОВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦЕСЛАВ ДИМОВ СЛАВОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ВЕСЕЛИНОВА КУКУШЕВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЪЛЪБОВ БОРИСОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МИХАЙЛОВ МИХАЙЛОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ДИМИТРОВА ПОПОВА",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКО ДЕЛЧЕВ ДИМИТРОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН АСЕНОВ ХУБЕНОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

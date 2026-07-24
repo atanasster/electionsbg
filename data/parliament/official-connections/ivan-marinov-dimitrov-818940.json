@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-marinov-dimitrov-818940",
+  "nodes": [
+    {
+      "id": "official:ivan-marinov-dimitrov-818940",
+      "type": "official",
+      "slug": "ivan-marinov-dimitrov-818940",
+      "label": "ИВАН МАРИНОВ ДИМИТРОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207690965",
+      "type": "company",
+      "label": "ВАНКО ТРАНС 2024",
+      "slug": null,
+      "uic": "207690965",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-marinov-dimitrov-818940",
+      "target": "company:tr:207690965",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-marinov-dimitrov-818940",
+      "target": "company:tr:207690965",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

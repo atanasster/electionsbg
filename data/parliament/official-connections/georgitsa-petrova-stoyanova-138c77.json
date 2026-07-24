@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgitsa-petrova-stoyanova-138c77",
+  "nodes": [
+    {
+      "id": "official:georgitsa-petrova-stoyanova-138c77",
+      "type": "official",
+      "slug": "georgitsa-petrova-stoyanova-138c77",
+      "label": "Георгица Петрова Стоянова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208340944",
+      "type": "company",
+      "label": "АС ЛИГЪЛ КОНСУЛТ",
+      "slug": null,
+      "uic": "208340944",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgitsa-petrova-stoyanova-138c77",
+      "target": "company:tr:208340944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgitsa-petrova-stoyanova-138c77",
+      "target": "company:tr:208340944",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

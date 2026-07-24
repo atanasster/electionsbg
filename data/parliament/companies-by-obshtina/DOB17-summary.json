@@ -1,1 +1,40 @@
-{"obshtina":"DOB17","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"НИКСИ-ФРУТ","displayName":"НИКСИ ФРУТ","registeredOffice":"БЪЛГАРИЯ, гр. Каварна, 9650","mps":[{"mpId":2766,"mpName":"Николай Веселинов Александров","role":"manager","isCurrent":true},{"mpId":2766,"mpName":"Николай Веселинов Александров","role":"sole_owner","isCurrent":true}]},{"slug":"НАРОДНО-ЧИТАЛИЩЕ-&quot;ХРИСТО-АНДРЕЕВ-ГРАДЕЧЛИЕВ-2005-Г.&quot;","displayName":"НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО АНДРЕЕВ ГРАДЕЧЛИЕВ - 2005 Г.&quot;","registeredOffice":"БЪЛГАРИЯ, Селце, 9655","mps":[{"mpId":791,"mpName":"Мима Тодорова Василева","role":"trustee","isCurrent":true}]}]}
+{
+  "obshtina": "DOB17",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "НИКСИ-ФРУТ",
+      "displayName": "НИКСИ ФРУТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Каварна, 9650",
+      "mps": [
+        {
+          "mpId": 2766,
+          "mpName": "Николай Веселинов Александров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2766,
+          "mpName": "Николай Веселинов Александров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАРОДНО-ЧИТАЛИЩЕ-&quot;ХРИСТО-АНДРЕЕВ-ГРАДЕЧЛИЕВ-2005-Г.&quot;",
+      "displayName": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО АНДРЕЕВ ГРАДЕЧЛИЕВ - 2005 Г.&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, Селце, 9655",
+      "mps": [
+        {
+          "mpId": 791,
+          "mpName": "Мима Тодорова Василева",
+          "role": "trustee",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

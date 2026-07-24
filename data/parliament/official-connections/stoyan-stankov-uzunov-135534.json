@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stoyan-stankov-uzunov-135534",
+  "nodes": [
+    {
+      "id": "official:stoyan-stankov-uzunov-135534",
+      "type": "official",
+      "slug": "stoyan-stankov-uzunov-135534",
+      "label": "Стоян Станков Узунов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:000560262",
+      "type": "company",
+      "label": "ПРОБУДА - 1940",
+      "slug": null,
+      "uic": "000560262",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КУРТИ ДОБРЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Курти Добрев Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ ШИКОВ",
+      "type": "person",
+      "label": "Петър Йорданов Шиков"
+    },
+    {
+      "id": "person:ИВАН МЛАДЕНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Младенов Иванов"
+    },
+    {
+      "id": "person:РАДОСТИНА ВАЛЕНТИНОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Радостина Валентинова Стойкова"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Никола Петров Стоянов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДИМИТРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Александър Димитров Василев"
+    },
+    {
+      "id": "person:ДЕАН ВЕЛИКОВ ЕНИКОВ",
+      "type": "person",
+      "label": "Деан Великов Еников"
+    },
+    {
+      "id": "person:СВЕТЛА СЛАВОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Светла Славова Димитрова"
+    },
+    {
+      "id": "person:ВИОЛЕТА СТОЯНОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Виолета Стоянова Пенчева"
+    },
+    {
+      "id": "person:ТАТЯНА НЕДЕЛЧЕВА КУЗМАНОВ",
+      "type": "person",
+      "label": "Татяна Неделчева Кузманов"
+    },
+    {
+      "id": "person:КАЛИНКА ВЪРБАНОВА ИСКРЕВА",
+      "type": "person",
+      "label": "Калинка Върбанова Искрева"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИХАЛЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Михалев Николов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ГРЪНЧАРОВ",
+      "type": "person",
+      "label": "Иван Димитров Грънчаров"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА АТАНАСОВА КОЛЕВА",
+      "type": "person",
+      "label": "Димитричка Атанасова Колева"
+    },
+    {
+      "id": "person:СЛАВКА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Славка Иванова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-stankov-uzunov-135534",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-stankov-uzunov-135534",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КУРТИ ДОБРЕВ ИВАНОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУРТИ ДОБРЕВ ИВАНОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ ШИКОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МЛАДЕНОВ ИВАНОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ВАЛЕНТИНОВА СТОЙКОВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ СТОЯНОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМИТРОВ ВАСИЛЕВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕАН ВЕЛИКОВ ЕНИКОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА СЛАВОВА ДИМИТРОВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА СТОЯНОВА ПЕНЧЕВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА НЕДЕЛЧЕВА КУЗМАНОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ВЪРБАНОВА ИСКРЕВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИХАЛЕВ НИКОЛОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ГРЪНЧАРОВ",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ВАЛЕНТИНОВА СТОЙКОВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА АТАНАСОВА КОЛЕВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:000560262",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

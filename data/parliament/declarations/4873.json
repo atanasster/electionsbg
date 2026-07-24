@@ -1,1 +1,44 @@
-[{"mpId":4873,"declarantName":"Кирил Атанасов Веселински","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2025-05-08","entryNumber":"Г6745","controlHash":"A70FF278","sourceUrl":"https://register.cacbg.bg/2025/FFF4DE68-C206-4261-87BD-BEA32F17D687209714.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":7397.882229028085,"amountEurSpouse":15499.302086582167}],"assets":[{"category":"vehicle","description":"лек автомобил","detail":"КИА","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":2024,"share":null,"currency":"BGN","amount":5500,"valueEur":2812.1053465792015,"holderName":"Кирил Атанасов Веселински","isSpouse":false,"legalBasis":"покупко-продажба","fundsOrigin":"няма"}],"events":[]}]
+[
+  {
+    "mpId": 4873,
+    "declarantName": "Кирил Атанасов Веселински",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г6745",
+    "controlHash": "A70FF278",
+    "sourceUrl": "https://register.cacbg.bg/2025/FFF4DE68-C206-4261-87BD-BEA32F17D687209714.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7397.882229028085,
+        "amountEurSpouse": 15499.302086582167
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "КИА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Кирил Атанасов Веселински",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
+  }
+]

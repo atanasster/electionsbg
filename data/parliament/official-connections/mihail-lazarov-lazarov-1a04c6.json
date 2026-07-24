@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mihail-lazarov-lazarov-1a04c6",
+  "nodes": [
+    {
+      "id": "official:mihail-lazarov-lazarov-1a04c6",
+      "type": "official",
+      "slug": "mihail-lazarov-lazarov-1a04c6",
+      "label": "Михаил Лазаров Лазаров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203677162",
+      "type": "company",
+      "label": "ВАДЕСЕПТ БГ",
+      "slug": null,
+      "uic": "203677162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО ИВАНОВ МИТЕВ",
+      "type": "person",
+      "label": "Митко Иванов Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-lazarov-lazarov-1a04c6",
+      "target": "company:tr:203677162",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО ИВАНОВ МИТЕВ",
+      "target": "company:tr:203677162",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

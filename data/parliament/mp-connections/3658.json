@@ -1,1 +1,39 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3658","nodes":[{"id":"mp:3658","type":"mp","mpId":3658,"label":"Петър Ясенов Маринов","partyGroupShort":"ДБ","isCurrent":false,"nsFolders":["45","46"]},{"id":"company:tr:175013190","type":"company","label":"ПНЕВМО ПОСТ","slug":null,"uic":"175013190","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1164"}],"edges":[{"source":"mp:3658","target":"company:tr:175013190","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3658",
+  "nodes": [
+    {
+      "id": "mp:3658",
+      "type": "mp",
+      "mpId": 3658,
+      "label": "Петър Ясенов Маринов",
+      "partyGroupShort": "ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:175013190",
+      "type": "company",
+      "label": "ПНЕВМО ПОСТ",
+      "slug": null,
+      "uic": "175013190",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1164"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3658",
+      "target": "company:tr:175013190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

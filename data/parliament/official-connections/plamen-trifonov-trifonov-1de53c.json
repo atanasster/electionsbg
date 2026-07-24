@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-trifonov-trifonov-1de53c",
+  "nodes": [
+    {
+      "id": "official:plamen-trifonov-trifonov-1de53c",
+      "type": "official",
+      "slug": "plamen-trifonov-trifonov-1de53c",
+      "label": "Пламен Трифонов Трифонов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206623209",
+      "type": "company",
+      "label": "\"Гроу Тейст\" АД",
+      "slug": null,
+      "uic": "206623209",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВ РУСЕВ РУСЕВ",
+      "type": "person",
+      "label": "Радослав Русев Русев"
+    },
+    {
+      "id": "person:МИГЛЕНА РУСЕВА РУСЕВА",
+      "type": "person",
+      "label": "Миглена Русева Русева"
+    },
+    {
+      "id": "person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ",
+      "type": "person",
+      "label": "Йордан Тончев Жечев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-trifonov-trifonov-1de53c",
+      "target": "company:tr:206623209",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ РУСЕВ РУСЕВ",
+      "target": "company:tr:206623209",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА РУСЕВА РУСЕВА",
+      "target": "company:tr:206623209",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ РУСЕВ РУСЕВ",
+      "target": "company:tr:206623209",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТОНЧЕВ ЖЕЧЕВ",
+      "target": "company:tr:206623209",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

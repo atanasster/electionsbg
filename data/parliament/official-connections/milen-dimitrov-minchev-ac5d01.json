@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milen-dimitrov-minchev-ac5d01",
+  "nodes": [
+    {
+      "id": "official:milen-dimitrov-minchev-ac5d01",
+      "type": "official",
+      "slug": "milen-dimitrov-minchev-ac5d01",
+      "label": "Милен Димитров Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:207170110",
+      "type": "company",
+      "label": "ПРОМУС",
+      "slug": null,
+      "uic": "207170110",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН ХРИСТОВ ЯНКОВ",
+      "type": "person",
+      "label": "Румен Христов Янков"
+    },
+    {
+      "id": "person:ДОБРИН ПЕТКОВ СТАНЕВ",
+      "type": "person",
+      "label": "Добрин Петков Станев"
+    },
+    {
+      "id": "person:ДРИТОН СЮЛЕЙМАНИ",
+      "type": "person",
+      "label": "Дритон Сюлеймани"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-dimitrov-minchev-ac5d01",
+      "target": "company:tr:207170110",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН ХРИСТОВ ЯНКОВ",
+      "target": "company:tr:207170110",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ПЕТКОВ СТАНЕВ",
+      "target": "company:tr:207170110",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ХРИСТОВ ЯНКОВ",
+      "target": "company:tr:207170110",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРИТОН СЮЛЕЙМАНИ",
+      "target": "company:tr:207170110",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:teodora-stoyanova-stoyanova-kutsarova-a359ae",
+  "nodes": [
+    {
+      "id": "official:teodora-stoyanova-stoyanova-kutsarova-a359ae",
+      "type": "official",
+      "slug": "teodora-stoyanova-stoyanova-kutsarova-a359ae",
+      "label": "Теодора Стоянова Стоянова-Куцарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559146",
+      "type": "company",
+      "label": "НЧ &quot;Никола Йонков Вапцаров- 1873&quot;",
+      "slug": null,
+      "uic": "000559146",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-dimitrova-kiryakova-5803c4",
+      "type": "official",
+      "slug": "mariya-dimitrova-kiryakova-5803c4",
+      "label": "Мария Димитрова Кирякова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Любимец"
+    },
+    {
+      "id": "person:МИЛЕН ВАСИЛЕВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Милен Василев Филипов"
+    },
+    {
+      "id": "person:ТЕОДОРА СТОЯНОВА СТОЯНОВА- КУЦАРОВА",
+      "type": "person",
+      "label": "Теодора Стоянова Стоянова- Куцарова"
+    },
+    {
+      "id": "person:ДЕНА МАРИНОВА ГАНЕВА",
+      "type": "person",
+      "label": "Дена Маринова Ганева"
+    },
+    {
+      "id": "person:ДАРИНА МИХАЙЛОВА МИЛАНОВА",
+      "type": "person",
+      "label": "Дарина Михайлова Миланова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ПЕТКОВА КАЛЧЕВА",
+      "type": "person",
+      "label": "Цветелина Петкова Калчева"
+    },
+    {
+      "id": "person:ИВАНКА ХРИСТОВА МОРАРОВА",
+      "type": "person",
+      "label": "Иванка Христова Морарова"
+    },
+    {
+      "id": "person:СТЕФКА ПЕТРОВА СТАНКОВА",
+      "type": "person",
+      "label": "Стефка Петрова Станкова"
+    },
+    {
+      "id": "person:МАРИНЕЛА НИКОЛАЕВА ГАНЕВА",
+      "type": "person",
+      "label": "Маринела Николаева Ганева"
+    },
+    {
+      "id": "person:РАЙНА РУСИНОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Райна Русинова Григорова"
+    },
+    {
+      "id": "person:МАРЧЕ РАДЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Марче Радева Василева"
+    },
+    {
+      "id": "person:МАРИАНА РАЧЕВА МАРИНКОВА",
+      "type": "person",
+      "label": "Мариана Рачева Маринкова"
+    },
+    {
+      "id": "person:ДИАНА ВЕНЦИСЛАВОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Диана Венциславова Димитрова"
+    },
+    {
+      "id": "person:КАЛИНКА НЕДЕЛЧЕВА ГРЪНЧАРОВА",
+      "type": "person",
+      "label": "Калинка Неделчева Грънчарова"
+    },
+    {
+      "id": "person:ЕРКИН КЕМАЛ КАРАНАСУФ",
+      "type": "person",
+      "label": "Еркин Кемал Каранасуф"
+    },
+    {
+      "id": "person:КРЕМЕНА ПЕТРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Кремена Петрова Атанасова"
+    },
+    {
+      "id": "person:СВЕТЛА ВАСИЛЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Светла Василева Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodora-stoyanova-stoyanova-kutsarova-a359ae",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:teodora-stoyanova-stoyanova-kutsarova-a359ae",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-dimitrova-kiryakova-5803c4",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ВАСИЛЕВ ФИЛИПОВ",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА СТОЯНОВА СТОЯНОВА- КУЦАРОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНА МАРИНОВА ГАНЕВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА МИХАЙЛОВА МИЛАНОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ПЕТКОВА КАЛЧЕВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ХРИСТОВА МОРАРОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ПЕТРОВА СТАНКОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА НИКОЛАЕВА ГАНЕВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА РУСИНОВА ГРИГОРОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРЧЕ РАДЕВА ВАСИЛЕВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ВАСИЛЕВ ФИЛИПОВ",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА РАЧЕВА МАРИНКОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ВЕНЦИСЛАВОВА ДИМИТРОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ПЕТРОВА СТАНКОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА НЕДЕЛЧЕВА ГРЪНЧАРОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРКИН КЕМАЛ КАРАНАСУФ",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ПЕТРОВА АТАНАСОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВАСИЛЕВА ЙОРДАНОВА",
+      "target": "company:tr:000559146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

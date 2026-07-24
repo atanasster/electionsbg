@@ -1,0 +1,182 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lchezar-todorov-stanoev-3ff5bc",
+  "nodes": [
+    {
+      "id": "official:lchezar-todorov-stanoev-3ff5bc",
+      "type": "official",
+      "slug": "lchezar-todorov-stanoev-3ff5bc",
+      "label": "Лъчезар Тодоров Станоев",
+      "tier": "executive",
+      "role": "inspectorate",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206835009",
+      "type": "company",
+      "label": "Бал Берг ООД",
+      "slug": null,
+      "uic": "206835009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206835016",
+      "type": "company",
+      "label": "Стандом ООД",
+      "slug": null,
+      "uic": "206835016",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206834971",
+      "type": "company",
+      "label": "Офрент ООД",
+      "slug": null,
+      "uic": "206834971",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОР ЛЪЧЕЗАРОВ СТАНОЕВ",
+      "type": "person",
+      "label": "Теодор Лъчезаров Станоев"
+    },
+    {
+      "id": "person:МАРИО ТОДОРОВ СТАНОЕВ",
+      "type": "person",
+      "label": "Марио Тодоров Станоев"
+    },
+    {
+      "id": "person:ЛИОНЕТА СТОЙНЕВА СТАНОЕВА",
+      "type": "person",
+      "label": "Лионета Стойнева Станоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206835009",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206835016",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206834971",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206835009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206835016",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-todorov-stanoev-3ff5bc",
+      "target": "company:tr:206834971",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОР ЛЪЧЕЗАРОВ СТАНОЕВ",
+      "target": "company:tr:206835009",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ТОДОРОВ СТАНОЕВ",
+      "target": "company:tr:206835009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИОНЕТА СТОЙНЕВА СТАНОЕВА",
+      "target": "company:tr:206835009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЛЪЧЕЗАРОВ СТАНОЕВ",
+      "target": "company:tr:206835016",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ТОДОРОВ СТАНОЕВ",
+      "target": "company:tr:206835016",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИОНЕТА СТОЙНЕВА СТАНОЕВА",
+      "target": "company:tr:206835016",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЛЪЧЕЗАРОВ СТАНОЕВ",
+      "target": "company:tr:206834971",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ТОДОРОВ СТАНОЕВ",
+      "target": "company:tr:206834971",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИОНЕТА СТОЙНЕВА СТАНОЕВА",
+      "target": "company:tr:206834971",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

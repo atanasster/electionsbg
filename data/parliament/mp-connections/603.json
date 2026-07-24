@@ -1,1 +1,181 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:603","nodes":[{"id":"mp:603","type":"mp","mpId":603,"label":"Диляна Николова Грозданова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:122042572","type":"company","label":"БУЛМЕДИЯ","slug":null,"uic":"122042572","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:121699842","type":"company","label":"ИМИДЖ","slug":null,"uic":"121699842","legalForm":"AD","status":"active","seat":null},{"id":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","type":"person","label":"Владимир Любомиров Павлов"},{"id":"person:ВИХРА КАМЕНОВА ТОМОВА","type":"person","label":"Вихра Каменова Томова"},{"id":"person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ","type":"person","label":"Любомир Владимиров Павлов"}],"edges":[{"source":"mp:603","target":"company:tr:122042572","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:603","target":"company:tr:121699842","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:603","target":"company:tr:122042572","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:603","target":"company:tr:121699842","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:122042572","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИХРА КАМЕНОВА ТОМОВА","target":"company:tr:122042572","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:122042572","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ","target":"company:tr:122042572","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:122042572","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ","target":"company:tr:122042572","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:121699842","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИХРА КАМЕНОВА ТОМОВА","target":"company:tr:121699842","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:121699842","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ","target":"company:tr:121699842","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ","target":"company:tr:121699842","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ","target":"company:tr:121699842","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:603",
+  "nodes": [
+    {
+      "id": "mp:603",
+      "type": "mp",
+      "mpId": 603,
+      "label": "Диляна Николова Грозданова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:122042572",
+      "type": "company",
+      "label": "БУЛМЕДИЯ",
+      "slug": null,
+      "uic": "122042572",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:121699842",
+      "type": "company",
+      "label": "ИМИДЖ",
+      "slug": null,
+      "uic": "121699842",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Владимир Любомиров Павлов"
+    },
+    {
+      "id": "person:ВИХРА КАМЕНОВА ТОМОВА",
+      "type": "person",
+      "label": "Вихра Каменова Томова"
+    },
+    {
+      "id": "person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Любомир Владимиров Павлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:603",
+      "target": "company:tr:122042572",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:603",
+      "target": "company:tr:121699842",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:603",
+      "target": "company:tr:122042572",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:603",
+      "target": "company:tr:121699842",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:122042572",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИХРА КАМЕНОВА ТОМОВА",
+      "target": "company:tr:122042572",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:122042572",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ",
+      "target": "company:tr:122042572",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:122042572",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ",
+      "target": "company:tr:122042572",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:121699842",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИХРА КАМЕНОВА ТОМОВА",
+      "target": "company:tr:121699842",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:121699842",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ",
+      "target": "company:tr:121699842",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЛЮБОМИРОВ ПАВЛОВ",
+      "target": "company:tr:121699842",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВЛАДИМИРОВ ПАВЛОВ",
+      "target": "company:tr:121699842",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

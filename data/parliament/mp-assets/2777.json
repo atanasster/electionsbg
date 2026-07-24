@@ -1,1 +1,65 @@
-{"mpId":2777,"name":"Владимир Цветанов Тошев","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","42","43"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/B517E81F-556D-4B92-8545-15C2184C5341135644.xml","totalAssetsEur":330788.61659755703,"totalDebtsEur":0,"netWorthEur":330788.61659755703,"previous":{"year":2020,"totalAssetsEur":267097.16079618374,"netWorthEur":267097.16079618374},"byCategory":{"real_estate":{"count":6,"valuedCount":6,"totalEur":61947.10174197143},"vehicle":{"count":2,"valuedCount":2,"totalEur":58798.56633756513},"cash":{"count":3,"valuedCount":3,"totalEur":112356.390892869},"bank":{"count":2,"valuedCount":2,"totalEur":61129.188119621846},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":8,"valuedCount":8,"totalEur":36557.36950552963}}}
+{
+  "mpId": 2777,
+  "name": "Владимир Цветанов Тошев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "42",
+    "43"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/B517E81F-556D-4B92-8545-15C2184C5341135644.xml",
+  "totalAssetsEur": 330788.61659755703,
+  "totalDebtsEur": 0,
+  "netWorthEur": 330788.61659755703,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 267097.16079618374,
+    "netWorthEur": 267097.16079618374
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 6,
+      "valuedCount": 6,
+      "totalEur": 61947.10174197143
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 58798.56633756513
+    },
+    "cash": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 112356.390892869
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 61129.188119621846
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 8,
+      "valuedCount": 8,
+      "totalEur": 36557.36950552963
+    }
+  }
+}

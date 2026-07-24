@@ -12,59 +12,60 @@
     "entryNumber": "Г995",
     "controlHash": "F9489650",
     "sourceUrl": "https://register.cacbg.bg/2017/752BF7E2-3120-4449-A333-5B655D48323A85369.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "itemType": "безналични",
-        "shareSize": "5994",
-        "companyName": null,
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": "9000",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплати"
-      }
-    ],
+    "ownershipStakes": [],
     "income": [],
     "assets": [
       {
         "category": "bank",
         "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12011,
+        "valueEur": 6141.126785047781,
+        "holderName": "Лиляна Благоева Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "security",
+        "description": "безналични",
+        "detail": "ДФ Райфайзен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "5994",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Георги Симеонов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
         "detail": "Фолксваген",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Фолксваген",
-        "amount": null,
+        "currency": "BGN",
         "valueEur": 255.64594059810923,
-        "holderName": "Георги Симеонов Иванов и Лиляна Благоева Иванова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "debt",
-        "description": "12011",
-        "detail": "12011",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "12011",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   },
   {
     "slug": "georgi-simeonov-ivanov-939c19",
@@ -79,38 +80,44 @@
     "entryNumber": "Г1692",
     "controlHash": "141BC954",
     "sourceUrl": "https://register.cacbg.bg/2016/752BF7E2-3120-4449-A333-5B655D48323A78049.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "itemType": "безналични",
-        "shareSize": "2689",
-        "companyName": null,
-        "registeredOffice": null,
-        "valueEur": null,
-        "holderName": "4000",
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      }
-    ],
+    "ownershipStakes": [],
     "income": [],
     "assets": [
       {
-        "category": "receivable",
-        "description": "8460",
-        "detail": "8460",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "8460",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 8460,
+        "valueEur": 4325.529314920009,
+        "holderName": "Георги Симеонов Иванов",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "security",
+        "description": "безналични",
+        "detail": "ДФ Райфайзен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "2689",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Георги Симеонов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

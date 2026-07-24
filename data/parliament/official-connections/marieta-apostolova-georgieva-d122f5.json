@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:marieta-apostolova-georgieva-d122f5",
+  "nodes": [
+    {
+      "id": "official:marieta-apostolova-georgieva-d122f5",
+      "type": "official",
+      "slug": "marieta-apostolova-georgieva-d122f5",
+      "label": "Мариета Апостолова Георгиева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206039250",
+      "type": "company",
+      "label": "МИРАИ 2020",
+      "slug": null,
+      "uic": "206039250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:marieta-apostolova-georgieva-fdea75",
+      "type": "official",
+      "slug": "marieta-apostolova-georgieva-fdea75",
+      "label": "Мариета Апостолова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marieta-apostolova-georgieva-d122f5",
+      "target": "company:tr:206039250",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:marieta-apostolova-georgieva-fdea75",
+      "target": "company:tr:206039250",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

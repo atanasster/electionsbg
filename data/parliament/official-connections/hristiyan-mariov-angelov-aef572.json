@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristiyan-mariov-angelov-aef572",
+  "nodes": [
+    {
+      "id": "official:hristiyan-mariov-angelov-aef572",
+      "type": "official",
+      "slug": "hristiyan-mariov-angelov-aef572",
+      "label": "Християн Мариов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "company:tr:114594311",
+      "type": "company",
+      "label": "\"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СОУ СВ.СВ. КИРИЛ И МЕТОДИЙ - ПОРДИМ\"",
+      "slug": null,
+      "uic": "114594311",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:svetlana-ioveva-sbeva-2dd8ab",
+      "type": "official",
+      "slug": "svetlana-ioveva-sbeva-2dd8ab",
+      "label": "Светлана Йовева Събева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "person:КАТЯ КИРИЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Катя Кирилова Димитрова"
+    },
+    {
+      "id": "person:ВАЦКА ВАСИЛЕВА ХОРОЗОВА",
+      "type": "person",
+      "label": "Вацка Василева Хорозова"
+    },
+    {
+      "id": "person:ПАВЛИНА БОРИСОВА АНТОНОВА",
+      "type": "person",
+      "label": "Павлина Борисова Антонова"
+    },
+    {
+      "id": "person:ЛЮБОМИР КРАСИМИРОВ КРУМОВ",
+      "type": "person",
+      "label": "Любомир Красимиров Крумов"
+    },
+    {
+      "id": "person:РЕНЕТА ВЕЛИЧКОВА СЪЕВА",
+      "type": "person",
+      "label": "Ренета Величкова Съева"
+    },
+    {
+      "id": "person:ВАСИЛКА ГЕОРГИЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Василка Георгиева Кръстева"
+    },
+    {
+      "id": "person:ДОРА ДИМИТРОВА ПИРКОВА",
+      "type": "person",
+      "label": "Дора Димитрова Пиркова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ИЛИЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Емилия Илиева Василева"
+    },
+    {
+      "id": "person:ЗДРАВКО ГЕОРГИЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Здравко Георгиев Вълчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristiyan-mariov-angelov-aef572",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetlana-ioveva-sbeva-2dd8ab",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ КИРИЛОВА ДИМИТРОВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ КИРИЛОВА ДИМИТРОВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЦКА ВАСИЛЕВА ХОРОЗОВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА БОРИСОВА АНТОНОВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР КРАСИМИРОВ КРУМОВ",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНЕТА ВЕЛИЧКОВА СЪЕВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНЕТА ВЕЛИЧКОВА СЪЕВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ГЕОРГИЕВА КРЪСТЕВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА ДИМИТРОВА ПИРКОВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ИЛИЕВА ВАСИЛЕВА",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ГЕОРГИЕВ ВЪЛЧЕВ",
+      "target": "company:tr:114594311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

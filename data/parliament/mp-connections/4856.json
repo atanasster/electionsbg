@@ -1,1 +1,83 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4856","nodes":[{"id":"mp:4856","type":"mp","mpId":4856,"label":"Даниела Руменова Райчева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:175575400","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ЗА РАЗВИТИЕ","slug":null,"uic":"175575400","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1309"},{"id":"person:ХРИСТО АТАНАСОВ ТОДОРОВ","type":"person","label":"Христо Атанасов Тодоров"},{"id":"person:ДАНИЕЛА ЦВЕТАНОВА НИКОДИМОВА","type":"person","label":"Даниела Цветанова Никодимова"},{"id":"person:ИНА КЪНЧЕВА МИТОВА","type":"person","label":"Ина Кънчева Митова"}],"edges":[{"source":"mp:4856","target":"company:tr:175575400","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО АТАНАСОВ ТОДОРОВ","target":"company:tr:175575400","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ЦВЕТАНОВА НИКОДИМОВА","target":"company:tr:175575400","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО АТАНАСОВ ТОДОРОВ","target":"company:tr:175575400","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИНА КЪНЧЕВА МИТОВА","target":"company:tr:175575400","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4856",
+  "nodes": [
+    {
+      "id": "mp:4856",
+      "type": "mp",
+      "mpId": 4856,
+      "label": "Даниела Руменова Райчева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175575400",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ЗА РАЗВИТИЕ",
+      "slug": null,
+      "uic": "175575400",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1309"
+    },
+    {
+      "id": "person:ХРИСТО АТАНАСОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Христо Атанасов Тодоров"
+    },
+    {
+      "id": "person:ДАНИЕЛА ЦВЕТАНОВА НИКОДИМОВА",
+      "type": "person",
+      "label": "Даниела Цветанова Никодимова"
+    },
+    {
+      "id": "person:ИНА КЪНЧЕВА МИТОВА",
+      "type": "person",
+      "label": "Ина Кънчева Митова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4856",
+      "target": "company:tr:175575400",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО АТАНАСОВ ТОДОРОВ",
+      "target": "company:tr:175575400",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ЦВЕТАНОВА НИКОДИМОВА",
+      "target": "company:tr:175575400",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО АТАНАСОВ ТОДОРОВ",
+      "target": "company:tr:175575400",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНА КЪНЧЕВА МИТОВА",
+      "target": "company:tr:175575400",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

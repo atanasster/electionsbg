@@ -1,1 +1,55 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4216","nodes":[{"id":"mp:4216","type":"mp","mpId":4216,"label":"Адлен Шукри Шевкед","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["44","45","46","47","48"]},{"id":"company:tr:201109257","type":"company","label":"КОРЕКТ - АДИ","slug":null,"uic":"201109257","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ЕМЕЛ ШУКРИЕВА КЕЛХАСАНОВА","type":"person","label":"Емел Шукриева Келхасанова"}],"edges":[{"source":"mp:4216","target":"company:tr:201109257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЕМЕЛ ШУКРИЕВА КЕЛХАСАНОВА","target":"company:tr:201109257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4216",
+  "nodes": [
+    {
+      "id": "mp:4216",
+      "type": "mp",
+      "mpId": 4216,
+      "label": "Адлен Шукри Шевкед",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:tr:201109257",
+      "type": "company",
+      "label": "КОРЕКТ - АДИ",
+      "slug": null,
+      "uic": "201109257",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЕМЕЛ ШУКРИЕВА КЕЛХАСАНОВА",
+      "type": "person",
+      "label": "Емел Шукриева Келхасанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4216",
+      "target": "company:tr:201109257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМЕЛ ШУКРИЕВА КЕЛХАСАНОВА",
+      "target": "company:tr:201109257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

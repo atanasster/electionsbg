@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nurie-tefikova-tsrngalova-0ebbb4",
+  "nodes": [
+    {
+      "id": "official:nurie-tefikova-tsrngalova-0ebbb4",
+      "type": "official",
+      "slug": "nurie-tefikova-tsrngalova-0ebbb4",
+      "label": "Нурие Тефикова Црънгалова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200007598",
+      "type": "company",
+      "label": "Леорда-07 ЕООД",
+      "slug": null,
+      "uic": "200007598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nurie-tefikova-tsrngalova-0ebbb4",
+      "target": "company:tr:200007598",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

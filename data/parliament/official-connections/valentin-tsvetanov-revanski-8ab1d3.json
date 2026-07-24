@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-tsvetanov-revanski-8ab1d3",
+  "nodes": [
+    {
+      "id": "official:valentin-tsvetanov-revanski-8ab1d3",
+      "type": "official",
+      "slug": "valentin-tsvetanov-revanski-8ab1d3",
+      "label": "Валентин Цветанов Ревански",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:207174952",
+      "type": "company",
+      "label": "\"СДРУЖЕНИЕ НА ОБЩИНСКИТЕ ПРИЮТИ ЗА БЕЗСТОПАНСТВЕНИ ЖИВОТНИ\"",
+      "slug": null,
+      "uic": "207174952",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "mp:5163",
+      "type": "mp",
+      "mpId": 5163,
+      "label": "Мартин Мариов Жлябинков",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "official:georgi-dinchev-bozhev-77799e",
+      "type": "official",
+      "slug": "georgi-dinchev-bozhev-77799e",
+      "label": "Георги Динчев Божев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕМАНУИЛ АЛЕКСАНДРОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Емануил Александров Манолов"
+    },
+    {
+      "id": "person:БИСТРА ДИМИТРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Бистра Димитрова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-tsvetanov-revanski-8ab1d3",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5163",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5163",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-dinchev-bozhev-77799e",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-dinchev-bozhev-77799e",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМАНУИЛ АЛЕКСАНДРОВ МАНОЛОВ",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМАНУИЛ АЛЕКСАНДРОВ МАНОЛОВ",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА ДИМИТРОВА ПЕТКОВА",
+      "target": "company:tr:207174952",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

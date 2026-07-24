@@ -1,1 +1,150 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5217","nodes":[{"id":"mp:5217","type":"mp","mpId":5217,"label":"Димитър Иванов Кънев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:208693583","type":"company","label":"КАСИДИМА","slug":null,"uic":"208693583","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100"},{"id":"company:tr:207453005","type":"company","label":"Старият Кръвеник","slug":null,"uic":"207453005","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1172"},{"id":"company:tr:200553106","type":"company","label":"ФТВ ЕНЕРДЖИ","slug":null,"uic":"200553106","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ДИЯНА КРЪСТЕВА КЪНЕВА","type":"person","label":"Дияна Кръстева Кънева"},{"id":"company:name:СОФ ЕКИП","type":"company","label":"\"СОФ ЕКИП\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН АТАНАСОВ КЪНЕВ","type":"person","label":"Иван Атанасов Кънев"}],"edges":[{"source":"mp:5217","target":"company:tr:208693583","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5217","target":"company:tr:208693583","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5217","target":"company:tr:207453005","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5217","target":"company:tr:207453005","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5217","target":"company:tr:200553106","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ДИЯНА КРЪСТЕВА КЪНЕВА","target":"company:tr:207453005","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯНА КРЪСТЕВА КЪНЕВА","target":"company:tr:207453005","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:СОФ ЕКИП","target":"company:tr:207453005","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ КЪНЕВ","target":"company:tr:200553106","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ КЪНЕВ","target":"company:tr:200553106","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5217",
+  "nodes": [
+    {
+      "id": "mp:5217",
+      "type": "mp",
+      "mpId": 5217,
+      "label": "Димитър Иванов Кънев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:208693583",
+      "type": "company",
+      "label": "КАСИДИМА",
+      "slug": null,
+      "uic": "208693583",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100"
+    },
+    {
+      "id": "company:tr:207453005",
+      "type": "company",
+      "label": "Старият Кръвеник",
+      "slug": null,
+      "uic": "207453005",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1172"
+    },
+    {
+      "id": "company:tr:200553106",
+      "type": "company",
+      "label": "ФТВ ЕНЕРДЖИ",
+      "slug": null,
+      "uic": "200553106",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДИЯНА КРЪСТЕВА КЪНЕВА",
+      "type": "person",
+      "label": "Дияна Кръстева Кънева"
+    },
+    {
+      "id": "company:name:СОФ ЕКИП",
+      "type": "company",
+      "label": "\"СОФ ЕКИП\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ КЪНЕВ",
+      "type": "person",
+      "label": "Иван Атанасов Кънев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5217",
+      "target": "company:tr:208693583",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5217",
+      "target": "company:tr:208693583",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5217",
+      "target": "company:tr:207453005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5217",
+      "target": "company:tr:207453005",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5217",
+      "target": "company:tr:200553106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЯНА КРЪСТЕВА КЪНЕВА",
+      "target": "company:tr:207453005",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА КРЪСТЕВА КЪНЕВА",
+      "target": "company:tr:207453005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СОФ ЕКИП",
+      "target": "company:tr:207453005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КЪНЕВ",
+      "target": "company:tr:200553106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КЪНЕВ",
+      "target": "company:tr:200553106",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

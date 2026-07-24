@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-nikolaev-popov-503739",
+  "nodes": [
+    {
+      "id": "official:nikolai-nikolaev-popov-503739",
+      "type": "official",
+      "slug": "nikolai-nikolaev-popov-503739",
+      "label": "Николай Николаев Попов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207261827",
+      "type": "company",
+      "label": "\"СОШЪЛ МОНИТОРИНГ БЪЛГАРИЯ\" ООД",
+      "slug": null,
+      "uic": "207261827",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ГЕОРГИЕВА ПОПОВА",
+      "type": "person",
+      "label": "Таня Георгиева Попова"
+    },
+    {
+      "id": "person:НИКОЛАЙ НИКОЛАЕВ ПОПОВ",
+      "type": "person",
+      "label": "Николай Николаев Попов"
+    },
+    {
+      "id": "person:МАЯ ПЕТРОВА ТОНЕВА",
+      "type": "person",
+      "label": "Мая Петрова Тонева"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ВЕСЕЛИНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Веселин Веселинов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-nikolaev-popov-503739",
+      "target": "company:tr:207261827",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:207261827",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:207261827",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НИКОЛАЕВ ПОПОВ",
+      "target": "company:tr:207261827",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ПЕТРОВА ТОНЕВА",
+      "target": "company:tr:207261827",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ПЕТРОВА ТОНЕВА",
+      "target": "company:tr:207261827",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ВЕСЕЛИНОВ АНГЕЛОВ",
+      "target": "company:tr:207261827",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

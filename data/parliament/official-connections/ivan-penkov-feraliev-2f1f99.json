@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-penkov-feraliev-2f1f99",
+  "nodes": [
+    {
+      "id": "official:ivan-penkov-feraliev-2f1f99",
+      "type": "official",
+      "slug": "ivan-penkov-feraliev-2f1f99",
+      "label": "Иван Пенков Фералиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симеоновград"
+    },
+    {
+      "id": "company:tr:176486405",
+      "type": "company",
+      "label": "МАРИЦА 2013",
+      "slug": null,
+      "uic": "176486405",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР БОЯНОВ ФЕРАЛИЕВ",
+      "type": "person",
+      "label": "Петър Боянов Фералиев"
+    },
+    {
+      "id": "person:ДИМО ГОЧЕВ ДИМОВ",
+      "type": "person",
+      "label": "Димо Гочев Димов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДОБЧЕВ БОНЕВ",
+      "type": "person",
+      "label": "Веселин Добчев Бонев"
+    },
+    {
+      "id": "person:ГЕРАСИМ ЯНКОВ ГОЧЕВ",
+      "type": "person",
+      "label": "Герасим Янков Гочев"
+    },
+    {
+      "id": "person:АНТОН АНГЕЛОВ МАЛАЧИНОВ",
+      "type": "person",
+      "label": "Антон Ангелов Малачинов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДИМИТРОВ ТОНЕВ",
+      "type": "person",
+      "label": "Александър Димитров Тонев"
+    },
+    {
+      "id": "person:МАКСИМ ХАРАЛАНОВ ДУКСАНОВ",
+      "type": "person",
+      "label": "Максим Хараланов Дуксанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-penkov-feraliev-2f1f99",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР БОЯНОВ ФЕРАЛИЕВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР БОЯНОВ ФЕРАЛИЕВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО ГОЧЕВ ДИМОВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДОБЧЕВ БОНЕВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРАСИМ ЯНКОВ ГОЧЕВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН АНГЕЛОВ МАЛАЧИНОВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН АНГЕЛОВ МАЛАЧИНОВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМИТРОВ ТОНЕВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАКСИМ ХАРАЛАНОВ ДУКСАНОВ",
+      "target": "company:tr:176486405",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

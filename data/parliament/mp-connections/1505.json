@@ -1,1 +1,174 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1505","nodes":[{"id":"mp:1505","type":"mp","mpId":1505,"label":"Щерьо Щерев Щерев","partyGroupShort":"АПС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207971528","type":"company","label":"ЕС ДЖИ СТРОЙ 2024","slug":null,"uic":"207971528","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1309"},{"id":"company:tr:202798036","type":"company","label":"ТИП ТРАНС","slug":null,"uic":"202798036","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"company:tr:204287980","type":"company","label":"ЕУРО ЕС","slug":null,"uic":"204287980","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1309"},{"id":"company:tr:175321423","type":"company","label":"БУЛЕВРОПРОДЖЕКТ","slug":null,"uic":"175321423","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"person:СНЕЖАНА АНГЕЛОВА АНГЕЛОВА","type":"person","label":"Снежана Ангелова Ангелова"},{"id":"person:ИВАН СОТИРОВ СОТИРОВ","type":"person","label":"Иван Сотиров Сотиров"},{"id":"person:ФЛОБА АЛЕКОВА ЩЕРЕВА","type":"person","label":"Флоба Алекова Щерева"},{"id":"person:ИВАН ДИМИТРОВ ЛИЛОВ","type":"person","label":"Иван Димитров Лилов"}],"edges":[{"source":"mp:1505","target":"company:tr:207971528","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:207971528","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:202798036","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:202798036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:204287980","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:204287980","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1505","target":"company:tr:175321423","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СНЕЖАНА АНГЕЛОВА АНГЕЛОВА","target":"company:tr:207971528","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СОТИРОВ СОТИРОВ","target":"company:tr:202798036","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СОТИРОВ СОТИРОВ","target":"company:tr:204287980","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ФЛОБА АЛЕКОВА ЩЕРЕВА","target":"company:tr:175321423","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ЛИЛОВ","target":"company:tr:175321423","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1505",
+  "nodes": [
+    {
+      "id": "mp:1505",
+      "type": "mp",
+      "mpId": 1505,
+      "label": "Щерьо Щерев Щерев",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207971528",
+      "type": "company",
+      "label": "ЕС ДЖИ СТРОЙ 2024",
+      "slug": null,
+      "uic": "207971528",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1309"
+    },
+    {
+      "id": "company:tr:202798036",
+      "type": "company",
+      "label": "ТИП ТРАНС",
+      "slug": null,
+      "uic": "202798036",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:tr:204287980",
+      "type": "company",
+      "label": "ЕУРО ЕС",
+      "slug": null,
+      "uic": "204287980",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1309"
+    },
+    {
+      "id": "company:tr:175321423",
+      "type": "company",
+      "label": "БУЛЕВРОПРОДЖЕКТ",
+      "slug": null,
+      "uic": "175321423",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "person:СНЕЖАНА АНГЕЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Снежана Ангелова Ангелова"
+    },
+    {
+      "id": "person:ИВАН СОТИРОВ СОТИРОВ",
+      "type": "person",
+      "label": "Иван Сотиров Сотиров"
+    },
+    {
+      "id": "person:ФЛОБА АЛЕКОВА ЩЕРЕВА",
+      "type": "person",
+      "label": "Флоба Алекова Щерева"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ЛИЛОВ",
+      "type": "person",
+      "label": "Иван Димитров Лилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1505",
+      "target": "company:tr:207971528",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:207971528",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:202798036",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:202798036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:204287980",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:204287980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1505",
+      "target": "company:tr:175321423",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА АНГЕЛОВА АНГЕЛОВА",
+      "target": "company:tr:207971528",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СОТИРОВ СОТИРОВ",
+      "target": "company:tr:202798036",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СОТИРОВ СОТИРОВ",
+      "target": "company:tr:204287980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЛОБА АЛЕКОВА ЩЕРЕВА",
+      "target": "company:tr:175321423",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ЛИЛОВ",
+      "target": "company:tr:175321423",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

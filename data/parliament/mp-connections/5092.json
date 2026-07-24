@@ -1,1 +1,796 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5092","nodes":[{"id":"mp:5092","type":"mp","mpId":5092,"label":"Богомил Иванов Петков","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["47","48","51","52"]},{"id":"company:Чеси-Инс-Брокер-ООД","type":"company","label":"\"Чеси Инс Брокер\" ООД","slug":"Чеси-Инс-Брокер-ООД","uic":"115322442","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"company:tr:207550917","type":"company","label":"БЪЛГАРСКА СПОРТНА ФЕДЕРАЦИЯ ПО ШАХМАТ","slug":null,"uic":"207550917","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"company:tr:207024454","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64","slug":null,"uic":"207024454","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:817076893","type":"company","label":"БОКАЛ - ПЕТ","slug":null,"uic":"817076893","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:110001952","type":"company","label":"ОСЪМ ИНЖЕНЕРИНГ","slug":null,"uic":"110001952","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:110032243","type":"company","label":"ОСЪМ-ИНЖЕНЕРИНГ-97","slug":null,"uic":"110032243","legalForm":"AD","status":"active","seat":null},{"id":"mp:4802","type":"mp","mpId":4802,"label":"Иван Богомилов Петков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["45","47","48","49","50","51"]},{"id":"person:ДИАНА НЕДЕЛЧЕВА ТЕЛЕНЧЕВА","type":"person","label":"Диана Неделчева Теленчева"},{"id":"person:ЗУЗАННА ПЕТКОВА","type":"person","label":"Зузанна  Петкова"},{"id":"person:МИЛЕН АТАНАСОВ ВАСИЛЕВ","type":"person","label":"Милен Атанасов Василев"},{"id":"person:БОРИСЛАВ ГЕОРГИЕВ АЦЕВ","type":"person","label":"Борислав Георгиев Ацев"},{"id":"person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ","type":"person","label":"Петър Георгиев Арнаудов"},{"id":"person:РОСЕН ПЕТРОВ ИЛЧЕВ","type":"person","label":"Росен Петров Илчев"},{"id":"person:СИМЕОН АСЕНОВ СТОИЧКОВ","type":"person","label":"Симеон Асенов Стоичков"},{"id":"person:ГЕОРГИ ЛОЗАНОВ ЧЕРНЕВ","type":"person","label":"Георги Лозанов Чернев"},{"id":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ","type":"person","label":"Мирослав Николаев Митев"},{"id":"person:МИНКО КОСТАДИНОВ ШИШКОВ","type":"person","label":"Минко Костадинов Шишков"},{"id":"person:КАЛОЯН МАТЕЕВ МАТЕЕВ","type":"person","label":"Калоян Матеев Матеев"},{"id":"person:МЕТОДИ КИРИЛОВ СТОЙНЕВ","type":"person","label":"Методи Кирилов Стойнев"},{"id":"mp:3570","type":"mp","mpId":3570,"label":"Цвета Тодорова Галунова","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"mp:5268","type":"mp","mpId":5268,"label":"Румен Ангелов Миланов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:ДАЯН ЙОРДАНОВ НИНОВ","type":"person","label":"Даян Йорданов Нинов"},{"id":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,","type":"person","label":"Мирослав Николаев Митев,"},{"id":"person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ","type":"person","label":"Недялко Димчев Неделчев"},{"id":"person:ТРАЙЧО ДИМИТРОВ ТРАЙКОВ","type":"person","label":"Трайчо Димитров Трайков"},{"id":"person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ","type":"person","label":"Ивайло Стойчев Миланов"},{"id":"person:БОЙКО АНГЕЛОВ КАЛЧУНКОВ","type":"person","label":"Бойко Ангелов Калчунков"},{"id":"company:name:БИПТАН”","type":"company","label":"„БИПТАН” ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:БОКАЛ БГ”","type":"company","label":"„БОКАЛ БГ” ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАНКА БЕРОВА ПЕТКОВА","type":"person","label":"Иванка Берова Петкова"},{"id":"person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ","type":"person","label":"Ивайло Богомилов Петков"},{"id":"person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ","type":"person","label":"Валентин Нешков Вътев"},{"id":"person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА","type":"person","label":"Радостина Красимирова Генова"}],"edges":[{"source":"mp:5092","target":"company:Чеси-Инс-Брокер-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5092","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5092","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5092","target":"company:tr:817076893","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5092","target":"company:tr:110001952","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5092","target":"company:tr:110032243","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4802","target":"company:Чеси-Инс-Брокер-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4802","target":"company:Чеси-Инс-Брокер-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА НЕДЕЛЧЕВА ТЕЛЕНЧЕВА","target":"company:Чеси-Инс-Брокер-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4802","target":"company:Чеси-Инс-Брокер-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗУЗАННА ПЕТКОВА","target":"company:Чеси-Инс-Брокер-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН АТАНАСОВ ВАСИЛЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН АТАНАСОВ ВАСИЛЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ГЕОРГИЕВ АЦЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПЕТРОВ ИЛЧЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН АСЕНОВ СТОИЧКОВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЛОЗАНОВ ЧЕРНЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИНКО КОСТАДИНОВ ШИШКОВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МАТЕЕВ МАТЕЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ КИРИЛОВ СТОЙНЕВ","target":"company:tr:207550917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3570","target":"company:tr:207024454","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3570","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5268","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДАЯН ЙОРДАНОВ НИНОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПЕТРОВ ИЛЧЕВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТРАЙЧО ДИМИТРОВ ТРАЙКОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ","target":"company:tr:817076893","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО АНГЕЛОВ КАЛЧУНКОВ","target":"company:tr:817076893","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:БИПТАН”","target":"company:tr:817076893","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:БОКАЛ БГ”","target":"company:tr:817076893","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА БЕРОВА ПЕТКОВА","target":"company:tr:110001952","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ","target":"company:tr:110001952","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ","target":"company:tr:110001952","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА","target":"company:tr:110001952","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА БЕРОВА ПЕТКОВА","target":"company:tr:110001952","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ","target":"company:tr:110001952","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА БЕРОВА ПЕТКОВА","target":"company:tr:110032243","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ","target":"company:tr:110032243","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ","target":"company:tr:110032243","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА","target":"company:tr:110032243","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА БЕРОВА ПЕТКОВА","target":"company:tr:110032243","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ","target":"company:tr:110032243","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4802","length":2,"nodeIds":["mp:5092","company:Чеси-Инс-Брокер-ООД","mp:4802"],"isAllCurrent":true,"isAllHighConfidence":true},{"targetMpNodeId":"mp:5268","length":2,"nodeIds":["mp:5092","company:tr:207024454","mp:5268"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3570","length":2,"nodeIds":["mp:5092","company:tr:207024454","mp:3570"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5092",
+  "nodes": [
+    {
+      "id": "mp:5092",
+      "type": "mp",
+      "mpId": 5092,
+      "label": "Богомил Иванов Петков",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Чеси-Инс-Брокер-ООД",
+      "type": "company",
+      "label": "\"Чеси Инс Брокер\" ООД",
+      "slug": "Чеси-Инс-Брокер-ООД",
+      "uic": "115322442",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Биптан-ЕООД",
+      "type": "company",
+      "label": "Биптан ЕООД",
+      "slug": "Биптан-ЕООД",
+      "uic": "107585430",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Севлиево"
+    },
+    {
+      "id": "company:Бокал-ПЕТ-ООД",
+      "type": "company",
+      "label": "Бокал - ПЕТ ООД",
+      "slug": "Бокал-ПЕТ-ООД",
+      "uic": "817076893",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Севлиево"
+    },
+    {
+      "id": "company:БОКАЛ-ПЕТ-ООД",
+      "type": "company",
+      "label": "БОКАЛ-ПЕТ ООД",
+      "slug": "БОКАЛ-ПЕТ-ООД",
+      "uic": "817076893",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Севлиево"
+    },
+    {
+      "id": "company:Булстрой-ООД",
+      "type": "company",
+      "label": "Булстрой ООД",
+      "slug": "Булстрой-ООД",
+      "uic": "103860604",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Белене"
+    },
+    {
+      "id": "company:Мазалат-ЕООД",
+      "type": "company",
+      "label": "Мазалат ЕООД",
+      "slug": "Мазалат-ЕООД",
+      "uic": "817045463",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Севлиево"
+    },
+    {
+      "id": "company:tr:207550917",
+      "type": "company",
+      "label": "БЪЛГАРСКА СПОРТНА ФЕДЕРАЦИЯ ПО ШАХМАТ",
+      "slug": null,
+      "uic": "207550917",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "company:tr:207024454",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64",
+      "slug": null,
+      "uic": "207024454",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:110001952",
+      "type": "company",
+      "label": "ОСЪМ ИНЖЕНЕРИНГ",
+      "slug": null,
+      "uic": "110001952",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:110032243",
+      "type": "company",
+      "label": "ОСЪМ-ИНЖЕНЕРИНГ-97",
+      "slug": null,
+      "uic": "110032243",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4802",
+      "type": "mp",
+      "mpId": 4802,
+      "label": "Иван Богомилов Петков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:ДИАНА НЕДЕЛЧЕВА ТЕЛЕНЧЕВА",
+      "type": "person",
+      "label": "Диана Неделчева Теленчева"
+    },
+    {
+      "id": "person:ЗУЗАННА ПЕТКОВА",
+      "type": "person",
+      "label": "Зузанна  Петкова"
+    },
+    {
+      "id": "person:РУМЕН ВАСИЛЕВ ДЕМИРОВ",
+      "type": "person",
+      "label": "Румен Василев Демиров"
+    },
+    {
+      "id": "person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Ивайло Стойчев Миланов"
+    },
+    {
+      "id": "person:БОЙКО АНГЕЛОВ КАЛЧУНКОВ",
+      "type": "person",
+      "label": "Бойко Ангелов Калчунков"
+    },
+    {
+      "id": "company:name:БИПТАН”",
+      "type": "company",
+      "label": "„БИПТАН” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:БОКАЛ БГ”",
+      "type": "company",
+      "label": "„БОКАЛ БГ” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕН АТАНАСОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Милен Атанасов Василев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ГЕОРГИЕВ АЦЕВ",
+      "type": "person",
+      "label": "Борислав Георгиев Ацев"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ",
+      "type": "person",
+      "label": "Петър Георгиев Арнаудов"
+    },
+    {
+      "id": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Росен Петров Илчев"
+    },
+    {
+      "id": "person:СИМЕОН АСЕНОВ СТОИЧКОВ",
+      "type": "person",
+      "label": "Симеон Асенов Стоичков"
+    },
+    {
+      "id": "person:ГЕОРГИ ЛОЗАНОВ ЧЕРНЕВ",
+      "type": "person",
+      "label": "Георги Лозанов Чернев"
+    },
+    {
+      "id": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ",
+      "type": "person",
+      "label": "Мирослав Николаев Митев"
+    },
+    {
+      "id": "person:МИНКО КОСТАДИНОВ ШИШКОВ",
+      "type": "person",
+      "label": "Минко Костадинов Шишков"
+    },
+    {
+      "id": "person:КАЛОЯН МАТЕЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Калоян Матеев Матеев"
+    },
+    {
+      "id": "person:МЕТОДИ КИРИЛОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Методи Кирилов Стойнев"
+    },
+    {
+      "id": "mp:3570",
+      "type": "mp",
+      "mpId": 3570,
+      "label": "Цвета Тодорова Галунова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5268",
+      "type": "mp",
+      "mpId": 5268,
+      "label": "Румен Ангелов Миланов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "official:traicho-dimitrov-traikov-710a1d",
+      "type": "official",
+      "slug": "traicho-dimitrov-traikov-710a1d",
+      "label": "Трайчо Димитров Трайков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Средец"
+    },
+    {
+      "id": "person:ДАЯН ЙОРДАНОВ НИНОВ",
+      "type": "person",
+      "label": "Даян Йорданов Нинов"
+    },
+    {
+      "id": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,",
+      "type": "person",
+      "label": "Мирослав Николаев Митев,"
+    },
+    {
+      "id": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Недялко Димчев Неделчев"
+    },
+    {
+      "id": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Иванка Берова Петкова"
+    },
+    {
+      "id": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Ивайло Богомилов Петков"
+    },
+    {
+      "id": "person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ",
+      "type": "person",
+      "label": "Валентин Нешков Вътев"
+    },
+    {
+      "id": "person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА",
+      "type": "person",
+      "label": "Радостина Красимирова Генова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5092",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Биптан-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Булстрой-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Мазалат-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:110001952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:110032243",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА НЕДЕЛЧЕВА ТЕЛЕНЧЕВА",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗУЗАННА ПЕТКОВА",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ВАСИЛЕВ ДЕМИРОВ",
+      "target": "company:Биптан-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО АНГЕЛОВ КАЛЧУНКОВ",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БИПТАН”",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БОКАЛ БГ”",
+      "target": "company:Бокал-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЙЧЕВ МИЛАНОВ",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО АНГЕЛОВ КАЛЧУНКОВ",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БИПТАН”",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БОКАЛ БГ”",
+      "target": "company:БОКАЛ-ПЕТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АТАНАСОВ ВАСИЛЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АТАНАСОВ ВАСИЛЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ГЕОРГИЕВ АЦЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН АСЕНОВ СТОИЧКОВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛОЗАНОВ ЧЕРНЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО КОСТАДИНОВ ШИШКОВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН МАТЕЕВ МАТЕЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ КИРИЛОВ СТОЙНЕВ",
+      "target": "company:tr:207550917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5268",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:traicho-dimitrov-traikov-710a1d",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАЯН ЙОРДАНОВ НИНОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "target": "company:tr:110001952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "target": "company:tr:110001952",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ",
+      "target": "company:tr:110001952",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА",
+      "target": "company:tr:110001952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "target": "company:tr:110001952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН НЕШКОВ ВЪТЕВ",
+      "target": "company:tr:110001952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "target": "company:tr:110032243",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "target": "company:tr:110032243",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "target": "company:tr:110032243",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА КРАСИМИРОВА ГЕНОВА",
+      "target": "company:tr:110032243",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА БЕРОВА ПЕТКОВА",
+      "target": "company:tr:110032243",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОГОМИЛОВ ПЕТКОВ",
+      "target": "company:tr:110032243",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4802",
+      "length": 2,
+      "nodeIds": [
+        "mp:5092",
+        "company:Чеси-Инс-Брокер-ООД",
+        "mp:4802"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": true
+    },
+    {
+      "targetMpNodeId": "mp:5268",
+      "length": 2,
+      "nodeIds": [
+        "mp:5092",
+        "company:tr:207024454",
+        "mp:5268"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3570",
+      "length": 2,
+      "nodeIds": [
+        "mp:5092",
+        "company:tr:207024454",
+        "mp:3570"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

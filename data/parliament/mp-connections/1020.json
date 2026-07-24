@@ -1,1 +1,44 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1020","nodes":[{"id":"mp:1020","type":"mp","mpId":1020,"label":"Стоян Тодоров Мавродиев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207260102","type":"company","label":"Рийду","slug":null,"uic":"207260102","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1164"}],"edges":[{"source":"mp:1020","target":"company:tr:207260102","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1020","target":"company:tr:207260102","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1020",
+  "nodes": [
+    {
+      "id": "mp:1020",
+      "type": "mp",
+      "mpId": 1020,
+      "label": "Стоян Тодоров Мавродиев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207260102",
+      "type": "company",
+      "label": "Рийду",
+      "slug": null,
+      "uic": "207260102",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1164"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1020",
+      "target": "company:tr:207260102",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1020",
+      "target": "company:tr:207260102",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

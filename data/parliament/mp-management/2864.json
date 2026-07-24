@@ -1,1 +1,64 @@
-{"mpId":2864,"mpName":"Искрен Василев Веселинов","generatedAt":"2026-07-03T11:12:51.715Z","total":3,"roles":[{"uic":"175844886","companyName":"ГОЦЕ ДЕЛЧЕВ 2009","legalForm":"CC","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"trustee","positionLabel":null,"sharePercent":null,"addedAt":"2025-03-04T11:28:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000681292","companyName":"СДРУЖЕНИЕ ВМРО","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_representative","positionLabel":"заместник председател","sharePercent":null,"addedAt":"2024-01-18T14:10:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000681292","companyName":"СДРУЖЕНИЕ ВМРО","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2024-01-18T14:10:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2864,
+  "mpName": "Искрен Василев Веселинов",
+  "generatedAt": "2026-07-24T03:35:58.550Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "200712583",
+      "companyName": "ИНВЕСТ-ВЕСЕЛИНОВИ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7005",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 60,
+      "addedAt": "2026-07-13T14:49:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175844886",
+      "companyName": "ГОЦЕ ДЕЛЧЕВ 2009",
+      "legalForm": "CC",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "trustee",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-03-04T11:28:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000681292",
+      "companyName": "СДРУЖЕНИЕ ВМРО",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "заместник председател",
+      "sharePercent": null,
+      "addedAt": "2024-01-18T14:10:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000681292",
+      "companyName": "СДРУЖЕНИЕ ВМРО",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-01-18T14:10:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

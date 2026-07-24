@@ -1,1 +1,91 @@
-{"ekatte":"61710","count":14,"mpCount":6,"totalPages":1,"topCompanies":[{"slug":"МИД-2000-ООД","displayName":"“МИД 2000” ООД","registeredOffice":"Разград","mps":[{"mpId":3738,"mpName":"Ива Митева Йорданова-Рупчева","role":"declared_stake","isCurrent":true}]},{"slug":"Абраз-ЕООД","displayName":"Абраз ЕООД","registeredOffice":"Разград","mps":[{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"manager","isCurrent":true},{"mpId":3725,"mpName":"Марин Шишев Шишев","role":"declared_stake","isCurrent":true}]},{"slug":"АРКАДИЯ-КОНСТРЪКШЪН-ГРУП","displayName":"АРКАДИЯ КОНСТРЪКШЪН ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5204,"mpName":"Маломир Василев Власов","role":"manager","isCurrent":true},{"mpId":5204,"mpName":"Маломир Василев Власов","role":"partner","isCurrent":true}]},{"slug":"ВЕТ-НЕГ","displayName":"ВЕТ - НЕГ","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ГОДО","displayName":"ГОДО","registeredOffice":"БЪЛГАРИЯ, гр. Разград, 7200","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "61710",
+  "count": 15,
+  "mpCount": 6,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "КАРАДЖА-ФАГ-ООД",
+      "displayName": "КАРАДЖА-ФАГ ООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "Гюнай Хюсмен Хюсмен",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Северагро-ЕООД",
+      "displayName": "Северагро ЕООД",
+      "registeredOffice": "РАЗГРАД",
+      "mps": [
+        {
+          "mpId": 4812,
+          "mpName": "ГЮНАЙ ХЮСМЕН ХЮСМЕН",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МИД-2000-ООД",
+      "displayName": "“МИД 2000” ООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3738,
+          "mpName": "Ива Митева Йорданова-Рупчева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Абраз-ЕООД",
+      "displayName": "Абраз ЕООД",
+      "registeredOffice": "Разград",
+      "mps": [
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3725,
+          "mpName": "Марин Шишев Шишев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АРКАДИЯ-КОНСТРЪКШЪН-ГРУП",
+      "displayName": "АРКАДИЯ КОНСТРЪКШЪН ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Разград, 7200",
+      "mps": [
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5204,
+          "mpName": "Маломир Василев Власов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

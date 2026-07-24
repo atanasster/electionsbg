@@ -1,1 +1,65 @@
-{"mpId":3901,"name":"Мукаддес Юсуф Налбант","partyGroupShort":null,"isCurrent":false,"nsFolders":["45","46","47"],"latestDeclarationYear":2023,"fiscalYear":2023,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2023/B9F5A4C3-62FD-45EB-A229-51946B82438A145612.xml","totalAssetsEur":81026.46958068952,"totalDebtsEur":0,"netWorthEur":81026.46958068952,"previous":{"year":2021,"totalAssetsEur":23526.5846213628,"netWorthEur":23526.5846213628},"byCategory":{"real_estate":{"count":2,"valuedCount":2,"totalEur":42678.55590721075},"vehicle":{"count":2,"valuedCount":2,"totalEur":7158.086336747059},"cash":{"count":1,"valuedCount":1,"totalEur":7669.378217943277},"bank":{"count":1,"valuedCount":1,"totalEur":23519.42653502605},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":1.022583762392437}}}
+{
+  "mpId": 3901,
+  "name": "Мукаддес Юсуф Налбант",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "45",
+    "46",
+    "47"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2023,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2023/B9F5A4C3-62FD-45EB-A229-51946B82438A145612.xml",
+  "totalAssetsEur": 81026.46958068952,
+  "totalDebtsEur": 0,
+  "netWorthEur": 81026.46958068952,
+  "previous": {
+    "year": 2021,
+    "totalAssetsEur": 23526.5846213628,
+    "netWorthEur": 23526.5846213628
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 42678.55590721075
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 7158.086336747059
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 7669.378217943277
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 23519.42653502605
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 1.022583762392437
+    }
+  }
+}

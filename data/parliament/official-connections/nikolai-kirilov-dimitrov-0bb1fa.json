@@ -1,1 +1,91 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nikolai-kirilov-dimitrov-0bb1fa","nodes":[{"id":"official:nikolai-kirilov-dimitrov-0bb1fa","type":"official","slug":"nikolai-kirilov-dimitrov-0bb1fa","label":"Николай Кирилов Димитров","tier":"municipal","role":"mayor","municipality":"Несебър"},{"id":"company:tr:200399811","type":"company","label":"НИКОЛ 008 ЕООД","slug":null,"uic":"200399811","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206731359","type":"company","label":"ПРОПЪРТИ ИНВЕСТ БЪЛГАРИЯ 2021","slug":null,"uic":"206731359","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕФАН ИВАНОВ СТЕФАНОВ","type":"person","label":"Стефан Иванов Стефанов"},{"id":"person:АСЕН НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Асен Николаев Николов"},{"id":"person:МОНИКА БИСЕРОВА КИРЧЕВА","type":"person","label":"Моника Бисерова Кирчева"},{"id":"company:name:ДКЦ МЕДИКО","type":"company","label":"ДКЦ МЕДИКО АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОГНЯН АСЕНОВ ЯКИМОВ","type":"person","label":"Огнян Асенов Якимов"},{"id":"person:ЯНКО ПЛАМЕНОВ ПОПСТОИЛОВ","type":"person","label":"Янко Пламенов Попстоилов"},{"id":"person:КОСТАДИН ИВАНОВ ГУЩАНОВ","type":"person","label":"Костадин Иванов Гущанов"},{"id":"person:ГЕРГАНА ПЛАМЕНОВА АТАНАСОВА","type":"person","label":"Гергана Пламенова Атанасова"},{"id":"company:name:КЮПРИА","type":"company","label":"КЮПРИА ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-kirilov-dimitrov-0bb1fa","target":"company:tr:200399811","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nikolai-kirilov-dimitrov-0bb1fa","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН ИВАНОВ СТЕФАНОВ","target":"company:tr:206731359","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН НИКОЛАЕВ НИКОЛОВ","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ИВАНОВ СТЕФАНОВ","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МОНИКА БИСЕРОВА КИРЧЕВА","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ДКЦ МЕДИКО","target":"company:tr:206731359","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН АСЕНОВ ЯКИМОВ","target":"company:tr:206731359","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН АСЕНОВ ЯКИМОВ","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ДКЦ МЕДИКО","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ПЛАМЕНОВ ПОПСТОИЛОВ","target":"company:tr:206731359","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ПЛАМЕНОВ ПОПСТОИЛОВ","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ИВАНОВ ГУЩАНОВ","target":"company:tr:206731359","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ПЛАМЕНОВА АТАНАСОВА","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОСТАДИН ИВАНОВ ГУЩАНОВ","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:КЮПРИА","target":"company:tr:206731359","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-kirilov-dimitrov-0bb1fa",
+  "nodes": [
+    {
+      "id": "official:nikolai-kirilov-dimitrov-0bb1fa",
+      "type": "official",
+      "slug": "nikolai-kirilov-dimitrov-0bb1fa",
+      "label": "Николай Кирилов Димитров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:200399811",
+      "type": "company",
+      "label": "НИКОЛ 008 ЕООД",
+      "slug": null,
+      "uic": "200399811",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205536534",
+      "type": "company",
+      "label": "ГЕМ КУАЛИТИ ПРО ЕООД",
+      "slug": null,
+      "uic": "205536534",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikolai-kirilov-dimitrov-b8c058",
+      "type": "official",
+      "slug": "nikolai-kirilov-dimitrov-b8c058",
+      "label": "Николай Кирилов Димитров",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "person:НУРДЖИВАН ФЕРАД ДИМИТРОВА",
+      "type": "person",
+      "label": "Нурдживан Ферад Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-kirilov-dimitrov-0bb1fa",
+      "target": "company:tr:200399811",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-kirilov-dimitrov-0bb1fa",
+      "target": "company:tr:205536534",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-kirilov-dimitrov-b8c058",
+      "target": "company:tr:200399811",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-kirilov-dimitrov-b8c058",
+      "target": "company:tr:205536534",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРДЖИВАН ФЕРАД ДИМИТРОВА",
+      "target": "company:tr:205536534",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

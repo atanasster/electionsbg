@@ -1,1 +1,342 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:584","nodes":[{"id":"mp:584","type":"mp","mpId":584,"label":"Александър Христов Филипов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207239453","type":"company","label":"КОНСУЛТТРЕЙДИНГ СЪРВИЗ","slug":null,"uic":"207239453","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:104684810","type":"company","label":"СДРУЖЕНИЕ &quot;ЕВРОПЕЙСКА АСОЦИАЦИЯ НА ФОЛКЛОРНИТЕ  ФЕСТИВАЛИ-ЕАФФ&quot;","slug":null,"uic":"104684810","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:206561316","type":"company","label":"ИНТЕРГРУП ЕУ","slug":null,"uic":"206561316","legalForm":"EOOD","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1387"},{"id":"company:name:ЕГА КОНСУЛТ","type":"company","label":"\"ЕГА КОНСУЛТ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАЙЛО ОЛГОВ ПЕТКОВ","type":"person","label":"Ивайло Олгов Петков"},{"id":"person:АЛЕКСАНДЪР КАЛОЯНОВ НИКОЛОВ","type":"person","label":"Александър Калоянов Николов"},{"id":"person:ДЕЛЯН ИЛИЯНОВ НИКОЛОВ","type":"person","label":"Делян Илиянов Николов"},{"id":"person:ИЛИЯН ИЛИЯНОВ НИКОЛОВ","type":"person","label":"Илиян Илиянов Николов"},{"id":"company:name:ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ","type":"company","label":"\"ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:БАЛКАНСКА НАРОДНА АКАДЕМИЯ","type":"company","label":"\"БАЛКАНСКА НАРОДНА АКАДЕМИЯ\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:КАЛОЯН ИЛИЯНОВ НИКОЛОВ","type":"person","label":"Калоян Илиянов Николов"},{"id":"person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ","type":"person","label":"Георги Любомиров Финдаков"},{"id":"person:ХРИСИМИРА СТЕФАНОВА НИКОЛОВА","type":"person","label":"Хрисимира Стефанова Николова"},{"id":"person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА","type":"person","label":"Петя Георгиева Николова"},{"id":"person:РУМЕН ИЛИЕВ АНГЕЛОВ","type":"person","label":"Румен Илиев Ангелов"},{"id":"person:ВЕСЕЛИН РАШКОВ РАШКОВ","type":"person","label":"Веселин Рашков Рашков"},{"id":"person:НАДЯ ИВАНОВА АНДРЕЕВСКА","type":"person","label":"Надя Иванова Андреевска"},{"id":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","type":"person","label":"Антония Венкова Йорданова"},{"id":"company:Зона-21-ООД","type":"company","label":"Зона 21 ООД","slug":"Зона-21-ООД","uic":"203053227","legalForm":"EOOD","status":"in_liquidation","seat":"София"},{"id":"mp:4106","type":"mp","mpId":4106,"label":"Илина Симеонова Мутафчиева","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["48","49"]}],"edges":[{"source":"mp:584","target":"company:tr:207239453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:584","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:584","target":"company:tr:206561316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"company:name:ЕГА КОНСУЛТ","target":"company:tr:207239453","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ОЛГОВ ПЕТКОВ","target":"company:tr:207239453","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР КАЛОЯНОВ НИКОЛОВ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЯН ИЛИЯНОВ НИКОЛОВ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН ИЛИЯНОВ НИКОЛОВ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:БАЛКАНСКА НАРОДНА АКАДЕМИЯ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН ИЛИЯНОВ НИКОЛОВ","target":"company:tr:104684810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ","target":"company:tr:206561316","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ","target":"company:tr:206561316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСИМИРА СТЕФАНОВА НИКОЛОВА","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИЛИЕВ АНГЕЛОВ","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН РАШКОВ РАШКОВ","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ИВАНОВА АНДРЕЕВСКА","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","target":"company:tr:206561316","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","target":"company:Зона-21-ООД","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"mp:4106","target":"company:Зона-21-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4106","length":4,"nodeIds":["mp:584","company:tr:206561316","person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА","company:Зона-21-ООД","mp:4106"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:584",
+  "nodes": [
+    {
+      "id": "mp:584",
+      "type": "mp",
+      "mpId": 584,
+      "label": "Александър Христов Филипов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207239453",
+      "type": "company",
+      "label": "КОНСУЛТТРЕЙДИНГ СЪРВИЗ",
+      "slug": null,
+      "uic": "207239453",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:104684810",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЕВРОПЕЙСКА АСОЦИАЦИЯ НА ФОЛКЛОРНИТЕ  ФЕСТИВАЛИ-ЕАФФ&quot;",
+      "slug": null,
+      "uic": "104684810",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206561316",
+      "type": "company",
+      "label": "ИНТЕРГРУП ЕУ",
+      "slug": null,
+      "uic": "206561316",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1387"
+    },
+    {
+      "id": "company:name:ЕГА КОНСУЛТ",
+      "type": "company",
+      "label": "\"ЕГА КОНСУЛТ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ОЛГОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Ивайло Олгов Петков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР КАЛОЯНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Александър Калоянов Николов"
+    },
+    {
+      "id": "person:ДЕЛЯН ИЛИЯНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Делян Илиянов Николов"
+    },
+    {
+      "id": "person:ИЛИЯН ИЛИЯНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Илиян Илиянов Николов"
+    },
+    {
+      "id": "company:name:ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ",
+      "type": "company",
+      "label": "\"ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:БАЛКАНСКА НАРОДНА АКАДЕМИЯ",
+      "type": "company",
+      "label": "\"БАЛКАНСКА НАРОДНА АКАДЕМИЯ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛОЯН ИЛИЯНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Калоян Илиянов Николов"
+    },
+    {
+      "id": "person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ",
+      "type": "person",
+      "label": "Георги Любомиров Финдаков"
+    },
+    {
+      "id": "person:ХРИСИМИРА СТЕФАНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Хрисимира Стефанова Николова"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Петя Георгиева Николова"
+    },
+    {
+      "id": "person:РУМЕН ИЛИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Румен Илиев Ангелов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН РАШКОВ РАШКОВ",
+      "type": "person",
+      "label": "Веселин Рашков Рашков"
+    },
+    {
+      "id": "person:НАДЯ ИВАНОВА АНДРЕЕВСКА",
+      "type": "person",
+      "label": "Надя Иванова Андреевска"
+    },
+    {
+      "id": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Антония Венкова Йорданова"
+    },
+    {
+      "id": "company:Зона-21-ООД",
+      "type": "company",
+      "label": "Зона 21 ООД",
+      "slug": "Зона-21-ООД",
+      "uic": "203053227",
+      "legalForm": "EOOD",
+      "status": "in_liquidation",
+      "seat": "София"
+    },
+    {
+      "id": "mp:4106",
+      "type": "mp",
+      "mpId": 4106,
+      "label": "Илина Симеонова Мутафчиева",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:584",
+      "target": "company:tr:207239453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:584",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:584",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ЕГА КОНСУЛТ",
+      "target": "company:tr:207239453",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ОЛГОВ ПЕТКОВ",
+      "target": "company:tr:207239453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КАЛОЯНОВ НИКОЛОВ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН ИЛИЯНОВ НИКОЛОВ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ИЛИЯНОВ НИКОЛОВ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕВРОПЕЙСКА НАРОДНА АКАДЕМИЯ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БАЛКАНСКА НАРОДНА АКАДЕМИЯ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ИЛИЯНОВ НИКОЛОВ",
+      "target": "company:tr:104684810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ",
+      "target": "company:tr:206561316",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСИМИРА СТЕФАНОВА НИКОЛОВА",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИЛИЕВ АНГЕЛОВ",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН РАШКОВ РАШКОВ",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИВАНОВА АНДРЕЕВСКА",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+      "target": "company:Зона-21-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4106",
+      "target": "company:Зона-21-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4106",
+      "length": 4,
+      "nodeIds": [
+        "mp:584",
+        "company:tr:206561316",
+        "person:АНТОНИЯ ВЕНКОВА ЙОРДАНОВА",
+        "company:Зона-21-ООД",
+        "mp:4106"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

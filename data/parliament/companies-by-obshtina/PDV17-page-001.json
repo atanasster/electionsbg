@@ -1,1 +1,53 @@
-{"obshtina":"PDV17","page":1,"totalPages":1,"count":3,"companies":[{"slug":"АЙ-ЕНД-ДЖИ-ЕКСТРИЙМ","displayName":"АЙ ЕНД ДЖИ ЕКСТРИЙМ","registeredOffice":"БЪЛГАРИЯ, с. Скутаре, 4134","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]},{"slug":"БАЙК-РИТЕЙЛ","displayName":"БАЙК РИТЕЙЛ","registeredOffice":"БЪЛГАРИЯ, с. Царацово, 4204","mps":[{"mpId":2842,"mpName":"Нина Пейчева Миткова","role":"manager","isCurrent":true}]},{"slug":"ГАБ-ФИН","displayName":"ГАБ ФИН","registeredOffice":"БЪЛГАРИЯ, с. Радиново, 4202","mps":[{"mpId":2842,"mpName":"Нина Пейчева Миткова","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "PDV17",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "АЙ-ЕНД-ДЖИ-ЕКСТРИЙМ",
+      "displayName": "АЙ ЕНД ДЖИ ЕКСТРИЙМ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Скутаре, 4134",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БАЙК-РИТЕЙЛ",
+      "displayName": "БАЙК РИТЕЙЛ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Царацово, 4204",
+      "mps": [
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГАБ-ФИН",
+      "displayName": "ГАБ ФИН",
+      "registeredOffice": "БЪЛГАРИЯ, с. Радиново, 4202",
+      "mps": [
+        {
+          "mpId": 2842,
+          "mpName": "Нина Пейчева Миткова",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

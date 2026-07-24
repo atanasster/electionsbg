@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:shirin-shefk-veli-fe896b",
+  "nodes": [
+    {
+      "id": "official:shirin-shefk-veli-fe896b",
+      "type": "official",
+      "slug": "shirin-shefk-veli-fe896b",
+      "label": "Ширин Шефкъ Вели",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127636536",
+      "type": "company",
+      "label": "ЕШРЕФОГЛУ ООД",
+      "slug": null,
+      "uic": "127636536",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205249776",
+      "type": "company",
+      "label": "ЕШРЕФОГЛУ СТРОЙ ООД",
+      "slug": null,
+      "uic": "205249776",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КЕМАЛ ЕШРЕФ ВЕЛИ",
+      "type": "person",
+      "label": "Кемал Ешреф Вели"
+    },
+    {
+      "id": "person:ВИЛДАН АЛИ РЕДЖЕБ",
+      "type": "person",
+      "label": "Вилдан Али Реджеб"
+    },
+    {
+      "id": "person:КЕМАЛ ЕШРЕФ ЕШРЕФОГЛУ",
+      "type": "person",
+      "label": "Кемал Ешреф Ешрефоглу"
+    },
+    {
+      "id": "person:РЕДЖЕП ЕШРЕФ ЕШРЕФОГЛУ",
+      "type": "person",
+      "label": "Реджеп Ешреф Ешрефоглу"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shirin-shefk-veli-fe896b",
+      "target": "company:tr:127636536",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:shirin-shefk-veli-fe896b",
+      "target": "company:tr:205249776",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕШРЕФ ВЕЛИ",
+      "target": "company:tr:127636536",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛДАН АЛИ РЕДЖЕБ",
+      "target": "company:tr:127636536",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:127636536",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:127636536",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:205249776",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕДЖЕП ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:205249776",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕМАЛ ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:205249776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕДЖЕП ЕШРЕФ ЕШРЕФОГЛУ",
+      "target": "company:tr:205249776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

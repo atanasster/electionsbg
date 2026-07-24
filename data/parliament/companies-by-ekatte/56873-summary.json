@@ -1,1 +1,40 @@
-{"ekatte":"56873","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"ЛЕОН-ПЕРСОНАЛ","displayName":"ЛЕОН ПЕРСОНАЛ","registeredOffice":"БЪЛГАРИЯ, с. Победа, 8679","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"БАКАДЖИЦИТЕ","displayName":"БАКАДЖИЦИТЕ","registeredOffice":"БЪЛГАРИЯ, с. Победа, 8679","mps":[{"mpId":5144,"mpName":"Иван Драгомиров Димитров","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "56873",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ЛЕОН-ПЕРСОНАЛ",
+      "displayName": "ЛЕОН ПЕРСОНАЛ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Победа, 8679",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БАКАДЖИЦИТЕ",
+      "displayName": "БАКАДЖИЦИТЕ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Победа, 8679",
+      "mps": [
+        {
+          "mpId": 5144,
+          "mpName": "Иван Драгомиров Димитров",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

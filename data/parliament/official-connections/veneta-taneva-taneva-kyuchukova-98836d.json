@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veneta-taneva-taneva-kyuchukova-98836d",
+  "nodes": [
+    {
+      "id": "official:veneta-taneva-taneva-kyuchukova-98836d",
+      "type": "official",
+      "slug": "veneta-taneva-taneva-kyuchukova-98836d",
+      "label": "Венета Танева Танева- Кючукова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:207814256",
+      "type": "company",
+      "label": "КЕЙ ДИ БИЛДИНГ",
+      "slug": null,
+      "uic": "207814256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ДЕМИРЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Демирев Димитров"
+    },
+    {
+      "id": "person:ВЕНЕТА ТАНЕВА ТАНЕВА-КЮЧУКОВА",
+      "type": "person",
+      "label": "Венета Танева Танева-Кючукова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-taneva-taneva-kyuchukova-98836d",
+      "target": "company:tr:207814256",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ДЕМИРЕВ ДИМИТРОВ",
+      "target": "company:tr:207814256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДЕМИРЕВ ДИМИТРОВ",
+      "target": "company:tr:207814256",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ТАНЕВА ТАНЕВА-КЮЧУКОВА",
+      "target": "company:tr:207814256",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

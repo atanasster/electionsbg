@@ -1,1 +1,183 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5157","nodes":[{"id":"mp:5157","type":"mp","mpId":5157,"label":"Стефан Неделчев Мирев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","52"]},{"id":"company:tr:206640960","type":"company","label":"АСАРЕЛ ЕНЕРДЖИ","slug":null,"uic":"206640960","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Панагюрище, 4500"},{"id":"person:ВАСКО СТОЯНОВ НАЧЕВ","type":"person","label":"Васко Стоянов Начев"},{"id":"company:name:АСАРЕЛ-МЕДЕТ","type":"company","label":"АСАРЕЛ-МЕДЕТ АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ДИНКА ДИМИТРОВА КУНЧЕВА","type":"person","label":"Динка Димитрова Кунчева"},{"id":"person:СТОЯН СЛАВЧЕВ МАНОЛОВ","type":"person","label":"Стоян Славчев Манолов"},{"id":"company:tr:203267640","type":"company","label":"АСАРЕЛ ЧИСТА ЕНЕРГИЯ","slug":null,"uic":"203267640","legalForm":"EOOD","status":"active","seat":null},{"id":"mp:931","type":"mp","mpId":931,"label":"Никола Иванов Белишки","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5157","target":"company:tr:206640960","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСКО СТОЯНОВ НАЧЕВ","target":"company:tr:206640960","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АСАРЕЛ-МЕДЕТ","target":"company:tr:206640960","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСКО СТОЯНОВ НАЧЕВ","target":"company:tr:206640960","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКА ДИМИТРОВА КУНЧЕВА","target":"company:tr:206640960","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКА ДИМИТРОВА КУНЧЕВА","target":"company:tr:206640960","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН СЛАВЧЕВ МАНОЛОВ","target":"company:tr:206640960","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКА ДИМИТРОВА КУНЧЕВА","target":"company:tr:203267640","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:931","target":"company:tr:203267640","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:931","length":4,"nodeIds":["mp:5157","company:tr:206640960","person:ДИНКА ДИМИТРОВА КУНЧЕВА","company:tr:203267640","mp:931"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5157",
+  "nodes": [
+    {
+      "id": "mp:5157",
+      "type": "mp",
+      "mpId": 5157,
+      "label": "Стефан Неделчев Мирев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:206640960",
+      "type": "company",
+      "label": "АСАРЕЛ ЕНЕРДЖИ",
+      "slug": null,
+      "uic": "206640960",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Панагюрище, 4500"
+    },
+    {
+      "id": "official:stefan-nedelchev-mirev-f55eb6",
+      "type": "official",
+      "slug": "stefan-nedelchev-mirev-f55eb6",
+      "label": "Стефан Неделчев Мирев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАСКО СТОЯНОВ НАЧЕВ",
+      "type": "person",
+      "label": "Васко Стоянов Начев"
+    },
+    {
+      "id": "company:name:АСАРЕЛ-МЕДЕТ",
+      "type": "company",
+      "label": "АСАРЕЛ-МЕДЕТ АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИНКА ДИМИТРОВА КУНЧЕВА",
+      "type": "person",
+      "label": "Динка Димитрова Кунчева"
+    },
+    {
+      "id": "person:СТОЯН СЛАВЧЕВ МАНОЛОВ",
+      "type": "person",
+      "label": "Стоян Славчев Манолов"
+    },
+    {
+      "id": "company:tr:203267640",
+      "type": "company",
+      "label": "АСАРЕЛ ЧИСТА ЕНЕРГИЯ",
+      "slug": null,
+      "uic": "203267640",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:931",
+      "type": "mp",
+      "mpId": 931,
+      "label": "Никола Иванов Белишки",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5157",
+      "target": "company:tr:206640960",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-nedelchev-mirev-f55eb6",
+      "target": "company:tr:206640960",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСКО СТОЯНОВ НАЧЕВ",
+      "target": "company:tr:206640960",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АСАРЕЛ-МЕДЕТ",
+      "target": "company:tr:206640960",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО СТОЯНОВ НАЧЕВ",
+      "target": "company:tr:206640960",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКА ДИМИТРОВА КУНЧЕВА",
+      "target": "company:tr:206640960",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКА ДИМИТРОВА КУНЧЕВА",
+      "target": "company:tr:206640960",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН СЛАВЧЕВ МАНОЛОВ",
+      "target": "company:tr:206640960",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКА ДИМИТРОВА КУНЧЕВА",
+      "target": "company:tr:203267640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:931",
+      "target": "company:tr:203267640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:931",
+      "length": 4,
+      "nodeIds": [
+        "mp:5157",
+        "company:tr:206640960",
+        "person:ДИНКА ДИМИТРОВА КУНЧЕВА",
+        "company:tr:203267640",
+        "mp:931"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

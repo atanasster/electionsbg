@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimka-stefanova-todorova-04e93b",
+  "nodes": [
+    {
+      "id": "official:dimka-stefanova-todorova-04e93b",
+      "type": "official",
+      "slug": "dimka-stefanova-todorova-04e93b",
+      "label": "Димка Стефанова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119067327",
+      "type": "company",
+      "label": "ЗОРА - 1872",
+      "slug": null,
+      "uic": "119067327",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИН КИРОВ БЕЛЧЕВ",
+      "type": "person",
+      "label": "Велин Киров Белчев"
+    },
+    {
+      "id": "person:ЙОРДАН БОЙЧЕВ БОЙЧЕВ",
+      "type": "person",
+      "label": "Йордан Бойчев Бойчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ РАЧЕВ",
+      "type": "person",
+      "label": "Димитър Иванов Рачев"
+    },
+    {
+      "id": "person:ДИНКО ИВАНОВ ДИНЕВ",
+      "type": "person",
+      "label": "Динко Иванов Динев"
+    },
+    {
+      "id": "person:ТОДОРКА СТЕФАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Тодорка Стефанова Кръстева"
+    },
+    {
+      "id": "person:СТОЯНКА ТОДОРОВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Стоянка Тодорова Караиванова"
+    },
+    {
+      "id": "person:СЪБКА ДОБРЕВА БАЕВА",
+      "type": "person",
+      "label": "Събка Добрева Баева"
+    },
+    {
+      "id": "person:ЦВЕТКА ТОДОРОВА КАРАМАНОВА",
+      "type": "person",
+      "label": "Цветка Тодорова Караманова"
+    },
+    {
+      "id": "person:СОНЯ ТЕНЕВА КЕЛЕВЕДЖИЕВА",
+      "type": "person",
+      "label": "Соня Тенева Келеведжиева"
+    },
+    {
+      "id": "person:РАДОСТИНКА ГАНЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Радостинка Ганева Маринова"
+    },
+    {
+      "id": "person:СТЕФКА ЗЛАТАНОВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Стефка Златанова Генчева"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА АНДОНОВА",
+      "type": "person",
+      "label": "Милена Димитрова Андонова"
+    },
+    {
+      "id": "person:ВАНЯ НЯГОЛОВА ДРАГОМАНСКА",
+      "type": "person",
+      "label": "Ваня Няголова Драгоманска"
+    },
+    {
+      "id": "person:ТОНКА ПЕТРОВА ТАРГОВА",
+      "type": "person",
+      "label": "Тонка Петрова Таргова"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛОВА РАЧЕВА",
+      "type": "person",
+      "label": "Мария Николова Рачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimka-stefanova-todorova-04e93b",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИН КИРОВ БЕЛЧЕВ",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН БОЙЧЕВ БОЙЧЕВ",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ РАЧЕВ",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ИВАНОВ ДИНЕВ",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА СТЕФАНОВА КРЪСТЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ТОДОРОВА КАРАИВАНОВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА ДОБРЕВА БАЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТКА ТОДОРОВА КАРАМАНОВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ТЕНЕВА КЕЛЕВЕДЖИЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ТЕНЕВА КЕЛЕВЕДЖИЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНКА ГАНЕВА МАРИНОВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ЗЛАТАНОВА ГЕНЧЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА АНДОНОВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ НЯГОЛОВА ДРАГОМАНСКА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА ПЕТРОВА ТАРГОВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛОВА РАЧЕВА",
+      "target": "company:tr:119067327",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

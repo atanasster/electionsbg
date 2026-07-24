@@ -1,1 +1,53 @@
-{"obshtina":"BGS01","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"МТ17","displayName":"МТ17","registeredOffice":"БЪЛГАРИЯ, гр. Айтос, 8500","mps":[{"mpId":5064,"mpName":"Мария Тодорова Тодорова","role":"manager","isCurrent":true},{"mpId":5064,"mpName":"Мария Тодорова Тодорова","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "BGS01",
+  "count": 3,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Ем-енд-Си-стройООД",
+      "displayName": "\"Ем енд Си строй\"ООД",
+      "registeredOffice": "Айтос",
+      "mps": [
+        {
+          "mpId": 4710,
+          "mpName": "Севим Исмаил Али",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МТ17",
+      "displayName": "МТ17",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Айтос, 8500",
+      "mps": [
+        {
+          "mpId": 5064,
+          "mpName": "Мария Тодорова Тодорова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5064,
+          "mpName": "Мария Тодорова Тодорова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Ем-енд-Си-строй-ООД",
+      "displayName": "\"Ем енд Си строй\" ООД",
+      "registeredOffice": "Айтос",
+      "mps": [
+        {
+          "mpId": 4710,
+          "mpName": "Севим Исмаил Али",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

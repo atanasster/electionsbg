@@ -1,1 +1,72 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivailo-monev-turnaliev-50ce17","nodes":[{"id":"official:ivailo-monev-turnaliev-50ce17","type":"official","slug":"ivailo-monev-turnaliev-50ce17","label":"Ивайло Монев Турналиев","tier":"municipal","role":"councillor","municipality":"Смолян"},{"id":"company:tr:202369934","type":"company","label":"ИМТ Консулт ООД","slug":null,"uic":"202369934","legalForm":null,"status":null,"seat":null},{"id":"person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА","type":"person","label":"Цветомира Христова Вакева"}],"edges":[{"source":"official:ivailo-monev-turnaliev-50ce17","target":"company:tr:202369934","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:ivailo-monev-turnaliev-50ce17","target":"company:tr:202369934","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivailo-monev-turnaliev-50ce17","target":"company:tr:202369934","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА","target":"company:tr:202369934","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА","target":"company:tr:202369934","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-monev-turnaliev-50ce17",
+  "nodes": [
+    {
+      "id": "official:ivailo-monev-turnaliev-50ce17",
+      "type": "official",
+      "slug": "ivailo-monev-turnaliev-50ce17",
+      "label": "Ивайло Монев Турналиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:202369934",
+      "type": "company",
+      "label": "ИМТ Консулт ООД",
+      "slug": null,
+      "uic": "202369934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "type": "person",
+      "label": "Цветомира Христова Вакева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-monev-turnaliev-50ce17",
+      "target": "company:tr:202369934",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-monev-turnaliev-50ce17",
+      "target": "company:tr:202369934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-monev-turnaliev-50ce17",
+      "target": "company:tr:202369934",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "target": "company:tr:202369934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "target": "company:tr:202369934",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

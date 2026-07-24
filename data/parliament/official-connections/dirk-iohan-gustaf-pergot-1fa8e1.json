@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dirk-iohan-gustaf-pergot-1fa8e1",
+  "nodes": [
+    {
+      "id": "official:dirk-iohan-gustaf-pergot-1fa8e1",
+      "type": "official",
+      "slug": "dirk-iohan-gustaf-pergot-1fa8e1",
+      "label": "Дирк Йохан Густаф Пергот",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201829803",
+      "type": "company",
+      "label": "Иборис ООД",
+      "slug": null,
+      "uic": "201829803",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ДИРК ПЕРГОТ",
+      "type": "person",
+      "label": "Стефан Дирк Пергот"
+    },
+    {
+      "id": "person:АНЕЛИЯ МЛАДЕНОВА ПЕРГОТ",
+      "type": "person",
+      "label": "Анелия Младенова Пергот"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dirk-iohan-gustaf-pergot-1fa8e1",
+      "target": "company:tr:201829803",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИРК ПЕРГОТ",
+      "target": "company:tr:201829803",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ МЛАДЕНОВА ПЕРГОТ",
+      "target": "company:tr:201829803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИРК ПЕРГОТ",
+      "target": "company:tr:201829803",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

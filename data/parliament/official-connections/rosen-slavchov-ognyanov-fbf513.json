@@ -1,0 +1,303 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rosen-slavchov-ognyanov-fbf513",
+  "nodes": [
+    {
+      "id": "official:rosen-slavchov-ognyanov-fbf513",
+      "type": "official",
+      "slug": "rosen-slavchov-ognyanov-fbf513",
+      "label": "Росен Славчов Огнянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезник"
+    },
+    {
+      "id": "company:tr:113518257",
+      "type": "company",
+      "label": "ЛОВНО - РИБАРСКО ДРУЖЕСТВО СОКОЛ",
+      "slug": null,
+      "uic": "113518257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Василев Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Атанасов Димитров"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЖЕКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Владимир Жеков Христов"
+    },
+    {
+      "id": "person:КРАСИМИР ЙОРДАНОВ ГОРЯНОВ",
+      "type": "person",
+      "label": "Красимир Йорданов Горянов"
+    },
+    {
+      "id": "person:ЦВЕТАН БОГДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Цветан Богданов Георгиев"
+    },
+    {
+      "id": "person:РАДМИЛ БИСЕРОВ МИЛЕНОВ",
+      "type": "person",
+      "label": "Радмил Бисеров Миленов"
+    },
+    {
+      "id": "person:АСЕН АЛЕКСАНДРОВ АСЕНОВ",
+      "type": "person",
+      "label": "Асен Александров Асенов"
+    },
+    {
+      "id": "person:ЕМИЛ СТОЯНОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Емил Стоянов Стойнев"
+    },
+    {
+      "id": "person:ВЛАДИМИР КИРИЛОВ СЕРГИЕВ",
+      "type": "person",
+      "label": "Владимир Кирилов Сергиев"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Георгиев Петров"
+    },
+    {
+      "id": "person:ИЛИЯ ПЪРВАНОВ ГЪЛЪБОВ",
+      "type": "person",
+      "label": "Илия Първанов Гълъбов"
+    },
+    {
+      "id": "person:ВАЛЕРИ ВЕЛИЧКОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Валери Величков Величков"
+    },
+    {
+      "id": "person:СИМЕОН СВИЛЕНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Симеон Свиленов Борисов"
+    },
+    {
+      "id": "person:БОРИС ИЛИЕВ АЛЕКСОВ",
+      "type": "person",
+      "label": "Борис Илиев Алексов"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ДИМИТРОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Лъчезар Димитров Пенев"
+    },
+    {
+      "id": "person:АНДРЕЙ ГЕОРГИЕВ КАНАЦИЕВ",
+      "type": "person",
+      "label": "Андрей Георгиев Канациев"
+    },
+    {
+      "id": "person:СВИЛЕН ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Свилен Петров Георгиев"
+    },
+    {
+      "id": "person:СИМЕОН ИВАНОВ СИМОВ",
+      "type": "person",
+      "label": "Симеон Иванов Симов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ИЛКОВ ВАЛЕНТИНОВ",
+      "type": "person",
+      "label": "Мирослав Илков Валентинов"
+    },
+    {
+      "id": "person:ИВАН КИРИЛОВ ДЕСОВ",
+      "type": "person",
+      "label": "Иван Кирилов Десов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-slavchov-ognyanov-fbf513",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ДИМИТРОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ДИМИТРОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЖЕКОВ ХРИСТОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЙОРДАНОВ ГОРЯНОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН БОГДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДМИЛ БИСЕРОВ МИЛЕНОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН АЛЕКСАНДРОВ АСЕНОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТОЯНОВ СТОЙНЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР КИРИЛОВ СЕРГИЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЪРВАНОВ ГЪЛЪБОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВЕЛИЧКОВ ВЕЛИЧКОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СВИЛЕНОВ БОРИСОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ИЛИЕВ АЛЕКСОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН БОГДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИМИТРОВ ПЕНЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ГЕОРГИЕВ КАНАЦИЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ИВАНОВ СИМОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИЛКОВ ВАЛЕНТИНОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КИРИЛОВ ДЕСОВ",
+      "target": "company:tr:113518257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

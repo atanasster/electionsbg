@@ -1,1 +1,210 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2956","nodes":[{"id":"mp:2956","type":"mp","mpId":2956,"label":"Митко Костадинов Полихронов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:126630975","type":"company","label":"ПОЛИ-93","slug":null,"uic":"126630975","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:126654556","type":"company","label":"РОТАРИ КЛУБ ХАСКОВО - АИДА","slug":null,"uic":"126654556","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ","type":"person","label":"Драгомир Славчев Андонов"},{"id":"person:ПЛАМЕН ВАСКОВ ПЕТРОВ","type":"person","label":"Пламен Васков Петров"},{"id":"person:НИКОЛЕТА МАРИНОВА КАВАКОВА","type":"person","label":"Николета Маринова Кавакова"},{"id":"person:ХРИСТО ТОДОРОВ МИКОВ","type":"person","label":"Христо Тодоров Миков"},{"id":"person:РОСИЦА АНГЕЛОВА ЗАХАРИЕВА","type":"person","label":"Росица Ангелова Захариева"},{"id":"person:РОСЕН ПЕЯНКОВ ПЕЯНКОВ","type":"person","label":"Росен Пеянков Пеянков"}],"edges":[{"source":"mp:2956","target":"company:tr:126630975","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2956","target":"company:tr:126654556","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2956","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ","target":"company:tr:126654556","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ВАСКОВ ПЕТРОВ","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛЕТА МАРИНОВА КАВАКОВА","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ТОДОРОВ МИКОВ","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА АНГЕЛОВА ЗАХАРИЕВА","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПЕЯНКОВ ПЕЯНКОВ","target":"company:tr:126654556","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2956",
+  "nodes": [
+    {
+      "id": "mp:2956",
+      "type": "mp",
+      "mpId": 2956,
+      "label": "Митко Костадинов Полихронов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Поли-ауто-ООД",
+      "type": "company",
+      "label": "Поли ауто ООД",
+      "slug": "Поли-ауто-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:ПОЛИ-93-ЕООД",
+      "type": "company",
+      "label": "ПОЛИ-93 ЕООД",
+      "slug": "ПОЛИ-93-ЕООД",
+      "uic": "126630975",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:ПОЛИ-М-ООД",
+      "type": "company",
+      "label": "ПОЛИ-М ООД",
+      "slug": "ПОЛИ-М-ООД",
+      "uic": "126657303",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:Полихронов-мотърс-ООД",
+      "type": "company",
+      "label": "Полихронов мотърс ООД",
+      "slug": "Полихронов-мотърс-ООД",
+      "uic": "204770025",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:tr:126654556",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ ХАСКОВО - АИДА",
+      "slug": null,
+      "uic": "126654556",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ",
+      "type": "person",
+      "label": "Драгомир Славчев Андонов"
+    },
+    {
+      "id": "person:ПЛАМЕН ВАСКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Пламен Васков Петров"
+    },
+    {
+      "id": "person:НИКОЛЕТА МАРИНОВА КАВАКОВА",
+      "type": "person",
+      "label": "Николета Маринова Кавакова"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ МИКОВ",
+      "type": "person",
+      "label": "Христо Тодоров Миков"
+    },
+    {
+      "id": "person:РОСИЦА АНГЕЛОВА ЗАХАРИЕВА",
+      "type": "person",
+      "label": "Росица Ангелова Захариева"
+    },
+    {
+      "id": "person:РОСЕН ПЕЯНКОВ ПЕЯНКОВ",
+      "type": "person",
+      "label": "Росен Пеянков Пеянков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2956",
+      "target": "company:Поли-ауто-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:ПОЛИ-93-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:ПОЛИ-93-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:ПОЛИ-М-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:Полихронов-мотърс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2956",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВАСКОВ ПЕТРОВ",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА МАРИНОВА КАВАКОВА",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР СЛАВЧЕВ АНДОНОВ",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ МИКОВ",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АНГЕЛОВА ЗАХАРИЕВА",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕЯНКОВ ПЕЯНКОВ",
+      "target": "company:tr:126654556",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

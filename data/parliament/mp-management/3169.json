@@ -1,1 +1,50 @@
-{"mpId":3169,"mpName":"Пламен Иванов Милев","generatedAt":"2026-07-03T11:12:51.732Z","total":3,"roles":[{"uic":"208559666","companyName":"ДЕРМАЛИС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-11-05T14:17:12","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208559666","companyName":"ДЕРМАЛИС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2025-11-05T14:17:12","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"130345786","companyName":"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ","legalForm":"EAD","seat":null,"status":"active","role":"procurator","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-09T17:47:00","erasedAt":"2022-09-02T09:43:13","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3169,
+  "mpName": "Пламен Иванов Милев",
+  "generatedAt": "2026-07-24T03:35:58.569Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "208559666",
+      "companyName": "ДЕРМАЛИС",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-11-05T14:17:12",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208559666",
+      "companyName": "ДЕРМАЛИС",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2025-11-05T14:17:12",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "130345786",
+      "companyName": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "procurator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-09T17:47:00",
+      "erasedAt": "2022-09-02T09:43:13",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

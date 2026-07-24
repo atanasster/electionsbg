@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-petrov-bozhilov-124ab5",
+  "nodes": [
+    {
+      "id": "official:dimitr-petrov-bozhilov-124ab5",
+      "type": "official",
+      "slug": "dimitr-petrov-bozhilov-124ab5",
+      "label": "Димитър Петров Божилов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Триадица"
+    },
+    {
+      "id": "company:tr:208385895",
+      "type": "company",
+      "label": "Божилов Групе",
+      "slug": null,
+      "uic": "208385895",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-petrov-bozhilov-124ab5",
+      "target": "company:tr:208385895",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-petrov-bozhilov-124ab5",
+      "target": "company:tr:208385895",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

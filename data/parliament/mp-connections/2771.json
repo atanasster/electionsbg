@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2771",
+  "nodes": [
+    {
+      "id": "mp:2771",
+      "type": "mp",
+      "mpId": 2771,
+      "label": "Станислава Красимирова Стоянова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:201630096",
+      "type": "company",
+      "label": "АМБРОЗИЯ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "201630096",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:stanislava-krasimirova-stoyanova-fb4542",
+      "type": "official",
+      "slug": "stanislava-krasimirova-stoyanova-fb4542",
+      "label": "Станислава Красимирова Стоянова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "person:ПОЛИНА КРАСИМИРОВА МИЧЕВ",
+      "type": "person",
+      "label": "Полина Красимирова Мичев"
+    },
+    {
+      "id": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Маринов Стефанов"
+    },
+    {
+      "id": "person:БОРЯНА СТЕФАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Боряна Стефанова Маринова"
+    },
+    {
+      "id": "company:tr:175215110",
+      "type": "company",
+      "label": "БАЛКАНСКА ФЕДЕРАЦИЯ НА ПЧЕЛАРСКИТЕ СЪЮЗИ",
+      "slug": null,
+      "uic": "175215110",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "mp:724",
+      "type": "mp",
+      "mpId": 724,
+      "label": "Коста Георгиев Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2771",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislava-krasimirova-stoyanova-fb4542",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПОЛИНА КРАСИМИРОВА МИЧЕВ",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА СТЕФАНОВА МАРИНОВА",
+      "target": "company:tr:201630096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:724",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:724",
+      "target": "company:tr:175215110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:724",
+      "length": 4,
+      "nodeIds": [
+        "mp:2771",
+        "company:tr:201630096",
+        "person:СТЕФАН МАРИНОВ СТЕФАНОВ",
+        "company:tr:175215110",
+        "mp:724"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

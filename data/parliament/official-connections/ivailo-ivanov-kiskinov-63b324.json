@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-ivanov-kiskinov-63b324",
+  "nodes": [
+    {
+      "id": "official:ivailo-ivanov-kiskinov-63b324",
+      "type": "official",
+      "slug": "ivailo-ivanov-kiskinov-63b324",
+      "label": "Ивайло Иванов Кискинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206587859",
+      "type": "company",
+      "label": "ЛИНГВИСТИКС",
+      "slug": null,
+      "uic": "206587859",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕНЕТА ЙОРДАНОВА РОГОВА",
+      "type": "person",
+      "label": "Женета Йорданова Рогова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-ivanov-kiskinov-63b324",
+      "target": "company:tr:206587859",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕНЕТА ЙОРДАНОВА РОГОВА",
+      "target": "company:tr:206587859",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

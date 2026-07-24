@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:velichko-mladenov-rodopski-561d6f",
+  "nodes": [
+    {
+      "id": "official:velichko-mladenov-rodopski-561d6f",
+      "type": "official",
+      "slug": "velichko-mladenov-rodopski-561d6f",
+      "label": "ВЕЛИЧКО МЛАДЕНОВ РОДОПСКИ",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200356443",
+      "type": "company",
+      "label": "ДИНАРА ООД",
+      "slug": null,
+      "uic": "200356443",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИЛЯНА КОЛЕВА РОДОПСКА",
+      "type": "person",
+      "label": "Диляна Колева Родопска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichko-mladenov-rodopski-561d6f",
+      "target": "company:tr:200356443",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА КОЛЕВА РОДОПСКА",
+      "target": "company:tr:200356443",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

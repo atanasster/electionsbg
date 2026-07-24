@@ -1,1 +1,40 @@
-{"obshtina":"JAM07","page":1,"totalPages":1,"count":2,"companies":[{"slug":"АСОЦИАЦИЯ-БЪЛГАРСКА-ШИПКА","displayName":"АСОЦИАЦИЯ \"БЪЛГАРСКА ШИПКА\"","registeredOffice":"БЪЛГАРИЯ, гр. Елхово, 8700","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"ngo_representative","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"ngo_board","isCurrent":true}]},{"slug":"ХАК-агри","displayName":"ХАК агри","registeredOffice":"БЪЛГАРИЯ, с. Малко Кирилово, 8756","mps":[{"mpId":3993,"mpName":"Георги Станчев Георгиев","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "JAM07",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "АСОЦИАЦИЯ-БЪЛГАРСКА-ШИПКА",
+      "displayName": "АСОЦИАЦИЯ \"БЪЛГАРСКА ШИПКА\"",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Елхово, 8700",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ХАК-агри",
+      "displayName": "ХАК агри",
+      "registeredOffice": "БЪЛГАРИЯ, с. Малко Кирилово, 8756",
+      "mps": [
+        {
+          "mpId": 3993,
+          "mpName": "Георги Станчев Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

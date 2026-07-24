@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetlana-dragomirova-solachka-6e4212",
+  "nodes": [
+    {
+      "id": "official:svetlana-dragomirova-solachka-6e4212",
+      "type": "official",
+      "slug": "svetlana-dragomirova-solachka-6e4212",
+      "label": "Светлана Драгомирова Солачка",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176844825",
+      "type": "company",
+      "label": "СЕКЦИЯ НА УЧИЛИЩАТА С ПРОФИЛИРАНО И РАЗШИРЕНО ИЗУЧАВАНЕ НА МУЗИКА В РЕПУБЛИКА БЪЛГАРИЯ КЪМ АСОЦИАЦИЯ НА ЕВРОПЕЙСКИ МУЗИКАЛНИ УЧИЛИЩА",
+      "slug": null,
+      "uic": "176844825",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kina-dimitrova-kotlarska-818a58",
+      "type": "official",
+      "slug": "kina-dimitrova-kotlarska-818a58",
+      "label": "Кина Димитрова Котларска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:peiko-stoev-stoev-be57af",
+      "type": "official",
+      "slug": "peiko-stoev-stoev-be57af",
+      "label": "Пейко Стоев Стоев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕЛИЧКА СТАНЧОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Величка Станчова Николова"
+    },
+    {
+      "id": "person:РАДИАНА СТЕФАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Радиана Стефанова Стефанова"
+    },
+    {
+      "id": "person:АЛБЕНА ДИМИТРОВА ИВАНОВА-НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Албена Димитрова Иванова-Неделчева"
+    },
+    {
+      "id": "person:СИЛВИЯ ПАВЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Силвия Павлова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlana-dragomirova-solachka-6e4212",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kina-dimitrova-kotlarska-818a58",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:peiko-stoev-stoev-be57af",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЧКА СТАНЧОВА НИКОЛОВА",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИАНА СТЕФАНОВА СТЕФАНОВА",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ДИМИТРОВА ИВАНОВА-НЕДЕЛЧЕВА",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПАВЛОВА ДИМИТРОВА",
+      "target": "company:tr:176844825",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

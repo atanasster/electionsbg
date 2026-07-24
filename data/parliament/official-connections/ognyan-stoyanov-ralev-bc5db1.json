@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ognyan-stoyanov-ralev-bc5db1",
+  "nodes": [
+    {
+      "id": "official:ognyan-stoyanov-ralev-bc5db1",
+      "type": "official",
+      "slug": "ognyan-stoyanov-ralev-bc5db1",
+      "label": "Огнян Стоянов Ралев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176387675",
+      "type": "company",
+      "label": "Сдружение Общински футболен клуб - Поморие",
+      "slug": null,
+      "uic": "176387675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ТРЪПКОВ",
+      "type": "person",
+      "label": "Георги Атанасов Тръпков"
+    },
+    {
+      "id": "person:БОЖИН СПИРОВ ДЕЛЯКОВ",
+      "type": "person",
+      "label": "Божин Спиров Деляков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-stoyanov-ralev-bc5db1",
+      "target": "company:tr:176387675",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ognyan-stoyanov-ralev-bc5db1",
+      "target": "company:tr:176387675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ТРЪПКОВ",
+      "target": "company:tr:176387675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИН СПИРОВ ДЕЛЯКОВ",
+      "target": "company:tr:176387675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tanya-zdravkova-georgieva-626503",
+  "nodes": [
+    {
+      "id": "official:tanya-zdravkova-georgieva-626503",
+      "type": "official",
+      "slug": "tanya-zdravkova-georgieva-626503",
+      "label": "Таня Здравкова Георгиева",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204741479",
+      "type": "company",
+      "label": "\"ТАНГО ТРАНС 1\" ЕООД",
+      "slug": null,
+      "uic": "204741479",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131118161",
+      "type": "company",
+      "label": "\"ТАНГО ТРАНС\" ЕООД",
+      "slug": null,
+      "uic": "131118161",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tanya-zdravkova-georgieva-b5d8cd",
+      "type": "official",
+      "slug": "tanya-zdravkova-georgieva-b5d8cd",
+      "label": "Таня Здравкова Георгиева",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "person:ГАНЧО НИКОЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Ганчо Николов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-zdravkova-georgieva-626503",
+      "target": "company:tr:204741479",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-zdravkova-georgieva-626503",
+      "target": "company:tr:131118161",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-zdravkova-georgieva-b5d8cd",
+      "target": "company:tr:204741479",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-zdravkova-georgieva-b5d8cd",
+      "target": "company:tr:131118161",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:131118161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

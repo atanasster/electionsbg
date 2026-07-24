@@ -1,1 +1,64 @@
-{"mpId":2683,"mpName":"Джема Маринова Грозданова","generatedAt":"2026-07-03T11:12:51.685Z","total":4,"roles":[{"uic":"207082774","companyName":"ДЖЕМКРОС","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-09-13T11:42:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207082774","companyName":"ДЖЕМКРОС","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-09-13T11:42:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"205828474","companyName":"ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_representative","positionLabel":"Изпълнителен директор","sharePercent":null,"addedAt":"2022-07-12T10:36:25","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"205828474","companyName":"ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-07-12T10:36:25","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2683,
+  "mpName": "Джема Маринова Грозданова",
+  "generatedAt": "2026-07-24T03:35:58.508Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "207082774",
+      "companyName": "ДЖЕМКРОС",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-09-13T11:42:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207082774",
+      "companyName": "ДЖЕМКРОС",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-09-13T11:42:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205828474",
+      "companyName": "ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Изпълнителен директор",
+      "sharePercent": null,
+      "addedAt": "2022-07-12T10:36:25",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "205828474",
+      "companyName": "ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-07-12T10:36:25",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

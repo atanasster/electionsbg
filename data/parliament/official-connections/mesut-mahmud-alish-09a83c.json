@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mesut-mahmud-alish-09a83c",
+  "nodes": [
+    {
+      "id": "official:mesut-mahmud-alish-09a83c",
+      "type": "official",
+      "slug": "mesut-mahmud-alish-09a83c",
+      "label": "Месут Махмуд Алиш",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "company:tr:118541128",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ &quot;ЛЕВСКИ-96&quot;&quot;",
+      "slug": null,
+      "uic": "118541128",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ashkn-ruzhdi-salim-5fadd9",
+      "type": "official",
+      "slug": "ashkn-ruzhdi-salim-5fadd9",
+      "label": "Ашкън Ружди Салим",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "person:НИКОЛА ЯШКОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Никола Яшков Желев"
+    },
+    {
+      "id": "person:СТОЙЧО ПЕТРОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Стойчо Петров Стойчев"
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Красимиров Иванов"
+    },
+    {
+      "id": "person:ГЮРХАН БАЙРАМ БЕЙРУЛ",
+      "type": "person",
+      "label": "Гюрхан Байрам Бейрул"
+    },
+    {
+      "id": "person:ЕРТАН ДАУД ИДРИЗ",
+      "type": "person",
+      "label": "Ертан Дауд Идриз"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mesut-mahmud-alish-09a83c",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ashkn-ruzhdi-salim-5fadd9",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ЯШКОВ ЖЕЛЕВ",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ПЕТРОВ СТОЙЧЕВ",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРХАН БАЙРАМ БЕЙРУЛ",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРТАН ДАУД ИДРИЗ",
+      "target": "company:tr:118541128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

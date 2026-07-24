@@ -1,0 +1,114 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valeri-simeonov-simeonov-7c5b6d",
+  "nodes": [
+    {
+      "id": "official:valeri-simeonov-simeonov-7c5b6d",
+      "type": "official",
+      "slug": "valeri-simeonov-simeonov-7c5b6d",
+      "label": "Валери Симеонов Симеонов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102663917",
+      "type": "company",
+      "label": "СКАТ ТВ ООД",
+      "slug": null,
+      "uic": "102663917",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:102862239",
+      "type": "company",
+      "label": "СКАТ ТРАНС ЕООД",
+      "slug": null,
+      "uic": "102862239",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103975453",
+      "type": "company",
+      "label": "СКАТ ИНВЕСТ ООД",
+      "slug": null,
+      "uic": "103975453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:125569409",
+      "type": "company",
+      "label": "СКАТ ТЕЛЕКОМ ООД",
+      "slug": null,
+      "uic": "125569409",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dancho-dimitrov-hadzhiev-94c98a",
+      "type": "official",
+      "slug": "dancho-dimitrov-hadzhiev-94c98a",
+      "label": "Данчо Димитров Хаджиев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-simeonov-simeonov-7c5b6d",
+      "target": "company:tr:102663917",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valeri-simeonov-simeonov-7c5b6d",
+      "target": "company:tr:102862239",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valeri-simeonov-simeonov-7c5b6d",
+      "target": "company:tr:103975453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valeri-simeonov-simeonov-7c5b6d",
+      "target": "company:tr:125569409",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dancho-dimitrov-hadzhiev-94c98a",
+      "target": "company:tr:102663917",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dancho-dimitrov-hadzhiev-94c98a",
+      "target": "company:tr:103975453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

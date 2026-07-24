@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyuben-tsvetanov-videnov-724ce8",
+  "nodes": [
+    {
+      "id": "official:lyuben-tsvetanov-videnov-724ce8",
+      "type": "official",
+      "slug": "lyuben-tsvetanov-videnov-724ce8",
+      "label": "Любен Цветанов Виденов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206127960",
+      "type": "company",
+      "label": "ЗОРА 001",
+      "slug": null,
+      "uic": "206127960",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЬО ВЛАДИМИРОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Петьо Владимиров Стойков"
+    },
+    {
+      "id": "person:ИВАН ПЕТРОВ ПОПОВ",
+      "type": "person",
+      "label": "Иван Петров Попов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyuben-tsvetanov-videnov-724ce8",
+      "target": "company:tr:206127960",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЬО ВЛАДИМИРОВ СТОЙКОВ",
+      "target": "company:tr:206127960",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ ПОПОВ",
+      "target": "company:tr:206127960",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,36 @@
-{"mpId":2662,"mpName":"Дора Илиева Янкова","generatedAt":"2026-07-03T11:12:51.680Z","total":2,"roles":[{"uic":"175331015","companyName":"Фонд ФЛАГ","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2024-08-01T10:21:10","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000609122","companyName":"Светлина 1925","legalForm":"CC","seat":null,"status":"active","role":"trustee","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-25T10:44:01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2662,
+  "mpName": "Дора Илиева Янкова",
+  "generatedAt": "2026-07-24T03:35:58.501Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "175331015",
+      "companyName": "Фонд ФЛАГ",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-08-01T10:21:10",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000609122",
+      "companyName": "Светлина 1925",
+      "legalForm": "CC",
+      "seat": null,
+      "status": "active",
+      "role": "trustee",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-25T10:44:01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

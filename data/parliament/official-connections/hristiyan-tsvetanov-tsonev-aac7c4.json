@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:hristiyan-tsvetanov-tsonev-aac7c4","nodes":[{"id":"official:hristiyan-tsvetanov-tsonev-aac7c4","type":"official","slug":"hristiyan-tsvetanov-tsonev-aac7c4","label":"Християн Цветанов Цонев","tier":"municipal","role":"councillor","municipality":"Опака"},{"id":"company:tr:206621560","type":"company","label":"РЕЖЕНИЕ","slug":null,"uic":"206621560","legalForm":null,"status":null,"seat":null},{"id":"person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ","type":"person","label":"Величко Петров Димитров"}],"edges":[{"source":"official:hristiyan-tsvetanov-tsonev-aac7c4","target":"company:tr:206621560","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:hristiyan-tsvetanov-tsonev-aac7c4","target":"company:tr:206621560","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ","target":"company:tr:206621560","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ","target":"company:tr:206621560","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristiyan-tsvetanov-tsonev-aac7c4",
+  "nodes": [
+    {
+      "id": "official:hristiyan-tsvetanov-tsonev-aac7c4",
+      "type": "official",
+      "slug": "hristiyan-tsvetanov-tsonev-aac7c4",
+      "label": "Християн Цветанов Цонев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Опака"
+    },
+    {
+      "id": "company:tr:206621560",
+      "type": "company",
+      "label": "РЕЖЕНИЕ",
+      "slug": null,
+      "uic": "206621560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Величко Петров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristiyan-tsvetanov-tsonev-aac7c4",
+      "target": "company:tr:206621560",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristiyan-tsvetanov-tsonev-aac7c4",
+      "target": "company:tr:206621560",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ",
+      "target": "company:tr:206621560",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКО ПЕТРОВ ДИМИТРОВ",
+      "target": "company:tr:206621560",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

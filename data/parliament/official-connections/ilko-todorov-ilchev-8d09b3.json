@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ilko-todorov-ilchev-8d09b3",
+  "nodes": [
+    {
+      "id": "official:ilko-todorov-ilchev-8d09b3",
+      "type": "official",
+      "slug": "ilko-todorov-ilchev-8d09b3",
+      "label": "Илко Тодоров Илчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102618523",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПОМОРИЕ",
+      "slug": null,
+      "uic": "102618523",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ АСЕНОВ ХИНОВ",
+      "type": "person",
+      "label": "Кирил Асенов Хинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilko-todorov-ilchev-8d09b3",
+      "target": "company:tr:102618523",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ АСЕНОВ ХИНОВ",
+      "target": "company:tr:102618523",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

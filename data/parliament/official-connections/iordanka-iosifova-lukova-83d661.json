@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordanka-iosifova-lukova-83d661",
+  "nodes": [
+    {
+      "id": "official:iordanka-iosifova-lukova-83d661",
+      "type": "official",
+      "slug": "iordanka-iosifova-lukova-83d661",
+      "label": "Йорданка Йосифова Лукова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115826225",
+      "type": "company",
+      "label": "НАСТОЯТЕЛСТВО РЪКА ЗА РЪКА КЪМ ДЕТСКА ГРАДИНА ДЕТЕЛИНА ГР. РАКОВСКИ",
+      "slug": null,
+      "uic": "115826225",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА АЛОНЦОВА БЕЛЧЕВА",
+      "type": "person",
+      "label": "Ивелина Алонцова Белчева"
+    },
+    {
+      "id": "person:БОГДАНА ПАВЛОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Богдана Павлова Павлова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ЯЧЕВ",
+      "type": "person",
+      "label": "Георги Иванов Ячев"
+    },
+    {
+      "id": "person:СЛАВКА САШЕВА ГЪЛЕВА",
+      "type": "person",
+      "label": "Славка Сашева Гълева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-iosifova-lukova-83d661",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА АЛОНЦОВА БЕЛЧЕВА",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА АЛОНЦОВА БЕЛЧЕВА",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАНА ПАВЛОВА ПАВЛОВА",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ЯЧЕВ",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА САШЕВА ГЪЛЕВА",
+      "target": "company:tr:115826225",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

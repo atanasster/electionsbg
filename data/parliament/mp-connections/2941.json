@@ -1,1 +1,181 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2941","nodes":[{"id":"mp:2941","type":"mp","mpId":2941,"label":"Иван Стефанов Вълков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"company:Мкмд-инженеринг-ООД","type":"company","label":"Мкмд инженеринг ООД","slug":"Мкмд-инженеринг-ООД","uic":"203999583","legalForm":"OOD","status":"active","seat":"Бургас"},{"id":"company:tr:200760795","type":"company","label":"ВЪЛКОВ И СИНОВЕ","slug":null,"uic":"200760795","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:tr:102238040","type":"company","label":"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС","slug":null,"uic":"102238040","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"person:ДЕЯН МИТКОВ ДИМИТРОВ","type":"person","label":"Деян Митков Димитров"},{"id":"person:МИРОСЛАВА МИХАЙЛОВА БАКАЛОВА","type":"person","label":"Мирослава Михайлова Бакалова"},{"id":"person:КАТЕРИНА ХРИСТОВА ВЪЛКОВА","type":"person","label":"Катерина Христова Вълкова"},{"id":"person:РУМЯНА АНГЕЛОВА ИВАНОВА","type":"person","label":"Румяна Ангелова Иванова"},{"id":"person:ТАНЯ ИВАНОВА СТОЯНОВА-РАНГЕЛОВА","type":"person","label":"Таня Иванова Стоянова-Рангелова"}],"edges":[{"source":"mp:2941","target":"company:Мкмд-инженеринг-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2941","target":"company:Мкмд-инженеринг-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2941","target":"company:Мкмд-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:2941","target":"company:tr:200760795","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2941","target":"company:tr:200760795","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2941","target":"company:tr:102238040","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2941","target":"company:tr:102238040","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕЯН МИТКОВ ДИМИТРОВ","target":"company:Мкмд-инженеринг-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА МИХАЙЛОВА БАКАЛОВА","target":"company:Мкмд-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН МИТКОВ ДИМИТРОВ","target":"company:Мкмд-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАТЕРИНА ХРИСТОВА ВЪЛКОВА","target":"company:tr:200760795","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА АНГЕЛОВА ИВАНОВА","target":"company:tr:102238040","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ИВАНОВА СТОЯНОВА-РАНГЕЛОВА","target":"company:tr:102238040","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2941",
+  "nodes": [
+    {
+      "id": "mp:2941",
+      "type": "mp",
+      "mpId": 2941,
+      "label": "Иван Стефанов Вълков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:Мкмд-инженеринг-ООД",
+      "type": "company",
+      "label": "Мкмд инженеринг ООД",
+      "slug": "Мкмд-инженеринг-ООД",
+      "uic": "203999583",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:tr:200760795",
+      "type": "company",
+      "label": "ВЪЛКОВ И СИНОВЕ",
+      "slug": null,
+      "uic": "200760795",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:102238040",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС",
+      "slug": null,
+      "uic": "102238040",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "person:ДЕЯН МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Деян Митков Димитров"
+    },
+    {
+      "id": "person:МИРОСЛАВА МИХАЙЛОВА БАКАЛОВА",
+      "type": "person",
+      "label": "Мирослава Михайлова Бакалова"
+    },
+    {
+      "id": "person:КАТЕРИНА ХРИСТОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Катерина Христова Вълкова"
+    },
+    {
+      "id": "person:РУМЯНА АНГЕЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Румяна Ангелова Иванова"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА СТОЯНОВА-РАНГЕЛОВА",
+      "type": "person",
+      "label": "Таня Иванова Стоянова-Рангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2941",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:tr:200760795",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:tr:200760795",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:tr:102238040",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2941",
+      "target": "company:tr:102238040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯН МИТКОВ ДИМИТРОВ",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА МИХАЙЛОВА БАКАЛОВА",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН МИТКОВ ДИМИТРОВ",
+      "target": "company:Мкмд-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ХРИСТОВА ВЪЛКОВА",
+      "target": "company:tr:200760795",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА АНГЕЛОВА ИВАНОВА",
+      "target": "company:tr:102238040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА СТОЯНОВА-РАНГЕЛОВА",
+      "target": "company:tr:102238040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,299 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5260","nodes":[{"id":"mp:5260","type":"mp","mpId":5260,"label":"Константин Василев Проданов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:204729982","type":"company","label":"БРАВО ПРОПЪРТИ ФОНД","slug":null,"uic":"204729982","legalForm":"IAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"company:tr:208313910","type":"company","label":"БРАВО ХОУМ","slug":null,"uic":"208313910","legalForm":"IEAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"company:tr:131134055","type":"company","label":"КАРОЛ КАПИТАЛ МЕНИДЖМЪНТ","slug":null,"uic":"131134055","legalForm":"EAD","status":"active","seat":null},{"id":"person:АСЕН СТОИМЕНОВ ЛИСЕВ","type":"person","label":"Асен Стоименов Лисев"},{"id":"person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ","type":"person","label":"Владислав Димитров Христов"},{"id":"person:СТАНИМИР МАРИНОВ КАРОЛЕВ","type":"person","label":"Станимир Маринов Каролев"},{"id":"person:ДАНИЕЛ ЙОВЧЕВ ГАНЕВ","type":"person","label":"Даниел Йовчев Ганев"},{"id":"person:ХРИСТИНА НИКОЛАЕВА ГАБРОВСКА","type":"person","label":"Христина Николаева Габровска"}],"edges":[{"source":"mp:5260","target":"company:tr:204729982","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5260","target":"company:tr:208313910","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5260","target":"company:tr:131134055","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АСЕН СТОИМЕНОВ ЛИСЕВ","target":"company:tr:204729982","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ","target":"company:tr:204729982","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН СТОИМЕНОВ ЛИСЕВ","target":"company:tr:208313910","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН СТОИМЕНОВ ЛИСЕВ","target":"company:tr:208313910","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ","target":"company:tr:208313910","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН СТОИМЕНОВ ЛИСЕВ","target":"company:tr:208313910","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР МАРИНОВ КАРОЛЕВ","target":"company:tr:131134055","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ЙОВЧЕВ ГАНЕВ","target":"company:tr:131134055","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИНА НИКОЛАЕВА ГАБРОВСКА","target":"company:tr:131134055","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5260",
+  "nodes": [
+    {
+      "id": "mp:5260",
+      "type": "mp",
+      "mpId": 5260,
+      "label": "Константин Василев Проданов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:204729982",
+      "type": "company",
+      "label": "БРАВО ПРОПЪРТИ ФОНД",
+      "slug": null,
+      "uic": "204729982",
+      "legalForm": "IAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:208313910",
+      "type": "company",
+      "label": "БРАВО ХОУМ",
+      "slug": null,
+      "uic": "208313910",
+      "legalForm": "IEAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:131134055",
+      "type": "company",
+      "label": "КАРОЛ КАПИТАЛ МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "131134055",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН СТОИМЕНОВ ЛИСЕВ",
+      "type": "person",
+      "label": "Асен Стоименов Лисев"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Владислав Димитров Христов"
+    },
+    {
+      "id": "person:РАЛИЦА ТОДОРОВА ДРАГНЕВА",
+      "type": "person",
+      "label": "Ралица Тодорова Драгнева"
+    },
+    {
+      "id": "person:БОЯН МАРКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Боян Марков Петров"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ВЪЧКОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Людмил Въчков Лазаров"
+    },
+    {
+      "id": "person:АНГЕЛ ВАСИЛЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Василев Ангелов"
+    },
+    {
+      "id": "person:МАРИЯ КОНСТАНТИНОВА АЛИ",
+      "type": "person",
+      "label": "Мария Константинова Али"
+    },
+    {
+      "id": "person:СТАНИМИР МАРИНОВ КАРОЛЕВ",
+      "type": "person",
+      "label": "Станимир Маринов Каролев"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЙОВЧЕВ ГАНЕВ",
+      "type": "person",
+      "label": "Даниел Йовчев Ганев"
+    },
+    {
+      "id": "person:ХРИСТИНА НИКОЛАЕВА ГАБРОВСКА",
+      "type": "person",
+      "label": "Христина Николаева Габровска"
+    },
+    {
+      "id": "company:tr:204870926",
+      "type": "company",
+      "label": "Сердика спортни имоти",
+      "slug": null,
+      "uic": "204870926",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5260",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5260",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5260",
+      "target": "company:tr:131134055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН СТОИМЕНОВ ЛИСЕВ",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ТОДОРОВА ДРАГНЕВА",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ТОДОРОВА ДРАГНЕВА",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН МАРКОВ ПЕТРОВ",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЪЧКОВ ЛАЗАРОВ",
+      "target": "company:tr:204729982",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН СТОИМЕНОВ ЛИСЕВ",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН СТОИМЕНОВ ЛИСЕВ",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН СТОИМЕНОВ ЛИСЕВ",
+      "target": "company:tr:208313910",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ВАСИЛЕВ АНГЕЛОВ",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОНСТАНТИНОВА АЛИ",
+      "target": "company:tr:208313910",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР МАРИНОВ КАРОЛЕВ",
+      "target": "company:tr:131134055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЙОВЧЕВ ГАНЕВ",
+      "target": "company:tr:131134055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА НИКОЛАЕВА ГАБРОВСКА",
+      "target": "company:tr:131134055",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЪЧКОВ ЛАЗАРОВ",
+      "target": "company:tr:204870926",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:204870926",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5113",
+      "length": 4,
+      "nodeIds": [
+        "mp:5260",
+        "company:tr:204729982",
+        "person:ЛЮДМИЛ ВЪЧКОВ ЛАЗАРОВ",
+        "company:tr:204870926",
+        "mp:5113"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

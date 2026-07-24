@@ -1,1 +1,566 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:22","nodes":[{"id":"mp:22","type":"mp","mpId":22,"label":"Яни Димитров Янев","partyGroupShort":"НДСВ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208712592","type":"company","label":"Д.С. Сървис Консултинг","slug":null,"uic":"208712592","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:tr:201823635","type":"company","label":"АКАДЕМИЧЕН ПАРК 2020","slug":null,"uic":"201823635","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:103792060","type":"company","label":"Регионална агенция за предприемачество и иновации - Варна","slug":null,"uic":"103792060","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:203581032","type":"company","label":"АКАДЕМИЧЕН ПАРК 2020 ХОЛИДЕЙ","slug":null,"uic":"203581032","legalForm":"EAD","status":"active","seat":null},{"id":"company:tr:103788390","type":"company","label":"КЛУБ ПРИЯТЕЛИ НА ЕВРОПА","slug":null,"uic":"103788390","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"person:КРАСИМИР АЛЕКСАНДРОВ НЕДЯЛКОВ","type":"person","label":"Красимир Александров Недялков"},{"id":"person:ПЕТЪР ГЕОРГИЕВ ХРИСТОВ","type":"person","label":"Петър Георгиев Христов"},{"id":"person:РАЛИЦА ЖЕКОВА ЖЕКОВА","type":"person","label":"Ралица Жекова Жекова"},{"id":"person:ОГНЯН ПАНАЙОТОВ СПАСОВ","type":"person","label":"Огнян Панайотов Спасов"},{"id":"person:МЕДИЦИНСКИ УНИВЕРСИТЕТ \"ПРОФ. Д-Р П. СТОЯНОВ\"","type":"person","label":"Медицински Университет \"проф. Д-Р П. Стоянов\""},{"id":"person:ВАРНЕНСКИ СВОБОДЕН УНИВЕРСИТЕТ \"ЧЕРНОРИЗЕЦ ХРАБЪР\"","type":"person","label":"Варненски Свободен Университет \"черноризец Храбър\""},{"id":"person:ВИСШЕ ВОЕННОМОРСКО УЧИЛИЩЕ \"НИКОЛА ЙОНКОВ ВАПЦАРОВ\"","type":"person","label":"Висше Военноморско Училище \"никола Йонков Вапцаров\""},{"id":"person:СТОПАНСКА КАМАРА - ВАРНА","type":"person","label":"Стопанска Камара - Варна"},{"id":"person:ИКОНОМИЧЕСКИ УНИВЕРСИТЕТ - ВАРНА","type":"person","label":"Икономически Университет - Варна"},{"id":"person:ОБЛАСТНА АДМИНИСТРАЦИЯ - ВАРНА","type":"person","label":"Областна Администрация - Варна"},{"id":"person:ОБЩИНА ВАРНА","type":"person","label":"Община Варна"},{"id":"person:ИЛИЯ ПЕТРОВ РАЕВ","type":"person","label":"Илия Петров Раев"},{"id":"person:НИКОЛА ПЕТРОВ НИКОЛОВ","type":"person","label":"Никола Петров Николов"},{"id":"mp:21","type":"mp","mpId":21,"label":"Анелия Христова Атанасова","partyGroupShort":"НДСВ","isCurrent":false,"nsFolders":["39"]},{"id":"person:ВЛАДИМИР ИВАНОВ ИЛИЕВ","type":"person","label":"Владимир Иванов Илиев"},{"id":"person:ИВАН ГЕОРГИЕВ ТАБАКОВ","type":"person","label":"Иван Георгиев Табаков"},{"id":"person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА","type":"person","label":"Лиляна Христова Христозова"},{"id":"person:КОСТА ГЕНКОВ БАЗИТОВ","type":"person","label":"Коста Генков Базитов"},{"id":"person:КРИСТАЛИНА СТАВРЕВА СТАТКОВА","type":"person","label":"Кристалина Ставрева Статкова"},{"id":"person:РОСЕН НИКОЛАЕВ НИКОЛАЕВ","type":"person","label":"Росен Николаев Николаев"},{"id":"person:ЕМИЛИЯ НИКОЛОВА БЯНОВА","type":"person","label":"Емилия Николова Бянова"},{"id":"person:КОНСТАНТИН ИВАНОВ ДАРАДАНОВ","type":"person","label":"Константин Иванов Дараданов"},{"id":"company:tr:000703415","type":"company","label":"Сдружение &quot;Български Червен кръст&quot;","slug":null,"uic":"000703415","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1402"},{"id":"mp:3228","type":"mp","mpId":3228,"label":"Алисе Кямилова Муртезова","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:103188964","type":"company","label":"СДРУЖЕНИЕ &quot;ВАРНЕНСКА ТУРИСТИЧЕСКА КАМАРА&quot;","slug":null,"uic":"103188964","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"mp:5067","type":"mp","mpId":5067,"label":"Илин Павлинов Димитров","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":["47"]}],"edges":[{"source":"mp:22","target":"company:tr:208712592","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:208712592","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:201823635","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:103792060","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:203581032","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:203581032","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:22","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИР АЛЕКСАНДРОВ НЕДЯЛКОВ","target":"company:tr:201823635","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ ХРИСТОВ","target":"company:tr:201823635","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ЖЕКОВА ЖЕКОВА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН ПАНАЙОТОВ СПАСОВ","target":"company:tr:103792060","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЕДИЦИНСКИ УНИВЕРСИТЕТ \"ПРОФ. Д-Р П. СТОЯНОВ\"","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАРНЕНСКИ СВОБОДЕН УНИВЕРСИТЕТ \"ЧЕРНОРИЗЕЦ ХРАБЪР\"","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИСШЕ ВОЕННОМОРСКО УЧИЛИЩЕ \"НИКОЛА ЙОНКОВ ВАПЦАРОВ\"","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОПАНСКА КАМАРА - ВАРНА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИКОНОМИЧЕСКИ УНИВЕРСИТЕТ - ВАРНА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА ЖЕКОВА ЖЕКОВА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЛАСТНА АДМИНИСТРАЦИЯ - ВАРНА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА ВАРНА","target":"company:tr:103792060","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:203581032","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ПЕТРОВ НИКОЛОВ","target":"company:tr:203581032","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:21","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ИВАНОВ ИЛИЕВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ТАБАКОВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА","target":"company:tr:103788390","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОСТА ГЕНКОВ БАЗИТОВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТАЛИНА СТАВРЕВА СТАТКОВА","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН НИКОЛАЕВ НИКОЛАЕВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ИВАНОВ ИЛИЕВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ НИКОЛОВА БЯНОВА","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ИВАНОВ ДАРАДАНОВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ТАБАКОВ","target":"company:tr:103788390","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:000703415","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ РАЕВ","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3228","target":"company:tr:000703415","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5067","target":"company:tr:103188964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:21","length":2,"nodeIds":["mp:22","company:tr:103788390","mp:21"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3228","length":4,"nodeIds":["mp:22","company:tr:203581032","person:ИЛИЯ ПЕТРОВ РАЕВ","company:tr:000703415","mp:3228"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5067","length":4,"nodeIds":["mp:22","company:tr:203581032","person:ИЛИЯ ПЕТРОВ РАЕВ","company:tr:103188964","mp:5067"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:22",
+  "nodes": [
+    {
+      "id": "mp:22",
+      "type": "mp",
+      "mpId": 22,
+      "label": "Яни Димитров Янев",
+      "partyGroupShort": "НДСВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208712592",
+      "type": "company",
+      "label": "Д.С. Сървис Консултинг",
+      "slug": null,
+      "uic": "208712592",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:201823635",
+      "type": "company",
+      "label": "АКАДЕМИЧЕН ПАРК 2020",
+      "slug": null,
+      "uic": "201823635",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:103792060",
+      "type": "company",
+      "label": "Регионална агенция за предприемачество и иновации - Варна",
+      "slug": null,
+      "uic": "103792060",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:203581032",
+      "type": "company",
+      "label": "АКАДЕМИЧЕН ПАРК 2020 ХОЛИДЕЙ",
+      "slug": null,
+      "uic": "203581032",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:103788390",
+      "type": "company",
+      "label": "КЛУБ ПРИЯТЕЛИ НА ЕВРОПА",
+      "slug": null,
+      "uic": "103788390",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "person:КРАСИМИР АЛЕКСАНДРОВ НЕДЯЛКОВ",
+      "type": "person",
+      "label": "Красимир Александров Недялков"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Петър Георгиев Христов"
+    },
+    {
+      "id": "person:РАЛИЦА ЖЕКОВА ЖЕКОВА",
+      "type": "person",
+      "label": "Ралица Жекова Жекова"
+    },
+    {
+      "id": "person:ОГНЯН ПАНАЙОТОВ СПАСОВ",
+      "type": "person",
+      "label": "Огнян Панайотов Спасов"
+    },
+    {
+      "id": "person:МЕДИЦИНСКИ УНИВЕРСИТЕТ \"ПРОФ. Д-Р П. СТОЯНОВ\"",
+      "type": "person",
+      "label": "Медицински Университет \"проф. Д-Р П. Стоянов\""
+    },
+    {
+      "id": "person:ВАРНЕНСКИ СВОБОДЕН УНИВЕРСИТЕТ \"ЧЕРНОРИЗЕЦ ХРАБЪР\"",
+      "type": "person",
+      "label": "Варненски Свободен Университет \"черноризец Храбър\""
+    },
+    {
+      "id": "person:ВИСШЕ ВОЕННОМОРСКО УЧИЛИЩЕ \"НИКОЛА ЙОНКОВ ВАПЦАРОВ\"",
+      "type": "person",
+      "label": "Висше Военноморско Училище \"никола Йонков Вапцаров\""
+    },
+    {
+      "id": "person:СТОПАНСКА КАМАРА - ВАРНА",
+      "type": "person",
+      "label": "Стопанска Камара - Варна"
+    },
+    {
+      "id": "person:ИКОНОМИЧЕСКИ УНИВЕРСИТЕТ - ВАРНА",
+      "type": "person",
+      "label": "Икономически Университет - Варна"
+    },
+    {
+      "id": "person:ОБЛАСТНА АДМИНИСТРАЦИЯ - ВАРНА",
+      "type": "person",
+      "label": "Областна Администрация - Варна"
+    },
+    {
+      "id": "person:ОБЩИНА ВАРНА",
+      "type": "person",
+      "label": "Община Варна"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "type": "person",
+      "label": "Илия Петров Раев"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Петров Николов"
+    },
+    {
+      "id": "mp:21",
+      "type": "mp",
+      "mpId": 21,
+      "label": "Анелия Христова Атанасова",
+      "partyGroupShort": "НДСВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "person:ВЛАДИМИР ИВАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Владимир Иванов Илиев"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ТАБАКОВ",
+      "type": "person",
+      "label": "Иван Георгиев Табаков"
+    },
+    {
+      "id": "person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА",
+      "type": "person",
+      "label": "Лиляна Христова Христозова"
+    },
+    {
+      "id": "person:КОСТА ГЕНКОВ БАЗИТОВ",
+      "type": "person",
+      "label": "Коста Генков Базитов"
+    },
+    {
+      "id": "person:КРИСТАЛИНА СТАВРЕВА СТАТКОВА",
+      "type": "person",
+      "label": "Кристалина Ставрева Статкова"
+    },
+    {
+      "id": "person:РОСЕН НИКОЛАЕВ НИКОЛАЕВ",
+      "type": "person",
+      "label": "Росен Николаев Николаев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ НИКОЛОВА БЯНОВА",
+      "type": "person",
+      "label": "Емилия Николова Бянова"
+    },
+    {
+      "id": "person:КОНСТАНТИН ИВАНОВ ДАРАДАНОВ",
+      "type": "person",
+      "label": "Константин Иванов Дараданов"
+    },
+    {
+      "id": "company:tr:000703415",
+      "type": "company",
+      "label": "Сдружение &quot;Български Червен кръст&quot;",
+      "slug": null,
+      "uic": "000703415",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1402"
+    },
+    {
+      "id": "mp:3228",
+      "type": "mp",
+      "mpId": 3228,
+      "label": "Алисе Кямилова Муртезова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:103188964",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ВАРНЕНСКА ТУРИСТИЧЕСКА КАМАРА&quot;",
+      "slug": null,
+      "uic": "103188964",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:5067",
+      "type": "mp",
+      "mpId": 5067,
+      "label": "Илин Павлинов Димитров",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:22",
+      "target": "company:tr:208712592",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:208712592",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:201823635",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР АЛЕКСАНДРОВ НЕДЯЛКОВ",
+      "target": "company:tr:201823635",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:201823635",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ЖЕКОВА ЖЕКОВА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ПАНАЙОТОВ СПАСОВ",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕДИЦИНСКИ УНИВЕРСИТЕТ \"ПРОФ. Д-Р П. СТОЯНОВ\"",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАРНЕНСКИ СВОБОДЕН УНИВЕРСИТЕТ \"ЧЕРНОРИЗЕЦ ХРАБЪР\"",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИСШЕ ВОЕННОМОРСКО УЧИЛИЩЕ \"НИКОЛА ЙОНКОВ ВАПЦАРОВ\"",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОПАНСКА КАМАРА - ВАРНА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИКОНОМИЧЕСКИ УНИВЕРСИТЕТ - ВАРНА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ЖЕКОВА ЖЕКОВА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЛАСТНА АДМИНИСТРАЦИЯ - ВАРНА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ВАРНА",
+      "target": "company:tr:103792060",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:21",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ТАБАКОВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ХРИСТОВА ХРИСТОЗОВА",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА ГЕНКОВ БАЗИТОВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТАЛИНА СТАВРЕВА СТАТКОВА",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН НИКОЛАЕВ НИКОЛАЕВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ НИКОЛОВА БЯНОВА",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ИВАНОВ ДАРАДАНОВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ТАБАКОВ",
+      "target": "company:tr:103788390",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:000703415",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3228",
+      "target": "company:tr:000703415",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:21",
+      "length": 2,
+      "nodeIds": [
+        "mp:22",
+        "company:tr:103788390",
+        "mp:21"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3228",
+      "length": 4,
+      "nodeIds": [
+        "mp:22",
+        "company:tr:203581032",
+        "person:ИЛИЯ ПЕТРОВ РАЕВ",
+        "company:tr:000703415",
+        "mp:3228"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5067",
+      "length": 4,
+      "nodeIds": [
+        "mp:22",
+        "company:tr:203581032",
+        "person:ИЛИЯ ПЕТРОВ РАЕВ",
+        "company:tr:103188964",
+        "mp:5067"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

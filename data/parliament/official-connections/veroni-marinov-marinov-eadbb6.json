@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veroni-marinov-marinov-eadbb6",
+  "nodes": [
+    {
+      "id": "official:veroni-marinov-marinov-eadbb6",
+      "type": "official",
+      "slug": "veroni-marinov-marinov-eadbb6",
+      "label": "Верони Маринов Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "company:tr:206321402",
+      "type": "company",
+      "label": "НайсМаг",
+      "slug": null,
+      "uic": "206321402",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИКА ЮЛИЯНОВА БАЙРАКТАРОВА",
+      "type": "person",
+      "label": "Аника Юлиянова Байрактарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veroni-marinov-marinov-eadbb6",
+      "target": "company:tr:206321402",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veroni-marinov-marinov-eadbb6",
+      "target": "company:tr:206321402",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИКА ЮЛИЯНОВА БАЙРАКТАРОВА",
+      "target": "company:tr:206321402",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

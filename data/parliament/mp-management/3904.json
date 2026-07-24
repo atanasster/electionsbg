@@ -1,1 +1,64 @@
-{"mpId":3904,"mpName":"Григор Александров Захариев","generatedAt":"2026-07-03T11:12:51.817Z","total":4,"roles":[{"uic":"206184388","companyName":"СОД - 357","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-11-12T11:23:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206184388","companyName":"СОД - 357","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-11-12T11:23:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"121877128","companyName":"СОД","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. София, 1505","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2022-10-19T10:57:01","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"121877128","companyName":"СОД","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. София, 1505","status":"active","role":"representative","positionLabel":null,"sharePercent":null,"addedAt":"2022-10-19T10:57:01","erasedAt":"2022-10-24T10:05:40","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3904,
+  "mpName": "Григор Александров Захариев",
+  "generatedAt": "2026-07-24T03:35:58.615Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "206184388",
+      "companyName": "СОД - 357",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-11-12T11:23:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206184388",
+      "companyName": "СОД - 357",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-11-12T11:23:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "121877128",
+      "companyName": "СОД",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1505",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-10-19T10:57:01",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "121877128",
+      "companyName": "СОД",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1505",
+      "status": "active",
+      "role": "representative",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-10-19T10:57:01",
+      "erasedAt": "2022-10-24T10:05:40",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

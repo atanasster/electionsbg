@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:siranush-garabed-agopova-f8e98b",
+  "nodes": [
+    {
+      "id": "official:siranush-garabed-agopova-f8e98b",
+      "type": "official",
+      "slug": "siranush-garabed-agopova-f8e98b",
+      "label": "Сирануш Гарабед Агопова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175434442",
+      "type": "company",
+      "label": "СВЕТИ САРКИС-2007",
+      "slug": null,
+      "uic": "175434442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАСИС ХАЧИК БАГДАТЯН",
+      "type": "person",
+      "label": "Масис Хачик Багдатян"
+    },
+    {
+      "id": "person:ШОГЕР ДЕРЕНИКОВНА СИМОНЯН",
+      "type": "person",
+      "label": "Шогер Дерениковна Симонян"
+    },
+    {
+      "id": "person:ЖИРАЙР ОВАНЕЗ ОВАНЕЗЯН",
+      "type": "person",
+      "label": "Жирайр Ованез Ованезян"
+    },
+    {
+      "id": "person:АИДА МЕСРОП КАИКЧИЯН",
+      "type": "person",
+      "label": "Аида Месроп Каикчиян"
+    },
+    {
+      "id": "person:АНТРАНИК ЛЕВОН ШАКАРИЯН",
+      "type": "person",
+      "label": "Антраник Левон Шакариян"
+    },
+    {
+      "id": "person:МАРИЯНА АГОПОВА ОСТАОГЛИЯН",
+      "type": "person",
+      "label": "Марияна Агопова Остаоглиян"
+    },
+    {
+      "id": "person:СИЛВИЯ ВАРТАН ФЕНЕРДЖИЯН",
+      "type": "person",
+      "label": "Силвия Вартан Фенерджиян"
+    },
+    {
+      "id": "person:МИХРАН ОВАНЕС ОВАНЕСЯН",
+      "type": "person",
+      "label": "Михран Ованес Ованесян"
+    },
+    {
+      "id": "person:ЛИДИЯ КОСТОВА СИМОНЯН",
+      "type": "person",
+      "label": "Лидия Костова Симонян"
+    },
+    {
+      "id": "person:ГЕГЕЦИК КАРАПЕТОВНА ГАЛУКЯН",
+      "type": "person",
+      "label": "Гегецик Карапетовна Галукян"
+    },
+    {
+      "id": "person:СИЛВИЯ ВАСИЛЕВА МАНКИКЯН",
+      "type": "person",
+      "label": "Силвия Василева Манкикян"
+    },
+    {
+      "id": "person:МЕРИ САХАГ СЕФЕРЯН",
+      "type": "person",
+      "label": "Мери Сахаг Сеферян"
+    },
+    {
+      "id": "person:АРУСИНА ОВАНЕЗ ПАПАЗЯН",
+      "type": "person",
+      "label": "Арусина Ованез Папазян"
+    },
+    {
+      "id": "person:ЛУИЗА ВАНЕСЯН",
+      "type": "person",
+      "label": "Луиза Ванесян"
+    },
+    {
+      "id": "person:ИСКУХИ ХАЧИКОВА КИРКОРОВА",
+      "type": "person",
+      "label": "Искухи Хачикова Киркорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:siranush-garabed-agopova-f8e98b",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАСИС ХАЧИК БАГДАТЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШОГЕР ДЕРЕНИКОВНА СИМОНЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИРАЙР ОВАНЕЗ ОВАНЕЗЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АИДА МЕСРОП КАИКЧИЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТРАНИК ЛЕВОН ШАКАРИЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА АГОПОВА ОСТАОГЛИЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАСИС ХАЧИК БАГДАТЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ВАРТАН ФЕНЕРДЖИЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХРАН ОВАНЕС ОВАНЕСЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ КОСТОВА СИМОНЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕГЕЦИК КАРАПЕТОВНА ГАЛУКЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ВАСИЛЕВА МАНКИКЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕРИ САХАГ СЕФЕРЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРУСИНА ОВАНЕЗ ПАПАЗЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУИЗА ВАНЕСЯН",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКУХИ ХАЧИКОВА КИРКОРОВА",
+      "target": "company:tr:175434442",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

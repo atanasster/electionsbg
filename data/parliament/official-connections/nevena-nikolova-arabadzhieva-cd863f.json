@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nevena-nikolova-arabadzhieva-cd863f",
+  "nodes": [
+    {
+      "id": "official:nevena-nikolova-arabadzhieva-cd863f",
+      "type": "official",
+      "slug": "nevena-nikolova-arabadzhieva-cd863f",
+      "label": "Невена Николова Арабаджиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114520834",
+      "type": "company",
+      "label": "ИЗИДА",
+      "slug": null,
+      "uic": "114520834",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЯ МАРИНОВА САВОВА-ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Ваня Маринова Савова-Цветанова"
+    },
+    {
+      "id": "person:ВАЛЕРИЯ РУСЧЕВА РАЧЕВА",
+      "type": "person",
+      "label": "Валерия Русчева Рачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevena-nikolova-arabadzhieva-cd863f",
+      "target": "company:tr:114520834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЯ МАРИНОВА САВОВА-ЦВЕТАНОВА",
+      "target": "company:tr:114520834",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ МАРИНОВА САВОВА-ЦВЕТАНОВА",
+      "target": "company:tr:114520834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ РУСЧЕВА РАЧЕВА",
+      "target": "company:tr:114520834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

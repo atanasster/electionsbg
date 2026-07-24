@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:75","nodes":[{"id":"mp:75","type":"mp","mpId":75,"label":"Марко Николов Мечев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:208265351","type":"company","label":"МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА \"ПАНАГЮРИЩЕ - СТРЕЛЧА\"","slug":null,"uic":"208265351","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Панагюрище, 4500"},{"id":"person:ОБЩИНА СТРЕЛЧА","type":"person","label":"Община Стрелча"},{"id":"person:НЧ \"ВАНЧО ПАШОВ - 1884\"","type":"person","label":"Нч \"ванчо Пашов - 1884\""},{"id":"company:name:ЧЕНЧЕВ 2021","type":"company","label":"\"ЧЕНЧЕВ 2021\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:АКВА-ЕКОФИШ","type":"company","label":"\"АКВА-ЕКОФИШ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"mp:75","target":"company:tr:208265351","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:75","target":"company:tr:208265351","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ОБЩИНА СТРЕЛЧА","target":"company:tr:208265351","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЧ \"ВАНЧО ПАШОВ - 1884\"","target":"company:tr:208265351","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ЧЕНЧЕВ 2021","target":"company:tr:208265351","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:АКВА-ЕКОФИШ","target":"company:tr:208265351","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:75",
+  "nodes": [
+    {
+      "id": "mp:75",
+      "type": "mp",
+      "mpId": 75,
+      "label": "Марко Николов Мечев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208265351",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА \"ПАНАГЮРИЩЕ - СТРЕЛЧА\"",
+      "slug": null,
+      "uic": "208265351",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Панагюрище, 4500"
+    },
+    {
+      "id": "person:ОБЩИНА СТРЕЛЧА",
+      "type": "person",
+      "label": "Община Стрелча"
+    },
+    {
+      "id": "person:НЧ \"ВАНЧО ПАШОВ - 1884\"",
+      "type": "person",
+      "label": "Нч \"ванчо Пашов - 1884\""
+    },
+    {
+      "id": "company:name:ЧЕНЧЕВ 2021",
+      "type": "company",
+      "label": "\"ЧЕНЧЕВ 2021\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АКВА-ЕКОФИШ",
+      "type": "company",
+      "label": "\"АКВА-ЕКОФИШ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:75",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:75",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА СТРЕЛЧА",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЧ \"ВАНЧО ПАШОВ - 1884\"",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЧЕНЧЕВ 2021",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АКВА-ЕКОФИШ",
+      "target": "company:tr:208265351",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

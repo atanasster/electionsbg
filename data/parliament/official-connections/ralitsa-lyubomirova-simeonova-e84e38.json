@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ralitsa-lyubomirova-simeonova-e84e38",
+  "nodes": [
+    {
+      "id": "official:ralitsa-lyubomirova-simeonova-e84e38",
+      "type": "official",
+      "slug": "ralitsa-lyubomirova-simeonova-e84e38",
+      "label": "Ралица Любомирова Симеонова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207210010",
+      "type": "company",
+      "label": "АВИД 15",
+      "slug": null,
+      "uic": "207210010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИАН АНТОНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Христиан Антонов Колев"
+    },
+    {
+      "id": "person:ПЕТЯ ХРИСТОВА ТОНОВА",
+      "type": "person",
+      "label": "Петя Христова Тонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ralitsa-lyubomirova-simeonova-e84e38",
+      "target": "company:tr:207210010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ralitsa-lyubomirova-simeonova-e84e38",
+      "target": "company:tr:207210010",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИАН АНТОНОВ КОЛЕВ",
+      "target": "company:tr:207210010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ХРИСТОВА ТОНОВА",
+      "target": "company:tr:207210010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

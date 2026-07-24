@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-nikolov-bambalov-753bde",
+  "nodes": [
+    {
+      "id": "official:vladimir-nikolov-bambalov-753bde",
+      "type": "official",
+      "slug": "vladimir-nikolov-bambalov-753bde",
+      "label": "Владимир Николов Бамбалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Любимец"
+    },
+    {
+      "id": "company:tr:126738029",
+      "type": "company",
+      "label": "ВБ-КОМЕРС",
+      "slug": null,
+      "uic": "126738029",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ КОСТАДИНОВ ВЪЛЧАНОВ",
+      "type": "person",
+      "label": "Емил Костадинов Вълчанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-nikolov-bambalov-753bde",
+      "target": "company:tr:126738029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-nikolov-bambalov-753bde",
+      "target": "company:tr:126738029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ КОСТАДИНОВ ВЪЛЧАНОВ",
+      "target": "company:tr:126738029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ КОСТАДИНОВ ВЪЛЧАНОВ",
+      "target": "company:tr:126738029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,63 @@
-{"mpId":4374,"name":"Бюнямин Хюсеин Хасан","partyGroupShort":null,"isCurrent":false,"nsFolders":["42"],"latestDeclarationYear":2024,"fiscalYear":2024,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2024/0A9318E9-B773-4704-8821-FEED08D5DB7A181460.xml","totalAssetsEur":511803.1730774147,"totalDebtsEur":27278.955737461845,"netWorthEur":484524.2173399528,"previous":{"year":2023,"totalAssetsEur":79250.24158541387,"netWorthEur":49750.23391603565},"byCategory":{"real_estate":{"count":2,"valuedCount":2,"totalEur":409033.50495697476},"vehicle":{"count":2,"valuedCount":2,"totalEur":4090.3350495697478},"cash":{"count":1,"valuedCount":1,"totalEur":2556.4594059810925},"bank":{"count":2,"valuedCount":2,"totalEur":96122.87366488908},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":27278.955737461845},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4374,
+  "name": "Бюнямин Хюсеин Хасан",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "42"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2024,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2024/0A9318E9-B773-4704-8821-FEED08D5DB7A181460.xml",
+  "totalAssetsEur": 511803.1730774147,
+  "totalDebtsEur": 27278.955737461845,
+  "netWorthEur": 484524.2173399528,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 79250.24158541387,
+    "netWorthEur": 49750.23391603565
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 409033.50495697476
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 4090.3350495697478
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2556.4594059810925
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 96122.87366488908
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 27278.955737461845
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

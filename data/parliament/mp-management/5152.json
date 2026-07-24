@@ -1,1 +1,50 @@
-{"mpId":5152,"mpName":"Румен Димитров Христов","generatedAt":"2026-07-03T11:12:51.938Z","total":3,"roles":[{"uic":"208067323","companyName":"ЛАКОТА ГЕЙМ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Варна, 9006","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-11-20T12:40:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208067323","companyName":"ЛАКОТА ГЕЙМ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Варна, 9006","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-11-20T12:40:51","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000675670","companyName":"МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ","legalForm":"FOUND","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2021-12-16T08:38:44","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5152,
+  "mpName": "Румен Димитров Христов",
+  "generatedAt": "2026-07-24T03:35:58.751Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "208067323",
+      "companyName": "ЛАКОТА ГЕЙМ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9006",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-11-20T12:40:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208067323",
+      "companyName": "ЛАКОТА ГЕЙМ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9006",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-11-20T12:40:51",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000675670",
+      "companyName": "МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ",
+      "legalForm": "FOUND",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-12-16T08:38:44",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

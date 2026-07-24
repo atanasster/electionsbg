@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gyuner-behchet-osman-f579be",
+  "nodes": [
+    {
+      "id": "official:gyuner-behchet-osman-f579be",
+      "type": "official",
+      "slug": "gyuner-behchet-osman-f579be",
+      "label": "Гюнер Бехчет Осман",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108681441",
+      "type": "company",
+      "label": "Спортен клуб по тенис на маса &quot;ЮНАК-2005&quot;",
+      "slug": null,
+      "uic": "108681441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БЕЙХАН ЕМИН ХАЙРУЛА",
+      "type": "person",
+      "label": "Бейхан Емин Хайрула"
+    },
+    {
+      "id": "person:СЕЗАЙ РАИФОВ ИБРЯМОВ",
+      "type": "person",
+      "label": "Сезай Раифов Ибрямов"
+    },
+    {
+      "id": "person:СЕВЕРИН ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Северин  Иванов   Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyuner-behchet-osman-f579be",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gyuner-behchet-osman-f579be",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЕЙХАН ЕМИН ХАЙРУЛА",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙХАН ЕМИН ХАЙРУЛА",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЗАЙ РАИФОВ ИБРЯМОВ",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:108681441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

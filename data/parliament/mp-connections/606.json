@@ -1,1 +1,104 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:606","nodes":[{"id":"mp:606","type":"mp","mpId":606,"label":"Илчо Георгиев Дуганов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:147015558","type":"company","label":"ДЖИ ПИ ЕС - БУРГАС","slug":null,"uic":"147015558","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:206287025","type":"company","label":"ИЛ-2020","slug":null,"uic":"206287025","legalForm":"OOD","status":"active","seat":null},{"id":"person:БИЛЯН ДИНЧЕВ ВЕЛЕВ","type":"person","label":"Билян Динчев Велев"},{"id":"person:КСР","type":"person","label":"Кср"}],"edges":[{"source":"mp:606","target":"company:tr:147015558","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:606","target":"company:tr:147015558","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:606","target":"company:tr:206287025","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:606","target":"company:tr:206287025","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:БИЛЯН ДИНЧЕВ ВЕЛЕВ","target":"company:tr:206287025","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯН ДИНЧЕВ ВЕЛЕВ","target":"company:tr:206287025","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КСР","target":"company:tr:206287025","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:606",
+  "nodes": [
+    {
+      "id": "mp:606",
+      "type": "mp",
+      "mpId": 606,
+      "label": "Илчо Георгиев Дуганов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:147015558",
+      "type": "company",
+      "label": "ДЖИ ПИ ЕС - БУРГАС",
+      "slug": null,
+      "uic": "147015558",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206287025",
+      "type": "company",
+      "label": "ИЛ-2020",
+      "slug": null,
+      "uic": "206287025",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:БИЛЯН ДИНЧЕВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Билян Динчев Велев"
+    },
+    {
+      "id": "person:КСР",
+      "type": "person",
+      "label": "Кср"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:606",
+      "target": "company:tr:147015558",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:606",
+      "target": "company:tr:147015558",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:606",
+      "target": "company:tr:206287025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:606",
+      "target": "company:tr:206287025",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯН ДИНЧЕВ ВЕЛЕВ",
+      "target": "company:tr:206287025",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯН ДИНЧЕВ ВЕЛЕВ",
+      "target": "company:tr:206287025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КСР",
+      "target": "company:tr:206287025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

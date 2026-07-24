@@ -24,14 +24,14 @@
         "areaSqm": 88,
         "builtAreaSqm": 88,
         "acquiredYear": 2016,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "16,83",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "МАРИЕТА НИКОЛОВА ЗАХАРИЕВА",
         "isSpouse": false,
-        "legalBasis": "0",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
       },
       {
         "category": "real_estate",
@@ -43,13 +43,13 @@
         "builtAreaSqm": 15,
         "acquiredYear": 2016,
         "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "МАРИЕТА НИКОЛОВА ЗАХАРИЕВА",
         "isSpouse": false,
-        "legalBasis": "0",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
       },
       {
         "category": "vehicle",
@@ -60,14 +60,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2010,
-        "share": "покупко-продажба",
+        "share": "1",
         "currency": "BGN",
         "amount": 15000,
         "valueEur": 7669.378217943277,
         "holderName": "МАРИЕТА НИКОЛОВА ЗАХАРИЕВА",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       }
     ],
     "events": [
@@ -80,8 +80,8 @@
         "areaSqm": 79,
         "builtAreaSqm": 79,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -110,10 +110,10 @@
         "areaSqm": 79,
         "builtAreaSqm": 79,
         "acquiredYear": 1997,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Мариета Николова Захариева",
         "isSpouse": false,
         "legalBasis": null,
@@ -128,7 +128,7 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2010,
-        "share": null,
+        "share": "1",
         "currency": "BGN",
         "amount": 15000,
         "valueEur": 7669.378217943277,
@@ -138,91 +138,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

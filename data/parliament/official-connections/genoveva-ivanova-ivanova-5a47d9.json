@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:genoveva-ivanova-ivanova-5a47d9",
+  "nodes": [
+    {
+      "id": "official:genoveva-ivanova-ivanova-5a47d9",
+      "type": "official",
+      "slug": "genoveva-ivanova-ivanova-5a47d9",
+      "label": "Геновева Иванова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123740231",
+      "type": "company",
+      "label": "КОНТО",
+      "slug": null,
+      "uic": "123740231",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛОЯН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Калоян Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:genoveva-ivanova-ivanova-5a47d9",
+      "target": "company:tr:123740231",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:genoveva-ivanova-ivanova-5a47d9",
+      "target": "company:tr:123740231",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛОЯН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:123740231",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:123740231",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

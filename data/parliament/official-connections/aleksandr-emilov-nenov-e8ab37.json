@@ -1,0 +1,176 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-emilov-nenov-e8ab37",
+  "nodes": [
+    {
+      "id": "official:aleksandr-emilov-nenov-e8ab37",
+      "type": "official",
+      "slug": "aleksandr-emilov-nenov-e8ab37",
+      "label": "Александър Емилов Ненов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Костинброд"
+    },
+    {
+      "id": "company:tr:176385247",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ОБЩИНСКИ ФУТБОЛЕН КЛУБ КОСТИНБРОД - 2012&quot;",
+      "slug": null,
+      "uic": "176385247",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ГЪЛЪБОВ БОРИСОВ",
+      "type": "person",
+      "label": "Ивайло Гълъбов Борисов"
+    },
+    {
+      "id": "person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Трайко Андреев Младенов"
+    },
+    {
+      "id": "person:ТЕОДОР БОРИСЛАВОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Теодор Бориславов Атанасов"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димитър Георгиев Георгиев"
+    },
+    {
+      "id": "person:СТЕФАН СИМЕОНОВ КРЪСТАНОВ",
+      "type": "person",
+      "label": "Стефан Симеонов Кръстанов"
+    },
+    {
+      "id": "person:ИВАН НИКИФОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Никифоров Иванов"
+    },
+    {
+      "id": "person:РОСЕН ПАВЛОВ КРУМОВ",
+      "type": "person",
+      "label": "Росен Павлов Крумов"
+    },
+    {
+      "id": "person:ДИМИТЪР ДАНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Данчев Иванов"
+    },
+    {
+      "id": "person:ДРАГОМИР КРАСИМИРОВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Драгомир Красимиров Карагьозов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-emilov-nenov-e8ab37",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЪЛЪБОВ БОРИСОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР БОРИСЛАВОВ АТАНАСОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР БОРИСЛАВОВ АТАНАСОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЪЛЪБОВ БОРИСОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СИМЕОНОВ КРЪСТАНОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКИФОРОВ ИВАНОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПАВЛОВ КРУМОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПАВЛОВ КРУМОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДАНЧЕВ ИВАНОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР КРАСИМИРОВ КАРАГЬОЗОВ",
+      "target": "company:tr:176385247",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

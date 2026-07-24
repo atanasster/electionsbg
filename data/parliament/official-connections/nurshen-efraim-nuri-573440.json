@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nurshen-efraim-nuri-573440",
+  "nodes": [
+    {
+      "id": "official:nurshen-efraim-nuri-573440",
+      "type": "official",
+      "slug": "nurshen-efraim-nuri-573440",
+      "label": "Нуршен Ефраим Нури",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000844864",
+      "type": "company",
+      "label": "НЧ &quot;СВ.СВ.КИРИЛ И МЕТОДИЙ-1900 ГОДИНА&quot;",
+      "slug": null,
+      "uic": "000844864",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЙСЕЛ ДЖЕВАТОВА ХАЛИЛ",
+      "type": "person",
+      "label": "Айсел Джеватова Халил"
+    },
+    {
+      "id": "person:БЕРОЛ АХМЕД АЛИ",
+      "type": "person",
+      "label": "Берол Ахмед Али"
+    },
+    {
+      "id": "person:СЮЗАН КЕМАЛ БЕЙТУЛА",
+      "type": "person",
+      "label": "Сюзан Кемал Бейтула"
+    },
+    {
+      "id": "person:ИСМАИЛ СЕВГИН САЛИ",
+      "type": "person",
+      "label": "Исмаил Севгин Сали"
+    },
+    {
+      "id": "person:БИЛЯНТ АЛИОСМАН КАРАНИ",
+      "type": "person",
+      "label": "Билянт Алиосман Карани"
+    },
+    {
+      "id": "person:КАДИР ИБРЯМ ЯКУБ",
+      "type": "person",
+      "label": "Кадир Ибрям Якуб"
+    },
+    {
+      "id": "person:АЙРИЕ РАСИМ КАРАНИЕВА",
+      "type": "person",
+      "label": "Айрие Расим Караниева"
+    },
+    {
+      "id": "person:СЕЛИМ САМЕДИН СЕЛИМ",
+      "type": "person",
+      "label": "Селим Самедин Селим"
+    },
+    {
+      "id": "person:АЙЧА АЙДЪН АДНЯН",
+      "type": "person",
+      "label": "Айча Айдън Аднян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nurshen-efraim-nuri-573440",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nurshen-efraim-nuri-573440",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙСЕЛ ДЖЕВАТОВА ХАЛИЛ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕРОЛ АХМЕД АЛИ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЮЗАН КЕМАЛ БЕЙТУЛА",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСМАИЛ СЕВГИН САЛИ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНТ АЛИОСМАН КАРАНИ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДИР ИБРЯМ ЯКУБ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙРИЕ РАСИМ КАРАНИЕВА",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИМ САМЕДИН СЕЛИМ",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЧА АЙДЪН АДНЯН",
+      "target": "company:tr:000844864",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

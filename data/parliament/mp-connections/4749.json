@@ -1,1 +1,105 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4749","nodes":[{"id":"mp:4749","type":"mp","mpId":4749,"label":"Мартин Николаев Харизанов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["48","49","50","51"]},{"id":"company:Врачански-лифт","type":"company","label":"Врачански лифт","slug":"Врачански-лифт","uic":"202912547","legalForm":"EOOD","status":"active","seat":"с. Згориград, общ. Враца"},{"id":"company:tr:206740130","type":"company","label":"ВРАЧАНОФИЛИ","slug":null,"uic":"206740130","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Враца, 3000"},{"id":"person:ВЛАДИМИР ЯНКОВ МИЛЕНКОВ","type":"person","label":"Владимир Янков Миленков"},{"id":"person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ","type":"person","label":"Николай Руменов Николов"}],"edges":[{"source":"mp:4749","target":"company:Врачански-лифт","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4749","target":"company:tr:206740130","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4749","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ЯНКОВ МИЛЕНКОВ","target":"company:tr:206740130","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЯНКОВ МИЛЕНКОВ","target":"company:tr:206740130","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4749",
+  "nodes": [
+    {
+      "id": "mp:4749",
+      "type": "mp",
+      "mpId": 4749,
+      "label": "Мартин Николаев Харизанов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Врачански-лифт",
+      "type": "company",
+      "label": "Врачански лифт",
+      "slug": "Врачански-лифт",
+      "uic": "202912547",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "с. Згориград, общ. Враца"
+    },
+    {
+      "id": "company:tr:206740130",
+      "type": "company",
+      "label": "ВРАЧАНОФИЛИ",
+      "slug": null,
+      "uic": "206740130",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Враца, 3000"
+    },
+    {
+      "id": "official:vladimir-yankov-milenkov-88bfdf",
+      "type": "official",
+      "slug": "vladimir-yankov-milenkov-88bfdf",
+      "label": "Владимир Янков Миленков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Руменов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4749",
+      "target": "company:Врачански-лифт",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4749",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4749",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-yankov-milenkov-88bfdf",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-yankov-milenkov-88bfdf",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "target": "company:tr:206740130",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

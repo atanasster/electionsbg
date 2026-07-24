@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:miroslav-slavov-spasov-a23e5f",
+  "nodes": [
+    {
+      "id": "official:miroslav-slavov-spasov-a23e5f",
+      "type": "official",
+      "slug": "miroslav-slavov-spasov-a23e5f",
+      "label": "Мирослав Славов Спасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карнобат"
+    },
+    {
+      "id": "company:tr:102694994",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ 2&quot;",
+      "slug": null,
+      "uic": "102694994",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2378",
+      "type": "mp",
+      "mpId": 2378,
+      "label": "Стефан Георгиев Кенов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Александър Христов Христов"
+    },
+    {
+      "id": "person:СТАНЧО СТОЯНОВ СТАНКОВ",
+      "type": "person",
+      "label": "Станчо Стоянов Станков"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ МАРЧЕВ МАРЧЕВ",
+      "type": "person",
+      "label": "Светослав Марчев Марчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЖЕКОВ КАБАДАИЕВ",
+      "type": "person",
+      "label": "Николай Жеков Кабадаиев"
+    },
+    {
+      "id": "person:НЕЖДЕТ АЛИАЙДИН МЕХМЕД",
+      "type": "person",
+      "label": "Неждет Алиайдин Мехмед"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИХАЙЛОВ КОЛИБАРОВ",
+      "type": "person",
+      "label": "Николай Михайлов Колибаров"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Георги Атанасов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-slavov-spasov-a23e5f",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2378",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО СТОЯНОВ СТАНКОВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ МАРЧЕВ МАРЧЕВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЖЕКОВ КАБАДАИЕВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЖДЕТ АЛИАЙДИН МЕХМЕД",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИХАЙЛОВ КОЛИБАРОВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ СТОЯНОВ",
+      "target": "company:tr:102694994",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatka-stoyanova-gospodinova-29f96a",
+  "nodes": [
+    {
+      "id": "official:zlatka-stoyanova-gospodinova-29f96a",
+      "type": "official",
+      "slug": "zlatka-stoyanova-gospodinova-29f96a",
+      "label": "Златка Стоянова Господинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000962752",
+      "type": "company",
+      "label": "ЧИТАЛИЩЕ &quot;СВ.СВ.КИРИЛ И МЕТОДИЙ-1894&quot;",
+      "slug": null,
+      "uic": "000962752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ БЕЛЕВ",
+      "type": "person",
+      "label": "Васил Иванов Белев"
+    },
+    {
+      "id": "person:ПЕПА ДИМОВА ТЕОДОСИЕВА",
+      "type": "person",
+      "label": "Пепа Димова Теодосиева"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ БАШАЕВ",
+      "type": "person",
+      "label": "Атанас Иванов Башаев"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ ДЮЛГЕРОВ",
+      "type": "person",
+      "label": "Христо Тодоров Дюлгеров"
+    },
+    {
+      "id": "person:МАРГАРИТА ПАНАЙОТОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Маргарита Панайотова Георгиева"
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Ваня Димитрова Василева"
+    },
+    {
+      "id": "person:КРАСИМИРА ВАСИЛЕВА ЯТАКЧИЕВА",
+      "type": "person",
+      "label": "Красимира Василева Ятакчиева"
+    },
+    {
+      "id": "person:ТРИФОН ЛАМБОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Трифон Ламбов Трифонов"
+    },
+    {
+      "id": "person:ИВАНКА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Иванка Василева Иванова"
+    },
+    {
+      "id": "person:АТАНАС НИКОЛОВ БАЕВ",
+      "type": "person",
+      "label": "Атанас Николов Баев"
+    },
+    {
+      "id": "person:КРАСИМИРА КИРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Красимира Кирова Атанасова"
+    },
+    {
+      "id": "person:ГЕРГАНА МИТКОВА СТОЕВА",
+      "type": "person",
+      "label": "Гергана Миткова Стоева"
+    },
+    {
+      "id": "person:ПЕНКА САВОВА КОЛЕВА",
+      "type": "person",
+      "label": "Пенка Савова Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatka-stoyanova-gospodinova-29f96a",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ БЕЛЕВ",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА ДИМОВА ТЕОДОСИЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ БАШАЕВ",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ ДЮЛГЕРОВ",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ПАНАЙОТОВА ГЕОРГИЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАСИЛЕВА ЯТАКЧИЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРИФОН ЛАМБОВ ТРИФОНОВ",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС НИКОЛОВ БАЕВ",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА КИРОВА АТАНАСОВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА МИТКОВА СТОЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА САВОВА КОЛЕВА",
+      "target": "company:tr:000962752",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

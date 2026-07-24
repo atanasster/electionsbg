@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:asya-ahmedova-imamska-752676",
+  "nodes": [
+    {
+      "id": "official:asya-ahmedova-imamska-752676",
+      "type": "official",
+      "slug": "asya-ahmedova-imamska-752676",
+      "label": "Ася Ахмедова Имамска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000609229",
+      "type": "company",
+      "label": "Народно читалище &quot;Назъм Хикмет - 1948 &quot;",
+      "slug": null,
+      "uic": "000609229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮМЮГЮЛ ДЖАМАЛОВА МЕВЛЮДОВА",
+      "type": "person",
+      "label": "Юмюгюл Джамалова Мевлюдова"
+    },
+    {
+      "id": "person:НАЗЛЪ МУСТАФА КАРААХМЕД",
+      "type": "person",
+      "label": "Назлъ Мустафа Караахмед"
+    },
+    {
+      "id": "person:НЕРМИН ШУКРИЕВА ПАЛАНГАЛИЕВА",
+      "type": "person",
+      "label": "Нермин Шукриева Палангалиева"
+    },
+    {
+      "id": "person:ГЮЛВЕР САЛИ ДУРАН-ЮСЕИН",
+      "type": "person",
+      "label": "Гюлвер Сали Дуран-Юсеин"
+    },
+    {
+      "id": "person:НЕДРЕТ АЛИ ЧАУШ-АЛИМАН",
+      "type": "person",
+      "label": "Недрет Али Чауш-Алиман"
+    },
+    {
+      "id": "person:АСЯ СТОЯНОВА КУЛЕВА",
+      "type": "person",
+      "label": "Ася Стоянова Кулева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asya-ahmedova-imamska-752676",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮМЮГЮЛ ДЖАМАЛОВА МЕВЛЮДОВА",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЗЛЪ МУСТАФА КАРААХМЕД",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМЮГЮЛ ДЖАМАЛОВА МЕВЛЮДОВА",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕРМИН ШУКРИЕВА ПАЛАНГАЛИЕВА",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛВЕР САЛИ ДУРАН-ЮСЕИН",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДРЕТ АЛИ ЧАУШ-АЛИМАН",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ СТОЯНОВА КУЛЕВА",
+      "target": "company:tr:000609229",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

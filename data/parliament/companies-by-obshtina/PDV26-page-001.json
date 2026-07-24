@@ -1,1 +1,59 @@
-{"obshtina":"PDV26","page":1,"totalPages":1,"count":3,"companies":[{"slug":"Родопски-пламък-2023г.-с.-Чурен","displayName":"\"Родопски пламък - 2023г.\" с. Чурен","registeredOffice":"БЪЛГАРИЯ, с. Чурен, 4226","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_representative","isCurrent":true},{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"trustee","isCurrent":true}]},{"slug":"ВиС-АГРО","displayName":"ВиС АГРО","registeredOffice":"БЪЛГАРИЯ, с. Крумово, 4112","mps":[{"mpId":3177,"mpName":"Тодор Василев Василев","role":"manager","isCurrent":true},{"mpId":3177,"mpName":"Тодор Василев Василев","role":"partner","isCurrent":true}]},{"slug":"СИ-КЕЙ-ДИ","displayName":"СИ КЕЙ ДИ","registeredOffice":"БЪЛГАРИЯ, с. Цалапица, 4218","mps":[{"mpId":4314,"mpName":"Деян Николаев Николов","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "PDV26",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "Родопски-пламък-2023г.-с.-Чурен",
+      "displayName": "\"Родопски пламък - 2023г.\" с. Чурен",
+      "registeredOffice": "БЪЛГАРИЯ, с. Чурен, 4226",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "trustee",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВиС-АГРО",
+      "displayName": "ВиС АГРО",
+      "registeredOffice": "БЪЛГАРИЯ, с. Крумово, 4112",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СИ-КЕЙ-ДИ",
+      "displayName": "СИ КЕЙ ДИ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Цалапица, 4218",
+      "mps": [
+        {
+          "mpId": 4314,
+          "mpName": "Деян Николаев Николов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

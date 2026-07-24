@@ -1,1 +1,150 @@
-{"obshtina":"SLS31","page":1,"totalPages":1,"count":10,"companies":[{"slug":"ИДА-2003","displayName":"ИДА -2003","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"manager","isCurrent":true},{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"sole_owner","isCurrent":true}]},{"slug":"Спаси-област-Силистра","displayName":"Спаси област Силистра","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_representative","isCurrent":true},{"mpId":3458,"mpName":"Петър Христов Димитров","role":"ngo_board","isCurrent":true}]},{"slug":"ДАЛИАН-8","displayName":"ДАЛИАН 8","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":2744,"mpName":"Диана Иванова Йорданова","role":"partner","isCurrent":true}]},{"slug":"ДЖОАНА-28","displayName":"ДЖОАНА 28","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":2744,"mpName":"Диана Иванова Йорданова","role":"partner","isCurrent":false}]},{"slug":"ДМС-ЕООД","displayName":"ДМС ЕООД","registeredOffice":"гр. Силистра","mps":[{"mpId":5133,"mpName":"МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ","role":"declared_stake","isCurrent":true}]},{"slug":"ИВ-Спед-ЕООД","displayName":"ИВ Спед ЕООД","registeredOffice":"гр. Силистра","mps":[{"mpId":5133,"mpName":"МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ","role":"declared_stake","isCurrent":true}]},{"slug":"КАРАТЕ-КЛУБ-ШОТО-ВИТЯЗ","displayName":"КАРАТЕ КЛУБ ШОТО-ВИТЯЗ","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":3373,"mpName":"Тодор Стаматов Тодоров","role":"ngo_board","isCurrent":true}]},{"slug":"МЕСТНА-ИНИЦИАТИВНА-РИБАРСКА-ГРУПА-СИТОВО-СИЛИСТРА","displayName":"МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА СИТОВО-СИЛИСТРА","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":2874,"mpName":"Александър Николаев Сабанов","role":"ngo_representative","isCurrent":true}]},{"slug":"СФ-ГРУП","displayName":"СФ ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Силистра, 7500","mps":[{"mpId":2874,"mpName":"Александър Николаев Сабанов","role":"actual_owner","isCurrent":false}]},{"slug":"ФУТБОЛЕН-КЛУБ-ДЮШ-СИЛИСТРА-2025","displayName":"ФУТБОЛЕН КЛУБ ДЮШ СИЛИСТРА 2025","registeredOffice":"БЪЛГАРИЯ, с. Калипетрово, 7539","mps":[{"mpId":4137,"mpName":"Гюнер Нихат Ахмед","role":"ngo_board","isCurrent":true}]}]}
+{
+  "obshtina": "SLS31",
+  "page": 1,
+  "totalPages": 1,
+  "count": 10,
+  "companies": [
+    {
+      "slug": "ДМС-ЕООД",
+      "displayName": "ДМС ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИВ-Спед-ЕООД",
+      "displayName": "ИВ Спед ЕООД",
+      "registeredOffice": "гр. Силистра",
+      "mps": [
+        {
+          "mpId": 5133,
+          "mpName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИДА-2003",
+      "displayName": "ИДА -2003",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Спаси-област-Силистра",
+      "displayName": "Спаси област Силистра",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3458,
+          "mpName": "Петър Христов Димитров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДАЛИАН-8",
+      "displayName": "ДАЛИАН 8",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 2744,
+          "mpName": "Диана Иванова Йорданова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДЖОАНА-28",
+      "displayName": "ДЖОАНА 28",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 2744,
+          "mpName": "Диана Иванова Йорданова",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "КАРАТЕ-КЛУБ-ШОТО-ВИТЯЗ",
+      "displayName": "КАРАТЕ КЛУБ ШОТО-ВИТЯЗ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 3373,
+          "mpName": "Тодор Стаматов Тодоров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МЕСТНА-ИНИЦИАТИВНА-РИБАРСКА-ГРУПА-СИТОВО-СИЛИСТРА",
+      "displayName": "МЕСТНА ИНИЦИАТИВНА РИБАРСКА ГРУПА СИТОВО-СИЛИСТРА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 2874,
+          "mpName": "Александър Николаев Сабанов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СФ-ГРУП",
+      "displayName": "СФ ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Силистра, 7500",
+      "mps": [
+        {
+          "mpId": 2874,
+          "mpName": "Александър Николаев Сабанов",
+          "role": "actual_owner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ФУТБОЛЕН-КЛУБ-ДЮШ-СИЛИСТРА-2025",
+      "displayName": "ФУТБОЛЕН КЛУБ ДЮШ СИЛИСТРА 2025",
+      "registeredOffice": "БЪЛГАРИЯ, с. Калипетрово, 7539",
+      "mps": [
+        {
+          "mpId": 4137,
+          "mpName": "Гюнер Нихат Ахмед",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

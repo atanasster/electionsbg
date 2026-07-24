@@ -1,0 +1,325 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yusein-shaban-mehmed-49b789",
+  "nodes": [
+    {
+      "id": "official:yusein-shaban-mehmed-49b789",
+      "type": "official",
+      "slug": "yusein-shaban-mehmed-49b789",
+      "label": "Юсеин Шабан Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Черноочене"
+    },
+    {
+      "id": "company:tr:108508496",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ КЪРДЖАЛИ",
+      "slug": null,
+      "uic": "108508496",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-rusev-angelov-67714b",
+      "type": "official",
+      "slug": "georgi-rusev-angelov-67714b",
+      "label": "Георги Русев Ангелов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "person:ХАЛИМ БАСРИ РЮСТЕМ",
+      "type": "person",
+      "label": "Халим Басри Рюстем"
+    },
+    {
+      "id": "person:ХАКЪ РЕШАД МЕХМЕД",
+      "type": "person",
+      "label": "Хакъ Решад Мехмед"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Христо Иванов Петров"
+    },
+    {
+      "id": "person:НЕДЖМИ МУСТАФОВ МУСТАФОВ",
+      "type": "person",
+      "label": "Неджми Мустафов Мустафов"
+    },
+    {
+      "id": "person:ТРАЯН ЙОРДАНОВ БАБУНСКИ",
+      "type": "person",
+      "label": "Траян Йорданов Бабунски"
+    },
+    {
+      "id": "person:МИХАИЛ МИНЕВ МИХАЛЕВ",
+      "type": "person",
+      "label": "Михаил Минев Михалев"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИМОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Пламен Димов Петков"
+    },
+    {
+      "id": "person:РАИФ РАМАДАН ЕМИН",
+      "type": "person",
+      "label": "Раиф Рамадан Емин"
+    },
+    {
+      "id": "person:ЮКСЕЛ ХАМДИ АДЕМ",
+      "type": "person",
+      "label": "Юксел Хамди Адем"
+    },
+    {
+      "id": "person:ЯНКО ТОДОРОВ ДИМОВ",
+      "type": "person",
+      "label": "Янко Тодоров Димов"
+    },
+    {
+      "id": "person:МИТКО НИКОЛОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Митко Николов Петров"
+    },
+    {
+      "id": "person:МЕХМЕД БАЙРЯМ ХАЙРУЛА",
+      "type": "person",
+      "label": "Мехмед Байрям Хайрула"
+    },
+    {
+      "id": "person:ДИМИТЪР ДЕЛЧЕВ МИТРЕВ",
+      "type": "person",
+      "label": "Димитър Делчев Митрев"
+    },
+    {
+      "id": "person:ГЕОРГИ АНАСТАСОВ ШЕРЕМЕТЕВ",
+      "type": "person",
+      "label": "Георги Анастасов Шереметев"
+    },
+    {
+      "id": "person:АНТОН СЕРГЕЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Антон Сергеев Димитров"
+    },
+    {
+      "id": "person:ВАСИЛ ТОМОВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Васил Томов Дончев"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Иван Димитров Митев"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ЧАНКОВ",
+      "type": "person",
+      "label": "Иван Димитров Чанков"
+    },
+    {
+      "id": "person:ДИМО СТОЙКОВ СОТИРОВ",
+      "type": "person",
+      "label": "Димо Стойков Сотиров"
+    },
+    {
+      "id": "person:ЕМИН ШЮКРИ МУРАД",
+      "type": "person",
+      "label": "Емин Шюкри Мурад"
+    },
+    {
+      "id": "person:ЕРГЮН ЕМРУЛА МЕХМЕД",
+      "type": "person",
+      "label": "Ергюн Емрула Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yusein-shaban-mehmed-49b789",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-rusev-angelov-67714b",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАЛИМ БАСРИ РЮСТЕМ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАКЪ РЕШАД МЕХМЕД",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЖМИ МУСТАФОВ МУСТАФОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯН ЙОРДАНОВ БАБУНСКИ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ МИНЕВ МИХАЛЕВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМОВ ПЕТКОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАИФ РАМАДАН ЕМИН",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮКСЕЛ ХАМДИ АДЕМ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ТОДОРОВ ДИМОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО НИКОЛОВ ПЕТРОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД БАЙРЯМ ХАЙРУЛА",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДЕЛЧЕВ МИТРЕВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АНАСТАСОВ ШЕРЕМЕТЕВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН СЕРГЕЕВ ДИМИТРОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ТОМОВ ДОНЧЕВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ЧАНКОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО СТОЙКОВ СОТИРОВ",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИН ШЮКРИ МУРАД",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРГЮН ЕМРУЛА МЕХМЕД",
+      "target": "company:tr:108508496",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stoyan-andreev-stoyanov-3639c0",
+  "nodes": [
+    {
+      "id": "official:stoyan-andreev-stoyanov-3639c0",
+      "type": "official",
+      "slug": "stoyan-andreev-stoyanov-3639c0",
+      "label": "Стоян Андреев Стоянов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203989443",
+      "type": "company",
+      "label": "Вива инвест-Варна",
+      "slug": null,
+      "uic": "203989443",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-andreev-stoyanov-3639c0",
+      "target": "company:tr:203989443",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

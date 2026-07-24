@@ -1,1 +1,220 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:836","nodes":[{"id":"mp:836","type":"mp","mpId":836,"label":"Атанас Станкев Камбитов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:203332045","type":"company","label":"СТАРТ 2015","slug":null,"uic":"203332045","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:208484968","type":"company","label":"АКгруп Инвест","slug":null,"uic":"208484968","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:tr:208484950","type":"company","label":"АКгруп Пропърти","slug":null,"uic":"208484950","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:tr:208384398","type":"company","label":"МАУНТИН ФЛАУЪР 2025","slug":null,"uic":"208384398","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:tr:208280111","type":"company","label":"ПАРК ИНВЕСТ 2025","slug":null,"uic":"208280111","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:tr:206733405","type":"company","label":"МАУНТИН ФЛАУЪР","slug":null,"uic":"206733405","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"person:ПАВЕЛ ИВАНОВ БЕЛЕВ","type":"person","label":"Павел Иванов Белев"},{"id":"person:МАУНТИН ФЛАУЪР","type":"person","label":"Маунтин Флауър"},{"id":"person:БЕЛЕВИ ИНВЕСТ 24","type":"person","label":"Белеви Инвест 24"},{"id":"person:СТАРТ ГРУП 2020","type":"person","label":"Старт Груп 2020"},{"id":"person:МИХАИЛ ЙОРДАНОВ КАМБИТОВ","type":"person","label":"Михаил Йорданов Камбитов"},{"id":"person:СТАРТ ГРУП 2022","type":"person","label":"Старт  Груп 2022"}],"edges":[{"source":"mp:836","target":"company:tr:203332045","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208484968","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208484968","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208484950","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208484950","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208384398","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:208280111","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:836","target":"company:tr:206733405","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ПАВЕЛ ИВАНОВ БЕЛЕВ","target":"company:tr:208384398","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАУНТИН ФЛАУЪР","target":"company:tr:208384398","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БЕЛЕВИ ИНВЕСТ 24","target":"company:tr:208384398","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТАРТ ГРУП 2020","target":"company:tr:208280111","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ ЙОРДАНОВ КАМБИТОВ","target":"company:tr:206733405","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТАРТ ГРУП 2022","target":"company:tr:206733405","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:836",
+  "nodes": [
+    {
+      "id": "mp:836",
+      "type": "mp",
+      "mpId": 836,
+      "label": "Атанас Станкев Камбитов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:203332045",
+      "type": "company",
+      "label": "СТАРТ 2015",
+      "slug": null,
+      "uic": "203332045",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208484968",
+      "type": "company",
+      "label": "АКгруп Инвест",
+      "slug": null,
+      "uic": "208484968",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:208484950",
+      "type": "company",
+      "label": "АКгруп Пропърти",
+      "slug": null,
+      "uic": "208484950",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:208384398",
+      "type": "company",
+      "label": "МАУНТИН ФЛАУЪР 2025",
+      "slug": null,
+      "uic": "208384398",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:208280111",
+      "type": "company",
+      "label": "ПАРК ИНВЕСТ 2025",
+      "slug": null,
+      "uic": "208280111",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:206733405",
+      "type": "company",
+      "label": "МАУНТИН ФЛАУЪР",
+      "slug": null,
+      "uic": "206733405",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "person:ПАВЕЛ ИВАНОВ БЕЛЕВ",
+      "type": "person",
+      "label": "Павел Иванов Белев"
+    },
+    {
+      "id": "person:МАУНТИН ФЛАУЪР",
+      "type": "person",
+      "label": "Маунтин Флауър"
+    },
+    {
+      "id": "person:БЕЛЕВИ ИНВЕСТ 24",
+      "type": "person",
+      "label": "Белеви Инвест 24"
+    },
+    {
+      "id": "person:СТАРТ ГРУП 2020",
+      "type": "person",
+      "label": "Старт Груп 2020"
+    },
+    {
+      "id": "person:МИХАИЛ ЙОРДАНОВ КАМБИТОВ",
+      "type": "person",
+      "label": "Михаил Йорданов Камбитов"
+    },
+    {
+      "id": "person:СТАРТ ГРУП 2022",
+      "type": "person",
+      "label": "Старт  Груп 2022"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:836",
+      "target": "company:tr:203332045",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208484968",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208484968",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208484950",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208484950",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208384398",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:208280111",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:836",
+      "target": "company:tr:206733405",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЕЛ ИВАНОВ БЕЛЕВ",
+      "target": "company:tr:208384398",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАУНТИН ФЛАУЪР",
+      "target": "company:tr:208384398",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЛЕВИ ИНВЕСТ 24",
+      "target": "company:tr:208384398",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАРТ ГРУП 2020",
+      "target": "company:tr:208280111",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ЙОРДАНОВ КАМБИТОВ",
+      "target": "company:tr:206733405",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАРТ ГРУП 2022",
+      "target": "company:tr:206733405",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

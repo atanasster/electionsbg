@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ani-aleksandrova-aleksandrova-naidenova-41dc9d",
+  "nodes": [
+    {
+      "id": "official:ani-aleksandrova-aleksandrova-naidenova-41dc9d",
+      "type": "official",
+      "slug": "ani-aleksandrova-aleksandrova-naidenova-41dc9d",
+      "label": "Ани Александрова Александрова-Найденова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203139975",
+      "type": "company",
+      "label": "Бизнес Клуб ЕООД",
+      "slug": null,
+      "uic": "203139975",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ МИЛЧОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Емил Милчов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ani-aleksandrova-aleksandrova-naidenova-41dc9d",
+      "target": "company:tr:203139975",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИЛЧОВ СТОЯНОВ",
+      "target": "company:tr:203139975",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИЛЧОВ СТОЯНОВ",
+      "target": "company:tr:203139975",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

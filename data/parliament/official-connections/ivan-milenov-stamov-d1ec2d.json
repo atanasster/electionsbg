@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-milenov-stamov-d1ec2d",
+  "nodes": [
+    {
+      "id": "official:ivan-milenov-stamov-d1ec2d",
+      "type": "official",
+      "slug": "ivan-milenov-stamov-d1ec2d",
+      "label": "Иван Миленов Стамов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:128616440",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ&quot;БЕНКОВСКИ&quot; - с.ЗИМНИЦА",
+      "slug": null,
+      "uic": "128616440",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕН ИВАНОВ СТАМОВ",
+      "type": "person",
+      "label": "Милен Иванов Стамов"
+    },
+    {
+      "id": "person:ЙОРДАН АТАНАСОВ ДАНЕВ",
+      "type": "person",
+      "label": "Йордан Атанасов Данев"
+    },
+    {
+      "id": "person:ТЕНЬО СТЕФАНОВ ТЕНЕВ",
+      "type": "person",
+      "label": "Теньо Стефанов Тенев"
+    },
+    {
+      "id": "person:НЕДЕЛЧО ВАСИЛЕВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Неделчо Василев Неделчев"
+    },
+    {
+      "id": "person:МИНКО ЕДРЕВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Минко Едрев Великов"
+    },
+    {
+      "id": "person:ПЛАМЕН СТЕФАНОВ ДЕЧЕВ",
+      "type": "person",
+      "label": "Пламен Стефанов Дечев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-milenov-stamov-d1ec2d",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ СТАМОВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АТАНАСОВ ДАНЕВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕНЬО СТЕФАНОВ ТЕНЕВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ВАСИЛЕВ НЕДЕЛЧЕВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО ЕДРЕВ ВЕЛИКОВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТЕФАНОВ ДЕЧЕВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ВАСИЛЕВ НЕДЕЛЧЕВ",
+      "target": "company:tr:128616440",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

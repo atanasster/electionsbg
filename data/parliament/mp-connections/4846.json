@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4846","nodes":[{"id":"mp:4846","type":"mp","mpId":4846,"label":"Павлин Иванов Найденов","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["51"]},{"id":"company:Буллакто-ООД","type":"company","label":"Буллакто ООД","slug":"Буллакто-ООД","uic":"205347665","legalForm":"OOD","status":"active","seat":"гр.София1618, ул.Мур15"},{"id":"company:Глобал-Груп-Еко-ЕООД","type":"company","label":"Глобал Груп Еко ЕООД","slug":"Глобал-Груп-Еко-ЕООД","uic":"130378264","legalForm":"EOOD","status":"active","seat":"гр.София1619, ул.Всеволод Гаршин 8"},{"id":"person:ПЛАМЕНА ЛЮБЧОВА НАЙДЕНОВА","type":"person","label":"Пламена Любчова Найденова"}],"edges":[{"source":"mp:4846","target":"company:Буллакто-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4846","target":"company:Глобал-Груп-Еко-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕНА ЛЮБЧОВА НАЙДЕНОВА","target":"company:Глобал-Груп-Еко-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4846",
+  "nodes": [
+    {
+      "id": "mp:4846",
+      "type": "mp",
+      "mpId": 4846,
+      "label": "Павлин Иванов Найденов",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:Буллакто-ООД",
+      "type": "company",
+      "label": "Буллакто ООД",
+      "slug": "Буллакто-ООД",
+      "uic": "205347665",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "гр.София1618, ул.Мур15"
+    },
+    {
+      "id": "company:Глобал-Груп-Еко-ЕООД",
+      "type": "company",
+      "label": "Глобал Груп Еко ЕООД",
+      "slug": "Глобал-Груп-Еко-ЕООД",
+      "uic": "130378264",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "гр.София1619, ул.Всеволод Гаршин 8"
+    },
+    {
+      "id": "person:ПЛАМЕНА ЛЮБЧОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Пламена Любчова Найденова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4846",
+      "target": "company:Буллакто-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4846",
+      "target": "company:Глобал-Груп-Еко-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА ЛЮБЧОВА НАЙДЕНОВА",
+      "target": "company:Глобал-Груп-Еко-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

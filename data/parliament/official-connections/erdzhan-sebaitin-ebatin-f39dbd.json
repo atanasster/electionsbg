@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:erdzhan-sebaitin-ebatin-f39dbd",
+  "nodes": [
+    {
+      "id": "official:erdzhan-sebaitin-ebatin-f39dbd",
+      "type": "official",
+      "slug": "erdzhan-sebaitin-ebatin-f39dbd",
+      "label": "Ерджан Себайтин Ебатин",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175468455",
+      "type": "company",
+      "label": "БЪЛГАРСКИ НАЦИОНАЛЕН КИНОЛОЖКИ КЛУБ КАВКАЗКА ОВЧАРКА",
+      "slug": null,
+      "uic": "175468455",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1574"
+    },
+    {
+      "id": "mp:3865",
+      "type": "mp",
+      "mpId": 3865,
+      "label": "Ерджан Себайтин Ебатин",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "person:ТОДОР ПЕНЧЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Пенчев Тодоров"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА АНТОНОВА ТЕЛЛАЛОВА",
+      "type": "person",
+      "label": "Десислава Антонова Теллалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:erdzhan-sebaitin-ebatin-f39dbd",
+      "target": "company:tr:175468455",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3865",
+      "target": "company:tr:175468455",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3865",
+      "target": "company:tr:175468455",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ПЕНЧЕВ ТОДОРОВ",
+      "target": "company:tr:175468455",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА АНТОНОВА ТЕЛЛАЛОВА",
+      "target": "company:tr:175468455",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

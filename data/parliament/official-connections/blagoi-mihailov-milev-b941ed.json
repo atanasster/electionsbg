@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:blagoi-mihailov-milev-b941ed",
+  "nodes": [
+    {
+      "id": "official:blagoi-mihailov-milev-b941ed",
+      "type": "official",
+      "slug": "blagoi-mihailov-milev-b941ed",
+      "label": "Благой Михайлов Милев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201627506",
+      "type": "company",
+      "label": "ЮГОЗАПАДНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "slug": null,
+      "uic": "201627506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:damyan-iliev-damyanov-6206fa",
+      "type": "official",
+      "slug": "damyan-iliev-damyanov-6206fa",
+      "label": "Дамян Илиев Дамянов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН КОСТАДИНОВ ЧАМБОВ",
+      "type": "person",
+      "label": "Валентин Костадинов Чамбов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:blagoi-mihailov-milev-b941ed",
+      "target": "company:tr:201627506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:damyan-iliev-damyanov-6206fa",
+      "target": "company:tr:201627506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КОСТАДИНОВ ЧАМБОВ",
+      "target": "company:tr:201627506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

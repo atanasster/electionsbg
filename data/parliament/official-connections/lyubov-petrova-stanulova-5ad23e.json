@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubov-petrova-stanulova-5ad23e",
+  "nodes": [
+    {
+      "id": "official:lyubov-petrova-stanulova-5ad23e",
+      "type": "official",
+      "slug": "lyubov-petrova-stanulova-5ad23e",
+      "label": "Любов Петрова Станулова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златица"
+    },
+    {
+      "id": "company:tr:205465702",
+      "type": "company",
+      "label": "Инър Уил клуб Пирдоп",
+      "slug": null,
+      "uic": "205465702",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИНА ЗАХАРИЕВА ПЕТКОВА-ФИЛИПОВА",
+      "type": "person",
+      "label": "Нелина Захариева Петкова-Филипова"
+    },
+    {
+      "id": "person:ИЛИНКА ИВАНОВА ГАНЧЕВА",
+      "type": "person",
+      "label": "Илинка Иванова Ганчева"
+    },
+    {
+      "id": "person:ЕВГЕНИЯ ЗАХАРИЕВА ПЕТКОВА-ВЕЛКОВА",
+      "type": "person",
+      "label": "Евгения Захариева Петкова-Велкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubov-petrova-stanulova-5ad23e",
+      "target": "company:tr:205465702",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИНА ЗАХАРИЕВА ПЕТКОВА-ФИЛИПОВА",
+      "target": "company:tr:205465702",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИНА ЗАХАРИЕВА ПЕТКОВА-ФИЛИПОВА",
+      "target": "company:tr:205465702",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНКА ИВАНОВА ГАНЧЕВА",
+      "target": "company:tr:205465702",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЯ ЗАХАРИЕВА ПЕТКОВА-ВЕЛКОВА",
+      "target": "company:tr:205465702",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

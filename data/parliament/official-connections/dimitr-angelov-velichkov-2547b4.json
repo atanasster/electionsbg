@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-angelov-velichkov-2547b4",
+  "nodes": [
+    {
+      "id": "official:dimitr-angelov-velichkov-2547b4",
+      "type": "official",
+      "slug": "dimitr-angelov-velichkov-2547b4",
+      "label": "Димитър Ангелов Величков",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203789987",
+      "type": "company",
+      "label": "МЛ-ПЛЮС",
+      "slug": null,
+      "uic": "203789987",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА АНГЕЛОВА ВЕЛИЧКОВА-ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Лиляна Ангелова Величкова-Вълчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-angelov-velichkov-2547b4",
+      "target": "company:tr:203789987",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА АНГЕЛОВА ВЕЛИЧКОВА-ВЪЛЧЕВА",
+      "target": "company:tr:203789987",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА АНГЕЛОВА ВЕЛИЧКОВА-ВЪЛЧЕВА",
+      "target": "company:tr:203789987",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

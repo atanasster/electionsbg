@@ -1,1 +1,50 @@
-{"mpId":112,"mpName":"Силвия Николаева Алексиева","generatedAt":"2026-07-03T11:12:51.412Z","total":3,"roles":[{"uic":"208295654","companyName":"ЗВЕЗДНА РЕАЛНОСТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1231","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-05-07T16:28:56","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208295654","companyName":"ЗВЕЗДНА РЕАЛНОСТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1231","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-05-07T16:28:56","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"117010060","companyName":"ЕУРОПАПИР-БЪЛГАРИЯ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2024-06-10T13:30:19","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 112,
+  "mpName": "Силвия Николаева Алексиева",
+  "generatedAt": "2026-07-24T03:35:58.176Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "208295654",
+      "companyName": "ЗВЕЗДНА РЕАЛНОСТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1231",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-05-07T16:28:56",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208295654",
+      "companyName": "ЗВЕЗДНА РЕАЛНОСТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1231",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-05-07T16:28:56",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "117010060",
+      "companyName": "ЕУРОПАПИР-БЪЛГАРИЯ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-06-10T13:30:19",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-nikolov-vaisilov-767eee",
+  "nodes": [
+    {
+      "id": "official:georgi-nikolov-vaisilov-767eee",
+      "type": "official",
+      "slug": "georgi-nikolov-vaisilov-767eee",
+      "label": "Георги Николов Вайсилов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208513220",
+      "type": "company",
+      "label": "ФОНДАЦИЯ КОНЧЕРТО АНТИКО",
+      "slug": null,
+      "uic": "208513220",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-nikolov-vaisilov-767eee",
+      "target": "company:tr:208513220",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-nikolov-vaisilov-767eee",
+      "target": "company:tr:208513220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

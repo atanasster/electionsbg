@@ -1,1 +1,83 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1553","nodes":[{"id":"mp:1553","type":"mp","mpId":1553,"label":"Димитър Василев Аврамов","partyGroupShort":"КП ББЦ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207138785","type":"company","label":"МА Корпорейшън","slug":null,"uic":"207138785","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:МОМЧИЛ ДИМИТРОВ АВРАМОВ","type":"person","label":"Момчил Димитров Аврамов"},{"id":"person:КАЛИНА ПЕЙЧЕВА МИЛАНОВА","type":"person","label":"Калина Пейчева Миланова"},{"id":"person:МДА ФИНАНС","type":"person","label":"Мда Финанс"}],"edges":[{"source":"mp:1553","target":"company:tr:207138785","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:МОМЧИЛ ДИМИТРОВ АВРАМОВ","target":"company:tr:207138785","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МОМЧИЛ ДИМИТРОВ АВРАМОВ","target":"company:tr:207138785","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ПЕЙЧЕВА МИЛАНОВА","target":"company:tr:207138785","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МДА ФИНАНС","target":"company:tr:207138785","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1553",
+  "nodes": [
+    {
+      "id": "mp:1553",
+      "type": "mp",
+      "mpId": 1553,
+      "label": "Димитър Василев Аврамов",
+      "partyGroupShort": "КП ББЦ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207138785",
+      "type": "company",
+      "label": "МА Корпорейшън",
+      "slug": null,
+      "uic": "207138785",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:МОМЧИЛ ДИМИТРОВ АВРАМОВ",
+      "type": "person",
+      "label": "Момчил Димитров Аврамов"
+    },
+    {
+      "id": "person:КАЛИНА ПЕЙЧЕВА МИЛАНОВА",
+      "type": "person",
+      "label": "Калина Пейчева Миланова"
+    },
+    {
+      "id": "person:МДА ФИНАНС",
+      "type": "person",
+      "label": "Мда Финанс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1553",
+      "target": "company:tr:207138785",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МОМЧИЛ ДИМИТРОВ АВРАМОВ",
+      "target": "company:tr:207138785",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОМЧИЛ ДИМИТРОВ АВРАМОВ",
+      "target": "company:tr:207138785",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ПЕЙЧЕВА МИЛАНОВА",
+      "target": "company:tr:207138785",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МДА ФИНАНС",
+      "target": "company:tr:207138785",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

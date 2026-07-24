@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:oleg-dimitrov-asenov-2a91d1",
+  "nodes": [
+    {
+      "id": "official:oleg-dimitrov-asenov-2a91d1",
+      "type": "official",
+      "slug": "oleg-dimitrov-asenov-2a91d1",
+      "label": "Олег Димитров Асенов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200094425",
+      "type": "company",
+      "label": "ИНДУСТРИАЛНИ СИСТЕМИ ЗА СИГУРНОСТ",
+      "slug": null,
+      "uic": "200094425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР АСЕНОВ АНЕВ",
+      "type": "person",
+      "label": "Димитър Асенов Анев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:oleg-dimitrov-asenov-2a91d1",
+      "target": "company:tr:200094425",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР АСЕНОВ АНЕВ",
+      "target": "company:tr:200094425",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АСЕНОВ АНЕВ",
+      "target": "company:tr:200094425",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

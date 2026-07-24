@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:greta-dimitrova-naidenova-398ea3",
+  "nodes": [
+    {
+      "id": "official:greta-dimitrova-naidenova-398ea3",
+      "type": "official",
+      "slug": "greta-dimitrova-naidenova-398ea3",
+      "label": "Грета Димитрова Найденова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208865638",
+      "type": "company",
+      "label": "ИВ ГЛОУ",
+      "slug": null,
+      "uic": "208865638",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИС ДИМИТРОВ ГЕНЕВ",
+      "type": "person",
+      "label": "Денис Димитров Генев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:greta-dimitrova-naidenova-398ea3",
+      "target": "company:tr:208865638",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНИС ДИМИТРОВ ГЕНЕВ",
+      "target": "company:tr:208865638",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

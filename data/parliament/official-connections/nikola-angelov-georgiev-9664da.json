@@ -1,1 +1,60 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nikola-angelov-georgiev-9664da","nodes":[{"id":"official:nikola-angelov-georgiev-9664da","type":"official","slug":"nikola-angelov-georgiev-9664da","label":"Никола Ангелов Георгиев","tier":"municipal","role":"councillor","municipality":"Симеоновград"},{"id":"company:tr:206722075","type":"company","label":"ВЕЛИ ТРЕЙД 22","slug":null,"uic":"206722075","legalForm":null,"status":null,"seat":null},{"id":"person:МАРИЯ ВИЧЕВА ГЕОРГИЕВА","type":"person","label":"Мария Вичева Георгиева"}],"edges":[{"source":"official:nikola-angelov-georgiev-9664da","target":"company:tr:206722075","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ ВИЧЕВА ГЕОРГИЕВА","target":"company:tr:206722075","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ВИЧЕВА ГЕОРГИЕВА","target":"company:tr:206722075","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikola-angelov-georgiev-9664da",
+  "nodes": [
+    {
+      "id": "official:nikola-angelov-georgiev-9664da",
+      "type": "official",
+      "slug": "nikola-angelov-georgiev-9664da",
+      "label": "Никола Ангелов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симеоновград"
+    },
+    {
+      "id": "company:tr:206722075",
+      "type": "company",
+      "label": "ВЕЛИ ТРЕЙД 22",
+      "slug": null,
+      "uic": "206722075",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-vicheva-georgieva-ee1c32",
+      "type": "official",
+      "slug": "mariya-vicheva-georgieva-ee1c32",
+      "label": "Мария Вичева Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-angelov-georgiev-9664da",
+      "target": "company:tr:206722075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-vicheva-georgieva-ee1c32",
+      "target": "company:tr:206722075",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-vicheva-georgieva-ee1c32",
+      "target": "company:tr:206722075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

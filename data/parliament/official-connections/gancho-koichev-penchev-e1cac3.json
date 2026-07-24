@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gancho-koichev-penchev-e1cac3",
+  "nodes": [
+    {
+      "id": "official:gancho-koichev-penchev-e1cac3",
+      "type": "official",
+      "slug": "gancho-koichev-penchev-e1cac3",
+      "label": "Ганчо Койчев Пенчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:812108739",
+      "type": "company",
+      "label": "АЙТОС - АВТОТРАНСПОРТ",
+      "slug": null,
+      "uic": "812108739",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gancho-koichev-penchev-e1cac3",
+      "target": "company:tr:812108739",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

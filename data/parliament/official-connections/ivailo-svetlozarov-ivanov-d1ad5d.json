@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-svetlozarov-ivanov-d1ad5d",
+  "nodes": [
+    {
+      "id": "official:ivailo-svetlozarov-ivanov-d1ad5d",
+      "type": "official",
+      "slug": "ivailo-svetlozarov-ivanov-d1ad5d",
+      "label": "Ивайло Светлозаров Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Роман"
+    },
+    {
+      "id": "company:tr:106612521",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;ИСКЪР 1923&quot;",
+      "slug": null,
+      "uic": "106612521",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ НИНОВ",
+      "type": "person",
+      "label": "Иван Христов Нинов"
+    },
+    {
+      "id": "person:ЦВЕТОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Цветомир Димитров Димитров"
+    },
+    {
+      "id": "person:ВАЛЕРИ ВРЪБЧЕВ ЖИВКОВ",
+      "type": "person",
+      "label": "Валери Връбчев Живков"
+    },
+    {
+      "id": "person:ТЕОДОР МАРИНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Теодор Маринов Лазаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-svetlozarov-ivanov-d1ad5d",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ НИНОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВРЪБЧЕВ ЖИВКОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР МАРИНОВ ЛАЗАРОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ НИНОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:106612521",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

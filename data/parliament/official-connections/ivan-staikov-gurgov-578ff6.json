@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-staikov-gurgov-578ff6",
+  "nodes": [
+    {
+      "id": "official:ivan-staikov-gurgov-578ff6",
+      "type": "official",
+      "slug": "ivan-staikov-gurgov-578ff6",
+      "label": "Иван Стайков Гургов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102860697",
+      "type": "company",
+      "label": "юсси оод",
+      "slug": null,
+      "uic": "102860697",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-staikov-gurgov-c259de",
+      "type": "official",
+      "slug": "ivan-staikov-gurgov-c259de",
+      "label": "Иван Стайков Гургов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "person:ЮЛИЯ СТАЙКОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Юлия Стайкова Александрова"
+    },
+    {
+      "id": "person:ИВАН СТАЙКОВ ГУРГОВ",
+      "type": "person",
+      "label": "Иван Стайков Гургов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-staikov-gurgov-578ff6",
+      "target": "company:tr:102860697",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-staikov-gurgov-c259de",
+      "target": "company:tr:102860697",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ СТАЙКОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:102860697",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТАЙКОВ ГУРГОВ",
+      "target": "company:tr:102860697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ СТАЙКОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:102860697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:neshe-mahmud-ismail-3a4088",
+  "nodes": [
+    {
+      "id": "official:neshe-mahmud-ismail-3a4088",
+      "type": "official",
+      "slug": "neshe-mahmud-ismail-3a4088",
+      "label": "Неше Махмуд Исмаил",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000500297",
+      "type": "company",
+      "label": "РАЗВИТИЕ-1927",
+      "slug": null,
+      "uic": "000500297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАМИС ГАФУР РАМИС",
+      "type": "person",
+      "label": "Рамис Гафур Рамис"
+    },
+    {
+      "id": "person:РУВЕЙДЕ АХМЕД ТАТАР",
+      "type": "person",
+      "label": "Рувейде Ахмед Татар"
+    },
+    {
+      "id": "person:САДИФЕ МЕХМЕДОВА РЕДЖЕБОВА",
+      "type": "person",
+      "label": "Садифе Мехмедова Реджебова"
+    },
+    {
+      "id": "person:РЕСМИЕ ФЕЙЗУЛА ЮСЕИН",
+      "type": "person",
+      "label": "Ресмие Фейзула Юсеин"
+    },
+    {
+      "id": "person:АЙШЕ ХАЛИМ КЕРИМ",
+      "type": "person",
+      "label": "Айше Халим Керим"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neshe-mahmud-ismail-3a4088",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАМИС ГАФУР РАМИС",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУВЕЙДЕ АХМЕД ТАТАР",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САДИФЕ МЕХМЕДОВА РЕДЖЕБОВА",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕСМИЕ ФЕЙЗУЛА ЮСЕИН",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ХАЛИМ КЕРИМ",
+      "target": "company:tr:000500297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

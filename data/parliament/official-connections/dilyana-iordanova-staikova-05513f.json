@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dilyana-iordanova-staikova-05513f",
+  "nodes": [
+    {
+      "id": "official:dilyana-iordanova-staikova-05513f",
+      "type": "official",
+      "slug": "dilyana-iordanova-staikova-05513f",
+      "label": "Диляна Йорданова Стайкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119505010",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПАЗАРИ-Н.З.",
+      "slug": null,
+      "uic": "119505010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyana-iordanova-staikova-05513f",
+      "target": "company:tr:119505010",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

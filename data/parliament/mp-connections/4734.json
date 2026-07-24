@@ -1,1 +1,683 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4734","nodes":[{"id":"mp:4734","type":"mp","mpId":4734,"label":"Бранимир Николаев Балачев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["47","48","49","50","51"]},{"id":"company:Адвокатско-дружество-Балачев-и-Ко","type":"company","label":"Адвокатско дружество Балачев и Ко","slug":"Адвокатско-дружество-Балачев-и-Ко","uic":null,"legalForm":null,"status":null,"seat":"Варна"},{"id":"company:Брадърс-Трейд-Тим-ООД","type":"company","label":"Брадърс Трейд Тим ООД","slug":"Брадърс-Трейд-Тим-ООД","uic":"201449758","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:Наба-Геймс-ООД","type":"company","label":"Наба Геймс ООД","slug":"Наба-Геймс-ООД","uic":"148089230","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:Наба-Електроник-ООД","type":"company","label":"Наба Електроник ООД","slug":"Наба-Електроник-ООД","uic":null,"legalForm":null,"status":null,"seat":"Варна"},{"id":"company:Наба-Йистгруп-ООД","type":"company","label":"Наба Йистгруп ООД","slug":"Наба-Йистгруп-ООД","uic":"813214873","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:Приз-Комерс-ООД","type":"company","label":"Приз Комерс ООД","slug":"Приз-Комерс-ООД","uic":"103168965","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:tr:177051663","type":"company","label":"ФУТБОЛЕН КЛУБ СПАРТАК 1918","slug":null,"uic":"177051663","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:НИКОЛАЙ БРАНИМИРОВ БАЛАЧЕВ","type":"person","label":"Николай Бранимиров Балачев"},{"id":"person:СОНЯ АНТОНОВНА БАЛАЧЕВА","type":"person","label":"Соня Антоновна Балачева"},{"id":"person:ПАВЛИН ИВАНОВ НИКОЛОВ","type":"person","label":"Павлин Иванов Николов"},{"id":"person:АСЕН МИЛКОВ МИЛАНОВ","type":"person","label":"Асен Милков Миланов"},{"id":"person:КРАСИМИР РУМЕНОВ КУЗМАНОВ","type":"person","label":"Красимир Руменов Кузманов"},{"id":"person:СТЕФАН РУМЕНОВ КАЛИМЕНОВ","type":"person","label":"Стефан Руменов Калименов"},{"id":"person:АЛЕКСАНДЪР КОНСТАНТИНОВ ЕВТИМОВ","type":"person","label":"Александър Константинов Евтимов"},{"id":"person:ДИМО АНДОНОВ АНДОНОВ","type":"person","label":"Димо Андонов Андонов"},{"id":"person:СВЕТОСЛАВ МАРЧЕВ МИЛАДИНОВ","type":"person","label":"Светослав Марчев Миладинов"},{"id":"person:ТОДОР СТОЙКОВ СТОЙКОВ","type":"person","label":"Тодор Стойков Стойков"},{"id":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","type":"person","label":"Алекс Женев Илиев"},{"id":"person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ","type":"person","label":"Красимир Димитров Зафиров"},{"id":"person:ПАНАЙОТ ГЕОРГИЕВ ВЪЛЧЕВ","type":"person","label":"Панайот Георгиев Вълчев"},{"id":"person:РАДОСТИН ЛЮБОМИРОВ СТАНЕВ","type":"person","label":"Радостин Любомиров Станев"},{"id":"person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","type":"person","label":"Мирослав Сотиров Коларов"},{"id":"person:КРАСИМИР МИХАИЛОВ ТРЪПЧЕВ","type":"person","label":"Красимир Михаилов Тръпчев"},{"id":"person:МАРТЕН МАРТИНОВ ДЕМИРЕВ","type":"person","label":"Мартен Мартинов Демирев"},{"id":"person:КАЛИН КРАСИМИРОВ МАНОЛОВ","type":"person","label":"Калин Красимиров Манолов"},{"id":"person:ГРИГОРИЙ КУРГАНСКИЙ","type":"person","label":"Григорий Курганский"},{"id":"company:tr:831160078","type":"company","label":"НАПОИТЕЛНИ СИСТЕМИ","slug":null,"uic":"831160078","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1186"},{"id":"mp:5198","type":"mp","mpId":5198,"label":"Галин Неделчев Дурев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["51","52"]},{"id":"mp:4649","type":"mp","mpId":4649,"label":"Генади Събков Събков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"mp:909","type":"mp","mpId":909,"label":"Емил Димитров Гущеров","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207193995","type":"company","label":"ФЕМИЛИ ГАРДЪН","slug":null,"uic":"207193995","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9009"},{"id":"mp:148","type":"mp","mpId":148,"label":"Нено Ненов Димов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:205745904","type":"company","label":"БАНДИТС","slug":null,"uic":"205745904","legalForm":"OOD","status":"active","seat":null},{"id":"mp:3871","type":"mp","mpId":3871,"label":"Николай Кръстев Костадинов","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:4734","target":"company:Адвокатско-дружество-Балачев-и-Ко","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Брадърс-Трейд-Тим-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Наба-Геймс-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Наба-Електроник-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Наба-Йистгруп-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Наба-Йистгруп-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:Приз-Комерс-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4734","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ БРАНИМИРОВ БАЛАЧЕВ","target":"company:Наба-Йистгруп-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ АНТОНОВНА БАЛАЧЕВА","target":"company:Наба-Йистгруп-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИН ИВАНОВ НИКОЛОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН МИЛКОВ МИЛАНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР РУМЕНОВ КУЗМАНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН РУМЕНОВ КАЛИМЕНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИН ИВАНОВ НИКОЛОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР КОНСТАНТИНОВ ЕВТИМОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО АНДОНОВ АНДОНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ МАРЧЕВ МИЛАДИНОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР СТОЙКОВ СТОЙКОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАНАЙОТ ГЕОРГИЕВ ВЪЛЧЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИН ЛЮБОМИРОВ СТАНЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР МИХАИЛОВ ТРЪПЧЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТЕН МАРТИНОВ ДЕМИРЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ЖЕНЕВ ИЛИЕВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН КРАСИМИРОВ МАНОЛОВ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГРИГОРИЙ КУРГАНСКИЙ","target":"company:tr:177051663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИН ИВАНОВ НИКОЛОВ","target":"company:tr:207193995","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМО АНДОНОВ АНДОНОВ","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","target":"company:tr:831160078","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:4649","target":"company:tr:831160078","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5198","target":"company:tr:831160078","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:909","target":"company:tr:831160078","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:148","target":"company:tr:207193995","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3871","target":"company:tr:205745904","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5198","length":4,"nodeIds":["mp:4734","company:tr:177051663","person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","company:tr:831160078","mp:5198"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4649","length":4,"nodeIds":["mp:4734","company:tr:177051663","person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","company:tr:831160078","mp:4649"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:909","length":4,"nodeIds":["mp:4734","company:tr:177051663","person:МИРОСЛАВ СОТИРОВ КОЛАРОВ","company:tr:831160078","mp:909"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:148","length":4,"nodeIds":["mp:4734","company:tr:177051663","person:ПАВЛИН ИВАНОВ НИКОЛОВ","company:tr:207193995","mp:148"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3871","length":4,"nodeIds":["mp:4734","company:tr:177051663","person:ДИМО АНДОНОВ АНДОНОВ","company:tr:205745904","mp:3871"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4734",
+  "nodes": [
+    {
+      "id": "mp:4734",
+      "type": "mp",
+      "mpId": 4734,
+      "label": "Бранимир Николаев Балачев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Адв.дружество-Балачев-и-Ко",
+      "type": "company",
+      "label": "Адв.дружество Балачев и Ко",
+      "slug": "Адв.дружество-Балачев-и-Ко",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Адвокатско-друество-Балачев-и-Ко",
+      "type": "company",
+      "label": "Адвокатско друество Балачев и Ко",
+      "slug": "Адвокатско-друество-Балачев-и-Ко",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Адвокатско-дружество-Балачев-и-Ко",
+      "type": "company",
+      "label": "Адвокатско дружество Балачев и Ко",
+      "slug": "Адвокатско-дружество-Балачев-и-Ко",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Брадърс-Трейд-Тим-ООД",
+      "type": "company",
+      "label": "Брадърс Трейд Тим ООД",
+      "slug": "Брадърс-Трейд-Тим-ООД",
+      "uic": "201449758",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Наба-Геймс-ООД",
+      "type": "company",
+      "label": "Наба Геймс ООД",
+      "slug": "Наба-Геймс-ООД",
+      "uic": "148089230",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Наба-Електроник-ООД",
+      "type": "company",
+      "label": "Наба Електроник ООД",
+      "slug": "Наба-Електроник-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Наба-Йистгруп-ООД",
+      "type": "company",
+      "label": "Наба Йистгруп ООД",
+      "slug": "Наба-Йистгруп-ООД",
+      "uic": "813214873",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Приз-Комерс-ООД",
+      "type": "company",
+      "label": "Приз Комерс ООД",
+      "slug": "Приз-Комерс-ООД",
+      "uic": "103168965",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:tr:177051663",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ СПАРТАК 1918",
+      "slug": null,
+      "uic": "177051663",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ БРАНИМИРОВ БАЛАЧЕВ",
+      "type": "person",
+      "label": "Николай Бранимиров Балачев"
+    },
+    {
+      "id": "person:СОНЯ АНТОНОВНА БАЛАЧЕВА",
+      "type": "person",
+      "label": "Соня Антоновна Балачева"
+    },
+    {
+      "id": "person:ПАВЛИН ИВАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Павлин Иванов Николов"
+    },
+    {
+      "id": "person:АСЕН МИЛКОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Асен Милков Миланов"
+    },
+    {
+      "id": "person:КРАСИМИР РУМЕНОВ КУЗМАНОВ",
+      "type": "person",
+      "label": "Красимир Руменов Кузманов"
+    },
+    {
+      "id": "person:СТЕФАН РУМЕНОВ КАЛИМЕНОВ",
+      "type": "person",
+      "label": "Стефан Руменов Калименов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР КОНСТАНТИНОВ ЕВТИМОВ",
+      "type": "person",
+      "label": "Александър Константинов Евтимов"
+    },
+    {
+      "id": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "type": "person",
+      "label": "Димо Андонов Андонов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ МАРЧЕВ МИЛАДИНОВ",
+      "type": "person",
+      "label": "Светослав Марчев Миладинов"
+    },
+    {
+      "id": "person:ТОДОР СТОЙКОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Тодор Стойков Стойков"
+    },
+    {
+      "id": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Алекс Женев Илиев"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ",
+      "type": "person",
+      "label": "Красимир Димитров Зафиров"
+    },
+    {
+      "id": "person:ПАНАЙОТ ГЕОРГИЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Панайот Георгиев Вълчев"
+    },
+    {
+      "id": "person:РАДОСТИН ЛЮБОМИРОВ СТАНЕВ",
+      "type": "person",
+      "label": "Радостин Любомиров Станев"
+    },
+    {
+      "id": "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+      "type": "person",
+      "label": "Мирослав Сотиров Коларов"
+    },
+    {
+      "id": "person:КРАСИМИР МИХАИЛОВ ТРЪПЧЕВ",
+      "type": "person",
+      "label": "Красимир Михаилов Тръпчев"
+    },
+    {
+      "id": "person:МАРТЕН МАРТИНОВ ДЕМИРЕВ",
+      "type": "person",
+      "label": "Мартен Мартинов Демирев"
+    },
+    {
+      "id": "person:КАЛИН КРАСИМИРОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Калин Красимиров Манолов"
+    },
+    {
+      "id": "person:ГРИГОРИЙ КУРГАНСКИЙ",
+      "type": "person",
+      "label": "Григорий Курганский"
+    },
+    {
+      "id": "company:tr:831160078",
+      "type": "company",
+      "label": "НАПОИТЕЛНИ СИСТЕМИ",
+      "slug": null,
+      "uic": "831160078",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1186"
+    },
+    {
+      "id": "mp:5198",
+      "type": "mp",
+      "mpId": 5198,
+      "label": "Галин Неделчев Дурев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "mp:4649",
+      "type": "mp",
+      "mpId": 4649,
+      "label": "Генади Събков Събков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:909",
+      "type": "mp",
+      "mpId": 909,
+      "label": "Емил Димитров Гущеров",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207193995",
+      "type": "company",
+      "label": "ФЕМИЛИ ГАРДЪН",
+      "slug": null,
+      "uic": "207193995",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9009"
+    },
+    {
+      "id": "mp:148",
+      "type": "mp",
+      "mpId": 148,
+      "label": "Нено Ненов Димов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Бандитс-ООД",
+      "type": "company",
+      "label": "Бандитс ООД",
+      "slug": "Бандитс-ООД",
+      "uic": "205745904",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "mp:3871",
+      "type": "mp",
+      "mpId": 3871,
+      "label": "Николай Кръстев Костадинов",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "48"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4734",
+      "target": "company:Адв.дружество-Балачев-и-Ко",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Адвокатско-друество-Балачев-и-Ко",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Адвокатско-дружество-Балачев-и-Ко",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Брадърс-Трейд-Тим-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Наба-Геймс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Наба-Електроник-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Наба-Йистгруп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Наба-Йистгруп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:Приз-Комерс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4734",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ БРАНИМИРОВ БАЛАЧЕВ",
+      "target": "company:Наба-Йистгруп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ АНТОНОВНА БАЛАЧЕВА",
+      "target": "company:Наба-Йистгруп-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН МИЛКОВ МИЛАНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР РУМЕНОВ КУЗМАНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН РУМЕНОВ КАЛИМЕНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КОНСТАНТИНОВ ЕВТИМОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ МАРЧЕВ МИЛАДИНОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР СТОЙКОВ СТОЙКОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНАЙОТ ГЕОРГИЕВ ВЪЛЧЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ЗАФИРОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ЛЮБОМИРОВ СТАНЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР МИХАИЛОВ ТРЪПЧЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТЕН МАРТИНОВ ДЕМИРЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ЖЕНЕВ ИЛИЕВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КРАСИМИРОВ МАНОЛОВ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИГОРИЙ КУРГАНСКИЙ",
+      "target": "company:tr:177051663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:207193995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО АНДОНОВ АНДОНОВ",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+      "target": "company:tr:831160078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4649",
+      "target": "company:tr:831160078",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5198",
+      "target": "company:tr:831160078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:909",
+      "target": "company:tr:831160078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:148",
+      "target": "company:tr:207193995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Бандитс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3871",
+      "target": "company:Бандитс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5198",
+      "length": 4,
+      "nodeIds": [
+        "mp:4734",
+        "company:tr:177051663",
+        "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+        "company:tr:831160078",
+        "mp:5198"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4649",
+      "length": 4,
+      "nodeIds": [
+        "mp:4734",
+        "company:tr:177051663",
+        "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+        "company:tr:831160078",
+        "mp:4649"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:909",
+      "length": 4,
+      "nodeIds": [
+        "mp:4734",
+        "company:tr:177051663",
+        "person:МИРОСЛАВ СОТИРОВ КОЛАРОВ",
+        "company:tr:831160078",
+        "mp:909"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:148",
+      "length": 4,
+      "nodeIds": [
+        "mp:4734",
+        "company:tr:177051663",
+        "person:ПАВЛИН ИВАНОВ НИКОЛОВ",
+        "company:tr:207193995",
+        "mp:148"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3871",
+      "length": 4,
+      "nodeIds": [
+        "mp:4734",
+        "company:tr:177051663",
+        "person:ДИМО АНДОНОВ АНДОНОВ",
+        "company:Бандитс-ООД",
+        "mp:3871"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

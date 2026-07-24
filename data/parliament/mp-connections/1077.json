@@ -1,1 +1,440 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1077","nodes":[{"id":"mp:1077","type":"mp","mpId":1077,"label":"Янко Иванов Здравков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:205967328","type":"company","label":"Многопрофилна болница за активно лечение &quot;Лозенец","slug":null,"uic":"205967328","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"company:tr:207395776","type":"company","label":"ФРЕШ ФУУД КАРАВАН","slug":null,"uic":"207395776","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Костинброд, 2230"},{"id":"company:tr:204467003","type":"company","label":"КОСМО КИБУС","slug":null,"uic":"204467003","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:206217817","type":"company","label":"Медицински център Телемедицина България","slug":null,"uic":"206217817","legalForm":"OOD","status":"active","seat":null},{"id":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","type":"person","label":"Любомир Димитров Спасов"},{"id":"person:ВЕСКА АНТОНОВА РУШКОВА","type":"person","label":"Веска Антонова Рушкова"},{"id":"person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА","type":"person","label":"Олга Владимирова Мицова - Масларова"},{"id":"person:РАДОСВЕТ ПЕТРОВ ГОРНЕВ","type":"person","label":"Радосвет Петров Горнев"},{"id":"person:ИВИЯН ХРИСТОВ СИМЕОНОВ","type":"person","label":"Ивиян Христов Симеонов"},{"id":"person:ОРЛИН ВАСИЛЕВ НЕДЕВ","type":"person","label":"Орлин Василев Недев"},{"id":"person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ","type":"person","label":"Христо Валентинов Стоянов"},{"id":"person:СТАНИМИР БОЯНОВ МИХАЙЛОВ","type":"person","label":"Станимир Боянов Михайлов"},{"id":"person:РАЛИЦА РАДОСЛАВОВА МАРЧЕВА","type":"person","label":"Ралица Радославова Марчева"},{"id":"person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ","type":"person","label":"Красимир Гаврилов Добрев"},{"id":"person:ВАНЯ ДИМИТРОВА СТОЯНОВА","type":"person","label":"Ваня Димитрова Стоянова"},{"id":"person:ЯНА ЯНКОВА ЗДРАВКОВА","type":"person","label":"Яна Янкова Здравкова"},{"id":"person:СНЕЖАНА КАРАМФИЛОВА КАРОВА","type":"person","label":"Снежана Карамфилова Карова"},{"id":"person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА","type":"person","label":"Нина Димитрова Петрова-Кашкина"},{"id":"person:ДИМИТРИНА ГРОЗДАНОВА НЕШЕВА","type":"person","label":"Димитрина Грозданова Нешева"},{"id":"person:АТАНАС ЛЮБОМИРОВ БУЧКОВ","type":"person","label":"Атанас Любомиров Бучков"},{"id":"company:tr:131181090","type":"company","label":"СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УНИВЕРСИТЕТСКИТЕ БОЛНИЦИ В РЕПУБЛИКА БЪЛГАРИЯ&quot;","slug":null,"uic":"131181090","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1431"},{"id":"mp:5075","type":"mp","mpId":5075,"label":"Костадин Георгиев Ангелов","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"]}],"edges":[{"source":"mp:1077","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:1077","target":"company:tr:207395776","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1077","target":"company:tr:204467003","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1077","target":"company:tr:204467003","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1077","target":"company:tr:206217817","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСКА АНТОНОВА РУШКОВА","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСВЕТ ПЕТРОВ ГОРНЕВ","target":"company:tr:205967328","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСВЕТ ПЕТРОВ ГОРНЕВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВИЯН ХРИСТОВ СИМЕОНОВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ОРЛИН ВАСИЛЕВ НЕДЕВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ","target":"company:tr:205967328","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР БОЯНОВ МИХАЙЛОВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА","target":"company:tr:205967328","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РАЛИЦА РАДОСЛАВОВА МАРЧЕВА","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ","target":"company:tr:207395776","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДИМИТРОВА СТОЯНОВА","target":"company:tr:207395776","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ","target":"company:tr:207395776","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЯНКОВА ЗДРАВКОВА","target":"company:tr:207395776","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА КАРАМФИЛОВА КАРОВА","target":"company:tr:204467003","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА","target":"company:tr:204467003","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНА КАРАМФИЛОВА КАРОВА","target":"company:tr:204467003","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА","target":"company:tr:204467003","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЯНКОВА ЗДРАВКОВА","target":"company:tr:204467003","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ЯНКОВА ЗДРАВКОВА","target":"company:tr:204467003","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНА ГРОЗДАНОВА НЕШЕВА","target":"company:tr:206217817","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ЛЮБОМИРОВ БУЧКОВ","target":"company:tr:206217817","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5075","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5075","length":4,"nodeIds":["mp:1077","company:tr:205967328","person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","company:tr:131181090","mp:5075"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1077",
+  "nodes": [
+    {
+      "id": "mp:1077",
+      "type": "mp",
+      "mpId": 1077,
+      "label": "Янко Иванов Здравков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205967328",
+      "type": "company",
+      "label": "Многопрофилна болница за активно лечение &quot;Лозенец",
+      "slug": null,
+      "uic": "205967328",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:207395776",
+      "type": "company",
+      "label": "ФРЕШ ФУУД КАРАВАН",
+      "slug": null,
+      "uic": "207395776",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Костинброд, 2230"
+    },
+    {
+      "id": "company:tr:204467003",
+      "type": "company",
+      "label": "КОСМО КИБУС",
+      "slug": null,
+      "uic": "204467003",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206217817",
+      "type": "company",
+      "label": "Медицински център Телемедицина България",
+      "slug": null,
+      "uic": "206217817",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:orlin-vasilev-nedev-06c67c",
+      "type": "official",
+      "slug": "orlin-vasilev-nedev-06c67c",
+      "label": "Орлин Василев Недев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:radosvet-petrov-gornev-6af7b6",
+      "type": "official",
+      "slug": "radosvet-petrov-gornev-6af7b6",
+      "label": "Радосвет Петров Горнев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:stanimir-boyanov-mihailov-d6fb08",
+      "type": "official",
+      "slug": "stanimir-boyanov-mihailov-d6fb08",
+      "label": "Станимир Боянов Михайлов",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "type": "person",
+      "label": "Любомир Димитров Спасов"
+    },
+    {
+      "id": "person:ВЕСКА АНТОНОВА РУШКОВА",
+      "type": "person",
+      "label": "Веска Антонова Рушкова"
+    },
+    {
+      "id": "person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА",
+      "type": "person",
+      "label": "Олга Владимирова Мицова - Масларова"
+    },
+    {
+      "id": "person:ИВИЯН ХРИСТОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Ивиян Христов Симеонов"
+    },
+    {
+      "id": "person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Христо Валентинов Стоянов"
+    },
+    {
+      "id": "person:РАЛИЦА РАДОСЛАВОВА МАРЧЕВА",
+      "type": "person",
+      "label": "Ралица Радославова Марчева"
+    },
+    {
+      "id": "person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Красимир Гаврилов Добрев"
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Ваня Димитрова Стоянова"
+    },
+    {
+      "id": "person:ЯНА ЯНКОВА ЗДРАВКОВА",
+      "type": "person",
+      "label": "Яна Янкова Здравкова"
+    },
+    {
+      "id": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "type": "person",
+      "label": "Снежана Карамфилова Карова"
+    },
+    {
+      "id": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "type": "person",
+      "label": "Нина Димитрова Петрова-Кашкина"
+    },
+    {
+      "id": "person:ДИМИТРИНА ГРОЗДАНОВА НЕШЕВА",
+      "type": "person",
+      "label": "Димитрина Грозданова Нешева"
+    },
+    {
+      "id": "person:АТАНАС ЛЮБОМИРОВ БУЧКОВ",
+      "type": "person",
+      "label": "Атанас Любомиров Бучков"
+    },
+    {
+      "id": "company:tr:131181090",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УНИВЕРСИТЕТСКИТЕ БОЛНИЦИ В РЕПУБЛИКА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "131181090",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1431"
+    },
+    {
+      "id": "mp:5075",
+      "type": "mp",
+      "mpId": 5075,
+      "label": "Костадин Георгиев Ангелов",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1077",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:207395776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:206217817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:orlin-vasilev-nedev-06c67c",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radosvet-petrov-gornev-6af7b6",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radosvet-petrov-gornev-6af7b6",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanimir-boyanov-mihailov-d6fb08",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА АНТОНОВА РУШКОВА",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВИЯН ХРИСТОВ СИМЕОНОВ",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАЛЕНТИНОВ СТОЯНОВ",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛГА ВЛАДИМИРОВА МИЦОВА - МАСЛАРОВА",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА РАДОСЛАВОВА МАРЧЕВА",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ",
+      "target": "company:tr:207395776",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА СТОЯНОВА",
+      "target": "company:tr:207395776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ГАВРИЛОВ ДОБРЕВ",
+      "target": "company:tr:207395776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЯНКОВА ЗДРАВКОВА",
+      "target": "company:tr:207395776",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЯНКОВА ЗДРАВКОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЯНКОВА ЗДРАВКОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ГРОЗДАНОВА НЕШЕВА",
+      "target": "company:tr:206217817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ЛЮБОМИРОВ БУЧКОВ",
+      "target": "company:tr:206217817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5075",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5075",
+      "length": 4,
+      "nodeIds": [
+        "mp:1077",
+        "company:tr:205967328",
+        "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+        "company:tr:131181090",
+        "mp:5075"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

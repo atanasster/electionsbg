@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stancho-mitev-kaikov-fa52c8",
+  "nodes": [
+    {
+      "id": "official:stancho-mitev-kaikov-fa52c8",
+      "type": "official",
+      "slug": "stancho-mitev-kaikov-fa52c8",
+      "label": "Станчо Митев Кайков",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208814031",
+      "type": "company",
+      "label": "Сдружение Център за върхови постижения в индустрии с двойна употреба",
+      "slug": null,
+      "uic": "208814031",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:metodi-mihailov-markov-4c6157",
+      "type": "official",
+      "slug": "metodi-mihailov-markov-4c6157",
+      "label": "Методи Михайлов Марков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР АНГЕЛОВ КИРКОВ",
+      "type": "person",
+      "label": "Димитър Ангелов Кирков"
+    },
+    {
+      "id": "person:ЕВЕЛИНА ПАВЛОВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Евелина Павлова Славчева"
+    },
+    {
+      "id": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "type": "person",
+      "label": "Иван Младенов Кралов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stancho-mitev-kaikov-fa52c8",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:metodi-mihailov-markov-4c6157",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР АНГЕЛОВ КИРКОВ",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНГЕЛОВ КИРКОВ",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА ПАВЛОВА СЛАВЧЕВА",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "target": "company:tr:208814031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

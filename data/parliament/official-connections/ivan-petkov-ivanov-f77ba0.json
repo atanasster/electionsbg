@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivan-petkov-ivanov-f77ba0","nodes":[{"id":"official:ivan-petkov-ivanov-f77ba0","type":"official","slug":"ivan-petkov-ivanov-f77ba0","label":"Иван Петков Иванов","tier":"municipal","role":"councillor","municipality":"Хасково"},{"id":"company:tr:126667126","type":"company","label":"ФАММА  ЕООД","slug":null,"uic":"126667126","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ivan-petkov-ivanov-f77ba0","target":"company:tr:126667126","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-petkov-ivanov-f77ba0",
+  "nodes": [
+    {
+      "id": "official:ivan-petkov-ivanov-f77ba0",
+      "type": "official",
+      "slug": "ivan-petkov-ivanov-f77ba0",
+      "label": "Иван Петков Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:126667126",
+      "type": "company",
+      "label": "ФАММА  ЕООД",
+      "slug": null,
+      "uic": "126667126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petkov-ivanov-f77ba0",
+      "target": "company:tr:126667126",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

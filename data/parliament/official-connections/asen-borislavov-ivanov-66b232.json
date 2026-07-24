@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:asen-borislavov-ivanov-66b232",
+  "nodes": [
+    {
+      "id": "official:asen-borislavov-ivanov-66b232",
+      "type": "official",
+      "slug": "asen-borislavov-ivanov-66b232",
+      "label": "Асен Бориславов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201619580",
+      "type": "company",
+      "label": "ЮЖНОЦЕНТРАЛНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "slug": null,
+      "uic": "201619580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zdravko-dimitrov-bakalov-d28480",
+      "type": "official",
+      "slug": "zdravko-dimitrov-bakalov-d28480",
+      "label": "Здравко Димитров Бакалов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОТЬО МАЛИНОВ АРАБАДЖИЕВ",
+      "type": "person",
+      "label": "Ботьо Малинов Арабаджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-borislavov-ivanov-66b232",
+      "target": "company:tr:201619580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zdravko-dimitrov-bakalov-d28480",
+      "target": "company:tr:201619580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОТЬО МАЛИНОВ АРАБАДЖИЕВ",
+      "target": "company:tr:201619580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

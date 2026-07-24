@@ -1,1 +1,262 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:186","nodes":[{"id":"mp:186","type":"mp","mpId":186,"label":"Минчо Викторов Спасов","partyGroupShort":"ПП ИСБ","isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:102884463","type":"company","label":"СДРУЖЕНИЕ &quot;АГЕНЦИЯ ЗА РЕГИОНАЛНО РАЗВИТИЕ И ИНОВАЦИИ&quot;","slug":null,"uic":"102884463","legalForm":"ASSOC","status":"ceased","seat":"БЪЛГАРИЯ, Бургас, 8000"},{"id":"company:tr:203988010","type":"company","label":"Авиационна, морска и специализирана агенция","slug":null,"uic":"203988010","legalForm":"OOD","status":"ceased","seat":null},{"id":"company:tr:201879158","type":"company","label":"ЛОЯЛКОНСУЛТ ММ","slug":null,"uic":"201879158","legalForm":"EOOD","status":"ceased","seat":null},{"id":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","type":"person","label":"Надя Йорданова Данкинова"},{"id":"person:АТАНАС ПАВЛОВ ИВАНОВ","type":"person","label":"Атанас Павлов Иванов"},{"id":"person:МАРИЯ ИВАНОВА ЦЕНОВА","type":"person","label":"Мария Иванова Ценова"},{"id":"company:tr:175331015","type":"company","label":"Фонд ФЛАГ","slug":null,"uic":"175331015","legalForm":"EAD","status":"active","seat":null},{"id":"mp:2662","type":"mp","mpId":2662,"label":"Дора Илиева Янкова","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42","43"]},{"id":"mp:2621","type":"mp","mpId":2621,"label":"Евгени Димитров Стоев","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42"]},{"id":"mp:4149","type":"mp","mpId":4149,"label":"Радослава Пламен Чеканска","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["44"]}],"edges":[{"source":"mp:186","target":"company:tr:102884463","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"mp:186","target":"company:tr:102884463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:186","target":"company:tr:203988010","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"mp:186","target":"company:tr:201879158","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","target":"company:tr:102884463","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","target":"company:tr:102884463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ПАВЛОВ ИВАНОВ","target":"company:tr:102884463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ИВАНОВА ЦЕНОВА","target":"company:tr:102884463","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ПАВЛОВ ИВАНОВ","target":"company:tr:102884463","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","target":"company:tr:102884463","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:2621","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2662","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4149","target":"company:tr:175331015","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2662","length":4,"nodeIds":["mp:186","company:tr:102884463","person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","company:tr:175331015","mp:2662"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2621","length":4,"nodeIds":["mp:186","company:tr:102884463","person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","company:tr:175331015","mp:2621"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4149","length":4,"nodeIds":["mp:186","company:tr:102884463","person:НАДЯ ЙОРДАНОВА ДАНКИНОВА","company:tr:175331015","mp:4149"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:186",
+  "nodes": [
+    {
+      "id": "mp:186",
+      "type": "mp",
+      "mpId": 186,
+      "label": "Минчо Викторов Спасов",
+      "partyGroupShort": "ПП ИСБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:102884463",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АГЕНЦИЯ ЗА РЕГИОНАЛНО РАЗВИТИЕ И ИНОВАЦИИ&quot;",
+      "slug": null,
+      "uic": "102884463",
+      "legalForm": "ASSOC",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, Бургас, 8000"
+    },
+    {
+      "id": "company:tr:203988010",
+      "type": "company",
+      "label": "Авиационна, морска и специализирана агенция",
+      "slug": null,
+      "uic": "203988010",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201879158",
+      "type": "company",
+      "label": "ЛОЯЛКОНСУЛТ ММ",
+      "slug": null,
+      "uic": "201879158",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "type": "person",
+      "label": "Надя Йорданова Данкинова"
+    },
+    {
+      "id": "person:АТАНАС ПАВЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Атанас Павлов Иванов"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ЦЕНОВА",
+      "type": "person",
+      "label": "Мария Иванова Ценова"
+    },
+    {
+      "id": "company:tr:175331015",
+      "type": "company",
+      "label": "Фонд ФЛАГ",
+      "slug": null,
+      "uic": "175331015",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2662",
+      "type": "mp",
+      "mpId": 2662,
+      "label": "Дора Илиева Янкова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "mp:2621",
+      "type": "mp",
+      "mpId": 2621,
+      "label": "Евгени Димитров Стоев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "mp:4149",
+      "type": "mp",
+      "mpId": 4149,
+      "label": "Радослава Пламен Чеканска",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:186",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:186",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:186",
+      "target": "company:tr:203988010",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:186",
+      "target": "company:tr:201879158",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПАВЛОВ ИВАНОВ",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ЦЕНОВА",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ПАВЛОВ ИВАНОВ",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:102884463",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2621",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2662",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4149",
+      "target": "company:tr:175331015",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2662",
+      "length": 4,
+      "nodeIds": [
+        "mp:186",
+        "company:tr:102884463",
+        "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+        "company:tr:175331015",
+        "mp:2662"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2621",
+      "length": 4,
+      "nodeIds": [
+        "mp:186",
+        "company:tr:102884463",
+        "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+        "company:tr:175331015",
+        "mp:2621"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4149",
+      "length": 4,
+      "nodeIds": [
+        "mp:186",
+        "company:tr:102884463",
+        "person:НАДЯ ЙОРДАНОВА ДАНКИНОВА",
+        "company:tr:175331015",
+        "mp:4149"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

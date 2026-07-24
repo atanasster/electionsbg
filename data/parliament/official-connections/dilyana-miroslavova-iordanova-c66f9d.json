@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dilyana-miroslavova-iordanova-c66f9d",
+  "nodes": [
+    {
+      "id": "official:dilyana-miroslavova-iordanova-c66f9d",
+      "type": "official",
+      "slug": "dilyana-miroslavova-iordanova-c66f9d",
+      "label": "Диляна Мирославова Йорданова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103562052",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВЕТА МАРИНА",
+      "slug": null,
+      "uic": "103562052",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Красимир Димитров Иванов"
+    },
+    {
+      "id": "person:СИЛВА ПЕТЕВА АНДОНОВА-АТАНАСОВА",
+      "type": "person",
+      "label": "Силва Петева Андонова-Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyana-miroslavova-iordanova-c66f9d",
+      "target": "company:tr:103562052",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:103562052",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВА ПЕТЕВА АНДОНОВА-АТАНАСОВА",
+      "target": "company:tr:103562052",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

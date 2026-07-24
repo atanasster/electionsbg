@@ -1,1 +1,150 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:152","nodes":[{"id":"mp:152","type":"mp","mpId":152,"label":"Евгения Тодорова Живкова","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:000675670","type":"company","label":"МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ","slug":null,"uic":"000675670","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"mp:5152","type":"mp","mpId":5152,"label":"Румен Димитров Христов","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["43","45","46","47","48","49","50","51","52"]},{"id":"person:ДЖОРДЖ-МАРК РАЙНОВ","type":"person","label":"Джордж-Марк Райнов"},{"id":"person:МИХАИЛ АТАНАСОВ ТАЧЕВ","type":"person","label":"Михаил Атанасов Тачев"},{"id":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","type":"person","label":"Стефан Ангелов Стефанов"},{"id":"person:БОЙКО ВАСИЛЕВ ПЕТРОВ","type":"person","label":"Бойко Василев Петров"},{"id":"person:ДЖОРД МАРК БОЯНОВ РАЙНОВ","type":"person","label":"Джорд Марк Боянов Райнов"}],"edges":[{"source":"mp:152","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5152","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЖОРДЖ-МАРК РАЙНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ АТАНАСОВ ТАЧЕВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО ВАСИЛЕВ ПЕТРОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЖОРД МАРК БОЯНОВ РАЙНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:5152","length":2,"nodeIds":["mp:152","company:tr:000675670","mp:5152"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:152",
+  "nodes": [
+    {
+      "id": "mp:152",
+      "type": "mp",
+      "mpId": 152,
+      "label": "Евгения Тодорова Живкова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:000675670",
+      "type": "company",
+      "label": "МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ",
+      "slug": null,
+      "uic": "000675670",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "mp:5152",
+      "type": "mp",
+      "mpId": 5152,
+      "label": "Румен Димитров Христов",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "43",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ДЖОРДЖ-МАРК РАЙНОВ",
+      "type": "person",
+      "label": "Джордж-Марк Райнов"
+    },
+    {
+      "id": "person:МИХАИЛ АТАНАСОВ ТАЧЕВ",
+      "type": "person",
+      "label": "Михаил Атанасов Тачев"
+    },
+    {
+      "id": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Ангелов Стефанов"
+    },
+    {
+      "id": "person:БОЙКО ВАСИЛЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Бойко Василев Петров"
+    },
+    {
+      "id": "person:ДЖОРД МАРК БОЯНОВ РАЙНОВ",
+      "type": "person",
+      "label": "Джорд Марк Боянов Райнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:152",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖОРДЖ-МАРК РАЙНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ АТАНАСОВ ТАЧЕВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО ВАСИЛЕВ ПЕТРОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖОРД МАРК БОЯНОВ РАЙНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5152",
+      "length": 2,
+      "nodeIds": [
+        "mp:152",
+        "company:tr:000675670",
+        "mp:5152"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

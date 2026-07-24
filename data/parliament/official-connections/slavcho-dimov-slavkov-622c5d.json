@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:slavcho-dimov-slavkov-622c5d",
+  "nodes": [
+    {
+      "id": "official:slavcho-dimov-slavkov-622c5d",
+      "type": "official",
+      "slug": "slavcho-dimov-slavkov-622c5d",
+      "label": "Славчо Димов Славков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000225011",
+      "type": "company",
+      "label": "В и К",
+      "slug": null,
+      "uic": "000225011",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА АРДИНО",
+      "type": "person",
+      "label": "Община Ардино"
+    },
+    {
+      "id": "person:ОБЩИНА ДЖЕБЕЛ",
+      "type": "person",
+      "label": "Община Джебел"
+    },
+    {
+      "id": "person:ОБЩИНА КРУМОВГРАД",
+      "type": "person",
+      "label": "Община Крумовград"
+    },
+    {
+      "id": "person:ОБЩИНА КЪРДЖАЛИ",
+      "type": "person",
+      "label": "Община Кърджали"
+    },
+    {
+      "id": "person:ОБЩИНА МОМЧИЛГРАД",
+      "type": "person",
+      "label": "Община Момчилград"
+    },
+    {
+      "id": "person:ОБЩИНА ЧЕРНООЧЕНЕ",
+      "type": "person",
+      "label": "Община Черноочене"
+    },
+    {
+      "id": "person:ОБЩИНА КИРКОВО",
+      "type": "person",
+      "label": "Община Кирково"
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slavcho-dimov-slavkov-622c5d",
+      "target": "company:tr:000225011",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА АРДИНО",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ДЖЕБЕЛ",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КРУМОВГРАД",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КЪРДЖАЛИ",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА МОМЧИЛГРАД",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЧЕРНООЧЕНЕ",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КИРКОВО",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:000225011",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

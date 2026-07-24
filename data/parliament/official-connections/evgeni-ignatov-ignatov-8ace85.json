@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:evgeni-ignatov-ignatov-8ace85",
+  "nodes": [
+    {
+      "id": "official:evgeni-ignatov-ignatov-8ace85",
+      "type": "official",
+      "slug": "evgeni-ignatov-ignatov-8ace85",
+      "label": "Евгени Игнатов Игнатов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:117006020",
+      "type": "company",
+      "label": "СПОРТЕН ЛЕКОАТЛЕТИЧЕСКИ КЛУБ-ДУНАВ",
+      "slug": null,
+      "uic": "117006020",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ДЕНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Денев Иванов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЛЮБОМИРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Светослав Любомиров Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-ignatov-ignatov-8ace85",
+      "target": "company:tr:117006020",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДЕНЕВ ИВАНОВ",
+      "target": "company:tr:117006020",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЛЮБОМИРОВ ЙОРДАНОВ",
+      "target": "company:tr:117006020",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

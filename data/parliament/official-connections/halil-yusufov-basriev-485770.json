@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:halil-yusufov-basriev-485770",
+  "nodes": [
+    {
+      "id": "official:halil-yusufov-basriev-485770",
+      "type": "official",
+      "slug": "halil-yusufov-basriev-485770",
+      "label": "Халил Юсуфов Басриев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:208356751",
+      "type": "company",
+      "label": "ИНФИНИТИ92",
+      "slug": null,
+      "uic": "208356751",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЛЯН АЛБЕНОВ",
+      "type": "person",
+      "label": "Силян Албенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:halil-yusufov-basriev-485770",
+      "target": "company:tr:208356751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:halil-yusufov-basriev-485770",
+      "target": "company:tr:208356751",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛЯН АЛБЕНОВ",
+      "target": "company:tr:208356751",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

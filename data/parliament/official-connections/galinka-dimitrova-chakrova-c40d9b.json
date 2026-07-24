@@ -1,0 +1,237 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galinka-dimitrova-chakrova-c40d9b",
+  "nodes": [
+    {
+      "id": "official:galinka-dimitrova-chakrova-c40d9b",
+      "type": "official",
+      "slug": "galinka-dimitrova-chakrova-c40d9b",
+      "label": "Галинка Димитрова Чакърова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белослав"
+    },
+    {
+      "id": "company:tr:000084055",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ-1926&quot;",
+      "slug": null,
+      "uic": "000084055",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:anatoli-diyanov-apostolov-af11a4",
+      "type": "official",
+      "slug": "anatoli-diyanov-apostolov-af11a4",
+      "label": "Анатоли Диянов Апостолов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белослав"
+    },
+    {
+      "id": "person:РОСЕН ИВОВ ГАЦИН",
+      "type": "person",
+      "label": "Росен Ивов Гацин"
+    },
+    {
+      "id": "person:ВАСИЛ ДОБРЕВ КАРАКАШЕВ",
+      "type": "person",
+      "label": "Васил Добрев Каракашев"
+    },
+    {
+      "id": "person:АНТОАНЕТА ИГНАТОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Антоанета Игнатова Кънчева"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА МАРИНОВА РАДЕВА",
+      "type": "person",
+      "label": "Димитричка Маринова Радева"
+    },
+    {
+      "id": "person:РОСИЦА ДИМИТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Росица Димитрова Тодорова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ГЕОРГИЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Величка Георгиева Андреева"
+    },
+    {
+      "id": "person:СЕВИНЧ НЕДЖИБОВА ИСМАИЛОВА",
+      "type": "person",
+      "label": "Севинч Неджибова Исмаилова"
+    },
+    {
+      "id": "person:СТОЙКА ТОДОРОВА ТАШКОВА",
+      "type": "person",
+      "label": "Стойка Тодорова Ташкова"
+    },
+    {
+      "id": "person:ЕМИЛ РУМЕНОВ СЕРГЕВ",
+      "type": "person",
+      "label": "Емил Руменов Сергев"
+    },
+    {
+      "id": "person:МИЛЕНА КОНСТАНТИНОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Милена Константинова Желязкова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВАСИЛЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Даниела Василева Костадинова"
+    },
+    {
+      "id": "person:ИВАН НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Иван Николаев Николов"
+    },
+    {
+      "id": "person:ДИЯНА КОЛЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Дияна Колева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galinka-dimitrova-chakrova-c40d9b",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anatoli-diyanov-apostolov-af11a4",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anatoli-diyanov-apostolov-af11a4",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ИВОВ ГАЦИН",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДОБРЕВ КАРАКАШЕВ",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ИВОВ ГАЦИН",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ИГНАТОВА КЪНЧЕВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА МАРИНОВА РАДЕВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДИМИТРОВА ТОДОРОВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ГЕОРГИЕВА АНДРЕЕВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИНЧ НЕДЖИБОВА ИСМАИЛОВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКА ТОДОРОВА ТАШКОВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ РУМЕНОВ СЕРГЕВ",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА КОНСТАНТИНОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВАСИЛЕВА КОСТАДИНОВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА КОЛЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000084055",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

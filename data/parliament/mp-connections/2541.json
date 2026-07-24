@@ -1,1 +1,114 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2541","nodes":[{"id":"mp:2541","type":"mp","mpId":2541,"label":"Методи Борисов Андреев","partyGroupShort":"Нова Република","isCurrent":false,"nsFolders":[]},{"id":"company:tr:176642599","type":"company","label":"СДРУЖЕНИЕ &quot;Гражданска Платформа&quot;","slug":null,"uic":"176642599","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ПЕТЪР ВЛАДИСЛАВОВ СЛАВОВ - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Петър Владиславов Славов - Председател На Управителния Съвет"},{"id":"person:ГЕРГАНА НИКОЛОВА ГЕРГОВА","type":"person","label":"Гергана Николова Гергова"},{"id":"person:АЛЕКСАНДРА ВАЛЕРИЕВА БОДЖОВА","type":"person","label":"Александра Валериева Боджова"},{"id":"person:ЗДРАВКО ВАЛЕРИЕВ БОДЖОВ","type":"person","label":"Здравко Валериев Боджов"},{"id":"person:ЯВОР ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Явор Георгиев Иванов"},{"id":"person:МАРТИН ПЕТКОВ БОЙЧЕВ","type":"person","label":"Мартин Петков Бойчев"}],"edges":[{"source":"mp:2541","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ВЛАДИСЛАВОВ СЛАВОВ - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА НИКОЛОВА ГЕРГОВА","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДРА ВАЛЕРИЕВА БОДЖОВА","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО ВАЛЕРИЕВ БОДЖОВ","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР ГЕОРГИЕВ ИВАНОВ","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТКОВ БОЙЧЕВ","target":"company:tr:176642599","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2541",
+  "nodes": [
+    {
+      "id": "mp:2541",
+      "type": "mp",
+      "mpId": 2541,
+      "label": "Методи Борисов Андреев",
+      "partyGroupShort": "Нова Република",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176642599",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;Гражданска Платформа&quot;",
+      "slug": null,
+      "uic": "176642599",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ВЛАДИСЛАВОВ СЛАВОВ - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Петър Владиславов Славов - Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:ГЕРГАНА НИКОЛОВА ГЕРГОВА",
+      "type": "person",
+      "label": "Гергана Николова Гергова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ВАЛЕРИЕВА БОДЖОВА",
+      "type": "person",
+      "label": "Александра Валериева Боджова"
+    },
+    {
+      "id": "person:ЗДРАВКО ВАЛЕРИЕВ БОДЖОВ",
+      "type": "person",
+      "label": "Здравко Валериев Боджов"
+    },
+    {
+      "id": "person:ЯВОР ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Явор Георгиев Иванов"
+    },
+    {
+      "id": "person:МАРТИН ПЕТКОВ БОЙЧЕВ",
+      "type": "person",
+      "label": "Мартин Петков Бойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2541",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ВЛАДИСЛАВОВ СЛАВОВ - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА НИКОЛОВА ГЕРГОВА",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ВАЛЕРИЕВА БОДЖОВА",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ВАЛЕРИЕВ БОДЖОВ",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТКОВ БОЙЧЕВ",
+      "target": "company:tr:176642599",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

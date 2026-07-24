@@ -1,1 +1,40 @@
-{"ekatte":"40422","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"СОЛАР-ДЖИ-23","displayName":"СОЛАР ДЖИ 23","registeredOffice":"БЪЛГАРИЯ, гр. Кубрат, 7300","mps":[{"mpId":5058,"mpName":"Едис Рухиев Даудов","role":"manager","isCurrent":true},{"mpId":5058,"mpName":"Едис Рухиев Даудов","role":"partner","isCurrent":true}]},{"slug":"Таня-Ива-Димови-ООД","displayName":"\"Таня-Ива Димови\" ООД","registeredOffice":"Кубрат","mps":[{"mpId":2968,"mpName":"Мартин Стефанов Обрешков","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "40422",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Таня-Ива-Димови-ООД",
+      "displayName": "\"Таня-Ива Димови\" ООД",
+      "registeredOffice": "Кубрат",
+      "mps": [
+        {
+          "mpId": 2968,
+          "mpName": "Мартин Стефанов Обрешков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СОЛАР-ДЖИ-23",
+      "displayName": "СОЛАР ДЖИ 23",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Кубрат, 7300",
+      "mps": [
+        {
+          "mpId": 5058,
+          "mpName": "Едис Рухиев Даудов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5058,
+          "mpName": "Едис Рухиев Даудов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

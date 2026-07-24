@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-vasilev-slavov-e075d6",
+  "nodes": [
+    {
+      "id": "official:plamen-vasilev-slavov-e075d6",
+      "type": "official",
+      "slug": "plamen-vasilev-slavov-e075d6",
+      "label": "Пламен Василев Славов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115847956",
+      "type": "company",
+      "label": "ДРУЖЕСТВО НА БЪЛГАРСКИТЕ ПИСАТЕЛИ - КАРЛОВО",
+      "slug": null,
+      "uic": "115847956",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ ВЛАСЕВ",
+      "type": "person",
+      "label": "Красимир Петров Власев"
+    },
+    {
+      "id": "person:ВАСКО ГАНЧЕВ ПОПОВ",
+      "type": "person",
+      "label": "Васко Ганчев Попов"
+    },
+    {
+      "id": "person:МИХАИЛ АТАНАСОВ ГУНЧЕВ",
+      "type": "person",
+      "label": "Михаил Атанасов Гунчев"
+    },
+    {
+      "id": "person:КОЙЧО ГЪНЧЕВ ГЪНЧЕВ",
+      "type": "person",
+      "label": "Койчо Гънчев Гънчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-vasilev-slavov-e075d6",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ВЛАСЕВ",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО ГАНЧЕВ ПОПОВ",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ВЛАСЕВ",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ АТАНАСОВ ГУНЧЕВ",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙЧО ГЪНЧЕВ ГЪНЧЕВ",
+      "target": "company:tr:115847956",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

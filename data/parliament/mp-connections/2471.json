@@ -1,1 +1,72 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2471","nodes":[{"id":"mp:2471","type":"mp","mpId":2471,"label":"Емил Димитров Райнов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["42"]},{"id":"company:tr:208240533","type":"company","label":"БЪЛГАРСКА ХРАНИТЕЛНА БОРСА","slug":null,"uic":"208240533","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"person:ИВАН ВЕСЕЛИНОВ СТАНЕВ","type":"person","label":"Иван Веселинов Станев"},{"id":"person:ПЕТЪР ТОДОРОВ МИНОВ","type":"person","label":"Петър Тодоров Минов"}],"edges":[{"source":"mp:2471","target":"company:tr:208240533","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ВЕСЕЛИНОВ СТАНЕВ","target":"company:tr:208240533","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВЕСЕЛИНОВ СТАНЕВ","target":"company:tr:208240533","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ТОДОРОВ МИНОВ","target":"company:tr:208240533","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2471",
+  "nodes": [
+    {
+      "id": "mp:2471",
+      "type": "mp",
+      "mpId": 2471,
+      "label": "Емил Димитров Райнов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:208240533",
+      "type": "company",
+      "label": "БЪЛГАРСКА ХРАНИТЕЛНА БОРСА",
+      "slug": null,
+      "uic": "208240533",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "person:ИВАН ВЕСЕЛИНОВ СТАНЕВ",
+      "type": "person",
+      "label": "Иван Веселинов Станев"
+    },
+    {
+      "id": "person:ПЕТЪР ТОДОРОВ МИНОВ",
+      "type": "person",
+      "label": "Петър Тодоров Минов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2471",
+      "target": "company:tr:208240533",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ВЕСЕЛИНОВ СТАНЕВ",
+      "target": "company:tr:208240533",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВЕСЕЛИНОВ СТАНЕВ",
+      "target": "company:tr:208240533",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ТОДОРОВ МИНОВ",
+      "target": "company:tr:208240533",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-dilkov-dilkov-0e2342",
+  "nodes": [
+    {
+      "id": "official:plamen-dilkov-dilkov-0e2342",
+      "type": "official",
+      "slug": "plamen-dilkov-dilkov-0e2342",
+      "label": "Пламен Дилков Дилков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175349312",
+      "type": "company",
+      "label": "Дилков Истейт ЕООД",
+      "slug": null,
+      "uic": "175349312",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203224190",
+      "type": "company",
+      "label": "Еммо ООД",
+      "slug": null,
+      "uic": "203224190",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206547206",
+      "type": "company",
+      "label": "РЕСИнвест 21 ООД",
+      "slug": null,
+      "uic": "206547206",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206958588",
+      "type": "company",
+      "label": "БИ Солар 1 ЕООД",
+      "slug": null,
+      "uic": "206958588",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "type": "person",
+      "label": "Елена Димитрова Дилкова"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИЛКОВ ДИЛКОВ",
+      "type": "person",
+      "label": "Пламен Дилков Дилков"
+    },
+    {
+      "id": "person:КРАСИМИР АЛЕКСАНДРОВ МАРКОВ",
+      "type": "person",
+      "label": "Красимир Александров Марков"
+    },
+    {
+      "id": "person:ИВО СТЕФАНОВ АРСОВ",
+      "type": "person",
+      "label": "Иво Стефанов Арсов"
+    },
+    {
+      "id": "person:ХРИСТО НАНКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Нанков Христов"
+    },
+    {
+      "id": "person:ЕЛИАН АРБЕН КОНЕДАРЕВ",
+      "type": "person",
+      "label": "Елиан Арбен Конедарев"
+    },
+    {
+      "id": "person:МИНА ЕМИЛОВА ДЕНКОВА-АРСОВА",
+      "type": "person",
+      "label": "Мина Емилова Денкова-Арсова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АТАНАСОВ ПАШАЛИЕВ",
+      "type": "person",
+      "label": "Александър Атанасов Пашалиев"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ПИПЕРКОВ",
+      "type": "person",
+      "label": "Иван Тодоров Пиперков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-dilkov-dilkov-0e2342",
+      "target": "company:tr:175349312",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-dilkov-dilkov-0e2342",
+      "target": "company:tr:203224190",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-dilkov-dilkov-0e2342",
+      "target": "company:tr:206547206",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-dilkov-dilkov-0e2342",
+      "target": "company:tr:206958588",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "target": "company:tr:175349312",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "target": "company:tr:175349312",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИЛКОВ ДИЛКОВ",
+      "target": "company:tr:175349312",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АЛЕКСАНДРОВ МАРКОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО СТЕФАНОВ АРСОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НАНКОВ ХРИСТОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИАН АРБЕН КОНЕДАРЕВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНА ЕМИЛОВА ДЕНКОВА-АРСОВА",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АТАНАСОВ ПАШАЛИЕВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АЛЕКСАНДРОВ МАРКОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ПИПЕРКОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АЛЕКСАНДРОВ МАРКОВ",
+      "target": "company:tr:206547206",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "target": "company:tr:206958588",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ДИЛКОВА",
+      "target": "company:tr:206958588",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,340 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:933","nodes":[{"id":"mp:933","type":"mp","mpId":933,"label":"Владислав Евгениев Димитров","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:206265267","type":"company","label":"СИРИУС ПАУЪР","slug":null,"uic":"206265267","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2304"},{"id":"company:tr:207311778","type":"company","label":"&quot;КМ ИНДЪСТРИ&quot;","slug":null,"uic":"207311778","legalForm":"EOOD","status":"ceased","seat":"БЪЛГАРИЯ, гр. Перник, 2304"},{"id":"company:tr:206374900","type":"company","label":"Ви Ви Ай Инвестмънт","slug":null,"uic":"206374900","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:206357598","type":"company","label":"КМ ПРОПЪРТИС","slug":null,"uic":"206357598","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2304"},{"id":"company:name:ЛЕМИ ИНВЕСТ","type":"company","label":"\"Леми Инвест\" ЕАД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЕВГЕНИ ГЕОРГИЕВ СЛАВЕНИН","type":"person","label":"Евгени Георгиев Славенин"},{"id":"person:ЗДРАВКО ВЛАДИМИРОВ ИВАНОВ","type":"person","label":"Здравко Владимиров Иванов"},{"id":"person:КОЛХИДА - МЕТАЛ","type":"person","label":"Колхида - Метал"},{"id":"mp:2804","type":"mp","mpId":2804,"label":"Ивайло Любенов Константинов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ","type":"person","label":"Петър Йорданов Господинов"},{"id":"company:name:КОЛХИДА-МЕТАЛ","type":"company","label":"КОЛХИДА-МЕТАЛ АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:tr:206165434","type":"company","label":"СОЛАР ЛИЗИНГ","slug":null,"uic":"206165434","legalForm":"AD","status":"active","seat":null},{"id":"mp:2823","type":"mp","mpId":2823,"label":"Ивайло Ангелов Московски","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42","43"]}],"edges":[{"source":"mp:933","target":"company:tr:206265267","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:933","target":"company:tr:207311778","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:933","target":"company:tr:206374900","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:933","target":"company:tr:206374900","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:933","target":"company:tr:206357598","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:933","target":"company:tr:206357598","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"company:name:ЛЕМИ ИНВЕСТ","target":"company:tr:206265267","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ГЕОРГИЕВ СЛАВЕНИН","target":"company:tr:206265267","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКО ВЛАДИМИРОВ ИВАНОВ","target":"company:tr:207311778","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КОЛХИДА - МЕТАЛ","target":"company:tr:207311778","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:2804","target":"company:tr:206374900","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ","target":"company:tr:206374900","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:КОЛХИДА-МЕТАЛ","target":"company:tr:206357598","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ","target":"company:tr:206165434","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:2823","target":"company:tr:206165434","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2804","length":2,"nodeIds":["mp:933","company:tr:206374900","mp:2804"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2823","length":4,"nodeIds":["mp:933","company:tr:206374900","person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ","company:tr:206165434","mp:2823"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:933",
+  "nodes": [
+    {
+      "id": "mp:933",
+      "type": "mp",
+      "mpId": 933,
+      "label": "Владислав Евгениев Димитров",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208877843",
+      "type": "company",
+      "label": "ПРЕМИУМ РЕЗИДЕНС ГРУП",
+      "slug": null,
+      "uic": "208877843",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2304"
+    },
+    {
+      "id": "company:tr:206265267",
+      "type": "company",
+      "label": "СИРИУС ПАУЪР",
+      "slug": null,
+      "uic": "206265267",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2304"
+    },
+    {
+      "id": "company:tr:207311778",
+      "type": "company",
+      "label": "&quot;КМ ИНДЪСТРИ&quot;",
+      "slug": null,
+      "uic": "207311778",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2304"
+    },
+    {
+      "id": "company:tr:206374900",
+      "type": "company",
+      "label": "Ви Ви Ай Инвестмънт",
+      "slug": null,
+      "uic": "206374900",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:206357598",
+      "type": "company",
+      "label": "КМ ПРОПЪРТИС",
+      "slug": null,
+      "uic": "206357598",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2304"
+    },
+    {
+      "id": "person:МИРОСЛАВ ГЕОРГИЕВ МИЛОРОВ",
+      "type": "person",
+      "label": "Мирослав Георгиев Милоров"
+    },
+    {
+      "id": "person:КМ ПРОПЪРТИС",
+      "type": "person",
+      "label": "Км Пропъртис"
+    },
+    {
+      "id": "person:ИЛЕВЪН РЕЗИДЕНС",
+      "type": "person",
+      "label": "Илевън Резиденс"
+    },
+    {
+      "id": "company:name:ЛЕМИ ИНВЕСТ",
+      "type": "company",
+      "label": "\"Леми Инвест\" ЕАД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕВГЕНИ ГЕОРГИЕВ СЛАВЕНИН",
+      "type": "person",
+      "label": "Евгени Георгиев Славенин"
+    },
+    {
+      "id": "person:ЗДРАВКО ВЛАДИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Здравко Владимиров Иванов"
+    },
+    {
+      "id": "person:КОЛХИДА - МЕТАЛ",
+      "type": "person",
+      "label": "Колхида - Метал"
+    },
+    {
+      "id": "mp:2804",
+      "type": "mp",
+      "mpId": 2804,
+      "label": "Ивайло Любенов Константинов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Петър Йорданов Господинов"
+    },
+    {
+      "id": "company:name:КОЛХИДА-МЕТАЛ",
+      "type": "company",
+      "label": "КОЛХИДА-МЕТАЛ АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206165434",
+      "type": "company",
+      "label": "СОЛАР ЛИЗИНГ",
+      "slug": null,
+      "uic": "206165434",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2823",
+      "type": "mp",
+      "mpId": 2823,
+      "label": "Ивайло Ангелов Московски",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:933",
+      "target": "company:tr:208877843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:208877843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206265267",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:207311778",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206357598",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206357598",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ГЕОРГИЕВ МИЛОРОВ",
+      "target": "company:tr:208877843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КМ ПРОПЪРТИС",
+      "target": "company:tr:208877843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЕВЪН РЕЗИДЕНС",
+      "target": "company:tr:208877843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛЕМИ ИНВЕСТ",
+      "target": "company:tr:206265267",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ГЕОРГИЕВ СЛАВЕНИН",
+      "target": "company:tr:206265267",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ВЛАДИМИРОВ ИВАНОВ",
+      "target": "company:tr:207311778",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛХИДА - МЕТАЛ",
+      "target": "company:tr:207311778",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2804",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КОЛХИДА-МЕТАЛ",
+      "target": "company:tr:206357598",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:206165434",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2823",
+      "target": "company:tr:206165434",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2804",
+      "length": 2,
+      "nodeIds": [
+        "mp:933",
+        "company:tr:206374900",
+        "mp:2804"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2823",
+      "length": 4,
+      "nodeIds": [
+        "mp:933",
+        "company:tr:206374900",
+        "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+        "company:tr:206165434",
+        "mp:2823"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

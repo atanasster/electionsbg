@@ -1,1 +1,49 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2389","nodes":[{"id":"mp:2389","type":"mp","mpId":2389,"label":"Ангел Петров Найденов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["39","40","41","42"]},{"id":"company:tr:177161138","type":"company","label":"ЦЕНТЪР ЗА ИЗСЛЕДВАНЕ НА ОТБРАНАТА И СИГУРНОСТТА","slug":null,"uic":"177161138","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"}],"edges":[{"source":"mp:2389","target":"company:tr:177161138","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2389","target":"company:tr:177161138","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2389",
+  "nodes": [
+    {
+      "id": "mp:2389",
+      "type": "mp",
+      "mpId": 2389,
+      "label": "Ангел Петров Найденов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:177161138",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ИЗСЛЕДВАНЕ НА ОТБРАНАТА И СИГУРНОСТТА",
+      "slug": null,
+      "uic": "177161138",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2389",
+      "target": "company:tr:177161138",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2389",
+      "target": "company:tr:177161138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

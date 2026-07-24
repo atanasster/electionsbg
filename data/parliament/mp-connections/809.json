@@ -1,1 +1,412 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:809","nodes":[{"id":"mp:809","type":"mp","mpId":809,"label":"Альоша Маков Даков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:201745141","type":"company","label":"Академика 2011","slug":null,"uic":"201745141","legalForm":"EAD","status":"active","seat":null},{"id":"person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ","type":"person","label":"Лазар Стоянов Пърличков"},{"id":"person:АЛЕКСАНДЪР ГЕОРГИЕВ СКОБЕЛЕВ","type":"person","label":"Александър Георгиев Скобелев"},{"id":"person:ЛЮБОМИР ХРИСТОСКОВ ВЪРБЕВ","type":"person","label":"Любомир Христосков Върбев"},{"id":"person:ПЕТЪР РУМЕНОВ ПЕТРОВ","type":"person","label":"Петър Руменов Петров"},{"id":"person:ИВАН ВЕСЕЛИНОВ ТЕРЗИЙСКИ","type":"person","label":"Иван Веселинов Терзийски"},{"id":"person:ТРАЯН СТОЯНОВ ТАНЕВ","type":"person","label":"Траян Стоянов Танев"},{"id":"person:МАРТИН ПЛАМЕНОВ СТАНЧЕВ","type":"person","label":"Мартин Пламенов Станчев"},{"id":"person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ","type":"person","label":"Кръстин Кирилов Чепилов"},{"id":"person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА","type":"person","label":"Весела Спасова Цветанова"},{"id":"person:ИВАЙЛО АТАНАСОВ ЕНЧЕВ","type":"person","label":"Ивайло Атанасов Енчев"},{"id":"person:ФИЛИП ЕМИЛОВ ЛАЗАРОВ","type":"person","label":"Филип Емилов Лазаров"},{"id":"person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА","type":"person","label":"Панайотка Христова Панайотова"},{"id":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","type":"person","label":"Светослав Ивославов Русинов"},{"id":"company:tr:831635354","type":"company","label":"НАЦИОНАЛНА СПОРТНА БАЗА","slug":null,"uic":"831635354","legalForm":"EAD","status":"active","seat":null},{"id":"mp:4716","type":"mp","mpId":4716,"label":"Венцислав Иванов Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["47"]},{"id":"mp:5197","type":"mp","mpId":5197,"label":"Йордан Йовчев Йовчев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"mp:809","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ","target":"company:tr:201745141","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ГЕОРГИЕВ СКОБЕЛЕВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ХРИСТОСКОВ ВЪРБЕВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР РУМЕНОВ ПЕТРОВ","target":"company:tr:201745141","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР РУМЕНОВ ПЕТРОВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВЕСЕЛИНОВ ТЕРЗИЙСКИ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТРАЯН СТОЯНОВ ТАНЕВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЛАМЕНОВ СТАНЧЕВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА","target":"company:tr:201745141","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО АТАНАСОВ ЕНЧЕВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП ЕМИЛОВ ЛАЗАРОВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА","target":"company:tr:201745141","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:tr:201745141","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:tr:201745141","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:tr:831635354","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:4716","target":"company:tr:831635354","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4716","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:5197","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4716","length":4,"nodeIds":["mp:809","company:tr:201745141","person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","company:tr:831635354","mp:4716"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5197","length":4,"nodeIds":["mp:809","company:tr:201745141","person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ","company:tr:831635354","mp:5197"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:809",
+  "nodes": [
+    {
+      "id": "mp:809",
+      "type": "mp",
+      "mpId": 809,
+      "label": "Альоша Маков Даков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:201745141",
+      "type": "company",
+      "label": "Академика 2011",
+      "slug": null,
+      "uic": "201745141",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:alosha-makov-dakov-4c797b",
+      "type": "official",
+      "slug": "alosha-makov-dakov-4c797b",
+      "label": "Альоша Маков Даков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-veselinov-terziiski-f30376",
+      "type": "official",
+      "slug": "ivan-veselinov-terziiski-f30376",
+      "label": "Иван Веселинов Терзийски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ",
+      "type": "person",
+      "label": "Лазар Стоянов Пърличков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ СКОБЕЛЕВ",
+      "type": "person",
+      "label": "Александър Георгиев Скобелев"
+    },
+    {
+      "id": "person:ЛЮБОМИР ХРИСТОСКОВ ВЪРБЕВ",
+      "type": "person",
+      "label": "Любомир Христосков Върбев"
+    },
+    {
+      "id": "person:ПЕТЪР РУМЕНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Руменов Петров"
+    },
+    {
+      "id": "person:ТРАЯН СТОЯНОВ ТАНЕВ",
+      "type": "person",
+      "label": "Траян Стоянов Танев"
+    },
+    {
+      "id": "person:МАРТИН ПЛАМЕНОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Мартин Пламенов Станчев"
+    },
+    {
+      "id": "person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ",
+      "type": "person",
+      "label": "Кръстин Кирилов Чепилов"
+    },
+    {
+      "id": "person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Весела Спасова Цветанова"
+    },
+    {
+      "id": "person:ИВАЙЛО АТАНАСОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Ивайло Атанасов Енчев"
+    },
+    {
+      "id": "person:ФИЛИП ЕМИЛОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Филип Емилов Лазаров"
+    },
+    {
+      "id": "person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Панайотка Христова Панайотова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "type": "person",
+      "label": "Светослав Ивославов Русинов"
+    },
+    {
+      "id": "person:МАРТИН ВЛАДИМИРОВ ТАСЕВ",
+      "type": "person",
+      "label": "Мартин Владимиров Тасев"
+    },
+    {
+      "id": "person:ТЕРВЕЛ ГЕОРГИЕВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Тервел Георгиев Златев"
+    },
+    {
+      "id": "person:МАРТИН ДРАГОМИРОВ ЦУЦУМАНОВ",
+      "type": "person",
+      "label": "Мартин Драгомиров Цуцуманов"
+    },
+    {
+      "id": "company:tr:831635354",
+      "type": "company",
+      "label": "НАЦИОНАЛНА СПОРТНА БАЗА",
+      "slug": null,
+      "uic": "831635354",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4716",
+      "type": "mp",
+      "mpId": 4716,
+      "label": "Венцислав Иванов Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "mp:5197",
+      "type": "mp",
+      "mpId": 5197,
+      "label": "Йордан Йовчев Йовчев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:809",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:alosha-makov-dakov-4c797b",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-veselinov-terziiski-f30376",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР СТОЯНОВ ПЪРЛИЧКОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ СКОБЕЛЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ХРИСТОСКОВ ВЪРБЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР РУМЕНОВ ПЕТРОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР РУМЕНОВ ПЕТРОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯН СТОЯНОВ ТАНЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЛАМЕНОВ СТАНЧЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА СПАСОВА ЦВЕТАНОВА",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО АТАНАСОВ ЕНЧЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ЕМИЛОВ ЛАЗАРОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНАЙОТКА ХРИСТОВА ПАНАЙОТОВА",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ВЛАДИМИРОВ ТАСЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ВЛАДИМИРОВ ТАСЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРВЕЛ ГЕОРГИЕВ ЗЛАТЕВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ДРАГОМИРОВ ЦУЦУМАНОВ",
+      "target": "company:tr:201745141",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5197",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4716",
+      "length": 4,
+      "nodeIds": [
+        "mp:809",
+        "company:tr:201745141",
+        "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+        "company:tr:831635354",
+        "mp:4716"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5197",
+      "length": 4,
+      "nodeIds": [
+        "mp:809",
+        "company:tr:201745141",
+        "person:СВЕТОСЛАВ ИВОСЛАВОВ РУСИНОВ",
+        "company:tr:831635354",
+        "mp:5197"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

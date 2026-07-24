@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:daniel-nikolaev-katsarski-b715c6","nodes":[{"id":"official:daniel-nikolaev-katsarski-b715c6","type":"official","slug":"daniel-nikolaev-katsarski-b715c6","label":"Даниел Николаев Кацарски","tier":"municipal","role":"deputy_mayor","municipality":"Съединение"},{"id":"company:tr:202587331","type":"company","label":"\"ВИЛАД ГРУП\" ООД","slug":null,"uic":"202587331","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:daniel-nikolaev-katsarski-b715c6","target":"company:tr:202587331","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:daniel-nikolaev-katsarski-b715c6",
+  "nodes": [
+    {
+      "id": "official:daniel-nikolaev-katsarski-b715c6",
+      "type": "official",
+      "slug": "daniel-nikolaev-katsarski-b715c6",
+      "label": "Даниел Николаев Кацарски",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Съединение"
+    },
+    {
+      "id": "company:tr:202587331",
+      "type": "company",
+      "label": "\"ВИЛАД ГРУП\" ООД",
+      "slug": null,
+      "uic": "202587331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-nikolaev-katsarski-b715c6",
+      "target": "company:tr:202587331",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

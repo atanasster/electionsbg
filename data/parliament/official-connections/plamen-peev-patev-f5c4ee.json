@@ -1,1 +1,48 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:plamen-peev-patev-f5c4ee","nodes":[{"id":"official:plamen-peev-patev-f5c4ee","type":"official","slug":"plamen-peev-patev-f5c4ee","label":"Пламен Пеев Патев","tier":"municipal","role":"councillor","municipality":"Етрополе"},{"id":"company:tr:122055819","type":"company","label":"Етропал Трейд ООД","slug":null,"uic":"122055819","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮБОМИР КРАСИМИРОВ КОЛЧЕВ","type":"person","label":"Любомир Красимиров Колчев"}],"edges":[{"source":"official:plamen-peev-patev-f5c4ee","target":"company:tr:122055819","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР КРАСИМИРОВ КОЛЧЕВ","target":"company:tr:122055819","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-peev-patev-f5c4ee",
+  "nodes": [
+    {
+      "id": "official:plamen-peev-patev-f5c4ee",
+      "type": "official",
+      "slug": "plamen-peev-patev-f5c4ee",
+      "label": "Пламен Пеев Патев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Етрополе"
+    },
+    {
+      "id": "company:tr:122055819",
+      "type": "company",
+      "label": "Етропал Трейд ООД",
+      "slug": null,
+      "uic": "122055819",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР КРАСИМИРОВ КОЛЧЕВ",
+      "type": "person",
+      "label": "Любомир Красимиров Колчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-peev-patev-f5c4ee",
+      "target": "company:tr:122055819",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР КРАСИМИРОВ КОЛЧЕВ",
+      "target": "company:tr:122055819",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

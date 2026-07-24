@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:miroslav-radoslavov-velikov-733c8c",
+  "nodes": [
+    {
+      "id": "official:miroslav-radoslavov-velikov-733c8c",
+      "type": "official",
+      "slug": "miroslav-radoslavov-velikov-733c8c",
+      "label": "Мирослав Радославов Великов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208432188",
+      "type": "company",
+      "label": "МилВел Стратиджик Консултинг",
+      "slug": null,
+      "uic": "208432188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-radoslavov-velikov-733c8c",
+      "target": "company:tr:208432188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-radoslavov-velikov-733c8c",
+      "target": "company:tr:208432188",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

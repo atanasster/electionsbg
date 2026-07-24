@@ -16,7 +16,6 @@
 //   npx tsx scripts/declarations/coverage.ts --year 2025
 //   npx tsx scripts/declarations/coverage.ts --offline  # skip the register, local counts only
 
-import fs from "fs";
 import path from "path";
 import { Agent } from "undici";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
@@ -24,8 +23,7 @@ import {
   REGISTER_BASE,
   extractDeclarationXmlFiles,
 } from "../lib/cacbg_register";
-import { categoriseRaw } from "../officials/categorise";
-import { MP_CATEGORY_SUBSTRING } from "../watch/sources/cacbg_declarations";
+import { heldByFolder, TIERS } from "./coverage_lib";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -51,54 +49,6 @@ const fetchListing = async (folder: string): Promise<string | null> => {
   }
 };
 
-type Tier = {
-  name: string;
-  dir: string;
-  /** Does this category belong to this tier's ingest? Must match the ingest's
-   *  own filter exactly — that equality is what the report tests. */
-  owns: (categoryName: string) => boolean;
-};
-
-const TIERS: Tier[] = [
-  {
-    name: "MPs",
-    dir: "data/parliament/declarations",
-    owns: (n) => n.includes(MP_CATEGORY_SUBSTRING),
-  },
-  {
-    name: "executive",
-    dir: "data/officials/declarations",
-    owns: (n) => categoriseRaw(n) !== null,
-  },
-  {
-    name: "municipal",
-    dir: "data/officials/municipal/declarations",
-    owns: (n) => n.includes("Кметове"),
-  },
-];
-
-/** Declarations we hold, counted per register folder. */
-const heldByFolder = (dir: string): Map<string, number> => {
-  const out = new Map<string, number>();
-  const abs = path.join(ROOT, dir);
-  if (!fs.existsSync(abs)) return out;
-  for (const f of fs.readdirSync(abs)) {
-    if (!f.endsWith(".json")) continue;
-    let rows: { sourceUrl: string }[];
-    try {
-      rows = JSON.parse(fs.readFileSync(path.join(abs, f), "utf-8"));
-    } catch {
-      continue;
-    }
-    for (const r of rows) {
-      const m = /cacbg\.bg\/([^/]+)\//.exec(r.sourceUrl ?? "");
-      if (!m) continue;
-      out.set(m[1], (out.get(m[1]) ?? 0) + 1);
-    }
-  }
-  return out;
-};
-
 const cmd = command({
   name: "coverage",
   description:
@@ -118,7 +68,7 @@ const cmd = command({
   handler: async ({ year, offline }) => {
     let worstGap = 0;
     for (const tier of TIERS) {
-      const held = heldByFolder(tier.dir);
+      const held = heldByFolder(path.join(ROOT, tier.dir));
       const folders = (year ? [year] : [...held.keys()]).sort();
       if (folders.length === 0) {
         console.log(`\n${tier.name}: nothing on file`);

@@ -335,14 +335,14 @@
         "areaSqm": 118,
         "builtAreaSqm": 118,
         "acquiredYear": 2001,
-        "share": "36900",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36900,
+        "valueEur": 18866.670416140463,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -353,14 +353,14 @@
         "areaSqm": 75,
         "builtAreaSqm": 75,
         "acquiredYear": 1999,
-        "share": "24496",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 24496,
+        "valueEur": 12524.605921782568,
         "holderName": "Даринка Данаилова Коралска",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -371,14 +371,14 @@
         "areaSqm": 60,
         "builtAreaSqm": 60,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -389,14 +389,14 @@
         "areaSqm": 700,
         "builtAreaSqm": 0,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -407,14 +407,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -425,31 +425,31 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2011,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 1000,
         "valueEur": 511.29188119621847,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "потребителски кредит",
-        "detail": "Минчо Боев Коралски",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "25000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Райфайзенбанк ЕАД",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Минчо Боев Коралски",
+        "isSpouse": false,
+        "legalBasis": "договор",
         "fundsOrigin": null
       }
     ],
@@ -480,14 +480,14 @@
         "areaSqm": 118,
         "builtAreaSqm": 118,
         "acquiredYear": 2001,
-        "share": "36900",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36900,
+        "valueEur": 18866.670416140463,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -498,14 +498,14 @@
         "areaSqm": 75,
         "builtAreaSqm": 75,
         "acquiredYear": 1999,
-        "share": "24496",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 24496,
+        "valueEur": 12524.605921782568,
         "holderName": "Даринка Данаилова Коралска",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -516,14 +516,14 @@
         "areaSqm": 60,
         "builtAreaSqm": 60,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -534,14 +534,14 @@
         "areaSqm": 700,
         "builtAreaSqm": 0,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -552,14 +552,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -570,31 +570,31 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2011,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 1000,
         "valueEur": 511.29188119621847,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "потребителски кредит",
-        "detail": "Минчо Боев Коралски",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Райфайзенбанк ЕАД",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Минчо Боев Коралски",
+        "isSpouse": false,
+        "legalBasis": "договор",
         "fundsOrigin": null
       }
     ],
@@ -614,7 +614,14 @@
     "controlHash": "B98B0F1D",
     "sourceUrl": "https://register.cacbg.bg/2015/9E91DED7-069C-440B-9BF6-33EE874B727367802.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1302.7717132879648,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -625,14 +632,14 @@
         "areaSqm": 118,
         "builtAreaSqm": 118,
         "acquiredYear": 2001,
-        "share": "36900",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36900,
+        "valueEur": 18866.670416140463,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -643,14 +650,14 @@
         "areaSqm": 75,
         "builtAreaSqm": 75,
         "acquiredYear": 1999,
-        "share": "24496",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 24496,
+        "valueEur": 12524.605921782568,
         "holderName": "Даринка Данаилова Коралска",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -661,14 +668,14 @@
         "areaSqm": 60,
         "builtAreaSqm": 60,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -679,14 +686,14 @@
         "areaSqm": 700,
         "builtAreaSqm": 0,
         "acquiredYear": 1999,
-        "share": null,
+        "share": "100%",
         "currency": null,
         "amount": null,
         "valueEur": null,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -697,14 +704,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 2000,
         "valueEur": 1022.5837623924369,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -715,119 +722,34 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2011,
-        "share": "покупко-продажба",
+        "share": "1/2",
         "currency": "BGN",
         "amount": 1000,
         "valueEur": 511.29188119621847,
         "holderName": "Минчо Боев Коралски",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "потребителски кредит",
-        "detail": "Минчо Боев Коралски",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "Райфайзенбанк ЕАД",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Минчо Боев Коралски",
+        "isSpouse": false,
+        "legalBasis": "договор",
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1302.7717132879648,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

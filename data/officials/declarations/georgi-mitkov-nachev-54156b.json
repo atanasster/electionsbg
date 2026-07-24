@@ -367,14 +367,14 @@
         "areaSqm": 88,
         "builtAreaSqm": 88,
         "acquiredYear": 2009,
-        "share": "122850",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 122850,
+        "valueEur": 62812.20760495544,
         "holderName": "Георги Митков Начев",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "real_estate",
@@ -385,14 +385,14 @@
         "areaSqm": 97,
         "builtAreaSqm": 97,
         "acquiredYear": 2016,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Георги Митков Начев",
         "isSpouse": false,
         "legalBasis": "наследство и дарение",
-        "fundsOrigin": null
+        "fundsOrigin": "наследство и дарение"
       },
       {
         "category": "vehicle",
@@ -403,14 +403,14 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2004,
-        "share": "покупко-продажба",
+        "share": "1",
         "currency": "BGN",
         "amount": 500,
         "valueEur": 255.64594059810923,
         "holderName": "Георги Митков Начев",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
         "category": "vehicle",
@@ -421,32 +421,32 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "1",
         "currency": "BGN",
         "amount": 1860,
         "valueEur": 951.0028990249664,
         "holderName": "Георги Митков Начев",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "debt",
-        "description": "40000",
-        "detail": null,
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "да",
-        "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Георги Митков Начев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": [
@@ -459,8 +459,8 @@
         "areaSqm": 97,
         "builtAreaSqm": 97,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   }

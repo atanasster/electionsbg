@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordanka-ilieva-savcheva-stoeva-2e21cd",
+  "nodes": [
+    {
+      "id": "official:iordanka-ilieva-savcheva-stoeva-2e21cd",
+      "type": "official",
+      "slug": "iordanka-ilieva-savcheva-stoeva-2e21cd",
+      "label": "Йорданка Илиева Савчева-Стоева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:000456363",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ НИКОЛА ВАПЦАРОВ-1928Г.-С.КОСТИЕВО",
+      "slug": null,
+      "uic": "000456363",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЙКА ПЕТКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Стойка Петкова Петкова"
+    },
+    {
+      "id": "person:БОЯНА СТОЕВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Бояна Стоева Лазарова"
+    },
+    {
+      "id": "person:ИЛИЯНА ТРАЙЧЕВА ДЖОГЛОВА",
+      "type": "person",
+      "label": "Илияна Трайчева Джоглова"
+    },
+    {
+      "id": "person:ДИАНА РАНГЕЛОВА АРНАУДОВА",
+      "type": "person",
+      "label": "Диана Рангелова Арнаудова"
+    },
+    {
+      "id": "person:СИЙКА СТОИЛОВА УГРЕНОВА",
+      "type": "person",
+      "label": "Сийка Стоилова Угренова"
+    },
+    {
+      "id": "person:МАРИЯ АНГЕЛОВА КЛЯВКОВА",
+      "type": "person",
+      "label": "Мария Ангелова Клявкова"
+    },
+    {
+      "id": "person:ПОЛИНА ХРИСТОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Полина Христова Петкова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ГЕОРГИЕВА ПОПОВА",
+      "type": "person",
+      "label": "Йорданка Георгиева Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-ilieva-savcheva-stoeva-2e21cd",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordanka-ilieva-savcheva-stoeva-2e21cd",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЙКА ПЕТКОВА ПЕТКОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА СТОЕВА ЛАЗАРОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ТРАЙЧЕВА ДЖОГЛОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА РАНГЕЛОВА АРНАУДОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЙКА СТОИЛОВА УГРЕНОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА КЛЯВКОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ХРИСТОВА ПЕТКОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА КЛЯВКОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:000456363",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

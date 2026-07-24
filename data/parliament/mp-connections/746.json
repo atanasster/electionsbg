@@ -1,1 +1,355 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:746","nodes":[{"id":"mp:746","type":"mp","mpId":746,"label":"Никола Богданов Николов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:201008009","type":"company","label":"Уорлд Инвестмънт Кепитъл","slug":null,"uic":"201008009","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1612"},{"id":"company:tr:208469724","type":"company","label":"СЪКСЕС ИНВЕСТ КОНСУЛТ","slug":null,"uic":"208469724","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1612"},{"id":"company:tr:207015373","type":"company","label":"ЮФ МИЛЕНА","slug":null,"uic":"207015373","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:176129988","type":"company","label":"МЕЖДУНАРОДЕН ФЕСТИВАЛ ЗЛАТЕН ОРФЕЙ","slug":null,"uic":"176129988","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, София, 1040"},{"id":"company:tr:205762191","type":"company","label":"ТОРНАДО КЛИЙН","slug":null,"uic":"205762191","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:207734358","type":"company","label":"АНГЕЛ СТРОИТЕЛ","slug":null,"uic":"207734358","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, с. Бистрица, 1444"},{"id":"company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ","type":"company","label":"Хеалт Продъктс България АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЯВОР КАЛИНОВ РАДУЛОВ","type":"person","label":"Явор Калинов Радулов"},{"id":"person:НИКОЛА НИКОЛОВ НИКОЛОВ","type":"person","label":"Никола Николов Николов"},{"id":"company:name:УОРЛД ИНВСТМЪНТ КЕПИТЪЛ","type":"company","label":"„УОРЛД ИНВСТМЪНТ КЕПИТЪЛ“ ЕАД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ТИХОМИРА ДИМИТРОВА ДИНЧЕВА","type":"person","label":"Тихомира Димитрова Динчева"},{"id":"person:ТЕОДОРА РАДОМИРОВА ЯНКУЛОВА","type":"person","label":"Теодора Радомирова Янкулова"},{"id":"person:КРИСТИЯН РАДОМИРОВ ЯНКУЛОВ","type":"person","label":"Кристиян Радомиров Янкулов"},{"id":"company:name:БИО ПАРТНЪРС","type":"company","label":"БИО ПАРТНЪРС ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН СТЕФАНОВ ТЕНЕВ","type":"person","label":"Иван Стефанов Тенев"},{"id":"person:АЛЕКСАНДЪР ДИМИТРОВ ПЕТРОВ","type":"person","label":"Александър Димитров Петров"},{"id":"person:СТЕФАН МИХАЙЛОВ ДИМИТРОВ","type":"person","label":"Стефан Михайлов Димитров"},{"id":"person:ЙОРДАНКА НИКОЛОВА ТОДОРОВА","type":"person","label":"Йорданка Николова Тодорова"},{"id":"company:name:СЪКСЕС ИНВЕСТМЪНТС","type":"company","label":"СЪКСЕС ИНВЕСТМЪНТС ЕАД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"mp:746","target":"company:tr:201008009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:208469724","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:208469724","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:207015373","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:176129988","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:205762191","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:205762191","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:746","target":"company:tr:207734358","kind":"tr_role","role":"manager","isCurrent":false,"confidence":"medium"},{"source":"company:tr:208469724","target":"company:tr:201008009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ","target":"company:tr:201008009","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР КАЛИНОВ РАДУЛОВ","target":"company:tr:201008009","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА НИКОЛОВ НИКОЛОВ","target":"company:tr:201008009","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ","target":"company:tr:208469724","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:УОРЛД ИНВСТМЪНТ КЕПИТЪЛ","target":"company:tr:208469724","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИРА ДИМИТРОВА ДИНЧЕВА","target":"company:tr:207015373","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА РАДОМИРОВА ЯНКУЛОВА","target":"company:tr:207015373","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН РАДОМИРОВ ЯНКУЛОВ","target":"company:tr:207015373","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:БИО ПАРТНЪРС","target":"company:tr:207015373","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТЕФАНОВ ТЕНЕВ","target":"company:tr:176129988","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ДИМИТРОВ ПЕТРОВ","target":"company:tr:176129988","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН МИХАЙЛОВ ДИМИТРОВ","target":"company:tr:176129988","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТЕФАНОВ ТЕНЕВ","target":"company:tr:176129988","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА НИКОЛОВА ТОДОРОВА","target":"company:tr:176129988","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:СЪКСЕС ИНВЕСТМЪНТС","target":"company:tr:207734358","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:746",
+  "nodes": [
+    {
+      "id": "mp:746",
+      "type": "mp",
+      "mpId": 746,
+      "label": "Никола Богданов Николов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:201008009",
+      "type": "company",
+      "label": "Уорлд Инвестмънт Кепитъл",
+      "slug": null,
+      "uic": "201008009",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612"
+    },
+    {
+      "id": "company:tr:208469724",
+      "type": "company",
+      "label": "СЪКСЕС ИНВЕСТ КОНСУЛТ",
+      "slug": null,
+      "uic": "208469724",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612"
+    },
+    {
+      "id": "company:tr:207015373",
+      "type": "company",
+      "label": "ЮФ МИЛЕНА",
+      "slug": null,
+      "uic": "207015373",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:176129988",
+      "type": "company",
+      "label": "МЕЖДУНАРОДЕН ФЕСТИВАЛ ЗЛАТЕН ОРФЕЙ",
+      "slug": null,
+      "uic": "176129988",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1040"
+    },
+    {
+      "id": "company:tr:205762191",
+      "type": "company",
+      "label": "ТОРНАДО КЛИЙН",
+      "slug": null,
+      "uic": "205762191",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207734358",
+      "type": "company",
+      "label": "АНГЕЛ СТРОИТЕЛ",
+      "slug": null,
+      "uic": "207734358",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Бистрица, 1444"
+    },
+    {
+      "id": "company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ",
+      "type": "company",
+      "label": "Хеалт Продъктс България АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯВОР КАЛИНОВ РАДУЛОВ",
+      "type": "person",
+      "label": "Явор Калинов Радулов"
+    },
+    {
+      "id": "person:НИКОЛА НИКОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Николов Николов"
+    },
+    {
+      "id": "company:name:УОРЛД ИНВСТМЪНТ КЕПИТЪЛ",
+      "type": "company",
+      "label": "„УОРЛД ИНВСТМЪНТ КЕПИТЪЛ“ ЕАД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТИХОМИРА ДИМИТРОВА ДИНЧЕВА",
+      "type": "person",
+      "label": "Тихомира Димитрова Динчева"
+    },
+    {
+      "id": "person:ТЕОДОРА РАДОМИРОВА ЯНКУЛОВА",
+      "type": "person",
+      "label": "Теодора Радомирова Янкулова"
+    },
+    {
+      "id": "person:КРИСТИЯН РАДОМИРОВ ЯНКУЛОВ",
+      "type": "person",
+      "label": "Кристиян Радомиров Янкулов"
+    },
+    {
+      "id": "company:name:БИО ПАРТНЪРС",
+      "type": "company",
+      "label": "БИО ПАРТНЪРС ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН СТЕФАНОВ ТЕНЕВ",
+      "type": "person",
+      "label": "Иван Стефанов Тенев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДИМИТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Александър Димитров Петров"
+    },
+    {
+      "id": "person:СТЕФАН МИХАЙЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Стефан Михайлов Димитров"
+    },
+    {
+      "id": "person:ЙОРДАНКА НИКОЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Йорданка Николова Тодорова"
+    },
+    {
+      "id": "company:name:СЪКСЕС ИНВЕСТМЪНТС",
+      "type": "company",
+      "label": "СЪКСЕС ИНВЕСТМЪНТС ЕАД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:746",
+      "target": "company:tr:201008009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:208469724",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:208469724",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:207015373",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:205762191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:205762191",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:746",
+      "target": "company:tr:207734358",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:tr:208469724",
+      "target": "company:tr:201008009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ",
+      "target": "company:tr:201008009",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР КАЛИНОВ РАДУЛОВ",
+      "target": "company:tr:201008009",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:201008009",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ХЕАЛТ ПРОДЪКТС БЪЛГАРИЯ",
+      "target": "company:tr:208469724",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:УОРЛД ИНВСТМЪНТ КЕПИТЪЛ",
+      "target": "company:tr:208469724",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИРА ДИМИТРОВА ДИНЧЕВА",
+      "target": "company:tr:207015373",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА РАДОМИРОВА ЯНКУЛОВА",
+      "target": "company:tr:207015373",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН РАДОМИРОВ ЯНКУЛОВ",
+      "target": "company:tr:207015373",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БИО ПАРТНЪРС",
+      "target": "company:tr:207015373",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТЕФАНОВ ТЕНЕВ",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМИТРОВ ПЕТРОВ",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МИХАЙЛОВ ДИМИТРОВ",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТЕФАНОВ ТЕНЕВ",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА НИКОЛОВА ТОДОРОВА",
+      "target": "company:tr:176129988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СЪКСЕС ИНВЕСТМЪНТС",
+      "target": "company:tr:207734358",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

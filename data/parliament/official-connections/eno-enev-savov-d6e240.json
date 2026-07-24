@@ -1,0 +1,351 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:eno-enev-savov-d6e240",
+  "nodes": [
+    {
+      "id": "official:eno-enev-savov-d6e240",
+      "type": "official",
+      "slug": "eno-enev-savov-d6e240",
+      "label": "Еньо Енев Савов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:176909251",
+      "type": "company",
+      "label": "СОФИЯ- ЕВРОПЕЙСКА СТОЛИЦА НА СПОРТА",
+      "slug": null,
+      "uic": "176909251",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3467",
+      "type": "mp",
+      "mpId": 3467,
+      "label": "Пламен Иванов Данаилов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "official:georgi-markov-klisurski-d3bb76",
+      "type": "official",
+      "slug": "georgi-markov-klisurski-d3bb76",
+      "label": "Георги Марков Клисурски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "official:anna-ilieva-stoikova-1a1801",
+      "type": "official",
+      "slug": "anna-ilieva-stoikova-1a1801",
+      "label": "Анна Илиева Стойкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "official:veselin-iordanov-kalanovski-773e55",
+      "type": "official",
+      "slug": "veselin-iordanov-kalanovski-773e55",
+      "label": "Веселин Йорданов Калановски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "official:nikolai-velov-velchev-9f08a6",
+      "type": "official",
+      "slug": "nikolai-velov-velchev-9f08a6",
+      "label": "Николай Вельов Велчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "official:tatyana-nikolova-georgieva-6e7c90",
+      "type": "official",
+      "slug": "tatyana-nikolova-georgieva-6e7c90",
+      "label": "Татяна Николова Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "official:hristo-nikolaev-koparanov-2acbdf",
+      "type": "official",
+      "slug": "hristo-nikolaev-koparanov-2acbdf",
+      "label": "Христо Николаев Копаранов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Екатерина Евлогиева Йорданова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЛАСЛО БОРШОШ",
+      "type": "person",
+      "label": "Мирослав Ласло Боршош"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАЛЕНТИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Валентинов Георгиев"
+    },
+    {
+      "id": "person:КАРЛОС АРНАЛДО КОНТРЕРА",
+      "type": "person",
+      "label": "Карлос Арналдо Контрера"
+    },
+    {
+      "id": "person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Николай Асенов Стойнев"
+    },
+    {
+      "id": "person:ПЕТКО ЕМИЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Петко Емилов Димитров"
+    },
+    {
+      "id": "person:АНАТОЛИ БЛАГОЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Анатоли Благоев Илиев"
+    },
+    {
+      "id": "person:ТАТЯНА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Татяна Георгиева"
+    },
+    {
+      "id": "person:ИВАЙЛО ХРИСТОВ ЙОНКОВ",
+      "type": "person",
+      "label": "Ивайло Христов Йонков"
+    },
+    {
+      "id": "person:ВЕНЦИ ВЕНЦИСЛАВОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Венци Венциславов Стойчев"
+    },
+    {
+      "id": "person:ИВАН ЯНЧОВ ТАКОВ",
+      "type": "person",
+      "label": "Иван Янчов Таков"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Димитър Христов Петров"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ШАЛЪФОВ",
+      "type": "person",
+      "label": "Димитър Петров Шалъфов"
+    },
+    {
+      "id": "person:ИВАН РУМЕНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Иван Руменов Василев"
+    },
+    {
+      "id": "person:АСЯ ТОДОРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ася Тодорова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eno-enev-savov-d6e240",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3467",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-markov-klisurski-d3bb76",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anna-ilieva-stoikova-1a1801",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-iordanov-kalanovski-773e55",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-velov-velchev-9f08a6",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-nikolova-georgieva-6e7c90",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-nikolaev-koparanov-2acbdf",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЛАСЛО БОРШОШ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАЛЕНТИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРЛОС АРНАЛДО КОНТРЕРА",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ СТОЙНЕВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЕМИЛОВ ДИМИТРОВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИ БЛАГОЕВ ИЛИЕВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ГЕОРГИЕВА",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ХРИСТОВ ЙОНКОВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИ ВЕНЦИСЛАВОВ СТОЙЧЕВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЯНЧОВ ТАКОВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ШАЛЪФОВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РУМЕНОВ ВАСИЛЕВ",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЯ ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:176909251",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

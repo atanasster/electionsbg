@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tatyana-krasimirova-dincheva-aadb2e",
+  "nodes": [
+    {
+      "id": "official:tatyana-krasimirova-dincheva-aadb2e",
+      "type": "official",
+      "slug": "tatyana-krasimirova-dincheva-aadb2e",
+      "label": "Татяна Красимирова Динчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176991782",
+      "type": "company",
+      "label": "ОРГАНИК ШАНС",
+      "slug": null,
+      "uic": "176991782",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЕРИНА ВАЛЕРИЕВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Катерина Валериева Трифонова"
+    },
+    {
+      "id": "person:БОЙКА КРАСИМИРОВА ДИНЧЕВА-КОПАНАРОВА",
+      "type": "person",
+      "label": "Бойка Красимирова Динчева-Копанарова"
+    },
+    {
+      "id": "person:КРАСИМИР ПАНАЙОТОВ ДИНЧЕВ",
+      "type": "person",
+      "label": "Красимир Панайотов Динчев"
+    },
+    {
+      "id": "person:НЕДЕЛЯ КОСТАДИНОВА ДИНЧЕВА",
+      "type": "person",
+      "label": "Неделя Костадинова Динчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-krasimirova-dincheva-aadb2e",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЕРИНА ВАЛЕРИЕВА ТРИФОНОВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ВАЛЕРИЕВА ТРИФОНОВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА КРАСИМИРОВА ДИНЧЕВА-КОПАНАРОВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПАНАЙОТОВ ДИНЧЕВ",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА КРАСИМИРОВА ДИНЧЕВА-КОПАНАРОВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЯ КОСТАДИНОВА ДИНЧЕВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА КРАСИМИРОВА ДИНЧЕВА-КОПАНАРОВА",
+      "target": "company:tr:176991782",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

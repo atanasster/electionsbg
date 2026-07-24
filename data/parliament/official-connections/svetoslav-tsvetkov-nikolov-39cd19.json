@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-tsvetkov-nikolov-39cd19",
+  "nodes": [
+    {
+      "id": "official:svetoslav-tsvetkov-nikolov-39cd19",
+      "type": "official",
+      "slug": "svetoslav-tsvetkov-nikolov-39cd19",
+      "label": "Светослав Цветков Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205496641",
+      "type": "company",
+      "label": "КАЙОН",
+      "slug": null,
+      "uic": "205496641",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛИСАВЕТА АЛЕКСАНДРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елисавета Александрова Николова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА СВЕТОСЛАВОВА МАНОВА",
+      "type": "person",
+      "label": "Александра Светославова Манова"
+    },
+    {
+      "id": "person:ЙОНКА ЙОРДАНОВА КОСТОВА",
+      "type": "person",
+      "label": "Йонка Йорданова Костова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-tsvetkov-nikolov-39cd19",
+      "target": "company:tr:205496641",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИСАВЕТА АЛЕКСАНДРОВА НИКОЛОВА",
+      "target": "company:tr:205496641",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА СВЕТОСЛАВОВА МАНОВА",
+      "target": "company:tr:205496641",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА СВЕТОСЛАВОВА МАНОВА",
+      "target": "company:tr:205496641",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКА ЙОРДАНОВА КОСТОВА",
+      "target": "company:tr:205496641",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

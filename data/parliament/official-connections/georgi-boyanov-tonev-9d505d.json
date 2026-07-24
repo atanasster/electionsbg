@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-boyanov-tonev-9d505d",
+  "nodes": [
+    {
+      "id": "official:georgi-boyanov-tonev-9d505d",
+      "type": "official",
+      "slug": "georgi-boyanov-tonev-9d505d",
+      "label": "Георги Боянов Тонев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Ценово"
+    },
+    {
+      "id": "company:tr:020177905",
+      "type": "company",
+      "label": "АРКА-РУСЕ",
+      "slug": null,
+      "uic": "020177905",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОРНИЦА СИЛВИЕВА СТАМБОЛИЕВА",
+      "type": "person",
+      "label": "Зорница Силвиева Стамболиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-boyanov-tonev-9d505d",
+      "target": "company:tr:020177905",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОРНИЦА СИЛВИЕВА СТАМБОЛИЕВА",
+      "target": "company:tr:020177905",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

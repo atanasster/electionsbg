@@ -1,1 +1,115 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5258","nodes":[{"id":"mp:5258","type":"mp","mpId":5258,"label":"Костадин Тодоров Костадинов","partyGroupShort":"ПГ на ВЪЗРАЖДАНЕ","isCurrent":true,"nsFolders":["47","48","49","50","51","52"]},{"id":"company:Дарба-Бъдеще","type":"company","label":"Дарба Бъдеще","slug":"Дарба-Бъдеще","uic":"206986712","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:tr:208035610","type":"company","label":"ФОНДАЦИЯ ВЪЗРАЖДАНЕ","slug":null,"uic":"208035610","legalForm":"Фондация","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА","type":"person","label":"Велина Денчева Костадинова"}],"edges":[{"source":"mp:5258","target":"company:Дарба-Бъдеще","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5258","target":"company:tr:208035610","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"mp:5258","target":"company:tr:208035610","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА","target":"company:Дарба-Бъдеще","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА","target":"company:Дарба-Бъдеще","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5258",
+  "nodes": [
+    {
+      "id": "mp:5258",
+      "type": "mp",
+      "mpId": 5258,
+      "label": "Костадин Тодоров Костадинов",
+      "partyGroupShort": "ПГ на ВЪЗРАЖДАНЕ",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Дарба-Бъдеще",
+      "type": "company",
+      "label": "Дарба Бъдеще",
+      "slug": "Дарба-Бъдеще",
+      "uic": "206986712",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:208035610",
+      "type": "company",
+      "label": "ФОНДАЦИЯ ВЪЗРАЖДАНЕ",
+      "slug": null,
+      "uic": "208035610",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Велина Денчева Костадинова"
+    },
+    {
+      "id": "official:kostadin-todorov-kostadinov-fc5d59",
+      "type": "official",
+      "slug": "kostadin-todorov-kostadinov-fc5d59",
+      "label": "Костадин Тодоров Костадинов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5258",
+      "target": "company:Дарба-Бъдеще",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5258",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5258",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА",
+      "target": "company:Дарба-Бъдеще",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА ДЕНЧЕВА КОСТАДИНОВА",
+      "target": "company:Дарба-Бъдеще",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kostadin-todorov-kostadinov-fc5d59",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-todorov-kostadinov-fc5d59",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

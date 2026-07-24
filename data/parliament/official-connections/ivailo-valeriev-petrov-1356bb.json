@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-valeriev-petrov-1356bb",
+  "nodes": [
+    {
+      "id": "official:ivailo-valeriev-petrov-1356bb",
+      "type": "official",
+      "slug": "ivailo-valeriev-petrov-1356bb",
+      "label": "Ивайло Валериев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:105566697",
+      "type": "company",
+      "label": "ТРИБО ЙО",
+      "slug": null,
+      "uic": "105566697",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Видин, 3700"
+    },
+    {
+      "id": "mp:5149",
+      "type": "mp",
+      "mpId": 5149,
+      "label": "Ивайло Валериев Петров",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ПЕТКАНА АНДРЕЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петкана Андреева Петрова"
+    },
+    {
+      "id": "person:ГОРИЦА ЙОНИЦОВА БЪЛГАРАНОВА",
+      "type": "person",
+      "label": "Горица Йоницова Българанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-valeriev-petrov-1356bb",
+      "target": "company:tr:105566697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5149",
+      "target": "company:tr:105566697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКАНА АНДРЕЕВА ПЕТРОВА",
+      "target": "company:tr:105566697",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКАНА АНДРЕЕВА ПЕТРОВА",
+      "target": "company:tr:105566697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРИЦА ЙОНИЦОВА БЪЛГАРАНОВА",
+      "target": "company:tr:105566697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

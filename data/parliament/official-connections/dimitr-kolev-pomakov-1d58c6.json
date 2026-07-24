@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-kolev-pomakov-1d58c6",
+  "nodes": [
+    {
+      "id": "official:dimitr-kolev-pomakov-1d58c6",
+      "type": "official",
+      "slug": "dimitr-kolev-pomakov-1d58c6",
+      "label": "Димитър Колев Помаков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201655155",
+      "type": "company",
+      "label": "\"Дипоникс\" ЕООД",
+      "slug": null,
+      "uic": "201655155",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:127513804",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВЕЛИКИ ПРЕСЛАВ",
+      "slug": null,
+      "uic": "127513804",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТРУФКА РУСЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Труфка Русева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-kolev-pomakov-1d58c6",
+      "target": "company:tr:201655155",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-kolev-pomakov-1d58c6",
+      "target": "company:tr:127513804",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТРУФКА РУСЕВА ДИМИТРОВА",
+      "target": "company:tr:127513804",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

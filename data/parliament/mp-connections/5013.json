@@ -1,1 +1,246 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5013","nodes":[{"id":"mp:5013","type":"mp","mpId":5013,"label":"Пламен Ангелов Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["51"]},{"id":"company:АС-АТ-ЕООД","type":"company","label":"АС-АТ ЕООД","slug":"АС-АТ-ЕООД","uic":"175209984","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:Кастелон-Керамикс-ЕООД","type":"company","label":"Кастелон Керамикс ЕООД","slug":"Кастелон-Керамикс-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"София (столица)"},{"id":"company:ХДТ-БГ-ЕООД","type":"company","label":"ХДТ БГ ЕООД","slug":"ХДТ-БГ-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"Монтана"},{"id":"company:tr:208545353","type":"company","label":"РАЯМАР 2008","slug":null,"uic":"208545353","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1582"},{"id":"company:tr:207789041","type":"company","label":"ФЛОРЕШ","slug":null,"uic":"207789041","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Русе, 7000"},{"id":"company:tr:130969981","type":"company","label":"Аутлет Плочки","slug":null,"uic":"130969981","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1138"},{"id":"company:tr:204655603","type":"company","label":"ХДТ /храна за духа и тялото/ БГ","slug":null,"uic":"204655603","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:206366622","type":"company","label":"АНГИ","slug":null,"uic":"206366622","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Правец, 2161"},{"id":"person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА","type":"person","label":"Йоанна Пламенова Ангелова"},{"id":"person:ФИЛИП ЛЮЛИНОВ МАТЕВ","type":"person","label":"Филип Люлинов Матев"}],"edges":[{"source":"mp:5013","target":"company:АС-АТ-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5013","target":"company:Кастелон-Керамикс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5013","target":"company:ХДТ-БГ-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5013","target":"company:tr:208545353","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:208545353","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:207789041","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:207789041","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:130969981","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:204655603","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:204655603","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:206366622","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5013","target":"company:tr:206366622","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА","target":"company:АС-АТ-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП ЛЮЛИНОВ МАТЕВ","target":"company:tr:207789041","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА","target":"company:tr:130969981","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА","target":"company:tr:130969981","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА","target":"company:tr:204655603","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5013",
+  "nodes": [
+    {
+      "id": "mp:5013",
+      "type": "mp",
+      "mpId": 5013,
+      "label": "Пламен Ангелов Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "company:АС-АТ-ЕООД",
+      "type": "company",
+      "label": "АС-АТ ЕООД",
+      "slug": "АС-АТ-ЕООД",
+      "uic": "175209984",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Кастелон-Керамикс-ЕООД",
+      "type": "company",
+      "label": "Кастелон Керамикс ЕООД",
+      "slug": "Кастелон-Керамикс-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ХДТ-БГ-ЕООД",
+      "type": "company",
+      "label": "ХДТ БГ ЕООД",
+      "slug": "ХДТ-БГ-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Монтана"
+    },
+    {
+      "id": "company:tr:208545353",
+      "type": "company",
+      "label": "РАЯМАР 2008",
+      "slug": null,
+      "uic": "208545353",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1582"
+    },
+    {
+      "id": "company:tr:207789041",
+      "type": "company",
+      "label": "ФЛОРЕШ",
+      "slug": null,
+      "uic": "207789041",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000"
+    },
+    {
+      "id": "company:tr:130969981",
+      "type": "company",
+      "label": "Аутлет Плочки",
+      "slug": null,
+      "uic": "130969981",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1138"
+    },
+    {
+      "id": "company:tr:204655603",
+      "type": "company",
+      "label": "ХДТ /храна за духа и тялото/ БГ",
+      "slug": null,
+      "uic": "204655603",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206366622",
+      "type": "company",
+      "label": "АНГИ",
+      "slug": null,
+      "uic": "206366622",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Правец, 2161"
+    },
+    {
+      "id": "person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Йоанна Пламенова Ангелова"
+    },
+    {
+      "id": "person:ФИЛИП ЛЮЛИНОВ МАТЕВ",
+      "type": "person",
+      "label": "Филип Люлинов Матев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5013",
+      "target": "company:АС-АТ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:Кастелон-Керамикс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:ХДТ-БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:208545353",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:208545353",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:207789041",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:207789041",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:130969981",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:204655603",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:204655603",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:206366622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5013",
+      "target": "company:tr:206366622",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА",
+      "target": "company:АС-АТ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ЛЮЛИНОВ МАТЕВ",
+      "target": "company:tr:207789041",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА",
+      "target": "company:tr:130969981",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА",
+      "target": "company:tr:130969981",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ПЛАМЕНОВА АНГЕЛОВА",
+      "target": "company:tr:204655603",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

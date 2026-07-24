@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3901",
+  "nodes": [
+    {
+      "id": "mp:3901",
+      "type": "mp",
+      "mpId": 3901,
+      "label": "Мукаддес Юсуф Налбант",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Архинал",
+      "type": "company",
+      "label": "\"Архинал\"",
+      "slug": "Архинал",
+      "uic": "203208617",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "гр. София"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3901",
+      "target": "company:Архинал",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

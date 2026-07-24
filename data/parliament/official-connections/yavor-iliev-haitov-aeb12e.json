@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yavor-iliev-haitov-aeb12e",
+  "nodes": [
+    {
+      "id": "official:yavor-iliev-haitov-aeb12e",
+      "type": "official",
+      "slug": "yavor-iliev-haitov-aeb12e",
+      "label": "Явор Илиев Хайтов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:Сиал-2018-ЕООД",
+      "type": "company",
+      "label": "Сиал 2018 ЕООД",
+      "slug": "Сиал-2018-ЕООД",
+      "uic": "204996056",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Интерсол-ООД",
+      "type": "company",
+      "label": "Интерсол ООД",
+      "slug": "Интерсол-ООД",
+      "uic": "205446802",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "mp:4999",
+      "type": "mp",
+      "mpId": 4999,
+      "label": "Явор Илиев Хайтов",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "51"
+      ]
+    },
+    {
+      "id": "person:ВАЛЕНТИНА АНГЕЛОВА ХАЙТОВА",
+      "type": "person",
+      "label": "Валентина Ангелова Хайтова"
+    },
+    {
+      "id": "person:РИАЛ ТЕХ",
+      "type": "person",
+      "label": "Риал Тех"
+    },
+    {
+      "id": "person:ЮНИДАК КОНСУЛТИНГ",
+      "type": "person",
+      "label": "Юнидак Консултинг"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-iliev-haitov-aeb12e",
+      "target": "company:Сиал-2018-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-iliev-haitov-aeb12e",
+      "target": "company:Интерсол-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4999",
+      "target": "company:Сиал-2018-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4999",
+      "target": "company:Интерсол-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА АНГЕЛОВА ХАЙТОВА",
+      "target": "company:Интерсол-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИАЛ ТЕХ",
+      "target": "company:Интерсол-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮНИДАК КОНСУЛТИНГ",
+      "target": "company:Интерсол-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

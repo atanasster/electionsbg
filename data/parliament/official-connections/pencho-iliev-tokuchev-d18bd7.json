@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:pencho-iliev-tokuchev-d18bd7",
+  "nodes": [
+    {
+      "id": "official:pencho-iliev-tokuchev-d18bd7",
+      "type": "official",
+      "slug": "pencho-iliev-tokuchev-d18bd7",
+      "label": "Пенчо Илиев Токучев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120553358",
+      "type": "company",
+      "label": "БЪДЕЩЕ ЗА ДЕЦАТА НИ",
+      "slug": null,
+      "uic": "120553358",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА ВАНЬОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Маргарита Ваньова Димитрова"
+    },
+    {
+      "id": "person:ЮЛИЯ АСЕНОВА ПЕРГЕЛОВА",
+      "type": "person",
+      "label": "Юлия Асенова Пергелова"
+    },
+    {
+      "id": "person:НАДЯ ВЕНКОВА БРАТАНОВА",
+      "type": "person",
+      "label": "Надя Венкова Братанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pencho-iliev-tokuchev-d18bd7",
+      "target": "company:tr:120553358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ВАНЬОВА ДИМИТРОВА",
+      "target": "company:tr:120553358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ АСЕНОВА ПЕРГЕЛОВА",
+      "target": "company:tr:120553358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ВЕНКОВА БРАТАНОВА",
+      "target": "company:tr:120553358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

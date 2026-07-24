@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-neicheva-kumbieva-796de8",
+  "nodes": [
+    {
+      "id": "official:elena-neicheva-kumbieva-796de8",
+      "type": "official",
+      "slug": "elena-neicheva-kumbieva-796de8",
+      "label": "Елена Нейчева Кумбиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175317154",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ВИЖЪН",
+      "slug": null,
+      "uic": "175317154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:elena-atanasova-dardzhikova-b76ee9",
+      "type": "official",
+      "slug": "elena-atanasova-dardzhikova-b76ee9",
+      "label": "Елена Атанасова Дарджикова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-neicheva-kumbieva-796de8",
+      "target": "company:tr:175317154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-atanasova-dardzhikova-b76ee9",
+      "target": "company:tr:175317154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

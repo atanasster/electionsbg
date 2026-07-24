@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ilhan-sali-sali-ce4bb8",
+  "nodes": [
+    {
+      "id": "official:ilhan-sali-sali-ce4bb8",
+      "type": "official",
+      "slug": "ilhan-sali-sali-ce4bb8",
+      "label": "Илхан Сали Сали",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Венец"
+    },
+    {
+      "id": "company:tr:175673038",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ С НЕСТОПАНСКА ЦЕЛ УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;СВЕТЛИНА&quot; ПРИ ОУ &quot;ХРИСТО СМИРНЕНСКИ&quot; СЕЛО ЯСЕНКОВО",
+      "slug": null,
+      "uic": "175673038",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:syuleiman-mehmed-syuleiman-d552e9",
+      "type": "official",
+      "slug": "syuleiman-mehmed-syuleiman-d552e9",
+      "label": "Сюлейман Мехмед Сюлейман",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Венец"
+    },
+    {
+      "id": "person:АЙТЕН БЕЙТИ САЛИЕВА",
+      "type": "person",
+      "label": "Айтен Бейти Салиева"
+    },
+    {
+      "id": "person:РИДВАН ХЮДАИМ АХМЕД",
+      "type": "person",
+      "label": "Ридван Хюдаим Ахмед"
+    },
+    {
+      "id": "person:ВИЖДАН РЕДЖЕБ АБДУРАХИМ",
+      "type": "person",
+      "label": "Виждан Реджеб Абдурахим"
+    },
+    {
+      "id": "person:АНИФЕ КЯЗИМОВА АХМЕД",
+      "type": "person",
+      "label": "Анифе Кязимова Ахмед"
+    },
+    {
+      "id": "person:ЛЕМАН МЕХМЕД АХМЕД",
+      "type": "person",
+      "label": "Леман Мехмед Ахмед"
+    },
+    {
+      "id": "person:ПАВЛИНА ПЕТКОВА КАРАПАНЧЕВА",
+      "type": "person",
+      "label": "Павлина Петкова Карапанчева"
+    },
+    {
+      "id": "person:БЕХТИЕ БЕЙЗАТ САЛИ",
+      "type": "person",
+      "label": "Бехтие Бейзат Сали"
+    },
+    {
+      "id": "person:ФЕРИДЕ РЕДЖЕБ МУХАРЕМ",
+      "type": "person",
+      "label": "Фериде Реджеб Мухарем"
+    },
+    {
+      "id": "person:НИХАЛ КЯЗИМ РЕДЖЕБ",
+      "type": "person",
+      "label": "Нихал Кязим Реджеб"
+    },
+    {
+      "id": "person:ЕМИНЕ ХЮСЕИН МУСАМЕДИН",
+      "type": "person",
+      "label": "Емине Хюсеин Мусамедин"
+    },
+    {
+      "id": "person:МИРЕМ ОСМАН ОСМАН",
+      "type": "person",
+      "label": "Мирем Осман Осман"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilhan-sali-sali-ce4bb8",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ilhan-sali-sali-ce4bb8",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:syuleiman-mehmed-syuleiman-d552e9",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙТЕН БЕЙТИ САЛИЕВА",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИДВАН ХЮДАИМ АХМЕД",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЖДАН РЕДЖЕБ АБДУРАХИМ",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИФЕ КЯЗИМОВА АХМЕД",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕМАН МЕХМЕД АХМЕД",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ПЕТКОВА КАРАПАНЧЕВА",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХТИЕ БЕЙЗАТ САЛИ",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИДЕ РЕДЖЕБ МУХАРЕМ",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИХАЛ КЯЗИМ РЕДЖЕБ",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХЮСЕИН МУСАМЕДИН",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕМ ОСМАН ОСМАН",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХЮСЕИН МУСАМЕДИН",
+      "target": "company:tr:175673038",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

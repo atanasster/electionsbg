@@ -1,1 +1,305 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5152","nodes":[{"id":"mp:5152","type":"mp","mpId":5152,"label":"Румен Димитров Христов","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["43","45","46","47","48","49","50","51","52"]},{"id":"company:tr:208067323","type":"company","label":"ЛАКОТА ГЕЙМ","slug":null,"uic":"208067323","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9006"},{"id":"company:tr:000675670","type":"company","label":"МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ","slug":null,"uic":"000675670","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"mp:152","type":"mp","mpId":152,"label":"Евгения Тодорова Живкова","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"person:ДЖОРДЖ-МАРК РАЙНОВ","type":"person","label":"Джордж-Марк Райнов"},{"id":"person:МИХАИЛ АТАНАСОВ ТАЧЕВ","type":"person","label":"Михаил Атанасов Тачев"},{"id":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","type":"person","label":"Стефан Ангелов Стефанов"},{"id":"person:БОЙКО ВАСИЛЕВ ПЕТРОВ","type":"person","label":"Бойко Василев Петров"},{"id":"person:ДЖОРД МАРК БОЯНОВ РАЙНОВ","type":"person","label":"Джорд Марк Боянов Райнов"}],"edges":[{"source":"mp:5152","target":"company:tr:208067323","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5152","target":"company:tr:208067323","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5152","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:152","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЖОРДЖ-МАРК РАЙНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИХАИЛ АТАНАСОВ ТАЧЕВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКО ВАСИЛЕВ ПЕТРОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН АНГЕЛОВ СТЕФАНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЖОРД МАРК БОЯНОВ РАЙНОВ","target":"company:tr:000675670","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:152","length":2,"nodeIds":["mp:5152","company:tr:000675670","mp:152"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5152",
+  "nodes": [
+    {
+      "id": "mp:5152",
+      "type": "mp",
+      "mpId": 5152,
+      "label": "Румен Димитров Христов",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "43",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Агроплан-ООД",
+      "type": "company",
+      "label": "\"Агроплан\" ООД",
+      "slug": "Агроплан-ООД",
+      "uic": "115766899",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:ЕКО-Прециз-ЕООД",
+      "type": "company",
+      "label": "\"ЕКО Прециз\" ЕООД",
+      "slug": "ЕКО-Прециз-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:УД-БУЛ-ЕООД",
+      "type": "company",
+      "label": "\"УД БУЛ\" ЕООД",
+      "slug": "УД-БУЛ-ЕООД",
+      "uic": "117618956",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Русе"
+    },
+    {
+      "id": "company:Удекс-ЕООД",
+      "type": "company",
+      "label": "\"Удекс\" ЕООД",
+      "slug": "Удекс-ЕООД",
+      "uic": "117613126",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Русе"
+    },
+    {
+      "id": "company:Юроп-пропъртийз-ООД",
+      "type": "company",
+      "label": "\"Юроп пропъртийз\" ООД",
+      "slug": "Юроп-пропъртийз-ООД",
+      "uic": "131517776",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:208067323",
+      "type": "company",
+      "label": "ЛАКОТА ГЕЙМ",
+      "slug": null,
+      "uic": "208067323",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9006"
+    },
+    {
+      "id": "company:tr:000675670",
+      "type": "company",
+      "label": "МЕЖДУНАРОДНА ФОНДАЦИЯ СВ. СВ. КИРИЛ И МЕТОДИЙ",
+      "slug": null,
+      "uic": "000675670",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "person:КРАСИМИРА НИКОЛАЕВА БАКОЕВА",
+      "type": "person",
+      "label": "Красимира Николаева Бакоева"
+    },
+    {
+      "id": "person:ВЕРЖИНИЯ КАЛИНОВА ДАКОВА",
+      "type": "person",
+      "label": "Вержиния Калинова Дакова"
+    },
+    {
+      "id": "person:ИВАН ЛАЗАРОВ КЪНЕВ",
+      "type": "person",
+      "label": "Иван Лазаров Кънев"
+    },
+    {
+      "id": "mp:152",
+      "type": "mp",
+      "mpId": 152,
+      "label": "Евгения Тодорова Живкова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "person:ДЖОРДЖ-МАРК РАЙНОВ",
+      "type": "person",
+      "label": "Джордж-Марк Райнов"
+    },
+    {
+      "id": "person:МИХАИЛ АТАНАСОВ ТАЧЕВ",
+      "type": "person",
+      "label": "Михаил Атанасов Тачев"
+    },
+    {
+      "id": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Ангелов Стефанов"
+    },
+    {
+      "id": "person:БОЙКО ВАСИЛЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Бойко Василев Петров"
+    },
+    {
+      "id": "person:ДЖОРД МАРК БОЯНОВ РАЙНОВ",
+      "type": "person",
+      "label": "Джорд Марк Боянов Райнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5152",
+      "target": "company:Агроплан-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:ЕКО-Прециз-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:УД-БУЛ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:Удекс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:Юроп-пропъртийз-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:tr:208067323",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:tr:208067323",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5152",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА НИКОЛАЕВА БАКОЕВА",
+      "target": "company:Юроп-пропъртийз-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРЖИНИЯ КАЛИНОВА ДАКОВА",
+      "target": "company:Юроп-пропъртийз-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЛАЗАРОВ КЪНЕВ",
+      "target": "company:Юроп-пропъртийз-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:152",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖОРДЖ-МАРК РАЙНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ АТАНАСОВ ТАЧЕВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО ВАСИЛЕВ ПЕТРОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АНГЕЛОВ СТЕФАНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖОРД МАРК БОЯНОВ РАЙНОВ",
+      "target": "company:tr:000675670",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:152",
+      "length": 2,
+      "nodeIds": [
+        "mp:5152",
+        "company:tr:000675670",
+        "mp:152"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

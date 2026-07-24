@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-petrov-staikov-e913be",
+  "nodes": [
+    {
+      "id": "official:stefan-petrov-staikov-e913be",
+      "type": "official",
+      "slug": "stefan-petrov-staikov-e913be",
+      "label": "Стефан Петров Стайков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:208509193",
+      "type": "company",
+      "label": "БЪДЕЩЕ ЗА ШАМПИОНИ",
+      "slug": null,
+      "uic": "208509193",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРУМ СТАНИМИРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Крум Станимиров Стоянов"
+    },
+    {
+      "id": "person:ВИОЛЕТА БИНЕВА ВЛАЕВА",
+      "type": "person",
+      "label": "Виолета Бинева Влаева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-petrov-staikov-e913be",
+      "target": "company:tr:208509193",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРУМ СТАНИМИРОВ СТОЯНОВ",
+      "target": "company:tr:208509193",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРУМ СТАНИМИРОВ СТОЯНОВ",
+      "target": "company:tr:208509193",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА БИНЕВА ВЛАЕВА",
+      "target": "company:tr:208509193",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

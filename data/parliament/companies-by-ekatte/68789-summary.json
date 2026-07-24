@@ -1,1 +1,127 @@
-{"ekatte":"68789","count":10,"mpCount":6,"totalPages":1,"topCompanies":[{"slug":"ВИП-2006-ООД","displayName":"\"ВИП-2006\" ООД","registeredOffice":"Дупница","mps":[{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"manager","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"partner","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"declared_stake","isCurrent":true}]},{"slug":"Вита-медикал-инвест-ЕООД","displayName":"\"Вита медикал инвест\" ЕООД","registeredOffice":"Дупница","mps":[{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"manager","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"sole_owner","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"declared_stake","isCurrent":true}]},{"slug":"Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД","displayName":"\"Групова практика за първична извънболнична дентална помощ - д-р Иван Ибришимов\" ООД","registeredOffice":"Дупница","mps":[{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"manager","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"partner","isCurrent":true},{"mpId":4768,"mpName":"Иван Тодоров Ибришимов","role":"declared_stake","isCurrent":true}]},{"slug":"КЛУБ-ПО-БОРБА-МАРЕК-ДУПНИЦА","displayName":"КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА","registeredOffice":"БЪЛГАРИЯ, гр. Дупница, 2600","mps":[{"mpId":2804,"mpName":"Ивайло Любенов Константинов","role":"ngo_board","isCurrent":true},{"mpId":4934,"mpName":"Даниел Тихомиров Александров","role":"ngo_representative","isCurrent":true},{"mpId":4934,"mpName":"Даниел Тихомиров Александров","role":"ngo_board","isCurrent":true}]},{"slug":"ЗДРАВЕ-01","displayName":"ЗДРАВЕ 01","registeredOffice":"БЪЛГАРИЯ, гр. Дупница, 2600","mps":[{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"manager","isCurrent":true},{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"sole_owner","isCurrent":true}]}]}
+{
+  "ekatte": "68789",
+  "count": 10,
+  "mpCount": 6,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ВИП-2006-ООД",
+      "displayName": "\"ВИП-2006\" ООД",
+      "registeredOffice": "Дупница",
+      "mps": [
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Вита-медикал-инвест-ЕООД",
+      "displayName": "\"Вита медикал инвест\" ЕООД",
+      "registeredOffice": "Дупница",
+      "mps": [
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Групова-практика-за-първична-извънболнична-дентална-помощ-д-р-Иван-Ибришимов-ООД",
+      "displayName": "\"Групова практика за първична извънболнична дентална помощ - д-р Иван Ибришимов\" ООД",
+      "registeredOffice": "Дупница",
+      "mps": [
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4768,
+          "mpName": "Иван Тодоров Ибришимов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КЛУБ-ПО-БОРБА-МАРЕК-ДУПНИЦА",
+      "displayName": "КЛУБ  ПО БОРБА МАРЕК ДУПНИЦА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Дупница, 2600",
+      "mps": [
+        {
+          "mpId": 2804,
+          "mpName": "Ивайло Любенов Константинов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4934,
+          "mpName": "Даниел Тихомиров Александров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4934,
+          "mpName": "Даниел Тихомиров Александров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЗДРАВЕ-01",
+      "displayName": "ЗДРАВЕ 01",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Дупница, 2600",
+      "mps": [
+        {
+          "mpId": 2501,
+          "mpName": "Димитър Спасов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2501,
+          "mpName": "Димитър Спасов Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

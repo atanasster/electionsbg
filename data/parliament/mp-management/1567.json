@@ -1,1 +1,36 @@
-{"mpId":1567,"mpName":"Емил Кирилов Иванов","generatedAt":"2026-07-03T11:12:51.612Z","total":2,"roles":[{"uic":"204746001","companyName":"КАМИ 10","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-05-20T14:27:58","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"204746001","companyName":"КАМИ 10","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-05-20T14:27:58","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 1567,
+  "mpName": "Емил Кирилов Иванов",
+  "generatedAt": "2026-07-24T03:35:58.419Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "204746001",
+      "companyName": "КАМИ 10",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-05-20T14:27:58",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "204746001",
+      "companyName": "КАМИ 10",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-05-20T14:27:58",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

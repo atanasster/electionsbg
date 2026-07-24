@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2792","nodes":[{"id":"mp:2792","type":"mp","mpId":2792,"label":"Живко Иванов Мартинов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["43"]},{"id":"company:tr:124602219","type":"company","label":"ВОЯДЖЕР","slug":null,"uic":"124602219","legalForm":"OOD","status":"active","seat":null},{"id":"person:АНАТОЛИ МИХАЙЛОВ РАЙНОВ","type":"person","label":"Анатоли Михайлов Райнов"},{"id":"person:МАРИН СТОЙЧЕВ МАРИНОВ","type":"person","label":"Марин Стойчев Маринов"}],"edges":[{"source":"mp:2792","target":"company:tr:124602219","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АНАТОЛИ МИХАЙЛОВ РАЙНОВ","target":"company:tr:124602219","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН СТОЙЧЕВ МАРИНОВ","target":"company:tr:124602219","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2792",
+  "nodes": [
+    {
+      "id": "mp:2792",
+      "type": "mp",
+      "mpId": 2792,
+      "label": "Живко Иванов Мартинов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:124602219",
+      "type": "company",
+      "label": "ВОЯДЖЕР",
+      "slug": null,
+      "uic": "124602219",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:АНАТОЛИ МИХАЙЛОВ РАЙНОВ",
+      "type": "person",
+      "label": "Анатоли Михайлов Райнов"
+    },
+    {
+      "id": "person:МАРИН СТОЙЧЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Марин Стойчев Маринов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2792",
+      "target": "company:tr:124602219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАТОЛИ МИХАЙЛОВ РАЙНОВ",
+      "target": "company:tr:124602219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН СТОЙЧЕВ МАРИНОВ",
+      "target": "company:tr:124602219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

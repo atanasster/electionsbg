@@ -1,1 +1,180 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2683","nodes":[{"id":"mp:2683","type":"mp","mpId":2683,"label":"Джема Маринова Грозданова","partyGroupShort":"КП-СИ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"company:tr:207082774","type":"company","label":"ДЖЕМКРОС","slug":null,"uic":"207082774","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:205828474","type":"company","label":"ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ","slug":null,"uic":"205828474","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:2769","type":"mp","mpId":2769,"label":"Цветан Генчев Цветанов","partyGroupShort":"КП-СИ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"person:ХРИСТО СТАНЕВ ХРИСТОВ","type":"person","label":"Христо Станев Христов"},{"id":"person:БОРИС ВЕЛЕВ ВЕЛЕВ","type":"person","label":"Борис Велев Велев"},{"id":"person:РОСЕН ИВАНОВ ЙОРДАНОВ","type":"person","label":"Росен Иванов Йорданов"},{"id":"person:ГОРАН ТАСЕВ БЛАГОЕВ","type":"person","label":"Горан Тасев Благоев"},{"id":"person:ДИМИТЪР ЙОРДАНОВ ЙОРДАНОВ","type":"person","label":"Димитър Йорданов Йорданов"}],"edges":[{"source":"mp:2683","target":"company:tr:207082774","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2683","target":"company:tr:207082774","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2683","target":"company:tr:205828474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2683","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2769","target":"company:tr:205828474","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2769","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО СТАНЕВ ХРИСТОВ","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС ВЕЛЕВ ВЕЛЕВ","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ИВАНОВ ЙОРДАНОВ","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГОРАН ТАСЕВ БЛАГОЕВ","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЙОРДАНОВ ЙОРДАНОВ","target":"company:tr:205828474","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:2769","length":2,"nodeIds":["mp:2683","company:tr:205828474","mp:2769"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2683",
+  "nodes": [
+    {
+      "id": "mp:2683",
+      "type": "mp",
+      "mpId": 2683,
+      "label": "Джема Маринова Грозданова",
+      "partyGroupShort": "КП-СИ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:207082774",
+      "type": "company",
+      "label": "ДЖЕМКРОС",
+      "slug": null,
+      "uic": "207082774",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:205828474",
+      "type": "company",
+      "label": "ЕВРО-АТЛАНТИЧЕСКИ ЦЕНТЪР ЗА СИГУРНОСТ",
+      "slug": null,
+      "uic": "205828474",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2769",
+      "type": "mp",
+      "mpId": 2769,
+      "label": "Цветан Генчев Цветанов",
+      "partyGroupShort": "КП-СИ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "person:ХРИСТО СТАНЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Станев Христов"
+    },
+    {
+      "id": "person:БОРИС ВЕЛЕВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Борис Велев Велев"
+    },
+    {
+      "id": "person:РОСЕН ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Росен Иванов Йорданов"
+    },
+    {
+      "id": "person:ГОРАН ТАСЕВ БЛАГОЕВ",
+      "type": "person",
+      "label": "Горан Тасев Благоев"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2683",
+      "target": "company:tr:207082774",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2683",
+      "target": "company:tr:207082774",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2683",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2683",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2769",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2769",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО СТАНЕВ ХРИСТОВ",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ВЕЛЕВ ВЕЛЕВ",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРАН ТАСЕВ БЛАГОЕВ",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ЙОРДАНОВ",
+      "target": "company:tr:205828474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2769",
+      "length": 2,
+      "nodeIds": [
+        "mp:2683",
+        "company:tr:205828474",
+        "mp:2769"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

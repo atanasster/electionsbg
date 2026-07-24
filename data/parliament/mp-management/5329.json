@@ -1,1 +1,50 @@
-{"mpId":5329,"mpName":"Юлиан Георгиев Димитров","generatedAt":"2026-07-03T11:12:51.972Z","total":3,"roles":[{"uic":"121741181","companyName":"БАНК ТЕХ СИС","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1111","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2023-05-22T13:50:40","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207141518","companyName":"ВЕРНИТЕ ПРИЯТЕЛИ 95","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"ngo_representative","positionLabel":"Председател на Управтелния съвет","sharePercent":null,"addedAt":"2022-11-01T08:14:02","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"ВАРНА\""},{"uic":"207141518","companyName":"ВЕРНИТЕ ПРИЯТЕЛИ 95","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-11-01T08:14:02","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"ВАРНА\""}]}
+{
+  "mpId": 5329,
+  "mpName": "Юлиан Георгиев Димитров",
+  "generatedAt": "2026-07-24T03:35:58.800Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "121741181",
+      "companyName": "БАНК ТЕХ СИС",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1712",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2023-05-22T13:50:40",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207141518",
+      "companyName": "ВЕРНИТЕ ПРИЯТЕЛИ 95",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател на Управтелния съвет",
+      "sharePercent": null,
+      "addedAt": "2022-11-01T08:14:02",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"ВАРНА\""
+    },
+    {
+      "uic": "207141518",
+      "companyName": "ВЕРНИТЕ ПРИЯТЕЛИ 95",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-11-01T08:14:02",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"ВАРНА\""
+    }
+  ]
+}

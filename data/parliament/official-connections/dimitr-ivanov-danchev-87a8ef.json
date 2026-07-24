@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-ivanov-danchev-87a8ef",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-danchev-87a8ef",
+      "type": "official",
+      "slug": "dimitr-ivanov-danchev-87a8ef",
+      "label": "ДИМИТЪР ИВАНОВ ДАНЧЕВ",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:Булмек-ООД",
+      "type": "company",
+      "label": "Булмек ООД",
+      "slug": "Булмек-ООД",
+      "uic": "030411947",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:3325",
+      "type": "mp",
+      "mpId": 3325,
+      "label": "Димитър Иванов Данчев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-danchev-87a8ef",
+      "target": "company:Булмек-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3325",
+      "target": "company:Булмек-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

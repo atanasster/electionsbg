@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-aleksiev-aleksiev-6e17a5",
+  "nodes": [
+    {
+      "id": "official:ivan-aleksiev-aleksiev-6e17a5",
+      "type": "official",
+      "slug": "ivan-aleksiev-aleksiev-6e17a5",
+      "label": "Иван Алексиев Алексиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175401944",
+      "type": "company",
+      "label": "Кодас Консултинг ЕООД",
+      "slug": null,
+      "uic": "175401944",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203227197",
+      "type": "company",
+      "label": "Филса ООД",
+      "slug": null,
+      "uic": "203227197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Иван Алексиев Алексиев"
+    },
+    {
+      "id": "person:ЛАЗАР ХРИСТОВ ДРУНЧИЛОВ",
+      "type": "person",
+      "label": "Лазар Христов Друнчилов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЙОРДАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Александър Йорданов Стойков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-aleksiev-aleksiev-6e17a5",
+      "target": "company:tr:175401944",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-aleksiev-aleksiev-6e17a5",
+      "target": "company:tr:203227197",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:175401944",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР ХРИСТОВ ДРУНЧИЛОВ",
+      "target": "company:tr:175401944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЙОРДАНОВ СТОЙКОВ",
+      "target": "company:tr:175401944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:175401944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:203227197",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АЛЕКСИЕВ АЛЕКСИЕВ",
+      "target": "company:tr:203227197",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

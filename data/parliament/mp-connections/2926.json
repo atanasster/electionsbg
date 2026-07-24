@@ -1,1 +1,259 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2926","nodes":[{"id":"mp:2926","type":"mp","mpId":2926,"label":"Калин Николов Поповски","partyGroupShort":"ВМРО","isCurrent":false,"nsFolders":[]},{"id":"company:tr:201158980","type":"company","label":"МЕДИЦИНСКИ ЦЕНТЪР ЕВРИКА 2010","slug":null,"uic":"201158980","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:114532352","type":"company","label":"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ","slug":null,"uic":"114532352","legalForm":"EAD","status":"active","seat":null},{"id":"person:НИКОЛА КАЛИНОВ ПОПОВСКИ","type":"person","label":"Никола Калинов Поповски"},{"id":"person:НИКОЛА КОСТАДИНОВ ПОПОВСКИ","type":"person","label":"Никола Костадинов Поповски"},{"id":"person:ВЕНЦИСЛАВ ЦВЕТАНОВ ГРОЗЕВ","type":"person","label":"Венцислав Цветанов Грозев"},{"id":"person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ","type":"person","label":"Цветан Христофоров Луканов"},{"id":"person:ДИМИТЪР ЖИВКОВ СТОЙКОВ","type":"person","label":"Димитър Живков Стойков"},{"id":"person:АЛЕКСАНДЪР ВЪЛКОВ ВЪЛКОВ","type":"person","label":"Александър Вълков Вълков"},{"id":"person:ДИЯН ЛЮБОМИРОВ СВРАКОВ","type":"person","label":"Диян Любомиров Свраков"},{"id":"person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Добромир Димитров Димитров"},{"id":"company:tr:175995308","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)","slug":null,"uic":"175995308","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"mp:3185","type":"mp","mpId":3185,"label":"Григор Ангелов Горчев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:2926","target":"company:tr:201158980","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2926","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛА КАЛИНОВ ПОПОВСКИ","target":"company:tr:201158980","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА КАЛИНОВ ПОПОВСКИ","target":"company:tr:201158980","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА КОСТАДИНОВ ПОПОВСКИ","target":"company:tr:201158980","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ ЦВЕТАНОВ ГРОЗЕВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЖИВКОВ СТОЙКОВ","target":"company:tr:114532352","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЖИВКОВ СТОЙКОВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ","target":"company:tr:114532352","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВЪЛКОВ ВЪЛКОВ","target":"company:tr:114532352","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН ЛЮБОМИРОВ СВРАКОВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВЪЛКОВ ВЪЛКОВ","target":"company:tr:114532352","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3185","length":4,"nodeIds":["mp:2926","company:tr:114532352","person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ","company:tr:175995308","mp:3185"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2926",
+  "nodes": [
+    {
+      "id": "mp:2926",
+      "type": "mp",
+      "mpId": 2926,
+      "label": "Калин Николов Поповски",
+      "partyGroupShort": "ВМРО",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:201158980",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР ЕВРИКА 2010",
+      "slug": null,
+      "uic": "201158980",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:114532352",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ",
+      "slug": null,
+      "uic": "114532352",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА КАЛИНОВ ПОПОВСКИ",
+      "type": "person",
+      "label": "Никола Калинов Поповски"
+    },
+    {
+      "id": "person:НИКОЛА КОСТАДИНОВ ПОПОВСКИ",
+      "type": "person",
+      "label": "Никола Костадинов Поповски"
+    },
+    {
+      "id": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "type": "official",
+      "slug": "aleksandr-vlkov-vlkov-2bcaa2",
+      "label": "Александър Вълков Вълков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "type": "official",
+      "slug": "ventsislav-tsvetanov-grozev-ddf69c",
+      "label": "Венцислав Цветанов Грозев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "type": "official",
+      "slug": "diyan-lyubomirov-svrakov-62a7b5",
+      "label": "Диян Любомиров Свраков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "type": "person",
+      "label": "Цветан Христофоров Луканов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Димитър Живков Стойков"
+    },
+    {
+      "id": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Добромир Димитров Димитров"
+    },
+    {
+      "id": "company:tr:175995308",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)",
+      "slug": null,
+      "uic": "175995308",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "mp:3185",
+      "type": "mp",
+      "mpId": 3185,
+      "label": "Григор Ангелов Горчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2926",
+      "target": "company:tr:201158980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2926",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА КАЛИНОВ ПОПОВСКИ",
+      "target": "company:tr:201158980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА КАЛИНОВ ПОПОВСКИ",
+      "target": "company:tr:201158980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА КОСТАДИНОВ ПОПОВСКИ",
+      "target": "company:tr:201158980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3185",
+      "length": 4,
+      "nodeIds": [
+        "mp:2926",
+        "company:tr:114532352",
+        "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:175995308",
+        "mp:3185"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

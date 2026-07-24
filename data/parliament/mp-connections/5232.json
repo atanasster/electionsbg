@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5232",
+  "nodes": [
+    {
+      "id": "mp:5232",
+      "type": "mp",
+      "mpId": 5232,
+      "label": "Стою Теодоров Стоев",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:с-Плюс-консулт-ООД",
+      "type": "company",
+      "label": "с Плюс консулт ООД",
+      "slug": "с-Плюс-консулт-ООД",
+      "uic": "206072663",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:с+-Консулт-ООД",
+      "type": "company",
+      "label": "с+ Консулт ООД",
+      "slug": "с+-Консулт-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5232",
+      "target": "company:с-Плюс-консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5232",
+      "target": "company:с+-Консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

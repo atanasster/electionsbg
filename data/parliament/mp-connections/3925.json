@@ -1,1 +1,149 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3925","nodes":[{"id":"mp:3925","type":"mp","mpId":3925,"label":"Димитър Иванов Гечев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["43","44","45","46"]},{"id":"company:tr:208294997","type":"company","label":"ДимМакс2021","slug":null,"uic":"208294997","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Велинград, 4600"},{"id":"person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ","type":"person","label":"Петър Петров Вранчев"},{"id":"person:ХРИСТО ИВАНОВ ДИМИТРОВ","type":"person","label":"Христо Иванов Димитров"},{"id":"company:tr:176829008","type":"company","label":"АСОЦИАЦИЯ НА ХОРЕОГРАФИТЕ В БЪЛГАРИЯ","slug":null,"uic":"176829008","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:3243","type":"mp","mpId":3243,"label":"Юлиян Белчев Станев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:3925","target":"company:tr:208294997","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ","target":"company:tr:208294997","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ","target":"company:tr:208294997","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ДИМИТРОВ","target":"company:tr:208294997","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ДИМИТРОВ","target":"company:tr:208294997","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ДИМИТРОВ","target":"company:tr:176829008","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3243","target":"company:tr:176829008","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3243","length":4,"nodeIds":["mp:3925","company:tr:208294997","person:ХРИСТО ИВАНОВ ДИМИТРОВ","company:tr:176829008","mp:3243"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3925",
+  "nodes": [
+    {
+      "id": "mp:3925",
+      "type": "mp",
+      "mpId": 3925,
+      "label": "Димитър Иванов Гечев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:208294997",
+      "type": "company",
+      "label": "ДимМакс2021",
+      "slug": null,
+      "uic": "208294997",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велинград, 4600"
+    },
+    {
+      "id": "official:dimitr-ivanov-gechev-4ade2b",
+      "type": "official",
+      "slug": "dimitr-ivanov-gechev-4ade2b",
+      "label": "Димитър Иванов Гечев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ",
+      "type": "person",
+      "label": "Петър Петров Вранчев"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Христо Иванов Димитров"
+    },
+    {
+      "id": "company:tr:176829008",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА ХОРЕОГРАФИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176829008",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3243",
+      "type": "mp",
+      "mpId": 3243,
+      "label": "Юлиян Белчев Станев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3925",
+      "target": "company:tr:208294997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-gechev-4ade2b",
+      "target": "company:tr:208294997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ",
+      "target": "company:tr:208294997",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ПЕТРОВ ВРАНЧЕВ",
+      "target": "company:tr:208294997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:208294997",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:208294997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:176829008",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3243",
+      "target": "company:tr:176829008",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3243",
+      "length": 4,
+      "nodeIds": [
+        "mp:3925",
+        "company:tr:208294997",
+        "person:ХРИСТО ИВАНОВ ДИМИТРОВ",
+        "company:tr:176829008",
+        "mp:3243"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

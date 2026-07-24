@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rumen-liberov-nestorov-5e6dae",
+  "nodes": [
+    {
+      "id": "official:rumen-liberov-nestorov-5e6dae",
+      "type": "official",
+      "slug": "rumen-liberov-nestorov-5e6dae",
+      "label": "Румен Либеров Несторов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Район Панчарево"
+    },
+    {
+      "id": "company:tr:208626244",
+      "type": "company",
+      "label": "5 ДИЗАЙН СТУДИО - АРХИТЕКТИ",
+      "slug": null,
+      "uic": "208626244",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛА ЦОЧЕВА НЕСТОРОВА",
+      "type": "person",
+      "label": "Весела Цочева Несторова"
+    },
+    {
+      "id": "person:5 ДИЗАЙН СТУДИО",
+      "type": "person",
+      "label": "5 Дизайн Студио"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-liberov-nestorov-5e6dae",
+      "target": "company:tr:208626244",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛА ЦОЧЕВА НЕСТОРОВА",
+      "target": "company:tr:208626244",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:5 ДИЗАЙН СТУДИО",
+      "target": "company:tr:208626244",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

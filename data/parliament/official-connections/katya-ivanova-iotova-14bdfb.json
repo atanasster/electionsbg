@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:katya-ivanova-iotova-14bdfb",
+  "nodes": [
+    {
+      "id": "official:katya-ivanova-iotova-14bdfb",
+      "type": "official",
+      "slug": "katya-ivanova-iotova-14bdfb",
+      "label": "Катя Иванова Йотова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201883701",
+      "type": "company",
+      "label": "ЕН ЕКИП ЕООД",
+      "slug": null,
+      "uic": "201883701",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН ЛЮБЕНОВ КУМПЕЛОВ",
+      "type": "person",
+      "label": "Румен Любенов Кумпелов"
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА МИРИНЧЕВА-ВЛАДОВА",
+      "type": "person",
+      "label": "Милена Георгиева Миринчева-Владова"
+    },
+    {
+      "id": "person:ГЕРГАНА СТЕФЧОВА ЯКИМОВА",
+      "type": "person",
+      "label": "Гергана Стефчова Якимова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-ivanova-iotova-14bdfb",
+      "target": "company:tr:201883701",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЛЮБЕНОВ КУМПЕЛОВ",
+      "target": "company:tr:201883701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА МИРИНЧЕВА-ВЛАДОВА",
+      "target": "company:tr:201883701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СТЕФЧОВА ЯКИМОВА",
+      "target": "company:tr:201883701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

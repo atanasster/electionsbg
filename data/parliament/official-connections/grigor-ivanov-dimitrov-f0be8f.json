@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:grigor-ivanov-dimitrov-f0be8f",
+  "nodes": [
+    {
+      "id": "official:grigor-ivanov-dimitrov-f0be8f",
+      "type": "official",
+      "slug": "grigor-ivanov-dimitrov-f0be8f",
+      "label": "Григор Иванов Димитров",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206502570",
+      "type": "company",
+      "label": "Папас Фуудс",
+      "slug": null,
+      "uic": "206502570",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ИВАНОВА КАРАГАНСКА",
+      "type": "person",
+      "label": "Александра Иванова Караганска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grigor-ivanov-dimitrov-f0be8f",
+      "target": "company:tr:206502570",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:grigor-ivanov-dimitrov-f0be8f",
+      "target": "company:tr:206502570",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ИВАНОВА КАРАГАНСКА",
+      "target": "company:tr:206502570",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ИВАНОВА КАРАГАНСКА",
+      "target": "company:tr:206502570",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

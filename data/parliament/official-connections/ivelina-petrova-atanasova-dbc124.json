@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivelina-petrova-atanasova-dbc124",
+  "nodes": [
+    {
+      "id": "official:ivelina-petrova-atanasova-dbc124",
+      "type": "official",
+      "slug": "ivelina-petrova-atanasova-dbc124",
+      "label": "Ивелина Петрова Атанасова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206964510",
+      "type": "company",
+      "label": "Кинг Лифтинг",
+      "slug": null,
+      "uic": "206964510",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЯНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Татяна Веселинова Йорданова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ КРЪСТЕВ ДАНЕВ",
+      "type": "person",
+      "label": "Венцислав Кръстев Данев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДЕЧКОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Дечков Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-petrova-atanasova-dbc124",
+      "target": "company:tr:206964510",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivelina-petrova-atanasova-dbc124",
+      "target": "company:tr:206964510",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЯНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "target": "company:tr:206964510",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "target": "company:tr:206964510",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ КРЪСТЕВ ДАНЕВ",
+      "target": "company:tr:206964510",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДЕЧКОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:206964510",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ КРЪСТЕВ ДАНЕВ",
+      "target": "company:tr:206964510",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДЕЧКОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:206964510",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

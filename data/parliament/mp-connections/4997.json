@@ -1,1 +1,192 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4997","nodes":[{"id":"mp:4997","type":"mp","mpId":4997,"label":"Иван Руменов Клисурски","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["46","47","51"]},{"id":"company:Ай-Ес-Джи-Медикъл-ЕООД","type":"company","label":"Ай Ес Джи Медикъл ЕООД","slug":"Ай-Ес-Джи-Медикъл-ЕООД","uic":"205616553","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:Бешка-ООД","type":"company","label":"Бешка ООД","slug":"Бешка-ООД","uic":"207739743","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Кюстендил, 2500"},{"id":"company:tr:207550721","type":"company","label":"СЪЮЗ ЗА ЗАЩИТА НА ПРАВАТА НА МЛАДИТЕ ЛЕКАРИ","slug":null,"uic":"207550721","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА","type":"person","label":"Светла Ангелова Клисурска"},{"id":"person:ДЖЕНА ДИМИТРОВА АНДОНОВА","type":"person","label":"Джена Димитрова Андонова"},{"id":"person:ПЛАМЕН ВЛАДИМИРОВ ПАНЧЕВ","type":"person","label":"Пламен Владимиров Панчев"},{"id":"person:ДИМИТЪР ДОБРОМИРОВ ДОНЧЕВ","type":"person","label":"Димитър Добромиров Дончев"}],"edges":[{"source":"mp:4997","target":"company:Ай-Ес-Джи-Медикъл-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4997","target":"company:Ай-Ес-Джи-Медикъл-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4997","target":"company:Бешка-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4997","target":"company:Бешка-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4997","target":"company:Бешка-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4997","target":"company:tr:207550721","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4997","target":"company:tr:207550721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА","target":"company:Ай-Ес-Джи-Медикъл-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА","target":"company:Ай-Ес-Джи-Медикъл-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕНА ДИМИТРОВА АНДОНОВА","target":"company:Бешка-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА","target":"company:Бешка-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕНА ДИМИТРОВА АНДОНОВА","target":"company:Бешка-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА","target":"company:Бешка-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ВЛАДИМИРОВ ПАНЧЕВ","target":"company:tr:207550721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ДОБРОМИРОВ ДОНЧЕВ","target":"company:tr:207550721","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4997",
+  "nodes": [
+    {
+      "id": "mp:4997",
+      "type": "mp",
+      "mpId": 4997,
+      "label": "Иван Руменов Клисурски",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47",
+        "51"
+      ]
+    },
+    {
+      "id": "company:АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "type": "company",
+      "label": "АЙ ЕС ДЖИ Медикъл ООД",
+      "slug": "АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "uic": "205616553",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Бешка-ООД",
+      "type": "company",
+      "label": "Бешка ООД",
+      "slug": "Бешка-ООД",
+      "uic": "207739743",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Кюстендил, 2500"
+    },
+    {
+      "id": "company:tr:207550721",
+      "type": "company",
+      "label": "СЪЮЗ ЗА ЗАЩИТА НА ПРАВАТА НА МЛАДИТЕ ЛЕКАРИ",
+      "slug": null,
+      "uic": "207550721",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА",
+      "type": "person",
+      "label": "Светла Ангелова Клисурска"
+    },
+    {
+      "id": "person:ДЖЕНА ДИМИТРОВА АНДОНОВА",
+      "type": "person",
+      "label": "Джена Димитрова Андонова"
+    },
+    {
+      "id": "person:ПЛАМЕН ВЛАДИМИРОВ ПАНЧЕВ",
+      "type": "person",
+      "label": "Пламен Владимиров Панчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ДОБРОМИРОВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Димитър Добромиров Дончев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4997",
+      "target": "company:АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:Бешка-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:tr:207550721",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:tr:207550721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА",
+      "target": "company:АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА",
+      "target": "company:АЙ-ЕС-ДЖИ-Медикъл-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕНА ДИМИТРОВА АНДОНОВА",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕНА ДИМИТРОВА АНДОНОВА",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА АНГЕЛОВА КЛИСУРСКА",
+      "target": "company:Бешка-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВЛАДИМИРОВ ПАНЧЕВ",
+      "target": "company:tr:207550721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДОБРОМИРОВ ДОНЧЕВ",
+      "target": "company:tr:207550721",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

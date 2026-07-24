@@ -1,1 +1,63 @@
-{"mpId":3325,"name":"Димитър Иванов Данчев","partyGroupShort":null,"isCurrent":false,"nsFolders":["44"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2021_nc/245949A2-619D-46A7-969A-A89298A4D718128260.xml","totalAssetsEur":129037.28851689566,"totalDebtsEur":0,"netWorthEur":129037.28851689566,"previous":{"year":2020,"totalAssetsEur":89170.8379562641,"netWorthEur":89170.8379562641},"byCategory":{"real_estate":{"count":12,"valuedCount":1,"totalEur":60000.10225837624},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":5,"valuedCount":5,"totalEur":66236.84062520773},"bank":{"count":1,"valuedCount":1,"totalEur":2365.747534294903},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":434.59809901678574}}}
+{
+  "mpId": 3325,
+  "name": "Димитър Иванов Данчев",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "44"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2021_nc/245949A2-619D-46A7-969A-A89298A4D718128260.xml",
+  "totalAssetsEur": 129037.28851689566,
+  "totalDebtsEur": 0,
+  "netWorthEur": 129037.28851689566,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 89170.8379562641,
+    "netWorthEur": 89170.8379562641
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 12,
+      "valuedCount": 1,
+      "totalEur": 60000.10225837624
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 5,
+      "valuedCount": 5,
+      "totalEur": 66236.84062520773
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2365.747534294903
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 434.59809901678574
+    }
+  }
+}

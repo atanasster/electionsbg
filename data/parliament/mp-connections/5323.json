@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5323","nodes":[{"id":"mp:5323","type":"mp","mpId":5323,"label":"Васка Александрова Милушева","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:112577345","type":"company","label":"СДРУЖЕНИЕ НА ХОТЕЛИЕРИ И РЕСТОРАНТЬОРИ-ВЕЛИНГРАД И ЗАПАДНИ РОДОПИ","slug":null,"uic":"112577345","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:НИКОЛАЙ КЛИМЕНТОВ ВУЧЕВ","type":"person","label":"Николай Климентов Вучев"},{"id":"person:АННА ДИМЧЕВА БОЖКОВА","type":"person","label":"Анна Димчева Божкова"},{"id":"person:ЦВЕТА АНДОНОВА АНДОНОВА","type":"person","label":"Цвета Андонова Андонова"},{"id":"person:ЗЛАТКО ТАНЕВ ЗЛАТАНОВ","type":"person","label":"Златко Танев Златанов"},{"id":"person:АНГЕЛ СПАСОВ МАНОЛОВ","type":"person","label":"Ангел Спасов Манолов"},{"id":"person:НЕЗАБРАВКА ГЕОРГИЕВА ПАЧАЛОВА","type":"person","label":"Незабравка Георгиева Пачалова"},{"id":"person:МАРИЯ БОРИСОВА ЛИНЧЕВА","type":"person","label":"Мария Борисова Линчева"}],"edges":[{"source":"mp:5323","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ КЛИМЕНТОВ ВУЧЕВ","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АННА ДИМЧЕВА БОЖКОВА","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТА АНДОНОВА АНДОНОВА","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКО ТАНЕВ ЗЛАТАНОВ","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ СПАСОВ МАНОЛОВ","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕЗАБРАВКА ГЕОРГИЕВА ПАЧАЛОВА","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ БОРИСОВА ЛИНЧЕВА","target":"company:tr:112577345","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5323",
+  "nodes": [
+    {
+      "id": "mp:5323",
+      "type": "mp",
+      "mpId": 5323,
+      "label": "Васка Александрова Милушева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:112577345",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ХОТЕЛИЕРИ И РЕСТОРАНТЬОРИ-ВЕЛИНГРАД И ЗАПАДНИ РОДОПИ",
+      "slug": null,
+      "uic": "112577345",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ КЛИМЕНТОВ ВУЧЕВ",
+      "type": "person",
+      "label": "Николай Климентов Вучев"
+    },
+    {
+      "id": "person:АННА ДИМЧЕВА БОЖКОВА",
+      "type": "person",
+      "label": "Анна Димчева Божкова"
+    },
+    {
+      "id": "person:ЦВЕТА АНДОНОВА АНДОНОВА",
+      "type": "person",
+      "label": "Цвета Андонова Андонова"
+    },
+    {
+      "id": "person:ЗЛАТКО ТАНЕВ ЗЛАТАНОВ",
+      "type": "person",
+      "label": "Златко Танев Златанов"
+    },
+    {
+      "id": "person:АНГЕЛ СПАСОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Ангел Спасов Манолов"
+    },
+    {
+      "id": "person:НЕЗАБРАВКА ГЕОРГИЕВА ПАЧАЛОВА",
+      "type": "person",
+      "label": "Незабравка Георгиева Пачалова"
+    },
+    {
+      "id": "person:МАРИЯ БОРИСОВА ЛИНЧЕВА",
+      "type": "person",
+      "label": "Мария Борисова Линчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5323",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ КЛИМЕНТОВ ВУЧЕВ",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ДИМЧЕВА БОЖКОВА",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА АНДОНОВА АНДОНОВА",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО ТАНЕВ ЗЛАТАНОВ",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ СПАСОВ МАНОЛОВ",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЗАБРАВКА ГЕОРГИЕВА ПАЧАЛОВА",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ БОРИСОВА ЛИНЧЕВА",
+      "target": "company:tr:112577345",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

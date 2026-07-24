@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-noikov-noikov-3af14d",
+  "nodes": [
+    {
+      "id": "official:martin-noikov-noikov-3af14d",
+      "type": "official",
+      "slug": "martin-noikov-noikov-3af14d",
+      "label": "Мартин Нойков Нойков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207756365",
+      "type": "company",
+      "label": "ВАМАР 22",
+      "slug": null,
+      "uic": "207756365",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-noikov-noikov-3af14d",
+      "target": "company:tr:207756365",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:martin-noikov-noikov-3af14d",
+      "target": "company:tr:207756365",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

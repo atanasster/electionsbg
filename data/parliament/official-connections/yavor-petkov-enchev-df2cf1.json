@@ -1,0 +1,188 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yavor-petkov-enchev-df2cf1",
+  "nodes": [
+    {
+      "id": "official:yavor-petkov-enchev-df2cf1",
+      "type": "official",
+      "slug": "yavor-petkov-enchev-df2cf1",
+      "label": "Явор Петков Енчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205539797",
+      "type": "company",
+      "label": "\" ПЕТОКИ \" ЕООД",
+      "slug": null,
+      "uic": "205539797",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202663843",
+      "type": "company",
+      "label": "\" ПИ ТИ ЕЙ \" ЕООД",
+      "slug": null,
+      "uic": "202663843",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202990600",
+      "type": "company",
+      "label": "\" ДОМЛЕКС \" ООД",
+      "slug": null,
+      "uic": "202990600",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205940523",
+      "type": "company",
+      "label": "\" АРТ СИМПОЗИУМ БЪЛГАРИЯ \" ООД",
+      "slug": null,
+      "uic": "205940523",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206036699",
+      "type": "company",
+      "label": "\" ДАБА \"ООД",
+      "slug": null,
+      "uic": "206036699",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ЯВОРОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Тодор Яворов Енчев"
+    },
+    {
+      "id": "person:ПЕТКО ЯВОРОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Петко Яворов Енчев"
+    },
+    {
+      "id": "person:ЛЮДМИЛА НИКОЛАЕВА БАЙЛОВА",
+      "type": "person",
+      "label": "Людмила Николаева Байлова"
+    },
+    {
+      "id": "person:КРАСИМИРА ТОДОРОВА ЕНЧЕВА",
+      "type": "person",
+      "label": "Красимира Тодорова Енчева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДОБРИЯНОВ НИНОВ",
+      "type": "person",
+      "label": "Николай Добриянов Нинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-petkov-enchev-df2cf1",
+      "target": "company:tr:205539797",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-petkov-enchev-df2cf1",
+      "target": "company:tr:202663843",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-petkov-enchev-df2cf1",
+      "target": "company:tr:202990600",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-petkov-enchev-df2cf1",
+      "target": "company:tr:205940523",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-petkov-enchev-df2cf1",
+      "target": "company:tr:206036699",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЯВОРОВ ЕНЧЕВ",
+      "target": "company:tr:202663843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЯВОРОВ ЕНЧЕВ",
+      "target": "company:tr:202663843",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЯВОРОВ ЕНЧЕВ",
+      "target": "company:tr:202663843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЯВОРОВ ЕНЧЕВ",
+      "target": "company:tr:202663843",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА НИКОЛАЕВА БАЙЛОВА",
+      "target": "company:tr:206036699",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТОДОРОВА ЕНЧЕВА",
+      "target": "company:tr:206036699",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДОБРИЯНОВ НИНОВ",
+      "target": "company:tr:206036699",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

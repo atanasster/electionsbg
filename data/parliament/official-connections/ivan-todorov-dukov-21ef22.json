@@ -1,0 +1,233 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-todorov-dukov-21ef22",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-dukov-21ef22",
+      "type": "official",
+      "slug": "ivan-todorov-dukov-21ef22",
+      "label": "Иван Тодоров Дуков",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115353466",
+      "type": "company",
+      "label": "ТРАКИЙСКО ДРУЖЕСТВО РОДОПИ",
+      "slug": null,
+      "uic": "115353466",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ ВАНГЕЛОВ КАРАМАНОВ",
+      "type": "person",
+      "label": "Илия Вангелов Караманов"
+    },
+    {
+      "id": "person:МИЛЕНА СТЕФАНОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Милена Стефанова Ковачева"
+    },
+    {
+      "id": "person:МАРИЯ СТЕФАНОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Мария Стефанова Ковачева"
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ ЩИНКОВ",
+      "type": "person",
+      "label": "Стефан Петров Щинков"
+    },
+    {
+      "id": "person:СОФИЯ КОСТАДИНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "София Костадинова Ангелова"
+    },
+    {
+      "id": "person:РУСКА ГЕОРГИЕВА ДАЙЛЕРОВА",
+      "type": "person",
+      "label": "Руска Георгиева Дайлерова"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАКРИЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Георги Вакрилов Атанасов"
+    },
+    {
+      "id": "person:ЙОРДАНКА ПЕТРОВА СЕМЕРДЖИЕВА",
+      "type": "person",
+      "label": "Йорданка Петрова Семерджиева"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ БАТУРОВ",
+      "type": "person",
+      "label": "Димитър Николов Батуров"
+    },
+    {
+      "id": "person:МИЛЕНА ПЕТРОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Милена Петрова Ковачева"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ УЗУНОВ",
+      "type": "person",
+      "label": "Димитър Василев Узунов"
+    },
+    {
+      "id": "person:ПАВЛИНА ДИМИТРОВА ПЕЕВА",
+      "type": "person",
+      "label": "Павлина Димитрова Пеева"
+    },
+    {
+      "id": "person:ХРИСТИЯНА КОСТАДИНОВА ВАНГЕЛОВА",
+      "type": "person",
+      "label": "Християна Костадинова Вангелова"
+    },
+    {
+      "id": "person:ДИМЧО ХРИСТЕВ ДИМЧЕВ",
+      "type": "person",
+      "label": "Димчо Христев Димчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-dukov-21ef22",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-todorov-dukov-21ef22",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ВАНГЕЛОВ КАРАМАНОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СТЕФАНОВА КОВАЧЕВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТЕФАНОВА КОВАЧЕВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ ЩИНКОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ КОСТАДИНОВА АНГЕЛОВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКА ГЕОРГИЕВА ДАЙЛЕРОВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАКРИЛОВ АТАНАСОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ПЕТРОВА СЕМЕРДЖИЕВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ БАТУРОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ВАНГЕЛОВ КАРАМАНОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ПЕТРОВА КОВАЧЕВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ УЗУНОВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ДИМИТРОВА ПЕЕВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯНА КОСТАДИНОВА ВАНГЕЛОВА",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ХРИСТЕВ ДИМЧЕВ",
+      "target": "company:tr:115353466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

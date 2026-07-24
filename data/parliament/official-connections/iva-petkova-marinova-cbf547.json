@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iva-petkova-marinova-cbf547",
+  "nodes": [
+    {
+      "id": "official:iva-petkova-marinova-cbf547",
+      "type": "official",
+      "slug": "iva-petkova-marinova-cbf547",
+      "label": "Ива Петкова Маринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207560999",
+      "type": "company",
+      "label": "РЕГИОНАЛНА ЧИСТОТА - ОРЯХОВО",
+      "slug": null,
+      "uic": "207560999",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-sergeev-doinov-8c8fb6",
+      "type": "official",
+      "slug": "ivan-sergeev-doinov-8c8fb6",
+      "label": "Иван Сергеев Дойнов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА БЯЛА СЛАТИНА",
+      "type": "person",
+      "label": "Община Бяла Слатина"
+    },
+    {
+      "id": "person:ОБЩИНА КОЗЛОДУЙ",
+      "type": "person",
+      "label": "Община Козлодуй"
+    },
+    {
+      "id": "person:ОБЩИНА КНЕЖА",
+      "type": "person",
+      "label": "Община Кнежа"
+    },
+    {
+      "id": "person:ОБЩИНА ОРЯХОВО",
+      "type": "person",
+      "label": "Община Оряхово"
+    },
+    {
+      "id": "person:ОБЩИНА МИЗИЯ",
+      "type": "person",
+      "label": "Община Мизия"
+    },
+    {
+      "id": "person:ОБЩИНА БОРОВАН",
+      "type": "person",
+      "label": "Община Борован"
+    },
+    {
+      "id": "person:ОБЩИНА ХАЙРЕДИН",
+      "type": "person",
+      "label": "Община Хайредин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-petkova-marinova-cbf547",
+      "target": "company:tr:207560999",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-sergeev-doinov-8c8fb6",
+      "target": "company:tr:207560999",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА БЯЛА СЛАТИНА",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КОЗЛОДУЙ",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КНЕЖА",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ОРЯХОВО",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА МИЗИЯ",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БОРОВАН",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ХАЙРЕДИН",
+      "target": "company:tr:207560999",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

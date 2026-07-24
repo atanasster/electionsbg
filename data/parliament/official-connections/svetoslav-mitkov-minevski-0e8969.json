@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-mitkov-minevski-0e8969",
+  "nodes": [
+    {
+      "id": "official:svetoslav-mitkov-minevski-0e8969",
+      "type": "official",
+      "slug": "svetoslav-mitkov-minevski-0e8969",
+      "label": "СВЕТОСЛАВ МИТКОВ МИНЕВСКИ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123649034",
+      "type": "company",
+      "label": "Активи-Специализирано счетоводно предприятие ЕООД",
+      "slug": null,
+      "uic": "123649034",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-mitkov-minevski-0e8969",
+      "target": "company:tr:123649034",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

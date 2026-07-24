@@ -1,1 +1,47 @@
-{"ekatte":"56839","page":1,"totalPages":1,"count":1,"companies":[{"slug":"Ристовица-ООД","displayName":"Ристовица ООД","registeredOffice":"Плоски","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "56839",
+  "page": 1,
+  "totalPages": 1,
+  "count": 3,
+  "companies": [
+    {
+      "slug": "Ристовица-ООД",
+      "displayName": "Ристовица ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Братя-Георгиева-клуб-за-вино-производство-ООД",
+      "displayName": "Братя Георгиева клуб за вино производство ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Братя-георгиеви-клуб-за-вино-производство-ООД",
+      "displayName": "Братя георгиеви клуб за вино производство ООД",
+      "registeredOffice": "Плоски",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Гоерги Иванов Георгиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

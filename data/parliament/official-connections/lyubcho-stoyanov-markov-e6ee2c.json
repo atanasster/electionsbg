@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubcho-stoyanov-markov-e6ee2c",
+  "nodes": [
+    {
+      "id": "official:lyubcho-stoyanov-markov-e6ee2c",
+      "type": "official",
+      "slug": "lyubcho-stoyanov-markov-e6ee2c",
+      "label": "Любчо Стоянов Марков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207071030",
+      "type": "company",
+      "label": "ОУНЕРС РЕАЛ",
+      "slug": null,
+      "uic": "207071030",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА БОГОМИЛОВА БОЯДЖИЕВА",
+      "type": "person",
+      "label": "Ивелина Богомилова Бояджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubcho-stoyanov-markov-e6ee2c",
+      "target": "company:tr:207071030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА БОГОМИЛОВА БОЯДЖИЕВА",
+      "target": "company:tr:207071030",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА БОГОМИЛОВА БОЯДЖИЕВА",
+      "target": "company:tr:207071030",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

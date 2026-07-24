@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:galina-savcheva-dimitrova-e1e807",
+  "nodes": [
+    {
+      "id": "official:galina-savcheva-dimitrova-e1e807",
+      "type": "official",
+      "slug": "galina-savcheva-dimitrova-e1e807",
+      "label": "Галина Савчева Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207605938",
+      "type": "company",
+      "label": "ИСКАМ ДА ПЕЯ ФОЛКЛОР",
+      "slug": null,
+      "uic": "207605938",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР СТЕФАНОВ ЧАКЪРОВ",
+      "type": "person",
+      "label": "Петър Стефанов Чакъров"
+    },
+    {
+      "id": "person:СИМОНА НИКОЛАЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Симона Николаева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-savcheva-dimitrova-e1e807",
+      "target": "company:tr:207605938",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-savcheva-dimitrova-e1e807",
+      "target": "company:tr:207605938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР СТЕФАНОВ ЧАКЪРОВ",
+      "target": "company:tr:207605938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА НИКОЛАЕВА ДИМИТРОВА",
+      "target": "company:tr:207605938",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

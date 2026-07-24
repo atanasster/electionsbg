@@ -1,1 +1,46 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3184","nodes":[{"id":"mp:3184","type":"mp","mpId":3184,"label":"Велислава Иванова Кръстева","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["44"]},{"id":"company:tr:207342072","type":"company","label":"НЮМАН &amp; НЮМАН","slug":null,"uic":"207342072","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"}],"edges":[{"source":"mp:3184","target":"company:tr:207342072","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3184","target":"company:tr:207342072","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3184",
+  "nodes": [
+    {
+      "id": "mp:3184",
+      "type": "mp",
+      "mpId": 3184,
+      "label": "Велислава Иванова Кръстева",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    },
+    {
+      "id": "company:tr:207342072",
+      "type": "company",
+      "label": "НЮМАН &amp; НЮМАН",
+      "slug": null,
+      "uic": "207342072",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3184",
+      "target": "company:tr:207342072",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3184",
+      "target": "company:tr:207342072",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

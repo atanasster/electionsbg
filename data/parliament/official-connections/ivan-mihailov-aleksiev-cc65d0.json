@@ -1,1 +1,189 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivan-mihailov-aleksiev-cc65d0","nodes":[{"id":"official:ivan-mihailov-aleksiev-cc65d0","type":"official","slug":"ivan-mihailov-aleksiev-cc65d0","label":"Иван Михайлов Алексиев","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:205841518","type":"company","label":"Желан Дом ЕООД","slug":null,"uic":"205841518","legalForm":null,"status":null,"seat":null},{"id":"person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА","type":"person","label":"Стела Георгиева Маринкова"}],"edges":[{"source":"official:ivan-mihailov-aleksiev-cc65d0","target":"company:tr:205841518","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА","target":"company:tr:205841518","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА","target":"company:tr:205841518","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-mihailov-aleksiev-cc65d0",
+  "nodes": [
+    {
+      "id": "official:ivan-mihailov-aleksiev-cc65d0",
+      "type": "official",
+      "slug": "ivan-mihailov-aleksiev-cc65d0",
+      "label": "Иван Михайлов Алексиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:205841518",
+      "type": "company",
+      "label": "Желан Дом ЕООД",
+      "slug": null,
+      "uic": "205841518",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207741840",
+      "type": "company",
+      "label": "ОБЩЕСТВЕН СЪВЕТ СОФИЯ",
+      "slug": null,
+      "uic": "207741840",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА",
+      "type": "person",
+      "label": "Стела Георгиева Маринкова"
+    },
+    {
+      "id": "person:ПЕТКО ВЛАДИМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Петко Владимиров Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИ ВЕНЦИСЛАВОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Георги Венциславов Йорданов"
+    },
+    {
+      "id": "person:МАРТИН ГЕОРГИЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Мартин Георгиев Миланов"
+    },
+    {
+      "id": "person:ПЕТЯ ЙОРДАНОВА ГЕНЪН",
+      "type": "person",
+      "label": "Петя Йорданова Генън"
+    },
+    {
+      "id": "person:ЗАХАРИЙ ДРАГОМИРОВ СПАСОВ",
+      "type": "person",
+      "label": "Захарий Драгомиров Спасов"
+    },
+    {
+      "id": "person:ДЕНИС МАЙКЪЛ ГЕНЪН",
+      "type": "person",
+      "label": "Денис Майкъл Генън"
+    },
+    {
+      "id": "person:АНТОН ИВАНОВ НЕНОВ",
+      "type": "person",
+      "label": "Антон Иванов Ненов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-mihailov-aleksiev-cc65d0",
+      "target": "company:tr:205841518",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-mihailov-aleksiev-cc65d0",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА",
+      "target": "company:tr:205841518",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ГЕОРГИЕВА МАРИНКОВА",
+      "target": "company:tr:205841518",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ВЛАДИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЕНЦИСЛАВОВ ЙОРДАНОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ МИЛАНОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ВЛАДИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЕНЦИСЛАВОВ ЙОРДАНОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ МИЛАНОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЙОРДАНОВА ГЕНЪН",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИЙ ДРАГОМИРОВ СПАСОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИС МАЙКЪЛ ГЕНЪН",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ИВАНОВ НЕНОВ",
+      "target": "company:tr:207741840",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

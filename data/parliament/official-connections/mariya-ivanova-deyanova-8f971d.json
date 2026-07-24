@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-ivanova-deyanova-8f971d",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-deyanova-8f971d",
+      "type": "official",
+      "slug": "mariya-ivanova-deyanova-8f971d",
+      "label": "Мария Иванова Деянова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175863452",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ СОУ ВАСИЛ ЛЕВСКИ - ГР. КАРЛОВО",
+      "slug": null,
+      "uic": "175863452",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛА ЦВЕТАНОВА ТРАКИЙСКА",
+      "type": "person",
+      "label": "Весела Цветанова Тракийска"
+    },
+    {
+      "id": "person:ЛИДИЯ НАЙДЕНОВА НАЧЕВА",
+      "type": "person",
+      "label": "Лидия Найденова Начева"
+    },
+    {
+      "id": "person:НИНА ГЕОРГИЕВА МИЛЕВА",
+      "type": "person",
+      "label": "Нина Георгиева Милева"
+    },
+    {
+      "id": "person:АДЕЛА ПЕТРОВА МАРИНОВА",
+      "type": "person",
+      "label": "Адела Петрова Маринова"
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Стоян Иванов Иванов"
+    },
+    {
+      "id": "person:МАРИАНА ДИМИТРОВА МАНЧЕВА",
+      "type": "person",
+      "label": "Мариана Димитрова Манчева"
+    },
+    {
+      "id": "person:МАТИЛДА ДИМИТРОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Матилда Димитрова Вълкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-deyanova-8f971d",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛА ЦВЕТАНОВА ТРАКИЙСКА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ НАЙДЕНОВА НАЧЕВА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ЦВЕТАНОВА ТРАКИЙСКА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ГЕОРГИЕВА МИЛЕВА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛА ПЕТРОВА МАРИНОВА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА МАНЧЕВА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТИЛДА ДИМИТРОВА ВЪЛКОВА",
+      "target": "company:tr:175863452",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

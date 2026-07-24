@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3899","nodes":[{"id":"mp:3899","type":"mp","mpId":3899,"label":"Йорданка Яникова Костадинова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48"]},{"id":"company:ИКО-2010","type":"company","label":"ИКО 2010","slug":"ИКО-2010","uic":"201316526","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:Стар-спорт","type":"company","label":"Стар спорт","slug":"Стар-спорт","uic":"103845431","legalForm":"OOD","status":"ceased","seat":"Варна"}],"edges":[{"source":"mp:3899","target":"company:ИКО-2010","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3899","target":"company:Стар-спорт","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3899",
+  "nodes": [
+    {
+      "id": "mp:3899",
+      "type": "mp",
+      "mpId": 3899,
+      "label": "Йорданка Яникова Костадинова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:ИКО-2010",
+      "type": "company",
+      "label": "ИКО 2010",
+      "slug": "ИКО-2010",
+      "uic": "201316526",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Стар-спорт",
+      "type": "company",
+      "label": "Стар спорт",
+      "slug": "Стар-спорт",
+      "uic": "103845431",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "Варна"
+    },
+    {
+      "id": "official:iordanka-yanikova-kostadinova-0f158e",
+      "type": "official",
+      "slug": "iordanka-yanikova-kostadinova-0f158e",
+      "label": "Йорданка Яникова Костадинова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3899",
+      "target": "company:ИКО-2010",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3899",
+      "target": "company:Стар-спорт",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordanka-yanikova-kostadinova-0f158e",
+      "target": "company:Стар-спорт",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

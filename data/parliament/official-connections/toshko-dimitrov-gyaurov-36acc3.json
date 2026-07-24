@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:toshko-dimitrov-gyaurov-36acc3",
+  "nodes": [
+    {
+      "id": "official:toshko-dimitrov-gyaurov-36acc3",
+      "type": "official",
+      "slug": "toshko-dimitrov-gyaurov-36acc3",
+      "label": "Тошко Димитров Гяуров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206495389",
+      "type": "company",
+      "label": "Експрес Билд 19",
+      "slug": null,
+      "uic": "206495389",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:toshko-dimitrov-gyaurov-36acc3",
+      "target": "company:tr:206495389",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:toshko-dimitrov-gyaurov-36acc3",
+      "target": "company:tr:206495389",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:toshko-dimitrov-gyaurov-36acc3",
+      "target": "company:tr:206495389",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

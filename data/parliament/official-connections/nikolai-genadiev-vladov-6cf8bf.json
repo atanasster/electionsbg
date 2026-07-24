@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-genadiev-vladov-6cf8bf",
+  "nodes": [
+    {
+      "id": "official:nikolai-genadiev-vladov-6cf8bf",
+      "type": "official",
+      "slug": "nikolai-genadiev-vladov-6cf8bf",
+      "label": "Николай Генадиев Владов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димово"
+    },
+    {
+      "id": "company:tr:105559222",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ &quot;РАЦИАРИЯ&quot;&quot;",
+      "slug": null,
+      "uic": "105559222",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИН ИВАНОВ ПЕЕВ",
+      "type": "person",
+      "label": "Калин Иванов Пеев"
+    },
+    {
+      "id": "person:ПЛАМЕН АСЕНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Пламен Асенов Илиев"
+    },
+    {
+      "id": "person:ДАНАИЛ БОРИСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Данаил Борисов Атанасов"
+    },
+    {
+      "id": "person:ЙОРДАН ЦЕКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Йордан Цеков Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-genadiev-vladov-6cf8bf",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛИН ИВАНОВ ПЕЕВ",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ИВАНОВ ПЕЕВ",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН АСЕНОВ ИЛИЕВ",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ БОРИСОВ АТАНАСОВ",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЦЕКОВ ПЕТКОВ",
+      "target": "company:tr:105559222",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

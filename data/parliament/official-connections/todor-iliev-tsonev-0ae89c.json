@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todor-iliev-tsonev-0ae89c",
+  "nodes": [
+    {
+      "id": "official:todor-iliev-tsonev-0ae89c",
+      "type": "official",
+      "slug": "todor-iliev-tsonev-0ae89c",
+      "label": "Тодор Илиев Цонев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127530223",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ТЪНКОРУННИ ОВЦЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "127530223",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ГЕОРГИЕВ БОЙКОВСКИ",
+      "type": "person",
+      "label": "Стефан Георгиев Бойковски"
+    },
+    {
+      "id": "person:ГРОЗЮ МИЛЧЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Грозю Милчев Грозев"
+    },
+    {
+      "id": "person:ПЛАМЕН ФИЛЕВ БАЕВ",
+      "type": "person",
+      "label": "Пламен Филев Баев"
+    },
+    {
+      "id": "person:СИМЕОН ГЕНОВ КАРАКОЛЕВ",
+      "type": "person",
+      "label": "Симеон Генов Караколев"
+    },
+    {
+      "id": "person:ДОБРОМИР ПЕНЧЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Добромир Пенчев Добрев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димитър Петров Георгиев"
+    },
+    {
+      "id": "person:РАДОСЛАВ ИВАНОВ СЛАВОВ",
+      "type": "person",
+      "label": "Радослав Иванов Славов"
+    },
+    {
+      "id": "person:МАРГАРИТ ВАСИЛЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Маргарит Василев Илиев"
+    },
+    {
+      "id": "person:ДРАГНИ ДЯКОВ ДРАГНЕВ",
+      "type": "person",
+      "label": "Драгни Дяков Драгнев"
+    },
+    {
+      "id": "person:СПАС ПЕНЧЕВ СПАСОВ",
+      "type": "person",
+      "label": "Спас Пенчев Спасов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Десислава Иванова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-iliev-tsonev-0ae89c",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ГЕОРГИЕВ БОЙКОВСКИ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ГЕОРГИЕВ БОЙКОВСКИ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРОЗЮ МИЛЧЕВ ГРОЗЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ФИЛЕВ БАЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ГЕНОВ КАРАКОЛЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПЕНЧЕВ ДОБРЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ИВАНОВ СЛАВОВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТ ВАСИЛЕВ ИЛИЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГНИ ДЯКОВ ДРАГНЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГНИ ДЯКОВ ДРАГНЕВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС ПЕНЧЕВ СПАСОВ",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:127530223",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,64 @@
-{"mpId":76,"mpName":"Валентин Николов Милтенов","generatedAt":"2026-07-03T11:12:51.404Z","total":4,"roles":[{"uic":"205931809","companyName":"РОЯЛ ПРОФИЛ","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-23T10:08:55","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206890913","companyName":"РЕНТ ФИКС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1415","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-10-31T16:36:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206890913","companyName":"РЕНТ ФИКС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1415","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2022-10-31T16:36:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206890913","companyName":"РЕНТ ФИКС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. София, 1415","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":null,"addedAt":"2022-04-05T15:08:56","erasedAt":"2022-10-31T16:36:22","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 76,
+  "mpName": "Валентин Николов Милтенов",
+  "generatedAt": "2026-07-24T03:35:58.173Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "205931809",
+      "companyName": "РОЯЛ ПРОФИЛ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-23T10:08:55",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206890913",
+      "companyName": "РЕНТ ФИКС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1415",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-10-31T16:36:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206890913",
+      "companyName": "РЕНТ ФИКС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1415",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2022-10-31T16:36:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206890913",
+      "companyName": "РЕНТ ФИКС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1415",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-04-05T15:08:56",
+      "erasedAt": "2022-10-31T16:36:22",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

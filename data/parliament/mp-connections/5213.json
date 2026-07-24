@@ -1,1 +1,311 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5213","nodes":[{"id":"mp:5213","type":"mp","mpId":5213,"label":"Слави Василев Василев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:175684307","type":"company","label":"ВИКТОР ЮГО","slug":null,"uic":"175684307","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"company:tr:208153060","type":"company","label":"ИЙСТ ПЕТРОЛЕУМ","slug":null,"uic":"208153060","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1202"},{"id":"company:tr:831508549","type":"company","label":"БРАТЯ ВАСИЛЕВИ","slug":null,"uic":"831508549","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:201181712","type":"company","label":"Инженерингов и развоен център МРАЗ","slug":null,"uic":"201181712","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:000620161","type":"company","label":"МРАЗ","slug":null,"uic":"000620161","legalForm":"AD","status":"active","seat":null},{"id":"person:ИВАН ОГНЯНОВ ДОНЕВ","type":"person","label":"Иван Огнянов Донев"},{"id":"person:ЕВЕЛИНА КОНСТАНТИНОВА ДИМИТРОВА","type":"person","label":"Евелина Константинова Димитрова"},{"id":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","type":"person","label":"Васил Василев Василев"},{"id":"person:ИРИНА ИВАНОВА ВАСИЛЕВА","type":"person","label":"Ирина Иванова Василева"},{"id":"person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","type":"person","label":"Васил Панайотов Василев"},{"id":"person:СВЕТОСЛАВ НИКОЛОВ КОНТИЛСКИ","type":"person","label":"Светослав Николов Контилски"},{"id":"company:tr:831513442","type":"company","label":"СДРУЖЕНИЕ ОБЩОБЪЛГАРСКИ КОМИТЕТ ВАСИЛ ЛЕВСКИ","slug":null,"uic":"831513442","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:2460","type":"mp","mpId":2460,"label":"Корнелия Добрева Маринова","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["42"]}],"edges":[{"source":"mp:5213","target":"company:tr:175684307","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:175684307","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:208153060","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:208153060","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:831508549","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:201181712","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5213","target":"company:tr:000620161","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ОГНЯНОВ ДОНЕВ","target":"company:tr:175684307","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВЕЛИНА КОНСТАНТИНОВА ДИМИТРОВА","target":"company:tr:175684307","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:175684307","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:175684307","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА ВАСИЛЕВА","target":"company:tr:831508549","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:831508549","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","target":"company:tr:831508549","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА ВАСИЛЕВА","target":"company:tr:201181712","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ","target":"company:tr:201181712","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","target":"company:tr:000620161","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ НИКОЛОВ КОНТИЛСКИ","target":"company:tr:000620161","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА ВАСИЛЕВА","target":"company:tr:000620161","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","target":"company:tr:831513442","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","target":"company:tr:831513442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2460","target":"company:tr:831513442","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2460","length":4,"nodeIds":["mp:5213","company:tr:831508549","person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ","company:tr:831513442","mp:2460"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5213",
+  "nodes": [
+    {
+      "id": "mp:5213",
+      "type": "mp",
+      "mpId": 5213,
+      "label": "Слави Василев Василев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:175684307",
+      "type": "company",
+      "label": "ВИКТОР ЮГО",
+      "slug": null,
+      "uic": "175684307",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:tr:208153060",
+      "type": "company",
+      "label": "ИЙСТ ПЕТРОЛЕУМ",
+      "slug": null,
+      "uic": "208153060",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:tr:831508549",
+      "type": "company",
+      "label": "БРАТЯ ВАСИЛЕВИ",
+      "slug": null,
+      "uic": "831508549",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201181712",
+      "type": "company",
+      "label": "Инженерингов и развоен център МРАЗ",
+      "slug": null,
+      "uic": "201181712",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:000620161",
+      "type": "company",
+      "label": "МРАЗ",
+      "slug": null,
+      "uic": "000620161",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ОГНЯНОВ ДОНЕВ",
+      "type": "person",
+      "label": "Иван Огнянов Донев"
+    },
+    {
+      "id": "person:ЕВЕЛИНА КОНСТАНТИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Евелина Константинова Димитрова"
+    },
+    {
+      "id": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Василев Василев"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Ирина Иванова Василева"
+    },
+    {
+      "id": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Панайотов Василев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ НИКОЛОВ КОНТИЛСКИ",
+      "type": "person",
+      "label": "Светослав Николов Контилски"
+    },
+    {
+      "id": "company:tr:831513442",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ОБЩОБЪЛГАРСКИ КОМИТЕТ ВАСИЛ ЛЕВСКИ",
+      "slug": null,
+      "uic": "831513442",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2460",
+      "type": "mp",
+      "mpId": 2460,
+      "label": "Корнелия Добрева Маринова",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5213",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:208153060",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:208153060",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:831508549",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:201181712",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5213",
+      "target": "company:tr:000620161",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ОГНЯНОВ ДОНЕВ",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА КОНСТАНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:175684307",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:831508549",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:831508549",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:831508549",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:201181712",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:201181712",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:000620161",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ НИКОЛОВ КОНТИЛСКИ",
+      "target": "company:tr:000620161",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:000620161",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2460",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2460",
+      "length": 4,
+      "nodeIds": [
+        "mp:5213",
+        "company:tr:831508549",
+        "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+        "company:tr:831513442",
+        "mp:2460"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

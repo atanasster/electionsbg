@@ -1,1 +1,64 @@
-{"mpId":5081,"mpName":"Росица Любенова Кирова","generatedAt":"2026-07-03T11:12:51.908Z","total":4,"roles":[{"uic":"208154632","companyName":"Венти Енерджи Груп","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-02-03T09:55:28","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"105551250","companyName":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ПМГ &quot;ЕКЗАРХ АНТИМ I&quot;-ВИДИН","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-04-18T16:29:00","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176354636","companyName":"Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"ngo_representative","positionLabel":"Председател","sharePercent":null,"addedAt":"2022-12-14T09:47:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"176354636","companyName":"Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-12-14T09:47:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5081,
+  "mpName": "Росица Любенова Кирова",
+  "generatedAt": "2026-07-24T03:35:58.706Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "208154632",
+      "companyName": "Венти Енерджи Груп",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-02-03T09:55:28",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "105551250",
+      "companyName": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ПМГ &quot;ЕКЗАРХ АНТИМ I&quot;-ВИДИН",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-04-18T16:29:00",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176354636",
+      "companyName": "Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател",
+      "sharePercent": null,
+      "addedAt": "2022-12-14T09:47:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "176354636",
+      "companyName": "Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-12-14T09:47:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

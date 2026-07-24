@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-chanev-rachev-ca5c8f",
+  "nodes": [
+    {
+      "id": "official:valentin-chanev-rachev-ca5c8f",
+      "type": "official",
+      "slug": "valentin-chanev-rachev-ca5c8f",
+      "label": "Валентин Чанев Рачев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Царево"
+    },
+    {
+      "id": "company:tr:000044776",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ-1925г.",
+      "slug": null,
+      "uic": "000044776",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Елена Иванова Стоянова"
+    },
+    {
+      "id": "person:ТИНКА КОЛЕВА ГАНДИЕВА",
+      "type": "person",
+      "label": "Тинка Колева Гандиева"
+    },
+    {
+      "id": "person:ЙОРДАН КОСТАДИНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Йордан Костадинов Петков"
+    },
+    {
+      "id": "person:МАРИЯ МИХАЙЛОВА ЯНКОВА",
+      "type": "person",
+      "label": "Мария Михайлова Янкова"
+    },
+    {
+      "id": "person:ТОНКА ИВАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Тонка Иванова Стефанова"
+    },
+    {
+      "id": "person:КАТЯ ХРИСТОВА КИРОВА",
+      "type": "person",
+      "label": "Катя Христова Кирова"
+    },
+    {
+      "id": "person:РАДОСЛАВА РУСЕВА КИЧУКОВА",
+      "type": "person",
+      "label": "Радослава Русева Кичукова"
+    },
+    {
+      "id": "person:ТАНЯ КРЪСТЕВА ВОЙНОВА",
+      "type": "person",
+      "label": "Таня Кръстева Войнова"
+    },
+    {
+      "id": "person:СТЕФКА КАЛУДОВА АНЕСТИЕВА",
+      "type": "person",
+      "label": "Стефка Калудова Анестиева"
+    },
+    {
+      "id": "person:МАРГАРИТА АТАНАСОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Маргарита Атанасова Неделчева"
+    },
+    {
+      "id": "person:РАДКА ИВАНОВА ГРУДЕВА",
+      "type": "person",
+      "label": "Радка Иванова Грудева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-chanev-rachev-ca5c8f",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-chanev-rachev-ca5c8f",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА КОЛЕВА ГАНДИЕВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КОСТАДИНОВ ПЕТКОВ",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИХАЙЛОВА ЯНКОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА ИВАНОВА СТЕФАНОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ХРИСТОВА КИРОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА РУСЕВА КИЧУКОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КРЪСТЕВА ВОЙНОВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА КАЛУДОВА АНЕСТИЕВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА АТАНАСОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИВАНОВА ГРУДЕВА",
+      "target": "company:tr:000044776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

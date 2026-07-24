@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rosen-petrov-ivanov-78b0be",
+  "nodes": [
+    {
+      "id": "official:rosen-petrov-ivanov-78b0be",
+      "type": "official",
+      "slug": "rosen-petrov-ivanov-78b0be",
+      "label": "Росен Петров Иванов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000532747",
+      "type": "company",
+      "label": "ТЕРИТОРИАЛНА ОРГАНИЗАЦИЯ НА НАУЧНО-ТЕХНИЧЕСКИТЕ СПЕЦИАЛИСТИ",
+      "slug": null,
+      "uic": "000532747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТ ПЕТКОВ ВУТОВ",
+      "type": "person",
+      "label": "Маргарит Петков Вутов"
+    },
+    {
+      "id": "person:ЗДРАВКО ГЕОРГИЕВ ЦАНКОВ",
+      "type": "person",
+      "label": "Здравко Георгиев Цанков"
+    },
+    {
+      "id": "person:ГЕОРГИ БОЖИДАРОВ ГАВАЗОВ",
+      "type": "person",
+      "label": "Георги Божидаров Гавазов"
+    },
+    {
+      "id": "person:ДИАНА ВЕЛИКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Диана Великова Иванова"
+    },
+    {
+      "id": "person:АСЕН ЙОРДАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Асен Йорданов Илиев"
+    },
+    {
+      "id": "person:РАДОСЛАВ ИВАНОВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Радослав Иванов Кючуков"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Никола Петров Михайлов"
+    },
+    {
+      "id": "person:МИЛЕН АЛЕКСАНДРОВ ГОРАНОВ",
+      "type": "person",
+      "label": "Милен Александров Горанов"
+    },
+    {
+      "id": "person:АНА НИКОЛОВА ЧИПРИЯНОВА",
+      "type": "person",
+      "label": "Ана Николова Чиприянова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН КИРИЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Цветелин Кирилов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-petrov-ivanov-78b0be",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТ ПЕТКОВ ВУТОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ГЕОРГИЕВ ЦАНКОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОЖИДАРОВ ГАВАЗОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ВЕЛИКОВА ИВАНОВА",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ЙОРДАНОВ ИЛИЕВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ГЕОРГИЕВ ЦАНКОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ИВАНОВ КЮЧУКОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ МИХАЙЛОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТ ПЕТКОВ ВУТОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АЛЕКСАНДРОВ ГОРАНОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА НИКОЛОВА ЧИПРИЯНОВА",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТ ПЕТКОВ ВУТОВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА НИКОЛОВА ЧИПРИЯНОВА",
+      "target": "company:tr:000532747",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА НИКОЛОВА ЧИПРИЯНОВА",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН КИРИЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:000532747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

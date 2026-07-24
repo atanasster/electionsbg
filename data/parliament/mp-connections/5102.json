@@ -1,1 +1,84 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5102","nodes":[{"id":"mp:5102","type":"mp","mpId":5102,"label":"Байрам Юзкан Байрам","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"]},{"id":"company:Бафю-2016","type":"company","label":"Бафю 2016","slug":"Бафю-2016","uic":null,"legalForm":null,"status":null,"seat":"КЪРДЖАЛИ"},{"id":"company:МБ-БМ-Инвест","type":"company","label":"МБ-БМ Инвест","slug":"МБ-БМ-Инвест","uic":"207887208","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Кърджали, 6600"},{"id":"person:МЕЛЕК МЮМЮН БАЙРАМ","type":"person","label":"Мелек Мюмюн Байрам"}],"edges":[{"source":"mp:5102","target":"company:Бафю-2016","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5102","target":"company:МБ-БМ-Инвест","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:МЕЛЕК МЮМЮН БАЙРАМ","target":"company:МБ-БМ-Инвест","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МЕЛЕК МЮМЮН БАЙРАМ","target":"company:МБ-БМ-Инвест","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5102",
+  "nodes": [
+    {
+      "id": "mp:5102",
+      "type": "mp",
+      "mpId": 5102,
+      "label": "Байрам Юзкан Байрам",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Бафю-2016",
+      "type": "company",
+      "label": "Бафю 2016",
+      "slug": "Бафю-2016",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "КЪРДЖАЛИ"
+    },
+    {
+      "id": "company:МБ-БМ-Инвест",
+      "type": "company",
+      "label": "МБ-БМ Инвест",
+      "slug": "МБ-БМ-Инвест",
+      "uic": "207887208",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Кърджали, 6600"
+    },
+    {
+      "id": "person:МЕЛЕК МЮМЮН БАЙРАМ",
+      "type": "person",
+      "label": "Мелек Мюмюн Байрам"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5102",
+      "target": "company:Бафю-2016",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5102",
+      "target": "company:МБ-БМ-Инвест",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛЕК МЮМЮН БАЙРАМ",
+      "target": "company:МБ-БМ-Инвест",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛЕК МЮМЮН БАЙРАМ",
+      "target": "company:МБ-БМ-Инвест",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

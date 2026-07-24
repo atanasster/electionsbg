@@ -1,1 +1,421 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4325","nodes":[{"id":"mp:4325","type":"mp","mpId":4325,"label":"Петър Пандушев Чобанов","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["42","43","46","47","48"]},{"id":"company:tr:175327305","type":"company","label":"ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ","slug":null,"uic":"175327305","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1632"},{"id":"company:tr:202815436","type":"company","label":"Обертюр Фидюсиер","slug":null,"uic":"202815436","legalForm":"AD","status":"active","seat":null},{"id":"mp:4160","type":"mp","mpId":4160,"label":"Андрей Атанасов Гюров","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49"]},{"id":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","type":"person","label":"Анна Валериева Манолова"},{"id":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","type":"person","label":"Владимир Господинов Влаев"},{"id":"person:ИВАЙЛО СТАНЕВ МАТЕЕВ","type":"person","label":"Ивайло Станев Матеев"},{"id":"person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ","type":"person","label":"Ивайло Русинов Главчовски"},{"id":"person:КАЛИН ДИМИТРОВ ХРИСТОВ","type":"person","label":"Калин Димитров Христов"},{"id":"person:ЕМИЛ СТЕФАНОВ ХРИСТОВ","type":"person","label":"Емил Стефанов Христов"},{"id":"person:ИРИНА ИВАНОВА МАРЦЕВА","type":"person","label":"Ирина Иванова Марцева"},{"id":"person:ТАТЯНА ВАСИЛЕВА ИВАНОВА","type":"person","label":"Татяна Василева Иванова"},{"id":"person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ","type":"person","label":"Джеймс Бориславов Йоловски"},{"id":"person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА","type":"person","label":"Карина Димитрова Караиванова-Ганозова"},{"id":"person:ПЛАМЕН ЗЛАТКОВ ЦВЯТКОВ","type":"person","label":"Пламен Златков Цвятков"},{"id":"person:НИНА ИВАНОВА СТОЯНОВА","type":"person","label":"Нина Иванова Стоянова"},{"id":"person:ЛЮДМИЛА КРЪСТЕВА ЕЛКОВА","type":"person","label":"Людмила Кръстева Елкова"},{"id":"person:ЕТИЕН КУЕЛ","type":"person","label":"Етиен Куел"},{"id":"person:ТОМА САВАР","type":"person","label":"Тома Савар"},{"id":"person:ЖАН-МИШЕЛ ГИШО","type":"person","label":"Жан-Мишел Гишо"},{"id":"person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ","type":"person","label":"Калин Владимиров Добрев"},{"id":"person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ","type":"person","label":"Велизар Стоянов Вълчев"},{"id":"person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ","type":"person","label":"Чавдар Веселинов Каменов"},{"id":"person:НИКОЛАЙ НЕНОВ НЕНОВСКИ","type":"person","label":"Николай Ненов Неновски"}],"edges":[{"source":"mp:4325","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4325","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4160","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СТАНЕВ МАТЕЕВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ДИМИТРОВ ХРИСТОВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ СТЕФАНОВ ХРИСТОВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА МАРЦЕВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ВАСИЛЕВА ИВАНОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЗЛАТКОВ ЦВЯТКОВ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ИВАНОВА СТОЯНОВА","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛА КРЪСТЕВА ЕЛКОВА","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕТИЕН КУЕЛ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТОМА САВАР","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖАН-МИШЕЛ ГИШО","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ","target":"company:tr:202815436","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ","target":"company:tr:202815436","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ","target":"company:tr:202815436","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ТОМА САВАР","target":"company:tr:202815436","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ НЕНОВ НЕНОВСКИ","target":"company:tr:202815436","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4160","length":2,"nodeIds":["mp:4325","company:tr:175327305","mp:4160"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4325",
+  "nodes": [
+    {
+      "id": "mp:4325",
+      "type": "mp",
+      "mpId": 4325,
+      "label": "Петър Пандушев Чобанов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:tr:175327305",
+      "type": "company",
+      "label": "ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ",
+      "slug": null,
+      "uic": "175327305",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1632"
+    },
+    {
+      "id": "company:tr:202815436",
+      "type": "company",
+      "label": "Обертюр Фидюсиер",
+      "slug": null,
+      "uic": "202815436",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4160",
+      "type": "mp",
+      "mpId": 4160,
+      "label": "Андрей Атанасов Гюров",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "type": "person",
+      "label": "Анна Валериева Манолова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "type": "person",
+      "label": "Владимир Господинов Влаев"
+    },
+    {
+      "id": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Ивайло Станев Матеев"
+    },
+    {
+      "id": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "type": "person",
+      "label": "Ивайло Русинов Главчовски"
+    },
+    {
+      "id": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Калин Димитров Христов"
+    },
+    {
+      "id": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Емил Стефанов Христов"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "type": "person",
+      "label": "Ирина Иванова Марцева"
+    },
+    {
+      "id": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Татяна Василева Иванова"
+    },
+    {
+      "id": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "type": "person",
+      "label": "Джеймс Бориславов Йоловски"
+    },
+    {
+      "id": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
+      "type": "person",
+      "label": "Карина Димитрова Караиванова-Ганозова"
+    },
+    {
+      "id": "official:nikolai-nenov-nenovski-8a3d4d",
+      "type": "official",
+      "slug": "nikolai-nenov-nenovski-8a3d4d",
+      "label": "Николай Ненов Неновски",
+      "tier": "executive",
+      "role": "central_bank",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЛАМЕН ЗЛАТКОВ ЦВЯТКОВ",
+      "type": "person",
+      "label": "Пламен Златков Цвятков"
+    },
+    {
+      "id": "person:НИНА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Нина Иванова Стоянова"
+    },
+    {
+      "id": "person:ЛЮДМИЛА КРЪСТЕВА ЕЛКОВА",
+      "type": "person",
+      "label": "Людмила Кръстева Елкова"
+    },
+    {
+      "id": "person:ЕТИЕН КУЕЛ",
+      "type": "person",
+      "label": "Етиен Куел"
+    },
+    {
+      "id": "person:ТОМА САВАР",
+      "type": "person",
+      "label": "Тома Савар"
+    },
+    {
+      "id": "person:ЖАН-МИШЕЛ ГИШО",
+      "type": "person",
+      "label": "Жан-Мишел Гишо"
+    },
+    {
+      "id": "person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Калин Владимиров Добрев"
+    },
+    {
+      "id": "person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Велизар Стоянов Вълчев"
+    },
+    {
+      "id": "person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Чавдар Веселинов Каменов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4325",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4325",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-nenov-nenovski-8a3d4d",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ЗЛАТКОВ ЦВЯТКОВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА КРЪСТЕВА ЕЛКОВА",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕТИЕН КУЕЛ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА САВАР",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАН-МИШЕЛ ГИШО",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ВЛАДИМИРОВ ДОБРЕВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАР СТОЯНОВ ВЪЛЧЕВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ВЕСЕЛИНОВ КАМЕНОВ",
+      "target": "company:tr:202815436",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА САВАР",
+      "target": "company:tr:202815436",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4160",
+      "length": 2,
+      "nodeIds": [
+        "mp:4325",
+        "company:tr:175327305",
+        "mp:4160"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

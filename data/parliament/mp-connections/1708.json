@@ -1,1 +1,246 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1708","nodes":[{"id":"mp:1708","type":"mp","mpId":1708,"label":"Георги Христов Борисов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208108001","type":"company","label":"АГРО 66","slug":null,"uic":"208108001","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, с. Водица, 9141"},{"id":"company:tr:207438067","type":"company","label":"Спортен клуб по тенис на маса АЛЕКО - 2023","slug":null,"uic":"207438067","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Свищов, 5250"},{"id":"person:ИЛИЯН ФИЛЬОВ НИКОЛОВ","type":"person","label":"Илиян Фильов Николов"},{"id":"person:ИЛИЯ ПЕТРОВ АЛЕКСАНДРОВ","type":"person","label":"Илия Петров Александров"},{"id":"person:АНТОН НЕНЧЕВ АНТОНОВ","type":"person","label":"Антон Ненчев Антонов"},{"id":"person:ИВАН КРАЛЕВ ИВАНОВ","type":"person","label":"Иван Кралев Иванов"},{"id":"person:МИРОСЛАВ САВЧОВ ПЪРВАНОВ","type":"person","label":"Мирослав Савчов Първанов"},{"id":"person:МАРИЕТА ЦВЕТАНОВА ДАКОВА","type":"person","label":"Мариета Цветанова Дакова"},{"id":"person:МИЛКО ПАНЕВ ТОДОРОВ","type":"person","label":"Милко Панев Тодоров"},{"id":"person:ВАЛЕНТИН БОРИСОВ ВЪЛЧЕВ","type":"person","label":"Валентин Борисов Вълчев"},{"id":"person:НЕДКО СЛАВЕВ ГЕОРГИЕВ","type":"person","label":"Недко Славев Георгиев"},{"id":"person:НИКО ФАМ ТУЕН","type":"person","label":"Нико Фам Туен"}],"edges":[{"source":"mp:1708","target":"company:tr:208108001","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1708","target":"company:tr:208108001","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1708","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИЛИЯН ФИЛЬОВ НИКОЛОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ АЛЕКСАНДРОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНТОН НЕНЧЕВ АНТОНОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН ФИЛЬОВ НИКОЛОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КРАЛЕВ ИВАНОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ САВЧОВ ПЪРВАНОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЕТА ЦВЕТАНОВА ДАКОВА","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛКО ПАНЕВ ТОДОРОВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН БОРИСОВ ВЪЛЧЕВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО СЛАВЕВ ГЕОРГИЕВ","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКО ФАМ ТУЕН","target":"company:tr:207438067","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1708",
+  "nodes": [
+    {
+      "id": "mp:1708",
+      "type": "mp",
+      "mpId": 1708,
+      "label": "Георги Христов Борисов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208108001",
+      "type": "company",
+      "label": "АГРО 66",
+      "slug": null,
+      "uic": "208108001",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Водица, 9141"
+    },
+    {
+      "id": "company:tr:207438067",
+      "type": "company",
+      "label": "Спортен клуб по тенис на маса АЛЕКО - 2023",
+      "slug": null,
+      "uic": "207438067",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250"
+    },
+    {
+      "id": "official:georgi-hristov-borisov-b1945c",
+      "type": "official",
+      "slug": "georgi-hristov-borisov-b1945c",
+      "label": "Георги Христов Борисов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аксаково"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "type": "person",
+      "label": "Георги Христов Борисов"
+    },
+    {
+      "id": "person:ИЛИЯН ФИЛЬОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Илиян Фильов Николов"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Илия Петров Александров"
+    },
+    {
+      "id": "person:АНТОН НЕНЧЕВ АНТОНОВ",
+      "type": "person",
+      "label": "Антон Ненчев Антонов"
+    },
+    {
+      "id": "person:ИВАН КРАЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Кралев Иванов"
+    },
+    {
+      "id": "person:МИРОСЛАВ САВЧОВ ПЪРВАНОВ",
+      "type": "person",
+      "label": "Мирослав Савчов Първанов"
+    },
+    {
+      "id": "person:МАРИЕТА ЦВЕТАНОВА ДАКОВА",
+      "type": "person",
+      "label": "Мариета Цветанова Дакова"
+    },
+    {
+      "id": "person:МИЛКО ПАНЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Милко Панев Тодоров"
+    },
+    {
+      "id": "person:ВАЛЕНТИН БОРИСОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Валентин Борисов Вълчев"
+    },
+    {
+      "id": "person:НЕДКО СЛАВЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Недко Славев Георгиев"
+    },
+    {
+      "id": "person:НИКО ФАМ ТУЕН",
+      "type": "person",
+      "label": "Нико Фам Туен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1708",
+      "target": "company:tr:208108001",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1708",
+      "target": "company:tr:208108001",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1708",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-hristov-borisov-b1945c",
+      "target": "company:tr:208108001",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "target": "company:tr:208108001",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "target": "company:tr:208108001",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ФИЛЬОВ НИКОЛОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН НЕНЧЕВ АНТОНОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ФИЛЬОВ НИКОЛОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАЛЕВ ИВАНОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ САВЧОВ ПЪРВАНОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕТА ЦВЕТАНОВА ДАКОВА",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ПАНЕВ ТОДОРОВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН БОРИСОВ ВЪЛЧЕВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО СЛАВЕВ ГЕОРГИЕВ",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКО ФАМ ТУЕН",
+      "target": "company:tr:207438067",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

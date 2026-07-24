@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ana-dimitrova-popova-vrbanova-fafd39",
+  "nodes": [
+    {
+      "id": "official:ana-dimitrova-popova-vrbanova-fafd39",
+      "type": "official",
+      "slug": "ana-dimitrova-popova-vrbanova-fafd39",
+      "label": "Ана Димитрова Попова-Върбанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130340697",
+      "type": "company",
+      "label": "КОЛЕГИУМ ЧАСТНА ПСИХИАТРИЯ",
+      "slug": null,
+      "uic": "130340697",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЧАВДАР ДИМИТРОВ ДИЛОВ",
+      "type": "person",
+      "label": "Чавдар Димитров Дилов"
+    },
+    {
+      "id": "person:ЛОЗАНКА ГЕОРГИЕВА АРСОВА",
+      "type": "person",
+      "label": "Лозанка Георгиева Арсова"
+    },
+    {
+      "id": "person:НИКОЛА СТЕФАНОВ МАРКОВ",
+      "type": "person",
+      "label": "Никола Стефанов Марков"
+    },
+    {
+      "id": "person:ФАНКА ЛАЗАРОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Фанка Лазарова Койчева"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ДЖУПАНОВ",
+      "type": "person",
+      "label": "Георги Атанасов Джупанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ana-dimitrova-popova-vrbanova-fafd39",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЧАВДАР ДИМИТРОВ ДИЛОВ",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАНКА ГЕОРГИЕВА АРСОВА",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА СТЕФАНОВ МАРКОВ",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНКА ЛАЗАРОВА КОЙЧЕВА",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ДЖУПАНОВ",
+      "target": "company:tr:130340697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,244 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1464","nodes":[{"id":"mp:1464","type":"mp","mpId":1464,"label":"Стефан Господинов Господинов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41"]},{"id":"company:tr:000456452","type":"company","label":"НЧ &quot;ПРОБУДА - 1903&quot; - с. Отец Паисиево","slug":null,"uic":"000456452","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, с. Отец Паисиево, 4354"},{"id":"company:tr:118556475","type":"company","label":"СМГ-КОМЕРС","slug":null,"uic":"118556475","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:АТАНАС ТАНЕВ ТАНЕВ","type":"person","label":"Атанас Танев Танев"},{"id":"person:МАТА ВЪЛКОВА МАНАВСКА","type":"person","label":"Мата Вълкова Манавска"},{"id":"person:МИНКО ДИМИТРОВ ТОДОРОВ","type":"person","label":"Минко Димитров Тодоров"},{"id":"person:СТОЙКО НИКОЛОВ ЗАГОРЧЕВ","type":"person","label":"Стойко Николов Загорчев"},{"id":"person:РАДОСЛАВ СТОЯНОВ ПАНЕВ","type":"person","label":"Радослав Стоянов Панев"},{"id":"person:ТАНЮ ПЕЕВ ТАНЕВ","type":"person","label":"Таню Пеев Танев"},{"id":"person:ПЕНКА МИНЧЕВА БАРАКОВА","type":"person","label":"Пенка Минчева Баракова"},{"id":"person:ГЕНКА СВЕТОСЛАВОВА ПЕЕВА-ГАРЧЕВА","type":"person","label":"Генка Светославова Пеева-Гарчева"},{"id":"person:КРАСИМИР ИВАНОВ МАРИНОВ","type":"person","label":"Красимир Иванов Маринов"},{"id":"person:НЕНО ДИМИТРОВ НЕНОВ","type":"person","label":"Нено Димитров Ненов"},{"id":"person:АНТОАНЕТА СТОЯНОВА СТАНКОВСКА","type":"person","label":"Антоанета Стоянова Станковска"},{"id":"person:МАРГАРИТА БОГДАНОВА ГОСПОДИНОВА","type":"person","label":"Маргарита Богданова Господинова"}],"edges":[{"source":"mp:1464","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"mp:1464","target":"company:tr:118556475","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1464","target":"company:tr:118556475","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АТАНАС ТАНЕВ ТАНЕВ","target":"company:tr:000456452","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАТА ВЪЛКОВА МАНАВСКА","target":"company:tr:000456452","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС ТАНЕВ ТАНЕВ","target":"company:tr:000456452","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАТА ВЪЛКОВА МАНАВСКА","target":"company:tr:000456452","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИНКО ДИМИТРОВ ТОДОРОВ","target":"company:tr:000456452","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙКО НИКОЛОВ ЗАГОРЧЕВ","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ СТОЯНОВ ПАНЕВ","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЮ ПЕЕВ ТАНЕВ","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА МИНЧЕВА БАРАКОВА","target":"company:tr:000456452","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНКА МИНЧЕВА БАРАКОВА","target":"company:tr:000456452","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНКА СВЕТОСЛАВОВА ПЕЕВА-ГАРЧЕВА","target":"company:tr:000456452","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИВАНОВ МАРИНОВ","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:НЕНО ДИМИТРОВ НЕНОВ","target":"company:tr:000456452","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАНЕТА СТОЯНОВА СТАНКОВСКА","target":"company:tr:000456452","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА БОГДАНОВА ГОСПОДИНОВА","target":"company:tr:118556475","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1464",
+  "nodes": [
+    {
+      "id": "mp:1464",
+      "type": "mp",
+      "mpId": 1464,
+      "label": "Стефан Господинов Господинов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41"
+      ]
+    },
+    {
+      "id": "company:tr:000456452",
+      "type": "company",
+      "label": "НЧ &quot;ПРОБУДА - 1903&quot; - с. Отец Паисиево",
+      "slug": null,
+      "uic": "000456452",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Отец Паисиево, 4354"
+    },
+    {
+      "id": "company:tr:118556475",
+      "type": "company",
+      "label": "СМГ-КОМЕРС",
+      "slug": null,
+      "uic": "118556475",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:АТАНАС ТАНЕВ ТАНЕВ",
+      "type": "person",
+      "label": "Атанас Танев Танев"
+    },
+    {
+      "id": "person:МАТА ВЪЛКОВА МАНАВСКА",
+      "type": "person",
+      "label": "Мата Вълкова Манавска"
+    },
+    {
+      "id": "person:МИНКО ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Минко Димитров Тодоров"
+    },
+    {
+      "id": "person:СТОЙКО НИКОЛОВ ЗАГОРЧЕВ",
+      "type": "person",
+      "label": "Стойко Николов Загорчев"
+    },
+    {
+      "id": "person:РАДОСЛАВ СТОЯНОВ ПАНЕВ",
+      "type": "person",
+      "label": "Радослав Стоянов Панев"
+    },
+    {
+      "id": "person:ТАНЮ ПЕЕВ ТАНЕВ",
+      "type": "person",
+      "label": "Таню Пеев Танев"
+    },
+    {
+      "id": "person:ПЕНКА МИНЧЕВА БАРАКОВА",
+      "type": "person",
+      "label": "Пенка Минчева Баракова"
+    },
+    {
+      "id": "person:ГЕНКА СВЕТОСЛАВОВА ПЕЕВА-ГАРЧЕВА",
+      "type": "person",
+      "label": "Генка Светославова Пеева-Гарчева"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Красимир Иванов Маринов"
+    },
+    {
+      "id": "person:НЕНО ДИМИТРОВ НЕНОВ",
+      "type": "person",
+      "label": "Нено Димитров Ненов"
+    },
+    {
+      "id": "person:АНТОАНЕТА СТОЯНОВА СТАНКОВСКА",
+      "type": "person",
+      "label": "Антоанета Стоянова Станковска"
+    },
+    {
+      "id": "person:МАРГАРИТА БОГДАНОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Маргарита Богданова Господинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1464",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1464",
+      "target": "company:tr:118556475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1464",
+      "target": "company:tr:118556475",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ТАНЕВ ТАНЕВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТА ВЪЛКОВА МАНАВСКА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ТАНЕВ ТАНЕВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТА ВЪЛКОВА МАНАВСКА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКО НИКОЛОВ ЗАГОРЧЕВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ СТОЯНОВ ПАНЕВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЮ ПЕЕВ ТАНЕВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА МИНЧЕВА БАРАКОВА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА МИНЧЕВА БАРАКОВА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНКА СВЕТОСЛАВОВА ПЕЕВА-ГАРЧЕВА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ МАРИНОВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНО ДИМИТРОВ НЕНОВ",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА СТОЯНОВА СТАНКОВСКА",
+      "target": "company:tr:000456452",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА БОГДАНОВА ГОСПОДИНОВА",
+      "target": "company:tr:118556475",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

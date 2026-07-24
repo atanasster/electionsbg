@@ -1,1 +1,36 @@
-{"mpId":1005,"mpName":"Иван Йорданов Костов","generatedAt":"2026-07-03T11:12:51.534Z","total":2,"roles":[{"uic":"121542489","companyName":"ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;","legalForm":"FOUND","seat":"БЪЛГАРИЯ, гр. София, 1407","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-03-05T13:52:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"202553934","companyName":"АНТОРНА","legalForm":"EOOD","seat":null,"status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2021-01-08T12:30:34","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 1005,
+  "mpName": "Иван Йорданов Костов",
+  "generatedAt": "2026-07-24T03:35:58.328Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "121542489",
+      "companyName": "ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;",
+      "legalForm": "FOUND",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-03-05T13:52:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "202553934",
+      "companyName": "АНТОРНА",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-01-08T12:30:34",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

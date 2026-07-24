@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iglika-ivanova-ivanova-sbeva-fbafb5",
+  "nodes": [
+    {
+      "id": "official:iglika-ivanova-ivanova-sbeva-fbafb5",
+      "type": "official",
+      "slug": "iglika-ivanova-ivanova-sbeva-fbafb5",
+      "label": "Иглика Иванова Иванова-Събева",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207690100",
+      "type": "company",
+      "label": "Сдружение &quot;Заедно за Младен&quot;",
+      "slug": null,
+      "uic": "207690100",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Младен, 5428"
+    },
+    {
+      "id": "mp:2937",
+      "type": "mp",
+      "mpId": 2937,
+      "label": "Иглика Иванова Иванова-Събева",
+      "partyGroupShort": "КП-СИ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВАН КОЛЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Иван Колев Колев"
+    },
+    {
+      "id": "person:ЕЛКА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Елка Петрова Димитрова"
+    },
+    {
+      "id": "person:ИВА МИТКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ива Миткова Тодорова"
+    },
+    {
+      "id": "person:КАЛОЯН ИВАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Калоян Иванов Колев"
+    },
+    {
+      "id": "person:ЦЕНКО СЪБЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ценко Събев Иванов"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Христов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iglika-ivanova-ivanova-sbeva-fbafb5",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2937",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН КОЛЕВ КОЛЕВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛКА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОЛЕВ КОЛЕВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛКА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА МИТКОВА ТОДОРОВА",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ИВАНОВ КОЛЕВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕНКО СЪБЕВ ИВАНОВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

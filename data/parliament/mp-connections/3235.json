@@ -1,1 +1,483 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3235","nodes":[{"id":"mp:3235","type":"mp","mpId":3235,"label":"Мирослав Иванов Аспарухов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:А.-с.-П.-Фолк-дизайн-ЕООД","type":"company","label":"А. с. П. Фолк дизайн ЕООД","slug":"А.-с.-П.-Фолк-дизайн-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"Враца"},{"id":"company:ФОЛКЛОР-М-ЕООД","type":"company","label":"ФОЛКЛОР-М ЕООД","slug":"ФОЛКЛОР-М-ЕООД","uic":"200856982","legalForm":"EOOD","status":"active","seat":"Враца"},{"id":"company:tr:175833929","type":"company","label":"ФЕДЕРАЦИЯ НА БЪЛГАРСКИ ФОЛКЛОРНИ ГРУПИ","slug":null,"uic":"175833929","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Мездра, 3100"},{"id":"company:tr:000183651","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА","slug":null,"uic":"000183651","legalForm":"CC","status":"active","seat":null},{"id":"person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА","type":"person","label":"Красимира Стефанова Ковачева-Богданова"},{"id":"person:ЦВЕТАН КИРИЛОВ ЦОЧЕВ","type":"person","label":"Цветан Кирилов Цочев"},{"id":"person:РОСЕН ГЕОРГИЕВ АТАНАСОВ","type":"person","label":"Росен Георгиев Атанасов"},{"id":"person:МАРИЯ ГЕОРГИЕВА ЦВЕТАНОВА","type":"person","label":"Мария Георгиева Цветанова"},{"id":"person:ЖИВКА ЦОНКОВА ХАРАЛАНОВА","type":"person","label":"Живка Цонкова Хараланова"},{"id":"person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ","type":"person","label":"Валентин Марков Вълчев"},{"id":"person:МОНИКА ЦВЕТАНОВА ПЕТКОВА","type":"person","label":"Моника Цветанова Петкова"},{"id":"person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА","type":"person","label":"Виктория Данчева Данкова"},{"id":"person:МИРОСЛАВ БОГДАНОВ ГЕТОВ","type":"person","label":"Мирослав Богданов Гетов"},{"id":"person:НИКОДИМ ИВАНЧОВ НАНОВ","type":"person","label":"Никодим Иванчов Нанов"},{"id":"person:ИВАН КРЪСТЕВ ИВАНЧЕВ","type":"person","label":"Иван Кръстев Иванчев"},{"id":"person:КАЛИН ГАНЧОВ СТОЙЧЕВ","type":"person","label":"Калин Ганчов Стойчев"},{"id":"person:НЕЛИ ИВАЙЛОВА МИНЕВА","type":"person","label":"Нели Ивайлова Минева"},{"id":"person:ДАРИНА ИВАНОВА ВАТОВА","type":"person","label":"Дарина Иванова Ватова"},{"id":"person:ЯНА ВЕНЕЛИНОВА НИНОВА","type":"person","label":"Яна Венелинова Нинова"},{"id":"person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА","type":"person","label":"Даниела Петкова Бързашка"},{"id":"person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА","type":"person","label":"Биляна Валентинова Костова"},{"id":"company:tr:131321336","type":"company","label":"Национална асоциация на председателите на Общински съвети в Република България","slug":null,"uic":"131321336","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:3148","type":"mp","mpId":3148,"label":"Красимир Христов Николов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"mp:5288","type":"mp","mpId":5288,"label":"Сейфи Сабри Мехмедали","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["51","52"]}],"edges":[{"source":"mp:3235","target":"company:А.-с.-П.-Фолк-дизайн-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3235","target":"company:ФОЛКЛОР-М-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3235","target":"company:tr:175833929","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3235","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3235","target":"company:tr:000183651","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3235","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА","target":"company:tr:175833929","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН КИРИЛОВ ЦОЧЕВ","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ГЕОРГИЕВ АТАНАСОВ","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА ЦВЕТАНОВА","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА ЦОНКОВА ХАРАЛАНОВА","target":"company:tr:175833929","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ","target":"company:tr:000183651","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МОНИКА ЦВЕТАНОВА ПЕТКОВА","target":"company:tr:000183651","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ БОГДАНОВ ГЕТОВ","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОДИМ ИВАНЧОВ НАНОВ","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН КРЪСТЕВ ИВАНЧЕВ","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ГАНЧОВ СТОЙЧЕВ","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НЕЛИ ИВАЙЛОВА МИНЕВА","target":"company:tr:000183651","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА ИВАНОВА ВАТОВА","target":"company:tr:000183651","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ВЕНЕЛИНОВА НИНОВА","target":"company:tr:000183651","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА","target":"company:tr:000183651","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА","target":"company:tr:000183651","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ВЕНЕЛИНОВА НИНОВА","target":"company:tr:131321336","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3148","target":"company:tr:131321336","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5288","target":"company:tr:131321336","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3148","length":4,"nodeIds":["mp:3235","company:tr:000183651","person:ЯНА ВЕНЕЛИНОВА НИНОВА","company:tr:131321336","mp:3148"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5288","length":4,"nodeIds":["mp:3235","company:tr:000183651","person:ЯНА ВЕНЕЛИНОВА НИНОВА","company:tr:131321336","mp:5288"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3235",
+  "nodes": [
+    {
+      "id": "mp:3235",
+      "type": "mp",
+      "mpId": 3235,
+      "label": "Мирослав Иванов Аспарухов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:А.-с.-П.-Фолк-дизайн-ЕООД",
+      "type": "company",
+      "label": "А. с. П. Фолк дизайн ЕООД",
+      "slug": "А.-с.-П.-Фолк-дизайн-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Враца"
+    },
+    {
+      "id": "company:ФОЛКЛОР-М-ЕООД",
+      "type": "company",
+      "label": "ФОЛКЛОР-М ЕООД",
+      "slug": "ФОЛКЛОР-М-ЕООД",
+      "uic": "200856982",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Враца"
+    },
+    {
+      "id": "company:tr:175833929",
+      "type": "company",
+      "label": "ФЕДЕРАЦИЯ НА БЪЛГАРСКИ ФОЛКЛОРНИ ГРУПИ",
+      "slug": null,
+      "uic": "175833929",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Мездра, 3100"
+    },
+    {
+      "id": "company:tr:000183651",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА",
+      "slug": null,
+      "uic": "000183651",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:miroslav-ivanov-asparuhov-400c50",
+      "type": "official",
+      "slug": "miroslav-ivanov-asparuhov-400c50",
+      "label": "Мирослав Иванов Аспарухов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА",
+      "type": "person",
+      "label": "Красимира Стефанова Ковачева-Богданова"
+    },
+    {
+      "id": "person:ЦВЕТАН КИРИЛОВ ЦОЧЕВ",
+      "type": "person",
+      "label": "Цветан Кирилов Цочев"
+    },
+    {
+      "id": "person:РОСЕН ГЕОРГИЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Росен Георгиев Атанасов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "type": "person",
+      "label": "Мирослав Иванов Аспарухов"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Цветанова"
+    },
+    {
+      "id": "person:ЖИВКА ЦОНКОВА ХАРАЛАНОВА",
+      "type": "person",
+      "label": "Живка Цонкова Хараланова"
+    },
+    {
+      "id": "official:ivan-krstev-ivanchev-0f30c9",
+      "type": "official",
+      "slug": "ivan-krstev-ivanchev-0f30c9",
+      "label": "Иван Кръстев Иванчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:kalin-ganchov-stoichev-c893e1",
+      "type": "official",
+      "slug": "kalin-ganchov-stoichev-c893e1",
+      "label": "Калин Ганчов Стойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:neli-ivailova-mineva-e91ba6",
+      "type": "official",
+      "slug": "neli-ivailova-mineva-e91ba6",
+      "label": "Нели Ивайлова Минева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Валентин Марков Вълчев"
+    },
+    {
+      "id": "person:МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Моника Цветанова Петкова"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА",
+      "type": "person",
+      "label": "Виктория Данчева Данкова"
+    },
+    {
+      "id": "person:МИРОСЛАВ БОГДАНОВ ГЕТОВ",
+      "type": "person",
+      "label": "Мирослав Богданов Гетов"
+    },
+    {
+      "id": "person:НИКОДИМ ИВАНЧОВ НАНОВ",
+      "type": "person",
+      "label": "Никодим Иванчов Нанов"
+    },
+    {
+      "id": "person:ДАРИНА ИВАНОВА ВАТОВА",
+      "type": "person",
+      "label": "Дарина Иванова Ватова"
+    },
+    {
+      "id": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "type": "person",
+      "label": "Яна Венелинова Нинова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА",
+      "type": "person",
+      "label": "Даниела Петкова Бързашка"
+    },
+    {
+      "id": "person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "type": "person",
+      "label": "Биляна Валентинова Костова"
+    },
+    {
+      "id": "company:tr:131321336",
+      "type": "company",
+      "label": "Национална асоциация на председателите на Общински съвети в Република България",
+      "slug": null,
+      "uic": "131321336",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3148",
+      "type": "mp",
+      "mpId": 3148,
+      "label": "Красимир Христов Николов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5288",
+      "type": "mp",
+      "mpId": 5288,
+      "label": "Сейфи Сабри Мехмедали",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3235",
+      "target": "company:А.-с.-П.-Фолк-дизайн-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:ФОЛКЛОР-М-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-ivanov-asparuhov-400c50",
+      "target": "company:ФОЛКЛОР-М-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТЕФАНОВА КОВАЧЕВА-БОГДАНОВА",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН КИРИЛОВ ЦОЧЕВ",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ГЕОРГИЕВ АТАНАСОВ",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ЦВЕТАНОВА",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ЦОНКОВА ХАРАЛАНОВА",
+      "target": "company:tr:175833929",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-krstev-ivanchev-0f30c9",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kalin-ganchov-stoichev-c893e1",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:neli-ivailova-mineva-e91ba6",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ БОГДАНОВ ГЕТОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОДИМ ИВАНЧОВ НАНОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ИВАНОВА ВАТОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3148",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5288",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3148",
+      "length": 4,
+      "nodeIds": [
+        "mp:3235",
+        "company:tr:000183651",
+        "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+        "company:tr:131321336",
+        "mp:3148"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5288",
+      "length": 4,
+      "nodeIds": [
+        "mp:3235",
+        "company:tr:000183651",
+        "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+        "company:tr:131321336",
+        "mp:5288"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

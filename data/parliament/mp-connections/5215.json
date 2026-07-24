@@ -1,1 +1,230 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5215","nodes":[{"id":"mp:5215","type":"mp","mpId":5215,"label":"Татяна Славова Султанова-Сивева","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["47","48","49","50","51","52"]},{"id":"company:Брик-Инженеринг-Гърция","type":"company","label":"Брик Инженеринг Гърция","slug":"Брик-Инженеринг-Гърция","uic":null,"legalForm":null,"status":null,"seat":"Кавала Гърция"}],"edges":[{"source":"mp:5215","target":"company:Брик-Инженеринг-Гърция","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5215",
+  "nodes": [
+    {
+      "id": "mp:5215",
+      "type": "mp",
+      "mpId": 5215,
+      "label": "Татяна Славова Султанова-Сивева",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Боянски-Възход-ООД",
+      "type": "company",
+      "label": "Боянски Възход ООД",
+      "slug": "Боянски-Възход-ООД",
+      "uic": "206394739",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:Брик-Инженеринг-Гърция",
+      "type": "company",
+      "label": "Брик Инженеринг Гърция",
+      "slug": "Брик-Инженеринг-Гърция",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Кавала Гърция"
+    },
+    {
+      "id": "company:Брик-Инженеринг-ООД",
+      "type": "company",
+      "label": "Брик Инженеринг ООД",
+      "slug": "Брик-Инженеринг-ООД",
+      "uic": "201527160",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "company:Електрофикс-ООД",
+      "type": "company",
+      "label": "Електрофикс ООД",
+      "slug": "Електрофикс-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр.София"
+    },
+    {
+      "id": "company:Керменски-Еко-Продукти-ООД",
+      "type": "company",
+      "label": "Керменски Еко Продукти ООД",
+      "slug": "Керменски-Еко-Продукти-ООД",
+      "uic": "206928513",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8801"
+    },
+    {
+      "id": "company:Керменски-Еко-Продукти-Eоод",
+      "type": "company",
+      "label": "Керменски Еко Продукти Eоод",
+      "slug": "Керменски-Еко-Продукти-Eоод",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр.Сливен"
+    },
+    {
+      "id": "company:Сивев-Инвест-ЕООД",
+      "type": "company",
+      "label": "Сивев Инвест ЕООД",
+      "slug": "Сивев-Инвест-ЕООД",
+      "uic": "204996736",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "гр.София"
+    },
+    {
+      "id": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "type": "person",
+      "label": "Стефан Цветков Сивев"
+    },
+    {
+      "id": "person:ЕМИЛ ВЕНКОВ МАРКОВ",
+      "type": "person",
+      "label": "Емил Венков Марков"
+    },
+    {
+      "id": "person:ДОБРИН ИВАНОВ СОТИРОВ",
+      "type": "person",
+      "label": "Добрин Иванов Сотиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5215",
+      "target": "company:Боянски-Възход-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Брик-Инженеринг-Гърция",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Брик-Инженеринг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Електрофикс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Керменски-Еко-Продукти-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Керменски-Еко-Продукти-Eоод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5215",
+      "target": "company:Сивев-Инвест-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "target": "company:Боянски-Възход-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ВЕНКОВ МАРКОВ",
+      "target": "company:Боянски-Възход-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ИВАНОВ СОТИРОВ",
+      "target": "company:Боянски-Възход-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "target": "company:Боянски-Възход-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ИВАНОВ СОТИРОВ",
+      "target": "company:Брик-Инженеринг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "target": "company:Брик-Инженеринг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "target": "company:Керменски-Еко-Продукти-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЦВЕТКОВ СИВЕВ",
+      "target": "company:Керменски-Еко-Продукти-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

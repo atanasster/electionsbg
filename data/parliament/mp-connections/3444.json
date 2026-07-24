@@ -1,1 +1,277 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3444","nodes":[{"id":"mp:3444","type":"mp","mpId":3444,"label":"Калоян Милков Янков","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["45"]},{"id":"company:Янков-ЕООД","type":"company","label":"Янков ЕООД","slug":"Янков-ЕООД","uic":"119671562","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Янков-и-Ко-ООД","type":"company","label":"Янков и Ко ООД","slug":"Янков-и-Ко-ООД","uic":"131371086","legalForm":"OOD","status":"active","seat":"София"},{"id":"company:tr:208395747","type":"company","label":"Български килим","slug":null,"uic":"208395747","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. Велико Търново, 5000"},{"id":"company:tr:206126171","type":"company","label":"САС БЪЛГАРИЯ","slug":null,"uic":"206126171","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:130201907","type":"company","label":"КУЛИНАР ЕЪРПОРТ ЦЕНТЪР","slug":null,"uic":"130201907","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:201267702","type":"company","label":"Пи Джи България","slug":null,"uic":"201267702","legalForm":"EOOD","status":"ceased","seat":null},{"id":"company:tr:175035774","type":"company","label":"ПРАЙВИТ ПРОПЪРТИ","slug":null,"uic":"175035774","legalForm":"EOOD","status":"ceased","seat":null},{"id":"person:ЯКОБ ВАН БЕЙЛЕН","type":"person","label":"Якоб Ван Бейлен"},{"id":"person:КАЛОЯН МИЛКОВ ЯНКОВ","type":"person","label":"Калоян Милков Янков"},{"id":"person:ДОРА КОЛЕВА КУРШУМОВА","type":"person","label":"Дора Колева Куршумова"},{"id":"person:ЕЛЕНА СТОЯНОВА ДИМИТРОВА","type":"person","label":"Елена Стоянова Димитрова"},{"id":"person:ИЛЗА НАЧКОВА ХРИСТОВА","type":"person","label":"Илза Начкова Христова"},{"id":"person:ЙОАНА ИВАНОВА ПЕТКОВА","type":"person","label":"Йоана Иванова Петкова"},{"id":"person:ВИКТОР ВЛАДИМИРОВ ДАНДАНОВ","type":"person","label":"Виктор Владимиров Данданов"},{"id":"person:БЪЛГЕРИАН РИЪЛ ЕСТЕЙТ ФОНД","type":"person","label":"Бългериан Риъл Естейт Фонд"},{"id":"official:kaloyan-milkov-yankov-d2eff4","type":"official","slug":"kaloyan-milkov-yankov-d2eff4","label":"Калоян Милков Янков","tier":"municipal","role":"councillor","municipality":"Велико Търново"}],"edges":[{"source":"mp:3444","target":"company:Янков-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3444","target":"company:Янков-и-Ко-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3444","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3444","target":"company:tr:206126171","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3444","target":"company:tr:208395747","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3444","target":"company:tr:130201907","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3444","target":"company:tr:201267702","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3444","target":"company:tr:175035774","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"company:Янков-ЕООД","target":"company:tr:206126171","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Янков-и-Ко-ООД","target":"company:tr:130201907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЯКОБ ВАН БЕЙЛЕН","target":"company:tr:208395747","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:208395747","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯКОБ ВАН БЕЙЛЕН","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОРА КОЛЕВА КУРШУМОВА","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА СТОЯНОВА ДИМИТРОВА","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛЗА НАЧКОВА ХРИСТОВА","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАНА ИВАНОВА ПЕТКОВА","target":"company:tr:208395747","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:206126171","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:tr:206126171","target":"company:tr:130201907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР ВЛАДИМИРОВ ДАНДАНОВ","target":"company:tr:130201907","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:130201907","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:БЪЛГЕРИАН РИЪЛ ЕСТЕЙТ ФОНД","target":"company:tr:130201907","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:201267702","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:kaloyan-milkov-yankov-d2eff4","target":"company:tr:175035774","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:КАЛОЯН МИЛКОВ ЯНКОВ","target":"company:tr:175035774","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3444",
+  "nodes": [
+    {
+      "id": "mp:3444",
+      "type": "mp",
+      "mpId": 3444,
+      "label": "Калоян Милков Янков",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:Янков-ЕООД",
+      "type": "company",
+      "label": "Янков ЕООД",
+      "slug": "Янков-ЕООД",
+      "uic": "119671562",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Янков-и-Ко-ООД",
+      "type": "company",
+      "label": "Янков и Ко ООД",
+      "slug": "Янков-и-Ко-ООД",
+      "uic": "131371086",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:208395747",
+      "type": "company",
+      "label": "Български килим",
+      "slug": null,
+      "uic": "208395747",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "company:tr:206126171",
+      "type": "company",
+      "label": "САС БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "206126171",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:130201907",
+      "type": "company",
+      "label": "КУЛИНАР ЕЪРПОРТ ЦЕНТЪР",
+      "slug": null,
+      "uic": "130201907",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201267702",
+      "type": "company",
+      "label": "Пи Джи България",
+      "slug": null,
+      "uic": "201267702",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:175035774",
+      "type": "company",
+      "label": "ПРАЙВИТ ПРОПЪРТИ",
+      "slug": null,
+      "uic": "175035774",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:ЯКОБ ВАН БЕЙЛЕН",
+      "type": "person",
+      "label": "Якоб Ван Бейлен"
+    },
+    {
+      "id": "person:ДОРА КОЛЕВА КУРШУМОВА",
+      "type": "person",
+      "label": "Дора Колева Куршумова"
+    },
+    {
+      "id": "person:ЕЛЕНА СТОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Елена Стоянова Димитрова"
+    },
+    {
+      "id": "person:ИЛЗА НАЧКОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Илза Начкова Христова"
+    },
+    {
+      "id": "person:ЙОАНА ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Йоана Иванова Петкова"
+    },
+    {
+      "id": "person:ВИКТОР ВЛАДИМИРОВ ДАНДАНОВ",
+      "type": "person",
+      "label": "Виктор Владимиров Данданов"
+    },
+    {
+      "id": "person:БЪЛГЕРИАН РИЪЛ ЕСТЕЙТ ФОНД",
+      "type": "person",
+      "label": "Бългериан Риъл Естейт Фонд"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3444",
+      "target": "company:Янков-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:Янков-и-Ко-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:206126171",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:130201907",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:201267702",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3444",
+      "target": "company:tr:175035774",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:Янков-ЕООД",
+      "target": "company:tr:206126171",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Янков-и-Ко-ООД",
+      "target": "company:tr:130201907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯКОБ ВАН БЕЙЛЕН",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯКОБ ВАН БЕЙЛЕН",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА КОЛЕВА КУРШУМОВА",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА СТОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛЗА НАЧКОВА ХРИСТОВА",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:208395747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206126171",
+      "target": "company:tr:130201907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ВЛАДИМИРОВ ДАНДАНОВ",
+      "target": "company:tr:130201907",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЪЛГЕРИАН РИЪЛ ЕСТЕЙТ ФОНД",
+      "target": "company:tr:130201907",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

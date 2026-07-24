@@ -1,1 +1,65 @@
-{"mpId":2941,"name":"Иван Стефанов Вълков","partyGroupShort":null,"isCurrent":false,"nsFolders":["41","42","43"],"latestDeclarationYear":2021,"fiscalYear":2021,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2022/E1772748-6A32-4AA1-B2D7-A2B5216F875F133477.xml","totalAssetsEur":146470.29649816192,"totalDebtsEur":81063.28259613566,"netWorthEur":65407.01390202626,"previous":{"year":2020,"totalAssetsEur":107769.08013477654,"netWorthEur":-54084.455192936},"byCategory":{"real_estate":{"count":4,"valuedCount":2,"totalEur":101633.57756042192},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":2,"valuedCount":2,"totalEur":44826.493100116066},"bank":{"count":0,"valuedCount":0,"totalEur":0},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":81063.28259613566},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":1,"valuedCount":1,"totalEur":10.22583762392437}}}
+{
+  "mpId": 2941,
+  "name": "Иван Стефанов Вълков",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "41",
+    "42",
+    "43"
+  ],
+  "latestDeclarationYear": 2021,
+  "fiscalYear": 2021,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2022/E1772748-6A32-4AA1-B2D7-A2B5216F875F133477.xml",
+  "totalAssetsEur": 146470.29649816192,
+  "totalDebtsEur": 81063.28259613566,
+  "netWorthEur": 65407.01390202626,
+  "previous": {
+    "year": 2020,
+    "totalAssetsEur": 107769.08013477654,
+    "netWorthEur": -54084.455192936
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 4,
+      "valuedCount": 2,
+      "totalEur": 101633.57756042192
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 44826.493100116066
+    },
+    "bank": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 81063.28259613566
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 10.22583762392437
+    }
+  }
+}

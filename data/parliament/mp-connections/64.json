@@ -1,1 +1,942 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:64","nodes":[{"id":"mp:64","type":"mp","mpId":64,"label":"Лидия Сантова Шулева","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:131464747","type":"company","label":"ЕВРОФИН КОНСУЛТ","slug":null,"uic":"131464747","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:176633290","type":"company","label":"СЪВЕТ НА ЖЕНИТЕ В БИЗНЕСА В БЪЛГАРИЯ","slug":null,"uic":"176633290","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1113"},{"id":"company:tr:207871403","type":"company","label":"ИНВЕСТМЕНТ ПРОПЪРТИ","slug":null,"uic":"207871403","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:177181728","type":"company","label":"Асоциация на производителите на стъкло в България","slug":null,"uic":"177181728","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Търговище, 7700"},{"id":"company:tr:206827852","type":"company","label":"Бургас Хайдръджън","slug":null,"uic":"206827852","legalForm":"EAD","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:117606893","type":"company","label":"ТРАКИЯ ГЛАС БЪЛГАРИЯ","slug":null,"uic":"117606893","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. Търговище, 7700"},{"id":"person:МИГЛЕНА ИВАНОВА УЗУНОВА-ЦЕКОВА","type":"person","label":"Миглена Иванова Узунова-Цекова"},{"id":"person:ИРЕНА ИВАНОВА ЦАКОВА","type":"person","label":"Ирена Иванова Цакова"},{"id":"person:МАЙЯ ВАЛЕРИЕВА ПЕЙЧЕВА-ТАКЕВА","type":"person","label":"Майя Валериева Пейчева-Такева"},{"id":"person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА","type":"person","label":"Цветанка Георгиева Минчева"},{"id":"person:ГЕРГАНА ПЕТКОВА СТОЙКОВА","type":"person","label":"Гергана Петкова Стойкова"},{"id":"person:ЗОЯ ГЕОРГИЕВА ПАУНОВА","type":"person","label":"Зоя Георгиева Паунова"},{"id":"person:ВАНЯ ГЕОРГИЕВА КЪНЕВА-МИНКОВА","type":"person","label":"Ваня Георгиева Кънева-Минкова"},{"id":"person:БОРЯНА ГЕОРГИЕВА МАНОЛОВА","type":"person","label":"Боряна Георгиева Манолова"},{"id":"person:МИЛЕНА ЕМИЛОВА ДРАГИЙСКА-ДЕНЧЕВА","type":"person","label":"Милена Емилова Драгийска-Денчева"},{"id":"person:ДАРИНА МИТКОВА СТОЯНОВА","type":"person","label":"Дарина Миткова Стоянова"},{"id":"person:ДОРА АЛЕКСАНДРОВА СТРЕЗОВА-НИКОЛОВА","type":"person","label":"Дора Александрова Стрезова-Николова"},{"id":"person:РУМЯНА ПЕТРОВА ВЪЛКАНОВ","type":"person","label":"Румяна Петрова Вълканов"},{"id":"person:ВАНЯ БОРИСЛАВОВА МАНОВА","type":"person","label":"Ваня Бориславова Манова"},{"id":"person:ЖАКЛИН ИВАНОВА ЦОЧЕВА","type":"person","label":"Жаклин Иванова Цочева"},{"id":"company:name:БИЗНЕС ИНТЕЛЕКТ","type":"company","label":"\"БИЗНЕС ИНТЕЛЕКТ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:МУХСИН МИРОГЛУ","type":"person","label":"Мухсин Мироглу"},{"id":"person:КРАСИМИР ИВАНОВ КЪНЕВ","type":"person","label":"Красимир Иванов Кънев"},{"id":"person:БАХТИЯР ДАЛГЪЧ","type":"person","label":"Бахтияр Далгъч"},{"id":"person:ГЮРАЛ САВАШТЮРК","type":"person","label":"Гюрал Саваштюрк"},{"id":"person:ХРИСТО ЕМИЛОВ ХРИСТОВ","type":"person","label":"Христо Емилов Христов"},{"id":"person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ","type":"person","label":"Ахмет Халит Ялчъндаг"},{"id":"person:БЕХЧЕТ АДЕМ ХЮСЕИН","type":"person","label":"Бехчет Адем Хюсеин"},{"id":"person:МЕХМЕТ OЗГЮР","type":"person","label":"Мехмет Oзгюр"},{"id":"person:МЕХМЕТ ОЗГЮР","type":"person","label":"Мехмет Озгюр"},{"id":"person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА","type":"person","label":"Калина Василева Стефанова-Пеловска"},{"id":"person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА","type":"person","label":"Елена Ярославова Маркова"},{"id":"person:ЙЕППЕ УДБИ","type":"person","label":"Йеппе Удби"},{"id":"company:name:ЕУРА ЕНЕРДЖИ","type":"company","label":"„ЕУРА Енерджи“ АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЙЕНС РАСМУСЕН","type":"person","label":"Йенс Расмусен"},{"id":"person:ИВО ГЕОРГИЕВ ПРОКОПИЕВ","type":"person","label":"Иво Георгиев Прокопиев"},{"id":"person:МИКАЕЛ ХАУГААРД СКОВ","type":"person","label":"Микаел Хаугаард Сков"},{"id":"person:ХИКМЕТ МУСТАФА ЧАМЛЪГЮНЕЙ","type":"person","label":"Хикмет Мустафа Чамлъгюней"},{"id":"person:ТАРЪК ОКЯР","type":"person","label":"Тарък Окяр"},{"id":"person:БЕЙХАН РИДВАН ИЛЯЗ","type":"person","label":"Бейхан Ридван Иляз"},{"id":"person:ЗЕКИ БУДАК","type":"person","label":"Зеки Будак"},{"id":"person:ГЬОКХАН ГЮРАЛП","type":"person","label":"Гьокхан Гюралп"},{"id":"person:РЕХА АКЧАКАЯ","type":"person","label":"Реха Акчакая"},{"id":"person:ШЕНГЮЛ АРСЛАН","type":"person","label":"Шенгюл Арслан"},{"id":"person:ГЬОКХАН АТИККАН","type":"person","label":"Гьокхан Атиккан"},{"id":"person:ШИШЕДЖАМ ИНВЕСТМЪНТ Б.В.","type":"person","label":"Шишеджам Инвестмънт Б.в."},{"id":"person:АХМЕТ КЪРМАН","type":"person","label":"Ахмет Кърман"},{"id":"person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ","type":"person","label":"Мустафа Гьоркем Елвериджи"},{"id":"person:ЕРКУЛ ДЖЕВДЕТОВ СЕЙФУЛОВ","type":"person","label":"Еркул Джевдетов Сейфулов"},{"id":"person:УГУРШАН КЕСКИН","type":"person","label":"Угуршан Кескин"},{"id":"person:ДЖАН ЮДЖЕЛ","type":"person","label":"Джан Юджел"},{"id":"person:ГЮКХАН ГЮРАЛП","type":"person","label":"Гюкхан Гюралп"}],"edges":[{"source":"mp:64","target":"company:tr:131464747","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:207871403","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:206827852","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:64","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:МИГЛЕНА ИВАНОВА УЗУНОВА-ЦЕКОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ИВАНОВА ЦАКОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАЙЯ ВАЛЕРИЕВА ПЕЙЧЕВА-ТАКЕВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ПЕТКОВА СТОЙКОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗОЯ ГЕОРГИЕВА ПАУНОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ГЕОРГИЕВА КЪНЕВА-МИНКОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА ГЕОРГИЕВА МАНОЛОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ЕМИЛОВА ДРАГИЙСКА-ДЕНЧЕВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДАРИНА МИТКОВА СТОЯНОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОРА АЛЕКСАНДРОВА СТРЕЗОВА-НИКОЛОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ПЕТРОВА ВЪЛКАНОВ","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ БОРИСЛАВОВА МАНОВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖАКЛИН ИВАНОВА ЦОЧЕВА","target":"company:tr:176633290","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:БИЗНЕС ИНТЕЛЕКТ","target":"company:tr:207871403","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:МУХСИН МИРОГЛУ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИВАНОВ КЪНЕВ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БАХТИЯР ДАЛГЪЧ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРАЛ САВАШТЮРК","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МУХСИН МИРОГЛУ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ИВАНОВ КЪНЕВ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БАХТИЯР ДАЛГЪЧ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРАЛ САВАШТЮРК","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЕМИЛОВ ХРИСТОВ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЕМИЛОВ ХРИСТОВ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БЕХЧЕТ АДЕМ ХЮСЕИН","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕТ OЗГЮР","target":"company:tr:177181728","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БЕХЧЕТ АДЕМ ХЮСЕИН","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕТ OЗГЮР","target":"company:tr:177181728","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРАЛ САВАШТЮРК","target":"company:tr:177181728","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЕМИЛОВ ХРИСТОВ","target":"company:tr:177181728","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:БЕХЧЕТ АДЕМ ХЮСЕИН","target":"company:tr:177181728","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕТ ОЗГЮР","target":"company:tr:177181728","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА","target":"company:tr:206827852","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА","target":"company:tr:206827852","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙЕППЕ УДБИ","target":"company:tr:206827852","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА","target":"company:tr:206827852","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА","target":"company:tr:206827852","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:ЕУРА ЕНЕРДЖИ","target":"company:tr:206827852","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЙЕНС РАСМУСЕН","target":"company:tr:206827852","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ГЕОРГИЕВ ПРОКОПИЕВ","target":"company:tr:206827852","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:МИКАЕЛ ХАУГААРД СКОВ","target":"company:tr:206827852","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА","target":"company:tr:206827852","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ХИКМЕТ МУСТАФА ЧАМЛЪГЮНЕЙ","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРАЛ САВАШТЮРК","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ТАРЪК ОКЯР","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:БЕЙХАН РИДВАН ИЛЯЗ","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ЗЕКИ БУДАК","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ГЬОКХАН ГЮРАЛП","target":"company:tr:117606893","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:РЕХА АКЧАКАЯ","target":"company:tr:117606893","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЬОКХАН ГЮРАЛП","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ШЕНГЮЛ АРСЛАН","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РЕХА АКЧАКАЯ","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЬОКХАН АТИККАН","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ШИШЕДЖАМ ИНВЕСТМЪНТ Б.В.","target":"company:tr:117606893","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕТ КЪРМАН","target":"company:tr:117606893","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ","target":"company:tr:117606893","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АХМЕТ КЪРМАН","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ","target":"company:tr:117606893","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЬОКХАН ГЮРАЛП","target":"company:tr:117606893","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЕМИЛОВ ХРИСТОВ","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ЕРКУЛ ДЖЕВДЕТОВ СЕЙФУЛОВ","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:УГУРШАН КЕСКИН","target":"company:tr:117606893","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ДЖАН ЮДЖЕЛ","target":"company:tr:117606893","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЖАН ЮДЖЕЛ","target":"company:tr:117606893","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЮКХАН ГЮРАЛП","target":"company:tr:117606893","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДЖАН ЮДЖЕЛ","target":"company:tr:117606893","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:64",
+  "nodes": [
+    {
+      "id": "mp:64",
+      "type": "mp",
+      "mpId": 64,
+      "label": "Лидия Сантова Шулева",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:131464747",
+      "type": "company",
+      "label": "ЕВРОФИН КОНСУЛТ",
+      "slug": null,
+      "uic": "131464747",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:176633290",
+      "type": "company",
+      "label": "СЪВЕТ НА ЖЕНИТЕ В БИЗНЕСА В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176633290",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113"
+    },
+    {
+      "id": "company:tr:207871403",
+      "type": "company",
+      "label": "ИНВЕСТМЕНТ ПРОПЪРТИ",
+      "slug": null,
+      "uic": "207871403",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:177181728",
+      "type": "company",
+      "label": "Асоциация на производителите на стъкло в България",
+      "slug": null,
+      "uic": "177181728",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700"
+    },
+    {
+      "id": "company:tr:206827852",
+      "type": "company",
+      "label": "Бургас Хайдръджън",
+      "slug": null,
+      "uic": "206827852",
+      "legalForm": "EAD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:117606893",
+      "type": "company",
+      "label": "ТРАКИЯ ГЛАС БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "117606893",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700"
+    },
+    {
+      "id": "person:МИГЛЕНА ИВАНОВА УЗУНОВА-ЦЕКОВА",
+      "type": "person",
+      "label": "Миглена Иванова Узунова-Цекова"
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВА ЦАКОВА",
+      "type": "person",
+      "label": "Ирена Иванова Цакова"
+    },
+    {
+      "id": "person:МАЙЯ ВАЛЕРИЕВА ПЕЙЧЕВА-ТАКЕВА",
+      "type": "person",
+      "label": "Майя Валериева Пейчева-Такева"
+    },
+    {
+      "id": "person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА",
+      "type": "person",
+      "label": "Цветанка Георгиева Минчева"
+    },
+    {
+      "id": "person:ГЕРГАНА ПЕТКОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Гергана Петкова Стойкова"
+    },
+    {
+      "id": "person:ЗОЯ ГЕОРГИЕВА ПАУНОВА",
+      "type": "person",
+      "label": "Зоя Георгиева Паунова"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА КЪНЕВА-МИНКОВА",
+      "type": "person",
+      "label": "Ваня Георгиева Кънева-Минкова"
+    },
+    {
+      "id": "person:БОРЯНА ГЕОРГИЕВА МАНОЛОВА",
+      "type": "person",
+      "label": "Боряна Георгиева Манолова"
+    },
+    {
+      "id": "person:МИЛЕНА ЕМИЛОВА ДРАГИЙСКА-ДЕНЧЕВА",
+      "type": "person",
+      "label": "Милена Емилова Драгийска-Денчева"
+    },
+    {
+      "id": "person:ДАРИНА МИТКОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Дарина Миткова Стоянова"
+    },
+    {
+      "id": "person:ДОРА АЛЕКСАНДРОВА СТРЕЗОВА-НИКОЛОВА",
+      "type": "person",
+      "label": "Дора Александрова Стрезова-Николова"
+    },
+    {
+      "id": "person:РУМЯНА ПЕТРОВА ВЪЛКАНОВ",
+      "type": "person",
+      "label": "Румяна Петрова Вълканов"
+    },
+    {
+      "id": "person:ВАНЯ БОРИСЛАВОВА МАНОВА",
+      "type": "person",
+      "label": "Ваня Бориславова Манова"
+    },
+    {
+      "id": "person:ЖАКЛИН ИВАНОВА ЦОЧЕВА",
+      "type": "person",
+      "label": "Жаклин Иванова Цочева"
+    },
+    {
+      "id": "company:name:БИЗНЕС ИНТЕЛЕКТ",
+      "type": "company",
+      "label": "\"БИЗНЕС ИНТЕЛЕКТ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУХСИН МИРОГЛУ",
+      "type": "person",
+      "label": "Мухсин Мироглу"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ КЪНЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Кънев"
+    },
+    {
+      "id": "person:БАХТИЯР ДАЛГЪЧ",
+      "type": "person",
+      "label": "Бахтияр Далгъч"
+    },
+    {
+      "id": "person:ГЮРАЛ САВАШТЮРК",
+      "type": "person",
+      "label": "Гюрал Саваштюрк"
+    },
+    {
+      "id": "person:ХРИСТО ЕМИЛОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Емилов Христов"
+    },
+    {
+      "id": "person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ",
+      "type": "person",
+      "label": "Ахмет Халит Ялчъндаг"
+    },
+    {
+      "id": "person:БЕХЧЕТ АДЕМ ХЮСЕИН",
+      "type": "person",
+      "label": "Бехчет Адем Хюсеин"
+    },
+    {
+      "id": "person:МЕХМЕТ OЗГЮР",
+      "type": "person",
+      "label": "Мехмет Oзгюр"
+    },
+    {
+      "id": "person:МЕХМЕТ ОЗГЮР",
+      "type": "person",
+      "label": "Мехмет Озгюр"
+    },
+    {
+      "id": "person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА",
+      "type": "person",
+      "label": "Калина Василева Стефанова-Пеловска"
+    },
+    {
+      "id": "person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА",
+      "type": "person",
+      "label": "Елена Ярославова Маркова"
+    },
+    {
+      "id": "person:ЙЕППЕ УДБИ",
+      "type": "person",
+      "label": "Йеппе Удби"
+    },
+    {
+      "id": "company:name:ЕУРА ЕНЕРДЖИ",
+      "type": "company",
+      "label": "„ЕУРА Енерджи“ АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙЕНС РАСМУСЕН",
+      "type": "person",
+      "label": "Йенс Расмусен"
+    },
+    {
+      "id": "person:ИВО ГЕОРГИЕВ ПРОКОПИЕВ",
+      "type": "person",
+      "label": "Иво Георгиев Прокопиев"
+    },
+    {
+      "id": "person:МИКАЕЛ ХАУГААРД СКОВ",
+      "type": "person",
+      "label": "Микаел Хаугаард Сков"
+    },
+    {
+      "id": "person:ХИКМЕТ МУСТАФА ЧАМЛЪГЮНЕЙ",
+      "type": "person",
+      "label": "Хикмет Мустафа Чамлъгюней"
+    },
+    {
+      "id": "person:ТАРЪК ОКЯР",
+      "type": "person",
+      "label": "Тарък Окяр"
+    },
+    {
+      "id": "person:БЕЙХАН РИДВАН ИЛЯЗ",
+      "type": "person",
+      "label": "Бейхан Ридван Иляз"
+    },
+    {
+      "id": "person:ЗЕКИ БУДАК",
+      "type": "person",
+      "label": "Зеки Будак"
+    },
+    {
+      "id": "person:ГЬОКХАН ГЮРАЛП",
+      "type": "person",
+      "label": "Гьокхан Гюралп"
+    },
+    {
+      "id": "person:РЕХА АКЧАКАЯ",
+      "type": "person",
+      "label": "Реха Акчакая"
+    },
+    {
+      "id": "person:ШЕНГЮЛ АРСЛАН",
+      "type": "person",
+      "label": "Шенгюл Арслан"
+    },
+    {
+      "id": "person:ГЬОКХАН АТИККАН",
+      "type": "person",
+      "label": "Гьокхан Атиккан"
+    },
+    {
+      "id": "person:ШИШЕДЖАМ ИНВЕСТМЪНТ Б.В.",
+      "type": "person",
+      "label": "Шишеджам Инвестмънт Б.в."
+    },
+    {
+      "id": "person:АХМЕТ КЪРМАН",
+      "type": "person",
+      "label": "Ахмет Кърман"
+    },
+    {
+      "id": "person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ",
+      "type": "person",
+      "label": "Мустафа Гьоркем Елвериджи"
+    },
+    {
+      "id": "person:ЕРКУЛ ДЖЕВДЕТОВ СЕЙФУЛОВ",
+      "type": "person",
+      "label": "Еркул Джевдетов Сейфулов"
+    },
+    {
+      "id": "person:УГУРШАН КЕСКИН",
+      "type": "person",
+      "label": "Угуршан Кескин"
+    },
+    {
+      "id": "person:ДЖАН ЮДЖЕЛ",
+      "type": "person",
+      "label": "Джан Юджел"
+    },
+    {
+      "id": "person:ГЮКХАН ГЮРАЛП",
+      "type": "person",
+      "label": "Гюкхан Гюралп"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:64",
+      "target": "company:tr:131464747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:207871403",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:64",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИГЛЕНА ИВАНОВА УЗУНОВА-ЦЕКОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВА ЦАКОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЙЯ ВАЛЕРИЕВА ПЕЙЧЕВА-ТАКЕВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕТКОВА СТОЙКОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ ГЕОРГИЕВА ПАУНОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА КЪНЕВА-МИНКОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ГЕОРГИЕВА МАНОЛОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ЕМИЛОВА ДРАГИЙСКА-ДЕНЧЕВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА МИТКОВА СТОЯНОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ГЕОРГИЕВА МИНЧЕВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА АЛЕКСАНДРОВА СТРЕЗОВА-НИКОЛОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ПЕТРОВА ВЪЛКАНОВ",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ БОРИСЛАВОВА МАНОВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИН ИВАНОВА ЦОЧЕВА",
+      "target": "company:tr:176633290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БИЗНЕС ИНТЕЛЕКТ",
+      "target": "company:tr:207871403",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУХСИН МИРОГЛУ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КЪНЕВ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХТИЯР ДАЛГЪЧ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРАЛ САВАШТЮРК",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУХСИН МИРОГЛУ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КЪНЕВ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХТИЯР ДАЛГЪЧ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРАЛ САВАШТЮРК",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕМИЛОВ ХРИСТОВ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕМИЛОВ ХРИСТОВ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕТ ХАЛИТ ЯЛЧЪНДАГ",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХЧЕТ АДЕМ ХЮСЕИН",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕТ OЗГЮР",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХЧЕТ АДЕМ ХЮСЕИН",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕТ OЗГЮР",
+      "target": "company:tr:177181728",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРАЛ САВАШТЮРК",
+      "target": "company:tr:177181728",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕМИЛОВ ХРИСТОВ",
+      "target": "company:tr:177181728",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХЧЕТ АДЕМ ХЮСЕИН",
+      "target": "company:tr:177181728",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕТ ОЗГЮР",
+      "target": "company:tr:177181728",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙЕППЕ УДБИ",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ВАСИЛЕВА СТЕФАНОВА-ПЕЛОВСКА",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕУРА ЕНЕРДЖИ",
+      "target": "company:tr:206827852",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙЕНС РАСМУСЕН",
+      "target": "company:tr:206827852",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ГЕОРГИЕВ ПРОКОПИЕВ",
+      "target": "company:tr:206827852",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКАЕЛ ХАУГААРД СКОВ",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЯРОСЛАВОВА МАРКОВА",
+      "target": "company:tr:206827852",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХИКМЕТ МУСТАФА ЧАМЛЪГЮНЕЙ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРАЛ САВАШТЮРК",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАРЪК ОКЯР",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙХАН РИДВАН ИЛЯЗ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕКИ БУДАК",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЬОКХАН ГЮРАЛП",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕХА АКЧАКАЯ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЬОКХАН ГЮРАЛП",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕНГЮЛ АРСЛАН",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕХА АКЧАКАЯ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЬОКХАН АТИККАН",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИШЕДЖАМ ИНВЕСТМЪНТ Б.В.",
+      "target": "company:tr:117606893",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕТ КЪРМАН",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕТ КЪРМАН",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ГЬОРКЕМ ЕЛВЕРИДЖИ",
+      "target": "company:tr:117606893",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЬОКХАН ГЮРАЛП",
+      "target": "company:tr:117606893",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕМИЛОВ ХРИСТОВ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРКУЛ ДЖЕВДЕТОВ СЕЙФУЛОВ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:УГУРШАН КЕСКИН",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАН ЮДЖЕЛ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАН ЮДЖЕЛ",
+      "target": "company:tr:117606893",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮКХАН ГЮРАЛП",
+      "target": "company:tr:117606893",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАН ЮДЖЕЛ",
+      "target": "company:tr:117606893",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

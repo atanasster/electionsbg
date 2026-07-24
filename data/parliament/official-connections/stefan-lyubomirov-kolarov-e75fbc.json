@@ -1,1 +1,199 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:stefan-lyubomirov-kolarov-e75fbc","nodes":[{"id":"official:stefan-lyubomirov-kolarov-e75fbc","type":"official","slug":"stefan-lyubomirov-kolarov-e75fbc","label":"Стефан Любомиров Коларов","tier":"municipal","role":"councillor","municipality":"Ракитово"},{"id":"company:tr:205076908","type":"company","label":"БУЛЕКО ТРАНС ООД","slug":null,"uic":"205076908","legalForm":null,"status":null,"seat":null},{"id":"company:tr:206057152","type":"company","label":"АВТОПОТРЕБИ ВЕЛИНГРАД ООД","slug":null,"uic":"206057152","legalForm":null,"status":null,"seat":null},{"id":"company:name:БУЛЕКО-2000","type":"company","label":"\"БУЛЕКО-2000\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:БУЛЕКО-2000","type":"person","label":"Булеко-2000"}],"edges":[{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:205076908","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:206057152","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:stefan-lyubomirov-kolarov-e75fbc","target":"company:tr:206057152","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"company:name:БУЛЕКО-2000","target":"company:tr:206057152","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БУЛЕКО-2000","target":"company:tr:206057152","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-lyubomirov-kolarov-e75fbc",
+  "nodes": [
+    {
+      "id": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "type": "official",
+      "slug": "stefan-lyubomirov-kolarov-e75fbc",
+      "label": "Стефан Любомиров Коларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово"
+    },
+    {
+      "id": "company:tr:205076908",
+      "type": "company",
+      "label": "БУЛЕКО ТРАНС ООД",
+      "slug": null,
+      "uic": "205076908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206057152",
+      "type": "company",
+      "label": "АВТОПОТРЕБИ ВЕЛИНГРАД ООД",
+      "slug": null,
+      "uic": "206057152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207612596",
+      "type": "company",
+      "label": "АУТОЛЕНД ООД",
+      "slug": null,
+      "uic": "207612596",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207619637",
+      "type": "company",
+      "label": "ХАРОН РАКИТОВО ООД",
+      "slug": null,
+      "uic": "207619637",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:БУЛЕКО-2000",
+      "type": "company",
+      "label": "\"БУЛЕКО-2000\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БУЛЕКО-2000",
+      "type": "person",
+      "label": "Булеко-2000"
+    },
+    {
+      "id": "person:ТОДОР АНГЕЛОВ БАЛДЖИЕВ",
+      "type": "person",
+      "label": "Тодор Ангелов Балджиев"
+    },
+    {
+      "id": "person:ПЕТЪР АНТОНОВ ТАШЕВ",
+      "type": "person",
+      "label": "Петър Антонов Ташев"
+    },
+    {
+      "id": "person:МАРКО НИКОЛАЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Марко Николаев Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:205076908",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:206057152",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:207612596",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:207619637",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:206057152",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:207612596",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-lyubomirov-kolarov-e75fbc",
+      "target": "company:tr:207619637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:БУЛЕКО-2000",
+      "target": "company:tr:206057152",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БУЛЕКО-2000",
+      "target": "company:tr:206057152",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР АНГЕЛОВ БАЛДЖИЕВ",
+      "target": "company:tr:207612596",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР АНГЕЛОВ БАЛДЖИЕВ",
+      "target": "company:tr:207612596",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АНТОНОВ ТАШЕВ",
+      "target": "company:tr:207612596",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРКО НИКОЛАЕВ АНДРЕЕВ",
+      "target": "company:tr:207619637",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРКО НИКОЛАЕВ АНДРЕЕВ",
+      "target": "company:tr:207619637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

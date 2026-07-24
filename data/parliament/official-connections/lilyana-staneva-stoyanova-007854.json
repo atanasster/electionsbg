@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lilyana-staneva-stoyanova-007854",
+  "nodes": [
+    {
+      "id": "official:lilyana-staneva-stoyanova-007854",
+      "type": "official",
+      "slug": "lilyana-staneva-stoyanova-007854",
+      "label": "Лиляна Станева Стоянова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177020504",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА НОВА ЗАГОРА - СЛИВЕН",
+      "slug": null,
+      "uic": "177020504",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3232",
+      "type": "mp",
+      "mpId": 3232,
+      "label": "Галя Енева Захариева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "official:galya-eneva-zaharieva-eceb0d",
+      "type": "official",
+      "slug": "galya-eneva-zaharieva-eceb0d",
+      "label": "Галя Енева Захариева",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "person:ЕЛЕНА СТОЯНОВА АРАБАДЖИЕВА",
+      "type": "person",
+      "label": "Елена Стоянова Арабаджиева"
+    },
+    {
+      "id": "person:РОСИЦА ИВАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Росица Иванова Колева"
+    },
+    {
+      "id": "person:ЯНА МИТЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Яна Митева Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lilyana-staneva-stoyanova-007854",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3232",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3232",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-eneva-zaharieva-eceb0d",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-eneva-zaharieva-eceb0d",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА СТОЯНОВА АРАБАДЖИЕВА",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ИВАНОВА КОЛЕВА",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА МИТЕВА КОЛЕВА",
+      "target": "company:tr:177020504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rozalina-ivanova-ganekova-809116",
+  "nodes": [
+    {
+      "id": "official:rozalina-ivanova-ganekova-809116",
+      "type": "official",
+      "slug": "rozalina-ivanova-ganekova-809116",
+      "label": "РОЗАЛИНА ИВАНОВА ГАНЕКОВА",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104674410",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ \"КСАТ\"",
+      "slug": null,
+      "uic": "104674410",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЛА ГЕОРГИЕВНА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Алла Георгиевна Костадинова"
+    },
+    {
+      "id": "person:МАРЧЕЛА ХРИСТОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Марчела Христова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rozalina-ivanova-ganekova-809116",
+      "target": "company:tr:104674410",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЛА ГЕОРГИЕВНА КОСТАДИНОВА",
+      "target": "company:tr:104674410",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЛА ГЕОРГИЕВНА КОСТАДИНОВА",
+      "target": "company:tr:104674410",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРЧЕЛА ХРИСТОВА ЙОРДАНОВА",
+      "target": "company:tr:104674410",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

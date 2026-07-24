@@ -1,0 +1,34 @@
+{
+  "ekatte": "73198",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Миховски-Авто-ООД",
+      "displayName": "\"Миховски Авто\" ООД",
+      "registeredOffice": "гр. Троян",
+      "mps": [
+        {
+          "mpId": 3162,
+          "mpName": "Иван Николов Миховски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Миховски-автоООД",
+      "displayName": "\"Миховски авто\"ООД",
+      "registeredOffice": "Троян",
+      "mps": [
+        {
+          "mpId": 3162,
+          "mpName": "Иван Николов Миховски",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

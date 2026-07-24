@@ -1,0 +1,203 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:irina-minkova-madzharova-3c623a",
+  "nodes": [
+    {
+      "id": "official:irina-minkova-madzharova-3c623a",
+      "type": "official",
+      "slug": "irina-minkova-madzharova-3c623a",
+      "label": "Ирина Минкова Маджарова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Ветрино"
+    },
+    {
+      "id": "company:tr:000084280",
+      "type": "company",
+      "label": "ПРОСВЕТА-1905",
+      "slug": null,
+      "uic": "000084280",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stanka-atanasova-veleva-66bcc4",
+      "type": "official",
+      "slug": "stanka-atanasova-veleva-66bcc4",
+      "label": "Станка Атанасова Велева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветрино"
+    },
+    {
+      "id": "person:МАРИЯ АНДОНОВА АНДОНОВА",
+      "type": "person",
+      "label": "Мария Андонова Андонова"
+    },
+    {
+      "id": "person:ГАЛИНА НИКОЛОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Галина Николова Стойкова"
+    },
+    {
+      "id": "person:СВЕТЛАНА АНГЕЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Светлана Ангелова Петрова"
+    },
+    {
+      "id": "person:СВЕТЛАНА ВЪЛЧЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Светлана Вълчева Йорданова"
+    },
+    {
+      "id": "person:СТЕФКА ХРИСТОВА ТАКОВА",
+      "type": "person",
+      "label": "Стефка Христова Такова"
+    },
+    {
+      "id": "person:ВЪЛКАНА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Вълкана Иванова Иванова"
+    },
+    {
+      "id": "person:МАРИАНА КИРИЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мариана Кирилова Стоянова"
+    },
+    {
+      "id": "person:МИГЛЕНА НЕДЕЛЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Миглена Неделчева Иванова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Виолета Иванова Георгиева"
+    },
+    {
+      "id": "person:МАРИНА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Марина Иванова Христова"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА НИКОЛОВА БОРИСОВА",
+      "type": "person",
+      "label": "Желязка Николова Борисова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irina-minkova-madzharova-3c623a",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanka-atanasova-veleva-66bcc4",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ АНДОНОВА АНДОНОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА НИКОЛОВА СТОЙКОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ВЪЛЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ХРИСТОВА ТАКОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛКАНА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА КИРИЛОВА СТОЯНОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА НЕДЕЛЧЕВА ИВАНОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА НИКОЛОВА БОРИСОВА",
+      "target": "company:tr:000084280",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

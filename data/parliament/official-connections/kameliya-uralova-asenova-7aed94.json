@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kameliya-uralova-asenova-7aed94",
+  "nodes": [
+    {
+      "id": "official:kameliya-uralova-asenova-7aed94",
+      "type": "official",
+      "slug": "kameliya-uralova-asenova-7aed94",
+      "label": "Камелия Уралова Асенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109061169",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ГИМНАСТИКА &quot;ВЕЛБЪЖД&quot;&quot;",
+      "slug": null,
+      "uic": "109061169",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЯ ИВАНОВА МАШОВА",
+      "type": "person",
+      "label": "Валя Иванова Машова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЕТРОВА МИХАЛКОВА",
+      "type": "person",
+      "label": "Даниела Петрова Михалкова"
+    },
+    {
+      "id": "person:ЕЛЕНА ЛЮБОМИРОВА БЛИЗНАКОВА",
+      "type": "person",
+      "label": "Елена Любомирова Близнакова"
+    },
+    {
+      "id": "person:ДИЯНА ЕВГЕНИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Дияна Евгениева Димитрова"
+    },
+    {
+      "id": "person:ДАЯНА ЕВГЕНИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Даяна Евгениева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kameliya-uralova-asenova-7aed94",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЯ ИВАНОВА МАШОВА",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЕТРОВА МИХАЛКОВА",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЛЮБОМИРОВА БЛИЗНАКОВА",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ЕВГЕНИЕВА ДИМИТРОВА",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАЯНА ЕВГЕНИЕВА ДИМИТРОВА",
+      "target": "company:tr:109061169",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

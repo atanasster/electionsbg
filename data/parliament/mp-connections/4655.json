@@ -1,1 +1,267 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4655","nodes":[{"id":"mp:4655","type":"mp","mpId":4655,"label":"Валентин Йовков Тончев","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["49"]},{"id":"company:tr:175973525","type":"company","label":"ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ","slug":null,"uic":"175973525","legalForm":"FOUND","status":"ceased","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"company:tr:102835669","type":"company","label":"СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ СОЗОПОЛ&quot;","slug":null,"uic":"102835669","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:BАЛЕНТИН ЙОВКОВ ТОНЧЕВ","type":"person","label":"Bалентин Йовков Тончев"},{"id":"person:МАЯ ИВАНОВА КОСТАДИНОВА","type":"person","label":"Мая Иванова Костадинова"},{"id":"person:АНАСТАСИЯ ГОСПОДИНОВА КОЛЕВА","type":"person","label":"Анастасия Господинова Колева"},{"id":"person:СТАНИСЛАВ ДИМИТРОВ КОСТАДИНОВ","type":"person","label":"Станислав Димитров Костадинов"},{"id":"person:ДОЙЧИН ИВАНОВ КОТЛАРОВ","type":"person","label":"Дойчин Иванов Котларов"},{"id":"person:ИВАНКА ЙОВЧЕВА ПЕТРОВА","type":"person","label":"Иванка Йовчева Петрова"},{"id":"person:МИЛЕНА ТЕНЧЕВА ТОНЧЕВА","type":"person","label":"Милена Тенчева Тончева"},{"id":"person:СТАНИМИР ЗОСИМОВ ЖЕЛЕВ","type":"person","label":"Станимир Зосимов Желев"},{"id":"person:ЛЮБОМИР КОЛЕВ КОЛЕВ","type":"person","label":"Любомир Колев Колев"},{"id":"person:РОСЕН НИКОЛОВ ЧАЧЕВ","type":"person","label":"Росен Николов Чачев"},{"id":"person:ДИМИТЪР ВЪЛЧЕВ ДЕЛИИВАНОВ","type":"person","label":"Димитър Вълчев Делииванов"},{"id":"person:НИКОЛАЙ МИЛКОВ ЯНКОВ","type":"person","label":"Николай Милков Янков"},{"id":"person:КАЛОЯН КРАСИМИРОВ СТОЯНОВ","type":"person","label":"Калоян Красимиров Стоянов"},{"id":"person:БОРИСЛАВ ДИМИТРОВ МИНЕВ","type":"person","label":"Борислав Димитров Минев"},{"id":"person:ДИЛЯН ГЕОРГИЕВ КОЛЕВ","type":"person","label":"Дилян Георгиев Колев"}],"edges":[{"source":"mp:4655","target":"company:tr:175973525","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"mp:4655","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4655","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:BАЛЕНТИН ЙОВКОВ ТОНЧЕВ","target":"company:tr:175973525","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ ИВАНОВА КОСТАДИНОВА","target":"company:tr:175973525","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНАСТАСИЯ ГОСПОДИНОВА КОЛЕВА","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ДИМИТРОВ КОСТАДИНОВ","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОЙЧИН ИВАНОВ КОТЛАРОВ","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ ИВАНОВА КОСТАДИНОВА","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА ЙОВЧЕВА ПЕТРОВА","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ТЕНЧЕВА ТОНЧЕВА","target":"company:tr:175973525","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР ЗОСИМОВ ЖЕЛЕВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР КОЛЕВ КОЛЕВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН НИКОЛОВ ЧАЧЕВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЪЛЧЕВ ДЕЛИИВАНОВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ МИЛКОВ ЯНКОВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН КРАСИМИРОВ СТОЯНОВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИСЛАВ ДИМИТРОВ МИНЕВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИЛЯН ГЕОРГИЕВ КОЛЕВ","target":"company:tr:102835669","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4655",
+  "nodes": [
+    {
+      "id": "mp:4655",
+      "type": "mp",
+      "mpId": 4655,
+      "label": "Валентин Йовков Тончев",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "49"
+      ]
+    },
+    {
+      "id": "company:tr:175973525",
+      "type": "company",
+      "label": "ЕВРОПЕЙСКА АЛТЕРНАТИВА ЗА РАЗВИТИЕ",
+      "slug": null,
+      "uic": "175973525",
+      "legalForm": "FOUND",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "company:tr:102835669",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ СОЗОПОЛ&quot;",
+      "slug": null,
+      "uic": "102835669",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:BАЛЕНТИН ЙОВКОВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Bалентин Йовков Тончев"
+    },
+    {
+      "id": "person:МАЯ ИВАНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Мая Иванова Костадинова"
+    },
+    {
+      "id": "person:АНАСТАСИЯ ГОСПОДИНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Анастасия Господинова Колева"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ДИМИТРОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Станислав Димитров Костадинов"
+    },
+    {
+      "id": "person:ДОЙЧИН ИВАНОВ КОТЛАРОВ",
+      "type": "person",
+      "label": "Дойчин Иванов Котларов"
+    },
+    {
+      "id": "person:ИВАНКА ЙОВЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Иванка Йовчева Петрова"
+    },
+    {
+      "id": "person:МИЛЕНА ТЕНЧЕВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Милена Тенчева Тончева"
+    },
+    {
+      "id": "person:СТАНИМИР ЗОСИМОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Станимир Зосимов Желев"
+    },
+    {
+      "id": "person:ЛЮБОМИР КОЛЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Любомир Колев Колев"
+    },
+    {
+      "id": "person:РОСЕН НИКОЛОВ ЧАЧЕВ",
+      "type": "person",
+      "label": "Росен Николов Чачев"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЪЛЧЕВ ДЕЛИИВАНОВ",
+      "type": "person",
+      "label": "Димитър Вълчев Делииванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИЛКОВ ЯНКОВ",
+      "type": "person",
+      "label": "Николай Милков Янков"
+    },
+    {
+      "id": "person:КАЛОЯН КРАСИМИРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Калоян Красимиров Стоянов"
+    },
+    {
+      "id": "person:БОРИСЛАВ ДИМИТРОВ МИНЕВ",
+      "type": "person",
+      "label": "Борислав Димитров Минев"
+    },
+    {
+      "id": "person:ДИЛЯН ГЕОРГИЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Дилян Георгиев Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4655",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4655",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4655",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:BАЛЕНТИН ЙОВКОВ ТОНЧЕВ",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ИВАНОВА КОСТАДИНОВА",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ГОСПОДИНОВА КОЛЕВА",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ДИМИТРОВ КОСТАДИНОВ",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЙЧИН ИВАНОВ КОТЛАРОВ",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ИВАНОВА КОСТАДИНОВА",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЙОВЧЕВА ПЕТРОВА",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ТЕНЧЕВА ТОНЧЕВА",
+      "target": "company:tr:175973525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ЗОСИМОВ ЖЕЛЕВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР КОЛЕВ КОЛЕВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН НИКОЛОВ ЧАЧЕВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЪЛЧЕВ ДЕЛИИВАНОВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИЛКОВ ЯНКОВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН КРАСИМИРОВ СТОЯНОВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ДИМИТРОВ МИНЕВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯН ГЕОРГИЕВ КОЛЕВ",
+      "target": "company:tr:102835669",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

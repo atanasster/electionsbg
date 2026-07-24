@@ -1,1 +1,70 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:940","nodes":[{"id":"mp:940","type":"mp","mpId":940,"label":"Ивелин Николаев Николов","partyGroupShort":"Атака","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207807945","type":"company","label":"Хоум офис студио","slug":null,"uic":"207807945","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1619"},{"id":"company:tr:206730912","type":"company","label":"УНИ ЕЛЕКТРИК","slug":null,"uic":"206730912","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"}],"edges":[{"source":"mp:940","target":"company:tr:207807945","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:940","target":"company:tr:207807945","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:940","target":"company:tr:206730912","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:940","target":"company:tr:206730912","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:940",
+  "nodes": [
+    {
+      "id": "mp:940",
+      "type": "mp",
+      "mpId": 940,
+      "label": "Ивелин Николаев Николов",
+      "partyGroupShort": "Атака",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207807945",
+      "type": "company",
+      "label": "Хоум офис студио",
+      "slug": null,
+      "uic": "207807945",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1619"
+    },
+    {
+      "id": "company:tr:206730912",
+      "type": "company",
+      "label": "УНИ ЕЛЕКТРИК",
+      "slug": null,
+      "uic": "206730912",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:940",
+      "target": "company:tr:207807945",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:940",
+      "target": "company:tr:207807945",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:940",
+      "target": "company:tr:206730912",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:940",
+      "target": "company:tr:206730912",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,63 @@
-{"mpId":4236,"name":"Осман Акчай Мурадов","partyGroupShort":null,"isCurrent":false,"nsFolders":["48"],"latestDeclarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2024/E0EA195F-7F2D-4AD0-BF0B-61BAA2C61525182360.xml","totalAssetsEur":94051.6302541632,"totalDebtsEur":125121.3039988138,"netWorthEur":-31069.6737446506,"previous":{"year":2022,"totalAssetsEur":89450.00332339724,"netWorthEur":-42036.884596309494},"byCategory":{"real_estate":{"count":1,"valuedCount":1,"totalEur":71554.78748152958},"vehicle":{"count":1,"valuedCount":1,"totalEur":11759.713267513025},"cash":{"count":1,"valuedCount":1,"totalEur":7158.086336747059},"bank":{"count":1,"valuedCount":1,"totalEur":3579.0431683735296},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":1,"valuedCount":1,"totalEur":125121.3039988138},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4236,
+  "name": "Осман Акчай Мурадов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "48"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2023,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2024/E0EA195F-7F2D-4AD0-BF0B-61BAA2C61525182360.xml",
+  "totalAssetsEur": 94051.6302541632,
+  "totalDebtsEur": 125121.3039988138,
+  "netWorthEur": -31069.6737446506,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 89450.00332339724,
+    "netWorthEur": -42036.884596309494
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 71554.78748152958
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 11759.713267513025
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 7158.086336747059
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 3579.0431683735296
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 125121.3039988138
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

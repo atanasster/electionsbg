@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetlozar-nachev-nikolov-862e17",
+  "nodes": [
+    {
+      "id": "official:svetlozar-nachev-nikolov-862e17",
+      "type": "official",
+      "slug": "svetlozar-nachev-nikolov-862e17",
+      "label": "Светлозар Начев Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:121449914",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ХАНДБАЛ",
+      "slug": null,
+      "uic": "121449914",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ДИМИТРОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Росен Димитров Добрев"
+    },
+    {
+      "id": "person:ГЕОРГИ КОНСТАНТИНОВ ДОЙЧИНОВ",
+      "type": "person",
+      "label": "Георги Константинов Дойчинов"
+    },
+    {
+      "id": "person:ГЕОРГИ АНДРЕЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Георги Андреев Атанасов"
+    },
+    {
+      "id": "person:АТАНАС СТЕФАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Стефанов Атанасов"
+    },
+    {
+      "id": "person:РОСЕН ДИМИТРОВ ДОБРЕВ - ПРЕЗИДЕНТ",
+      "type": "person",
+      "label": "Росен Димитров Добрев - Президент"
+    },
+    {
+      "id": "person:ДРАГОМИР САВОВ ДРАГАНОВ - ВИЦЕПРЕЗИДЕНТ",
+      "type": "person",
+      "label": "Драгомир Савов Драганов - Вицепрезидент"
+    },
+    {
+      "id": "person:МАРГАРИТА ДИМИТРОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Маргарита Димитрова Апостолова"
+    },
+    {
+      "id": "person:ЕРИК КАРЛТОН",
+      "type": "person",
+      "label": "Ерик Карлтон"
+    },
+    {
+      "id": "person:ИВАН РАДИОНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Иван Радионов Петков"
+    },
+    {
+      "id": "person:МАРИЯНА ДИМИТРОВА СТАМАТОВА",
+      "type": "person",
+      "label": "Марияна Димитрова Стаматова"
+    },
+    {
+      "id": "person:РОСИЦА ДИМИТРОВА ДИМКОВА",
+      "type": "person",
+      "label": "Росица Димитрова Димкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЖЕЛЯЗКОВ МАРГАРИТОВ",
+      "type": "person",
+      "label": "Веселин Желязков Маргаритов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-nachev-nikolov-862e17",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ДИМИТРОВ ДОБРЕВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОНСТАНТИНОВ ДОЙЧИНОВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АНДРЕЕВ АТАНАСОВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТЕФАНОВ АТАНАСОВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ДИМИТРОВ ДОБРЕВ - ПРЕЗИДЕНТ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР САВОВ ДРАГАНОВ - ВИЦЕПРЕЗИДЕНТ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА АПОСТОЛОВА",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРИК КАРЛТОН",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РАДИОНОВ ПЕТКОВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ДИМИТРОВА СТАМАТОВА",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДИМИТРОВА ДИМКОВА",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЖЕЛЯЗКОВ МАРГАРИТОВ",
+      "target": "company:tr:121449914",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

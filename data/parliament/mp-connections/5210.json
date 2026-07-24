@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5210","nodes":[{"id":"mp:5210","type":"mp","mpId":5210,"label":"Симеон Ненов Иванов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:202398619","type":"company","label":"ФЛАЙ ПАУЪР","slug":null,"uic":"202398619","legalForm":"EOOD","status":"active","seat":null},{"id":"person:НИКОЛАЙ ВЪЛЕВ НЕЙЧЕВ","type":"person","label":"Николай Вълев Нейчев"},{"id":"person:ДЕСИСЛАВА РОСЕНОВА МИЛАНОВА","type":"person","label":"Десислава Росенова Миланова"}],"edges":[{"source":"mp:5210","target":"company:tr:202398619","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ВЪЛЕВ НЕЙЧЕВ","target":"company:tr:202398619","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА РОСЕНОВА МИЛАНОВА","target":"company:tr:202398619","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5210",
+  "nodes": [
+    {
+      "id": "mp:5210",
+      "type": "mp",
+      "mpId": 5210,
+      "label": "Симеон Ненов Иванов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:202398619",
+      "type": "company",
+      "label": "ФЛАЙ ПАУЪР",
+      "slug": null,
+      "uic": "202398619",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ВЪЛЕВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Николай Вълев Нейчев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА РОСЕНОВА МИЛАНОВА",
+      "type": "person",
+      "label": "Десислава Росенова Миланова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5210",
+      "target": "company:tr:202398619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВЪЛЕВ НЕЙЧЕВ",
+      "target": "company:tr:202398619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА РОСЕНОВА МИЛАНОВА",
+      "target": "company:tr:202398619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

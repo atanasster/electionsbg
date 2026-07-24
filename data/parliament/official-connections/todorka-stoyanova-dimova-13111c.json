@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todorka-stoyanova-dimova-13111c",
+  "nodes": [
+    {
+      "id": "official:todorka-stoyanova-dimova-13111c",
+      "type": "official",
+      "slug": "todorka-stoyanova-dimova-13111c",
+      "label": "Тодорка Стоянова Димова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103825311",
+      "type": "company",
+      "label": "НАСТОЯТЕЛСТВО ОДЗ 8 ЛЯСТОВИЧКА",
+      "slug": null,
+      "uic": "103825311",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОРКА СТОЯНОВА ДИМОВА - ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Тодорка Стоянова Димова - Председател На Съвета На Настоятелите"
+    },
+    {
+      "id": "person:ЯНА ГЕОРГИЕВА АПОСТОЛОВА - ВЕСЕЛИНОВА - ЗАМЕСТНИК ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Яна Георгиева Апостолова - Веселинова - Заместник Председател На Съвета На Настоятелите"
+    },
+    {
+      "id": "person:СОНЯ ХРИСТОВА КОСТОВА - СЕКРЕТАР НА СЪВЕТ НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Соня Христова Костова - Секретар На Съвет На Настоятелите"
+    },
+    {
+      "id": "person:ПЕТЯ ЯНКОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Петя Янкова Василева"
+    },
+    {
+      "id": "person:ПЕТЯ ЯНКОВА ВАСИЛЕВА- ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "type": "person",
+      "label": "Петя Янкова Василева- Председател На Съвета На Настоятелите"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todorka-stoyanova-dimova-13111c",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОРКА СТОЯНОВА ДИМОВА - ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ГЕОРГИЕВА АПОСТОЛОВА - ВЕСЕЛИНОВА - ЗАМЕСТНИК ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ХРИСТОВА КОСТОВА - СЕКРЕТАР НА СЪВЕТ НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЯНКОВА ВАСИЛЕВА",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЯНКОВА ВАСИЛЕВА- ПРЕДСЕДАТЕЛ НА СЪВЕТА НА НАСТОЯТЕЛИТЕ",
+      "target": "company:tr:103825311",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hasan-yusuf-ilanski-f9fcb8",
+  "nodes": [
+    {
+      "id": "official:hasan-yusuf-ilanski-f9fcb8",
+      "type": "official",
+      "slug": "hasan-yusuf-ilanski-f9fcb8",
+      "label": "Хасан Юсуф Илански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Якоруда"
+    },
+    {
+      "id": "company:tr:205996276",
+      "type": "company",
+      "label": "Илански 2020",
+      "slug": null,
+      "uic": "205996276",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТИДЖЕ ЗИКЕРЯ ИЛАНСКА",
+      "type": "person",
+      "label": "Атидже Зикеря Иланска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hasan-yusuf-ilanski-f9fcb8",
+      "target": "company:tr:205996276",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТИДЖЕ ЗИКЕРЯ ИЛАНСКА",
+      "target": "company:tr:205996276",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТИДЖЕ ЗИКЕРЯ ИЛАНСКА",
+      "target": "company:tr:205996276",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

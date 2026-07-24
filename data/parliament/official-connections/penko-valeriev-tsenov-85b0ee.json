@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:penko-valeriev-tsenov-85b0ee",
+  "nodes": [
+    {
+      "id": "official:penko-valeriev-tsenov-85b0ee",
+      "type": "official",
+      "slug": "penko-valeriev-tsenov-85b0ee",
+      "label": "Пенко Валериев Ценов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:111591114",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ИВАН ВАЗОВ",
+      "slug": null,
+      "uic": "111591114",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИУС ТОДОРОВ КОНОВ",
+      "type": "person",
+      "label": "Мариус Тодоров Конов"
+    },
+    {
+      "id": "person:СВЕТЛИН ЦАНКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Светлин Цанков Димитров"
+    },
+    {
+      "id": "person:СОФИЯ ЦОНЕВА ВИКЕНТИЕВА",
+      "type": "person",
+      "label": "София Цонева Викентиева"
+    },
+    {
+      "id": "person:ЦЕЦКА ИВАНОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Цецка Иванова Каменова"
+    },
+    {
+      "id": "person:ОЛЕГ ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Олег Иванов Димитров"
+    },
+    {
+      "id": "person:ДАНИЕЛА ГЕОРГИЕВА ТРАЙКОВА-МАВРОВА",
+      "type": "person",
+      "label": "Даниела Георгиева Трайкова-Маврова"
+    },
+    {
+      "id": "person:ГЕОРГИ ЯНЕВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Георги Янев Драганов"
+    },
+    {
+      "id": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Христо Славов Петров"
+    },
+    {
+      "id": "person:ТЕОДОРА ПЕТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Теодора Петрова Петрова"
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТА ПЕТКОВА ЦЕНОВА",
+      "type": "person",
+      "label": "Елизабета Петкова Ценова"
+    },
+    {
+      "id": "person:ГАЛИНА ВЕСЕЛИНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Галина Веселинова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penko-valeriev-tsenov-85b0ee",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИУС ТОДОРОВ КОНОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИУС ТОДОРОВ КОНОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ЦАНКОВ ДИМИТРОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ЦОНЕВА ВИКЕНТИЕВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКА ИВАНОВА КАМЕНОВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЕГ ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ГЕОРГИЕВА ТРАЙКОВА-МАВРОВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯНЕВ ДРАГАНОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ПЕТРОВА ПЕТРОВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТА ПЕТКОВА ЦЕНОВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВЕСЕЛИНОВА ПЕТРОВА",
+      "target": "company:tr:111591114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

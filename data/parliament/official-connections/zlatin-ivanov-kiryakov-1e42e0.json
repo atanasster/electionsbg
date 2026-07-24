@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatin-ivanov-kiryakov-1e42e0",
+  "nodes": [
+    {
+      "id": "official:zlatin-ivanov-kiryakov-1e42e0",
+      "type": "official",
+      "slug": "zlatin-ivanov-kiryakov-1e42e0",
+      "label": "Златин Иванов Киряков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130072241",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПАЗАРДЖИК",
+      "slug": null,
+      "uic": "130072241",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-stoichev-stanoev-7519af",
+      "type": "official",
+      "slug": "ivan-stoichev-stanoev-7519af",
+      "label": "Иван Стойчев Станоев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:krasimir-manolov-temnilov-103780",
+      "type": "official",
+      "slug": "krasimir-manolov-temnilov-103780",
+      "label": "Красимир Манолов Темнилов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:Д-Р КРАСИМИР МАНОЛОВ ТЕМНИЛОВ",
+      "type": "person",
+      "label": "Д-Р Красимир Манолов Темнилов"
+    },
+    {
+      "id": "person:Д-Р ТОДОР ДИМИТРОВ ЮНАКОВ",
+      "type": "person",
+      "label": "Д-Р Тодор Димитров Юнаков"
+    },
+    {
+      "id": "person:Д-Р ИВАН СТОЙЧЕВ СТАНОЕВ",
+      "type": "person",
+      "label": "Д-Р Иван Стойчев Станоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatin-ivanov-kiryakov-1e42e0",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-stoichev-stanoev-7519af",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimir-manolov-temnilov-103780",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:Д-Р КРАСИМИР МАНОЛОВ ТЕМНИЛОВ",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:Д-Р КРАСИМИР МАНОЛОВ ТЕМНИЛОВ",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:Д-Р ТОДОР ДИМИТРОВ ЮНАКОВ",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:Д-Р ИВАН СТОЙЧЕВ СТАНОЕВ",
+      "target": "company:tr:130072241",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

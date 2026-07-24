@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nadezhda-boikova-georgieva-6e59fb","nodes":[{"id":"official:nadezhda-boikova-georgieva-6e59fb","type":"official","slug":"nadezhda-boikova-georgieva-6e59fb","label":"Надежда Бойкова Георгиева","tier":"municipal","role":"councillor","municipality":"Кресна"},{"id":"company:tr:201794524","type":"company","label":"НОВА РЕНТ А КАР","slug":null,"uic":"201794524","legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДРА ВЕЛИМИРОВА МИРЧЕВА","type":"person","label":"Александра Велимирова Мирчева"},{"id":"person:ИВАН ГЕОРГИЕВ ИВАНОВ","type":"person","label":"Иван Георгиев Иванов"}],"edges":[{"source":"official:nadezhda-boikova-georgieva-6e59fb","target":"company:tr:201794524","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДРА ВЕЛИМИРОВА МИРЧЕВА","target":"company:tr:201794524","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ИВАНОВ","target":"company:tr:201794524","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nadezhda-boikova-georgieva-6e59fb",
+  "nodes": [
+    {
+      "id": "official:nadezhda-boikova-georgieva-6e59fb",
+      "type": "official",
+      "slug": "nadezhda-boikova-georgieva-6e59fb",
+      "label": "Надежда Бойкова Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кресна"
+    },
+    {
+      "id": "company:tr:201794524",
+      "type": "company",
+      "label": "НОВА РЕНТ А КАР",
+      "slug": null,
+      "uic": "201794524",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ВЕЛИМИРОВА МИРЧЕВА",
+      "type": "person",
+      "label": "Александра Велимирова Мирчева"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Георгиев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-boikova-georgieva-6e59fb",
+      "target": "company:tr:201794524",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ВЕЛИМИРОВА МИРЧЕВА",
+      "target": "company:tr:201794524",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:201794524",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

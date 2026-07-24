@@ -1,1 +1,64 @@
-{"mpId":2373,"mpName":"Дурхан Мехмед Мустафа","generatedAt":"2026-07-03T11:12:51.628Z","total":4,"roles":[{"uic":"207231385","companyName":"ТАД ИНВЕСТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Топчийско, 8582","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-20T15:55:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207231385","companyName":"ТАД ИНВЕСТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, с. Топчийско, 8582","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2023-01-20T15:55:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"147020835","companyName":"СИТИ ПЛАСТ 2003","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-10-28T16:57:10","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"147020835","companyName":"СИТИ ПЛАСТ 2003","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2021-10-28T16:57:10","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2373,
+  "mpName": "Дурхан Мехмед Мустафа",
+  "generatedAt": "2026-07-24T03:35:58.438Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "207231385",
+      "companyName": "ТАД ИНВЕСТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Топчийско, 8582",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-20T15:55:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207231385",
+      "companyName": "ТАД ИНВЕСТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, с. Топчийско, 8582",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2023-01-20T15:55:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "147020835",
+      "companyName": "СИТИ ПЛАСТ 2003",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-10-28T16:57:10",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "147020835",
+      "companyName": "СИТИ ПЛАСТ 2003",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2021-10-28T16:57:10",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

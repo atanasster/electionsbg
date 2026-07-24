@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lachezar-todorov-ivanov-98f682",
+  "nodes": [
+    {
+      "id": "official:lachezar-todorov-ivanov-98f682",
+      "type": "official",
+      "slug": "lachezar-todorov-ivanov-98f682",
+      "label": "Лачезар Тодоров Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:827114370",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ВОЛЕЙБОЛ-ДУНАВ",
+      "slug": null,
+      "uic": "827114370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР СЕРАФИМОВ МИРОНОВ",
+      "type": "person",
+      "label": "Красимир Серафимов Миронов"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Асен Иванов Даскалов"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ГЕНКОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Генков"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЛЮДМИЛОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Валери Людмилов Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lachezar-todorov-ivanov-98f682",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР СЕРАФИМОВ МИРОНОВ",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СЕРАФИМОВ МИРОНОВ",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ ДАСКАЛОВ",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ГЕНКОВ",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЛЮДМИЛОВ АНДРЕЕВ",
+      "target": "company:tr:827114370",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

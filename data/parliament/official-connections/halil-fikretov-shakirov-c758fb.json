@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:halil-fikretov-shakirov-c758fb",
+  "nodes": [
+    {
+      "id": "official:halil-fikretov-shakirov-c758fb",
+      "type": "official",
+      "slug": "halil-fikretov-shakirov-c758fb",
+      "label": "Халил Фикретов Шакиров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206200038",
+      "type": "company",
+      "label": "ХУМУС - С",
+      "slug": null,
+      "uic": "206200038",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:halil-fikretov-shakirov-c758fb",
+      "target": "company:tr:206200038",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

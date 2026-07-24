@@ -1,1 +1,356 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5289","nodes":[{"id":"mp:5289","type":"mp","mpId":5289,"label":"Енчо Ангелов Керязов","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:176186537","type":"company","label":"ФОНДАЦИЯ &quot;ФОНДАЦИЯ ЕНЧО КЕРЯЗОВ &quot;","slug":null,"uic":"176186537","legalForm":"FOUND","status":"active","seat":null},{"id":"company:tr:831243549","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ СКОКОВЕ БАТУТ","slug":null,"uic":"831243549","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ХРИСТО СТЕФАНОВ МУТАФЧИЕВ","type":"person","label":"Христо Стефанов Мутафчиев"},{"id":"person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ","type":"person","label":"Красимир Димитров Стойчев"},{"id":"person:НЕШКА СТЕФАНОВА РОБЕВА","type":"person","label":"Нешка Стефанова Робева"},{"id":"person:МЪГЪРДИЧ БЕДРОС ХАЛВАДЖИЯН","type":"person","label":"Мъгърдич Бедрос Халваджиян"},{"id":"person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ","type":"person","label":"Радостин Енчев Керязов"},{"id":"mp:2953","type":"mp","mpId":2953,"label":"Станислав Иванов Стоянов","partyGroupShort":"НДСВ","isCurrent":false,"nsFolders":[]},{"id":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","type":"person","label":"Стоян Димитров Стоянов"},{"id":"person:АЛЕКСАНДЪР ПАНАЙОТОВ АЛЕКСАНДРОВ","type":"person","label":"Александър Панайотов Александров"},{"id":"person:ВЛАДИМИР ИВАНОВ АНГЕЛОВ","type":"person","label":"Владимир Иванов Ангелов"},{"id":"person:ДЕЯН ВЪЛКОВ ТОДОРОВ","type":"person","label":"Деян Вълков Тодоров"},{"id":"person:ПЛАМЕН ЕВТИМОВ ИСИОНОВ","type":"person","label":"Пламен Евтимов Исионов"},{"id":"person:НИНА ГАНКОВА НЕДЯЛКОВА","type":"person","label":"Нина Ганкова Недялкова"},{"id":"company:tr:128015863","type":"company","label":"СДРУЖЕНИЕ &quot;ОБЕДИНЕН СПОРТЕН КЛУБ &quot;ТУНДЖА&quot;&quot;","slug":null,"uic":"128015863","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600"},{"id":"mp:2439","type":"mp","mpId":2439,"label":"Иван Стоев Чолаков","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["42"]},{"id":"company:tr:176657964","type":"company","label":"ПЕРЛАТА НА СЛИВЕН","slug":null,"uic":"176657964","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"mp:990","type":"mp","mpId":990,"label":"Кирчо Димитров Димитров","partyGroupShort":"РБ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5289","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5289","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО СТЕФАНОВ МУТАФЧИЕВ","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕШКА СТЕФАНОВА РОБЕВА","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЪГЪРДИЧ БЕДРОС ХАЛВАДЖИЯН","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ","target":"company:tr:176186537","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ","target":"company:tr:176186537","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ","target":"company:tr:176186537","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2953","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ПАНАЙОТОВ АЛЕКСАНДРОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ИВАНОВ АНГЕЛОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ВЪЛКОВ ТОДОРОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЕВТИМОВ ИСИОНОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ГАНКОВА НЕДЯЛКОВА","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ГАНКОВА НЕДЯЛКОВА","target":"company:tr:128015863","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2439","target":"company:tr:128015863","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2439","target":"company:tr:128015863","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:990","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2953","length":2,"nodeIds":["mp:5289","company:tr:831243549","mp:2953"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2439","length":4,"nodeIds":["mp:5289","company:tr:831243549","person:НИНА ГАНКОВА НЕДЯЛКОВА","company:tr:128015863","mp:2439"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:990","length":4,"nodeIds":["mp:5289","company:tr:831243549","person:СТОЯН ДИМИТРОВ СТОЯНОВ","company:tr:176657964","mp:990"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5289",
+  "nodes": [
+    {
+      "id": "mp:5289",
+      "type": "mp",
+      "mpId": 5289,
+      "label": "Енчо Ангелов Керязов",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176186537",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;ФОНДАЦИЯ ЕНЧО КЕРЯЗОВ &quot;",
+      "slug": null,
+      "uic": "176186537",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:831243549",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ СКОКОВЕ БАТУТ",
+      "slug": null,
+      "uic": "831243549",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО СТЕФАНОВ МУТАФЧИЕВ",
+      "type": "person",
+      "label": "Христо Стефанов Мутафчиев"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Красимир Димитров Стойчев"
+    },
+    {
+      "id": "person:НЕШКА СТЕФАНОВА РОБЕВА",
+      "type": "person",
+      "label": "Нешка Стефанова Робева"
+    },
+    {
+      "id": "person:МЪГЪРДИЧ БЕДРОС ХАЛВАДЖИЯН",
+      "type": "person",
+      "label": "Мъгърдич Бедрос Халваджиян"
+    },
+    {
+      "id": "person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ",
+      "type": "person",
+      "label": "Радостин Енчев Керязов"
+    },
+    {
+      "id": "mp:2953",
+      "type": "mp",
+      "mpId": 2953,
+      "label": "Станислав Иванов Стоянов",
+      "partyGroupShort": "НДСВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Димитров Стоянов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ПАНАЙОТОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Панайотов Александров"
+    },
+    {
+      "id": "person:ВЛАДИМИР ИВАНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Владимир Иванов Ангелов"
+    },
+    {
+      "id": "person:ДЕЯН ВЪЛКОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Деян Вълков Тодоров"
+    },
+    {
+      "id": "person:ПЛАМЕН ЕВТИМОВ ИСИОНОВ",
+      "type": "person",
+      "label": "Пламен Евтимов Исионов"
+    },
+    {
+      "id": "person:НИНА ГАНКОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Нина Ганкова Недялкова"
+    },
+    {
+      "id": "company:tr:128015863",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ОБЕДИНЕН СПОРТЕН КЛУБ &quot;ТУНДЖА&quot;&quot;",
+      "slug": null,
+      "uic": "128015863",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    },
+    {
+      "id": "mp:2439",
+      "type": "mp",
+      "mpId": 2439,
+      "label": "Иван Стоев Чолаков",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:176657964",
+      "type": "company",
+      "label": "ПЕРЛАТА НА СЛИВЕН",
+      "slug": null,
+      "uic": "176657964",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "mp:990",
+      "type": "mp",
+      "mpId": 990,
+      "label": "Кирчо Димитров Димитров",
+      "partyGroupShort": "РБ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5289",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5289",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО СТЕФАНОВ МУТАФЧИЕВ",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕШКА СТЕФАНОВА РОБЕВА",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЪГЪРДИЧ БЕДРОС ХАЛВАДЖИЯН",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ СТОЙЧЕВ",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ЕНЧЕВ КЕРЯЗОВ",
+      "target": "company:tr:176186537",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2953",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПАНАЙОТОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ИВАНОВ АНГЕЛОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ВЪЛКОВ ТОДОРОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЕВТИМОВ ИСИОНОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ГАНКОВА НЕДЯЛКОВА",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ГАНКОВА НЕДЯЛКОВА",
+      "target": "company:tr:128015863",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2439",
+      "target": "company:tr:128015863",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2439",
+      "target": "company:tr:128015863",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:990",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2953",
+      "length": 2,
+      "nodeIds": [
+        "mp:5289",
+        "company:tr:831243549",
+        "mp:2953"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2439",
+      "length": 4,
+      "nodeIds": [
+        "mp:5289",
+        "company:tr:831243549",
+        "person:НИНА ГАНКОВА НЕДЯЛКОВА",
+        "company:tr:128015863",
+        "mp:2439"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:990",
+      "length": 4,
+      "nodeIds": [
+        "mp:5289",
+        "company:tr:831243549",
+        "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+        "company:tr:176657964",
+        "mp:990"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

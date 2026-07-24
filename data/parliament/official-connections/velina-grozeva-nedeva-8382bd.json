@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:velina-grozeva-nedeva-8382bd",
+  "nodes": [
+    {
+      "id": "official:velina-grozeva-nedeva-8382bd",
+      "type": "official",
+      "slug": "velina-grozeva-nedeva-8382bd",
+      "label": "Велина Грозева Недева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:126005176",
+      "type": "company",
+      "label": "НЕДЕВ",
+      "slug": null,
+      "uic": "126005176",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4373",
+      "type": "mp",
+      "mpId": 4373,
+      "label": "Веселин Жеков Недев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА ВЕЛИКОВА КИРЕВА",
+      "type": "person",
+      "label": "Желязка Великова Кирева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velina-grozeva-nedeva-8382bd",
+      "target": "company:tr:126005176",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4373",
+      "target": "company:tr:126005176",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА ВЕЛИКОВА КИРЕВА",
+      "target": "company:tr:126005176",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

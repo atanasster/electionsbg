@@ -1,1 +1,46 @@
-{"obshtina":"VTR20","page":1,"totalPages":1,"count":2,"companies":[{"slug":"БЕТИ-21","displayName":"БЕТИ 21","registeredOffice":"БЪЛГАРИЯ, гр. Лясковец, 5140","mps":[{"mpId":1123,"mpName":"Лилия Кирилова Христова","role":"manager","isCurrent":true},{"mpId":1123,"mpName":"Лилия Кирилова Христова","role":"sole_owner","isCurrent":true}]},{"slug":"ВЕМП-2025","displayName":"ВЕМП-2025","registeredOffice":"БЪЛГАРИЯ, гр. Лясковец, 5140","mps":[{"mpId":1026,"mpName":"Екатерина Иванова Михайлова","role":"manager","isCurrent":true},{"mpId":1026,"mpName":"Екатерина Иванова Михайлова","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "VTR20",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "БЕТИ-21",
+      "displayName": "БЕТИ 21",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Лясковец, 5140",
+      "mps": [
+        {
+          "mpId": 1123,
+          "mpName": "Лилия Кирилова Христова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1123,
+          "mpName": "Лилия Кирилова Христова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВЕМП-2025",
+      "displayName": "ВЕМП-2025",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Лясковец, 5140",
+      "mps": [
+        {
+          "mpId": 1026,
+          "mpName": "Екатерина Иванова Михайлова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1026,
+          "mpName": "Екатерина Иванова Михайлова",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

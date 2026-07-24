@@ -1,1 +1,64 @@
-{"mpId":4802,"mpName":"Иван Богомилов Петков","generatedAt":"2026-07-03T11:12:51.883Z","total":4,"roles":[{"uic":"208032984","companyName":"Аутосорс Сървисис Пловдив","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Пловдив, 4000","status":"active","role":"partner","positionLabel":null,"sharePercent":25,"addedAt":"2024-10-25T12:53:31","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175532790","companyName":"&quot;ДИМИТЪР БЛАГОЕВ&quot; - 2008 г. гр.ПЛОВДИВ","legalForm":"CC","seat":null,"status":"active","role":"trustee","positionLabel":null,"sharePercent":null,"addedAt":"2024-09-03T13:13:39","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"115322442","companyName":"ЧЕСИ ИНС БРОКЕР","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":25,"addedAt":"2024-04-26T10:06:56","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"115322442","companyName":"ЧЕСИ ИНС БРОКЕР","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-06-28T12:55:29","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"}]}
+{
+  "mpId": 4802,
+  "mpName": "Иван Богомилов Петков",
+  "generatedAt": "2026-07-24T03:35:58.678Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "208032984",
+      "companyName": "Аутосорс Сървисис Пловдив",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 25,
+      "addedAt": "2024-10-25T12:53:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175532790",
+      "companyName": "&quot;ДИМИТЪР БЛАГОЕВ&quot; - 2008 г. гр.ПЛОВДИВ",
+      "legalForm": "CC",
+      "seat": null,
+      "status": "active",
+      "role": "trustee",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-09-03T13:13:39",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "115322442",
+      "companyName": "ЧЕСИ ИНС БРОКЕР",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 25,
+      "addedAt": "2024-04-26T10:06:56",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "115322442",
+      "companyName": "ЧЕСИ ИНС БРОКЕР",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-06-28T12:55:29",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

@@ -1,1 +1,155 @@
-{"obshtina":"SZR12","page":1,"totalPages":1,"count":9,"companies":[{"slug":"АКТИВНИ-ЗА-КАЗАНЛЪК","displayName":"АКТИВНИ ЗА КАЗАНЛЪК","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":3415,"mpName":"Живка Михалева Железова","role":"ngo_representative","isCurrent":true},{"mpId":3415,"mpName":"Живка Михалева Железова","role":"ngo_board","isCurrent":true}]},{"slug":"Амбулатория-за-индивидуална-практика-за-извънболнична-специализирана-кардиологична-медицинска-помощ-Д-р-Тодор-Василев","displayName":"Амбулатория за индивидуална практика за извънболнична специализирана кардиологична медицинска помощ  Д-р Тодор Василев","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":3177,"mpName":"Тодор Василев Василев","role":"manager","isCurrent":true},{"mpId":3177,"mpName":"Тодор Василев Василев","role":"sole_owner","isCurrent":true}]},{"slug":"ГЛЕНКОР-ИНТЕРНЕШЪНЪЛ","displayName":"ГЛЕНКОР ИНТЕРНЕШЪНЪЛ","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"НАДИ-70","displayName":"НАДИ 70","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true}]},{"slug":"СТИКС-Ист","displayName":"СТИКС- Ист","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":1041,"mpName":"Емил Димитров Караниколов","role":"manager","isCurrent":true},{"mpId":1041,"mpName":"Емил Димитров Караниколов","role":"partner","isCurrent":false}]},{"slug":"ГУС-Маркетинг-енд-Консултинг","displayName":"ГУС Маркетинг енд Консултинг","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":1041,"mpName":"Емил Димитров Караниколов","role":"manager","isCurrent":true}]},{"slug":"Елемент-АСК-ООД","displayName":"Елемент - АСК ООД","registeredOffice":"Казанлък","mps":[{"mpId":3782,"mpName":"Момчил Донев Ненов","role":"declared_stake","isCurrent":true}]},{"slug":"ЕСТЕСТВЕН-ИНТЕЛЕКТ","displayName":"ЕСТЕСТВЕН ИНТЕЛЕКТ","registeredOffice":"БЪЛГАРИЯ, с. Розово, 6163","mps":[{"mpId":1500,"mpName":"Аксения Бориславова Тилева","role":"ngo_board","isCurrent":true}]},{"slug":"КЕВЛАР-КОМЕРС","displayName":"КЕВЛАР КОМЕРС","registeredOffice":"БЪЛГАРИЯ, гр. Казанлък, 6100","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "SZR12",
+  "page": 1,
+  "totalPages": 1,
+  "count": 9,
+  "companies": [
+    {
+      "slug": "АКТИВНИ-ЗА-КАЗАНЛЪК",
+      "displayName": "АКТИВНИ ЗА КАЗАНЛЪК",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 3415,
+          "mpName": "Живка Михалева Железова",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3415,
+          "mpName": "Живка Михалева Железова",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Амбулатория-за-индивидуална-практика-за-извънболнична-специализирана-кардиологична-медицинска-помощ-Д-р-Тодор-Василев",
+      "displayName": "Амбулатория за индивидуална практика за извънболнична специализирана кардиологична медицинска помощ  Д-р Тодор Василев",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГЛЕНКОР-ИНТЕРНЕШЪНЪЛ",
+      "displayName": "ГЛЕНКОР ИНТЕРНЕШЪНЪЛ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАДИ-70",
+      "displayName": "НАДИ 70",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СТИКС-Ист",
+      "displayName": "СТИКС- Ист",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ГУС-Маркетинг-енд-Консултинг",
+      "displayName": "ГУС Маркетинг енд Консултинг",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 1041,
+          "mpName": "Емил Димитров Караниколов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Елемент-АСК-ООД",
+      "displayName": "Елемент - АСК ООД",
+      "registeredOffice": "Казанлък",
+      "mps": [
+        {
+          "mpId": 3782,
+          "mpName": "Момчил Донев Ненов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЕСТЕСТВЕН-ИНТЕЛЕКТ",
+      "displayName": "ЕСТЕСТВЕН ИНТЕЛЕКТ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Розово, 6163",
+      "mps": [
+        {
+          "mpId": 1500,
+          "mpName": "Аксения Бориславова Тилева",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КЕВЛАР-КОМЕРС",
+      "displayName": "КЕВЛАР КОМЕРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Казанлък, 6100",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

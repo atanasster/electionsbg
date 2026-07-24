@@ -1,1 +1,36 @@
-{"mpId":4386,"mpName":"Драгомир Дамянов Драганов","generatedAt":"2026-07-03T11:12:51.857Z","total":2,"roles":[{"uic":"117050304","companyName":"ЖОКЕЙ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":45.23381294964029,"addedAt":"2025-11-24T09:38:14","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"117692885","companyName":"КОРЕКТА","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-01-04T10:25:16","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4386,
+  "mpName": "Драгомир Дамянов Драганов",
+  "generatedAt": "2026-07-24T03:35:58.645Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "117050304",
+      "companyName": "ЖОКЕЙ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 45.23381294964029,
+      "addedAt": "2025-11-24T09:38:14",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "117692885",
+      "companyName": "КОРЕКТА",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-01-04T10:25:16",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

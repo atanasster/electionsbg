@@ -1,1 +1,206 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1563","nodes":[{"id":"mp:1563","type":"mp","mpId":1563,"label":"Димитър Димчев Димов","partyGroupShort":"Атака","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207938485","type":"company","label":"ХЕРИТИДЖ ХОУМС БГ","slug":null,"uic":"207938485","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1233"},{"id":"company:tr:207222393","type":"company","label":"ГЕРТЕХ СИСТЕМС","slug":null,"uic":"207222393","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1750"},{"id":"company:tr:207046618","type":"company","label":"ЛУНИСОЛАР","slug":null,"uic":"207046618","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1142"},{"id":"person:БОЙКА ДИМЧЕВА ДИМОВА","type":"person","label":"Бойка Димчева Димова"},{"id":"person:ДИМИТЪР ХРИСТОВ ДИХАНОВ","type":"person","label":"Димитър Христов Диханов"},{"id":"person:МАРИО ИВАНОВ ПЕШЕВ","type":"person","label":"Марио Иванов Пешев"},{"id":"person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ","type":"person","label":"Йордан Александров Венев"},{"id":"person:ГЕОРГИ КОСТАДИНОВ РАДИЕВ","type":"person","label":"Георги Костадинов Радиев"},{"id":"person:АЛЕКСАНДЪР ЙОРДАНОВ ВЕНЕВ","type":"person","label":"Александър Йорданов Венев"}],"edges":[{"source":"mp:1563","target":"company:tr:207938485","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1563","target":"company:tr:207938485","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1563","target":"company:tr:207222393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1563","target":"company:tr:207222393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1563","target":"company:tr:207046618","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1563","target":"company:tr:207046618","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:БОЙКА ДИМЧЕВА ДИМОВА","target":"company:tr:207938485","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ ДИХАНОВ","target":"company:tr:207938485","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКА ДИМЧЕВА ДИМОВА","target":"company:tr:207938485","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ ДИХАНОВ","target":"company:tr:207938485","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО ИВАНОВ ПЕШЕВ","target":"company:tr:207222393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ","target":"company:tr:207222393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО ИВАНОВ ПЕШЕВ","target":"company:tr:207222393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОСТАДИНОВ РАДИЕВ","target":"company:tr:207222393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ","target":"company:tr:207222393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ЙОРДАНОВ ВЕНЕВ","target":"company:tr:207222393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1563",
+  "nodes": [
+    {
+      "id": "mp:1563",
+      "type": "mp",
+      "mpId": 1563,
+      "label": "Димитър Димчев Димов",
+      "partyGroupShort": "Атака",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207938485",
+      "type": "company",
+      "label": "ХЕРИТИДЖ ХОУМС БГ",
+      "slug": null,
+      "uic": "207938485",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1233"
+    },
+    {
+      "id": "company:tr:207222393",
+      "type": "company",
+      "label": "ГЕРТЕХ СИСТЕМС",
+      "slug": null,
+      "uic": "207222393",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1750"
+    },
+    {
+      "id": "company:tr:207046618",
+      "type": "company",
+      "label": "ЛУНИСОЛАР",
+      "slug": null,
+      "uic": "207046618",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "person:БОЙКА ДИМЧЕВА ДИМОВА",
+      "type": "person",
+      "label": "Бойка Димчева Димова"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ДИХАНОВ",
+      "type": "person",
+      "label": "Димитър Христов Диханов"
+    },
+    {
+      "id": "person:МАРИО ИВАНОВ ПЕШЕВ",
+      "type": "person",
+      "label": "Марио Иванов Пешев"
+    },
+    {
+      "id": "person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ",
+      "type": "person",
+      "label": "Йордан Александров Венев"
+    },
+    {
+      "id": "person:ГЕОРГИ КОСТАДИНОВ РАДИЕВ",
+      "type": "person",
+      "label": "Георги Костадинов Радиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЙОРДАНОВ ВЕНЕВ",
+      "type": "person",
+      "label": "Александър Йорданов Венев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207938485",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207938485",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207222393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207222393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207046618",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1563",
+      "target": "company:tr:207046618",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЙКА ДИМЧЕВА ДИМОВА",
+      "target": "company:tr:207938485",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ДИХАНОВ",
+      "target": "company:tr:207938485",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ДИМЧЕВА ДИМОВА",
+      "target": "company:tr:207938485",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ДИХАНОВ",
+      "target": "company:tr:207938485",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ИВАНОВ ПЕШЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ИВАНОВ ПЕШЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ РАДИЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АЛЕКСАНДРОВ ВЕНЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЙОРДАНОВ ВЕНЕВ",
+      "target": "company:tr:207222393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

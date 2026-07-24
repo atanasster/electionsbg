@@ -14,150 +14,82 @@
     "sourceUrl": "https://register.cacbg.bg/2017/BA84FB7C-A9C0-419C-B995-2229C6B578F984722.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "дялове",
         "shareSize": "1200",
         "companyName": "ФИН ЯХТИНГ ООД",
         "registeredOffice": "МАЛТА",
         "valueEur": 1200.0020451675248,
+        "holderName": "Билян Любомиров Балев",
+        "legalBasis": "новосъздадена",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "ФИНКО ГРЕЙС ООД",
+        "registeredOffice": "БВТ",
+        "valueEur": 255.64594059810923,
         "holderName": null,
         "transfereeName": "Билян Любомиров Балев",
-        "legalBasis": "заплата",
+        "legalBasis": "безвъзмездно",
         "fundsOrigin": null
       }
     ],
     "income": [
       {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16642.55073293691,
+        "amountEurSpouse": null
+      },
+      {
         "parent": null,
-        "category": "дялове",
-        "amountEurDeclarant": 51.12918811962185,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4857.272871364075,
         "amountEurSpouse": null
       }
     ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "223213",
-        "detail": "223213",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "223213",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 223213,
+        "valueEur": 114126.99467745151,
+        "holderName": "Билян Любомиров Балев",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "receivable",
-        "description": "6171",
-        "detail": "6171",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "6171",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "кредитна карта",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 6171,
+        "valueEur": 3155.1821988618644,
+        "holderName": "Билян Любомиров Балев",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "кредитна карта"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 16642.55073293691,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 4857.272871364075,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "bilyan-lyubomirov-balev-43d952",
@@ -174,19 +106,25 @@
     "sourceUrl": "https://register.cacbg.bg/2016/BA84FB7C-A9C0-419C-B995-2229C6B578F981088.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100",
         "companyName": "ФИНКО ГРЕЙС ООД",
         "registeredOffice": "БВИ",
         "valueEur": 255.64594059810923,
-        "holderName": null,
-        "transfereeName": "БИЛЯН ЛЮБОМИРОВ БАЛЕВ",
-        "legalBasis": "ОТ ВЪЗНАГРАЖДЕНИЯ",
-        "fundsOrigin": null
+        "holderName": "БИЛЯН ЛЮБОМИРОВ БАЛЕВ",
+        "legalBasis": "новосъздадена",
+        "fundsOrigin": "ОТ ВЪЗНАГРАЖДЕНИЯ"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11294.948947505663,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -197,120 +135,35 @@
         "areaSqm": 11,
         "builtAreaSqm": 11,
         "acquiredYear": 2015,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "БИЛЯН ЛЮБОМИРОВ БАЛЕВ",
         "isSpouse": false,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
-        "category": "receivable",
-        "description": "37776",
-        "detail": "37776",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "37776",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 37776,
+        "valueEur": 19314.56210406835,
+        "holderName": "Билян Любомиров Балев",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 11294.948947505663,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   },
   {
     "slug": "bilyan-lyubomirov-balev-43d952",
@@ -326,112 +179,40 @@
     "controlHash": "FEF816F6",
     "sourceUrl": "https://register.cacbg.bg/2015/BA84FB7C-A9C0-419C-B995-2229C6B578F969691.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13713.359545563777,
+        "amountEurSpouse": 3460.4234519360066
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1636.1340198278992,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
-        "category": "receivable",
-        "description": "12929",
-        "detail": "12929",
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "12929",
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ЗАПЛАТА",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 12929,
+        "valueEur": 6610.492731985909,
+        "holderName": "БИЛЯН ЛЮБОМИРОВ БАЛЕВ",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "ЗАПЛАТА"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 13713.359545563777,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1636.1340198278992,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

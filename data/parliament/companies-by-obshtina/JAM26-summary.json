@@ -1,1 +1,103 @@
-{"obshtina":"JAM26","count":14,"mpCount":10,"totalPages":1,"topCompanies":[{"slug":"СмарТест-БГ","displayName":"СмарТест-БГ","registeredOffice":"БЪЛГАРИЯ, гр. Ямбол, 8600","mps":[{"mpId":5298,"mpName":"Александър Димитров Попов","role":"partner","isCurrent":true},{"mpId":5298,"mpName":"Александър Димитров Попов","role":"manager","isCurrent":true},{"mpId":5298,"mpName":"Александър Димитров Попов","role":"sole_owner","isCurrent":false}]},{"slug":"42-дни-по-късно","displayName":"42 дни по-късно","registeredOffice":"БЪЛГАРИЯ, гр. Ямбол, 8600","mps":[{"mpId":2414,"mpName":"Дарин Иванов Димитров","role":"manager","isCurrent":true},{"mpId":2414,"mpName":"Дарин Иванов Димитров","role":"sole_owner","isCurrent":true}]},{"slug":"ДИАМАНТ-АЙС","displayName":"ДИАМАНТ АЙС","registeredOffice":"БЪЛГАРИЯ, гр. Ямбол, 8600","mps":[{"mpId":920,"mpName":"Любомир Тодоров Иванов","role":"manager","isCurrent":true},{"mpId":920,"mpName":"Любомир Тодоров Иванов","role":"sole_owner","isCurrent":true}]},{"slug":"ДИВАЛ-99","displayName":"ДИВАЛ - 99","registeredOffice":"БЪЛГАРИЯ, гр. Ямбол, 8600","mps":[{"mpId":1070,"mpName":"Александър Стойчев Стойков","role":"manager","isCurrent":true},{"mpId":1070,"mpName":"Александър Стойчев Стойков","role":"partner","isCurrent":true}]},{"slug":"НОРА-2025","displayName":"НОРА 2025","registeredOffice":"БЪЛГАРИЯ, гр. Ямбол, 8600","mps":[{"mpId":827,"mpName":"Надя Димитрова Иванова","role":"manager","isCurrent":true},{"mpId":827,"mpName":"Надя Димитрова Иванова","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "JAM26",
+  "count": 17,
+  "mpCount": 12,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "СмарТест-БГ",
+      "displayName": "СмарТест-БГ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "mps": [
+        {
+          "mpId": 5298,
+          "mpName": "Александър Димитров Попов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5298,
+          "mpName": "Александър Димитров Попов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5298,
+          "mpName": "Александър Димитров Попов",
+          "role": "sole_owner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "ТМ-Билдинг",
+      "displayName": "ТМ \"Билдинг\"",
+      "registeredOffice": "Ямбол",
+      "mps": [
+        {
+          "mpId": 4906,
+          "mpName": "Димитър Ангелов Иванов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "42-дни-по-късно",
+      "displayName": "42 дни по-късно",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "mps": [
+        {
+          "mpId": 2414,
+          "mpName": "Дарин Иванов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2414,
+          "mpName": "Дарин Иванов Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДИАМАНТ-АЙС",
+      "displayName": "ДИАМАНТ АЙС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "mps": [
+        {
+          "mpId": 920,
+          "mpName": "Любомир Тодоров Иванов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 920,
+          "mpName": "Любомир Тодоров Иванов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДИВАЛ-99",
+      "displayName": "ДИВАЛ - 99",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Ямбол, 8600",
+      "mps": [
+        {
+          "mpId": 1070,
+          "mpName": "Александър Стойчев Стойков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 1070,
+          "mpName": "Александър Стойчев Стойков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

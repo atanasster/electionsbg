@@ -1,0 +1,239 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:momchil-stefanov-mavrov-29065c",
+  "nodes": [
+    {
+      "id": "official:momchil-stefanov-mavrov-29065c",
+      "type": "official",
+      "slug": "momchil-stefanov-mavrov-29065c",
+      "label": "Момчил Стефанов Мавров",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160136582",
+      "type": "company",
+      "label": "Агробейс ООД",
+      "slug": null,
+      "uic": "160136582",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203003530",
+      "type": "company",
+      "label": "Алукс ООД",
+      "slug": null,
+      "uic": "203003530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:160112065",
+      "type": "company",
+      "label": "Айрън СР ООД",
+      "slug": null,
+      "uic": "160112065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204099373",
+      "type": "company",
+      "label": "Лекс 351 ЕООД",
+      "slug": null,
+      "uic": "204099373",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204099526",
+      "type": "company",
+      "label": "Капитал-и 999 ООД",
+      "slug": null,
+      "uic": "204099526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА-МАВРОВА",
+      "type": "person",
+      "label": "Златка Димитрова Ангелова-Маврова"
+    },
+    {
+      "id": "person:САШО ДАНЧЕВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Сашо Данчев Райчев"
+    },
+    {
+      "id": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА - МАВРОВА",
+      "type": "person",
+      "label": "Златка Димитрова Ангелова - Маврова"
+    },
+    {
+      "id": "person:ФЛЕКС ИН",
+      "type": "person",
+      "label": "Флекс Ин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:160136582",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:203003530",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:160112065",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:204099373",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:204099526",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:203003530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:203003530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:160112065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:160112065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:momchil-stefanov-mavrov-29065c",
+      "target": "company:tr:204099373",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА-МАВРОВА",
+      "target": "company:tr:160136582",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ДАНЧЕВ РАЙЧЕВ",
+      "target": "company:tr:203003530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ДАНЧЕВ РАЙЧЕВ",
+      "target": "company:tr:203003530",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА - МАВРОВА",
+      "target": "company:tr:203003530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ДАНЧЕВ РАЙЧЕВ",
+      "target": "company:tr:160112065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ДАНЧЕВ РАЙЧЕВ",
+      "target": "company:tr:160112065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА - МАВРОВА",
+      "target": "company:tr:204099373",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЛЕКС ИН",
+      "target": "company:tr:204099373",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМИТРОВА АНГЕЛОВА - МАВРОВА",
+      "target": "company:tr:204099526",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

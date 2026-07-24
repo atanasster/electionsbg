@@ -1,1 +1,237 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:990","nodes":[{"id":"mp:990","type":"mp","mpId":990,"label":"Кирчо Димитров Димитров","partyGroupShort":"РБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:176657964","type":"company","label":"ПЕРЛАТА НА СЛИВЕН","slug":null,"uic":"176657964","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"company:tr:119091723","type":"company","label":"БО ВЕР","slug":null,"uic":"119091723","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:119020085","type":"company","label":"МЕБЕЛЛУКС","slug":null,"uic":"119020085","legalForm":"AD","status":"active","seat":null},{"id":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","type":"person","label":"Стоян Димитров Стоянов"},{"id":"person:КРАСИМИР ПАВЛОВ ГЕОРГИЕВ","type":"person","label":"Красимир Павлов Георгиев"},{"id":"person:ПЕНЧО ДИМИТРОВ МОНЕВ","type":"person","label":"Пенчо Димитров Монев"},{"id":"person:КРАСИМИР ПЕТКОВ ПЕТКОВ","type":"person","label":"Красимир Петков Петков"},{"id":"person:ВЕСКА ДИМИТРОВА ЛАЗАРОВА","type":"person","label":"Веска Димитрова Лазарова"},{"id":"person:EЛЕНА ИВАНОВА СИМОВА","type":"person","label":"Eлена Иванова Симова"},{"id":"company:tr:831243549","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ СКОКОВЕ БАТУТ","slug":null,"uic":"831243549","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:5289","type":"mp","mpId":5289,"label":"Енчо Ангелов Керязов","partyGroupShort":"ПрБ","isCurrent":false,"nsFolders":[]},{"id":"mp:2953","type":"mp","mpId":2953,"label":"Станислав Иванов Стоянов","partyGroupShort":"НДСВ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:990","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:990","target":"company:tr:119091723","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:990","target":"company:tr:119020085","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПАВЛОВ ГЕОРГИЕВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕНЧО ДИМИТРОВ МОНЕВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПЕТКОВ ПЕТКОВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:176657964","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСКА ДИМИТРОВА ЛАЗАРОВА","target":"company:tr:119020085","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:EЛЕНА ИВАНОВА СИМОВА","target":"company:tr:119020085","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ДИМИТРОВ СТОЯНОВ","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2953","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5289","target":"company:tr:831243549","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5289","length":4,"nodeIds":["mp:990","company:tr:176657964","person:СТОЯН ДИМИТРОВ СТОЯНОВ","company:tr:831243549","mp:5289"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2953","length":4,"nodeIds":["mp:990","company:tr:176657964","person:СТОЯН ДИМИТРОВ СТОЯНОВ","company:tr:831243549","mp:2953"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:990",
+  "nodes": [
+    {
+      "id": "mp:990",
+      "type": "mp",
+      "mpId": 990,
+      "label": "Кирчо Димитров Димитров",
+      "partyGroupShort": "РБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176657964",
+      "type": "company",
+      "label": "ПЕРЛАТА НА СЛИВЕН",
+      "slug": null,
+      "uic": "176657964",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:119091723",
+      "type": "company",
+      "label": "БО ВЕР",
+      "slug": null,
+      "uic": "119091723",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:119020085",
+      "type": "company",
+      "label": "МЕБЕЛЛУКС",
+      "slug": null,
+      "uic": "119020085",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Димитров Стоянов"
+    },
+    {
+      "id": "person:КРАСИМИР ПАВЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Красимир Павлов Георгиев"
+    },
+    {
+      "id": "person:ПЕНЧО ДИМИТРОВ МОНЕВ",
+      "type": "person",
+      "label": "Пенчо Димитров Монев"
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Красимир Петков Петков"
+    },
+    {
+      "id": "person:ВЕСКА ДИМИТРОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Веска Димитрова Лазарова"
+    },
+    {
+      "id": "person:EЛЕНА ИВАНОВА СИМОВА",
+      "type": "person",
+      "label": "Eлена Иванова Симова"
+    },
+    {
+      "id": "company:tr:831243549",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ СКОКОВЕ БАТУТ",
+      "slug": null,
+      "uic": "831243549",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5289",
+      "type": "mp",
+      "mpId": 5289,
+      "label": "Енчо Ангелов Керязов",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:2953",
+      "type": "mp",
+      "mpId": 2953,
+      "label": "Станислав Иванов Стоянов",
+      "partyGroupShort": "НДСВ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:990",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:990",
+      "target": "company:tr:119091723",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:990",
+      "target": "company:tr:119020085",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПАВЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЧО ДИМИТРОВ МОНЕВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТКОВ ПЕТКОВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:176657964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА ДИМИТРОВА ЛАЗАРОВА",
+      "target": "company:tr:119020085",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:EЛЕНА ИВАНОВА СИМОВА",
+      "target": "company:tr:119020085",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2953",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5289",
+      "target": "company:tr:831243549",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5289",
+      "length": 4,
+      "nodeIds": [
+        "mp:990",
+        "company:tr:176657964",
+        "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+        "company:tr:831243549",
+        "mp:5289"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2953",
+      "length": 4,
+      "nodeIds": [
+        "mp:990",
+        "company:tr:176657964",
+        "person:СТОЯН ДИМИТРОВ СТОЯНОВ",
+        "company:tr:831243549",
+        "mp:2953"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

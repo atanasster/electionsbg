@@ -1,1 +1,188 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3372","nodes":[{"id":"mp:3372","type":"mp","mpId":3372,"label":"Васил Йорданов Георгиев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45"]},{"id":"company:Екс-Натура-ЕООД","type":"company","label":"Екс Натура ЕООД","slug":"Екс-Натура-ЕООД","uic":"203531104","legalForm":"EOOD","status":"active","seat":"Свищов"},{"id":"company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.","type":"company","label":"Prista Oil Yağ San. ve Tic. Ltd. Sti.","slug":"Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.","uic":null,"legalForm":null,"status":null,"seat":"Истанбул"},{"id":"company:Prısta-Deniz-Yağları-tic-ltd","type":"company","label":"Prısta Deniz Yağları tic ltd","slug":"Prısta-Deniz-Yağları-tic-ltd","uic":null,"legalForm":null,"status":null,"seat":"Истанбул"},{"id":"company:tr:203532722","type":"company","label":"Рийд България","slug":null,"uic":"203532722","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Свищов, 5250"},{"id":"company:tr:203313194","type":"company","label":"СМАРТ ЕКО СОЛЮШЪНС","slug":null,"uic":"203313194","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:200576813","type":"company","label":"ЕКИП ПРОЕКТ","slug":null,"uic":"200576813","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ","type":"person","label":"Йордан Христов Георгиев"},{"id":"mp:5211","type":"mp","mpId":5211,"label":"Красимир Цеков Иванов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"mp:3372","target":"company:Екс-Натура-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3372","target":"company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3372","target":"company:Prısta-Deniz-Yağları-tic-ltd","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3372","target":"company:tr:203532722","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3372","target":"company:tr:203313194","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3372","target":"company:tr:200576813","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3372","target":"company:tr:203532722","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ","target":"company:Екс-Натура-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ","target":"company:tr:203532722","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5211","target":"company:tr:203313194","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5211","length":2,"nodeIds":["mp:3372","company:tr:203313194","mp:5211"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3372",
+  "nodes": [
+    {
+      "id": "mp:3372",
+      "type": "mp",
+      "mpId": 3372,
+      "label": "Васил Йорданов Георгиев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:Екс-Натура-ЕООД",
+      "type": "company",
+      "label": "Екс Натура ЕООД",
+      "slug": "Екс-Натура-ЕООД",
+      "uic": "203531104",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Свищов"
+    },
+    {
+      "id": "company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "type": "company",
+      "label": "Prista Oil Yağ San. ve Tic. Ltd. Sti.",
+      "slug": "Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Истанбул"
+    },
+    {
+      "id": "company:Prısta-Deniz-Yağları-tic-ltd",
+      "type": "company",
+      "label": "Prısta Deniz Yağları tic ltd",
+      "slug": "Prısta-Deniz-Yağları-tic-ltd",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Истанбул"
+    },
+    {
+      "id": "company:tr:203532722",
+      "type": "company",
+      "label": "Рийд България",
+      "slug": null,
+      "uic": "203532722",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250"
+    },
+    {
+      "id": "company:tr:203313194",
+      "type": "company",
+      "label": "СМАРТ ЕКО СОЛЮШЪНС",
+      "slug": null,
+      "uic": "203313194",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:200576813",
+      "type": "company",
+      "label": "ЕКИП ПРОЕКТ",
+      "slug": null,
+      "uic": "200576813",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йордан Христов Георгиев"
+    },
+    {
+      "id": "mp:5211",
+      "type": "mp",
+      "mpId": 5211,
+      "label": "Красимир Цеков Иванов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3372",
+      "target": "company:Екс-Натура-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:Prısta-Deniz-Yağları-tic-ltd",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:tr:203532722",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:tr:203313194",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:tr:200576813",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:tr:203532722",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:Екс-Натура-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:203532722",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5211",
+      "target": "company:tr:203313194",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5211",
+      "length": 2,
+      "nodeIds": [
+        "mp:3372",
+        "company:tr:203313194",
+        "mp:5211"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

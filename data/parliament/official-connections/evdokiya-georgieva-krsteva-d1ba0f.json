@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:evdokiya-georgieva-krsteva-d1ba0f",
+  "nodes": [
+    {
+      "id": "official:evdokiya-georgieva-krsteva-d1ba0f",
+      "type": "official",
+      "slug": "evdokiya-georgieva-krsteva-d1ba0f",
+      "label": "Евдокия Георгиева Кръстева",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206660727",
+      "type": "company",
+      "label": "Лауд Уайнс ЕООД",
+      "slug": null,
+      "uic": "206660727",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207186698",
+      "type": "company",
+      "label": "Ла Лежер ООД",
+      "slug": null,
+      "uic": "207186698",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131493492",
+      "type": "company",
+      "label": "Ню Венчър ООД",
+      "slug": null,
+      "uic": "131493492",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "type": "person",
+      "label": "Радослав Петков Радев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВАЛЕНТИНОВА ДАКОВСКА",
+      "type": "person",
+      "label": "Десислава Валентинова Даковска"
+    },
+    {
+      "id": "person:ОЛГА МАРГАРИТОВА МАРВАКОВА-БЕШКОВА",
+      "type": "person",
+      "label": "Олга Маргаритова Марвакова-Бешкова"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИЛЕНОВ БЕШКОВ",
+      "type": "person",
+      "label": "Николай Миленов Бешков"
+    },
+    {
+      "id": "person:ЙОРДАН ТОШКОВ НЕДЕВ",
+      "type": "person",
+      "label": "Йордан Тошков Недев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evdokiya-georgieva-krsteva-d1ba0f",
+      "target": "company:tr:206660727",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evdokiya-georgieva-krsteva-d1ba0f",
+      "target": "company:tr:207186698",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evdokiya-georgieva-krsteva-d1ba0f",
+      "target": "company:tr:131493492",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:206660727",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:206660727",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВАЛЕНТИНОВА ДАКОВСКА",
+      "target": "company:tr:207186698",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:207186698",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВАЛЕНТИНОВА ДАКОВСКА",
+      "target": "company:tr:207186698",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:207186698",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛГА МАРГАРИТОВА МАРВАКОВА-БЕШКОВА",
+      "target": "company:tr:131493492",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИЛЕНОВ БЕШКОВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛГА МАРГАРИТОВА МАРВАКОВА-БЕШКОВА",
+      "target": "company:tr:131493492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИЛЕНОВ БЕШКОВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТКОВ РАДЕВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТОШКОВ НЕДЕВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТОШКОВ НЕДЕВ",
+      "target": "company:tr:131493492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

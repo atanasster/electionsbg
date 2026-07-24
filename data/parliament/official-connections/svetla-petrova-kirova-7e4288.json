@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetla-petrova-kirova-7e4288",
+  "nodes": [
+    {
+      "id": "official:svetla-petrova-kirova-7e4288",
+      "type": "official",
+      "slug": "svetla-petrova-kirova-7e4288",
+      "label": "Светла Петрова Кирова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Хайредин"
+    },
+    {
+      "id": "company:tr:000184900",
+      "type": "company",
+      "label": "СВЕТЛИНА - 1928 - МАНАСТИРИЩЕ",
+      "slug": null,
+      "uic": "000184900",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА НИКОЛОВА ЦОНОВА",
+      "type": "person",
+      "label": "Ирина Николова Цонова"
+    },
+    {
+      "id": "person:ВЕНЕРА НАЙДЕНОВА НЕНКОВА",
+      "type": "person",
+      "label": "Венера Найденова Ненкова"
+    },
+    {
+      "id": "person:ГЕОРГИ КРЪСТЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Кръстев Георгиев"
+    },
+    {
+      "id": "person:ГОРА АТАНАСОВА НИНОВА",
+      "type": "person",
+      "label": "Гора Атанасова Нинова"
+    },
+    {
+      "id": "person:ТРИФОН ЦВЕТАНОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Трифон Цветанов Трифонов"
+    },
+    {
+      "id": "person:ДАНИЕЛА КРЪСТЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Даниела Кръстева Димитрова"
+    },
+    {
+      "id": "person:ЦВЕТОСЛАВА ГОШОВА ДЕКОВА",
+      "type": "person",
+      "label": "Цветослава Гошова Декова"
+    },
+    {
+      "id": "person:ПЕТЯ СТЕФАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Петя Стефанова Йорданова"
+    },
+    {
+      "id": "person:ВАЛЕРИЯ ЦВЕТАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Валерия Цветанова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-petrova-kirova-7e4288",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА НИКОЛОВА ЦОНОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕРА НАЙДЕНОВА НЕНКОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА НИКОЛОВА ЦОНОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КРЪСТЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРА АТАНАСОВА НИНОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРИФОН ЦВЕТАНОВ ТРИФОНОВ",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА КРЪСТЕВА ДИМИТРОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВА ГОШОВА ДЕКОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТЕФАНОВА ЙОРДАНОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ ЦВЕТАНОВА ДИМИТРОВА",
+      "target": "company:tr:000184900",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:neli-slavova-boicheva-664361",
+  "nodes": [
+    {
+      "id": "official:neli-slavova-boicheva-664361",
+      "type": "official",
+      "slug": "neli-slavova-boicheva-664361",
+      "label": "Нели Славова Бойчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200247611",
+      "type": "company",
+      "label": "ДЕЗИНФЕКЦИОННА СТАНЦИЯ - БУРГАС",
+      "slug": null,
+      "uic": "200247611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zhivko-kostadinov-kostadinov-80ae83",
+      "type": "official",
+      "slug": "zhivko-kostadinov-kostadinov-80ae83",
+      "label": "Живко Костадинов Костадинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОЙЧО СТОЯНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Бойчо Стоянов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-slavova-boicheva-664361",
+      "target": "company:tr:200247611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivko-kostadinov-kostadinov-80ae83",
+      "target": "company:tr:200247611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЙЧО СТОЯНОВ ГЕОРГИЕВ",
+      "target": "company:tr:200247611",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

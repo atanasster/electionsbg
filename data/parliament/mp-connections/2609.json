@@ -1,1 +1,325 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2609","nodes":[{"id":"mp:2609","type":"mp","mpId":2609,"label":"Мариана Георгиева Тодорова","partyGroupShort":"АБВ/Д21","isCurrent":false,"nsFolders":[]},{"id":"company:tr:102127798","type":"company","label":"МЕТАЛОПАК","slug":null,"uic":"102127798","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:207869815","type":"company","label":"ИМКАЙ","slug":null,"uic":"207869815","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1408"},{"id":"company:tr:207017716","type":"company","label":"ЛОЗЕНЕЦ КАРААГАЧ","slug":null,"uic":"207017716","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1220"},{"id":"company:tr:102835135","type":"company","label":"СБР - НЕСЕБЪР","slug":null,"uic":"102835135","legalForm":"AD","status":"active","seat":null},{"id":"person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ","type":"person","label":"Кольо Желязков Желязков"},{"id":"company:name:КОРТЕКС ТРЕЙДИНГ","type":"company","label":"\"КОРТЕКС ТРЕЙДИНГ\" АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:АУТОБОХЕМИЯ","type":"company","label":"\"АУТОБОХЕМИЯ\" АД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИР ДОБРЕВ ДОБРЕВ","type":"person","label":"Красимир Добрев Добрев"},{"id":"person:ИВАН АНГЕЛОВ ВАНКОВ","type":"person","label":"Иван Ангелов Ванков"},{"id":"person:КИРИЛ ГЕОРГИЕВ НАЛДЖИЕВ","type":"person","label":"Кирил Георгиев Налджиев"},{"id":"person:ДЕСИСЛАВА ЕМИЛОВА ТРИФОНОВА","type":"person","label":"Десислава Емилова Трифонова"},{"id":"person:МАРИАН ИЛИЕВ ГОЧЕВ","type":"person","label":"Мариан Илиев Гочев"},{"id":"person:АУТОБОХЕМИЯ","type":"person","label":"Аутобохемия"},{"id":"person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ","type":"person","label":"Пламен Михайлов Лаков"},{"id":"person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ","type":"person","label":"Мохамед Нажи Тайсир Сака Амини"},{"id":"person:ГЕОРГИ КОЛЕВ КОЛЕВ","type":"person","label":"Георги Колев Колев"},{"id":"person:НИКОЛАЙ ГЕОРГИЕВ КОЛЕВ","type":"person","label":"Николай Георгиев Колев"}],"edges":[{"source":"mp:2609","target":"company:tr:102127798","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2609","target":"company:tr:207869815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2609","target":"company:tr:207869815","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2609","target":"company:tr:207017716","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2609","target":"company:tr:102835135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ","target":"company:tr:102127798","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"company:name:КОРТЕКС ТРЕЙДИНГ","target":"company:tr:102127798","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"company:name:КОРТЕКС ТРЕЙДИНГ","target":"company:tr:102127798","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"company:name:АУТОБОХЕМИЯ","target":"company:tr:102127798","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ","target":"company:tr:102127798","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДОБРЕВ ДОБРЕВ","target":"company:tr:102127798","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДОБРЕВ ДОБРЕВ","target":"company:tr:102127798","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДОБРЕВ ДОБРЕВ","target":"company:tr:102127798","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АНГЕЛОВ ВАНКОВ","target":"company:tr:207869815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ГЕОРГИЕВ НАЛДЖИЕВ","target":"company:tr:207869815","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЕМИЛОВА ТРИФОНОВА","target":"company:tr:207017716","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИАН ИЛИЕВ ГОЧЕВ","target":"company:tr:207017716","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АУТОБОХЕМИЯ","target":"company:tr:207017716","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ","target":"company:tr:102835135","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ","target":"company:tr:102835135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ","target":"company:tr:102835135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОЛЕВ КОЛЕВ","target":"company:tr:102835135","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОЛЕВ КОЛЕВ","target":"company:tr:102835135","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГЕОРГИЕВ КОЛЕВ","target":"company:tr:102835135","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2609",
+  "nodes": [
+    {
+      "id": "mp:2609",
+      "type": "mp",
+      "mpId": 2609,
+      "label": "Мариана Георгиева Тодорова",
+      "partyGroupShort": "АБВ/Д21",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:102127798",
+      "type": "company",
+      "label": "МЕТАЛОПАК",
+      "slug": null,
+      "uic": "102127798",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207869815",
+      "type": "company",
+      "label": "ИМКАЙ",
+      "slug": null,
+      "uic": "207869815",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    },
+    {
+      "id": "company:tr:207017716",
+      "type": "company",
+      "label": "ЛОЗЕНЕЦ КАРААГАЧ",
+      "slug": null,
+      "uic": "207017716",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1220"
+    },
+    {
+      "id": "company:tr:102835135",
+      "type": "company",
+      "label": "СБР - НЕСЕБЪР",
+      "slug": null,
+      "uic": "102835135",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Кольо Желязков Желязков"
+    },
+    {
+      "id": "company:name:КОРТЕКС ТРЕЙДИНГ",
+      "type": "company",
+      "label": "\"КОРТЕКС ТРЕЙДИНГ\" АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АУТОБОХЕМИЯ",
+      "type": "company",
+      "label": "\"АУТОБОХЕМИЯ\" АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ДОБРЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Красимир Добрев Добрев"
+    },
+    {
+      "id": "person:ИВАН АНГЕЛОВ ВАНКОВ",
+      "type": "person",
+      "label": "Иван Ангелов Ванков"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ НАЛДЖИЕВ",
+      "type": "person",
+      "label": "Кирил Георгиев Налджиев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЕМИЛОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Десислава Емилова Трифонова"
+    },
+    {
+      "id": "person:МАРИАН ИЛИЕВ ГОЧЕВ",
+      "type": "person",
+      "label": "Мариан Илиев Гочев"
+    },
+    {
+      "id": "person:АУТОБОХЕМИЯ",
+      "type": "person",
+      "label": "Аутобохемия"
+    },
+    {
+      "id": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "type": "person",
+      "label": "Пламен Михайлов Лаков"
+    },
+    {
+      "id": "person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ",
+      "type": "person",
+      "label": "Мохамед Нажи Тайсир Сака Амини"
+    },
+    {
+      "id": "person:ГЕОРГИ КОЛЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Георги Колев Колев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Георгиев Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2609",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2609",
+      "target": "company:tr:207869815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2609",
+      "target": "company:tr:207869815",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2609",
+      "target": "company:tr:207017716",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2609",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КОРТЕКС ТРЕЙДИНГ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КОРТЕКС ТРЕЙДИНГ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АУТОБОХЕМИЯ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ЖЕЛЯЗКОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДОБРЕВ ДОБРЕВ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДОБРЕВ ДОБРЕВ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДОБРЕВ ДОБРЕВ",
+      "target": "company:tr:102127798",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АНГЕЛОВ ВАНКОВ",
+      "target": "company:tr:207869815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ НАЛДЖИЕВ",
+      "target": "company:tr:207869815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕМИЛОВА ТРИФОНОВА",
+      "target": "company:tr:207017716",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАН ИЛИЕВ ГОЧЕВ",
+      "target": "company:tr:207017716",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АУТОБОХЕМИЯ",
+      "target": "company:tr:207017716",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОЛЕВ КОЛЕВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОЛЕВ КОЛЕВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ КОЛЕВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

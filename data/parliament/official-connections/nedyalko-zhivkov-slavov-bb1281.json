@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nedyalko-zhivkov-slavov-bb1281",
+  "nodes": [
+    {
+      "id": "official:nedyalko-zhivkov-slavov-bb1281",
+      "type": "official",
+      "slug": "nedyalko-zhivkov-slavov-bb1281",
+      "label": "Недялко Живков Славов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202852858",
+      "type": "company",
+      "label": "АРНЕД ПОЙНТ ЕООД",
+      "slug": null,
+      "uic": "202852858",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nedyalko-zhivkov-slavov-cb5ecc",
+      "type": "official",
+      "slug": "nedyalko-zhivkov-slavov-cb5ecc",
+      "label": "Недялко Живков Славов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "official:nedyalko-zhivkov-slavov-a03a65",
+      "type": "official",
+      "slug": "nedyalko-zhivkov-slavov-a03a65",
+      "label": "Недялко Живков Славов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedyalko-zhivkov-slavov-bb1281",
+      "target": "company:tr:202852858",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nedyalko-zhivkov-slavov-cb5ecc",
+      "target": "company:tr:202852858",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nedyalko-zhivkov-slavov-a03a65",
+      "target": "company:tr:202852858",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

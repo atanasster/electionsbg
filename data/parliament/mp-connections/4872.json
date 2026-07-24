@@ -1,1 +1,140 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4872","nodes":[{"id":"mp:4872","type":"mp","mpId":4872,"label":"Маноил Минчев Манев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["43","44","45","46","47","48","49","50","51"]},{"id":"company:Магсим-ЕООД","type":"company","label":"Магсим ЕООД","slug":"Магсим-ЕООД","uic":"123738910","legalForm":"OOD","status":"active","seat":"Стара Загора"},{"id":"person:СНЕЖИНА СЛАВОВА МАНЕВА","type":"person","label":"Снежина Славова Манева"},{"id":"person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА","type":"person","label":"Магдалена Маноилова Манева"}],"edges":[{"source":"mp:4872","target":"company:Магсим-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"person:СНЕЖИНА СЛАВОВА МАНЕВА","target":"company:Магсим-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА","target":"company:Магсим-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖИНА СЛАВОВА МАНЕВА","target":"company:Магсим-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА","target":"company:Магсим-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4872",
+  "nodes": [
+    {
+      "id": "mp:4872",
+      "type": "mp",
+      "mpId": 4872,
+      "label": "Маноил Минчев Манев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Магсим-ЕООД",
+      "type": "company",
+      "label": "Магсим ЕООД",
+      "slug": "Магсим-ЕООД",
+      "uic": "123738910",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Стара Загора"
+    },
+    {
+      "id": "company:Маунтайн-лейк-ЕООД",
+      "type": "company",
+      "label": "Маунтайн лейк ЕООД",
+      "slug": "Маунтайн-лейк-ЕООД",
+      "uic": "206264182",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Шаново, 6169"
+    },
+    {
+      "id": "company:СЗ-Консултант-ЕООД",
+      "type": "company",
+      "label": "СЗ Консултант ЕООД",
+      "slug": "СЗ-Консултант-ЕООД",
+      "uic": "202824022",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "person:СНЕЖИНА СЛАВОВА МАНЕВА",
+      "type": "person",
+      "label": "Снежина Славова Манева"
+    },
+    {
+      "id": "person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА",
+      "type": "person",
+      "label": "Магдалена Маноилова Манева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4872",
+      "target": "company:Магсим-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4872",
+      "target": "company:Магсим-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4872",
+      "target": "company:Маунтайн-лейк-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4872",
+      "target": "company:СЗ-Консултант-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА СЛАВОВА МАНЕВА",
+      "target": "company:Магсим-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА",
+      "target": "company:Магсим-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА СЛАВОВА МАНЕВА",
+      "target": "company:Магсим-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МАНОИЛОВА МАНЕВА",
+      "target": "company:Магсим-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА СЛАВОВА МАНЕВА",
+      "target": "company:СЗ-Консултант-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

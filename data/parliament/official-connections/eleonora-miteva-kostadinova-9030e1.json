@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:eleonora-miteva-kostadinova-9030e1",
+  "nodes": [
+    {
+      "id": "official:eleonora-miteva-kostadinova-9030e1",
+      "type": "official",
+      "slug": "eleonora-miteva-kostadinova-9030e1",
+      "label": "Елеонора Митева Костадинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128057410",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО - КОНСУЛТАТИВЕН ЦЕНТЪР 1 ЯМБОЛ",
+      "slug": null,
+      "uic": "128057410",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eleonora-miteva-kostadinova-9030e1",
+      "target": "company:tr:128057410",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -35,7 +35,13 @@ const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 // зам.-кметове на общини … председателите на общинските съвети, общинските
 // съветници и гл. архитекти …"). No executive or MP category contains that
 // token, so a single substring cleanly isolates the local-government slice.
-const CATEGORY_SUBSTRINGS = ["Кметове"];
+//
+// Exported because three places must agree on it — this watcher, the ingest
+// (scripts/officials/municipal.ts) and the coverage report's tier filter. A
+// copy in any of them makes the report compare the wrong two sets while every
+// test still passes, which is precisely what the report exists to catch.
+export const MUNICIPAL_CATEGORY_SUBSTRING = "Кметове";
+const CATEGORY_SUBSTRINGS = [MUNICIPAL_CATEGORY_SUBSTRING];
 
 const categoryMatches = (name: string): boolean => {
   for (const sub of CATEGORY_SUBSTRINGS) {

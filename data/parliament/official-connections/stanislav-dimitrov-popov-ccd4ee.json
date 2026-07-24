@@ -1,1 +1,201 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:stanislav-dimitrov-popov-ccd4ee","nodes":[{"id":"official:stanislav-dimitrov-popov-ccd4ee","type":"official","slug":"stanislav-dimitrov-popov-ccd4ee","label":"Станислав Димитров Попов","tier":"municipal","role":"councillor","municipality":"Сапарева баня"},{"id":"company:tr:201755776","type":"company","label":"КРИСМАРИ","slug":null,"uic":"201755776","legalForm":null,"status":null,"seat":null},{"id":"company:name:РИЛА ДРИЙМС ХОТЕЛС 1989","type":"company","label":"\"РИЛА ДРИЙМС ХОТЕЛС 1989\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:stanislav-dimitrov-popov-ccd4ee","target":"company:tr:201755776","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"company:name:РИЛА ДРИЙМС ХОТЕЛС 1989","target":"company:tr:201755776","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stanislav-dimitrov-popov-ccd4ee",
+  "nodes": [
+    {
+      "id": "official:stanislav-dimitrov-popov-ccd4ee",
+      "type": "official",
+      "slug": "stanislav-dimitrov-popov-ccd4ee",
+      "label": "Станислав Димитров Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сапарева баня"
+    },
+    {
+      "id": "company:tr:207867287",
+      "type": "company",
+      "label": "Инфрастеллар Бетон ЕООД",
+      "slug": null,
+      "uic": "207867287",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207867077",
+      "type": "company",
+      "label": "\"Инфрастеллар Груп\" ООД",
+      "slug": null,
+      "uic": "207867077",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205931428",
+      "type": "company",
+      "label": "СТЕЛЛАР АРМЪРИ БАЛИСТИКС ООД",
+      "slug": null,
+      "uic": "205931428",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФИЛИП ДРАГАН ПЕЙЧЕВ",
+      "type": "person",
+      "label": "Филип Драган Пейчев"
+    },
+    {
+      "id": "person:АТАНАС ИВОВ ТОНЕВ",
+      "type": "person",
+      "label": "Атанас Ивов Тонев"
+    },
+    {
+      "id": "person:КИРИЛ ИВАЙЛОВ ПРОДАНОВ",
+      "type": "person",
+      "label": "Кирил Ивайлов Проданов"
+    },
+    {
+      "id": "company:name:ИНФРАСТЕЛЛАР",
+      "type": "company",
+      "label": "„ИНФРАСТЕЛЛАР“ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:РИЛА ДРИЙМС ХОТЕЛС 1989",
+      "type": "company",
+      "label": "„РИЛА ДРИЙМС ХОТЕЛС 1989“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ВАЛЕНТИНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Любомир Валентинов Атанасов"
+    },
+    {
+      "id": "company:name:КЕЙ ЕЙЧ",
+      "type": "company",
+      "label": "\"КЕЙ ЕЙЧ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-dimitrov-popov-ccd4ee",
+      "target": "company:tr:207867287",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanislav-dimitrov-popov-ccd4ee",
+      "target": "company:tr:207867077",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanislav-dimitrov-popov-ccd4ee",
+      "target": "company:tr:205931428",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ДРАГАН ПЕЙЧЕВ",
+      "target": "company:tr:207867287",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:207867077",
+      "target": "company:tr:207867287",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВОВ ТОНЕВ",
+      "target": "company:tr:207867287",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАЙЛОВ ПРОДАНОВ",
+      "target": "company:tr:207867287",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ДРАГАН ПЕЙЧЕВ",
+      "target": "company:tr:207867077",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ИНФРАСТЕЛЛАР",
+      "target": "company:tr:207867077",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:РИЛА ДРИЙМС ХОТЕЛС 1989",
+      "target": "company:tr:207867077",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:207867077",
+      "target": "company:tr:205931428",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ВАЛЕНТИНОВ АТАНАСОВ",
+      "target": "company:tr:205931428",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КЕЙ ЕЙЧ",
+      "target": "company:tr:205931428",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

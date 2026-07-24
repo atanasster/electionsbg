@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:margarita-angelova-ananieva-94a798",
+  "nodes": [
+    {
+      "id": "official:margarita-angelova-ananieva-94a798",
+      "type": "official",
+      "slug": "margarita-angelova-ananieva-94a798",
+      "label": "Маргарита Ангелова Ананиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000379408",
+      "type": "company",
+      "label": "НАПРЕДЪК 1895 - гр. Радомир",
+      "slug": null,
+      "uic": "000379408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЩАЛИЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Щалиянов Димитров"
+    },
+    {
+      "id": "person:НЕЛИ ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Нели Иванова Петкова"
+    },
+    {
+      "id": "person:КАТЯ ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Катя Василева Иванова"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Николаев Георгиев"
+    },
+    {
+      "id": "person:ДОРОТЕЯ ГЕОРГИЕВА АНДОНОВА-КОСТАДИНОВА",
+      "type": "person",
+      "label": "Доротея Георгиева Андонова-Костадинова"
+    },
+    {
+      "id": "person:РУМЕН КАМЕНОВ КРУМОВ",
+      "type": "person",
+      "label": "Румен Каменов Крумов"
+    },
+    {
+      "id": "person:ЗОРНИЦА БОРИСОВА МИЛАЧКОВА",
+      "type": "person",
+      "label": "Зорница Борисова Милачкова"
+    },
+    {
+      "id": "person:ЮЛИЯ МЕТОДИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Юлия Методиева Петрова"
+    },
+    {
+      "id": "person:ЖАНА БОГДАНОВА КИРКОВА",
+      "type": "person",
+      "label": "Жана Богданова Киркова"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА ВАСИЛЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Теменужка Василева Николова"
+    },
+    {
+      "id": "person:НАДЕЖДА СЛАВЧОВА БОБОРАЧКА",
+      "type": "person",
+      "label": "Надежда Славчова Боборачка"
+    },
+    {
+      "id": "person:ИРИНА АНГЕЛОВА КОВАЧКА",
+      "type": "person",
+      "label": "Ирина Ангелова Ковачка"
+    },
+    {
+      "id": "person:АНЕТА ДАНАИЛОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Анета Данаилова Кирилова"
+    },
+    {
+      "id": "person:ДОНИКА МИХАЙЛОВА КОТЕВА",
+      "type": "person",
+      "label": "Доника Михайлова Котева"
+    },
+    {
+      "id": "person:АТАНАСКА СИМЕОНОВА МЕТОДИЕВА",
+      "type": "person",
+      "label": "Атанаска Симеонова Методиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:margarita-angelova-ananieva-94a798",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЩАЛИЯНОВ ДИМИТРОВ",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЩАЛИЯНОВ ДИМИТРОВ",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ГЕОРГИЕВА АНДОНОВА-КОСТАДИНОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН КАМЕНОВ КРУМОВ",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА БОРИСОВА МИЛАЧКОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ МЕТОДИЕВА ПЕТРОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНА БОГДАНОВА КИРКОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА ВАСИЛЕВА НИКОЛОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СЛАВЧОВА БОБОРАЧКА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА АНГЕЛОВА КОВАЧКА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ДАНАИЛОВА КИРИЛОВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СЛАВЧОВА БОБОРАЧКА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНИКА МИХАЙЛОВА КОТЕВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА СИМЕОНОВА МЕТОДИЕВА",
+      "target": "company:tr:000379408",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

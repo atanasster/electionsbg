@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubka-milkova-bailova-637e46",
+  "nodes": [
+    {
+      "id": "official:lyubka-milkova-bailova-637e46",
+      "type": "official",
+      "slug": "lyubka-milkova-bailova-637e46",
+      "label": "Любка Милкова Байлова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112649921",
+      "type": "company",
+      "label": "К И Г-АВАНГАРД",
+      "slug": null,
+      "uic": "112649921",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ЗДРАВКОВ БАЙЛОВ",
+      "type": "person",
+      "label": "Красимир Здравков Байлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubka-milkova-bailova-637e46",
+      "target": "company:tr:112649921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ЗДРАВКОВ БАЙЛОВ",
+      "target": "company:tr:112649921",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

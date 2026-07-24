@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gavrail-georgiev-byalkov-c4127f",
+  "nodes": [
+    {
+      "id": "official:gavrail-georgiev-byalkov-c4127f",
+      "type": "official",
+      "slug": "gavrail-georgiev-byalkov-c4127f",
+      "label": "Гавраил Георгиев Бялков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208418199",
+      "type": "company",
+      "label": "Еко Транспорт Асеновград",
+      "slug": null,
+      "uic": "208418199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:genoveva-stoyanova-antonova-95b065",
+      "type": "official",
+      "slug": "genoveva-stoyanova-antonova-95b065",
+      "label": "Геновева Стоянова Антонова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА АСЕНОВГРАД",
+      "type": "person",
+      "label": "Община Асеновград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gavrail-georgiev-byalkov-c4127f",
+      "target": "company:tr:208418199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:genoveva-stoyanova-antonova-95b065",
+      "target": "company:tr:208418199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА АСЕНОВГРАД",
+      "target": "company:tr:208418199",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

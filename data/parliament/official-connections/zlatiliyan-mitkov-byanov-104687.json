@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zlatiliyan-mitkov-byanov-104687",
+  "nodes": [
+    {
+      "id": "official:zlatiliyan-mitkov-byanov-104687",
+      "type": "official",
+      "slug": "zlatiliyan-mitkov-byanov-104687",
+      "label": "Златилиян Митков Бянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аксаково"
+    },
+    {
+      "id": "company:tr:177119769",
+      "type": "company",
+      "label": "Фондация РОЖДЕСТВО БОГОРОДИЧНО",
+      "slug": null,
+      "uic": "177119769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatiliyan-mitkov-byanov-104687",
+      "target": "company:tr:177119769",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatiliyan-mitkov-byanov-104687",
+      "target": "company:tr:177119769",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

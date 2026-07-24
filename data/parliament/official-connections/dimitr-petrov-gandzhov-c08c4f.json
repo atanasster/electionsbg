@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-petrov-gandzhov-c08c4f",
+  "nodes": [
+    {
+      "id": "official:dimitr-petrov-gandzhov-c08c4f",
+      "type": "official",
+      "slug": "dimitr-petrov-gandzhov-c08c4f",
+      "label": "Димитър Петров Ганджов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175402366",
+      "type": "company",
+      "label": "Дига Консулт",
+      "slug": null,
+      "uic": "175402366",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:101712635",
+      "type": "company",
+      "label": "Ганджови",
+      "slug": null,
+      "uic": "101712635",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-petrov-gandzhov-c08c4f",
+      "target": "company:tr:175402366",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-petrov-gandzhov-c08c4f",
+      "target": "company:tr:101712635",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

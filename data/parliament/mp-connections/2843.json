@@ -1,1 +1,147 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2843","nodes":[{"id":"mp:2843","type":"mp","mpId":2843,"label":"Константин Веселинов Попов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206896364","type":"company","label":"Център за развитие и политики","slug":null,"uic":"206896364","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:3101","type":"mp","mpId":3101,"label":"Ивелина Веселинова Василева","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["42","43","44"]},{"id":"mp:4258","type":"mp","mpId":4258,"label":"Вежди Летиф Рашидов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","48","49"]},{"id":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","type":"person","label":"Добромир Валентинов Дончев"},{"id":"person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ","type":"person","label":"Ангел Николаев Тинчев"}],"edges":[{"source":"mp:2843","target":"company:tr:206896364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2843","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3101","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4258","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ","target":"company:tr:206896364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4258","length":2,"nodeIds":["mp:2843","company:tr:206896364","mp:4258"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3101","length":2,"nodeIds":["mp:2843","company:tr:206896364","mp:3101"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2843",
+  "nodes": [
+    {
+      "id": "mp:2843",
+      "type": "mp",
+      "mpId": 2843,
+      "label": "Константин Веселинов Попов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206896364",
+      "type": "company",
+      "label": "Център за развитие и политики",
+      "slug": null,
+      "uic": "206896364",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:3101",
+      "type": "mp",
+      "mpId": 3101,
+      "label": "Ивелина Веселинова Василева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "mp:4258",
+      "type": "mp",
+      "mpId": 4258,
+      "label": "Вежди Летиф Рашидов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Добромир Валентинов Дончев"
+    },
+    {
+      "id": "person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ",
+      "type": "person",
+      "label": "Ангел Николаев Тинчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2843",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2843",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3101",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ВАЛЕНТИНОВ ДОНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НИКОЛАЕВ ТИНЧЕВ",
+      "target": "company:tr:206896364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4258",
+      "length": 2,
+      "nodeIds": [
+        "mp:2843",
+        "company:tr:206896364",
+        "mp:4258"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3101",
+      "length": 2,
+      "nodeIds": [
+        "mp:2843",
+        "company:tr:206896364",
+        "mp:3101"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

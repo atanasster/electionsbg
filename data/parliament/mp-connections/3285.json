@@ -1,1 +1,114 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3285","nodes":[{"id":"mp:3285","type":"mp","mpId":3285,"label":"Християна Анастасова Тодорова","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":[]},{"id":"company:Грийн-Инвестмънт-Пропъртис-ООД","type":"company","label":"Грийн Инвестмънт Пропъртис ООД","slug":"Грийн-Инвестмънт-Пропъртис-ООД","uic":"205010452","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1415"},{"id":"company:tr:130488738","type":"company","label":"СПОРТЕН КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА ЛЕВСКИ ПЛЮС","slug":null,"uic":"130488738","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ПЕТЯ ИГНАТОВА ТОДОРОВА","type":"person","label":"Петя Игнатова Тодорова"},{"id":"person:НИНА ТОДОРОВА АЛЕКСИЕВА","type":"person","label":"Нина Тодорова Алексиева"},{"id":"person:ХРИСТИЯНА ТОДОРОВА АНАСТАСОВА","type":"person","label":"Християна Тодорова Анастасова"},{"id":"person:ТАТЯНА ИВАНОВА СТОЯНОВА","type":"person","label":"Татяна Иванова Стоянова"}],"edges":[{"source":"mp:3285","target":"company:Грийн-Инвестмънт-Пропъртис-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3285","target":"company:tr:130488738","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЯ ИГНАТОВА ТОДОРОВА","target":"company:Грийн-Инвестмънт-Пропъртис-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ТОДОРОВА АЛЕКСИЕВА","target":"company:tr:130488738","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИНА ТОДОРОВА АЛЕКСИЕВА","target":"company:tr:130488738","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИЯНА ТОДОРОВА АНАСТАСОВА","target":"company:tr:130488738","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ИВАНОВА СТОЯНОВА","target":"company:tr:130488738","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3285",
+  "nodes": [
+    {
+      "id": "mp:3285",
+      "type": "mp",
+      "mpId": 3285,
+      "label": "Християна Анастасова Тодорова",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "type": "company",
+      "label": "Грийн Инвестмънт Пропъртис ООД",
+      "slug": "Грийн-Инвестмънт-Пропъртис-ООД",
+      "uic": "205010452",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1415"
+    },
+    {
+      "id": "company:tr:130488738",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА ЛЕВСКИ ПЛЮС",
+      "slug": null,
+      "uic": "130488738",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ИГНАТОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Петя Игнатова Тодорова"
+    },
+    {
+      "id": "person:НИНА ТОДОРОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Нина Тодорова Алексиева"
+    },
+    {
+      "id": "person:ХРИСТИЯНА ТОДОРОВА АНАСТАСОВА",
+      "type": "person",
+      "label": "Християна Тодорова Анастасова"
+    },
+    {
+      "id": "person:ТАТЯНА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Татяна Иванова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3285",
+      "target": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3285",
+      "target": "company:tr:130488738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ИГНАТОВА ТОДОРОВА",
+      "target": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ТОДОРОВА АЛЕКСИЕВА",
+      "target": "company:tr:130488738",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ТОДОРОВА АЛЕКСИЕВА",
+      "target": "company:tr:130488738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯНА ТОДОРОВА АНАСТАСОВА",
+      "target": "company:tr:130488738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:130488738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

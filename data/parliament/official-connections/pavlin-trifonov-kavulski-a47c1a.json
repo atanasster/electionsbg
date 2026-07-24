@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:pavlin-trifonov-kavulski-a47c1a",
+  "nodes": [
+    {
+      "id": "official:pavlin-trifonov-kavulski-a47c1a",
+      "type": "official",
+      "slug": "pavlin-trifonov-kavulski-a47c1a",
+      "label": "Павлин Трифонов Кавулски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205777962",
+      "type": "company",
+      "label": "\"СОЛАР-КВС\" ООД",
+      "slug": null,
+      "uic": "205777962",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlin-trifonov-kavulski-a47c1a",
+      "target": "company:tr:205777962",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

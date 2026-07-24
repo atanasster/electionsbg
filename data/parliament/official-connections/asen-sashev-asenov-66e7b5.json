@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:asen-sashev-asenov-66e7b5","nodes":[{"id":"official:asen-sashev-asenov-66e7b5","type":"official","slug":"asen-sashev-asenov-66e7b5","label":"Асен Сашев Асенов","tier":"municipal","role":"councillor","municipality":"Левски"},{"id":"company:tr:207036766","type":"company","label":"Ъшик - 2021","slug":null,"uic":"207036766","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:asen-sashev-asenov-66e7b5","target":"company:tr:207036766","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:asen-sashev-asenov-66e7b5","target":"company:tr:207036766","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:asen-sashev-asenov-66e7b5",
+  "nodes": [
+    {
+      "id": "official:asen-sashev-asenov-66e7b5",
+      "type": "official",
+      "slug": "asen-sashev-asenov-66e7b5",
+      "label": "Асен Сашев Асенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Левски"
+    },
+    {
+      "id": "company:tr:207347468",
+      "type": "company",
+      "label": "\"АГА СЪРВИС\" ЕООД",
+      "slug": null,
+      "uic": "207347468",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН АСЕНОВ САШЕВ",
+      "type": "person",
+      "label": "Асен Асенов Сашев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-sashev-asenov-66e7b5",
+      "target": "company:tr:207347468",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:asen-sashev-asenov-66e7b5",
+      "target": "company:tr:207347468",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asen-sashev-asenov-66e7b5",
+      "target": "company:tr:207347468",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН АСЕНОВ САШЕВ",
+      "target": "company:tr:207347468",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

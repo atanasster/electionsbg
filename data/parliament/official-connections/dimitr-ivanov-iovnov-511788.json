@@ -1,1 +1,300 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:dimitr-ivanov-iovnov-511788","nodes":[{"id":"official:dimitr-ivanov-iovnov-511788","type":"official","slug":"dimitr-ivanov-iovnov-511788","label":"Димитър Иванов Йовнов","tier":"municipal","role":"councillor","municipality":"Царево"},{"id":"company:tr:206374284","type":"company","label":"Тренди пропърти ООД","slug":null,"uic":"206374284","legalForm":null,"status":null,"seat":null},{"id":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","type":"person","label":"Кристиян Анастасов Колев"},{"id":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","type":"person","label":"Симеон Симеонов Щерев"},{"id":"person:КИРИЛ ИВАНОВ ЙОВНОВ","type":"person","label":"Кирил Иванов Йовнов"}],"edges":[{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:dimitr-ivanov-iovnov-511788","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ ЙОВНОВ","target":"company:tr:206374284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН АНАСТАСОВ КОЛЕВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СИМЕОНОВ ЩЕРЕВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ИВАНОВ ЙОВНОВ","target":"company:tr:206374284","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-ivanov-iovnov-511788",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-iovnov-511788",
+      "type": "official",
+      "slug": "dimitr-ivanov-iovnov-511788",
+      "label": "Димитър Иванов Йовнов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Царево"
+    },
+    {
+      "id": "company:tr:204992314",
+      "type": "company",
+      "label": "Царевоинвест ООД",
+      "slug": null,
+      "uic": "204992314",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207606248",
+      "type": "company",
+      "label": "Великаинвест 92 ООД",
+      "slug": null,
+      "uic": "207606248",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206111251",
+      "type": "company",
+      "label": "Йовнов инвестмънт груп ООД",
+      "slug": null,
+      "uic": "206111251",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206374284",
+      "type": "company",
+      "label": "Тренди пропърти ООД",
+      "slug": null,
+      "uic": "206374284",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВ ПЕТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Станислав Петков Димитров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЕМИЛОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Александър Емилов Пенев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ПЛАМЕНОВ ПАРИЧКОВ",
+      "type": "person",
+      "label": "Александър Пламенов Паричков"
+    },
+    {
+      "id": "person:ДРАГОМИР РАЙКОВ ВЛАДОВ",
+      "type": "person",
+      "label": "Драгомир Райков Владов"
+    },
+    {
+      "id": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "type": "person",
+      "label": "Симеон Симеонов Щерев"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "type": "person",
+      "label": "Кирил Иванов Йовнов"
+    },
+    {
+      "id": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кристиян Анастасов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:204992314",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:207606248",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206111251",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:207606248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:207606248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206111251",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206111251",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-ivanov-iovnov-511788",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ПЕТКОВ ДИМИТРОВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ПЕТКОВ ДИМИТРОВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЕМИЛОВ ПЕНЕВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЕМИЛОВ ПЕНЕВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПЛАМЕНОВ ПАРИЧКОВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПЛАМЕНОВ ПАРИЧКОВ",
+      "target": "company:tr:207606248",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР РАЙКОВ ВЛАДОВ",
+      "target": "company:tr:206111251",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "target": "company:tr:206111251",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206111251",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206111251",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН АНАСТАСОВ КОЛЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЩЕРЕВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОВНОВ",
+      "target": "company:tr:206374284",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

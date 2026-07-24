@@ -1,1 +1,145 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3091","nodes":[{"id":"mp:3091","type":"mp","mpId":3091,"label":"Илко Стоянов Стоянов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":[]},{"id":"company:tr:101536112","type":"company","label":"СДРУЖЕНИЕ НА ЮГОЗАПАДНИТЕ ОБЩИНИ /СЮЗО/","slug":null,"uic":"101536112","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:2737","type":"mp","mpId":2737,"label":"Атанас Славчев Стоянов","partyGroupShort":"ОП","isCurrent":false,"nsFolders":["43"]},{"id":"official:milko-dimitrov-milanov-5215b6","type":"official","slug":"milko-dimitrov-milanov-5215b6","label":"Милко Димитров Миланов","tier":"municipal","role":"council_chair","municipality":"Сливница"},{"id":"person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ","type":"person","label":"Трайко Андреев Младенов"},{"id":"person:ВАСКО ДИМИТРОВ СТОИЛКОВ","type":"person","label":"Васко Димитров Стоилков"},{"id":"person:ЕМИЛ ДИМИТРОВ ИЛИЕВ","type":"person","label":"Емил Димитров Илиев"},{"id":"person:АНГЕЛ ДИМИТРОВ ЖИЛАНОВ","type":"person","label":"Ангел Димитров Жиланов"},{"id":"person:ИВАН МИХАЙЛОВ КАДЕВ","type":"person","label":"Иван Михайлов Кадев"}],"edges":[{"source":"mp:3091","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2737","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"official:milko-dimitrov-milanov-5215b6","target":"company:tr:101536112","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"},{"source":"person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСКО ДИМИТРОВ СТОИЛКОВ","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ИЛИЕВ","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ДИМИТРОВ ЖИЛАНОВ","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИХАЙЛОВ КАДЕВ","target":"company:tr:101536112","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:2737","length":2,"nodeIds":["mp:3091","company:tr:101536112","mp:2737"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3091",
+  "nodes": [
+    {
+      "id": "mp:3091",
+      "type": "mp",
+      "mpId": 3091,
+      "label": "Илко Стоянов Стоянов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:101536112",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЮГОЗАПАДНИТЕ ОБЩИНИ /СЮЗО/",
+      "slug": null,
+      "uic": "101536112",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2737",
+      "type": "mp",
+      "mpId": 2737,
+      "label": "Атанас Славчев Стоянов",
+      "partyGroupShort": "ОП",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "person:МИЛКО ДИМИТРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Милко Димитров Миланов"
+    },
+    {
+      "id": "person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Трайко Андреев Младенов"
+    },
+    {
+      "id": "person:ВАСКО ДИМИТРОВ СТОИЛКОВ",
+      "type": "person",
+      "label": "Васко Димитров Стоилков"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Емил Димитров Илиев"
+    },
+    {
+      "id": "person:АНГЕЛ ДИМИТРОВ ЖИЛАНОВ",
+      "type": "person",
+      "label": "Ангел Димитров Жиланов"
+    },
+    {
+      "id": "person:ИВАН МИХАЙЛОВ КАДЕВ",
+      "type": "person",
+      "label": "Иван Михайлов Кадев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3091",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2737",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКО ДИМИТРОВ МИЛАНОВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЙКО АНДРЕЕВ МЛАДЕНОВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО ДИМИТРОВ СТОИЛКОВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ИЛИЕВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДИМИТРОВ ЖИЛАНОВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИХАЙЛОВ КАДЕВ",
+      "target": "company:tr:101536112",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2737",
+      "length": 2,
+      "nodeIds": [
+        "mp:3091",
+        "company:tr:101536112",
+        "mp:2737"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

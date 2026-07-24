@@ -1,0 +1,342 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariyana-nikolaeva-boyadzhieva-811bc4",
+  "nodes": [
+    {
+      "id": "official:mariyana-nikolaeva-boyadzhieva-811bc4",
+      "type": "official",
+      "slug": "mariyana-nikolaeva-boyadzhieva-811bc4",
+      "label": "Марияна Николаева Бояджиева",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000703116",
+      "type": "company",
+      "label": "СЪЮЗ НА БЪЛГАРСКИТЕ ЖУРНАЛИСТИ",
+      "slug": null,
+      "uic": "000703116",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО БОЙКОВ ДИМАНОВ",
+      "type": "person",
+      "label": "Ивайло Бойков Диманов"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ДИМИТРОВА КЮЧУКОВА",
+      "type": "person",
+      "label": "Екатерина Димитрова Кючукова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ КЪНЧЕВА МАРИЯНСКА",
+      "type": "person",
+      "label": "Емилия Кънчева Мариянска"
+    },
+    {
+      "id": "person:ПАВЛЕТА ДАВИДОВА ДАВИДОВА",
+      "type": "person",
+      "label": "Павлета Давидова Давидова"
+    },
+    {
+      "id": "person:БЛАГОЙ ИВАНОВ ЦИЦЕЛКОВ",
+      "type": "person",
+      "label": "Благой Иванов Цицелков"
+    },
+    {
+      "id": "person:ЛОЗАН АЛЕКСАНДРОВ ТАКЕВ",
+      "type": "person",
+      "label": "Лозан Александров Такев"
+    },
+    {
+      "id": "person:АНТОАНЕТА АНТОНОВА ТИТЯНОВА-МИЛЧЕВА",
+      "type": "person",
+      "label": "Антоанета Антонова Титянова-Милчева"
+    },
+    {
+      "id": "person:БОРИСЛАВ БОРИСЛАВОВ КОСТУРКОВ",
+      "type": "person",
+      "label": "Борислав Бориславов Костурков"
+    },
+    {
+      "id": "person:СНЕЖАНКА ЦОКОВА ТОДОРОВА-ФЕДОТОВА",
+      "type": "person",
+      "label": "Снежанка Цокова Тодорова-Федотова"
+    },
+    {
+      "id": "person:АННА ЛЕОНИДОВА ЗАРКОВА",
+      "type": "person",
+      "label": "Анна Леонидова Заркова"
+    },
+    {
+      "id": "person:ДАРИНА МАРИНОВА АНАСТАСОВА",
+      "type": "person",
+      "label": "Дарина Маринова Анастасова"
+    },
+    {
+      "id": "person:ДИЯНА ДИМИТРОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Дияна Димитрова Желязкова"
+    },
+    {
+      "id": "person:ВЕЛИАНА ГАВРИЛОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Велиана Гаврилова Христова"
+    },
+    {
+      "id": "person:ГЕОРГИ ДРАГАНОВ КАЛАГЛАРСКИ",
+      "type": "person",
+      "label": "Георги Драганов Калагларски"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Любенова"
+    },
+    {
+      "id": "person:ДАНИЕЛ СВЕТОСЛАВОВ СПАСОВ",
+      "type": "person",
+      "label": "Даниел Светославов Спасов"
+    },
+    {
+      "id": "person:ВАСИЛ СОТИРОВ СОТИРОВ",
+      "type": "person",
+      "label": "Васил Сотиров Сотиров"
+    },
+    {
+      "id": "person:БЛАГОВЕСТ ГАНЧЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Благовест Ганчев Илиев"
+    },
+    {
+      "id": "person:СВЕТЛА НИКОЛОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Светла Николова Стойкова"
+    },
+    {
+      "id": "person:АНТОАНЕТА АНТОНОВА ТИТЯНОВА – МИЛЧЕВА",
+      "type": "person",
+      "label": "Антоанета Антонова Титянова – Милчева"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ БОЗАКОВ",
+      "type": "person",
+      "label": "Александър Георгиев Бозаков"
+    },
+    {
+      "id": "person:МАРТИН ЙОРДАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мартин Йорданов Георгиев"
+    },
+    {
+      "id": "person:ЙОРДАН ТОДОРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йордан Тодоров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-nikolaeva-boyadzhieva-811bc4",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО БОЙКОВ ДИМАНОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ДИМИТРОВА КЮЧУКОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ КЪНЧЕВА МАРИЯНСКА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛЕТА ДАВИДОВА ДАВИДОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ИВАНОВ ЦИЦЕЛКОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАН АЛЕКСАНДРОВ ТАКЕВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА АНТОНОВА ТИТЯНОВА-МИЛЧЕВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ БОРИСЛАВОВ КОСТУРКОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ЦОКОВА ТОДОРОВА-ФЕДОТОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ЛЕОНИДОВА ЗАРКОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА МАРИНОВА АНАСТАСОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ДИМИТРОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИАНА ГАВРИЛОВА ХРИСТОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДРАГАНОВ КАЛАГЛАРСКИ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ЦОКОВА ТОДОРОВА-ФЕДОТОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ЛЮБЕНОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ СВЕТОСЛАВОВ СПАСОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СОТИРОВ СОТИРОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОВЕСТ ГАНЧЕВ ИЛИЕВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА НИКОЛОВА СТОЙКОВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА АНТОНОВА ТИТЯНОВА – МИЛЧЕВА",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ БОЗАКОВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЙОРДАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ТОДОРОВ ГЕОРГИЕВ",
+      "target": "company:tr:000703116",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

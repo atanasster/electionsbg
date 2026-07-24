@@ -1,1 +1,119 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5114","nodes":[{"id":"mp:5114","type":"mp","mpId":5114,"label":"Павлина Ангелова Ковачева","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:177205198","type":"company","label":"Живата вода на България","slug":null,"uic":"177205198","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА","type":"person","label":"Десислава Кирилова Радева"},{"id":"person:СТЕЛА СТОЯНОВА ПОПНИКОЛОВА","type":"person","label":"Стела Стоянова Попниколова"},{"id":"person:МИРЕЛА ИВАНОВА БОЖИНОВА","type":"person","label":"Мирела Иванова Божинова"},{"id":"person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА","type":"person","label":"Десислава Цветанова Груйчева"},{"id":"person:ДОБРОМИР ХРИСТОВ КАЛИСТЕРСКИ","type":"person","label":"Добромир Христов Калистерски"}],"edges":[{"source":"mp:5114","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА СТОЯНОВА ПОПНИКОЛОВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРЕЛА ИВАНОВА БОЖИНОВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР ХРИСТОВ КАЛИСТЕРСКИ","target":"company:tr:177205198","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5114",
+  "nodes": [
+    {
+      "id": "mp:5114",
+      "type": "mp",
+      "mpId": 5114,
+      "label": "Павлина Ангелова Ковачева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:177205198",
+      "type": "company",
+      "label": "Живата вода на България",
+      "slug": null,
+      "uic": "177205198",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА",
+      "type": "person",
+      "label": "Десислава Кирилова Радева"
+    },
+    {
+      "id": "person:СТЕЛА СТОЯНОВА ПОПНИКОЛОВА",
+      "type": "person",
+      "label": "Стела Стоянова Попниколова"
+    },
+    {
+      "id": "person:МИРЕЛА ИВАНОВА БОЖИНОВА",
+      "type": "person",
+      "label": "Мирела Иванова Божинова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА",
+      "type": "person",
+      "label": "Десислава Цветанова Груйчева"
+    },
+    {
+      "id": "person:ДОБРОМИР ХРИСТОВ КАЛИСТЕРСКИ",
+      "type": "person",
+      "label": "Добромир Христов Калистерски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5114",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КИРИЛОВА РАДЕВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА СТОЯНОВА ПОПНИКОЛОВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕЛА ИВАНОВА БОЖИНОВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЦВЕТАНОВА ГРУЙЧЕВА",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ХРИСТОВ КАЛИСТЕРСКИ",
+      "target": "company:tr:177205198",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

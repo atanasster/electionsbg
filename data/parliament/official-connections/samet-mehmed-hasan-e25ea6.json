@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:samet-mehmed-hasan-e25ea6",
+  "nodes": [
+    {
+      "id": "official:samet-mehmed-hasan-e25ea6",
+      "type": "official",
+      "slug": "samet-mehmed-hasan-e25ea6",
+      "label": "Самет Мехмед Хасан",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Завет"
+    },
+    {
+      "id": "company:tr:205534152",
+      "type": "company",
+      "label": "ДИЛБЕРМ ЕООД",
+      "slug": null,
+      "uic": "205534152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:samet-mehmed-hasan-e25ea6",
+      "target": "company:tr:205534152",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

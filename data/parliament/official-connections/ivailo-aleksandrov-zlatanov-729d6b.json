@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivailo-aleksandrov-zlatanov-729d6b",
+  "nodes": [
+    {
+      "id": "official:ivailo-aleksandrov-zlatanov-729d6b",
+      "type": "official",
+      "slug": "ivailo-aleksandrov-zlatanov-729d6b",
+      "label": "Ивайло Александров Златанов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101656421",
+      "type": "company",
+      "label": "ШАНС",
+      "slug": null,
+      "uic": "101656421",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-evstatieva-koteva-dfa2aa",
+      "type": "official",
+      "slug": "mariya-evstatieva-koteva-dfa2aa",
+      "label": "Мария Евстатиева Котева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЖИВКОВА ДЕЛИВЕРСКА",
+      "type": "person",
+      "label": "Екатерина Живкова Деливерска"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА КОСТАДИНОВА РУМЕНОВА-МИЛАДИНОВА",
+      "type": "person",
+      "label": "Десислава Костадинова Руменова-Миладинова"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТОИЛОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Даниела Стоилова Цветанова"
+    },
+    {
+      "id": "person:ДИЯНА ПЕТРОВА ЗАШЕВА",
+      "type": "person",
+      "label": "Дияна Петрова Зашева"
+    },
+    {
+      "id": "person:МИЛОСЛАВА МЛАДЕНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Милослава Младенова Йорданова"
+    },
+    {
+      "id": "person:ИВАН ТОМЧОВ ИКОНОМОВ",
+      "type": "person",
+      "label": "Иван Томчов Икономов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ БАЛАБАНСКИ",
+      "type": "person",
+      "label": "Александър Стефанов Балабански"
+    },
+    {
+      "id": "person:КАТЮША ТЕМЕЛАКИЕВА ЧИМЕВА-ГОЦЕВА",
+      "type": "person",
+      "label": "Катюша Темелакиева Чимева-Гоцева"
+    },
+    {
+      "id": "person:МАРИЯ РАДОЕВА ЖОСТОВА-ЧАЕВА",
+      "type": "person",
+      "label": "Мария Радоева Жостова-Чаева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-aleksandrov-zlatanov-729d6b",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-evstatieva-koteva-dfa2aa",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЖИВКОВА ДЕЛИВЕРСКА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КОСТАДИНОВА РУМЕНОВА-МИЛАДИНОВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТОИЛОВА ЦВЕТАНОВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ПЕТРОВА ЗАШЕВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛОСЛАВА МЛАДЕНОВА ЙОРДАНОВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОМЧОВ ИКОНОМОВ",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЖИВКОВА ДЕЛИВЕРСКА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КОСТАДИНОВА РУМЕНОВА-МИЛАДИНОВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ БАЛАБАНСКИ",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЮША ТЕМЕЛАКИЕВА ЧИМЕВА-ГОЦЕВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ РАДОЕВА ЖОСТОВА-ЧАЕВА",
+      "target": "company:tr:101656421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

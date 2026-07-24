@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-atanasov-aleksiev-e51d7c",
+  "nodes": [
+    {
+      "id": "official:ivan-atanasov-aleksiev-e51d7c",
+      "type": "official",
+      "slug": "ivan-atanasov-aleksiev-e51d7c",
+      "label": "Иван Атанасов Алексиев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Поморие"
+    },
+    {
+      "id": "company:tr:207845305",
+      "type": "company",
+      "label": "Фонд за развитие на летище Бургас",
+      "slug": null,
+      "uic": "207845305",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "mp:1075",
+      "type": "mp",
+      "mpId": 1075,
+      "label": "Иван Атанасов Алексиев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Димитър Николов Николов"
+    },
+    {
+      "id": "person:МАРИН КИРОВ ДИМОВ",
+      "type": "person",
+      "label": "Марин Киров Димов"
+    },
+    {
+      "id": "person:ТИХОМИР ЙОРДАНОВ ЯНАКИЕВ",
+      "type": "person",
+      "label": "Тихомир Йорданов Янакиев"
+    },
+    {
+      "id": "person:АХМЕД СЮЛЕЙМАН МЕХМЕД",
+      "type": "person",
+      "label": "Ахмед Сюлейман Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-atanasov-aleksiev-e51d7c",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-atanasov-aleksiev-e51d7c",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1075",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1075",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН КИРОВ ДИМОВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЙОРДАНОВ ЯНАКИЕВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД СЮЛЕЙМАН МЕХМЕД",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД СЮЛЕЙМАН МЕХМЕД",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН КИРОВ ДИМОВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ЙОРДАНОВ ЯНАКИЕВ",
+      "target": "company:tr:207845305",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

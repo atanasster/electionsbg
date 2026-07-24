@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tatyana-antonova-todorova-64f5ea",
+  "nodes": [
+    {
+      "id": "official:tatyana-antonova-todorova-64f5ea",
+      "type": "official",
+      "slug": "tatyana-antonova-todorova-64f5ea",
+      "label": "Татяна Антонова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000894511",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЕЛСКА ПРОБУДА-1927&quot;",
+      "slug": null,
+      "uic": "000894511",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТРИЯ НИКОВА РУСЕВА",
+      "type": "person",
+      "label": "Димитрия Никова Русева"
+    },
+    {
+      "id": "person:НЕДЯЛКА ДЕЛЧЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Недялка Делчева Колева"
+    },
+    {
+      "id": "person:ЕМИЛ МИТКОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Емил Митков Михайлов"
+    },
+    {
+      "id": "person:НАДКА ГОЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Надка Гочева Тодорова"
+    },
+    {
+      "id": "person:ДИЛЯНА ГОЧЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Диляна Гочева Костадинова"
+    },
+    {
+      "id": "person:БОРЯНА БЯЛКОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Боряна Бялкова Пенева"
+    },
+    {
+      "id": "person:ГИНКА АТАНАСОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Гинка Атанасова Димитрова"
+    },
+    {
+      "id": "person:МИХАИЛ ИВАНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Михаил Иванов Михайлов"
+    },
+    {
+      "id": "person:ЯНИЦА ПЕТКОВА ДИМОВА",
+      "type": "person",
+      "label": "Яница Петкова Димова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ПЕНЧЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Веселина Пенчева Михайлова"
+    },
+    {
+      "id": "person:ТОНКА ЖЕКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Тонка Жекова Тодорова"
+    },
+    {
+      "id": "person:ГАЛИНА МАРКОВА ДАФИНОВА",
+      "type": "person",
+      "label": "Галина Маркова Дафинова"
+    },
+    {
+      "id": "person:РОСИЦА ВЕЛЧЕВА МИТКОВА",
+      "type": "person",
+      "label": "Росица Велчева Миткова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-antonova-todorova-64f5ea",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-antonova-todorova-64f5ea",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТРИЯ НИКОВА РУСЕВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЯ НИКОВА РУСЕВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ДЕЛЧЕВА КОЛЕВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИТКОВ МИХАЙЛОВ",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА ГОЧЕВА ТОДОРОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ГОЧЕВА КОСТАДИНОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА БЯЛКОВА ПЕНЕВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА АТАНАСОВА ДИМИТРОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ИВАНОВ МИХАЙЛОВ",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА ПЕТКОВА ДИМОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ПЕНЧЕВА МИХАЙЛОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА ЖЕКОВА ТОДОРОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА МАРКОВА ДАФИНОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ВЕЛЧЕВА МИТКОВА",
+      "target": "company:tr:000894511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

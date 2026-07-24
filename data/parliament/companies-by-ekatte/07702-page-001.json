@@ -1,1 +1,84 @@
-{"ekatte":"07702","page":1,"totalPages":1,"count":3,"companies":[{"slug":"МЕСТНА-ТЕРИТОРИАЛНА-ОРГАНИЗАЦИЯ-НА-АВТОМОБИЛИСТИТЕ-БЯЛА-СЛАТИНА","displayName":"МЕСТНА ТЕРИТОРИАЛНА ОРГАНИЗАЦИЯ НА АВТОМОБИЛИСТИТЕ - БЯЛА СЛАТИНА","registeredOffice":"БЪЛГАРИЯ, гр. Бяла Слатина, 3200","mps":[{"mpId":2787,"mpName":"Слави Дичев Нецов","role":"liquidator","isCurrent":true},{"mpId":2787,"mpName":"Слави Дичев Нецов","role":"ngo_board","isCurrent":true},{"mpId":2787,"mpName":"Слави Дичев Нецов","role":"ngo_representative","isCurrent":true}]},{"slug":"ТЕРА-СИЛВЪР-НОВА","displayName":"ТЕРА СИЛВЪР НОВА","registeredOffice":"БЪЛГАРИЯ, гр. Бяла Слатина, 3200","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ФАУ-2003","displayName":"ФАУ-2003","registeredOffice":"БЪЛГАРИЯ, гр. Бяла Слатина, 3200","mps":[{"mpId":2787,"mpName":"Слави Дичев Нецов","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "07702",
+  "page": 1,
+  "totalPages": 1,
+  "count": 4,
+  "companies": [
+    {
+      "slug": "МЕСТНА-ТЕРИТОРИАЛНА-ОРГАНИЗАЦИЯ-НА-АВТОМОБИЛИСТИТЕ-БЯЛА-СЛАТИНА",
+      "displayName": "МЕСТНА ТЕРИТОРИАЛНА ОРГАНИЗАЦИЯ НА АВТОМОБИЛИСТИТЕ - БЯЛА СЛАТИНА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Бяла Слатина, 3200",
+      "mps": [
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "liquidator",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТЕРА-ПЛАТИНИУМ",
+      "displayName": "ТЕРА ПЛАТИНИУМ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Бяла Слатина, 3200",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТЕРА-СИЛВЪР-НОВА",
+      "displayName": "ТЕРА СИЛВЪР НОВА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Бяла Слатина, 3200",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФАУ-2003",
+      "displayName": "ФАУ-2003",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Бяла Слатина, 3200",
+      "mps": [
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

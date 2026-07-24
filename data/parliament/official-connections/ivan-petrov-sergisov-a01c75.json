@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-petrov-sergisov-a01c75",
+  "nodes": [
+    {
+      "id": "official:ivan-petrov-sergisov-a01c75",
+      "type": "official",
+      "slug": "ivan-petrov-sergisov-a01c75",
+      "label": "Иван Петров Сергисов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111005715",
+      "type": "company",
+      "label": "ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА МОНТАНА",
+      "slug": null,
+      "uic": "111005715",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ МИТОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Митов Ангелов"
+    },
+    {
+      "id": "person:АНГЕЛ МАРКОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Ангел Марков Минчев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВЛАДИМИРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Десислава Владимирова Георгиева"
+    },
+    {
+      "id": "person:ВИКТОРИЯ КРЪСТЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Виктория Кръстева Тодорова"
+    },
+    {
+      "id": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Христо Славов Петров"
+    },
+    {
+      "id": "person:ГЕОРГИ МИТОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Митов Георгиев"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА БОРИСОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Детелина Борисова Найденова"
+    },
+    {
+      "id": "person:ВАЛЕРИ НИКОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валери Николов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petrov-sergisov-a01c75",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ МИТОВ АНГЕЛОВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ МАРКОВ МИНЧЕВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ МИТОВ АНГЕЛОВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВЛАДИМИРОВА ГЕОРГИЕВА",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ КРЪСТЕВА ТОДОРОВА",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИТОВ ГЕОРГИЕВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА БОРИСОВА НАЙДЕНОВА",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:111005715",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristo-iordanov-kastrev-c20fe9",
+  "nodes": [
+    {
+      "id": "official:hristo-iordanov-kastrev-c20fe9",
+      "type": "official",
+      "slug": "hristo-iordanov-kastrev-c20fe9",
+      "label": "Христо Йорданов Кастрев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:111514573",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ -ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ &quot;АПОЛОН 21&quot;",
+      "slug": null,
+      "uic": "111514573",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА АНГЕЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Маргарита Ангелова Тодорова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ДИМИТРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Антоанета Димитрова Александрова"
+    },
+    {
+      "id": "person:АНЕЛИЯ НИКОЛАЕВА НЕНКОВА",
+      "type": "person",
+      "label": "Анелия Николаева Ненкова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ЦВЕТАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Йорданка Цветанова Йорданова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ПЕТКОВА ПАЧЕВА",
+      "type": "person",
+      "label": "Виолета Петкова Пачева"
+    },
+    {
+      "id": "person:РОСИЦА ТОДОРОВА ЕЛКИНА",
+      "type": "person",
+      "label": "Росица Тодорова Елкина"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТОЯНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Даниела Стоянова Георгиева"
+    },
+    {
+      "id": "person:ОФЕЛИЯ ЦВЕТАНОВА БУЧИНСКА",
+      "type": "person",
+      "label": "Офелия Цветанова Бучинска"
+    },
+    {
+      "id": "person:РУМЯНА ИВАНОВА БОЖИНОВА",
+      "type": "person",
+      "label": "Румяна Иванова Божинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-iordanov-kastrev-c20fe9",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА АНГЕЛОВА ТОДОРОВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ДИМИТРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ НИКОЛАЕВА НЕНКОВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЦВЕТАНОВА ЙОРДАНОВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПЕТКОВА ПАЧЕВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ТОДОРОВА ЕЛКИНА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТОЯНОВА ГЕОРГИЕВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОФЕЛИЯ ЦВЕТАНОВА БУЧИНСКА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ИВАНОВА БОЖИНОВА",
+      "target": "company:tr:111514573",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

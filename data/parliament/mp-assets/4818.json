@@ -1,1 +1,71 @@
-{"mpId":4818,"name":"Иван Валентинов Иванов","partyGroupShort":null,"isCurrent":false,"nsFolders":["42","43","44","45","46","47","48","49","50"],"latestDeclarationYear":2024,"fiscalYear":2023,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2024/05D642CC-97F0-4605-962E-5704F810E341182108.xml","totalAssetsEur":93730.02766089077,"totalDebtsEur":0,"netWorthEur":93730.02766089077,"previous":{"year":2022,"totalAssetsEur":194666.71438724225,"netWorthEur":194666.71438724225},"byCategory":{"real_estate":{"count":3,"valuedCount":3,"totalEur":7669.378217943277},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":2,"valuedCount":2,"totalEur":51129.188119621846},"bank":{"count":2,"valuedCount":2,"totalEur":34931.461323325646},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 4818,
+  "name": "Иван Валентинов Иванов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2024,
+  "fiscalYear": 2023,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2024/05D642CC-97F0-4605-962E-5704F810E341182108.xml",
+  "totalAssetsEur": 93730.02766089077,
+  "totalDebtsEur": 0,
+  "netWorthEur": 93730.02766089077,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 194666.71438724225,
+    "netWorthEur": 194666.71438724225
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 7669.378217943277
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 51129.188119621846
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 34931.461323325646
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

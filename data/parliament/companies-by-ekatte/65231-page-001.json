@@ -1,1 +1,245 @@
-{"ekatte":"65231","page":1,"totalPages":1,"count":10,"companies":[{"slug":"Бг-Хидрострой-80","displayName":"Бг-Хидрострой 80","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"manager","isCurrent":true},{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"sole_owner","isCurrent":true}]},{"slug":"Микро-бизнес-академия","displayName":"Микро бизнес академия","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":3785,"mpName":"Васил Петров Зашкев","role":"ngo_representative","isCurrent":true},{"mpId":3785,"mpName":"Васил Петров Зашкев","role":"ngo_board","isCurrent":true}]},{"slug":"НОРДУУД","displayName":"НОРДУУД","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2377,"mpName":"Росен Петров Петров","role":"manager","isCurrent":true},{"mpId":2377,"mpName":"Росен Петров Петров","role":"sole_owner","isCurrent":true}]},{"slug":"ПОКРИВ-ГРУП","displayName":"ПОКРИВ ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"РД-БИЛД-ГРУП","displayName":"РД  БИЛД  ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"manager","isCurrent":true},{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"sole_owner","isCurrent":true}]},{"slug":"РД-ТРЕЙД-СЪРВИЗ","displayName":"РД ТРЕЙД СЪРВИЗ","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"manager","isCurrent":true},{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"partner","isCurrent":true}]},{"slug":"ФУТБОЛЕН-КЛУБ-СПАРТАК","displayName":"ФУТБОЛЕН КЛУБ СПАРТАК","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2455,"mpName":"Александър Христов Методиев","role":"ngo_board","isCurrent":true},{"mpId":2455,"mpName":"Александър Христов Методиев","role":"ngo_representative","isCurrent":true}]},{"slug":"ХИДРОСТРОЙ-80","displayName":"ХИДРОСТРОЙ - 80","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"manager","isCurrent":true},{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"sole_owner","isCurrent":true}]},{"slug":"МЕСТНА-ИНИЦИАТИВНА-ГРУПА-САМОКОВ","displayName":"МЕСТНА ИНИЦИАТИВНА ГРУПА САМОКОВ","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":4871,"mpName":"Владимир Владимиров Георгиев","role":"ngo_board","isCurrent":true}]},{"slug":"Сдружение-Спортен-клуб-по-шахмат-Самоков","displayName":"Сдружение Спортен клуб по шахмат-Самоков","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"ngo_board","isCurrent":true}]}]}
+{
+  "ekatte": "65231",
+  "page": 1,
+  "totalPages": 1,
+  "count": 15,
+  "companies": [
+    {
+      "slug": "Лиона-66-ЕООД",
+      "displayName": "\"Лиона 66\" ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФМ-2008-ООД",
+      "displayName": "\"ФМ 2008\" ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-ООД",
+      "displayName": "\"Албена спорт\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-2000-ООД",
+      "displayName": "\"Албена спорт 2000\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-200-ООД",
+      "displayName": "\"Албена спорт 200\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Бг-Хидрострой-80",
+      "displayName": "Бг-Хидрострой 80",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2309,
+          "mpName": "Зоран Александров Рангелов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2309,
+          "mpName": "Зоран Александров Рангелов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Микро-бизнес-академия",
+      "displayName": "Микро бизнес академия",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 3785,
+          "mpName": "Васил Петров Зашкев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3785,
+          "mpName": "Васил Петров Зашкев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НОРДУУД",
+      "displayName": "НОРДУУД",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2377,
+          "mpName": "Росен Петров Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2377,
+          "mpName": "Росен Петров Петров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПОКРИВ-ГРУП",
+      "displayName": "ПОКРИВ ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РД-ТРЕЙД-СЪРВИЗ",
+      "displayName": "РД ТРЕЙД СЪРВИЗ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2710,
+          "mpName": "Радослав Любчов Стойчев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2710,
+          "mpName": "Радослав Любчов Стойчев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФУТБОЛЕН-КЛУБ-СПАРТАК",
+      "displayName": "ФУТБОЛЕН КЛУБ СПАРТАК",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2455,
+          "mpName": "Александър Христов Методиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2455,
+          "mpName": "Александър Христов Методиев",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ХИДРОСТРОЙ-80",
+      "displayName": "ХИДРОСТРОЙ - 80",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2309,
+          "mpName": "Зоран Александров Рангелов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2309,
+          "mpName": "Зоран Александров Рангелов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МЕСТНА-ИНИЦИАТИВНА-ГРУПА-САМОКОВ",
+      "displayName": "МЕСТНА ИНИЦИАТИВНА ГРУПА САМОКОВ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 4871,
+          "mpName": "Владимир Владимиров Георгиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РД-БИЛД-ГРУП",
+      "displayName": "РД  БИЛД  ГРУП",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2710,
+          "mpName": "Радослав Любчов Стойчев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-Спортен-клуб-по-шахмат-Самоков",
+      "displayName": "Сдружение Спортен клуб по шахмат-Самоков",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Самоков, 2000",
+      "mps": [
+        {
+          "mpId": 2710,
+          "mpName": "Радослав Любчов Стойчев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

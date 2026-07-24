@@ -1,1 +1,200 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:737","nodes":[{"id":"mp:737","type":"mp","mpId":737,"label":"Цонко Киров Киров","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:115776726","type":"company","label":"НАЙСИ КАР","slug":null,"uic":"115776726","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:115890053","type":"company","label":"СДРУЖЕНИЕ &quot;ЗОРАТА НА ТРАКИЯ&quot;","slug":null,"uic":"115890053","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"person:СТОЯН ИЛИЕВ ИЛИЕВ","type":"person","label":"Стоян Илиев Илиев"},{"id":"person:ДИМИТЪР ИВАНОВ ТОПАЛОВ","type":"person","label":"Димитър Иванов Топалов"},{"id":"person:ДИМИТЪР ВАЛЕРИЕВ ЦЕКОВ","type":"person","label":"Димитър Валериев Цеков"},{"id":"person:ПЛАМЕН БОРИСОВ ИЦОВ","type":"person","label":"Пламен Борисов Ицов"},{"id":"person:СЕВДАЛИН МИНЧЕВ БОЖИКОВ","type":"person","label":"Севдалин Минчев Божиков"}],"edges":[{"source":"mp:737","target":"company:tr:115776726","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:737","target":"company:tr:115776726","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:737","target":"company:tr:115890053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ИЛИЕВ ИЛИЕВ","target":"company:tr:115776726","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИЛИЕВ ИЛИЕВ","target":"company:tr:115776726","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ИВАНОВ ТОПАЛОВ","target":"company:tr:115776726","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВАЛЕРИЕВ ЦЕКОВ","target":"company:tr:115776726","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН БОРИСОВ ИЦОВ","target":"company:tr:115890053","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН БОРИСОВ ИЦОВ","target":"company:tr:115890053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СЕВДАЛИН МИНЧЕВ БОЖИКОВ","target":"company:tr:115890053","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:737",
+  "nodes": [
+    {
+      "id": "mp:737",
+      "type": "mp",
+      "mpId": 737,
+      "label": "Цонко Киров Киров",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:115776726",
+      "type": "company",
+      "label": "НАЙСИ КАР",
+      "slug": null,
+      "uic": "115776726",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:115890053",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЗОРАТА НА ТРАКИЯ&quot;",
+      "slug": null,
+      "uic": "115890053",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "person:СТОЯН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Стоян Илиев Илиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Димитър Иванов Топалов"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАЛЕРИЕВ ЦЕКОВ",
+      "type": "person",
+      "label": "Димитър Валериев Цеков"
+    },
+    {
+      "id": "person:ПЛАМЕН БОРИСОВ ИЦОВ",
+      "type": "person",
+      "label": "Пламен Борисов Ицов"
+    },
+    {
+      "id": "person:СЕВДАЛИН МИНЧЕВ БОЖИКОВ",
+      "type": "person",
+      "label": "Севдалин Минчев Божиков"
+    },
+    {
+      "id": "company:tr:177039294",
+      "type": "company",
+      "label": "Благотворителност и милосърдие",
+      "slug": null,
+      "uic": "177039294",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:645",
+      "type": "mp",
+      "mpId": 645,
+      "label": "Георги Веселинов Пасков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:737",
+      "target": "company:tr:115776726",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:737",
+      "target": "company:tr:115776726",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:737",
+      "target": "company:tr:115890053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:115776726",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:115776726",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ ТОПАЛОВ",
+      "target": "company:tr:115776726",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАЛЕРИЕВ ЦЕКОВ",
+      "target": "company:tr:115776726",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН БОРИСОВ ИЦОВ",
+      "target": "company:tr:115890053",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН БОРИСОВ ИЦОВ",
+      "target": "company:tr:115890053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИН МИНЧЕВ БОЖИКОВ",
+      "target": "company:tr:115890053",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН БОРИСОВ ИЦОВ",
+      "target": "company:tr:177039294",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:645",
+      "target": "company:tr:177039294",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:645",
+      "target": "company:tr:177039294",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:645",
+      "length": 4,
+      "nodeIds": [
+        "mp:737",
+        "company:tr:115890053",
+        "person:ПЛАМЕН БОРИСОВ ИЦОВ",
+        "company:tr:177039294",
+        "mp:645"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

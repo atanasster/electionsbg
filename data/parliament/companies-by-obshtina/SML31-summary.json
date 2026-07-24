@@ -1,1 +1,79 @@
-{"obshtina":"SML31","count":7,"mpCount":4,"totalPages":1,"topCompanies":[{"slug":"Интерлинк-ЕООД","displayName":"Интерлинк ЕООД","registeredOffice":"Смолян","mps":[{"mpId":3731,"mpName":"Зарко Филипов Маринов","role":"declared_stake","isCurrent":true}]},{"slug":"Отзвук-ЕООД","displayName":"Отзвук ЕООД","registeredOffice":"Смолян","mps":[{"mpId":3731,"mpName":"Зарко Филипов Маринов","role":"declared_stake","isCurrent":true}]},{"slug":"Отзвук-прес-ЕООД","displayName":"Отзвук прес ЕООД","registeredOffice":"Смолян","mps":[{"mpId":3731,"mpName":"Зарко Филипов Маринов","role":"declared_stake","isCurrent":true}]},{"slug":"Отзвук.БГ-ЕООД","displayName":"Отзвук.БГ ЕООД","registeredOffice":"Смолян","mps":[{"mpId":3731,"mpName":"Зарко Филипов Маринов","role":"declared_stake","isCurrent":true}]},{"slug":"ДИРОСТ","displayName":"ДИРОСТ","registeredOffice":"БЪЛГАРИЯ, гр. Смолян, 4700","mps":[{"mpId":5222,"mpName":"Стефан Атанасов Сабрутев","role":"partner","isCurrent":true},{"mpId":5222,"mpName":"Стефан Атанасов Сабрутев","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "SML31",
+  "count": 7,
+  "mpCount": 4,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Интерлинк-ЕООД",
+      "displayName": "Интерлинк ЕООД",
+      "registeredOffice": "Смолян",
+      "mps": [
+        {
+          "mpId": 3731,
+          "mpName": "Зарко Филипов Маринов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Отзвук-ЕООД",
+      "displayName": "Отзвук ЕООД",
+      "registeredOffice": "Смолян",
+      "mps": [
+        {
+          "mpId": 3731,
+          "mpName": "Зарко Филипов Маринов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Отзвук-прес-ЕООД",
+      "displayName": "Отзвук прес ЕООД",
+      "registeredOffice": "Смолян",
+      "mps": [
+        {
+          "mpId": 3731,
+          "mpName": "Зарко Филипов Маринов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Отзвук.БГ-ЕООД",
+      "displayName": "Отзвук.БГ ЕООД",
+      "registeredOffice": "Смолян",
+      "mps": [
+        {
+          "mpId": 3731,
+          "mpName": "Зарко Филипов Маринов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДИРОСТ",
+      "displayName": "ДИРОСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Смолян, 4700",
+      "mps": [
+        {
+          "mpId": 5222,
+          "mpName": "Стефан Атанасов Сабрутев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5222,
+          "mpName": "Стефан Атанасов Сабрутев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

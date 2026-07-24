@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gergana-mihailova-mihailova-40b70b",
+  "nodes": [
+    {
+      "id": "official:gergana-mihailova-mihailova-40b70b",
+      "type": "official",
+      "slug": "gergana-mihailova-mihailova-40b70b",
+      "label": "Гергана Михайлова Михайлова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207916193",
+      "type": "company",
+      "label": "МиКаМи дизайн",
+      "slug": null,
+      "uic": "207916193",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОРНИЦА ГЕОРГИЕВА МАДЖЕВА-ВАСЕВА",
+      "type": "person",
+      "label": "Зорница Георгиева Маджева-Васева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-mihailova-mihailova-40b70b",
+      "target": "company:tr:207916193",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-mihailova-mihailova-40b70b",
+      "target": "company:tr:207916193",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОРНИЦА ГЕОРГИЕВА МАДЖЕВА-ВАСЕВА",
+      "target": "company:tr:207916193",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА ГЕОРГИЕВА МАДЖЕВА-ВАСЕВА",
+      "target": "company:tr:207916193",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

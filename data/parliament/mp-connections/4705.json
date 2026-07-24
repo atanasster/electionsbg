@@ -1,1 +1,415 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4705","nodes":[{"id":"mp:4705","type":"mp","mpId":4705,"label":"Александър Викторов Рашев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["46"]},{"id":"company:tr:203339403","type":"company","label":"ИНОВЕЙШЪН КЛАУД","slug":null,"uic":"203339403","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:208426915","type":"company","label":"Вокстър","slug":null,"uic":"208426915","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"company:tr:207725687","type":"company","label":"ПРАВНИ ИНОВАЦИИ","slug":null,"uic":"207725687","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"company:tr:207346220","type":"company","label":"Фрий Линен","slug":null,"uic":"207346220","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"company:tr:201771702","type":"company","label":"ТЕНИС РАШЕВИ","slug":null,"uic":"201771702","legalForm":"OOD","status":"active","seat":null},{"id":"person:ДЕСИСЛАВА КРЪСТЕВА СТОЙКОВА","type":"person","label":"Десислава Кръстева Стойкова"},{"id":"person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА","type":"person","label":"Даниела Ивайлова Петкова"},{"id":"person:ВИКТОР АЛЕКСАНДРОВ РАШЕВ","type":"person","label":"Виктор Александров Рашев"},{"id":"person:АЛЕКС ДАНИЕЛ БОРИМИРОВ","type":"person","label":"Алекс Даниел Боримиров"},{"id":"person:ЙОРДАНКА ГЕОРГИЕВА НИКОЛОВА - РАШЕВА","type":"person","label":"Йорданка Георгиева Николова - Рашева"},{"id":"mp:4900","type":"mp","mpId":4900,"label":"Станислав Светозаров Балабанов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47","49","50"]},{"id":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Иван Димитров Димитров"},{"id":"person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ","type":"person","label":"Калоян Нейчев Величков"},{"id":"person:БОРИС НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Борис Николаев Николов"},{"id":"person:ВАНЯ ПЕТРОВА ЧАНЕВА","type":"person","label":"Ваня Петрова Чанева"},{"id":"person:АСЕН КОСТАДИНОВ ИВАНОВ","type":"person","label":"Асен Костадинов Иванов"},{"id":"company:tr:102011570","type":"company","label":"БУРГАСКА ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА","slug":null,"uic":"102011570","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Бургас, 8000"},{"id":"mp:42","type":"mp","mpId":42,"label":"Йордан Димитров Костадинов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:4705","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:207725687","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:207725687","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:207346220","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:201771702","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕСИСЛАВА КРЪСТЕВА СТОЙКОВА","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР АЛЕКСАНДРОВ РАШЕВ","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКС ДАНИЕЛ БОРИМИРОВ","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАНКА ГЕОРГИЕВА НИКОЛОВА - РАШЕВА","target":"company:tr:203339403","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:4900","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:208426915","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС НИКОЛАЕВ НИКОЛОВ","target":"company:tr:207725687","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА","target":"company:tr:207725687","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС НИКОЛАЕВ НИКОЛОВ","target":"company:tr:207725687","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА","target":"company:tr:207725687","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ПЕТРОВА ЧАНЕВА","target":"company:tr:207346220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН КОСТАДИНОВ ИВАНОВ","target":"company:tr:201771702","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН КОСТАДИНОВ ИВАНОВ","target":"company:tr:201771702","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:102011570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:42","target":"company:tr:102011570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4900","length":2,"nodeIds":["mp:4705","company:tr:208426915","mp:4900"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:42","length":4,"nodeIds":["mp:4705","company:tr:208426915","person:ИВАН ДИМИТРОВ ДИМИТРОВ","company:tr:102011570","mp:42"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4705",
+  "nodes": [
+    {
+      "id": "mp:4705",
+      "type": "mp",
+      "mpId": 4705,
+      "label": "Александър Викторов Рашев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "46"
+      ]
+    },
+    {
+      "id": "company:Каза-адора-ООД",
+      "type": "company",
+      "label": "\"Каза адора\" ООД",
+      "slug": "Каза-адора-ООД",
+      "uic": "202697411",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Тенис-рашеви-ООД",
+      "type": "company",
+      "label": "\"Тенис рашеви\" ООД",
+      "slug": "Тенис-рашеви-ООД",
+      "uic": "201771702",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Фюри-студио-ООД",
+      "type": "company",
+      "label": "\"Фюри студио\" ООД",
+      "slug": "Фюри-студио-ООД",
+      "uic": "203246571",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:203339403",
+      "type": "company",
+      "label": "ИНОВЕЙШЪН КЛАУД",
+      "slug": null,
+      "uic": "203339403",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208426915",
+      "type": "company",
+      "label": "Вокстър",
+      "slug": null,
+      "uic": "208426915",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "company:tr:207725687",
+      "type": "company",
+      "label": "ПРАВНИ ИНОВАЦИИ",
+      "slug": null,
+      "uic": "207725687",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "company:tr:207346220",
+      "type": "company",
+      "label": "Фрий Линен",
+      "slug": null,
+      "uic": "207346220",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "person:АСЕН КОСТАДИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Асен Костадинов Иванов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА КРЪСТЕВА СТОЙКОВА",
+      "type": "person",
+      "label": "Десислава Кръстева Стойкова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Даниела Ивайлова Петкова"
+    },
+    {
+      "id": "person:ВИКТОР АЛЕКСАНДРОВ РАШЕВ",
+      "type": "person",
+      "label": "Виктор Александров Рашев"
+    },
+    {
+      "id": "person:АЛЕКС ДАНИЕЛ БОРИМИРОВ",
+      "type": "person",
+      "label": "Алекс Даниел Боримиров"
+    },
+    {
+      "id": "person:ЙОРДАНКА ГЕОРГИЕВА НИКОЛОВА - РАШЕВА",
+      "type": "person",
+      "label": "Йорданка Георгиева Николова - Рашева"
+    },
+    {
+      "id": "mp:4900",
+      "type": "mp",
+      "mpId": 4900,
+      "label": "Станислав Светозаров Балабанов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Иван Димитров Димитров"
+    },
+    {
+      "id": "person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Калоян Нейчев Величков"
+    },
+    {
+      "id": "person:БОРИС НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Борис Николаев Николов"
+    },
+    {
+      "id": "person:ВАНЯ ПЕТРОВА ЧАНЕВА",
+      "type": "person",
+      "label": "Ваня Петрова Чанева"
+    },
+    {
+      "id": "company:tr:102011570",
+      "type": "company",
+      "label": "БУРГАСКА ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА",
+      "slug": null,
+      "uic": "102011570",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Бургас, 8000"
+    },
+    {
+      "id": "mp:42",
+      "type": "mp",
+      "mpId": 42,
+      "label": "Йордан Димитров Костадинов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4705",
+      "target": "company:Каза-адора-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:Тенис-рашеви-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:Тенис-рашеви-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:Фюри-студио-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:207725687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:207725687",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:207346220",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН КОСТАДИНОВ ИВАНОВ",
+      "target": "company:Тенис-рашеви-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН КОСТАДИНОВ ИВАНОВ",
+      "target": "company:Тенис-рашеви-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА КРЪСТЕВА СТОЙКОВА",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР АЛЕКСАНДРОВ РАШЕВ",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ДАНИЕЛ БОРИМИРОВ",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ГЕОРГИЕВА НИКОЛОВА - РАШЕВА",
+      "target": "company:tr:203339403",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4900",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:207725687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА",
+      "target": "company:tr:207725687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:207725687",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАЙЛОВА ПЕТКОВА",
+      "target": "company:tr:207725687",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЕТРОВА ЧАНЕВА",
+      "target": "company:tr:207346220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:102011570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:42",
+      "target": "company:tr:102011570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4900",
+      "length": 2,
+      "nodeIds": [
+        "mp:4705",
+        "company:tr:208426915",
+        "mp:4900"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:42",
+      "length": 4,
+      "nodeIds": [
+        "mp:4705",
+        "company:tr:208426915",
+        "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:102011570",
+        "mp:42"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

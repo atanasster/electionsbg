@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-stanoev-hristov-316f15",
+  "nodes": [
+    {
+      "id": "official:stefan-stanoev-hristov-316f15",
+      "type": "official",
+      "slug": "stefan-stanoev-hristov-316f15",
+      "label": "Стефан Станоев Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207395452",
+      "type": "company",
+      "label": "ИНДУСТРИАЛНИ ПАРКОВЕ - БЛАГОЕВГРАД",
+      "slug": null,
+      "uic": "207395452",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ВАНГЕЛОВ ПОПОВ",
+      "type": "person",
+      "label": "Стефан Вангелов Попов"
+    },
+    {
+      "id": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "type": "person",
+      "label": "Община Благоевград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-stanoev-hristov-316f15",
+      "target": "company:tr:207395452",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ВАНГЕЛОВ ПОПОВ",
+      "target": "company:tr:207395452",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "target": "company:tr:207395452",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

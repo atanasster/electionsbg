@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:georgi-dimitrov-parushev-33cc47","nodes":[{"id":"official:georgi-dimitrov-parushev-33cc47","type":"official","slug":"georgi-dimitrov-parushev-33cc47","label":"Георги Димитров Парушев","tier":"municipal","role":"councillor","municipality":"Ветово"},{"id":"company:tr:206547793","type":"company","label":"ВКУСНО.бг","slug":null,"uic":"206547793","legalForm":null,"status":null,"seat":null},{"id":"person:АНТОАН ДАУД АЙЮБ","type":"person","label":"Антоан Дауд Айюб"},{"id":"person:ИВАЙЛО ИВАНОВ ИВАНОВ","type":"person","label":"Ивайло Иванов Иванов"}],"edges":[{"source":"official:georgi-dimitrov-parushev-33cc47","target":"company:tr:206547793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:georgi-dimitrov-parushev-33cc47","target":"company:tr:206547793","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:АНТОАН ДАУД АЙЮБ","target":"company:tr:206547793","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ИВАНОВ ИВАНОВ","target":"company:tr:206547793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНТОАН ДАУД АЙЮБ","target":"company:tr:206547793","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-dimitrov-parushev-33cc47",
+  "nodes": [
+    {
+      "id": "official:georgi-dimitrov-parushev-33cc47",
+      "type": "official",
+      "slug": "georgi-dimitrov-parushev-33cc47",
+      "label": "Георги Димитров Парушев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    },
+    {
+      "id": "company:tr:206547793",
+      "type": "company",
+      "label": "ВКУСНО.бг",
+      "slug": null,
+      "uic": "206547793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОАН ДАУД АЙЮБ",
+      "type": "person",
+      "label": "Антоан Дауд Айюб"
+    },
+    {
+      "id": "person:ИВАЙЛО ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-dimitrov-parushev-33cc47",
+      "target": "company:tr:206547793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОАН ДАУД АЙЮБ",
+      "target": "company:tr:206547793",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206547793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАН ДАУД АЙЮБ",
+      "target": "company:tr:206547793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

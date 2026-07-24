@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veselka-stefanova-borisova-aa520b",
+  "nodes": [
+    {
+      "id": "official:veselka-stefanova-borisova-aa520b",
+      "type": "official",
+      "slug": "veselka-stefanova-borisova-aa520b",
+      "label": "Веселка Стефанова Борисова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000761589",
+      "type": "company",
+      "label": "НЧ &quot;Тодор Пеев-1871&quot;",
+      "slug": null,
+      "uic": "000761589",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4557",
+      "type": "mp",
+      "mpId": 4557,
+      "label": "Марин Василев Маринов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ХРИСТО ЦВЕТАНОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Христо Цветанов Андреев"
+    },
+    {
+      "id": "person:ДИМИТЪР РАДОСЛАВОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Радославов Димитров"
+    },
+    {
+      "id": "person:ПЛАМЕН ПЕЕВ ПАТЕВ",
+      "type": "person",
+      "label": "Пламен Пеев Патев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЛАЗАРОВ ЦАЦОВ",
+      "type": "person",
+      "label": "Валентин Лазаров Цацов"
+    },
+    {
+      "id": "person:ДЕТЕЛИН ДАКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Детелин Даков Петров"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ЧИКОВ",
+      "type": "person",
+      "label": "Иван Христов Чиков"
+    },
+    {
+      "id": "person:КРАСИМИРА ЛИНКОВА ЛИЛОВА-ЛАЗАРОВА",
+      "type": "person",
+      "label": "Красимира Линкова Лилова-Лазарова"
+    },
+    {
+      "id": "person:ЛАЗАР НИКОЛОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Лазар Николов Василев"
+    },
+    {
+      "id": "person:ЦВЕТИНА ВЕСЕЛИНОВА СТАМЕНОВА",
+      "type": "person",
+      "label": "Цветина Веселинова Стаменова"
+    },
+    {
+      "id": "person:СТАНКА ВАСИЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Станка Василева Димитрова"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛОВ ШИШКОВ",
+      "type": "person",
+      "label": "Васил Николов Шишков"
+    },
+    {
+      "id": "person:МИЛЕН КРУМОВ ЦЕНКОВ",
+      "type": "person",
+      "label": "Милен Крумов Ценков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselka-stefanova-borisova-aa520b",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4557",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4557",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЦВЕТАНОВ АНДРЕЕВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР РАДОСЛАВОВ ДИМИТРОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ПЕЕВ ПАТЕВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЛАЗАРОВ ЦАЦОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИН ДАКОВ ПЕТРОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ЧИКОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЛИНКОВА ЛИЛОВА-ЛАЗАРОВА",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЗАР НИКОЛОВ ВАСИЛЕВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИНА ВЕСЕЛИНОВА СТАМЕНОВА",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ВАСИЛЕВА ДИМИТРОВА",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛОВ ШИШКОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН КРУМОВ ЦЕНКОВ",
+      "target": "company:tr:000761589",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

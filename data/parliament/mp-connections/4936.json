@@ -1,0 +1,184 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4936",
+  "nodes": [
+    {
+      "id": "mp:4936",
+      "type": "mp",
+      "mpId": 4936,
+      "label": "Танер Кадир Тюркоглу",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Агротек-2007-ООД",
+      "type": "company",
+      "label": "Агротек 2007 ООД",
+      "slug": "Агротек-2007-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Кърджали"
+    },
+    {
+      "id": "company:Бенсу-транс-ЕООД",
+      "type": "company",
+      "label": "Бенсу транс ЕООД",
+      "slug": "Бенсу-транс-ЕООД",
+      "uic": "202252411",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "company:ЕГЕ-2013-ЕООД",
+      "type": "company",
+      "label": "ЕГЕ-2013 ЕООД",
+      "slug": "ЕГЕ-2013-ЕООД",
+      "uic": "202573762",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ХАСКОВО"
+    },
+    {
+      "id": "company:Мартъйем-ООД",
+      "type": "company",
+      "label": "Мартъйем ООД",
+      "slug": "Мартъйем-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Кърджали"
+    },
+    {
+      "id": "person:ЙОАННА ЗДРАВКОВА ДОНЕВА",
+      "type": "person",
+      "label": "Йоанна Здравкова Донева"
+    },
+    {
+      "id": "person:МИХАИЛ ХРИСТОВ ЮЛИЯНОВ",
+      "type": "person",
+      "label": "Михаил Христов Юлиянов"
+    },
+    {
+      "id": "person:ФАХРИЕ ФАХРИ ТЮРКОГЛУ",
+      "type": "person",
+      "label": "Фахрие Фахри Тюркоглу"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ ДИКАРЛО",
+      "type": "person",
+      "label": "Александър Стефанов Дикарло"
+    },
+    {
+      "id": "person:АЛИПИ ХАРИЕВ БОДЕВ",
+      "type": "person",
+      "label": "Алипи Хариев Бодев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4936",
+      "target": "company:Агротек-2007-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4936",
+      "target": "company:Бенсу-транс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4936",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4936",
+      "target": "company:Мартъйем-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ЗДРАВКОВА ДОНЕВА",
+      "target": "company:Бенсу-транс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ХРИСТОВ ЮЛИЯНОВ",
+      "target": "company:Бенсу-транс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ХРИСТОВ ЮЛИЯНОВ",
+      "target": "company:Бенсу-транс-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАХРИЕ ФАХРИ ТЮРКОГЛУ",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ ДИКАРЛО",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАХРИЕ ФАХРИ ТЮРКОГЛУ",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ ДИКАРЛО",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИПИ ХАРИЕВ БОДЕВ",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

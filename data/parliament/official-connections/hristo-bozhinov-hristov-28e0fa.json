@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristo-bozhinov-hristov-28e0fa",
+  "nodes": [
+    {
+      "id": "official:hristo-bozhinov-hristov-28e0fa",
+      "type": "official",
+      "slug": "hristo-bozhinov-hristov-28e0fa",
+      "label": "Христо Божинов Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206802062",
+      "type": "company",
+      "label": "ФИТИНГ МОНТАЖИ",
+      "slug": null,
+      "uic": "206802062",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЛВИЯ ТОДОРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Силвия Тодорова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-bozhinov-hristov-28e0fa",
+      "target": "company:tr:206802062",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-bozhinov-hristov-28e0fa",
+      "target": "company:tr:206802062",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:206802062",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:206802062",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

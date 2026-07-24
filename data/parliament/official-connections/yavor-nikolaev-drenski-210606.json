@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yavor-nikolaev-drenski-210606",
+  "nodes": [
+    {
+      "id": "official:yavor-nikolaev-drenski-210606",
+      "type": "official",
+      "slug": "yavor-nikolaev-drenski-210606",
+      "label": "Явор Николаев Дренски",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207272122",
+      "type": "company",
+      "label": "Фри Концепт ООД",
+      "slug": null,
+      "uic": "207272122",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА ДРЕНСКА",
+      "type": "person",
+      "label": "Мария Стоянова Дренска"
+    },
+    {
+      "id": "person:ЯВОР НИКОЛАЕВ ДРЕНСКИ",
+      "type": "person",
+      "label": "Явор Николаев Дренски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-nikolaev-drenski-210606",
+      "target": "company:tr:207272122",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА ДРЕНСКА",
+      "target": "company:tr:207272122",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР НИКОЛАЕВ ДРЕНСКИ",
+      "target": "company:tr:207272122",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА ДРЕНСКА",
+      "target": "company:tr:207272122",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР НИКОЛАЕВ ДРЕНСКИ",
+      "target": "company:tr:207272122",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

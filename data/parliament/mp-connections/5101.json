@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5101","nodes":[{"id":"mp:5101","type":"mp","mpId":5101,"label":"Георги Николаев Георгиев","partyGroupShort":"ПГ на ВЪЗРАЖДАНЕ","isCurrent":true,"nsFolders":["47","48","49","50","51","52"]},{"id":"company:БГ-Прогресс","type":"company","label":"БГ Прогресс","slug":"БГ-Прогресс","uic":"202284206","legalForm":"OOD","status":"active","seat":"Хасково"},{"id":"company:Голдмайнд","type":"company","label":"Голдмайнд","slug":"Голдмайнд","uic":"205184887","legalForm":"OOD","status":"active","seat":"Пловдив"}],"edges":[{"source":"mp:5101","target":"company:БГ-Прогресс","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5101","target":"company:Голдмайнд","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5101",
+  "nodes": [
+    {
+      "id": "mp:5101",
+      "type": "mp",
+      "mpId": 5101,
+      "label": "Георги Николаев Георгиев",
+      "partyGroupShort": "ПГ на ВЪЗРАЖДАНЕ",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:БГ-Прогресс",
+      "type": "company",
+      "label": "БГ Прогресс",
+      "slug": "БГ-Прогресс",
+      "uic": "202284206",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:Голдмайнд",
+      "type": "company",
+      "label": "Голдмайнд",
+      "slug": "Голдмайнд",
+      "uic": "205184887",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5101",
+      "target": "company:БГ-Прогресс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:Голдмайнд",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

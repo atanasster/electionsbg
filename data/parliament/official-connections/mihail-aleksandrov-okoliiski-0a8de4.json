@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mihail-aleksandrov-okoliiski-0a8de4",
+  "nodes": [
+    {
+      "id": "official:mihail-aleksandrov-okoliiski-0a8de4",
+      "type": "official",
+      "slug": "mihail-aleksandrov-okoliiski-0a8de4",
+      "label": "Михаил Александров Околийски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176388745",
+      "type": "company",
+      "label": "КОАЛИЦИЯ ЗА ЖИВОТ БЕЗ ТЮТЮН И НИКОТИН",
+      "slug": null,
+      "uic": "176388745",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА ГЕОРГИЕВА КУРШУМОВА-ГЕШАНОВА",
+      "type": "person",
+      "label": "Гергана Георгиева Куршумова-Гешанова"
+    },
+    {
+      "id": "person:МАША ВЪЛКОВА ГАВРАИЛОВА",
+      "type": "person",
+      "label": "Маша Вълкова Гавраилова"
+    },
+    {
+      "id": "person:ПАВЕЛ ПАВЛОВ АНТОНОВ",
+      "type": "person",
+      "label": "Павел Павлов Антонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-aleksandrov-okoliiski-0a8de4",
+      "target": "company:tr:176388745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА КУРШУМОВА-ГЕШАНОВА",
+      "target": "company:tr:176388745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАША ВЪЛКОВА ГАВРАИЛОВА",
+      "target": "company:tr:176388745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ПАВЛОВ АНТОНОВ",
+      "target": "company:tr:176388745",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

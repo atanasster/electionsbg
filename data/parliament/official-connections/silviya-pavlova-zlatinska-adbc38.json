@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:silviya-pavlova-zlatinska-adbc38",
+  "nodes": [
+    {
+      "id": "official:silviya-pavlova-zlatinska-adbc38",
+      "type": "official",
+      "slug": "silviya-pavlova-zlatinska-adbc38",
+      "label": "Силвия Павлова Златинска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121514988",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКА БИБЛИОТЕЧНО-ИНФОРМАЦИОННА АСОЦИАЦИЯ&quot;",
+      "slug": null,
+      "uic": "121514988",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vanya-angelova-grashkina-mincheva-2d5850",
+      "type": "official",
+      "slug": "vanya-angelova-grashkina-mincheva-2d5850",
+      "label": "Ваня Ангелова Грашкина-Минчева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:nadezhda-petrakieva-grueva-4fde8d",
+      "type": "official",
+      "slug": "nadezhda-petrakieva-grueva-4fde8d",
+      "label": "Надежда Петракиева Груева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:rositsa-dobreva-strateva-d41cce",
+      "type": "official",
+      "slug": "rositsa-dobreva-strateva-d41cce",
+      "label": "Росица Добрева Стратева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:АНЕТА ДОНЧЕВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Анета Дончева Дончева"
+    },
+    {
+      "id": "person:ГАЛИНА ПЕТРОВА САВОВА",
+      "type": "person",
+      "label": "Галина Петрова Савова"
+    },
+    {
+      "id": "person:ДИМИТЪР ТОТЕВ МИНЕВ",
+      "type": "person",
+      "label": "Димитър Тотев Минев"
+    },
+    {
+      "id": "person:ВАСИЛ ЙОРДАНОВ ЗАГОРОВ",
+      "type": "person",
+      "label": "Васил Йорданов Загоров"
+    },
+    {
+      "id": "person:ЕЛИЦА ИВАНОВА ЛОЗАНОВА-БЕЛЧЕВА",
+      "type": "person",
+      "label": "Елица Иванова Лозанова-Белчева"
+    },
+    {
+      "id": "person:ПЕТЯ НИКОЛАЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Петя Николаева Георгиева"
+    },
+    {
+      "id": "person:СПАСКА ДИМИТРОВА ТАРАНДОВА",
+      "type": "person",
+      "label": "Спаска Димитрова Тарандова"
+    },
+    {
+      "id": "person:КАЛИНА ЙОРДАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Калина Йорданова Иванова"
+    },
+    {
+      "id": "person:СИЛВИЯ ВЕЛИНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Силвия Велинова Найденова"
+    },
+    {
+      "id": "person:ЛУИЗА ЛЮБОМИРОВА САВЧЕВА",
+      "type": "person",
+      "label": "Луиза Любомирова Савчева"
+    },
+    {
+      "id": "person:ЛИЛИ СИМЕОНОВА СПАСОВА",
+      "type": "person",
+      "label": "Лили Симеонова Спасова"
+    },
+    {
+      "id": "person:ЕЛИЦА ИВАНОВА ЛОЗАНОВА - БЕЛЧЕВА",
+      "type": "person",
+      "label": "Елица Иванова Лозанова - Белчева"
+    },
+    {
+      "id": "person:ВАНЯ АНГЕЛОВА ГРАШКИНА - МИНЧЕВА",
+      "type": "person",
+      "label": "Ваня Ангелова Грашкина - Минчева"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ДИМИТРОВА ТЕРЗИЕВА",
+      "type": "person",
+      "label": "Валентина Димитрова Терзиева"
+    },
+    {
+      "id": "person:СОНЯ ЕФТИМОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Соня Ефтимова Първанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-pavlova-zlatinska-adbc38",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vanya-angelova-grashkina-mincheva-2d5850",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadezhda-petrakieva-grueva-4fde8d",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-dobreva-strateva-d41cce",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНЕТА ДОНЧЕВА ДОНЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ПЕТРОВА САВОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ТОТЕВ МИНЕВ",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ЗАГОРОВ",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ДОНЧЕВА ДОНЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ИВАНОВА ЛОЗАНОВА-БЕЛЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ НИКОЛАЕВА ГЕОРГИЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА ДИМИТРОВА ТАРАНДОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ЙОРДАНОВА ИВАНОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ЙОРДАНОВА ИВАНОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ВЕЛИНОВА НАЙДЕНОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУИЗА ЛЮБОМИРОВА САВЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИ СИМЕОНОВА СПАСОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ИВАНОВА ЛОЗАНОВА - БЕЛЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ АНГЕЛОВА ГРАШКИНА - МИНЧЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ДИМИТРОВА ТЕРЗИЕВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ЕФТИМОВА ПЪРВАНОВА",
+      "target": "company:tr:121514988",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetlana-mihailovna-iordanova-e48a17",
+  "nodes": [
+    {
+      "id": "official:svetlana-mihailovna-iordanova-e48a17",
+      "type": "official",
+      "slug": "svetlana-mihailovna-iordanova-e48a17",
+      "label": "Светлана Михайловна Йорданова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206917584",
+      "type": "company",
+      "label": "28 дни за да си чист ООД",
+      "slug": null,
+      "uic": "206917584",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204631980",
+      "type": "company",
+      "label": "Синерджи хелт ООД",
+      "slug": null,
+      "uic": "204631980",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА МИХАЙЛОВНА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Светлана Михайловна Йорданова"
+    },
+    {
+      "id": "person:ЛЮДМИЛА ЗАФИРОВА",
+      "type": "person",
+      "label": "Людмила Зафирова"
+    },
+    {
+      "id": "person:ЙОРДАН НИКОЛАЕВ ЗАФИРОВ",
+      "type": "person",
+      "label": "Йордан Николаев Зафиров"
+    },
+    {
+      "id": "person:ИЛКО МАТОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илко Матов Илиев"
+    },
+    {
+      "id": "person:РАДОСЛАВ СЕРГЕЕВ КОШИНСКИ",
+      "type": "person",
+      "label": "Радослав Сергеев Кошински"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlana-mihailovna-iordanova-e48a17",
+      "target": "company:tr:206917584",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetlana-mihailovna-iordanova-e48a17",
+      "target": "company:tr:204631980",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА МИХАЙЛОВНА ЙОРДАНОВА",
+      "target": "company:tr:206917584",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ЗАФИРОВА",
+      "target": "company:tr:206917584",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН НИКОЛАЕВ ЗАФИРОВ",
+      "target": "company:tr:206917584",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА МИХАЙЛОВНА ЙОРДАНОВА",
+      "target": "company:tr:206917584",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА МИХАЙЛОВНА ЙОРДАНОВА",
+      "target": "company:tr:204631980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА МИХАЙЛОВНА ЙОРДАНОВА",
+      "target": "company:tr:204631980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО МАТОВ ИЛИЕВ",
+      "target": "company:tr:204631980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ СЕРГЕЕВ КОШИНСКИ",
+      "target": "company:tr:204631980",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО МАТОВ ИЛИЕВ",
+      "target": "company:tr:204631980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

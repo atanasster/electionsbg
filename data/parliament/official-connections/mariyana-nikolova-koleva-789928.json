@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariyana-nikolova-koleva-789928",
+  "nodes": [
+    {
+      "id": "official:mariyana-nikolova-koleva-789928",
+      "type": "official",
+      "slug": "mariyana-nikolova-koleva-789928",
+      "label": "Марияна Николова Колева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107507217",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;Д-Р ТОТА ВЕНКОВА&quot;",
+      "slug": null,
+      "uic": "107507217",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:neli-ivanova-savcheva-2cf48c",
+      "type": "official",
+      "slug": "neli-ivanova-savcheva-2cf48c",
+      "label": "Нели Иванова Савчева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:МИНКО ЦВЯТКОВ МИХОВ",
+      "type": "person",
+      "label": "Минко Цвятков Михов"
+    },
+    {
+      "id": "person:ГЕРГАНА РОСЕНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Гергана Росенова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-nikolova-koleva-789928",
+      "target": "company:tr:107507217",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:neli-ivanova-savcheva-2cf48c",
+      "target": "company:tr:107507217",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИНКО ЦВЯТКОВ МИХОВ",
+      "target": "company:tr:107507217",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО ЦВЯТКОВ МИХОВ",
+      "target": "company:tr:107507217",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА РОСЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:107507217",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:petr-dimitrov-parashkevov-0e0f73",
+  "nodes": [
+    {
+      "id": "official:petr-dimitrov-parashkevov-0e0f73",
+      "type": "official",
+      "slug": "petr-dimitrov-parashkevov-0e0f73",
+      "label": "Петър Димитров Парашкевов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гулянци"
+    },
+    {
+      "id": "company:tr:114084970",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ \"ВАСИЛ ЛЕВСКИ - 1928\"",
+      "slug": null,
+      "uic": "114084970",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИМА ПАНТАЛЕЕВА РАДУЛОВА",
+      "type": "person",
+      "label": "Мима Панталеева Радулова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ЕВЛОГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Величка Евлогиева Георгиева"
+    },
+    {
+      "id": "person:СИЛВИЯ ДИМИТРОВА ПАСКОВА",
+      "type": "person",
+      "label": "Силвия Димитрова Паскова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА КРЪСТЕВА МАНДРАЧЕЛОВА",
+      "type": "person",
+      "label": "Валентина Кръстева Мандрачелова"
+    },
+    {
+      "id": "person:РАДКА ГЕОРГИЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Радка Георгиева Атанасова"
+    },
+    {
+      "id": "person:СТОЙКА МЕТОДИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Стойка Методиева Христова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ОГНЯНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Цветелина Огнянова Костадинова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ САШКОВА ВЕСЕЛИНОВА",
+      "type": "person",
+      "label": "Емилия Сашкова Веселинова"
+    },
+    {
+      "id": "person:СТЕЛА СИМЕОНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Стела Симеонова Иванова"
+    },
+    {
+      "id": "person:СВЕТЛА ЛЮБЕНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Светла Любенова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-dimitrov-parashkevov-0e0f73",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИМА ПАНТАЛЕЕВА РАДУЛОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ЕВЛОГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДИМИТРОВА ПАСКОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА КРЪСТЕВА МАНДРАЧЕЛОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИМА ПАНТАЛЕЕВА РАДУЛОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ГЕОРГИЕВА АТАНАСОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ГЕОРГИЕВА АТАНАСОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКА МЕТОДИЕВА ХРИСТОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ОГНЯНОВА КОСТАДИНОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ САШКОВА ВЕСЕЛИНОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА СИМЕОНОВА ИВАНОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ЛЮБЕНОВА ХРИСТОВА",
+      "target": "company:tr:114084970",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

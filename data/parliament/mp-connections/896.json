@@ -1,1 +1,74 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:896","nodes":[{"id":"mp:896","type":"mp","mpId":896,"label":"Ваня Донева Георгиева","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:204363271","type":"company","label":"АЛИАНС АКТИВ","slug":null,"uic":"204363271","legalForm":"OOD","status":"active","seat":null},{"id":"person:РОСИЦА СЪБЕВА АТАНАСОВА","type":"person","label":"Росица Събева Атанасова"}],"edges":[{"source":"mp:896","target":"company:tr:204363271","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РОСИЦА СЪБЕВА АТАНАСОВА","target":"company:tr:204363271","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:896",
+  "nodes": [
+    {
+      "id": "mp:896",
+      "type": "mp",
+      "mpId": 896,
+      "label": "Ваня Донева Георгиева",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:204363271",
+      "type": "company",
+      "label": "АЛИАНС АКТИВ",
+      "slug": null,
+      "uic": "204363271",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:vanya-doneva-georgieva-900551",
+      "type": "official",
+      "slug": "vanya-doneva-georgieva-900551",
+      "label": "Ваня Донева Георгиева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "person:РОСИЦА СЪБЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Росица Събева Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:896",
+      "target": "company:tr:204363271",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vanya-doneva-georgieva-900551",
+      "target": "company:tr:204363271",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-doneva-georgieva-900551",
+      "target": "company:tr:204363271",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА СЪБЕВА АТАНАСОВА",
+      "target": "company:tr:204363271",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5183","nodes":[{"id":"mp:5183","type":"mp","mpId":5183,"label":"Антонио Владимиров Василев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:208209089","type":"company","label":"АВВ МЕД","slug":null,"uic":"208209089","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"company:tr:208188008","type":"company","label":"АВВ ПЛЕВЕН","slug":null,"uic":"208188008","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"company:tr:207336272","type":"company","label":"Индивидуална практика за първична извънболнична медицинска помощ доктор А.Василев","slug":null,"uic":"207336272","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА","type":"person","label":"Танислава Атанасова Василева"}],"edges":[{"source":"mp:5183","target":"company:tr:208209089","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5183","target":"company:tr:208209089","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5183","target":"company:tr:208188008","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5183","target":"company:tr:208188008","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5183","target":"company:tr:207336272","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5183","target":"company:tr:207336272","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА","target":"company:tr:208209089","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА","target":"company:tr:208188008","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА","target":"company:tr:207336272","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5183",
+  "nodes": [
+    {
+      "id": "mp:5183",
+      "type": "mp",
+      "mpId": 5183,
+      "label": "Антонио Владимиров Василев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:208209089",
+      "type": "company",
+      "label": "АВВ МЕД",
+      "slug": null,
+      "uic": "208209089",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:208188008",
+      "type": "company",
+      "label": "АВВ ПЛЕВЕН",
+      "slug": null,
+      "uic": "208188008",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:207336272",
+      "type": "company",
+      "label": "Индивидуална практика за първична извънболнична медицинска помощ доктор А.Василев",
+      "slug": null,
+      "uic": "207336272",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Танислава Атанасова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5183",
+      "target": "company:tr:208209089",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5183",
+      "target": "company:tr:208209089",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5183",
+      "target": "company:tr:208188008",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5183",
+      "target": "company:tr:208188008",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5183",
+      "target": "company:tr:207336272",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5183",
+      "target": "company:tr:207336272",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА",
+      "target": "company:tr:208209089",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА",
+      "target": "company:tr:208188008",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНИСЛАВА АТАНАСОВА ВАСИЛЕВА",
+      "target": "company:tr:207336272",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

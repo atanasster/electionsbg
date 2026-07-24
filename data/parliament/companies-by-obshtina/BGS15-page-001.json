@@ -1,1 +1,111 @@
-{"obshtina":"BGS15","page":1,"totalPages":1,"count":7,"companies":[{"slug":"ДЕЛИЖАНС-С","displayName":"ДЕЛИЖАНС С","registeredOffice":"БЪЛГАРИЯ, гр. Свети Влас","mps":[{"mpId":3282,"mpName":"Живко Иванов Табаков","role":"manager","isCurrent":true},{"mpId":3282,"mpName":"Живко Иванов Табаков","role":"sole_owner","isCurrent":true}]},{"slug":"ПО-АЛ-ДИ","displayName":"ПО-АЛ-ДИ","registeredOffice":"БЪЛГАРИЯ, с. Равда, 8238","mps":[{"mpId":5298,"mpName":"Александър Димитров Попов","role":"manager","isCurrent":true},{"mpId":5298,"mpName":"Александър Димитров Попов","role":"sole_owner","isCurrent":true}]},{"slug":"ГОУ-БГ-Холидей","displayName":"ГОУ БГ Холидей","registeredOffice":"гр.Несебър","mps":[{"mpId":4610,"mpName":"Звезделина Камелиева Каравелова","role":"declared_stake","isCurrent":true}]},{"slug":"ЛОВНО-РИБАРСКО-СДРУЖЕНИЕ-БАЛКАН-2012","displayName":"ЛОВНО - РИБАРСКО СДРУЖЕНИЕ БАЛКАН - 2012","registeredOffice":"БЪЛГАРИЯ, с. Оризаре, 8248","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"ngo_board","isCurrent":true}]},{"slug":"Мак-Инвест-21-ООД","displayName":"Мак Инвест 21 ООД","registeredOffice":"Несебър","mps":[{"mpId":4452,"mpName":"Кирил Тодоров Тодоров","role":"declared_stake","isCurrent":true}]},{"slug":"НАПРЕД-НЕСЕБЪР","displayName":"НАПРЕД НЕСЕБЪР","registeredOffice":"БЪЛГАРИЯ, гр. Несебър, 8230","mps":[{"mpId":3103,"mpName":"Димитър Бойчев Петров","role":"ngo_board","isCurrent":true}]},{"slug":"РОНИ-М-2011","displayName":"РОНИ М 2011","registeredOffice":"БЪЛГАРИЯ, гр. Свети Влас, 8256","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "BGS15",
+  "page": 1,
+  "totalPages": 1,
+  "count": 7,
+  "companies": [
+    {
+      "slug": "ДЕЛИЖАНС-С",
+      "displayName": "ДЕЛИЖАНС С",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Свети Влас",
+      "mps": [
+        {
+          "mpId": 3282,
+          "mpName": "Живко Иванов Табаков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3282,
+          "mpName": "Живко Иванов Табаков",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПО-АЛ-ДИ",
+      "displayName": "ПО-АЛ-ДИ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Равда, 8238",
+      "mps": [
+        {
+          "mpId": 5298,
+          "mpName": "Александър Димитров Попов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5298,
+          "mpName": "Александър Димитров Попов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГОУ-БГ-Холидей",
+      "displayName": "ГОУ БГ Холидей",
+      "registeredOffice": "гр.Несебър",
+      "mps": [
+        {
+          "mpId": 4610,
+          "mpName": "Звезделина Камелиева Каравелова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛОВНО-РИБАРСКО-СДРУЖЕНИЕ-БАЛКАН-2012",
+      "displayName": "ЛОВНО - РИБАРСКО СДРУЖЕНИЕ БАЛКАН - 2012",
+      "registeredOffice": "БЪЛГАРИЯ, с. Оризаре, 8248",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Мак-Инвест-21-ООД",
+      "displayName": "Мак Инвест 21 ООД",
+      "registeredOffice": "Несебър",
+      "mps": [
+        {
+          "mpId": 4452,
+          "mpName": "Кирил Тодоров Тодоров",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАПРЕД-НЕСЕБЪР",
+      "displayName": "НАПРЕД НЕСЕБЪР",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Несебър, 8230",
+      "mps": [
+        {
+          "mpId": 3103,
+          "mpName": "Димитър Бойчев Петров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РОНИ-М-2011",
+      "displayName": "РОНИ М 2011",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Свети Влас, 8256",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

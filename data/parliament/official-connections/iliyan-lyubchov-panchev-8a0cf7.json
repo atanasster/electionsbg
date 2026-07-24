@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliyan-lyubchov-panchev-8a0cf7",
+  "nodes": [
+    {
+      "id": "official:iliyan-lyubchov-panchev-8a0cf7",
+      "type": "official",
+      "slug": "iliyan-lyubchov-panchev-8a0cf7",
+      "label": "Илиян Любчов Панчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:201865125",
+      "type": "company",
+      "label": "Домейн Сандански ООД",
+      "slug": null,
+      "uic": "201865125",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206702051",
+      "type": "company",
+      "label": "Изи Пропъртис ЕООД",
+      "slug": null,
+      "uic": "206702051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА ГЕОРГИЕВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Светлана Георгиева Дончева"
+    },
+    {
+      "id": "person:ЛЮБОМИРА ГЕОРГИЕВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Любомира Георгиева Дончева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-lyubchov-panchev-8a0cf7",
+      "target": "company:tr:201865125",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iliyan-lyubchov-panchev-8a0cf7",
+      "target": "company:tr:206702051",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ГЕОРГИЕВА ДОНЧЕВА",
+      "target": "company:tr:201865125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРА ГЕОРГИЕВА ДОНЧЕВА",
+      "target": "company:tr:201865125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ГЕОРГИЕВА ДОНЧЕВА",
+      "target": "company:tr:206702051",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ГЕОРГИЕВА ДОНЧЕВА",
+      "target": "company:tr:206702051",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,85 @@
-{"ekatte":"16359","page":1,"totalPages":1,"count":4,"companies":[{"slug":"КАСИДИМА","displayName":"КАСИДИМА","registeredOffice":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100","mps":[{"mpId":5217,"mpName":"Димитър Иванов Кънев","role":"manager","isCurrent":true},{"mpId":5217,"mpName":"Димитър Иванов Кънев","role":"sole_owner","isCurrent":true}]},{"slug":"КРИСДЕНИ","displayName":"КРИСДЕНИ","registeredOffice":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100","mps":[{"mpId":961,"mpName":"Милена Иванова Христова","role":"manager","isCurrent":true},{"mpId":961,"mpName":"Милена Иванова Христова","role":"sole_owner","isCurrent":true}]},{"slug":"ИНДУСТРИАЛЕН-ПАРК-РЯХОВЕЦ","displayName":"ИНДУСТРИАЛЕН ПАРК - РЯХОВЕЦ","registeredOffice":"БЪЛГАРИЯ, гр. Горна Оряховица, 5100","mps":[{"mpId":2770,"mpName":"Клавдия Георгиева Григорова-Ганчева","role":"director","isCurrent":true}]},{"slug":"Крис-Р","displayName":"Крис-Р","registeredOffice":"Горна Оряховица","mps":[{"mpId":4720,"mpName":"Явор Руменов Божанков","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "16359",
+  "page": 1,
+  "totalPages": 1,
+  "count": 5,
+  "companies": [
+    {
+      "slug": "Крис-Р",
+      "displayName": "Крис-Р",
+      "registeredOffice": "Горна Оряховица",
+      "mps": [
+        {
+          "mpId": 4720,
+          "mpName": "Явор Руменов Божанков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Крис-Р-2",
+      "displayName": "Крис -Р",
+      "registeredOffice": "Горна Оряховица",
+      "mps": [
+        {
+          "mpId": 4720,
+          "mpName": "Явор Руменов Божанков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КАСИДИМА",
+      "displayName": "КАСИДИМА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100",
+      "mps": [
+        {
+          "mpId": 5217,
+          "mpName": "Димитър Иванов Кънев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5217,
+          "mpName": "Димитър Иванов Кънев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КРИСДЕНИ",
+      "displayName": "КРИСДЕНИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100",
+      "mps": [
+        {
+          "mpId": 961,
+          "mpName": "Милена Иванова Христова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 961,
+          "mpName": "Милена Иванова Христова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНДУСТРИАЛЕН-ПАРК-РЯХОВЕЦ",
+      "displayName": "ИНДУСТРИАЛЕН ПАРК - РЯХОВЕЦ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100",
+      "mps": [
+        {
+          "mpId": 2770,
+          "mpName": "Клавдия Георгиева Григорова-Ганчева",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

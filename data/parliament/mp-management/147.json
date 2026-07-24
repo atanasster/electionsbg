@@ -1,1 +1,50 @@
-{"mpId":147,"mpName":"Камелия Методиева Касабова","generatedAt":"2026-07-03T11:12:51.422Z","total":3,"roles":[{"uic":"175179632","companyName":"КАМРЕЙ ЕООД","legalForm":"EOOD","seat":null,"status":"ceased","role":"liquidator","positionLabel":null,"sharePercent":null,"addedAt":"2026-02-16T11:14:24","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175179632","companyName":"КАМРЕЙ ЕООД","legalForm":"EOOD","seat":null,"status":"ceased","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-12-18T12:04:42","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175179632","companyName":"КАМРЕЙ ЕООД","legalForm":"EOOD","seat":null,"status":"ceased","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-12-18T12:04:42","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 147,
+  "mpName": "Камелия Методиева Касабова",
+  "generatedAt": "2026-07-24T03:35:58.182Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "175179632",
+      "companyName": "КАМРЕЙ ЕООД",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-02-16T11:14:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175179632",
+      "companyName": "КАМРЕЙ ЕООД",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-12-18T12:04:42",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175179632",
+      "companyName": "КАМРЕЙ ЕООД",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-12-18T12:04:42",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

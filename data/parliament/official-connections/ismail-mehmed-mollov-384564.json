@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ismail-mehmed-mollov-384564",
+  "nodes": [
+    {
+      "id": "official:ismail-mehmed-mollov-384564",
+      "type": "official",
+      "slug": "ismail-mehmed-mollov-384564",
+      "label": "Исмаил Мехмед Моллов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:112114482",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ЧЕПИНЕЦ",
+      "slug": null,
+      "uic": "112114482",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМОВ БЕЛЕВ",
+      "type": "person",
+      "label": "Георги Димов Белев"
+    },
+    {
+      "id": "person:СТЕФАН ЯНКОВ КАРАМАНОВ",
+      "type": "person",
+      "label": "Стефан Янков Караманов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ismail-mehmed-mollov-384564",
+      "target": "company:tr:112114482",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ismail-mehmed-mollov-384564",
+      "target": "company:tr:112114482",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМОВ БЕЛЕВ",
+      "target": "company:tr:112114482",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЯНКОВ КАРАМАНОВ",
+      "target": "company:tr:112114482",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

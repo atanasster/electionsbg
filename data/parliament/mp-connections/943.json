@@ -1,1 +1,99 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:943","nodes":[{"id":"mp:943","type":"mp","mpId":943,"label":"Румен Йорданов Петков","partyGroupShort":"Левицата","isCurrent":false,"nsFolders":["39","40"]},{"id":"company:tr:176644461","type":"company","label":"СДРУЖЕНИЕ НАЦИОНАЛНА ГРАЖДАНСКА ИНИЦИАТИВА АЛТЕРНАТИВА ЗА БЪЛГАРСКО ВЪЗРАЖДАНЕ /НГИ АБВ/","slug":null,"uic":"176644461","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ","type":"person","label":"Любомир Тодоров Халачев"},{"id":"person:АЛБЕНА АСЕНОВА ВЪЛЧЕВА","type":"person","label":"Албена Асенова Вълчева"},{"id":"person:ПЛАМЕНА ПЛАМЕНОВА ЗАЯЧКА","type":"person","label":"Пламена Пламенова Заячка"},{"id":"person:ГЕОРГИ КОСТАДИНОВ ИЛЧЕВ","type":"person","label":"Георги Костадинов Илчев"}],"edges":[{"source":"mp:943","target":"company:tr:176644461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ","target":"company:tr:176644461","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА АСЕНОВА ВЪЛЧЕВА","target":"company:tr:176644461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ","target":"company:tr:176644461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕНА ПЛАМЕНОВА ЗАЯЧКА","target":"company:tr:176644461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КОСТАДИНОВ ИЛЧЕВ","target":"company:tr:176644461","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:943",
+  "nodes": [
+    {
+      "id": "mp:943",
+      "type": "mp",
+      "mpId": 943,
+      "label": "Румен Йорданов Петков",
+      "partyGroupShort": "Левицата",
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "company:tr:176644461",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НАЦИОНАЛНА ГРАЖДАНСКА ИНИЦИАТИВА АЛТЕРНАТИВА ЗА БЪЛГАРСКО ВЪЗРАЖДАНЕ /НГИ АБВ/",
+      "slug": null,
+      "uic": "176644461",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ",
+      "type": "person",
+      "label": "Любомир Тодоров Халачев"
+    },
+    {
+      "id": "person:АЛБЕНА АСЕНОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Албена Асенова Вълчева"
+    },
+    {
+      "id": "person:ПЛАМЕНА ПЛАМЕНОВА ЗАЯЧКА",
+      "type": "person",
+      "label": "Пламена Пламенова Заячка"
+    },
+    {
+      "id": "person:ГЕОРГИ КОСТАДИНОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Георги Костадинов Илчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:943",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА АСЕНОВА ВЪЛЧЕВА",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ТОДОРОВ ХАЛАЧЕВ",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА ПЛАМЕНОВА ЗАЯЧКА",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ИЛЧЕВ",
+      "target": "company:tr:176644461",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

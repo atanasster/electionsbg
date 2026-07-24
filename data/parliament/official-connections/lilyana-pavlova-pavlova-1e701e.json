@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lilyana-pavlova-pavlova-1e701e",
+  "nodes": [
+    {
+      "id": "official:lilyana-pavlova-pavlova-1e701e",
+      "type": "official",
+      "slug": "lilyana-pavlova-pavlova-1e701e",
+      "label": "Лиляна Павлова Павлова",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206618475",
+      "type": "company",
+      "label": "Черковна риъл естейт",
+      "slug": null,
+      "uic": "206618475",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203875913",
+      "type": "company",
+      "label": "Созополис риъл естейт",
+      "slug": null,
+      "uic": "203875913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАБРИЕЛА МАРИНОВА ДЖАМБАЗОВА",
+      "type": "person",
+      "label": "Габриела Маринова Джамбазова"
+    },
+    {
+      "id": "person:КРИСТИНА КРАСИМИРОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Кристина Красимирова Пенкова"
+    },
+    {
+      "id": "person:ПАРАШКЕВ НЕДЕВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Парашкев Недев Кръстев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lilyana-pavlova-pavlova-1e701e",
+      "target": "company:tr:206618475",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lilyana-pavlova-pavlova-1e701e",
+      "target": "company:tr:203875913",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА МАРИНОВА ДЖАМБАЗОВА",
+      "target": "company:tr:206618475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА КРАСИМИРОВА ПЕНКОВА",
+      "target": "company:tr:206618475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРАШКЕВ НЕДЕВ КРЪСТЕВ",
+      "target": "company:tr:206618475",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРАШКЕВ НЕДЕВ КРЪСТЕВ",
+      "target": "company:tr:206618475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

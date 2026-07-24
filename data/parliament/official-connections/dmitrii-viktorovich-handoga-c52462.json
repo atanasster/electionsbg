@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dmitrii-viktorovich-handoga-c52462",
+  "nodes": [
+    {
+      "id": "official:dmitrii-viktorovich-handoga-c52462",
+      "type": "official",
+      "slug": "dmitrii-viktorovich-handoga-c52462",
+      "label": "Дмитрий Викторович Хандога",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201355554",
+      "type": "company",
+      "label": "ЮЖЕН ПОТОК БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "201355554",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:boris-yanakiev-todorov-a02a19",
+      "type": "official",
+      "slug": "boris-yanakiev-todorov-a02a19",
+      "label": "Борис Янакиев Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:meglena-vasileva-madzharova-8cb992",
+      "type": "official",
+      "slug": "meglena-vasileva-madzharova-8cb992",
+      "label": "Меглена Василева Маджарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕЛКИН ИГОР АНАТОЛИЕВИЧ",
+      "type": "person",
+      "label": "Елкин Игор Анатолиевич"
+    },
+    {
+      "id": "person:ЖАКЛЕН ЙОСИФ КОЕН",
+      "type": "person",
+      "label": "Жаклен Йосиф Коен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dmitrii-viktorovich-handoga-c52462",
+      "target": "company:tr:201355554",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boris-yanakiev-todorov-a02a19",
+      "target": "company:tr:201355554",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boris-yanakiev-todorov-a02a19",
+      "target": "company:tr:201355554",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:meglena-vasileva-madzharova-8cb992",
+      "target": "company:tr:201355554",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛКИН ИГОР АНАТОЛИЕВИЧ",
+      "target": "company:tr:201355554",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛЕН ЙОСИФ КОЕН",
+      "target": "company:tr:201355554",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛКИН ИГОР АНАТОЛИЕВИЧ",
+      "target": "company:tr:201355554",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

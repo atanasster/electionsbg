@@ -1,1 +1,238 @@
-{"ekatte":"12259","page":1,"totalPages":1,"count":12,"companies":[{"slug":"А.-с.-П.-Фолк-дизайн-ЕООД","displayName":"А. с. П. Фолк дизайн ЕООД","registeredOffice":"Враца","mps":[{"mpId":3235,"mpName":"Мирослав Иванов Аспарухов","role":"declared_stake","isCurrent":true}]},{"slug":"Вола-софтуер","displayName":"Вола софтуер","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":5087,"mpName":"Тихомир Евгениев Кръстев","role":"manager","isCurrent":true},{"mpId":5087,"mpName":"Тихомир Евгениев Кръстев","role":"partner","isCurrent":true}]},{"slug":"ВРАЧАНОФИЛИ","displayName":"ВРАЧАНОФИЛИ","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":4749,"mpName":"Мартин Николаев Харизанов","role":"ngo_representative","isCurrent":true},{"mpId":4749,"mpName":"Мартин Николаев Харизанов","role":"ngo_board","isCurrent":true}]},{"slug":"ЖОКЕР","displayName":"ЖОКЕР","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":888,"mpName":"Николай Горанов Коцев","role":"manager","isCurrent":true},{"mpId":888,"mpName":"Николай Горанов Коцев","role":"sole_owner","isCurrent":true}]},{"slug":"НОРТУЕСТ-КЪНСТРАКШЪН","displayName":"НОРТУЕСТ КЪНСТРАКШЪН","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":5088,"mpName":"Михаил Ивов Михайлов","role":"manager","isCurrent":true},{"mpId":5088,"mpName":"Михаил Ивов Михайлов","role":"partner","isCurrent":true}]},{"slug":"СДРУЖЕНИЕ-&quot;КЛУБ-НА-ДЕЙЦИТЕ-НА-КУЛТУРАТА&quot;","displayName":"СДРУЖЕНИЕ &quot;КЛУБ НА ДЕЙЦИТЕ НА КУЛТУРАТА&quot;","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":2785,"mpName":"Красимир Илиев Богданов","role":"ngo_board","isCurrent":true},{"mpId":2785,"mpName":"Красимир Илиев Богданов","role":"ngo_representative","isCurrent":true}]},{"slug":"Сдружение-НОВА-ВРАЦА","displayName":"Сдружение НОВА ВРАЦА","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":5088,"mpName":"Михаил Ивов Михайлов","role":"ngo_representative","isCurrent":true},{"mpId":5088,"mpName":"Михаил Ивов Михайлов","role":"ngo_board","isCurrent":true}]},{"slug":"ФОЛКЛОР-М-ЕООД","displayName":"ФОЛКЛОР-М ЕООД","registeredOffice":"Враца","mps":[{"mpId":3235,"mpName":"Мирослав Иванов Аспарухов","role":"declared_stake","isCurrent":true}]},{"slug":"Конкурент-НЮЗ","displayName":"Конкурент НЮЗ","registeredOffice":"Враца","mps":[{"mpId":4739,"mpName":"Димитър Стойков Николов","role":"declared_stake","isCurrent":true}]},{"slug":"КОСТЕНЕЦ-ПЕЙПЪР-МИЛ","displayName":"КОСТЕНЕЦ ПЕЙПЪР МИЛ","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":745,"mpName":"Иван Павлов Павлов","role":"director","isCurrent":true}]},{"slug":"Литъл-Капитал","displayName":"Литъл Капитал","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":5088,"mpName":"Михаил Ивов Михайлов","role":"manager","isCurrent":true}]},{"slug":"ЛОЗАРСКО-СДРУЖЕНИЕ-ИСКРА","displayName":"ЛОЗАРСКО СДРУЖЕНИЕ ИСКРА","registeredOffice":"БЪЛГАРИЯ, гр. Враца, 3000","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"ngo_board","isCurrent":true}]}]}
+{
+  "ekatte": "12259",
+  "page": 1,
+  "totalPages": 1,
+  "count": 14,
+  "companies": [
+    {
+      "slug": "Конкурент-НЮЗ",
+      "displayName": "Конкурент НЮЗ",
+      "registeredOffice": "Враца",
+      "mps": [
+        {
+          "mpId": 4739,
+          "mpName": "Димитър Стойков Николов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФАУ-ООД",
+      "displayName": "\"ФАУ\" ООД",
+      "registeredOffice": "Враца",
+      "mps": [
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2787,
+          "mpName": "Слави Дичев Нецов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "А.-с.-П.-Фолк-дизайн-ЕООД",
+      "displayName": "А. с. П. Фолк дизайн ЕООД",
+      "registeredOffice": "Враца",
+      "mps": [
+        {
+          "mpId": 3235,
+          "mpName": "Мирослав Иванов Аспарухов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФОЛКЛОР-М-ЕООД",
+      "displayName": "ФОЛКЛОР-М ЕООД",
+      "registeredOffice": "Враца",
+      "mps": [
+        {
+          "mpId": 3235,
+          "mpName": "Мирослав Иванов Аспарухов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "София-ту-гоу-ООД",
+      "displayName": "\"София ту гоу\" ООД",
+      "registeredOffice": "Враца",
+      "mps": [
+        {
+          "mpId": 4748,
+          "mpName": "Деница Димитрова Симеонова",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Вола-софтуер",
+      "displayName": "Вола софтуер",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 5087,
+          "mpName": "Тихомир Евгениев Кръстев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5087,
+          "mpName": "Тихомир Евгениев Кръстев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВРАЧАНОФИЛИ",
+      "displayName": "ВРАЧАНОФИЛИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 4749,
+          "mpName": "Мартин Николаев Харизанов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4749,
+          "mpName": "Мартин Николаев Харизанов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЖОКЕР",
+      "displayName": "ЖОКЕР",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 888,
+          "mpName": "Николай Горанов Коцев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 888,
+          "mpName": "Николай Горанов Коцев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НОРТУЕСТ-КЪНСТРАКШЪН",
+      "displayName": "НОРТУЕСТ КЪНСТРАКШЪН",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 5088,
+          "mpName": "Михаил Ивов Михайлов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5088,
+          "mpName": "Михаил Ивов Михайлов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;КЛУБ-НА-ДЕЙЦИТЕ-НА-КУЛТУРАТА&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;КЛУБ НА ДЕЙЦИТЕ НА КУЛТУРАТА&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 2785,
+          "mpName": "Красимир Илиев Богданов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2785,
+          "mpName": "Красимир Илиев Богданов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Сдружение-НОВА-ВРАЦА",
+      "displayName": "Сдружение НОВА ВРАЦА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 5088,
+          "mpName": "Михаил Ивов Михайлов",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5088,
+          "mpName": "Михаил Ивов Михайлов",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КОСТЕНЕЦ-ПЕЙПЪР-МИЛ",
+      "displayName": "КОСТЕНЕЦ ПЕЙПЪР МИЛ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 745,
+          "mpName": "Иван Павлов Павлов",
+          "role": "director",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Литъл-Капитал",
+      "displayName": "Литъл Капитал",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 5088,
+          "mpName": "Михаил Ивов Михайлов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛОЗАРСКО-СДРУЖЕНИЕ-ИСКРА",
+      "displayName": "ЛОЗАРСКО СДРУЖЕНИЕ ИСКРА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Враца, 3000",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

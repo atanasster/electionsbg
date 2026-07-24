@@ -1,1 +1,66 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:filip-georgiev-dimitrov-ac316a","nodes":[{"id":"official:filip-georgiev-dimitrov-ac316a","type":"official","slug":"filip-georgiev-dimitrov-ac316a","label":"Филип Георгиев Димитров","tier":"municipal","role":"councillor","municipality":"Божурище"},{"id":"company:tr:208511034","type":"company","label":"АВАТАР ТУР ХОТЕЛС","slug":null,"uic":"208511034","legalForm":null,"status":null,"seat":null},{"id":"person:ЛЮБОМИР ДИМИТРОВ ПАНКОВСКИ","type":"person","label":"Любомир Димитров Панковски"},{"id":"company:name:АВАТАР ТУР","type":"company","label":"\"АВАТАР ТУР\" ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:filip-georgiev-dimitrov-ac316a","target":"company:tr:208511034","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ДИМИТРОВ ПАНКОВСКИ","target":"company:tr:208511034","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АВАТАР ТУР","target":"company:tr:208511034","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:filip-georgiev-dimitrov-ac316a",
+  "nodes": [
+    {
+      "id": "official:filip-georgiev-dimitrov-ac316a",
+      "type": "official",
+      "slug": "filip-georgiev-dimitrov-ac316a",
+      "label": "Филип Георгиев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Божурище"
+    },
+    {
+      "id": "company:tr:208511034",
+      "type": "company",
+      "label": "АВАТАР ТУР ХОТЕЛС",
+      "slug": null,
+      "uic": "208511034",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ДИМИТРОВ ПАНКОВСКИ",
+      "type": "person",
+      "label": "Любомир Димитров Панковски"
+    },
+    {
+      "id": "company:name:АВАТАР ТУР",
+      "type": "company",
+      "label": "\"АВАТАР ТУР\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:filip-georgiev-dimitrov-ac316a",
+      "target": "company:tr:208511034",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ДИМИТРОВ ПАНКОВСКИ",
+      "target": "company:tr:208511034",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АВАТАР ТУР",
+      "target": "company:tr:208511034",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

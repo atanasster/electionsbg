@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:levent-ahmedov-mehmedov-2c89a5",
+  "nodes": [
+    {
+      "id": "official:levent-ahmedov-mehmedov-2c89a5",
+      "type": "official",
+      "slug": "levent-ahmedov-mehmedov-2c89a5",
+      "label": "Левент Ахмедов Мехмедов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:116512100",
+      "type": "company",
+      "label": "Спортен клуб по борба &quot;Лютфи Ахмедов&quot;",
+      "slug": null,
+      "uic": "116512100",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:deniz-muzaffer-hamid-af5962",
+      "type": "official",
+      "slug": "deniz-muzaffer-hamid-af5962",
+      "label": "Дениз Музаффер Хамид",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БЕЙСИМ АХМЕД МЕХМЕД",
+      "type": "person",
+      "label": "Бейсим Ахмед Мехмед"
+    },
+    {
+      "id": "person:ИВАН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Иван Илиев Илиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕНЧЕВ ГАБРОВСКИ",
+      "type": "person",
+      "label": "Димитър Пенчев Габровски"
+    },
+    {
+      "id": "person:МЛАДЕН ВАЛЕНТИНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Младен Валентинов Младенов"
+    },
+    {
+      "id": "person:ВАСИЛ ВЛАДИМИРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Владимиров Василев"
+    },
+    {
+      "id": "person:МЕХМЕД ЕРДИНЧ АХМЕД",
+      "type": "person",
+      "label": "Мехмед Ердинч Ахмед"
+    },
+    {
+      "id": "person:РЕМЗИ РЕДЖЕБ ОСМАН",
+      "type": "person",
+      "label": "Ремзи Реджеб Осман"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Георгиев Христов"
+    },
+    {
+      "id": "person:МЕХМЕД СЮЛЕЙМАНОВ ГАФИЛОВ",
+      "type": "person",
+      "label": "Мехмед Сюлейманов Гафилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:levent-ahmedov-mehmedov-2c89a5",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:deniz-muzaffer-hamid-af5962",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЕЙСИМ АХМЕД МЕХМЕД",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕНЧЕВ ГАБРОВСКИ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН ВАЛЕНТИНОВ МЛАДЕНОВ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВЛАДИМИРОВ ВАСИЛЕВ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЙСИМ АХМЕД МЕХМЕД",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД ЕРДИНЧ АХМЕД",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕМЗИ РЕДЖЕБ ОСМАН",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД СЮЛЕЙМАНОВ ГАФИЛОВ",
+      "target": "company:tr:116512100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,67 @@
-{"mpId":4802,"name":"Иван Богомилов Петков","partyGroupShort":null,"isCurrent":false,"nsFolders":["45","47","48","49","50"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/10C36947-4481-4A94-ACC2-0EB97609A966214145.xml","totalAssetsEur":85662.35306749567,"totalDebtsEur":0,"netWorthEur":85662.35306749567,"previous":{"year":2023,"totalAssetsEur":65222.9488247956,"netWorthEur":65222.9488247956},"byCategory":{"real_estate":{"count":9,"valuedCount":2,"totalEur":32164.349662291712},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":1,"valuedCount":1,"totalEur":2556.4594059810925},"bank":{"count":3,"valuedCount":3,"totalEur":27253.391143402037},"receivable":{"count":1,"valuedCount":1,"totalEur":13293.58891110168},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":1,"valuedCount":1,"totalEur":9755.44909322385},"security":{"count":2,"valuedCount":2,"totalEur":639.1148514952731}}}
+{
+  "mpId": 4802,
+  "name": "Иван Богомилов Петков",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "45",
+    "47",
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/10C36947-4481-4A94-ACC2-0EB97609A966214145.xml",
+  "totalAssetsEur": 85662.35306749567,
+  "totalDebtsEur": 0,
+  "netWorthEur": 85662.35306749567,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 65222.9488247956,
+    "netWorthEur": 65222.9488247956
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 9,
+      "valuedCount": 2,
+      "totalEur": 32164.349662291712
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2556.4594059810925
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 27253.391143402037
+    },
+    "receivable": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 13293.58891110168
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 9755.44909322385
+    },
+    "security": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 639.1148514952731
+    }
+  }
+}

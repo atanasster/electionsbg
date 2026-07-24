@@ -1,0 +1,338 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-tanev-delchev-b63a45",
+  "nodes": [
+    {
+      "id": "official:svetoslav-tanev-delchev-b63a45",
+      "type": "official",
+      "slug": "svetoslav-tanev-delchev-b63a45",
+      "label": "Светослав Танев Делчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201565691",
+      "type": "company",
+      "label": "Тервел Академия ООД",
+      "slug": null,
+      "uic": "201565691",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175203485",
+      "type": "company",
+      "label": "БУЛГАРГАЗ",
+      "slug": null,
+      "uic": "175203485",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3026",
+      "type": "mp",
+      "mpId": 3026,
+      "label": "Антон Йорданов Адамов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:anzhela-svetlozarova-slavova-25b96c",
+      "type": "official",
+      "slug": "anzhela-svetlozarova-slavova-25b96c",
+      "label": "Анжела Светлозарова Славова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:veselin-sashev-sinabov-b9032d",
+      "type": "official",
+      "slug": "veselin-sashev-sinabov-b9032d",
+      "label": "Веселин Сашев Синабов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:dimitr-vladimirov-spasov-d70074",
+      "type": "official",
+      "slug": "dimitr-vladimirov-spasov-d70074",
+      "label": "Димитър Владимиров Спасов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:marin-asenov-filipovski-3b9ba4",
+      "type": "official",
+      "slug": "marin-asenov-filipovski-3b9ba4",
+      "label": "Марин Асенов Филиповски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:mihail-mariov-milkov-0118c1",
+      "type": "official",
+      "slug": "mihail-mariov-milkov-0118c1",
+      "label": "Михаил Мариов Милков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nikolai-atanasov-donchev-f41acf",
+      "type": "official",
+      "slug": "nikolai-atanasov-donchev-f41acf",
+      "label": "Николай Атанасов Дончев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "type": "official",
+      "slug": "tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "label": "Татяна Ангелова Петрова-Бояджиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:НИКОЛАЙ АНГЕЛОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Николай Ангелов Павлов"
+    },
+    {
+      "id": "person:ИЛИЯН КИРИЛОВ ДУКОВ",
+      "type": "person",
+      "label": "Илиян Кирилов Дуков"
+    },
+    {
+      "id": "person:ДИАНА СТОЯНОВА БОНЕВА",
+      "type": "person",
+      "label": "Диана Стоянова Бонева"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ВЕНЦИСЛАВОВ ЙОЦОВ",
+      "type": "person",
+      "label": "Людмил Венциславов Йоцов"
+    },
+    {
+      "id": "person:СТЕФАН ПАНДОВ ВОЙНОВ",
+      "type": "person",
+      "label": "Стефан Пандов Войнов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ТОПЧИЙСКИ",
+      "type": "person",
+      "label": "Иван Димитров Топчийски"
+    },
+    {
+      "id": "person:ДЕНИЦА ЗЛАТКОВА ЗЛАТЕВА",
+      "type": "person",
+      "label": "Деница Златкова Златева"
+    },
+    {
+      "id": "person:ТАТЯНА АНГЕЛОВА ПЕТРОВА - БОЯДЖИЕВА",
+      "type": "person",
+      "label": "Татяна Ангелова Петрова - Бояджиева"
+    },
+    {
+      "id": "person:БЯНКА СВЕТЛОЗАР РАЧЕВА",
+      "type": "person",
+      "label": "Бянка Светлозар Рачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-tanev-delchev-b63a45",
+      "target": "company:tr:201565691",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-tanev-delchev-b63a45",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3026",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anzhela-svetlozarova-slavova-25b96c",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-sashev-sinabov-b9032d",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-sashev-sinabov-b9032d",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-vladimirov-spasov-d70074",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marin-asenov-filipovski-3b9ba4",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-mariov-milkov-0118c1",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-atanasov-donchev-f41acf",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНГЕЛОВ ПАВЛОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН КИРИЛОВ ДУКОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНГЕЛОВ ПАВЛОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА СТОЯНОВА БОНЕВА",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЕНЦИСЛАВОВ ЙОЦОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЕНЦИСЛАВОВ ЙОЦОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПАНДОВ ВОЙНОВ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ТОПЧИЙСКИ",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ЗЛАТКОВА ЗЛАТЕВА",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ЗЛАТКОВА ЗЛАТЕВА",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА АНГЕЛОВА ПЕТРОВА - БОЯДЖИЕВА",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЯНКА СВЕТЛОЗАР РАЧЕВА",
+      "target": "company:tr:175203485",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-mihailova-petrova-acd602",
+  "nodes": [
+    {
+      "id": "official:mariya-mihailova-petrova-acd602",
+      "type": "official",
+      "slug": "mariya-mihailova-petrova-acd602",
+      "label": "Мария Михайлова Петрова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200499231",
+      "type": "company",
+      "label": "Иванов консултинг ЕООД",
+      "slug": null,
+      "uic": "200499231",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-mihailova-petrova-acd602",
+      "target": "company:tr:200499231",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

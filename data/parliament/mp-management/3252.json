@@ -1,1 +1,50 @@
-{"mpId":3252,"mpName":"Мая Божидарова Манолова-Найденова","generatedAt":"2026-07-03T11:12:51.743Z","total":1,"roles":[{"uic":"205941917","companyName":"ИЗПРАВИ СЕ БГ","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2026-01-12T17:51:15","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3252,
+  "mpName": "Мая Божидарова Манолова-Найденова",
+  "generatedAt": "2026-07-24T03:35:58.578Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "204754487",
+      "companyName": "А Н КОНСУЛТ 2017",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-07-21T14:35:20",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "204754487",
+      "companyName": "А Н КОНСУЛТ 2017",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2026-07-21T14:35:20",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "205941917",
+      "companyName": "ИЗПРАВИ СЕ БГ",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-01-12T17:51:15",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

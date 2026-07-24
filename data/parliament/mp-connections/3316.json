@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3316","nodes":[{"id":"mp:3316","type":"mp","mpId":3316,"label":"Христо Михайлов Дочев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45"]},{"id":"company:Добри-и-Майкъл-ООД","type":"company","label":"\"Добри и Майкъл\" ООД","slug":"Добри-и-Майкъл-ООД","uic":"203084016","legalForm":"OOD","status":"active","seat":"Свищов"},{"id":"company:Адвокатско-дружество-Миланов-и-Дочев","type":"company","label":"Адвокатско дружество \"Миланов и Дочев\"","slug":"Адвокатско-дружество-Миланов-и-Дочев","uic":null,"legalForm":null,"status":null,"seat":"София"},{"id":"company:tr:207931059","type":"company","label":"Съвременна хирургия","slug":null,"uic":"207931059","legalForm":"Фондация","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1233"},{"id":"person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА","type":"person","label":"Паулина Трифонова Владова"},{"id":"person:СТОЯНКА ДИМОВА МИХАЙЛОВА","type":"person","label":"Стоянка Димова Михайлова"},{"id":"person:ЕЛЕНА ИВАНОВА ВЛАДОВА","type":"person","label":"Елена Иванова Владова"}],"edges":[{"source":"mp:3316","target":"company:Добри-и-Майкъл-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3316","target":"company:Адвокатско-дружество-Миланов-и-Дочев","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3316","target":"company:tr:207931059","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3316","target":"company:tr:207931059","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА","target":"company:tr:207931059","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА","target":"company:tr:207931059","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ДИМОВА МИХАЙЛОВА","target":"company:tr:207931059","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ИВАНОВА ВЛАДОВА","target":"company:tr:207931059","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3316",
+  "nodes": [
+    {
+      "id": "mp:3316",
+      "type": "mp",
+      "mpId": 3316,
+      "label": "Христо Михайлов Дочев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:Добри-и-Майкъл-ООД",
+      "type": "company",
+      "label": "\"Добри и Майкъл\" ООД",
+      "slug": "Добри-и-Майкъл-ООД",
+      "uic": "203084016",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Свищов"
+    },
+    {
+      "id": "company:Адвокатско-дружество-Миланов-и-Дочев",
+      "type": "company",
+      "label": "Адвокатско дружество \"Миланов и Дочев\"",
+      "slug": "Адвокатско-дружество-Миланов-и-Дочев",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:207931059",
+      "type": "company",
+      "label": "Съвременна хирургия",
+      "slug": null,
+      "uic": "207931059",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1233"
+    },
+    {
+      "id": "person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА",
+      "type": "person",
+      "label": "Паулина Трифонова Владова"
+    },
+    {
+      "id": "person:СТОЯНКА ДИМОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Стоянка Димова Михайлова"
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА ВЛАДОВА",
+      "type": "person",
+      "label": "Елена Иванова Владова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3316",
+      "target": "company:Добри-и-Майкъл-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3316",
+      "target": "company:Адвокатско-дружество-Миланов-и-Дочев",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3316",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3316",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАУЛИНА ТРИФОНОВА ВЛАДОВА",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ДИМОВА МИХАЙЛОВА",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА ВЛАДОВА",
+      "target": "company:tr:207931059",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

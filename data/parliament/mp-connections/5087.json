@@ -1,1 +1,114 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5087","nodes":[{"id":"mp:5087","type":"mp","mpId":5087,"label":"Тихомир Евгениев Кръстев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:203602334","type":"company","label":"Вола софтуер","slug":null,"uic":"203602334","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Враца, 3000"},{"id":"person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ","type":"person","label":"Теодор Константинов Костадинов"},{"id":"person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ","type":"person","label":"Емилиян Валентинов Кадийски"},{"id":"person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ","type":"person","label":"Емилиян Валентинов Кадийски И Тихомир Евгениев Кръстев"},{"id":"person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ","type":"person","label":"Теодор Константинов Костадинов И Тихомир Евгениев Кръстев"}],"edges":[{"source":"mp:5087","target":"company:tr:203602334","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5087","target":"company:tr:203602334","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ","target":"company:tr:203602334","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ","target":"company:tr:203602334","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ","target":"company:tr:203602334","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ","target":"company:tr:203602334","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ","target":"company:tr:203602334","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ","target":"company:tr:203602334","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5087",
+  "nodes": [
+    {
+      "id": "mp:5087",
+      "type": "mp",
+      "mpId": 5087,
+      "label": "Тихомир Евгениев Кръстев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:203602334",
+      "type": "company",
+      "label": "Вола софтуер",
+      "slug": null,
+      "uic": "203602334",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Враца, 3000"
+    },
+    {
+      "id": "person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Теодор Константинов Костадинов"
+    },
+    {
+      "id": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ",
+      "type": "person",
+      "label": "Емилиян Валентинов Кадийски"
+    },
+    {
+      "id": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Емилиян Валентинов Кадийски И Тихомир Евгениев Кръстев"
+    },
+    {
+      "id": "person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Теодор Константинов Костадинов И Тихомир Евгениев Кръстев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5087",
+      "target": "company:tr:203602334",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5087",
+      "target": "company:tr:203602334",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ",
+      "target": "company:tr:203602334",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ",
+      "target": "company:tr:203602334",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ",
+      "target": "company:tr:203602334",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ",
+      "target": "company:tr:203602334",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ",
+      "target": "company:tr:203602334",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР КОНСТАНТИНОВ КОСТАДИНОВ И ТИХОМИР ЕВГЕНИЕВ КРЪСТЕВ",
+      "target": "company:tr:203602334",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,131 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2819","nodes":[{"id":"mp:2819","type":"mp","mpId":2819,"label":"Красимир Любомиров Велчев","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"company:Кравел-ЕООД","type":"company","label":"Кравел ЕООД","slug":"Кравел-ЕООД","uic":"200117030","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:tr:175059711","type":"company","label":"&quot;ГРАЖДАНИ ЗА ЕВРОПЕЙСКО РАЗВИТИЕ НА БЪЛГАРИЯ&quot;","slug":null,"uic":"175059711","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:5249","type":"mp","mpId":5249,"label":"Йорданка Асенова Фандъкова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["41","50","51","52"]},{"id":"person:СИМЕОН МЛАДЕНОВ КОЛЕВ","type":"person","label":"Симеон Младенов Колев"},{"id":"person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ","type":"person","label":"Осман Верхадов Ислямов"},{"id":"person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА","type":"person","label":"Светлана Кръстева Ломева"}],"edges":[{"source":"mp:2819","target":"company:Кравел-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2819","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5249","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СИМЕОН МЛАДЕНОВ КОЛЕВ","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА","target":"company:tr:175059711","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:5249","length":2,"nodeIds":["mp:2819","company:tr:175059711","mp:5249"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2819",
+  "nodes": [
+    {
+      "id": "mp:2819",
+      "type": "mp",
+      "mpId": 2819,
+      "label": "Красимир Любомиров Велчев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:Кравел-ЕООД",
+      "type": "company",
+      "label": "Кравел ЕООД",
+      "slug": "Кравел-ЕООД",
+      "uic": "200117030",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:175059711",
+      "type": "company",
+      "label": "&quot;ГРАЖДАНИ ЗА ЕВРОПЕЙСКО РАЗВИТИЕ НА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "175059711",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5249",
+      "type": "mp",
+      "mpId": 5249,
+      "label": "Йорданка Асенова Фандъкова",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "41",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:СИМЕОН МЛАДЕНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Симеон Младенов Колев"
+    },
+    {
+      "id": "person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ",
+      "type": "person",
+      "label": "Осман Верхадов Ислямов"
+    },
+    {
+      "id": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "type": "person",
+      "label": "Светлана Кръстева Ломева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2819",
+      "target": "company:Кравел-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2819",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5249",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН МЛАДЕНОВ КОЛЕВ",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОСМАН ВЕРХАДОВ ИСЛЯМОВ",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "target": "company:tr:175059711",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5249",
+      "length": 2,
+      "nodeIds": [
+        "mp:2819",
+        "company:tr:175059711",
+        "mp:5249"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-lyubomirov-nenkov-15a2a7",
+  "nodes": [
+    {
+      "id": "official:ivan-lyubomirov-nenkov-15a2a7",
+      "type": "official",
+      "slug": "ivan-lyubomirov-nenkov-15a2a7",
+      "label": "Иван Любомиров Ненков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:207272528",
+      "type": "company",
+      "label": "\"ГРАЖДАНСКО ОБЕДИНЕНИЕ \"БУРГАЗЛИИ\"\"",
+      "slug": null,
+      "uic": "207272528",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЛЮБОМИРОВ НЕНКОВ - ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Иван Любомиров Ненков  - Председател"
+    },
+    {
+      "id": "person:ВАЛЕРИ ВАЛЕРИЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Валери Валериев Лазаров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ВИЧЕВ ВИЧЕВ",
+      "type": "person",
+      "label": "Венцислав Вичев Вичев"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ ШАНГОВ",
+      "type": "person",
+      "label": "Димитър Стоянов Шангов"
+    },
+    {
+      "id": "person:ЕЛЕНА ПАРАСКОВА ЕФЕНДИЕВА",
+      "type": "person",
+      "label": "Елена Параскова Ефендиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-lyubomirov-nenkov-15a2a7",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЛЮБОМИРОВ НЕНКОВ - ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВАЛЕРИЕВ ЛАЗАРОВ",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВИЧЕВ ВИЧЕВ",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ШАНГОВ",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПАРАСКОВА ЕФЕНДИЕВА",
+      "target": "company:tr:207272528",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

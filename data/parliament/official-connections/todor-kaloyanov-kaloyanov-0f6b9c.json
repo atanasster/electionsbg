@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:todor-kaloyanov-kaloyanov-0f6b9c",
+  "nodes": [
+    {
+      "id": "official:todor-kaloyanov-kaloyanov-0f6b9c",
+      "type": "official",
+      "slug": "todor-kaloyanov-kaloyanov-0f6b9c",
+      "label": "Тодор Калоянов Калоянов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200697779",
+      "type": "company",
+      "label": "Проксима КОнсулт ЕООД",
+      "slug": null,
+      "uic": "200697779",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-kaloyanov-kaloyanov-0f6b9c",
+      "target": "company:tr:200697779",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

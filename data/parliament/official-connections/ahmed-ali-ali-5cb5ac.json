@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ahmed-ali-ali-5cb5ac",
+  "nodes": [
+    {
+      "id": "official:ahmed-ali-ali-5cb5ac",
+      "type": "official",
+      "slug": "ahmed-ali-ali-5cb5ac",
+      "label": "Ахмед Али Али",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сунгурларе"
+    },
+    {
+      "id": "company:tr:204922045",
+      "type": "company",
+      "label": "ААА КОНСУЛТИНГ",
+      "slug": null,
+      "uic": "204922045",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ahmed-ali-ali-5cb5ac",
+      "target": "company:tr:204922045",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ahmed-ali-ali-5cb5ac",
+      "target": "company:tr:204922045",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

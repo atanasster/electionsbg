@@ -1,1 +1,99 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4173","nodes":[{"id":"mp:4173","type":"mp","mpId":4173,"label":"Даниела Стоянова Божинова","partyGroupShort":"АКБ","isCurrent":false,"nsFolders":["49"]},{"id":"company:Божинов-Инвестмънт-Груп-ООД","type":"company","label":"Божинов Инвестмънт Груп ООД","slug":"Божинов-Инвестмънт-Груп-ООД","uic":"147239307","legalForm":"OOD","status":"active","seat":"Бургас"},{"id":"company:tr:102270789","type":"company","label":"Инициатива БГ","slug":null,"uic":"102270789","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"person:АПОСТОЛ СТОЙЧЕВ СТОЙЧЕВ","type":"person","label":"Апостол Стойчев Стойчев"},{"id":"person:РАДОМИР ИВАНОВ УЗУНОВ","type":"person","label":"Радомир Иванов Узунов"}],"edges":[{"source":"mp:4173","target":"company:Божинов-Инвестмънт-Груп-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4173","target":"company:tr:102270789","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АПОСТОЛ СТОЙЧЕВ СТОЙЧЕВ","target":"company:tr:102270789","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОМИР ИВАНОВ УЗУНОВ","target":"company:tr:102270789","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4173",
+  "nodes": [
+    {
+      "id": "mp:4173",
+      "type": "mp",
+      "mpId": 4173,
+      "label": "Даниела Стоянова Божинова",
+      "partyGroupShort": "АКБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "49"
+      ]
+    },
+    {
+      "id": "company:Божинов-Инвестмънт-Груп-ООД",
+      "type": "company",
+      "label": "Божинов Инвестмънт Груп ООД",
+      "slug": "Божинов-Инвестмънт-Груп-ООД",
+      "uic": "147239307",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:tr:102270789",
+      "type": "company",
+      "label": "Инициатива БГ",
+      "slug": null,
+      "uic": "102270789",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "official:daniela-stoyanova-bozhinova-9b17e6",
+      "type": "official",
+      "slug": "daniela-stoyanova-bozhinova-9b17e6",
+      "label": "Даниела Стоянова Божинова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "person:АПОСТОЛ СТОЙЧЕВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Апостол Стойчев Стойчев"
+    },
+    {
+      "id": "person:РАДОМИР ИВАНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Радомир Иванов Узунов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4173",
+      "target": "company:Божинов-Инвестмънт-Груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4173",
+      "target": "company:tr:102270789",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-stoyanova-bozhinova-9b17e6",
+      "target": "company:tr:102270789",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АПОСТОЛ СТОЙЧЕВ СТОЙЧЕВ",
+      "target": "company:tr:102270789",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОМИР ИВАНОВ УЗУНОВ",
+      "target": "company:tr:102270789",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

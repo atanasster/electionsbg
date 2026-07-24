@@ -1,1 +1,57 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:707","nodes":[{"id":"mp:707","type":"mp","mpId":707,"label":"Нина Христова Радева","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:206968461","type":"company","label":"МЕТА ЛАНД","slug":null,"uic":"206968461","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ЙОРДАН АТАНАСОВ РАДЕВ","type":"person","label":"Йордан Атанасов Радев"}],"edges":[{"source":"mp:707","target":"company:tr:206968461","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:707","target":"company:tr:206968461","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ЙОРДАН АТАНАСОВ РАДЕВ","target":"company:tr:206968461","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:707",
+  "nodes": [
+    {
+      "id": "mp:707",
+      "type": "mp",
+      "mpId": 707,
+      "label": "Нина Христова Радева",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206968461",
+      "type": "company",
+      "label": "МЕТА ЛАНД",
+      "slug": null,
+      "uic": "206968461",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ЙОРДАН АТАНАСОВ РАДЕВ",
+      "type": "person",
+      "label": "Йордан Атанасов Радев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:707",
+      "target": "company:tr:206968461",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:707",
+      "target": "company:tr:206968461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН АТАНАСОВ РАДЕВ",
+      "target": "company:tr:206968461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

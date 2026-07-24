@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-olegov-aleksandrov-755bf1",
+  "nodes": [
+    {
+      "id": "official:aleksandr-olegov-aleksandrov-755bf1",
+      "type": "official",
+      "slug": "aleksandr-olegov-aleksandrov-755bf1",
+      "label": "Александър Олегов Александров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104697448",
+      "type": "company",
+      "label": "\"АСОЦИАЦИЯ ЗА КУЛТУРНО И СОЦИАЛНО -ИКОНОМИЧЕСКО ЕВРОПЕЙСКО СЪТРУДНИЧЕСТВО\"",
+      "slug": null,
+      "uic": "104697448",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА МАТЕЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Мариана Матеева Петрова"
+    },
+    {
+      "id": "person:АТАНАС АВРАМОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Аврамов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-olegov-aleksandrov-755bf1",
+      "target": "company:tr:104697448",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАНА МАТЕЕВА ПЕТРОВА",
+      "target": "company:tr:104697448",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС АВРАМОВ АТАНАСОВ",
+      "target": "company:tr:104697448",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА МАТЕЕВА ПЕТРОВА",
+      "target": "company:tr:104697448",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

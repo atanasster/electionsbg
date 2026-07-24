@@ -1,1 +1,127 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1115","nodes":[{"id":"mp:1115","type":"mp","mpId":1115,"label":"Катя Костова Колева","partyGroupShort":"КП ББЦ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:000210504","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА-1924&quot;","slug":null,"uic":"000210504","legalForm":"CC","status":"active","seat":null},{"id":"person:МАРИЯ РАЙКОВА ЖЕЛЯЗКОВА","type":"person","label":"Мария Райкова Желязкова"},{"id":"person:ДИМИТЪР ХРИСТОВ АНДРЕЕВ","type":"person","label":"Димитър Христов Андреев"},{"id":"person:ЗДРАВКА КИРИЛОВА ПЕТРОВА","type":"person","label":"Здравка Кирилова Петрова"},{"id":"person:РУМЯНА РУСАНОВА РУСЕВА","type":"person","label":"Румяна Русанова Русева"},{"id":"person:НИКОЛАЙ ГЕНЕВ ХРИСТОВ","type":"person","label":"Николай Генев Христов"},{"id":"person:ВИОЛЕТА ПЕТКОВА КОЕВА","type":"person","label":"Виолета Петкова Коева"},{"id":"person:МАРИЯ НЕДЯЛКОВА МИРЧЕВА","type":"person","label":"Мария Недялкова Мирчева"}],"edges":[{"source":"mp:1115","target":"company:tr:000210504","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЯ РАЙКОВА ЖЕЛЯЗКОВА","target":"company:tr:000210504","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ХРИСТОВ АНДРЕЕВ","target":"company:tr:000210504","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЗДРАВКА КИРИЛОВА ПЕТРОВА","target":"company:tr:000210504","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА РУСАНОВА РУСЕВА","target":"company:tr:000210504","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГЕНЕВ ХРИСТОВ","target":"company:tr:000210504","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ПЕТКОВА КОЕВА","target":"company:tr:000210504","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ НЕДЯЛКОВА МИРЧЕВА","target":"company:tr:000210504","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1115",
+  "nodes": [
+    {
+      "id": "mp:1115",
+      "type": "mp",
+      "mpId": 1115,
+      "label": "Катя Костова Колева",
+      "partyGroupShort": "КП ББЦ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:000210504",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА-1924&quot;",
+      "slug": null,
+      "uic": "000210504",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ РАЙКОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Мария Райкова Желязкова"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Димитър Христов Андреев"
+    },
+    {
+      "id": "person:ЗДРАВКА КИРИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Здравка Кирилова Петрова"
+    },
+    {
+      "id": "person:РУМЯНА РУСАНОВА РУСЕВА",
+      "type": "person",
+      "label": "Румяна Русанова Русева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕНЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Николай Генев Христов"
+    },
+    {
+      "id": "person:ВИОЛЕТА ПЕТКОВА КОЕВА",
+      "type": "person",
+      "label": "Виолета Петкова Коева"
+    },
+    {
+      "id": "person:МАРИЯ НЕДЯЛКОВА МИРЧЕВА",
+      "type": "person",
+      "label": "Мария Недялкова Мирчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1115",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ РАЙКОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ АНДРЕЕВ",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА РУСАНОВА РУСЕВА",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕНЕВ ХРИСТОВ",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПЕТКОВА КОЕВА",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НЕДЯЛКОВА МИРЧЕВА",
+      "target": "company:tr:000210504",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

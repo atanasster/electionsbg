@@ -1,1 +1,50 @@
-{"mpId":5260,"mpName":"Константин Василев Проданов","generatedAt":"2026-07-03T11:12:51.959Z","total":3,"roles":[{"uic":"204729982","companyName":"БРАВО ПРОПЪРТИ ФОНД","legalForm":"IAD","seat":"БЪЛГАРИЯ, гр. София, 1407","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-07-01T08:33:01","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"СОФИЯ\""},{"uic":"208313910","companyName":"БРАВО ХОУМ","legalForm":"IEAD","seat":"БЪЛГАРИЯ, гр. София, 1407","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-05-16T15:43:01","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; seat contains MP region \"СОФИЯ\""},{"uic":"131134055","companyName":"КАРОЛ КАПИТАЛ МЕНИДЖМЪНТ","legalForm":"EAD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2021-04-06T08:03:28","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5260,
+  "mpName": "Константин Василев Проданов",
+  "generatedAt": "2026-07-24T03:35:58.780Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "204729982",
+      "companyName": "БРАВО ПРОПЪРТИ ФОНД",
+      "legalForm": "IAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-07-01T08:33:01",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"СОФИЯ\""
+    },
+    {
+      "uic": "208313910",
+      "companyName": "БРАВО ХОУМ",
+      "legalForm": "IEAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-05-16T15:43:01",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"СОФИЯ\""
+    },
+    {
+      "uic": "131134055",
+      "companyName": "КАРОЛ КАПИТАЛ МЕНИДЖМЪНТ",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-04-06T08:03:28",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

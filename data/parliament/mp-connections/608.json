@@ -1,1 +1,44 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:608","nodes":[{"id":"mp:608","type":"mp","mpId":608,"label":"Атанас Петров Василев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:201364254","type":"company","label":"ПРОКСИ НД","slug":null,"uic":"201364254","legalForm":"EOOD","status":"active","seat":null}],"edges":[{"source":"mp:608","target":"company:tr:201364254","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:608","target":"company:tr:201364254","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:608",
+  "nodes": [
+    {
+      "id": "mp:608",
+      "type": "mp",
+      "mpId": 608,
+      "label": "Атанас Петров Василев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:201364254",
+      "type": "company",
+      "label": "ПРОКСИ НД",
+      "slug": null,
+      "uic": "201364254",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:608",
+      "target": "company:tr:201364254",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:608",
+      "target": "company:tr:201364254",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

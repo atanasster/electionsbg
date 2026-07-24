@@ -1,1 +1,199 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4746","nodes":[{"id":"mp:4746","type":"mp","mpId":4746,"label":"Цветан Иванов Енчев","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["45","46","47","48","49","50"]},{"id":"company:tr:040994220","type":"company","label":"ГЕБРЮДЕР ВАЙС","slug":null,"uic":"040994220","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:208193133","type":"company","label":"МЕШ СТУДИО","slug":null,"uic":"208193133","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1220"},{"id":"company:tr:177015418","type":"company","label":"Сдружение за модерно алтернативно развитие на териториите - България","slug":null,"uic":"177015418","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:МАРИЕТА СЛАВОВА ГРИГОРОВА","type":"person","label":"Мариета Славова Григорова"},{"id":"person:ТОМАС МОЗЕР-РЕПУБЛИКА АВСТРИЯ","type":"person","label":"Томас Мозер-Република Австрия"},{"id":"person:ЛЮДМИЛ КОНСТАНТИНОВ ЕЛШИШКИ","type":"person","label":"Людмил Константинов Елшишки"},{"id":"person:ИЛКО КОСЕВ ИЛИЕВ","type":"person","label":"Илко Косев Илиев"},{"id":"person:ТОМАС ШАУЕР","type":"person","label":"Томас Шауер"},{"id":"person:ЛЮБА ТОДОРОВА КОВАЧЕВА","type":"person","label":"Люба Тодорова Ковачева"},{"id":"person:ФИЛИП ИВАНОВ ПОПОВ","type":"person","label":"Филип Иванов Попов"},{"id":"person:ИВАН ХРИСТОВ ПОПОВ","type":"person","label":"Иван Христов Попов"}],"edges":[{"source":"mp:4746","target":"company:tr:040994220","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"medium"},{"source":"mp:4746","target":"company:tr:208193133","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4746","target":"company:tr:208193133","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4746","target":"company:tr:177015418","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАРИЕТА СЛАВОВА ГРИГОРОВА","target":"company:tr:040994220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТОМАС МОЗЕР-РЕПУБЛИКА АВСТРИЯ","target":"company:tr:040994220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ КОНСТАНТИНОВ ЕЛШИШКИ","target":"company:tr:040994220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛКО КОСЕВ ИЛИЕВ","target":"company:tr:040994220","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:ТОМАС ШАУЕР","target":"company:tr:040994220","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБА ТОДОРОВА КОВАЧЕВА","target":"company:tr:177015418","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП ИВАНОВ ПОПОВ","target":"company:tr:177015418","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБА ТОДОРОВА КОВАЧЕВА","target":"company:tr:177015418","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ ПОПОВ","target":"company:tr:177015418","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4746",
+  "nodes": [
+    {
+      "id": "mp:4746",
+      "type": "mp",
+      "mpId": 4746,
+      "label": "Цветан Иванов Енчев",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:tr:040994220",
+      "type": "company",
+      "label": "ГЕБРЮДЕР ВАЙС",
+      "slug": null,
+      "uic": "040994220",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208193133",
+      "type": "company",
+      "label": "МЕШ СТУДИО",
+      "slug": null,
+      "uic": "208193133",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1220"
+    },
+    {
+      "id": "company:tr:177015418",
+      "type": "company",
+      "label": "Сдружение за модерно алтернативно развитие на териториите - България",
+      "slug": null,
+      "uic": "177015418",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:МАРИЕТА СЛАВОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Мариета Славова Григорова"
+    },
+    {
+      "id": "person:ТОМАС МОЗЕР-РЕПУБЛИКА АВСТРИЯ",
+      "type": "person",
+      "label": "Томас Мозер-Република Австрия"
+    },
+    {
+      "id": "person:ЛЮДМИЛ КОНСТАНТИНОВ ЕЛШИШКИ",
+      "type": "person",
+      "label": "Людмил Константинов Елшишки"
+    },
+    {
+      "id": "person:ИЛКО КОСЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илко Косев Илиев"
+    },
+    {
+      "id": "person:ТОМАС ШАУЕР",
+      "type": "person",
+      "label": "Томас Шауер"
+    },
+    {
+      "id": "person:ЛЮБА ТОДОРОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Люба Тодорова Ковачева"
+    },
+    {
+      "id": "person:ФИЛИП ИВАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Филип Иванов Попов"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ПОПОВ",
+      "type": "person",
+      "label": "Иван Христов Попов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4746",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4746",
+      "target": "company:tr:208193133",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4746",
+      "target": "company:tr:208193133",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4746",
+      "target": "company:tr:177015418",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЕТА СЛАВОВА ГРИГОРОВА",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМАС МОЗЕР-РЕПУБЛИКА АВСТРИЯ",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ КОНСТАНТИНОВ ЕЛШИШКИ",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО КОСЕВ ИЛИЕВ",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМАС ШАУЕР",
+      "target": "company:tr:040994220",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБА ТОДОРОВА КОВАЧЕВА",
+      "target": "company:tr:177015418",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ИВАНОВ ПОПОВ",
+      "target": "company:tr:177015418",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБА ТОДОРОВА КОВАЧЕВА",
+      "target": "company:tr:177015418",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ПОПОВ",
+      "target": "company:tr:177015418",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

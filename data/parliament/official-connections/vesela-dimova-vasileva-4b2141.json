@@ -1,1 +1,85 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:vesela-dimova-vasileva-4b2141","nodes":[{"id":"official:vesela-dimova-vasileva-4b2141","type":"official","slug":"vesela-dimova-vasileva-4b2141","label":"Весела Димова Василева","tier":"municipal","role":"councillor","municipality":"Търговище"},{"id":"company:tr:206347383","type":"company","label":"Самгриа","slug":null,"uic":"206347383","legalForm":null,"status":null,"seat":null},{"id":"person:СТОЯН МИРЕВ МИРЕВ","type":"person","label":"Стоян Мирев Мирев"},{"id":"person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА","type":"person","label":"Цветелина Галинова Мирева"}],"edges":[{"source":"official:vesela-dimova-vasileva-4b2141","target":"company:tr:206347383","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:vesela-dimova-vasileva-4b2141","target":"company:tr:206347383","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН МИРЕВ МИРЕВ","target":"company:tr:206347383","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА","target":"company:tr:206347383","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН МИРЕВ МИРЕВ","target":"company:tr:206347383","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА","target":"company:tr:206347383","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vesela-dimova-vasileva-4b2141",
+  "nodes": [
+    {
+      "id": "official:vesela-dimova-vasileva-4b2141",
+      "type": "official",
+      "slug": "vesela-dimova-vasileva-4b2141",
+      "label": "Весела Димова Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:206347383",
+      "type": "company",
+      "label": "Самгриа",
+      "slug": null,
+      "uic": "206347383",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН МИРЕВ МИРЕВ",
+      "type": "person",
+      "label": "Стоян Мирев Мирев"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА",
+      "type": "person",
+      "label": "Цветелина Галинова Мирева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vesela-dimova-vasileva-4b2141",
+      "target": "company:tr:206347383",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vesela-dimova-vasileva-4b2141",
+      "target": "company:tr:206347383",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН МИРЕВ МИРЕВ",
+      "target": "company:tr:206347383",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА",
+      "target": "company:tr:206347383",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН МИРЕВ МИРЕВ",
+      "target": "company:tr:206347383",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ГАЛИНОВА МИРЕВА",
+      "target": "company:tr:206347383",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5100",
+  "nodes": [
+    {
+      "id": "mp:5100",
+      "type": "mp",
+      "mpId": 5100,
+      "label": "Делян Славчев Пеевски",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:ИНТ-ЕООД",
+      "type": "company",
+      "label": "ИНТ ЕООД",
+      "slug": "ИНТ-ЕООД",
+      "uic": "204589523",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5100",
+      "target": "company:ИНТ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

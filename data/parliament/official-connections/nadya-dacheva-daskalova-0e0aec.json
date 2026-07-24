@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nadya-dacheva-daskalova-0e0aec",
+  "nodes": [
+    {
+      "id": "official:nadya-dacheva-daskalova-0e0aec",
+      "type": "official",
+      "slug": "nadya-dacheva-daskalova-0e0aec",
+      "label": "Надя Дачева Даскалова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207202946",
+      "type": "company",
+      "label": "МС и Х ЕООД",
+      "slug": null,
+      "uic": "207202946",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121142712",
+      "type": "company",
+      "label": "ЦЕНТРАЛЕН ДЕПОЗИТАР",
+      "slug": null,
+      "uic": "121142712",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАИЛ ДИМИТРОВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Михаил Димитров Даскалов"
+    },
+    {
+      "id": "person:АНГЕЛ ПЕТРОВ РАБАДЖИЙСКИ",
+      "type": "person",
+      "label": "Ангел Петров Рабаджийски"
+    },
+    {
+      "id": "person:АПОСТОЛ ЛЪЧЕЗАРОВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Апостол Лъчезаров Апостолов"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ ГОЛЕМАНСКИ",
+      "type": "person",
+      "label": "Васил Димитров Големански"
+    },
+    {
+      "id": "person:ТЕОДОРА ЙОРДАНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Теодора Йорданова Ангелова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Георги Иванов Караджов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-dacheva-daskalova-0e0aec",
+      "target": "company:tr:207202946",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nadya-dacheva-daskalova-0e0aec",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАИЛ ДИМИТРОВ ДАСКАЛОВ",
+      "target": "company:tr:207202946",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ДИМИТРОВ ДАСКАЛОВ",
+      "target": "company:tr:207202946",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ПЕТРОВ РАБАДЖИЙСКИ",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АПОСТОЛ ЛЪЧЕЗАРОВ АПОСТОЛОВ",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ ГОЛЕМАНСКИ",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЙОРДАНОВА АНГЕЛОВА",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "target": "company:tr:121142712",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "target": "company:tr:121142712",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

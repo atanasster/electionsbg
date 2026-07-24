@@ -1,1 +1,81 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3700","nodes":[{"id":"mp:3700","type":"mp","mpId":3700,"label":"Владимир Маринов Маринов","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":["46","47"]},{"id":"company:К-И-Инвест-Холдинг-ЕООД","type":"company","label":"К-И Инвест Холдинг ЕООД","slug":"К-И-Инвест-Холдинг-ЕООД","uic":"115825956","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"person:КАЛИНКА ВЪЛЕВА МАРИНОВА","type":"person","label":"Калинка Вълева Маринова"},{"id":"person:ИВАН МАРИНОВ МАРИНОВ","type":"person","label":"Иван Маринов Маринов"}],"edges":[{"source":"mp:3700","target":"company:К-И-Инвест-Холдинг-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"person:КАЛИНКА ВЪЛЕВА МАРИНОВА","target":"company:К-И-Инвест-Холдинг-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МАРИНОВ МАРИНОВ","target":"company:К-И-Инвест-Холдинг-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА ВЪЛЕВА МАРИНОВА","target":"company:К-И-Инвест-Холдинг-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МАРИНОВ МАРИНОВ","target":"company:К-И-Инвест-Холдинг-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3700",
+  "nodes": [
+    {
+      "id": "mp:3700",
+      "type": "mp",
+      "mpId": 3700,
+      "label": "Владимир Маринов Маринов",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "company:К-И-Инвест-Холдинг-ЕООД",
+      "type": "company",
+      "label": "К-И Инвест Холдинг ЕООД",
+      "slug": "К-И-Инвест-Холдинг-ЕООД",
+      "uic": "115825956",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "person:КАЛИНКА ВЪЛЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Калинка Вълева Маринова"
+    },
+    {
+      "id": "person:ИВАН МАРИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Иван Маринов Маринов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3700",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ВЪЛЕВА МАРИНОВА",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРИНОВ МАРИНОВ",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ВЪЛЕВА МАРИНОВА",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРИНОВ МАРИНОВ",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

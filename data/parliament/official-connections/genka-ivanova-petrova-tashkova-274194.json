@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:genka-ivanova-petrova-tashkova-274194",
+  "nodes": [
+    {
+      "id": "official:genka-ivanova-petrova-tashkova-274194",
+      "type": "official",
+      "slug": "genka-ivanova-petrova-tashkova-274194",
+      "label": "Генка Иванова Петрова-Ташкова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200793700",
+      "type": "company",
+      "label": "РЕФЛЕКС ПРИНТ",
+      "slug": null,
+      "uic": "200793700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕНКА ИВАНОВА ПЕТРОВА - ТАШКОВА",
+      "type": "person",
+      "label": "Генка Иванова Петрова - Ташкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:genka-ivanova-petrova-tashkova-274194",
+      "target": "company:tr:200793700",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:genka-ivanova-petrova-tashkova-274194",
+      "target": "company:tr:200793700",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:genka-ivanova-petrova-tashkova-274194",
+      "target": "company:tr:200793700",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕНКА ИВАНОВА ПЕТРОВА - ТАШКОВА",
+      "target": "company:tr:200793700",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

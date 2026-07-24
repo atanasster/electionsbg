@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dzhamal-shukriev-urukov-8c101e",
+  "nodes": [
+    {
+      "id": "official:dzhamal-shukriev-urukov-8c101e",
+      "type": "official",
+      "slug": "dzhamal-shukriev-urukov-8c101e",
+      "label": "Джамал Шукриев Уруков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девин"
+    },
+    {
+      "id": "company:tr:000609542",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА-1948&quot;",
+      "slug": null,
+      "uic": "000609542",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИСМАИЛ МЕХМЕДОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Исмаил Мехмедов Терзиев"
+    },
+    {
+      "id": "person:ГЮЛФИЗЕ АРИФОВА КАРА",
+      "type": "person",
+      "label": "Гюлфизе Арифова  Кара"
+    },
+    {
+      "id": "person:СНЕЖАНА АЛДИНОВА ЧАВДАРОВА",
+      "type": "person",
+      "label": "Снежана Алдинова Чавдарова"
+    },
+    {
+      "id": "person:ЮСЕИН ИСМАИЛОВ ЧАНТА",
+      "type": "person",
+      "label": "Юсеин Исмаилов Чанта"
+    },
+    {
+      "id": "person:РАМАДАН МЕСТАН ДАЛ",
+      "type": "person",
+      "label": "Рамадан Местан Дал"
+    },
+    {
+      "id": "person:САЛИ МЕХМЕДОВ ЧОБАНОВ",
+      "type": "person",
+      "label": "Сали  Мехмедов Чобанов"
+    },
+    {
+      "id": "person:РЕДЖЕП РЕДЖЕПОВ ЮРУКОВ",
+      "type": "person",
+      "label": "Реджеп Реджепов Юруков"
+    },
+    {
+      "id": "person:ШЕНГЮЛ ДЖАМАЛ ШАИБ",
+      "type": "person",
+      "label": "Шенгюл Джамал Шаиб"
+    },
+    {
+      "id": "person:ШУКРИ ДЖАМАЛОВ САИДОВ",
+      "type": "person",
+      "label": "Шукри Джамалов Саидов"
+    },
+    {
+      "id": "person:НЕВЕН ЕМИЛОВ УСТОВ",
+      "type": "person",
+      "label": "Невен Емилов Устов"
+    },
+    {
+      "id": "person:РАМАН МУЗАФЕРОВ КАТЕЛЕЧ",
+      "type": "person",
+      "label": "Раман Музаферов Кателеч"
+    },
+    {
+      "id": "person:АЙШЕ ИСМАИЛ ЮРЕКЛИЕВА",
+      "type": "person",
+      "label": "Айше Исмаил Юреклиева"
+    },
+    {
+      "id": "person:САЛИ ДЖАМАЛОВ САИДОВ",
+      "type": "person",
+      "label": "Сали Джамалов Саидов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhamal-shukriev-urukov-8c101e",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dzhamal-shukriev-urukov-8c101e",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИСМАИЛ МЕХМЕДОВ ТЕРЗИЕВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛФИЗЕ АРИФОВА КАРА",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА АЛДИНОВА ЧАВДАРОВА",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСЕИН ИСМАИЛОВ ЧАНТА",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАМАДАН МЕСТАН ДАЛ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ МЕХМЕДОВ ЧОБАНОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕДЖЕП РЕДЖЕПОВ ЮРУКОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСМАИЛ МЕХМЕДОВ ТЕРЗИЕВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕНГЮЛ ДЖАМАЛ ШАИБ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШУКРИ ДЖАМАЛОВ САИДОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШУКРИ ДЖАМАЛОВ САИДОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕН ЕМИЛОВ УСТОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАМАН МУЗАФЕРОВ КАТЕЛЕЧ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ИСМАИЛ ЮРЕКЛИЕВА",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ ДЖАМАЛОВ САИДОВ",
+      "target": "company:tr:000609542",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

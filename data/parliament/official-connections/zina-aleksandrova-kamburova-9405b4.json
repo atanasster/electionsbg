@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zina-aleksandrova-kamburova-9405b4",
+  "nodes": [
+    {
+      "id": "official:zina-aleksandrova-kamburova-9405b4",
+      "type": "official",
+      "slug": "zina-aleksandrova-kamburova-9405b4",
+      "label": "Зина Александрова Камбурова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:833092462",
+      "type": "company",
+      "label": "\"Ел Комерс - АБ\" ООД",
+      "slug": null,
+      "uic": "833092462",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zina-aleksandrova-kamburova-9405b4",
+      "target": "company:tr:833092462",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

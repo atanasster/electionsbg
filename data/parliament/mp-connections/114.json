@@ -1,1 +1,133 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:114","nodes":[{"id":"mp:114","type":"mp","mpId":114,"label":"Елеонора Николаева Николова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:207803854","type":"company","label":"Симеон Стил","slug":null,"uic":"207803854","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:207712956","type":"company","label":"НИКОЛОВИ 2024","slug":null,"uic":"207712956","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Аксаково, 9154"},{"id":"person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ","type":"person","label":"Симеон Антонов Гъдуларов"},{"id":"person:МАРИНА КРАСЕНОВА НИКОЛОВА","type":"person","label":"Марина Красенова Николова"},{"id":"person:СТОЯН НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Стоян Николаев Николов"}],"edges":[{"source":"mp:114","target":"company:tr:207803854","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:114","target":"company:tr:207803854","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:114","target":"company:tr:207712956","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:114","target":"company:tr:207712956","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ","target":"company:tr:207803854","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ","target":"company:tr:207803854","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА КРАСЕНОВА НИКОЛОВА","target":"company:tr:207712956","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН НИКОЛАЕВ НИКОЛОВ","target":"company:tr:207712956","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА КРАСЕНОВА НИКОЛОВА","target":"company:tr:207712956","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН НИКОЛАЕВ НИКОЛОВ","target":"company:tr:207712956","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:114",
+  "nodes": [
+    {
+      "id": "mp:114",
+      "type": "mp",
+      "mpId": 114,
+      "label": "Елеонора Николаева Николова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207803854",
+      "type": "company",
+      "label": "Симеон Стил",
+      "slug": null,
+      "uic": "207803854",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207712956",
+      "type": "company",
+      "label": "НИКОЛОВИ 2024",
+      "slug": null,
+      "uic": "207712956",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Аксаково, 9154"
+    },
+    {
+      "id": "person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ",
+      "type": "person",
+      "label": "Симеон Антонов Гъдуларов"
+    },
+    {
+      "id": "person:МАРИНА КРАСЕНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Марина Красенова Николова"
+    },
+    {
+      "id": "person:СТОЯН НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Стоян Николаев Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:114",
+      "target": "company:tr:207803854",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:114",
+      "target": "company:tr:207803854",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:114",
+      "target": "company:tr:207712956",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:114",
+      "target": "company:tr:207712956",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ",
+      "target": "company:tr:207803854",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН АНТОНОВ ГЪДУЛАРОВ",
+      "target": "company:tr:207803854",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА КРАСЕНОВА НИКОЛОВА",
+      "target": "company:tr:207712956",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:207712956",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА КРАСЕНОВА НИКОЛОВА",
+      "target": "company:tr:207712956",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:207712956",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

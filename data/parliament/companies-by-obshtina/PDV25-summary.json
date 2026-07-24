@@ -1,1 +1,59 @@
-{"obshtina":"PDV25","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"ГиГ-Строй-88","displayName":"ГиГ Строй 88","registeredOffice":"БЪЛГАРИЯ, гр. Раковски, 4150","mps":[{"mpId":957,"mpName":"Георги Георгиев Плачков","role":"manager","isCurrent":true},{"mpId":957,"mpName":"Георги Георгиев Плачков","role":"partner","isCurrent":true}]},{"slug":"Фор-Кепитъл","displayName":"Фор Кепитъл","registeredOffice":"БЪЛГАРИЯ, гр. Раковски, 4150","mps":[{"mpId":5121,"mpName":"Атанас Петров Атанасов","role":"manager","isCurrent":true},{"mpId":5121,"mpName":"Атанас Петров Атанасов","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "PDV25",
+  "count": 3,
+  "mpCount": 3,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "МАСИВ-4-ООД",
+      "displayName": "МАСИВ-4 ООД",
+      "registeredOffice": "Раковски",
+      "mps": [
+        {
+          "mpId": 4807,
+          "mpName": "Младен Николов Шишков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ГиГ-Строй-88",
+      "displayName": "ГиГ Строй 88",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Раковски, 4150",
+      "mps": [
+        {
+          "mpId": 957,
+          "mpName": "Георги Георгиев Плачков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 957,
+          "mpName": "Георги Георгиев Плачков",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Фор-Кепитъл",
+      "displayName": "Фор Кепитъл",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Раковски, 4150",
+      "mps": [
+        {
+          "mpId": 5121,
+          "mpName": "Атанас Петров Атанасов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5121,
+          "mpName": "Атанас Петров Атанасов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

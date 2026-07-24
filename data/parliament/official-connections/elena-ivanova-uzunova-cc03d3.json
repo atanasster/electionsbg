@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-ivanova-uzunova-cc03d3",
+  "nodes": [
+    {
+      "id": "official:elena-ivanova-uzunova-cc03d3",
+      "type": "official",
+      "slug": "elena-ivanova-uzunova-cc03d3",
+      "label": "Елена Иванова Узунова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "company:tr:000456580",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВ.СВ. КИРИЛ И МЕТОДИЙ 1929 г. - с. ШИШМАНЦИ&quot;",
+      "slug": null,
+      "uic": "000456580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kostadin-dechev-ivanov-ad76f6",
+      "type": "official",
+      "slug": "kostadin-dechev-ivanov-ad76f6",
+      "label": "Костадин Дечев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "person:МАРИЙКА ХРИСТОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Марийка Христова Стойчева"
+    },
+    {
+      "id": "person:ИВАНКА ЖЕКОВА КОМИТОВА",
+      "type": "person",
+      "label": "Иванка Жекова Комитова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА НАНЧЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Нанчева"
+    },
+    {
+      "id": "person:НИКОЛИНКА ПЕНЕВА МИНЧЕВА",
+      "type": "person",
+      "label": "Николинка Пенева Минчева"
+    },
+    {
+      "id": "person:СТАНКА МИТЕВА ГЕНОВА",
+      "type": "person",
+      "label": "Станка Митева Генова"
+    },
+    {
+      "id": "person:ИВАНКА РАНГЕЛОВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Иванка Рангелова Тончева"
+    },
+    {
+      "id": "person:МАРГАРИТА НАДЕЖДОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Маргарита Надеждова Минчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-ivanova-uzunova-cc03d3",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-dechev-ivanov-ad76f6",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЙКА ХРИСТОВА СТОЙЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЖЕКОВА КОМИТОВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА НАНЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ХРИСТОВА СТОЙЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЖЕКОВА КОМИТОВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА ПЕНЕВА МИНЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА МИТЕВА ГЕНОВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА РАНГЕЛОВА ТОНЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА НАДЕЖДОВА МИНЧЕВА",
+      "target": "company:tr:000456580",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

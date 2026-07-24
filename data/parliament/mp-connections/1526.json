@@ -1,1 +1,213 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1526","nodes":[{"id":"mp:1526","type":"mp","mpId":1526,"label":"Георги Симеонов Горанов","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206482468","type":"company","label":"Калиде","slug":null,"uic":"206482468","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:tr:204954720","type":"company","label":"ДЖИМЕКС ЛОГИСТИК","slug":null,"uic":"204954720","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:208620304","type":"company","label":"ДЖИМЕКС КОНСУЛТ 2025","slug":null,"uic":"208620304","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:tr:208542761","type":"company","label":"БИО БОКС 2025","slug":null,"uic":"208542761","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:tr:207923330","type":"company","label":"МР ХОУМС","slug":null,"uic":"207923330","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ","type":"person","label":"Светослав Христов Велев"},{"id":"person:СУКИЯС МЪГЪРДИЧ КИРАДЖИБАШЯН","type":"person","label":"Сукияс Мъгърдич Кираджибашян"},{"id":"person:КАТЯ ХРИСТОВА ГОРАНОВА","type":"person","label":"Катя Христова Горанова"},{"id":"person:ТЕОДОР ЛЮДМИЛОВ БОРИСОВ","type":"person","label":"Теодор Людмилов Борисов"},{"id":"person:СИМЕОН ПЕТРОВ КЪНЕВ","type":"person","label":"Симеон Петров Кънев"}],"edges":[{"source":"mp:1526","target":"company:tr:206482468","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:206482468","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:204954720","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:208620304","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:208620304","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:208542761","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:208542761","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:207923330","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1526","target":"company:tr:207923330","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ","target":"company:tr:206482468","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ","target":"company:tr:206482468","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СУКИЯС МЪГЪРДИЧ КИРАДЖИБАШЯН","target":"company:tr:206482468","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ХРИСТОВА ГОРАНОВА","target":"company:tr:204954720","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ЛЮДМИЛОВ БОРИСОВ","target":"company:tr:204954720","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ПЕТРОВ КЪНЕВ","target":"company:tr:207923330","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1526",
+  "nodes": [
+    {
+      "id": "mp:1526",
+      "type": "mp",
+      "mpId": 1526,
+      "label": "Георги Симеонов Горанов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206482468",
+      "type": "company",
+      "label": "Калиде",
+      "slug": null,
+      "uic": "206482468",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:204954720",
+      "type": "company",
+      "label": "ДЖИМЕКС ЛОГИСТИК",
+      "slug": null,
+      "uic": "204954720",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208620304",
+      "type": "company",
+      "label": "ДЖИМЕКС КОНСУЛТ 2025",
+      "slug": null,
+      "uic": "208620304",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:208542761",
+      "type": "company",
+      "label": "БИО БОКС 2025",
+      "slug": null,
+      "uic": "208542761",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:207923330",
+      "type": "company",
+      "label": "МР ХОУМС",
+      "slug": null,
+      "uic": "207923330",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Светослав Христов Велев"
+    },
+    {
+      "id": "person:СУКИЯС МЪГЪРДИЧ КИРАДЖИБАШЯН",
+      "type": "person",
+      "label": "Сукияс Мъгърдич Кираджибашян"
+    },
+    {
+      "id": "person:КАТЯ ХРИСТОВА ГОРАНОВА",
+      "type": "person",
+      "label": "Катя Христова Горанова"
+    },
+    {
+      "id": "person:ТЕОДОР ЛЮДМИЛОВ БОРИСОВ",
+      "type": "person",
+      "label": "Теодор Людмилов Борисов"
+    },
+    {
+      "id": "person:СИМЕОН ПЕТРОВ КЪНЕВ",
+      "type": "person",
+      "label": "Симеон Петров Кънев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1526",
+      "target": "company:tr:206482468",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:206482468",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:204954720",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:208620304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:208620304",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:208542761",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:208542761",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:207923330",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1526",
+      "target": "company:tr:207923330",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ",
+      "target": "company:tr:206482468",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ХРИСТОВ ВЕЛЕВ",
+      "target": "company:tr:206482468",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУКИЯС МЪГЪРДИЧ КИРАДЖИБАШЯН",
+      "target": "company:tr:206482468",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ХРИСТОВА ГОРАНОВА",
+      "target": "company:tr:204954720",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЛЮДМИЛОВ БОРИСОВ",
+      "target": "company:tr:204954720",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ПЕТРОВ КЪНЕВ",
+      "target": "company:tr:207923330",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

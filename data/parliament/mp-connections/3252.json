@@ -1,1 +1,93 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3252","nodes":[{"id":"mp:3252","type":"mp","mpId":3252,"label":"Мая Божидарова Манолова-Найденова","partyGroupShort":"СБГ","isCurrent":false,"nsFolders":["40","41","42","43","45"]},{"id":"company:А-н-Консулт-2017-ЕООД","type":"company","label":"А н Консулт 2017 ЕООД","slug":"А-н-Консулт-2017-ЕООД","uic":"204754487","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:tr:205941917","type":"company","label":"ИЗПРАВИ СЕ БГ","slug":null,"uic":"205941917","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"}],"edges":[{"source":"mp:3252","target":"company:А-н-Консулт-2017-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3252","target":"company:tr:205941917","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3252",
+  "nodes": [
+    {
+      "id": "mp:3252",
+      "type": "mp",
+      "mpId": 3252,
+      "label": "Мая Божидарова Манолова-Найденова",
+      "partyGroupShort": "СБГ",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "45"
+      ]
+    },
+    {
+      "id": "company:А-н-Консулт-2017-ЕООД",
+      "type": "company",
+      "label": "А н Консулт 2017 ЕООД",
+      "slug": "А-н-Консулт-2017-ЕООД",
+      "uic": "204754487",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София"
+    },
+    {
+      "id": "company:tr:205941917",
+      "type": "company",
+      "label": "ИЗПРАВИ СЕ БГ",
+      "slug": null,
+      "uic": "205941917",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "official:maya-bozhidarova-manolova-naidenova-884930",
+      "type": "official",
+      "slug": "maya-bozhidarova-manolova-naidenova-884930",
+      "label": "Мая Божидарова Манолова - Найденова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3252",
+      "target": "company:А-н-Консулт-2017-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3252",
+      "target": "company:А-н-Консулт-2017-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3252",
+      "target": "company:А-н-Консулт-2017-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3252",
+      "target": "company:tr:205941917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:maya-bozhidarova-manolova-naidenova-884930",
+      "target": "company:А-н-Консулт-2017-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:penko-minchev-penkov-19d0e8",
+  "nodes": [
+    {
+      "id": "official:penko-minchev-penkov-19d0e8",
+      "type": "official",
+      "slug": "penko-minchev-penkov-19d0e8",
+      "label": "Пенко Минчев Пенков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119516793",
+      "type": "company",
+      "label": "ИНВЕСТ ГРУП Д-Р ПЕНКОВИ ООД",
+      "slug": null,
+      "uic": "119516793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203306399",
+      "type": "company",
+      "label": "ЕВРОПЕЙСКИ ЦЕНТЪР ЗА ЕКО ЕНЕРГИЯ ООД",
+      "slug": null,
+      "uic": "203306399",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:119637186",
+      "type": "company",
+      "label": "ТРУД И ЗДРАВЕ ООД",
+      "slug": null,
+      "uic": "119637186",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:119517824",
+      "type": "company",
+      "label": "МП ФАРМА ГРУП ООД",
+      "slug": null,
+      "uic": "119517824",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200809370",
+      "type": "company",
+      "label": "СИТИ ХОСПИТАЛ ЕВРОПА ООД",
+      "slug": null,
+      "uic": "200809370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:gergana-penkova-aleksandrova-4e2774",
+      "type": "official",
+      "slug": "gergana-penkova-aleksandrova-4e2774",
+      "label": "Гергана Пенкова Александрова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:milen-penkov-penkov-78aad3",
+      "type": "official",
+      "slug": "milen-penkov-penkov-78aad3",
+      "label": "Милен Пенков Пенков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:МОХАМАД НАДЖАР М ХАМДИ ФАТУМ",
+      "type": "person",
+      "label": "Мохамад Наджар М Хамди Фатум"
+    },
+    {
+      "id": "person:КАМАЛ ХУССЕИН МОХАММЕД АЛ-МАШХАДАНИ",
+      "type": "person",
+      "label": "Камал Хуссеин Мохаммед Ал-Машхадани"
+    },
+    {
+      "id": "person:ОГНЯН НАКОВ НАКОВ",
+      "type": "person",
+      "label": "Огнян Наков Наков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:203306399",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119637186",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119517824",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:200809370",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:119516793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:203306399",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:penko-minchev-penkov-19d0e8",
+      "target": "company:tr:203306399",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-penkova-aleksandrova-4e2774",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119516793",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milen-penkov-penkov-78aad3",
+      "target": "company:tr:119516793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МОХАМАД НАДЖАР М ХАМДИ ФАТУМ",
+      "target": "company:tr:203306399",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМАЛ ХУССЕИН МОХАММЕД АЛ-МАШХАДАНИ",
+      "target": "company:tr:203306399",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН НАКОВ НАКОВ",
+      "target": "company:tr:203306399",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОХАМАД НАДЖАР М ХАМДИ ФАТУМ",
+      "target": "company:tr:203306399",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

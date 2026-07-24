@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kristina-dragomirova-halacheva-141070",
+  "nodes": [
+    {
+      "id": "official:kristina-dragomirova-halacheva-141070",
+      "type": "official",
+      "slug": "kristina-dragomirova-halacheva-141070",
+      "label": "Кристина Драгомирова Халачева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206522410",
+      "type": "company",
+      "label": "Баланс Контрол ООД",
+      "slug": null,
+      "uic": "206522410",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТОМИРА АНЕВА ПАНОВА",
+      "type": "person",
+      "label": "Христомира Анева Панова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-dragomirova-halacheva-141070",
+      "target": "company:tr:206522410",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kristina-dragomirova-halacheva-141070",
+      "target": "company:tr:206522410",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristina-dragomirova-halacheva-141070",
+      "target": "company:tr:206522410",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТОМИРА АНЕВА ПАНОВА",
+      "target": "company:tr:206522410",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТОМИРА АНЕВА ПАНОВА",
+      "target": "company:tr:206522410",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

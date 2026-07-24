@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-atanasov-kostadinov-04f021",
+  "nodes": [
+    {
+      "id": "official:konstantin-atanasov-kostadinov-04f021",
+      "type": "official",
+      "slug": "konstantin-atanasov-kostadinov-04f021",
+      "label": "Константин Атанасов Костадинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Асеновград"
+    },
+    {
+      "id": "company:tr:160052497",
+      "type": "company",
+      "label": "Сдружение ЦЕНТЪР ЗА МЕСТНИ ИНИЦИАТИВИ И РАЗВИТИЕ",
+      "slug": null,
+      "uic": "160052497",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ АТАНАСОВА ПЕЙЧЕВА",
+      "type": "person",
+      "label": "Мария Атанасова Пейчева"
+    },
+    {
+      "id": "person:ПЕТЪР АТАНАСОВ ПЕЙЧИНОВ",
+      "type": "person",
+      "label": "Петър Атанасов Пейчинов"
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА ГРАМАТИКОВА",
+      "type": "person",
+      "label": "Елена Димитрова Граматикова"
+    },
+    {
+      "id": "person:ПЕТЪР ВЕРЕНОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Петър Веренов Кръстев"
+    },
+    {
+      "id": "person:РАНЧО ПЕТРОВ КИРОВ",
+      "type": "person",
+      "label": "Ранчо Петров Киров"
+    },
+    {
+      "id": "person:ЦЕНО ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Цено Христов Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-atanasov-kostadinov-04f021",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ АТАНАСОВА ПЕЙЧЕВА",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АТАНАСОВ ПЕЙЧИНОВ",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ГРАМАТИКОВА",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВЕРЕНОВ КРЪСТЕВ",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАНЧО ПЕТРОВ КИРОВ",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕНО ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АТАНАСОВА ПЕЙЧЕВА",
+      "target": "company:tr:160052497",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

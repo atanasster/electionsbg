@@ -1,0 +1,250 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:shukri-mehmedov-dzhamferov-1800a3",
+  "nodes": [
+    {
+      "id": "official:shukri-mehmedov-dzhamferov-1800a3",
+      "type": "official",
+      "slug": "shukri-mehmedov-dzhamferov-1800a3",
+      "label": "Шукри Мехмедов Джамферов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Цар Калоян"
+    },
+    {
+      "id": "company:tr:176637794",
+      "type": "company",
+      "label": "ТОРЛАК-2013",
+      "slug": null,
+      "uic": "176637794",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yulker-yulkinova-pisantsal-15d0b0",
+      "type": "official",
+      "slug": "yulker-yulkinova-pisantsal-15d0b0",
+      "label": "Юлкер Юлкинова Писанцалъ",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Цар Калоян"
+    },
+    {
+      "id": "person:ФЕРИДЕ ХАСАНОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Фериде Хасанова Мехмедова"
+    },
+    {
+      "id": "person:АЙТЕН ХЪЛМИ САЛИ",
+      "type": "person",
+      "label": "Айтен Хълми Сали"
+    },
+    {
+      "id": "person:АЙЛЯ БАСРИЕВА ЧАКАЛОВА-ЗОР",
+      "type": "person",
+      "label": "Айля Басриева Чакалова-Зор"
+    },
+    {
+      "id": "person:ЪШЪЛ ЕРОЛ АКОВА",
+      "type": "person",
+      "label": "Ъшъл Ерол Акова"
+    },
+    {
+      "id": "person:КЪЙМЕТ АХТЕР ЧИРАК",
+      "type": "person",
+      "label": "Къймет Ахтер Чирак"
+    },
+    {
+      "id": "person:ФЕЙМЕ САХЛИМ РАСИМ",
+      "type": "person",
+      "label": "Фейме Сахлим Расим"
+    },
+    {
+      "id": "person:ДИЛЕК ДЖЕВАТОВА ЧОЛАК",
+      "type": "person",
+      "label": "Дилек Джеватова Чолак"
+    },
+    {
+      "id": "person:АЙШЕ ШЕНОЛ МУРАФОВА",
+      "type": "person",
+      "label": "Айше Шенол Мурафова"
+    },
+    {
+      "id": "person:АЙСУН РЕФАН ЗЮХТИ",
+      "type": "person",
+      "label": "Айсун Рефан Зюхти"
+    },
+    {
+      "id": "person:АЙСУН СЕВГИН КЬОСЕИБИШ",
+      "type": "person",
+      "label": "Айсун Севгин Кьосеибиш"
+    },
+    {
+      "id": "person:ЕЛИС НАЗМИ ТИЛКИ",
+      "type": "person",
+      "label": "Елис Назми Тилки"
+    },
+    {
+      "id": "person:СИБЕЛ МЮДЖАХИТ САБИТ-ФУЧЕДЖИ",
+      "type": "person",
+      "label": "Сибел Мюджахит Сабит-Фучеджи"
+    },
+    {
+      "id": "person:КЕЗБАН РИЗАЕВА САЛИЕВА",
+      "type": "person",
+      "label": "Кезбан Ризаева Салиева"
+    },
+    {
+      "id": "person:ЕМБИЕ ЕДЖЕВИТ АЛИЕВА",
+      "type": "person",
+      "label": "Ембие Еджевит Алиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shukri-mehmedov-dzhamferov-1800a3",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yulker-yulkinova-pisantsal-15d0b0",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕРИДЕ ХАСАНОВА МЕХМЕДОВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИДЕ ХАСАНОВА МЕХМЕДОВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙТЕН ХЪЛМИ САЛИ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛЯ БАСРИЕВА ЧАКАЛОВА-ЗОР",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЪШЪЛ ЕРОЛ АКОВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪЙМЕТ АХТЕР ЧИРАК",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕЙМЕ САХЛИМ РАСИМ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЕК ДЖЕВАТОВА ЧОЛАК",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЕК ДЖЕВАТОВА ЧОЛАК",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ШЕНОЛ МУРАФОВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСУН РЕФАН ЗЮХТИ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСУН СЕВГИН КЬОСЕИБИШ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИС НАЗМИ ТИЛКИ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИБЕЛ МЮДЖАХИТ САБИТ-ФУЧЕДЖИ",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕЗБАН РИЗАЕВА САЛИЕВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМБИЕ ЕДЖЕВИТ АЛИЕВА",
+      "target": "company:tr:176637794",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

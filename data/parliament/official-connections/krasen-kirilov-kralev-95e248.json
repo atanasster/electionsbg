@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krasen-kirilov-kralev-95e248",
+  "nodes": [
+    {
+      "id": "official:krasen-kirilov-kralev-95e248",
+      "type": "official",
+      "slug": "krasen-kirilov-kralev-95e248",
+      "label": "Красен Кирилов Кралев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103113577",
+      "type": "company",
+      "label": "МАГ КОМЮНИКЕЙШЪНС",
+      "slug": null,
+      "uic": "103113577",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4778",
+      "type": "mp",
+      "mpId": 4778,
+      "label": "Красен Кирилов Кралев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "person:КРАСЕН КИРИЛОВ КРАЛЕВ",
+      "type": "person",
+      "label": "Красен Кирилов Кралев"
+    },
+    {
+      "id": "person:ПАВЛИНА ВАСИЛЕВА МОЛЛОВА",
+      "type": "person",
+      "label": "Павлина Василева Моллова"
+    },
+    {
+      "id": "company:name:СЪНРАЙЗ ТУРИСТ ЕНД ТРАВЪЛ СЪРВИСИЗ",
+      "type": "company",
+      "label": "СЪНРАЙЗ ТУРИСТ ЕНД ТРАВЪЛ СЪРВИСИЗ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasen-kirilov-kralev-95e248",
+      "target": "company:tr:103113577",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4778",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4778",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСЕН КИРИЛОВ КРАЛЕВ",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ВАСИЛЕВА МОЛЛОВА",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СЪНРАЙЗ ТУРИСТ ЕНД ТРАВЪЛ СЪРВИСИЗ",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСЕН КИРИЛОВ КРАЛЕВ",
+      "target": "company:tr:103113577",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

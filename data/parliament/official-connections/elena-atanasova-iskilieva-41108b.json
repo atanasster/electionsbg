@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-atanasova-iskilieva-41108b",
+  "nodes": [
+    {
+      "id": "official:elena-atanasova-iskilieva-41108b",
+      "type": "official",
+      "slug": "elena-atanasova-iskilieva-41108b",
+      "label": "Елена Атанасова Искилиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000457554",
+      "type": "company",
+      "label": "ИВАН ВАЗОВ - 1931 г. кв. КОМАТЕВО, гр. ПЛОВДИВ",
+      "slug": null,
+      "uic": "000457554",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ДИМОВА",
+      "type": "person",
+      "label": "Мария Георгиева Димова"
+    },
+    {
+      "id": "person:АТАНАС ДОБРЕВ ТЕНЕВ",
+      "type": "person",
+      "label": "Атанас Добрев Тенев"
+    },
+    {
+      "id": "person:ДАРИНА КРУМОВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Дарина Крумова Делчева"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ ХРИСТЕВ МАНЕВ",
+      "type": "person",
+      "label": "Евгений Христев Манев"
+    },
+    {
+      "id": "person:НИКОЛАЙ СИМЕОНОВ КИСЬОВ",
+      "type": "person",
+      "label": "Николай Симеонов Кисьов"
+    },
+    {
+      "id": "person:ИВАН ВИДОЛОВ БЕРБЕРОВ",
+      "type": "person",
+      "label": "Иван Видолов Берберов"
+    },
+    {
+      "id": "person:АНКА ТОДОРОВА ПЕЙКОВА",
+      "type": "person",
+      "label": "Анка Тодорова Пейкова"
+    },
+    {
+      "id": "person:АЛЬОНА ОЛЕГИВНА КАМЕНОВА",
+      "type": "person",
+      "label": "Альона Олегивна Каменова"
+    },
+    {
+      "id": "person:ГЕРГАНА АТАНАСОВА ТАШЕВА",
+      "type": "person",
+      "label": "Гергана Атанасова Ташева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-atanasova-iskilieva-41108b",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ДИМОВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДОБРЕВ ТЕНЕВ",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА КРУМОВА ДЕЛЧЕВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ ХРИСТЕВ МАНЕВ",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СИМЕОНОВ КИСЬОВ",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВИДОЛОВ БЕРБЕРОВ",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНКА ТОДОРОВА ПЕЙКОВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ДИМОВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЬОНА ОЛЕГИВНА КАМЕНОВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АТАНАСОВА ТАШЕВА",
+      "target": "company:tr:000457554",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

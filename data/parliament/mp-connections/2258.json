@@ -1,1 +1,319 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2258","nodes":[{"id":"mp:2258","type":"mp","mpId":2258,"label":"Георги Владимиров Юруков","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:207747409","type":"company","label":"СПАК ИНВЕСТ","slug":null,"uic":"207747409","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1680"},{"id":"person:ЗОЯ КОСТАДИНОВА ЮРУКОВА","type":"person","label":"Зоя Костадинова Юрукова"},{"id":"person:ДОЧКО ПЕТКОВ ДОЧЕВ","type":"person","label":"Дочко Петков Дочев"},{"id":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Николай Димитров Димитров"},{"id":"company:tr:206853575","type":"company","label":"Транскапитал Центрум","slug":null,"uic":"206853575","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1172"},{"id":"mp:3845","type":"mp","mpId":3845,"label":"Владимир Славев Табутов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47"]},{"id":"company:tr:207621168","type":"company","label":"РИБАРСКО СЕЛИЩЕ ЧАЙКА","slug":null,"uic":"207621168","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бяла, 9101"},{"id":"mp:859","type":"mp","mpId":859,"label":"Димитър Анастасов Карбов","partyGroupShort":"Нация","isCurrent":false,"nsFolders":[]},{"id":"company:tr:121856059","type":"company","label":"БЪЛГАРСКА БАНКА ЗА РАЗВИТИЕ","slug":null,"uic":"121856059","legalForm":"EAD","status":"active","seat":null},{"id":"mp:2823","type":"mp","mpId":2823,"label":"Ивайло Ангелов Московски","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"company:tr:131422591","type":"company","label":"СДРУЖЕНИЕ НА ПЪТНИТЕ ИНЖЕНЕРИ И КОНСУЛТАНТИ /СПИК/","slug":null,"uic":"131422591","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, София, 1606"},{"id":"mp:5268","type":"mp","mpId":5268,"label":"Румен Ангелов Миланов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"mp:2258","target":"company:tr:207747409","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2258","target":"company:tr:207747409","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2258","target":"company:tr:207747409","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2258","target":"company:tr:207747409","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЗОЯ КОСТАДИНОВА ЮРУКОВА","target":"company:tr:207747409","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОЧКО ПЕТКОВ ДОЧЕВ","target":"company:tr:207747409","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДОЧКО ПЕТКОВ ДОЧЕВ","target":"company:tr:207747409","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:207747409","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:121856059","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:206853575","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:131422591","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","target":"company:tr:207621168","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3845","target":"company:tr:206853575","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:859","target":"company:tr:207621168","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2823","target":"company:tr:121856059","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5268","target":"company:tr:131422591","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5268","target":"company:tr:131422591","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3845","length":4,"nodeIds":["mp:2258","company:tr:207747409","person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","company:tr:206853575","mp:3845"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:859","length":4,"nodeIds":["mp:2258","company:tr:207747409","person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","company:tr:207621168","mp:859"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2823","length":4,"nodeIds":["mp:2258","company:tr:207747409","person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","company:tr:121856059","mp:2823"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5268","length":4,"nodeIds":["mp:2258","company:tr:207747409","person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ","company:tr:131422591","mp:5268"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2258",
+  "nodes": [
+    {
+      "id": "mp:2258",
+      "type": "mp",
+      "mpId": 2258,
+      "label": "Георги Владимиров Юруков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:207747409",
+      "type": "company",
+      "label": "СПАК ИНВЕСТ",
+      "slug": null,
+      "uic": "207747409",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680"
+    },
+    {
+      "id": "person:ЗОЯ КОСТАДИНОВА ЮРУКОВА",
+      "type": "person",
+      "label": "Зоя Костадинова Юрукова"
+    },
+    {
+      "id": "person:ДОЧКО ПЕТКОВ ДОЧЕВ",
+      "type": "person",
+      "label": "Дочко Петков Дочев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Николай Димитров Димитров"
+    },
+    {
+      "id": "company:tr:206853575",
+      "type": "company",
+      "label": "Транскапитал Центрум",
+      "slug": null,
+      "uic": "206853575",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1172"
+    },
+    {
+      "id": "mp:3845",
+      "type": "mp",
+      "mpId": 3845,
+      "label": "Владимир Славев Табутов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:tr:207621168",
+      "type": "company",
+      "label": "РИБАРСКО СЕЛИЩЕ ЧАЙКА",
+      "slug": null,
+      "uic": "207621168",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бяла, 9101"
+    },
+    {
+      "id": "mp:859",
+      "type": "mp",
+      "mpId": 859,
+      "label": "Димитър Анастасов Карбов",
+      "partyGroupShort": "Нация",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:121856059",
+      "type": "company",
+      "label": "БЪЛГАРСКА БАНКА ЗА РАЗВИТИЕ",
+      "slug": null,
+      "uic": "121856059",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2823",
+      "type": "mp",
+      "mpId": 2823,
+      "label": "Ивайло Ангелов Московски",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:131422591",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ПЪТНИТЕ ИНЖЕНЕРИ И КОНСУЛТАНТИ /СПИК/",
+      "slug": null,
+      "uic": "131422591",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1606"
+    },
+    {
+      "id": "mp:5268",
+      "type": "mp",
+      "mpId": 5268,
+      "label": "Румен Ангелов Миланов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2258",
+      "target": "company:tr:207747409",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2258",
+      "target": "company:tr:207747409",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2258",
+      "target": "company:tr:207747409",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2258",
+      "target": "company:tr:207747409",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОЯ КОСТАДИНОВА ЮРУКОВА",
+      "target": "company:tr:207747409",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЧКО ПЕТКОВ ДОЧЕВ",
+      "target": "company:tr:207747409",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЧКО ПЕТКОВ ДОЧЕВ",
+      "target": "company:tr:207747409",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207747409",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:121856059",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206853575",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:131422591",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:207621168",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3845",
+      "target": "company:tr:206853575",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:859",
+      "target": "company:tr:207621168",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2823",
+      "target": "company:tr:121856059",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5268",
+      "target": "company:tr:131422591",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5268",
+      "target": "company:tr:131422591",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3845",
+      "length": 4,
+      "nodeIds": [
+        "mp:2258",
+        "company:tr:207747409",
+        "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:206853575",
+        "mp:3845"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:859",
+      "length": 4,
+      "nodeIds": [
+        "mp:2258",
+        "company:tr:207747409",
+        "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:207621168",
+        "mp:859"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2823",
+      "length": 4,
+      "nodeIds": [
+        "mp:2258",
+        "company:tr:207747409",
+        "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:121856059",
+        "mp:2823"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5268",
+      "length": 4,
+      "nodeIds": [
+        "mp:2258",
+        "company:tr:207747409",
+        "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:131422591",
+        "mp:5268"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

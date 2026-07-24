@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yavor-valentinov-kolev-6b8c83",
+  "nodes": [
+    {
+      "id": "official:yavor-valentinov-kolev-6b8c83",
+      "type": "official",
+      "slug": "yavor-valentinov-kolev-6b8c83",
+      "label": "Явор Валентинов Колев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205929605",
+      "type": "company",
+      "label": "САЙБЪР 360",
+      "slug": null,
+      "uic": "205929605",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛА ЕВГЕНИЕВА ГЕНОВА",
+      "type": "person",
+      "label": "Светла Евгениева Генова"
+    },
+    {
+      "id": "person:ЗОЯ НИКОЛАЕВА ВАСИЛЕВ",
+      "type": "person",
+      "label": "Зоя Николаева Василев"
+    },
+    {
+      "id": "person:СИМЕОН ХАЙ НГУЕН",
+      "type": "person",
+      "label": "Симеон Хай Нгуен"
+    },
+    {
+      "id": "person:КИБЕР УАН",
+      "type": "person",
+      "label": "Кибер Уан"
+    },
+    {
+      "id": "person:ОРЕН ЕЛИМЕЛЕХ",
+      "type": "person",
+      "label": "Орен Елимелех"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-valentinov-kolev-6b8c83",
+      "target": "company:tr:205929605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛА ЕВГЕНИЕВА ГЕНОВА",
+      "target": "company:tr:205929605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ НИКОЛАЕВА ВАСИЛЕВ",
+      "target": "company:tr:205929605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ХАЙ НГУЕН",
+      "target": "company:tr:205929605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИБЕР УАН",
+      "target": "company:tr:205929605",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОРЕН ЕЛИМЕЛЕХ",
+      "target": "company:tr:205929605",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

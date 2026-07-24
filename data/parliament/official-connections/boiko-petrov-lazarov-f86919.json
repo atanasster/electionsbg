@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:boiko-petrov-lazarov-f86919","nodes":[{"id":"official:boiko-petrov-lazarov-f86919","type":"official","slug":"boiko-petrov-lazarov-f86919","label":"Бойко Петров Лазаров","tier":"municipal","role":"councillor","municipality":"Самоков"},{"id":"company:tr:131453957","type":"company","label":"Ел енд Джи уиндоу системс ООД","slug":null,"uic":"131453957","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ","type":"person","label":"Георги Бойков Лазаров"},{"id":"person:ДЖОН ГЛЕДХИЛ","type":"person","label":"Джон Гледхил"}],"edges":[{"source":"official:boiko-petrov-lazarov-f86919","target":"company:tr:131453957","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ","target":"company:tr:131453957","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ","target":"company:tr:131453957","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЖОН ГЛЕДХИЛ","target":"company:tr:131453957","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boiko-petrov-lazarov-f86919",
+  "nodes": [
+    {
+      "id": "official:boiko-petrov-lazarov-f86919",
+      "type": "official",
+      "slug": "boiko-petrov-lazarov-f86919",
+      "label": "Бойко Петров Лазаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:207584927",
+      "type": "company",
+      "label": "Ларикс ски ООД",
+      "slug": null,
+      "uic": "207584927",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131453957",
+      "type": "company",
+      "label": "Ел енд Джи уиндоу системс ООД",
+      "slug": null,
+      "uic": "131453957",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ПЕТРОВ ГЕРГИНОВ",
+      "type": "person",
+      "label": "Красимир  Петров Гергинов"
+    },
+    {
+      "id": "person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Георги Бойков Лазаров"
+    },
+    {
+      "id": "person:ДЖОН ГЛЕДХИЛ",
+      "type": "person",
+      "label": "Джон Гледхил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boiko-petrov-lazarov-f86919",
+      "target": "company:tr:207584927",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boiko-petrov-lazarov-f86919",
+      "target": "company:tr:131453957",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boiko-petrov-lazarov-f86919",
+      "target": "company:tr:207584927",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boiko-petrov-lazarov-f86919",
+      "target": "company:tr:207584927",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ГЕРГИНОВ",
+      "target": "company:tr:207584927",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПЕТРОВ ГЕРГИНОВ",
+      "target": "company:tr:207584927",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ",
+      "target": "company:tr:131453957",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОЙКОВ ЛАЗАРОВ",
+      "target": "company:tr:131453957",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖОН ГЛЕДХИЛ",
+      "target": "company:tr:131453957",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

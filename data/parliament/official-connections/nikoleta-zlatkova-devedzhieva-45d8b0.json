@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikoleta-zlatkova-devedzhieva-45d8b0",
+  "nodes": [
+    {
+      "id": "official:nikoleta-zlatkova-devedzhieva-45d8b0",
+      "type": "official",
+      "slug": "nikoleta-zlatkova-devedzhieva-45d8b0",
+      "label": "Николета Златкова Деведжиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ситово"
+    },
+    {
+      "id": "company:tr:206682862",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ 2021",
+      "slug": null,
+      "uic": "206682862",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ГЕОРГИЕВА КАЛИНОВА",
+      "type": "person",
+      "label": "Красимира Георгиева Калинова"
+    },
+    {
+      "id": "person:МИЛКО ТОДОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Милко Тодоров Иванов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СТОЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Валентин Стоянов Димитров"
+    },
+    {
+      "id": "person:СИЛВИЯ ДИМИТРОВА БАЛКАНДЖИЕВА",
+      "type": "person",
+      "label": "Силвия Димитрова Балканджиева"
+    },
+    {
+      "id": "person:НЕЛИ ГЕОРГИЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Нели Георгиева Ангелова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ТОШЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Веселка Тошева Петрова"
+    },
+    {
+      "id": "person:АНА ЖЕЛЕВА НЕНОВА",
+      "type": "person",
+      "label": "Ана Желева Ненова"
+    },
+    {
+      "id": "person:ВЕНКА НИКОЛОВА КИРОВА",
+      "type": "person",
+      "label": "Венка Николова Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikoleta-zlatkova-devedzhieva-45d8b0",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikoleta-zlatkova-devedzhieva-45d8b0",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА ГЕОРГИЕВА КАЛИНОВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТОЯНОВ ДИМИТРОВ",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДИМИТРОВА БАЛКАНДЖИЕВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ГЕОРГИЕВА АНГЕЛОВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ТОШЕВА ПЕТРОВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ЖЕЛЕВА НЕНОВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНКА НИКОЛОВА КИРОВА",
+      "target": "company:tr:206682862",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

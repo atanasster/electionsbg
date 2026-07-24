@@ -1,1 +1,198 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5202","nodes":[{"id":"mp:5202","type":"mp","mpId":5202,"label":"Джипо Николов Джипов","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["51","52"]},{"id":"company:tr:116011316","type":"company","label":"МАТ","slug":null,"uic":"116011316","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:177135054","type":"company","label":"Клуб за обществена и гражданска активност","slug":null,"uic":"177135054","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:206034748","type":"company","label":"МАТ 2020","slug":null,"uic":"206034748","legalForm":"OOD","status":"active","seat":null},{"id":"person:МИЛЕН ЙОРГОВ МИНЧЕВ","type":"person","label":"Милен Йоргов Минчев"},{"id":"person:ГЕРГАНА СТЕФАНОВА НЕШЕВА","type":"person","label":"Гергана Стефанова Нешева"},{"id":"person:НИНА СТЕФАНОВА БОЯДЖИЕВА","type":"person","label":"Нина Стефанова Бояджиева"},{"id":"company:name:МАТ 66","type":"company","label":"\"МАТ 66\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЙОСИФ МИЛЕНОВ ЙОРГОВ","type":"person","label":"Йосиф Миленов Йоргов"},{"id":"person:МИЛЕНА ДАЧЕВА ОРЕШКОВА","type":"person","label":"Милена Дачева Орешкова"}],"edges":[{"source":"mp:5202","target":"company:tr:116011316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5202","target":"company:tr:177135054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5202","target":"company:tr:206034748","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕН ЙОРГОВ МИНЧЕВ","target":"company:tr:116011316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА СТЕФАНОВА НЕШЕВА","target":"company:tr:116011316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИНА СТЕФАНОВА БОЯДЖИЕВА","target":"company:tr:116011316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:МАТ 66","target":"company:tr:116011316","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОСИФ МИЛЕНОВ ЙОРГОВ","target":"company:tr:116011316","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ДАЧЕВА ОРЕШКОВА","target":"company:tr:177135054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ЙОРГОВ МИНЧЕВ","target":"company:tr:177135054","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИНА СТЕФАНОВА БОЯДЖИЕВА","target":"company:tr:206034748","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА СТЕФАНОВА НЕШЕВА","target":"company:tr:206034748","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИНА СТЕФАНОВА БОЯДЖИЕВА","target":"company:tr:206034748","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:МАТ 66","target":"company:tr:206034748","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5202",
+  "nodes": [
+    {
+      "id": "mp:5202",
+      "type": "mp",
+      "mpId": 5202,
+      "label": "Джипо Николов Джипов",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:116011316",
+      "type": "company",
+      "label": "МАТ",
+      "slug": null,
+      "uic": "116011316",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:177135054",
+      "type": "company",
+      "label": "Клуб за обществена и гражданска активност",
+      "slug": null,
+      "uic": "177135054",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206034748",
+      "type": "company",
+      "label": "МАТ 2020",
+      "slug": null,
+      "uic": "206034748",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕН ЙОРГОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Милен Йоргов Минчев"
+    },
+    {
+      "id": "person:ГЕРГАНА СТЕФАНОВА НЕШЕВА",
+      "type": "person",
+      "label": "Гергана Стефанова Нешева"
+    },
+    {
+      "id": "person:НИНА СТЕФАНОВА БОЯДЖИЕВА",
+      "type": "person",
+      "label": "Нина Стефанова Бояджиева"
+    },
+    {
+      "id": "company:name:МАТ 66",
+      "type": "company",
+      "label": "\"МАТ 66\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОСИФ МИЛЕНОВ ЙОРГОВ",
+      "type": "person",
+      "label": "Йосиф Миленов Йоргов"
+    },
+    {
+      "id": "person:МИЛЕНА ДАЧЕВА ОРЕШКОВА",
+      "type": "person",
+      "label": "Милена Дачева Орешкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5202",
+      "target": "company:tr:116011316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5202",
+      "target": "company:tr:177135054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5202",
+      "target": "company:tr:206034748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ЙОРГОВ МИНЧЕВ",
+      "target": "company:tr:116011316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СТЕФАНОВА НЕШЕВА",
+      "target": "company:tr:116011316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА СТЕФАНОВА БОЯДЖИЕВА",
+      "target": "company:tr:116011316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МАТ 66",
+      "target": "company:tr:116011316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОСИФ МИЛЕНОВ ЙОРГОВ",
+      "target": "company:tr:116011316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДАЧЕВА ОРЕШКОВА",
+      "target": "company:tr:177135054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ЙОРГОВ МИНЧЕВ",
+      "target": "company:tr:177135054",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА СТЕФАНОВА БОЯДЖИЕВА",
+      "target": "company:tr:206034748",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СТЕФАНОВА НЕШЕВА",
+      "target": "company:tr:206034748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА СТЕФАНОВА БОЯДЖИЕВА",
+      "target": "company:tr:206034748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МАТ 66",
+      "target": "company:tr:206034748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

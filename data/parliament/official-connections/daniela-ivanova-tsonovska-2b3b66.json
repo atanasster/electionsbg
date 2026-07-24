@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:daniela-ivanova-tsonovska-2b3b66",
+  "nodes": [
+    {
+      "id": "official:daniela-ivanova-tsonovska-2b3b66",
+      "type": "official",
+      "slug": "daniela-ivanova-tsonovska-2b3b66",
+      "label": "Даниела Иванова Цоньовска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114538031",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СОУ ХРИСТО СМИРНЕНСКИ&quot; -  ГРАД КОЙНАРЕ",
+      "slug": null,
+      "uic": "114538031",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАН ЙОРДАНОВ ЧАНКОВ",
+      "type": "person",
+      "label": "Мариан Йорданов Чанков"
+    },
+    {
+      "id": "person:МАЯ ВЕСЕЛИНОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Мая Веселинова Григорова"
+    },
+    {
+      "id": "person:ВАЛЯ ЙОРДАНОВА БЕТОВА",
+      "type": "person",
+      "label": "Валя Йорданова Бетова"
+    },
+    {
+      "id": "person:ПАВЛИН ПЕТРОВ ЦАЛОВ",
+      "type": "person",
+      "label": "Павлин Петров Цалов"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА ЦВЕТКОВА КОСТОВСКА",
+      "type": "person",
+      "label": "Теменужка Цветкова Костовска"
+    },
+    {
+      "id": "person:ДЕТЕЛИНКА АЛЕКСАНДРОВА БЕНЧОВСКА",
+      "type": "person",
+      "label": "Детелинка Александрова Бенчовска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-ivanova-tsonovska-2b3b66",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-ivanova-tsonovska-2b3b66",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАН ЙОРДАНОВ ЧАНКОВ",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ВЕСЕЛИНОВА ГРИГОРОВА",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ЙОРДАНОВА БЕТОВА",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ПЕТРОВ ЦАЛОВ",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ПЕТРОВ ЦАЛОВ",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА ЦВЕТКОВА КОСТОВСКА",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНКА АЛЕКСАНДРОВА БЕНЧОВСКА",
+      "target": "company:tr:114538031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

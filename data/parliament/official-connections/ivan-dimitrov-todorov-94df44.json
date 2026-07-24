@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-dimitrov-todorov-94df44",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-todorov-94df44",
+      "type": "official",
+      "slug": "ivan-dimitrov-todorov-94df44",
+      "label": "Иван Димитров Тодоров",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111565824",
+      "type": "company",
+      "label": "ВИТА Б и Б",
+      "slug": null,
+      "uic": "111565824",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-todorov-94df44",
+      "target": "company:tr:111565824",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,275 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4935","nodes":[{"id":"mp:4935","type":"mp","mpId":4935,"label":"Снежанка Райчова Траянска","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["47","51"]},{"id":"company:Акаунт-комерс","type":"company","label":"Акаунт комерс","slug":"Акаунт-комерс","uic":"109610073","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Кюстендил, 2500"},{"id":"company:Акаунт-комерс-2","type":"company","label":"Акаунт комерс 2","slug":"Акаунт-комерс-2","uic":"204204867","legalForm":"OOD","status":"active","seat":"Кюстендил"},{"id":"company:Лайт-транс-1","type":"company","label":"Лайт транс 1","slug":"Лайт-транс-1","uic":"205783552","legalForm":"OOD","status":"active","seat":"Кюстендил"},{"id":"person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА","type":"person","label":"Моника Валериева Миланова"},{"id":"person:СВЕТЛИН ИВОВ ТРАЯНСКИ","type":"person","label":"Светлин Ивов Траянски"}],"edges":[{"source":"mp:4935","target":"company:Акаунт-комерс","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс-2","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс-2","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс-2","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Лайт-транс-1","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Лайт-транс-1","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"mp:4935","target":"company:Акаунт-комерс-2","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"high"},{"source":"person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА","target":"company:Акаунт-комерс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ИВОВ ТРАЯНСКИ","target":"company:Акаунт-комерс","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ИВОВ ТРАЯНСКИ","target":"company:Акаунт-комерс","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА","target":"company:Акаунт-комерс-2","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ИВОВ ТРАЯНСКИ","target":"company:Акаунт-комерс-2","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛИН ИВОВ ТРАЯНСКИ","target":"company:Акаунт-комерс-2","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА","target":"company:Лайт-транс-1","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА","target":"company:Лайт-транс-1","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4935",
+  "nodes": [
+    {
+      "id": "mp:4935",
+      "type": "mp",
+      "mpId": 4935,
+      "label": "Снежанка Райчова Траянска",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Акаунт-комерс",
+      "type": "company",
+      "label": "Акаунт комерс",
+      "slug": "Акаунт-комерс",
+      "uic": "109610073",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Кюстендил, 2500"
+    },
+    {
+      "id": "company:Акаунт-комерс-2",
+      "type": "company",
+      "label": "Акаунт комерс 2",
+      "slug": "Акаунт-комерс-2",
+      "uic": "204204867",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кюстендил"
+    },
+    {
+      "id": "company:Вемона-транс",
+      "type": "company",
+      "label": "Вемона транс",
+      "slug": "Вемона-транс",
+      "uic": "203859275",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. Кюстендил, 2500"
+    },
+    {
+      "id": "company:Дантелети",
+      "type": "company",
+      "label": "Дантелети",
+      "slug": "Дантелети",
+      "uic": "200534376",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Лайт-транс-1",
+      "type": "company",
+      "label": "Лайт транс 1",
+      "slug": "Лайт-транс-1",
+      "uic": "205783552",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кюстендил"
+    },
+    {
+      "id": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА",
+      "type": "person",
+      "label": "Моника Валериева Миланова"
+    },
+    {
+      "id": "person:СВЕТЛИН ИВОВ ТРАЯНСКИ",
+      "type": "person",
+      "label": "Светлин Ивов Траянски"
+    },
+    {
+      "id": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА О",
+      "type": "person",
+      "label": "Моника Валериева Миланова О"
+    },
+    {
+      "id": "person:ЛЮБОМИР СТЕФАНОВ ХАРАЛАМПИЕВ",
+      "type": "person",
+      "label": "Любомир Стефанов Харалампиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Вемона-транс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Дантелети",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Лайт-транс-1",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Лайт-транс-1",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4935",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ИВОВ ТРАЯНСКИ",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ИВОВ ТРАЯНСКИ",
+      "target": "company:Акаунт-комерс",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ИВОВ ТРАЯНСКИ",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ИВОВ ТРАЯНСКИ",
+      "target": "company:Акаунт-комерс-2",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА О",
+      "target": "company:Вемона-транс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТЕФАНОВ ХАРАЛАМПИЕВ",
+      "target": "company:Дантелети",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТЕФАНОВ ХАРАЛАМПИЕВ",
+      "target": "company:Дантелети",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА",
+      "target": "company:Лайт-транс-1",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ВАЛЕРИЕВА МИЛАНОВА",
+      "target": "company:Лайт-транс-1",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

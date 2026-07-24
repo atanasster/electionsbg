@@ -1,1 +1,40 @@
-{"ekatte":"67800","count":2,"mpCount":2,"totalPages":1,"topCompanies":[{"slug":"В.К.БЪЛГАРИЯ","displayName":"В.К.БЪЛГАРИЯ","registeredOffice":"БЪЛГАРИЯ, гр. Созопол, 8130","mps":[{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"manager","isCurrent":true},{"mpId":2501,"mpName":"Димитър Спасов Димитров","role":"sole_owner","isCurrent":true}]},{"slug":"ВЕЙП-СИТИ","displayName":"ВЕЙП СИТИ","registeredOffice":"БЪЛГАРИЯ, гр. Созопол, 8130","mps":[{"mpId":4923,"mpName":"Любомир Димитров Христов","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "67800",
+  "count": 2,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "В.К.БЪЛГАРИЯ",
+      "displayName": "В.К.БЪЛГАРИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Созопол, 8130",
+      "mps": [
+        {
+          "mpId": 2501,
+          "mpName": "Димитър Спасов Димитров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2501,
+          "mpName": "Димитър Спасов Димитров",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ВЕЙП-СИТИ",
+      "displayName": "ВЕЙП СИТИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Созопол, 8130",
+      "mps": [
+        {
+          "mpId": 4923,
+          "mpName": "Любомир Димитров Христов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

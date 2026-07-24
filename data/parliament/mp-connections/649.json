@@ -1,1 +1,96 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:649","nodes":[{"id":"mp:649","type":"mp","mpId":649,"label":"Христина Георгиева Петрова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:205495742","type":"company","label":"Христи Кейт","slug":null,"uic":"205495742","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":null},{"id":"company:tr:175955790","type":"company","label":"СДРУЖЕНИЕ &quot;ДЕТСКИ ФУТБОЛЕН КЛУБ &quot;ОРЛЕТА&quot;&quot;","slug":null,"uic":"175955790","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ","type":"person","label":"Валентин Валентинов Карагьозов"},{"id":"person:ЗЛАТКА НИКОЛОВА ТОДОРОВА","type":"person","label":"Златка Николова Тодорова"}],"edges":[{"source":"mp:649","target":"company:tr:205495742","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:649","target":"company:tr:205495742","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:649","target":"company:tr:175955790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ","target":"company:tr:175955790","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА НИКОЛОВА ТОДОРОВА","target":"company:tr:175955790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ","target":"company:tr:175955790","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:649",
+  "nodes": [
+    {
+      "id": "mp:649",
+      "type": "mp",
+      "mpId": 649,
+      "label": "Христина Георгиева Петрова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205495742",
+      "type": "company",
+      "label": "Христи Кейт",
+      "slug": null,
+      "uic": "205495742",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:175955790",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ДЕТСКИ ФУТБОЛЕН КЛУБ &quot;ОРЛЕТА&quot;&quot;",
+      "slug": null,
+      "uic": "175955790",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Валентин Валентинов Карагьозов"
+    },
+    {
+      "id": "person:ЗЛАТКА НИКОЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Златка Николова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:649",
+      "target": "company:tr:205495742",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:649",
+      "target": "company:tr:205495742",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:649",
+      "target": "company:tr:175955790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ",
+      "target": "company:tr:175955790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА НИКОЛОВА ТОДОРОВА",
+      "target": "company:tr:175955790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАЛЕНТИНОВ КАРАГЬОЗОВ",
+      "target": "company:tr:175955790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

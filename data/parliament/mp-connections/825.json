@@ -1,1 +1,291 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:825","nodes":[{"id":"mp:825","type":"mp","mpId":825,"label":"Николай Георгиев Григоров","partyGroupShort":"Левицата","isCurrent":false,"nsFolders":[]},{"id":"company:tr:119628835","type":"company","label":"ГЕНОМИКА","slug":null,"uic":"119628835","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"company:tr:208196040","type":"company","label":"УГОИТЕЛНИ СТОПАНСТВА","slug":null,"uic":"208196040","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"company:tr:208185713","type":"company","label":"БИЙФ МАСТЕР ТИЙМ","slug":null,"uic":"208185713","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"company:tr:208034871","type":"company","label":"РИНД ИМПЕКС","slug":null,"uic":"208034871","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"company:tr:205804498","type":"company","label":"ТОП БУЛС","slug":null,"uic":"205804498","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Сливен, 8800"},{"id":"person:РИНДЕРАЛИАНЦ ГМБХ","type":"person","label":"Риндералианц Гмбх"},{"id":"person:МАТИАС ЛЬОБЕР","type":"person","label":"Матиас Льобер"},{"id":"person:ИПМ КОНТРОЛ","type":"person","label":"Ипм  Контрол"},{"id":"company:name:РИНД ИМПЕКС”","type":"company","label":"“РИНД ИМПЕКС” ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"company:name:ЕКО МИЙТ”","type":"company","label":"“ЕКО МИЙТ” ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИСУФ САЛИЕВ РЕДЖЕБОВ","type":"person","label":"Исуф Салиев Реджебов"},{"id":"person:ИВАЙЛО ГЕОРГИЕВ НИКОЛОВ","type":"person","label":"Ивайло Георгиев Николов"},{"id":"person:КАЛИНКА НИКОЛАЕВА СТЕФАНОВА","type":"person","label":"Калинка Николаева Стефанова"},{"id":"person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ","type":"person","label":"Милен Панайотов Панайотов"}],"edges":[{"source":"mp:825","target":"company:tr:119628835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:208196040","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:119628835","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:208185713","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:208034871","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:208034871","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:205804498","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:825","target":"company:tr:205804498","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:РИНДЕРАЛИАНЦ ГМБХ","target":"company:tr:119628835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАТИАС ЛЬОБЕР","target":"company:tr:119628835","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИПМ КОНТРОЛ","target":"company:tr:119628835","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:РИНД ИМПЕКС”","target":"company:tr:208196040","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ЕКО МИЙТ”","target":"company:tr:208196040","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИСУФ САЛИЕВ РЕДЖЕБОВ","target":"company:tr:208196040","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ГЕОРГИЕВ НИКОЛОВ","target":"company:tr:208196040","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:РИНД ИМПЕКС”","target":"company:tr:208185713","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ЕКО МИЙТ”","target":"company:tr:208185713","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИСУФ САЛИЕВ РЕДЖЕБОВ","target":"company:tr:208185713","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА НИКОЛАЕВА СТЕФАНОВА","target":"company:tr:208185713","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ","target":"company:tr:208034871","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ","target":"company:tr:208034871","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:825",
+  "nodes": [
+    {
+      "id": "mp:825",
+      "type": "mp",
+      "mpId": 825,
+      "label": "Николай Георгиев Григоров",
+      "partyGroupShort": "Левицата",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:119628835",
+      "type": "company",
+      "label": "ГЕНОМИКА",
+      "slug": null,
+      "uic": "119628835",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:208196040",
+      "type": "company",
+      "label": "УГОИТЕЛНИ СТОПАНСТВА",
+      "slug": null,
+      "uic": "208196040",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:208185713",
+      "type": "company",
+      "label": "БИЙФ МАСТЕР ТИЙМ",
+      "slug": null,
+      "uic": "208185713",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:208034871",
+      "type": "company",
+      "label": "РИНД ИМПЕКС",
+      "slug": null,
+      "uic": "208034871",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:205804498",
+      "type": "company",
+      "label": "ТОП БУЛС",
+      "slug": null,
+      "uic": "205804498",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "person:РИНДЕРАЛИАНЦ ГМБХ",
+      "type": "person",
+      "label": "Риндералианц Гмбх"
+    },
+    {
+      "id": "person:МАТИАС ЛЬОБЕР",
+      "type": "person",
+      "label": "Матиас Льобер"
+    },
+    {
+      "id": "person:ИПМ КОНТРОЛ",
+      "type": "person",
+      "label": "Ипм  Контрол"
+    },
+    {
+      "id": "company:name:РИНД ИМПЕКС”",
+      "type": "company",
+      "label": "“РИНД ИМПЕКС” ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ЕКО МИЙТ”",
+      "type": "company",
+      "label": "“ЕКО МИЙТ” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИСУФ САЛИЕВ РЕДЖЕБОВ",
+      "type": "person",
+      "label": "Исуф Салиев Реджебов"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Николов"
+    },
+    {
+      "id": "person:КАЛИНКА НИКОЛАЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Калинка Николаева Стефанова"
+    },
+    {
+      "id": "person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Милен Панайотов Панайотов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:825",
+      "target": "company:tr:119628835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:208196040",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:119628835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:208185713",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:208034871",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:208034871",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:205804498",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:825",
+      "target": "company:tr:205804498",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РИНДЕРАЛИАНЦ ГМБХ",
+      "target": "company:tr:119628835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАТИАС ЛЬОБЕР",
+      "target": "company:tr:119628835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИПМ КОНТРОЛ",
+      "target": "company:tr:119628835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:РИНД ИМПЕКС”",
+      "target": "company:tr:208196040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕКО МИЙТ”",
+      "target": "company:tr:208196040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСУФ САЛИЕВ РЕДЖЕБОВ",
+      "target": "company:tr:208196040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:208196040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:РИНД ИМПЕКС”",
+      "target": "company:tr:208185713",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕКО МИЙТ”",
+      "target": "company:tr:208185713",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСУФ САЛИЕВ РЕДЖЕБОВ",
+      "target": "company:tr:208185713",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА НИКОЛАЕВА СТЕФАНОВА",
+      "target": "company:tr:208185713",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:208034871",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ПАНАЙОТОВ ПАНАЙОТОВ",
+      "target": "company:tr:208034871",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

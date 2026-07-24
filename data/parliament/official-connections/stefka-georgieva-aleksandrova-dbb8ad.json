@@ -1,1 +1,56 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:stefka-georgieva-aleksandrova-dbb8ad","nodes":[{"id":"official:stefka-georgieva-aleksandrova-dbb8ad","type":"official","slug":"stefka-georgieva-aleksandrova-dbb8ad","label":"Стефка Георгиева Александрова","tier":"municipal","role":"councillor","municipality":"Монтана"},{"id":"company:tr:206529934","type":"company","label":"Фаворит Секюрити 4 ООД","slug":null,"uic":"206529934","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ","type":"person","label":"Георги Александров Александров"}],"edges":[{"source":"official:stefka-georgieva-aleksandrova-dbb8ad","target":"company:tr:206529934","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ","target":"company:tr:206529934","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ","target":"company:tr:206529934","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefka-georgieva-aleksandrova-dbb8ad",
+  "nodes": [
+    {
+      "id": "official:stefka-georgieva-aleksandrova-dbb8ad",
+      "type": "official",
+      "slug": "stefka-georgieva-aleksandrova-dbb8ad",
+      "label": "Стефка Георгиева Александрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:206529934",
+      "type": "company",
+      "label": "Фаворит Секюрити 4 ООД",
+      "slug": null,
+      "uic": "206529934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Георги Александров Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefka-georgieva-aleksandrova-dbb8ad",
+      "target": "company:tr:206529934",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:206529934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АЛЕКСАНДРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:206529934",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

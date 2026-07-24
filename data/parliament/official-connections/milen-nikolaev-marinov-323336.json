@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milen-nikolaev-marinov-323336",
+  "nodes": [
+    {
+      "id": "official:milen-nikolaev-marinov-323336",
+      "type": "official",
+      "slug": "milen-nikolaev-marinov-323336",
+      "label": "Милен Николаев Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Червен бряг"
+    },
+    {
+      "id": "company:tr:207475489",
+      "type": "company",
+      "label": "ЗООЗАЩИТА И СОЛИДАРНОСТ",
+      "slug": null,
+      "uic": "207475489",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОРИЯ ХРИСТОВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Виктория Христова Владимирова"
+    },
+    {
+      "id": "person:ДЕСИ-СЛАВА ЙОРДАНОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Деси-Слава Йорданова Цветанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-nikolaev-marinov-323336",
+      "target": "company:tr:207475489",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-nikolaev-marinov-323336",
+      "target": "company:tr:207475489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ХРИСТОВА ВЛАДИМИРОВА",
+      "target": "company:tr:207475489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИ-СЛАВА ЙОРДАНОВА ЦВЕТАНОВА",
+      "target": "company:tr:207475489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

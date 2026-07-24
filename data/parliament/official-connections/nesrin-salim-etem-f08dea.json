@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nesrin-salim-etem-f08dea",
+  "nodes": [
+    {
+      "id": "official:nesrin-salim-etem-f08dea",
+      "type": "official",
+      "slug": "nesrin-salim-etem-f08dea",
+      "label": "Несрин Салим Етем",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000500347",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАУКА-1937&quot;",
+      "slug": null,
+      "uic": "000500347",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НУРИЕ ЯХЯ МЕХМЕД",
+      "type": "person",
+      "label": "Нурие Яхя Мехмед"
+    },
+    {
+      "id": "person:ФАТМЕ ЯЛЧЪНОВА АЛИОСМАНОВА",
+      "type": "person",
+      "label": "Фатме Ялчънова Алиосманова"
+    },
+    {
+      "id": "person:БЮЛЕНТ КЕМАЛ ХАСАН",
+      "type": "person",
+      "label": "Бюлент Кемал Хасан"
+    },
+    {
+      "id": "person:ХЮЛИЯ ХЪЛМИ РАМАДАН",
+      "type": "person",
+      "label": "Хюлия Хълми Рамадан"
+    },
+    {
+      "id": "person:МЮНЕВЕР СЕБАЙДИН МЕХМЕД",
+      "type": "person",
+      "label": "Мюневер Себайдин Мехмед"
+    },
+    {
+      "id": "person:МЕЛЕК КЕМАЛ БЕЙЗАТОВА",
+      "type": "person",
+      "label": "Мелек Кемал Бейзатова"
+    },
+    {
+      "id": "person:ХАТЧЕ ЕМИН МЕХМЕДАЛИ",
+      "type": "person",
+      "label": "Хатче Емин Мехмедали"
+    },
+    {
+      "id": "person:ЗЕРРИН АЙДЪН СЕЛИМ",
+      "type": "person",
+      "label": "Зеррин Айдън Селим"
+    },
+    {
+      "id": "person:ВАСВИЕ СЮЛЕЙМАН ШАБАН",
+      "type": "person",
+      "label": "Васвие Сюлейман Шабан"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nesrin-salim-etem-f08dea",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nesrin-salim-etem-f08dea",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НУРИЕ ЯХЯ МЕХМЕД",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ ЯЛЧЪНОВА АЛИОСМАНОВА",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЮЛЕНТ КЕМАЛ ХАСАН",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮЛИЯ ХЪЛМИ РАМАДАН",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЮНЕВЕР СЕБАЙДИН МЕХМЕД",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛЕК КЕМАЛ БЕЙЗАТОВА",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАТЧЕ ЕМИН МЕХМЕДАЛИ",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕРРИН АЙДЪН СЕЛИМ",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСВИЕ СЮЛЕЙМАН ШАБАН",
+      "target": "company:tr:000500347",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

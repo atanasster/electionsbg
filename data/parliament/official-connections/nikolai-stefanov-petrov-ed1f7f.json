@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-stefanov-petrov-ed1f7f",
+  "nodes": [
+    {
+      "id": "official:nikolai-stefanov-petrov-ed1f7f",
+      "type": "official",
+      "slug": "nikolai-stefanov-petrov-ed1f7f",
+      "label": "Николай Стефанов Петров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205378657",
+      "type": "company",
+      "label": "ГРИЙН",
+      "slug": null,
+      "uic": "205378657",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САШКО АНГЕЛОВ КАЛИЦОВ",
+      "type": "person",
+      "label": "Сашко Ангелов Калицов"
+    },
+    {
+      "id": "person:МАРИНЕЛА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Маринела Димитрова Петрова"
+    },
+    {
+      "id": "person:ИВАНКА ЛАЗАРОВА - ЙОРДАНОВА",
+      "type": "person",
+      "label": "Иванка Лазарова - Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stefanov-petrov-ed1f7f",
+      "target": "company:tr:205378657",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САШКО АНГЕЛОВ КАЛИЦОВ",
+      "target": "company:tr:205378657",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:205378657",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:205378657",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЛАЗАРОВА - ЙОРДАНОВА",
+      "target": "company:tr:205378657",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

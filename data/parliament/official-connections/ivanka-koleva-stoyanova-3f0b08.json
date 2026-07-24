@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivanka-koleva-stoyanova-3f0b08",
+  "nodes": [
+    {
+      "id": "official:ivanka-koleva-stoyanova-3f0b08",
+      "type": "official",
+      "slug": "ivanka-koleva-stoyanova-3f0b08",
+      "label": "Иванка Колева Стоянова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176648673",
+      "type": "company",
+      "label": "Българска Асоциация на Зоопарковете и Аквариумите",
+      "slug": null,
+      "uic": "176648673",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРОМИР ЛИЧЕВ БОРИСЛАВОВ",
+      "type": "person",
+      "label": "Добромир Личев Бориславов"
+    },
+    {
+      "id": "person:РОСИЦА ГОЧЕВА НИКОВА-ЗЛАТЕВА",
+      "type": "person",
+      "label": "Росица Гочева Никова-Златева"
+    },
+    {
+      "id": "person:ЕЛИЦА ПЕТРОВА ПЕТРОВА-ПАВЛОВА",
+      "type": "person",
+      "label": "Елица Петрова Петрова-Павлова"
+    },
+    {
+      "id": "person:КРУМ СТЕФАНОВ ПОПНИКОЛОВ",
+      "type": "person",
+      "label": "Крум Стефанов Попниколов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-koleva-stoyanova-3f0b08",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-koleva-stoyanova-3f0b08",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР ЛИЧЕВ БОРИСЛАВОВ",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГОЧЕВА НИКОВА-ЗЛАТЕВА",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ПЕТРОВА ПЕТРОВА-ПАВЛОВА",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРУМ СТЕФАНОВ ПОПНИКОЛОВ",
+      "target": "company:tr:176648673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

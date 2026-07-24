@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ralitsa-ilkova-iskrenova-petrova-0ae648","nodes":[{"id":"official:ralitsa-ilkova-iskrenova-petrova-0ae648","type":"official","slug":"ralitsa-ilkova-iskrenova-petrova-0ae648","label":"Ралица Илкова Искренова-Петрова","tier":"municipal","role":"councillor","municipality":"Бяла Слатина"},{"id":"company:tr:201399974","type":"company","label":"Тера секюрити ООД","slug":null,"uic":"201399974","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:ralitsa-ilkova-iskrenova-petrova-0ae648","target":"company:tr:201399974","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ralitsa-ilkova-iskrenova-petrova-0ae648",
+  "nodes": [
+    {
+      "id": "official:ralitsa-ilkova-iskrenova-petrova-0ae648",
+      "type": "official",
+      "slug": "ralitsa-ilkova-iskrenova-petrova-0ae648",
+      "label": "Ралица Илкова Искренова-Петрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:201399974",
+      "type": "company",
+      "label": "Тера секюрити ООД",
+      "slug": null,
+      "uic": "201399974",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ralitsa-ilkova-iskrenova-petrova-0ae648",
+      "target": "company:tr:201399974",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

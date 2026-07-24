@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:danail-dimitrov-kirilov-8652db",
+  "nodes": [
+    {
+      "id": "official:danail-dimitrov-kirilov-8652db",
+      "type": "official",
+      "slug": "danail-dimitrov-kirilov-8652db",
+      "label": "Данаил Димитров Кирилов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175420649",
+      "type": "company",
+      "label": "ВИКОНТИНА",
+      "slug": null,
+      "uic": "175420649",
+      "legalForm": "AD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "mp:2668",
+      "type": "mp",
+      "mpId": 2668,
+      "label": "Данаил Димитров Кирилов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:danail-dimitrov-kirilov-8652db",
+      "target": "company:tr:175420649",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2668",
+      "target": "company:tr:175420649",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

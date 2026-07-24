@@ -1,1 +1,405 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4022","nodes":[{"id":"mp:4022","type":"mp","mpId":4022,"label":"Имрен Исметова Мехмедова","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["44","45","46","47","48"]},{"id":"company:Биоелит","type":"company","label":"\"Биоелит\"","slug":"Биоелит","uic":"125537379","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, с. Таймище, 7983"},{"id":"company:tr:117509832","type":"company","label":"АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ","slug":null,"uic":"117509832","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Добрич, 9300"},{"id":"company:tr:125550070","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ОМУРТАГ","slug":null,"uic":"125550070","legalForm":"EAD","status":"active","seat":null},{"id":"company:tr:204118464","type":"company","label":"ДЕЛИОРМАН ГРУП","slug":null,"uic":"204118464","legalForm":null,"status":null,"seat":null},{"id":"person:ВИКТОРИЯ МИНЧЕВА ИВАНОВА","type":"person","label":"Виктория Минчева Иванова"},{"id":"person:РАДОСЛАВА СТАНЧЕВА РОГОВА-СТЕФАНОВА","type":"person","label":"Радослава Станчева Рогова-Стефанова"},{"id":"person:ЖИВКО АСЕНОВ КРЪСТАНОВ","type":"person","label":"Живко Асенов Кръстанов"},{"id":"person:ДОНЧО КИРИЛОВ ВЛАДИМИРОВ","type":"person","label":"Дончо Кирилов Владимиров"},{"id":"person:ЗЛАТИ АТАНАСОВ ИВАНОВ","type":"person","label":"Злати Атанасов Иванов"},{"id":"person:ДИМИТЪР КИРЧЕВ ШОПОВ","type":"person","label":"Димитър Кирчев Шопов"},{"id":"person:СИМЕОН ПЕТКОВ ПРИСАДАШКИ","type":"person","label":"Симеон Петков Присадашки"},{"id":"person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ","type":"person","label":"Димитър Славчев Зоров"},{"id":"person:АНГЕЛ ГЕОРГИЕВ ЙОНОВ","type":"person","label":"Ангел Георгиев Йонов"},{"id":"person:ГАЛИН САВОВ ТОДОРОВ","type":"person","label":"Галин Савов Тодоров"},{"id":"person:РУСКО ЕНЧЕВ РУСЕВ","type":"person","label":"Руско Енчев Русев"},{"id":"person:ЦАНКО СЛАВЧЕВ ЦАНЕВ","type":"person","label":"Цанко Славчев Цанев"},{"id":"person:ГОСПОДИН ПЕТКОВ ИВАНОВ","type":"person","label":"Господин Петков Иванов"},{"id":"person:НИКОЛА АНГЕЛОВ АНГЕЛОВ","type":"person","label":"Никола Ангелов Ангелов"},{"id":"person:ПАВЛИНА СТОЯНОВА ПАВЛОВА","type":"person","label":"Павлина Стоянова Павлова"},{"id":"person:ЗЮЛБИЕ ИСМАИЛОВА МУСТАФОВА","type":"person","label":"Зюлбие Исмаилова Мустафова"},{"id":"person:МУСТАФА ШЕРИФОВ БОДЕВ","type":"person","label":"Мустафа Шерифов Бодев"},{"id":"person:МЕХМЕД ХАСАНОВ АХМЕДОВ","type":"person","label":"Мехмед Хасанов Ахмедов"},{"id":"person:РЕШАТ СЕИДОВ МЕХМЕДОВ","type":"person","label":"Решат Сеидов Мехмедов"},{"id":"company:tr:207484221","type":"company","label":"БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА","slug":null,"uic":"207484221","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1606"},{"id":"mp:897","type":"mp","mpId":897,"label":"Венцислав Василев Върбанов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39","40"]}],"edges":[{"source":"mp:4022","target":"company:Биоелит","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4022","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4022","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"company:Биоелит","target":"company:tr:204118464","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ МИНЧЕВА ИВАНОВА","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВА СТАНЧЕВА РОГОВА-СТЕФАНОВА","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО АСЕНОВ КРЪСТАНОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО КИРИЛОВ ВЛАДИМИРОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИ АТАНАСОВ ИВАНОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР КИРЧЕВ ШОПОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ПЕТКОВ ПРИСАДАШКИ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР КИРЧЕВ ШОПОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ГЕОРГИЕВ ЙОНОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГАЛИН САВОВ ТОДОРОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУСКО ЕНЧЕВ РУСЕВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦАНКО СЛАВЧЕВ ЦАНЕВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГОСПОДИН ПЕТКОВ ИВАНОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА АНГЕЛОВ АНГЕЛОВ","target":"company:tr:117509832","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА СТОЯНОВА ПАВЛОВА","target":"company:tr:125550070","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗЮЛБИЕ ИСМАИЛОВА МУСТАФОВА","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА СТОЯНОВА ПАВЛОВА","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МУСТАФА ШЕРИФОВ БОДЕВ","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МЕХМЕД ХАСАНОВ АХМЕДОВ","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РЕШАТ СЕИДОВ МЕХМЕДОВ","target":"company:tr:125550070","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ","target":"company:tr:207484221","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:897","target":"company:tr:207484221","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:897","target":"company:tr:207484221","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:897","length":4,"nodeIds":["mp:4022","company:tr:117509832","person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ","company:tr:207484221","mp:897"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4022",
+  "nodes": [
+    {
+      "id": "mp:4022",
+      "type": "mp",
+      "mpId": 4022,
+      "label": "Имрен Исметова Мехмедова",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Биоелит-ЕООД",
+      "type": "company",
+      "label": "\"Биоелит\" ЕООД",
+      "slug": "Биоелит-ЕООД",
+      "uic": "125537379",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Таймище, 7983"
+    },
+    {
+      "id": "company:tr:117509832",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ЗА РАЗВЪЖДАНЕ НА ЧЕРНОШАРЕНАТА ПОРОДА В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "117509832",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300"
+    },
+    {
+      "id": "company:tr:125550070",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ОМУРТАГ",
+      "slug": null,
+      "uic": "125550070",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОРИЯ МИНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Виктория Минчева Иванова"
+    },
+    {
+      "id": "person:РАДОСЛАВА СТАНЧЕВА РОГОВА-СТЕФАНОВА",
+      "type": "person",
+      "label": "Радослава Станчева Рогова-Стефанова"
+    },
+    {
+      "id": "person:ЖИВКО АСЕНОВ КРЪСТАНОВ",
+      "type": "person",
+      "label": "Живко Асенов Кръстанов"
+    },
+    {
+      "id": "person:ДОНЧО КИРИЛОВ ВЛАДИМИРОВ",
+      "type": "person",
+      "label": "Дончо Кирилов Владимиров"
+    },
+    {
+      "id": "person:ЗЛАТИ АТАНАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Злати Атанасов Иванов"
+    },
+    {
+      "id": "person:ДИМИТЪР КИРЧЕВ ШОПОВ",
+      "type": "person",
+      "label": "Димитър Кирчев Шопов"
+    },
+    {
+      "id": "person:СИМЕОН ПЕТКОВ ПРИСАДАШКИ",
+      "type": "person",
+      "label": "Симеон Петков Присадашки"
+    },
+    {
+      "id": "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+      "type": "person",
+      "label": "Димитър Славчев Зоров"
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ ЙОНОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Йонов"
+    },
+    {
+      "id": "person:ГАЛИН САВОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Галин Савов Тодоров"
+    },
+    {
+      "id": "person:РУСКО ЕНЧЕВ РУСЕВ",
+      "type": "person",
+      "label": "Руско Енчев Русев"
+    },
+    {
+      "id": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+      "type": "person",
+      "label": "Цанко Славчев Цанев"
+    },
+    {
+      "id": "person:ГОСПОДИН ПЕТКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Господин Петков Иванов"
+    },
+    {
+      "id": "person:НИКОЛА АНГЕЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Никола Ангелов Ангелов"
+    },
+    {
+      "id": "official:zyulbie-ismailova-mustafova-6da3b0",
+      "type": "official",
+      "slug": "zyulbie-ismailova-mustafova-6da3b0",
+      "label": "Зюлбие Исмаилова Мустафова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Павлина Стоянова Павлова"
+    },
+    {
+      "id": "person:МУСТАФА ШЕРИФОВ БОДЕВ",
+      "type": "person",
+      "label": "Мустафа Шерифов Бодев"
+    },
+    {
+      "id": "person:МЕХМЕД ХАСАНОВ АХМЕДОВ",
+      "type": "person",
+      "label": "Мехмед Хасанов Ахмедов"
+    },
+    {
+      "id": "person:РЕШАТ СЕИДОВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Решат Сеидов Мехмедов"
+    },
+    {
+      "id": "company:tr:207484221",
+      "type": "company",
+      "label": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
+      "slug": null,
+      "uic": "207484221",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
+    },
+    {
+      "id": "mp:897",
+      "type": "mp",
+      "mpId": 897,
+      "label": "Венцислав Василев Върбанов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4022",
+      "target": "company:Биоелит-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4022",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4022",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ МИНЧЕВА ИВАНОВА",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА СТАНЧЕВА РОГОВА-СТЕФАНОВА",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО АСЕНОВ КРЪСТАНОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО КИРИЛОВ ВЛАДИМИРОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИ АТАНАСОВ ИВАНОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КИРЧЕВ ШОПОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ПЕТКОВ ПРИСАДАШКИ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КИРЧЕВ ШОПОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ЙОНОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН САВОВ ТОДОРОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКО ЕНЧЕВ РУСЕВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОСПОДИН ПЕТКОВ ИВАНОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zyulbie-ismailova-mustafova-6da3b0",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ШЕРИФОВ БОДЕВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД ХАСАНОВ АХМЕДОВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕШАТ СЕИДОВ МЕХМЕДОВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:897",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:897",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:897",
+      "length": 4,
+      "nodeIds": [
+        "mp:4022",
+        "company:tr:117509832",
+        "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
+        "company:tr:207484221",
+        "mp:897"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

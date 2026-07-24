@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valeriya-vladimirovna-mineva-f8602c",
+  "nodes": [
+    {
+      "id": "official:valeriya-vladimirovna-mineva-f8602c",
+      "type": "official",
+      "slug": "valeriya-vladimirovna-mineva-f8602c",
+      "label": "Валерия Владимировна Минева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Борово"
+    },
+    {
+      "id": "company:tr:207177941",
+      "type": "company",
+      "label": "Миневи-2022",
+      "slug": null,
+      "uic": "207177941",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ МИНЕВ",
+      "type": "person",
+      "label": "Петър Иванов Минев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeriya-vladimirovna-mineva-f8602c",
+      "target": "company:tr:207177941",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valeriya-vladimirovna-mineva-f8602c",
+      "target": "company:tr:207177941",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ МИНЕВ",
+      "target": "company:tr:207177941",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

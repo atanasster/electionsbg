@@ -1,1 +1,328 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3064","nodes":[{"id":"mp:3064","type":"mp","mpId":3064,"label":"Велизар Пенков Енчев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["43"]},{"id":"company:tr:208599543","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ НА ПЕНСИОНЕРСКИТЕ СЪЮЗИ И ОРГАНИЗАЦИИ","slug":null,"uic":"208599543","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1504"},{"id":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","type":"person","label":"Стефан Димитров Груев"},{"id":"person:ПЕТЬО АНГЕЛОВ ДАФИНКИЧЕВ","type":"person","label":"Петьо Ангелов Дафинкичев"},{"id":"person:СТЕФАН ДЯНКОВ СТЕФАНОВ","type":"person","label":"Стефан Дянков Стефанов"},{"id":"person:ГЕНОВЕВА МИХОВА ГЕОРГИЕВА","type":"person","label":"Геновева Михова Георгиева"},{"id":"person:РАДКА ТОДОРОВА МАРКОВА","type":"person","label":"Радка Тодорова Маркова"},{"id":"person:СТЕФАН ПЕТРОВ СТЕФАНОВ","type":"person","label":"Стефан Петров Стефанов"},{"id":"person:СВЕТОСЛАВ ИВАНОВ МАНДИКОВ","type":"person","label":"Светослав Иванов Мандиков"},{"id":"person:ВЪЛЧО ИВАНОВ ВЪЛЧЕВ","type":"person","label":"Вълчо Иванов Вълчев"},{"id":"person:ИВАЙЛО ПЕТРОВ ИВАНОВ","type":"person","label":"Ивайло Петров Иванов"},{"id":"company:tr:175652868","type":"company","label":"НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ ПРИРОДАТА ЗА ХОРАТА","slug":null,"uic":"175652868","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, София, 1616"},{"id":"mp:4258","type":"mp","mpId":4258,"label":"Вежди Летиф Рашидов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","48","49"]},{"id":"company:tr:207818094","type":"company","label":"СЪЮЗ НА БЪЛГАРСКИТЕ КРАЕВЕДИ","slug":null,"uic":"207818094","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Монтана, 3400"},{"id":"mp:5110","type":"mp","mpId":5110,"label":"Димитър Бисеров Петров","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:121071877","type":"company","label":"СЪЮЗ НА ОФИЦЕРИТЕ И СЕРЖАНТИТЕ ОТ ЗАПАСА И РЕЗЕРВА","slug":null,"uic":"121071877","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:3060","type":"mp","mpId":3060,"label":"Кольо Йорданов Милев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44"]}],"edges":[{"source":"mp:3064","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО АНГЕЛОВ ДАФИНКИЧЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДЯНКОВ СТЕФАНОВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНОВЕВА МИХОВА ГЕОРГИЕВА","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА ТОДОРОВА МАРКОВА","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ СТЕФАНОВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ИВАНОВ МАНДИКОВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЪЛЧО ИВАНОВ ВЪЛЧЕВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ПЕТРОВ ИВАНОВ","target":"company:tr:208599543","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДИМИТРОВ ГРУЕВ","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ДЯНКОВ СТЕФАНОВ","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ СТЕФАНОВ","target":"company:tr:207818094","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ СТЕФАНОВ","target":"company:tr:207818094","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4258","target":"company:tr:175652868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5110","target":"company:tr:207818094","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3060","target":"company:tr:121071877","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4258","length":4,"nodeIds":["mp:3064","company:tr:208599543","person:СТЕФАН ДИМИТРОВ ГРУЕВ","company:tr:175652868","mp:4258"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5110","length":4,"nodeIds":["mp:3064","company:tr:208599543","person:СТЕФАН ПЕТРОВ СТЕФАНОВ","company:tr:207818094","mp:5110"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3060","length":4,"nodeIds":["mp:3064","company:tr:208599543","person:СТЕФАН ДЯНКОВ СТЕФАНОВ","company:tr:121071877","mp:3060"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3064",
+  "nodes": [
+    {
+      "id": "mp:3064",
+      "type": "mp",
+      "mpId": 3064,
+      "label": "Велизар Пенков Енчев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "company:tr:208599543",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ НА ПЕНСИОНЕРСКИТЕ СЪЮЗИ И ОРГАНИЗАЦИИ",
+      "slug": null,
+      "uic": "208599543",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "type": "person",
+      "label": "Стефан Димитров Груев"
+    },
+    {
+      "id": "person:ПЕТЬО АНГЕЛОВ ДАФИНКИЧЕВ",
+      "type": "person",
+      "label": "Петьо Ангелов Дафинкичев"
+    },
+    {
+      "id": "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Дянков Стефанов"
+    },
+    {
+      "id": "person:ГЕНОВЕВА МИХОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Геновева Михова Георгиева"
+    },
+    {
+      "id": "person:РАДКА ТОДОРОВА МАРКОВА",
+      "type": "person",
+      "label": "Радка Тодорова Маркова"
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Петров Стефанов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ИВАНОВ МАНДИКОВ",
+      "type": "person",
+      "label": "Светослав Иванов Мандиков"
+    },
+    {
+      "id": "person:ВЪЛЧО ИВАНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Вълчо Иванов Вълчев"
+    },
+    {
+      "id": "person:ИВАЙЛО ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Петров Иванов"
+    },
+    {
+      "id": "company:tr:175652868",
+      "type": "company",
+      "label": "НАЦИОНАЛНО ГРАЖДАНСКО СДРУЖЕНИЕ ПРИРОДАТА ЗА ХОРАТА",
+      "slug": null,
+      "uic": "175652868",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1616"
+    },
+    {
+      "id": "mp:4258",
+      "type": "mp",
+      "mpId": 4258,
+      "label": "Вежди Летиф Рашидов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:tr:207818094",
+      "type": "company",
+      "label": "СЪЮЗ НА БЪЛГАРСКИТЕ КРАЕВЕДИ",
+      "slug": null,
+      "uic": "207818094",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Монтана, 3400"
+    },
+    {
+      "id": "mp:5110",
+      "type": "mp",
+      "mpId": 5110,
+      "label": "Димитър Бисеров Петров",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:121071877",
+      "type": "company",
+      "label": "СЪЮЗ НА ОФИЦЕРИТЕ И СЕРЖАНТИТЕ ОТ ЗАПАСА И РЕЗЕРВА",
+      "slug": null,
+      "uic": "121071877",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:3060",
+      "type": "mp",
+      "mpId": 3060,
+      "label": "Кольо Йорданов Милев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3064",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО АНГЕЛОВ ДАФИНКИЧЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНОВЕВА МИХОВА ГЕОРГИЕВА",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ТОДОРОВА МАРКОВА",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ СТЕФАНОВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ МАНДИКОВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪЛЧО ИВАНОВ ВЪЛЧЕВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:208599543",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ СТЕФАНОВ",
+      "target": "company:tr:207818094",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ СТЕФАНОВ",
+      "target": "company:tr:207818094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4258",
+      "target": "company:tr:175652868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5110",
+      "target": "company:tr:207818094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3060",
+      "target": "company:tr:121071877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4258",
+      "length": 4,
+      "nodeIds": [
+        "mp:3064",
+        "company:tr:208599543",
+        "person:СТЕФАН ДИМИТРОВ ГРУЕВ",
+        "company:tr:175652868",
+        "mp:4258"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5110",
+      "length": 4,
+      "nodeIds": [
+        "mp:3064",
+        "company:tr:208599543",
+        "person:СТЕФАН ПЕТРОВ СТЕФАНОВ",
+        "company:tr:207818094",
+        "mp:5110"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3060",
+      "length": 4,
+      "nodeIds": [
+        "mp:3064",
+        "company:tr:208599543",
+        "person:СТЕФАН ДЯНКОВ СТЕФАНОВ",
+        "company:tr:121071877",
+        "mp:3060"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

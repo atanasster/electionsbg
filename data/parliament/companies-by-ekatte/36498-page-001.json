@@ -1,1 +1,104 @@
-{"ekatte":"36498","page":1,"totalPages":1,"count":6,"companies":[{"slug":"Флаулес-ООД","displayName":"\"Флаулес\" ООД","registeredOffice":"Карлово","mps":[{"mpId":3248,"mpName":"Лъчезар Иванов Бакърджиев","role":"declared_stake","isCurrent":true}]},{"slug":"КАР-ЛУКС-КБК-2022","displayName":"КАР ЛУКС КБК 2022","registeredOffice":"БЪЛГАРИЯ, гр. Карлово, 4300","mps":[{"mpId":4548,"mpName":"Калина Бориславова Константинова","role":"manager","isCurrent":true},{"mpId":4548,"mpName":"Калина Бориславова Константинова","role":"sole_owner","isCurrent":true}]},{"slug":"КАР-ЛУКС-КК","displayName":"КАР ЛУКС КК","registeredOffice":"БЪЛГАРИЯ, гр. Карлово, 4300","mps":[{"mpId":4548,"mpName":"Калина Бориславова Константинова","role":"manager","isCurrent":true},{"mpId":4548,"mpName":"Калина Бориславова Константинова","role":"sole_owner","isCurrent":true}]},{"slug":"Местна-инициативна-група-Карлово","displayName":"Местна инициативна група - Карлово","registeredOffice":"БЪЛГАРИЯ, гр. Карлово, 4300","mps":[{"mpId":3210,"mpName":"Данка Евстатиева Зидарова-Люртова","role":"ngo_representative","isCurrent":true},{"mpId":3210,"mpName":"Данка Евстатиева Зидарова-Люртова","role":"ngo_board","isCurrent":true}]},{"slug":"БУЛГАРА-МИЛК","displayName":"БУЛГАРА МИЛК","registeredOffice":"БЪЛГАРИЯ, гр. Карлово, 4300","mps":[{"mpId":5194,"mpName":"Кръстьо Стоянов Врачев","role":"manager","isCurrent":true}]},{"slug":"НАРОДНО-ЧИТАЛИЩЕ-&quot;ВАСИЛ-ЛЕВСКИ-1861г.&quot;-гр.-КАРЛОВО","displayName":"НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1861г.&quot; - гр. КАРЛОВО","registeredOffice":"БЪЛГАРИЯ, гр. Карлово, 4300","mps":[{"mpId":4381,"mpName":"Манол Василев Манолов","role":"trustee","isCurrent":true}]}]}
+{
+  "ekatte": "36498",
+  "page": 1,
+  "totalPages": 1,
+  "count": 6,
+  "companies": [
+    {
+      "slug": "Флаулес-ООД",
+      "displayName": "\"Флаулес\" ООД",
+      "registeredOffice": "Карлово",
+      "mps": [
+        {
+          "mpId": 3248,
+          "mpName": "Лъчезар Иванов Бакърджиев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КАР-ЛУКС-КБК-2022",
+      "displayName": "КАР ЛУКС КБК 2022",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карлово, 4300",
+      "mps": [
+        {
+          "mpId": 4548,
+          "mpName": "Калина Бориславова Константинова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4548,
+          "mpName": "Калина Бориславова Константинова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "КАР-ЛУКС-КК",
+      "displayName": "КАР ЛУКС КК",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карлово, 4300",
+      "mps": [
+        {
+          "mpId": 4548,
+          "mpName": "Калина Бориславова Константинова",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4548,
+          "mpName": "Калина Бориславова Константинова",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Местна-инициативна-група-Карлово",
+      "displayName": "Местна инициативна група - Карлово",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карлово, 4300",
+      "mps": [
+        {
+          "mpId": 3210,
+          "mpName": "Данка Евстатиева Зидарова-Люртова",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3210,
+          "mpName": "Данка Евстатиева Зидарова-Люртова",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БУЛГАРА-МИЛК",
+      "displayName": "БУЛГАРА МИЛК",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карлово, 4300",
+      "mps": [
+        {
+          "mpId": 5194,
+          "mpName": "Кръстьо Стоянов Врачев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "НАРОДНО-ЧИТАЛИЩЕ-&quot;ВАСИЛ-ЛЕВСКИ-1861г.&quot;-гр.-КАРЛОВО",
+      "displayName": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ - 1861г.&quot; - гр. КАРЛОВО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Карлово, 4300",
+      "mps": [
+        {
+          "mpId": 4381,
+          "mpName": "Манол Василев Манолов",
+          "role": "trustee",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,53 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:108","nodes":[{"id":"mp:108","type":"mp","mpId":108,"label":"Венелин Димитров Узунов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:205407678","type":"company","label":"&quot;Научно-производствен център&quot;","slug":null,"uic":"205407678","legalForm":"TPPD","status":"active","seat":null},{"id":"person:ИВАН ИВАНОВ НЕНОВ","type":"person","label":"Иван Иванов Ненов"}],"edges":[{"source":"mp:108","target":"company:tr:205407678","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ИВАНОВ НЕНОВ","target":"company:tr:205407678","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:108",
+  "nodes": [
+    {
+      "id": "mp:108",
+      "type": "mp",
+      "mpId": 108,
+      "label": "Венелин Димитров Узунов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205407678",
+      "type": "company",
+      "label": "&quot;Научно-производствен център&quot;",
+      "slug": null,
+      "uic": "205407678",
+      "legalForm": "TPPD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:ivan-ivanov-nenov-171588",
+      "type": "official",
+      "slug": "ivan-ivanov-nenov-171588",
+      "label": "Иван Иванов Ненов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:108",
+      "target": "company:tr:205407678",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-ivanov-nenov-171588",
+      "target": "company:tr:205407678",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": []
+}

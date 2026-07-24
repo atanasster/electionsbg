@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-borisov-radev-81f283",
+  "nodes": [
+    {
+      "id": "official:dimitr-borisov-radev-81f283",
+      "type": "official",
+      "slug": "dimitr-borisov-radev-81f283",
+      "label": "Димитър Борисов Радев",
+      "tier": "executive",
+      "role": "central_bank",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204621191",
+      "type": "company",
+      "label": "АМ Одит ЕООД",
+      "slug": null,
+      "uic": "204621191",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-borisov-radev-81f283",
+      "target": "company:tr:204621191",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-ivanov-georgiev-b95494",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-georgiev-b95494",
+      "type": "official",
+      "slug": "georgi-ivanov-georgiev-b95494",
+      "label": "Георги Иванов Георгиев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102850450",
+      "type": "company",
+      "label": "Доминатор ДЗЗД",
+      "slug": null,
+      "uic": "102850450",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-ivanov-georgiev-c46138",
+      "type": "official",
+      "slug": "georgi-ivanov-georgiev-c46138",
+      "label": "Георги Иванов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-georgiev-b95494",
+      "target": "company:tr:102850450",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-georgiev-c46138",
+      "target": "company:tr:102850450",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

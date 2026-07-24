@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:anton-georgiev-mitov-76b84e",
+  "nodes": [
+    {
+      "id": "official:anton-georgiev-mitov-76b84e",
+      "type": "official",
+      "slug": "anton-georgiev-mitov-76b84e",
+      "label": "Антон Георгиев Митов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200471659",
+      "type": "company",
+      "label": "Десижън ООД",
+      "slug": null,
+      "uic": "200471659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131283070",
+      "type": "company",
+      "label": "Митов.нет ЕООД",
+      "slug": null,
+      "uic": "131283070",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207671491",
+      "type": "company",
+      "label": "Тита енд Йойо Бейкъри ООД",
+      "slug": null,
+      "uic": "207671491",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛА ЮРИЕВА МИТОВА",
+      "type": "person",
+      "label": "Светла Юриева Митова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-georgiev-mitov-76b84e",
+      "target": "company:tr:200471659",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:anton-georgiev-mitov-76b84e",
+      "target": "company:tr:131283070",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:anton-georgiev-mitov-76b84e",
+      "target": "company:tr:207671491",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:anton-georgiev-mitov-76b84e",
+      "target": "company:tr:207671491",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anton-georgiev-mitov-76b84e",
+      "target": "company:tr:207671491",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛА ЮРИЕВА МИТОВА",
+      "target": "company:tr:207671491",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ЮРИЕВА МИТОВА",
+      "target": "company:tr:207671491",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

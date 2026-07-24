@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-penkova-dimitrova-78d03b",
+  "nodes": [
+    {
+      "id": "official:mariya-penkova-dimitrova-78d03b",
+      "type": "official",
+      "slug": "mariya-penkova-dimitrova-78d03b",
+      "label": "Мария Пенкова Димитрова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Царево"
+    },
+    {
+      "id": "company:tr:203615965",
+      "type": "company",
+      "label": "М КОНСУЛТ-90",
+      "slug": null,
+      "uic": "203615965",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-penkova-dimitrova-78d03b",
+      "target": "company:tr:203615965",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-penkova-dimitrova-78d03b",
+      "target": "company:tr:203615965",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

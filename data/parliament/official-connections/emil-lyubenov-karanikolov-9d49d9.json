@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:emil-lyubenov-karanikolov-9d49d9",
+  "nodes": [
+    {
+      "id": "official:emil-lyubenov-karanikolov-9d49d9",
+      "type": "official",
+      "slug": "emil-lyubenov-karanikolov-9d49d9",
+      "label": "Емил Любенов Караниколов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205941835",
+      "type": "company",
+      "label": "Сайпрес България",
+      "slug": null,
+      "uic": "205941835",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОАННИС ГИОФКОС",
+      "type": "person",
+      "label": "Йоаннис Гиофкос"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-lyubenov-karanikolov-9d49d9",
+      "target": "company:tr:205941835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОАННИС ГИОФКОС",
+      "target": "company:tr:205941835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

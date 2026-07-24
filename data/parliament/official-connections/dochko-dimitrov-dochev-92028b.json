@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dochko-dimitrov-dochev-92028b",
+  "nodes": [
+    {
+      "id": "official:dochko-dimitrov-dochev-92028b",
+      "type": "official",
+      "slug": "dochko-dimitrov-dochev-92028b",
+      "label": "Дочко Димитров Дочев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Левски"
+    },
+    {
+      "id": "company:tr:114138329",
+      "type": "company",
+      "label": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ &quot;ЛЕВСКИ 2007&quot;",
+      "slug": null,
+      "uic": "114138329",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЧКО АСЕНОВ РАДЕНЦОВ",
+      "type": "person",
+      "label": "Ичко Асенов Раденцов"
+    },
+    {
+      "id": "person:ХРИСТО ЛЕНКОВ БОРИСОВ",
+      "type": "person",
+      "label": "Христо Ленков Борисов"
+    },
+    {
+      "id": "person:КРАСИМИР СТОЯНОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Красимир Стоянов Станчев"
+    },
+    {
+      "id": "person:СВЕТЛИН ПЕТРОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Светлин Петров Кръстев"
+    },
+    {
+      "id": "person:ИВАЙЛО ИЧКОВ РАДЕНЦОВ",
+      "type": "person",
+      "label": "Ивайло Ичков Раденцов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dochko-dimitrov-dochev-92028b",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dochko-dimitrov-dochev-92028b",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЧКО АСЕНОВ РАДЕНЦОВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЛЕНКОВ БОРИСОВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЧКО АСЕНОВ РАДЕНЦОВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СТОЯНОВ СТАНЧЕВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ПЕТРОВ КРЪСТЕВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СТОЯНОВ СТАНЧЕВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ИЧКОВ РАДЕНЦОВ",
+      "target": "company:tr:114138329",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

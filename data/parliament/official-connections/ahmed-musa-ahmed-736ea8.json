@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ahmed-musa-ahmed-736ea8",
+  "nodes": [
+    {
+      "id": "official:ahmed-musa-ahmed-736ea8",
+      "type": "official",
+      "slug": "ahmed-musa-ahmed-736ea8",
+      "label": "Ахмед Муса Ахмед",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Белица"
+    },
+    {
+      "id": "company:tr:208256402",
+      "type": "company",
+      "label": "ИСКРЕНОСТ 2025",
+      "slug": null,
+      "uic": "208256402",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ahmed-musa-ahmed-736ea8",
+      "target": "company:tr:208256402",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ahmed-musa-ahmed-736ea8",
+      "target": "company:tr:208256402",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:birsen-nezhdet-redzheb-ahmed-ab2de4",
+  "nodes": [
+    {
+      "id": "official:birsen-nezhdet-redzheb-ahmed-ab2de4",
+      "type": "official",
+      "slug": "birsen-nezhdet-redzheb-ahmed-ab2de4",
+      "label": "Бирсен Неждет Реджеб-Ахмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кърджали"
+    },
+    {
+      "id": "company:tr:108548672",
+      "type": "company",
+      "label": "Районна колегия на лекарите - гр. Кърджали",
+      "slug": null,
+      "uic": "108548672",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮРИЙ ИВАНОВИЧ БАЛИЦКИЙ",
+      "type": "person",
+      "label": "Юрий Иванович Балицкий"
+    },
+    {
+      "id": "person:НЕВИН МЕСРУ САДЪКОВА",
+      "type": "person",
+      "label": "Невин Месру Садъкова"
+    },
+    {
+      "id": "person:ХАСАН РАИМОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Хасан Раимов Хаджиев"
+    },
+    {
+      "id": "person:НАДЕЖДА ВЛАДИМИРОВНА ЧАУШЕВА",
+      "type": "person",
+      "label": "Надежда Владимировна Чаушева"
+    },
+    {
+      "id": "person:БИРСЕН НЕЖДЕТ РЕДЖЕБ - АХМЕД",
+      "type": "person",
+      "label": "Бирсен Неждет Реджеб - Ахмед"
+    },
+    {
+      "id": "person:ЛЮБОМИР СЛАВЧЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Любомир Славчев Тодоров"
+    },
+    {
+      "id": "person:ОГНЯН ТОСКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Огнян Тосков Георгиев"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ХРИСТОВА МАРИНОВА",
+      "type": "person",
+      "label": "Магдалена Христова Маринова"
+    },
+    {
+      "id": "person:СТОЯН ГЕОРГИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Стоян Георгиев Петков"
+    },
+    {
+      "id": "person:ХРИСТО КИРИЛОВ БОНЕВ",
+      "type": "person",
+      "label": "Христо Кирилов Бонев"
+    },
+    {
+      "id": "person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Недялка Георгиева Андреева"
+    },
+    {
+      "id": "person:ДИАНА ДИМИТРОВА ДИМОВА",
+      "type": "person",
+      "label": "Диана Димитрова Димова"
+    },
+    {
+      "id": "person:ПАВЕЛ АЛДИНОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Павел Алдинов Хаджиев"
+    },
+    {
+      "id": "person:ЖАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Жана Георгиева Георгиева"
+    },
+    {
+      "id": "person:ЕМЕЛ ЛЯТИФ ИСМАИЛ",
+      "type": "person",
+      "label": "Емел Лятиф Исмаил"
+    },
+    {
+      "id": "person:НЕДИМ САМИЕВ ИСМАИЛОВ",
+      "type": "person",
+      "label": "Недим Самиев Исмаилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:birsen-nezhdet-redzheb-ahmed-ab2de4",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮРИЙ ИВАНОВИЧ БАЛИЦКИЙ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИН МЕСРУ САДЪКОВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН РАИМОВ ХАДЖИЕВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ВЛАДИМИРОВНА ЧАУШЕВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИРСЕН НЕЖДЕТ РЕДЖЕБ - АХМЕД",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СЛАВЧЕВ ТОДОРОВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ТОСКОВ ГЕОРГИЕВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ХРИСТОВА МАРИНОВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ПЕТКОВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КИРИЛОВ БОНЕВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ГЕОРГИЕВА АНДРЕЕВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА ДИМОВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ АЛДИНОВ ХАДЖИЕВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА ДИМОВА",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМЕЛ ЛЯТИФ ИСМАИЛ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДИМ САМИЕВ ИСМАИЛОВ",
+      "target": "company:tr:108548672",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

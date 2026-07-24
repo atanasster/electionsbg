@@ -1,1 +1,344 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:627","nodes":[{"id":"mp:627","type":"mp","mpId":627,"label":"Цветан Петров Ценков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:114107675","type":"company","label":"СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ДУНАВСКИТЕ ОБЩИНИ-ДУНАВ&quot;","slug":null,"uic":"114107675","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Белене, 5930"},{"id":"mp:2863","type":"mp","mpId":2863,"label":"Пенчо Пламенов Милков","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"mp:2874","type":"mp","mpId":2874,"label":"Александър Николаев Сабанов","partyGroupShort":"БГ Патриоти","isCurrent":false,"nsFolders":[]},{"id":"person:МИЛЕН ПАВЛОВ ДУЛЕВ","type":"person","label":"Милен Павлов Дулев"},{"id":"person:ЯНКА СТОЯНОВА ГОСПОДИНОВА","type":"person","label":"Янка Стоянова Господинова"},{"id":"person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ","type":"person","label":"Димитър Венков Стефанов"},{"id":"person:ПЕТЪР ВАЛЕНТИНОВ ПЕТРОВ","type":"person","label":"Петър Валентинов Петров"},{"id":"person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ","type":"person","label":"Петър Георгиев Петров"},{"id":"person:БОЖИДАР ДИМИТРОВ БОРИСОВ","type":"person","label":"Божидар Димитров Борисов"},{"id":"person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ","type":"person","label":"Генчо Божинов Генчев"},{"id":"company:tr:121000727","type":"company","label":"СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ","slug":null,"uic":"121000727","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1360"},{"id":"mp:4906","type":"mp","mpId":4906,"label":"Димитър Ангелов Иванов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["42","46","47","48","49","50"]},{"id":"company:tr:205720203","type":"company","label":"Организация за управление на Дунавски туристически район","slug":null,"uic":"205720203","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:3230","type":"mp","mpId":3230,"label":"Митко Стайков Стайков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:627","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2863","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2874","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕН ПАВЛОВ ДУЛЕВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА СТОЯНОВА ГОСПОДИНОВА","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ВАЛЕНТИНОВ ПЕТРОВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ДИМИТРОВ БОРИСОВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ПАВЛОВ ДУЛЕВ","target":"company:tr:114107675","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2863","target":"company:tr:205720203","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2863","target":"company:tr:205720203","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕН ПАВЛОВ ДУЛЕВ","target":"company:tr:205720203","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ","target":"company:tr:205720203","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ","target":"company:tr:121000727","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ","target":"company:tr:205720203","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4906","target":"company:tr:121000727","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3230","target":"company:tr:205720203","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2874","length":2,"nodeIds":["mp:627","company:tr:114107675","mp:2874"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2863","length":2,"nodeIds":["mp:627","company:tr:114107675","mp:2863"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4906","length":4,"nodeIds":["mp:627","company:tr:114107675","person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ","company:tr:121000727","mp:4906"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3230","length":4,"nodeIds":["mp:627","company:tr:114107675","person:МИЛЕН ПАВЛОВ ДУЛЕВ","company:tr:205720203","mp:3230"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:627",
+  "nodes": [
+    {
+      "id": "mp:627",
+      "type": "mp",
+      "mpId": 627,
+      "label": "Цветан Петров Ценков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:114107675",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ДУНАВСКИТЕ ОБЩИНИ-ДУНАВ&quot;",
+      "slug": null,
+      "uic": "114107675",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Белене, 5930"
+    },
+    {
+      "id": "mp:2863",
+      "type": "mp",
+      "mpId": 2863,
+      "label": "Пенчо Пламенов Милков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:2874",
+      "type": "mp",
+      "mpId": 2874,
+      "label": "Александър Николаев Сабанов",
+      "partyGroupShort": "БГ Патриоти",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:tsvetan-petrov-tsenkov-4f3f60",
+      "type": "official",
+      "slug": "tsvetan-petrov-tsenkov-4f3f60",
+      "label": "Цветан Петров Ценков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "person:МИЛЕН ПАВЛОВ ДУЛЕВ",
+      "type": "person",
+      "label": "Милен Павлов Дулев"
+    },
+    {
+      "id": "person:ЯНКА СТОЯНОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Янка Стоянова Господинова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Димитър Венков Стефанов"
+    },
+    {
+      "id": "person:ПЕТЪР ВАЛЕНТИНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Валентинов Петров"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Георгиев Петров"
+    },
+    {
+      "id": "person:БОЖИДАР ДИМИТРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Божидар Димитров Борисов"
+    },
+    {
+      "id": "person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Генчо Божинов Генчев"
+    },
+    {
+      "id": "company:tr:121000727",
+      "type": "company",
+      "label": "СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121000727",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1360"
+    },
+    {
+      "id": "mp:4906",
+      "type": "mp",
+      "mpId": 4906,
+      "label": "Димитър Ангелов Иванов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:tr:205720203",
+      "type": "company",
+      "label": "Организация за управление на Дунавски туристически район",
+      "slug": null,
+      "uic": "205720203",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3230",
+      "type": "mp",
+      "mpId": 3230,
+      "label": "Митко Стайков Стайков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:627",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2863",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2874",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-petrov-tsenkov-4f3f60",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ПАВЛОВ ДУЛЕВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА СТОЯНОВА ГОСПОДИНОВА",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАЛЕНТИНОВ ПЕТРОВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ДИМИТРОВ БОРИСОВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ПАВЛОВ ДУЛЕВ",
+      "target": "company:tr:114107675",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2863",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2863",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ПАВЛОВ ДУЛЕВ",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНЧО БОЖИНОВ ГЕНЧЕВ",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4906",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3230",
+      "target": "company:tr:205720203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2874",
+      "length": 2,
+      "nodeIds": [
+        "mp:627",
+        "company:tr:114107675",
+        "mp:2874"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2863",
+      "length": 2,
+      "nodeIds": [
+        "mp:627",
+        "company:tr:114107675",
+        "mp:2863"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4906",
+      "length": 4,
+      "nodeIds": [
+        "mp:627",
+        "company:tr:114107675",
+        "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+        "company:tr:121000727",
+        "mp:4906"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3230",
+      "length": 4,
+      "nodeIds": [
+        "mp:627",
+        "company:tr:114107675",
+        "person:МИЛЕН ПАВЛОВ ДУЛЕВ",
+        "company:tr:205720203",
+        "mp:3230"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ashot-gegamovich-kazaryan-e0e035",
+  "nodes": [
+    {
+      "id": "official:ashot-gegamovich-kazaryan-e0e035",
+      "type": "official",
+      "slug": "ashot-gegamovich-kazaryan-e0e035",
+      "label": "Ашот Гегамович Казарян",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207707311",
+      "type": "company",
+      "label": "ЕКОПАН БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "207707311",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОКСАНА ИВАНОВА ЖЕЛЯПОВА",
+      "type": "person",
+      "label": "Оксана Иванова Желяпова"
+    },
+    {
+      "id": "person:ВИТАЛИЙ ПРИПАС",
+      "type": "person",
+      "label": "Виталий Припас"
+    },
+    {
+      "id": "person:НАРИНЕ ВЛАДИМИРОВНА ВАРДАНЯН",
+      "type": "person",
+      "label": "Нарине Владимировна Варданян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ashot-gegamovich-kazaryan-e0e035",
+      "target": "company:tr:207707311",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОКСАНА ИВАНОВА ЖЕЛЯПОВА",
+      "target": "company:tr:207707311",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОКСАНА ИВАНОВА ЖЕЛЯПОВА",
+      "target": "company:tr:207707311",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТАЛИЙ ПРИПАС",
+      "target": "company:tr:207707311",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТАЛИЙ ПРИПАС",
+      "target": "company:tr:207707311",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРИНЕ ВЛАДИМИРОВНА ВАРДАНЯН",
+      "target": "company:tr:207707311",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,66 @@
-{"mpId":4752,"name":"Даниел Петров Петров","partyGroupShort":null,"isCurrent":false,"nsFolders":["47","48","49","50"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/72AA4BB2-FB54-4973-825E-5FDC746F1533212781.xml","totalAssetsEur":71374.30144746734,"totalDebtsEur":71655.00069024405,"netWorthEur":-280.6992427767109,"previous":{"year":2023,"totalAssetsEur":63247.316995853434,"netWorthEur":-3105.0755945046185},"byCategory":{"real_estate":{"count":32,"valuedCount":32,"totalEur":44701.226589223006},"vehicle":{"count":3,"valuedCount":3,"totalEur":14111.65592101563},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":1,"valuedCount":1,"totalEur":12272.539024352833},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":3,"valuedCount":3,"totalEur":71655.00069024405},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":4,"valuedCount":4,"totalEur":288.8799128758634}}}
+{
+  "mpId": 4752,
+  "name": "Даниел Петров Петров",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47",
+    "48",
+    "49",
+    "50"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/72AA4BB2-FB54-4973-825E-5FDC746F1533212781.xml",
+  "totalAssetsEur": 71374.30144746734,
+  "totalDebtsEur": 71655.00069024405,
+  "netWorthEur": -280.6992427767109,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 63247.316995853434,
+    "netWorthEur": -3105.0755945046185
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 32,
+      "valuedCount": 32,
+      "totalEur": 44701.226589223006
+    },
+    "vehicle": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 14111.65592101563
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 12272.539024352833
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 71655.00069024405
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 288.8799128758634
+    }
+  }
+}

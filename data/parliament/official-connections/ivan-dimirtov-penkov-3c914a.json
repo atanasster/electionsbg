@@ -1,1 +1,82 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivan-dimirtov-penkov-3c914a","nodes":[{"id":"official:ivan-dimirtov-penkov-3c914a","type":"official","slug":"ivan-dimirtov-penkov-3c914a","label":"Иван Димиртов Пенков","tier":"municipal","role":"councillor","municipality":"Пловдив"},{"id":"company:tr:204087360","type":"company","label":"СИЕМ 11 ЕООД","slug":null,"uic":"204087360","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАН ДИМИТРОВ ПЕНКОВ","type":"person","label":"Иван Димитров Пенков"},{"id":"person:МИЛЕНА ДИМИТРОВА ИВАНОВА","type":"person","label":"Милена Димитрова Иванова"},{"id":"person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА","type":"person","label":"Карамфила Атанасова Йоргова"}],"edges":[{"source":"official:ivan-dimirtov-penkov-3c914a","target":"company:tr:204087360","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ПЕНКОВ","target":"company:tr:204087360","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ДИМИТРОВА ИВАНОВА","target":"company:tr:204087360","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА","target":"company:tr:204087360","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА","target":"company:tr:204087360","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-dimirtov-penkov-3c914a",
+  "nodes": [
+    {
+      "id": "official:ivan-dimirtov-penkov-3c914a",
+      "type": "official",
+      "slug": "ivan-dimirtov-penkov-3c914a",
+      "label": "Иван Димиртов Пенков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:204087360",
+      "type": "company",
+      "label": "СИЕМ 11 ЕООД",
+      "slug": null,
+      "uic": "204087360",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Иван Димитров Пенков"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Милена Димитрова Иванова"
+    },
+    {
+      "id": "person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА",
+      "type": "person",
+      "label": "Карамфила Атанасова Йоргова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimirtov-penkov-3c914a",
+      "target": "company:tr:204087360",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ПЕНКОВ",
+      "target": "company:tr:204087360",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:204087360",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА",
+      "target": "company:tr:204087360",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРАМФИЛА АТАНАСОВА ЙОРГОВА",
+      "target": "company:tr:204087360",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

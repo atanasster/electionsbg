@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dani-stefanova-kanazireva-f9acf9",
+  "nodes": [
+    {
+      "id": "official:dani-stefanova-kanazireva-f9acf9",
+      "type": "official",
+      "slug": "dani-stefanova-kanazireva-f9acf9",
+      "label": "ДАНИ СТЕФАНОВА КАНАЗИРЕВА",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204900732",
+      "type": "company",
+      "label": "К и К ЕСТЕЙТ",
+      "slug": null,
+      "uic": "204900732",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "mp:3631",
+      "type": "mp",
+      "mpId": 3631,
+      "label": "Дани Стефанова Каназирева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "person:ВЕСЕЛИН ИВАНОВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Веселин Иванов Козарев"
+    },
+    {
+      "id": "person:КАТЕРИНА ДИМИТРОВА КЛЕНДЖАРОВА",
+      "type": "person",
+      "label": "Катерина Димитрова Кленджарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dani-stefanova-kanazireva-f9acf9",
+      "target": "company:tr:204900732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3631",
+      "target": "company:tr:204900732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3631",
+      "target": "company:tr:204900732",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ИВАНОВ КОЗАРЕВ",
+      "target": "company:tr:204900732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ИВАНОВ КОЗАРЕВ",
+      "target": "company:tr:204900732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ДИМИТРОВА КЛЕНДЖАРОВА",
+      "target": "company:tr:204900732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ДИМИТРОВА КЛЕНДЖАРОВА",
+      "target": "company:tr:204900732",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

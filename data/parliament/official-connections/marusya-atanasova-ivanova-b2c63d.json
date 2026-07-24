@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:marusya-atanasova-ivanova-b2c63d",
+  "nodes": [
+    {
+      "id": "official:marusya-atanasova-ivanova-b2c63d",
+      "type": "official",
+      "slug": "marusya-atanasova-ivanova-b2c63d",
+      "label": "Маруся Атанасова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207216127",
+      "type": "company",
+      "label": "МиМ 2023",
+      "slug": null,
+      "uic": "207216127",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАНА АТАНАСОВА БОТКОВА-ВРИГАЗОВА",
+      "type": "person",
+      "label": "Мариана Атанасова Боткова-Вригазова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marusya-atanasova-ivanova-b2c63d",
+      "target": "company:tr:207216127",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marusya-atanasova-ivanova-b2c63d",
+      "target": "company:tr:207216127",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАНА АТАНАСОВА БОТКОВА-ВРИГАЗОВА",
+      "target": "company:tr:207216127",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА АТАНАСОВА БОТКОВА-ВРИГАЗОВА",
+      "target": "company:tr:207216127",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

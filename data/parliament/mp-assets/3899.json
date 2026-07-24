@@ -1,1 +1,63 @@
-{"mpId":3899,"name":"Йорданка Яникова Костадинова","partyGroupShort":null,"isCurrent":false,"nsFolders":["47"],"latestDeclarationYear":2023,"fiscalYear":2023,"declarationType":"Vacate","sourceUrl":"https://register.cacbg.bg/2023/49D85879-7C00-4C7C-A9AC-EB3AFA420357145615.xml","totalAssetsEur":201907.11871686194,"totalDebtsEur":0,"netWorthEur":201907.11871686194,"previous":{"year":2022,"totalAssetsEur":200626.33255446542,"netWorthEur":200626.33255446542},"byCategory":{"real_estate":{"count":28,"valuedCount":28,"totalEur":83587.53061360141},"vehicle":{"count":2,"valuedCount":2,"totalEur":71580.86336747059},"cash":{"count":2,"valuedCount":2,"totalEur":1840.6507723063864},"bank":{"count":2,"valuedCount":2,"totalEur":12271.005148709242},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":0,"valuedCount":0,"totalEur":0},"investment":{"count":5,"valuedCount":5,"totalEur":31346.282652377762},"security":{"count":2,"valuedCount":2,"totalEur":1280.7861623965273}}}
+{
+  "mpId": 3899,
+  "name": "Йорданка Яникова Костадинова",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2023,
+  "declarationType": "Vacate",
+  "sourceUrl": "https://register.cacbg.bg/2023/49D85879-7C00-4C7C-A9AC-EB3AFA420357145615.xml",
+  "totalAssetsEur": 201907.11871686194,
+  "totalDebtsEur": 0,
+  "netWorthEur": 201907.11871686194,
+  "previous": {
+    "year": 2022,
+    "totalAssetsEur": 200626.33255446542,
+    "netWorthEur": 200626.33255446542
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 28,
+      "valuedCount": 28,
+      "totalEur": 83587.53061360141
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 71580.86336747059
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 1840.6507723063864
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 12271.005148709242
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "investment": {
+      "count": 5,
+      "valuedCount": 5,
+      "totalEur": 31346.282652377762
+    },
+    "security": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 1280.7861623965273
+    }
+  }
+}

@@ -1,1 +1,69 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:dimitr-prvanov-zagorski-ad2f87","nodes":[{"id":"official:dimitr-prvanov-zagorski-ad2f87","type":"official","slug":"dimitr-prvanov-zagorski-ad2f87","label":"Димитър Първанов Загорски","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:206908838","type":"company","label":"Областна компания за чиста енергия ООД","slug":null,"uic":"206908838","legalForm":null,"status":null,"seat":null},{"id":"person:ДИМИТЪР ПЪРВАНОВ ДИМИТРОВ","type":"person","label":"Димитър Първанов Димитров"},{"id":"person:НИКОЛА НИКОЛАЕВ КАЦАРОВ","type":"person","label":"Никола Николаев Кацаров"}],"edges":[{"source":"official:dimitr-prvanov-zagorski-ad2f87","target":"company:tr:206908838","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЪРВАНОВ ДИМИТРОВ","target":"company:tr:206908838","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА НИКОЛАЕВ КАЦАРОВ","target":"company:tr:206908838","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА НИКОЛАЕВ КАЦАРОВ","target":"company:tr:206908838","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-prvanov-zagorski-ad2f87",
+  "nodes": [
+    {
+      "id": "official:dimitr-prvanov-zagorski-ad2f87",
+      "type": "official",
+      "slug": "dimitr-prvanov-zagorski-ad2f87",
+      "label": "Димитър Първанов Загорски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:206908838",
+      "type": "company",
+      "label": "Областна компания за чиста енергия ООД",
+      "slug": null,
+      "uic": "206908838",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ПЪРВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Първанов Димитров"
+    },
+    {
+      "id": "person:НИКОЛА НИКОЛАЕВ КАЦАРОВ",
+      "type": "person",
+      "label": "Никола Николаев Кацаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-prvanov-zagorski-ad2f87",
+      "target": "company:tr:206908838",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЪРВАНОВ ДИМИТРОВ",
+      "target": "company:tr:206908838",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА НИКОЛАЕВ КАЦАРОВ",
+      "target": "company:tr:206908838",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА НИКОЛАЕВ КАЦАРОВ",
+      "target": "company:tr:206908838",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:emil-petrov-angelov-d3c8c2",
+  "nodes": [
+    {
+      "id": "official:emil-petrov-angelov-d3c8c2",
+      "type": "official",
+      "slug": "emil-petrov-angelov-d3c8c2",
+      "label": "Емил Петров Ангелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206563370",
+      "type": "company",
+      "label": "МЕЛ 49",
+      "slug": null,
+      "uic": "206563370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ЛЮБОМИРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Борислав Любомиров Христов"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ НЕДКОВ",
+      "type": "person",
+      "label": "Георги Петров Недков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-petrov-angelov-d3c8c2",
+      "target": "company:tr:206563370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ЛЮБОМИРОВ ХРИСТОВ",
+      "target": "company:tr:206563370",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ЛЮБОМИРОВ ХРИСТОВ",
+      "target": "company:tr:206563370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ НЕДКОВ",
+      "target": "company:tr:206563370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

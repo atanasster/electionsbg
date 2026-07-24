@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:gergana-zdravkova-gledacheva-2ce154",
+  "nodes": [
+    {
+      "id": "official:gergana-zdravkova-gledacheva-2ce154",
+      "type": "official",
+      "slug": "gergana-zdravkova-gledacheva-2ce154",
+      "label": "Гергана Здравкова Гледачева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезово"
+    },
+    {
+      "id": "company:tr:115630582",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ СОУ &quot;ХРИСТО СМИРНЕНСКИ&quot;&quot;",
+      "slug": null,
+      "uic": "115630582",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:milena-ivanova-chonovska-cc840f",
+      "type": "official",
+      "slug": "milena-ivanova-chonovska-cc840f",
+      "label": "Милена Иванова Чоновска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезово"
+    },
+    {
+      "id": "person:ГЕНЧО СТОЯНОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Генчо Стоянов Минчев"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Петров Георгиев"
+    },
+    {
+      "id": "person:ВЕЛКА ИВАНОВА ГИНОВА",
+      "type": "person",
+      "label": "Велка Иванова Гинова"
+    },
+    {
+      "id": "person:СТОЮ ИВАНОВ БАРЪМСКИ",
+      "type": "person",
+      "label": "Стою Иванов Баръмски"
+    },
+    {
+      "id": "person:КРЪСТЮ ДИМИТРОВ БАЦИЕВ",
+      "type": "person",
+      "label": "Кръстю Димитров Бациев"
+    },
+    {
+      "id": "person:МИЛКО ГЕНОВ САРАФОВ",
+      "type": "person",
+      "label": "Милко Генов Сарафов"
+    },
+    {
+      "id": "person:ФИЛИП ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Филип Иванов Георгиев"
+    },
+    {
+      "id": "person:СТОЙКО НЕДЕЛЧЕВ САРЪБЕЕВ",
+      "type": "person",
+      "label": "Стойко Неделчев Саръбеев"
+    },
+    {
+      "id": "person:ИВАНКА ИВАНОВА ПАМУКОВА",
+      "type": "person",
+      "label": "Иванка Иванова Памукова"
+    },
+    {
+      "id": "person:ИВАНКА ИВАНОВА ЧАНОВА",
+      "type": "person",
+      "label": "Иванка Иванова Чанова"
+    },
+    {
+      "id": "person:СТАНКА СТАНЕВА ГЪНЧЕВСКА",
+      "type": "person",
+      "label": "Станка Станева Гънчевска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-zdravkova-gledacheva-2ce154",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-zdravkova-gledacheva-2ce154",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-ivanova-chonovska-cc840f",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕНЧО СТОЯНОВ МИНЧЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКА ИВАНОВА ГИНОВА",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНЧО СТОЯНОВ МИНЧЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЮ ИВАНОВ БАРЪМСКИ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТЮ ДИМИТРОВ БАЦИЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ГЕНОВ САРАФОВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКО НЕДЕЛЧЕВ САРЪБЕЕВ",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ПАМУКОВА",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ЧАНОВА",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА СТАНЕВА ГЪНЧЕВСКА",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ЧАНОВА",
+      "target": "company:tr:115630582",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,97 @@
-[{"mpId":2759,"declarantName":"Нели Рускова Петрова","institution":"Народно събраниe","declarationYear":2022,"fiscalYear":2022,"declarationType":"Vacate","filedAt":"2022-05-23","entryNumber":"Ф591","controlHash":"FFD31F63","sourceUrl":"https://register.cacbg.bg/2022/1312F373-2A12-44A8-A9BE-1C94C67A9F18137778.xml","ownershipStakes":[{"table":"10","itemType":"Капитал","shareSize":"100%","companyName":"Магия Лорели ЕООД","registeredOffice":"Варна с  Близнаци","valueEur":51.12918811962185,"holderName":"Нели Рускова Петрова","legalBasis":null,"fundsOrigin":null}],"income":[],"assets":[{"category":"real_estate","description":"парцел, жилищна сграда и сграда","detail":null,"location":"с Близнаци","municipality":"Аврен","areaSqm":591,"builtAreaSqm":265,"acquiredYear":2017,"share":"1/1","currency":"BGN","amount":90000,"valueEur":46016.26930765966,"holderName":"Нели Рускова Петрова","isSpouse":false,"legalBasis":null,"fundsOrigin":null},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":11492,"valueEur":5875.7662987069425,"holderName":"Нели Рускова Петрова","isSpouse":false,"legalBasis":null,"fundsOrigin":null}],"events":[]},{"mpId":2759,"declarantName":"Нели Рускова Петрова","institution":"Народно събраниe","declarationYear":2021,"fiscalYear":2020,"declarationType":"Annualy","filedAt":null,"entryNumber":"Г6753","controlHash":"BE84B6C5","sourceUrl":"https://register.cacbg.bg/2021_nc/1312F373-2A12-44A8-A9BE-1C94C67A9F18124527.xml","ownershipStakes":[],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":35742.881538784044,"amountEurSpouse":null},{"parent":null,"category":"Други доходи по правилник на НС","amountEurDeclarant":16003.43588144164,"amountEurSpouse":null}],"assets":[],"events":[]}]
+[
+  {
+    "mpId": 2759,
+    "declarantName": "Нели Рускова Петрова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-23",
+    "entryNumber": "Ф591",
+    "controlHash": "FFD31F63",
+    "sourceUrl": "https://register.cacbg.bg/2022/1312F373-2A12-44A8-A9BE-1C94C67A9F18137778.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Капитал",
+        "shareSize": "100%",
+        "companyName": "Магия Лорели ЕООД",
+        "registeredOffice": "Варна с  Близнаци",
+        "valueEur": 51.12918811962185,
+        "holderName": "Нели Рускова Петрова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Магия-Лорели-ЕООД"
+      }
+    ],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел, жилищна сграда и сграда",
+        "detail": null,
+        "location": "с Близнаци",
+        "municipality": "Аврен",
+        "areaSqm": 591,
+        "builtAreaSqm": 265,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Нели Рускова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11492,
+        "valueEur": 5875.7662987069425,
+        "holderName": "Нели Рускова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "mpId": 2759,
+    "declarantName": "Нели Рускова Петрова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6753",
+    "controlHash": "BE84B6C5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/1312F373-2A12-44A8-A9BE-1C94C67A9F18124527.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35742.881538784044,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други доходи по правилник на НС",
+        "amountEurDeclarant": 16003.43588144164,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  }
+]

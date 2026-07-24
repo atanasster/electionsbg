@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:korneliya-petrova-motova-891a1c",
+  "nodes": [
+    {
+      "id": "official:korneliya-petrova-motova-891a1c",
+      "type": "official",
+      "slug": "korneliya-petrova-motova-891a1c",
+      "label": "Корнелия Петрова Мотова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107559790",
+      "type": "company",
+      "label": "НАСТОЯТЕЛСТВО ПРИ ПТГ &quot;Д-Р НИКОЛА ВАСИЛИАДИ&quot;",
+      "slug": null,
+      "uic": "107559790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА ГЕОРГИЕВА КРЪСТИНКОВА",
+      "type": "person",
+      "label": "Ивелина Георгиева Кръстинкова"
+    },
+    {
+      "id": "person:ПЕНКА ДРАГНЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Пенка Драгнева Пенева"
+    },
+    {
+      "id": "person:ЕЛЕНА ТОДОРОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Елена Тодорова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:korneliya-petrova-motova-891a1c",
+      "target": "company:tr:107559790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА ГЕОРГИЕВА КРЪСТИНКОВА",
+      "target": "company:tr:107559790",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ГЕОРГИЕВА КРЪСТИНКОВА",
+      "target": "company:tr:107559790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДРАГНЕВА ПЕНЕВА",
+      "target": "company:tr:107559790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ТОДОРОВА АТАНАСОВА",
+      "target": "company:tr:107559790",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

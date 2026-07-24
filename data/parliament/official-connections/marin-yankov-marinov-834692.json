@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:marin-yankov-marinov-834692",
+  "nodes": [
+    {
+      "id": "official:marin-yankov-marinov-834692",
+      "type": "official",
+      "slug": "marin-yankov-marinov-834692",
+      "label": "Марин Янков Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трявна"
+    },
+    {
+      "id": "company:tr:204275711",
+      "type": "company",
+      "label": "Уайн Ловърс",
+      "slug": null,
+      "uic": "204275711",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНИНА ИВАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Иванина Иванова Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marin-yankov-marinov-834692",
+      "target": "company:tr:204275711",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:marin-yankov-marinov-834692",
+      "target": "company:tr:204275711",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marin-yankov-marinov-834692",
+      "target": "company:tr:204275711",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНИНА ИВАНОВА МАРИНОВА",
+      "target": "company:tr:204275711",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

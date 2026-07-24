@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vera-anatolievna-parapanova-e5be47",
+  "nodes": [
+    {
+      "id": "official:vera-anatolievna-parapanova-e5be47",
+      "type": "official",
+      "slug": "vera-anatolievna-parapanova-e5be47",
+      "label": "Вера Анатолиевна Парапанова",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202849659",
+      "type": "company",
+      "label": "АМЕЙЗ",
+      "slug": null,
+      "uic": "202849659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vera-anatolievna-parapanova-e5be47",
+      "target": "company:tr:202849659",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vera-anatolievna-parapanova-e5be47",
+      "target": "company:tr:202849659",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

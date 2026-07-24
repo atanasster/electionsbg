@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rumyana-atanasova-yanchevska-7a7145",
+  "nodes": [
+    {
+      "id": "official:rumyana-atanasova-yanchevska-7a7145",
+      "type": "official",
+      "slug": "rumyana-atanasova-yanchevska-7a7145",
+      "label": "Румяна Атанасова Янчевска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:830166530",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "830166530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kostadin-iliev-totev-cd4621",
+      "type": "official",
+      "slug": "kostadin-iliev-totev-cd4621",
+      "label": "Костадин Илиев Тотев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Георги Илиев Василев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-atanasova-yanchevska-7a7145",
+      "target": "company:tr:830166530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-iliev-totev-cd4621",
+      "target": "company:tr:830166530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:830166530",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ВАСИЛЕВ",
+      "target": "company:tr:830166530",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

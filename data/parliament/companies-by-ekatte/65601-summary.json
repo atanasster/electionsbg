@@ -1,1 +1,46 @@
-{"ekatte":"65601","count":2,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"ЕВРОПЕЙСКО-СДРУЖЕНИЕ-ПО-ЕКОЛОГИЯ","displayName":"ЕВРОПЕЙСКО СДРУЖЕНИЕ ПО ЕКОЛОГИЯ","registeredOffice":"БЪЛГАРИЯ, с. Световрачене, 1252","mps":[{"mpId":936,"mpName":"Петър Методиев Петров","role":"ngo_representative","isCurrent":true},{"mpId":936,"mpName":"Петър Методиев Петров","role":"ngo_board","isCurrent":true}]},{"slug":"ПИ-ЕС-КЕШ","displayName":"ПИ ЕС КЕШ","registeredOffice":"БЪЛГАРИЯ, с. Световрачене, 1252","mps":[{"mpId":936,"mpName":"Петър Методиев Петров","role":"manager","isCurrent":true},{"mpId":936,"mpName":"Петър Методиев Петров","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "65601",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ЕВРОПЕЙСКО-СДРУЖЕНИЕ-ПО-ЕКОЛОГИЯ",
+      "displayName": "ЕВРОПЕЙСКО СДРУЖЕНИЕ ПО ЕКОЛОГИЯ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Световрачене, 1252",
+      "mps": [
+        {
+          "mpId": 936,
+          "mpName": "Петър Методиев Петров",
+          "role": "ngo_representative",
+          "isCurrent": true
+        },
+        {
+          "mpId": 936,
+          "mpName": "Петър Методиев Петров",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПИ-ЕС-КЕШ",
+      "displayName": "ПИ ЕС КЕШ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Световрачене, 1252",
+      "mps": [
+        {
+          "mpId": 936,
+          "mpName": "Петър Методиев Петров",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 936,
+          "mpName": "Петър Методиев Петров",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

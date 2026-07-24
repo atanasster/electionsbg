@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:viktor-albert-benbasat-4f398a",
+  "nodes": [
+    {
+      "id": "official:viktor-albert-benbasat-4f398a",
+      "type": "official",
+      "slug": "viktor-albert-benbasat-4f398a",
+      "label": "Виктор Алберт Бенбасат",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207496309",
+      "type": "company",
+      "label": "Хименерго ООД",
+      "slug": null,
+      "uic": "207496309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130628250",
+      "type": "company",
+      "label": "Имоти Про ООД",
+      "slug": null,
+      "uic": "130628250",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАГДАЛЕНА ИЛИЯНОВА ПРАШАНОВА",
+      "type": "person",
+      "label": "Магдалена Илиянова Прашанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-albert-benbasat-4f398a",
+      "target": "company:tr:207496309",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-albert-benbasat-4f398a",
+      "target": "company:tr:130628250",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-albert-benbasat-4f398a",
+      "target": "company:tr:207496309",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-albert-benbasat-4f398a",
+      "target": "company:tr:207496309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ИЛИЯНОВА ПРАШАНОВА",
+      "target": "company:tr:207496309",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ИЛИЯНОВА ПРАШАНОВА",
+      "target": "company:tr:207496309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

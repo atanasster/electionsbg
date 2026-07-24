@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:pepa-manolova-taneva-e81274",
+  "nodes": [
+    {
+      "id": "official:pepa-manolova-taneva-e81274",
+      "type": "official",
+      "slug": "pepa-manolova-taneva-e81274",
+      "label": "Пепа Манолова Танева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208020416",
+      "type": "company",
+      "label": "МАНОЛОВА - ТАНЕВ",
+      "slug": null,
+      "uic": "208020416",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕДЕЛЧО ПЕЕВ ТАНЕВ",
+      "type": "person",
+      "label": "Неделчо Пеев Танев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pepa-manolova-taneva-e81274",
+      "target": "company:tr:208020416",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pepa-manolova-taneva-e81274",
+      "target": "company:tr:208020416",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ПЕЕВ ТАНЕВ",
+      "target": "company:tr:208020416",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ПЕЕВ ТАНЕВ",
+      "target": "company:tr:208020416",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

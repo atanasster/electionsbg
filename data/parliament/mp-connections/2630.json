@@ -1,1 +1,229 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2630","nodes":[{"id":"mp:2630","type":"mp","mpId":2630,"label":"Ирена Любенова Соколова","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42"]},{"id":"company:tr:207966844","type":"company","label":"КА Импакт","slug":null,"uic":"207966844","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:121444080","type":"company","label":"БЪЛГАРСКО ДРУЖЕСТВО ПО ПСИХОДРАМА И ГРУПОВА ТЕРАПИЯ","slug":null,"uic":"121444080","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:205880268","type":"company","label":"КА Академи","slug":null,"uic":"205880268","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ПЕТЪР РУСЕВ ЦИКАЛОВ","type":"person","label":"Петър Русев Цикалов"},{"id":"person:НИКОЛАЙ ЗЛАТКОВ ЗЛАТЕВ","type":"person","label":"Николай Златков Златев"},{"id":"person:АНЖЕЛА ЦВЕТАНОВА ХРИСТОФОРОВА","type":"person","label":"Анжела Цветанова Христофорова"},{"id":"person:ЕВЕЛИНА ЛАТИЯН ЯНКОВА","type":"person","label":"Евелина Латиян Янкова"},{"id":"person:ЕЛЕНА ДИМИТРОВА ЕВСТАТИЕВА","type":"person","label":"Елена Димитрова Евстатиева"},{"id":"person:ИННА ГЕОРГИЕВА БРАНЕВА","type":"person","label":"Инна Георгиева Бранева"},{"id":"person:МИЛА ХРИСТОВА ЧЕРГАНОВА-ЦАЛОВА","type":"person","label":"Мила Христова Черганова-Цалова"},{"id":"person:ТАНЯ ЙОРДАНОВА ИВАНОВА","type":"person","label":"Таня Йорданова Иванова"},{"id":"person:ЖИВЕТА МАРУШКОВА ВАСИЛЕВА-КОЛЕВА","type":"person","label":"Живета Марушкова Василева-Колева"},{"id":"person:БОРЯНА ВЕНЕЛИНОВА КРЪСТЕВА","type":"person","label":"Боряна Венелинова Кръстева"}],"edges":[{"source":"mp:2630","target":"company:tr:207966844","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2630","target":"company:tr:207966844","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:2630","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2630","target":"company:tr:205880268","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2630","target":"company:tr:205880268","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР РУСЕВ ЦИКАЛОВ","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ЗЛАТКОВ ЗЛАТЕВ","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНЖЕЛА ЦВЕТАНОВА ХРИСТОФОРОВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВЕЛИНА ЛАТИЯН ЯНКОВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ДИМИТРОВА ЕВСТАТИЕВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИННА ГЕОРГИЕВА БРАНЕВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИННА ГЕОРГИЕВА БРАНЕВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛА ХРИСТОВА ЧЕРГАНОВА-ЦАЛОВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ЙОРДАНОВА ИВАНОВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВЕТА МАРУШКОВА ВАСИЛЕВА-КОЛЕВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРЯНА ВЕНЕЛИНОВА КРЪСТЕВА","target":"company:tr:121444080","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2630",
+  "nodes": [
+    {
+      "id": "mp:2630",
+      "type": "mp",
+      "mpId": 2630,
+      "label": "Ирена Любенова Соколова",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:207966844",
+      "type": "company",
+      "label": "КА Импакт",
+      "slug": null,
+      "uic": "207966844",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:121444080",
+      "type": "company",
+      "label": "БЪЛГАРСКО ДРУЖЕСТВО ПО ПСИХОДРАМА И ГРУПОВА ТЕРАПИЯ",
+      "slug": null,
+      "uic": "121444080",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:205880268",
+      "type": "company",
+      "label": "КА Академи",
+      "slug": null,
+      "uic": "205880268",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР РУСЕВ ЦИКАЛОВ",
+      "type": "person",
+      "label": "Петър Русев Цикалов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЗЛАТКОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Николай Златков Златев"
+    },
+    {
+      "id": "person:АНЖЕЛА ЦВЕТАНОВА ХРИСТОФОРОВА",
+      "type": "person",
+      "label": "Анжела Цветанова Христофорова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА ЛАТИЯН ЯНКОВА",
+      "type": "person",
+      "label": "Евелина Латиян Янкова"
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА ЕВСТАТИЕВА",
+      "type": "person",
+      "label": "Елена Димитрова Евстатиева"
+    },
+    {
+      "id": "person:ИННА ГЕОРГИЕВА БРАНЕВА",
+      "type": "person",
+      "label": "Инна Георгиева Бранева"
+    },
+    {
+      "id": "person:МИЛА ХРИСТОВА ЧЕРГАНОВА-ЦАЛОВА",
+      "type": "person",
+      "label": "Мила Христова Черганова-Цалова"
+    },
+    {
+      "id": "person:ТАНЯ ЙОРДАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Таня Йорданова Иванова"
+    },
+    {
+      "id": "person:ЖИВЕТА МАРУШКОВА ВАСИЛЕВА-КОЛЕВА",
+      "type": "person",
+      "label": "Живета Марушкова Василева-Колева"
+    },
+    {
+      "id": "person:БОРЯНА ВЕНЕЛИНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Боряна Венелинова Кръстева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2630",
+      "target": "company:tr:207966844",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2630",
+      "target": "company:tr:207966844",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2630",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2630",
+      "target": "company:tr:205880268",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2630",
+      "target": "company:tr:205880268",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР РУСЕВ ЦИКАЛОВ",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЗЛАТКОВ ЗЛАТЕВ",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЖЕЛА ЦВЕТАНОВА ХРИСТОФОРОВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА ЛАТИЯН ЯНКОВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА ЕВСТАТИЕВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИННА ГЕОРГИЕВА БРАНЕВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИННА ГЕОРГИЕВА БРАНЕВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛА ХРИСТОВА ЧЕРГАНОВА-ЦАЛОВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЙОРДАНОВА ИВАНОВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВЕТА МАРУШКОВА ВАСИЛЕВА-КОЛЕВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ВЕНЕЛИНОВА КРЪСТЕВА",
+      "target": "company:tr:121444080",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

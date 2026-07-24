@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mario-tsenov-nikolov-d0f84f",
+  "nodes": [
+    {
+      "id": "official:mario-tsenov-nikolov-d0f84f",
+      "type": "official",
+      "slug": "mario-tsenov-nikolov-d0f84f",
+      "label": "Марио Ценов Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206518126",
+      "type": "company",
+      "label": "МАРИЦВЕТ ТРЕЙД",
+      "slug": null,
+      "uic": "206518126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-tsenov-nikolov-d0f84f",
+      "target": "company:tr:206518126",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-tsenov-nikolov-d0f84f",
+      "target": "company:tr:206518126",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

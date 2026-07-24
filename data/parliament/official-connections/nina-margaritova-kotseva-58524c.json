@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nina-margaritova-kotseva-58524c",
+  "nodes": [
+    {
+      "id": "official:nina-margaritova-kotseva-58524c",
+      "type": "official",
+      "slug": "nina-margaritova-kotseva-58524c",
+      "label": "Нина Маргаритова Коцева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Червен бряг"
+    },
+    {
+      "id": "company:tr:000403948",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НИКОЛА ЙОНКОВ ВАПЦАРОВ 1908&quot;",
+      "slug": null,
+      "uic": "000403948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН КРАСИМИРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Иван Красимиров Цветков"
+    },
+    {
+      "id": "person:ИВАНКА КИРЧЕВА НИНОВА",
+      "type": "person",
+      "label": "Иванка Кирчева Нинова"
+    },
+    {
+      "id": "person:КРИСТИНА ЦВЕТАНОВА ЦЕНОВА",
+      "type": "person",
+      "label": "Кристина Цветанова Ценова"
+    },
+    {
+      "id": "person:МИЛЕНА ЕВСТАТИЕВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Милена Евстатиева Делчева"
+    },
+    {
+      "id": "person:ЦВЕТИНА ДИМИТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Цветина Димитрова Георгиева"
+    },
+    {
+      "id": "person:ГРЕТА ИЛИАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Грета Илианова Георгиева"
+    },
+    {
+      "id": "person:АНЕЛИЯ ЛАЗАРОВА НЕНЧЕВА",
+      "type": "person",
+      "label": "Анелия Лазарова Ненчева"
+    },
+    {
+      "id": "person:ИЛОНКА ИВАНОВА ТОНОВА",
+      "type": "person",
+      "label": "Илонка Иванова Тонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nina-margaritova-kotseva-58524c",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ЦВЕТКОВ",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА КИРЧЕВА НИНОВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ЦВЕТАНОВА ЦЕНОВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ЕВСТАТИЕВА ДЕЛЧЕВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИНА ДИМИТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕТА ИЛИАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ЛАЗАРОВА НЕНЧЕВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛОНКА ИВАНОВА ТОНОВА",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСИМИРОВ ЦВЕТКОВ",
+      "target": "company:tr:000403948",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

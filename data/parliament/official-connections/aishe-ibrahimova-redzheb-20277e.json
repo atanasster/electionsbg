@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aishe-ibrahimova-redzheb-20277e",
+  "nodes": [
+    {
+      "id": "official:aishe-ibrahimova-redzheb-20277e",
+      "type": "official",
+      "slug": "aishe-ibrahimova-redzheb-20277e",
+      "label": "Айше Ибрахимова Реджеб",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000499610",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО БОТЕВ-1931 Г.",
+      "slug": null,
+      "uic": "000499610",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САДЕТ АХМЕДОВА ИБРЯМОВА",
+      "type": "person",
+      "label": "Садет Ахмедова Ибрямова"
+    },
+    {
+      "id": "person:СУНАЙ ИСМАИЛ САЛИ",
+      "type": "person",
+      "label": "Сунай Исмаил Сали"
+    },
+    {
+      "id": "person:ЗЕХРА АЛЯЙДИН АДЕМ",
+      "type": "person",
+      "label": "Зехра Аляйдин Адем"
+    },
+    {
+      "id": "person:АХМЕД ИБРЯМОВ АХМЕДОВ",
+      "type": "person",
+      "label": "Ахмед Ибрямов Ахмедов"
+    },
+    {
+      "id": "person:РЕСМИЕ ИЛЯЗОВА АХМЕДОВА",
+      "type": "person",
+      "label": "Ресмие Илязова Ахмедова"
+    },
+    {
+      "id": "person:РЕЙХАНЕ ФЕВЗИ МУСА",
+      "type": "person",
+      "label": "Рейхане Февзи Муса"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aishe-ibrahimova-redzheb-20277e",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САДЕТ АХМЕДОВА ИБРЯМОВА",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУНАЙ ИСМАИЛ САЛИ",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕХРА АЛЯЙДИН АДЕМ",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД ИБРЯМОВ АХМЕДОВ",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕСМИЕ ИЛЯЗОВА АХМЕДОВА",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕЙХАНЕ ФЕВЗИ МУСА",
+      "target": "company:tr:000499610",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

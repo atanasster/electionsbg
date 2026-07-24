@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:katya-vasileva-georgieva-64e068",
+  "nodes": [
+    {
+      "id": "official:katya-vasileva-georgieva-64e068",
+      "type": "official",
+      "slug": "katya-vasileva-georgieva-64e068",
+      "label": "Катя Василева Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206371384",
+      "type": "company",
+      "label": "Ар Кей Сървис",
+      "slug": null,
+      "uic": "206371384",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-vasileva-georgieva-64e068",
+      "target": "company:tr:206371384",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-vasileva-georgieva-64e068",
+      "target": "company:tr:206371384",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

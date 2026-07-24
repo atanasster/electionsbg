@@ -1,0 +1,163 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-ivanov-hadzhiivanov-759467",
+  "nodes": [
+    {
+      "id": "official:konstantin-ivanov-hadzhiivanov-759467",
+      "type": "official",
+      "slug": "konstantin-ivanov-hadzhiivanov-759467",
+      "label": "Константин Иванов Хаджииванов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207764344",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ЦЕНТЪР ЗА ВЪРХОВИ ПОСТИЖЕНИЯ МЕХАТРОНИКА И ЧИСТИ ТЕХНОЛОГИИ",
+      "slug": null,
+      "uic": "207764344",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОНИ ГЕОРГИЕВ СПАСОВ",
+      "type": "person",
+      "label": "Тони Георгиев Спасов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Георги Димитров Тодоров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ДРАЙШУ",
+      "type": "person",
+      "label": "Александър Александров Драйшу"
+    },
+    {
+      "id": "person:ИВАЙЛО ХРИСТОВ КАЦАРОВ",
+      "type": "person",
+      "label": "Ивайло Христов Кацаров"
+    },
+    {
+      "id": "person:МАРГАРИТА ДИМИТРОВА ПОПОВА",
+      "type": "person",
+      "label": "Маргарита Димитрова Попова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ",
+      "type": "person",
+      "label": "Венцислав Иванов Славков"
+    },
+    {
+      "id": "person:ХАССАН ШАМАТИ",
+      "type": "person",
+      "label": "Хассан Шамати"
+    },
+    {
+      "id": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "type": "person",
+      "label": "Иван Младенов Кралов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-ivanov-hadzhiivanov-759467",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:konstantin-ivanov-hadzhiivanov-759467",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОНИ ГЕОРГИЕВ СПАСОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ ГЕОРГИЕВ СПАСОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ДРАЙШУ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ХРИСТОВ КАЦАРОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА ПОПОВА",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ИВАНОВ СЛАВКОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАССАН ШАМАТИ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "target": "company:tr:207764344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

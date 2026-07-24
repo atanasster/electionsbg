@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5220","nodes":[{"id":"mp:5220","type":"mp","mpId":5220,"label":"Красимир Митков Събев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["44","47","48","49","50","51","52"]},{"id":"company:tr:120028289","type":"company","label":"РАЙКОВСКИ ЛИВАДИ","slug":null,"uic":"120028289","legalForm":"OOD","status":"active","seat":null},{"id":"person:ФИДАН ТИХОМИРОВ ДРИНГОВ","type":"person","label":"Фидан Тихомиров Дрингов"}],"edges":[{"source":"mp:5220","target":"company:tr:120028289","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ФИДАН ТИХОМИРОВ ДРИНГОВ","target":"company:tr:120028289","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ФИДАН ТИХОМИРОВ ДРИНГОВ","target":"company:tr:120028289","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5220",
+  "nodes": [
+    {
+      "id": "mp:5220",
+      "type": "mp",
+      "mpId": 5220,
+      "label": "Красимир Митков Събев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "44",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:120028289",
+      "type": "company",
+      "label": "РАЙКОВСКИ ЛИВАДИ",
+      "slug": null,
+      "uic": "120028289",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ФИДАН ТИХОМИРОВ ДРИНГОВ",
+      "type": "person",
+      "label": "Фидан Тихомиров Дрингов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5220",
+      "target": "company:tr:120028289",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФИДАН ТИХОМИРОВ ДРИНГОВ",
+      "target": "company:tr:120028289",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАН ТИХОМИРОВ ДРИНГОВ",
+      "target": "company:tr:120028289",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

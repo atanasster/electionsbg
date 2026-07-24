@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:atanas-chavdarov-dobrev-9266b4",
+  "nodes": [
+    {
+      "id": "official:atanas-chavdarov-dobrev-9266b4",
+      "type": "official",
+      "slug": "atanas-chavdarov-dobrev-9266b4",
+      "label": "Атанас Чавдаров Добрев",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206793026",
+      "type": "company",
+      "label": "БЕНКОВСКИ СОЛАР",
+      "slug": null,
+      "uic": "206793026",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "mp:1521",
+      "type": "mp",
+      "mpId": 1521,
+      "label": "Ваня Чавдарова Добрева",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "41"
+      ]
+    },
+    {
+      "id": "person:КИРИЛ ЛАТЕВ КИРИЛОВ",
+      "type": "person",
+      "label": "Кирил Латев Кирилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-chavdarov-dobrev-9266b4",
+      "target": "company:tr:206793026",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atanas-chavdarov-dobrev-9266b4",
+      "target": "company:tr:206793026",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-chavdarov-dobrev-9266b4",
+      "target": "company:tr:206793026",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1521",
+      "target": "company:tr:206793026",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ЛАТЕВ КИРИЛОВ",
+      "target": "company:tr:206793026",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

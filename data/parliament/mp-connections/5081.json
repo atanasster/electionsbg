@@ -1,1 +1,410 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5081","nodes":[{"id":"mp:5081","type":"mp","mpId":5081,"label":"Росица Любенова Кирова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"]},{"id":"company:Венти-ГрупЕООД","type":"company","label":"\"Венти Груп\"ЕООД","slug":"Венти-ГрупЕООД","uic":"207873411","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:Интер-солар-12ЕООД","type":"company","label":"\"Интер солар 12\"ЕООД","slug":"Интер-солар-12ЕООД","uic":"201937540","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:208154632","type":"company","label":"Венти Енерджи Груп","slug":null,"uic":"208154632","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:105551250","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ПМГ &quot;ЕКЗАРХ АНТИМ I&quot;-ВИДИН","slug":null,"uic":"105551250","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:176354636","type":"company","label":"Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;","slug":null,"uic":"176354636","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","type":"person","label":"Любен Орлинов Бишков"},{"id":"person:ВЕНТИ ЕНЕРДЖИ ГРУП","type":"person","label":"Венти Енерджи Груп"},{"id":"person:ЕЛЕОНОРА ВАЛЕРИЕВА ПЕТРОВА","type":"person","label":"Елеонора Валериева Петрова"},{"id":"mp:4043","type":"mp","mpId":4043,"label":"Иво Георгиев Атанасов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["45","46","47","48"]},{"id":"person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ","type":"person","label":"Лъчезар Славчев Райчев"},{"id":"person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ","type":"person","label":"Иво Венциславов Дановски"},{"id":"person:ЛИЛЯНА ВАСИЛЕВА ЦАНОВА","type":"person","label":"Лиляна Василева Цанова"},{"id":"person:РОСЕН ДИМИТРОВ РАКАДЖИЕВ","type":"person","label":"Росен Димитров Ракаджиев"},{"id":"person:ПАВЕЛ ЛЮДМИЛОВ РАДУЛОВ","type":"person","label":"Павел Людмилов Радулов"},{"id":"person:ИВАЙЛО РАНГЕЛОВ ВЪКОВ","type":"person","label":"Ивайло Рангелов Въков"},{"id":"person:МАРТИН КИРИЛОВ ПЕТРОВ","type":"person","label":"Мартин Кирилов Петров"},{"id":"person:РУМЯНА СОФРОНИЕВА ПЕТРОВА","type":"person","label":"Румяна Софрониева Петрова"},{"id":"person:РУМЕН ИВАНОВ ЙОРДАНОВ","type":"person","label":"Румен Иванов Йорданов"},{"id":"person:ВАЛЕРИ ЙОРДАНОВ ИВАНОВ","type":"person","label":"Валери Йорданов Иванов"},{"id":"company:tr:104667451","type":"company","label":"МАНАСТИРА-СВИЩОВ","slug":null,"uic":"104667451","legalForm":"OOD","status":"active","seat":null},{"id":"mp:233","type":"mp","mpId":233,"label":"Николай Петров Кънчев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5081","target":"company:Венти-ГрупЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5081","target":"company:Интер-солар-12ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5081","target":"company:tr:208154632","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5081","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5081","target":"company:tr:176354636","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5081","target":"company:tr:176354636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","target":"company:Венти-ГрупЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНТИ ЕНЕРДЖИ ГРУП","target":"company:Венти-ГрупЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕОНОРА ВАЛЕРИЕВА ПЕТРОВА","target":"company:Интер-солар-12ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:4043","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","target":"company:tr:208154632","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБЕН ОРЛИНОВ БИШКОВ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ","target":"company:tr:208154632","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЛИЛЯНА ВАСИЛЕВА ЦАНОВА","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ДИМИТРОВ РАКАДЖИЕВ","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ЛЮДМИЛОВ РАДУЛОВ","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО РАНГЕЛОВ ВЪКОВ","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН КИРИЛОВ ПЕТРОВ","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА СОФРОНИЕВА ПЕТРОВА","target":"company:tr:105551250","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ ЙОРДАНОВ","target":"company:tr:176354636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ ЙОРДАНОВ ИВАНОВ","target":"company:tr:176354636","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ИВАНОВ ЙОРДАНОВ","target":"company:tr:104667451","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:233","target":"company:tr:104667451","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4043","length":2,"nodeIds":["mp:5081","company:tr:208154632","mp:4043"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:233","length":4,"nodeIds":["mp:5081","company:tr:176354636","person:РУМЕН ИВАНОВ ЙОРДАНОВ","company:tr:104667451","mp:233"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5081",
+  "nodes": [
+    {
+      "id": "mp:5081",
+      "type": "mp",
+      "mpId": 5081,
+      "label": "Росица Любенова Кирова",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Венти-ГрупЕООД",
+      "type": "company",
+      "label": "\"Венти Груп\"ЕООД",
+      "slug": "Венти-ГрупЕООД",
+      "uic": "207873411",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:Интер-солар-12-ЕООД",
+      "type": "company",
+      "label": "\"Интер солар 12\" ЕООД",
+      "slug": "Интер-солар-12-ЕООД",
+      "uic": "201937540",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:Интерсолар-12ЕООД",
+      "type": "company",
+      "label": "\"Интерсолар 12\"ЕООД",
+      "slug": "Интерсолар-12ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:208154632",
+      "type": "company",
+      "label": "Венти Енерджи Груп",
+      "slug": null,
+      "uic": "208154632",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:105551250",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ПМГ &quot;ЕКЗАРХ АНТИМ I&quot;-ВИДИН",
+      "slug": null,
+      "uic": "105551250",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:176354636",
+      "type": "company",
+      "label": "Сдружение&quot;Българска асоциация на Дунавските Драгажни предприятия&quot;",
+      "slug": null,
+      "uic": "176354636",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "type": "person",
+      "label": "Любен Орлинов Бишков"
+    },
+    {
+      "id": "person:ВЕНТИ ЕНЕРДЖИ ГРУП",
+      "type": "person",
+      "label": "Венти Енерджи Груп"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ВАЛЕРИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Елеонора Валериева Петрова"
+    },
+    {
+      "id": "mp:4043",
+      "type": "mp",
+      "mpId": 4043,
+      "label": "Иво Георгиев Атанасов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Лъчезар Славчев Райчев"
+    },
+    {
+      "id": "person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ",
+      "type": "person",
+      "label": "Иво Венциславов Дановски"
+    },
+    {
+      "id": "person:ЛИЛЯНА ВАСИЛЕВА ЦАНОВА",
+      "type": "person",
+      "label": "Лиляна Василева Цанова"
+    },
+    {
+      "id": "person:РОСЕН ДИМИТРОВ РАКАДЖИЕВ",
+      "type": "person",
+      "label": "Росен Димитров Ракаджиев"
+    },
+    {
+      "id": "person:ПАВЕЛ ЛЮДМИЛОВ РАДУЛОВ",
+      "type": "person",
+      "label": "Павел Людмилов Радулов"
+    },
+    {
+      "id": "person:ИВАЙЛО РАНГЕЛОВ ВЪКОВ",
+      "type": "person",
+      "label": "Ивайло Рангелов Въков"
+    },
+    {
+      "id": "person:МАРТИН КИРИЛОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Мартин Кирилов Петров"
+    },
+    {
+      "id": "person:РУМЯНА СОФРОНИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Румяна Софрониева Петрова"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Румен Иванов Йорданов"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЙОРДАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Валери Йорданов Иванов"
+    },
+    {
+      "id": "company:tr:104667451",
+      "type": "company",
+      "label": "МАНАСТИРА-СВИЩОВ",
+      "slug": null,
+      "uic": "104667451",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:233",
+      "type": "mp",
+      "mpId": 233,
+      "label": "Николай Петров Кънчев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5081",
+      "target": "company:Венти-ГрупЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:Интер-солар-12-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:Интерсолар-12ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:tr:208154632",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:tr:176354636",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5081",
+      "target": "company:tr:176354636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "target": "company:Венти-ГрупЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНТИ ЕНЕРДЖИ ГРУП",
+      "target": "company:Венти-ГрупЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ВАЛЕРИЕВА ПЕТРОВА",
+      "target": "company:Интер-солар-12-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4043",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР СЛАВЧЕВ РАЙЧЕВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ОРЛИНОВ БИШКОВ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ВЕНЦИСЛАВОВ ДАНОВСКИ",
+      "target": "company:tr:208154632",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ВАСИЛЕВА ЦАНОВА",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ДИМИТРОВ РАКАДЖИЕВ",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ЛЮДМИЛОВ РАДУЛОВ",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО РАНГЕЛОВ ВЪКОВ",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН КИРИЛОВ ПЕТРОВ",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА СОФРОНИЕВА ПЕТРОВА",
+      "target": "company:tr:105551250",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:176354636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЙОРДАНОВ ИВАНОВ",
+      "target": "company:tr:176354636",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:104667451",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:233",
+      "target": "company:tr:104667451",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4043",
+      "length": 2,
+      "nodeIds": [
+        "mp:5081",
+        "company:tr:208154632",
+        "mp:4043"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:233",
+      "length": 4,
+      "nodeIds": [
+        "mp:5081",
+        "company:tr:176354636",
+        "person:РУМЕН ИВАНОВ ЙОРДАНОВ",
+        "company:tr:104667451",
+        "mp:233"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

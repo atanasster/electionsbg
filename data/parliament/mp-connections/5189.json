@@ -1,1 +1,59 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5189","nodes":[{"id":"mp:5189","type":"mp","mpId":5189,"label":"Катя Христова Стайкова","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:115896241","type":"company","label":"ВИ ФОР Ю","slug":null,"uic":"115896241","legalForm":"Дружество с ограничена отговорност","status":"active","seat":null},{"id":"person:ЗЛАТКА АТАНАСОВА ХРИСТОВА","type":"person","label":"Златка Атанасова Христова"}],"edges":[{"source":"mp:5189","target":"company:tr:115896241","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЗЛАТКА АТАНАСОВА ХРИСТОВА","target":"company:tr:115896241","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТКА АТАНАСОВА ХРИСТОВА","target":"company:tr:115896241","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5189",
+  "nodes": [
+    {
+      "id": "mp:5189",
+      "type": "mp",
+      "mpId": 5189,
+      "label": "Катя Христова Стайкова",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:115896241",
+      "type": "company",
+      "label": "ВИ ФОР Ю",
+      "slug": null,
+      "uic": "115896241",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТКА АТАНАСОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Златка Атанасова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5189",
+      "target": "company:tr:115896241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТКА АТАНАСОВА ХРИСТОВА",
+      "target": "company:tr:115896241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА АТАНАСОВА ХРИСТОВА",
+      "target": "company:tr:115896241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

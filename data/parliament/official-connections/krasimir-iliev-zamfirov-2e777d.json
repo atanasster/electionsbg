@@ -1,1 +1,319 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:krasimir-iliev-zamfirov-2e777d","nodes":[{"id":"official:krasimir-iliev-zamfirov-2e777d","type":"official","slug":"krasimir-iliev-zamfirov-2e777d","label":"Красимир Илиев Замфиров","tier":"municipal","role":"councillor","municipality":"Монтана"},{"id":"company:tr:821177257","type":"company","label":"ПОЛИМОНА","slug":null,"uic":"821177257","legalForm":null,"status":null,"seat":null},{"id":"person:ЗАФИР ИЛИЕВ ЗАМФИРОВ","type":"person","label":"Зафир Илиев Замфиров"},{"id":"person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ","type":"person","label":"Илия Замфиров Илиев"},{"id":"person:ЕМИЛИЯ ИЛИЕВА НЕЙНСКА","type":"person","label":"Емилия Илиева Нейнска"},{"id":"person:КАЛИН ИВАНОВ КАМЕНОВ","type":"person","label":"Калин Иванов Каменов"},{"id":"person:ПЕТРАНА ГЕОРГИЕВА СЛАВЧОВА","type":"person","label":"Петрана Георгиева Славчова"},{"id":"person:НИКОЛАЙ ИВАНОВ ТОНЧЕВ","type":"person","label":"Николай Иванов Тончев"},{"id":"person:ПЛАМЕН БОРИСЛАВОВ МИКОВ","type":"person","label":"Пламен Бориславов Миков"},{"id":"person:КИРИЛ ЙОРДАНОВ КЪНЧЕВ","type":"person","label":"Кирил Йорданов Кънчев"},{"id":"person:ЦВЕТАНКА БОРИСЛАВОВА ГЕОРГИЕВА","type":"person","label":"Цветанка Бориславова Георгиева"},{"id":"person:ЦВЕТАНА ПЪРВАНОВА БЕЛЧЕВА","type":"person","label":"Цветана Първанова Белчева"},{"id":"person:МАРИЯ СТЕФАНОВА ИЛИЕВА","type":"person","label":"Мария Стефанова Илиева"},{"id":"person:ЦВЕТАНКА ТРАЙКОВА СПАСОВА","type":"person","label":"Цветанка Трайкова Спасова"},{"id":"person:СНЕЖАНКА ПЕТРОВА ИВАНОВА","type":"person","label":"Снежанка Петрова Иванова"},{"id":"person:ПЛАМЕН СПАСОВ ГЕРГОВ","type":"person","label":"Пламен Спасов Гергов"},{"id":"person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА","type":"person","label":"Красимира Василева Димитрова"},{"id":"person:ЖАСМИНА МИРОНОВА СПАСОВА","type":"person","label":"Жасмина Миронова Спасова"},{"id":"person:РУМЯНА ГЕОРГИЕВА ИЛИЕВА","type":"person","label":"Румяна Георгиева Илиева"},{"id":"person:ЗАХАРИНА ДИМИТРОВА ЦЕНКОВА","type":"person","label":"Захарина Димитрова Ценкова"},{"id":"person:МАРИОЛА ЦВЕТКОВА СТАМЕНОВА","type":"person","label":"Мариола Цветкова Стаменова"},{"id":"person:ЦВЕТОМИР БИСЕРОВ ГЕОРГИЕВ","type":"person","label":"Цветомир Бисеров Георгиев"}],"edges":[{"source":"official:krasimir-iliev-zamfirov-2e777d","target":"company:tr:821177257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:krasimir-iliev-zamfirov-2e777d","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЗАФИР ИЛИЕВ ЗАМФИРОВ","target":"company:tr:821177257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ","target":"company:tr:821177257","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ ИЛИЕВА НЕЙНСКА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ИВАНОВ КАМЕНОВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНА ГЕОРГИЕВА СЛАВЧОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ ТОНЧЕВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН БОРИСЛАВОВ МИКОВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ЙОРДАНОВ КЪНЧЕВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗАФИР ИЛИЕВ ЗАМФИРОВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА БОРИСЛАВОВА ГЕОРГИЕВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНА ПЪРВАНОВА БЕЛЧЕВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ СТЕФАНОВА ИЛИЕВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА ТРАЙКОВА СПАСОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СНЕЖАНКА ПЕТРОВА ИВАНОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН СПАСОВ ГЕРГОВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖАСМИНА МИРОНОВА СПАСОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ГЕОРГИЕВА ИЛИЕВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЗАХАРИНА ДИМИТРОВА ЦЕНКОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИОЛА ЦВЕТКОВА СТАМЕНОВА","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТОМИР БИСЕРОВ ГЕОРГИЕВ","target":"company:tr:821177257","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krasimir-iliev-zamfirov-2e777d",
+  "nodes": [
+    {
+      "id": "official:krasimir-iliev-zamfirov-2e777d",
+      "type": "official",
+      "slug": "krasimir-iliev-zamfirov-2e777d",
+      "label": "Красимир Илиев Замфиров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:821177257",
+      "type": "company",
+      "label": "ПОЛИМОНА",
+      "slug": null,
+      "uic": "821177257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗАФИР ИЛИЕВ ЗАМФИРОВ",
+      "type": "person",
+      "label": "Зафир Илиев Замфиров"
+    },
+    {
+      "id": "person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илия Замфиров Илиев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ИЛИЕВА НЕЙНСКА",
+      "type": "person",
+      "label": "Емилия Илиева Нейнска"
+    },
+    {
+      "id": "person:КАЛИН ИВАНОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Калин Иванов Каменов"
+    },
+    {
+      "id": "person:ПЕТРАНА ГЕОРГИЕВА СЛАВЧОВА",
+      "type": "person",
+      "label": "Петрана Георгиева Славчова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Николай Иванов Тончев"
+    },
+    {
+      "id": "person:ПЛАМЕН БОРИСЛАВОВ МИКОВ",
+      "type": "person",
+      "label": "Пламен Бориславов Миков"
+    },
+    {
+      "id": "person:КИРИЛ ЙОРДАНОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Кирил Йорданов Кънчев"
+    },
+    {
+      "id": "person:ЦВЕТАНКА БОРИСЛАВОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Цветанка Бориславова Георгиева"
+    },
+    {
+      "id": "person:ЦВЕТАНА ПЪРВАНОВА БЕЛЧЕВА",
+      "type": "person",
+      "label": "Цветана Първанова Белчева"
+    },
+    {
+      "id": "person:МАРИЯ СТЕФАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мария Стефанова Илиева"
+    },
+    {
+      "id": "person:ЦВЕТАНКА ТРАЙКОВА СПАСОВА",
+      "type": "person",
+      "label": "Цветанка Трайкова Спасова"
+    },
+    {
+      "id": "person:СНЕЖАНКА ПЕТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Снежанка Петрова Иванова"
+    },
+    {
+      "id": "person:ПЛАМЕН СПАСОВ ГЕРГОВ",
+      "type": "person",
+      "label": "Пламен Спасов Гергов"
+    },
+    {
+      "id": "person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Красимира Василева Димитрова"
+    },
+    {
+      "id": "person:ЖАСМИНА МИРОНОВА СПАСОВА",
+      "type": "person",
+      "label": "Жасмина Миронова Спасова"
+    },
+    {
+      "id": "person:РУМЯНА ГЕОРГИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Румяна Георгиева Илиева"
+    },
+    {
+      "id": "person:ЗАХАРИНА ДИМИТРОВА ЦЕНКОВА",
+      "type": "person",
+      "label": "Захарина Димитрова Ценкова"
+    },
+    {
+      "id": "person:МАРИОЛА ЦВЕТКОВА СТАМЕНОВА",
+      "type": "person",
+      "label": "Мариола Цветкова Стаменова"
+    },
+    {
+      "id": "person:ЦВЕТОМИР БИСЕРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Цветомир Бисеров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-iliev-zamfirov-2e777d",
+      "target": "company:tr:821177257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimir-iliev-zamfirov-2e777d",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗАФИР ИЛИЕВ ЗАМФИРОВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ИЛИЕВА НЕЙНСКА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ИВАНОВ КАМЕНОВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНА ГЕОРГИЕВА СЛАВЧОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ТОНЧЕВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН БОРИСЛАВОВ МИКОВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ЙОРДАНОВ КЪНЧЕВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАФИР ИЛИЕВ ЗАМФИРОВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА БОРИСЛАВОВА ГЕОРГИЕВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ЗАМФИРОВ ИЛИЕВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ПЪРВАНОВА БЕЛЧЕВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТЕФАНОВА ИЛИЕВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА ТРАЙКОВА СПАСОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СПАСОВ ГЕРГОВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАСМИНА МИРОНОВА СПАСОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ГЕОРГИЕВА ИЛИЕВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИНА ДИМИТРОВА ЦЕНКОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИОЛА ЦВЕТКОВА СТАМЕНОВА",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР БИСЕРОВ ГЕОРГИЕВ",
+      "target": "company:tr:821177257",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

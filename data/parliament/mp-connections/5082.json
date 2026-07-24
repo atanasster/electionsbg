@@ -1,1 +1,461 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5082","nodes":[{"id":"mp:5082","type":"mp","mpId":5082,"label":"Любен Иванов Иванов","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["48","49","50","51","52"]},{"id":"company:tr:176882570","type":"company","label":"Консултантско бюро Напредък 7","slug":null,"uic":"176882570","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"company:tr:207429698","type":"company","label":"\"Родопски пламък - 2023г.\" с. Чурен","slug":null,"uic":"207429698","legalForm":"Народно читалище","status":"active","seat":"БЪЛГАРИЯ, с. Чурен, 4226"},{"id":"company:tr:105030692","type":"company","label":"ФУТБОЛЕН КЛУБ &quot;БДИН&quot;-ВИДИН","slug":null,"uic":"105030692","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Видин, 3700"},{"id":"company:tr:105552555","type":"company","label":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;","slug":null,"uic":"105552555","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Видин, 3700"},{"id":"company:tr:176797717","type":"company","label":"ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА","slug":null,"uic":"176797717","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Видин, 3700"},{"id":"company:tr:202458965","type":"company","label":"ГЮРГА ИВАНОВА","slug":null,"uic":"202458965","legalForm":"OOD","status":"active","seat":null},{"id":"person:ВЛАДИМИР ДИМИТРОВ АНГЕЛОВ","type":"person","label":"Владимир Димитров Ангелов"},{"id":"person:СТОЯНКА ИВАНОВА РАЙЧИНОВА","type":"person","label":"Стоянка Иванова Райчинова"},{"id":"person:ДЕНИЦА НЕДКОВА ДАВЧЕВА","type":"person","label":"Деница Недкова Давчева"},{"id":"person:ЕМИЛИЯ АНГЕЛОВА БЕЛЧЕВА","type":"person","label":"Емилия Ангелова Белчева"},{"id":"person:СИЛВА ЛЮБЕНОВА ДИМИТРОВА","type":"person","label":"Силва Любенова Димитрова"},{"id":"person:СВЕТЛАНА АСПАРУХОВА СТОЯНОВА","type":"person","label":"Светлана Аспарухова Стоянова"},{"id":"person:ОГНЯН МИЛЕВ МОЛЛОВ","type":"person","label":"Огнян Милев Моллов"},{"id":"person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ","type":"person","label":"Теодор Иванов Алексиев"},{"id":"person:МИТКО ПАНЧЕВ АНГЕЛОВ","type":"person","label":"Митко Панчев Ангелов"},{"id":"person:ЮЛИЯН НИКОЛОВ МИШОВ","type":"person","label":"Юлиян Николов Мишов"},{"id":"person:ЦЕЦКО ЛЮБЕНОВ ИВАНОВ","type":"person","label":"Цецко Любенов Иванов"},{"id":"person:ПЛАМЕН ЛЮДМИЛОВ НИКОЛОВ","type":"person","label":"Пламен Людмилов Николов"},{"id":"person:ТОШКО ИВАНОВ БОРИСОВ","type":"person","label":"Тошко Иванов Борисов"},{"id":"person:СТАНИСЛАВ ТАСКОВ СТАНЧЕВ","type":"person","label":"Станислав Тасков Станчев"},{"id":"person:ЕМИЛ МИЛКОВ ТРИФОНОВ","type":"person","label":"Емил Милков Трифонов"},{"id":"person:СИЛВИЯ ГЕОРГИЕВА БАЛЪКЧИЕВА","type":"person","label":"Силвия Георгиева Балъкчиева"},{"id":"person:МАРТИНА ОГНЯНОВА МОЛЛОВА","type":"person","label":"Мартина Огнянова Моллова"},{"id":"person:ИРЕНА ВАСИЛЕВА НАЙДЕНОВА","type":"person","label":"Ирена Василева Найденова"},{"id":"person:ГЮРГА КРУМОВА ИВАНОВА","type":"person","label":"Гюрга Крумова Иванова"}],"edges":[{"source":"mp:5082","target":"company:tr:176882570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5082","target":"company:tr:207429698","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5082","target":"company:tr:207429698","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"mp:5082","target":"company:tr:105030692","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"mp:5082","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5082","target":"company:tr:105552555","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5082","target":"company:tr:176797717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5082","target":"company:tr:202458965","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5082","target":"company:tr:202458965","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5082","target":"company:tr:105552555","kind":"tr_role","role":"ngo_representative","isCurrent":false,"confidence":"high"},{"source":"mp:5082","target":"company:tr:176797717","kind":"tr_role","role":"ngo_representative","isCurrent":false,"confidence":"high"},{"source":"person:ВЛАДИМИР ДИМИТРОВ АНГЕЛОВ","target":"company:tr:207429698","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА ИВАНОВА РАЙЧИНОВА","target":"company:tr:207429698","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНИЦА НЕДКОВА ДАВЧЕВА","target":"company:tr:207429698","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯ АНГЕЛОВА БЕЛЧЕВА","target":"company:tr:207429698","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВА ЛЮБЕНОВА ДИМИТРОВА","target":"company:tr:207429698","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА АСПАРУХОВА СТОЯНОВА","target":"company:tr:207429698","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН МИЛЕВ МОЛЛОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН МИЛЕВ МОЛЛОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИТКО ПАНЧЕВ АНГЕЛОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЯН НИКОЛОВ МИШОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦЕЦКО ЛЮБЕНОВ ИВАНОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЛЮДМИЛОВ НИКОЛОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОШКО ИВАНОВ БОРИСОВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ТАСКОВ СТАНЧЕВ","target":"company:tr:105030692","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ МИЛКОВ ТРИФОНОВ","target":"company:tr:105552555","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИЯ ГЕОРГИЕВА БАЛЪКЧИЕВА","target":"company:tr:105552555","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИНА ОГНЯНОВА МОЛЛОВА","target":"company:tr:176797717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ВАСИЛЕВА НАЙДЕНОВА","target":"company:tr:176797717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРГА КРУМОВА ИВАНОВА","target":"company:tr:202458965","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЮРГА КРУМОВА ИВАНОВА","target":"company:tr:202458965","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5082",
+  "nodes": [
+    {
+      "id": "mp:5082",
+      "type": "mp",
+      "mpId": 5082,
+      "label": "Любен Иванов Иванов",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:МАЛ-2018-ООД",
+      "type": "company",
+      "label": "МАЛ -2018 ООД",
+      "slug": "МАЛ-2018-ООД",
+      "uic": "204957815",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Видин"
+    },
+    {
+      "id": "company:tr:176882570",
+      "type": "company",
+      "label": "Консултантско бюро Напредък 7",
+      "slug": null,
+      "uic": "176882570",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "company:tr:207429698",
+      "type": "company",
+      "label": "\"Родопски пламък - 2023г.\" с. Чурен",
+      "slug": null,
+      "uic": "207429698",
+      "legalForm": "Народно читалище",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Чурен, 4226"
+    },
+    {
+      "id": "company:tr:105030692",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;БДИН&quot;-ВИДИН",
+      "slug": null,
+      "uic": "105030692",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Видин, 3700"
+    },
+    {
+      "id": "company:tr:105552555",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;",
+      "slug": null,
+      "uic": "105552555",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Видин, 3700"
+    },
+    {
+      "id": "company:tr:176797717",
+      "type": "company",
+      "label": "ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА",
+      "slug": null,
+      "uic": "176797717",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Видин, 3700"
+    },
+    {
+      "id": "company:tr:202458965",
+      "type": "company",
+      "label": "ГЮРГА ИВАНОВА",
+      "slug": null,
+      "uic": "202458965",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ДИМИТРОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Владимир Димитров Ангелов"
+    },
+    {
+      "id": "person:СТОЯНКА ИВАНОВА РАЙЧИНОВА",
+      "type": "person",
+      "label": "Стоянка Иванова Райчинова"
+    },
+    {
+      "id": "person:ДЕНИЦА НЕДКОВА ДАВЧЕВА",
+      "type": "person",
+      "label": "Деница Недкова Давчева"
+    },
+    {
+      "id": "person:ЕМИЛИЯ АНГЕЛОВА БЕЛЧЕВА",
+      "type": "person",
+      "label": "Емилия Ангелова Белчева"
+    },
+    {
+      "id": "person:СИЛВА ЛЮБЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Силва Любенова Димитрова"
+    },
+    {
+      "id": "person:СВЕТЛАНА АСПАРУХОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Светлана Аспарухова Стоянова"
+    },
+    {
+      "id": "person:ОГНЯН МИЛЕВ МОЛЛОВ",
+      "type": "person",
+      "label": "Огнян Милев Моллов"
+    },
+    {
+      "id": "person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Теодор Иванов Алексиев"
+    },
+    {
+      "id": "person:МИТКО ПАНЧЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Митко Панчев Ангелов"
+    },
+    {
+      "id": "person:ЮЛИЯН НИКОЛОВ МИШОВ",
+      "type": "person",
+      "label": "Юлиян Николов Мишов"
+    },
+    {
+      "id": "person:ЦЕЦКО ЛЮБЕНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Цецко Любенов Иванов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЛЮДМИЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Пламен Людмилов Николов"
+    },
+    {
+      "id": "person:ТОШКО ИВАНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Тошко Иванов Борисов"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ТАСКОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Станислав Тасков Станчев"
+    },
+    {
+      "id": "person:ЕМИЛ МИЛКОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Емил Милков Трифонов"
+    },
+    {
+      "id": "person:СИЛВИЯ ГЕОРГИЕВА БАЛЪКЧИЕВА",
+      "type": "person",
+      "label": "Силвия Георгиева Балъкчиева"
+    },
+    {
+      "id": "person:МАРТИНА ОГНЯНОВА МОЛЛОВА",
+      "type": "person",
+      "label": "Мартина Огнянова Моллова"
+    },
+    {
+      "id": "person:ИРЕНА ВАСИЛЕВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Ирена Василева Найденова"
+    },
+    {
+      "id": "person:ГЮРГА КРУМОВА ИВАНОВА",
+      "type": "person",
+      "label": "Гюрга Крумова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5082",
+      "target": "company:МАЛ-2018-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:176882570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:105552555",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:176797717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:202458965",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:202458965",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:105552555",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5082",
+      "target": "company:tr:176797717",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ АНГЕЛОВ",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИВАНОВА РАЙЧИНОВА",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА НЕДКОВА ДАВЧЕВА",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ АНГЕЛОВА БЕЛЧЕВА",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВА ЛЮБЕНОВА ДИМИТРОВА",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА АСПАРУХОВА СТОЯНОВА",
+      "target": "company:tr:207429698",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН МИЛЕВ МОЛЛОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ИВАНОВ АЛЕКСИЕВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН МИЛЕВ МОЛЛОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ПАНЧЕВ АНГЕЛОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН НИКОЛОВ МИШОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦКО ЛЮБЕНОВ ИВАНОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛЮДМИЛОВ НИКОЛОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШКО ИВАНОВ БОРИСОВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ТАСКОВ СТАНЧЕВ",
+      "target": "company:tr:105030692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИЛКОВ ТРИФОНОВ",
+      "target": "company:tr:105552555",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ГЕОРГИЕВА БАЛЪКЧИЕВА",
+      "target": "company:tr:105552555",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА ОГНЯНОВА МОЛЛОВА",
+      "target": "company:tr:176797717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ВАСИЛЕВА НАЙДЕНОВА",
+      "target": "company:tr:176797717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРГА КРУМОВА ИВАНОВА",
+      "target": "company:tr:202458965",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРГА КРУМОВА ИВАНОВА",
+      "target": "company:tr:202458965",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

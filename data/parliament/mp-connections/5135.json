@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5135","nodes":[{"id":"mp:5135","type":"mp","mpId":5135,"label":"Нели Делкова Карабахчиева","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:176819220","type":"company","label":"ФОЛКЛОРЕН СВЯТ-СЕДЕНЧИЦА","slug":null,"uic":"176819220","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002"},{"id":"person:ДОНКА ДЕНЕВА САПУНДЖИЕВА","type":"person","label":"Донка Денева Сапунджиева"},{"id":"person:НИКОЛАЙ ДЕЛКОВ РАШЕВ","type":"person","label":"Николай Делков Рашев"},{"id":"person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ","type":"person","label":"Запрян Василев Атанасов"},{"id":"person:ВИКТОРИЯ АНГЕЛОВА ПАНАЙОТОВА","type":"person","label":"Виктория Ангелова Панайотова"}],"edges":[{"source":"mp:5135","target":"company:tr:176819220","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5135","target":"company:tr:176819220","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДОНКА ДЕНЕВА САПУНДЖИЕВА","target":"company:tr:176819220","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ДЕЛКОВ РАШЕВ","target":"company:tr:176819220","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ","target":"company:tr:176819220","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОРИЯ АНГЕЛОВА ПАНАЙОТОВА","target":"company:tr:176819220","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ","target":"company:tr:176819220","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5135",
+  "nodes": [
+    {
+      "id": "mp:5135",
+      "type": "mp",
+      "mpId": 5135,
+      "label": "Нели Делкова Карабахчиева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:176819220",
+      "type": "company",
+      "label": "ФОЛКЛОРЕН СВЯТ-СЕДЕНЧИЦА",
+      "slug": null,
+      "uic": "176819220",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002"
+    },
+    {
+      "id": "person:ДОНКА ДЕНЕВА САПУНДЖИЕВА",
+      "type": "person",
+      "label": "Донка Денева Сапунджиева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДЕЛКОВ РАШЕВ",
+      "type": "person",
+      "label": "Николай Делков Рашев"
+    },
+    {
+      "id": "person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Запрян Василев Атанасов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ АНГЕЛОВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Виктория Ангелова Панайотова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5135",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5135",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОНКА ДЕНЕВА САПУНДЖИЕВА",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДЕЛКОВ РАШЕВ",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ АНГЕЛОВА ПАНАЙОТОВА",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАПРЯН ВАСИЛЕВ АТАНАСОВ",
+      "target": "company:tr:176819220",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

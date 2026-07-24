@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mitko-zdravkov-minchev-a0777f",
+  "nodes": [
+    {
+      "id": "official:mitko-zdravkov-minchev-a0777f",
+      "type": "official",
+      "slug": "mitko-zdravkov-minchev-a0777f",
+      "label": "Митко Здравков Минчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120583604",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО-ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"",
+      "slug": null,
+      "uic": "120583604",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИКО РУМЕНОВ БЕНДЕРОВ",
+      "type": "person",
+      "label": "Мико Руменов Бендеров"
+    },
+    {
+      "id": "person:ДАФИНА ПЕТРОВА ВЕЛЧЕВА",
+      "type": "person",
+      "label": "Дафина Петрова Велчева"
+    },
+    {
+      "id": "person:СЕВДАЛИН ХУБАВЕНОВ СПИЧЕВ",
+      "type": "person",
+      "label": "Севдалин Хубавенов Спичев"
+    },
+    {
+      "id": "person:КАРАМФИЛ АСЕНОВ ОВАРДОВ",
+      "type": "person",
+      "label": "Карамфил Асенов Овардов"
+    },
+    {
+      "id": "person:ФИДАН ЗАХАРИЕВ БОРЧЕВАЛИЕВ",
+      "type": "person",
+      "label": "Фидан Захариев Борчевалиев"
+    },
+    {
+      "id": "person:СРЕБРА АСЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Сребра Асенова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-zdravkov-minchev-a0777f",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИКО РУМЕНОВ БЕНДЕРОВ",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИКО РУМЕНОВ БЕНДЕРОВ",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА ПЕТРОВА ВЕЛЧЕВА",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИН ХУБАВЕНОВ СПИЧЕВ",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРАМФИЛ АСЕНОВ ОВАРДОВ",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАН ЗАХАРИЕВ БОРЧЕВАЛИЕВ",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СРЕБРА АСЕНОВА ДИМИТРОВА",
+      "target": "company:tr:120583604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

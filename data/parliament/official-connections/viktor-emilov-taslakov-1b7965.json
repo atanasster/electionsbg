@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:viktor-emilov-taslakov-1b7965",
+  "nodes": [
+    {
+      "id": "official:viktor-emilov-taslakov-1b7965",
+      "type": "official",
+      "slug": "viktor-emilov-taslakov-1b7965",
+      "label": "Виктор Емилов Таслаков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110503990",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ.Д-Р ПАРАСКЕВ СТОЯНОВ",
+      "slug": null,
+      "uic": "110503990",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:miroslav-lyubomirov-botusharov-e6ea42",
+      "type": "official",
+      "slug": "miroslav-lyubomirov-botusharov-e6ea42",
+      "label": "Мирослав Любомиров Ботушаров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЯНКО ВАСИЛЕВ КОЧЕВ",
+      "type": "person",
+      "label": "Янко Василев Кочев"
+    },
+    {
+      "id": "person:АНЕЛИЯ ГЕОРГИЕВА ДЮЛГЕРОВА-АНГЕЛОВА",
+      "type": "person",
+      "label": "Анелия Георгиева Дюлгерова-Ангелова"
+    },
+    {
+      "id": "person:АЛДИН ДОЧЕВ НАЧКОВ",
+      "type": "person",
+      "label": "Алдин Дочев Начков"
+    },
+    {
+      "id": "person:КОНСТАНТИН ГЕОРГИЕВ ГЪРНЕВСКИ",
+      "type": "person",
+      "label": "Константин  Георгиев Гърневски"
+    },
+    {
+      "id": "person:ДЕЯНА ЕНЧЕВА СИМОНЧЕВА",
+      "type": "person",
+      "label": "Деяна Енчева Симончева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-emilov-taslakov-1b7965",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-emilov-taslakov-1b7965",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-lyubomirov-botusharov-e6ea42",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНКО ВАСИЛЕВ КОЧЕВ",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ГЕОРГИЕВА ДЮЛГЕРОВА-АНГЕЛОВА",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ВАСИЛЕВ КОЧЕВ",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛДИН ДОЧЕВ НАЧКОВ",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛДИН ДОЧЕВ НАЧКОВ",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ГЕОРГИЕВ ГЪРНЕВСКИ",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯНА ЕНЧЕВА СИМОНЧЕВА",
+      "target": "company:tr:110503990",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

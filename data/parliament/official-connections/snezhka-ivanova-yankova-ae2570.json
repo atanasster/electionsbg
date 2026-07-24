@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:snezhka-ivanova-yankova-ae2570",
+  "nodes": [
+    {
+      "id": "official:snezhka-ivanova-yankova-ae2570",
+      "type": "official",
+      "slug": "snezhka-ivanova-yankova-ae2570",
+      "label": "Снежка Иванова Янкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127569607",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ  ЦДГ №35 ИЗВОРЧЕ",
+      "slug": null,
+      "uic": "127569607",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ КРАСИМИРОВА РАДЕВА",
+      "type": "person",
+      "label": "Нели Красимирова Радева"
+    },
+    {
+      "id": "person:ЯНА МАРИНОВА КУЦАРОВА",
+      "type": "person",
+      "label": "Яна Маринова Куцарова"
+    },
+    {
+      "id": "person:БОЯНКА ЙОРДАНОВА ТРЪНЧЕВА",
+      "type": "person",
+      "label": "Боянка Йорданова Трънчева"
+    },
+    {
+      "id": "person:ДАНИЕЛА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Даниела Димитрова Димитрова"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ МИЛЕНКОВ",
+      "type": "person",
+      "label": "Емил Димитров Миленков"
+    },
+    {
+      "id": "person:БОРЯНА ХРИСТОВА ФИЛЧЕВА-БАГРЯНОВА",
+      "type": "person",
+      "label": "Боряна Христова Филчева-Багрянова"
+    },
+    {
+      "id": "person:ХРИСТИНА ДИМИТРОВА ХРИСТОВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Христина Димитрова Христова-Петрова"
+    },
+    {
+      "id": "person:СИЛВИЯ ДИМИТРОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Силвия Димитрова Михайлова"
+    },
+    {
+      "id": "person:ЛИЛЯНА КОЛЕВА КУРТЕВА",
+      "type": "person",
+      "label": "Лиляна Колева Куртева"
+    },
+    {
+      "id": "person:ГЕРГАНА РУМЕНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Гергана Руменова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:snezhka-ivanova-yankova-ae2570",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:snezhka-ivanova-yankova-ae2570",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ КРАСИМИРОВА РАДЕВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА МАРИНОВА КУЦАРОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНКА ЙОРДАНОВА ТРЪНЧЕВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ МИЛЕНКОВ",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ХРИСТОВА ФИЛЧЕВА-БАГРЯНОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ДИМИТРОВА ХРИСТОВА-ПЕТРОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДИМИТРОВА МИХАЙЛОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДИМИТРОВА МИХАЙЛОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА КОЛЕВА КУРТЕВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА РУМЕНОВА ТОДОРОВА",
+      "target": "company:tr:127569607",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

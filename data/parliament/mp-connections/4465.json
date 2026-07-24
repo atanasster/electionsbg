@@ -1,1 +1,421 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4465","nodes":[{"id":"mp:4465","type":"mp","mpId":4465,"label":"Николай Георгиев Марков","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]},{"id":"company:tr:175293568","type":"company","label":"ПАСАДООР","slug":null,"uic":"175293568","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:208425916","type":"company","label":"ПАСАДООР ТРАНС","slug":null,"uic":"208425916","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Нови Искър, 1281"},{"id":"company:tr:208001469","type":"company","label":"МАРКОНИ КАРС","slug":null,"uic":"208001469","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"company:tr:176983536","type":"company","label":"РОДОЛЮБЦИ ЗА БЪЛГАРИЯ","slug":null,"uic":"176983536","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1421"},{"id":"company:tr:206718194","type":"company","label":"ПАЛЕРМО 2021","slug":null,"uic":"206718194","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004"},{"id":"company:tr:206048819","type":"company","label":"МАРКОНИ АРТ ДИЗАЙН","slug":null,"uic":"206048819","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ","type":"person","label":"Веселин Иванов Генков"},{"id":"person:СИМЕОН СИМЕОНОВ ЛАЗАРОВ","type":"person","label":"Симеон Симеонов Лазаров"},{"id":"person:НЕВЕНА ДИМИТРОВА РУКАНОВА","type":"person","label":"Невена Димитрова Руканова"},{"id":"mp:5006","type":"mp","mpId":5006,"label":"Ивелин Людмилов Михайлов","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["51"]},{"id":"person:ТЕОДОР СТЕФАНОВ СЪБКОВ","type":"person","label":"Теодор Стефанов Събков"},{"id":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","type":"person","label":"Николай Вихренов Тошев"},{"id":"person:КАЛОЯН СТОЯНОВ КОСТАДИНОВ","type":"person","label":"Калоян Стоянов Костадинов"},{"id":"person:СПИРКО ЛАЗАРОВСКИ","type":"person","label":"Спирко Лазаровски"},{"id":"person:РАДОСЛАВ НИКОЛАЕВ ИВАНОВ","type":"person","label":"Радослав Николаев Иванов"},{"id":"mp:2545","type":"mp","mpId":2545,"label":"Здравко Димитров Димитров","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["42"]},{"id":"company:Факла-ЕАД","type":"company","label":"Факла ЕАД","slug":"Факла-ЕАД","uic":"206855549","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9002"},{"id":"mp:5007","type":"mp","mpId":5007,"label":"Красимира Петкова Нинова-Катинчарова","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["50","51"]}],"edges":[{"source":"mp:4465","target":"company:tr:175293568","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:208425916","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:208001469","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:208001469","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:176983536","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:206718194","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:206048819","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4465","target":"company:tr:206048819","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ","target":"company:tr:175293568","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН СИМЕОНОВ ЛАЗАРОВ","target":"company:tr:175293568","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:tr:175293568","target":"company:tr:208425916","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ","target":"company:tr:208425916","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:НЕВЕНА ДИМИТРОВА РУКАНОВА","target":"company:tr:208001469","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОР СТЕФАНОВ СЪБКОВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН СТОЯНОВ КОСТАДИНОВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СПИРКО ЛАЗАРОВСКИ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СПИРКО ЛАЗАРОВСКИ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ НИКОЛАЕВ ИВАНОВ","target":"company:tr:176983536","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:2545","target":"company:tr:206718194","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2545","target":"company:tr:206718194","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_role","role":"representative","isCurrent":false,"confidence":"medium"},{"source":"mp:5006","target":"company:Факла-ЕАД","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"medium"},{"source":"person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","target":"company:Факла-ЕАД","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"mp:5007","target":"company:Факла-ЕАД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:2545","length":2,"nodeIds":["mp:4465","company:tr:206718194","mp:2545"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5006","length":2,"nodeIds":["mp:4465","company:tr:176983536","mp:5006"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5007","length":4,"nodeIds":["mp:4465","company:tr:176983536","person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ","company:Факла-ЕАД","mp:5007"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4465",
+  "nodes": [
+    {
+      "id": "mp:4465",
+      "type": "mp",
+      "mpId": 4465,
+      "label": "Николай Георгиев Марков",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175293568",
+      "type": "company",
+      "label": "ПАСАДООР",
+      "slug": null,
+      "uic": "175293568",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:208425916",
+      "type": "company",
+      "label": "ПАСАДООР ТРАНС",
+      "slug": null,
+      "uic": "208425916",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Нови Искър, 1281"
+    },
+    {
+      "id": "company:tr:208001469",
+      "type": "company",
+      "label": "МАРКОНИ КАРС",
+      "slug": null,
+      "uic": "208001469",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "company:tr:176983536",
+      "type": "company",
+      "label": "РОДОЛЮБЦИ ЗА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176983536",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "company:tr:206718194",
+      "type": "company",
+      "label": "ПАЛЕРМО 2021",
+      "slug": null,
+      "uic": "206718194",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004"
+    },
+    {
+      "id": "company:tr:206048819",
+      "type": "company",
+      "label": "МАРКОНИ АРТ ДИЗАЙН",
+      "slug": null,
+      "uic": "206048819",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ",
+      "type": "person",
+      "label": "Веселин Иванов Генков"
+    },
+    {
+      "id": "person:СИМЕОН СИМЕОНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Симеон Симеонов Лазаров"
+    },
+    {
+      "id": "person:НЕВЕНА ДИМИТРОВА РУКАНОВА",
+      "type": "person",
+      "label": "Невена Димитрова Руканова"
+    },
+    {
+      "id": "mp:5006",
+      "type": "mp",
+      "mpId": 5006,
+      "label": "Ивелин Людмилов Михайлов",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "person:ТЕОДОР СТЕФАНОВ СЪБКОВ",
+      "type": "person",
+      "label": "Теодор Стефанов Събков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "type": "person",
+      "label": "Николай Вихренов Тошев"
+    },
+    {
+      "id": "person:КАЛОЯН СТОЯНОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Калоян Стоянов Костадинов"
+    },
+    {
+      "id": "person:СПИРКО ЛАЗАРОВСКИ",
+      "type": "person",
+      "label": "Спирко Лазаровски"
+    },
+    {
+      "id": "person:РАДОСЛАВ НИКОЛАЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Радослав Николаев Иванов"
+    },
+    {
+      "id": "person:ЗДРАВКО ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Здравко Димитров Димитров"
+    },
+    {
+      "id": "company:Факла-ЕАД",
+      "type": "company",
+      "label": "Факла ЕАД",
+      "slug": "Факла-ЕАД",
+      "uic": "206855549",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9002"
+    },
+    {
+      "id": "mp:5007",
+      "type": "mp",
+      "mpId": 5007,
+      "label": "Красимира Петкова Нинова-Катинчарова",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "50",
+        "51"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4465",
+      "target": "company:tr:175293568",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:208425916",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:208001469",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:208001469",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:206718194",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:206048819",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4465",
+      "target": "company:tr:206048819",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ",
+      "target": "company:tr:175293568",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СИМЕОНОВ ЛАЗАРОВ",
+      "target": "company:tr:175293568",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:175293568",
+      "target": "company:tr:208425916",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ИВАНОВ ГЕНКОВ",
+      "target": "company:tr:208425916",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ДИМИТРОВА РУКАНОВА",
+      "target": "company:tr:208001469",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОР СТЕФАНОВ СЪБКОВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН СТОЯНОВ КОСТАДИНОВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПИРКО ЛАЗАРОВСКИ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПИРКО ЛАЗАРОВСКИ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ НИКОЛАЕВ ИВАНОВ",
+      "target": "company:tr:176983536",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206718194",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206718194",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5006",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+      "target": "company:Факла-ЕАД",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5007",
+      "target": "company:Факла-ЕАД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5006",
+      "length": 2,
+      "nodeIds": [
+        "mp:4465",
+        "company:tr:176983536",
+        "mp:5006"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5007",
+      "length": 4,
+      "nodeIds": [
+        "mp:4465",
+        "company:tr:176983536",
+        "person:НИКОЛАЙ ВИХРЕНОВ ТОШЕВ",
+        "company:Факла-ЕАД",
+        "mp:5007"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

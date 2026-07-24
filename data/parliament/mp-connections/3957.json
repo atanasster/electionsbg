@@ -1,1 +1,145 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3957","nodes":[{"id":"mp:3957","type":"mp","mpId":3957,"label":"Рена Енчева Стефанова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48"]},{"id":"company:Лега-Консулт-ООД","type":"company","label":"Лега Консулт ООД","slug":"Лега-Консулт-ООД","uic":"123562519","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Стара Загора, 6000"},{"id":"company:tr:208233599","type":"company","label":"Последни Нюз","slug":null,"uic":"208233599","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Русе, 7000"},{"id":"person:РУМЕН ЖЕЛЕВ МАНЧЕВ","type":"person","label":"Румен Желев Манчев"},{"id":"person:СТОЯНКА МИТЕВА МАНЧЕВА","type":"person","label":"Стоянка Митева Манчева"},{"id":"mp:3787","type":"mp","mpId":3787,"label":"Калин Ивайлов Иванов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:3957","target":"company:Лега-Консулт-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3957","target":"company:tr:208233599","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:РУМЕН ЖЕЛЕВ МАНЧЕВ","target":"company:Лега-Консулт-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН ЖЕЛЕВ МАНЧЕВ","target":"company:Лега-Консулт-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА МИТЕВА МАНЧЕВА","target":"company:Лега-Консулт-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3787","target":"company:tr:208233599","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3787","target":"company:tr:208233599","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3787","length":2,"nodeIds":["mp:3957","company:tr:208233599","mp:3787"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3957",
+  "nodes": [
+    {
+      "id": "mp:3957",
+      "type": "mp",
+      "mpId": 3957,
+      "label": "Рена Енчева Стефанова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Лега-Консулт-ООД",
+      "type": "company",
+      "label": "Лега Консулт ООД",
+      "slug": "Лега-Консулт-ООД",
+      "uic": "123562519",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "company:tr:208233599",
+      "type": "company",
+      "label": "Последни Нюз",
+      "slug": null,
+      "uic": "208233599",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000"
+    },
+    {
+      "id": "person:РУМЕН ЖЕЛЕВ МАНЧЕВ",
+      "type": "person",
+      "label": "Румен Желев Манчев"
+    },
+    {
+      "id": "person:СТОЯНКА МИТЕВА МАНЧЕВА",
+      "type": "person",
+      "label": "Стоянка Митева Манчева"
+    },
+    {
+      "id": "mp:3787",
+      "type": "mp",
+      "mpId": 3787,
+      "label": "Калин Ивайлов Иванов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:rena-encheva-stefanova-3c9de9",
+      "type": "official",
+      "slug": "rena-encheva-stefanova-3c9de9",
+      "label": "Рена Енчева Стефанова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3957",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3957",
+      "target": "company:tr:208233599",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН ЖЕЛЕВ МАНЧЕВ",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЖЕЛЕВ МАНЧЕВ",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА МИТЕВА МАНЧЕВА",
+      "target": "company:Лега-Консулт-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3787",
+      "target": "company:tr:208233599",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3787",
+      "target": "company:tr:208233599",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rena-encheva-stefanova-3c9de9",
+      "target": "company:tr:208233599",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3787",
+      "length": 2,
+      "nodeIds": [
+        "mp:3957",
+        "company:tr:208233599",
+        "mp:3787"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

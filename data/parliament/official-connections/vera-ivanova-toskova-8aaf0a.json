@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vera-ivanova-toskova-8aaf0a",
+  "nodes": [
+    {
+      "id": "official:vera-ivanova-toskova-8aaf0a",
+      "type": "official",
+      "slug": "vera-ivanova-toskova-8aaf0a",
+      "label": "Вера Иванова Тоскова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:201200899",
+      "type": "company",
+      "label": "ВЕДА Сървисис",
+      "slug": null,
+      "uic": "201200899",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vera-ivanova-toskova-8aaf0a",
+      "target": "company:tr:201200899",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vera-ivanova-toskova-8aaf0a",
+      "target": "company:tr:201200899",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

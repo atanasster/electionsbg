@@ -1,1 +1,221 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3642","nodes":[{"id":"mp:3642","type":"mp","mpId":3642,"label":"Светлин Костов Стоянов","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["45","46"]},{"id":"company:tr:207061456","type":"company","label":"Гражданско Движение Силна България","slug":null,"uic":"207061456","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1142"},{"id":"mp:4043","type":"mp","mpId":4043,"label":"Иво Георгиев Атанасов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["45","46","47","48"]},{"id":"mp:4726","type":"mp","mpId":4726,"label":"Николай Стефанов Радулов","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["46","47"]},{"id":"mp:4741","type":"mp","mpId":4741,"label":"Деян Петев Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["47"]},{"id":"mp:4873","type":"mp","mpId":4873,"label":"Кирил Атанасов Веселински","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":[]},{"id":"mp:4913","type":"mp","mpId":4913,"label":"Радостин Петев Василев","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["45","46","47","48","49"]},{"id":"person:ВЛАДИМИР ГЕОРГИЕВ ХАРИЗАНОВ","type":"person","label":"Владимир Георгиев Харизанов"}],"edges":[{"source":"mp:3642","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4043","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4726","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4741","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4873","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4913","target":"company:tr:207061456","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4913","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР ГЕОРГИЕВ ХАРИЗАНОВ","target":"company:tr:207061456","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4741","length":2,"nodeIds":["mp:3642","company:tr:207061456","mp:4741"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4043","length":2,"nodeIds":["mp:3642","company:tr:207061456","mp:4043"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4873","length":2,"nodeIds":["mp:3642","company:tr:207061456","mp:4873"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4726","length":2,"nodeIds":["mp:3642","company:tr:207061456","mp:4726"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4913","length":2,"nodeIds":["mp:3642","company:tr:207061456","mp:4913"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3642",
+  "nodes": [
+    {
+      "id": "mp:3642",
+      "type": "mp",
+      "mpId": 3642,
+      "label": "Светлин Костов Стоянов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:207061456",
+      "type": "company",
+      "label": "Гражданско Движение Силна България",
+      "slug": null,
+      "uic": "207061456",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "mp:4043",
+      "type": "mp",
+      "mpId": 4043,
+      "label": "Иво Георгиев Атанасов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "mp:4726",
+      "type": "mp",
+      "mpId": 4726,
+      "label": "Николай Стефанов Радулов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "mp:4741",
+      "type": "mp",
+      "mpId": 4741,
+      "label": "Деян Петев Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "mp:4873",
+      "type": "mp",
+      "mpId": 4873,
+      "label": "Кирил Атанасов Веселински",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4913",
+      "type": "mp",
+      "mpId": 4913,
+      "label": "Радостин Петев Василев",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "official:vladimir-georgiev-harizanov-fa2b01",
+      "type": "official",
+      "slug": "vladimir-georgiev-harizanov-fa2b01",
+      "label": "Владимир Георгиев Харизанов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3642",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4043",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4726",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4741",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4873",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4913",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4913",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-georgiev-harizanov-fa2b01",
+      "target": "company:tr:207061456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4741",
+      "length": 2,
+      "nodeIds": [
+        "mp:3642",
+        "company:tr:207061456",
+        "mp:4741"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4043",
+      "length": 2,
+      "nodeIds": [
+        "mp:3642",
+        "company:tr:207061456",
+        "mp:4043"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4873",
+      "length": 2,
+      "nodeIds": [
+        "mp:3642",
+        "company:tr:207061456",
+        "mp:4873"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4726",
+      "length": 2,
+      "nodeIds": [
+        "mp:3642",
+        "company:tr:207061456",
+        "mp:4726"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4913",
+      "length": 2,
+      "nodeIds": [
+        "mp:3642",
+        "company:tr:207061456",
+        "mp:4913"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

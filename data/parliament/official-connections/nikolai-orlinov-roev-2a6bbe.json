@@ -1,1 +1,158 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nikolai-orlinov-roev-2a6bbe","nodes":[{"id":"official:nikolai-orlinov-roev-2a6bbe","type":"official","slug":"nikolai-orlinov-roev-2a6bbe","label":"Николай Орлинов Роев","tier":"municipal","role":"councillor","municipality":"Суворово"},{"id":"company:tr:202773994","type":"company","label":"ФРИКС ООД","slug":null,"uic":"202773994","legalForm":null,"status":null,"seat":null},{"id":"person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ","type":"person","label":"Георги Тодоров Хайдутов"},{"id":"person:ИРЕНА ДИМИТРОВА РОЕВА","type":"person","label":"Ирена Димитрова Роева"}],"edges":[{"source":"official:nikolai-orlinov-roev-2a6bbe","target":"company:tr:202773994","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ","target":"company:tr:202773994","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ДИМИТРОВА РОЕВА","target":"company:tr:202773994","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ","target":"company:tr:202773994","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИРЕНА ДИМИТРОВА РОЕВА","target":"company:tr:202773994","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-orlinov-roev-2a6bbe",
+  "nodes": [
+    {
+      "id": "official:nikolai-orlinov-roev-2a6bbe",
+      "type": "official",
+      "slug": "nikolai-orlinov-roev-2a6bbe",
+      "label": "Николай Орлинов Роев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Суворово"
+    },
+    {
+      "id": "company:tr:202773994",
+      "type": "company",
+      "label": "ФРИКС ООД",
+      "slug": null,
+      "uic": "202773994",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207960962",
+      "type": "company",
+      "label": "СОТИРА ИНВЕСТ ООД",
+      "slug": null,
+      "uic": "207960962",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:176428780",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ЦДГ 6 ЗЛАТНО ЗРЪНЦЕ",
+      "slug": null,
+      "uic": "176428780",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ",
+      "type": "person",
+      "label": "Георги Тодоров Хайдутов"
+    },
+    {
+      "id": "person:ИРЕНА ДИМИТРОВА РОЕВА",
+      "type": "person",
+      "label": "Ирена Димитрова Роева"
+    },
+    {
+      "id": "person:ХРИСТО ВАСИЛЕВ ПОПОВ",
+      "type": "person",
+      "label": "Христо Василев Попов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-orlinov-roev-2a6bbe",
+      "target": "company:tr:202773994",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-orlinov-roev-2a6bbe",
+      "target": "company:tr:207960962",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-orlinov-roev-2a6bbe",
+      "target": "company:tr:176428780",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-orlinov-roev-2a6bbe",
+      "target": "company:tr:176428780",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ",
+      "target": "company:tr:202773994",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ДИМИТРОВА РОЕВА",
+      "target": "company:tr:202773994",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ХАЙДУТОВ",
+      "target": "company:tr:202773994",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ДИМИТРОВА РОЕВА",
+      "target": "company:tr:202773994",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАСИЛЕВ ПОПОВ",
+      "target": "company:tr:207960962",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ДИМИТРОВА РОЕВА",
+      "target": "company:tr:207960962",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАСИЛЕВ ПОПОВ",
+      "target": "company:tr:207960962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ДИМИТРОВА РОЕВА",
+      "target": "company:tr:207960962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kamen-petrov-vlahov-91ee71",
+  "nodes": [
+    {
+      "id": "official:kamen-petrov-vlahov-91ee71",
+      "type": "official",
+      "slug": "kamen-petrov-vlahov-91ee71",
+      "label": "Камен Петров Влахов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205144800",
+      "type": "company",
+      "label": "При Стария Швейк ЕООД",
+      "slug": null,
+      "uic": "205144800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kamen-petrov-vlahov-91ee71",
+      "target": "company:tr:205144800",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

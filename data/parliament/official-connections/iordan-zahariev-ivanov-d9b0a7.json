@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-zahariev-ivanov-d9b0a7",
+  "nodes": [
+    {
+      "id": "official:iordan-zahariev-ivanov-d9b0a7",
+      "type": "official",
+      "slug": "iordan-zahariev-ivanov-d9b0a7",
+      "label": "Йордан Захариев Иванов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205216046",
+      "type": "company",
+      "label": "СЕЛЛ ПАЛЕТ",
+      "slug": null,
+      "uic": "205216046",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЬО ПЕТРОВ ХАРАЛАМПИЕВ",
+      "type": "person",
+      "label": "Ваньо Петров Харалампиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ БЛАГОЕВ МИЛЕВ",
+      "type": "person",
+      "label": "Николай Благоев Милев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-zahariev-ivanov-d9b0a7",
+      "target": "company:tr:205216046",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-zahariev-ivanov-d9b0a7",
+      "target": "company:tr:205216046",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЬО ПЕТРОВ ХАРАЛАМПИЕВ",
+      "target": "company:tr:205216046",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БЛАГОЕВ МИЛЕВ",
+      "target": "company:tr:205216046",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЬО ПЕТРОВ ХАРАЛАМПИЕВ",
+      "target": "company:tr:205216046",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БЛАГОЕВ МИЛЕВ",
+      "target": "company:tr:205216046",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

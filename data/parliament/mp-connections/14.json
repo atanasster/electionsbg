@@ -1,1 +1,124 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:14","nodes":[{"id":"mp:14","type":"mp","mpId":14,"label":"Фатме Муса Илияз","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:200410229","type":"company","label":"БИО ТРИИ","slug":null,"uic":"200410229","legalForm":"OOD","status":"active","seat":null},{"id":"person:ТЕОДОРА МАРИНОВА ГЕОРГИЕВА","type":"person","label":"Теодора Маринова Георгиева"},{"id":"person:ДИМИТЪР ЗЛАТИНОВ ХРУСАФОВ","type":"person","label":"Димитър Златинов Хрусафов"},{"id":"person:ХЮСЕИН МУСА КУЛОВ","type":"person","label":"Хюсеин Муса Кулов"},{"id":"company:tr:121505512","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БОРБА","slug":null,"uic":"121505512","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:1527","type":"mp","mpId":1527,"label":"Георги Николов Мърков","partyGroupShort":"ПП ИСМВ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:14","target":"company:tr:200410229","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОРА МАРИНОВА ГЕОРГИЕВА","target":"company:tr:200410229","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ЗЛАТИНОВ ХРУСАФОВ","target":"company:tr:200410229","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХЮСЕИН МУСА КУЛОВ","target":"company:tr:200410229","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХЮСЕИН МУСА КУЛОВ","target":"company:tr:121505512","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1527","target":"company:tr:121505512","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:1527","length":4,"nodeIds":["mp:14","company:tr:200410229","person:ХЮСЕИН МУСА КУЛОВ","company:tr:121505512","mp:1527"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:14",
+  "nodes": [
+    {
+      "id": "mp:14",
+      "type": "mp",
+      "mpId": 14,
+      "label": "Фатме Муса Илияз",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:200410229",
+      "type": "company",
+      "label": "БИО ТРИИ",
+      "slug": null,
+      "uic": "200410229",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА МАРИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Теодора Маринова Георгиева"
+    },
+    {
+      "id": "person:ДИМИТЪР ЗЛАТИНОВ ХРУСАФОВ",
+      "type": "person",
+      "label": "Димитър Златинов Хрусафов"
+    },
+    {
+      "id": "person:ХЮСЕИН МУСА КУЛОВ",
+      "type": "person",
+      "label": "Хюсеин Муса Кулов"
+    },
+    {
+      "id": "company:tr:121505512",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БОРБА",
+      "slug": null,
+      "uic": "121505512",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1527",
+      "type": "mp",
+      "mpId": 1527,
+      "label": "Георги Николов Мърков",
+      "partyGroupShort": "ПП ИСМВ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:14",
+      "target": "company:tr:200410229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА МАРИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:200410229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЗЛАТИНОВ ХРУСАФОВ",
+      "target": "company:tr:200410229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН МУСА КУЛОВ",
+      "target": "company:tr:200410229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН МУСА КУЛОВ",
+      "target": "company:tr:121505512",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1527",
+      "target": "company:tr:121505512",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1527",
+      "length": 4,
+      "nodeIds": [
+        "mp:14",
+        "company:tr:200410229",
+        "person:ХЮСЕИН МУСА КУЛОВ",
+        "company:tr:121505512",
+        "mp:1527"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

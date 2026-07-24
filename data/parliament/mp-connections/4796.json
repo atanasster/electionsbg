@@ -1,1 +1,143 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4796","nodes":[{"id":"mp:4796","type":"mp","mpId":4796,"label":"Александър Велиславов Тодоров","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["45","46","47"]},{"id":"company:tr:204896561","type":"company","label":"РОТО консулт","slug":null,"uic":"204896561","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:202766380","type":"company","label":"БЪЛГАРСКИ СПОРТЕН ТОТАЛИЗАТОР","slug":null,"uic":"202766380","legalForm":"TPPD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ","type":"person","label":"Георги Николаев Рогачев"},{"id":"person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ","type":"person","label":"Любомир Стефанов Петров"},{"id":"person:АНГЕЛ НЕДКОВ ИВАНОВ","type":"person","label":"Ангел Недков Иванов"},{"id":"person:ГЕОРГИ ХРИСТОВ ТАРЛЕКОВ","type":"person","label":"Георги Христов Тарлеков"},{"id":"person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ","type":"person","label":"Тервел Михайлов Пенков"}],"edges":[{"source":"mp:4796","target":"company:tr:204896561","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4796","target":"company:tr:204896561","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4796","target":"company:tr:202766380","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ","target":"company:tr:204896561","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ","target":"company:tr:204896561","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ","target":"company:tr:202766380","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ НЕДКОВ ИВАНОВ","target":"company:tr:202766380","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХРИСТОВ ТАРЛЕКОВ","target":"company:tr:202766380","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ","target":"company:tr:202766380","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4796",
+  "nodes": [
+    {
+      "id": "mp:4796",
+      "type": "mp",
+      "mpId": 4796,
+      "label": "Александър Велиславов Тодоров",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "company:tr:204896561",
+      "type": "company",
+      "label": "РОТО консулт",
+      "slug": null,
+      "uic": "204896561",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202766380",
+      "type": "company",
+      "label": "БЪЛГАРСКИ СПОРТЕН ТОТАЛИЗАТОР",
+      "slug": null,
+      "uic": "202766380",
+      "legalForm": "TPPD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ",
+      "type": "person",
+      "label": "Георги Николаев Рогачев"
+    },
+    {
+      "id": "official:georgi-hristov-tarlekov-737cf3",
+      "type": "official",
+      "slug": "georgi-hristov-tarlekov-737cf3",
+      "label": "Георги Христов Тарлеков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Любомир Стефанов Петров"
+    },
+    {
+      "id": "person:АНГЕЛ НЕДКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ангел Недков Иванов"
+    },
+    {
+      "id": "person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Тервел Михайлов Пенков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4796",
+      "target": "company:tr:204896561",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4796",
+      "target": "company:tr:204896561",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4796",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ",
+      "target": "company:tr:204896561",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ РОГАЧЕВ",
+      "target": "company:tr:204896561",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-hristov-tarlekov-737cf3",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НЕДКОВ ИВАНОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

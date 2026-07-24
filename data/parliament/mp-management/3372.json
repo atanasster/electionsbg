@@ -1,1 +1,64 @@
-{"mpId":3372,"mpName":"Васил Йорданов Георгиев","generatedAt":"2026-07-03T11:12:51.753Z","total":4,"roles":[{"uic":"203532722","companyName":"Рийд България","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Свищов, 5250","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2026-01-27T09:21:26","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"203313194","companyName":"СМАРТ ЕКО СОЛЮШЪНС","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-08-03T09:55:25","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"200576813","companyName":"ЕКИП ПРОЕКТ","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-08-03T09:36:34","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"203532722","companyName":"Рийд България","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Свищов, 5250","status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2021-06-10T10:30:09","erasedAt":"2026-01-27T09:21:26","confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3372,
+  "mpName": "Васил Йорданов Георгиев",
+  "generatedAt": "2026-07-24T03:35:58.586Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "203532722",
+      "companyName": "Рийд България",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2026-01-27T09:21:26",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "203313194",
+      "companyName": "СМАРТ ЕКО СОЛЮШЪНС",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-08-03T09:55:25",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "200576813",
+      "companyName": "ЕКИП ПРОЕКТ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-08-03T09:36:34",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "203532722",
+      "companyName": "Рийд България",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-06-10T10:30:09",
+      "erasedAt": "2026-01-27T09:21:26",
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

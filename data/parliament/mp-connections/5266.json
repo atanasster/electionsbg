@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5266",
+  "nodes": [
+    {
+      "id": "mp:5266",
+      "type": "mp",
+      "mpId": 5266,
+      "label": "Атанас Владиславов Славов",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Сусанин-64-ООД",
+      "type": "company",
+      "label": "Сусанин 64 ООД",
+      "slug": "Сусанин-64-ООД",
+      "uic": "201199354",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5266",
+      "target": "company:Сусанин-64-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

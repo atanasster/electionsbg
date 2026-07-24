@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivanka-nikolova-marinova-67fdd7",
+  "nodes": [
+    {
+      "id": "official:ivanka-nikolova-marinova-67fdd7",
+      "type": "official",
+      "slug": "ivanka-nikolova-marinova-67fdd7",
+      "label": "Иванка Николова Маринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559840",
+      "type": "company",
+      "label": "НЧ&quot;ХРИСТО БОТЕВ-1941Г.&quot;",
+      "slug": null,
+      "uic": "000559840",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Диана Георгиева Георгиева"
+    },
+    {
+      "id": "person:СВЕТЛА ВАСИЛЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Светла Василева Николова"
+    },
+    {
+      "id": "person:КОРНЕЛИЯ РУМЕНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Корнелия Руменова Симеонова"
+    },
+    {
+      "id": "person:АЙРЕДИН РЕДЖЕБ РЕДЖЕБ",
+      "type": "person",
+      "label": "Айредин Реджеб Реджеб"
+    },
+    {
+      "id": "person:ЕДАЕТ ЕЛИМАН КУРТ",
+      "type": "person",
+      "label": "Едает Елиман Курт"
+    },
+    {
+      "id": "person:ЕМЗААДЕ НАЗМИ САДУЛА",
+      "type": "person",
+      "label": "Емзааде Назми Садула"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-nikolova-marinova-67fdd7",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-nikolova-marinova-67fdd7",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВАСИЛЕВА НИКОЛОВА",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОРНЕЛИЯ РУМЕНОВА СИМЕОНОВА",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙРЕДИН РЕДЖЕБ РЕДЖЕБ",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДАЕТ ЕЛИМАН КУРТ",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМЗААДЕ НАЗМИ САДУЛА",
+      "target": "company:tr:000559840",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

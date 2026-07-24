@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zeiti-feraim-mehmed-8dab4e",
+  "nodes": [
+    {
+      "id": "official:zeiti-feraim-mehmed-8dab4e",
+      "type": "official",
+      "slug": "zeiti-feraim-mehmed-8dab4e",
+      "label": "Зейти Фераим Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:000500112",
+      "type": "company",
+      "label": "Народно читалище &quot;Васил Левски-1936г.&quot;",
+      "slug": null,
+      "uic": "000500112",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛХАН САЛИ ИСАК",
+      "type": "person",
+      "label": "Илхан Сали Исак"
+    },
+    {
+      "id": "person:АЙСЕЛ ДУРГУТ САБРИ",
+      "type": "person",
+      "label": "Айсел Дургут Сабри"
+    },
+    {
+      "id": "person:СЕВДЖАН РАМАДАН ЯШАР",
+      "type": "person",
+      "label": "Севджан Рамадан Яшар"
+    },
+    {
+      "id": "person:КЯНИЕ ХЮСЕИН МЕХМЕД",
+      "type": "person",
+      "label": "Кяние Хюсеин Мехмед"
+    },
+    {
+      "id": "person:ЗЮЛКЮФ РУФАТ АХМЕД",
+      "type": "person",
+      "label": "Зюлкюф Руфат Ахмед"
+    },
+    {
+      "id": "person:МЮМЮНЕ МУХИДИН БЕЙТУЛА",
+      "type": "person",
+      "label": "Мюмюне Мухидин Бейтула"
+    },
+    {
+      "id": "person:НЕЖДЕТ ШАБАН ХЮСМЕН",
+      "type": "person",
+      "label": "Неждет Шабан Хюсмен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zeiti-feraim-mehmed-8dab4e",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛХАН САЛИ ИСАК",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСЕЛ ДУРГУТ САБРИ",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЖАН РАМАДАН ЯШАР",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЯНИЕ ХЮСЕИН МЕХМЕД",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЮЛКЮФ РУФАТ АХМЕД",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЮМЮНЕ МУХИДИН БЕЙТУЛА",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЖДЕТ ШАБАН ХЮСМЕН",
+      "target": "company:tr:000500112",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

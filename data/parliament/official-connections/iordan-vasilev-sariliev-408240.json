@@ -1,0 +1,264 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-vasilev-sariliev-408240",
+  "nodes": [
+    {
+      "id": "official:iordan-vasilev-sariliev-408240",
+      "type": "official",
+      "slug": "iordan-vasilev-sariliev-408240",
+      "label": "Йордан Василев Сарилиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117540094",
+      "type": "company",
+      "label": "&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО ФИЛИП ТОТЮ-РУСЕ &quot;",
+      "slug": null,
+      "uic": "117540094",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО СТАНЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Митко Станев Станев"
+    },
+    {
+      "id": "person:РУМЕН СТЕФАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Румен Стефанов Попов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЯНКОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Пламен Янков Цветков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Александър Йорданов Димитров"
+    },
+    {
+      "id": "person:ПЛАМЕН СТЕФАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Пламен Стефанов Тодоров"
+    },
+    {
+      "id": "person:АНАТОЛИ ПЕТРОВ КАЗАКОВ",
+      "type": "person",
+      "label": "Анатоли Петров Казаков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Николай Георгиев Христов"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ БЛЪСКОВ",
+      "type": "person",
+      "label": "Кирил Иванов Блъсков"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ НИКОЛОВ МАРИНОВ",
+      "type": "person",
+      "label": "Десислав Николов Маринов"
+    },
+    {
+      "id": "person:ЛЮБОСЛАВ ГЕОРГИЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Любослав Георгиев Йорданов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ КУЛЕВ",
+      "type": "person",
+      "label": "Николай Йорданов Кулев"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМЧЕВ РАЙНОВ",
+      "type": "person",
+      "label": "Емил Димчев Райнов"
+    },
+    {
+      "id": "person:ДАНАИЛ РУМЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Данаил Руменов Николов"
+    },
+    {
+      "id": "person:СПАСИМИР ВАСИЛЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Спасимир Василев Димитров"
+    },
+    {
+      "id": "person:БРАНКО ДУШКОВ СОТИРОВ",
+      "type": "person",
+      "label": "Бранко Душков Сотиров"
+    },
+    {
+      "id": "person:ЙОРДАН ХРИСТОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Йордан Христов Добрев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИЛИЯНОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Николай Илиянов Захариев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-vasilev-sariliev-408240",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО СТАНЕВ СТАНЕВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН СТЕФАНОВ ПОПОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЯНКОВ ЦВЕТКОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТЕФАНОВ ТОДОРОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИ ПЕТРОВ КАЗАКОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ БЛЪСКОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ НИКОЛОВ МАРИНОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОСЛАВ ГЕОРГИЕВ ЙОРДАНОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ КУЛЕВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМЧЕВ РАЙНОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ РУМЕНОВ НИКОЛОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСИМИР ВАСИЛЕВ ДИМИТРОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БРАНКО ДУШКОВ СОТИРОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ НИКОЛОВ МАРИНОВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ДОБРЕВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЯНОВ ЗАХАРИЕВ",
+      "target": "company:tr:117540094",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

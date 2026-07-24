@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:daniela-kirilova-ruseva-74f06a","nodes":[{"id":"official:daniela-kirilova-ruseva-74f06a","type":"official","slug":"daniela-kirilova-ruseva-74f06a","label":"Даниела Кирилова Русева","tier":"municipal","role":"deputy_mayor","municipality":"Шумен"},{"id":"company:tr:204597370","type":"company","label":"ФИЧОЗА","slug":null,"uic":"204597370","legalForm":null,"status":null,"seat":null},{"id":"company:tr:201349163","type":"company","label":"ДАНИ - 2020","slug":null,"uic":"201349163","legalForm":null,"status":null,"seat":null},{"id":"person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА","type":"person","label":"Павлена Лъчезарова Кирилова"},{"id":"person:РАДКА СТОЯНОВА КАНАЛИЕВА","type":"person","label":"Радка Стоянова Каналиева"},{"id":"person:ДИЛЯНА КИРИЛОВА ЛАТЕВА","type":"person","label":"Диляна Кирилова Латева"}],"edges":[{"source":"official:daniela-kirilova-ruseva-74f06a","target":"company:tr:204597370","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:daniela-kirilova-ruseva-74f06a","target":"company:tr:201349163","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:daniela-kirilova-ruseva-74f06a","target":"company:tr:201349163","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:daniela-kirilova-ruseva-74f06a","target":"company:tr:204597370","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА","target":"company:tr:204597370","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА","target":"company:tr:204597370","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА СТОЯНОВА КАНАЛИЕВА","target":"company:tr:201349163","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИЛЯНА КИРИЛОВА ЛАТЕВА","target":"company:tr:201349163","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:daniela-kirilova-ruseva-74f06a",
+  "nodes": [
+    {
+      "id": "official:daniela-kirilova-ruseva-74f06a",
+      "type": "official",
+      "slug": "daniela-kirilova-ruseva-74f06a",
+      "label": "Даниела Кирилова Русева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:204597370",
+      "type": "company",
+      "label": "ФИЧОЗА",
+      "slug": null,
+      "uic": "204597370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Павлена Лъчезарова Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-kirilova-ruseva-74f06a",
+      "target": "company:tr:204597370",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniela-kirilova-ruseva-74f06a",
+      "target": "company:tr:204597370",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА",
+      "target": "company:tr:204597370",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛЕНА ЛЪЧЕЗАРОВА КИРИЛОВА",
+      "target": "company:tr:204597370",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

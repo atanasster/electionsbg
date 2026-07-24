@@ -1,1 +1,97 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5223","nodes":[{"id":"mp:5223","type":"mp","mpId":5223,"label":"Георги Тенев Станков","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["44","45","46","47","48","49","50","51","52"]},{"id":"company:tr:208622846","type":"company","label":"ГТВ ГРУП-2025","slug":null,"uic":"208622846","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Любимец, 6550"},{"id":"person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА","type":"person","label":"Весела Георгиева Русева"},{"id":"person:ТАНЯ ГЕОРГИЕВА СТАНКОВА","type":"person","label":"Таня Георгиева Станкова"}],"edges":[{"source":"mp:5223","target":"company:tr:208622846","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА","target":"company:tr:208622846","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ГЕОРГИЕВА СТАНКОВА","target":"company:tr:208622846","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА","target":"company:tr:208622846","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5223",
+  "nodes": [
+    {
+      "id": "mp:5223",
+      "type": "mp",
+      "mpId": 5223,
+      "label": "Георги Тенев Станков",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:208622846",
+      "type": "company",
+      "label": "ГТВ ГРУП-2025",
+      "slug": null,
+      "uic": "208622846",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Любимец, 6550"
+    },
+    {
+      "id": "official:georgi-tenev-stankov-15b1dd",
+      "type": "official",
+      "slug": "georgi-tenev-stankov-15b1dd",
+      "label": "Георги Тенев Станков",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА",
+      "type": "person",
+      "label": "Весела Георгиева Русева"
+    },
+    {
+      "id": "person:ТАНЯ ГЕОРГИЕВА СТАНКОВА",
+      "type": "person",
+      "label": "Таня Георгиева Станкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5223",
+      "target": "company:tr:208622846",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-tenev-stankov-15b1dd",
+      "target": "company:tr:208622846",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА",
+      "target": "company:tr:208622846",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ГЕОРГИЕВА СТАНКОВА",
+      "target": "company:tr:208622846",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ГЕОРГИЕВА РУСЕВА",
+      "target": "company:tr:208622846",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

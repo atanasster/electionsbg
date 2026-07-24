@@ -1,1 +1,119 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4383","nodes":[{"id":"mp:4383","type":"mp","mpId":4383,"label":"Петя Ставрева Ставрева","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:175337114","type":"company","label":"АГРАРЕН СЪЮЗ","slug":null,"uic":"175337114","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ПЕТКО ИВАНОВ ПЕТКОВ","type":"person","label":"Петко Иванов Петков"},{"id":"person:ХРИСТО ИВАНОВ ЕТРОПОЛСКИ","type":"person","label":"Христо Иванов Етрополски"},{"id":"company:tr:204332614","type":"company","label":"БЛИТЦ ЕР","slug":null,"uic":"204332614","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:1117","type":"mp","mpId":1117,"label":"Петко Валентинов Петков","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:4383","target":"company:tr:175337114","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТКО ИВАНОВ ПЕТКОВ","target":"company:tr:175337114","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ЕТРОПОЛСКИ","target":"company:tr:175337114","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ИВАНОВ ПЕТКОВ","target":"company:tr:175337114","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ИВАНОВ ПЕТКОВ","target":"company:tr:204332614","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:1117","target":"company:tr:204332614","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:1117","length":4,"nodeIds":["mp:4383","company:tr:175337114","person:ПЕТКО ИВАНОВ ПЕТКОВ","company:tr:204332614","mp:1117"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4383",
+  "nodes": [
+    {
+      "id": "mp:4383",
+      "type": "mp",
+      "mpId": 4383,
+      "label": "Петя Ставрева Ставрева",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175337114",
+      "type": "company",
+      "label": "АГРАРЕН СЪЮЗ",
+      "slug": null,
+      "uic": "175337114",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ПЕТКО ИВАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Иванов Петков"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ЕТРОПОЛСКИ",
+      "type": "person",
+      "label": "Христо Иванов Етрополски"
+    },
+    {
+      "id": "company:tr:204332614",
+      "type": "company",
+      "label": "БЛИТЦ ЕР",
+      "slug": null,
+      "uic": "204332614",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:1117",
+      "type": "mp",
+      "mpId": 1117,
+      "label": "Петко Валентинов Петков",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4383",
+      "target": "company:tr:175337114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКО ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:175337114",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ЕТРОПОЛСКИ",
+      "target": "company:tr:175337114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:175337114",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ИВАНОВ ПЕТКОВ",
+      "target": "company:tr:204332614",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1117",
+      "target": "company:tr:204332614",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1117",
+      "length": 4,
+      "nodeIds": [
+        "mp:4383",
+        "company:tr:175337114",
+        "person:ПЕТКО ИВАНОВ ПЕТКОВ",
+        "company:tr:204332614",
+        "mp:1117"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

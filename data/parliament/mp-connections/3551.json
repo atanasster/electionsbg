@@ -1,1 +1,287 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3551","nodes":[{"id":"mp:3551","type":"mp","mpId":3551,"label":"Златомира Димитрова Карагеоргиева-Мострова","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47"]},{"id":"company:Бургаска-образователна-компания-ООД","type":"company","label":"Бургаска образователна компания ООД","slug":"Бургаска-образователна-компания-ООД","uic":"200945648","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8000"},{"id":"company:проект-консулт-оод-в-ликвидация","type":"company","label":"проект консулт оод в ликвидация","slug":"проект-консулт-оод-в-ликвидация","uic":null,"legalForm":null,"status":null,"seat":"Бургас"},{"id":"company:tr:812115210","type":"company","label":"ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ","slug":null,"uic":"812115210","legalForm":"EAD","status":"active","seat":null},{"id":"person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА","type":"person","label":"Фани Георгиева Семерджиева-Цикова"},{"id":"person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС","type":"person","label":"Иоанис Парменион Партениотис"},{"id":"person:ГАНЧО ЙОВЧЕВ ТЕНЕВ","type":"person","label":"Ганчо Йовчев Тенев"},{"id":"person:СТАНИМИР ДОНКОВ НИКОЛОВ","type":"person","label":"Станимир Донков Николов"},{"id":"person:БОЯН МИТКОВ ХЛЕБАРОВ","type":"person","label":"Боян Митков Хлебаров"},{"id":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","type":"person","label":"Цветан Василев Мирчев"},{"id":"person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ","type":"person","label":"Димитър Петров Ганджов"},{"id":"person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ","type":"person","label":"Методи Георгиев Смилов"},{"id":"person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ","type":"person","label":"Георги Илиев Георгиев"},{"id":"person:СТАНИСЛАВ ИВАНОВ ДАРАЧЕВ","type":"person","label":"Станислав Иванов Дарачев"},{"id":"person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ","type":"person","label":"Евгени Жечев Попов"},{"id":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","type":"person","label":"Димитър Атанасов Атанасов"}],"edges":[{"source":"mp:3551","target":"company:Бургаска-образователна-компания-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3551","target":"company:проект-консулт-оод-в-ликвидация","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3551","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА","target":"company:Бургаска-образователна-компания-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА","target":"company:Бургаска-образователна-компания-ООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГАНЧО ЙОВЧЕВ ТЕНЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИМИР ДОНКОВ НИКОЛОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН МИТКОВ ХЛЕБАРОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","target":"company:tr:812115210","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ИВАНОВ ДАРАЧЕВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АТАНАСОВ АТАНАСОВ","target":"company:tr:812115210","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3551",
+  "nodes": [
+    {
+      "id": "mp:3551",
+      "type": "mp",
+      "mpId": 3551,
+      "label": "Златомира Димитрова Карагеоргиева-Мострова",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "company:БОК-ООД",
+      "type": "company",
+      "label": "БОК ООД",
+      "slug": "БОК-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:Бургаска-образователна-компания-ООД",
+      "type": "company",
+      "label": "Бургаска образователна компания ООД",
+      "slug": "Бургаска-образователна-компания-ООД",
+      "uic": "200945648",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:Проект-консулт-ООД-в-ликвидация",
+      "type": "company",
+      "label": "Проект консулт ООД в ликвидация",
+      "slug": "Проект-консулт-ООД-в-ликвидация",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:tr:812115210",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "812115210",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА",
+      "type": "person",
+      "label": "Фани Георгиева Семерджиева-Цикова"
+    },
+    {
+      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "type": "official",
+      "slug": "zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "label": "Златомира Димитрова Карагеоргиева-Мострова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:stanislav-ivanov-darachev-aaa028",
+      "type": "official",
+      "slug": "stanislav-ivanov-darachev-aaa028",
+      "label": "Станислав Иванов Дарачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС",
+      "type": "person",
+      "label": "Иоанис Парменион Партениотис"
+    },
+    {
+      "id": "person:ГАНЧО ЙОВЧЕВ ТЕНЕВ",
+      "type": "person",
+      "label": "Ганчо Йовчев Тенев"
+    },
+    {
+      "id": "person:СТАНИМИР ДОНКОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Станимир Донков Николов"
+    },
+    {
+      "id": "person:БОЯН МИТКОВ ХЛЕБАРОВ",
+      "type": "person",
+      "label": "Боян Митков Хлебаров"
+    },
+    {
+      "id": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "type": "person",
+      "label": "Цветан Василев Мирчев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
+      "type": "person",
+      "label": "Димитър Петров Ганджов"
+    },
+    {
+      "id": "person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ",
+      "type": "person",
+      "label": "Методи Георгиев Смилов"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Илиев Георгиев"
+    },
+    {
+      "id": "person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ",
+      "type": "person",
+      "label": "Евгени Жечев Попов"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Димитър Атанасов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3551",
+      "target": "company:БОК-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3551",
+      "target": "company:Бургаска-образователна-компания-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3551",
+      "target": "company:Проект-консулт-ООД-в-ликвидация",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3551",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА",
+      "target": "company:Бургаска-образователна-компания-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНИ ГЕОРГИЕВА СЕМЕРДЖИЕВА-ЦИКОВА",
+      "target": "company:Бургаска-образователна-компания-ООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-darachev-aaa028",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИОАНИС ПАРМЕНИОН ПАРТЕНИОТИС",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ЙОВЧЕВ ТЕНЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ДОНКОВ НИКОЛОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН МИТКОВ ХЛЕБАРОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ГАНДЖОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ ГЕОРГИЕВ СМИЛОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВАСИЛЕВ МИРЧЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ЖЕЧЕВ ПОПОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:812115210",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

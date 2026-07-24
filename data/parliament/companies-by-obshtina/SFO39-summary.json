@@ -1,1 +1,73 @@
-{"obshtina":"SFO39","count":10,"mpCount":7,"totalPages":1,"topCompanies":[{"slug":"Бг-Хидрострой-80","displayName":"Бг-Хидрострой 80","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"manager","isCurrent":true},{"mpId":2309,"mpName":"Зоран Александров Рангелов","role":"sole_owner","isCurrent":true}]},{"slug":"Микро-бизнес-академия","displayName":"Микро бизнес академия","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":3785,"mpName":"Васил Петров Зашкев","role":"ngo_representative","isCurrent":true},{"mpId":3785,"mpName":"Васил Петров Зашкев","role":"ngo_board","isCurrent":true}]},{"slug":"НОРДУУД","displayName":"НОРДУУД","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2377,"mpName":"Росен Петров Петров","role":"manager","isCurrent":true},{"mpId":2377,"mpName":"Росен Петров Петров","role":"sole_owner","isCurrent":true}]},{"slug":"ПОКРИВ-ГРУП","displayName":"ПОКРИВ ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"РД-БИЛД-ГРУП","displayName":"РД  БИЛД  ГРУП","registeredOffice":"БЪЛГАРИЯ, гр. Самоков, 2000","mps":[{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"manager","isCurrent":true},{"mpId":2710,"mpName":"Радослав Любчов Стойчев","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "SFO39",
+  "count": 15,
+  "mpCount": 8,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Лиона-66-ЕООД",
+      "displayName": "\"Лиона 66\" ЕООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ФМ-2008-ООД",
+      "displayName": "\"ФМ 2008\" ООД",
+      "registeredOffice": "София",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-ООД",
+      "displayName": "\"Албена спорт\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-2000-ООД",
+      "displayName": "\"Албена спорт 2000\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Албена-спорт-200-ООД",
+      "displayName": "\"Албена спорт 200\" ООД",
+      "registeredOffice": "Самоков",
+      "mps": [
+        {
+          "mpId": 5267,
+          "mpName": "Валентин Мирчов Милушев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

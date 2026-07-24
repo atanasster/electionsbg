@@ -1,1 +1,152 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:konstantin-stoyanov-manev-9ceeee","nodes":[{"id":"official:konstantin-stoyanov-manev-9ceeee","type":"official","slug":"konstantin-stoyanov-manev-9ceeee","label":"Константин Стоянов Манев","tier":"municipal","role":"councillor","municipality":"Търговище"},{"id":"company:tr:125555587","type":"company","label":"ВИКТОРИ АГРО ООД","slug":null,"uic":"125555587","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:konstantin-stoyanov-manev-9ceeee","target":"company:tr:125555587","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-stoyanov-manev-9ceeee",
+  "nodes": [
+    {
+      "id": "official:konstantin-stoyanov-manev-9ceeee",
+      "type": "official",
+      "slug": "konstantin-stoyanov-manev-9ceeee",
+      "label": "Константин Стоянов Манев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:125555587",
+      "type": "company",
+      "label": "ВИКТОРИ АГРО ООД",
+      "slug": null,
+      "uic": "125555587",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201293063",
+      "type": "company",
+      "label": "ОЛ ФОР РЕНТ ЕООД",
+      "slug": null,
+      "uic": "201293063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:835028978",
+      "type": "company",
+      "label": "БАСКЕТБОЛЕН КЛУБ &quot;СВЕТКАВИЦА-МЕБЕЛ СТИЛ&quot;",
+      "slug": null,
+      "uic": "835028978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТИХОМИР ПЕТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стихомир Петров Стоянов"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Петров Иванов"
+    },
+    {
+      "id": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Иво Илков Илиев"
+    },
+    {
+      "id": "person:МИЛЕН АНКОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Милен Анков Атанасов"
+    },
+    {
+      "id": "person:ДОБРОМИР РУМЕНОВ РАЧЕВ",
+      "type": "person",
+      "label": "Добромир Руменов Рачев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-stoyanov-manev-9ceeee",
+      "target": "company:tr:125555587",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-stoyanov-manev-9ceeee",
+      "target": "company:tr:201293063",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-stoyanov-manev-9ceeee",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТИХОМИР ПЕТРОВ СТОЯНОВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АНКОВ АТАНАСОВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИХОМИР ПЕТРОВ СТОЯНОВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ИВАНОВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР РУМЕНОВ РАЧЕВ",
+      "target": "company:tr:835028978",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

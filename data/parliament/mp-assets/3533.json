@@ -1,1 +1,65 @@
-{"mpId":3533,"name":"Георги Георгиев Михайлов","partyGroupShort":null,"isCurrent":false,"nsFolders":["44","45","46"],"latestDeclarationYear":2023,"fiscalYear":2022,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2023/5E83C487-F1A8-4BA4-8B6C-3985CCDFAB20149373.xml","totalAssetsEur":727853.6478119266,"totalDebtsEur":43613.19746603744,"netWorthEur":684240.4503458891,"previous":{"year":2021,"totalAssetsEur":354665.7940618561,"netWorthEur":328589.908120849},"byCategory":{"real_estate":{"count":4,"valuedCount":4,"totalEur":513398.91503862815},"vehicle":{"count":2,"valuedCount":2,"totalEur":88911.61297249762},"cash":{"count":3,"valuedCount":3,"totalEur":81488.67744129091},"bank":{"count":9,"valuedCount":9,"totalEur":28715.685923623223},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":2,"valuedCount":2,"totalEur":43613.19746603744},"investment":{"count":1,"valuedCount":1,"totalEur":15338.756435886555},"security":{"count":0,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 3533,
+  "name": "Георги Георгиев Михайлов",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "44",
+    "45",
+    "46"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2022,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2023/5E83C487-F1A8-4BA4-8B6C-3985CCDFAB20149373.xml",
+  "totalAssetsEur": 727853.6478119266,
+  "totalDebtsEur": 43613.19746603744,
+  "netWorthEur": 684240.4503458891,
+  "previous": {
+    "year": 2021,
+    "totalAssetsEur": 354665.7940618561,
+    "netWorthEur": 328589.908120849
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 513398.91503862815
+    },
+    "vehicle": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 88911.61297249762
+    },
+    "cash": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 81488.67744129091
+    },
+    "bank": {
+      "count": 9,
+      "valuedCount": 9,
+      "totalEur": 28715.685923623223
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 43613.19746603744
+    },
+    "investment": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 15338.756435886555
+    },
+    "security": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

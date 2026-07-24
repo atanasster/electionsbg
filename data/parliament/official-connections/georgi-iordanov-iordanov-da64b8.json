@@ -1,1 +1,86 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:georgi-iordanov-iordanov-da64b8","nodes":[{"id":"official:georgi-iordanov-iordanov-da64b8","type":"official","slug":"georgi-iordanov-iordanov-da64b8","label":"Георги Йорданов Йорданов","tier":"executive","role":"agency_head","municipality":null},{"id":"company:Глобофарм-ЕООД","type":"company","label":"Глобофарм ЕООД","slug":"Глобофарм-ЕООД","uic":"160107050","legalForm":"EOOD","status":"active","seat":"Пловдив"},{"id":"mp:2838","type":"mp","mpId":2838,"label":"Георги Йорданов Йорданов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]}],"edges":[{"source":"official:georgi-iordanov-iordanov-da64b8","target":"company:Глобофарм-ЕООД","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"mp:2838","target":"company:Глобофарм-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-iordanov-iordanov-da64b8",
+  "nodes": [
+    {
+      "id": "official:georgi-iordanov-iordanov-da64b8",
+      "type": "official",
+      "slug": "georgi-iordanov-iordanov-da64b8",
+      "label": "Георги Йорданов Йорданов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:Глобофарм-ЕООД",
+      "type": "company",
+      "label": "Глобофарм ЕООД",
+      "slug": "Глобофарм-ЕООД",
+      "uic": "160107050",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "mp:2838",
+      "type": "mp",
+      "mpId": 2838,
+      "label": "Георги Йорданов Йорданов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:georgi-iordanov-iordanov-0af59c",
+      "type": "official",
+      "slug": "georgi-iordanov-iordanov-0af59c",
+      "label": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-iordanov-iordanov-545891",
+      "type": "official",
+      "slug": "georgi-iordanov-iordanov-545891",
+      "label": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-iordanov-iordanov-da64b8",
+      "target": "company:Глобофарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2838",
+      "target": "company:Глобофарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-iordanov-iordanov-0af59c",
+      "target": "company:Глобофарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-iordanov-iordanov-545891",
+      "target": "company:Глобофарм-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

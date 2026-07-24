@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:bozhidar-ivanov-iliev-21772c",
+  "nodes": [
+    {
+      "id": "official:bozhidar-ivanov-iliev-21772c",
+      "type": "official",
+      "slug": "bozhidar-ivanov-iliev-21772c",
+      "label": "Божидар Иванов Илиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207133966",
+      "type": "company",
+      "label": "МУСТИ 1991",
+      "slug": null,
+      "uic": "207133966",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУСТАФА ИБРЯМОВ ИСОВ",
+      "type": "person",
+      "label": "Мустафа Ибрямов Исов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-ivanov-iliev-21772c",
+      "target": "company:tr:207133966",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА ИБРЯМОВ ИСОВ",
+      "target": "company:tr:207133966",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ИБРЯМОВ ИСОВ",
+      "target": "company:tr:207133966",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

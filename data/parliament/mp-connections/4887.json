@@ -1,1 +1,100 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4887","nodes":[{"id":"mp:4887","type":"mp","mpId":4887,"label":"Веселин Миленов Вешев","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":["49","50","51"]},{"id":"company:Вешев-ЕООД","type":"company","label":"Вешев ЕООД","slug":"Вешев-ЕООД","uic":"200340670","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9023"},{"id":"company:Чан-2013-ООД","type":"company","label":"Чан 2013 ООД","slug":"Чан-2013-ООД","uic":"202444486","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА","type":"person","label":"Марина Иванова Железова"},{"id":"person:ВЕНЦИСЛАВ МАРИНОВ ЧАНЕВ","type":"person","label":"Венцислав Маринов Чанев"}],"edges":[{"source":"mp:4887","target":"company:Вешев-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4887","target":"company:Вешев-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:4887","target":"company:Чан-2013-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА","target":"company:Вешев-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВ МАРИНОВ ЧАНЕВ","target":"company:Чан-2013-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА","target":"company:Чан-2013-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4887",
+  "nodes": [
+    {
+      "id": "mp:4887",
+      "type": "mp",
+      "mpId": 4887,
+      "label": "Веселин Миленов Вешев",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Вешев-ЕООД",
+      "type": "company",
+      "label": "Вешев ЕООД",
+      "slug": "Вешев-ЕООД",
+      "uic": "200340670",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9023"
+    },
+    {
+      "id": "company:Чан-2013-ООД",
+      "type": "company",
+      "label": "Чан 2013 ООД",
+      "slug": "Чан-2013-ООД",
+      "uic": "202444486",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА",
+      "type": "person",
+      "label": "Марина Иванова Железова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ МАРИНОВ ЧАНЕВ",
+      "type": "person",
+      "label": "Венцислав Маринов Чанев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4887",
+      "target": "company:Вешев-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4887",
+      "target": "company:Вешев-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4887",
+      "target": "company:Чан-2013-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА",
+      "target": "company:Вешев-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ МАРИНОВ ЧАНЕВ",
+      "target": "company:Чан-2013-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ИВАНОВА ЖЕЛЕЗОВА",
+      "target": "company:Чан-2013-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

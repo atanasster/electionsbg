@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-krstev-boshkilov-cb284f",
+  "nodes": [
+    {
+      "id": "official:nikolai-krstev-boshkilov-cb284f",
+      "type": "official",
+      "slug": "nikolai-krstev-boshkilov-cb284f",
+      "label": "Николай Кръстев Бошкилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:101587719",
+      "type": "company",
+      "label": "ВИНИ - БОШКИЛОВ",
+      "slug": null,
+      "uic": "101587719",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2735",
+      "type": "mp",
+      "mpId": 2735,
+      "label": "Николай Кръстев Бошкилов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ВИОЛЕТА ЛАЗАРОВА БОШКИЛОВА",
+      "type": "person",
+      "label": "Виолета Лазарова Бошкилова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КРЪСТЕВ БОШКИЛОВ - 1/4 ИДЕАЛНИ ЧАСТИ И НИКОЛАЙ КРЪСТЕВ БОШКИЛОВ- 3/4 ИДЕАЛНИ ЧАСТИ",
+      "type": "person",
+      "label": "Валентин Кръстев Бошкилов - 1/4 Идеални Части  И Николай Кръстев Бошкилов- 3/4 Идеални Части"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-krstev-boshkilov-cb284f",
+      "target": "company:tr:101587719",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2735",
+      "target": "company:tr:101587719",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЛАЗАРОВА БОШКИЛОВА",
+      "target": "company:tr:101587719",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЛАЗАРОВА БОШКИЛОВА",
+      "target": "company:tr:101587719",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КРЪСТЕВ БОШКИЛОВ - 1/4 ИДЕАЛНИ ЧАСТИ И НИКОЛАЙ КРЪСТЕВ БОШКИЛОВ- 3/4 ИДЕАЛНИ ЧАСТИ",
+      "target": "company:tr:101587719",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

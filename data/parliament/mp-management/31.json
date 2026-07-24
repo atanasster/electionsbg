@@ -1,1 +1,64 @@
-{"mpId":31,"mpName":"Димитър Цвятков Йорданов","generatedAt":"2026-07-03T11:12:51.385Z","total":4,"roles":[{"uic":"104119241","companyName":"&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ 1884 - ВЕЛИКО ТЪРНОВО&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Велико Търново, 5000","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-12-17T10:13:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"104119241","companyName":"&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ 1884 - ВЕЛИКО ТЪРНОВО&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Велико Търново, 5000","status":"active","role":"ngo_representative","positionLabel":"председател на УС","sharePercent":null,"addedAt":"2025-12-17T10:13:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"104680018","companyName":"КОНАКА","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-09-19T14:46:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"104680018","companyName":"КОНАКА","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2024-09-19T14:46:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 31,
+  "mpName": "Димитър Цвятков Йорданов",
+  "generatedAt": "2026-07-24T03:35:58.165Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "104119241",
+      "companyName": "&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ 1884 - ВЕЛИКО ТЪРНОВО&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-12-17T10:13:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "104119241",
+      "companyName": "&quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО СОКОЛ 1884 - ВЕЛИКО ТЪРНОВО&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "председател на УС",
+      "sharePercent": null,
+      "addedAt": "2025-12-17T10:13:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "104680018",
+      "companyName": "КОНАКА",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-09-19T14:46:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "104680018",
+      "companyName": "КОНАКА",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2024-09-19T14:46:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,1 +1,131 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:teodor-naidenov-radev-643ebb","nodes":[{"id":"official:teodor-naidenov-radev-643ebb","type":"official","slug":"teodor-naidenov-radev-643ebb","label":"Теодор Найденов Радев","tier":"municipal","role":"councillor","municipality":"Попово"},{"id":"company:tr:206361881","type":"company","label":"ОТБРАНИ","slug":null,"uic":"206361881","legalForm":null,"status":null,"seat":null},{"id":"person:НАЙДЕН РАДЕВ ПЕТРОВ","type":"person","label":"Найден Радев Петров"},{"id":"person:МАЯ НЕЙДЕНОВА ЯНЕВА","type":"person","label":"Мая Нейденова Янева"},{"id":"person:СТАРТ 2005","type":"person","label":"Старт 2005"}],"edges":[{"source":"official:teodor-naidenov-radev-643ebb","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НАЙДЕН РАДЕВ ПЕТРОВ","target":"company:tr:206361881","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАЯ НЕЙДЕНОВА ЯНЕВА","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТАРТ 2005","target":"company:tr:206361881","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:teodor-naidenov-radev-643ebb",
+  "nodes": [
+    {
+      "id": "official:teodor-naidenov-radev-643ebb",
+      "type": "official",
+      "slug": "teodor-naidenov-radev-643ebb",
+      "label": "Теодор Найденов Радев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Попово"
+    },
+    {
+      "id": "company:tr:207797376",
+      "type": "company",
+      "label": "Отбрани 2024 ООД",
+      "slug": null,
+      "uic": "207797376",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЙДЕН РАДЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Найден Радев Петров"
+    },
+    {
+      "id": "company:name:СТАРТ 2005",
+      "type": "company",
+      "label": "\"СТАРТ 2005\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАЯ НАЙДЕНОВА РАДЕВА",
+      "type": "person",
+      "label": "Мая Найденова Радева"
+    },
+    {
+      "id": "company:name:ДЖЪМП ФРУТ",
+      "type": "company",
+      "label": "\"ДЖЪМП ФРУТ\" АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТКОВ НЕДЯЛКОВ",
+      "type": "person",
+      "label": "Георги Петков Недялков"
+    },
+    {
+      "id": "person:РАДОСТИН ЛЮБЧОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Радостин Любчов Стойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodor-naidenov-radev-643ebb",
+      "target": "company:tr:207797376",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:teodor-naidenov-radev-643ebb",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЙДЕН РАДЕВ ПЕТРОВ",
+      "target": "company:tr:207797376",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СТАРТ 2005",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ НАЙДЕНОВА РАДЕВА",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЖЪМП ФРУТ",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ НЕДЯЛКОВ",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ЛЮБЧОВ СТОЙЧЕВ",
+      "target": "company:tr:207797376",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

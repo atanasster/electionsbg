@@ -1,1 +1,129 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2483","nodes":[{"id":"mp:2483","type":"mp","mpId":2483,"label":"Борислав Михайлов Борисов","partyGroupShort":"АБВ","isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:208496963","type":"company","label":"Плей М Тийм","slug":null,"uic":"208496963","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:201659906","type":"company","label":"БИ ЕНД ЕС КОМЕРС","slug":null,"uic":"201659906","legalForm":"OOD","status":"active","seat":null},{"id":"person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ","type":"person","label":"Христо Вангелов Карамфилов"},{"id":"company:name:АТЛАС РИЪЛ СТЕЙТС ИНВЕСТ","type":"company","label":"Атлас риъл стейтс инвест ЕАД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ЯВОР АЛЕКСАНДРОВ КАРАДЖОВ","type":"person","label":"Явор Александров Караджов"},{"id":"person:ГЕОРГИ ХАРИЕВ ЦВЕТКОВ","type":"person","label":"Георги Хариев Цветков"}],"edges":[{"source":"mp:2483","target":"company:tr:208496963","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:2483","target":"company:tr:208496963","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2483","target":"company:tr:201659906","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ","target":"company:tr:208496963","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ","target":"company:tr:208496963","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:АТЛАС РИЪЛ СТЕЙТС ИНВЕСТ","target":"company:tr:208496963","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯВОР АЛЕКСАНДРОВ КАРАДЖОВ","target":"company:tr:201659906","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ХАРИЕВ ЦВЕТКОВ","target":"company:tr:201659906","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2483",
+  "nodes": [
+    {
+      "id": "mp:2483",
+      "type": "mp",
+      "mpId": 2483,
+      "label": "Борислав Михайлов Борисов",
+      "partyGroupShort": "АБВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:208496963",
+      "type": "company",
+      "label": "Плей М Тийм",
+      "slug": null,
+      "uic": "208496963",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:201659906",
+      "type": "company",
+      "label": "БИ ЕНД ЕС КОМЕРС",
+      "slug": null,
+      "uic": "201659906",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ",
+      "type": "person",
+      "label": "Христо Вангелов Карамфилов"
+    },
+    {
+      "id": "company:name:АТЛАС РИЪЛ СТЕЙТС ИНВЕСТ",
+      "type": "company",
+      "label": "Атлас риъл стейтс инвест ЕАД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯВОР АЛЕКСАНДРОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Явор Александров Караджов"
+    },
+    {
+      "id": "person:ГЕОРГИ ХАРИЕВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Георги Хариев Цветков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2483",
+      "target": "company:tr:208496963",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2483",
+      "target": "company:tr:208496963",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2483",
+      "target": "company:tr:201659906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ",
+      "target": "company:tr:208496963",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАНГЕЛОВ КАРАМФИЛОВ",
+      "target": "company:tr:208496963",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АТЛАС РИЪЛ СТЕЙТС ИНВЕСТ",
+      "target": "company:tr:208496963",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР АЛЕКСАНДРОВ КАРАДЖОВ",
+      "target": "company:tr:201659906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХАРИЕВ ЦВЕТКОВ",
+      "target": "company:tr:201659906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

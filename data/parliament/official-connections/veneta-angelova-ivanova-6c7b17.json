@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veneta-angelova-ivanova-6c7b17",
+  "nodes": [
+    {
+      "id": "official:veneta-angelova-ivanova-6c7b17",
+      "type": "official",
+      "slug": "veneta-angelova-ivanova-6c7b17",
+      "label": "Венета Ангелова Иванова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Средец"
+    },
+    {
+      "id": "company:tr:207478097",
+      "type": "company",
+      "label": "Росенец 67",
+      "slug": null,
+      "uic": "207478097",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА ГЕОРГИЕВА РУСЕВА",
+      "type": "person",
+      "label": "Пенка Георгиева Русева"
+    },
+    {
+      "id": "person:КОСТАДИН АНАСТАСОВ КАЛОЯНОВ",
+      "type": "person",
+      "label": "Костадин Анастасов Калоянов"
+    },
+    {
+      "id": "person:ГАЛИНА ПАВЛОВА ДИКОВА",
+      "type": "person",
+      "label": "Галина Павлова Дикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-angelova-ivanova-6c7b17",
+      "target": "company:tr:207478097",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА РУСЕВА",
+      "target": "company:tr:207478097",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА РУСЕВА",
+      "target": "company:tr:207478097",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН АНАСТАСОВ КАЛОЯНОВ",
+      "target": "company:tr:207478097",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ПАВЛОВА ДИКОВА",
+      "target": "company:tr:207478097",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

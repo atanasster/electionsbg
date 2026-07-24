@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:paolina-dimitrova-peneva-feef04","nodes":[{"id":"official:paolina-dimitrova-peneva-feef04","type":"official","slug":"paolina-dimitrova-peneva-feef04","label":"Паолина Димитрова Пенева","tier":"municipal","role":"councillor","municipality":"Горна Оряховица"},{"id":"company:tr:206727179","type":"company","label":"СОЦИАЛ ТРЕЙД","slug":null,"uic":"206727179","legalForm":null,"status":null,"seat":null},{"id":"person:ДЕНИЦА КОСТАДИНОВА СУЛОВА","type":"person","label":"Деница Костадинова Сулова"},{"id":"person:ДОБРОМИР РОСЕНОВ ГЕОРГИЕВ","type":"person","label":"Добромир Росенов Георгиев"}],"edges":[{"source":"official:paolina-dimitrova-peneva-feef04","target":"company:tr:206727179","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:paolina-dimitrova-peneva-feef04","target":"company:tr:206727179","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:paolina-dimitrova-peneva-feef04","target":"company:tr:206727179","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ДЕНИЦА КОСТАДИНОВА СУЛОВА","target":"company:tr:206727179","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРОМИР РОСЕНОВ ГЕОРГИЕВ","target":"company:tr:206727179","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:paolina-dimitrova-peneva-feef04",
+  "nodes": [
+    {
+      "id": "official:paolina-dimitrova-peneva-feef04",
+      "type": "official",
+      "slug": "paolina-dimitrova-peneva-feef04",
+      "label": "Паолина Димитрова Пенева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Оряховица"
+    },
+    {
+      "id": "company:tr:208011011",
+      "type": "company",
+      "label": "Амбулатория за индивидуална практика за първична дентална помощ Сонриса дентал ЕООД",
+      "slug": null,
+      "uic": "208011011",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:paolina-dimitrova-peneva-feef04",
+      "target": "company:tr:208011011",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

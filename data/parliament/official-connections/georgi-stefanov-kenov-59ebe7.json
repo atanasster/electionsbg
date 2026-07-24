@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:georgi-stefanov-kenov-59ebe7",
+  "nodes": [
+    {
+      "id": "official:georgi-stefanov-kenov-59ebe7",
+      "type": "official",
+      "slug": "georgi-stefanov-kenov-59ebe7",
+      "label": "Георги Стефанов Кенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сунгурларе"
+    },
+    {
+      "id": "company:tr:175586021",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ОБЩИНСКИ ГОРИ",
+      "slug": null,
+      "uic": "175586021",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ХРИСТОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Валентин Христов Атанасов"
+    },
+    {
+      "id": "person:ХРИСТО ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Димитров Христов"
+    },
+    {
+      "id": "person:ТИХОМИР ВЛАДИМИРОВ ТОМАНОВ",
+      "type": "person",
+      "label": "Тихомир Владимиров Томанов"
+    },
+    {
+      "id": "person:ИВАН ПЕТКОВ ЖАБОВ",
+      "type": "person",
+      "label": "Иван Петков Жабов"
+    },
+    {
+      "id": "person:АНГЕЛ ПЕНЧОВ ГЕРОВ",
+      "type": "person",
+      "label": "Ангел Пенчов Геров"
+    },
+    {
+      "id": "person:ЕШРЕФ ХАСАНОВ ЕШРЕФОВ",
+      "type": "person",
+      "label": "Ешреф Хасанов Ешрефов"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Емил Димитров Илиев"
+    },
+    {
+      "id": "person:ИЗПЪЛНИТЕЛЕН ДИРЕКТОР - ТИХОМИР ВЛАДИМИРОВ ТОМАНОВ",
+      "type": "person",
+      "label": "Изпълнителен Директор - Тихомир Владимиров Томанов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ КИЧЕВ",
+      "type": "person",
+      "label": "Иван Димитров Кичев"
+    },
+    {
+      "id": "person:БОЯН ВЛАДИМИРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Боян Владимиров Георгиев"
+    },
+    {
+      "id": "person:ДИМИТЪР РОСЕНОВ ГАВАЗОВ",
+      "type": "person",
+      "label": "Димитър Росенов Гавазов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-stefanov-kenov-59ebe7",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ВЛАДИМИРОВ ТОМАНОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТКОВ ЖАБОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ПЕНЧОВ ГЕРОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕШРЕФ ХАСАНОВ ЕШРЕФОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ИЛИЕВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЗПЪЛНИТЕЛЕН ДИРЕКТОР - ТИХОМИР ВЛАДИМИРОВ ТОМАНОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ КИЧЕВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН ВЛАДИМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР РОСЕНОВ ГАВАЗОВ",
+      "target": "company:tr:175586021",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

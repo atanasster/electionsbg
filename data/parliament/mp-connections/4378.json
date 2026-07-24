@@ -1,1 +1,275 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4378","nodes":[{"id":"mp:4378","type":"mp","mpId":4378,"label":"Мирослава Петрова Петрова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47"]},{"id":"company:tr:176022484","type":"company","label":"Да запазим Корал","slug":null,"uic":"176022484","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:206579983","type":"company","label":"БЪЛГАРСКО КЕМПЕР ОБЩЕСТВО","slug":null,"uic":"206579983","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, с. Лозен, 1151"},{"id":"person:ЯВОР ЯНКОВ ЯНЧЕВ","type":"person","label":"Явор Янков Янчев"},{"id":"person:МАРТИН ПЕТРОВ ДРАГУЛЕВ","type":"person","label":"Мартин Петров Драгулев"},{"id":"person:АТАНАС РУМЕНОВ РУСЕВ","type":"person","label":"Атанас Руменов Русев"},{"id":"person:НОНА ТАНЧЕВА КАЦАРОВА","type":"person","label":"Нона Танчева Кацарова"},{"id":"person:ПЕТКО КИРИЛОВ ПЕТКОВ","type":"person","label":"Петко Кирилов Петков"},{"id":"person:КИРИЛ РУМЕНОВ РУСЕВ","type":"person","label":"Кирил Руменов Русев"},{"id":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","type":"person","label":"Дончо Иванов Бораджиев"},{"id":"person:АСЕН НЕДЯЛКОВ ЙОРДАНОВ","type":"person","label":"Асен Недялков Йорданов"},{"id":"person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ","type":"person","label":"Йордан Иванчев Ибришимов"},{"id":"person:АДРИАН ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Адриан Георгиев Георгиев"},{"id":"company:tr:175350802","type":"company","label":"ВЕРИТА","slug":null,"uic":"175350802","legalForm":"OOD","status":"active","seat":null},{"id":"mp:4837","type":"mp","mpId":4837,"label":"Кирил Петков Петков","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49","50"]}],"edges":[{"source":"mp:4378","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4378","target":"company:tr:206579983","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЯВОР ЯНКОВ ЯНЧЕВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТРОВ ДРАГУЛЕВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АТАНАС РУМЕНОВ РУСЕВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НОНА ТАНЧЕВА КАЦАРОВА","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО КИРИЛОВ ПЕТКОВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ РУМЕНОВ РУСЕВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДОНЧО ИВАНОВ БОРАДЖИЕВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН НЕДЯЛКОВ ЙОРДАНОВ","target":"company:tr:176022484","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ","target":"company:tr:206579983","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АДРИАН ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:206579983","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ","target":"company:tr:206579983","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТРОВ ДРАГУЛЕВ","target":"company:tr:175350802","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТРОВ ДРАГУЛЕВ","target":"company:tr:175350802","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4837","target":"company:tr:175350802","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4837","length":4,"nodeIds":["mp:4378","company:tr:176022484","person:МАРТИН ПЕТРОВ ДРАГУЛЕВ","company:tr:175350802","mp:4837"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4378",
+  "nodes": [
+    {
+      "id": "mp:4378",
+      "type": "mp",
+      "mpId": 4378,
+      "label": "Мирослава Петрова Петрова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "49"
+      ]
+    },
+    {
+      "id": "company:Ълтимейт-киейтив-ЕООД",
+      "type": "company",
+      "label": "Ълтимейт киейтив ЕООД",
+      "slug": "Ълтимейт-киейтив-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:176022484",
+      "type": "company",
+      "label": "Да запазим Корал",
+      "slug": null,
+      "uic": "176022484",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206579983",
+      "type": "company",
+      "label": "БЪЛГАРСКО КЕМПЕР ОБЩЕСТВО",
+      "slug": null,
+      "uic": "206579983",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Лозен, 1151"
+    },
+    {
+      "id": "person:ЯВОР ЯНКОВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Явор Янков Янчев"
+    },
+    {
+      "id": "person:МАРТИН ПЕТРОВ ДРАГУЛЕВ",
+      "type": "person",
+      "label": "Мартин Петров Драгулев"
+    },
+    {
+      "id": "person:АТАНАС РУМЕНОВ РУСЕВ",
+      "type": "person",
+      "label": "Атанас Руменов Русев"
+    },
+    {
+      "id": "person:НОНА ТАНЧЕВА КАЦАРОВА",
+      "type": "person",
+      "label": "Нона Танчева Кацарова"
+    },
+    {
+      "id": "person:ПЕТКО КИРИЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Кирилов Петков"
+    },
+    {
+      "id": "person:КИРИЛ РУМЕНОВ РУСЕВ",
+      "type": "person",
+      "label": "Кирил Руменов Русев"
+    },
+    {
+      "id": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "type": "person",
+      "label": "Дончо Иванов Бораджиев"
+    },
+    {
+      "id": "person:АСЕН НЕДЯЛКОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Асен Недялков Йорданов"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ",
+      "type": "person",
+      "label": "Йордан Иванчев Ибришимов"
+    },
+    {
+      "id": "person:АДРИАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Адриан Георгиев Георгиев"
+    },
+    {
+      "id": "company:tr:175350802",
+      "type": "company",
+      "label": "ВЕРИТА",
+      "slug": null,
+      "uic": "175350802",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4837",
+      "type": "mp",
+      "mpId": 4837,
+      "label": "Кирил Петков Петков",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4378",
+      "target": "company:Ълтимейт-киейтив-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4378",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4378",
+      "target": "company:tr:206579983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯВОР ЯНКОВ ЯНЧЕВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТРОВ ДРАГУЛЕВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС РУМЕНОВ РУСЕВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НОНА ТАНЧЕВА КАЦАРОВА",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КИРИЛОВ ПЕТКОВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ РУМЕНОВ РУСЕВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ИВАНОВ БОРАДЖИЕВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН НЕДЯЛКОВ ЙОРДАНОВ",
+      "target": "company:tr:176022484",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ",
+      "target": "company:tr:206579983",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИАН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:206579983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНЧЕВ ИБРИШИМОВ",
+      "target": "company:tr:206579983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТРОВ ДРАГУЛЕВ",
+      "target": "company:tr:175350802",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТРОВ ДРАГУЛЕВ",
+      "target": "company:tr:175350802",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4837",
+      "target": "company:tr:175350802",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4837",
+      "length": 4,
+      "nodeIds": [
+        "mp:4378",
+        "company:tr:176022484",
+        "person:МАРТИН ПЕТРОВ ДРАГУЛЕВ",
+        "company:tr:175350802",
+        "mp:4837"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

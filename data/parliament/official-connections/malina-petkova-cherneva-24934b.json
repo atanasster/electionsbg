@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:malina-petkova-cherneva-24934b",
+  "nodes": [
+    {
+      "id": "official:malina-petkova-cherneva-24934b",
+      "type": "official",
+      "slug": "malina-petkova-cherneva-24934b",
+      "label": "Малина Петкова Чернева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206795130",
+      "type": "company",
+      "label": "ЧЕРНЕВИ 2022",
+      "slug": null,
+      "uic": "206795130",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:malina-petkova-cherneva-24934b",
+      "target": "company:tr:206795130",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:malina-petkova-cherneva-24934b",
+      "target": "company:tr:206795130",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

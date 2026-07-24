@@ -1,1 +1,50 @@
-{"mpId":2973,"mpName":"Стойно Митев Стойнов","generatedAt":"2026-07-03T11:12:51.722Z","total":3,"roles":[{"uic":"200272059","companyName":"СТЕДИ - ВЕТ","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-20T08:16:24","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"200272059","companyName":"СТЕДИ - ВЕТ","legalForm":"EOOD","seat":null,"status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-01-20T08:16:24","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"202832343","companyName":"Стеди-Вет 2","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-01-20T08:04:17","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"}]}
+{
+  "mpId": 2973,
+  "mpName": "Стойно Митев Стойнов",
+  "generatedAt": "2026-07-24T03:35:58.559Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "200272059",
+      "companyName": "СТЕДИ - ВЕТ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-20T08:16:24",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "200272059",
+      "companyName": "СТЕДИ - ВЕТ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-01-20T08:16:24",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "202832343",
+      "companyName": "Стеди-Вет 2",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-20T08:04:17",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

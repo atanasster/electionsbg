@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:magreta-strahilova-andreeva-4e1d44",
+  "nodes": [
+    {
+      "id": "official:magreta-strahilova-andreeva-4e1d44",
+      "type": "official",
+      "slug": "magreta-strahilova-andreeva-4e1d44",
+      "label": "Магрета Страхилова Андреева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000671330",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;АУРА - 1929&quot;",
+      "slug": null,
+      "uic": "000671330",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНКА СТОЯНОВА ЕВСТАТИЕВА",
+      "type": "person",
+      "label": "Денка Стоянова Евстатиева"
+    },
+    {
+      "id": "person:НАТАЛИЯ ЛОЗАНОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Наталия Лозанова Ангелова"
+    },
+    {
+      "id": "person:ИВАН САВОВ КОНСТАНТИНОВ",
+      "type": "person",
+      "label": "Иван Савов Константинов"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЙОРДАНОВ ЦОНЕВ",
+      "type": "person",
+      "label": "Владимир Йорданов Цонев"
+    },
+    {
+      "id": "person:ЗДРАВКА БОРИСОВА КОЛЕВА",
+      "type": "person",
+      "label": "Здравка Борисова Колева"
+    },
+    {
+      "id": "person:ИВО КИРИЛОВ ТАНЧЕВ",
+      "type": "person",
+      "label": "Иво Кирилов Танчев"
+    },
+    {
+      "id": "person:КОЛЬО БОТЕВ БОЖКОВ",
+      "type": "person",
+      "label": "Кольо Ботев Божков"
+    },
+    {
+      "id": "person:ТАТЯНА ЛЕВ ГЛАСКОВА",
+      "type": "person",
+      "label": "Татяна Лев Гласкова"
+    },
+    {
+      "id": "person:ЛИНА ТОДОРОВА ТОТОМАНОВА",
+      "type": "person",
+      "label": "Лина Тодорова Тотоманова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВАСИЛЕВА КОСТОВА",
+      "type": "person",
+      "label": "Даниела Василева Костова"
+    },
+    {
+      "id": "person:СИЛВИЯ КОЛЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Силвия Колева Стоянова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВАСИЛЕВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Даниела Василева Грозева"
+    },
+    {
+      "id": "person:ВИОЛЕТА ХРИСТОВА ЙОШКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Виолета Христова Йошкова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magreta-strahilova-andreeva-4e1d44",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНКА СТОЯНОВА ЕВСТАТИЕВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ЛОЗАНОВА АНГЕЛОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН САВОВ КОНСТАНТИНОВ",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЙОРДАНОВ ЦОНЕВ",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА БОРИСОВА КОЛЕВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО КИРИЛОВ ТАНЧЕВ",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО БОТЕВ БОЖКОВ",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ЛЕВ ГЛАСКОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИНА ТОДОРОВА ТОТОМАНОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВАСИЛЕВА КОСТОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНКА СТОЯНОВА ЕВСТАТИЕВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КОЛЕВА СТОЯНОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ КОЛЕВА СТОЯНОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВАСИЛЕВА ГРОЗЕВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ХРИСТОВА ЙОШКОВА ИВАНОВА",
+      "target": "company:tr:000671330",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

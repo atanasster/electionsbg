@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mario-nikolov-terziev-c087a4",
+  "nodes": [
+    {
+      "id": "official:mario-nikolov-terziev-c087a4",
+      "type": "official",
+      "slug": "mario-nikolov-terziev-c087a4",
+      "label": "Марио Николов Терзиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:207486069",
+      "type": "company",
+      "label": "ЗАКИ 84",
+      "slug": null,
+      "uic": "207486069",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗДРАВКО КРАСИМИРОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Здравко Красимиров Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-nikolov-terziev-c087a4",
+      "target": "company:tr:207486069",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-nikolov-terziev-c087a4",
+      "target": "company:tr:207486069",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗДРАВКО КРАСИМИРОВ МИХАЙЛОВ",
+      "target": "company:tr:207486069",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

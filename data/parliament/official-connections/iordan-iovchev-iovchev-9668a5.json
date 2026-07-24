@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-iovchev-iovchev-9668a5",
+  "nodes": [
+    {
+      "id": "official:iordan-iovchev-iovchev-9668a5",
+      "type": "official",
+      "slug": "iordan-iovchev-iovchev-9668a5",
+      "label": "Йордан Йовчев Йовчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206301507",
+      "type": "company",
+      "label": "ДЖЕЙ МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "206301507",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "mp:5197",
+      "type": "mp",
+      "mpId": 5197,
+      "label": "Йордан Йовчев Йовчев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЛИЛИЯ БРАНИСЛАВОВА ЕЛЕНКОВА",
+      "type": "person",
+      "label": "Лилия Браниславова Еленкова"
+    },
+    {
+      "id": "person:ЙОРДАН ЙОВЧЕВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Йордан Йовчев Йовчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-iovchev-iovchev-9668a5",
+      "target": "company:tr:206301507",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5197",
+      "target": "company:tr:206301507",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛИЯ БРАНИСЛАВОВА ЕЛЕНКОВА",
+      "target": "company:tr:206301507",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ БРАНИСЛАВОВА ЕЛЕНКОВА",
+      "target": "company:tr:206301507",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЙОВЧЕВ ЙОВЧЕВ",
+      "target": "company:tr:206301507",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

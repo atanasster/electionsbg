@@ -1,1 +1,316 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2438","nodes":[{"id":"mp:2438","type":"mp","mpId":2438,"label":"Четин Хюсеин Казак","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["39","40","41","42"]},{"id":"company:tr:130528677","type":"company","label":"ЕТНИЧЕСКА ИНТЕГРАЦИЯ","slug":null,"uic":"130528677","legalForm":"Фондация","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:131008868","type":"company","label":"Съюз на европейските федералисти-България","slug":null,"uic":"131008868","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:МЕТИН ХЮСЕИН КАЗАК","type":"person","label":"Метин Хюсеин Казак"},{"id":"person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА","type":"person","label":"Мария Георгиева Кантарджиева"},{"id":"person:ВАНЯ ТОМЕВА ТОМЕВА","type":"person","label":"Ваня Томева Томева"},{"id":"mp:4249","type":"mp","mpId":4249,"label":"Радомир Петров Чолаков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["45","46","47","48"]},{"id":"mp:4593","type":"mp","mpId":4593,"label":"Анджей Веселинов Джандев","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["48","49"]},{"id":"mp:857","type":"mp","mpId":857,"label":"Андрей Лазаров Пантев","partyGroupShort":null,"isCurrent":false,"nsFolders":["39","40"]},{"id":"person:АНДРЕЙ АНДРЕЕВ КОВАЧЕВ","type":"person","label":"Андрей Андреев Ковачев"},{"id":"person:РАДОСТИНА СЕРГЕЕВА ИВАНОВА","type":"person","label":"Радостина Сергеева Иванова"},{"id":"person:ЦВЕТЕЛИНА МАРИНОВА ПЕНКОВА","type":"person","label":"Цветелина Маринова Пенкова"},{"id":"person:ВЕЛКО ТОТЕВ ИВАНОВ","type":"person","label":"Велко Тотев Иванов"},{"id":"person:ГЕРГАНА ИВАЙЛОВА БЛАЖЕВА","type":"person","label":"Гергана Ивайлова Блажева"}],"edges":[{"source":"mp:2438","target":"company:tr:130528677","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2438","target":"company:tr:130528677","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2438","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МЕТИН ХЮСЕИН КАЗАК","target":"company:tr:130528677","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА","target":"company:tr:130528677","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ТОМЕВА ТОМЕВА","target":"company:tr:130528677","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4249","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4593","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:857","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:АНДРЕЙ АНДРЕЕВ КОВАЧЕВ","target":"company:tr:131008868","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНДРЕЙ АНДРЕЕВ КОВАЧЕВ","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА СЕРГЕЕВА ИВАНОВА","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА МАРИНОВА ПЕНКОВА","target":"company:tr:131008868","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛКО ТОТЕВ ИВАНОВ","target":"company:tr:131008868","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТЕЛИНА МАРИНОВА ПЕНКОВА","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛКО ТОТЕВ ИВАНОВ","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ИВАЙЛОВА БЛАЖЕВА","target":"company:tr:131008868","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:4593","length":2,"nodeIds":["mp:2438","company:tr:131008868","mp:4593"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:857","length":2,"nodeIds":["mp:2438","company:tr:131008868","mp:857"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4249","length":2,"nodeIds":["mp:2438","company:tr:131008868","mp:4249"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2438",
+  "nodes": [
+    {
+      "id": "mp:2438",
+      "type": "mp",
+      "mpId": 2438,
+      "label": "Четин Хюсеин Казак",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "company:tr:130528677",
+      "type": "company",
+      "label": "ЕТНИЧЕСКА ИНТЕГРАЦИЯ",
+      "slug": null,
+      "uic": "130528677",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:131008868",
+      "type": "company",
+      "label": "Съюз на европейските федералисти-България",
+      "slug": null,
+      "uic": "131008868",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:МЕТИН ХЮСЕИН КАЗАК",
+      "type": "person",
+      "label": "Метин Хюсеин Казак"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Кантарджиева"
+    },
+    {
+      "id": "person:ВАНЯ ТОМЕВА ТОМЕВА",
+      "type": "person",
+      "label": "Ваня Томева Томева"
+    },
+    {
+      "id": "mp:4249",
+      "type": "mp",
+      "mpId": 4249,
+      "label": "Радомир Петров Чолаков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "mp:4593",
+      "type": "mp",
+      "mpId": 4593,
+      "label": "Анджей Веселинов Джандев",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "mp:857",
+      "type": "mp",
+      "mpId": 857,
+      "label": "Андрей Лазаров Пантев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "official:andrei-andreev-kovachev-08cbd1",
+      "type": "official",
+      "slug": "andrei-andreev-kovachev-08cbd1",
+      "label": "Андрей Андреев Ковачев",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "official:radomir-petrov-cholakov-3a5a53",
+      "type": "official",
+      "slug": "radomir-petrov-cholakov-3a5a53",
+      "label": "Радомир Петров Чолаков",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "official:tsvetelina-marinova-penkova-185c5e",
+      "type": "official",
+      "slug": "tsvetelina-marinova-penkova-185c5e",
+      "label": "Цветелина Маринова Пенкова",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "person:РАДОСТИНА СЕРГЕЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Радостина Сергеева Иванова"
+    },
+    {
+      "id": "person:ВЕЛКО ТОТЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Велко Тотев Иванов"
+    },
+    {
+      "id": "person:ГЕРГАНА ИВАЙЛОВА БЛАЖЕВА",
+      "type": "person",
+      "label": "Гергана Ивайлова Блажева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2438",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2438",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2438",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕТИН ХЮСЕИН КАЗАК",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ТОМЕВА ТОМЕВА",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4249",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4593",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:857",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-andreev-kovachev-08cbd1",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-andreev-kovachev-08cbd1",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radomir-petrov-cholakov-3a5a53",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-marinova-penkova-185c5e",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-marinova-penkova-185c5e",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТИНА СЕРГЕЕВА ИВАНОВА",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКО ТОТЕВ ИВАНОВ",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКО ТОТЕВ ИВАНОВ",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ИВАЙЛОВА БЛАЖЕВА",
+      "target": "company:tr:131008868",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4593",
+      "length": 2,
+      "nodeIds": [
+        "mp:2438",
+        "company:tr:131008868",
+        "mp:4593"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:857",
+      "length": 2,
+      "nodeIds": [
+        "mp:2438",
+        "company:tr:131008868",
+        "mp:857"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4249",
+      "length": 2,
+      "nodeIds": [
+        "mp:2438",
+        "company:tr:131008868",
+        "mp:4249"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

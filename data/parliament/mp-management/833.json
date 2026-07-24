@@ -1,1 +1,92 @@
-{"mpId":833,"mpName":"Йордан Петров Борисов","generatedAt":"2026-07-03T11:12:51.476Z","total":6,"roles":[{"uic":"208720112","companyName":"БЪРЗ ДОМ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2026-03-06T18:28:12","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208720112","companyName":"БЪРЗ ДОМ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2026-03-06T18:28:12","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208210127","companyName":"ВДБ Хандел","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-03-11T15:37:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208210127","companyName":"ВДБ Хандел","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-03-11T15:37:23","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207088909","companyName":"КАРИНА 02","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-09-19T11:37:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"207088909","companyName":"КАРИНА 02","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Русе, 7000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-09-19T11:37:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 833,
+  "mpName": "Йордан Петров Борисов",
+  "generatedAt": "2026-07-24T03:35:58.250Z",
+  "total": 6,
+  "roles": [
+    {
+      "uic": "208720112",
+      "companyName": "БЪРЗ ДОМ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-03-06T18:28:12",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208720112",
+      "companyName": "БЪРЗ ДОМ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2026-03-06T18:28:12",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208210127",
+      "companyName": "ВДБ Хандел",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-03-11T15:37:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208210127",
+      "companyName": "ВДБ Хандел",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-03-11T15:37:23",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207088909",
+      "companyName": "КАРИНА 02",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-09-19T11:37:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "207088909",
+      "companyName": "КАРИНА 02",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-09-19T11:37:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

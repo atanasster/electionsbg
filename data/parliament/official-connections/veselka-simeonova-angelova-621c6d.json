@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veselka-simeonova-angelova-621c6d",
+  "nodes": [
+    {
+      "id": "official:veselka-simeonova-angelova-621c6d",
+      "type": "official",
+      "slug": "veselka-simeonova-angelova-621c6d",
+      "label": "Веселка Симеонова Ангелова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131029734",
+      "type": "company",
+      "label": "ПАЗАРИ ЮГ",
+      "slug": null,
+      "uic": "131029734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tsonka-ilieva-todorova-915e6c",
+      "type": "official",
+      "slug": "tsonka-ilieva-todorova-915e6c",
+      "label": "Цонка Илиева Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:НИКОЛАЙ НИКОЛАЕВ ПОПОВ",
+      "type": "person",
+      "label": "Николай Николаев Попов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselka-simeonova-angelova-621c6d",
+      "target": "company:tr:131029734",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsonka-ilieva-todorova-915e6c",
+      "target": "company:tr:131029734",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ НИКОЛАЕВ ПОПОВ",
+      "target": "company:tr:131029734",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НИКОЛАЕВ ПОПОВ",
+      "target": "company:tr:131029734",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

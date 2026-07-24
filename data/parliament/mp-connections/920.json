@@ -1,1 +1,300 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:920","nodes":[{"id":"mp:920","type":"mp","mpId":920,"label":"Любомир Тодоров Иванов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:205975920","type":"company","label":"ИМОТИ ПЛЕВЕН","slug":null,"uic":"205975920","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"company:tr:207222596","type":"company","label":"ДИАМАНТ АЙС","slug":null,"uic":"207222596","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600"},{"id":"company:tr:206628996","type":"company","label":"Л ВЕ ЦИНК","slug":null,"uic":"206628996","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Монтана, 3400"},{"id":"company:tr:112621165","type":"company","label":"МЛАДЕЖКИ СПОРТЕН КЛУБ ТЕРЕС","slug":null,"uic":"112621165","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Ляхово, 4416"},{"id":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","type":"person","label":"Любомир Тодоров Иванов"},{"id":"person:ПЕТЯ ЛЮБОМИРОВА ИВАНОВА","type":"person","label":"Петя Любомирова Иванова"},{"id":"person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ","type":"person","label":"Кристиян Илиянов Цветанов"},{"id":"official:lyubomir-todorov-ivanov-e8bd59","type":"official","slug":"lyubomir-todorov-ivanov-e8bd59","label":"Любомир Тодоров Иванов","tier":"municipal","role":"councillor","municipality":"Монтана"},{"id":"person:ВИОЛИНА ВЕНЕЛИНОВА ВАСОВА","type":"person","label":"Виолина Венелинова Васова"},{"id":"person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ","type":"person","label":"Венелин Здравков Васев"},{"id":"mp:1527","type":"mp","mpId":1527,"label":"Георги Николов Мърков","partyGroupShort":"ПП ИСМВ","isCurrent":false,"nsFolders":[]},{"id":"person:ВАСИЛ ДАНАИЛОВ КЪНОВ","type":"person","label":"Васил Данаилов Кънов"},{"id":"person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ","type":"person","label":"Петър Георгиев Гатев"},{"id":"person:ИВАНКА АЛЕКСАНДРОВА ГЕОРГИЕВА","type":"person","label":"Иванка Александрова Георгиева"},{"id":"person:СТОЯН МАРИНОВ ПЕШЛОВ","type":"person","label":"Стоян Маринов Пешлов"}],"edges":[{"source":"mp:920","target":"company:tr:205975920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:920","target":"company:tr:207222596","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:920","target":"company:tr:207222596","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:920","target":"company:tr:206628996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:920","target":"company:tr:206628996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:920","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:205975920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЯ ЛЮБОМИРОВА ИВАНОВА","target":"company:tr:205975920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ","target":"company:tr:205975920","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ","target":"company:tr:205975920","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:207222596","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:207222596","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:lyubomir-todorov-ivanov-e8bd59","target":"company:tr:206628996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:lyubomir-todorov-ivanov-e8bd59","target":"company:tr:206628996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:206628996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛИНА ВЕНЕЛИНОВА ВАСОВА","target":"company:tr:206628996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:206628996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ","target":"company:tr:206628996","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ","target":"company:tr:206628996","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:1527","target":"company:tr:112621165","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:1527","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ ДАНАИЛОВ КЪНОВ","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ТОДОРОВ ИВАНОВ","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ","target":"company:tr:112621165","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАНКА АЛЕКСАНДРОВА ГЕОРГИЕВА","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН МАРИНОВ ПЕШЛОВ","target":"company:tr:112621165","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:1527","length":2,"nodeIds":["mp:920","company:tr:112621165","mp:1527"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:920",
+  "nodes": [
+    {
+      "id": "mp:920",
+      "type": "mp",
+      "mpId": 920,
+      "label": "Любомир Тодоров Иванов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205975920",
+      "type": "company",
+      "label": "ИМОТИ ПЛЕВЕН",
+      "slug": null,
+      "uic": "205975920",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:207222596",
+      "type": "company",
+      "label": "ДИАМАНТ АЙС",
+      "slug": null,
+      "uic": "207222596",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    },
+    {
+      "id": "company:tr:206628996",
+      "type": "company",
+      "label": "Л ВЕ ЦИНК",
+      "slug": null,
+      "uic": "206628996",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Монтана, 3400"
+    },
+    {
+      "id": "company:tr:112621165",
+      "type": "company",
+      "label": "МЛАДЕЖКИ СПОРТЕН КЛУБ ТЕРЕС",
+      "slug": null,
+      "uic": "112621165",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Ляхово, 4416"
+    },
+    {
+      "id": "person:ПЕТЯ ЛЮБОМИРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Петя Любомирова Иванова"
+    },
+    {
+      "id": "person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Кристиян Илиянов Цветанов"
+    },
+    {
+      "id": "official:violina-venelinova-vasova-bc3d0f",
+      "type": "official",
+      "slug": "violina-venelinova-vasova-bc3d0f",
+      "label": "Виолина Венелинова Васова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-bonev-ivanov-4782eb",
+      "type": "official",
+      "slug": "georgi-bonev-ivanov-4782eb",
+      "label": "Георги Бонев Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ",
+      "type": "person",
+      "label": "Венелин Здравков Васев"
+    },
+    {
+      "id": "mp:1527",
+      "type": "mp",
+      "mpId": 1527,
+      "label": "Георги Николов Мърков",
+      "partyGroupShort": "ПП ИСМВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ВАСИЛ ДАНАИЛОВ КЪНОВ",
+      "type": "person",
+      "label": "Васил Данаилов Кънов"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ",
+      "type": "person",
+      "label": "Петър Георгиев Гатев"
+    },
+    {
+      "id": "person:ИВАНКА АЛЕКСАНДРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Иванка Александрова Георгиева"
+    },
+    {
+      "id": "person:СТОЯН МАРИНОВ ПЕШЛОВ",
+      "type": "person",
+      "label": "Стоян Маринов Пешлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:920",
+      "target": "company:tr:205975920",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:920",
+      "target": "company:tr:207222596",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:920",
+      "target": "company:tr:207222596",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:920",
+      "target": "company:tr:206628996",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:920",
+      "target": "company:tr:206628996",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:920",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ЛЮБОМИРОВА ИВАНОВА",
+      "target": "company:tr:205975920",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ",
+      "target": "company:tr:205975920",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ИЛИЯНОВ ЦВЕТАНОВ",
+      "target": "company:tr:205975920",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:violina-venelinova-vasova-bc3d0f",
+      "target": "company:tr:206628996",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-bonev-ivanov-4782eb",
+      "target": "company:tr:206628996",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ",
+      "target": "company:tr:206628996",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ЗДРАВКОВ ВАСЕВ",
+      "target": "company:tr:206628996",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:violina-venelinova-vasova-bc3d0f",
+      "target": "company:tr:206628996",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1527",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1527",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ДАНАИЛОВ КЪНОВ",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ГАТЕВ",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА АЛЕКСАНДРОВА ГЕОРГИЕВА",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН МАРИНОВ ПЕШЛОВ",
+      "target": "company:tr:112621165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1527",
+      "length": 2,
+      "nodeIds": [
+        "mp:920",
+        "company:tr:112621165",
+        "mp:1527"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

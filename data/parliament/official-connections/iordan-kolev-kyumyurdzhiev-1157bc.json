@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-kolev-kyumyurdzhiev-1157bc",
+  "nodes": [
+    {
+      "id": "official:iordan-kolev-kyumyurdzhiev-1157bc",
+      "type": "official",
+      "slug": "iordan-kolev-kyumyurdzhiev-1157bc",
+      "label": "Йордан Колев Кюмюрджиев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115330955",
+      "type": "company",
+      "label": "Арсиком ООД",
+      "slug": null,
+      "uic": "115330955",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-kolev-kyumyurdzhiev-1157bc",
+      "target": "company:tr:115330955",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

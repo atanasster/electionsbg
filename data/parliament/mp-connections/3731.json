@@ -1,1 +1,379 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3731","nodes":[{"id":"mp:3731","type":"mp","mpId":3731,"label":"Зарко Филипов Маринов","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47"]},{"id":"company:Интерлинк-ЕООД","type":"company","label":"Интерлинк ЕООД","slug":"Интерлинк-ЕООД","uic":"118549331","legalForm":"EOOD","status":"active","seat":"Смолян"},{"id":"company:Отзвук-ЕООД","type":"company","label":"Отзвук ЕООД","slug":"Отзвук-ЕООД","uic":"830187859","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Смолян, 4700"},{"id":"company:Отзвук-прес-ЕООД","type":"company","label":"Отзвук прес ЕООД","slug":"Отзвук-прес-ЕООД","uic":"120523831","legalForm":"EOOD","status":"ceased","seat":"БЪЛГАРИЯ, гр. Смолян, 4700"},{"id":"company:Отзвук.БГ-ЕООД","type":"company","label":"Отзвук.БГ ЕООД","slug":"Отзвук.БГ-ЕООД","uic":"205932341","legalForm":"EOOD","status":"active","seat":"Смолян"},{"id":"person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА","type":"person","label":"Елица Валентинова Маринова"},{"id":"person:МАРТИН МАРИНОВ ХАДЖИЕВ","type":"person","label":"Мартин Маринов Хаджиев"}],"edges":[{"source":"mp:3731","target":"company:Интерлинк-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3731","target":"company:Интерлинк-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук-прес-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук-прес-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук.БГ-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3731","target":"company:Отзвук.БГ-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА","target":"company:Отзвук-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН МАРИНОВ ХАДЖИЕВ","target":"company:Отзвук-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА","target":"company:Отзвук-прес-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН МАРИНОВ ХАДЖИЕВ","target":"company:Отзвук-прес-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА","target":"company:Отзвук.БГ-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА","target":"company:Отзвук.БГ-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3731",
+  "nodes": [
+    {
+      "id": "mp:3731",
+      "type": "mp",
+      "mpId": 3731,
+      "label": "Зарко Филипов Маринов",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:Интерлинк-ЕООД",
+      "type": "company",
+      "label": "Интерлинк ЕООД",
+      "slug": "Интерлинк-ЕООД",
+      "uic": "118549331",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук-ЕООД",
+      "type": "company",
+      "label": "Отзвук ЕООД",
+      "slug": "Отзвук-ЕООД",
+      "uic": "830187859",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Смолян, 4700"
+    },
+    {
+      "id": "company:Отзвук-прес-ЕООД",
+      "type": "company",
+      "label": "Отзвук прес ЕООД",
+      "slug": "Отзвук-прес-ЕООД",
+      "uic": "120523831",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. Смолян, 4700"
+    },
+    {
+      "id": "company:Отзвук.БГ-ЕООД",
+      "type": "company",
+      "label": "Отзвук.БГ ЕООД",
+      "slug": "Отзвук.БГ-ЕООД",
+      "uic": "205932341",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:tr:130464527",
+      "type": "company",
+      "label": "Съюз на издателите в България",
+      "slug": null,
+      "uic": "130464527",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1504"
+    },
+    {
+      "id": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Елица Валентинова Маринова"
+    },
+    {
+      "id": "person:МАРТИН МАРИНОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Мартин Маринов Хаджиев"
+    },
+    {
+      "id": "official:zarko-filipov-marinov-9760b9",
+      "type": "official",
+      "slug": "zarko-filipov-marinov-9760b9",
+      "label": "Зарко Филипов Маринов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:СВЕТЛАНА БОРИСЛАВОВА ДЖАМДЖИЕВА",
+      "type": "person",
+      "label": "Светлана Бориславова Джамджиева"
+    },
+    {
+      "id": "person:СТОЯНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стояна Георгиева Георгиева"
+    },
+    {
+      "id": "person:ИВАЙЛО ВАЛЕНТИНОВ ДЕРНЕВ",
+      "type": "person",
+      "label": "Ивайло Валентинов Дернев"
+    },
+    {
+      "id": "person:ТЕОДОР ИВАНОВ ЗАХОВ",
+      "type": "person",
+      "label": "Теодор Иванов Захов"
+    },
+    {
+      "id": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Сашо Георгиев Дончев"
+    },
+    {
+      "id": "person:ТЕОДОРА СТОЯНОВА ПЕЕВА",
+      "type": "person",
+      "label": "Теодора Стоянова Пеева"
+    },
+    {
+      "id": "company:tr:121542489",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "121542489",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "mp:1005",
+      "type": "mp",
+      "mpId": 1005,
+      "label": "Иван Йорданов Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3731",
+      "target": "company:Интерлинк-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Интерлинк-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МАРИНОВ ХАДЖИЕВ",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zarko-filipov-marinov-9760b9",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МАРИНОВ ХАДЖИЕВ",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zarko-filipov-marinov-9760b9",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zarko-filipov-marinov-9760b9",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА БОРИСЛАВОВА ДЖАМДЖИЕВА",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА БОРИСЛАВОВА ДЖАМДЖИЕВА",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ВАЛЕНТИНОВ ДЕРНЕВ",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ИВАНОВ ЗАХОВ",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА СТОЯНОВА ПЕЕВА",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА СТОЯНОВА ПЕЕВА",
+      "target": "company:tr:130464527",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1005",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1005",
+      "length": 4,
+      "nodeIds": [
+        "mp:3731",
+        "company:tr:130464527",
+        "person:САШО ГЕОРГИЕВ ДОНЧЕВ",
+        "company:tr:121542489",
+        "mp:1005"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

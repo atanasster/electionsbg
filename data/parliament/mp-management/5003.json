@@ -1,1 +1,36 @@
-{"mpId":5003,"mpName":"Мария Димова Илиева","generatedAt":"2026-07-03T11:12:51.896Z","total":2,"roles":[{"uic":"206190697","companyName":"ВИСТА ПЛАН","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-08-12T15:22:49","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208126501","companyName":"АЛГАРА ГРУП","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Търговище, 7700","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-14T16:32:11","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5003,
+  "mpName": "Мария Димова Илиева",
+  "generatedAt": "2026-07-24T03:35:58.694Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206190697",
+      "companyName": "ВИСТА ПЛАН",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-08-12T15:22:49",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208126501",
+      "companyName": "АЛГАРА ГРУП",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-14T16:32:11",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

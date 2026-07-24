@@ -1,1 +1,46 @@
-{"obshtina":"VRC31","count":2,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"РОСАГРОООД","displayName":"РОСАГРО\"ООД","registeredOffice":"Селановци","mps":[{"mpId":2920,"mpName":"Ралица Трилкова Добрева","role":"manager","isCurrent":true},{"mpId":2920,"mpName":"Ралица Трилкова Добрева","role":"partner","isCurrent":true},{"mpId":2920,"mpName":"Ралица Трилкова Добрева","role":"declared_stake","isCurrent":true}]},{"slug":"ИРИС-АГРО","displayName":"ИРИС АГРО","registeredOffice":"БЪЛГАРИЯ, с. Селановци, 3301","mps":[{"mpId":2920,"mpName":"Ралица Трилкова Добрева","role":"manager","isCurrent":true}]}]}
+{
+  "obshtina": "VRC31",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "РОСАГРОООД",
+      "displayName": "РОСАГРО\"ООД",
+      "registeredOffice": "Селановци",
+      "mps": [
+        {
+          "mpId": 2920,
+          "mpName": "Ралица Трилкова Добрева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2920,
+          "mpName": "Ралица Трилкова Добрева",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2920,
+          "mpName": "Ралица Трилкова Добрева",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИРИС-АГРО",
+      "displayName": "ИРИС АГРО",
+      "registeredOffice": "БЪЛГАРИЯ, с. Селановци, 3301",
+      "mps": [
+        {
+          "mpId": 2920,
+          "mpName": "Ралица Трилкова Добрева",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

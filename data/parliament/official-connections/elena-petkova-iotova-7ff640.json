@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elena-petkova-iotova-7ff640",
+  "nodes": [
+    {
+      "id": "official:elena-petkova-iotova-7ff640",
+      "type": "official",
+      "slug": "elena-petkova-iotova-7ff640",
+      "label": "Елена Петкова Йотова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205701046",
+      "type": "company",
+      "label": "СЪОБЩИТЕЛНО СТРОИТЕЛСТВО И ВЪЗСТАНОВЯВАНЕ",
+      "slug": null,
+      "uic": "205701046",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nina-naidenova-naidenova-petkova-b79f77",
+      "type": "official",
+      "slug": "nina-naidenova-naidenova-petkova-b79f77",
+      "label": "Нина Найденова Найденова-Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:rosen-angelov-tsvetkov-fa7331",
+      "type": "official",
+      "slug": "rosen-angelov-tsvetkov-fa7331",
+      "label": "Росен Ангелов Цветков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЪР НЕДЕЛЧЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Петър Неделчев Стоянов"
+    },
+    {
+      "id": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Нина Найденова Найденова"
+    },
+    {
+      "id": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА - ПЕТКОВА",
+      "type": "person",
+      "label": "Нина Найденова Найденова - Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-petkova-iotova-7ff640",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nina-naidenova-naidenova-petkova-b79f77",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-angelov-tsvetkov-fa7331",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-angelov-tsvetkov-fa7331",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР НЕДЕЛЧЕВ СТОЯНОВ",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА - ПЕТКОВА",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sonya-nikolova-trifonova-89d131",
+  "nodes": [
+    {
+      "id": "official:sonya-nikolova-trifonova-89d131",
+      "type": "official",
+      "slug": "sonya-nikolova-trifonova-89d131",
+      "label": "Соня Николова Трифонова",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205151451",
+      "type": "company",
+      "label": "Ти енд Ес Инженеринг",
+      "slug": null,
+      "uic": "205151451",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ЕВГЕНИЕВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Петър Евгениев Трифонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-nikolova-trifonova-89d131",
+      "target": "company:tr:205151451",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЕВГЕНИЕВ ТРИФОНОВ",
+      "target": "company:tr:205151451",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЕВГЕНИЕВ ТРИФОНОВ",
+      "target": "company:tr:205151451",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

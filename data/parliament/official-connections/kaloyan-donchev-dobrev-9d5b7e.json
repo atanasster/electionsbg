@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kaloyan-donchev-dobrev-9d5b7e",
+  "nodes": [
+    {
+      "id": "official:kaloyan-donchev-dobrev-9d5b7e",
+      "type": "official",
+      "slug": "kaloyan-donchev-dobrev-9d5b7e",
+      "label": "Калоян Дончев Добрев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:208745628",
+      "type": "company",
+      "label": "БРАЙТ ЕДЮКЕЙШЪН",
+      "slug": null,
+      "uic": "208745628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Теодора Иванова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kaloyan-donchev-dobrev-9d5b7e",
+      "target": "company:tr:208745628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kaloyan-donchev-dobrev-9d5b7e",
+      "target": "company:tr:208745628",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:208745628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:208745628",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

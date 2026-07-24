@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veselka-stanimirova-misheva-033eba",
+  "nodes": [
+    {
+      "id": "official:veselka-stanimirova-misheva-033eba",
+      "type": "official",
+      "slug": "veselka-stanimirova-misheva-033eba",
+      "label": "Веселка Станимирова Мишева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000609297",
+      "type": "company",
+      "label": "НЧ &quot;Изгрев- 1936&quot;",
+      "slug": null,
+      "uic": "000609297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЯ АСЕНОВА ЛОХОВСКА",
+      "type": "person",
+      "label": "Ася Асенова Лоховска"
+    },
+    {
+      "id": "person:НИКОЛИНА ПЛАМЕНОВА КАЗЕПОВА",
+      "type": "person",
+      "label": "Николина Пламенова Казепова"
+    },
+    {
+      "id": "person:ЮРИ ЮРИЕВ ПОЮКЛИЙСКИ",
+      "type": "person",
+      "label": "Юри Юриев Поюклийски"
+    },
+    {
+      "id": "person:КРИСТИНА АСЕНОВА СЛАВКОВА",
+      "type": "person",
+      "label": "Кристина Асенова Славкова"
+    },
+    {
+      "id": "person:СВЕТЛА СВИЛЕНОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Светла Свиленова Богданова"
+    },
+    {
+      "id": "person:ИРИНА МИНЧЕВА ХАДЖИЙСКА",
+      "type": "person",
+      "label": "Ирина Минчева Хаджийска"
+    },
+    {
+      "id": "person:ЛАТИНКА ДЕМИРОВА МАЛКОВСКА",
+      "type": "person",
+      "label": "Латинка Демирова Малковска"
+    },
+    {
+      "id": "person:АДЕЛИНА МИТКОВА ЧОЛАКОВА",
+      "type": "person",
+      "label": "Аделина Миткова Чолакова"
+    },
+    {
+      "id": "person:АНЕЛИЯ АЛЕКСАНДРОВА ПАШАЛИЙСКА",
+      "type": "person",
+      "label": "Анелия Александрова Пашалийска"
+    },
+    {
+      "id": "person:МИРЕНА АНТИМОВА МОЧОВСКА",
+      "type": "person",
+      "label": "Мирена Антимова Мочовска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselka-stanimirova-misheva-033eba",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЯ АСЕНОВА ЛОХОВСКА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ПЛАМЕНОВА КАЗЕПОВА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИ ЮРИЕВ ПОЮКЛИЙСКИ",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА АСЕНОВА СЛАВКОВА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА СВИЛЕНОВА БОГДАНОВА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА МИНЧЕВА ХАДЖИЙСКА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАТИНКА ДЕМИРОВА МАЛКОВСКА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА МИТКОВА ЧОЛАКОВА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА МИТКОВА ЧОЛАКОВА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ АЛЕКСАНДРОВА ПАШАЛИЙСКА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕНА АНТИМОВА МОЧОВСКА",
+      "target": "company:tr:000609297",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

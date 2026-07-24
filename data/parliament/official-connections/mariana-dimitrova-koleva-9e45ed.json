@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariana-dimitrova-koleva-9e45ed",
+  "nodes": [
+    {
+      "id": "official:mariana-dimitrova-koleva-9e45ed",
+      "type": "official",
+      "slug": "mariana-dimitrova-koleva-9e45ed",
+      "label": "Мариана Димитрова Колева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207098839",
+      "type": "company",
+      "label": "Бийонд Експириънс",
+      "slug": null,
+      "uic": "207098839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-dimitrova-koleva-9e45ed",
+      "target": "company:tr:207098839",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariana-dimitrova-koleva-9e45ed",
+      "target": "company:tr:207098839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

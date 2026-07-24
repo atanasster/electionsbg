@@ -1,1 +1,193 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2510","nodes":[{"id":"mp:2510","type":"mp","mpId":2510,"label":"Борислав Райчов Миланов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:130138766","type":"company","label":"ПАЗАРИ ИЗТОК","slug":null,"uic":"130138766","legalForm":"EAD","status":"active","seat":null},{"id":"company:tr:176655333","type":"company","label":"ИЗТОЧНО ЕВРОПЕЙСКА ПРАВНА АКАДЕМИЯ","slug":null,"uic":"176655333","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София"},{"id":"person:ДИМИТЪР ГЕОРГИЕВ КУНОВ","type":"person","label":"Димитър Георгиев Кунов"},{"id":"person:ДАНИЕЛА ПЛАМЕНОВА СТОЙНЕВА","type":"person","label":"Даниела Пламенова Стойнева"},{"id":"person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА","type":"person","label":"Даниела Пламенова Георгиева"},{"id":"person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ","type":"person","label":"Светослав Донов Василев"},{"id":"person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ","type":"person","label":"Георги Стоянов Хорозов"},{"id":"person:ВАСИЛ ИВАЙЛОВ СИЛЯНОВСКИ","type":"person","label":"Васил Ивайлов Силяновски"},{"id":"person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ","type":"person","label":"Радослав Бориславов Миланов"}],"edges":[{"source":"mp:2510","target":"company:tr:130138766","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:2510","target":"company:tr:176655333","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2510","target":"company:tr:176655333","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ КУНОВ","target":"company:tr:130138766","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ПЛАМЕНОВА СТОЙНЕВА","target":"company:tr:130138766","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА","target":"company:tr:130138766","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА","target":"company:tr:130138766","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ИВАЙЛОВ СИЛЯНОВСКИ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ","target":"company:tr:176655333","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2510",
+  "nodes": [
+    {
+      "id": "mp:2510",
+      "type": "mp",
+      "mpId": 2510,
+      "label": "Борислав Райчов Миланов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:130138766",
+      "type": "company",
+      "label": "ПАЗАРИ ИЗТОК",
+      "slug": null,
+      "uic": "130138766",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:176655333",
+      "type": "company",
+      "label": "ИЗТОЧНО ЕВРОПЕЙСКА ПРАВНА АКАДЕМИЯ",
+      "slug": null,
+      "uic": "176655333",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София"
+    },
+    {
+      "id": "official:daniela-plamenova-stoineva-98e851",
+      "type": "official",
+      "slug": "daniela-plamenova-stoineva-98e851",
+      "label": "Даниела Пламенова Стойнева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:dimitr-georgiev-kunov-f5b0d4",
+      "type": "official",
+      "slug": "dimitr-georgiev-kunov-f5b0d4",
+      "label": "Димитър Георгиев Кунов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Даниела Пламенова Георгиева"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Светослав Донов Василев"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ",
+      "type": "person",
+      "label": "Георги Стоянов Хорозов"
+    },
+    {
+      "id": "person:ВАСИЛ ИВАЙЛОВ СИЛЯНОВСКИ",
+      "type": "person",
+      "label": "Васил Ивайлов Силяновски"
+    },
+    {
+      "id": "person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Радослав Бориславов Миланов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2510",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2510",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2510",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-plamenova-stoineva-98e851",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-georgiev-kunov-f5b0d4",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ ХОРОЗОВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ДОНОВ ВАСИЛЕВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАЙЛОВ СИЛЯНОВСКИ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ БОРИСЛАВОВ МИЛАНОВ",
+      "target": "company:tr:176655333",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

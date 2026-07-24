@@ -14,16 +14,15 @@
     "sourceUrl": "https://register.cacbg.bg/2017/4CEFC39E-10FC-4745-AE00-FEBE3644ECC685466.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100",
         "companyName": "М БЕТ СТРОЙ ЕООД",
         "registeredOffice": "София (столица)",
         "valueEur": 1.022583762392437,
-        "holderName": null,
-        "transfereeName": "МЕТИН МЕХМЕД ВЕЛИ",
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "holderName": "МЕТИН МЕХМЕД ВЕЛИ",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
       }
     ],
     "income": [],
@@ -37,31 +36,31 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "покупко-продажба",
+        "share": "100",
         "currency": "BGN",
         "amount": 27408,
         "valueEur": 14013.487879825956,
         "holderName": "МЕТИН МЕХМЕД ВЕЛИ",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "security",
+        "category": "debt",
         "description": "КРЕДИТНА КАРТА",
-        "detail": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "БАНКА ДСК",
-        "isSpouse": true,
-        "legalBasis": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
     ],
@@ -82,19 +81,55 @@
     "sourceUrl": "https://register.cacbg.bg/2016/4CEFC39E-10FC-4745-AE00-FEBE3644ECC678816.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100",
         "companyName": "М БЕТ СТРОЙ ЕООД",
         "registeredOffice": "София (столица)",
         "valueEur": 1.022583762392437,
-        "holderName": null,
-        "transfereeName": "МЕТИН МЕХМЕД ВЕЛИ",
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "holderName": "МЕТИН МЕХМЕД ВЕЛИ",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 21340.811829248963,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": 0
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -105,135 +140,69 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2015,
-        "share": "покупко-продажба",
+        "share": "100",
         "currency": "BGN",
         "amount": 27408,
         "valueEur": 14013.487879825956,
         "holderName": "МЕТИН МЕХМЕД ВЕЛИ",
         "isSpouse": true,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "МЕРЦЕДЕС",
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "МЕРЦЕДЕС",
-        "amount": null,
-        "valueEur": 8691.961980335715,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
         "holderName": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "security",
-        "description": "КРЕДИТНА КАРТА",
-        "detail": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "БАНКА ДСК",
-        "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "БУЛГАРСКО УЧИЛИЩЕ ПО ПОЛИТИКА ДИМИТЪР ПАНИЦА",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": 21340.811829248963,
+        "valueEur": 920.3253861531933,
         "legalBasis": null
       },
       {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "kind": "third_party_expense",
+        "description": "САЩ",
         "detail": null,
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
+        "currency": "USD",
+        "valueEur": 7838.104538738029,
         "legalBasis": null
       }
     ]
@@ -253,19 +222,25 @@
     "sourceUrl": "https://register.cacbg.bg/2015/4CEFC39E-10FC-4745-AE00-FEBE3644ECC667129.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "ДРУЖЕСТВО",
         "shareSize": "100",
         "companyName": "М БЕТ СТРОЙ ЕООД",
         "registeredOffice": "София (столица)",
         "valueEur": 1.022583762392437,
-        "holderName": null,
-        "transfereeName": "МЕТИН МЕХМЕД ВЕЛИ",
-        "legalBasis": "по Таблица 13 - ръчно",
-        "fundsOrigin": null
+        "holderName": "МЕТИН МЕХМЕД ВЕЛИ",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 13 - ръчно"
       }
     ],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2945.552527571415
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -276,136 +251,46 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2014,
-        "share": "покупко-продажба",
+        "share": "100",
         "currency": "BGN",
         "amount": 18000,
         "valueEur": 9203.253861531934,
         "holderName": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
         "isSpouse": false,
-        "legalBasis": "заплата",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
       },
       {
-        "category": "bank",
-        "description": null,
-        "detail": "БМВ",
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "EUR",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "БМВ",
-        "amount": null,
-        "valueEur": 255.64594059810923,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
         "holderName": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      },
-      {
-        "category": "security",
-        "description": "КРЕДИТНА КАРТА",
-        "detail": "АТИДЖЕ БАЙРЯМОВА АЛИЕВА-ВЕЛИ",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "5000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ИНВЕСТБАНК АД",
-        "isSpouse": true,
-        "legalBasis": null,
+        "legalBasis": "ДОГОВОР",
         "fundsOrigin": null
       }
     ],
     "events": [
       {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
       }
     ]
   }

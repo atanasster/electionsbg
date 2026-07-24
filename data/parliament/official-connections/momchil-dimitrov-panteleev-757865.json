@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:momchil-dimitrov-panteleev-757865","nodes":[{"id":"official:momchil-dimitrov-panteleev-757865","type":"official","slug":"momchil-dimitrov-panteleev-757865","label":"Момчил Димитров Пантелеев","tier":"municipal","role":"councillor","municipality":"Сливен"},{"id":"company:tr:203150338","type":"company","label":"ГГИТ","slug":null,"uic":"203150338","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:momchil-dimitrov-panteleev-757865","target":"company:tr:203150338","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:momchil-dimitrov-panteleev-757865",
+  "nodes": [
+    {
+      "id": "official:momchil-dimitrov-panteleev-757865",
+      "type": "official",
+      "slug": "momchil-dimitrov-panteleev-757865",
+      "label": "Момчил Димитров Пантелеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:203150338",
+      "type": "company",
+      "label": "ГГИТ",
+      "slug": null,
+      "uic": "203150338",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-dimitrov-panteleev-757865",
+      "target": "company:tr:203150338",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

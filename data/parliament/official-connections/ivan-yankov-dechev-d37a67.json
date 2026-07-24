@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-yankov-dechev-d37a67",
+  "nodes": [
+    {
+      "id": "official:ivan-yankov-dechev-d37a67",
+      "type": "official",
+      "slug": "ivan-yankov-dechev-d37a67",
+      "label": "Иван Янков Дечев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206942491",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО УРОЛОГИЯ И МЕДИЦИНСКА ОНКОЛОГИЯ – ПРОФ. Д-Р ИВАН ДЕЧЕВ",
+      "slug": null,
+      "uic": "206942491",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-yankov-dechev-d37a67",
+      "target": "company:tr:206942491",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-yankov-dechev-d37a67",
+      "target": "company:tr:206942491",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:desislava-yuliyanova-arnaudova-229371",
+  "nodes": [
+    {
+      "id": "official:desislava-yuliyanova-arnaudova-229371",
+      "type": "official",
+      "slug": "desislava-yuliyanova-arnaudova-229371",
+      "label": "Десислава Юлиянова Арнаудова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207668246",
+      "type": "company",
+      "label": "ВК ФОРЕСТ",
+      "slug": null,
+      "uic": "207668246",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНА СЛАВЧЕВА АРНАУДОВА",
+      "type": "person",
+      "label": "Снежана Славчева Арнаудова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-yuliyanova-arnaudova-229371",
+      "target": "company:tr:207668246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА СЛАВЧЕВА АРНАУДОВА",
+      "target": "company:tr:207668246",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА СЛАВЧЕВА АРНАУДОВА",
+      "target": "company:tr:207668246",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

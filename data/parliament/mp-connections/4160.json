@@ -1,1 +1,659 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4160","nodes":[{"id":"mp:4160","type":"mp","mpId":4160,"label":"Андрей Атанасов Гюров","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49"]},{"id":"company:Йонтех-инженеринг-ООД","type":"company","label":"Йонтех инженеринг ООД","slug":"Йонтех-инженеринг-ООД","uic":"175096033","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"company:tr:175327305","type":"company","label":"ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ","slug":null,"uic":"175327305","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1632"},{"id":"company:tr:175990663","type":"company","label":"Голф-клуб Благоевград","slug":null,"uic":"175990663","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"company:tr:176234206","type":"company","label":"БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ","slug":null,"uic":"176234206","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Благоевград, 2700"},{"id":"person:МАНУЕЛА ВАЛЕРИЕВА ЦЕКОВА","type":"person","label":"Мануела Валериева Цекова"},{"id":"person:ВАЛЕНТИН МАРИНОВ ПЕХОЕВ","type":"person","label":"Валентин Маринов Пехоев"},{"id":"person:ИВАЙЛО АСЕНОВ РАНГЕЛОВ","type":"person","label":"Ивайло Асенов Рангелов"},{"id":"person:ТОДОР ТОНЕВ АНГЕЛОВ","type":"person","label":"Тодор Тонев Ангелов"},{"id":"person:МИЛАН ПЕТРОВ МИЛАНОВ","type":"person","label":"Милан Петров Миланов"},{"id":"person:ХРИСТО ИВАНОВ ГЮРОВ","type":"person","label":"Христо Иванов Гюров"},{"id":"person:АЛЕКСАНДЪР ВАЛЕРИЕВ ЦЕКОВ","type":"person","label":"Александър Валериев Цеков"},{"id":"person:РУМЯНА ЗДРАВКОВА ЦЕКОВА","type":"person","label":"Румяна Здравкова Цекова"},{"id":"person:ИВАН ТОДОРОВ ГЮРОВ","type":"person","label":"Иван Тодоров Гюров"},{"id":"mp:4325","type":"mp","mpId":4325,"label":"Петър Пандушев Чобанов","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["42","43","46","47","48"]},{"id":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","type":"person","label":"Анна Валериева Манолова"},{"id":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","type":"person","label":"Владимир Господинов Влаев"},{"id":"person:ИВАЙЛО СТАНЕВ МАТЕЕВ","type":"person","label":"Ивайло Станев Матеев"},{"id":"person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ","type":"person","label":"Ивайло Русинов Главчовски"},{"id":"person:КАЛИН ДИМИТРОВ ХРИСТОВ","type":"person","label":"Калин Димитров Христов"},{"id":"person:ЕМИЛ СТЕФАНОВ ХРИСТОВ","type":"person","label":"Емил Стефанов Христов"},{"id":"person:ИРИНА ИВАНОВА МАРЦЕВА","type":"person","label":"Ирина Иванова Марцева"},{"id":"person:ТАТЯНА ВАСИЛЕВА ИВАНОВА","type":"person","label":"Татяна Василева Иванова"},{"id":"person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ","type":"person","label":"Джеймс Бориславов Йоловски"},{"id":"person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА","type":"person","label":"Карина Димитрова Караиванова-Ганозова"},{"id":"person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ","type":"person","label":"Кирил Викторов Слатински"},{"id":"person:ЯСЕН АЛЕКСАНДРОВ НЕДЕЛЧЕВ","type":"person","label":"Ясен Александров Неделчев"},{"id":"person:ХРИСТО ТОДОРОВ ДУНДАЛОВ","type":"person","label":"Христо Тодоров Дундалов"},{"id":"person:ГЕОРГИ ИВАНОВ ШАРКОВ","type":"person","label":"Георги Иванов Шарков"},{"id":"person:МИНКО МИНЕВ БАЛКАНСКИ","type":"person","label":"Минко Минев Балкански"},{"id":"person:АНГЕЛ ИЛИЕВ АНГЕЛОВ","type":"person","label":"Ангел Илиев Ангелов"},{"id":"person:САВА ИВАНОВ ГРОЗДЕВ","type":"person","label":"Сава Иванов Гроздев"},{"id":"person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА","type":"person","label":"Радостина Ангелова Стефанова"},{"id":"person:ПАВЕЛ ЙОРДАНОВ ВЪРБАНОВ","type":"person","label":"Павел Йорданов Върбанов"},{"id":"company:tr:121542489","type":"company","label":"ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;","slug":null,"uic":"121542489","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"mp:1005","type":"mp","mpId":1005,"label":"Иван Йорданов Костов","partyGroupShort":null,"isCurrent":false,"nsFolders":["39","40"]},{"id":"company:tr:103291619","type":"company","label":"ЛОВНО РИБАРСКО ДРУЖЕСТВО","slug":null,"uic":"103291619","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:1728","type":"mp","mpId":1728,"label":"Пенко Атанасов Атанасов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["40","41"]}],"edges":[{"source":"mp:4160","target":"company:Йонтех-инженеринг-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4160","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:4160","target":"company:tr:175990663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4160","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАНУЕЛА ВАЛЕРИЕВА ЦЕКОВА","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН МАРИНОВ ПЕХОЕВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО АСЕНОВ РАНГЕЛОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР ТОНЕВ АНГЕЛОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛАН ПЕТРОВ МИЛАНОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ГЮРОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВАЛЕРИЕВ ЦЕКОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РУМЯНА ЗДРАВКОВА ЦЕКОВА","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ТОДОРОВ ГЮРОВ","target":"company:Йонтех-инженеринг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4325","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО СТАНЕВ МАТЕЕВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ДИМИТРОВ ХРИСТОВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ СТЕФАНОВ ХРИСТОВ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИРИНА ИВАНОВА МАРЦЕВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АННА ВАЛЕРИЕВА МАНОЛОВА","target":"company:tr:175327305","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ","target":"company:tr:175327305","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА ВАСИЛЕВА ИВАНОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА","target":"company:tr:175327305","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ","target":"company:tr:175990663","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ","target":"company:tr:175990663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН АЛЕКСАНДРОВ НЕДЕЛЧЕВ","target":"company:tr:175990663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ТОДОРОВ ДУНДАЛОВ","target":"company:tr:175990663","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ШАРКОВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИНКО МИНЕВ БАЛКАНСКИ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИВАНОВ ШАРКОВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИНКО МИНЕВ БАЛКАНСКИ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ИЛИЕВ АНГЕЛОВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА ИВАНОВ ГРОЗДЕВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА","target":"company:tr:176234206","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ЙОРДАНОВ ВЪРБАНОВ","target":"company:tr:176234206","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ИЛИЕВ АНГЕЛОВ","target":"company:tr:103291619","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:САВА ИВАНОВ ГРОЗДЕВ","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1005","target":"company:tr:121542489","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1728","target":"company:tr:103291619","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4325","length":2,"nodeIds":["mp:4160","company:tr:175327305","mp:4325"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1005","length":4,"nodeIds":["mp:4160","company:tr:176234206","person:САВА ИВАНОВ ГРОЗДЕВ","company:tr:121542489","mp:1005"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1728","length":4,"nodeIds":["mp:4160","company:tr:176234206","person:АНГЕЛ ИЛИЕВ АНГЕЛОВ","company:tr:103291619","mp:1728"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4160",
+  "nodes": [
+    {
+      "id": "mp:4160",
+      "type": "mp",
+      "mpId": 4160,
+      "label": "Андрей Атанасов Гюров",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:Йонтех-инженеринг-ООД",
+      "type": "company",
+      "label": "Йонтех инженеринг ООД",
+      "slug": "Йонтех-инженеринг-ООД",
+      "uic": "175096033",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:175327305",
+      "type": "company",
+      "label": "ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ",
+      "slug": null,
+      "uic": "175327305",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1632"
+    },
+    {
+      "id": "company:tr:175990663",
+      "type": "company",
+      "label": "Голф-клуб Благоевград",
+      "slug": null,
+      "uic": "175990663",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:176234206",
+      "type": "company",
+      "label": "БАЛКАНСКИ-ПАНИЦА ИНСТИТУТ ЗА НАУЧНИ ИЗДИРВАНИЯ",
+      "slug": null,
+      "uic": "176234206",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "person:МАНУЕЛА ВАЛЕРИЕВА ЦЕКОВА",
+      "type": "person",
+      "label": "Мануела Валериева Цекова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН МАРИНОВ ПЕХОЕВ",
+      "type": "person",
+      "label": "Валентин Маринов Пехоев"
+    },
+    {
+      "id": "person:ИВАЙЛО АСЕНОВ РАНГЕЛОВ",
+      "type": "person",
+      "label": "Ивайло Асенов Рангелов"
+    },
+    {
+      "id": "person:ТОДОР ТОНЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Тодор Тонев Ангелов"
+    },
+    {
+      "id": "person:МИЛАН ПЕТРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Милан Петров Миланов"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ГЮРОВ",
+      "type": "person",
+      "label": "Христо Иванов Гюров"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВАЛЕРИЕВ ЦЕКОВ",
+      "type": "person",
+      "label": "Александър Валериев Цеков"
+    },
+    {
+      "id": "person:РУМЯНА ЗДРАВКОВА ЦЕКОВА",
+      "type": "person",
+      "label": "Румяна Здравкова Цекова"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ГЮРОВ",
+      "type": "person",
+      "label": "Иван Тодоров Гюров"
+    },
+    {
+      "id": "mp:4325",
+      "type": "mp",
+      "mpId": 4325,
+      "label": "Петър Пандушев Чобанов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "type": "person",
+      "label": "Анна Валериева Манолова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "type": "person",
+      "label": "Владимир Господинов Влаев"
+    },
+    {
+      "id": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Ивайло Станев Матеев"
+    },
+    {
+      "id": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "type": "person",
+      "label": "Ивайло Русинов Главчовски"
+    },
+    {
+      "id": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Калин Димитров Христов"
+    },
+    {
+      "id": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Емил Стефанов Христов"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "type": "person",
+      "label": "Ирина Иванова Марцева"
+    },
+    {
+      "id": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Татяна Василева Иванова"
+    },
+    {
+      "id": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "type": "person",
+      "label": "Джеймс Бориславов Йоловски"
+    },
+    {
+      "id": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
+      "type": "person",
+      "label": "Карина Димитрова Караиванова-Ганозова"
+    },
+    {
+      "id": "person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ",
+      "type": "person",
+      "label": "Кирил Викторов Слатински"
+    },
+    {
+      "id": "person:ЯСЕН АЛЕКСАНДРОВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Ясен Александров Неделчев"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ ДУНДАЛОВ",
+      "type": "person",
+      "label": "Христо Тодоров Дундалов"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ШАРКОВ",
+      "type": "person",
+      "label": "Георги Иванов Шарков"
+    },
+    {
+      "id": "person:МИНКО МИНЕВ БАЛКАНСКИ",
+      "type": "person",
+      "label": "Минко Минев Балкански"
+    },
+    {
+      "id": "person:АНГЕЛ ИЛИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Илиев Ангелов"
+    },
+    {
+      "id": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "type": "person",
+      "label": "Сава Иванов Гроздев"
+    },
+    {
+      "id": "person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Радостина Ангелова Стефанова"
+    },
+    {
+      "id": "person:ПАВЕЛ ЙОРДАНОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Павел Йорданов Върбанов"
+    },
+    {
+      "id": "company:tr:121542489",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;МЛАДА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "121542489",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "mp:1005",
+      "type": "mp",
+      "mpId": 1005,
+      "label": "Иван Йорданов Костов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40"
+      ]
+    },
+    {
+      "id": "company:tr:103291619",
+      "type": "company",
+      "label": "ЛОВНО РИБАРСКО ДРУЖЕСТВО",
+      "slug": null,
+      "uic": "103291619",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1728",
+      "type": "mp",
+      "mpId": 1728,
+      "label": "Пенко Атанасов Атанасов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4160",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:175990663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАНУЕЛА ВАЛЕРИЕВА ЦЕКОВА",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МАРИНОВ ПЕХОЕВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО АСЕНОВ РАНГЕЛОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ТОНЕВ АНГЕЛОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛАН ПЕТРОВ МИЛАНОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ГЮРОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВАЛЕРИЕВ ЦЕКОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ЗДРАВКОВА ЦЕКОВА",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ГЮРОВ",
+      "target": "company:Йонтех-инженеринг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4325",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ",
+      "target": "company:tr:175990663",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ",
+      "target": "company:tr:175990663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН АЛЕКСАНДРОВ НЕДЕЛЧЕВ",
+      "target": "company:tr:175990663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ ДУНДАЛОВ",
+      "target": "company:tr:175990663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ШАРКОВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО МИНЕВ БАЛКАНСКИ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ШАРКОВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКО МИНЕВ БАЛКАНСКИ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИЛИЕВ АНГЕЛОВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА АНГЕЛОВА СТЕФАНОВА",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ЙОРДАНОВ ВЪРБАНОВ",
+      "target": "company:tr:176234206",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИЛИЕВ АНГЕЛОВ",
+      "target": "company:tr:103291619",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САВА ИВАНОВ ГРОЗДЕВ",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1005",
+      "target": "company:tr:121542489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1728",
+      "target": "company:tr:103291619",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4325",
+      "length": 2,
+      "nodeIds": [
+        "mp:4160",
+        "company:tr:175327305",
+        "mp:4325"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1005",
+      "length": 4,
+      "nodeIds": [
+        "mp:4160",
+        "company:tr:176234206",
+        "person:САВА ИВАНОВ ГРОЗДЕВ",
+        "company:tr:121542489",
+        "mp:1005"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1728",
+      "length": 4,
+      "nodeIds": [
+        "mp:4160",
+        "company:tr:176234206",
+        "person:АНГЕЛ ИЛИЕВ АНГЕЛОВ",
+        "company:tr:103291619",
+        "mp:1728"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

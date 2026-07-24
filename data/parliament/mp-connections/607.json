@@ -1,1 +1,374 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:607","nodes":[{"id":"mp:607","type":"mp","mpId":607,"label":"Мирослав Петров Севлиевски","partyGroupShort":"НВ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:121546427","type":"company","label":"БЪЛГАРСКИ АНТАРКТИЧЕСКИ ИНСТИТУТ","slug":null,"uic":"121546427","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1000"},{"id":"company:tr:175256096","type":"company","label":"ИНВЕСТ ФОНД МЕНИДЖМЪНТ","slug":null,"uic":"175256096","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1592"},{"id":"company:tr:206523867","type":"company","label":"ЕРОУ МОБИЛИТИ","slug":null,"uic":"206523867","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ","type":"person","label":"Република България, Представлявано От Министерство На Външните Работи"},{"id":"person:НЕШО ХАЙНРИХ ЧИПЕВ","type":"person","label":"Нешо Хайнрих Чипев"},{"id":"person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ","type":"person","label":"Валентин Богомилов Андреев"},{"id":"person:ХРИСТО ЦАНЕВ ПИМПИРЕВ","type":"person","label":"Христо Цанев Пимпирев"},{"id":"person:БОЯН АСЕНОВ БИОЛЧЕВ","type":"person","label":"Боян Асенов Биолчев"},{"id":"person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ","type":"person","label":"Йордан Велинов Йорданов"},{"id":"person:ДРАГОМИР МАТЕЕВ МАТЕЕВ","type":"person","label":"Драгомир Матеев Матеев"},{"id":"person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА","type":"person","label":"Елена Георгиева Петрова"},{"id":"person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ","type":"person","label":"Юрий Страшимиров Кучев"},{"id":"person:РУСЛАН СТЕФАНОВ РАЙЧЕВ","type":"person","label":"Руслан Стефанов Райчев"},{"id":"person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Анатолий Георгиев Георгиев"},{"id":"person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР","type":"person","label":"Александър Викторович Майстер"},{"id":"person:БОЯН АНТОНИЕВ ГИРГИНОВ","type":"person","label":"Боян Антониев Гиргинов"},{"id":"person:ВАЛЕНТИН ВЕСЕЛИНОВ АНГЕЛОВ","type":"person","label":"Валентин Веселинов Ангелов"},{"id":"person:ИВА КРАСИМИРОВА МИТКОВА","type":"person","label":"Ива Красимирова Миткова"},{"id":"person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА","type":"person","label":"Стела Пенчева Желева"},{"id":"person:НИКОЛИНКА НИКОЛОВА ВАСИЛЕВА","type":"person","label":"Николинка Николова Василева"},{"id":"person:РУВИМ ВИКТОР ФАРХИ","type":"person","label":"Рувим Виктор Фархи"}],"edges":[{"source":"mp:607","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:607","target":"company:tr:175256096","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:607","target":"company:tr:175256096","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:607","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:607","target":"company:tr:206523867","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕШО ХАЙНРИХ ЧИПЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЦАНЕВ ПИМПИРЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН АСЕНОВ БИОЛЧЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР МАТЕЕВ МАТЕЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ","target":"company:tr:121546427","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН СТЕФАНОВ РАЙЧЕВ","target":"company:tr:175256096","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:БОЯН АНТОНИЕВ ГИРГИНОВ","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН СТЕФАНОВ РАЙЧЕВ","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН СТЕФАНОВ РАЙЧЕВ","target":"company:tr:175256096","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР","target":"company:tr:175256096","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ВЕСЕЛИНОВ АНГЕЛОВ","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВА КРАСИМИРОВА МИТКОВА","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА","target":"company:tr:175256096","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР","target":"company:tr:175256096","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА","target":"company:tr:175256096","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНКА НИКОЛОВА ВАСИЛЕВА","target":"company:tr:175256096","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РУВИМ ВИКТОР ФАРХИ","target":"company:tr:206523867","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РУВИМ ВИКТОР ФАРХИ","target":"company:tr:206523867","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:607",
+  "nodes": [
+    {
+      "id": "mp:607",
+      "type": "mp",
+      "mpId": 607,
+      "label": "Мирослав Петров Севлиевски",
+      "partyGroupShort": "НВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:121546427",
+      "type": "company",
+      "label": "БЪЛГАРСКИ АНТАРКТИЧЕСКИ ИНСТИТУТ",
+      "slug": null,
+      "uic": "121546427",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1000"
+    },
+    {
+      "id": "company:tr:175256096",
+      "type": "company",
+      "label": "ИНВЕСТ ФОНД МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "175256096",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1592"
+    },
+    {
+      "id": "company:tr:206523867",
+      "type": "company",
+      "label": "ЕРОУ МОБИЛИТИ",
+      "slug": null,
+      "uic": "206523867",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "official:boyan-asenov-biolchev-f49248",
+      "type": "official",
+      "slug": "boyan-asenov-biolchev-f49248",
+      "label": "Боян Асенов Биолчев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ",
+      "type": "person",
+      "label": "Република България, Представлявано От Министерство На Външните Работи"
+    },
+    {
+      "id": "person:НЕШО ХАЙНРИХ ЧИПЕВ",
+      "type": "person",
+      "label": "Нешо Хайнрих Чипев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Валентин Богомилов Андреев"
+    },
+    {
+      "id": "person:ХРИСТО ЦАНЕВ ПИМПИРЕВ",
+      "type": "person",
+      "label": "Христо Цанев Пимпирев"
+    },
+    {
+      "id": "person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Велинов Йорданов"
+    },
+    {
+      "id": "person:ДРАГОМИР МАТЕЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Драгомир Матеев Матеев"
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Елена Георгиева Петрова"
+    },
+    {
+      "id": "person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ",
+      "type": "person",
+      "label": "Юрий Страшимиров Кучев"
+    },
+    {
+      "id": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Руслан Стефанов Райчев"
+    },
+    {
+      "id": "person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Анатолий Георгиев Георгиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "type": "person",
+      "label": "Александър Викторович Майстер"
+    },
+    {
+      "id": "person:БОЯН АНТОНИЕВ ГИРГИНОВ",
+      "type": "person",
+      "label": "Боян Антониев Гиргинов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВЕСЕЛИНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Валентин Веселинов Ангелов"
+    },
+    {
+      "id": "person:ИВА КРАСИМИРОВА МИТКОВА",
+      "type": "person",
+      "label": "Ива Красимирова Миткова"
+    },
+    {
+      "id": "person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Стела Пенчева Желева"
+    },
+    {
+      "id": "person:НИКОЛИНКА НИКОЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Николинка Николова Василева"
+    },
+    {
+      "id": "person:РУВИМ ВИКТОР ФАРХИ",
+      "type": "person",
+      "label": "Рувим Виктор Фархи"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:607",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:175256096",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:206523867",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boyan-asenov-biolchev-f49248",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕШО ХАЙНРИХ ЧИПЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЦАНЕВ ПИМПИРЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР МАТЕЕВ МАТЕЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН АНТОНИЕВ ГИРГИНОВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВЕСЕЛИНОВ АНГЕЛОВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА КРАСИМИРОВА МИТКОВА",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "target": "company:tr:175256096",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ПЕНЧЕВА ЖЕЛЕВА",
+      "target": "company:tr:175256096",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА НИКОЛОВА ВАСИЛЕВА",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУВИМ ВИКТОР ФАРХИ",
+      "target": "company:tr:206523867",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУВИМ ВИКТОР ФАРХИ",
+      "target": "company:tr:206523867",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

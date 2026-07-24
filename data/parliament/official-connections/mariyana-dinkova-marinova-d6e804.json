@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariyana-dinkova-marinova-d6e804",
+  "nodes": [
+    {
+      "id": "official:mariyana-dinkova-marinova-d6e804",
+      "type": "official",
+      "slug": "mariyana-dinkova-marinova-d6e804",
+      "label": "Марияна Динкова Маринова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Гурково"
+    },
+    {
+      "id": "company:tr:208696412",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА -ДИАМАНТ 21",
+      "slug": null,
+      "uic": "208696412",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЛЕНА ЕВГЕНИЕВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Ивалена Евгениева Панайотова"
+    },
+    {
+      "id": "person:НИКОЛ НЕДЕЛЧЕВА НУНЕВА",
+      "type": "person",
+      "label": "Никол Неделчева Нунева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-dinkova-marinova-d6e804",
+      "target": "company:tr:208696412",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЛЕНА ЕВГЕНИЕВА ПАНАЙОТОВА",
+      "target": "company:tr:208696412",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛЕНА ЕВГЕНИЕВА ПАНАЙОТОВА",
+      "target": "company:tr:208696412",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛ НЕДЕЛЧЕВА НУНЕВА",
+      "target": "company:tr:208696412",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

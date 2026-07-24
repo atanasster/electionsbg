@@ -1,1 +1,281 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4507","nodes":[{"id":"mp:4507","type":"mp","mpId":4507,"label":"Владимир Андонов Данаилов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208808612","type":"company","label":"АКОРД КЕПИТАЛ","slug":null,"uic":"208808612","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"company:tr:207436657","type":"company","label":"Венчър Юръп","slug":null,"uic":"207436657","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"company:tr:207233393","type":"company","label":"Хензенен","slug":null,"uic":"207233393","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","type":"person","label":"Владимир Андонов Данаилов"},{"id":"person:СВЕТЛА НИКОЛОВА ДАНАИЛОВА","type":"person","label":"Светла Николова Данаилова"},{"id":"person:ЙОХАНЕС ЙОРГ РАЙНХОЛД РЬОТЕР","type":"person","label":"Йоханес Йорг Райнхолд Рьотер"},{"id":"person:ИВАЙЛО МИХАЕЛОВ ДИМОВ","type":"person","label":"Ивайло Михаелов Димов"},{"id":"company:tr:203740812","type":"company","label":"Фонд мениджър на финансови инструменти в България","slug":null,"uic":"203740812","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1756"},{"id":"mp:4838","type":"mp","mpId":4838,"label":"Александър Руменов Ненков","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44","45","46","47","48","49","50","51"]}],"edges":[{"source":"mp:4507","target":"company:tr:208808612","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4507","target":"company:tr:208808612","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:4507","target":"company:tr:207436657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4507","target":"company:tr:207233393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:208808612","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:208808612","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:207436657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА НИКОЛОВА ДАНАИЛОВА","target":"company:tr:207436657","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛА НИКОЛОВА ДАНАИЛОВА","target":"company:tr:207436657","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:207233393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЙОХАНЕС ЙОРГ РАЙНХОЛД РЬОТЕР","target":"company:tr:207233393","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО МИХАЕЛОВ ДИМОВ","target":"company:tr:207233393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"mp:4838","target":"company:tr:203740812","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4838","length":4,"nodeIds":["mp:4507","company:tr:208808612","person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ","company:tr:203740812","mp:4838"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4507",
+  "nodes": [
+    {
+      "id": "mp:4507",
+      "type": "mp",
+      "mpId": 4507,
+      "label": "Владимир Андонов Данаилов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208808612",
+      "type": "company",
+      "label": "АКОРД КЕПИТАЛ",
+      "slug": null,
+      "uic": "208808612",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "company:tr:207436657",
+      "type": "company",
+      "label": "Венчър Юръп",
+      "slug": null,
+      "uic": "207436657",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "company:tr:207233393",
+      "type": "company",
+      "label": "Хензенен",
+      "slug": null,
+      "uic": "207233393",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "type": "person",
+      "label": "Владимир Андонов Данаилов"
+    },
+    {
+      "id": "official:svetla-nikolova-danailova-95b0c5",
+      "type": "official",
+      "slug": "svetla-nikolova-danailova-95b0c5",
+      "label": "Светла Николова Данаилова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "person:ХРИСТИАН ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Христиан Иванов Петров"
+    },
+    {
+      "id": "person:АКОРД КЕПИТАЛ",
+      "type": "person",
+      "label": "Акорд Кепитал"
+    },
+    {
+      "id": "person:ПРОПЪРТИ ГРИД",
+      "type": "person",
+      "label": "Пропърти Грид"
+    },
+    {
+      "id": "person:МНК-КОНСУЛТИНГ",
+      "type": "person",
+      "label": "Мнк-Консултинг"
+    },
+    {
+      "id": "person:ЙОХАНЕС ЙОРГ РАЙНХОЛД РЬОТЕР",
+      "type": "person",
+      "label": "Йоханес Йорг Райнхолд Рьотер"
+    },
+    {
+      "id": "person:ИВАЙЛО МИХАЕЛОВ ДИМОВ",
+      "type": "person",
+      "label": "Ивайло Михаелов Димов"
+    },
+    {
+      "id": "company:tr:203740812",
+      "type": "company",
+      "label": "Фонд мениджър на финансови инструменти в България",
+      "slug": null,
+      "uic": "203740812",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1756"
+    },
+    {
+      "id": "mp:4838",
+      "type": "mp",
+      "mpId": 4838,
+      "label": "Александър Руменов Ненков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:208808612",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:207436657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4507",
+      "target": "company:tr:207233393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:208808612",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:208808612",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetla-nikolova-danailova-95b0c5",
+      "target": "company:tr:207436657",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:207436657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИАН ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:207436657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АКОРД КЕПИТАЛ",
+      "target": "company:tr:207436657",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОПЪРТИ ГРИД",
+      "target": "company:tr:207436657",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МНК-КОНСУЛТИНГ",
+      "target": "company:tr:207436657",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetla-nikolova-danailova-95b0c5",
+      "target": "company:tr:207436657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:207233393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОХАНЕС ЙОРГ РАЙНХОЛД РЬОТЕР",
+      "target": "company:tr:207233393",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО МИХАЕЛОВ ДИМОВ",
+      "target": "company:tr:207233393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4838",
+      "length": 4,
+      "nodeIds": [
+        "mp:4507",
+        "company:tr:208808612",
+        "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+        "company:tr:203740812",
+        "mp:4838"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

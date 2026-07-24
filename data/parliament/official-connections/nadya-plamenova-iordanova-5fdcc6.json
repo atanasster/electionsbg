@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nadya-plamenova-iordanova-5fdcc6",
+  "nodes": [
+    {
+      "id": "official:nadya-plamenova-iordanova-5fdcc6",
+      "type": "official",
+      "slug": "nadya-plamenova-iordanova-5fdcc6",
+      "label": "Надя Пламенова Йорданова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116583040",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ НИКОЛА ИКОНОМОВ",
+      "slug": null,
+      "uic": "116583040",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕВЕНА МИТЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Невена Митева Йорданова"
+    },
+    {
+      "id": "person:ЦВЕТОСЛАВА МАРИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Цветослава Маринова Димитрова"
+    },
+    {
+      "id": "person:ЦВЕТА ТОДОРОВА ВЪЗЕЛОВА-СТОЕВА",
+      "type": "person",
+      "label": "Цвета Тодорова Възелова-Стоева"
+    },
+    {
+      "id": "person:АНТОНИЯ ИВАНЧЕВА БАНКОВА",
+      "type": "person",
+      "label": "Антония Иванчева Банкова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Петров Колев"
+    },
+    {
+      "id": "person:ПЛАМЕНА АТАНАСОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Пламена Атанасова Николова"
+    },
+    {
+      "id": "person:МИРОСЛАВА ДИМИТРОВА ЦАНЕВА",
+      "type": "person",
+      "label": "Мирослава Димитрова Цанева"
+    },
+    {
+      "id": "person:ОКТАЙ РЕМЗИ ДЖАФЕР",
+      "type": "person",
+      "label": "Октай Ремзи Джафер"
+    },
+    {
+      "id": "person:ХЮЛИЯ АХМЕД РАСИМ",
+      "type": "person",
+      "label": "Хюлия Ахмед Расим"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-plamenova-iordanova-5fdcc6",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadya-plamenova-iordanova-5fdcc6",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕВЕНА МИТЕВА ЙОРДАНОВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА МИТЕВА ЙОРДАНОВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВА МАРИНОВА ДИМИТРОВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА ТОДОРОВА ВЪЗЕЛОВА-СТОЕВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ ИВАНЧЕВА БАНКОВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ КОЛЕВ",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА АТАНАСОВА НИКОЛОВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ДИМИТРОВА ЦАНЕВА",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОКТАЙ РЕМЗИ ДЖАФЕР",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮЛИЯ АХМЕД РАСИМ",
+      "target": "company:tr:116583040",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

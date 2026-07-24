@@ -1,1 +1,40 @@
-{"obshtina":"SFO34","page":1,"totalPages":1,"count":1,"companies":[{"slug":"АНГИ","displayName":"АНГИ","registeredOffice":"БЪЛГАРИЯ, гр. Правец, 2161","mps":[{"mpId":5013,"mpName":"Пламен Ангелов Петков","role":"manager","isCurrent":true},{"mpId":5013,"mpName":"Пламен Ангелов Петков","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "SFO34",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "МВД-О5-ООД",
+      "displayName": "\"МВД -О5\" ООД",
+      "registeredOffice": "с. Разлив",
+      "mps": [
+        {
+          "mpId": 5125,
+          "mpName": "Младен Найденов Маринов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АНГИ",
+      "displayName": "АНГИ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Правец, 2161",
+      "mps": [
+        {
+          "mpId": 5013,
+          "mpName": "Пламен Ангелов Петков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5013,
+          "mpName": "Пламен Ангелов Петков",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

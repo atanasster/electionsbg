@@ -1,1 +1,73 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nezhlya-nedzhati-amdi-ganeva-6b77f9","nodes":[{"id":"official:nezhlya-nedzhati-amdi-ganeva-6b77f9","type":"official","slug":"nezhlya-nedzhati-amdi-ganeva-6b77f9","label":"Нежля Неджати Амди-Ганева","tier":"municipal","role":"councillor","municipality":"Добрич"},{"id":"company:tr:206883071","type":"company","label":"\"Аленико 22\" ЕООД","slug":null,"uic":"206883071","legalForm":null,"status":null,"seat":null},{"id":"official:nezhlya-nedzhati-amdi-ganeva-bee712","type":"official","slug":"nezhlya-nedzhati-amdi-ganeva-bee712","label":"Нежля Неджати Амди-Ганева","tier":"municipal","role":"chief_architect","municipality":"Крушари"},{"id":"person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ","type":"person","label":"Пламен Любенов Ганев"}],"edges":[{"source":"official:nezhlya-nedzhati-amdi-ganeva-6b77f9","target":"company:tr:206883071","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:nezhlya-nedzhati-amdi-ganeva-bee712","target":"company:tr:206883071","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ","target":"company:tr:206883071","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ","target":"company:tr:206883071","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nezhlya-nedzhati-amdi-ganeva-6b77f9",
+  "nodes": [
+    {
+      "id": "official:nezhlya-nedzhati-amdi-ganeva-6b77f9",
+      "type": "official",
+      "slug": "nezhlya-nedzhati-amdi-ganeva-6b77f9",
+      "label": "Нежля Неджати Амди-Ганева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:206883071",
+      "type": "company",
+      "label": "\"Аленико 22\" ЕООД",
+      "slug": null,
+      "uic": "206883071",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nezhlya-nedzhati-amdi-ganeva-bee712",
+      "type": "official",
+      "slug": "nezhlya-nedzhati-amdi-ganeva-bee712",
+      "label": "Нежля Неджати Амди-Ганева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Крушари"
+    },
+    {
+      "id": "person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ",
+      "type": "person",
+      "label": "Пламен Любенов Ганев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nezhlya-nedzhati-amdi-ganeva-6b77f9",
+      "target": "company:tr:206883071",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nezhlya-nedzhati-amdi-ganeva-bee712",
+      "target": "company:tr:206883071",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ",
+      "target": "company:tr:206883071",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛЮБЕНОВ ГАНЕВ",
+      "target": "company:tr:206883071",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

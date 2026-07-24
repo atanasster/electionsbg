@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:syuleiman-hamidov-metushev-5a7f5c",
+  "nodes": [
+    {
+      "id": "official:syuleiman-hamidov-metushev-5a7f5c",
+      "type": "official",
+      "slug": "syuleiman-hamidov-metushev-5a7f5c",
+      "label": "Сюлейман Хамидов Метушев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хаджидимово"
+    },
+    {
+      "id": "company:tr:205955297",
+      "type": "company",
+      "label": "Севди ЕООД",
+      "slug": null,
+      "uic": "205955297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЮЛЕЙМАН СЮЛЕЙМАНОВ МЕТУШЕВ",
+      "type": "person",
+      "label": "Сюлейман Сюлейманов Метушев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:syuleiman-hamidov-metushev-5a7f5c",
+      "target": "company:tr:205955297",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:syuleiman-hamidov-metushev-5a7f5c",
+      "target": "company:tr:205955297",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:syuleiman-hamidov-metushev-5a7f5c",
+      "target": "company:tr:205955297",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЮЛЕЙМАН СЮЛЕЙМАНОВ МЕТУШЕВ",
+      "target": "company:tr:205955297",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

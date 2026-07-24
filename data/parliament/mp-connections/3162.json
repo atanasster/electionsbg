@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3162",
+  "nodes": [
+    {
+      "id": "mp:3162",
+      "type": "mp",
+      "mpId": 3162,
+      "label": "Иван Николов Миховски",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "company:Миховски-Авто-ООД",
+      "type": "company",
+      "label": "\"Миховски Авто\" ООД",
+      "slug": "Миховски-Авто-ООД",
+      "uic": "110544745",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "гр. Троян"
+    },
+    {
+      "id": "company:Миховски-автоООД",
+      "type": "company",
+      "label": "\"Миховски авто\"ООД",
+      "slug": "Миховски-автоООД",
+      "uic": "110544745",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Троян"
+    },
+    {
+      "id": "person:ДАНИЕЛА СИМЕОНОВА МИХОВСКА",
+      "type": "person",
+      "label": "Даниела Симеонова Миховска"
+    },
+    {
+      "id": "person:РУМЯНА ВАСИЛЕВА МАРКОВСКА",
+      "type": "person",
+      "label": "Румяна Василева Марковска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3162",
+      "target": "company:Миховски-Авто-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3162",
+      "target": "company:Миховски-автоООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СИМЕОНОВА МИХОВСКА",
+      "target": "company:Миховски-Авто-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВАСИЛЕВА МАРКОВСКА",
+      "target": "company:Миховски-Авто-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СИМЕОНОВА МИХОВСКА",
+      "target": "company:Миховски-автоООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВАСИЛЕВА МАРКОВСКА",
+      "target": "company:Миховски-автоООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

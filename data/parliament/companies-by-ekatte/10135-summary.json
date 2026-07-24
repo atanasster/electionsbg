@@ -1,1 +1,79 @@
-{"ekatte":"10135","count":182,"mpCount":77,"totalPages":4,"topCompanies":[{"slug":"Наба-Йистгруп-ООД","displayName":"Наба Йистгруп ООД","registeredOffice":"Варна","mps":[{"mpId":4734,"mpName":"Бранимир Николаев Балачев","role":"partner","isCurrent":true},{"mpId":4734,"mpName":"Бранимир Николаев Балачев","role":"declared_stake","isCurrent":true}]},{"slug":"Факла-ЕАД","displayName":"Факла ЕАД","registeredOffice":"ВАРНА","mps":[{"mpId":5006,"mpName":"Ивелин Людмилов Михайлов","role":"director","isCurrent":true},{"mpId":5006,"mpName":"Ивелин Людмилов Михайлов","role":"actual_owner","isCurrent":true},{"mpId":5006,"mpName":"Ивелин Людмилов Михайлов","role":"representative","isCurrent":false},{"mpId":5006,"mpName":"Ивелин Людмилов Михайлов","role":"sole_owner","isCurrent":false},{"mpId":5007,"mpName":"Красимира Петкова Нинова-Катинчарова","role":"declared_stake","isCurrent":true}]},{"slug":"БЛЯК-СИЙ-СЪРВИСЕС","displayName":"БЛЯК СИЙ СЪРВИСЕС","registeredOffice":"БЪЛГАРИЯ, гр. Варна, 9000","mps":[{"mpId":3565,"mpName":"Благовест Чанев Белев","role":"liquidator","isCurrent":true},{"mpId":3565,"mpName":"Благовест Чанев Белев","role":"manager","isCurrent":true},{"mpId":3565,"mpName":"Благовест Чанев Белев","role":"sole_owner","isCurrent":true},{"mpId":3565,"mpName":"Благовест Чанев Белев","role":"partner","isCurrent":false}]},{"slug":"ВЕРНИТЕ-ПРИЯТЕЛИ-95","displayName":"ВЕРНИТЕ ПРИЯТЕЛИ 95","registeredOffice":"БЪЛГАРИЯ, гр. Варна, 9000","mps":[{"mpId":2528,"mpName":"Георги Недков Кючуков","role":"ngo_representative","isCurrent":true},{"mpId":2528,"mpName":"Георги Недков Кючуков","role":"ngo_board","isCurrent":true},{"mpId":5329,"mpName":"Юлиан Георгиев Димитров","role":"ngo_representative","isCurrent":true},{"mpId":5329,"mpName":"Юлиан Георгиев Димитров","role":"ngo_board","isCurrent":true}]},{"slug":"Горичански-път-ООД","displayName":"Горичански път ООД","registeredOffice":"ВАРНА","mps":[{"mpId":4190,"mpName":"КАЛОЯН ТОНЕВ ИКОНОМОВ","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "10135",
+  "count": 195,
+  "mpCount": 79,
+  "totalPages": 4,
+  "topCompanies": [
+    {
+      "slug": "Наба-Йистгруп-ООД",
+      "displayName": "Наба Йистгруп ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Наба-Геймс-ООД",
+      "displayName": "Наба Геймс ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Наба-Електроник-ООД",
+      "displayName": "Наба Електроник ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Брадърс-Трейд-Тим-ООД",
+      "displayName": "Брадърс Трейд Тим ООД",
+      "registeredOffice": "Варна",
+      "mps": [
+        {
+          "mpId": 4734,
+          "mpName": "Бранимир Николаев Балачев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Горичански-път-ООД",
+      "displayName": "Горичански път ООД",
+      "registeredOffice": "ВАРНА",
+      "mps": [
+        {
+          "mpId": 4190,
+          "mpName": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,91 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:581","nodes":[{"id":"mp:581","type":"mp","mpId":581,"label":"Огнян Стефанов Сапарев","partyGroupShort":"КНБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:121266375","type":"company","label":"ФОНДАЦИЯ &quot;199&quot;","slug":null,"uic":"121266375","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ","type":"person","label":"Божидар Любенов Алексиев"},{"id":"person:БОРИС СТЕФАНОВ АРНАУДОВ","type":"person","label":"Борис Стефанов Арнаудов"},{"id":"person:ЙОАННА ГЕОРГИЕВА КОТЕВА","type":"person","label":"Йоанна Георгиева Котева"}],"edges":[{"source":"mp:581","target":"company:tr:121266375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ","target":"company:tr:121266375","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ","target":"company:tr:121266375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОРИС СТЕФАНОВ АРНАУДОВ","target":"company:tr:121266375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ГЕОРГИЕВА КОТЕВА","target":"company:tr:121266375","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЙОАННА ГЕОРГИЕВА КОТЕВА","target":"company:tr:121266375","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:581",
+  "nodes": [
+    {
+      "id": "mp:581",
+      "type": "mp",
+      "mpId": 581,
+      "label": "Огнян Стефанов Сапарев",
+      "partyGroupShort": "КНБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:121266375",
+      "type": "company",
+      "label": "ФОНДАЦИЯ &quot;199&quot;",
+      "slug": null,
+      "uic": "121266375",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Божидар Любенов Алексиев"
+    },
+    {
+      "id": "person:БОРИС СТЕФАНОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Борис Стефанов Арнаудов"
+    },
+    {
+      "id": "person:ЙОАННА ГЕОРГИЕВА КОТЕВА",
+      "type": "person",
+      "label": "Йоанна Георгиева Котева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:581",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ЛЮБЕНОВ АЛЕКСИЕВ",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС СТЕФАНОВ АРНАУДОВ",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ГЕОРГИЕВА КОТЕВА",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ГЕОРГИЕВА КОТЕВА",
+      "target": "company:tr:121266375",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

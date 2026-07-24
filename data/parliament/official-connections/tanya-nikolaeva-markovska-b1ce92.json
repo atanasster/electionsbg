@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tanya-nikolaeva-markovska-b1ce92",
+  "nodes": [
+    {
+      "id": "official:tanya-nikolaeva-markovska-b1ce92",
+      "type": "official",
+      "slug": "tanya-nikolaeva-markovska-b1ce92",
+      "label": "Таня Николаева Марковска",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Хисаря"
+    },
+    {
+      "id": "company:tr:177074904",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ХИСАРЯ",
+      "slug": null,
+      "uic": "177074904",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС ПЕТКОВ КИСЬОВ",
+      "type": "person",
+      "label": "Атанас Петков Кисьов"
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ Н. Й. ВАПЦАРОВ - 1927 Г. ГР. ХИСАРЯ",
+      "type": "person",
+      "label": "Народно Читалище Н. Й. Вапцаров - 1927 Г. Гр. Хисаря"
+    },
+    {
+      "id": "person:ЗП ВИОЛЕТА СТОЯНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Зп Виолета Стоянова Найденова"
+    },
+    {
+      "id": "person:ОБЩИНА ХИСАРЯ, ЧРЕЗ МАРИЯ ПЕТКОВА МУСТАКОВА",
+      "type": "person",
+      "label": "Община Хисаря, Чрез Мария Петкова Мустакова"
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ \"СОКОЛОВ - 1919Г.\" - С. ПАНИЧЕРИ, ЧРЕЗ ЦОНКА НЕЙКОВА ПАЧЕВА",
+      "type": "person",
+      "label": "Народно Читалище \"соколов - 1919г.\" -  С. Паничери, Чрез Цонка Нейкова Пачева"
+    },
+    {
+      "id": "person:ОБЩИНА ХИСАРЯ ЧРЕЗ ТАНЯ НИКОЛАЕВА МАРКОВСКА",
+      "type": "person",
+      "label": "Община Хисаря Чрез Таня Николаева Марковска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-nikolaeva-markovska-b1ce92",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ПЕТКОВ КИСЬОВ",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ Н. Й. ВАПЦАРОВ - 1927 Г. ГР. ХИСАРЯ",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП ВИОЛЕТА СТОЯНОВА НАЙДЕНОВА",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ХИСАРЯ, ЧРЕЗ МАРИЯ ПЕТКОВА МУСТАКОВА",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ \"СОКОЛОВ - 1919Г.\" - С. ПАНИЧЕРИ, ЧРЕЗ ЦОНКА НЕЙКОВА ПАЧЕВА",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ХИСАРЯ ЧРЕЗ ТАНЯ НИКОЛАЕВА МАРКОВСКА",
+      "target": "company:tr:177074904",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

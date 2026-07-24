@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vasil-ognyanchov-dzhorgov-db4fbe",
+  "nodes": [
+    {
+      "id": "official:vasil-ognyanchov-dzhorgov-db4fbe",
+      "type": "official",
+      "slug": "vasil-ognyanchov-dzhorgov-db4fbe",
+      "label": "Васил Огнянчов Джоргов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Радомир"
+    },
+    {
+      "id": "company:tr:207721097",
+      "type": "company",
+      "label": "БЪДНИК - 2024г. - ГР.РАДОМИР",
+      "slug": null,
+      "uic": "207721097",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИАН ВЕНЕЛИНОВ ЦОЕВ",
+      "type": "person",
+      "label": "Илиан Венелинов Цоев"
+    },
+    {
+      "id": "person:ЙОРДАН РАЙЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Йордан Райчев Иванов"
+    },
+    {
+      "id": "person:ИВАЙЛО ЧАВДАРОВ СТРАХИЛОВ",
+      "type": "person",
+      "label": "Ивайло Чавдаров Страхилов"
+    },
+    {
+      "id": "person:БИСЕР АНТОНОВ САНДЕВ",
+      "type": "person",
+      "label": "Бисер Антонов Сандев"
+    },
+    {
+      "id": "person:СИЛВИЯ РАНГЕЛОВА КОЛЕВА",
+      "type": "person",
+      "label": "Силвия Рангелова Колева"
+    },
+    {
+      "id": "person:СНЕЖАНА КИРИЛОВА ЛУКАРСКА-ГРУЕВА",
+      "type": "person",
+      "label": "Снежана Кирилова Лукарска-Груева"
+    },
+    {
+      "id": "person:РАДОСЛАВ МИЛЧОВ РАНГЕЛОВ",
+      "type": "person",
+      "label": "Радослав Милчов Рангелов"
+    },
+    {
+      "id": "person:ЙОРДАНКА БОГОМИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Йорданка Богомилова Петрова"
+    },
+    {
+      "id": "person:ДИЛЯНА ЛЮБОМИРОВА ОГНЯНОВА",
+      "type": "person",
+      "label": "Диляна Любомирова Огнянова"
+    },
+    {
+      "id": "person:ЕНЧО ГЕОРГИЕВ ЙОРГОВ",
+      "type": "person",
+      "label": "Енчо Георгиев Йоргов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЕМИЛОВ БОНЕВ",
+      "type": "person",
+      "label": "Мирослав Емилов Бонев"
+    },
+    {
+      "id": "person:КИРИЛ ПЕТРОВ АЛЕКСОВ",
+      "type": "person",
+      "label": "Кирил Петров Алексов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-ognyanchov-dzhorgov-db4fbe",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-ognyanchov-dzhorgov-db4fbe",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИАН ВЕНЕЛИНОВ ЦОЕВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН РАЙЧЕВ ИВАНОВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЧАВДАРОВ СТРАХИЛОВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР АНТОНОВ САНДЕВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ РАНГЕЛОВА КОЛЕВА",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА КИРИЛОВА ЛУКАРСКА-ГРУЕВА",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ МИЛЧОВ РАНГЕЛОВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА БОГОМИЛОВА ПЕТРОВА",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ЛЮБОМИРОВА ОГНЯНОВА",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО ГЕОРГИЕВ ЙОРГОВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЕМИЛОВ БОНЕВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТРОВ АЛЕКСОВ",
+      "target": "company:tr:207721097",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

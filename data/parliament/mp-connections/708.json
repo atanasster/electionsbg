@@ -1,1 +1,49 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:708","nodes":[{"id":"mp:708","type":"mp","mpId":708,"label":"Ирена Иванова Маринова-Варадинова","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:175201662","type":"company","label":"ЦЦС КОНСУЛТИНГ","slug":null,"uic":"175201662","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"person:НИКОЛАЙ ВАРАДИНОВ ИЛИЕВ","type":"person","label":"Николай Варадинов Илиев"}],"edges":[{"source":"mp:708","target":"company:tr:175201662","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ВАРАДИНОВ ИЛИЕВ","target":"company:tr:175201662","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:708",
+  "nodes": [
+    {
+      "id": "mp:708",
+      "type": "mp",
+      "mpId": 708,
+      "label": "Ирена Иванова Маринова-Варадинова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:175201662",
+      "type": "company",
+      "label": "ЦЦС КОНСУЛТИНГ",
+      "slug": null,
+      "uic": "175201662",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАРАДИНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Николай Варадинов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:708",
+      "target": "company:tr:175201662",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАРАДИНОВ ИЛИЕВ",
+      "target": "company:tr:175201662",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

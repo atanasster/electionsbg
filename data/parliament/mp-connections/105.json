@@ -1,1 +1,273 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:105","nodes":[{"id":"mp:105","type":"mp","mpId":105,"label":"Георги Миланов Георгиев","partyGroupShort":"КП-РзВО","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208243718","type":"company","label":"Секънд флор бенд","slug":null,"uic":"208243718","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Велико Търново, 5000"},{"id":"company:tr:113042468","type":"company","label":"САМООБРАЗОВАНИЕ - 1925","slug":null,"uic":"113042468","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, с. Бобораци, 2454"},{"id":"person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА","type":"person","label":"Теодора Николаева Владимирова"},{"id":"person:НИКИФОРКА ИВАНОВА ПЕТРОВА","type":"person","label":"Никифорка Иванова Петрова"},{"id":"person:СИКА ЙОРДАНОВА СТОЯНОВА","type":"person","label":"Сика Йорданова Стоянова"},{"id":"person:СОФИЯ ГЕОРГИЕВА ЯНЕВА","type":"person","label":"София Георгиева Янева"},{"id":"person:КИРИЛ ГЕОРГИЕВ СТОЕВ","type":"person","label":"Кирил Георгиев Стоев"},{"id":"person:ОГНЯН БОЖИЛОВ ВАСЕВ","type":"person","label":"Огнян Божилов Васев"},{"id":"person:ГЕРГАНА СОКОЛОВА ПЕНЕВА","type":"person","label":"Гергана Соколова Пенева"},{"id":"person:СТОЯНКА АНТОНОВА ГЕОРГИЕВА","type":"person","label":"Стоянка Антонова Георгиева"},{"id":"person:ГЕОРГИ КИРИЛОВ ГЕОРГИЕВ","type":"person","label":"Георги Кирилов Георгиев"},{"id":"person:РАЯ ЕМИЛОВА КРЪСТЕВА","type":"person","label":"Рая Емилова Кръстева"},{"id":"person:ВЯРА БОЙКОВА ИВАНОВА","type":"person","label":"Вяра Бойкова Иванова"},{"id":"person:ЛАРИСА СТЕФАНОВА КРЪСТЕВА","type":"person","label":"Лариса Стефанова Кръстева"},{"id":"person:ПЪРВОЛЕТА ГЕОРГИЕВА АЛЕКСАНДРОВА","type":"person","label":"Първолета Георгиева Александрова"},{"id":"person:КАМЕЛИЯ ХРИСТОВА ЙОВКОВА","type":"person","label":"Камелия Христова Йовкова"},{"id":"person:РОЗА АЛЕКСАНДРОВА ГЕОРГИЕВА","type":"person","label":"Роза Александрова Георгиева"}],"edges":[{"source":"mp:105","target":"company:tr:208243718","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:105","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА","target":"company:tr:208243718","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА","target":"company:tr:208243718","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКИФОРКА ИВАНОВА ПЕТРОВА","target":"company:tr:113042468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКИФОРКА ИВАНОВА ПЕТРОВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СИКА ЙОРДАНОВА СТОЯНОВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СОФИЯ ГЕОРГИЕВА ЯНЕВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ГЕОРГИЕВ СТОЕВ","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ОГНЯН БОЖИЛОВ ВАСЕВ","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА СОКОЛОВА ПЕНЕВА","target":"company:tr:113042468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯНКА АНТОНОВА ГЕОРГИЕВА","target":"company:tr:113042468","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА СОКОЛОВА ПЕНЕВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ КИРИЛОВ ГЕОРГИЕВ","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РАЯ ЕМИЛОВА КРЪСТЕВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ВЯРА БОЙКОВА ИВАНОВА","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ЛАРИСА СТЕФАНОВА КРЪСТЕВА","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ПЪРВОЛЕТА ГЕОРГИЕВА АЛЕКСАНДРОВА","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАМЕЛИЯ ХРИСТОВА ЙОВКОВА","target":"company:tr:113042468","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОЗА АЛЕКСАНДРОВА ГЕОРГИЕВА","target":"company:tr:113042468","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:105",
+  "nodes": [
+    {
+      "id": "mp:105",
+      "type": "mp",
+      "mpId": 105,
+      "label": "Георги Миланов Георгиев",
+      "partyGroupShort": "КП-РзВО",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208243718",
+      "type": "company",
+      "label": "Секънд флор бенд",
+      "slug": null,
+      "uic": "208243718",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "company:tr:113042468",
+      "type": "company",
+      "label": "САМООБРАЗОВАНИЕ - 1925",
+      "slug": null,
+      "uic": "113042468",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Бобораци, 2454"
+    },
+    {
+      "id": "person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Теодора Николаева Владимирова"
+    },
+    {
+      "id": "person:НИКИФОРКА ИВАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Никифорка Иванова Петрова"
+    },
+    {
+      "id": "person:СИКА ЙОРДАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Сика Йорданова Стоянова"
+    },
+    {
+      "id": "person:СОФИЯ ГЕОРГИЕВА ЯНЕВА",
+      "type": "person",
+      "label": "София Георгиева Янева"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ СТОЕВ",
+      "type": "person",
+      "label": "Кирил Георгиев Стоев"
+    },
+    {
+      "id": "person:ОГНЯН БОЖИЛОВ ВАСЕВ",
+      "type": "person",
+      "label": "Огнян Божилов Васев"
+    },
+    {
+      "id": "person:ГЕРГАНА СОКОЛОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Гергана Соколова Пенева"
+    },
+    {
+      "id": "person:СТОЯНКА АНТОНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стоянка Антонова Георгиева"
+    },
+    {
+      "id": "person:ГЕОРГИ КИРИЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Кирилов Георгиев"
+    },
+    {
+      "id": "person:РАЯ ЕМИЛОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Рая Емилова Кръстева"
+    },
+    {
+      "id": "person:ВЯРА БОЙКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Вяра Бойкова Иванова"
+    },
+    {
+      "id": "person:ЛАРИСА СТЕФАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Лариса Стефанова Кръстева"
+    },
+    {
+      "id": "person:ПЪРВОЛЕТА ГЕОРГИЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Първолета Георгиева Александрова"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ХРИСТОВА ЙОВКОВА",
+      "type": "person",
+      "label": "Камелия Христова Йовкова"
+    },
+    {
+      "id": "person:РОЗА АЛЕКСАНДРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Роза Александрова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:105",
+      "target": "company:tr:208243718",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:105",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА",
+      "target": "company:tr:208243718",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА НИКОЛАЕВА ВЛАДИМИРОВА",
+      "target": "company:tr:208243718",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКИФОРКА ИВАНОВА ПЕТРОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКИФОРКА ИВАНОВА ПЕТРОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИКА ЙОРДАНОВА СТОЯНОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ГЕОРГИЕВА ЯНЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ СТОЕВ",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН БОЖИЛОВ ВАСЕВ",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СОКОЛОВА ПЕНЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА АНТОНОВА ГЕОРГИЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА СОКОЛОВА ПЕНЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КИРИЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ ЕМИЛОВА КРЪСТЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА БОЙКОВА ИВАНОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАРИСА СТЕФАНОВА КРЪСТЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЪРВОЛЕТА ГЕОРГИЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ХРИСТОВА ЙОВКОВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗА АЛЕКСАНДРОВА ГЕОРГИЕВА",
+      "target": "company:tr:113042468",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

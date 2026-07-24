@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:asen-borislavov-kichukov-caf003",
+  "nodes": [
+    {
+      "id": "official:asen-borislavov-kichukov-caf003",
+      "type": "official",
+      "slug": "asen-borislavov-kichukov-caf003",
+      "label": "Асен Бориславов Кичуков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Първомай"
+    },
+    {
+      "id": "company:tr:176864692",
+      "type": "company",
+      "label": "НАЦИОНАЛНА КОНФЕДЕРАЦИЯ НА ТЮТЮНОПРОИЗВОДИТЕЛИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "176864692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НУРДОАН ИБРЯМ СЮРМЕЛИ",
+      "type": "person",
+      "label": "Нурдоан Ибрям Сюрмели"
+    },
+    {
+      "id": "person:ВЕСЕЛИН МИШЕВ ХАДЖИЙСКИ",
+      "type": "person",
+      "label": "Веселин Мишев Хаджийски"
+    },
+    {
+      "id": "person:РУМЕН ВАЛЕРИЕВ МИНЧЕВ",
+      "type": "person",
+      "label": "Румен Валериев Минчев"
+    },
+    {
+      "id": "person:АЙДЪН СЮЛЕЙМАН ДЖАМБАЗ",
+      "type": "person",
+      "label": "Айдън Сюлейман Джамбаз"
+    },
+    {
+      "id": "person:РАХИМ РАИФОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Рахим Раифов Хаджиев"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЗДРАВКОВ СОКОЛОВ",
+      "type": "person",
+      "label": "Владимир Здравков Соколов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-borislavov-kichukov-caf003",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НУРДОАН ИБРЯМ СЮРМЕЛИ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН МИШЕВ ХАДЖИЙСКИ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ВАЛЕРИЕВ МИНЧЕВ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙДЪН СЮЛЕЙМАН ДЖАМБАЗ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАХИМ РАИФОВ ХАДЖИЕВ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЗДРАВКОВ СОКОЛОВ",
+      "target": "company:tr:176864692",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:asya-borislavova-petrova-717cc4",
+  "nodes": [
+    {
+      "id": "official:asya-borislavova-petrova-717cc4",
+      "type": "official",
+      "slug": "asya-borislavova-petrova-717cc4",
+      "label": "Ася Бориславова Петрова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:837076982",
+      "type": "company",
+      "label": "АВГУСТА МЕЛ ООД",
+      "slug": null,
+      "uic": "837076982",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:asya-borislavova-petrova-f8f114",
+      "type": "official",
+      "slug": "asya-borislavova-petrova-f8f114",
+      "label": "Ася Бориславова Петрова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Петър Георгиев Тодоров"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ПЕТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Валентин Петров Тодоров"
+    },
+    {
+      "id": "person:НАНКО ЗЛАТЕВ ЖЕЧЕВ",
+      "type": "person",
+      "label": "Нанко Златев Жечев"
+    },
+    {
+      "id": "person:ПЛАМЕН МАЛЧЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Пламен Малчев Йорданов"
+    },
+    {
+      "id": "person:ИВАН НЕДЕЛЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Неделчев Иванов"
+    },
+    {
+      "id": "person:МАРИАНА ЙОРДАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Мариана Йорданова Йорданова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Димитров"
+    },
+    {
+      "id": "person:НЕДЯЛКА ДИМОВА ТОМОВА",
+      "type": "person",
+      "label": "Недялка Димова Томова"
+    },
+    {
+      "id": "person:МЕРИЯНА НИКОЛОВА ВАЙСИЛОВА",
+      "type": "person",
+      "label": "Мерияна Николова Вайсилова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Николай Димитров Петков"
+    },
+    {
+      "id": "person:ГАНКА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ганка Иванова Тодорова"
+    },
+    {
+      "id": "person:ЖЕНИ СТОЯНОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Жени Стоянова Кънчева"
+    },
+    {
+      "id": "person:ЯНАКИ ДИМИТРОВ ЯНАКИЕВ",
+      "type": "person",
+      "label": "Янаки Димитров Янакиев"
+    },
+    {
+      "id": "person:СРЕМКА ДИМИТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Сремка Димитрова Стоянова"
+    },
+    {
+      "id": "person:ЕНВЕР ИБРЯМОВ ЮНУЗОВ",
+      "type": "person",
+      "label": "Енвер Ибрямов Юнузов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asya-borislavova-petrova-717cc4",
+      "target": "company:tr:837076982",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:asya-borislavova-petrova-f8f114",
+      "target": "company:tr:837076982",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ТОДОРОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТРОВ ТОДОРОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ПЕТРОВ ТОДОРОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАНКО ЗЛАТЕВ ЖЕЧЕВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МАЛЧЕВ ЙОРДАНОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НЕДЕЛЧЕВ ИВАНОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ЙОРДАНОВА ЙОРДАНОВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ДИМОВА ТОМОВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕРИЯНА НИКОЛОВА ВАЙСИЛОВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ПЕТКОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНИ СТОЯНОВА КЪНЧЕВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНАКИ ДИМИТРОВ ЯНАКИЕВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СРЕМКА ДИМИТРОВА СТОЯНОВА",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ТОДОРОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНВЕР ИБРЯМОВ ЮНУЗОВ",
+      "target": "company:tr:837076982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

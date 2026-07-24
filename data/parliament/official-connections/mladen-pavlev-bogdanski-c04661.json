@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mladen-pavlev-bogdanski-c04661",
+  "nodes": [
+    {
+      "id": "official:mladen-pavlev-bogdanski-c04661",
+      "type": "official",
+      "slug": "mladen-pavlev-bogdanski-c04661",
+      "label": "Младен Павлев Богдански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:207118672",
+      "type": "company",
+      "label": "ЛЕСТРЕЙД 22",
+      "slug": null,
+      "uic": "207118672",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-pavlev-bogdanski-c04661",
+      "target": "company:tr:207118672",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mladen-pavlev-bogdanski-c04661",
+      "target": "company:tr:207118672",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

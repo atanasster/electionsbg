@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kristina-biserova-stoicheva-3d757a",
+  "nodes": [
+    {
+      "id": "official:kristina-biserova-stoicheva-3d757a",
+      "type": "official",
+      "slug": "kristina-biserova-stoicheva-3d757a",
+      "label": "Кристина Бисерова Стойчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:204562647",
+      "type": "company",
+      "label": "УНИК ГОЛД ГРУП",
+      "slug": null,
+      "uic": "204562647",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО НЕСТОРОВ МИТЕВ",
+      "type": "person",
+      "label": "Ивайло Несторов Митев"
+    },
+    {
+      "id": "person:СВЕТЛА КИРИЛОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Светла Кирилова Стойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-biserova-stoicheva-3d757a",
+      "target": "company:tr:204562647",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristina-biserova-stoicheva-3d757a",
+      "target": "company:tr:204562647",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО НЕСТОРОВ МИТЕВ",
+      "target": "company:tr:204562647",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА КИРИЛОВА СТОЙЧЕВА",
+      "target": "company:tr:204562647",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mihail-stanchev-vaklinov-8eec0a",
+  "nodes": [
+    {
+      "id": "official:mihail-stanchev-vaklinov-8eec0a",
+      "type": "official",
+      "slug": "mihail-stanchev-vaklinov-8eec0a",
+      "label": "Михаил Станчев Ваклинов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175400568",
+      "type": "company",
+      "label": "Литъл Биг Филмс ООД",
+      "slug": null,
+      "uic": "175400568",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130561079",
+      "type": "company",
+      "label": "Биг Бенг Комюникейшънс ООД",
+      "slug": null,
+      "uic": "130561079",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-stanchev-vaklinov-8eec0a",
+      "target": "company:tr:175400568",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mihail-stanchev-vaklinov-8eec0a",
+      "target": "company:tr:130561079",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

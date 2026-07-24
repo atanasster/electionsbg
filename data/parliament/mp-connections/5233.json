@@ -1,1 +1,301 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5233","nodes":[{"id":"mp:5233","type":"mp","mpId":5233,"label":"Иво Георгиев Михайлов","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:207101858","type":"company","label":"СДРУЖЕНИЕ БЪЛГАРСКА АСОЦИАЦИЯ ЗА ТУРИЗЪМ","slug":null,"uic":"207101858","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1408"},{"id":"company:tr:206570240","type":"company","label":"ИВО - ДЕСИ 2021","slug":null,"uic":"206570240","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1404"},{"id":"person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ","type":"person","label":"Ивелин Симеонов Кичуков"},{"id":"person:ПЕТЪР ИВАНОВ ЯНКОВ","type":"person","label":"Петър Иванов Янков"},{"id":"person:ДЕЛЧО ПЕТРОВ ПЕПЕЛАНОВ","type":"person","label":"Делчо Петров Пепеланов"},{"id":"person:ИВАН СТЕФАНОВ ИВАНОВ","type":"person","label":"Иван Стефанов Иванов"},{"id":"person:ЕМИЛИЯН ЦВЕТЕЛИНОВ ЦАНОВ","type":"person","label":"Емилиян Цветелинов Цанов"},{"id":"person:ХРИСТО СВИЛЕНОВ МИТКОВ","type":"person","label":"Христо Свиленов Митков"},{"id":"company:tr:177122249","type":"company","label":"Сдружение на администрацията в органите на съдебната власт","slug":null,"uic":"177122249","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:3455","type":"mp","mpId":3455,"label":"Александър Богданов Николов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["45"]},{"id":"company:tr:207017246","type":"company","label":"СДРУЖЕНИЕ БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 2022","slug":null,"uic":"207017246","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:2826","type":"mp","mpId":2826,"label":"Васил Миланов Антонов","partyGroupShort":"Левицата","isCurrent":false,"nsFolders":["40","42","43"]},{"id":"mp:5136","type":"mp","mpId":5136,"label":"Иван Костадинов Вачев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]}],"edges":[{"source":"mp:5233","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5233","target":"company:tr:206570240","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5233","target":"company:tr:206570240","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ИВАНОВ ЯНКОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЧО ПЕТРОВ ПЕПЕЛАНОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН СТЕФАНОВ ИВАНОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛИЯН ЦВЕТЕЛИНОВ ЦАНОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СВИЛЕНОВ МИТКОВ","target":"company:tr:207101858","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СВИЛЕНОВ МИТКОВ","target":"company:tr:207017246","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СВИЛЕНОВ МИТКОВ","target":"company:tr:207017246","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО СВИЛЕНОВ МИТКОВ","target":"company:tr:177122249","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3455","target":"company:tr:177122249","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2826","target":"company:tr:207017246","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2826","target":"company:tr:207017246","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5136","target":"company:tr:207017246","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3455","length":4,"nodeIds":["mp:5233","company:tr:207101858","person:ХРИСТО СВИЛЕНОВ МИТКОВ","company:tr:177122249","mp:3455"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2826","length":4,"nodeIds":["mp:5233","company:tr:207101858","person:ХРИСТО СВИЛЕНОВ МИТКОВ","company:tr:207017246","mp:2826"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5136","length":4,"nodeIds":["mp:5233","company:tr:207101858","person:ХРИСТО СВИЛЕНОВ МИТКОВ","company:tr:207017246","mp:5136"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5233",
+  "nodes": [
+    {
+      "id": "mp:5233",
+      "type": "mp",
+      "mpId": 5233,
+      "label": "Иво Георгиев Михайлов",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:207101858",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ БЪЛГАРСКА АСОЦИАЦИЯ ЗА ТУРИЗЪМ",
+      "slug": null,
+      "uic": "207101858",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    },
+    {
+      "id": "company:tr:206570240",
+      "type": "company",
+      "label": "ИВО - ДЕСИ 2021",
+      "slug": null,
+      "uic": "206570240",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ",
+      "type": "person",
+      "label": "Ивелин Симеонов Кичуков"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ЯНКОВ",
+      "type": "person",
+      "label": "Петър Иванов Янков"
+    },
+    {
+      "id": "person:ДЕЛЧО ПЕТРОВ ПЕПЕЛАНОВ",
+      "type": "person",
+      "label": "Делчо Петров Пепеланов"
+    },
+    {
+      "id": "person:ИВАН СТЕФАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Стефанов Иванов"
+    },
+    {
+      "id": "person:ЕМИЛИЯН ЦВЕТЕЛИНОВ ЦАНОВ",
+      "type": "person",
+      "label": "Емилиян Цветелинов Цанов"
+    },
+    {
+      "id": "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+      "type": "person",
+      "label": "Христо Свиленов Митков"
+    },
+    {
+      "id": "company:tr:177122249",
+      "type": "company",
+      "label": "Сдружение на администрацията в органите на съдебната власт",
+      "slug": null,
+      "uic": "177122249",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3455",
+      "type": "mp",
+      "mpId": 3455,
+      "label": "Александър Богданов Николов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:tr:207017246",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 2022",
+      "slug": null,
+      "uic": "207017246",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:2826",
+      "type": "mp",
+      "mpId": 2826,
+      "label": "Васил Миланов Антонов",
+      "partyGroupShort": "Левицата",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "mp:5136",
+      "type": "mp",
+      "mpId": 5136,
+      "label": "Иван Костадинов Вачев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5233",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5233",
+      "target": "company:tr:206570240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5233",
+      "target": "company:tr:206570240",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН СИМЕОНОВ КИЧУКОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ЯНКОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО ПЕТРОВ ПЕПЕЛАНОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТЕФАНОВ ИВАНОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ЦВЕТЕЛИНОВ ЦАНОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+      "target": "company:tr:207101858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+      "target": "company:tr:207017246",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+      "target": "company:tr:207017246",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+      "target": "company:tr:177122249",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3455",
+      "target": "company:tr:177122249",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2826",
+      "target": "company:tr:207017246",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2826",
+      "target": "company:tr:207017246",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5136",
+      "target": "company:tr:207017246",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3455",
+      "length": 4,
+      "nodeIds": [
+        "mp:5233",
+        "company:tr:207101858",
+        "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+        "company:tr:177122249",
+        "mp:3455"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2826",
+      "length": 4,
+      "nodeIds": [
+        "mp:5233",
+        "company:tr:207101858",
+        "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+        "company:tr:207017246",
+        "mp:2826"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5136",
+      "length": 4,
+      "nodeIds": [
+        "mp:5233",
+        "company:tr:207101858",
+        "person:ХРИСТО СВИЛЕНОВ МИТКОВ",
+        "company:tr:207017246",
+        "mp:5136"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

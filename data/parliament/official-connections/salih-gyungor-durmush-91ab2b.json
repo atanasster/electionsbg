@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:salih-gyungor-durmush-91ab2b",
+  "nodes": [
+    {
+      "id": "official:salih-gyungor-durmush-91ab2b",
+      "type": "official",
+      "slug": "salih-gyungor-durmush-91ab2b",
+      "label": "Салих Гюнгьор Дурмуш",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Момчилград"
+    },
+    {
+      "id": "company:tr:176493237",
+      "type": "company",
+      "label": "РОДОПА",
+      "slug": null,
+      "uic": "176493237",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Момчилград"
+    },
+    {
+      "id": "mp:5105",
+      "type": "mp",
+      "mpId": 5105,
+      "label": "Айтен Байрям Сабри",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН",
+      "type": "person",
+      "label": "Мехнур Сабри Хюсеин-Осман"
+    },
+    {
+      "id": "person:МАРГАРИТА ИВАНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Маргарита Иванова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:salih-gyungor-durmush-91ab2b",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:salih-gyungor-durmush-91ab2b",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5105",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5105",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕХНУР САБРИ ХЮСЕИН-ОСМАН",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА НИКОЛОВА",
+      "target": "company:tr:176493237",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-aleksiev-nikolov-cde31e",
+  "nodes": [
+    {
+      "id": "official:valentin-aleksiev-nikolov-cde31e",
+      "type": "official",
+      "slug": "valentin-aleksiev-nikolov-cde31e",
+      "label": "Валентин Алексиев Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202787168",
+      "type": "company",
+      "label": "Съзвездие лъв ЕООД",
+      "slug": null,
+      "uic": "202787168",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203320833",
+      "type": "company",
+      "label": "МДВ Консулт ООД",
+      "slug": null,
+      "uic": "203320833",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН МИХАЙЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Румен Михайлов Михайлов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валентин Алексиев Николов"
+    },
+    {
+      "id": "person:ЛИНА АУДАЙ МАХДИ",
+      "type": "person",
+      "label": "Лина Аудай Махди"
+    },
+    {
+      "id": "person:ЛИНА АУДАЙ МАХДИ - НИКОЛОВА",
+      "type": "person",
+      "label": "Лина Аудай Махди - Николова"
+    },
+    {
+      "id": "person:МИЛЕН ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Милен Христов Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-aleksiev-nikolov-cde31e",
+      "target": "company:tr:202787168",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valentin-aleksiev-nikolov-cde31e",
+      "target": "company:tr:203320833",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МИХАЙЛОВ МИХАЙЛОВ",
+      "target": "company:tr:202787168",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:202787168",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИНА АУДАЙ МАХДИ",
+      "target": "company:tr:202787168",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:202787168",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИНА АУДАЙ МАХДИ - НИКОЛОВА",
+      "target": "company:tr:202787168",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:203320833",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН АЛЕКСИЕВ НИКОЛОВ",
+      "target": "company:tr:203320833",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

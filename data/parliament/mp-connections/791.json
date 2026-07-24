@@ -1,1 +1,178 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:791","nodes":[{"id":"mp:791","type":"mp","mpId":791,"label":"Мима Тодорова Василева","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:124643529","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО АНДРЕЕВ ГРАДЕЧЛИЕВ - 2005 Г.&quot;","slug":null,"uic":"124643529","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, Селце, 9655"},{"id":"person:НЕВЕЛИНА НИКОЛОВА ВАСИЛЕВА","type":"person","label":"Невелина Николова Василева"},{"id":"person:ПАВЛИНА РАДЕВА ДИМИТРОВА","type":"person","label":"Павлина Радева Димитрова"},{"id":"person:ГАНКА НЕДЕВА ВАСИЛЕВА","type":"person","label":"Ганка Недева Василева"},{"id":"person:КАЛИНКА ВЪРБАНОВА ПЕЙЧЕВА","type":"person","label":"Калинка Върбанова Пейчева"},{"id":"person:МАРИЙКА ВАСИЛЕВА МАРКОВА","type":"person","label":"Марийка Василева Маркова"},{"id":"person:ВЕНЦИСЛАВА ПАВЛОВА СТАНЧЕВА","type":"person","label":"Венцислава Павлова Станчева"},{"id":"person:СТЕФКА ДИМИТРОВА ДРАГИЕВА","type":"person","label":"Стефка  Димитрова Драгиева"},{"id":"person:КОЙКА АНГЕЛОВА ПЕТРОВА","type":"person","label":"Койка Ангелова Петрова"},{"id":"person:РАЯ ЦВЕТАНОВА ЦОЛОВА","type":"person","label":"Рая Цветанова Цолова"}],"edges":[{"source":"mp:791","target":"company:tr:124643529","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:НЕВЕЛИНА НИКОЛОВА ВАСИЛЕВА","target":"company:tr:124643529","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РАДЕВА ДИМИТРОВА","target":"company:tr:124643529","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГАНКА НЕДЕВА ВАСИЛЕВА","target":"company:tr:124643529","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЛИНА РАДЕВА ДИМИТРОВА","target":"company:tr:124643529","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНКА ВЪРБАНОВА ПЕЙЧЕВА","target":"company:tr:124643529","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЙКА ВАСИЛЕВА МАРКОВА","target":"company:tr:124643529","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЦИСЛАВА ПАВЛОВА СТАНЧЕВА","target":"company:tr:124643529","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ДИМИТРОВА ДРАГИЕВА","target":"company:tr:124643529","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КОЙКА АНГЕЛОВА ПЕТРОВА","target":"company:tr:124643529","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:РАЯ ЦВЕТАНОВА ЦОЛОВА","target":"company:tr:124643529","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:791",
+  "nodes": [
+    {
+      "id": "mp:791",
+      "type": "mp",
+      "mpId": 791,
+      "label": "Мима Тодорова Василева",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:124643529",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО АНДРЕЕВ ГРАДЕЧЛИЕВ - 2005 Г.&quot;",
+      "slug": null,
+      "uic": "124643529",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Селце, 9655"
+    },
+    {
+      "id": "official:mima-todorova-vasileva-90f26e",
+      "type": "official",
+      "slug": "mima-todorova-vasileva-90f26e",
+      "label": "Мима Тодорова Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каварна"
+    },
+    {
+      "id": "person:НЕВЕЛИНА НИКОЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Невелина Николова Василева"
+    },
+    {
+      "id": "person:ПАВЛИНА РАДЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Павлина Радева Димитрова"
+    },
+    {
+      "id": "person:ГАНКА НЕДЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Ганка Недева Василева"
+    },
+    {
+      "id": "person:КАЛИНКА ВЪРБАНОВА ПЕЙЧЕВА",
+      "type": "person",
+      "label": "Калинка Върбанова Пейчева"
+    },
+    {
+      "id": "person:МАРИЙКА ВАСИЛЕВА МАРКОВА",
+      "type": "person",
+      "label": "Марийка Василева Маркова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВА ПАВЛОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Венцислава Павлова Станчева"
+    },
+    {
+      "id": "person:СТЕФКА ДИМИТРОВА ДРАГИЕВА",
+      "type": "person",
+      "label": "Стефка  Димитрова Драгиева"
+    },
+    {
+      "id": "person:КОЙКА АНГЕЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Койка Ангелова Петрова"
+    },
+    {
+      "id": "person:РАЯ ЦВЕТАНОВА ЦОЛОВА",
+      "type": "person",
+      "label": "Рая Цветанова Цолова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:791",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mima-todorova-vasileva-90f26e",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕВЕЛИНА НИКОЛОВА ВАСИЛЕВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РАДЕВА ДИМИТРОВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА НЕДЕВА ВАСИЛЕВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА РАДЕВА ДИМИТРОВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ВЪРБАНОВА ПЕЙЧЕВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ВАСИЛЕВА МАРКОВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВА ПАВЛОВА СТАНЧЕВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ДИМИТРОВА ДРАГИЕВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЙКА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ ЦВЕТАНОВА ЦОЛОВА",
+      "target": "company:tr:124643529",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

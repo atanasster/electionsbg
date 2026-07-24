@@ -1,1 +1,106 @@
-{"mpId":5213,"mpName":"Слави Василев Василев","generatedAt":"2026-07-03T11:12:51.950Z","total":7,"roles":[{"uic":"175684307","companyName":"ВИКТОР ЮГО","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"ngo_representative","positionLabel":"Председател на Управителния съвет","sharePercent":null,"addedAt":"2026-06-16T18:00:15","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175684307","companyName":"ВИКТОР ЮГО","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2026-06-16T18:00:15","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208153060","companyName":"ИЙСТ ПЕТРОЛЕУМ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-31T11:31:27","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208153060","companyName":"ИЙСТ ПЕТРОЛЕУМ","legalForm":"Еднолично дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. София, 1202","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2025-01-31T11:31:27","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"831508549","companyName":"БРАТЯ ВАСИЛЕВИ","legalForm":"AD","seat":null,"status":"active","role":"actual_owner","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-29T15:31:24","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"201181712","companyName":"Инженерингов и развоен център МРАЗ","legalForm":"EOOD","seat":null,"status":"active","role":"actual_owner","positionLabel":null,"sharePercent":null,"addedAt":"2024-04-29T14:07:47","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"000620161","companyName":"МРАЗ","legalForm":"AD","seat":null,"status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2023-12-18T09:13:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5213,
+  "mpName": "Слави Василев Василев",
+  "generatedAt": "2026-07-24T03:35:58.767Z",
+  "total": 7,
+  "roles": [
+    {
+      "uic": "175684307",
+      "companyName": "ВИКТОР ЮГО",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател на Управителния съвет",
+      "sharePercent": null,
+      "addedAt": "2026-06-16T18:00:15",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175684307",
+      "companyName": "ВИКТОР ЮГО",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-06-16T18:00:15",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208153060",
+      "companyName": "ИЙСТ ПЕТРОЛЕУМ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-31T11:31:27",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208153060",
+      "companyName": "ИЙСТ ПЕТРОЛЕУМ",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2025-01-31T11:31:27",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "831508549",
+      "companyName": "БРАТЯ ВАСИЛЕВИ",
+      "legalForm": "AD",
+      "seat": null,
+      "status": "active",
+      "role": "actual_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-29T15:31:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "201181712",
+      "companyName": "Инженерингов и развоен център МРАЗ",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "actual_owner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-04-29T14:07:47",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "000620161",
+      "companyName": "МРАЗ",
+      "legalForm": "AD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-12-18T09:13:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

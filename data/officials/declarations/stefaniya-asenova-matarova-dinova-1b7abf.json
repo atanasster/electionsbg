@@ -96,22 +96,22 @@
     "income": [],
     "assets": [
       {
-        "category": "receivable",
-        "description": "6000",
-        "detail": null,
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплата,дарения",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Стефания Асенова Матарова-Динова",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплата,дарения"
       }
     ],
     "events": []
@@ -133,22 +133,22 @@
     "income": [],
     "assets": [
       {
-        "category": "receivable",
-        "description": "14000",
-        "detail": null,
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "заплати, дарения - родител, спестявания-съпруг",
-        "isSpouse": true,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Стефания Асенова Матарова-  Динова",
+        "isSpouse": false,
         "legalBasis": null,
-        "fundsOrigin": null
+        "fundsOrigin": "заплати, дарения - родител, спестявания-съпруг"
       }
     ],
     "events": []

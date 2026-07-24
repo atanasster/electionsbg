@@ -1,1 +1,405 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:2834","nodes":[{"id":"mp:2834","type":"mp","mpId":2834,"label":"Менда Кирилова Стоянова","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":["41","42","43"]},{"id":"company:Меге-инвесмънт-еоод","type":"company","label":"Меге инвесмънт еоод","slug":"Меге-инвесмънт-еоод","uic":null,"legalForm":null,"status":null,"seat":"Пловдив"},{"id":"company:ТаксКонсулт-оод","type":"company","label":"ТаксКонсулт оод","slug":"ТаксКонсулт-оод","uic":"114686293","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"company:Техноинженеринг-оод","type":"company","label":"Техноинженеринг оод","slug":"Техноинженеринг-оод","uic":"114060147","legalForm":"OOD","status":"active","seat":"Пловдив"},{"id":"company:Фил-Комерс-Е-оод","type":"company","label":"Фил-Комерс Е оод","slug":"Фил-Комерс-Е-оод","uic":"200378219","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"company:Фил-Комерс-оод","type":"company","label":"Фил-Комерс оод","slug":"Фил-Комерс-оод","uic":"115076439","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"company:tr:204365482","type":"company","label":"МЕГЕ ИНВЕСТМЪНТ","slug":null,"uic":"204365482","legalForm":"OOD","status":"active","seat":null},{"id":"person:ГЕОРГИ СТОЯНОВ СТОЯНОВ","type":"person","label":"Георги Стоянов Стоянов"},{"id":"person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ","type":"person","label":"Йордан Георгиев Петров"},{"id":"person:ХРИСТО ЧАВДАРОВ СТОЯНОВ","type":"person","label":"Христо Чавдаров Стоянов"}],"edges":[{"source":"mp:2834","target":"company:Меге-инвесмънт-еоод","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2834","target":"company:ТаксКонсулт-оод","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2834","target":"company:Техноинженеринг-оод","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2834","target":"company:Фил-Комерс-Е-оод","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2834","target":"company:Фил-Комерс-оод","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:2834","target":"company:tr:204365482","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:2834","target":"company:tr:204365482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕОРГИ СТОЯНОВ СТОЯНОВ","target":"company:Фил-Комерс-оод","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ","target":"company:Фил-Комерс-оод","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ЧАВДАРОВ СТОЯНОВ","target":"company:Фил-Комерс-оод","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ СТОЯНОВ","target":"company:tr:204365482","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ СТОЯНОВ СТОЯНОВ","target":"company:tr:204365482","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2834",
+  "nodes": [
+    {
+      "id": "mp:2834",
+      "type": "mp",
+      "mpId": 2834,
+      "label": "Менда Кирилова Стоянова",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:Меге-инвестмънт-ЕООД",
+      "type": "company",
+      "label": "\"Меге инвестмънт\" ЕООД",
+      "slug": "Меге-инвестмънт-ЕООД",
+      "uic": "204365482",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Такс-консулт-ООД",
+      "type": "company",
+      "label": "\"Такс консулт\" ООД",
+      "slug": "Такс-консулт-ООД",
+      "uic": "160037036",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Техноинженеринг-97-ООД",
+      "type": "company",
+      "label": "\"Техноинженеринг - 97\" ООД",
+      "slug": "Техноинженеринг-97-ООД",
+      "uic": "825177849",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:ФИЛ-Комерс-е-ООД",
+      "type": "company",
+      "label": "\"ФИЛ - Комерс е\" ООД",
+      "slug": "ФИЛ-Комерс-е-ООД",
+      "uic": "200378219",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "company:ФИЛ-Комерс-ООД",
+      "type": "company",
+      "label": "\"ФИЛ - Комерс\" ООД",
+      "slug": "ФИЛ-Комерс-ООД",
+      "uic": "115076439",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "company:Меге-инвесмънт-еоод",
+      "type": "company",
+      "label": "Меге инвесмънт еоод",
+      "slug": "Меге-инвесмънт-еоод",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:ТаксКонсулт-оод",
+      "type": "company",
+      "label": "ТаксКонсулт оод",
+      "slug": "ТаксКонсулт-оод",
+      "uic": "114686293",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Техноинженеринг-оод",
+      "type": "company",
+      "label": "Техноинженеринг оод",
+      "slug": "Техноинженеринг-оод",
+      "uic": "114060147",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Фил-Комерс-Е-оод",
+      "type": "company",
+      "label": "Фил-Комерс Е оод",
+      "slug": "Фил-Комерс-Е-оод",
+      "uic": "200378219",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "company:Фил-Комерс-оод",
+      "type": "company",
+      "label": "Фил-Комерс оод",
+      "slug": "Фил-Комерс-оод",
+      "uic": "115076439",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Георги Стоянов Стоянов"
+    },
+    {
+      "id": "person:МЕГЕ ИНВЕСТМЪНТ",
+      "type": "person",
+      "label": "Меге Инвестмънт"
+    },
+    {
+      "id": "person:ТОДОР ДИМИТРОВ ДЕШЕВ",
+      "type": "person",
+      "label": "Тодор Димитров Дешев"
+    },
+    {
+      "id": "person:ИВАЙЛО ТОДОРОВ ДЕШЕВ",
+      "type": "person",
+      "label": "Ивайло Тодоров Дешев"
+    },
+    {
+      "id": "person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Йордан Георгиев Петров"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Георги Йорданов Петров"
+    },
+    {
+      "id": "person:ХРИСТО ЧАВДАРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Христо Чавдаров Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2834",
+      "target": "company:Меге-инвестмънт-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Меге-инвестмънт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Меге-инвестмънт-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Такс-консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Техноинженеринг-97-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:ФИЛ-Комерс-е-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:ФИЛ-Комерс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Меге-инвесмънт-еоод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:ТаксКонсулт-оод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Техноинженеринг-оод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Фил-Комерс-Е-оод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2834",
+      "target": "company:Фил-Комерс-оод",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:Меге-инвестмънт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:Меге-инвестмънт-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Меге-инвестмънт-ЕООД",
+      "target": "company:ФИЛ-Комерс-е-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Меге-инвестмънт-ЕООД",
+      "target": "company:Фил-Комерс-Е-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕГЕ ИНВЕСТМЪНТ",
+      "target": "company:Техноинженеринг-97-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ ДЕШЕВ",
+      "target": "company:Техноинженеринг-97-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ТОДОРОВ ДЕШЕВ",
+      "target": "company:Техноинженеринг-97-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:ФИЛ-Комерс-е-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:ФИЛ-Комерс-е-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:ФИЛ-Комерс-е-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:ФИЛ-Комерс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:ФИЛ-Комерс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЧАВДАРОВ СТОЯНОВ",
+      "target": "company:ФИЛ-Комерс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:Фил-Комерс-Е-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:Фил-Комерс-Е-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:Фил-Комерс-Е-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ СТОЯНОВ",
+      "target": "company:Фил-Комерс-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:Фил-Комерс-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЧАВДАРОВ СТОЯНОВ",
+      "target": "company:Фил-Комерс-оод",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

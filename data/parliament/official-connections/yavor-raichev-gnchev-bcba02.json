@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yavor-raichev-gnchev-bcba02",
+  "nodes": [
+    {
+      "id": "official:yavor-raichev-gnchev-bcba02",
+      "type": "official",
+      "slug": "yavor-raichev-gnchev-bcba02",
+      "label": "Явор Райчев Гънчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:123722354",
+      "type": "company",
+      "label": "БАГАТУР",
+      "slug": null,
+      "uic": "123722354",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-raichev-gnchev-bcba02",
+      "target": "company:tr:123722354",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yavor-raichev-gnchev-bcba02",
+      "target": "company:tr:123722354",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

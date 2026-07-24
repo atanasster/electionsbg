@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetoslav-bozhidarov-penev-66eb5e",
+  "nodes": [
+    {
+      "id": "official:svetoslav-bozhidarov-penev-66eb5e",
+      "type": "official",
+      "slug": "svetoslav-bozhidarov-penev-66eb5e",
+      "label": "Светослав Божидаров Пенев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гулянци"
+    },
+    {
+      "id": "company:tr:114078323",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПЕТКО РАЧЕВ СЛАВЕЙКОВ 1923&quot;",
+      "slug": null,
+      "uic": "114078323",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ВИТКОВ ЛИНКОВ",
+      "type": "person",
+      "label": "Пламен Витков Линков"
+    },
+    {
+      "id": "person:ЦВЕТОМИР ИЛИЙЧЕВ ЦАНКОВ",
+      "type": "person",
+      "label": "Цветомир Илийчев Цанков"
+    },
+    {
+      "id": "person:НАДЯ МИХАЙЛОВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Надя Михайлова Любенова"
+    },
+    {
+      "id": "person:МАЛИНКА ИЛИЕВА ТАИРОВА",
+      "type": "person",
+      "label": "Малинка Илиева Таирова"
+    },
+    {
+      "id": "person:СВЕТЛА КИРИЛОВА НАНКОВА",
+      "type": "person",
+      "label": "Светла Кирилова Нанкова"
+    },
+    {
+      "id": "person:МАЛИНКА ДРАГОМИРОВА ИГНАТОВА",
+      "type": "person",
+      "label": "Малинка Драгомирова Игнатова"
+    },
+    {
+      "id": "person:ЕЛИЦА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Елица Василева Иванова"
+    },
+    {
+      "id": "person:АНЕТА МИТКОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Анета Миткова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-bozhidarov-penev-66eb5e",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ВИТКОВ ЛИНКОВ",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ИЛИЙЧЕВ ЦАНКОВ",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ МИХАЙЛОВА ЛЮБЕНОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНКА ИЛИЕВА ТАИРОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА КИРИЛОВА НАНКОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНКА ДРАГОМИРОВА ИГНАТОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВИТКОВ ЛИНКОВ",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ МИХАЙЛОВА ЛЮБЕНОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА МИТКОВА АТАНАСОВА",
+      "target": "company:tr:114078323",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

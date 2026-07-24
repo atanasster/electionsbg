@@ -1,1 +1,444 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5075","nodes":[{"id":"mp:5075","type":"mp","mpId":5075,"label":"Костадин Георгиев Ангелов","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"]},{"id":"company:Амарид-ООД","type":"company","label":"Амарид ООД","slug":"Амарид-ООД","uic":"206295164","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"company:tr:206292360","type":"company","label":"Вамос спорт","slug":null,"uic":"206292360","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:131181090","type":"company","label":"СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УНИВЕРСИТЕТСКИТЕ БОЛНИЦИ В РЕПУБЛИКА БЪЛГАРИЯ&quot;","slug":null,"uic":"131181090","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1431"},{"id":"person:ТЕОДОР СТЕФАНОВ ПЕТРОВ","type":"person","label":"Теодор Стефанов Петров"},{"id":"person:ЮЛИАН СИМЕОНОВ ХРИСТОВ","type":"person","label":"Юлиан Симеонов Христов"},{"id":"person:ИВАН ИЛИЕВ САРАФСКИ","type":"person","label":"Иван Илиев Сарафски"},{"id":"person:ИНЕС ИВО КАМБАРЕВА","type":"person","label":"Инес Иво Камбарева"},{"id":"person:ВАНЯ ДЖАФЕРОВИЧ","type":"person","label":"Ваня Джаферович"},{"id":"person:ИЛИЯНА ВАЛЕНТИНОВА ДИНЕКОВА","type":"person","label":"Илияна Валентинова Динекова"},{"id":"person:ГЕОРГИ ЕМИЛОВ АНГЕЛОВ","type":"person","label":"Георги Емилов Ангелов"},{"id":"person:РУЖА ИВАНОВА НЕДКОВА-ИВАНОВА","type":"person","label":"Ружа Иванова Недкова-Иванова"},{"id":"person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ","type":"person","label":"Валентин Любомиров Игнатов"},{"id":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","type":"person","label":"Любомир Димитров Спасов"},{"id":"person:КАРЕН БРИЯНОВ ДЖАМБАЗОВ","type":"person","label":"Карен Бриянов Джамбазов"},{"id":"person:ПЕТРАНКА ИЛИЕВА ЧАКЪРОВА","type":"person","label":"Петранка Илиева Чакърова"},{"id":"person:КРАСИМИР ДИМИТРОВ ИВАНОВ","type":"person","label":"Красимир Димитров Иванов"},{"id":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\"","type":"person","label":"Университетска Многопрофилна Болница За Активно Лечение \"александровска\""},{"id":"person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \" ЛОЗЕНЕЦ \"","type":"person","label":"Многопрофилна Болница За Активно Лечение \" Лозенец \""},{"id":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\"","type":"person","label":"Университетска Многопрофилна Болница За Активно Лечение \"свети Георги\""},{"id":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ","type":"person","label":"Университетска Многопрофилна Болница За Активно Лечение - Проф., Д-Р Стоян Киркович"},{"id":"person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ЛОЗЕНЕЦ","type":"person","label":"Многопрофилна Болница За Активно Лечение \"лозенец"},{"id":"company:tr:175995308","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)","slug":null,"uic":"175995308","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"mp:3185","type":"mp","mpId":3185,"label":"Григор Ангелов Горчев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:205967328","type":"company","label":"Многопрофилна болница за активно лечение &quot;Лозенец","slug":null,"uic":"205967328","legalForm":"EAD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"mp:1077","type":"mp","mpId":1077,"label":"Янко Иванов Здравков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:5075","target":"company:Амарид-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5075","target":"company:tr:206292360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5075","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ТЕОДОР СТЕФАНОВ ПЕТРОВ","target":"company:Амарид-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИАН СИМЕОНОВ ХРИСТОВ","target":"company:Амарид-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ИЛИЕВ САРАФСКИ","target":"company:Амарид-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИНЕС ИВО КАМБАРЕВА","target":"company:Амарид-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДЖАФЕРОВИЧ","target":"company:Амарид-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАНЯ ДЖАФЕРОВИЧ","target":"company:Амарид-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА ВАЛЕНТИНОВА ДИНЕКОВА","target":"company:Амарид-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ЕМИЛОВ АНГЕЛОВ","target":"company:tr:206292360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУЖА ИВАНОВА НЕДКОВА-ИВАНОВА","target":"company:tr:206292360","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАРЕН БРИЯНОВ ДЖАМБАЗОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТРАНКА ИЛИЕВА ЧАКЪРОВА","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ИВАНОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\"","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ИВАНОВ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \" ЛОЗЕНЕЦ \"","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\"","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ЛОЗЕНЕЦ","target":"company:tr:131181090","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ДИМИТРОВ ИВАНОВ","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:1077","target":"company:tr:205967328","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3185","length":4,"nodeIds":["mp:5075","company:tr:131181090","person:КРАСИМИР ДИМИТРОВ ИВАНОВ","company:tr:175995308","mp:3185"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1077","length":4,"nodeIds":["mp:5075","company:tr:131181090","person:ЛЮБОМИР ДИМИТРОВ СПАСОВ","company:tr:205967328","mp:1077"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5075",
+  "nodes": [
+    {
+      "id": "mp:5075",
+      "type": "mp",
+      "mpId": 5075,
+      "label": "Костадин Георгиев Ангелов",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Амарид-ООД",
+      "type": "company",
+      "label": "Амарид ООД",
+      "slug": "Амарид-ООД",
+      "uic": "206295164",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:206292360",
+      "type": "company",
+      "label": "Вамос спорт",
+      "slug": null,
+      "uic": "206292360",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:131181090",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УНИВЕРСИТЕТСКИТЕ БОЛНИЦИ В РЕПУБЛИКА БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "131181090",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1431"
+    },
+    {
+      "id": "person:ТЕОДОР СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Теодор Стефанов Петров"
+    },
+    {
+      "id": "person:ЮЛИАН СИМЕОНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Юлиан Симеонов Христов"
+    },
+    {
+      "id": "person:ИВАН ИЛИЕВ САРАФСКИ",
+      "type": "person",
+      "label": "Иван Илиев Сарафски"
+    },
+    {
+      "id": "person:ИНЕС ИВО КАМБАРЕВА",
+      "type": "person",
+      "label": "Инес Иво Камбарева"
+    },
+    {
+      "id": "person:ВАНЯ ДЖАФЕРОВИЧ",
+      "type": "person",
+      "label": "Ваня Джаферович"
+    },
+    {
+      "id": "person:ИЛИЯНА ВАЛЕНТИНОВА ДИНЕКОВА",
+      "type": "person",
+      "label": "Илияна Валентинова Динекова"
+    },
+    {
+      "id": "person:ГЕОРГИ ЕМИЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Георги Емилов Ангелов"
+    },
+    {
+      "id": "person:РУЖА ИВАНОВА НЕДКОВА-ИВАНОВА",
+      "type": "person",
+      "label": "Ружа Иванова Недкова-Иванова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ",
+      "type": "person",
+      "label": "Валентин Любомиров Игнатов"
+    },
+    {
+      "id": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "type": "person",
+      "label": "Любомир Димитров Спасов"
+    },
+    {
+      "id": "person:КАРЕН БРИЯНОВ ДЖАМБАЗОВ",
+      "type": "person",
+      "label": "Карен Бриянов Джамбазов"
+    },
+    {
+      "id": "person:ПЕТРАНКА ИЛИЕВА ЧАКЪРОВА",
+      "type": "person",
+      "label": "Петранка Илиева Чакърова"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Красимир Димитров Иванов"
+    },
+    {
+      "id": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\"",
+      "type": "person",
+      "label": "Университетска Многопрофилна Болница За Активно Лечение \"александровска\""
+    },
+    {
+      "id": "person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \" ЛОЗЕНЕЦ \"",
+      "type": "person",
+      "label": "Многопрофилна Болница За Активно Лечение \" Лозенец \""
+    },
+    {
+      "id": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\"",
+      "type": "person",
+      "label": "Университетска Многопрофилна Болница За Активно Лечение \"свети Георги\""
+    },
+    {
+      "id": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ",
+      "type": "person",
+      "label": "Университетска Многопрофилна Болница За Активно Лечение - Проф., Д-Р Стоян Киркович"
+    },
+    {
+      "id": "person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ЛОЗЕНЕЦ",
+      "type": "person",
+      "label": "Многопрофилна Болница За Активно Лечение \"лозенец"
+    },
+    {
+      "id": "company:tr:175995308",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)",
+      "slug": null,
+      "uic": "175995308",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "mp:3185",
+      "type": "mp",
+      "mpId": 3185,
+      "label": "Григор Ангелов Горчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205967328",
+      "type": "company",
+      "label": "Многопрофилна болница за активно лечение &quot;Лозенец",
+      "slug": null,
+      "uic": "205967328",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "mp:1077",
+      "type": "mp",
+      "mpId": 1077,
+      "label": "Янко Иванов Здравков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5075",
+      "target": "company:Амарид-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5075",
+      "target": "company:tr:206292360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5075",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОР СТЕФАНОВ ПЕТРОВ",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН СИМЕОНОВ ХРИСТОВ",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ САРАФСКИ",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНЕС ИВО КАМБАРЕВА",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДЖАФЕРОВИЧ",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДЖАФЕРОВИЧ",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ВАЛЕНТИНОВА ДИНЕКОВА",
+      "target": "company:Амарид-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЕМИЛОВ АНГЕЛОВ",
+      "target": "company:tr:206292360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУЖА ИВАНОВА НЕДКОВА-ИВАНОВА",
+      "target": "company:tr:206292360",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЛЮБОМИРОВ ИГНАТОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРЕН БРИЯНОВ ДЖАМБАЗОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА ИЛИЕВА ЧАКЪРОВА",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\"",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \" ЛОЗЕНЕЦ \"",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\"",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"ЛОЗЕНЕЦ",
+      "target": "company:tr:131181090",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:205967328",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3185",
+      "length": 4,
+      "nodeIds": [
+        "mp:5075",
+        "company:tr:131181090",
+        "person:КРАСИМИР ДИМИТРОВ ИВАНОВ",
+        "company:tr:175995308",
+        "mp:3185"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1077",
+      "length": 4,
+      "nodeIds": [
+        "mp:5075",
+        "company:tr:131181090",
+        "person:ЛЮБОМИР ДИМИТРОВ СПАСОВ",
+        "company:tr:205967328",
+        "mp:1077"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,305 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5298","nodes":[{"id":"mp:5298","type":"mp","mpId":5298,"label":"Александър Димитров Попов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:200480804","type":"company","label":"ГРАНД СТАР","slug":null,"uic":"200480804","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:206879258","type":"company","label":"СмарТест-БГ","slug":null,"uic":"206879258","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Ямбол, 8600"},{"id":"company:tr:208281359","type":"company","label":"ПО-АЛ-ДИ","slug":null,"uic":"208281359","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, с. Равда, 8238"},{"id":"company:tr:175166599","type":"company","label":"КОМПЛЕКС МЕНИДЖМЪНТ ИНЖЕНЕРИНГ","slug":null,"uic":"175166599","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ДИМИТЪР АЛЕКСАНДРОВ ПОПОВ","type":"person","label":"Димитър Александров Попов"},{"id":"person:АНГЕЛ ПЛАМЕНОВ ГЕОРГИЕВ","type":"person","label":"Ангел Пламенов Георгиев"},{"id":"person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","type":"person","label":"Александър Александров Попов"},{"id":"person:ХАУАЛАБ КЪМПАНИ ЛТД","type":"person","label":"Хауалаб Къмпани Лтд"},{"id":"company:tr:121268102","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ВОЛЕЙБОЛ","slug":null,"uic":"121268102","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:2804","type":"mp","mpId":2804,"label":"Ивайло Любенов Константинов","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"mp:1621","type":"mp","mpId":1621,"label":"Милко Петров Багдасаров","partyGroupShort":"БСП-ОЛ","isCurrent":false,"nsFolders":[]},{"id":"mp:4719","type":"mp","mpId":4719,"label":"Петър Георгиев Кънев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["40","42","43","44","45","46","47","48","49","50","51"]}],"edges":[{"source":"mp:5298","target":"company:tr:200480804","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:206879258","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:208281359","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:208281359","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:175166599","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:175166599","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:200480804","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:206879258","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5298","target":"company:tr:206879258","kind":"tr_owner","role":"sole_owner","isCurrent":false,"confidence":"medium"},{"source":"person:ДИМИТЪР АЛЕКСАНДРОВ ПОПОВ","target":"company:tr:200480804","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АНГЕЛ ПЛАМЕНОВ ГЕОРГИЕВ","target":"company:tr:206879258","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","target":"company:tr:175166599","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХАУАЛАБ КЪМПАНИ ЛТД","target":"company:tr:175166599","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","target":"company:tr:121268102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1621","target":"company:tr:121268102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:2804","target":"company:tr:121268102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4719","target":"company:tr:121268102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2804","length":4,"nodeIds":["mp:5298","company:tr:175166599","person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","company:tr:121268102","mp:2804"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1621","length":4,"nodeIds":["mp:5298","company:tr:175166599","person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","company:tr:121268102","mp:1621"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4719","length":4,"nodeIds":["mp:5298","company:tr:175166599","person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ","company:tr:121268102","mp:4719"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5298",
+  "nodes": [
+    {
+      "id": "mp:5298",
+      "type": "mp",
+      "mpId": 5298,
+      "label": "Александър Димитров Попов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:200480804",
+      "type": "company",
+      "label": "ГРАНД СТАР",
+      "slug": null,
+      "uic": "200480804",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206879258",
+      "type": "company",
+      "label": "СмарТест-БГ",
+      "slug": null,
+      "uic": "206879258",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    },
+    {
+      "id": "company:tr:208281359",
+      "type": "company",
+      "label": "ПО-АЛ-ДИ",
+      "slug": null,
+      "uic": "208281359",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Равда, 8238"
+    },
+    {
+      "id": "company:tr:175166599",
+      "type": "company",
+      "label": "КОМПЛЕКС МЕНИДЖМЪНТ ИНЖЕНЕРИНГ",
+      "slug": null,
+      "uic": "175166599",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ ПОПОВ",
+      "type": "person",
+      "label": "Димитър Александров Попов"
+    },
+    {
+      "id": "person:АНГЕЛ ПЛАМЕНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Ангел Пламенов Георгиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+      "type": "person",
+      "label": "Александър Александров Попов"
+    },
+    {
+      "id": "person:ХАУАЛАБ КЪМПАНИ ЛТД",
+      "type": "person",
+      "label": "Хауалаб Къмпани Лтд"
+    },
+    {
+      "id": "company:tr:121268102",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ВОЛЕЙБОЛ",
+      "slug": null,
+      "uic": "121268102",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2804",
+      "type": "mp",
+      "mpId": 2804,
+      "label": "Ивайло Любенов Константинов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:1621",
+      "type": "mp",
+      "mpId": 1621,
+      "label": "Милко Петров Багдасаров",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:4719",
+      "type": "mp",
+      "mpId": 4719,
+      "label": "Петър Георгиев Кънев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5298",
+      "target": "company:tr:200480804",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:206879258",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:208281359",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:208281359",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:175166599",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:175166599",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:200480804",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:206879258",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5298",
+      "target": "company:tr:206879258",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ ПОПОВ",
+      "target": "company:tr:200480804",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ПЛАМЕНОВ ГЕОРГИЕВ",
+      "target": "company:tr:206879258",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+      "target": "company:tr:175166599",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАУАЛАБ КЪМПАНИ ЛТД",
+      "target": "company:tr:175166599",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+      "target": "company:tr:121268102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1621",
+      "target": "company:tr:121268102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2804",
+      "target": "company:tr:121268102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4719",
+      "target": "company:tr:121268102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2804",
+      "length": 4,
+      "nodeIds": [
+        "mp:5298",
+        "company:tr:175166599",
+        "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+        "company:tr:121268102",
+        "mp:2804"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1621",
+      "length": 4,
+      "nodeIds": [
+        "mp:5298",
+        "company:tr:175166599",
+        "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+        "company:tr:121268102",
+        "mp:1621"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4719",
+      "length": 4,
+      "nodeIds": [
+        "mp:5298",
+        "company:tr:175166599",
+        "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ПОПОВ",
+        "company:tr:121268102",
+        "mp:4719"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

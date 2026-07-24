@@ -1,1 +1,163 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4551","nodes":[{"id":"mp:4551","type":"mp","mpId":4551,"label":"Виктория Димитрова Василева","partyGroupShort":"Величие","isCurrent":false,"nsFolders":["45","46","47","50"]},{"id":"company:УинПроджект-ЕООД","type":"company","label":"УинПроджект ЕООД","slug":"УинПроджект-ЕООД","uic":null,"legalForm":null,"status":null,"seat":"София (столица)"},{"id":"company:tr:208508629","type":"company","label":"АКАДЕМИЯ ЗА ГЛОБАЛНИ АНАЛИЗИ","slug":null,"uic":"208508629","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"company:tr:207349309","type":"company","label":"УИН ПРОДЖЕКТ","slug":null,"uic":"207349309","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София"},{"id":"person:ВИКТОРИЯ ДИМИТРОВА ВАСИЛЕВА - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Виктория Димитрова Василева - Председател На Управителния Съвет"},{"id":"person:ВАЛЕНТИН КОСТАДИНОВ ИВАНОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Валентин Костадинов Иванов - Заместник-Председател На Управителния Съвет"},{"id":"person:ГЕОРГИ ПАНЧЕВ КУКОВ - СЕКРЕТАР","type":"person","label":"Георги Панчев Куков - Секретар"},{"id":"person:ИЛИЯ ПЕТРОВ ПЕТРОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Илия Петров Петров - Заместник-Председател На Управителния Съвет"},{"id":"person:АЛЕКСАНДЪР БЛАГОВЕСТОВ ТОДОРОВ - СЕКРЕТАР","type":"person","label":"Александър Благовестов Тодоров - Секретар"},{"id":"person:ИВАН ВАСИЛЕВ БАДАТЛИЕВ","type":"person","label":"Иван Василев Бадатлиев"}],"edges":[{"source":"mp:4551","target":"company:УинПроджект-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4551","target":"company:tr:208508629","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4551","target":"company:tr:207349309","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4551","target":"company:tr:207349309","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВИКТОРИЯ ДИМИТРОВА ВАСИЛЕВА - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:208508629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН КОСТАДИНОВ ИВАНОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:208508629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ПАНЧЕВ КУКОВ - СЕКРЕТАР","target":"company:tr:208508629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ ПЕТРОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:208508629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР БЛАГОВЕСТОВ ТОДОРОВ - СЕКРЕТАР","target":"company:tr:208508629","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАСИЛЕВ БАДАТЛИЕВ","target":"company:tr:207349309","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4551",
+  "nodes": [
+    {
+      "id": "mp:4551",
+      "type": "mp",
+      "mpId": 4551,
+      "label": "Виктория Димитрова Василева",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "50"
+      ]
+    },
+    {
+      "id": "company:УинПроджект-ЕООД",
+      "type": "company",
+      "label": "УинПроджект ЕООД",
+      "slug": "УинПроджект-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:208508629",
+      "type": "company",
+      "label": "АКАДЕМИЯ ЗА ГЛОБАЛНИ АНАЛИЗИ",
+      "slug": null,
+      "uic": "208508629",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "company:tr:207349309",
+      "type": "company",
+      "label": "УИН ПРОДЖЕКТ",
+      "slug": null,
+      "uic": "207349309",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ДИМИТРОВА ВАСИЛЕВА - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Виктория Димитрова Василева - Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КОСТАДИНОВ ИВАНОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Валентин Костадинов Иванов - Заместник-Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:ГЕОРГИ ПАНЧЕВ КУКОВ - СЕКРЕТАР",
+      "type": "person",
+      "label": "Георги Панчев Куков - Секретар"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ ПЕТРОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Илия Петров Петров - Заместник-Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР БЛАГОВЕСТОВ ТОДОРОВ - СЕКРЕТАР",
+      "type": "person",
+      "label": "Александър Благовестов Тодоров - Секретар"
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ БАДАТЛИЕВ",
+      "type": "person",
+      "label": "Иван Василев Бадатлиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4551",
+      "target": "company:УинПроджект-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4551",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4551",
+      "target": "company:tr:207349309",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4551",
+      "target": "company:tr:207349309",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ДИМИТРОВА ВАСИЛЕВА - ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КОСТАДИНОВ ИВАНОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПАНЧЕВ КУКОВ - СЕКРЕТАР",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ ПЕТРОВ - ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БЛАГОВЕСТОВ ТОДОРОВ - СЕКРЕТАР",
+      "target": "company:tr:208508629",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ БАДАТЛИЕВ",
+      "target": "company:tr:207349309",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

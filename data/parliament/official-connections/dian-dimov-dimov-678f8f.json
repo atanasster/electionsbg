@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dian-dimov-dimov-678f8f",
+  "nodes": [
+    {
+      "id": "official:dian-dimov-dimov-678f8f",
+      "type": "official",
+      "slug": "dian-dimov-dimov-678f8f",
+      "label": "Диан Димов Димов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Район Студентски"
+    },
+    {
+      "id": "company:tr:208372111",
+      "type": "company",
+      "label": "Парти Дотс",
+      "slug": null,
+      "uic": "208372111",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dian-dimov-dimov-678f8f",
+      "target": "company:tr:208372111",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dian-dimov-dimov-678f8f",
+      "target": "company:tr:208372111",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

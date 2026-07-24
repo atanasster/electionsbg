@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:radka-mincheva-grozdanova-6e97bc",
+  "nodes": [
+    {
+      "id": "official:radka-mincheva-grozdanova-6e97bc",
+      "type": "official",
+      "slug": "radka-mincheva-grozdanova-6e97bc",
+      "label": "Радка Минчева Грозданова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200591288",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА  БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ДЕВИН",
+      "slug": null,
+      "uic": "200591288",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rumen-nikolov-tanev-f877ba",
+      "type": "official",
+      "slug": "rumen-nikolov-tanev-f877ba",
+      "label": "Румен Николов Танев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:КАПКА ПЕТРОВА БЕШЕВА - РАХНЕВА",
+      "type": "person",
+      "label": "Капка Петрова Бешева - Рахнева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radka-mincheva-grozdanova-6e97bc",
+      "target": "company:tr:200591288",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radka-mincheva-grozdanova-6e97bc",
+      "target": "company:tr:200591288",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-nikolov-tanev-f877ba",
+      "target": "company:tr:200591288",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАПКА ПЕТРОВА БЕШЕВА - РАХНЕВА",
+      "target": "company:tr:200591288",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,212 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:ivan-nikolov-uzunov-800186","nodes":[{"id":"official:ivan-nikolov-uzunov-800186","type":"official","slug":"ivan-nikolov-uzunov-800186","label":"Иван Николов Узунов","tier":"municipal","role":"chief_architect","municipality":"Севлиево"},{"id":"company:tr:107562605","type":"company","label":"Узунов Проект ЕООД","slug":null,"uic":"107562605","legalForm":null,"status":null,"seat":null},{"id":"person:НИКОЛА ИВАНОВ УЗУНОВ","type":"person","label":"Никола Иванов Узунов"}],"edges":[{"source":"official:ivan-nikolov-uzunov-800186","target":"company:tr:107562605","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛА ИВАНОВ УЗУНОВ","target":"company:tr:107562605","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-nikolov-uzunov-800186",
+  "nodes": [
+    {
+      "id": "official:ivan-nikolov-uzunov-800186",
+      "type": "official",
+      "slug": "ivan-nikolov-uzunov-800186",
+      "label": "Иван Николов Узунов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:107562605",
+      "type": "company",
+      "label": "Узунов Проект ЕООД",
+      "slug": null,
+      "uic": "107562605",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:108042319",
+      "type": "company",
+      "label": "Народно читалище &quot;Родопски фар 1938&quot;",
+      "slug": null,
+      "uic": "108042319",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Никола Иванов Узунов"
+    },
+    {
+      "id": "person:СВЕТЛА ХРИСТОВА БЕЙЧЕВА",
+      "type": "person",
+      "label": "Светла Христова Бейчева"
+    },
+    {
+      "id": "person:РИДВАН МЕХМЕД БАЙРЯМ",
+      "type": "person",
+      "label": "Ридван Мехмед Байрям"
+    },
+    {
+      "id": "person:ПЕТЯ МИЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Петя Милева Димитрова"
+    },
+    {
+      "id": "person:ИРИНА НИКОЛОВА ЧАНКОВА",
+      "type": "person",
+      "label": "Ирина Николова Чанкова"
+    },
+    {
+      "id": "person:ИЛИЯН ДИМИТРОВ МИТКОВ",
+      "type": "person",
+      "label": "Илиян Димитров Митков"
+    },
+    {
+      "id": "person:ДЕНКА ИВАНОВА ДИНКОВА",
+      "type": "person",
+      "label": "Денка Иванова Динкова"
+    },
+    {
+      "id": "person:ДЕЛЧО ЯНЕВ СТОИЛОВ",
+      "type": "person",
+      "label": "Делчо Янев Стоилов"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Христов Иванов"
+    },
+    {
+      "id": "person:ДРАГОСЛАВ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Драгослав Петров Петров"
+    },
+    {
+      "id": "person:ПЕТРАНА ГОСПОДИНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петрана Господинова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-nikolov-uzunov-800186",
+      "target": "company:tr:107562605",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-nikolov-uzunov-800186",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-nikolov-uzunov-800186",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ УЗУНОВ",
+      "target": "company:tr:107562605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ХРИСТОВА БЕЙЧЕВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ХРИСТОВА БЕЙЧЕВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИДВАН МЕХМЕД БАЙРЯМ",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ МИЛЕВА ДИМИТРОВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА НИКОЛОВА ЧАНКОВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ДИМИТРОВ МИТКОВ",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНКА ИВАНОВА ДИНКОВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО ЯНЕВ СТОИЛОВ",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ИВАНОВ",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОСЛАВ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНА ГОСПОДИНОВА ПЕТРОВА",
+      "target": "company:tr:108042319",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

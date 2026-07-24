@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kiril-boikov-markov-364213",
+  "nodes": [
+    {
+      "id": "official:kiril-boikov-markov-364213",
+      "type": "official",
+      "slug": "kiril-boikov-markov-364213",
+      "label": "Кирил Бойков Марков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Драгоман"
+    },
+    {
+      "id": "company:tr:176469147",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ - ФК ДРАГОМАН",
+      "slug": null,
+      "uic": "176469147",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ИВАНОВ ЗАФИРОВ",
+      "type": "person",
+      "label": "Мартин Иванов Зафиров"
+    },
+    {
+      "id": "person:КАТЯ ЛОЗАНОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Катя Лозанова Първанова"
+    },
+    {
+      "id": "person:РОСЕН ПЕТРОВ МОДЕВ",
+      "type": "person",
+      "label": "Росен Петров Модев"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ГЕОРГИЕВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Александра Георгиева Григорова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ДРАКОВ",
+      "type": "person",
+      "label": "Николай Иванов Драков"
+    },
+    {
+      "id": "person:ИВАН ПЕТРОВ МИЛЧЕВ",
+      "type": "person",
+      "label": "Иван Петров Милчев"
+    },
+    {
+      "id": "person:АНГЕЛ БОРИСОВ НАЦКОВ",
+      "type": "person",
+      "label": "Ангел Борисов Нацков"
+    },
+    {
+      "id": "person:МАРИЯН НИКОЛАЕВ РИЗОВ",
+      "type": "person",
+      "label": "Мариян Николаев Ризов"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНДРИАНОВ ЗАРКОВ",
+      "type": "person",
+      "label": "Николай Андрианов Зарков"
+    },
+    {
+      "id": "person:АНГЕЛ АЛЕКСИЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Ангел Алексиев Тодоров"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Димитър Иванов Алексиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-boikov-markov-364213",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ЗАФИРОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЛОЗАНОВА ПЪРВАНОВА",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕТРОВ МОДЕВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ГЕОРГИЕВА ГРИГОРОВА",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАНОВ ЗАФИРОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ДРАКОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ МИЛЧЕВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ МИЛЧЕВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ БОРИСОВ НАЦКОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ БОРИСОВ НАЦКОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН НИКОЛАЕВ РИЗОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНДРИАНОВ ЗАРКОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ АЛЕКСИЕВ ТОДОРОВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ АЛЕКСИЕВ",
+      "target": "company:tr:176469147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

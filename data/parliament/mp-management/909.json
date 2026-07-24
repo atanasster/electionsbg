@@ -1,1 +1,64 @@
-{"mpId":909,"mpName":"Емил Димитров Гущеров","generatedAt":"2026-07-03T11:12:51.501Z","total":4,"roles":[{"uic":"131341659","companyName":"БУЛГАРТЕЛ","legalForm":"AD","seat":"БЪЛГАРИЯ, гр. София","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2025-10-24T18:38:11","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"109030483","companyName":"&quot;Волейболен клуб Локомотив АВИА&quot; Сдружение","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Пловдив, 4004","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2023-10-04T12:58:09","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206356489","companyName":"ДжиЕсТи Медиа","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. Пловдив, 4002","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-01-18T09:27:41","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"831160078","companyName":"НАПОИТЕЛНИ СИСТЕМИ","legalForm":"EAD","seat":"БЪЛГАРИЯ, гр. София, 1186","status":"active","role":"director","positionLabel":null,"sharePercent":null,"addedAt":"2014-12-29T15:12:06","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 909,
+  "mpName": "Емил Димитров Гущеров",
+  "generatedAt": "2026-07-24T03:35:58.285Z",
+  "total": 4,
+  "roles": [
+    {
+      "uic": "131341659",
+      "companyName": "БУЛГАРТЕЛ",
+      "legalForm": "AD",
+      "seat": "БЪЛГАРИЯ, гр. София",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-10-24T18:38:11",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "109030483",
+      "companyName": "&quot;Волейболен клуб Локомотив АВИА&quot; Сдружение",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4004",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-10-04T12:58:09",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206356489",
+      "companyName": "ДжиЕсТи Медиа",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-01-18T09:27:41",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "831160078",
+      "companyName": "НАПОИТЕЛНИ СИСТЕМИ",
+      "legalForm": "EAD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1186",
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2014-12-29T15:12:06",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

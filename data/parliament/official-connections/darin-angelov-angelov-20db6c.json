@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:darin-angelov-angelov-20db6c",
+  "nodes": [
+    {
+      "id": "official:darin-angelov-angelov-20db6c",
+      "type": "official",
+      "slug": "darin-angelov-angelov-20db6c",
+      "label": "Дарин Ангелов Ангелов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207676620",
+      "type": "company",
+      "label": "МУУН АРТ",
+      "slug": null,
+      "uic": "207676620",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darin-angelov-angelov-20db6c",
+      "target": "company:tr:207676620",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:darin-angelov-angelov-20db6c",
+      "target": "company:tr:207676620",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

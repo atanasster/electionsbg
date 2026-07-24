@@ -1,1 +1,50 @@
-{"mpId":2834,"mpName":"Менда Кирилова Стоянова","generatedAt":"2026-07-03T11:12:51.710Z","total":3,"roles":[{"uic":"204365482","companyName":"МЕГЕ ИНВЕСТМЪНТ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":16.918660287081337,"addedAt":"2026-05-21T11:42:10","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"204365482","companyName":"МЕГЕ ИНВЕСТМЪНТ","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2024-02-06T13:45:44","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"204365482","companyName":"МЕГЕ ИНВЕСТМЪНТ","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":33.08133971291866,"addedAt":"2024-02-06T13:45:44","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2834,
+  "mpName": "Менда Кирилова Стоянова",
+  "generatedAt": "2026-07-24T03:35:58.542Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "204365482",
+      "companyName": "МЕГЕ ИНВЕСТМЪНТ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 16.918660287081337,
+      "addedAt": "2026-05-21T11:42:10",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "204365482",
+      "companyName": "МЕГЕ ИНВЕСТМЪНТ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2024-02-06T13:45:44",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "204365482",
+      "companyName": "МЕГЕ ИНВЕСТМЪНТ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 33.08133971291866,
+      "addedAt": "2024-02-06T13:45:44",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    }
+  ]
+}

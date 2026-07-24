@@ -1,1 +1,63 @@
-{"mpId":3914,"name":"Инна Владимирова Иванова","partyGroupShort":null,"isCurrent":false,"nsFolders":["47"],"latestDeclarationYear":2023,"fiscalYear":2022,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2023/120F7DDC-2031-445B-BC07-FFB9508A7399149730.xml","totalAssetsEur":3067.751287177311,"totalDebtsEur":20987.50913934238,"netWorthEur":-17919.75785216507,"previous":{"year":2023,"totalAssetsEur":8188.073605579217,"netWorthEur":-7052.857354678064},"byCategory":{"real_estate":{"count":0,"valuedCount":0,"totalEur":0},"vehicle":{"count":1,"valuedCount":1,"totalEur":3067.751287177311},"cash":{"count":0,"valuedCount":0,"totalEur":0},"bank":{"count":0,"valuedCount":0,"totalEur":0},"receivable":{"count":0,"valuedCount":0,"totalEur":0},"debt":{"count":3,"valuedCount":3,"totalEur":20987.50913934238},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":5,"valuedCount":0,"totalEur":0}}}
+{
+  "mpId": 3914,
+  "name": "Инна Владимирова Иванова",
+  "partyGroupShort": null,
+  "isCurrent": false,
+  "nsFolders": [
+    "47"
+  ],
+  "latestDeclarationYear": 2023,
+  "fiscalYear": 2022,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2023/120F7DDC-2031-445B-BC07-FFB9508A7399149730.xml",
+  "totalAssetsEur": 3067.751287177311,
+  "totalDebtsEur": 20987.50913934238,
+  "netWorthEur": -17919.75785216507,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 8188.073605579217,
+    "netWorthEur": -7052.857354678064
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 3067.751287177311
+    },
+    "cash": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "bank": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "receivable": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "debt": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 20987.50913934238
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 5,
+      "valuedCount": 0,
+      "totalEur": 0
+    }
+  }
+}

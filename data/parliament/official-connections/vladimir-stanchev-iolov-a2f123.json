@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-stanchev-iolov-a2f123",
+  "nodes": [
+    {
+      "id": "official:vladimir-stanchev-iolov-a2f123",
+      "type": "official",
+      "slug": "vladimir-stanchev-iolov-a2f123",
+      "label": "Владимир Станчев Йолов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:203047808",
+      "type": "company",
+      "label": "СТАРОПРЕСТОЛ ООД",
+      "slug": null,
+      "uic": "203047808",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:zlatin-ivanov-kairyakov-0b4865",
+      "type": "official",
+      "slug": "zlatin-ivanov-kairyakov-0b4865",
+      "label": "Златин Иванов Кайряков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "person:КАТЕРИНА ПАВЛОВА КАЙРЯКОВА",
+      "type": "person",
+      "label": "Катерина Павлова Кайрякова"
+    },
+    {
+      "id": "person:ЯНИЦА ВЕНЦИСЛАВОВА НЕЙНСКА",
+      "type": "person",
+      "label": "Яница Венциславова Нейнска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-stanchev-iolov-a2f123",
+      "target": "company:tr:203047808",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zlatin-ivanov-kairyakov-0b4865",
+      "target": "company:tr:203047808",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ПАВЛОВА КАЙРЯКОВА",
+      "target": "company:tr:203047808",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА ВЕНЦИСЛАВОВА НЕЙНСКА",
+      "target": "company:tr:203047808",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ПАВЛОВА КАЙРЯКОВА",
+      "target": "company:tr:203047808",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА ВЕНЦИСЛАВОВА НЕЙНСКА",
+      "target": "company:tr:203047808",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

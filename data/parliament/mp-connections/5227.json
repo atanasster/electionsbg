@@ -1,1 +1,215 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5227","nodes":[{"id":"mp:5227","type":"mp","mpId":5227,"label":"Надежда Борисова Колева-Стойчева","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:000893740","type":"company","label":"ДРУЖБА - 1870","slug":null,"uic":"000893740","legalForm":"CC","status":"active","seat":null},{"id":"person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА","type":"person","label":"Росица Димитрова Христозова"},{"id":"person:ПАУЛИНА ВЕСЕЛИНОВА ХРИСТОВА","type":"person","label":"Паулина Веселинова Христова"},{"id":"person:КОНСТАНТИН КИРИЛОВ РАЙДОВСКИ","type":"person","label":"Константин Кирилов Райдовски"},{"id":"person:ИВАН БОРИСОВ ДУЛЕВ","type":"person","label":"Иван Борисов Дулев"},{"id":"person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА","type":"person","label":"Светлана Николова Ангелова"},{"id":"person:ЯНА ДИМЧЕВА ЗАРКОВА","type":"person","label":"Яна Димчева Заркова"},{"id":"person:АНА ФИЛИПОВА ФОТЕВА","type":"person","label":"Ана Филипова Фотева"},{"id":"person:МАРА ЖЕЛЕВА АЛТЪПАРМАКОВА","type":"person","label":"Мара Желева Алтъпармакова"},{"id":"person:ИЛИЯ РАДКОВ НИКОЛОВ","type":"person","label":"Илия Радков Николов"},{"id":"person:ДИМИТЪР ПЕТКОВ СЕВОВ","type":"person","label":"Димитър Петков Севов"},{"id":"person:ДИМКА ИВАНОВА ИМАНДИЕВА","type":"person","label":"Димка Иванова Имандиева"},{"id":"person:ДЕЛЧО МАРИНОВ КАРАВЪЛЧЕВ","type":"person","label":"Делчо Маринов Каравълчев"},{"id":"person:МИРОСЛАВ ТОДОРОВ СТОЙЧЕВ","type":"person","label":"Мирослав Тодоров Стойчев"}],"edges":[{"source":"mp:5227","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"medium"},{"source":"person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА","target":"company:tr:000893740","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАУЛИНА ВЕСЕЛИНОВА ХРИСТОВА","target":"company:tr:000893740","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН КИРИЛОВ РАЙДОВСКИ","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОРИСОВ ДУЛЕВ","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ЯНА ДИМЧЕВА ЗАРКОВА","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНА ФИЛИПОВА ФОТЕВА","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:МАРА ЖЕЛЕВА АЛТЪПАРМАКОВА","target":"company:tr:000893740","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ РАДКОВ НИКОЛОВ","target":"company:tr:000893740","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТКОВ СЕВОВ","target":"company:tr:000893740","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:ДИМКА ИВАНОВА ИМАНДИЕВА","target":"company:tr:000893740","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЛЧО МАРИНОВ КАРАВЪЛЧЕВ","target":"company:tr:000893740","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ТОДОРОВ СТОЙЧЕВ","target":"company:tr:000893740","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5227",
+  "nodes": [
+    {
+      "id": "mp:5227",
+      "type": "mp",
+      "mpId": 5227,
+      "label": "Надежда Борисова Колева-Стойчева",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:000893740",
+      "type": "company",
+      "label": "ДРУЖБА - 1870",
+      "slug": null,
+      "uic": "000893740",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА",
+      "type": "person",
+      "label": "Росица Димитрова Христозова"
+    },
+    {
+      "id": "person:ПАУЛИНА ВЕСЕЛИНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Паулина Веселинова Христова"
+    },
+    {
+      "id": "person:КОНСТАНТИН КИРИЛОВ РАЙДОВСКИ",
+      "type": "person",
+      "label": "Константин Кирилов Райдовски"
+    },
+    {
+      "id": "person:ИВАН БОРИСОВ ДУЛЕВ",
+      "type": "person",
+      "label": "Иван Борисов Дулев"
+    },
+    {
+      "id": "person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Светлана Николова Ангелова"
+    },
+    {
+      "id": "person:ЯНА ДИМЧЕВА ЗАРКОВА",
+      "type": "person",
+      "label": "Яна Димчева Заркова"
+    },
+    {
+      "id": "person:АНА ФИЛИПОВА ФОТЕВА",
+      "type": "person",
+      "label": "Ана Филипова Фотева"
+    },
+    {
+      "id": "person:МАРА ЖЕЛЕВА АЛТЪПАРМАКОВА",
+      "type": "person",
+      "label": "Мара Желева Алтъпармакова"
+    },
+    {
+      "id": "person:ИЛИЯ РАДКОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Илия Радков Николов"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТКОВ СЕВОВ",
+      "type": "person",
+      "label": "Димитър Петков Севов"
+    },
+    {
+      "id": "person:ДИМКА ИВАНОВА ИМАНДИЕВА",
+      "type": "person",
+      "label": "Димка Иванова Имандиева"
+    },
+    {
+      "id": "person:ДЕЛЧО МАРИНОВ КАРАВЪЛЧЕВ",
+      "type": "person",
+      "label": "Делчо Маринов Каравълчев"
+    },
+    {
+      "id": "person:МИРОСЛАВ ТОДОРОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Мирослав Тодоров Стойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5227",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАУЛИНА ВЕСЕЛИНОВА ХРИСТОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН КИРИЛОВ РАЙДОВСКИ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ ДУЛЕВ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДИМИТРОВА ХРИСТОЗОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА НИКОЛОВА АНГЕЛОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ДИМЧЕВА ЗАРКОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ФИЛИПОВА ФОТЕВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРА ЖЕЛЕВА АЛТЪПАРМАКОВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ РАДКОВ НИКОЛОВ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТКОВ СЕВОВ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА ИВАНОВА ИМАНДИЕВА",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО МАРИНОВ КАРАВЪЛЧЕВ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ТОДОРОВ СТОЙЧЕВ",
+      "target": "company:tr:000893740",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyuben-lilyanov-nanov-6e4878",
+  "nodes": [
+    {
+      "id": "official:lyuben-lilyanov-nanov-6e4878",
+      "type": "official",
+      "slug": "lyuben-lilyanov-nanov-6e4878",
+      "label": "Любен Лилянов Нанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207409553",
+      "type": "company",
+      "label": "Рустар 1 ООД",
+      "slug": null,
+      "uic": "207409553",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208003979",
+      "type": "company",
+      "label": "Рустар 2 ЕООД",
+      "slug": null,
+      "uic": "208003979",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:lyuben-lilyanov-nanov-15643f",
+      "type": "official",
+      "slug": "lyuben-lilyanov-nanov-15643f",
+      "label": "Любен Лилянов Нанов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБЕН ЛИЛЯНОВ НАНОВ",
+      "type": "person",
+      "label": "Любен Лилянов Нанов"
+    },
+    {
+      "id": "person:ИЛКА РУСЕВА ДАНЕВА",
+      "type": "person",
+      "label": "Илка Русева Данева"
+    },
+    {
+      "id": "person:ДОНКА ГЕОРГИЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Донка Георгиева Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyuben-lilyanov-nanov-6e4878",
+      "target": "company:tr:207409553",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lyuben-lilyanov-nanov-6e4878",
+      "target": "company:tr:208003979",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lyuben-lilyanov-nanov-15643f",
+      "target": "company:tr:207409553",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ЛИЛЯНОВ НАНОВ",
+      "target": "company:tr:207409553",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА РУСЕВА ДАНЕВА",
+      "target": "company:tr:207409553",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ГЕОРГИЕВА ТОДОРОВА",
+      "target": "company:tr:207409553",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ЛИЛЯНОВ НАНОВ",
+      "target": "company:tr:207409553",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА РУСЕВА ДАНЕВА",
+      "target": "company:tr:207409553",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА РУСЕВА ДАНЕВА",
+      "target": "company:tr:208003979",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА РУСЕВА ДАНЕВА",
+      "target": "company:tr:208003979",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

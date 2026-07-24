@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mirela-plamenova-nikolova-eb2ec1",
+  "nodes": [
+    {
+      "id": "official:mirela-plamenova-nikolova-eb2ec1",
+      "type": "official",
+      "slug": "mirela-plamenova-nikolova-eb2ec1",
+      "label": "Мирела Пламенова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206650106",
+      "type": "company",
+      "label": "АРТ ЦЕНТЪР БЯЛА",
+      "slug": null,
+      "uic": "206650106",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕНА ЙОРДАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Пламена Йорданова Колева"
+    },
+    {
+      "id": "person:ОБЩИНА БЯЛА",
+      "type": "person",
+      "label": "Община Бяла"
+    },
+    {
+      "id": "person:АНИТА АНГЕЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Анита Ангелова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mirela-plamenova-nikolova-eb2ec1",
+      "target": "company:tr:206650106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕНА ЙОРДАНОВА КОЛЕВА",
+      "target": "company:tr:206650106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БЯЛА",
+      "target": "company:tr:206650106",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА АНГЕЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:206650106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

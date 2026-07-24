@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:boryana-sashova-aleksova-bc800b",
+  "nodes": [
+    {
+      "id": "official:boryana-sashova-aleksova-bc800b",
+      "type": "official",
+      "slug": "boryana-sashova-aleksova-bc800b",
+      "label": "Боряна Сашова Алексова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204030861",
+      "type": "company",
+      "label": "ПРОАКТИВ КОНСУЛТИНГ",
+      "slug": null,
+      "uic": "204030861",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАДЛЕН ЛЮБОМИРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мадлен Любомирова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boryana-sashova-aleksova-bc800b",
+      "target": "company:tr:204030861",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boryana-sashova-aleksova-bc800b",
+      "target": "company:tr:204030861",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАДЛЕН ЛЮБОМИРОВА ИЛИЕВА",
+      "target": "company:tr:204030861",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАДЛЕН ЛЮБОМИРОВА ИЛИЕВА",
+      "target": "company:tr:204030861",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,159 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:854","nodes":[{"id":"mp:854","type":"mp","mpId":854,"label":"Стоян Иванов Иванов","partyGroupShort":"Център","isCurrent":false,"nsFolders":[]},{"id":"company:Радио-СОТ-ООД","type":"company","label":"Радио СОТ ООД","slug":"Радио-СОТ-ООД","uic":"112028994","legalForm":"OOD","status":"active","seat":"Пазарджик"},{"id":"mp:2946","type":"mp","mpId":2946,"label":"Елена Стефанова Пешева","partyGroupShort":"БГ Патриоти","isCurrent":false,"nsFolders":[]},{"id":"person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ","type":"person","label":"Иван Димитров Неделчев"},{"id":"person:ТЕЛ СОТ","type":"person","label":"Тел Сот"},{"id":"person:ЕВГЕНИЙ ВАСИЛЕВ ГЕЛЕВ","type":"person","label":"Евгений Василев Гелев"},{"id":"person:ГЕОРГИ ВИНКОВ ФЪРЦОВ","type":"person","label":"Георги Винков Фърцов"},{"id":"person:НЕСТ 18","type":"person","label":"Нест 18"},{"id":"person:СТОЯН ИВАНОВ ИВАНОВ","type":"person","label":"Стоян Иванов Иванов"}],"edges":[{"source":"mp:854","target":"company:Радио-СОТ-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2946","target":"company:Радио-СОТ-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ","target":"company:Радио-СОТ-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:2946","target":"company:Радио-СОТ-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕЛ СОТ","target":"company:Радио-СОТ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЙ ВАСИЛЕВ ГЕЛЕВ","target":"company:Радио-СОТ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ВИНКОВ ФЪРЦОВ","target":"company:Радио-СОТ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:2946","target":"company:Радио-СОТ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕСТ 18","target":"company:Радио-СОТ-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ИВАНОВ ИВАНОВ","target":"company:Радио-СОТ-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:2946","length":2,"nodeIds":["mp:854","company:Радио-СОТ-ООД","mp:2946"],"isAllCurrent":true,"isAllHighConfidence":true}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:854",
+  "nodes": [
+    {
+      "id": "mp:854",
+      "type": "mp",
+      "mpId": 854,
+      "label": "Стоян Иванов Иванов",
+      "partyGroupShort": "Център",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Радио-СОТ-ООД",
+      "type": "company",
+      "label": "Радио СОТ ООД",
+      "slug": "Радио-СОТ-ООД",
+      "uic": "112028994",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пазарджик"
+    },
+    {
+      "id": "mp:2946",
+      "type": "mp",
+      "mpId": 2946,
+      "label": "Елена Стефанова Пешева",
+      "partyGroupShort": "БГ Патриоти",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Иван Димитров Неделчев"
+    },
+    {
+      "id": "person:ТЕЛ СОТ",
+      "type": "person",
+      "label": "Тел Сот"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ ВАСИЛЕВ ГЕЛЕВ",
+      "type": "person",
+      "label": "Евгений Василев Гелев"
+    },
+    {
+      "id": "person:ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+      "type": "person",
+      "label": "Георги Винков Фърцов"
+    },
+    {
+      "id": "person:НЕСТ 18",
+      "type": "person",
+      "label": "Нест 18"
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Стоян Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:854",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ НЕДЕЛЧЕВ",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕЛ СОТ",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ ВАСИЛЕВ ГЕЛЕВ",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВИНКОВ ФЪРЦОВ",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2946",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕСТ 18",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ ИВАНОВ",
+      "target": "company:Радио-СОТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2946",
+      "length": 2,
+      "nodeIds": [
+        "mp:854",
+        "company:Радио-СОТ-ООД",
+        "mp:2946"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": true
+    }
+  ]
+}

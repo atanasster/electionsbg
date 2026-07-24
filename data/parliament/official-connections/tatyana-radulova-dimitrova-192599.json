@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tatyana-radulova-dimitrova-192599",
+  "nodes": [
+    {
+      "id": "official:tatyana-radulova-dimitrova-192599",
+      "type": "official",
+      "slug": "tatyana-radulova-dimitrova-192599",
+      "label": "Татяна Радулова Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000044993",
+      "type": "company",
+      "label": "ОБНОВА-1923г.",
+      "slug": null,
+      "uic": "000044993",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКА ДИМИТРОВА СТАНКОВА",
+      "type": "person",
+      "label": "Митка Димитрова Станкова"
+    },
+    {
+      "id": "person:СТАНКА АТАНАСОВА КАМБУРОВА",
+      "type": "person",
+      "label": "Станка Атанасова Камбурова"
+    },
+    {
+      "id": "person:ЦВЕТОЛЮБ ЛЮБОМИРОВ СТОИЦЕВ",
+      "type": "person",
+      "label": "Цветолюб Любомиров Стоицев"
+    },
+    {
+      "id": "person:ПЕТЬО ИВАНОВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Петьо Иванов Кючуков"
+    },
+    {
+      "id": "person:МАРГАРИТА СТОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Маргарита Стоянова Иванова"
+    },
+    {
+      "id": "person:МАРИАНА ТЕМЕЛКОВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Мариана Темелкова Генчева"
+    },
+    {
+      "id": "person:ПЕТЪР ВАСИЛЕВ ХУБЕКОВ",
+      "type": "person",
+      "label": "Петър Василев Хубеков"
+    },
+    {
+      "id": "person:НЕЛИ ДИМИТРОВА НЕНКОВА",
+      "type": "person",
+      "label": "Нели Димитрова Ненкова"
+    },
+    {
+      "id": "person:СТЕФАН ВАСИЛЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Стефан Василев Маринов"
+    },
+    {
+      "id": "person:МАЛИНКА КИРИЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Малинка Кирилова Стоянова"
+    },
+    {
+      "id": "person:МАРИАНА ВЕНЦИСЛАВОВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Мариана Венциславова Желева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-radulova-dimitrova-192599",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-radulova-dimitrova-192599",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКА ДИМИТРОВА СТАНКОВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА АТАНАСОВА КАМБУРОВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОЛЮБ ЛЮБОМИРОВ СТОИЦЕВ",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО ИВАНОВ КЮЧУКОВ",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ТЕМЕЛКОВА ГЕНЧЕВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАСИЛЕВ ХУБЕКОВ",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВАСИЛЕВ ХУБЕКОВ",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ДИМИТРОВА НЕНКОВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВАСИЛЕВ МАРИНОВ",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНКА КИРИЛОВА СТОЯНОВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ВЕНЦИСЛАВОВА ЖЕЛЕВА",
+      "target": "company:tr:000044993",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

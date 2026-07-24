@@ -1,1 +1,513 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5086","nodes":[{"id":"mp:5086","type":"mp","mpId":5086,"label":"Иво Севдалинов Цанев","partyGroupShort":"ПГ на ДПС","isCurrent":true,"nsFolders":["39","50","51","52"]},{"id":"company:Изида-ЕООД","type":"company","label":"Изида ЕООД","slug":"Изида-ЕООД","uic":"107521479","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:Ксбв-ЕООД","type":"company","label":"Ксбв ЕООД","slug":"Ксбв-ЕООД","uic":"131476144","legalForm":"EOOD","status":"active","seat":"София (столица)"},{"id":"company:tr:205919810","type":"company","label":"ЦЕНТЪР ЗА ЕВРОПЕЙСКА И АТЛАНТИЧЕСКА ИНТЕГРАЦИЯ","slug":null,"uic":"205919810","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:175969402","type":"company","label":"СДРУЖЕНИЕ&quot; КЛУБ СЕНАТОР&quot;","slug":null,"uic":"175969402","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1000"},{"id":"company:tr:117506672","type":"company","label":"ИЗИДА","slug":null,"uic":"117506672","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:МИЛЕНА ИВАНОВА СИМЕОНОВА","type":"person","label":"Милена Иванова Симеонова"},{"id":"person:ИВА ЕМИЛОВА ДОБРЕВА","type":"person","label":"Ива Емилова Добрева"},{"id":"person:СОНЯ ИВАНОВА ХИНОВА","type":"person","label":"Соня Иванова Хинова"},{"id":"person:НИКОЛАЙ ПЛАМЕНОВ КИТАНОВ","type":"person","label":"Николай Пламенов Китанов"},{"id":"mp:1791","type":"mp","mpId":1791,"label":"Димитър Иванов Абаджиев","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ","type":"person","label":"Захари Нанев Желязков"},{"id":"person:ЦОНЬО ГЕОРГИЕВ БОТЕВ","type":"person","label":"Цоньо Георгиев Ботев"},{"id":"person:ЮЛИЙ ВЛАДИМИРОВ ПАВЛОВ","type":"person","label":"Юлий Владимиров Павлов"},{"id":"person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ","type":"person","label":"Стефан Петров Карастоянов"},{"id":"person:ИВАН АТАНАСОВ КОЛЧАКОВ","type":"person","label":"Иван Атанасов Колчаков"},{"id":"person:ИЛИЯ ПЕТРОВ ПЕТРОВ","type":"person","label":"Илия Петров Петров"},{"id":"person:ИВАН НЕЙКОВ НЕЙКОВ","type":"person","label":"Иван Нейков Нейков"},{"id":"person:СВЕТЛАНА ГРИГОРОВА ДЯНКОВА","type":"person","label":"Светлана Григорова Дянкова"},{"id":"person:РУСЛАН КОСТАДИНОВ СЕМЕРДЖИЕВ","type":"person","label":"Руслан Костадинов Семерджиев"},{"id":"person:АЛЕКСАНДЪР ПЕТРОВ ТАСЕВ","type":"person","label":"Александър Петров Тасев"},{"id":"person:СИМОН НИКОЛОВ СПАСОВ","type":"person","label":"Симон Николов Спасов"},{"id":"person:ГЕОРГИ ГЕРВАНОВ АНАНИЕВ","type":"person","label":"Георги Герванов Ананиев"},{"id":"person:ЕВГЕНИЙ СТЕФАНОВ БАКЪРДЖИЕВ","type":"person","label":"Евгений Стефанов Бакърджиев"},{"id":"person:ЕВА ДИМИТРОВА ЖЕЧЕВА","type":"person","label":"Ева Димитрова Жечева"},{"id":"person:ПЕТКО ИЛИЕВ ПЕНЕВ","type":"person","label":"Петко Илиев Пенев"},{"id":"person:ЦВЕТАН ВЕНЦИСЛАВОВ МАНЧЕВ","type":"person","label":"Цветан Венциславов Манчев"},{"id":"person:ИЛИЯН СТРАХИЛОВ ПОПОВ","type":"person","label":"Илиян Страхилов Попов"},{"id":"person:МИЛЕНА ИВАНОВА АСЕНОВА","type":"person","label":"Милена Иванова Асенова"},{"id":"company:tr:130864083","type":"company","label":"БЪЛГАРСКО ГЕОПОЛИТИЧЕСКО ДРУЖЕСТВО","slug":null,"uic":"130864083","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1000"},{"id":"mp:3346","type":"mp","mpId":3346,"label":"Иво Ангелов Христов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44","45"]}],"edges":[{"source":"mp:5086","target":"company:Изида-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5086","target":"company:Ксбв-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5086","target":"company:tr:205919810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5086","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5086","target":"company:tr:117506672","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5086","target":"company:tr:117506672","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:МИЛЕНА ИВАНОВА СИМЕОНОВА","target":"company:Ксбв-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВА ЕМИЛОВА ДОБРЕВА","target":"company:tr:205919810","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ ИВАНОВА ХИНОВА","target":"company:tr:205919810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВА ЕМИЛОВА ДОБРЕВА","target":"company:tr:205919810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ПЛАМЕНОВ КИТАНОВ","target":"company:tr:205919810","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:1791","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЦОНЬО ГЕОРГИЕВ БОТЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЮЛИЙ ВЛАДИМИРОВ ПАВЛОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АТАНАСОВ КОЛЧАКОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯ ПЕТРОВ ПЕТРОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НЕЙКОВ НЕЙКОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА ГРИГОРОВА ДЯНКОВА","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН КОСТАДИНОВ СЕМЕРДЖИЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР ПЕТРОВ ТАСЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМОН НИКОЛОВ СПАСОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕРВАНОВ АНАНИЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИЙ СТЕФАНОВ БАКЪРДЖИЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВА ДИМИТРОВА ЖЕЧЕВА","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ИЛИЕВ ПЕНЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВЕНЦИСЛАВОВ МАНЧЕВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯН СТРАХИЛОВ ПОПОВ","target":"company:tr:175969402","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ИВАНОВА АСЕНОВА","target":"company:tr:117506672","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ","target":"company:tr:130864083","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:3346","target":"company:tr:130864083","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3346","target":"company:tr:130864083","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:1791","length":2,"nodeIds":["mp:5086","company:tr:175969402","mp:1791"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3346","length":4,"nodeIds":["mp:5086","company:tr:175969402","person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ","company:tr:130864083","mp:3346"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5086",
+  "nodes": [
+    {
+      "id": "mp:5086",
+      "type": "mp",
+      "mpId": 5086,
+      "label": "Иво Севдалинов Цанев",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "39",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Изида-ЕООД",
+      "type": "company",
+      "label": "Изида ЕООД",
+      "slug": "Изида-ЕООД",
+      "uic": "107521479",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Ксбв-ЕООД",
+      "type": "company",
+      "label": "Ксбв ЕООД",
+      "slug": "Ксбв-ЕООД",
+      "uic": "131476144",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:205919810",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ЕВРОПЕЙСКА И АТЛАНТИЧЕСКА ИНТЕГРАЦИЯ",
+      "slug": null,
+      "uic": "205919810",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:175969402",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ&quot; КЛУБ СЕНАТОР&quot;",
+      "slug": null,
+      "uic": "175969402",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1000"
+    },
+    {
+      "id": "company:tr:117506672",
+      "type": "company",
+      "label": "ИЗИДА",
+      "slug": null,
+      "uic": "117506672",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:МИЛЕНА ИВАНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Милена Иванова Симеонова"
+    },
+    {
+      "id": "person:ИВА ЕМИЛОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Ива Емилова Добрева"
+    },
+    {
+      "id": "person:СОНЯ ИВАНОВА ХИНОВА",
+      "type": "person",
+      "label": "Соня Иванова Хинова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЛАМЕНОВ КИТАНОВ",
+      "type": "person",
+      "label": "Николай Пламенов Китанов"
+    },
+    {
+      "id": "mp:1791",
+      "type": "mp",
+      "mpId": 1791,
+      "label": "Димитър Иванов Абаджиев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Захари Нанев Желязков"
+    },
+    {
+      "id": "person:ЦОНЬО ГЕОРГИЕВ БОТЕВ",
+      "type": "person",
+      "label": "Цоньо Георгиев Ботев"
+    },
+    {
+      "id": "person:ЮЛИЙ ВЛАДИМИРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Юлий Владимиров Павлов"
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ",
+      "type": "person",
+      "label": "Стефан Петров Карастоянов"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ КОЛЧАКОВ",
+      "type": "person",
+      "label": "Иван Атанасов Колчаков"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Илия Петров Петров"
+    },
+    {
+      "id": "person:ИВАН НЕЙКОВ НЕЙКОВ",
+      "type": "person",
+      "label": "Иван Нейков Нейков"
+    },
+    {
+      "id": "person:СВЕТЛАНА ГРИГОРОВА ДЯНКОВА",
+      "type": "person",
+      "label": "Светлана Григорова Дянкова"
+    },
+    {
+      "id": "person:РУСЛАН КОСТАДИНОВ СЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Руслан Костадинов Семерджиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ПЕТРОВ ТАСЕВ",
+      "type": "person",
+      "label": "Александър Петров Тасев"
+    },
+    {
+      "id": "person:СИМОН НИКОЛОВ СПАСОВ",
+      "type": "person",
+      "label": "Симон Николов Спасов"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕРВАНОВ АНАНИЕВ",
+      "type": "person",
+      "label": "Георги Герванов Ананиев"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ СТЕФАНОВ БАКЪРДЖИЕВ",
+      "type": "person",
+      "label": "Евгений Стефанов Бакърджиев"
+    },
+    {
+      "id": "person:ЕВА ДИМИТРОВА ЖЕЧЕВА",
+      "type": "person",
+      "label": "Ева Димитрова Жечева"
+    },
+    {
+      "id": "person:ПЕТКО ИЛИЕВ ПЕНЕВ",
+      "type": "person",
+      "label": "Петко Илиев Пенев"
+    },
+    {
+      "id": "person:ЦВЕТАН ВЕНЦИСЛАВОВ МАНЧЕВ",
+      "type": "person",
+      "label": "Цветан Венциславов Манчев"
+    },
+    {
+      "id": "person:ИЛИЯН СТРАХИЛОВ ПОПОВ",
+      "type": "person",
+      "label": "Илиян Страхилов Попов"
+    },
+    {
+      "id": "person:МИЛЕНА ИВАНОВА АСЕНОВА",
+      "type": "person",
+      "label": "Милена Иванова Асенова"
+    },
+    {
+      "id": "company:tr:130864083",
+      "type": "company",
+      "label": "БЪЛГАРСКО ГЕОПОЛИТИЧЕСКО ДРУЖЕСТВО",
+      "slug": null,
+      "uic": "130864083",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1000"
+    },
+    {
+      "id": "mp:3346",
+      "type": "mp",
+      "mpId": 3346,
+      "label": "Иво Ангелов Христов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5086",
+      "target": "company:Изида-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:Ксбв-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:tr:205919810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:tr:117506672",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:tr:117506672",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ИВАНОВА СИМЕОНОВА",
+      "target": "company:Ксбв-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ЕМИЛОВА ДОБРЕВА",
+      "target": "company:tr:205919810",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ИВАНОВА ХИНОВА",
+      "target": "company:tr:205919810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ЕМИЛОВА ДОБРЕВА",
+      "target": "company:tr:205919810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЛАМЕНОВ КИТАНОВ",
+      "target": "company:tr:205919810",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1791",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦОНЬО ГЕОРГИЕВ БОТЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЙ ВЛАДИМИРОВ ПАВЛОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КОЛЧАКОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НЕЙКОВ НЕЙКОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ГРИГОРОВА ДЯНКОВА",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН КОСТАДИНОВ СЕМЕРДЖИЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПЕТРОВ ТАСЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОН НИКОЛОВ СПАСОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕРВАНОВ АНАНИЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ СТЕФАНОВ БАКЪРДЖИЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВА ДИМИТРОВА ЖЕЧЕВА",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ИЛИЕВ ПЕНЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИ НАНЕВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВЕНЦИСЛАВОВ МАНЧЕВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН СТРАХИЛОВ ПОПОВ",
+      "target": "company:tr:175969402",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ИВАНОВА АСЕНОВА",
+      "target": "company:tr:117506672",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ",
+      "target": "company:tr:130864083",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3346",
+      "target": "company:tr:130864083",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3346",
+      "target": "company:tr:130864083",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:1791",
+      "length": 2,
+      "nodeIds": [
+        "mp:5086",
+        "company:tr:175969402",
+        "mp:1791"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3346",
+      "length": 4,
+      "nodeIds": [
+        "mp:5086",
+        "company:tr:175969402",
+        "person:СТЕФАН ПЕТРОВ КАРАСТОЯНОВ",
+        "company:tr:130864083",
+        "mp:3346"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

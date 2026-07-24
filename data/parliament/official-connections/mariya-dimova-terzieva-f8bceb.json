@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-dimova-terzieva-f8bceb",
+  "nodes": [
+    {
+      "id": "official:mariya-dimova-terzieva-f8bceb",
+      "type": "official",
+      "slug": "mariya-dimova-terzieva-f8bceb",
+      "label": "Мария Димова Терзиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130554647",
+      "type": "company",
+      "label": "Светлина за живот",
+      "slug": null,
+      "uic": "130554647",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЕОС ХАРУТЮН НИГОХОСЯН",
+      "type": "person",
+      "label": "Татеос Харутюн Нигохосян"
+    },
+    {
+      "id": "person:СТАНИСЛАВА ВИКТОРОВА КОЛЕВА",
+      "type": "person",
+      "label": "Станислава Викторова Колева"
+    },
+    {
+      "id": "person:ЮРИ ВЕЛИНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Юри Велинов Стоянов"
+    },
+    {
+      "id": "person:АДЕЛИНА ВЕЛИКОВА ДОЧЕВА - КЬОСЕВА",
+      "type": "person",
+      "label": "Аделина Великова Дочева - Кьосева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-dimova-terzieva-f8bceb",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-dimova-terzieva-f8bceb",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЕОС ХАРУТЮН НИГОХОСЯН",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА ВИКТОРОВА КОЛЕВА",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИ ВЕЛИНОВ СТОЯНОВ",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИ ВЕЛИНОВ СТОЯНОВ",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА ВЕЛИКОВА ДОЧЕВА - КЬОСЕВА",
+      "target": "company:tr:130554647",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

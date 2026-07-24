@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetla-dimitrova-georgieva-2e44e7",
+  "nodes": [
+    {
+      "id": "official:svetla-dimitrova-georgieva-2e44e7",
+      "type": "official",
+      "slug": "svetla-dimitrova-georgieva-2e44e7",
+      "label": "Светла Димитрова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205448739",
+      "type": "company",
+      "label": "ТАНЦОВ КЛУБ 7/8Б ХАСКОВО",
+      "slug": null,
+      "uic": "205448739",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА ТОДОРОВА СТОЯНОВА-НИКОЛОВА",
+      "type": "person",
+      "label": "Йорданка Тодорова Стоянова-Николова"
+    },
+    {
+      "id": "person:ИВАНКА ГЕНЧЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Иванка Генчева Кръстева"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ваня Георгиева Димитрова"
+    },
+    {
+      "id": "person:НИКОЛИНА ГЕОРГИЕВА МИТЕВА",
+      "type": "person",
+      "label": "Николина Георгиева Митева"
+    },
+    {
+      "id": "person:ТАНЯ БОЖИЛОВА МАНОЛКОВА",
+      "type": "person",
+      "label": "Таня Божилова Манолкова"
+    },
+    {
+      "id": "person:КРЕМЕНА ИВАНОВА ПАШОВА",
+      "type": "person",
+      "label": "Кремена Иванова Пашова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-dimitrova-georgieva-2e44e7",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА ТОДОРОВА СТОЯНОВА-НИКОЛОВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕНЧЕВА КРЪСТЕВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ГЕОРГИЕВА МИТЕВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ БОЖИЛОВА МАНОЛКОВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ИВАНОВА ПАШОВА",
+      "target": "company:tr:205448739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

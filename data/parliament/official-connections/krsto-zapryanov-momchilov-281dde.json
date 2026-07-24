@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:krsto-zapryanov-momchilov-281dde",
+  "nodes": [
+    {
+      "id": "official:krsto-zapryanov-momchilov-281dde",
+      "type": "official",
+      "slug": "krsto-zapryanov-momchilov-281dde",
+      "label": "Кръстьо Запрянов Момчилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Асеновград"
+    },
+    {
+      "id": "company:tr:115777212",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ АСЕНОВЕЦ",
+      "slug": null,
+      "uic": "115777212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЯНЕВ ЧАТКОВ",
+      "type": "person",
+      "label": "Георги  Янев Чатков"
+    },
+    {
+      "id": "person:АВРАМ НИКОЛОВ АВРАМОВ",
+      "type": "person",
+      "label": "Аврам Николов Аврамов"
+    },
+    {
+      "id": "person:ВАСИЛ ТОДОРОВ ЮРУКОВ",
+      "type": "person",
+      "label": "Васил Тодоров Юруков"
+    },
+    {
+      "id": "person:ИВАНКА ПЕНОВА КАРАСТОЙЧЕВА",
+      "type": "person",
+      "label": "Иванка Пенова Карастойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krsto-zapryanov-momchilov-281dde",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krsto-zapryanov-momchilov-281dde",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯНЕВ ЧАТКОВ",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АВРАМ НИКОЛОВ АВРАМОВ",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ТОДОРОВ ЮРУКОВ",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЯНЕВ ЧАТКОВ",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕНОВА КАРАСТОЙЧЕВА",
+      "target": "company:tr:115777212",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,267 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yumgyul-sherifova-yasharova-4a9b58",
+  "nodes": [
+    {
+      "id": "official:yumgyul-sherifova-yasharova-4a9b58",
+      "type": "official",
+      "slug": "yumgyul-sherifova-yasharova-4a9b58",
+      "label": "Юмгюл Шерифова Яшарова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    },
+    {
+      "id": "company:tr:117084420",
+      "type": "company",
+      "label": "&quot;Просвета 1910&quot;",
+      "slug": null,
+      "uic": "117084420",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЕКИМ АЛИ СЕФЕР",
+      "type": "person",
+      "label": "Зеким Али Сефер"
+    },
+    {
+      "id": "person:НЕДЕЛЧО ПЕТРОВ ДРУМЕВ",
+      "type": "person",
+      "label": "Неделчо Петров Друмев"
+    },
+    {
+      "id": "person:МЕХМЕД ХАСАН МЕХМЕД",
+      "type": "person",
+      "label": "Мехмед Хасан Мехмед"
+    },
+    {
+      "id": "person:СЕЛИМЕ ХЮСЕИН СЕЙДОЛКЮВЛЮ",
+      "type": "person",
+      "label": "Селиме Хюсеин Сейдолкювлю"
+    },
+    {
+      "id": "person:БЮНЯМИН БАСРИЕВ ДЖИНИЕВ",
+      "type": "person",
+      "label": "Бюнямин Басриев Джиниев"
+    },
+    {
+      "id": "person:НЕДЖЛЯ МУРАДОВА РИЗОВА",
+      "type": "person",
+      "label": "Неджля Мурадова Ризова"
+    },
+    {
+      "id": "person:БИНКА МОНЕВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Бинка Монева Неделчева"
+    },
+    {
+      "id": "person:СЕМА РУЖДИ ГАДЖАЛ",
+      "type": "person",
+      "label": "Сема Ружди Гаджал"
+    },
+    {
+      "id": "person:АХМЕД ХЮСЕИН ЧИЛХАСАН",
+      "type": "person",
+      "label": "Ахмед Хюсеин Чилхасан"
+    },
+    {
+      "id": "person:ЗЕХРА ИБРЯМ ХАДЖИВЕЛИ",
+      "type": "person",
+      "label": "Зехра Ибрям Хадживели"
+    },
+    {
+      "id": "person:ДЖЕНАН НЕВЗАТ КАРАШАНОВА",
+      "type": "person",
+      "label": "Дженан Невзат Карашанова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ЙОРДАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Веселка Йорданова Георгиева"
+    },
+    {
+      "id": "person:ЕЛЕНКА АСЕНОВА ХАСАНОВА",
+      "type": "person",
+      "label": "Еленка Асенова Хасанова"
+    },
+    {
+      "id": "person:МЕРЛИН МУХАРЕМ МАХМУД",
+      "type": "person",
+      "label": "Мерлин Мухарем Махмуд"
+    },
+    {
+      "id": "person:САЛИМ ВЕЛИ САРАВЕЛИ",
+      "type": "person",
+      "label": "Салим Вели Саравели"
+    },
+    {
+      "id": "person:НЕСРИН САЛИ БЕКИРХОДЖЕВА",
+      "type": "person",
+      "label": "Несрин Сали Бекирходжева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yumgyul-sherifova-yasharova-4a9b58",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЕКИМ АЛИ СЕФЕР",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕКИМ АЛИ СЕФЕР",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ПЕТРОВ ДРУМЕВ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД ХАСАН МЕХМЕД",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИМЕ ХЮСЕИН СЕЙДОЛКЮВЛЮ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЮНЯМИН БАСРИЕВ ДЖИНИЕВ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЖЛЯ МУРАДОВА РИЗОВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИНКА МОНЕВА НЕДЕЛЧЕВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕМА РУЖДИ ГАДЖАЛ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД ХЮСЕИН ЧИЛХАСАН",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕХРА ИБРЯМ ХАДЖИВЕЛИ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕХРА ИБРЯМ ХАДЖИВЕЛИ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕНАН НЕВЗАТ КАРАШАНОВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ЙОРДАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА АСЕНОВА ХАСАНОВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕРЛИН МУХАРЕМ МАХМУД",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИМ ВЕЛИ САРАВЕЛИ",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕСРИН САЛИ БЕКИРХОДЖЕВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕСРИН САЛИ БЕКИРХОДЖЕВА",
+      "target": "company:tr:117084420",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

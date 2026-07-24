@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:grozdan-ivanov-ivanov-1e6aac",
+  "nodes": [
+    {
+      "id": "official:grozdan-ivanov-ivanov-1e6aac",
+      "type": "official",
+      "slug": "grozdan-ivanov-ivanov-1e6aac",
+      "label": "Гроздан Иванов Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Стралджа"
+    },
+    {
+      "id": "company:tr:207814562",
+      "type": "company",
+      "label": "НПО Заедно с теб - Стралджа",
+      "slug": null,
+      "uic": "207814562",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОЛИНА СТОЯНОВА КОСТОВА",
+      "type": "person",
+      "label": "Йолина Стоянова Костова"
+    },
+    {
+      "id": "person:МАРИАНА ВЪЛЕВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Мариана Вълева Вълева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grozdan-ivanov-ivanov-1e6aac",
+      "target": "company:tr:207814562",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:grozdan-ivanov-ivanov-1e6aac",
+      "target": "company:tr:207814562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОЛИНА СТОЯНОВА КОСТОВА",
+      "target": "company:tr:207814562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ВЪЛЕВА ВЪЛЕВА",
+      "target": "company:tr:207814562",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

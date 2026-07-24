@@ -1,1 +1,50 @@
-{"mpId":3410,"mpName":"Георги Стоянов Кадиев","generatedAt":"2026-07-03T11:12:51.755Z","total":3,"roles":[{"uic":"831147807","companyName":"Българска федерация по ръгби","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. София, 1142","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2025-01-28T13:57:36","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206653825","companyName":"ДЖИ ЕНД АЙ КАРС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8009","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-05-13T13:27:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206653825","companyName":"ДЖИ ЕНД АЙ КАРС","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8009","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2022-05-13T13:27:14","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 3410,
+  "mpName": "Георги Стоянов Кадиев",
+  "generatedAt": "2026-07-24T03:35:58.587Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "831147807",
+      "companyName": "Българска федерация по ръгби",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-01-28T13:57:36",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206653825",
+      "companyName": "ДЖИ ЕНД АЙ КАРС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8009",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-05-13T13:27:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206653825",
+      "companyName": "ДЖИ ЕНД АЙ КАРС",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8009",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2022-05-13T13:27:14",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

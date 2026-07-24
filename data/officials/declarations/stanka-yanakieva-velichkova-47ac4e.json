@@ -798,14 +798,14 @@
         "areaSqm": 170,
         "builtAreaSqm": 170,
         "acquiredYear": 2016,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Станка Янакиева Величкова",
         "isSpouse": false,
-        "legalBasis": "няма",
-        "fundsOrigin": null
+        "legalBasis": "съдебно решение",
+        "fundsOrigin": "няма"
       },
       {
         "category": "real_estate",
@@ -816,14 +816,14 @@
         "areaSqm": 25,
         "builtAreaSqm": 25,
         "acquiredYear": 2016,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Станка Янакиева Величкова",
         "isSpouse": false,
-        "legalBasis": "няма",
-        "fundsOrigin": null
+        "legalBasis": "съдебно решение",
+        "fundsOrigin": "няма"
       }
     ],
     "events": [
@@ -836,8 +836,8 @@
         "areaSqm": 25,
         "builtAreaSqm": 25,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
       }
     ]
   },
@@ -857,6 +857,31 @@
     "ownershipStakes": [],
     "income": [],
     "assets": [],
-    "events": []
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 56242.106931584036,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение на парични средства",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
+    ]
   }
 ]

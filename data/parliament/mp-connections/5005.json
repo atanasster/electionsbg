@@ -1,1 +1,356 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5005","nodes":[{"id":"mp:5005","type":"mp","mpId":5005,"label":"Стилиана Иванова Бобчева","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208205518","type":"company","label":"РОДОЛЮБЦИ ЗА СОФИЯ","slug":null,"uic":"208205518","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1330"},{"id":"company:tr:202918009","type":"company","label":"НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ","slug":null,"uic":"202918009","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:202514422","type":"company","label":"ВИП СТРОЙ ГРУП 22","slug":null,"uic":"202514422","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1839"},{"id":"company:tr:207113102","type":"company","label":"ЧОВЕК - ПРИРОДА - ЖИВОТ","slug":null,"uic":"207113102","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1303"},{"id":"company:tr:176949363","type":"company","label":"СДРУЖЕНИЕ ОРЕНДА","slug":null,"uic":"176949363","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:206642622","type":"company","label":"БЕНДИДА 21","slug":null,"uic":"206642622","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4003"},{"id":"person:НИКОЛАЙ ПАНКОВ ПАНКОВ","type":"person","label":"Николай Панков Панков"},{"id":"person:КИРИЛ ГЕОРГИЕВ ГЕОРЕВ","type":"person","label":"Кирил Георгиев Георев"},{"id":"person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ","type":"person","label":"Дейвид Валентинов Йосифов"},{"id":"person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ","type":"person","label":"Даниел Йорданов Бачорски"},{"id":"person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ","type":"person","label":"Иво Александров Мутафчиев"},{"id":"person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ","type":"person","label":"Валентин Симеонов Йосифов"},{"id":"person:ПЕТКО ВЪЛЧЕВ ПЕТКОВ","type":"person","label":"Петко Вълчев Петков"},{"id":"person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА","type":"person","label":"Красимира Петкова Нинова - Катинчарова"},{"id":"person:РОСИЦА ХРИСТОВА КОВАЧЕВА - СЕРАФИМОВА","type":"person","label":"Росица Христова Ковачева - Серафимова"},{"id":"person:СТЕФКА ИВАНОВА СЕРГЕЕВА","type":"person","label":"Стефка Иванова Сергеева"},{"id":"person:АЛБЕНА ВЛАДИМИРОВА АЛЕКСАНДРОВА","type":"person","label":"Албена Владимирова Александрова"},{"id":"person:РАДОСТИНА ИВАНОВА КИРИЛОВА","type":"person","label":"Радостина Иванова Кирилова"},{"id":"company:name:АЙ ЕС БИ","type":"company","label":"\"АЙ ЕС БИ\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null}],"edges":[{"source":"mp:5005","target":"company:tr:208205518","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:208205518","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:202918009","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:202514422","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:207113102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:176949363","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5005","target":"company:tr:206642622","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:НИКОЛАЙ ПАНКОВ ПАНКОВ","target":"company:tr:208205518","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КИРИЛ ГЕОРГИЕВ ГЕОРЕВ","target":"company:tr:208205518","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ","target":"company:tr:202918009","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ","target":"company:tr:202918009","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ","target":"company:tr:202918009","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ","target":"company:tr:202918009","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ","target":"company:tr:202514422","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ","target":"company:tr:202514422","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ВЪЛЧЕВ ПЕТКОВ","target":"company:tr:202514422","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА","target":"company:tr:207113102","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА","target":"company:tr:207113102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСИЦА ХРИСТОВА КОВАЧЕВА - СЕРАФИМОВА","target":"company:tr:207113102","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ИВАНОВА СЕРГЕЕВА","target":"company:tr:176949363","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ИВАНОВА СЕРГЕЕВА","target":"company:tr:176949363","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА ВЛАДИМИРОВА АЛЕКСАНДРОВА","target":"company:tr:176949363","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА ИВАНОВА КИРИЛОВА","target":"company:tr:206642622","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:АЙ ЕС БИ","target":"company:tr:206642622","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА ИВАНОВА КИРИЛОВА","target":"company:tr:206642622","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ","target":"company:tr:206642622","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5005",
+  "nodes": [
+    {
+      "id": "mp:5005",
+      "type": "mp",
+      "mpId": 5005,
+      "label": "Стилиана Иванова Бобчева",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208205518",
+      "type": "company",
+      "label": "РОДОЛЮБЦИ ЗА СОФИЯ",
+      "slug": null,
+      "uic": "208205518",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1330"
+    },
+    {
+      "id": "company:tr:202918009",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ",
+      "slug": null,
+      "uic": "202918009",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202514422",
+      "type": "company",
+      "label": "ВИП СТРОЙ ГРУП 22",
+      "slug": null,
+      "uic": "202514422",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1839"
+    },
+    {
+      "id": "company:tr:207113102",
+      "type": "company",
+      "label": "ЧОВЕК - ПРИРОДА - ЖИВОТ",
+      "slug": null,
+      "uic": "207113102",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "company:tr:176949363",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ОРЕНДА",
+      "slug": null,
+      "uic": "176949363",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206642622",
+      "type": "company",
+      "label": "БЕНДИДА 21",
+      "slug": null,
+      "uic": "206642622",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПАНКОВ ПАНКОВ",
+      "type": "person",
+      "label": "Николай Панков Панков"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ ГЕОРЕВ",
+      "type": "person",
+      "label": "Кирил Георгиев Георев"
+    },
+    {
+      "id": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "type": "person",
+      "label": "Дейвид Валентинов Йосифов"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ",
+      "type": "person",
+      "label": "Даниел Йорданов Бачорски"
+    },
+    {
+      "id": "person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ",
+      "type": "person",
+      "label": "Иво Александров Мутафчиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ",
+      "type": "person",
+      "label": "Валентин Симеонов Йосифов"
+    },
+    {
+      "id": "person:ПЕТКО ВЪЛЧЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Вълчев Петков"
+    },
+    {
+      "id": "person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА",
+      "type": "person",
+      "label": "Красимира Петкова Нинова - Катинчарова"
+    },
+    {
+      "id": "person:РОСИЦА ХРИСТОВА КОВАЧЕВА - СЕРАФИМОВА",
+      "type": "person",
+      "label": "Росица Христова Ковачева - Серафимова"
+    },
+    {
+      "id": "person:СТЕФКА ИВАНОВА СЕРГЕЕВА",
+      "type": "person",
+      "label": "Стефка Иванова Сергеева"
+    },
+    {
+      "id": "person:АЛБЕНА ВЛАДИМИРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Албена Владимирова Александрова"
+    },
+    {
+      "id": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Радостина Иванова Кирилова"
+    },
+    {
+      "id": "company:name:АЙ ЕС БИ",
+      "type": "company",
+      "label": "\"АЙ ЕС БИ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5005",
+      "target": "company:tr:208205518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:208205518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:202514422",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:207113102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:176949363",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПАНКОВ ПАНКОВ",
+      "target": "company:tr:208205518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ ГЕОРЕВ",
+      "target": "company:tr:208205518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "target": "company:tr:202918009",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ",
+      "target": "company:tr:202514422",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СИМЕОНОВ ЙОСИФОВ",
+      "target": "company:tr:202514422",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ВЪЛЧЕВ ПЕТКОВ",
+      "target": "company:tr:202514422",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА",
+      "target": "company:tr:207113102",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ПЕТКОВА НИНОВА - КАТИНЧАРОВА",
+      "target": "company:tr:207113102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ХРИСТОВА КОВАЧЕВА - СЕРАФИМОВА",
+      "target": "company:tr:207113102",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ИВАНОВА СЕРГЕЕВА",
+      "target": "company:tr:176949363",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ИВАНОВА СЕРГЕЕВА",
+      "target": "company:tr:176949363",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ВЛАДИМИРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:176949363",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "target": "company:tr:206642622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:АЙ ЕС БИ",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО АЛЕКСАНДРОВ МУТАФЧИЕВ",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

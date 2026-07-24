@@ -458,7 +458,10 @@ export type DonorSummary = {
 // declaration only covers ownership stakes — management roles must come from
 // the Commerce Registry instead.
 export type MpOwnershipStake = {
-  table: "10" | "11"; // 10 = current shares, 11 = transferred in prior year
+  // 10 = current shares, 11 = transferred in the prior year. These are LOGICAL
+  // ids — the 2018+ form's numbers — not a citation of the source XML: in a
+  // pre-2018 filing the same content sits in tables 11 and 12.
+  table: "10" | "11";
   itemType: string | null; // raw "Вид на имуществото" cell
   shareSize: string | null; // raw text, may be "100%" or a numeric quantity
   companyName: string | null;

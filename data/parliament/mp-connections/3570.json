@@ -1,1 +1,234 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3570","nodes":[{"id":"mp:3570","type":"mp","mpId":3570,"label":"Цвета Тодорова Галунова","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:205334479","type":"company","label":"Шахматен клуб Полски гамбит","slug":null,"uic":"205334479","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:207024454","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64","slug":null,"uic":"207024454","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ДОЧКА НИКОДИМОВА ИВАНОВА","type":"person","label":"Дочка Никодимова Иванова"},{"id":"person:СТАНИСЛАВ СТЕФАНОВ ХРИСТОВ","type":"person","label":"Станислав Стефанов Христов"},{"id":"mp:5092","type":"mp","mpId":5092,"label":"Богомил Иванов Петков","partyGroupShort":"ПГ на Продължаваме Промяната","isCurrent":true,"nsFolders":["47","48","51","52"]},{"id":"mp:5268","type":"mp","mpId":5268,"label":"Румен Ангелов Миланов","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:ДАЯН ЙОРДАНОВ НИНОВ","type":"person","label":"Даян Йорданов Нинов"},{"id":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,","type":"person","label":"Мирослав Николаев Митев,"},{"id":"person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ","type":"person","label":"Петър Георгиев Арнаудов"},{"id":"person:РОСЕН ПЕТРОВ ИЛЧЕВ","type":"person","label":"Росен Петров Илчев"},{"id":"person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ","type":"person","label":"Недялко Димчев Неделчев"},{"id":"person:ТРАЙЧО ДИМИТРОВ ТРАЙКОВ","type":"person","label":"Трайчо Димитров Трайков"}],"edges":[{"source":"mp:3570","target":"company:tr:205334479","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3570","target":"company:tr:207024454","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3570","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДОЧКА НИКОДИМОВА ИВАНОВА","target":"company:tr:205334479","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ СТЕФАНОВ ХРИСТОВ","target":"company:tr:205334479","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5092","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5268","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДАЯН ЙОРДАНОВ НИНОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН ПЕТРОВ ИЛЧЕВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТРАЙЧО ДИМИТРОВ ТРАЙКОВ","target":"company:tr:207024454","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[{"targetMpNodeId":"mp:5092","length":2,"nodeIds":["mp:3570","company:tr:207024454","mp:5092"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5268","length":2,"nodeIds":["mp:3570","company:tr:207024454","mp:5268"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3570",
+  "nodes": [
+    {
+      "id": "mp:3570",
+      "type": "mp",
+      "mpId": 3570,
+      "label": "Цвета Тодорова Галунова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:205334479",
+      "type": "company",
+      "label": "Шахматен клуб Полски гамбит",
+      "slug": null,
+      "uic": "205334479",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207024454",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ШАХМАТ 64",
+      "slug": null,
+      "uic": "207024454",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ДОЧКА НИКОДИМОВА ИВАНОВА",
+      "type": "person",
+      "label": "Дочка Никодимова Иванова"
+    },
+    {
+      "id": "person:СТАНИСЛАВ СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Станислав Стефанов Христов"
+    },
+    {
+      "id": "mp:5092",
+      "type": "mp",
+      "mpId": 5092,
+      "label": "Богомил Иванов Петков",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "mp:5268",
+      "type": "mp",
+      "mpId": 5268,
+      "label": "Румен Ангелов Миланов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "official:traicho-dimitrov-traikov-710a1d",
+      "type": "official",
+      "slug": "traicho-dimitrov-traikov-710a1d",
+      "label": "Трайчо Димитров Трайков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Средец"
+    },
+    {
+      "id": "person:ДАЯН ЙОРДАНОВ НИНОВ",
+      "type": "person",
+      "label": "Даян Йорданов Нинов"
+    },
+    {
+      "id": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,",
+      "type": "person",
+      "label": "Мирослав Николаев Митев,"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ",
+      "type": "person",
+      "label": "Петър Георгиев Арнаудов"
+    },
+    {
+      "id": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Росен Петров Илчев"
+    },
+    {
+      "id": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
+      "type": "person",
+      "label": "Недялко Димчев Неделчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3570",
+      "target": "company:tr:205334479",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3570",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОЧКА НИКОДИМОВА ИВАНОВА",
+      "target": "company:tr:205334479",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:205334479",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5268",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:traicho-dimitrov-traikov-710a1d",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАЯН ЙОРДАНОВ НИНОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НИКОЛАЕВ МИТЕВ,",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ АРНАУДОВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕТРОВ ИЛЧЕВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ДИМЧЕВ НЕДЕЛЧЕВ",
+      "target": "company:tr:207024454",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5092",
+      "length": 2,
+      "nodeIds": [
+        "mp:3570",
+        "company:tr:207024454",
+        "mp:5092"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5268",
+      "length": 2,
+      "nodeIds": [
+        "mp:3570",
+        "company:tr:207024454",
+        "mp:5268"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

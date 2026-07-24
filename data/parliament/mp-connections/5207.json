@@ -1,1 +1,116 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5207","nodes":[{"id":"mp:5207","type":"mp","mpId":5207,"label":"Теменужка Петрова Петкова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["44","45","46","47","48","49","50","51","52"]},{"id":"company:tr:207256125","type":"company","label":"МЕБЕЛСНАБ-2022","slug":null,"uic":"207256125","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1220"},{"id":"company:tr:121049756","type":"company","label":"МЕБЕЛСНАБ-96","slug":null,"uic":"121049756","legalForm":"EOOD","status":"active","seat":null},{"id":"person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ","type":"person","label":"Христо Михайлов Цветков"},{"id":"person:ТАНЯ ЛАЗАРОВА КРЪСТЕВА","type":"person","label":"Таня Лазарова Кръстева"},{"id":"company:name:ЛОРАНИ","type":"company","label":"Лорани ООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"official:temenuzhka-petrova-petkova-6e73ca","type":"official","slug":"temenuzhka-petrova-petkova-6e73ca","label":"Теменужка Петрова Петкова","tier":"executive","role":"cabinet","municipality":null}],"edges":[{"source":"mp:5207","target":"company:tr:207256125","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"mp:5207","target":"company:tr:121049756","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ","target":"company:tr:207256125","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАНЯ ЛАЗАРОВА КРЪСТЕВА","target":"company:tr:207256125","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:name:ЛОРАНИ","target":"company:tr:207256125","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"official:temenuzhka-petrova-petkova-6e73ca","target":"company:tr:121049756","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ","target":"company:tr:121049756","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5207",
+  "nodes": [
+    {
+      "id": "mp:5207",
+      "type": "mp",
+      "mpId": 5207,
+      "label": "Теменужка Петрова Петкова",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:207256125",
+      "type": "company",
+      "label": "МЕБЕЛСНАБ-2022",
+      "slug": null,
+      "uic": "207256125",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1220"
+    },
+    {
+      "id": "company:tr:121049756",
+      "type": "company",
+      "label": "МЕБЕЛСНАБ-96",
+      "slug": null,
+      "uic": "121049756",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Христо Михайлов Цветков"
+    },
+    {
+      "id": "person:ТАНЯ ЛАЗАРОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Таня Лазарова Кръстева"
+    },
+    {
+      "id": "company:name:ЛОРАНИ",
+      "type": "company",
+      "label": "Лорани ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5207",
+      "target": "company:tr:207256125",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5207",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ",
+      "target": "company:tr:207256125",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЛАЗАРОВА КРЪСТЕВА",
+      "target": "company:tr:207256125",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛОРАНИ",
+      "target": "company:tr:207256125",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

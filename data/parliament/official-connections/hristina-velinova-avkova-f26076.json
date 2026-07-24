@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristina-velinova-avkova-f26076",
+  "nodes": [
+    {
+      "id": "official:hristina-velinova-avkova-f26076",
+      "type": "official",
+      "slug": "hristina-velinova-avkova-f26076",
+      "label": "Христина Велинова Авкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177179652",
+      "type": "company",
+      "label": "Алианс за равни права и устойчивост",
+      "slug": null,
+      "uic": "177179652",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА ИВАНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Светлана Иванова Симеонова"
+    },
+    {
+      "id": "person:МИЛЕНА СЛАВЕЕВА ХРИСТОВА - ШИШКОВА",
+      "type": "person",
+      "label": "Милена Славеева Христова - Шишкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-velinova-avkova-f26076",
+      "target": "company:tr:177179652",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-velinova-avkova-f26076",
+      "target": "company:tr:177179652",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА ИВАНОВА СИМЕОНОВА",
+      "target": "company:tr:177179652",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СЛАВЕЕВА ХРИСТОВА - ШИШКОВА",
+      "target": "company:tr:177179652",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

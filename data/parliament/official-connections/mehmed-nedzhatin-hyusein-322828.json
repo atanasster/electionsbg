@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mehmed-nedzhatin-hyusein-322828",
+  "nodes": [
+    {
+      "id": "official:mehmed-nedzhatin-hyusein-322828",
+      "type": "official",
+      "slug": "mehmed-nedzhatin-hyusein-322828",
+      "label": "Мехмед Неджатин Хюсеин",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "id": "company:tr:000046617",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ФАР-1952 г.&quot;",
+      "slug": null,
+      "uic": "000046617",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕХМЕД ИБРЯМ САЛИ",
+      "type": "person",
+      "label": "Мехмед Ибрям Сали"
+    },
+    {
+      "id": "person:ТАЙБЕ РУЖДИ МУСТАФА",
+      "type": "person",
+      "label": "Тайбе Ружди Мустафа"
+    },
+    {
+      "id": "person:ЮМЕР СМАИЛ РАМИС",
+      "type": "person",
+      "label": "Юмер Смаил Рамис"
+    },
+    {
+      "id": "person:ДЖАИД ЕМИН ДЖАИД",
+      "type": "person",
+      "label": "Джаид Емин Джаид"
+    },
+    {
+      "id": "person:ХАСАН ХАЛИЛ МЕДЖИТ",
+      "type": "person",
+      "label": "Хасан Халил Меджит"
+    },
+    {
+      "id": "person:НУХРЕТИН ХАБИЛ МУСТАФА",
+      "type": "person",
+      "label": "Нухретин Хабил Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-nedzhatin-hyusein-322828",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕХМЕД ИБРЯМ САЛИ",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАЙБЕ РУЖДИ МУСТАФА",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД ИБРЯМ САЛИ",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМЕР СМАИЛ РАМИС",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАИД ЕМИН ДЖАИД",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН ХАЛИЛ МЕДЖИТ",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУХРЕТИН ХАБИЛ МУСТАФА",
+      "target": "company:tr:000046617",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

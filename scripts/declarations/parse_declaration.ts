@@ -72,29 +72,226 @@ const isEmptyRow = ($: CheerioAPI, row: ReturnType<CheerioAPI>): boolean => {
   return populated.length === 0;
 };
 
-const parseTable10Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
+/** The register renumbered its tables.
+ *
+ *  Filings up to 2017 use one layout and 2018-onward another, and the numbers
+ *  do NOT line up: in the older form table 7 is "Банкови влогове" where the
+ *  newer one has "Задължения", and 13 is income where the newer one has
+ *  guarantees. Reading by raw number therefore filed 642 declarations into the
+ *  wrong categories entirely — 638 across the 2015-2017 folders plus 4
+ *  stragglers filed on the old form inside the 2018 folder — with bank deposits
+ *  counted as debts, debts as securities, and the income table parsed as
+ *  guarantees.
+ *
+ *  So every table lookup goes through a LOGICAL name resolved per document.
+ *  Version is detected from a description rather than a date: the filing itself
+ *  is the only thing that knows which form it was filed on, and those four
+ *  stragglers inside the 2018 folder are what a date-based rule would get
+ *  wrong. */
+type FormVersion = "v1" | "v2";
+
+type LogicalTable =
+  | "realEstate"
+  | "agriLand"
+  | "foreignRealEstate"
+  | "propertyDisposal"
+  | "vehicles"
+  | "agriMachinery"
+  | "boats"
+  | "otherVehicles"
+  | "foreignVehicles"
+  | "vehicleDisposal"
+  | "cash"
+  | "bank"
+  | "receivable"
+  | "debt"
+  | "investment"
+  | "security"
+  | "shares"
+  | "shareTransfer"
+  | "income"
+  | "guarantees"
+  | "expenses";
+
+// A logical table absent from a form version maps to null — the older form has
+// no separate "foreign real estate", "other vehicles" or "investment funds"
+// table at all, so those simply yield no rows rather than matching by accident.
+const TABLE_NUMS: Record<FormVersion, Record<LogicalTable, string | null>> = {
+  v2: {
+    realEstate: "1",
+    agriLand: "1.1",
+    foreignRealEstate: "1.2",
+    propertyDisposal: "2",
+    vehicles: "3",
+    agriMachinery: "3.1",
+    boats: "3.2",
+    otherVehicles: "3.3",
+    foreignVehicles: "3.4",
+    vehicleDisposal: "3.5",
+    cash: "4",
+    bank: "5",
+    receivable: "6",
+    debt: "7",
+    investment: "8",
+    security: "9",
+    shares: "10",
+    shareTransfer: "11",
+    income: "12",
+    guarantees: "13",
+    expenses: "14",
+  },
+  v1: {
+    realEstate: "1",
+    agriLand: "1.1",
+    foreignRealEstate: null,
+    propertyDisposal: "2",
+    vehicles: "3",
+    agriMachinery: "3.1",
+    boats: "4",
+    otherVehicles: null,
+    foreignVehicles: null,
+    vehicleDisposal: "5",
+    cash: "6",
+    bank: "7",
+    receivable: "8",
+    debt: "9",
+    investment: null,
+    security: "10",
+    shares: "11",
+    shareTransfer: "12",
+    income: "13",
+    guarantees: "14",
+    expenses: "15",
+  },
+};
+
+export const detectFormVersion = ($: CheerioAPI): FormVersion => {
+  const norm = (raw: string | undefined) => (raw ?? "").trim();
+  // Table 13 is the cleanest discriminator: income in the old form, guarantees
+  // in the new one. Every one of the 642 old-form filings on file resolves
+  // here.
+  const desc = norm($('Table[Num="13"]').first().attr("Description"));
+  if (desc.startsWith("Доходи")) return "v1";
+  if (desc.startsWith("Дадени")) return "v2";
+  // No table 13 at all: fall back on table 15, which the old form uses for
+  // expenses and the new one for the conflict-of-interest section — so this is
+  // checked by DESCRIPTION, never by presence.
+  const t15 = norm($('Table[Num="15"]').first().attr("Description"));
+  if (t15.startsWith("Направени разходи")) return "v1";
+  // Otherwise assume the current form: it is 98.5% of the corpus and every
+  // filing since 2018. A filing that carries asset tables yet matches neither
+  // discriminator means the register reworded a description, and guessing the
+  // version wrong misfiles the whole declaration — so say so. A несъвместимост
+  // filing carries no tables at all and stays quiet.
+  if ($("Table").length > 0) {
+    console.warn(
+      `[parse] no form-version discriminator (table 13 = "${desc.slice(0, 40)}") — assuming the current form`,
+    );
+  }
+  return "v2";
+};
+
+/** Which column each table gained when the 2018 form added a national-ID cell.
+ *
+ *  That single insertion is the ONLY layout difference between the two forms:
+ *  every column after "Име: собствено, бащино, фамилно" moved one place right.
+ *  So rather than carry two full column maps, cell numbers are written once in
+ *  NEW-form terms and translated back for old-form rows. null = the table never
+ *  had an ЕГН column (income, guarantees, expenses) and both forms agree. */
+const EGN_COLUMN: Record<LogicalTable, number | null> = {
+  realEstate: 9,
+  agriLand: 9,
+  foreignRealEstate: 9,
+  propertyDisposal: 8,
+  vehicles: 7,
+  agriMachinery: 7,
+  boats: 7,
+  otherVehicles: 7,
+  foreignVehicles: 7,
+  vehicleDisposal: 6,
+  cash: 6,
+  bank: 6,
+  receivable: 7,
+  debt: 7,
+  investment: 6,
+  security: 9,
+  shares: 8,
+  shareTransfer: 8,
+  income: null,
+  guarantees: null,
+  expenses: null,
+};
+
+/** Translates a new-form column number to where that column sits in this
+ *  document. Identity for every 2018+ filing. */
+export type ColumnResolver = (newFormNum: number) => number;
+
+const columnResolver = (
+  version: FormVersion,
+  logical: LogicalTable,
+): ColumnResolver => {
+  const egn = EGN_COLUMN[logical];
+  if (version === "v2" || egn == null) return (n) => n;
+  return (n) => (n > egn ? n - 1 : n);
+};
+
+/** The <Table> element for a logical table in THIS document, or an empty
+ *  selection when the form has no such table. */
+const tableOf = (
+  $: CheerioAPI,
+  version: FormVersion,
+  logical: LogicalTable,
+): ReturnType<CheerioAPI> | null => {
+  const num = TABLE_NUMS[version][logical];
+  if (num == null) return null;
+  const t = $(`Table[Num="${num}"]`).first();
+  return t.length > 0 ? t : null;
+};
+
+/** Non-empty rows of a logical table that the declarant actually filled in. */
+const rowsOfTable = (
+  $: CheerioAPI,
+  version: FormVersion,
+  logical: LogicalTable,
+): ReturnType<CheerioAPI>[] => {
+  const t = tableOf($, version, logical);
+  if (!t || t.attr("Declared") !== "True") return [];
+  return t
+    .find("Row")
+    .toArray()
+    .map((el) => $(el))
+    .filter((row) => !isEmptyRow($, row));
+};
+
+const parseTable10Row = (
+  row: ReturnType<CheerioAPI>,
+  col: ColumnResolver,
+): MpOwnershipStake => ({
   table: "10",
-  itemType: cellByNum(row, 2),
-  shareSize: cellByNum(row, 3),
-  companyName: cellByNum(row, 4),
-  registeredOffice: cellByNum(row, 5),
+  itemType: cellByNum(row, col(2)),
+  shareSize: cellByNum(row, col(3)),
+  companyName: cellByNum(row, col(4)),
+  registeredOffice: cellByNum(row, col(5)),
   // Cell 6 is the declared BGN value — convert to euros (locked peg).
-  valueEur: toEur(toNumber(cellByNum(row, 6)), "BGN"),
-  holderName: cellByNum(row, 7),
-  legalBasis: cellByNum(row, 9),
-  fundsOrigin: cellByNum(row, 10),
+  valueEur: toEur(toNumber(cellByNum(row, col(6))), "BGN"),
+  holderName: cellByNum(row, col(7)),
+  legalBasis: cellByNum(row, col(9)),
+  fundsOrigin: cellByNum(row, col(10)),
 });
 
-const parseTable11Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
+const parseTable11Row = (
+  row: ReturnType<CheerioAPI>,
+  col: ColumnResolver,
+): MpOwnershipStake => ({
   table: "11",
-  itemType: cellByNum(row, 2),
-  shareSize: cellByNum(row, 3),
-  companyName: cellByNum(row, 4),
-  registeredOffice: cellByNum(row, 5),
-  valueEur: toEur(toNumber(cellByNum(row, 6)), "BGN"),
+  itemType: cellByNum(row, col(2)),
+  shareSize: cellByNum(row, col(3)),
+  companyName: cellByNum(row, col(4)),
+  registeredOffice: cellByNum(row, col(5)),
+  valueEur: toEur(toNumber(cellByNum(row, col(6))), "BGN"),
   holderName: null,
-  transfereeName: cellByNum(row, 7),
-  legalBasis: cellByNum(row, 9),
+  transfereeName: cellByNum(row, col(7)),
+  legalBasis: cellByNum(row, col(9)),
   fundsOrigin: null,
 });
 
@@ -344,12 +541,13 @@ const parseTable1Row = (
   row: ReturnType<CheerioAPI>,
   declarantName: string,
   sourceUrl: string,
+  col: ColumnResolver,
 ): MpAsset => {
-  const holder = cellByNum(row, 8);
-  const rawValue = toNumber(cellByNum(row, 11));
-  const location = cellByNum(row, 3);
-  const areaSqm = toLooseNumber(cellByNum(row, 5));
-  const description = cellByNum(row, 2);
+  const holder = cellByNum(row, col(8));
+  const rawValue = toNumber(cellByNum(row, col(11)));
+  const location = cellByNum(row, col(3));
+  const areaSqm = toLooseNumber(cellByNum(row, col(5)));
+  const description = cellByNum(row, col(2));
   let value = rawValue;
   let overridden = false;
   if (rawValue != null && location != null && areaSqm != null) {
@@ -382,18 +580,18 @@ const parseTable1Row = (
     description,
     detail: null,
     location,
-    municipality: cellByNum(row, 4),
+    municipality: cellByNum(row, col(4)),
     areaSqm,
-    builtAreaSqm: toLooseNumber(cellByNum(row, 6)),
-    acquiredYear: toIntYear(cellByNum(row, 7)),
-    share: cellByNum(row, 10),
+    builtAreaSqm: toLooseNumber(cellByNum(row, col(6))),
+    acquiredYear: toIntYear(cellByNum(row, col(7))),
+    share: cellByNum(row, col(10)),
     currency: value != null ? "BGN" : null,
     amount: value,
     valueEur: toEur(value, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
-    legalBasis: cellByNum(row, 12),
-    fundsOrigin: cellByNum(row, 13),
+    legalBasis: cellByNum(row, col(12)),
+    fundsOrigin: cellByNum(row, col(13)),
   };
 };
 
@@ -401,11 +599,12 @@ const parseTable3Row = (
   row: ReturnType<CheerioAPI>,
   declarantName: string,
   sourceUrl: string,
+  col: ColumnResolver,
 ): MpAsset => {
-  const holder = cellByNum(row, 6);
-  const rawValue = toNumber(cellByNum(row, 4));
-  const detail = cellByNum(row, 3);
-  const acquiredYear = toIntYear(cellByNum(row, 5));
+  const holder = cellByNum(row, col(6));
+  const rawValue = toNumber(cellByNum(row, col(4)));
+  const detail = cellByNum(row, col(3));
+  const acquiredYear = toIntYear(cellByNum(row, col(5)));
   let value = rawValue;
   let overridden = false;
   if (rawValue != null && acquiredYear != null) {
@@ -437,21 +636,21 @@ const parseTable3Row = (
   }
   return {
     category: "vehicle",
-    description: cellByNum(row, 2),
+    description: cellByNum(row, col(2)),
     detail,
     location: null,
     municipality: null,
     areaSqm: null,
     builtAreaSqm: null,
     acquiredYear,
-    share: cellByNum(row, 8),
+    share: cellByNum(row, col(8)),
     currency: value != null ? "BGN" : null,
     amount: value,
     valueEur: toEur(value, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
-    legalBasis: cellByNum(row, 9),
-    fundsOrigin: cellByNum(row, 10),
+    legalBasis: cellByNum(row, col(9)),
+    fundsOrigin: cellByNum(row, col(10)),
   };
 };
 
@@ -472,14 +671,17 @@ const parseMoneyRow = (
   declarantName: string,
   category: MpAssetCategory,
   cells: MoneyCellMap,
+  col: ColumnResolver,
 ): MpAsset => {
-  const amount = toNumber(cellByNum(row, cells.amount));
-  const currency = cellByNum(row, cells.currency);
-  const bgnEquiv = toNumber(cellByNum(row, cells.bgnEquiv));
-  const holder = cellByNum(row, cells.holder);
+  const amount = toNumber(cellByNum(row, col(cells.amount)));
+  const currency = cellByNum(row, col(cells.currency));
+  const bgnEquiv = toNumber(cellByNum(row, col(cells.bgnEquiv)));
+  const holder = cellByNum(row, col(cells.holder));
   return {
     category,
-    description: cells.description ? cellByNum(row, cells.description) : null,
+    description: cells.description
+      ? cellByNum(row, col(cells.description))
+      : null,
     detail: currency,
     location: null,
     municipality: null,
@@ -500,34 +702,37 @@ const parseMoneyRow = (
     ),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
-    legalBasis: cells.legalBasis ? cellByNum(row, cells.legalBasis) : null,
-    fundsOrigin: cells.fundsOrigin ? cellByNum(row, cells.fundsOrigin) : null,
+    legalBasis: cells.legalBasis ? cellByNum(row, col(cells.legalBasis)) : null,
+    fundsOrigin: cells.fundsOrigin
+      ? cellByNum(row, col(cells.fundsOrigin))
+      : null,
   };
 };
 
 const parseTable9Row = (
   row: ReturnType<CheerioAPI>,
   declarantName: string,
+  col: ColumnResolver,
 ): MpAsset => {
-  const holder = cellByNum(row, 8);
-  const price = toNumber(cellByNum(row, 7));
+  const holder = cellByNum(row, col(8));
+  const price = toNumber(cellByNum(row, col(7)));
   return {
     category: "security",
-    description: cellByNum(row, 2),
-    detail: cellByNum(row, 6), // emitter / issuer
+    description: cellByNum(row, col(2)),
+    detail: cellByNum(row, col(6)), // emitter / issuer
     location: null,
     municipality: null,
     areaSqm: null,
     builtAreaSqm: null,
     acquiredYear: null,
-    share: cellByNum(row, 3), // count of securities — preserve raw text
+    share: cellByNum(row, col(3)), // count of securities — preserve raw text
     currency: price != null ? "BGN" : null,
     amount: price,
     valueEur: toEur(price, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
-    legalBasis: cellByNum(row, 10),
-    fundsOrigin: cellByNum(row, 11),
+    legalBasis: cellByNum(row, col(10)),
+    fundsOrigin: cellByNum(row, col(11)),
   };
 };
 
@@ -579,6 +784,7 @@ const parseAssetTables = (
   $: CheerioAPI,
   declarantName: string,
   sourceUrl: string,
+  version: FormVersion,
 ): MpAsset[] => {
   const out: MpAsset[] = [];
 
@@ -590,14 +796,11 @@ const parseAssetTables = (
   // Table 2 ("transfer of property in prior year") is intentionally NOT
   // parsed here — those properties have already left the declarant's
   // estate and would inflate totals.
-  for (const tn of ["1", "1.1", "1.2"]) {
-    const t = $(`Table[Num="${tn}"]`).first();
-    if (t.attr("Declared") !== "True") continue;
-    t.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(parseTable1Row(row, declarantName, sourceUrl));
-    });
+  for (const tn of ["realEstate", "agriLand", "foreignRealEstate"] as const) {
+    const col = columnResolver(version, tn);
+    for (const row of rowsOfTable($, version, tn)) {
+      out.push(parseTable1Row(row, declarantName, sourceUrl, col));
+    }
   }
 
   // Table 3 family — vehicles. Subtables share the same cell layout:
@@ -608,127 +811,139 @@ const parseAssetTables = (
   //   3.4 = foreign vehicles over 10k BGN that the declarant uses
   // Table 3.5 ("transferred in prior year") is skipped for the same reason
   // as Table 2.
-  for (const tn of ["3", "3.1", "3.2", "3.3", "3.4"]) {
-    const t = $(`Table[Num="${tn}"]`).first();
-    if (t.attr("Declared") !== "True") continue;
-    t.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(parseTable3Row(row, declarantName, sourceUrl));
-    });
+  for (const tn of [
+    "vehicles",
+    "agriMachinery",
+    "boats",
+    "otherVehicles",
+    "foreignVehicles",
+  ] as const) {
+    const col = columnResolver(version, tn);
+    for (const row of rowsOfTable($, version, tn)) {
+      out.push(parseTable3Row(row, declarantName, sourceUrl, col));
+    }
   }
 
   // Table 4 — cash on hand
-  const t4 = $('Table[Num="4"]').first();
-  if (t4.attr("Declared") === "True") {
-    t4.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(
-        parseMoneyRow(row, declarantName, "cash", {
+  const cashCol = columnResolver(version, "cash");
+  for (const row of rowsOfTable($, version, "cash")) {
+    out.push(
+      parseMoneyRow(
+        row,
+        declarantName,
+        "cash",
+        {
           amount: 2,
           currency: 3,
           bgnEquiv: 4,
           holder: 5,
           fundsOrigin: 7,
-        }),
-      );
-    });
+        },
+        cashCol,
+      ),
+    );
   }
 
   // Table 5 — bank accounts / deposits
-  const t5 = $('Table[Num="5"]').first();
-  if (t5.attr("Declared") === "True") {
-    t5.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(
-        parseMoneyRow(row, declarantName, "bank", {
+  const bankCol = columnResolver(version, "bank");
+  for (const row of rowsOfTable($, version, "bank")) {
+    out.push(
+      parseMoneyRow(
+        row,
+        declarantName,
+        "bank",
+        {
           amount: 2,
           currency: 3,
           bgnEquiv: 4,
           holder: 5,
           fundsOrigin: 9,
-        }),
-      );
-    });
+        },
+        bankCol,
+      ),
+    );
   }
 
   // Table 6 — receivables > 10k BGN
-  const t6 = $('Table[Num="6"]').first();
-  if (t6.attr("Declared") === "True") {
-    t6.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(
-        parseMoneyRow(row, declarantName, "receivable", {
+  const receivableCol = columnResolver(version, "receivable");
+  for (const row of rowsOfTable($, version, "receivable")) {
+    out.push(
+      parseMoneyRow(
+        row,
+        declarantName,
+        "receivable",
+        {
           amount: 3,
           currency: 4,
           bgnEquiv: 5,
           holder: 6,
           legalBasis: 8,
           description: 2,
-        }),
-      );
-    });
+        },
+        receivableCol,
+      ),
+    );
   }
 
   // Table 7 — debts > 10k BGN
-  const t7 = $('Table[Num="7"]').first();
-  if (t7.attr("Declared") === "True") {
-    t7.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(
-        parseMoneyRow(row, declarantName, "debt", {
+  const debtCol = columnResolver(version, "debt");
+  for (const row of rowsOfTable($, version, "debt")) {
+    out.push(
+      parseMoneyRow(
+        row,
+        declarantName,
+        "debt",
+        {
           amount: 3,
           currency: 4,
           bgnEquiv: 5,
           holder: 6,
           legalBasis: 8,
           description: 2,
-        }),
-      );
-    });
+        },
+        debtCol,
+      ),
+    );
   }
 
   // Table 8 — investment & pension funds (incl. crypto since 2024 ordinance)
-  const t8 = $('Table[Num="8"]').first();
-  if (t8.attr("Declared") === "True") {
-    t8.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(
-        parseMoneyRow(row, declarantName, "investment", {
+  const investmentCol = columnResolver(version, "investment");
+  for (const row of rowsOfTable($, version, "investment")) {
+    out.push(
+      parseMoneyRow(
+        row,
+        declarantName,
+        "investment",
+        {
           amount: 2,
           currency: 3,
           bgnEquiv: 4,
           holder: 5,
           fundsOrigin: 9,
-        }),
-      );
-    });
+        },
+        investmentCol,
+      ),
+    );
   }
 
   // Table 9 — securities & financial instruments
-  const t9 = $('Table[Num="9"]').first();
-  if (t9.attr("Declared") === "True") {
-    t9.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      out.push(parseTable9Row(row, declarantName));
-    });
+  const securityCol = columnResolver(version, "security");
+  for (const row of rowsOfTable($, version, "security")) {
+    out.push(parseTable9Row(row, declarantName, securityCol));
   }
 
   return dedupeRealEstateRows(out, declarantName);
 };
 
-const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({
+const parseIncomeRow = (
+  row: ReturnType<CheerioAPI>,
+  col: ColumnResolver,
+): MpIncomeRecord => ({
   parent: row.attr("Parent") || null,
-  category: cellByNum(row, 2),
+  category: cellByNum(row, col(2)),
   // Income cells are declared in leva — convert to euros at the locked peg.
-  amountEurDeclarant: toEur(toNumber(cellByNum(row, 3)), "BGN"),
-  amountEurSpouse: toEur(toNumber(cellByNum(row, 4)), "BGN"),
+  amountEurDeclarant: toEur(toNumber(cellByNum(row, col(3))), "BGN"),
+  amountEurSpouse: toEur(toNumber(cellByNum(row, col(4))), "BGN"),
 });
 
 // The register itself starts in 2005 (see MIN_PLAUSIBLE_YEAR in
@@ -881,64 +1096,82 @@ export const resolveDeclarationYear = ({
  *  which is the part with any signal in it. 13 and 14 were never read at all,
  *  and between them they are the closest thing this form has to a gifts
  *  register. */
-const parseEventTables = ($: CheerioAPI): MpDeclarationEvent[] => {
+const parseEventTables = (
+  $: CheerioAPI,
+  version: FormVersion,
+  declarantName: string,
+): MpDeclarationEvent[] => {
   const out: MpDeclarationEvent[] = [];
-
-  const rowsOf = (num: string) => {
-    const t = $(`Table[Num="${num}"]`).first();
-    if (t.attr("Declared") !== "True") return [];
-    return t
-      .find("Row")
-      .toArray()
-      .map((el) => $(el))
-      .filter((row) => !isEmptyRow($, row));
-  };
+  const rowsOf = (logical: LogicalTable) => rowsOfTable($, version, logical);
 
   // Table 2 — real estate transferred during the previous year.
-  for (const row of rowsOf("2")) {
+  //
+  // Sale prices are hand-keyed into the same kind of cell as acquisition
+  // prices and carry the same separator typos, so they get the same guard the
+  // asset side gets. Skipping it here would publish a disposal an order of
+  // magnitude larger than the acquisition of the very same property — and a
+  // disposal feed is read for exactly those outliers.
+  const propertyCol = columnResolver(version, "propertyDisposal");
+  for (const row of rowsOf("propertyDisposal")) {
+    const description = cellByNum(row, propertyCol(2));
+    const areaSqm = toLooseNumber(cellByNum(row, propertyCol(5)));
+    const rawValue = toNumber(cellByNum(row, propertyCol(10)));
+    const corrected = correctRealEstateSeparatorTypo(
+      rawValue,
+      areaSqm,
+      description,
+    );
+    if (corrected != null) {
+      console.warn(
+        `[parse] auto-corrected disposal value — ${declarantName}: ` +
+          `${description ?? "?"} ${areaSqm}m² ${rawValue} → ${corrected} BGN`,
+      );
+    }
     out.push({
       kind: "disposal_property",
-      description: cellByNum(row, 2),
+      description,
       detail: null,
-      location: cellByNum(row, 3),
-      municipality: cellByNum(row, 4),
-      areaSqm: toLooseNumber(cellByNum(row, 5)),
-      builtAreaSqm: toLooseNumber(cellByNum(row, 6)),
+      location: cellByNum(row, propertyCol(3)),
+      municipality: cellByNum(row, propertyCol(4)),
+      areaSqm,
+      builtAreaSqm: toLooseNumber(cellByNum(row, propertyCol(6))),
       currency: "BGN",
-      valueEur: toEur(toNumber(cellByNum(row, 10)), "BGN"),
-      legalBasis: cellByNum(row, 11),
+      valueEur: toEur(corrected ?? rawValue, "BGN"),
+      legalBasis: cellByNum(row, propertyCol(11)),
     });
   }
 
   // Table 3.5 — vehicles transferred during the previous year.
-  for (const row of rowsOf("3.5")) {
+  const vehicleCol = columnResolver(version, "vehicleDisposal");
+  for (const row of rowsOf("vehicleDisposal")) {
     out.push({
       kind: "disposal_vehicle",
-      description: cellByNum(row, 2),
-      detail: cellByNum(row, 3),
+      description: cellByNum(row, vehicleCol(2)),
+      detail: cellByNum(row, vehicleCol(3)),
       location: null,
       municipality: null,
       areaSqm: null,
       builtAreaSqm: null,
       currency: "BGN",
-      valueEur: toEur(toNumber(cellByNum(row, 4)), "BGN"),
-      legalBasis: cellByNum(row, 8),
+      valueEur: toEur(toNumber(cellByNum(row, vehicleCol(4))), "BGN"),
+      legalBasis: cellByNum(row, vehicleCol(8)),
     });
   }
 
   // Table 13 — securities given / expenses made in the declarant's favour that
   // they did not pay for. Amount is in leva; the form carries no currency cell.
-  for (const row of rowsOf("13")) {
+  const guaranteeCol = columnResolver(version, "guarantees");
+  for (const row of rowsOf("guarantees")) {
     out.push({
       kind: "guarantee",
-      description: cellByNum(row, 2),
+      description: cellByNum(row, guaranteeCol(2)),
       detail: null,
       location: null,
       municipality: null,
       areaSqm: null,
       builtAreaSqm: null,
       currency: "BGN",
-      valueEur: toEur(toNumber(cellByNum(row, 3)), "BGN"),
+      valueEur: toEur(toNumber(cellByNum(row, guaranteeCol(3))), "BGN"),
       legalBasis: null,
     });
   }
@@ -946,12 +1179,13 @@ const parseEventTables = ($: CheerioAPI): MpDeclarationEvent[] => {
   // Table 14 — expenses for the declarant, spouse or minor children paid by a
   // third party. This one DOES carry a currency and a leva equivalent, so it
   // gets the same treatment as a money asset row.
-  for (const row of rowsOf("14")) {
-    const amount = toNumber(cellByNum(row, 3));
-    const currency = cellByNum(row, 4);
+  const expenseCol = columnResolver(version, "expenses");
+  for (const row of rowsOf("expenses")) {
+    const amount = toNumber(cellByNum(row, expenseCol(3)));
+    const currency = cellByNum(row, expenseCol(4));
     out.push({
       kind: "third_party_expense",
-      description: cellByNum(row, 2),
+      description: cellByNum(row, expenseCol(2)),
       detail: null,
       location: null,
       municipality: null,
@@ -961,7 +1195,7 @@ const parseEventTables = ($: CheerioAPI): MpDeclarationEvent[] => {
       valueEur: pickEurValue(
         amount,
         currency,
-        toNumber(cellByNum(row, 5)),
+        toNumber(cellByNum(row, expenseCol(5))),
         true,
       ),
       legalBasis: null,
@@ -985,6 +1219,8 @@ export const parseDeclarationXml = ({
   sourceUrl,
 }: ParseInput): MpDeclaration => {
   const $ = load(xml, { xmlMode: true });
+  // Which numbering the filing uses. Every table read below goes through it.
+  const version = detectFormVersion($);
 
   const declarantName =
     text($, "PublicPerson > Personal > Name") || "(unknown)";
@@ -1021,47 +1257,40 @@ export const parseDeclarationXml = ({
       s.valueEur ?? "",
     ].join("|");
 
-  const t10 = $('Table[Num="10"]').first();
-  if (t10.attr("Declared") === "True") {
-    t10.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      const stake = parseTable10Row(row);
-      const k = dedupKey(stake);
-      if (seen.has(k)) return;
-      seen.add(k);
-      ownershipStakes.push(stake);
-    });
+  const sharesCol = columnResolver(version, "shares");
+  for (const row of rowsOfTable($, version, "shares")) {
+    const stake = parseTable10Row(row, sharesCol);
+    const k = dedupKey(stake);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    ownershipStakes.push(stake);
   }
 
-  const t11 = $('Table[Num="11"]').first();
-  if (t11.attr("Declared") === "True") {
-    t11.find("Row").each((_, el) => {
-      const row = $(el);
-      if (isEmptyRow($, row)) return;
-      const stake = parseTable11Row(row);
-      const k = dedupKey(stake);
-      if (seen.has(k)) return;
-      seen.add(k);
-      ownershipStakes.push(stake);
-    });
+  const transferCol = columnResolver(version, "shareTransfer");
+  for (const row of rowsOfTable($, version, "shareTransfer")) {
+    const stake = parseTable11Row(row, transferCol);
+    const k = dedupKey(stake);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    ownershipStakes.push(stake);
   }
 
-  const assets = parseAssetTables($, declarantName, sourceUrl);
-  const events = parseEventTables($);
+  const assets = parseAssetTables($, declarantName, sourceUrl, version);
+  const events = parseEventTables($, version, declarantName);
 
+  // The income table's layout is identical in both forms — it never gained the
+  // ЕГН column — so its resolver is the identity function. It still goes
+  // through one: "every table read is resolved" has to hold for all of them, or
+  // the next form revision reintroduces exactly this class of bug.
   const income: MpIncomeRecord[] = [];
-  const t12 = $('Table[Num="12"]').first();
-  if (t12.attr("Declared") === "True") {
-    t12.find("Row").each((_, el) => {
-      const row = $(el);
-      const rec = parseIncomeRow(row);
-      // Income table has many empty rows for unused categories; keep only
-      // rows where at least one amount is set.
-      if (rec.amountEurDeclarant != null || rec.amountEurSpouse != null) {
-        income.push(rec);
-      }
-    });
+  const incomeCol = columnResolver(version, "income");
+  for (const row of rowsOfTable($, version, "income")) {
+    const rec = parseIncomeRow(row, incomeCol);
+    // Income table has many empty rows for unused categories; keep only
+    // rows where at least one amount is set.
+    if (rec.amountEurDeclarant != null || rec.amountEurSpouse != null) {
+      income.push(rec);
+    }
   }
 
   return {

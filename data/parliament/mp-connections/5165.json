@@ -1,1 +1,109 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5165","nodes":[{"id":"mp:5165","type":"mp","mpId":5165,"label":"Валери Пламенов Лачовски","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["46","47","49","50","51","52"]},{"id":"company:Димакс-секюрити","type":"company","label":"Димакс секюрити","slug":"Димакс-секюрити","uic":"200465955","legalForm":"OOD","status":"active","seat":"Кнежа"},{"id":"company:Димакс-СОД","type":"company","label":"Димакс СОД","slug":"Димакс-СОД","uic":"202809611","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Кнежа, 5835"},{"id":"company:tr:106510662","type":"company","label":"МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КНЕЖА","slug":null,"uic":"106510662","legalForm":"EOOD","status":"active","seat":null},{"id":"official:dilyan-sashov-benovski-9c1159","type":"official","slug":"dilyan-sashov-benovski-9c1159","label":"Дилян Сашов Беновски","tier":"municipal","role":"councillor","municipality":"Кнежа"},{"id":"person:АЛЕКСАНДАР НОВЕСКИ","type":"person","label":"Александар  Новески"}],"edges":[{"source":"mp:5165","target":"company:Димакс-секюрити","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5165","target":"company:Димакс-СОД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:5165","target":"company:tr:106510662","kind":"tr_role","role":"procurator","isCurrent":false,"confidence":"medium"},{"source":"official:dilyan-sashov-benovski-9c1159","target":"company:Димакс-секюрити","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:АЛЕКСАНДАР НОВЕСКИ","target":"company:tr:106510662","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5165",
+  "nodes": [
+    {
+      "id": "mp:5165",
+      "type": "mp",
+      "mpId": 5165,
+      "label": "Валери Пламенов Лачовски",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "46",
+        "47",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:Димакс-секюрити",
+      "type": "company",
+      "label": "Димакс секюрити",
+      "slug": "Димакс-секюрити",
+      "uic": "200465955",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кнежа"
+    },
+    {
+      "id": "company:Димакс-СОД",
+      "type": "company",
+      "label": "Димакс СОД",
+      "slug": "Димакс-СОД",
+      "uic": "202809611",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Кнежа, 5835"
+    },
+    {
+      "id": "company:tr:106510662",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - КНЕЖА",
+      "slug": null,
+      "uic": "106510662",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "official:dilyan-sashov-benovski-9c1159",
+      "type": "official",
+      "slug": "dilyan-sashov-benovski-9c1159",
+      "label": "Дилян Сашов Беновски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "person:АЛЕКСАНДАР НОВЕСКИ",
+      "type": "person",
+      "label": "Александар  Новески"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5165",
+      "target": "company:Димакс-секюрити",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5165",
+      "target": "company:Димакс-СОД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5165",
+      "target": "company:tr:106510662",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dilyan-sashov-benovski-9c1159",
+      "target": "company:Димакс-секюрити",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДАР НОВЕСКИ",
+      "target": "company:tr:106510662",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

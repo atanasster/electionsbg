@@ -1,1 +1,50 @@
-{"mpId":2956,"mpName":"Митко Костадинов Полихронов","generatedAt":"2026-07-03T11:12:51.721Z","total":3,"roles":[{"uic":"126630975","companyName":"ПОЛИ-93","legalForm":"EOOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-02-16T15:50:57","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"126654556","companyName":"РОТАРИ КЛУБ ХАСКОВО - АИДА","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_representative","positionLabel":"Вицепрезидент","sharePercent":null,"addedAt":"2022-12-15T16:00:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"126654556","companyName":"РОТАРИ КЛУБ ХАСКОВО - АИДА","legalForm":"ASSOC","seat":null,"status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2022-12-15T16:00:22","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2956,
+  "mpName": "Митко Костадинов Полихронов",
+  "generatedAt": "2026-07-24T03:35:58.557Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "126630975",
+      "companyName": "ПОЛИ-93",
+      "legalForm": "EOOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-02-16T15:50:57",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "126654556",
+      "companyName": "РОТАРИ КЛУБ ХАСКОВО - АИДА",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Вицепрезидент",
+      "sharePercent": null,
+      "addedAt": "2022-12-15T16:00:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "126654556",
+      "companyName": "РОТАРИ КЛУБ ХАСКОВО - АИДА",
+      "legalForm": "ASSOC",
+      "seat": null,
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-12-15T16:00:22",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

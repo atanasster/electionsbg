@@ -1,1 +1,165 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:sevdelina-georgieva-petrova-3016e8","nodes":[{"id":"official:sevdelina-georgieva-petrova-3016e8","type":"official","slug":"sevdelina-georgieva-petrova-3016e8","label":"Севделина Георгиева Петрова","tier":"municipal","role":"councillor","municipality":"Столична община"},{"id":"company:tr:204476618","type":"company","label":"Елстрой ББ ЕООД","slug":null,"uic":"204476618","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203717219","type":"company","label":"Топ Строй БГ ЕООД","slug":null,"uic":"203717219","legalForm":null,"status":null,"seat":null},{"id":"person:ИСКРА ТОДОРОВА БОЖИЛОВА","type":"person","label":"Искра Тодорова Божилова"},{"id":"person:КАЛИН ТОДОРОВ БОЖИЛОВ","type":"person","label":"Калин Тодоров Божилов"}],"edges":[{"source":"official:sevdelina-georgieva-petrova-3016e8","target":"company:tr:204476618","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:sevdelina-georgieva-petrova-3016e8","target":"company:tr:203717219","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА ТОДОРОВА БОЖИЛОВА","target":"company:tr:204476618","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИН ТОДОРОВ БОЖИЛОВ","target":"company:tr:204476618","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИСКРА ТОДОРОВА БОЖИЛОВА","target":"company:tr:203717219","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sevdelina-georgieva-petrova-3016e8",
+  "nodes": [
+    {
+      "id": "official:sevdelina-georgieva-petrova-3016e8",
+      "type": "official",
+      "slug": "sevdelina-georgieva-petrova-3016e8",
+      "label": "Севделина Георгиева Петрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:204476618",
+      "type": "company",
+      "label": "Елстрой ББ ЕООД",
+      "slug": null,
+      "uic": "204476618",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203717219",
+      "type": "company",
+      "label": "Топ Строй БГ ЕООД",
+      "slug": null,
+      "uic": "203717219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202731212",
+      "type": "company",
+      "label": "БАУТЕК-ГБ",
+      "slug": null,
+      "uic": "202731212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИСКРА ТОДОРОВА БОЖИЛОВА",
+      "type": "person",
+      "label": "Искра Тодорова Божилова"
+    },
+    {
+      "id": "person:КАЛИН ТОДОРОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Калин Тодоров Божилов"
+    },
+    {
+      "id": "person:МАРИЯ ГЕНОВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Мария Генова Даскалова"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЛЮБОМИРОВ ДРЕКОВ",
+      "type": "person",
+      "label": "Любомир Любомиров Дреков"
+    },
+    {
+      "id": "company:name:ИТАНК",
+      "type": "company",
+      "label": "„ИТАНК“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevdelina-georgieva-petrova-3016e8",
+      "target": "company:tr:204476618",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:sevdelina-georgieva-petrova-3016e8",
+      "target": "company:tr:203717219",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:sevdelina-georgieva-petrova-3016e8",
+      "target": "company:tr:202731212",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИСКРА ТОДОРОВА БОЖИЛОВА",
+      "target": "company:tr:204476618",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ТОДОРОВ БОЖИЛОВ",
+      "target": "company:tr:204476618",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРА ТОДОРОВА БОЖИЛОВА",
+      "target": "company:tr:203717219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕНОВА ДАСКАЛОВА",
+      "target": "company:tr:202731212",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЛЮБОМИРОВ ДРЕКОВ",
+      "target": "company:tr:202731212",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ТОДОРОВ БОЖИЛОВ",
+      "target": "company:tr:202731212",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ТОДОРОВ БОЖИЛОВ",
+      "target": "company:tr:202731212",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ИТАНК",
+      "target": "company:tr:202731212",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

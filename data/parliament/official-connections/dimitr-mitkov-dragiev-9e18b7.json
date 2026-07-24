@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-mitkov-dragiev-9e18b7",
+  "nodes": [
+    {
+      "id": "official:dimitr-mitkov-dragiev-9e18b7",
+      "type": "official",
+      "slug": "dimitr-mitkov-dragiev-9e18b7",
+      "label": "Димитър Митков Драгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000691240",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР II - СОФИЯ",
+      "slug": null,
+      "uic": "000691240",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-mitkov-dragiev-9e18b7",
+      "target": "company:tr:000691240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

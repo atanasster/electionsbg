@@ -1,1 +1,297 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3415","nodes":[{"id":"mp:3415","type":"mp","mpId":3415,"label":"Живка Михалева Железова","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45"]},{"id":"company:Жидимекс-Акаунтинг-ООД","type":"company","label":"Жидимекс Акаунтинг ООД","slug":"Жидимекс-Акаунтинг-ООД","uic":"205807836","legalForm":"OOD","status":"active","seat":"Варна"},{"id":"company:Жидимекс-ЕООД","type":"company","label":"Жидимекс ЕООД","slug":"Жидимекс-ЕООД","uic":"103871312","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Варна, 9000"},{"id":"company:Кил-Комерс-ООД","type":"company","label":"Кил- Комерс ООД","slug":"Кил-Комерс-ООД","uic":"123156493","legalForm":"OOD","status":"active","seat":"Стара Загора"},{"id":"company:Фотокристиан-ЕООД","type":"company","label":"Фотокристиан ЕООД","slug":"Фотокристиан-ЕООД","uic":"200392489","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Казанлък, 6100"},{"id":"company:tr:207454623","type":"company","label":"АКТИВНИ ЗА КАЗАНЛЪК","slug":null,"uic":"207454623","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Казанлък, 6100"},{"id":"person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА","type":"person","label":"Димитричка Димова Димитрова"},{"id":"company:name:ЖИДИМЕКС","type":"company","label":"Жидимекс ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА","type":"person","label":"Красимира Вълчева Костова"},{"id":"person:КОНСТАНТИН КОЙЧЕВ КОСТОВ","type":"person","label":"Константин Койчев Костов"},{"id":"person:НИКОЛАЙ ХРИСТОВ РАДЕВ","type":"person","label":"Николай Христов Радев"},{"id":"person:НЕДКО ГЕОРГИЕВ НЕДКОВ","type":"person","label":"Недко Георгиев Недков"}],"edges":[{"source":"mp:3415","target":"company:Жидимекс-Акаунтинг-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Жидимекс-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Жидимекс-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Жидимекс-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Кил-Комерс-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Фотокристиан-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Фотокристиан-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:Фотокристиан-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3415","target":"company:tr:207454623","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3415","target":"company:tr:207454623","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:ЖИДИМЕКС","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:Жидимекс-ЕООД","target":"company:Жидимекс-Акаунтинг-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА","target":"company:Жидимекс-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА","target":"company:Жидимекс-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА","target":"company:Фотокристиан-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН КОЙЧЕВ КОСТОВ","target":"company:Фотокристиан-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА","target":"company:Фотокристиан-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН КОЙЧЕВ КОСТОВ","target":"company:Фотокристиан-ЕООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ХРИСТОВ РАДЕВ","target":"company:tr:207454623","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО ГЕОРГИЕВ НЕДКОВ","target":"company:tr:207454623","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3415",
+  "nodes": [
+    {
+      "id": "mp:3415",
+      "type": "mp",
+      "mpId": 3415,
+      "label": "Живка Михалева Железова",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "company:Жидимекс-Акаунтинг-ООД",
+      "type": "company",
+      "label": "Жидимекс Акаунтинг ООД",
+      "slug": "Жидимекс-Акаунтинг-ООД",
+      "uic": "205807836",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Жидимекс-ООД",
+      "type": "company",
+      "label": "Жидимекс ООД",
+      "slug": "Жидимекс-ООД",
+      "uic": "103871312",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:Кил-Комерс-ООД",
+      "type": "company",
+      "label": "Кил- Комерс ООД",
+      "slug": "Кил-Комерс-ООД",
+      "uic": "123156493",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Стара Загора"
+    },
+    {
+      "id": "company:Фотокристиан-ООД",
+      "type": "company",
+      "label": "Фотокристиан ООД",
+      "slug": "Фотокристиан-ООД",
+      "uic": "200392489",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Казанлък, 6100"
+    },
+    {
+      "id": "company:tr:207454623",
+      "type": "company",
+      "label": "АКТИВНИ ЗА КАЗАНЛЪК",
+      "slug": null,
+      "uic": "207454623",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Казанлък, 6100"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Димитричка Димова Димитрова"
+    },
+    {
+      "id": "company:name:ЖИДИМЕКС",
+      "type": "company",
+      "label": "Жидимекс ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА",
+      "type": "person",
+      "label": "Красимира Вълчева Костова"
+    },
+    {
+      "id": "person:КОНСТАНТИН КОЙЧЕВ КОСТОВ",
+      "type": "person",
+      "label": "Константин Койчев Костов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ХРИСТОВ РАДЕВ",
+      "type": "person",
+      "label": "Николай Христов Радев"
+    },
+    {
+      "id": "person:НЕДКО ГЕОРГИЕВ НЕДКОВ",
+      "type": "person",
+      "label": "Недко Георгиев Недков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Жидимекс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Кил-Комерс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:tr:207454623",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3415",
+      "target": "company:tr:207454623",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЖИДИМЕКС",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:Жидимекс-ООД",
+      "target": "company:Жидимекс-Акаунтинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА",
+      "target": "company:Жидимекс-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ДИМОВА ДИМИТРОВА",
+      "target": "company:Жидимекс-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН КОЙЧЕВ КОСТОВ",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВЪЛЧЕВА КОСТОВА",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН КОЙЧЕВ КОСТОВ",
+      "target": "company:Фотокристиан-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХРИСТОВ РАДЕВ",
+      "target": "company:tr:207454623",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ГЕОРГИЕВ НЕДКОВ",
+      "target": "company:tr:207454623",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

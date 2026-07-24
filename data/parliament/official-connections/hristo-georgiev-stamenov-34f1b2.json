@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:hristo-georgiev-stamenov-34f1b2","nodes":[{"id":"official:hristo-georgiev-stamenov-34f1b2","type":"official","slug":"hristo-georgiev-stamenov-34f1b2","label":"Христо Георгиев Стаменов","tier":"municipal","role":"councillor","municipality":"Етрополе"},{"id":"company:tr:204059398","type":"company","label":"ЛМГ БИЛД ГРУП","slug":null,"uic":"204059398","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:hristo-georgiev-stamenov-34f1b2","target":"company:tr:204059398","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:hristo-georgiev-stamenov-34f1b2",
+  "nodes": [
+    {
+      "id": "official:hristo-georgiev-stamenov-34f1b2",
+      "type": "official",
+      "slug": "hristo-georgiev-stamenov-34f1b2",
+      "label": "Христо Георгиев Стаменов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Етрополе"
+    },
+    {
+      "id": "company:tr:204059398",
+      "type": "company",
+      "label": "ЛМГ БИЛД ГРУП",
+      "slug": null,
+      "uic": "204059398",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-georgiev-stamenov-34f1b2",
+      "target": "company:tr:204059398",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

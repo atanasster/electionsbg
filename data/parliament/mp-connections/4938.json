@@ -1,1 +1,218 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4938","nodes":[{"id":"mp:4938","type":"mp","mpId":4938,"label":"Силви Кирилов Петров","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47","50"]},{"id":"company:Тентус-България-ООД","type":"company","label":"Тентус България ООД","slug":"Тентус-България-ООД","uic":"200329720","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1408"},{"id":"company:Тетнус-България-ООД","type":"company","label":"Тетнус България ООД","slug":"Тетнус-България-ООД","uic":null,"legalForm":null,"status":null,"seat":"София (столица)"},{"id":"company:tr:131160751","type":"company","label":"СДРУЖЕНИЕ &quot;УНИВЕРСИТЕТСКИ СПОРТЕН КЛУБ - МЕДИК&quot;","slug":null,"uic":"131160751","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, София, 1431"},{"id":"person:ПЕНКА ГРУЕВА НЕДЯЛКОВА","type":"person","label":"Пенка Груева Недялкова"},{"id":"person:ХОЛДИНГ БЪЛГАРСКА ИНДУСТРИЯ","type":"person","label":"Холдинг Българска Индустрия"},{"id":"official:silvi-kirilov-petrov-177a2d","type":"official","slug":"silvi-kirilov-petrov-177a2d","label":"Силви Кирилов Петров","tier":"executive","role":"cabinet","municipality":null},{"id":"person:СИЛВИ КИРИЛОВ ПЕТРОВ","type":"person","label":"Силви Кирилов Петров"},{"id":"person:НИКОЛАЙ КОНСТАНТИНОВ ЦАНКОВ","type":"person","label":"Николай Константинов Цанков"},{"id":"person:ПЛАМЕН ТОДОРОВ ПЕЙКОВ","type":"person","label":"Пламен Тодоров Пейков"},{"id":"person:МАРИН МАРИНОВ ИВАНОВ","type":"person","label":"Марин Маринов Иванов"},{"id":"person:КОНСТАНТИН ЖИВКОВ ЛОЗАНОВ","type":"person","label":"Константин Живков Лозанов"},{"id":"person:ФИЛИП АЛИМАНОВ АБЕДИНОВ","type":"person","label":"Филип Алиманов Абединов"},{"id":"person:ЦВЕТАН ВЛАДИМИРОВ ГАТЕВ","type":"person","label":"Цветан Владимиров Гатев"},{"id":"person:ИВАЙЛО ЦВЕТАНОВ ЦЕНКОВ","type":"person","label":"Ивайло Цветанов Ценков"}],"edges":[{"source":"mp:4938","target":"company:Тентус-България-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4938","target":"company:Тентус-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4938","target":"company:Тетнус-България-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4938","target":"company:tr:131160751","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4938","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕНКА ГРУЕВА НЕДЯЛКОВА","target":"company:Тентус-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ХОЛДИНГ БЪЛГАРСКА ИНДУСТРИЯ","target":"company:Тентус-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"official:silvi-kirilov-petrov-177a2d","target":"company:Тентус-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:СИЛВИ КИРИЛОВ ПЕТРОВ","target":"company:Тентус-България-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИ КИРИЛОВ ПЕТРОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СИЛВИ КИРИЛОВ ПЕТРОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КОНСТАНТИНОВ ЦАНКОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТОДОРОВ ПЕЙКОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРИН МАРИНОВ ИВАНОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОНСТАНТИН ЖИВКОВ ЛОЗАНОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП АЛИМАНОВ АБЕДИНОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ФИЛИП АЛИМАНОВ АБЕДИНОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАН ВЛАДИМИРОВ ГАТЕВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ЦВЕТАНОВ ЦЕНКОВ","target":"company:tr:131160751","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4938",
+  "nodes": [
+    {
+      "id": "mp:4938",
+      "type": "mp",
+      "mpId": 4938,
+      "label": "Силви Кирилов Петров",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "50"
+      ]
+    },
+    {
+      "id": "company:Тентус-България-ООД",
+      "type": "company",
+      "label": "Тентус България ООД",
+      "slug": "Тентус-България-ООД",
+      "uic": "200329720",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    },
+    {
+      "id": "company:Тетнус-България-ООД",
+      "type": "company",
+      "label": "Тетнус България ООД",
+      "slug": "Тетнус-България-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:131160751",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УНИВЕРСИТЕТСКИ СПОРТЕН КЛУБ - МЕДИК&quot;",
+      "slug": null,
+      "uic": "131160751",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1431"
+    },
+    {
+      "id": "person:ПЕНКА ГРУЕВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Пенка Груева Недялкова"
+    },
+    {
+      "id": "person:ХОЛДИНГ БЪЛГАРСКА ИНДУСТРИЯ",
+      "type": "person",
+      "label": "Холдинг Българска Индустрия"
+    },
+    {
+      "id": "person:НИКОЛАЙ КОНСТАНТИНОВ ЦАНКОВ",
+      "type": "person",
+      "label": "Николай Константинов Цанков"
+    },
+    {
+      "id": "person:ПЛАМЕН ТОДОРОВ ПЕЙКОВ",
+      "type": "person",
+      "label": "Пламен Тодоров Пейков"
+    },
+    {
+      "id": "person:МАРИН МАРИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Марин Маринов Иванов"
+    },
+    {
+      "id": "person:КОНСТАНТИН ЖИВКОВ ЛОЗАНОВ",
+      "type": "person",
+      "label": "Константин Живков Лозанов"
+    },
+    {
+      "id": "person:ФИЛИП АЛИМАНОВ АБЕДИНОВ",
+      "type": "person",
+      "label": "Филип Алиманов Абединов"
+    },
+    {
+      "id": "person:ЦВЕТАН ВЛАДИМИРОВ ГАТЕВ",
+      "type": "person",
+      "label": "Цветан Владимиров Гатев"
+    },
+    {
+      "id": "person:ИВАЙЛО ЦВЕТАНОВ ЦЕНКОВ",
+      "type": "person",
+      "label": "Ивайло Цветанов Ценков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4938",
+      "target": "company:Тентус-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4938",
+      "target": "company:Тентус-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4938",
+      "target": "company:Тетнус-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4938",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4938",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ГРУЕВА НЕДЯЛКОВА",
+      "target": "company:Тентус-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХОЛДИНГ БЪЛГАРСКА ИНДУСТРИЯ",
+      "target": "company:Тентус-България-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КОНСТАНТИНОВ ЦАНКОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ПЕЙКОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН МАРИНОВ ИВАНОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ЖИВКОВ ЛОЗАНОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП АЛИМАНОВ АБЕДИНОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП АЛИМАНОВ АБЕДИНОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ВЛАДИМИРОВ ГАТЕВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦВЕТАНОВ ЦЕНКОВ",
+      "target": "company:tr:131160751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

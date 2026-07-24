@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ilko-sbev-sbev-51cd45",
+  "nodes": [
+    {
+      "id": "official:ilko-sbev-sbev-51cd45",
+      "type": "official",
+      "slug": "ilko-sbev-sbev-51cd45",
+      "label": "Илко Събев Събев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Челопеч"
+    },
+    {
+      "id": "company:tr:205437290",
+      "type": "company",
+      "label": "Сдружение „Спортен клуб по борба Челопеч”",
+      "slug": null,
+      "uic": "205437290",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ КОСТАДИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Костадинов Георгиев"
+    },
+    {
+      "id": "person:РАЯ ЖАНЕТОВА КЬОСЕВА",
+      "type": "person",
+      "label": "Рая Жанетова Кьосева"
+    },
+    {
+      "id": "person:ТОМА ИЛИЕВ ТОМОВ",
+      "type": "person",
+      "label": "Тома Илиев Томов"
+    },
+    {
+      "id": "person:ИВАН БОЖКОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Иван Божков Ковачев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilko-sbev-sbev-51cd45",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТАДИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЯ ЖАНЕТОВА КЬОСЕВА",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА ИЛИЕВ ТОМОВ",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОЖКОВ КОВАЧЕВ",
+      "target": "company:tr:205437290",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

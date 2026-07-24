@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valeri-ivanov-vasilev-d4f9a1",
+  "nodes": [
+    {
+      "id": "official:valeri-ivanov-vasilev-d4f9a1",
+      "type": "official",
+      "slug": "valeri-ivanov-vasilev-d4f9a1",
+      "label": "Валери Иванов Василев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:000165048",
+      "type": "company",
+      "label": "Сдружение ВИДИНСКА ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА",
+      "slug": null,
+      "uic": "000165048",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:lyubomir-kirilov-nizamov-69f5f7",
+      "type": "official",
+      "slug": "lyubomir-kirilov-nizamov-69f5f7",
+      "label": "Любомир Кирилов Низамов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:НАСКО СТОЯНОВ ПЕКОВ",
+      "type": "person",
+      "label": "Наско Стоянов Пеков"
+    },
+    {
+      "id": "person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Красимир Йорданов Кирилов"
+    },
+    {
+      "id": "person:ЛЮБЧО ИВАНОВ ЙОНОВ",
+      "type": "person",
+      "label": "Любчо Иванов Йонов"
+    },
+    {
+      "id": "person:ВАНЯ БОРИСОВА ЦАКИНСКА",
+      "type": "person",
+      "label": "Ваня Борисова Цакинска"
+    },
+    {
+      "id": "person:ДИМЧО ЕМИЛОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Димчо Емилов Костадинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-ivanov-vasilev-d4f9a1",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomir-kirilov-nizamov-69f5f7",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАСКО СТОЯНОВ ПЕКОВ",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЙОРДАНОВ КИРИЛОВ",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЧО ИВАНОВ ЙОНОВ",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ БОРИСОВА ЦАКИНСКА",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ЕМИЛОВ КОСТАДИНОВ",
+      "target": "company:tr:000165048",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

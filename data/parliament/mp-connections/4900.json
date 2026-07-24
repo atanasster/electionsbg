@@ -1,1 +1,155 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4900","nodes":[{"id":"mp:4900","type":"mp","mpId":4900,"label":"Станислав Светозаров Балабанов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47","49","50"]},{"id":"company:tr:208426915","type":"company","label":"Вокстър","slug":null,"uic":"208426915","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1463"},{"id":"mp:4705","type":"mp","mpId":4705,"label":"Александър Викторов Рашев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["46"]},{"id":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Иван Димитров Димитров"},{"id":"person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ","type":"person","label":"Калоян Нейчев Величков"},{"id":"company:tr:102011570","type":"company","label":"БУРГАСКА ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА","slug":null,"uic":"102011570","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Бургас, 8000"},{"id":"mp:42","type":"mp","mpId":42,"label":"Йордан Димитров Костадинов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:4900","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4705","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:208426915","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ","target":"company:tr:208426915","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:102011570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:42","target":"company:tr:102011570","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4705","length":2,"nodeIds":["mp:4900","company:tr:208426915","mp:4705"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:42","length":4,"nodeIds":["mp:4900","company:tr:208426915","person:ИВАН ДИМИТРОВ ДИМИТРОВ","company:tr:102011570","mp:42"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4900",
+  "nodes": [
+    {
+      "id": "mp:4900",
+      "type": "mp",
+      "mpId": 4900,
+      "label": "Станислав Светозаров Балабанов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:tr:208426915",
+      "type": "company",
+      "label": "Вокстър",
+      "slug": null,
+      "uic": "208426915",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1463"
+    },
+    {
+      "id": "mp:4705",
+      "type": "mp",
+      "mpId": 4705,
+      "label": "Александър Викторов Рашев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "46"
+      ]
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Иван Димитров Димитров"
+    },
+    {
+      "id": "person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Калоян Нейчев Величков"
+    },
+    {
+      "id": "company:tr:102011570",
+      "type": "company",
+      "label": "БУРГАСКА ТЪРГОВСКО-ПРОМИШЛЕНА ПАЛАТА",
+      "slug": null,
+      "uic": "102011570",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Бургас, 8000"
+    },
+    {
+      "id": "mp:42",
+      "type": "mp",
+      "mpId": 42,
+      "label": "Йордан Димитров Костадинов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4900",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4705",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН НЕЙЧЕВ ВЕЛИЧКОВ",
+      "target": "company:tr:208426915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:102011570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:42",
+      "target": "company:tr:102011570",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4705",
+      "length": 2,
+      "nodeIds": [
+        "mp:4900",
+        "company:tr:208426915",
+        "mp:4705"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:42",
+      "length": 4,
+      "nodeIds": [
+        "mp:4900",
+        "company:tr:208426915",
+        "person:ИВАН ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:102011570",
+        "mp:42"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,1 +1,257 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5299","nodes":[{"id":"mp:5299","type":"mp","mpId":5299,"label":"Георги Владов Григоров","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:101640036","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ ПМГ АКАД.С.КОРОЛЬОВ","slug":null,"uic":"101640036","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Благоевград, 2700"},{"id":"company:tr:208130364","type":"company","label":"Сдружение &quot;Център за природа и иновации - Натино&quot;","slug":null,"uic":"208130364","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, с. Полето, 2751"},{"id":"person:ПАВЕЛ ТОДОРОВ ДИМОВ","type":"person","label":"Павел Тодоров Димов"},{"id":"person:АСЕН ВИКТОРОВ ДИМИТРОВ","type":"person","label":"Асен Викторов Димитров"},{"id":"person:ЙОРДАН СТОЯНОВ ЦВЕТАНОВ","type":"person","label":"Йордан Стоянов Цветанов"},{"id":"person:КАТЯ ГЕОРГИЕВА ШОПОВА","type":"person","label":"Катя Георгиева Шопова"},{"id":"person:КАТЯ АРСЕНИЕВА ВЪЧКОВА","type":"person","label":"Катя Арсениева Въчкова"},{"id":"person:ВЕНЕЛИН ЕФТИМОВ ТРОШАНОВ","type":"person","label":"Венелин Ефтимов Трошанов"},{"id":"person:ДЕСИСЛАВА БЛАГОЕВА СТАНОЕВА","type":"person","label":"Десислава Благоева Станоева"},{"id":"person:МИРОСЛАВА ВЛАДИМИРОВА МЕТОДИЕВА","type":"person","label":"Мирослава Владимирова Методиева"},{"id":"person:АНИ КИРИЛОВА ВАСИЛЕВА","type":"person","label":"Ани Кирилова Василева"},{"id":"person:ГЕРГАНА ВЕЛИКОВА ВИТАНОВА","type":"person","label":"Гергана Великова Витанова"},{"id":"person:СИМЕОН ИВАНОВ ДАЛЕВ","type":"person","label":"Симеон Иванов Далев"},{"id":"person:СОНЯ ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Соня Георгиева Георгиева"},{"id":"person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА","type":"person","label":"Димитринка Илиева Докузова"}],"edges":[{"source":"mp:5299","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:5299","target":"company:tr:208130364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:5299","target":"company:tr:208130364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ПАВЕЛ ТОДОРОВ ДИМОВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ ТОДОРОВ ДИМОВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АСЕН ВИКТОРОВ ДИМИТРОВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН СТОЯНОВ ЦВЕТАНОВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ГЕОРГИЕВА ШОПОВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ АРСЕНИЕВА ВЪЧКОВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕНЕЛИН ЕФТИМОВ ТРОШАНОВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕСИСЛАВА БЛАГОЕВА СТАНОЕВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВА ВЛАДИМИРОВА МЕТОДИЕВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АНИ КИРИЛОВА ВАСИЛЕВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:АНИ КИРИЛОВА ВАСИЛЕВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ВЕЛИКОВА ВИТАНОВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН ИВАНОВ ДАЛЕВ","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СОНЯ ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:101640036","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА","target":"company:tr:208130364","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА","target":"company:tr:208130364","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5299",
+  "nodes": [
+    {
+      "id": "mp:5299",
+      "type": "mp",
+      "mpId": 5299,
+      "label": "Георги Владов Григоров",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:101640036",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО КЪМ ПМГ АКАД.С.КОРОЛЬОВ",
+      "slug": null,
+      "uic": "101640036",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:208130364",
+      "type": "company",
+      "label": "Сдружение &quot;Център за природа и иновации - Натино&quot;",
+      "slug": null,
+      "uic": "208130364",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Полето, 2751"
+    },
+    {
+      "id": "person:ПАВЕЛ ТОДОРОВ ДИМОВ",
+      "type": "person",
+      "label": "Павел Тодоров Димов"
+    },
+    {
+      "id": "person:АСЕН ВИКТОРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Асен Викторов Димитров"
+    },
+    {
+      "id": "person:ЙОРДАН СТОЯНОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Йордан Стоянов Цветанов"
+    },
+    {
+      "id": "person:КАТЯ ГЕОРГИЕВА ШОПОВА",
+      "type": "person",
+      "label": "Катя Георгиева Шопова"
+    },
+    {
+      "id": "person:КАТЯ АРСЕНИЕВА ВЪЧКОВА",
+      "type": "person",
+      "label": "Катя Арсениева Въчкова"
+    },
+    {
+      "id": "person:ВЕНЕЛИН ЕФТИМОВ ТРОШАНОВ",
+      "type": "person",
+      "label": "Венелин Ефтимов Трошанов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА БЛАГОЕВА СТАНОЕВА",
+      "type": "person",
+      "label": "Десислава Благоева Станоева"
+    },
+    {
+      "id": "person:МИРОСЛАВА ВЛАДИМИРОВА МЕТОДИЕВА",
+      "type": "person",
+      "label": "Мирослава Владимирова Методиева"
+    },
+    {
+      "id": "person:АНИ КИРИЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Ани Кирилова Василева"
+    },
+    {
+      "id": "person:ГЕРГАНА ВЕЛИКОВА ВИТАНОВА",
+      "type": "person",
+      "label": "Гергана Великова Витанова"
+    },
+    {
+      "id": "person:СИМЕОН ИВАНОВ ДАЛЕВ",
+      "type": "person",
+      "label": "Симеон Иванов Далев"
+    },
+    {
+      "id": "person:СОНЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Соня Георгиева Георгиева"
+    },
+    {
+      "id": "person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА",
+      "type": "person",
+      "label": "Димитринка Илиева Докузова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5299",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5299",
+      "target": "company:tr:208130364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5299",
+      "target": "company:tr:208130364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЕЛ ТОДОРОВ ДИМОВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ТОДОРОВ ДИМОВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ВИКТОРОВ ДИМИТРОВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН СТОЯНОВ ЦВЕТАНОВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ГЕОРГИЕВА ШОПОВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ АРСЕНИЕВА ВЪЧКОВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ЕФТИМОВ ТРОШАНОВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА БЛАГОЕВА СТАНОЕВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА ВЛАДИМИРОВА МЕТОДИЕВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ КИРИЛОВА ВАСИЛЕВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ КИРИЛОВА ВАСИЛЕВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ВЕЛИКОВА ВИТАНОВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ИВАНОВ ДАЛЕВ",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:101640036",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА",
+      "target": "company:tr:208130364",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНКА ИЛИЕВА ДОКУЗОВА",
+      "target": "company:tr:208130364",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

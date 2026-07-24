@@ -1,1 +1,70 @@
-{"mpId":5255,"name":"Александър Димитров Симидчиев","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/E225E0B9-2320-43A3-AF59-3D1C7945777F212672.xml","totalAssetsEur":434720.2977763917,"totalDebtsEur":15112.765424397827,"netWorthEur":419607.53235199384,"previous":{"year":2023,"totalAssetsEur":407741.470373192,"netWorthEur":392628.70494879415},"byCategory":{"real_estate":{"count":0,"valuedCount":0,"totalEur":0},"vehicle":{"count":0,"valuedCount":0,"totalEur":0},"cash":{"count":1,"valuedCount":1,"totalEur":2556.4594059810925},"bank":{"count":3,"valuedCount":3,"totalEur":171303.23187598106},"receivable":{"count":1,"valuedCount":1,"totalEur":140272.92760618255},"debt":{"count":2,"valuedCount":2,"totalEur":15112.765424397827},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":2,"valuedCount":2,"totalEur":120587.67888824694}}}
+{
+  "mpId": 5255,
+  "name": "Александър Димитров Симидчиев",
+  "partyGroupShort": "ПГ на Демократична България",
+  "isCurrent": true,
+  "nsFolders": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/E225E0B9-2320-43A3-AF59-3D1C7945777F212672.xml",
+  "totalAssetsEur": 434720.2977763917,
+  "totalDebtsEur": 15112.765424397827,
+  "netWorthEur": 419607.53235199384,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 407741.470373192,
+    "netWorthEur": 392628.70494879415
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "vehicle": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "cash": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 2556.4594059810925
+    },
+    "bank": {
+      "count": 3,
+      "valuedCount": 3,
+      "totalEur": 171303.23187598106
+    },
+    "receivable": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 140272.92760618255
+    },
+    "debt": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 15112.765424397827
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 120587.67888824694
+    }
+  }
+}

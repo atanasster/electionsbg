@@ -1,1 +1,260 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3866","nodes":[{"id":"mp:3866","type":"mp","mpId":3866,"label":"Албена Симеонова Върбанова","partyGroupShort":"АКБ","isCurrent":false,"nsFolders":["45","46"]},{"id":"company:Албена-Симеонова-1","type":"company","label":"Албена Симеонова 1","slug":"Албена-Симеонова-1","uic":"114631877","legalForm":"EOOD","status":"active","seat":"Плевен"},{"id":"company:Флабул","type":"company","label":"Флабул","slug":"Флабул","uic":"114608848","legalForm":"OOD","status":"active","seat":"Плевен"},{"id":"company:tr:206694409","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ НА БИОПРОИЗВОДИТЕЛИТЕ","slug":null,"uic":"206694409","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:175787870","type":"company","label":"КЛУБ ПО ВОДНИ СПОРТОВЕ- НИКОПОЛ","slug":null,"uic":"175787870","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, Никопол, 5940"},{"id":"person:ЛЮБОМИР РОЗЕНОВ ЛЮБЕНОВ","type":"person","label":"Любомир Розенов Любенов"},{"id":"person:МИЛЕН БЛАГОЕВ СТОЯНОВ","type":"person","label":"Милен Благоев Стоянов"},{"id":"person:ЛУИС ЕМИЛ КИНЕР","type":"person","label":"Луис Емил Кинер"},{"id":"person:ДОЙЧИН ЛЮБОМИРОВ ГАНЕВ","type":"person","label":"Дойчин Любомиров Ганев"},{"id":"person:БЛАГОВЕСТА ДИМИТРОВА ВАСИЛЕВА","type":"person","label":"Благовеста Димитрова Василева"},{"id":"person:ВЕСЕЛИНА ЕВГЕНИЕВА ЗУМПАЛОВА - РАЛЧЕВА","type":"person","label":"Веселина Евгениева Зумпалова - Ралчева"},{"id":"person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ","type":"person","label":"Тургай Кемалов Джавидов"},{"id":"person:ХАРИ ДИМИТРОВ ТОДОРОВ","type":"person","label":"Хари Димитров Тодоров"},{"id":"person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ","type":"person","label":"Владимир Милков Георгиев"},{"id":"person:ПЕПО ЙОРДАНОВ ПЕТРОВ","type":"person","label":"Пепо Йорданов Петров"}],"edges":[{"source":"mp:3866","target":"company:Албена-Симеонова-1","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3866","target":"company:Албена-Симеонова-1","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:3866","target":"company:Флабул","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3866","target":"company:tr:206694409","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3866","target":"company:tr:206694409","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3866","target":"company:tr:175787870","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3866","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮБОМИР РОЗЕНОВ ЛЮБЕНОВ","target":"company:Албена-Симеонова-1","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН БЛАГОЕВ СТОЯНОВ","target":"company:Албена-Симеонова-1","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛУИС ЕМИЛ КИНЕР","target":"company:Флабул","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОЙЧИН ЛЮБОМИРОВ ГАНЕВ","target":"company:tr:206694409","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БЛАГОВЕСТА ДИМИТРОВА ВАСИЛЕВА","target":"company:tr:206694409","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИНА ЕВГЕНИЕВА ЗУМПАЛОВА - РАЛЧЕВА","target":"company:tr:206694409","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН БЛАГОЕВ СТОЯНОВ","target":"company:tr:206694409","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХАРИ ДИМИТРОВ ТОДОРОВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕПО ЙОРДАНОВ ПЕТРОВ","target":"company:tr:175787870","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3866",
+  "nodes": [
+    {
+      "id": "mp:3866",
+      "type": "mp",
+      "mpId": 3866,
+      "label": "Албена Симеонова Върбанова",
+      "partyGroupShort": "АКБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "48"
+      ]
+    },
+    {
+      "id": "company:Албена-Симеонова-1",
+      "type": "company",
+      "label": "Албена Симеонова 1",
+      "slug": "Албена-Симеонова-1",
+      "uic": "114631877",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:Флабул",
+      "type": "company",
+      "label": "Флабул",
+      "slug": "Флабул",
+      "uic": "114608848",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:tr:206694409",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ НА БИОПРОИЗВОДИТЕЛИТЕ",
+      "slug": null,
+      "uic": "206694409",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:175787870",
+      "type": "company",
+      "label": "КЛУБ ПО ВОДНИ СПОРТОВЕ- НИКОПОЛ",
+      "slug": null,
+      "uic": "175787870",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Никопол, 5940"
+    },
+    {
+      "id": "person:ЛЮБОМИР РОЗЕНОВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Любомир Розенов Любенов"
+    },
+    {
+      "id": "person:МИЛЕН БЛАГОЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Милен Благоев Стоянов"
+    },
+    {
+      "id": "person:ЛУИС ЕМИЛ КИНЕР",
+      "type": "person",
+      "label": "Луис Емил Кинер"
+    },
+    {
+      "id": "person:ДОЙЧИН ЛЮБОМИРОВ ГАНЕВ",
+      "type": "person",
+      "label": "Дойчин Любомиров Ганев"
+    },
+    {
+      "id": "person:БЛАГОВЕСТА ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Благовеста Димитрова Василева"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЕВГЕНИЕВА ЗУМПАЛОВА - РАЛЧЕВА",
+      "type": "person",
+      "label": "Веселина Евгениева Зумпалова - Ралчева"
+    },
+    {
+      "id": "official:pepo-iordanov-petrov-bcef27",
+      "type": "official",
+      "slug": "pepo-iordanov-petrov-bcef27",
+      "label": "Пепо Йорданов Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ",
+      "type": "person",
+      "label": "Тургай Кемалов Джавидов"
+    },
+    {
+      "id": "person:ХАРИ ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Хари Димитров Тодоров"
+    },
+    {
+      "id": "person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Владимир Милков Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3866",
+      "target": "company:Албена-Симеонова-1",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:Албена-Симеонова-1",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:Флабул",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3866",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР РОЗЕНОВ ЛЮБЕНОВ",
+      "target": "company:Албена-Симеонова-1",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН БЛАГОЕВ СТОЯНОВ",
+      "target": "company:Албена-Симеонова-1",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУИС ЕМИЛ КИНЕР",
+      "target": "company:Флабул",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЙЧИН ЛЮБОМИРОВ ГАНЕВ",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОВЕСТА ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЕВГЕНИЕВА ЗУМПАЛОВА - РАЛЧЕВА",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН БЛАГОЕВ СТОЯНОВ",
+      "target": "company:tr:206694409",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:pepo-iordanov-petrov-bcef27",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТУРГАЙ КЕМАЛОВ ДЖАВИДОВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАРИ ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:175787870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

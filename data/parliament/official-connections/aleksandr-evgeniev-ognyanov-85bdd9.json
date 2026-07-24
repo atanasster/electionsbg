@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-evgeniev-ognyanov-85bdd9",
+  "nodes": [
+    {
+      "id": "official:aleksandr-evgeniev-ognyanov-85bdd9",
+      "type": "official",
+      "slug": "aleksandr-evgeniev-ognyanov-85bdd9",
+      "label": "Александър Евгениев Огнянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Опан"
+    },
+    {
+      "id": "company:tr:206624617",
+      "type": "company",
+      "label": "БЕТА ХЕЛП",
+      "slug": null,
+      "uic": "206624617",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЕЛ КОСТАДИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Павел Костадинов Иванов"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Христо Иванов Иванов"
+    },
+    {
+      "id": "person:СТАНИМИРА МАРКОВА НЕДЕВА",
+      "type": "person",
+      "label": "Станимира Маркова Недева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-evgeniev-ognyanov-85bdd9",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-evgeniev-ognyanov-85bdd9",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЕЛ КОСТАДИНОВ ИВАНОВ",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ КОСТАДИНОВ ИВАНОВ",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА МАРКОВА НЕДЕВА",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА МАРКОВА НЕДЕВА",
+      "target": "company:tr:206624617",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

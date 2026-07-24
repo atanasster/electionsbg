@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tanya-gospodinova-nikolova-4fb398",
+  "nodes": [
+    {
+      "id": "official:tanya-gospodinova-nikolova-4fb398",
+      "type": "official",
+      "slug": "tanya-gospodinova-nikolova-4fb398",
+      "label": "Таня Господинова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115554145",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА УЧИЛИЩЕ &quot;ЙОРДАН ЙОВКОВ&quot;",
+      "slug": null,
+      "uic": "115554145",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Валентина Георгиева Иванова"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ БЛАГОВ",
+      "type": "person",
+      "label": "Христо Тодоров Благов"
+    },
+    {
+      "id": "person:ОКШАН СЮЛЕЙМАНОВ ПАЛАЗОВ",
+      "type": "person",
+      "label": "Окшан Сюлейманов Палазов"
+    },
+    {
+      "id": "person:КАЛИНКА ИВАНОВА ТРОЕВА",
+      "type": "person",
+      "label": "Калинка Иванова Троева"
+    },
+    {
+      "id": "person:ВЕСЕЛА АНГЕЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Весела Ангелова Петкова"
+    },
+    {
+      "id": "person:ВАСИЛКА ДИМИТРОВА ЗЛАТАНОВА",
+      "type": "person",
+      "label": "Василка Димитрова Златанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-gospodinova-nikolova-4fb398",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ БЛАГОВ",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОКШАН СЮЛЕЙМАНОВ ПАЛАЗОВ",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ИВАНОВА ТРОЕВА",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА АНГЕЛОВА ПЕТКОВА",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ДИМИТРОВА ЗЛАТАНОВА",
+      "target": "company:tr:115554145",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

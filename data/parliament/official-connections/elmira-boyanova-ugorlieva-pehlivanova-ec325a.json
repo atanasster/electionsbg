@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:elmira-boyanova-ugorlieva-pehlivanova-ec325a",
+  "nodes": [
+    {
+      "id": "official:elmira-boyanova-ugorlieva-pehlivanova-ec325a",
+      "type": "official",
+      "slug": "elmira-boyanova-ugorlieva-pehlivanova-ec325a",
+      "label": "Елмира Боянова Угорлиева-Пехливанова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:120621688",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ХОКЕЙ НА ТРЕВА ЗЛАТОГРАД",
+      "slug": null,
+      "uic": "120621688",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СУЗАНА ИВОВА ГОЛЕМИЛОВА",
+      "type": "person",
+      "label": "Сузана Ивова Големилова"
+    },
+    {
+      "id": "person:ЕМИЛ СТОЙКОВ ЛЮБОМИРОВ",
+      "type": "person",
+      "label": "Емил Стойков Любомиров"
+    },
+    {
+      "id": "person:ЕМИЛ МИНКОВ ХУМЧЕВ",
+      "type": "person",
+      "label": "Емил Минков Хумчев"
+    },
+    {
+      "id": "person:МИЛКО АСЕНОВ БАШЕВ",
+      "type": "person",
+      "label": "Милко Асенов Башев"
+    },
+    {
+      "id": "person:ЛИЛЯНА НЕДЕЛЧЕВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Лиляна Неделчева Андреева"
+    },
+    {
+      "id": "person:ЖЕЧКА ЕМИЛОВА ХАДЖИЙСКА",
+      "type": "person",
+      "label": "Жечка Емилова Хаджийска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elmira-boyanova-ugorlieva-pehlivanova-ec325a",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СУЗАНА ИВОВА ГОЛЕМИЛОВА",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТОЙКОВ ЛЮБОМИРОВ",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУЗАНА ИВОВА ГОЛЕМИЛОВА",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИНКОВ ХУМЧЕВ",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО АСЕНОВ БАШЕВ",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА НЕДЕЛЧЕВА АНДРЕЕВА",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЧКА ЕМИЛОВА ХАДЖИЙСКА",
+      "target": "company:tr:120621688",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

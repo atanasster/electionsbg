@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vasil-iordavnov-vasilev-d15c0e",
+  "nodes": [
+    {
+      "id": "official:vasil-iordavnov-vasilev-d15c0e",
+      "type": "official",
+      "slug": "vasil-iordavnov-vasilev-d15c0e",
+      "label": "Васил Йордавнов Василев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:206803748",
+      "type": "company",
+      "label": "Строна консулт ООД",
+      "slug": null,
+      "uic": "206803748",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207661675",
+      "type": "company",
+      "label": "Аркомо ЕООД",
+      "slug": null,
+      "uic": "207661675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206726764",
+      "type": "company",
+      "label": "Ва Ар ЕООД",
+      "slug": null,
+      "uic": "206726764",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИН АСЕНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Калин Асенов Христов"
+    },
+    {
+      "id": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Йорданов Василев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-iordavnov-vasilev-d15c0e",
+      "target": "company:tr:206803748",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vasil-iordavnov-vasilev-d15c0e",
+      "target": "company:tr:207661675",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vasil-iordavnov-vasilev-d15c0e",
+      "target": "company:tr:206726764",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН АСЕНОВ ХРИСТОВ",
+      "target": "company:tr:206803748",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:206803748",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН АСЕНОВ ХРИСТОВ",
+      "target": "company:tr:206803748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:206803748",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:207661675",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:207661675",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:206726764",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЙОРДАНОВ ВАСИЛЕВ",
+      "target": "company:tr:206726764",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

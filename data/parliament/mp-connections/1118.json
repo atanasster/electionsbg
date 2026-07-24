@@ -1,1 +1,238 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1118","nodes":[{"id":"mp:1118","type":"mp","mpId":1118,"label":"Пламен Тенев Русев","partyGroupShort":"ГЕРБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:176022228","type":"company","label":"СДРУЖЕНИЕ НА ХОТЕЛИЕРИТЕ И РЕСТОРАНТЬОРИТЕ СТАРА ЗАГОРА","slug":null,"uic":"176022228","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:202159868","type":"company","label":"ЕЛИНОР","slug":null,"uic":"202159868","legalForm":"AD","status":"active","seat":null},{"id":"person:ВЕНИ КЪНЧЕВА ПЕТРОВА","type":"person","label":"Вени Кънчева Петрова"},{"id":"person:ИВАН МИХАЛЕВ МИХАЛЕВ","type":"person","label":"Иван Михалев Михалев"},{"id":"person:КРАСИМИРА ЯНЧЕВА НЕДЕВА","type":"person","label":"Красимира Янчева Недева"},{"id":"person:СТЕФАН СТОЯНОВ ЕВТИМОВ","type":"person","label":"Стефан Стоянов Евтимов"},{"id":"person:ХРИСТО ИВАНОВ ХРИСТОВ","type":"person","label":"Христо Иванов Христов"},{"id":"person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","type":"person","label":"Георги Илиев Илиев"},{"id":"person:НАЙДЕН РАШКОВ РАЙЧИНОВ","type":"person","label":"Найден Рашков Райчинов"},{"id":"company:tr:176178394","type":"company","label":"&quot;СПОРТЕН ФУТБОЛЕН КЛУБ ЛАТО&quot;","slug":null,"uic":"176178394","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:4663","type":"mp","mpId":4663,"label":"Александър Атанасов Александров","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46","47"]}],"edges":[{"source":"mp:1118","target":"company:tr:176022228","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:1118","target":"company:tr:176022228","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:1118","target":"company:tr:176022228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1118","target":"company:tr:202159868","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:1118","target":"company:tr:202159868","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВЕНИ КЪНЧЕВА ПЕТРОВА","target":"company:tr:176022228","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН МИХАЛЕВ МИХАЛЕВ","target":"company:tr:176022228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИРА ЯНЧЕВА НЕДЕВА","target":"company:tr:176022228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФАН СТОЯНОВ ЕВТИМОВ","target":"company:tr:176022228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАНОВ ХРИСТОВ","target":"company:tr:176022228","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","target":"company:tr:202159868","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:НАЙДЕН РАШКОВ РАЙЧИНОВ","target":"company:tr:202159868","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","target":"company:tr:202159868","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","target":"company:tr:176178394","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","target":"company:tr:176178394","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4663","target":"company:tr:176178394","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4663","length":4,"nodeIds":["mp:1118","company:tr:202159868","person:ГЕОРГИ ИЛИЕВ ИЛИЕВ","company:tr:176178394","mp:4663"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1118",
+  "nodes": [
+    {
+      "id": "mp:1118",
+      "type": "mp",
+      "mpId": 1118,
+      "label": "Пламен Тенев Русев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:176022228",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ХОТЕЛИЕРИТЕ И РЕСТОРАНТЬОРИТЕ СТАРА ЗАГОРА",
+      "slug": null,
+      "uic": "176022228",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202159868",
+      "type": "company",
+      "label": "ЕЛИНОР",
+      "slug": null,
+      "uic": "202159868",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНИ КЪНЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Вени Кънчева Петрова"
+    },
+    {
+      "id": "person:ИВАН МИХАЛЕВ МИХАЛЕВ",
+      "type": "person",
+      "label": "Иван Михалев Михалев"
+    },
+    {
+      "id": "person:КРАСИМИРА ЯНЧЕВА НЕДЕВА",
+      "type": "person",
+      "label": "Красимира Янчева Недева"
+    },
+    {
+      "id": "person:СТЕФАН СТОЯНОВ ЕВТИМОВ",
+      "type": "person",
+      "label": "Стефан Стоянов Евтимов"
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Иванов Христов"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Георги Илиев Илиев"
+    },
+    {
+      "id": "person:НАЙДЕН РАШКОВ РАЙЧИНОВ",
+      "type": "person",
+      "label": "Найден Рашков Райчинов"
+    },
+    {
+      "id": "company:tr:176178394",
+      "type": "company",
+      "label": "&quot;СПОРТЕН ФУТБОЛЕН КЛУБ ЛАТО&quot;",
+      "slug": null,
+      "uic": "176178394",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4663",
+      "type": "mp",
+      "mpId": 4663,
+      "label": "Александър Атанасов Александров",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1118",
+      "target": "company:tr:176022228",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1118",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1118",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1118",
+      "target": "company:tr:202159868",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1118",
+      "target": "company:tr:202159868",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНИ КЪНЧЕВА ПЕТРОВА",
+      "target": "company:tr:176022228",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИХАЛЕВ МИХАЛЕВ",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЯНЧЕВА НЕДЕВА",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СТОЯНОВ ЕВТИМОВ",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ХРИСТОВ",
+      "target": "company:tr:176022228",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:202159868",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙДЕН РАШКОВ РАЙЧИНОВ",
+      "target": "company:tr:202159868",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:202159868",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:176178394",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:176178394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4663",
+      "target": "company:tr:176178394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4663",
+      "length": 4,
+      "nodeIds": [
+        "mp:1118",
+        "company:tr:202159868",
+        "person:ГЕОРГИ ИЛИЕВ ИЛИЕВ",
+        "company:tr:176178394",
+        "mp:4663"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

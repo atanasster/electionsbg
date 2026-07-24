@@ -1,1 +1,95 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:momchil-kunchev-ivanov-646139","nodes":[{"id":"official:momchil-kunchev-ivanov-646139","type":"official","slug":"momchil-kunchev-ivanov-646139","label":"Момчил Кунчев Иванов","tier":"municipal","role":"councillor","municipality":"Велико Търново"},{"id":"company:tr:205028895","type":"company","label":"ЗЛАТАРИШКА ГОРА","slug":null,"uic":"205028895","legalForm":"EOOD","status":"ceased","seat":null},{"id":"mp:3572","type":"mp","mpId":3572,"label":"Момчил Кунчев Иванов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46"]},{"id":"person:МОМЧИЛ КУНЧЕВ ИВАНОВ","type":"person","label":"Момчил Кунчев Иванов"},{"id":"person:ДРАГОМИР ИВАНОВ ГРИГОРОВ","type":"person","label":"Драгомир Иванов Григоров"}],"edges":[{"source":"official:momchil-kunchev-ivanov-646139","target":"company:tr:205028895","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"mp:3572","target":"company:tr:205028895","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:МОМЧИЛ КУНЧЕВ ИВАНОВ","target":"company:tr:205028895","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"},{"source":"person:ДРАГОМИР ИВАНОВ ГРИГОРОВ","target":"company:tr:205028895","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:momchil-kunchev-ivanov-646139",
+  "nodes": [
+    {
+      "id": "official:momchil-kunchev-ivanov-646139",
+      "type": "official",
+      "slug": "momchil-kunchev-ivanov-646139",
+      "label": "Момчил Кунчев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:201950915",
+      "type": "company",
+      "label": "ДиЗар ОЙЛ ООД",
+      "slug": null,
+      "uic": "201950915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207211087",
+      "type": "company",
+      "label": "Консулт енд Пропъртис ООД",
+      "slug": null,
+      "uic": "207211087",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИНА СИМЕОНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Калина Симеонова Иванова"
+    },
+    {
+      "id": "person:МАРИЙКА СТОЙКОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Марийка Стойкова Павлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-kunchev-ivanov-646139",
+      "target": "company:tr:201950915",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:momchil-kunchev-ivanov-646139",
+      "target": "company:tr:207211087",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА СИМЕОНОВА ИВАНОВА",
+      "target": "company:tr:207211087",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА СТОЙКОВА ПАВЛОВА",
+      "target": "company:tr:207211087",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА СИМЕОНОВА ИВАНОВА",
+      "target": "company:tr:207211087",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА СТОЙКОВА ПАВЛОВА",
+      "target": "company:tr:207211087",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

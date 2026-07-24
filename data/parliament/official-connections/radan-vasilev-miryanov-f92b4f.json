@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:radan-vasilev-miryanov-f92b4f",
+  "nodes": [
+    {
+      "id": "official:radan-vasilev-miryanov-f92b4f",
+      "type": "official",
+      "slug": "radan-vasilev-miryanov-f92b4f",
+      "label": "Радан Василев Мирянов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176354999",
+      "type": "company",
+      "label": "СТУДЕНТСКИ СПОРТЕН КЛУБ-ИКОНОМИЧЕСКИ УНИВЕРСИТЕТ-ВАРНА",
+      "slug": null,
+      "uic": "176354999",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН АНДРЕЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Андреев Стоянов"
+    },
+    {
+      "id": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Стоян Петков Маринов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radan-vasilev-miryanov-f92b4f",
+      "target": "company:tr:176354999",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН АНДРЕЕВ СТОЯНОВ",
+      "target": "company:tr:176354999",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:176354999",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

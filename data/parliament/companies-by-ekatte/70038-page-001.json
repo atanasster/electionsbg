@@ -1,1 +1,33 @@
-{"ekatte":"70038","page":1,"totalPages":1,"count":1,"companies":[{"slug":"Преволт-Завет","displayName":"Преволт Завет","registeredOffice":"БЪЛГАРИЯ, с. Студена, 2234","mps":[{"mpId":2794,"mpName":"Красимир Христов Янков","role":"manager","isCurrent":true},{"mpId":2968,"mpName":"Мартин Стефанов Обрешков","role":"manager","isCurrent":true},{"mpId":2968,"mpName":"Мартин Стефанов Обрешков","role":"partner","isCurrent":false}]}]}
+{
+  "ekatte": "70038",
+  "page": 1,
+  "totalPages": 1,
+  "count": 1,
+  "companies": [
+    {
+      "slug": "Преволт-Завет",
+      "displayName": "Преволт Завет",
+      "registeredOffice": "БЪЛГАРИЯ, с. Студена, 2234",
+      "mps": [
+        {
+          "mpId": 2794,
+          "mpName": "Красимир Христов Янков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2968,
+          "mpName": "Мартин Стефанов Обрешков",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2968,
+          "mpName": "Мартин Стефанов Обрешков",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

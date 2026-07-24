@@ -1,1 +1,97 @@
-{"obshtina":"BLG03","count":28,"mpCount":13,"totalPages":1,"topCompanies":[{"slug":"Дикчан-85-ООД","displayName":"\"Дикчан 85\" ООД","registeredOffice":"Благоевград","mps":[{"mpId":4140,"mpName":"Елхан Мехмедов Кълков","role":"declared_stake","isCurrent":true}]},{"slug":"Бельово-ООД","displayName":"Бельово ООД","registeredOffice":"Благоевград","mps":[{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"manager","isCurrent":true},{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"partner","isCurrent":true},{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"declared_stake","isCurrent":true}]},{"slug":"АКгруп-Инвест","displayName":"АКгруп Инвест","registeredOffice":"БЪЛГАРИЯ, гр. Благоевград, 2700","mps":[{"mpId":836,"mpName":"Атанас Станкев Камбитов","role":"manager","isCurrent":true},{"mpId":836,"mpName":"Атанас Станкев Камбитов","role":"sole_owner","isCurrent":true}]},{"slug":"АКгруп-Пропърти","displayName":"АКгруп Пропърти","registeredOffice":"БЪЛГАРИЯ, гр. Благоевград, 2700","mps":[{"mpId":836,"mpName":"Атанас Станкев Камбитов","role":"manager","isCurrent":true},{"mpId":836,"mpName":"Атанас Станкев Камбитов","role":"sole_owner","isCurrent":true}]},{"slug":"ДБДС","displayName":"ДБДС","registeredOffice":"БЪЛГАРИЯ, гр. Благоевград, 2700","mps":[{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"manager","isCurrent":true},{"mpId":3845,"mpName":"Владимир Славев Табутов","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "BLG03",
+  "count": 35,
+  "mpCount": 14,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Авто-лукс-ООД",
+      "displayName": "Авто лукс ООД",
+      "registeredOffice": "Благоевград",
+      "mps": [
+        {
+          "mpId": 5292,
+          "mpName": "Стефан Апостолов Апостолов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Дикчан-85-ООД",
+      "displayName": "\"Дикчан 85\" ООД",
+      "registeredOffice": "Благоевград",
+      "mps": [
+        {
+          "mpId": 4140,
+          "mpName": "Елхан Мехмедов Кълков",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Бельово-ООД",
+      "displayName": "Бельово ООД",
+      "registeredOffice": "Благоевград",
+      "mps": [
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Хек-Солар-ЕООД",
+      "displayName": "Хек Солар ЕООД",
+      "registeredOffice": "Благоевград",
+      "mps": [
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3845,
+          "mpName": "Владимир Славев Табутов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "АКгруп-Инвест",
+      "displayName": "АКгруп Инвест",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Благоевград, 2700",
+      "mps": [
+        {
+          "mpId": 836,
+          "mpName": "Атанас Станкев Камбитов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 836,
+          "mpName": "Атанас Станкев Камбитов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

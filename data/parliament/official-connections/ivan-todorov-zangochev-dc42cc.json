@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-todorov-zangochev-dc42cc",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-zangochev-dc42cc",
+      "type": "official",
+      "slug": "ivan-todorov-zangochev-dc42cc",
+      "label": "Иван Тодоров Зангочев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202397474",
+      "type": "company",
+      "label": "Агрофийлд инвестмънтс ООД",
+      "slug": null,
+      "uic": "202397474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ЗАНГОЧЕВ",
+      "type": "person",
+      "label": "Иван Тодоров Зангочев"
+    },
+    {
+      "id": "person:ТОНЯ БОНЧЕВА БОНЧЕВА",
+      "type": "person",
+      "label": "Тоня Бончева Бончева"
+    },
+    {
+      "id": "person:ТОДОР ХРИСТОВ ЛАМБЕВ",
+      "type": "person",
+      "label": "Тодор Христов Ламбев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-zangochev-dc42cc",
+      "target": "company:tr:202397474",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЗАНГОЧЕВ",
+      "target": "company:tr:202397474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЯ БОНЧЕВА БОНЧЕВА",
+      "target": "company:tr:202397474",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЯ БОНЧЕВА БОНЧЕВА",
+      "target": "company:tr:202397474",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ХРИСТОВ ЛАМБЕВ",
+      "target": "company:tr:202397474",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ЗАНГОЧЕВ",
+      "target": "company:tr:202397474",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

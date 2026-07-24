@@ -1,1 +1,418 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:907","nodes":[{"id":"mp:907","type":"mp","mpId":907,"label":"Валентин Тончев Микев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:000691030","type":"company","label":"СДРУЖЕНИЕ &quot;СЪЮЗ НА БЪЛГАРСКИТЕ АВТОМОБИЛИСТИ&quot;","slug":null,"uic":"000691030","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:РОЗА АЛЕКСАНДРОВА КОКУШАРОВА","type":"person","label":"Роза Александрова Кокушарова"},{"id":"person:КРИСТИЯН КИНЧЕВ ИВАНОВ","type":"person","label":"Кристиян Кинчев Иванов"},{"id":"person:ЛЮДМИЛ МИХАЙЛОВ ВАРЗОЕВ","type":"person","label":"Людмил Михайлов Варзоев"},{"id":"person:МАРИЯНА КИРИЛОВА ДАМЯНОВА","type":"person","label":"Марияна Кирилова Дамянова"},{"id":"person:ТАТЯНА СТЕФАНОВА СТОЙЧЕВА","type":"person","label":"Татяна Стефанова Стойчева"},{"id":"person:РОЗА АЛЕКСАНДРОВА ДАРЕВА","type":"person","label":"Роза Александрова Дарева"},{"id":"person:ЕМИЛ ГЕРГИНОВ ЗАХАРИЕВ","type":"person","label":"Емил Гергинов Захариев"},{"id":"person:КРУМ АЛЕКСАНДРОВ ДАРЕВ","type":"person","label":"Крум Александров Дарев"},{"id":"person:ДАНЧО СТАНИСЛАВОВ ВЕЛЕВ","type":"person","label":"Данчо Станиславов Велев"},{"id":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","type":"person","label":"Емил Димитров Панчев"},{"id":"person:АЛЕКСАНДЪР БОЖИКОВ ЦАЦЕВ","type":"person","label":"Александър Божиков Цацев"},{"id":"person:ДИМИТЪР ГЕОРГИЕВ АВРАМОВ","type":"person","label":"Димитър Георгиев Аврамов"},{"id":"person:ЖИВКО АНГЕЛОВ КАСПАРОВ","type":"person","label":"Живко Ангелов Каспаров"},{"id":"person:ИВАЙЛО ВАНГЕЛОВ ИВАНОВ","type":"person","label":"Ивайло Вангелов Иванов"},{"id":"person:МАЛИНКА РАЙКОВА БОНДАРЕНКО","type":"person","label":"Малинка Райкова Бондаренко"},{"id":"person:СИМЕОН КИРИЛОВ ДЪРВИНГОВ","type":"person","label":"Симеон Кирилов Дървингов"},{"id":"person:ДИАН ИВАНЧЕВ ДРАГАНОВ","type":"person","label":"Диан Иванчев Драганов"},{"id":"person:ЖИВКО ВАСИЛЕВ ВЪЛЧЕВ","type":"person","label":"Живко Василев Вълчев"},{"id":"person:ЖИВКО ИВАНОВ СТОЙКОВ","type":"person","label":"Живко Иванов Стойков"},{"id":"person:ЗЛАТАН КИРИЛОВ МИНКОВ","type":"person","label":"Златан Кирилов Минков"},{"id":"person:ИВАЙЛО КРЪСТЕВ СЛАВКОВ","type":"person","label":"Ивайло Кръстев Славков"},{"id":"person:НИКОЛАЙ САШОВ НИКОЛОВ","type":"person","label":"Николай Сашов Николов"},{"id":"person:ТОДОР НИКОЛАЕВ МЕЛЕМОВ","type":"person","label":"Тодор Николаев Мелемов"},{"id":"person:ВАЛЕНТИН ТАШЕВ ИВАНОВ","type":"person","label":"Валентин Ташев Иванов"},{"id":"person:ХРИСТО ВЪЛКОВ ХРИСТОВ","type":"person","label":"Христо Вълков Христов"},{"id":"company:tr:130004532","type":"company","label":"Фондация &quot;ДОВЕРИЕ И ЗАКРИЛА&quot;","slug":null,"uic":"130004532","legalForm":"FOUND","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"mp:163","type":"mp","mpId":163,"label":"Васил Минчев Иванов-Лучано","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:907","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РОЗА АЛЕКСАНДРОВА КОКУШАРОВА","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:КРИСТИЯН КИНЧЕВ ИВАНОВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ МИХАЙЛОВ ВАРЗОЕВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯНА КИРИЛОВА ДАМЯНОВА","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ТАТЯНА СТЕФАНОВА СТОЙЧЕВА","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:РОЗА АЛЕКСАНДРОВА ДАРЕВА","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ГЕРГИНОВ ЗАХАРИЕВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:КРУМ АЛЕКСАНДРОВ ДАРЕВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНЧО СТАНИСЛАВОВ ВЕЛЕВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР БОЖИКОВ ЦАЦЕВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ГЕОРГИЕВ АВРАМОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО АНГЕЛОВ КАСПАРОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ВАНГЕЛОВ ИВАНОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАЛИНКА РАЙКОВА БОНДАРЕНКО","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СИМЕОН КИРИЛОВ ДЪРВИНГОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИАН ИВАНЧЕВ ДРАГАНОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ВАСИЛЕВ ВЪЛЧЕВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ИВАНОВ СТОЙКОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТАН КИРИЛОВ МИНКОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО КРЪСТЕВ СЛАВКОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ САШОВ НИКОЛОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР НИКОЛАЕВ МЕЛЕМОВ","target":"company:tr:000691030","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ТАШЕВ ИВАНОВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ВЪЛКОВ ХРИСТОВ","target":"company:tr:000691030","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:163","target":"company:tr:130004532","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:163","length":4,"nodeIds":["mp:907","company:tr:000691030","person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ","company:tr:130004532","mp:163"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:907",
+  "nodes": [
+    {
+      "id": "mp:907",
+      "type": "mp",
+      "mpId": 907,
+      "label": "Валентин Тончев Микев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:000691030",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СЪЮЗ НА БЪЛГАРСКИТЕ АВТОМОБИЛИСТИ&quot;",
+      "slug": null,
+      "uic": "000691030",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:РОЗА АЛЕКСАНДРОВА КОКУШАРОВА",
+      "type": "person",
+      "label": "Роза Александрова Кокушарова"
+    },
+    {
+      "id": "person:КРИСТИЯН КИНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Кристиян Кинчев Иванов"
+    },
+    {
+      "id": "person:ЛЮДМИЛ МИХАЙЛОВ ВАРЗОЕВ",
+      "type": "person",
+      "label": "Людмил Михайлов Варзоев"
+    },
+    {
+      "id": "person:МАРИЯНА КИРИЛОВА ДАМЯНОВА",
+      "type": "person",
+      "label": "Марияна Кирилова Дамянова"
+    },
+    {
+      "id": "person:ТАТЯНА СТЕФАНОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Татяна Стефанова Стойчева"
+    },
+    {
+      "id": "person:РОЗА АЛЕКСАНДРОВА ДАРЕВА",
+      "type": "person",
+      "label": "Роза Александрова Дарева"
+    },
+    {
+      "id": "person:ЕМИЛ ГЕРГИНОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Емил Гергинов Захариев"
+    },
+    {
+      "id": "person:КРУМ АЛЕКСАНДРОВ ДАРЕВ",
+      "type": "person",
+      "label": "Крум Александров Дарев"
+    },
+    {
+      "id": "person:ДАНЧО СТАНИСЛАВОВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Данчо Станиславов Велев"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "type": "person",
+      "label": "Емил Димитров Панчев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР БОЖИКОВ ЦАЦЕВ",
+      "type": "person",
+      "label": "Александър Божиков Цацев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ АВРАМОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Аврамов"
+    },
+    {
+      "id": "person:ЖИВКО АНГЕЛОВ КАСПАРОВ",
+      "type": "person",
+      "label": "Живко Ангелов Каспаров"
+    },
+    {
+      "id": "person:ИВАЙЛО ВАНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Вангелов Иванов"
+    },
+    {
+      "id": "person:МАЛИНКА РАЙКОВА БОНДАРЕНКО",
+      "type": "person",
+      "label": "Малинка Райкова Бондаренко"
+    },
+    {
+      "id": "person:СИМЕОН КИРИЛОВ ДЪРВИНГОВ",
+      "type": "person",
+      "label": "Симеон Кирилов Дървингов"
+    },
+    {
+      "id": "person:ДИАН ИВАНЧЕВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Диан Иванчев Драганов"
+    },
+    {
+      "id": "person:ЖИВКО ВАСИЛЕВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Живко Василев Вълчев"
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Живко Иванов Стойков"
+    },
+    {
+      "id": "person:ЗЛАТАН КИРИЛОВ МИНКОВ",
+      "type": "person",
+      "label": "Златан Кирилов Минков"
+    },
+    {
+      "id": "person:ИВАЙЛО КРЪСТЕВ СЛАВКОВ",
+      "type": "person",
+      "label": "Ивайло Кръстев Славков"
+    },
+    {
+      "id": "person:НИКОЛАЙ САШОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Сашов Николов"
+    },
+    {
+      "id": "person:ТОДОР НИКОЛАЕВ МЕЛЕМОВ",
+      "type": "person",
+      "label": "Тодор Николаев Мелемов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ТАШЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Валентин Ташев Иванов"
+    },
+    {
+      "id": "person:ХРИСТО ВЪЛКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Вълков Христов"
+    },
+    {
+      "id": "company:tr:130004532",
+      "type": "company",
+      "label": "Фондация &quot;ДОВЕРИЕ И ЗАКРИЛА&quot;",
+      "slug": null,
+      "uic": "130004532",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:163",
+      "type": "mp",
+      "mpId": 163,
+      "label": "Васил Минчев Иванов-Лучано",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:907",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОЗА АЛЕКСАНДРОВА КОКУШАРОВА",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН КИНЧЕВ ИВАНОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ МИХАЙЛОВ ВАРЗОЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА КИРИЛОВА ДАМЯНОВА",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СТЕФАНОВА СТОЙЧЕВА",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗА АЛЕКСАНДРОВА ДАРЕВА",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕРГИНОВ ЗАХАРИЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРУМ АЛЕКСАНДРОВ ДАРЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНЧО СТАНИСЛАВОВ ВЕЛЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОЖИКОВ ЦАЦЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ АВРАМОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО АНГЕЛОВ КАСПАРОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ВАНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНКА РАЙКОВА БОНДАРЕНКО",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН КИРИЛОВ ДЪРВИНГОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН ИВАНЧЕВ ДРАГАНОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ВАСИЛЕВ ВЪЛЧЕВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН КИРИЛОВ МИНКОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КРЪСТЕВ СЛАВКОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ САШОВ НИКОЛОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР НИКОЛАЕВ МЕЛЕМОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ТАШЕВ ИВАНОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВЪЛКОВ ХРИСТОВ",
+      "target": "company:tr:000691030",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:163",
+      "target": "company:tr:130004532",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:163",
+      "length": 4,
+      "nodeIds": [
+        "mp:907",
+        "company:tr:000691030",
+        "person:ЕМИЛ ДИМИТРОВ ПАНЧЕВ",
+        "company:tr:130004532",
+        "mp:163"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

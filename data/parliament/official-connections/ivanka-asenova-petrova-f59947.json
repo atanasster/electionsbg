@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivanka-asenova-petrova-f59947",
+  "nodes": [
+    {
+      "id": "official:ivanka-asenova-petrova-f59947",
+      "type": "official",
+      "slug": "ivanka-asenova-petrova-f59947",
+      "label": "Иванка Асенова Петрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:000283146",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ХРИСТО БОТЕВ - 1911 Г.",
+      "slug": null,
+      "uic": "000283146",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКА ВАСИЛЕВА СТРАТЕВА",
+      "type": "person",
+      "label": "Милка Василева Стратева"
+    },
+    {
+      "id": "person:БОРИС НИКОЛОВ ГЕНКОВ",
+      "type": "person",
+      "label": "Борис Николов Генков"
+    },
+    {
+      "id": "person:АНТОАНЕТА ТОДОРОВА ПИЛЬОВА",
+      "type": "person",
+      "label": "Антоанета Тодорова Пильова"
+    },
+    {
+      "id": "person:СТИЛЯНА РУМЕНОВА ЦОЧЕВСКА",
+      "type": "person",
+      "label": "Стиляна Руменова Цочевска"
+    },
+    {
+      "id": "person:ЛИЛЯНА ВИДИНОВА ГЕНКОВА",
+      "type": "person",
+      "label": "Лиляна Видинова Генкова"
+    },
+    {
+      "id": "person:ТОДОРА ДЯНКОВА ПОНЕВСКА",
+      "type": "person",
+      "label": "Тодора Дянкова Поневска"
+    },
+    {
+      "id": "person:ИНЕС НИКОЛАЕВА ВЪЛНАРОВА",
+      "type": "person",
+      "label": "Инес Николаева Вълнарова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КЪНЧЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Валентин Кънчев Тодоров"
+    },
+    {
+      "id": "person:МАРИЙКА ПЕТРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Марийка Петрова Илиева"
+    },
+    {
+      "id": "person:ПРЕСЛАВА ИВАНОВА МИНКОВА",
+      "type": "person",
+      "label": "Преслава Иванова Минкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-asenova-petrova-f59947",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКА ВАСИЛЕВА СТРАТЕВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НИКОЛОВ ГЕНКОВ",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ТОДОРОВА ПИЛЬОВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛЯНА РУМЕНОВА ЦОЧЕВСКА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ВИДИНОВА ГЕНКОВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРА ДЯНКОВА ПОНЕВСКА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНЕС НИКОЛАЕВА ВЪЛНАРОВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ТОДОРОВА ПИЛЬОВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КЪНЧЕВ ТОДОРОВ",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ПЕТРОВА ИЛИЕВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРЕСЛАВА ИВАНОВА МИНКОВА",
+      "target": "company:tr:000283146",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

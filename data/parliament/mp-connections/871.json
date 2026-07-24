@@ -1,1 +1,96 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:871","nodes":[{"id":"mp:871","type":"mp","mpId":871,"label":"Борислав Тодоров Стоянов","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:208608184","type":"company","label":"Сдружение Общински Ръгби Клуб Костинброд","slug":null,"uic":"208608184","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Костинброд, 2230"},{"id":"person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ","type":"person","label":"Румен Благоев Гълъбов"},{"id":"person:СТОЯН НАЙДЕНОВ СТОЯНОВ","type":"person","label":"Стоян Найденов Стоянов"},{"id":"person:ТОДОР НЕДКОВ ЦЪГОВ","type":"person","label":"Тодор Недков Цъгов"},{"id":"person:ПАНАЙОТ ГЕОРГИЕВ ГРОЗДЕВ","type":"person","label":"Панайот Георгиев Гроздев"}],"edges":[{"source":"mp:871","target":"company:tr:208608184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ","target":"company:tr:208608184","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ","target":"company:tr:208608184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН НАЙДЕНОВ СТОЯНОВ","target":"company:tr:208608184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТОДОР НЕДКОВ ЦЪГОВ","target":"company:tr:208608184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАНАЙОТ ГЕОРГИЕВ ГРОЗДЕВ","target":"company:tr:208608184","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:871",
+  "nodes": [
+    {
+      "id": "mp:871",
+      "type": "mp",
+      "mpId": 871,
+      "label": "Борислав Тодоров Стоянов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208608184",
+      "type": "company",
+      "label": "Сдружение Общински Ръгби Клуб Костинброд",
+      "slug": null,
+      "uic": "208608184",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Костинброд, 2230"
+    },
+    {
+      "id": "person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ",
+      "type": "person",
+      "label": "Румен Благоев Гълъбов"
+    },
+    {
+      "id": "person:СТОЯН НАЙДЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Найденов Стоянов"
+    },
+    {
+      "id": "person:ТОДОР НЕДКОВ ЦЪГОВ",
+      "type": "person",
+      "label": "Тодор Недков Цъгов"
+    },
+    {
+      "id": "person:ПАНАЙОТ ГЕОРГИЕВ ГРОЗДЕВ",
+      "type": "person",
+      "label": "Панайот Георгиев Гроздев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:871",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН БЛАГОЕВ ГЪЛЪБОВ",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НАЙДЕНОВ СТОЯНОВ",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР НЕДКОВ ЦЪГОВ",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНАЙОТ ГЕОРГИЕВ ГРОЗДЕВ",
+      "target": "company:tr:208608184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

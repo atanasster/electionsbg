@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-isaev-tsvetkov-0cf429",
+  "nodes": [
+    {
+      "id": "official:lyubomir-isaev-tsvetkov-0cf429",
+      "type": "official",
+      "slug": "lyubomir-isaev-tsvetkov-0cf429",
+      "label": "Любомир Исаев Цветков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Ковачевци"
+    },
+    {
+      "id": "company:tr:000380198",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ГЕОРГИ ДИМИТРОВ - 1928",
+      "slug": null,
+      "uic": "000380198",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИГЛЕНА ИВАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Миглена Иванова Василева"
+    },
+    {
+      "id": "person:ТИНКА ИВАНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Тинка Иванова Александрова"
+    },
+    {
+      "id": "person:ЮЛИАН ЮРИЕВ ДЕРЛИПАНСКИ",
+      "type": "person",
+      "label": "Юлиан Юриев Дерлипански"
+    },
+    {
+      "id": "person:МЛАДЕН КИРИЛОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Младен Кирилов Младенов"
+    },
+    {
+      "id": "person:КРАСИМИР МИЛКОВ СТАНИМИРОВ",
+      "type": "person",
+      "label": "Красимир Милков Станимиров"
+    },
+    {
+      "id": "person:ЙОРДАН БОЖИДАРОВ АНТОВ",
+      "type": "person",
+      "label": "Йордан Божидаров Антов"
+    },
+    {
+      "id": "person:ВЕСЕЛА ПЛАМЕНОВА МИТКОВА",
+      "type": "person",
+      "label": "Весела Пламенова Миткова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-isaev-tsvetkov-0cf429",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИГЛЕНА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА ИВАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН ЮРИЕВ ДЕРЛИПАНСКИ",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН КИРИЛОВ МЛАДЕНОВ",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР МИЛКОВ СТАНИМИРОВ",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН БОЖИДАРОВ АНТОВ",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ПЛАМЕНОВА МИТКОВА",
+      "target": "company:tr:000380198",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

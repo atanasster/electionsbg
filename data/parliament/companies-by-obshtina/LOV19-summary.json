@@ -1,1 +1,33 @@
-{"obshtina":"LOV19","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"Панега-консулт-ЕООД","displayName":"Панега консулт ЕООД","registeredOffice":"ЛУКОВИТ","mps":[{"mpId":2923,"mpName":"Калин Димитров Василев","role":"manager","isCurrent":true},{"mpId":2923,"mpName":"Калин Димитров Василев","role":"sole_owner","isCurrent":true},{"mpId":2923,"mpName":"КАЛИН ДИМИТРОВ ВАСИЛЕВ","role":"declared_stake","isCurrent":true}]}]}
+{
+  "obshtina": "LOV19",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Панега-консулт-ЕООД",
+      "displayName": "Панега консулт ЕООД",
+      "registeredOffice": "ЛУКОВИТ",
+      "mps": [
+        {
+          "mpId": 2923,
+          "mpName": "Калин Димитров Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2923,
+          "mpName": "Калин Димитров Василев",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2923,
+          "mpName": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:sofiya-hristova-todorova-1d983a",
+  "nodes": [
+    {
+      "id": "official:sofiya-hristova-todorova-1d983a",
+      "type": "official",
+      "slug": "sofiya-hristova-todorova-1d983a",
+      "label": "София Христова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000805110",
+      "type": "company",
+      "label": "ВЪЗРАЖДАНЕ 1927",
+      "slug": null,
+      "uic": "000805110",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОТКА ИВАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Тотка Иванова Кръстева"
+    },
+    {
+      "id": "person:ГАЛЯ ПАСКАЛЕВА ЛЕКОВА",
+      "type": "person",
+      "label": "Галя Паскалева Лекова"
+    },
+    {
+      "id": "person:МИМИ ЖЕЛЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мими Желева Стоянова"
+    },
+    {
+      "id": "person:ТИНА ЗАПРЯНОВА СИНЕТЛИЙСКА",
+      "type": "person",
+      "label": "Тина Запрянова Синетлийска"
+    },
+    {
+      "id": "person:ДАНКА МАРИНОВА ВЪЛЧАНОВА",
+      "type": "person",
+      "label": "Данка Маринова Вълчанова"
+    },
+    {
+      "id": "person:НАДЯ СТОЯНОВА МОНЕВА",
+      "type": "person",
+      "label": "Надя Стоянова Монева"
+    },
+    {
+      "id": "person:ИВАНКА МОНЕВА ДОНЧЕВА",
+      "type": "person",
+      "label": "Иванка Монева Дончева"
+    },
+    {
+      "id": "person:ДОНКА МИХОВА БОШНАКОВА",
+      "type": "person",
+      "label": "Донка Михова Бошнакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sofiya-hristova-todorova-1d983a",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОТКА ИВАНОВА КРЪСТЕВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ПАСКАЛЕВА ЛЕКОВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА ИВАНОВА КРЪСТЕВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИМИ ЖЕЛЕВА СТОЯНОВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНА ЗАПРЯНОВА СИНЕТЛИЙСКА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНКА МАРИНОВА ВЪЛЧАНОВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ СТОЯНОВА МОНЕВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МОНЕВА ДОНЧЕВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА МИХОВА БОШНАКОВА",
+      "target": "company:tr:000805110",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

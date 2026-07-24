@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yuliana-krumova-stefanova-e39a52",
+  "nodes": [
+    {
+      "id": "official:yuliana-krumova-stefanova-e39a52",
+      "type": "official",
+      "slug": "yuliana-krumova-stefanova-e39a52",
+      "label": "Юлиана Крумова Стефанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114520706",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО СИНЧЕЦ",
+      "slug": null,
+      "uic": "114520706",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ВЕЛИЧКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Петър Величков Димитров"
+    },
+    {
+      "id": "person:ИРИНА СЛАВЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ирина Славева Георгиева"
+    },
+    {
+      "id": "person:СИЛВИЯ ТОШЕВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Силвия Тошева Григорова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА ПОПОВА",
+      "type": "person",
+      "label": "Даниела Иванова Попова"
+    },
+    {
+      "id": "person:ПОЛИНА ВЛАДИМИРОВА ВАСИЛЕВА - ТОДОРОВА",
+      "type": "person",
+      "label": "Полина Владимирова Василева - Тодорова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВЕНЦИСЛАВОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Десислава Венциславова Михайлова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЕЛКОВА ДУЛЕВСКА",
+      "type": "person",
+      "label": "Валентина Велкова Дулевска"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЙОРДАНОВ ДОКОВ",
+      "type": "person",
+      "label": "Даниел Йорданов Доков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliana-krumova-stefanova-e39a52",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliana-krumova-stefanova-e39a52",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ВЕЛИЧКОВ ДИМИТРОВ",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ВЕЛИЧКОВ ДИМИТРОВ",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА СЛАВЕВА ГЕОРГИЕВА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ТОШЕВА ГРИГОРОВА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА ПОПОВА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ВЛАДИМИРОВА ВАСИЛЕВА - ТОДОРОВА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВЕНЦИСЛАВОВА МИХАЙЛОВА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕЛКОВА ДУЛЕВСКА",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЙОРДАНОВ ДОКОВ",
+      "target": "company:tr:114520706",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

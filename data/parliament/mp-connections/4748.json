@@ -1,1 +1,145 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4748","nodes":[{"id":"mp:4748","type":"mp","mpId":4748,"label":"Деница Димитрова Симеонова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["47","48","49","50"]},{"id":"company:tr:206687208","type":"company","label":"ПраймВОЙП България","slug":null,"uic":"206687208","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"person:БИШАРА ХАЙ","type":"person","label":"Бишара Хай"},{"id":"person:РАЗИ ХАЙ","type":"person","label":"Рази Хай"},{"id":"person:БИШАРА ХАЙ,ДАТА НА РАЖДАНЕ 890922","type":"person","label":"Бишара  Хай,дата На Раждане 890922"}],"edges":[{"source":"mp:4748","target":"company:tr:206687208","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:БИШАРА ХАЙ","target":"company:tr:206687208","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:РАЗИ ХАЙ","target":"company:tr:206687208","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:БИШАРА ХАЙ,ДАТА НА РАЖДАНЕ 890922","target":"company:tr:206687208","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4748",
+  "nodes": [
+    {
+      "id": "mp:4748",
+      "type": "mp",
+      "mpId": 4748,
+      "label": "Деница Димитрова Симеонова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "company:София-ту-гоу-ООД",
+      "type": "company",
+      "label": "\"София ту гоу\" ООД",
+      "slug": "София-ту-гоу-ООД",
+      "uic": "206285939",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "company:tr:206687208",
+      "type": "company",
+      "label": "ПраймВОЙП България",
+      "slug": null,
+      "uic": "206687208",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЛЮДМИЛОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Любомир Людмилов Върбанов"
+    },
+    {
+      "id": "person:СВЕТОСЛАВА ДИМИТРОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Светослава Димитрова Симеонова"
+    },
+    {
+      "id": "person:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД",
+      "type": "person",
+      "label": "Иновейшън Кепитъл Фонд"
+    },
+    {
+      "id": "person:БИШАРА ХАЙ",
+      "type": "person",
+      "label": "Бишара Хай"
+    },
+    {
+      "id": "person:РАЗИ ХАЙ",
+      "type": "person",
+      "label": "Рази Хай"
+    },
+    {
+      "id": "person:БИШАРА ХАЙ,ДАТА НА РАЖДАНЕ 890922",
+      "type": "person",
+      "label": "Бишара  Хай,дата На Раждане 890922"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4748",
+      "target": "company:София-ту-гоу-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4748",
+      "target": "company:София-ту-гоу-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4748",
+      "target": "company:tr:206687208",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЛЮДМИЛОВ ВЪРБАНОВ",
+      "target": "company:София-ту-гоу-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА ДИМИТРОВА СИМЕОНОВА",
+      "target": "company:София-ту-гоу-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНОВЕЙШЪН КЕПИТЪЛ ФОНД",
+      "target": "company:София-ту-гоу-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИШАРА ХАЙ",
+      "target": "company:tr:206687208",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЗИ ХАЙ",
+      "target": "company:tr:206687208",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИШАРА ХАЙ,ДАТА НА РАЖДАНЕ 890922",
+      "target": "company:tr:206687208",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-marchev-markov-0208fa",
+  "nodes": [
+    {
+      "id": "official:stefan-marchev-markov-0208fa",
+      "type": "official",
+      "slug": "stefan-marchev-markov-0208fa",
+      "label": "Стефан Марчев Марков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:205183835",
+      "type": "company",
+      "label": "ЕКС НОКС",
+      "slug": null,
+      "uic": "205183835",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЯВОРОВ ЯНЧЕВ",
+      "type": "person",
+      "label": "Веселин Яворов Янчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-marchev-markov-0208fa",
+      "target": "company:tr:205183835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЯВОРОВ ЯНЧЕВ",
+      "target": "company:tr:205183835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЯВОРОВ ЯНЧЕВ",
+      "target": "company:tr:205183835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

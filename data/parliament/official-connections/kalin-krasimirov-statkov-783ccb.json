@@ -1,1 +1,113 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:kalin-krasimirov-statkov-783ccb","nodes":[{"id":"official:kalin-krasimirov-statkov-783ccb","type":"official","slug":"kalin-krasimirov-statkov-783ccb","label":"Калин Красимиров Статков","tier":"municipal","role":"councillor","municipality":"Берковица"},{"id":"company:tr:202600818","type":"company","label":"Сани Агро ЕООД","slug":null,"uic":"202600818","legalForm":null,"status":null,"seat":null},{"id":"company:tr:203133495","type":"company","label":"Ком Агро ООД","slug":null,"uic":"203133495","legalForm":null,"status":null,"seat":null},{"id":"company:tr:205952810","type":"company","label":"АЯ Дистрибюшън ЕООД","slug":null,"uic":"205952810","legalForm":null,"status":null,"seat":null},{"id":"person:ХРИСТИНА ИВАНОВА ДИМИТРОВА","type":"person","label":"Христина Иванова Димитрова"}],"edges":[{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:202600818","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:203133495","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:205952810","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:203133495","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:205952810","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:kalin-krasimirov-statkov-783ccb","target":"company:tr:205952810","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ХРИСТИНА ИВАНОВА ДИМИТРОВА","target":"company:tr:203133495","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:kalin-krasimirov-statkov-783ccb",
+  "nodes": [
+    {
+      "id": "official:kalin-krasimirov-statkov-783ccb",
+      "type": "official",
+      "slug": "kalin-krasimirov-statkov-783ccb",
+      "label": "Калин Красимиров Статков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:202600818",
+      "type": "company",
+      "label": "Сани Агро ЕООД",
+      "slug": null,
+      "uic": "202600818",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203133495",
+      "type": "company",
+      "label": "Ком Агро ООД",
+      "slug": null,
+      "uic": "203133495",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205952810",
+      "type": "company",
+      "label": "АЯ Дистрибюшън ЕООД",
+      "slug": null,
+      "uic": "205952810",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИН КРАСИМИРОВ СТАТКОВ",
+      "type": "person",
+      "label": "Калин Красимиров Статков"
+    },
+    {
+      "id": "person:ХРИСТИНА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Христина Иванова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-krasimirov-statkov-783ccb",
+      "target": "company:tr:202600818",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kalin-krasimirov-statkov-783ccb",
+      "target": "company:tr:203133495",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:kalin-krasimirov-statkov-783ccb",
+      "target": "company:tr:205952810",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КРАСИМИРОВ СТАТКОВ",
+      "target": "company:tr:203133495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:203133495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КРАСИМИРОВ СТАТКОВ",
+      "target": "company:tr:205952810",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН КРАСИМИРОВ СТАТКОВ",
+      "target": "company:tr:205952810",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

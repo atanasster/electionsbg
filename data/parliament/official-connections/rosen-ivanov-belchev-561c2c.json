@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rosen-ivanov-belchev-561c2c",
+  "nodes": [
+    {
+      "id": "official:rosen-ivanov-belchev-561c2c",
+      "type": "official",
+      "slug": "rosen-ivanov-belchev-561c2c",
+      "label": "Росен Иванов Белчев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206923313",
+      "type": "company",
+      "label": "ИНИЦИАТИВА ЗА РАЗВИТИЕ И ПРОМЯНА НА ОБЩИНА БОЙЧИНОВЦИ",
+      "slug": null,
+      "uic": "206923313",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВ ЦВЕТАНОВ ДЕНКОВ",
+      "type": "person",
+      "label": "Десислав Цветанов Денков"
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТКОВ ХАДЖИЙСКИ",
+      "type": "person",
+      "label": "Георги Петков Хаджийски"
+    },
+    {
+      "id": "person:СОФРОНИ КРЪСТЕВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Софрони Кръстев Захариев"
+    },
+    {
+      "id": "person:АТАНАС КИРИЛОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Кирилов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-ivanov-belchev-561c2c",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-ivanov-belchev-561c2c",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ ЦВЕТАНОВ ДЕНКОВ",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТКОВ ХАДЖИЙСКИ",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФРОНИ КРЪСТЕВ ЗАХАРИЕВ",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КИРИЛОВ АТАНАСОВ",
+      "target": "company:tr:206923313",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:trayan-atanasov-stoimenov-d36c7e",
+  "nodes": [
+    {
+      "id": "official:trayan-atanasov-stoimenov-d36c7e",
+      "type": "official",
+      "slug": "trayan-atanasov-stoimenov-d36c7e",
+      "label": "Траян Атанасов Стоименов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:208081682",
+      "type": "company",
+      "label": "\"МАТЕРА 2018\"",
+      "slug": null,
+      "uic": "208081682",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:trayan-atanasov-stoimenov-d36c7e",
+      "target": "company:tr:208081682",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:trayan-atanasov-stoimenov-d36c7e",
+      "target": "company:tr:208081682",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

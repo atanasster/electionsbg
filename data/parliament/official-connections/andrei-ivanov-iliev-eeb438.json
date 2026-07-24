@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:andrei-ivanov-iliev-eeb438",
+  "nodes": [
+    {
+      "id": "official:andrei-ivanov-iliev-eeb438",
+      "type": "official",
+      "slug": "andrei-ivanov-iliev-eeb438",
+      "label": "Андрей Иванов Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павликени"
+    },
+    {
+      "id": "company:tr:208720219",
+      "type": "company",
+      "label": "Ей Ви Консълт",
+      "slug": null,
+      "uic": "208720219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОРИЯ ВИКТОРОВА СТАНИМИРОВА",
+      "type": "person",
+      "label": "Виктория Викторова Станимирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-ivanov-iliev-eeb438",
+      "target": "company:tr:208720219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-ivanov-iliev-eeb438",
+      "target": "company:tr:208720219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ВИКТОРОВА СТАНИМИРОВА",
+      "target": "company:tr:208720219",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

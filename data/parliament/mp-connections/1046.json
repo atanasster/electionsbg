@@ -1,1 +1,354 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:1046","nodes":[{"id":"mp:1046","type":"mp","mpId":1046,"label":"Недялко Тенев Недялков","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:208581513","type":"company","label":"ЕГРОЯ-2025","slug":null,"uic":"208581513","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, с. Ягода, 6167"},{"id":"company:tr:123562323","type":"company","label":"СДРУЖЕНИЕ &quot;ЛОВНО СДРУЖЕНИЕ МОРУЛЕЙ - 2001&quot;","slug":null,"uic":"123562323","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:207734073","type":"company","label":"МИНЕРАЛ- СНАГС","slug":null,"uic":"207734073","legalForm":"AD","status":"active","seat":"БЪЛГАРИЯ, с. Ягода, 6167"},{"id":"company:tr:206974304","type":"company","label":"НЕДИН  НД","slug":null,"uic":"206974304","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Ягода, 6167"},{"id":"person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА","type":"person","label":"Албена Недялкова Недялкова"},{"id":"person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА","type":"person","label":"Стефка Гочева Недялкова"},{"id":"person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА","type":"person","label":"Гергана Недялкова Недялкова"},{"id":"person:МИЛЕН ТАШКОВ МИНЧЕВ","type":"person","label":"Милен Ташков Минчев"},{"id":"person:НЕДЯЛКО ДИМИТРОВ АНГЕЛОВ","type":"person","label":"Недялко Димитров Ангелов"},{"id":"person:ВАСИЛ ПЕТРОВ ВАСИЛЕВ","type":"person","label":"Васил Петров Василев"},{"id":"person:ДЕНЬО НИКОЛАЕВ НАЧЕВ","type":"person","label":"Деньо Николаев Начев"},{"id":"person:НЕДКО АНТОНОВ ЛЕОНАРДОВ","type":"person","label":"Недко Антонов Леонардов"},{"id":"person:КОЛЬО КОСЕВ КОЛЕВ","type":"person","label":"Кольо Косев Колев"},{"id":"person:ПЕТЪР МАРКОВ САВОВ","type":"person","label":"Петър Марков Савов"},{"id":"person:ДИАН ЦАНЕВ ДИНЕВ","type":"person","label":"Диан Цанев Динев"},{"id":"person:ДЕЧКО ХРИСТОВ ДЕЧЕВ","type":"person","label":"Дечко Христов Дечев"},{"id":"person:ЯСЕН ДИНЕВ СОТИРОВ","type":"person","label":"Ясен Динев Сотиров"},{"id":"person:СВЕТЛАНА СТОЙНОВА ИВАНОВА","type":"person","label":"Светлана Стойнова Иванова"},{"id":"person:НЕДЯЛКО ГАЛИНОВ НЕНОВ","type":"person","label":"Недялко Галинов Ненов"},{"id":"person:ДИНКО ДИМИТРОВ ДИНЕВ","type":"person","label":"Динко Димитров Динев"}],"edges":[{"source":"mp:1046","target":"company:tr:208581513","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:1046","target":"company:tr:123562323","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:1046","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1046","target":"company:tr:207734073","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:1046","target":"company:tr:206974304","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:208581513","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА","target":"company:tr:208581513","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:208581513","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:208581513","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ТАШКОВ МИНЧЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ДИМИТРОВ АНГЕЛОВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ПЕТРОВ ВАСИЛЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕНЬО НИКОЛАЕВ НАЧЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕДКО АНТОНОВ ЛЕОНАРДОВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КОЛЬО КОСЕВ КОЛЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР МАРКОВ САВОВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИАН ЦАНЕВ ДИНЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЧКО ХРИСТОВ ДЕЧЕВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН ДИНЕВ СОТИРОВ","target":"company:tr:123562323","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:207734073","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА","target":"company:tr:207734073","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:207734073","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА","target":"company:tr:207734073","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТЛАНА СТОЙНОВА ИВАНОВА","target":"company:tr:207734073","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ГАЛИНОВ НЕНОВ","target":"company:tr:206974304","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДИНКО ДИМИТРОВ ДИНЕВ","target":"company:tr:206974304","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ГАЛИНОВ НЕНОВ","target":"company:tr:206974304","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:1046",
+  "nodes": [
+    {
+      "id": "mp:1046",
+      "type": "mp",
+      "mpId": 1046,
+      "label": "Недялко Тенев Недялков",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208581513",
+      "type": "company",
+      "label": "ЕГРОЯ-2025",
+      "slug": null,
+      "uic": "208581513",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Ягода, 6167"
+    },
+    {
+      "id": "company:tr:123562323",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО СДРУЖЕНИЕ МОРУЛЕЙ - 2001&quot;",
+      "slug": null,
+      "uic": "123562323",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207734073",
+      "type": "company",
+      "label": "МИНЕРАЛ- СНАГС",
+      "slug": null,
+      "uic": "207734073",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Ягода, 6167"
+    },
+    {
+      "id": "company:tr:206974304",
+      "type": "company",
+      "label": "НЕДИН  НД",
+      "slug": null,
+      "uic": "206974304",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Ягода, 6167"
+    },
+    {
+      "id": "person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Албена Недялкова Недялкова"
+    },
+    {
+      "id": "person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Стефка Гочева Недялкова"
+    },
+    {
+      "id": "person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Гергана Недялкова Недялкова"
+    },
+    {
+      "id": "person:МИЛЕН ТАШКОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Милен Ташков Минчев"
+    },
+    {
+      "id": "person:НЕДЯЛКО ДИМИТРОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Недялко Димитров Ангелов"
+    },
+    {
+      "id": "person:ВАСИЛ ПЕТРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Петров Василев"
+    },
+    {
+      "id": "person:ДЕНЬО НИКОЛАЕВ НАЧЕВ",
+      "type": "person",
+      "label": "Деньо Николаев Начев"
+    },
+    {
+      "id": "person:НЕДКО АНТОНОВ ЛЕОНАРДОВ",
+      "type": "person",
+      "label": "Недко Антонов Леонардов"
+    },
+    {
+      "id": "person:КОЛЬО КОСЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Кольо Косев Колев"
+    },
+    {
+      "id": "person:ПЕТЪР МАРКОВ САВОВ",
+      "type": "person",
+      "label": "Петър Марков Савов"
+    },
+    {
+      "id": "person:ДИАН ЦАНЕВ ДИНЕВ",
+      "type": "person",
+      "label": "Диан Цанев Динев"
+    },
+    {
+      "id": "person:ДЕЧКО ХРИСТОВ ДЕЧЕВ",
+      "type": "person",
+      "label": "Дечко Христов Дечев"
+    },
+    {
+      "id": "person:ЯСЕН ДИНЕВ СОТИРОВ",
+      "type": "person",
+      "label": "Ясен Динев Сотиров"
+    },
+    {
+      "id": "person:СВЕТЛАНА СТОЙНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Светлана Стойнова Иванова"
+    },
+    {
+      "id": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "type": "person",
+      "label": "Недялко Галинов Ненов"
+    },
+    {
+      "id": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Динко Димитров Динев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1046",
+      "target": "company:tr:208581513",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1046",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1046",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1046",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1046",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:208581513",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА",
+      "target": "company:tr:208581513",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:208581513",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:208581513",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТАШКОВ МИНЧЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ДИМИТРОВ АНГЕЛОВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПЕТРОВ ВАСИЛЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНЬО НИКОЛАЕВ НАЧЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО АНТОНОВ ЛЕОНАРДОВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО КОСЕВ КОЛЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР МАРКОВ САВОВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН ЦАНЕВ ДИНЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЧКО ХРИСТОВ ДЕЧЕВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ДИНЕВ СОТИРОВ",
+      "target": "company:tr:123562323",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ГОЧЕВА НЕДЯЛКОВА",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА НЕДЯЛКОВА НЕДЯЛКОВА",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА СТОЙНОВА ИВАНОВА",
+      "target": "company:tr:207734073",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

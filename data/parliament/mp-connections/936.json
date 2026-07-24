@@ -1,1 +1,332 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:936","nodes":[{"id":"mp:936","type":"mp","mpId":936,"label":"Петър Методиев Петров","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"company:tr:208157347","type":"company","label":"КИНЕЗИО АКТИВ","slug":null,"uic":"208157347","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1582"},{"id":"company:tr:177081884","type":"company","label":"ЕВРОПЕЙСКО СДРУЖЕНИЕ ПО ЕКОЛОГИЯ","slug":null,"uic":"177081884","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, с. Световрачене, 1252"},{"id":"company:tr:203515954","type":"company","label":"БУЛМЕТ ГРУП","slug":null,"uic":"203515954","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1252"},{"id":"company:tr:177111740","type":"company","label":"Локално наследство","slug":null,"uic":"177111740","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Перник, 2300"},{"id":"company:tr:206363430","type":"company","label":"ПИ ЕС КЕШ","slug":null,"uic":"206363430","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Световрачене, 1252"},{"id":"person:БОЖИДАР СПАСОВ БОГДАНОВ","type":"person","label":"Божидар Спасов Богданов"},{"id":"person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ","type":"person","label":"Йордан Красимиров Симонски"},{"id":"person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ","type":"person","label":"Димитър Анатолиев Стефанов"},{"id":"person:МЕТОДИ ПЕТРОВ ПАВЛОВ","type":"person","label":"Методи Петров Павлов"},{"id":"person:БОЙКА ЯКОВА ПАВЛОВА","type":"person","label":"Бойка Якова Павлова"},{"id":"person:НИКОЛАЙ ТРАЙЧОВ НИКОЛОВ","type":"person","label":"Николай Трайчов Николов"},{"id":"person:МИЛЕНА ВАЛЕНТИНОВА ЛЮБЕНОВА","type":"person","label":"Милена Валентинова Любенова"},{"id":"person:ВЛАДИМИР НИКОЛАЕВ РУСЕВ","type":"person","label":"Владимир Николаев Русев"},{"id":"person:ЦВЕТАНКА СТОЯНОВА АТАНАСОВА","type":"person","label":"Цветанка Стоянова Атанасова"},{"id":"company:tr:176943435","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ СВЕТЛО БЪДЕЩЕ-2015","slug":null,"uic":"176943435","legalForm":"Народно читалище","status":"active","seat":"БЪЛГАРИЯ, София, 1231"},{"id":"mp:5012","type":"mp","mpId":5012,"label":"Иван Данаилов Иванов","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["51"]}],"edges":[{"source":"mp:936","target":"company:tr:208157347","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:208157347","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:177081884","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:203515954","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:203515954","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:177111740","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:206363430","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:936","target":"company:tr:206363430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:БОЖИДАР СПАСОВ БОГДАНОВ","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДИ ПЕТРОВ ПАВЛОВ","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:БОЙКА ЯКОВА ПАВЛОВА","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ТРАЙЧОВ НИКОЛОВ","target":"company:tr:177081884","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕНА ВАЛЕНТИНОВА ЛЮБЕНОВА","target":"company:tr:177111740","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР НИКОЛАЕВ РУСЕВ","target":"company:tr:177111740","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЦВЕТАНКА СТОЯНОВА АТАНАСОВА","target":"company:tr:177111740","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ","target":"company:tr:206363430","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР СПАСОВ БОГДАНОВ","target":"company:tr:176943435","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:БОЖИДАР СПАСОВ БОГДАНОВ","target":"company:tr:176943435","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ","target":"company:tr:176943435","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"mp:5012","target":"company:tr:176943435","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5012","length":4,"nodeIds":["mp:936","company:tr:177081884","person:БОЖИДАР СПАСОВ БОГДАНОВ","company:tr:176943435","mp:5012"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:936",
+  "nodes": [
+    {
+      "id": "mp:936",
+      "type": "mp",
+      "mpId": 936,
+      "label": "Петър Методиев Петров",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208157347",
+      "type": "company",
+      "label": "КИНЕЗИО АКТИВ",
+      "slug": null,
+      "uic": "208157347",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1582"
+    },
+    {
+      "id": "company:tr:177081884",
+      "type": "company",
+      "label": "ЕВРОПЕЙСКО СДРУЖЕНИЕ ПО ЕКОЛОГИЯ",
+      "slug": null,
+      "uic": "177081884",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Световрачене, 1252"
+    },
+    {
+      "id": "company:tr:203515954",
+      "type": "company",
+      "label": "БУЛМЕТ ГРУП",
+      "slug": null,
+      "uic": "203515954",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1252"
+    },
+    {
+      "id": "company:tr:177111740",
+      "type": "company",
+      "label": "Локално наследство",
+      "slug": null,
+      "uic": "177111740",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:tr:206363430",
+      "type": "company",
+      "label": "ПИ ЕС КЕШ",
+      "slug": null,
+      "uic": "206363430",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Световрачене, 1252"
+    },
+    {
+      "id": "person:БОЖИДАР СПАСОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Божидар Спасов Богданов"
+    },
+    {
+      "id": "person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ",
+      "type": "person",
+      "label": "Йордан Красимиров Симонски"
+    },
+    {
+      "id": "person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Димитър Анатолиев Стефанов"
+    },
+    {
+      "id": "person:МЕТОДИ ПЕТРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Методи Петров Павлов"
+    },
+    {
+      "id": "person:БОЙКА ЯКОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Бойка Якова Павлова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТРАЙЧОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Трайчов Николов"
+    },
+    {
+      "id": "person:МИЛЕНА ВАЛЕНТИНОВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Милена Валентинова Любенова"
+    },
+    {
+      "id": "person:ВЛАДИМИР НИКОЛАЕВ РУСЕВ",
+      "type": "person",
+      "label": "Владимир Николаев Русев"
+    },
+    {
+      "id": "person:ЦВЕТАНКА СТОЯНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Цветанка Стоянова Атанасова"
+    },
+    {
+      "id": "company:tr:176943435",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ СВЕТЛО БЪДЕЩЕ-2015",
+      "slug": null,
+      "uic": "176943435",
+      "legalForm": "Народно читалище",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1231"
+    },
+    {
+      "id": "mp:5012",
+      "type": "mp",
+      "mpId": 5012,
+      "label": "Иван Данаилов Иванов",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:936",
+      "target": "company:tr:208157347",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:208157347",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:203515954",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:203515954",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:177111740",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:206363430",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:936",
+      "target": "company:tr:206363430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЖИДАР СПАСОВ БОГДАНОВ",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ ПЕТРОВ ПАВЛОВ",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ЯКОВА ПАВЛОВА",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТРАЙЧОВ НИКОЛОВ",
+      "target": "company:tr:177081884",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВАЛЕНТИНОВА ЛЮБЕНОВА",
+      "target": "company:tr:177111740",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР НИКОЛАЕВ РУСЕВ",
+      "target": "company:tr:177111740",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА СТОЯНОВА АТАНАСОВА",
+      "target": "company:tr:177111740",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КРАСИМИРОВ СИМОНСКИ",
+      "target": "company:tr:206363430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР СПАСОВ БОГДАНОВ",
+      "target": "company:tr:176943435",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР СПАСОВ БОГДАНОВ",
+      "target": "company:tr:176943435",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНАТОЛИЕВ СТЕФАНОВ",
+      "target": "company:tr:176943435",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5012",
+      "target": "company:tr:176943435",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5012",
+      "length": 4,
+      "nodeIds": [
+        "mp:936",
+        "company:tr:177081884",
+        "person:БОЖИДАР СПАСОВ БОГДАНОВ",
+        "company:tr:176943435",
+        "mp:5012"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

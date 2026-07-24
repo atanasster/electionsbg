@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dragostin-plamenov-peichev-e0db10",
+  "nodes": [
+    {
+      "id": "official:dragostin-plamenov-peichev-e0db10",
+      "type": "official",
+      "slug": "dragostin-plamenov-peichev-e0db10",
+      "label": "Драгостин Пламенов Пейчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Перник"
+    },
+    {
+      "id": "company:tr:207791277",
+      "type": "company",
+      "label": "Ив Ен Ди Маркет ЕООД",
+      "slug": null,
+      "uic": "207791277",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207979731",
+      "type": "company",
+      "label": "Д Джим 2024 ЕООД",
+      "slug": null,
+      "uic": "207979731",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207791277",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207979731",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207791277",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207791277",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207979731",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dragostin-plamenov-peichev-e0db10",
+      "target": "company:tr:207979731",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:maya-donkova-donchovska-markovska-dc3331",
+  "nodes": [
+    {
+      "id": "official:maya-donkova-donchovska-markovska-dc3331",
+      "type": "official",
+      "slug": "maya-donkova-donchovska-markovska-dc3331",
+      "label": "Мая Донкова Дончовска-Марковска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176972682",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПГТ КОСТА ПЕТРОВ - с.БОРОВАН",
+      "slug": null,
+      "uic": "176972682",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:natashka-ivanova-velchovska-0b7c71",
+      "type": "official",
+      "slug": "natashka-ivanova-velchovska-0b7c71",
+      "label": "Наташка Иванова Велчовска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "person:ДАНИЕЛА ИВАНОВА КАБРАУИ",
+      "type": "person",
+      "label": "Даниела Иванова Кабрауи"
+    },
+    {
+      "id": "person:ПЕТЯ ПАВЛОВА ПАНОВА",
+      "type": "person",
+      "label": "Петя Павлова Панова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Йорданка Иванова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-donkova-donchovska-markovska-dc3331",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:natashka-ivanova-velchovska-0b7c71",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА КАБРАУИ",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИВАНОВА КАБРАУИ",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ПАВЛОВА ПАНОВА",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:176972682",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milyana-gorkova-kamenova-23d6b5",
+  "nodes": [
+    {
+      "id": "official:milyana-gorkova-kamenova-23d6b5",
+      "type": "official",
+      "slug": "milyana-gorkova-kamenova-23d6b5",
+      "label": "Миляна Горкова Каменова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Георги Дамяново"
+    },
+    {
+      "id": "company:tr:111031076",
+      "type": "company",
+      "label": "ТРУДОЛЮБИЕ - 1899 Г.",
+      "slug": null,
+      "uic": "111031076",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕСТЕЛА МАКСИМОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Естела Максимова Петрова"
+    },
+    {
+      "id": "person:ЕЛИ ПЕТРОВА КОСТОВА",
+      "type": "person",
+      "label": "Ели Петрова Костова"
+    },
+    {
+      "id": "person:АННА АЛЕКСАНДРОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Анна Александрова Ангелова"
+    },
+    {
+      "id": "person:ВАЛЕРИ ЕЛЕНКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Валери Еленков Георгиев"
+    },
+    {
+      "id": "person:МАРИАНА ДОБРЕВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Мариана Добрева Григорова"
+    },
+    {
+      "id": "person:ЙОНКА ГЕОРГИЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Йонка Георгиева Михайлова"
+    },
+    {
+      "id": "person:ПЕТРАНА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Петрана Георгиева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milyana-gorkova-kamenova-23d6b5",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milyana-gorkova-kamenova-23d6b5",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕСТЕЛА МАКСИМОВА ПЕТРОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕСТЕЛА МАКСИМОВА ПЕТРОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИ ПЕТРОВА КОСТОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА АЛЕКСАНДРОВА АНГЕЛОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ЕЛЕНКОВ ГЕОРГИЕВ",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДОБРЕВА ГРИГОРОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКА ГЕОРГИЕВА МИХАЙЛОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:111031076",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

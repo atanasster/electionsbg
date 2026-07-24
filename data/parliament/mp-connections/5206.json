@@ -1,1 +1,156 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5206","nodes":[{"id":"mp:5206","type":"mp","mpId":5206,"label":"Надежда Георгиева Йорданова","partyGroupShort":"ПГ на Демократична България","isCurrent":true,"nsFolders":["45","46","48","49","50","51","52"]},{"id":"company:tr:000084258","type":"company","label":"НАРОДНО ЧИТАЛИЩЕ &quot;МИХАИЛ ШОЛОХОВ &quot;-1958","slug":null,"uic":"000084258","legalForm":"CC","status":"active","seat":"БЪЛГАРИЯ, с. Казашко, 9140"},{"id":"person:АНЕТА ЙОРДАНОВА КРИТСКА","type":"person","label":"Анета Йорданова Критска"},{"id":"person:ХРИСТИЯНА ЦВЕТАНОВА ИВАНОВА","type":"person","label":"Християна Цветанова Иванова"},{"id":"person:НАТАША КОЛЕВА ИВАНОВА","type":"person","label":"Наташа Колева Иванова"},{"id":"person:АНЮТА АНГЕЛОВА КОЛЕВА","type":"person","label":"Анюта Ангелова Колева"},{"id":"person:КАЛИНА РАЙКОВА ИВАНОВА","type":"person","label":"Калина Райкова Иванова"},{"id":"person:АЛЕКСАНДРА АНДРЕЕВА ДАНАИЛОВА","type":"person","label":"Александра Андреева Данаилова"},{"id":"person:КАТЯ ЛАРИОНОВА РАДЕВА","type":"person","label":"Катя Ларионова Радева"},{"id":"person:КАЛИНА ПЕТРОВА ЛИПОЛИТОВА","type":"person","label":"Калина Петрова Липолитова"}],"edges":[{"source":"mp:5206","target":"company:tr:000084258","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"medium"},{"source":"person:АНЕТА ЙОРДАНОВА КРИТСКА","target":"company:tr:000084258","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТИЯНА ЦВЕТАНОВА ИВАНОВА","target":"company:tr:000084258","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НАТАША КОЛЕВА ИВАНОВА","target":"company:tr:000084258","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЮТА АНГЕЛОВА КОЛЕВА","target":"company:tr:000084258","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:АНЕТА ЙОРДАНОВА КРИТСКА","target":"company:tr:000084258","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА РАЙКОВА ИВАНОВА","target":"company:tr:000084258","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДРА АНДРЕЕВА ДАНАИЛОВА","target":"company:tr:000084258","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"},{"source":"person:КАТЯ ЛАРИОНОВА РАДЕВА","target":"company:tr:000084258","kind":"tr_role","role":"trustee","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ПЕТРОВА ЛИПОЛИТОВА","target":"company:tr:000084258","kind":"tr_role","role":"verifier","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5206",
+  "nodes": [
+    {
+      "id": "mp:5206",
+      "type": "mp",
+      "mpId": 5206,
+      "label": "Надежда Георгиева Йорданова",
+      "partyGroupShort": "ПГ на Демократична България",
+      "isCurrent": true,
+      "nsFolders": [
+        "45",
+        "46",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:000084258",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;МИХАИЛ ШОЛОХОВ &quot;-1958",
+      "slug": null,
+      "uic": "000084258",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Казашко, 9140"
+    },
+    {
+      "id": "person:АНЕТА ЙОРДАНОВА КРИТСКА",
+      "type": "person",
+      "label": "Анета Йорданова Критска"
+    },
+    {
+      "id": "person:ХРИСТИЯНА ЦВЕТАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Християна Цветанова Иванова"
+    },
+    {
+      "id": "person:НАТАША КОЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Наташа Колева Иванова"
+    },
+    {
+      "id": "person:АНЮТА АНГЕЛОВА КОЛЕВА",
+      "type": "person",
+      "label": "Анюта Ангелова Колева"
+    },
+    {
+      "id": "person:КАЛИНА РАЙКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Калина Райкова Иванова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА АНДРЕЕВА ДАНАИЛОВА",
+      "type": "person",
+      "label": "Александра Андреева Данаилова"
+    },
+    {
+      "id": "person:КАТЯ ЛАРИОНОВА РАДЕВА",
+      "type": "person",
+      "label": "Катя Ларионова Радева"
+    },
+    {
+      "id": "person:КАЛИНА ПЕТРОВА ЛИПОЛИТОВА",
+      "type": "person",
+      "label": "Калина Петрова Липолитова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5206",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНЕТА ЙОРДАНОВА КРИТСКА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯНА ЦВЕТАНОВА ИВАНОВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША КОЛЕВА ИВАНОВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЮТА АНГЕЛОВА КОЛЕВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ЙОРДАНОВА КРИТСКА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА РАЙКОВА ИВАНОВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА АНДРЕЕВА ДАНАИЛОВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЛАРИОНОВА РАДЕВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ПЕТРОВА ЛИПОЛИТОВА",
+      "target": "company:tr:000084258",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

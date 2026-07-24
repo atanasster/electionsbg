@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yani-anastasov-yanulov-9d37d8",
+  "nodes": [
+    {
+      "id": "official:yani-anastasov-yanulov-9d37d8",
+      "type": "official",
+      "slug": "yani-anastasov-yanulov-9d37d8",
+      "label": "Яни Анастасов Янулов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207624470",
+      "type": "company",
+      "label": "ТРЕЗИНА ООД",
+      "slug": null,
+      "uic": "207624470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР СПАСОВ ИВАНЧЕВ",
+      "type": "person",
+      "label": "Димитър Спасов Иванчев"
+    },
+    {
+      "id": "company:name:ЕНИКОРП",
+      "type": "company",
+      "label": "ЕНИКОРП АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ТРАНС-2025",
+      "type": "company",
+      "label": "ТРАНС-2025 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ЗА ЧИСТ ГРАД",
+      "type": "company",
+      "label": "ЗА ЧИСТ ГРАД ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yani-anastasov-yanulov-9d37d8",
+      "target": "company:tr:207624470",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yani-anastasov-yanulov-9d37d8",
+      "target": "company:tr:207624470",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СПАСОВ ИВАНЧЕВ",
+      "target": "company:tr:207624470",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕНИКОРП",
+      "target": "company:tr:207624470",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТРАНС-2025",
+      "target": "company:tr:207624470",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЗА ЧИСТ ГРАД",
+      "target": "company:tr:207624470",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

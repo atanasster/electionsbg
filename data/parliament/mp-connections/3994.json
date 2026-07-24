@@ -1,1 +1,55 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3994","nodes":[{"id":"mp:3994","type":"mp","mpId":3994,"label":"Стефан Динчев Янев","partyGroupShort":"БВ","isCurrent":false,"nsFolders":["48"]},{"id":"company:ПК-Пропърти","type":"company","label":"ПК Пропърти","slug":"ПК-Пропърти","uic":"200276666","legalForm":"EOOD","status":"active","seat":"София"}],"edges":[{"source":"mp:3994","target":"company:ПК-Пропърти","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3994",
+  "nodes": [
+    {
+      "id": "mp:3994",
+      "type": "mp",
+      "mpId": 3994,
+      "label": "Стефан Динчев Янев",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48"
+      ]
+    },
+    {
+      "id": "company:ПК-Пропърти",
+      "type": "company",
+      "label": "ПК Пропърти",
+      "slug": "ПК-Пропърти",
+      "uic": "200276666",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "official:stefan-dinchev-yanev-8326bc",
+      "type": "official",
+      "slug": "stefan-dinchev-yanev-8326bc",
+      "label": "Стефан Динчев Янев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3994",
+      "target": "company:ПК-Пропърти",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-dinchev-yanev-8326bc",
+      "target": "company:ПК-Пропърти",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

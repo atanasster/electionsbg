@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:plamen-zdravkov-georgiev-618c18",
+  "nodes": [
+    {
+      "id": "official:plamen-zdravkov-georgiev-618c18",
+      "type": "official",
+      "slug": "plamen-zdravkov-georgiev-618c18",
+      "label": "Пламен Здравков Георгиев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176419589",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ТЕНИС НА МАСА ЯНТРА - 2012",
+      "slug": null,
+      "uic": "176419589",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ИВАНОВ МАРИНЧЕВ",
+      "type": "person",
+      "label": "Тодор Иванов Маринчев"
+    },
+    {
+      "id": "person:ЕЛИЗ ДИНДАРОВА КАРАМАНЛИЕВА",
+      "type": "person",
+      "label": "Елиз Диндарова Караманлиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-zdravkov-georgiev-618c18",
+      "target": "company:tr:176419589",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ МАРИНЧЕВ",
+      "target": "company:tr:176419589",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ МАРИНЧЕВ",
+      "target": "company:tr:176419589",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗ ДИНДАРОВА КАРАМАНЛИЕВА",
+      "target": "company:tr:176419589",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,78 @@
-{"mpId":4038,"mpName":"Иван Валентинов Ганчев","generatedAt":"2026-07-03T11:12:51.832Z","total":5,"roles":[{"uic":"208413857","companyName":"ВАН БИЛДИНГ СТРОЙ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Петрич, 2850","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2025-07-24T16:47:03","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"208413857","companyName":"ВАН БИЛДИНГ СТРОЙ","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Петрич, 2850","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2025-07-24T16:47:03","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175936847","companyName":"Сдружение &quot;Местна инициативна група Нови пазар-Каспичан&quot;","legalForm":"ASSOC","seat":"БЪЛГАРИЯ, гр. Нови пазар, 9900","status":"active","role":"ngo_representative","positionLabel":"Председател  на УС","sharePercent":null,"addedAt":"2024-06-25T14:02:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206822620","companyName":"ВЕНЕРА ИНВЕСТМЪНТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-02-10T15:56:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206822620","companyName":"ВЕНЕРА ИНВЕСТМЪНТ","legalForm":"EOOD","seat":"БЪЛГАРИЯ, гр. София, 1000","status":"active","role":"sole_owner","positionLabel":null,"sharePercent":100,"addedAt":"2022-02-10T15:56:07","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 4038,
+  "mpName": "Иван Валентинов Ганчев",
+  "generatedAt": "2026-07-24T03:35:58.624Z",
+  "total": 5,
+  "roles": [
+    {
+      "uic": "208413857",
+      "companyName": "ВАН БИЛДИНГ СТРОЙ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2025-07-24T16:47:03",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "208413857",
+      "companyName": "ВАН БИЛДИНГ СТРОЙ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2025-07-24T16:47:03",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175936847",
+      "companyName": "Сдружение &quot;Местна инициативна група Нови пазар-Каспичан&quot;",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. Нови пазар, 9900",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "Председател  на УС",
+      "sharePercent": null,
+      "addedAt": "2024-06-25T14:02:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206822620",
+      "companyName": "ВЕНЕРА ИНВЕСТМЪНТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-02-10T15:56:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206822620",
+      "companyName": "ВЕНЕРА ИНВЕСТМЪНТ",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000",
+      "status": "active",
+      "role": "sole_owner",
+      "positionLabel": null,
+      "sharePercent": 100,
+      "addedAt": "2022-02-10T15:56:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:silviya-ivanova-marinova-8eb197",
+  "nodes": [
+    {
+      "id": "official:silviya-ivanova-marinova-8eb197",
+      "type": "official",
+      "slug": "silviya-ivanova-marinova-8eb197",
+      "label": "Силвия Иванова Маринова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000924004",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ - 1892",
+      "slug": null,
+      "uic": "000924004",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВЪЛЧЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Валентин Вълчев Георгиев"
+    },
+    {
+      "id": "person:МАРИЯ ПЕНЧЕВА НИКОЛАЕВА",
+      "type": "person",
+      "label": "Мария Пенчева Николаева"
+    },
+    {
+      "id": "person:ХРИСТОМИРА ХРИСТОВА ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Христомира Христова Панайотова"
+    },
+    {
+      "id": "person:ЮЛИЯНА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Юлияна Георгиева Иванова"
+    },
+    {
+      "id": "person:АТАНАСКА ТОДОРОВА ЛЕМАНН",
+      "type": "person",
+      "label": "Атанаска Тодорова Леманн"
+    },
+    {
+      "id": "person:ПАВЛИНА ДОБРИНОВА МИТЕВА",
+      "type": "person",
+      "label": "Павлина Добринова Митева"
+    },
+    {
+      "id": "person:МАРИНА МИРЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Марина Мирчева Иванова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА МИТЕВА МИРЧЕВА",
+      "type": "person",
+      "label": "Величка Митева Мирчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-ivanova-marinova-8eb197",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВЪЛЧЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕНЧЕВА НИКОЛАЕВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТОМИРА ХРИСТОВА ПАНАЙОТОВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯНА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ТОДОРОВА ЛЕМАНН",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ДОБРИНОВА МИТЕВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА МИРЧЕВА ИВАНОВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА МИТЕВА МИРЧЕВА",
+      "target": "company:tr:000924004",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

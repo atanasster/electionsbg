@@ -1,1 +1,46 @@
-{"obshtina":"DOB27","page":1,"totalPages":1,"count":2,"companies":[{"slug":"ПЛУТОН-АГРО","displayName":"ПЛУТОН АГРО","registeredOffice":"БЪЛГАРИЯ, с. Кочмар, 9477","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]},{"slug":"РАМПЕЙЧ","displayName":"РАМПЕЙЧ","registeredOffice":"БЪЛГАРИЯ, с. Нова Камена, 9493","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]}]}
+{
+  "obshtina": "DOB27",
+  "page": 1,
+  "totalPages": 1,
+  "count": 2,
+  "companies": [
+    {
+      "slug": "ПЛУТОН-АГРО",
+      "displayName": "ПЛУТОН АГРО",
+      "registeredOffice": "БЪЛГАРИЯ, с. Кочмар, 9477",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "РАМПЕЙЧ",
+      "displayName": "РАМПЕЙЧ",
+      "registeredOffice": "БЪЛГАРИЯ, с. Нова Камена, 9493",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

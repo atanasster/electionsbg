@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:konstantin-ivanov-malenov-2aded6",
+  "nodes": [
+    {
+      "id": "official:konstantin-ivanov-malenov-2aded6",
+      "type": "official",
+      "slug": "konstantin-ivanov-malenov-2aded6",
+      "label": "Константин Иванов Маленов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000689182",
+      "type": "company",
+      "label": "ПЪРВА СПЕЦИАЛИЗИРАНА АКУШЕРО-ГИНЕКОЛОГИЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВЕТА СОФИЯ",
+      "slug": null,
+      "uic": "000689182",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРЖЕНА ЛУЦИЯ РИШ-ПАНОВА",
+      "type": "person",
+      "label": "Маржена Луция Риш-Панова"
+    },
+    {
+      "id": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ралица Вилсон Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-ivanov-malenov-2aded6",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:konstantin-ivanov-malenov-2aded6",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРЖЕНА ЛУЦИЯ РИШ-ПАНОВА",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

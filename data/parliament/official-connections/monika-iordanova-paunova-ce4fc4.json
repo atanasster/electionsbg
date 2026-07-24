@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:monika-iordanova-paunova-ce4fc4",
+  "nodes": [
+    {
+      "id": "official:monika-iordanova-paunova-ce4fc4",
+      "type": "official",
+      "slug": "monika-iordanova-paunova-ce4fc4",
+      "label": "Моника Йорданова Паунова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121849591",
+      "type": "company",
+      "label": "ИНТЕР ЕКСПО И КОНГРЕСЕН ЦЕНТЪР",
+      "slug": null,
+      "uic": "121849591",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Иванов Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ТОДОРОВ ДЕНЕВ",
+      "type": "person",
+      "label": "Петър Тодоров Денев"
+    },
+    {
+      "id": "person:ГАБРИЕЛЕ ЙОХАНЕС",
+      "type": "person",
+      "label": "Габриеле Йоханес"
+    },
+    {
+      "id": "person:ПЛАМЕН СПАСОВ МЕТОДИЕВ",
+      "type": "person",
+      "label": "Пламен Спасов Методиев"
+    },
+    {
+      "id": "person:ХАЙКЕ ЩРАТМАН",
+      "type": "person",
+      "label": "Хайке Щратман"
+    },
+    {
+      "id": "person:ИВАН АСЕНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Асенов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:monika-iordanova-paunova-ce4fc4",
+      "target": "company:tr:121849591",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:121849591",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ТОДОРОВ ДЕНЕВ",
+      "target": "company:tr:121849591",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛЕ ЙОХАНЕС",
+      "target": "company:tr:121849591",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СПАСОВ МЕТОДИЕВ",
+      "target": "company:tr:121849591",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛЕ ЙОХАНЕС",
+      "target": "company:tr:121849591",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙКЕ ЩРАТМАН",
+      "target": "company:tr:121849591",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АСЕНОВ ИВАНОВ",
+      "target": "company:tr:121849591",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

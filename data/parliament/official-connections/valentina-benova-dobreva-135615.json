@@ -1,1 +1,64 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:valentina-benova-dobreva-135615","nodes":[{"id":"official:valentina-benova-dobreva-135615","type":"official","slug":"valentina-benova-dobreva-135615","label":"Валентина Бенова Добрева","tier":"municipal","role":"councillor","municipality":"Харманли"},{"id":"company:tr:207021134","type":"company","label":"Интер Спед 2018","slug":null,"uic":"207021134","legalForm":null,"status":null,"seat":null},{"id":"person:ДОБРИ ЖЕКОВ ДОБРЕВ","type":"person","label":"Добри Жеков Добрев"}],"edges":[{"source":"official:valentina-benova-dobreva-135615","target":"company:tr:207021134","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:valentina-benova-dobreva-135615","target":"company:tr:207021134","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"official:valentina-benova-dobreva-135615","target":"company:tr:207021134","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДОБРИ ЖЕКОВ ДОБРЕВ","target":"company:tr:207021134","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДОБРИ ЖЕКОВ ДОБРЕВ","target":"company:tr:207021134","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentina-benova-dobreva-135615",
+  "nodes": [
+    {
+      "id": "official:valentina-benova-dobreva-135615",
+      "type": "official",
+      "slug": "valentina-benova-dobreva-135615",
+      "label": "Валентина Бенова Добрева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:207021134",
+      "type": "company",
+      "label": "Интер Спед 2018",
+      "slug": null,
+      "uic": "207021134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИ ЖЕКОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Добри Жеков Добрев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-benova-dobreva-135615",
+      "target": "company:tr:207021134",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentina-benova-dobreva-135615",
+      "target": "company:tr:207021134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИ ЖЕКОВ ДОБРЕВ",
+      "target": "company:tr:207021134",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ЖЕКОВ ДОБРЕВ",
+      "target": "company:tr:207021134",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

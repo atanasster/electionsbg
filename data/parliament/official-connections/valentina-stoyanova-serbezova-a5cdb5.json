@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentina-stoyanova-serbezova-a5cdb5",
+  "nodes": [
+    {
+      "id": "official:valentina-stoyanova-serbezova-a5cdb5",
+      "type": "official",
+      "slug": "valentina-stoyanova-serbezova-a5cdb5",
+      "label": "Валентина Стоянова Сербезова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127577276",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ \"КИРИЛ И МЕТОДИЙ\" с. САЛМАНОВО",
+      "slug": null,
+      "uic": "127577276",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЯ ЙОРДАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Валя Йорданова Маринова"
+    },
+    {
+      "id": "person:ДИМИТРА КОСТАДИНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Димитра Костадинова Илиева"
+    },
+    {
+      "id": "person:ИВАНКА ГЕНЧЕВА МИЛЕНОВА-РАДЕВА",
+      "type": "person",
+      "label": "Иванка Генчева Миленова-Радева"
+    },
+    {
+      "id": "person:МАРГАРИТА ТОДОРОВА СТОЕВА",
+      "type": "person",
+      "label": "Маргарита Тодорова Стоева"
+    },
+    {
+      "id": "person:ИВО ГАНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иво Ганчев Иванов"
+    },
+    {
+      "id": "person:ТЕОДОРА ЖЕЧКОВА ГЮРОВА",
+      "type": "person",
+      "label": "Теодора Жечкова Гюрова"
+    },
+    {
+      "id": "person:РУМЕН ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Румен Димитров Митев"
+    },
+    {
+      "id": "person:СВЕТЛАНА НЕДЯЛКОВА СЕВЕВА",
+      "type": "person",
+      "label": "Светлана Недялкова Севева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-stoyanova-serbezova-a5cdb5",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentina-stoyanova-serbezova-a5cdb5",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЯ ЙОРДАНОВА МАРИНОВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРА КОСТАДИНОВА ИЛИЕВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕНЧЕВА МИЛЕНОВА-РАДЕВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ТОДОРОВА СТОЕВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ГАНЧЕВ ИВАНОВ",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЖЕЧКОВА ГЮРОВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА НЕДЯЛКОВА СЕВЕВА",
+      "target": "company:tr:127577276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

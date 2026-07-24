@@ -1,1 +1,34 @@
-{"ekatte":"10625","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"ИЛ-БЕ-СА-ЕООД","displayName":"ИЛ БЕ СА ЕООД","registeredOffice":"С.ВЕНЕЦ","mps":[{"mpId":4116,"mpName":"ИЛТЕР БЕЙЗАТОВ САДЪКОВ","role":"declared_stake","isCurrent":true}]}]}
+{
+  "ekatte": "10625",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Сибер-82-ЕООД",
+      "displayName": "\"Сибер-82\" ЕООД",
+      "registeredOffice": "с.Венец",
+      "mps": [
+        {
+          "mpId": 4116,
+          "mpName": "ИЛТЕР БЕЙЗАТОВ САДЪКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИЛ-БЕ-СА-ЕООД",
+      "displayName": "ИЛ БЕ СА ЕООД",
+      "registeredOffice": "С.ВЕНЕЦ",
+      "mps": [
+        {
+          "mpId": 4116,
+          "mpName": "ИЛТЕР БЕЙЗАТОВ САДЪКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

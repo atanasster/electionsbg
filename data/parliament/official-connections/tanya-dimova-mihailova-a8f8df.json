@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:tanya-dimova-mihailova-a8f8df",
+  "nodes": [
+    {
+      "id": "official:tanya-dimova-mihailova-a8f8df",
+      "type": "official",
+      "slug": "tanya-dimova-mihailova-a8f8df",
+      "label": "Таня Димова Михайлова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121633907",
+      "type": "company",
+      "label": "ДРУЖЕСТВО  ЗА  ОБЕДИНЕНИТЕ  НАЦИИ  В  БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121633907",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-gancheva-spasova-52a6b2",
+      "type": "official",
+      "slug": "mariya-gancheva-spasova-52a6b2",
+      "label": "Мария Ганчева Спасова",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "official:petr-veselinov-buchkov-88130c",
+      "type": "official",
+      "slug": "petr-veselinov-buchkov-88130c",
+      "label": "Петър Веселинов Бучков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ХРИСТОВ СОТИРОВ",
+      "type": "person",
+      "label": "Владимир  Христов Сотиров"
+    },
+    {
+      "id": "person:ЕМИЛ ГЕОРГИЕВ КОНСТАНТИНОВ",
+      "type": "person",
+      "label": "Емил Георгиев Константинов"
+    },
+    {
+      "id": "person:ИВА ИВАНОВА ГАРВАЛОВА-ДОСЕВА",
+      "type": "person",
+      "label": "Ива Иванова Гарвалова-Досева"
+    },
+    {
+      "id": "person:РОЗАЛИНА ДИЯНОВА НЕДКОВА",
+      "type": "person",
+      "label": "Розалина Диянова Недкова"
+    },
+    {
+      "id": "person:ПЕТРАНКА ДИМИТРОВА ФИЛЕВА",
+      "type": "person",
+      "label": "Петранка Димитрова Филева"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА НИКОЛАЕВА ГАРЕЛОВА",
+      "type": "person",
+      "label": "Цветелина Николаева Гарелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-dimova-mihailova-a8f8df",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-gancheva-spasova-52a6b2",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-veselinov-buchkov-88130c",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ХРИСТОВ СОТИРОВ",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕОРГИЕВ КОНСТАНТИНОВ",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ХРИСТОВ СОТИРОВ",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ИВАНОВА ГАРВАЛОВА-ДОСЕВА",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗАЛИНА ДИЯНОВА НЕДКОВА",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТРАНКА ДИМИТРОВА ФИЛЕВА",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА НИКОЛАЕВА ГАРЕЛОВА",
+      "target": "company:tr:121633907",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

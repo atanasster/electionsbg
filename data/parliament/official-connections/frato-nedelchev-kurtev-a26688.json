@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:frato-nedelchev-kurtev-a26688",
+  "nodes": [
+    {
+      "id": "official:frato-nedelchev-kurtev-a26688",
+      "type": "official",
+      "slug": "frato-nedelchev-kurtev-a26688",
+      "label": "Фратьо Неделчев Куртев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сопот"
+    },
+    {
+      "id": "company:tr:204699336",
+      "type": "company",
+      "label": "ГОЛД - 90",
+      "slug": null,
+      "uic": "204699336",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИ ГЕОРГИЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Ани Георгиева Стефанова"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ МАДЖАРОВ",
+      "type": "person",
+      "label": "Пламен Иванов Маджаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:frato-nedelchev-kurtev-a26688",
+      "target": "company:tr:204699336",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:frato-nedelchev-kurtev-a26688",
+      "target": "company:tr:204699336",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИ ГЕОРГИЕВА СТЕФАНОВА",
+      "target": "company:tr:204699336",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ МАДЖАРОВ",
+      "target": "company:tr:204699336",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

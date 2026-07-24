@@ -1,0 +1,282 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:stefan-panaiotov-dondev-1efe04",
+  "nodes": [
+    {
+      "id": "official:stefan-panaiotov-dondev-1efe04",
+      "type": "official",
+      "slug": "stefan-panaiotov-dondev-1efe04",
+      "label": "Стефан Панайотов Дондев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831513442",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ОБЩОБЪЛГАРСКИ КОМИТЕТ ВАСИЛ ЛЕВСКИ",
+      "slug": null,
+      "uic": "831513442",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2460",
+      "type": "mp",
+      "mpId": 2460,
+      "label": "Корнелия Добрева Маринова",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42"
+      ]
+    },
+    {
+      "id": "official:kristiana-dobromirova-dobreva-stankova-b88317",
+      "type": "official",
+      "slug": "kristiana-dobromirova-dobreva-stankova-b88317",
+      "label": "Кристиана Добромирова Добрева-Станкова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Панайотов Василев"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Пламен Димитров Митев"
+    },
+    {
+      "id": "person:СТАНКА КОСТОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Станка Костова Димитрова"
+    },
+    {
+      "id": "person:КИРИЛ СТЕФАНОВ КУНЧЕВ",
+      "type": "person",
+      "label": "Кирил Стефанов Кунчев"
+    },
+    {
+      "id": "person:ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Ивайло Милушев Милушев"
+    },
+    {
+      "id": "person:ЕЛИСАВЕТА ИВАНОВА ПЪРВАНОВА-ЦВЕТКОВА",
+      "type": "person",
+      "label": "Елисавета Иванова Първанова-Цветкова"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ ШИВИКОВ",
+      "type": "person",
+      "label": "Димитър Атанасов Шивиков"
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЯНОВ ТРЕНЧЕВ",
+      "type": "person",
+      "label": "Георги Стоянов Тренчев"
+    },
+    {
+      "id": "person:КРИСТИАНА ДОБРОМИРОВА ДОБРЕВА - СТАНКОВА",
+      "type": "person",
+      "label": "Кристиана Добромирова Добрева - Станкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДИМИТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Веселин Димитров Николов"
+    },
+    {
+      "id": "person:ГАЛИНА ИВАНОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Галина Иванова Цветкова"
+    },
+    {
+      "id": "person:ЕМИЛ СТАНЕВ КАБАИВАНОВ",
+      "type": "person",
+      "label": "Емил Станев Кабаиванов"
+    },
+    {
+      "id": "person:БОЯН БОЯНОВ БОТЬОВ",
+      "type": "person",
+      "label": "Боян Боянов Ботьов"
+    },
+    {
+      "id": "person:ЛЮБКА ВЕСЕЛИНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Любка Веселинова Александрова"
+    },
+    {
+      "id": "person:СТЕФАН ВАСИЛЕВ КАРАИВАНОВ",
+      "type": "person",
+      "label": "Стефан Василев Караиванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-panaiotov-dondev-1efe04",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2460",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristiana-dobromirova-dobreva-stankova-b88317",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ПАНАЙОТОВ ВАСИЛЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА КОСТОВА ДИМИТРОВА",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ СТЕФАНОВ КУНЧЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО МИЛУШЕВ МИЛУШЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИСАВЕТА ИВАНОВА ПЪРВАНОВА-ЦВЕТКОВА",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ ШИВИКОВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЯНОВ ТРЕНЧЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАНА ДОБРОМИРОВА ДОБРЕВА - СТАНКОВА",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМИТРОВ НИКОЛОВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ИВАНОВА ЦВЕТКОВА",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТАНЕВ КАБАИВАНОВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН БОЯНОВ БОТЬОВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА ВЕСЕЛИНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВАСИЛЕВ КАРАИВАНОВ",
+      "target": "company:tr:831513442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

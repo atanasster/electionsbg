@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vanya-simeonova-krsteva-542fbb",
+  "nodes": [
+    {
+      "id": "official:vanya-simeonova-krsteva-542fbb",
+      "type": "official",
+      "slug": "vanya-simeonova-krsteva-542fbb",
+      "label": "Ваня Симеонова Кръстева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000313162",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЪЗНАНИЕ 1928&quot;",
+      "slug": null,
+      "uic": "000313162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛКА ТОДОРОВА ЛЮБЕНОВА",
+      "type": "person",
+      "label": "Кирилка Тодорова Любенова"
+    },
+    {
+      "id": "person:ЛИЛИЯ ТОДОРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Лилия Тодорова Димитрова"
+    },
+    {
+      "id": "person:АНА РОСЕНОВА ЙОСИФОВА",
+      "type": "person",
+      "label": "Ана Росенова Йосифова"
+    },
+    {
+      "id": "person:МАЙЯ ДРАГОЛЮБОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Майя Драголюбова Лазарова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ВАЛЕНТИНОВА СЕРАФИМОВА",
+      "type": "person",
+      "label": "Емилия Валентинова Серафимова"
+    },
+    {
+      "id": "person:ЙОРДАН АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Йордан Ангелов Иванов"
+    },
+    {
+      "id": "person:МИЛКА ПЕТКОВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Милка Петкова Велкова"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ВАСИЛЕВА ЙОНЧЕВА",
+      "type": "person",
+      "label": "Виктория Василева Йончева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-simeonova-krsteva-542fbb",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛКА ТОДОРОВА ЛЮБЕНОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ТОДОРОВА ДИМИТРОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛКА ТОДОРОВА ЛЮБЕНОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА РОСЕНОВА ЙОСИФОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЙЯ ДРАГОЛЮБОВА ЛАЗАРОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ВАЛЕНТИНОВА СЕРАФИМОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ПЕТКОВА ВЕЛКОВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ВАСИЛЕВА ЙОНЧЕВА",
+      "target": "company:tr:000313162",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

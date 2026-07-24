@@ -1,1 +1,282 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4038","nodes":[{"id":"mp:4038","type":"mp","mpId":4038,"label":"Иван Валентинов Ганчев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["47"]},{"id":"company:tr:208413857","type":"company","label":"ВАН БИЛДИНГ СТРОЙ","slug":null,"uic":"208413857","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Петрич, 2850"},{"id":"company:tr:175936847","type":"company","label":"Сдружение &quot;Местна инициативна група Нови пазар-Каспичан&quot;","slug":null,"uic":"175936847","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Нови пазар, 9900"},{"id":"company:tr:206822620","type":"company","label":"ВЕНЕРА ИНВЕСТМЪНТ","slug":null,"uic":"206822620","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","type":"person","label":"Иван Валентинов Ганчев"},{"id":"person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ","type":"person","label":"Иван Антониев Изгоренков"},{"id":"company:name:СИМЕНТА","type":"company","label":"\"СИМЕНТА\" ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ","type":"person","label":"Александър Николаев Николов"},{"id":"company:name:ТАТАР - ГИНКА ЙОРДАНОВА","type":"company","label":"ЕТ \"ТАТАР - ГИНКА ЙОРДАНОВА\"","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ОБЩИНА НОВИ ПАЗАР","type":"person","label":"Община Нови Пазар"},{"id":"person:ОБЩИНА КАСПИЧАН","type":"person","label":"Община Каспичан"},{"id":"person:ГЕОРГИ САШЕВ ГЕОРГИЕВ","type":"person","label":"Георги Сашев Георгиев"},{"id":"person:ЕМИЛ ХРИСТОВ МИРЧЕВ","type":"person","label":"Емил Христов Мирчев"},{"id":"person:НЧ ПРОБУДА 1928 ГР.КАСПИЧАН","type":"person","label":"Нч Пробуда 1928 Гр.каспичан"},{"id":"company:name:СТАС АУТОМОБИЛЕ","type":"company","label":"СТАС АУТОМОБИЛЕ ЕООД","slug":null,"uic":null,"legalForm":null,"status":null,"seat":null},{"id":"person:ИВАЛИН ВАСИЛЕВ ПАВЛОВ","type":"person","label":"Ивалин Василев Павлов"},{"id":"person:ХРИСТО БОТЕВ -1922","type":"person","label":"Христо Ботев -1922"},{"id":"person:ВАСИЛ ЛЕВСКИ -1924","type":"person","label":"Васил Левски -1924"},{"id":"official:ivan-valentinov-ganchev-027527","type":"official","slug":"ivan-valentinov-ganchev-027527","label":"Иван Валентинов Ганчев","tier":"municipal","role":"council_chair","municipality":"Нови пазар"}],"edges":[{"source":"mp:4038","target":"company:tr:208413857","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4038","target":"company:tr:208413857","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4038","target":"company:tr:175936847","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4038","target":"company:tr:206822620","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4038","target":"company:tr:206822620","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","target":"company:tr:208413857","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ","target":"company:tr:208413857","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","target":"company:tr:208413857","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ","target":"company:tr:208413857","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"company:name:СИМЕНТА","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:ТАТАР - ГИНКА ЙОРДАНОВА","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА НОВИ ПАЗАР","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ОБЩИНА КАСПИЧАН","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ САШЕВ ГЕОРГИЕВ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЕМИЛ ХРИСТОВ МИРЧЕВ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЧ ПРОБУДА 1928 ГР.КАСПИЧАН","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"company:name:СТАС АУТОМОБИЛЕ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЛИН ВАСИЛЕВ ПАВЛОВ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","target":"company:tr:175936847","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО БОТЕВ -1922","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ ЛЕВСКИ -1924","target":"company:tr:175936847","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"official:ivan-valentinov-ganchev-027527","target":"company:tr:206822620","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:ivan-valentinov-ganchev-027527","target":"company:tr:206822620","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","target":"company:tr:206822620","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ВАЛЕНТИНОВ ГАНЧЕВ","target":"company:tr:206822620","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4038",
+  "nodes": [
+    {
+      "id": "mp:4038",
+      "type": "mp",
+      "mpId": 4038,
+      "label": "Иван Валентинов Ганчев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:tr:208413857",
+      "type": "company",
+      "label": "ВАН БИЛДИНГ СТРОЙ",
+      "slug": null,
+      "uic": "208413857",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Петрич, 2850"
+    },
+    {
+      "id": "company:tr:175936847",
+      "type": "company",
+      "label": "Сдружение &quot;Местна инициативна група Нови пазар-Каспичан&quot;",
+      "slug": null,
+      "uic": "175936847",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Нови пазар, 9900"
+    },
+    {
+      "id": "company:tr:206822620",
+      "type": "company",
+      "label": "ВЕНЕРА ИНВЕСТМЪНТ",
+      "slug": null,
+      "uic": "206822620",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ",
+      "type": "person",
+      "label": "Иван Антониев Изгоренков"
+    },
+    {
+      "id": "company:name:СИМЕНТА",
+      "type": "company",
+      "label": "\"СИМЕНТА\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Александър Николаев Николов"
+    },
+    {
+      "id": "company:name:ТАТАР - ГИНКА ЙОРДАНОВА",
+      "type": "company",
+      "label": "ЕТ \"ТАТАР - ГИНКА ЙОРДАНОВА\"",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА НОВИ ПАЗАР",
+      "type": "person",
+      "label": "Община Нови Пазар"
+    },
+    {
+      "id": "person:ОБЩИНА КАСПИЧАН",
+      "type": "person",
+      "label": "Община Каспичан"
+    },
+    {
+      "id": "person:ГЕОРГИ САШЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Сашев Георгиев"
+    },
+    {
+      "id": "person:ЕМИЛ ХРИСТОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Емил Христов Мирчев"
+    },
+    {
+      "id": "person:НЧ ПРОБУДА 1928 ГР.КАСПИЧАН",
+      "type": "person",
+      "label": "Нч Пробуда 1928 Гр.каспичан"
+    },
+    {
+      "id": "company:name:СТАС АУТОМОБИЛЕ",
+      "type": "company",
+      "label": "СТАС АУТОМОБИЛЕ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЛИН ВАСИЛЕВ ПАВЛОВ",
+      "type": "person",
+      "label": "Ивалин Василев Павлов"
+    },
+    {
+      "id": "person:ХРИСТО БОТЕВ -1922",
+      "type": "person",
+      "label": "Христо Ботев -1922"
+    },
+    {
+      "id": "person:ВАСИЛ ЛЕВСКИ -1924",
+      "type": "person",
+      "label": "Васил Левски -1924"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4038",
+      "target": "company:tr:208413857",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4038",
+      "target": "company:tr:208413857",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4038",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4038",
+      "target": "company:tr:206822620",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4038",
+      "target": "company:tr:206822620",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ",
+      "target": "company:tr:208413857",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АНТОНИЕВ ИЗГОРЕНКОВ",
+      "target": "company:tr:208413857",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СИМЕНТА",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТАТАР - ГИНКА ЙОРДАНОВА",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА НОВИ ПАЗАР",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КАСПИЧАН",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ САШЕВ ГЕОРГИЕВ",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ХРИСТОВ МИРЧЕВ",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЧ ПРОБУДА 1928 ГР.КАСПИЧАН",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СТАС АУТОМОБИЛЕ",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛИН ВАСИЛЕВ ПАВЛОВ",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО БОТЕВ -1922",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЛЕВСКИ -1924",
+      "target": "company:tr:175936847",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

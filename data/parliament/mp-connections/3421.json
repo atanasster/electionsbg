@@ -1,1 +1,198 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3421","nodes":[{"id":"mp:3421","type":"mp","mpId":3421,"label":"Радослав Николов Бойчев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":[]},{"id":"company:tr:125583693","type":"company","label":"ВОЛЕЙБОЛЕН КЛУБ „ТЪРГОВИЩЕ&quot;","slug":null,"uic":"125583693","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Търговище, 7700"},{"id":"company:tr:207333276","type":"company","label":"Инициативи за Вас","slug":null,"uic":"207333276","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Търговище, 7700"},{"id":"person:ПЛАМЕН ТОДОРОВ ТОДОРОВ","type":"person","label":"Пламен Тодоров Тодоров"},{"id":"person:РУСЛАН СТАНЧЕВ РУСЕВ","type":"person","label":"Руслан Станчев Русев"},{"id":"person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ","type":"person","label":"Николай Господинов Бойчев"},{"id":"person:РАДОСЛАВ НИКОЛОВ БОЙЧЕВ, ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Радослав Николов Бойчев, Председател На Управителния Съвет"},{"id":"person:РАДОСТИНА ДИМИТРОВА НИКОЛОВА, ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Радостина Димитрова Николова, Заместник-Председател На Управителния Съвет"},{"id":"person:СТАНИСЛАВ ПЕТКОВ ПЕТРОВ, СЕКРЕТАР НА УПРАВИТЕЛНИЯ СЪВЕТ","type":"person","label":"Станислав Петков Петров, Секретар На Управителния Съвет"},{"id":"person:ПЕТКО ПЕТРОВ ТОДОРОВ","type":"person","label":"Петко Петров Тодоров"},{"id":"person:ТАЧКО СТОЙНОВ ИВАНОВ","type":"person","label":"Тачко Стойнов Иванов"}],"edges":[{"source":"mp:3421","target":"company:tr:125583693","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:3421","target":"company:tr:125583693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3421","target":"company:tr:207333276","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ПЛАМЕН ТОДОРОВ ТОДОРОВ","target":"company:tr:125583693","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ТОДОРОВ ТОДОРОВ","target":"company:tr:125583693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РУСЛАН СТАНЧЕВ РУСЕВ","target":"company:tr:125583693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ","target":"company:tr:125583693","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ","target":"company:tr:125583693","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСЛАВ НИКОЛОВ БОЙЧЕВ, ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РАДОСТИНА ДИМИТРОВА НИКОЛОВА, ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТАНИСЛАВ ПЕТКОВ ПЕТРОВ, СЕКРЕТАР НА УПРАВИТЕЛНИЯ СЪВЕТ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТКО ПЕТРОВ ТОДОРОВ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТАЧКО СТОЙНОВ ИВАНОВ","target":"company:tr:207333276","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3421",
+  "nodes": [
+    {
+      "id": "mp:3421",
+      "type": "mp",
+      "mpId": 3421,
+      "label": "Радослав Николов Бойчев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:125583693",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ „ТЪРГОВИЩЕ&quot;",
+      "slug": null,
+      "uic": "125583693",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Търговище, 7700"
+    },
+    {
+      "id": "company:tr:207333276",
+      "type": "company",
+      "label": "Инициативи за Вас",
+      "slug": null,
+      "uic": "207333276",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Търговище, 7700"
+    },
+    {
+      "id": "person:ПЛАМЕН ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Пламен Тодоров Тодоров"
+    },
+    {
+      "id": "person:РУСЛАН СТАНЧЕВ РУСЕВ",
+      "type": "person",
+      "label": "Руслан Станчев Русев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ",
+      "type": "person",
+      "label": "Николай Господинов Бойчев"
+    },
+    {
+      "id": "person:РАДОСЛАВ НИКОЛОВ БОЙЧЕВ, ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Радослав Николов Бойчев, Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:РАДОСТИНА ДИМИТРОВА НИКОЛОВА, ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Радостина Димитрова Николова, Заместник-Председател На Управителния Съвет"
+    },
+    {
+      "id": "person:СТАНИСЛАВ ПЕТКОВ ПЕТРОВ, СЕКРЕТАР НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Станислав Петков Петров, Секретар На Управителния Съвет"
+    },
+    {
+      "id": "person:ПЕТКО ПЕТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Петко Петров Тодоров"
+    },
+    {
+      "id": "person:ТАЧКО СТОЙНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Тачко Стойнов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3421",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3421",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3421",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН СТАНЧЕВ РУСЕВ",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ",
+      "target": "company:tr:125583693",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ НИКОЛОВ БОЙЧЕВ, ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ДИМИТРОВА НИКОЛОВА, ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ПЕТКОВ ПЕТРОВ, СЕКРЕТАР НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ПЕТРОВ ТОДОРОВ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГОСПОДИНОВ БОЙЧЕВ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАЧКО СТОЙНОВ ИВАНОВ",
+      "target": "company:tr:207333276",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

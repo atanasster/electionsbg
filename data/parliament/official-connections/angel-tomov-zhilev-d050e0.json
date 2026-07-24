@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:angel-tomov-zhilev-d050e0",
+  "nodes": [
+    {
+      "id": "official:angel-tomov-zhilev-d050e0",
+      "type": "official",
+      "slug": "angel-tomov-zhilev-d050e0",
+      "label": "Ангел Томов Жилев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:207708096",
+      "type": "company",
+      "label": "АГ СОЛАРИНВЕСТ ООД",
+      "slug": null,
+      "uic": "207708096",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ ПИЩРОНОВ",
+      "type": "person",
+      "label": "Георги Петров Пищронов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-tomov-zhilev-d050e0",
+      "target": "company:tr:207708096",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-tomov-zhilev-d050e0",
+      "target": "company:tr:207708096",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-tomov-zhilev-d050e0",
+      "target": "company:tr:207708096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ПИЩРОНОВ",
+      "target": "company:tr:207708096",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ ПИЩРОНОВ",
+      "target": "company:tr:207708096",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

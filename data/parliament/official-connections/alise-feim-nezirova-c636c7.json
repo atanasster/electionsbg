@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:alise-feim-nezirova-c636c7",
+  "nodes": [
+    {
+      "id": "official:alise-feim-nezirova-c636c7",
+      "type": "official",
+      "slug": "alise-feim-nezirova-c636c7",
+      "label": "Алисе Феим Незирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кубрат"
+    },
+    {
+      "id": "company:tr:116510358",
+      "type": "company",
+      "label": "ХАНДБАЛЕН КЛУБ - КУБРАТ",
+      "slug": null,
+      "uic": "116510358",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stefan-kalinov-kalinov-8bc1ed",
+      "type": "official",
+      "slug": "stefan-kalinov-kalinov-8bc1ed",
+      "label": "Стефан Калинов Калинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОРДАН ДИМИТРОВ ДЖИПОВ",
+      "type": "person",
+      "label": "Йордан Димитров Джипов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЦВЕТКОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Мирослав Цветков Тодоров"
+    },
+    {
+      "id": "person:БОЯН ИЛИЕВ РЯХОВЛИЕВ",
+      "type": "person",
+      "label": "Боян Илиев Ряховлиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:alise-feim-nezirova-c636c7",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-kalinov-kalinov-8bc1ed",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-kalinov-kalinov-8bc1ed",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМИТРОВ ДЖИПОВ",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМИТРОВ ДЖИПОВ",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЦВЕТКОВ ТОДОРОВ",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН ИЛИЕВ РЯХОВЛИЕВ",
+      "target": "company:tr:116510358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

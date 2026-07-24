@@ -1,1 +1,169 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4311","nodes":[{"id":"mp:4311","type":"mp","mpId":4311,"label":"Нели Стойчева Димитрова","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:127638245","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО „НАДЕЖДА&quot; ПРИ III ОУ „ДИМИТЪР БЛАГОЕВ&quot; ГР. ШУМЕН","slug":null,"uic":"127638245","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Шумен, 9709"},{"id":"person:МАГДАЛЕНА ТРИФОНОВА ЧЕШМЕДЖИЕВА","type":"person","label":"Магдалена Трифонова Чешмеджиева"},{"id":"person:НИКОЛАЙ ИВАНОВ АНАСТАСОВ","type":"person","label":"Николай Иванов Анастасов"},{"id":"person:ВИОЛЕТА ПЛАМЕНОВА ПЕТКОВА","type":"person","label":"Виолета Пламенова Петкова"},{"id":"person:ПОЛИНА ГЕОРГИЕВА МАЕВА","type":"person","label":"Полина Георгиева Маева"},{"id":"person:МИЛЕН ДОЧЕВ БЕДЖЕВ","type":"person","label":"Милен Дочев Беджев"},{"id":"person:ДИЯН ИВАНОВ ДОНЕВ","type":"person","label":"Диян Иванов Донев"},{"id":"person:МИРОСЛАВ МАРИЯНОВ ЦВЕТАНОВ","type":"person","label":"Мирослав Мариянов Цветанов"},{"id":"person:ИВЕЛИНА РАДОСЛАВОВА ЩЕРЕВА – ВЕСЕЛИНКОВА","type":"person","label":"Ивелина Радославова Щерева – Веселинкова"},{"id":"person:НИКОЛАЙ КРАСЕНОВ КОЛЕВ","type":"person","label":"Николай Красенов Колев"}],"edges":[{"source":"mp:4311","target":"company:tr:127638245","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4311","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:МАГДАЛЕНА ТРИФОНОВА ЧЕШМЕДЖИЕВА","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ ИВАНОВ АНАСТАСОВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ПЛАМЕНОВА ПЕТКОВА","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПОЛИНА ГЕОРГИЕВА МАЕВА","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ДОЧЕВ БЕДЖЕВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:МИЛЕН ДОЧЕВ БЕДЖЕВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДИЯН ИВАНОВ ДОНЕВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ МАРИЯНОВ ЦВЕТАНОВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВЕЛИНА РАДОСЛАВОВА ЩЕРЕВА – ВЕСЕЛИНКОВА","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛАЙ КРАСЕНОВ КОЛЕВ","target":"company:tr:127638245","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4311",
+  "nodes": [
+    {
+      "id": "mp:4311",
+      "type": "mp",
+      "mpId": 4311,
+      "label": "Нели Стойчева Димитрова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:127638245",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО „НАДЕЖДА&quot; ПРИ III ОУ „ДИМИТЪР БЛАГОЕВ&quot; ГР. ШУМЕН",
+      "slug": null,
+      "uic": "127638245",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Шумен, 9709"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ТРИФОНОВА ЧЕШМЕДЖИЕВА",
+      "type": "person",
+      "label": "Магдалена Трифонова Чешмеджиева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ АНАСТАСОВ",
+      "type": "person",
+      "label": "Николай Иванов Анастасов"
+    },
+    {
+      "id": "person:ВИОЛЕТА ПЛАМЕНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Виолета Пламенова Петкова"
+    },
+    {
+      "id": "person:ПОЛИНА ГЕОРГИЕВА МАЕВА",
+      "type": "person",
+      "label": "Полина Георгиева Маева"
+    },
+    {
+      "id": "person:МИЛЕН ДОЧЕВ БЕДЖЕВ",
+      "type": "person",
+      "label": "Милен Дочев Беджев"
+    },
+    {
+      "id": "person:ДИЯН ИВАНОВ ДОНЕВ",
+      "type": "person",
+      "label": "Диян Иванов Донев"
+    },
+    {
+      "id": "person:МИРОСЛАВ МАРИЯНОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Мирослав Мариянов Цветанов"
+    },
+    {
+      "id": "person:ИВЕЛИНА РАДОСЛАВОВА ЩЕРЕВА – ВЕСЕЛИНКОВА",
+      "type": "person",
+      "label": "Ивелина Радославова Щерева – Веселинкова"
+    },
+    {
+      "id": "person:НИКОЛАЙ КРАСЕНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Красенов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4311",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4311",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ТРИФОНОВА ЧЕШМЕДЖИЕВА",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ АНАСТАСОВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ПЛАМЕНОВА ПЕТКОВА",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ГЕОРГИЕВА МАЕВА",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ДОЧЕВ БЕДЖЕВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ДОЧЕВ БЕДЖЕВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН ИВАНОВ ДОНЕВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ МАРИЯНОВ ЦВЕТАНОВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА РАДОСЛАВОВА ЩЕРЕВА – ВЕСЕЛИНКОВА",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КРАСЕНОВ КОЛЕВ",
+      "target": "company:tr:127638245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,1 +1,57 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5002","nodes":[{"id":"mp:5002","type":"mp","mpId":5002,"label":"Костадин Илиев Хаджийски","partyGroupShort":"Величие","isCurrent":false,"nsFolders":[]},{"id":"company:tr:207497980","type":"company","label":"КОХА-ИНДУСТРИАЛНО ОПАКОВАНЕ","slug":null,"uic":"207497980","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Пловдив, 4023"},{"id":"person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА","type":"person","label":"Гергана Борисова Хаджийска"}],"edges":[{"source":"mp:5002","target":"company:tr:207497980","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА","target":"company:tr:207497980","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА","target":"company:tr:207497980","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5002",
+  "nodes": [
+    {
+      "id": "mp:5002",
+      "type": "mp",
+      "mpId": 5002,
+      "label": "Костадин Илиев Хаджийски",
+      "partyGroupShort": "Величие",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:207497980",
+      "type": "company",
+      "label": "КОХА-ИНДУСТРИАЛНО ОПАКОВАНЕ",
+      "slug": null,
+      "uic": "207497980",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4023"
+    },
+    {
+      "id": "person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА",
+      "type": "person",
+      "label": "Гергана Борисова Хаджийска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5002",
+      "target": "company:tr:207497980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА",
+      "target": "company:tr:207497980",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА БОРИСОВА ХАДЖИЙСКА",
+      "target": "company:tr:207497980",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

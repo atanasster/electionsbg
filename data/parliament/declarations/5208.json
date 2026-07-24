@@ -1,1 +1,160 @@
-[{"mpId":5208,"declarantName":"Атидже Байрямова Алиева-Вели","institution":"51-во Народно събрание","declarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","filedAt":"2024-05-08","entryNumber":"Г6945","controlHash":"3F5DEC0A","sourceUrl":"https://register.cacbg.bg/2025/4CEFC39E-10FC-4745-AE00-FEBE3644ECC6209932.xml","ownershipStakes":[{"table":"10","itemType":"дялове","shareSize":"100","companyName":"М БЕТ СТРОЙ ЕООД","registeredOffice":"София (столица)","valueEur":1.022583762392437,"holderName":"Метин Мехмед Вели","legalBasis":"други","fundsOrigin":"заплата"},{"table":"10","itemType":"дялове","shareSize":"100","companyName":"ВЕЛИ ГРУП ЕООД","registeredOffice":"София (столица)","valueEur":1022.5837623924369,"holderName":"Метин Мехмед Вели","legalBasis":"други","fundsOrigin":"заплата"},{"table":"10","itemType":"дялове","shareSize":"50","companyName":"ЕРМЕТ СОЛАР БГ","registeredOffice":"с. Борино","valueEur":255.64594059810923,"holderName":"Метин Мехмед Вели","legalBasis":"други","fundsOrigin":"заплата"},{"table":"10","itemType":"дялове","shareSize":"50","companyName":"КЕМПЕН БГ","registeredOffice":"София (столица)","valueEur":255.64594059810923,"holderName":"Метин Мехмед Вели","legalBasis":"други","fundsOrigin":"заплата"}],"income":[{"parent":"I. Облагаем доход от","category":"Годишна данъчна основа от трудови доходи","amountEurDeclarant":131054.84628009592,"amountEurSpouse":19687.293885460393},{"parent":null,"category":"Годишна данъчна основа за доходи от друга стопанска дейност","amountEurDeclarant":61.35502574354622,"amountEurSpouse":null}],"assets":[{"category":"real_estate","description":"апартамент и паркомясто","detail":null,"location":"София","municipality":"София-град (Столична)","areaSqm":120,"builtAreaSqm":130,"acquiredYear":2024,"share":"1","currency":"BGN","amount":606307,"valueEur":309999.84661243565,"holderName":"Атидже Байрямова Алиева-Вели","isSpouse":false,"legalBasis":"покупко-продажба","fundsOrigin":"заплата"},{"category":"bank","description":null,"detail":"EUR","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"EUR","amount":422000,"valueEur":421999.8670641109,"holderName":"Атидже Байрямова Алиева-Вели","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"},{"category":"bank","description":null,"detail":"BGN","location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"acquiredYear":null,"share":null,"currency":"BGN","amount":87628,"valueEur":44803.48496546223,"holderName":"Атидже Байрямова Алиева-Вели","isSpouse":false,"legalBasis":null,"fundsOrigin":"заплата"}],"events":[{"kind":"third_party_expense","description":"Дарение Коалиция ДПС-Ново начало","detail":null,"location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"currency":"EUR","valueEur":25565.10535169212,"legalBasis":null},{"kind":"third_party_expense","description":"Дарение Коалиция ДПС-Ново начало","detail":null,"location":null,"municipality":null,"areaSqm":null,"builtAreaSqm":null,"currency":"EUR","valueEur":5112.918811962185,"legalBasis":null}]}]
+[
+  {
+    "mpId": 5208,
+    "declarantName": "Атидже Байрямова Алиева-Вели",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г6945",
+    "controlHash": "3F5DEC0A",
+    "sourceUrl": "https://register.cacbg.bg/2025/4CEFC39E-10FC-4745-AE00-FEBE3644ECC6209932.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "М БЕТ СТРОЙ ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 1.022583762392437,
+        "holderName": "Метин Мехмед Вели",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "М-БЕТ-строй-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "ВЕЛИ ГРУП ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 1022.5837623924369,
+        "holderName": "Метин Мехмед Вели",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Вели-груп-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "ЕРМЕТ СОЛАР БГ",
+        "registeredOffice": "с. Борино",
+        "valueEur": 255.64594059810923,
+        "holderName": "Метин Мехмед Вели",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Ермет-солар-БГ"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "КЕМПЕН БГ",
+        "registeredOffice": "София (столица)",
+        "valueEur": 255.64594059810923,
+        "holderName": "Метин Мехмед Вели",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Кемпен-БГ"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 131054.84628009592,
+        "amountEurSpouse": 19687.293885460393
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 61.35502574354622,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент и паркомясто",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 120,
+        "builtAreaSqm": 130,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 606307,
+        "valueEur": 309999.84661243565,
+        "holderName": "Атидже Байрямова Алиева-Вели",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 422000,
+        "valueEur": 421999.8670641109,
+        "holderName": "Атидже Байрямова Алиева-Вели",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 87628,
+        "valueEur": 44803.48496546223,
+        "holderName": "Атидже Байрямова Алиева-Вели",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение Коалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 25565.10535169212,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Дарение Коалиция ДПС-Ново начало",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 5112.918811962185,
+        "legalBasis": null
+      }
+    ]
+  }
+]

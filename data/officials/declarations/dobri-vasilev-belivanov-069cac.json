@@ -14,26 +14,20 @@
     "sourceUrl": "https://register.cacbg.bg/2015/06EE175D-69E1-42A2-B9A4-432AF1D9F75568387.xml",
     "ownershipStakes": [],
     "income": [],
-    "assets": [
+    "assets": [],
+    "events": [
       {
-        "category": "bank",
-        "description": null,
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
         "detail": "VW VENTO",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "VW VENTO",
-        "amount": null,
+        "currency": "BGN",
         "valueEur": 511.29188119621847,
-        "holderName": "Добри Василев Беливанов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "възмездно"
       }
-    ],
-    "events": []
+    ]
   }
 ]

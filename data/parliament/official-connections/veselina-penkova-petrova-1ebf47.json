@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veselina-penkova-petrova-1ebf47",
+  "nodes": [
+    {
+      "id": "official:veselina-penkova-petrova-1ebf47",
+      "type": "official",
+      "slug": "veselina-penkova-petrova-1ebf47",
+      "label": "Веселина Пенкова Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000844768",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НИКОЛА ЙОНКОВ ВАПЦАРОВ-1954&quot;",
+      "slug": null,
+      "uic": "000844768",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛИНА ЖЕЛЕВА БОНЧЕВА-ЧЕЗАРОВА",
+      "type": "person",
+      "label": "Николина Желева Бончева-Чезарова"
+    },
+    {
+      "id": "person:МАРИАНА МИНЧЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мариана Минчева Илиева"
+    },
+    {
+      "id": "person:ЖИВКА ГАВРАИЛОВА КИРЧЕВА",
+      "type": "person",
+      "label": "Живка Гавраилова Кирчева"
+    },
+    {
+      "id": "person:РОСИЦА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Росица Димитрова Иванова"
+    },
+    {
+      "id": "person:ИРИНА ПЕТРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Ирина Петрова Христова"
+    },
+    {
+      "id": "person:СТОЯНКА ТАШЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Стоянка Ташева Михайлова"
+    },
+    {
+      "id": "person:ЦВЕТАНА ЕРЕМИЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Цветана Еремиева Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-penkova-petrova-1ebf47",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛИНА ЖЕЛЕВА БОНЧЕВА-ЧЕЗАРОВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА МИНЧЕВА ИЛИЕВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ГАВРАИЛОВА КИРЧЕВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ПЕТРОВА ХРИСТОВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ТАШЕВА МИХАЙЛОВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ЕРЕМИЕВА АТАНАСОВА",
+      "target": "company:tr:000844768",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

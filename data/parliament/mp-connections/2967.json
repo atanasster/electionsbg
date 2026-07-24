@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:2967",
+  "nodes": [
+    {
+      "id": "mp:2967",
+      "type": "mp",
+      "mpId": 2967,
+      "label": "Добрин Ненов Данев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:Прециз-Агро-ООД",
+      "type": "company",
+      "label": "Прециз Агро ООД",
+      "slug": "Прециз-Агро-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Русе"
+    },
+    {
+      "id": "company:Прециз-Агро-ФЕР",
+      "type": "company",
+      "label": "Прециз Агро ФЕР",
+      "slug": "Прециз-Агро-ФЕР",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Русе"
+    },
+    {
+      "id": "company:Р-и-д-Партнърс",
+      "type": "company",
+      "label": "Р и д Партнърс",
+      "slug": "Р-и-д-Партнърс",
+      "uic": "201525711",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Иваново"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2967",
+      "target": "company:Прециз-Агро-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2967",
+      "target": "company:Прециз-Агро-ФЕР",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2967",
+      "target": "company:Р-и-д-Партнърс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

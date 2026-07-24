@@ -1,1 +1,61 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:metodeya-metodieva-hristova-dimitrova-15c175","nodes":[{"id":"official:metodeya-metodieva-hristova-dimitrova-15c175","type":"official","slug":"metodeya-metodieva-hristova-dimitrova-15c175","label":"Методея Методиева Христова-Димитрова","tier":"municipal","role":"councillor","municipality":"Радомир"},{"id":"company:tr:206578995","type":"company","label":"М Д А Б О","slug":null,"uic":"206578995","legalForm":null,"status":null,"seat":null},{"id":"person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА - ДИМИТРОВА","type":"person","label":"Методея Методиева Христова - Димитрова"},{"id":"person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА ДИМИТРОВА","type":"person","label":"Методея Методиева Христова Димитрова"}],"edges":[{"source":"official:metodeya-metodieva-hristova-dimitrova-15c175","target":"company:tr:206578995","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА - ДИМИТРОВА","target":"company:tr:206578995","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА ДИМИТРОВА","target":"company:tr:206578995","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:metodeya-metodieva-hristova-dimitrova-15c175",
+  "nodes": [
+    {
+      "id": "official:metodeya-metodieva-hristova-dimitrova-15c175",
+      "type": "official",
+      "slug": "metodeya-metodieva-hristova-dimitrova-15c175",
+      "label": "Методея Методиева Христова-Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Радомир"
+    },
+    {
+      "id": "company:tr:206578995",
+      "type": "company",
+      "label": "М Д А Б О",
+      "slug": null,
+      "uic": "206578995",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА - ДИМИТРОВА",
+      "type": "person",
+      "label": "Методея Методиева Христова - Димитрова"
+    },
+    {
+      "id": "person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Методея Методиева Христова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metodeya-metodieva-hristova-dimitrova-15c175",
+      "target": "company:tr:206578995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА - ДИМИТРОВА",
+      "target": "company:tr:206578995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДЕЯ МЕТОДИЕВА ХРИСТОВА ДИМИТРОВА",
+      "target": "company:tr:206578995",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

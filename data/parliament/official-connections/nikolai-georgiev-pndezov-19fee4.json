@@ -1,1 +1,170 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:nikolai-georgiev-pndezov-19fee4","nodes":[{"id":"official:nikolai-georgiev-pndezov-19fee4","type":"official","slug":"nikolai-georgiev-pndezov-19fee4","label":"Николай Георгиев Пъндезов","tier":"municipal","role":"councillor","municipality":"Пазарджик"},{"id":"company:tr:200094133","type":"company","label":"Сити Стройинвест ООД","slug":null,"uic":"200094133","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:nikolai-georgiev-pndezov-19fee4","target":"company:tr:200094133","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-georgiev-pndezov-19fee4",
+  "nodes": [
+    {
+      "id": "official:nikolai-georgiev-pndezov-19fee4",
+      "type": "official",
+      "slug": "nikolai-georgiev-pndezov-19fee4",
+      "label": "Николай Георгиев Пъндезов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик"
+    },
+    {
+      "id": "company:tr:130794448",
+      "type": "company",
+      "label": "Биогорива ООД",
+      "slug": null,
+      "uic": "130794448",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200094133",
+      "type": "company",
+      "label": "Сити Стройинвест ООД",
+      "slug": null,
+      "uic": "200094133",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207460811",
+      "type": "company",
+      "label": "РАЗВИТИЕ ЗА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "207460811",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ЧАВДАРОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Ангел Чавдаров Василев"
+    },
+    {
+      "id": "person:БОРИС ИЛИЕВ ВЪЛОВ",
+      "type": "person",
+      "label": "Борис Илиев Вълов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Димитров Иванов"
+    },
+    {
+      "id": "person:СОНЯ МАРГАРИТОВА ГАДЖАНОВА",
+      "type": "person",
+      "label": "Соня Маргаритова Гаджанова"
+    },
+    {
+      "id": "person:БОРИСЛАВ ВЕНЦИСЛАВОВ БОГОСЛОВОВ",
+      "type": "person",
+      "label": "Борислав Венциславов Богословов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЕВТИМОВ ЯНЕВ",
+      "type": "person",
+      "label": "Николай Евтимов Янев"
+    },
+    {
+      "id": "person:ВЕНЕРА ГЕОРГИЕВА НЕСТЕРОВА",
+      "type": "person",
+      "label": "Венера Георгиева Нестерова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-georgiev-pndezov-19fee4",
+      "target": "company:tr:130794448",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-georgiev-pndezov-19fee4",
+      "target": "company:tr:200094133",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-georgiev-pndezov-19fee4",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ЧАВДАРОВ ВАСИЛЕВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ИЛИЕВ ВЪЛОВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ МАРГАРИТОВА ГАДЖАНОВА",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ВЕНЦИСЛАВОВ БОГОСЛОВОВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ЧАВДАРОВ ВАСИЛЕВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЕВТИМОВ ЯНЕВ",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕРА ГЕОРГИЕВА НЕСТЕРОВА",
+      "target": "company:tr:207460811",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

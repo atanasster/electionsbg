@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:petya-vasileva-krsteva-d8680f",
+  "nodes": [
+    {
+      "id": "official:petya-vasileva-krsteva-d8680f",
+      "type": "official",
+      "slug": "petya-vasileva-krsteva-d8680f",
+      "label": "Петя Василева Кръстева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923984",
+      "type": "company",
+      "label": "Народно читалище &quot; Каменен стълб - 1888 &quot;",
+      "slug": null,
+      "uic": "000923984",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН СТОЯНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Веселин Стоянов Тодоров"
+    },
+    {
+      "id": "person:ГАЛЯ СТАНОЕВА СТОЙНЕВА",
+      "type": "person",
+      "label": "Галя Станоева Стойнева"
+    },
+    {
+      "id": "person:ЖЕЧКА КОСТАДИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Жечка Костадинова Димитрова"
+    },
+    {
+      "id": "person:МИЛКА ДОБРЕВА ХАРАЛАНОВА",
+      "type": "person",
+      "label": "Милка Добрева Хараланова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА НИКОЛАЕВА ДИМОВА",
+      "type": "person",
+      "label": "Десислава Николаева Димова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА СИМЕОНОВА ДОНЕВА",
+      "type": "person",
+      "label": "Валентина Симеонова Донева"
+    },
+    {
+      "id": "person:БОЖАНКА ДИМИТРОВА ДЕНЕВА",
+      "type": "person",
+      "label": "Божанка Димитрова Денева"
+    },
+    {
+      "id": "person:МАРИН СТОЙНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Марин Стойнев Иванов"
+    },
+    {
+      "id": "person:МАРГАРИТА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Маргарита Димитрова Димитрова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА НИКОЛОВА ВЕЛИКОВА-АТАНАСОВА",
+      "type": "person",
+      "label": "Веселина Николова Великова-Атанасова"
+    },
+    {
+      "id": "person:РОСИЦА МИЛЧЕВА ПАШОВА",
+      "type": "person",
+      "label": "Росица Милчева Пашова"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Василева Иванова"
+    },
+    {
+      "id": "person:РУМЕН ДИМИТРОВ ГИНЧЕВ",
+      "type": "person",
+      "label": "Румен Димитров Гинчев"
+    },
+    {
+      "id": "person:МАРИЙКА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Марийка Георгиева Димитрова"
+    },
+    {
+      "id": "person:ДОЧКА ПЕНЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Дочка Пенева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-vasileva-krsteva-d8680f",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН СТОЯНОВ ТОДОРОВ",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ СТАНОЕВА СТОЙНЕВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЧКА КОСТАДИНОВА ДИМИТРОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ДОБРЕВА ХАРАЛАНОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА НИКОЛАЕВА ДИМОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА СИМЕОНОВА ДОНЕВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖАНКА ДИМИТРОВА ДЕНЕВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН СТОЙНЕВ ИВАНОВ",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА НИКОЛОВА ВЕЛИКОВА-АТАНАСОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА МИЛЧЕВА ПАШОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ ГИНЧЕВ",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ СТАНОЕВА СТОЙНЕВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОЧКА ПЕНЕВА ИВАНОВА",
+      "target": "company:tr:000923984",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

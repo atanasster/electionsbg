@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:dimitr-tsankov-georgiev-f967f5",
+  "nodes": [
+    {
+      "id": "official:dimitr-tsankov-georgiev-f967f5",
+      "type": "official",
+      "slug": "dimitr-tsankov-georgiev-f967f5",
+      "label": "Димитър Цанков Георгиев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Кула"
+    },
+    {
+      "id": "company:tr:177229774",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ ЗА ПРОДУКТИВНИ ЖИВОТНИ",
+      "slug": null,
+      "uic": "177229774",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ АЛИПИЕВ ПЪРВАНОВ",
+      "type": "person",
+      "label": "Мирослав Алипиев Първанов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ДЕЛЧЕВ ЯМАЛИЕВ",
+      "type": "person",
+      "label": "Мирослав Делчев Ямалиев"
+    },
+    {
+      "id": "person:ДИМИТЪР КРАСИМИРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Димитър Красимиров Стоянов"
+    },
+    {
+      "id": "person:СТАНИМИР АНГЕЛОВ ЙОТОВ",
+      "type": "person",
+      "label": "Станимир Ангелов Йотов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-tsankov-georgiev-f967f5",
+      "target": "company:tr:177229774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ АЛИПИЕВ ПЪРВАНОВ",
+      "target": "company:tr:177229774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДЕЛЧЕВ ЯМАЛИЕВ",
+      "target": "company:tr:177229774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КРАСИМИРОВ СТОЯНОВ",
+      "target": "company:tr:177229774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР АНГЕЛОВ ЙОТОВ",
+      "target": "company:tr:177229774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

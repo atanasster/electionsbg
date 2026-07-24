@@ -1,1 +1,223 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:50","nodes":[{"id":"mp:50","type":"mp","mpId":50,"label":"Енчо Вълков Малев","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:124719208","type":"company","label":"МАКС МЕЛ","slug":null,"uic":"124719208","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:124121775","type":"company","label":"ДОБРУДЖАНСКИ ХЛЯБ","slug":null,"uic":"124121775","legalForm":"AD","status":"active","seat":null},{"id":"company:tr:207667824","type":"company","label":"Спортен клуб по бокс Борис Георгиев - Моката","slug":null,"uic":"207667824","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Добрич, 9300"},{"id":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА-2/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА","type":"person","label":"Гергана Енчева Малева-2/3 Идеални Части От 500 Дружествени Дяла"},{"id":"person:ЕНЧО ВЪЛКОВ МАЛЕВ-1/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА","type":"person","label":"Енчо Вълков Малев-1/3 Идеални Части От 500 Дружествени Дяла"},{"id":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА","type":"person","label":"Гергана Енчева Малева"},{"id":"person:ЯНКА МИТЕВА ВАСИЛЕВА","type":"person","label":"Янка Митева Василева"},{"id":"person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ","type":"person","label":"Георги Дианов Гайдаров"},{"id":"person:ВИЛИЯНА ЕНЧЕВА МАЛЕВА","type":"person","label":"Вилияна Енчева Малева"},{"id":"person:РАДКА СТОЯНОВА КОЕВА-КАЛЧЕВА","type":"person","label":"Радка Стоянова Коева-Калчева"},{"id":"person:ПЕТЪР ЙОСИФОВ ЛЕСОВ","type":"person","label":"Петър Йосифов Лесов"},{"id":"person:ВЕСЕЛИН ВЪЛКОВ МАРКОВ","type":"person","label":"Веселин Вълков Марков"}],"edges":[{"source":"mp:50","target":"company:tr:124719208","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:50","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:50","target":"company:tr:124121775","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:50","target":"company:tr:207667824","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА-2/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА","target":"company:tr:124719208","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЕНЧО ВЪЛКОВ МАЛЕВ-1/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА","target":"company:tr:124719208","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА","target":"company:tr:124719208","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКА МИТЕВА ВАСИЛЕВА","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ЕНЧЕВА МАЛЕВА","target":"company:tr:124121775","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВИЛИЯНА ЕНЧЕВА МАЛЕВА","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:РАДКА СТОЯНОВА КОЕВА-КАЛЧЕВА","target":"company:tr:124121775","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЙОСИФОВ ЛЕСОВ","target":"company:tr:207667824","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ЙОСИФОВ ЛЕСОВ","target":"company:tr:207667824","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН ВЪЛКОВ МАРКОВ","target":"company:tr:207667824","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:50",
+  "nodes": [
+    {
+      "id": "mp:50",
+      "type": "mp",
+      "mpId": 50,
+      "label": "Енчо Вълков Малев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:124719208",
+      "type": "company",
+      "label": "МАКС МЕЛ",
+      "slug": null,
+      "uic": "124719208",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:124121775",
+      "type": "company",
+      "label": "ДОБРУДЖАНСКИ ХЛЯБ",
+      "slug": null,
+      "uic": "124121775",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:207667824",
+      "type": "company",
+      "label": "Спортен клуб по бокс Борис Георгиев - Моката",
+      "slug": null,
+      "uic": "207667824",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300"
+    },
+    {
+      "id": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА-2/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА",
+      "type": "person",
+      "label": "Гергана Енчева Малева-2/3 Идеални Части От 500 Дружествени Дяла"
+    },
+    {
+      "id": "person:ЕНЧО ВЪЛКОВ МАЛЕВ-1/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА",
+      "type": "person",
+      "label": "Енчо Вълков Малев-1/3 Идеални Части От 500 Дружествени Дяла"
+    },
+    {
+      "id": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА",
+      "type": "person",
+      "label": "Гергана Енчева Малева"
+    },
+    {
+      "id": "person:ЯНКА МИТЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Янка Митева Василева"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ",
+      "type": "person",
+      "label": "Георги Дианов Гайдаров"
+    },
+    {
+      "id": "person:ВИЛИЯНА ЕНЧЕВА МАЛЕВА",
+      "type": "person",
+      "label": "Вилияна Енчева Малева"
+    },
+    {
+      "id": "person:РАДКА СТОЯНОВА КОЕВА-КАЛЧЕВА",
+      "type": "person",
+      "label": "Радка Стоянова Коева-Калчева"
+    },
+    {
+      "id": "person:ПЕТЪР ЙОСИФОВ ЛЕСОВ",
+      "type": "person",
+      "label": "Петър Йосифов Лесов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ВЪЛКОВ МАРКОВ",
+      "type": "person",
+      "label": "Веселин Вълков Марков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:50",
+      "target": "company:tr:124719208",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:50",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:50",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:50",
+      "target": "company:tr:207667824",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА-2/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА",
+      "target": "company:tr:124719208",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО ВЪЛКОВ МАЛЕВ-1/3 ИДЕАЛНИ ЧАСТИ ОТ 500 ДРУЖЕСТВЕНИ ДЯЛА",
+      "target": "company:tr:124719208",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА",
+      "target": "company:tr:124719208",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА МИТЕВА ВАСИЛЕВА",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ЕНЧЕВА МАЛЕВА",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛИЯНА ЕНЧЕВА МАЛЕВА",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА СТОЯНОВА КОЕВА-КАЛЧЕВА",
+      "target": "company:tr:124121775",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОСИФОВ ЛЕСОВ",
+      "target": "company:tr:207667824",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОСИФОВ ЛЕСОВ",
+      "target": "company:tr:207667824",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ВЪЛКОВ МАРКОВ",
+      "target": "company:tr:207667824",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

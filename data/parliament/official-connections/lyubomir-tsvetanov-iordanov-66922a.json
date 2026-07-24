@@ -1,0 +1,272 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:lyubomir-tsvetanov-iordanov-66922a",
+  "nodes": [
+    {
+      "id": "official:lyubomir-tsvetanov-iordanov-66922a",
+      "type": "official",
+      "slug": "lyubomir-tsvetanov-iordanov-66922a",
+      "label": "Любомир Цветанов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дряново"
+    },
+    {
+      "id": "company:tr:000210810",
+      "type": "company",
+      "label": "ДЕНЧО СЛАВОВ-1900",
+      "slug": null,
+      "uic": "000210810",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЕЖДА ДИМИТРОВА ДИМКОВА-СТАНЕВА",
+      "type": "person",
+      "label": "Надежда Димитрова Димкова-Станева"
+    },
+    {
+      "id": "person:ДИМИТЪР БОРИСОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Димитър Борисов Богданов"
+    },
+    {
+      "id": "person:ЙОРДАН НЕДЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Недев Йорданов"
+    },
+    {
+      "id": "person:ГЕОРГИ АНГЕЛОВ СИРАКОВ",
+      "type": "person",
+      "label": "Георги Ангелов Сираков"
+    },
+    {
+      "id": "person:КАТЯ БОРИСОВА СУЛТАНОВА",
+      "type": "person",
+      "label": "Катя Борисова Султанова"
+    },
+    {
+      "id": "person:ЛИДИЯ ПЕТКОВА БАТУЛСКА",
+      "type": "person",
+      "label": "Лидия Петкова Батулска"
+    },
+    {
+      "id": "person:ЕДИТ ЕДУАРД ХАЧИКЯН",
+      "type": "person",
+      "label": "Едит Едуард Хачикян"
+    },
+    {
+      "id": "person:СВЕТЛАНА ЧАВДАРОВА ЛЕНЕВА",
+      "type": "person",
+      "label": "Светлана Чавдарова Ленева"
+    },
+    {
+      "id": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Мирослав Димитров Димитров"
+    },
+    {
+      "id": "person:ДИЛЯНА СТАНЧЕВА СТАНКОВА",
+      "type": "person",
+      "label": "Диляна Станчева Станкова"
+    },
+    {
+      "id": "person:ГАЛЯ МИТКОВА КОЛЕВА",
+      "type": "person",
+      "label": "Галя Миткова Колева"
+    },
+    {
+      "id": "person:ЯНИЦА АНГЕЛОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Яница Ангелова Атанасова"
+    },
+    {
+      "id": "person:МИТКО ДАНЧЕВ СИРАКОВ",
+      "type": "person",
+      "label": "Митко Данчев Сираков"
+    },
+    {
+      "id": "person:БОЙКА БОЖАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Бойка Божанова Димитрова"
+    },
+    {
+      "id": "person:МАРИАНА МИХАЙЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Мариана Михайлова Георгиева"
+    },
+    {
+      "id": "person:МИТКО ТРИФОНОВ ОБРЕШКОВ",
+      "type": "person",
+      "label": "Митко Трифонов Обрешков"
+    },
+    {
+      "id": "person:ПЕТЪР КОНСТАНТИНОВ КИРКОВ",
+      "type": "person",
+      "label": "Петър Константинов Кирков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-tsvetanov-iordanov-66922a",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЕЖДА ДИМИТРОВА ДИМКОВА-СТАНЕВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОРИСОВ БОГДАНОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН НЕДЕВ ЙОРДАНОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АНГЕЛОВ СИРАКОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ БОРИСОВА СУЛТАНОВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ПЕТКОВА БАТУЛСКА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДИТ ЕДУАРД ХАЧИКЯН",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ЧАВДАРОВА ЛЕНЕВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОРИСОВ БОГДАНОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА СТАНЧЕВА СТАНКОВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ МИТКОВА КОЛЕВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА АНГЕЛОВА АТАНАСОВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА АНГЕЛОВА АТАНАСОВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ДАНЧЕВ СИРАКОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА БОЖАНОВА ДИМИТРОВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА МИХАЙЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ТРИФОНОВ ОБРЕШКОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР КОНСТАНТИНОВ КИРКОВ",
+      "target": "company:tr:000210810",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

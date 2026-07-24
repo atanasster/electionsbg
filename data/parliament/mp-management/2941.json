@@ -1,1 +1,92 @@
-{"mpId":2941,"mpName":"Иван Стефанов Вълков","generatedAt":"2026-07-03T11:12:51.719Z","total":6,"roles":[{"uic":"200760795","companyName":"ВЪЛКОВ И СИНОВЕ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"partner","positionLabel":null,"sharePercent":50,"addedAt":"2024-07-10T11:59:20","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"200760795","companyName":"ВЪЛКОВ И СИНОВЕ","legalForm":"OOD","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2023-01-17T08:10:04","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"203999583","companyName":"МКМД Инженеринг","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-10-21T10:16:23","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"203999583","companyName":"МКМД Инженеринг","legalForm":"OOD","seat":null,"status":"active","role":"partner","positionLabel":null,"sharePercent":33.33333333333333,"addedAt":"2021-10-21T10:16:23","erasedAt":null,"confidence":"high","confidenceReason":"full-name match; MP declared a stake in this UIC"},{"uic":"102238040","companyName":"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"ngo_representative","positionLabel":"председател на Управителен съвет","sharePercent":null,"addedAt":"2021-01-05T12:17:59","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"102238040","companyName":"СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС","legalForm":"Сдружение","seat":"БЪЛГАРИЯ, гр. Бургас, 8000","status":"active","role":"ngo_board","positionLabel":null,"sharePercent":null,"addedAt":"2021-01-05T12:17:59","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 2941,
+  "mpName": "Иван Стефанов Вълков",
+  "generatedAt": "2026-07-24T03:35:58.554Z",
+  "total": 6,
+  "roles": [
+    {
+      "uic": "200760795",
+      "companyName": "ВЪЛКОВ И СИНОВЕ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 50,
+      "addedAt": "2024-07-10T11:59:20",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "200760795",
+      "companyName": "ВЪЛКОВ И СИНОВЕ",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2023-01-17T08:10:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "203999583",
+      "companyName": "МКМД Инженеринг",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-10-21T10:16:23",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "203999583",
+      "companyName": "МКМД Инженеринг",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": 33.33333333333333,
+      "addedAt": "2021-10-21T10:16:23",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; MP declared a stake in this UIC"
+    },
+    {
+      "uic": "102238040",
+      "companyName": "СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "ngo_representative",
+      "positionLabel": "председател на Управителен съвет",
+      "sharePercent": null,
+      "addedAt": "2021-01-05T12:17:59",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "102238040",
+      "companyName": "СДРУЖЕНИЕ \"УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ \"ХРИСТО БОТЕВ\"\"-КВ.САРАФОВО ГР.БУРГАС",
+      "legalForm": "Сдружение",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-01-05T12:17:59",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

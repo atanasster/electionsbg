@@ -1,1 +1,140 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3103","nodes":[{"id":"mp:3103","type":"mp","mpId":3103,"label":"Димитър Бойчев Петров","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["41","42","43","44"]},{"id":"company:tr:207190718","type":"company","label":"НАПРЕД НЕСЕБЪР","slug":null,"uic":"207190718","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Несебър, 8230"},{"id":"person:ИВАН НИКОЛОВ ДАШЕВ","type":"person","label":"Иван Николов Дашев"},{"id":"person:СТОЯН ЯНАКИЕВ ИВАНОВ","type":"person","label":"Стоян Янакиев Иванов"},{"id":"person:КРАСИМИР СТОИЛОВ КРЪСТЕВ","type":"person","label":"Красимир Стоилов Кръстев"},{"id":"person:ДЕЯН ЕНЧЕВ СТОЯНОВ","type":"person","label":"Деян Енчев Стоянов"},{"id":"person:СТОЙКО ДИМИТРОВ СТОЯНОВ","type":"person","label":"Стойко Димитров Стоянов"},{"id":"person:ИЛИЯНА МИТКОВА САРЪЕВА","type":"person","label":"Илияна Миткова Саръева"},{"id":"person:ПЕТЪР ХРУСОФОВ ТОДОРОВ","type":"person","label":"Петър Хрусофов Тодоров"}],"edges":[{"source":"mp:3103","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН НИКОЛОВ ДАШЕВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:СТОЯН ЯНАКИЕВ ИВАНОВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР СТОИЛОВ КРЪСТЕВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ДЕЯН ЕНЧЕВ СТОЯНОВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТОЙКО ДИМИТРОВ СТОЯНОВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИЯНА МИТКОВА САРЪЕВА","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН НИКОЛОВ ДАШЕВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР ХРУСОФОВ ТОДОРОВ","target":"company:tr:207190718","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3103",
+  "nodes": [
+    {
+      "id": "mp:3103",
+      "type": "mp",
+      "mpId": 3103,
+      "label": "Димитър Бойчев Петров",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "company:tr:207190718",
+      "type": "company",
+      "label": "НАПРЕД НЕСЕБЪР",
+      "slug": null,
+      "uic": "207190718",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Несебър, 8230"
+    },
+    {
+      "id": "person:ИВАН НИКОЛОВ ДАШЕВ",
+      "type": "person",
+      "label": "Иван Николов Дашев"
+    },
+    {
+      "id": "person:СТОЯН ЯНАКИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Стоян Янакиев Иванов"
+    },
+    {
+      "id": "person:КРАСИМИР СТОИЛОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Красимир Стоилов Кръстев"
+    },
+    {
+      "id": "person:ДЕЯН ЕНЧЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Деян Енчев Стоянов"
+    },
+    {
+      "id": "person:СТОЙКО ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стойко Димитров Стоянов"
+    },
+    {
+      "id": "person:ИЛИЯНА МИТКОВА САРЪЕВА",
+      "type": "person",
+      "label": "Илияна Миткова Саръева"
+    },
+    {
+      "id": "person:ПЕТЪР ХРУСОФОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Петър Хрусофов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3103",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДАШЕВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЯНАКИЕВ ИВАНОВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СТОИЛОВ КРЪСТЕВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ЕНЧЕВ СТОЯНОВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙКО ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА МИТКОВА САРЪЕВА",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДАШЕВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ХРУСОФОВ ТОДОРОВ",
+      "target": "company:tr:207190718",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

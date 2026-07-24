@@ -1,1 +1,408 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4745","nodes":[{"id":"mp:4745","type":"mp","mpId":4745,"label":"Ваня Иванова Василева","partyGroupShort":"АПС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:206897676","type":"company","label":"НОВЕ ФАРМА 2007","slug":null,"uic":"206897676","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1618"},{"id":"company:tr:131317829","type":"company","label":"ФАРМАПРО","slug":null,"uic":"131317829","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"company:tr:207806754","type":"company","label":"ВИДИН НАНОВО","slug":null,"uic":"207806754","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, гр. Видин, 3700"},{"id":"company:tr:207431717","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ&quot;ХРИСТО БОТЕВ&quot; - с.РАБРОВО","slug":null,"uic":"207431717","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, с. Раброво, 3792"},{"id":"company:tr:203206655","type":"company","label":"ЕСКЕЙП 99","slug":null,"uic":"203206655","legalForm":"EOOD","status":"ceased","seat":null},{"id":"company:tr:202444333","type":"company","label":"ЛЕЙДИ В.И.","slug":null,"uic":"202444333","legalForm":"EOOD","status":"ceased","seat":null},{"id":"person:МАРГАРИТА БОРИСОВА ПЕТРОВА","type":"person","label":"Маргарита Борисова Петрова"},{"id":"person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА","type":"person","label":"Тереза Иванова Трайкова"},{"id":"person:АДЕЛИНА НИКОЛАЕВА ЛАЗАРОВА","type":"person","label":"Аделина Николаева Лазарова"},{"id":"person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА","type":"person","label":"Веселка Петрова Стаменова"},{"id":"person:ВИОЛЕТА ТОДОРОВА АРСОВА","type":"person","label":"Виолета Тодорова Арсова"},{"id":"person:ИВАН БОРИСОВ ТРАЙКОВ","type":"person","label":"Иван Борисов Трайков"},{"id":"person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА","type":"person","label":"Желанка Димитрова Иванова"},{"id":"person:ПЛАМЕН ЙОРДАНОВ ПЕТРОВ","type":"person","label":"Пламен Йорданов Петров"},{"id":"person:НЕДЯЛКО ДИМИТРОВ ДАФИНОВ","type":"person","label":"Недялко Димитров Дафинов"},{"id":"person:КАЛИНА ДИМИТРОВА ПЕНЧЕВА","type":"person","label":"Калина Димитрова Пенчева"},{"id":"person:МАРИО МОМЧИЛОВ ТЕРЗИЕВ","type":"person","label":"Марио Момчилов Терзиев"},{"id":"person:КУНЧО ЖЕЛЯЗКОВ ТРИФОНОВ","type":"person","label":"Кунчо Желязков Трифонов"},{"id":"person:ПЕТЪР СЛАВЕЕВ МЛАДЕНОВ","type":"person","label":"Петър Славеев Младенов"},{"id":"person:МАРТИН ПЕТРОВ ЦЕКОВ","type":"person","label":"Мартин Петров Цеков"},{"id":"person:ДИАНА ГОРЧЕВА ГОРЧЕВА","type":"person","label":"Диана Горчева Горчева"},{"id":"person:МАРЧЕЛО ПЕКОВ МАНОЙЛОВ","type":"person","label":"Марчело Пеков Манойлов"},{"id":"person:ТИХОМИР НИКОЛАЕВ КОЕВ","type":"person","label":"Тихомир Николаев Коев"},{"id":"person:СВЕТОСЛАВ ПЛАМЕНОВ ИВАНОВ","type":"person","label":"Светослав Пламенов Иванов"}],"edges":[{"source":"mp:4745","target":"company:tr:206897676","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:206897676","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:207806754","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:207431717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:207431717","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:203206655","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"mp:4745","target":"company:tr:202444333","kind":"tr_role","role":"liquidator","isCurrent":true,"confidence":"medium"},{"source":"person:МАРГАРИТА БОРИСОВА ПЕТРОВА","target":"company:tr:206897676","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА","target":"company:tr:206897676","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРГАРИТА БОРИСОВА ПЕТРОВА","target":"company:tr:206897676","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА","target":"company:tr:206897676","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:АДЕЛИНА НИКОЛАЕВА ЛАЗАРОВА","target":"company:tr:206897676","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА","target":"company:tr:206897676","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВИОЛЕТА ТОДОРОВА АРСОВА","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН БОРИСОВ ТРАЙКОВ","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЙОРДАНОВ ПЕТРОВ","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЯЛКО ДИМИТРОВ ДАФИНОВ","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАЛИНА ДИМИТРОВА ПЕНЧЕВА","target":"company:tr:131317829","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИО МОМЧИЛОВ ТЕРЗИЕВ","target":"company:tr:131317829","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:КУНЧО ЖЕЛЯЗКОВ ТРИФОНОВ","target":"company:tr:131317829","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СЛАВЕЕВ МЛАДЕНОВ","target":"company:tr:131317829","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТРОВ ЦЕКОВ","target":"company:tr:207806754","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИАНА ГОРЧЕВА ГОРЧЕВА","target":"company:tr:207806754","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРТИН ПЕТРОВ ЦЕКОВ","target":"company:tr:207806754","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МАРЧЕЛО ПЕКОВ МАНОЙЛОВ","target":"company:tr:207431717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТИХОМИР НИКОЛАЕВ КОЕВ","target":"company:tr:207431717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СВЕТОСЛАВ ПЛАМЕНОВ ИВАНОВ","target":"company:tr:207431717","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4745",
+  "nodes": [
+    {
+      "id": "mp:4745",
+      "type": "mp",
+      "mpId": 4745,
+      "label": "Ваня Иванова Василева",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:206897676",
+      "type": "company",
+      "label": "НОВЕ ФАРМА 2007",
+      "slug": null,
+      "uic": "206897676",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "company:tr:131317829",
+      "type": "company",
+      "label": "ФАРМАПРО",
+      "slug": null,
+      "uic": "131317829",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:207806754",
+      "type": "company",
+      "label": "ВИДИН НАНОВО",
+      "slug": null,
+      "uic": "207806754",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Видин, 3700"
+    },
+    {
+      "id": "company:tr:207431717",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ&quot;ХРИСТО БОТЕВ&quot; - с.РАБРОВО",
+      "slug": null,
+      "uic": "207431717",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Раброво, 3792"
+    },
+    {
+      "id": "company:tr:203206655",
+      "type": "company",
+      "label": "ЕСКЕЙП 99",
+      "slug": null,
+      "uic": "203206655",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202444333",
+      "type": "company",
+      "label": "ЛЕЙДИ В.И.",
+      "slug": null,
+      "uic": "202444333",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА БОРИСОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Маргарита Борисова Петрова"
+    },
+    {
+      "id": "person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА",
+      "type": "person",
+      "label": "Тереза Иванова Трайкова"
+    },
+    {
+      "id": "person:АДЕЛИНА НИКОЛАЕВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Аделина Николаева Лазарова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА",
+      "type": "person",
+      "label": "Веселка Петрова Стаменова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ТОДОРОВА АРСОВА",
+      "type": "person",
+      "label": "Виолета Тодорова Арсова"
+    },
+    {
+      "id": "person:ИВАН БОРИСОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "Иван Борисов Трайков"
+    },
+    {
+      "id": "person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Желанка Димитрова Иванова"
+    },
+    {
+      "id": "person:ПЛАМЕН ЙОРДАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Пламен Йорданов Петров"
+    },
+    {
+      "id": "person:НЕДЯЛКО ДИМИТРОВ ДАФИНОВ",
+      "type": "person",
+      "label": "Недялко Димитров Дафинов"
+    },
+    {
+      "id": "person:КАЛИНА ДИМИТРОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Калина Димитрова Пенчева"
+    },
+    {
+      "id": "person:МАРИО МОМЧИЛОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Марио Момчилов Терзиев"
+    },
+    {
+      "id": "person:КУНЧО ЖЕЛЯЗКОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Кунчо Желязков Трифонов"
+    },
+    {
+      "id": "person:ПЕТЪР СЛАВЕЕВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Петър Славеев Младенов"
+    },
+    {
+      "id": "person:МАРТИН ПЕТРОВ ЦЕКОВ",
+      "type": "person",
+      "label": "Мартин Петров Цеков"
+    },
+    {
+      "id": "person:ДИАНА ГОРЧЕВА ГОРЧЕВА",
+      "type": "person",
+      "label": "Диана Горчева Горчева"
+    },
+    {
+      "id": "person:МАРЧЕЛО ПЕКОВ МАНОЙЛОВ",
+      "type": "person",
+      "label": "Марчело Пеков Манойлов"
+    },
+    {
+      "id": "person:ТИХОМИР НИКОЛАЕВ КОЕВ",
+      "type": "person",
+      "label": "Тихомир Николаев Коев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ПЛАМЕНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Светослав Пламенов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4745",
+      "target": "company:tr:206897676",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:206897676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:207806754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:207431717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:207431717",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:203206655",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:202444333",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА БОРИСОВА ПЕТРОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА БОРИСОВА ПЕТРОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРЕЗА ИВАНОВА ТРАЙКОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА НИКОЛАЕВА ЛАЗАРОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА",
+      "target": "company:tr:206897676",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ТОДОРОВА АРСОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ ТРАЙКОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ДИМИТРОВ ДАФИНОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ДИМИТРОВА ПЕНЧЕВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО МОМЧИЛОВ ТЕРЗИЕВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУНЧО ЖЕЛЯЗКОВ ТРИФОНОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СЛАВЕЕВ МЛАДЕНОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТРОВ ЦЕКОВ",
+      "target": "company:tr:207806754",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГОРЧЕВА ГОРЧЕВА",
+      "target": "company:tr:207806754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПЕТРОВ ЦЕКОВ",
+      "target": "company:tr:207806754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРЧЕЛО ПЕКОВ МАНОЙЛОВ",
+      "target": "company:tr:207431717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР НИКОЛАЕВ КОЕВ",
+      "target": "company:tr:207431717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ПЛАМЕНОВ ИВАНОВ",
+      "target": "company:tr:207431717",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

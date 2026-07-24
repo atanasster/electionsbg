@@ -1,1 +1,35 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:shahin-mehmedov-bairamov-ed8dee","nodes":[{"id":"official:shahin-mehmedov-bairamov-ed8dee","type":"official","slug":"shahin-mehmedov-bairamov-ed8dee","label":"Шахин Мехмедов Байрамов","tier":"municipal","role":"councillor","municipality":"Ардино"},{"id":"company:tr:201157896","type":"company","label":"\"Латинка лес\"","slug":null,"uic":"201157896","legalForm":null,"status":null,"seat":null}],"edges":[{"source":"official:shahin-mehmedov-bairamov-ed8dee","target":"company:tr:201157896","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:shahin-mehmedov-bairamov-ed8dee",
+  "nodes": [
+    {
+      "id": "official:shahin-mehmedov-bairamov-ed8dee",
+      "type": "official",
+      "slug": "shahin-mehmedov-bairamov-ed8dee",
+      "label": "Шахин Мехмедов Байрамов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:201157896",
+      "type": "company",
+      "label": "\"Латинка лес\"",
+      "slug": null,
+      "uic": "201157896",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shahin-mehmedov-bairamov-ed8dee",
+      "target": "company:tr:201157896",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

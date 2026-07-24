@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:milka-antonova-semerdzhieva-5233c5",
+  "nodes": [
+    {
+      "id": "official:milka-antonova-semerdzhieva-5233c5",
+      "type": "official",
+      "slug": "milka-antonova-semerdzhieva-5233c5",
+      "label": "Милка Антонова Семерджиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108500706",
+      "type": "company",
+      "label": "НАРОДНИ БУДИТЕЛИ - 1925г.",
+      "slug": null,
+      "uic": "108500706",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА СИМОВА СЕВДАЛИНОВА",
+      "type": "person",
+      "label": "Лиляна Симова Севдалинова"
+    },
+    {
+      "id": "person:АНЕТА РУМЕНОВА УЗУНОВА",
+      "type": "person",
+      "label": "Анета Руменова Узунова"
+    },
+    {
+      "id": "person:АНЕЛИЯ РУМЕНОВА МАЛИНОВА",
+      "type": "person",
+      "label": "Анелия Руменова Малинова"
+    },
+    {
+      "id": "person:ЗДРАВКА ЮЛИЯНОВА СЕМЕРДЖИЕВА",
+      "type": "person",
+      "label": "Здравка Юлиянова Семерджиева"
+    },
+    {
+      "id": "person:ШИНКА ИЛИЕВА МУТЕВА",
+      "type": "person",
+      "label": "Шинка Илиева Мутева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milka-antonova-semerdzhieva-5233c5",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА СИМОВА СЕВДАЛИНОВА",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА РУМЕНОВА УЗУНОВА",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ РУМЕНОВА МАЛИНОВА",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКА ЮЛИЯНОВА СЕМЕРДЖИЕВА",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИНКА ИЛИЕВА МУТЕВА",
+      "target": "company:tr:108500706",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

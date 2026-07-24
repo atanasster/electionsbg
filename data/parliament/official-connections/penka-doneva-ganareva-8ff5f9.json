@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:penka-doneva-ganareva-8ff5f9",
+  "nodes": [
+    {
+      "id": "official:penka-doneva-ganareva-8ff5f9",
+      "type": "official",
+      "slug": "penka-doneva-ganareva-8ff5f9",
+      "label": "Пенка Донева Ганарева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205418518",
+      "type": "company",
+      "label": "ЖЕНИТЕ НА КАЗАНЛЪК",
+      "slug": null,
+      "uic": "205418518",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЙКА ИВАНОВА МАНЧЕВА",
+      "type": "person",
+      "label": "Бойка Иванова Манчева"
+    },
+    {
+      "id": "person:СТЕЛА ИВАНОВА КЕХАЙОВА",
+      "type": "person",
+      "label": "Стела Иванова Кехайова"
+    },
+    {
+      "id": "person:ЯНИЦА ХРИСТОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Яница Христова Станчева"
+    },
+    {
+      "id": "person:ИВЕЛИНА НИКОЛАЕВА НИКОЛОВА - ДИМИТРОВА",
+      "type": "person",
+      "label": "Ивелина Николаева Николова - Димитрова"
+    },
+    {
+      "id": "person:РАЛИЦА СТЕФАНОВА МИТЕВА",
+      "type": "person",
+      "label": "Ралица Стефанова Митева"
+    },
+    {
+      "id": "person:ТАНЯ ПЕТРОВА МАРКОВА",
+      "type": "person",
+      "label": "Таня Петрова Маркова"
+    },
+    {
+      "id": "person:КРАСИМИРА ХРИСТОВА ВЪГЛЯРОВА",
+      "type": "person",
+      "label": "Красимира Христова Въглярова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penka-doneva-ganareva-8ff5f9",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЙКА ИВАНОВА МАНЧЕВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ИВАНОВА КЕХАЙОВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА ХРИСТОВА СТАНЧЕВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА НИКОЛАЕВА НИКОЛОВА - ДИМИТРОВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА СТЕФАНОВА МИТЕВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ПЕТРОВА МАРКОВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ХРИСТОВА ВЪГЛЯРОВА",
+      "target": "company:tr:205418518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

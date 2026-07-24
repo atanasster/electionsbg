@@ -1,1 +1,132 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:222","nodes":[{"id":"mp:222","type":"mp","mpId":222,"label":"Петя Илиева Гегова","partyGroupShort":null,"isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:207533750","type":"company","label":"ЯСПЕТУС","slug":null,"uic":"207533750","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:200446392","type":"company","label":"СЪНИ ХОУМ ИНВЕСТМЪНТ","slug":null,"uic":"200446392","legalForm":"EOOD","status":"active","seat":null},{"id":"company:tr:206576081","type":"company","label":"ИМПЕТУС - ПГ","slug":null,"uic":"206576081","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1113"},{"id":"person:ВАСИЛ ИЛИЕВ ЛЕНЧЕВ","type":"person","label":"Васил Илиев Ленчев"},{"id":"person:ЯСЕН ТИХОМИРОВ ТОДОРОВ","type":"person","label":"Ясен Тихомиров Тодоров"}],"edges":[{"source":"mp:222","target":"company:tr:207533750","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:222","target":"company:tr:200446392","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:222","target":"company:tr:200446392","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:222","target":"company:tr:206576081","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:222","target":"company:tr:206576081","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"person:ВАСИЛ ИЛИЕВ ЛЕНЧЕВ","target":"company:tr:207533750","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН ТИХОМИРОВ ТОДОРОВ","target":"company:tr:207533750","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"company:tr:200446392","target":"company:tr:207533750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЯСЕН ТИХОМИРОВ ТОДОРОВ","target":"company:tr:207533750","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:222",
+  "nodes": [
+    {
+      "id": "mp:222",
+      "type": "mp",
+      "mpId": 222,
+      "label": "Петя Илиева Гегова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:207533750",
+      "type": "company",
+      "label": "ЯСПЕТУС",
+      "slug": null,
+      "uic": "207533750",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:200446392",
+      "type": "company",
+      "label": "СЪНИ ХОУМ ИНВЕСТМЪНТ",
+      "slug": null,
+      "uic": "200446392",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206576081",
+      "type": "company",
+      "label": "ИМПЕТУС - ПГ",
+      "slug": null,
+      "uic": "206576081",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1113"
+    },
+    {
+      "id": "person:ВАСИЛ ИЛИЕВ ЛЕНЧЕВ",
+      "type": "person",
+      "label": "Васил Илиев Ленчев"
+    },
+    {
+      "id": "person:ЯСЕН ТИХОМИРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Ясен Тихомиров Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:222",
+      "target": "company:tr:207533750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:222",
+      "target": "company:tr:200446392",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:222",
+      "target": "company:tr:200446392",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:222",
+      "target": "company:tr:206576081",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:222",
+      "target": "company:tr:206576081",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИЛИЕВ ЛЕНЧЕВ",
+      "target": "company:tr:207533750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ТИХОМИРОВ ТОДОРОВ",
+      "target": "company:tr:207533750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:200446392",
+      "target": "company:tr:207533750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ТИХОМИРОВ ТОДОРОВ",
+      "target": "company:tr:207533750",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

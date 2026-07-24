@@ -14,14 +14,13 @@
     "sourceUrl": "https://register.cacbg.bg/2015/EBD19B8A-6FD4-9A9B-4B25-C719C965911F68609.xml",
     "ownershipStakes": [
       {
-        "table": "11",
+        "table": "10",
         "itemType": "дял в капитал",
         "shareSize": "50 %",
         "companyName": "АРТ БГ Продакшън ООД",
         "registeredOffice": "София",
         "valueEur": 255.64594059810923,
-        "holderName": null,
-        "transfereeName": "Петър Александров Харалампиев",
+        "holderName": "Петър Александров Харалампиев",
         "legalBasis": null,
         "fundsOrigin": null
       }
@@ -37,10 +36,10 @@
         "areaSqm": 62,
         "builtAreaSqm": 62,
         "acquiredYear": 2003,
-        "share": "25600",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 25600,
+        "valueEur": 13089.072158623194,
         "holderName": "Петър Александров Харалампиев и Веселка Аврамова Харалампиева",
         "isSpouse": true,
         "legalBasis": null,
@@ -55,10 +54,10 @@
         "areaSqm": 300,
         "builtAreaSqm": 60,
         "acquiredYear": 2007,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/6 от 60 кв.м. къща и 1/6 от 300 кв.м. двор",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Александров Харалампиев",
         "isSpouse": false,
         "legalBasis": null,
@@ -83,91 +82,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

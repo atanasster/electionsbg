@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ekaterina-ivanova-popova-silkova-b16e57",
+  "nodes": [
+    {
+      "id": "official:ekaterina-ivanova-popova-silkova-b16e57",
+      "type": "official",
+      "slug": "ekaterina-ivanova-popova-silkova-b16e57",
+      "label": "Екатерина Иванова Попова-Силкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000608692",
+      "type": "company",
+      "label": "ОБРАЗЦОВО НАРОДНО ЧИТАЛИЩЕ \"РОДОПСКА ИСКРА 1880\"",
+      "slug": null,
+      "uic": "000608692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АДРИАНА ВЕСЕЛИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Адриана Веселинова Иванова"
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Николов"
+    },
+    {
+      "id": "person:ИЛИЯ ВЪЛКОВ УЧИКОВ",
+      "type": "person",
+      "label": "Илия Вълков Учиков"
+    },
+    {
+      "id": "person:АНДРЕЙ РУМЕНОВ УЗУНОВ",
+      "type": "person",
+      "label": "Андрей Руменов Узунов"
+    },
+    {
+      "id": "person:ИВАНКА АТАНАСОВА ДЖУГАЛАНОВА",
+      "type": "person",
+      "label": "Иванка Атанасова Джугаланова"
+    },
+    {
+      "id": "person:МАРИЯ СТОЯНОВА БЕЧЕВА",
+      "type": "person",
+      "label": "Мария Стоянова Бечева"
+    },
+    {
+      "id": "person:СВЕТЛА ДИМОВА ТЕРЗИЙСКА",
+      "type": "person",
+      "label": "Светла Димова Терзийска"
+    },
+    {
+      "id": "person:МАРИАНА САШЕВА ЕВТИМОВА",
+      "type": "person",
+      "label": "Мариана Сашева Евтимова"
+    },
+    {
+      "id": "person:ЕЛЕН АПОСТОЛОВА АСИМАКОВА",
+      "type": "person",
+      "label": "Елен Апостолова Асимакова"
+    },
+    {
+      "id": "person:РУЖДИ СЕВДАЛИ ХАСАН",
+      "type": "person",
+      "label": "Ружди Севдали Хасан"
+    },
+    {
+      "id": "person:МАРИАНА САШЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Мариана Сашева Ангелова"
+    },
+    {
+      "id": "person:ЕЛЕН АПОСТОЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Елен Апостолова Димитрова"
+    },
+    {
+      "id": "person:СТИЛИЯН КОСТАДИНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Стилиян Костадинов Цветков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ekaterina-ivanova-popova-silkova-b16e57",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АДРИАНА ВЕСЕЛИНОВА ИВАНОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ВЪЛКОВ УЧИКОВ",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ РУМЕНОВ УЗУНОВ",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА АТАНАСОВА ДЖУГАЛАНОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТОЯНОВА БЕЧЕВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ДИМОВА ТЕРЗИЙСКА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА САШЕВА ЕВТИМОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕН АПОСТОЛОВА АСИМАКОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУЖДИ СЕВДАЛИ ХАСАН",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА САШЕВА АНГЕЛОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕН АПОСТОЛОВА ДИМИТРОВА",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИЯН КОСТАДИНОВ ЦВЕТКОВ",
+      "target": "company:tr:000608692",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:miglena-bogomilova-nikolova-f87cd7",
+  "nodes": [
+    {
+      "id": "official:miglena-bogomilova-nikolova-f87cd7",
+      "type": "official",
+      "slug": "miglena-bogomilova-nikolova-f87cd7",
+      "label": "Миглена Богомилова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119109648",
+      "type": "company",
+      "label": "ОБЩИНСКА ОРГАНИЗАЦИЯ НА ИНВАЛИДИТЕ",
+      "slug": null,
+      "uic": "119109648",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ГЕРЕНОВ",
+      "type": "person",
+      "label": "Георги Атанасов Геренов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН МАРИНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Веселин Маринов Василев"
+    },
+    {
+      "id": "person:ДИЯН МИМОВ БОЖКОВ",
+      "type": "person",
+      "label": "Диян Мимов Божков"
+    },
+    {
+      "id": "person:ИВАН ЖЕЛЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Иван Желев Желев"
+    },
+    {
+      "id": "person:ЙОВКА КИРОВА НОЖИЧКОВА",
+      "type": "person",
+      "label": "Йовка Кирова Ножичкова"
+    },
+    {
+      "id": "person:ЖАНА ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Жана Иванова Димитрова"
+    },
+    {
+      "id": "person:СТАНИМИР СТЕФАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Станимир Стефанов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-bogomilova-nikolova-f87cd7",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ГЕРЕНОВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН МАРИНОВ ВАСИЛЕВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН МИМОВ БОЖКОВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ГЕРЕНОВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЖЕЛЕВ ЖЕЛЕВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА КИРОВА НОЖИЧКОВА",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНА ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР СТЕФАНОВ ПЕТКОВ",
+      "target": "company:tr:119109648",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

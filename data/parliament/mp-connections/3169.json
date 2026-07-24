@@ -1,1 +1,563 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3169","nodes":[{"id":"mp:3169","type":"mp","mpId":3169,"label":"Пламен Иванов Милев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":[]},{"id":"company:tr:208559666","type":"company","label":"ДЕРМАЛИС","slug":null,"uic":"208559666","legalForm":"Дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:130345786","type":"company","label":"УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ","slug":null,"uic":"130345786","legalForm":"EAD","status":"active","seat":null},{"id":"person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ","type":"person","label":"Даниел Тодоров Бояджиев"},{"id":"mp:3655","type":"mp","mpId":3655,"label":"Асен Георгиев Балтов","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ","type":"person","label":"Валентин Димитров Димитров"},{"id":"person:ЖИВКА СЕВДАЛИНОВА САВОВА","type":"person","label":"Живка Севдалинова Савова"},{"id":"person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ","type":"person","label":"Иван Георгиев Поромански"},{"id":"person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","type":"person","label":"Златина Георгиева Георгиева"},{"id":"person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","type":"person","label":"Владислав Бисеров Божиков"},{"id":"person:КРАСИМИР ПРОДАНОВ ЯНЕВ","type":"person","label":"Красимир Проданов Янев"},{"id":"company:tr:000702690","type":"company","label":"ОТЕЧЕСТВЕН СЪЮЗ","slug":null,"uic":"000702690","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:3578","type":"mp","mpId":3578,"label":"Александър Тихомиров Симов","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["44","45","46"]},{"id":"company:tr:831635354","type":"company","label":"НАЦИОНАЛНА СПОРТНА БАЗА","slug":null,"uic":"831635354","legalForm":"EAD","status":"active","seat":null},{"id":"mp:4716","type":"mp","mpId":4716,"label":"Венцислав Иванов Петков","partyGroupShort":"МЕЧ","isCurrent":false,"nsFolders":["47"]},{"id":"company:tr:175995308","type":"company","label":"БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)","slug":null,"uic":"175995308","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"mp:3185","type":"mp","mpId":3185,"label":"Григор Ангелов Горчев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":[]},{"id":"company:tr:130590508","type":"company","label":"БЪЛГАРСКО УРОЛОГИЧНО ДРУЖЕСТВО","slug":null,"uic":"130590508","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:2547","type":"mp","mpId":2547,"label":"Димитър Григоров Шишков","partyGroupShort":"РБ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:831047739","type":"company","label":"БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ЛЕКА АТЛЕТИКА","slug":null,"uic":"831047739","legalForm":"ASSOC","status":"active","seat":null},{"id":"mp:1043","type":"mp","mpId":1043,"label":"Иван Дечков Колев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]},{"id":"mp:5197","type":"mp","mpId":5197,"label":"Йордан Йовчев Йовчев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"mp:160","type":"mp","mpId":160,"label":"Трифон Димитров Митев","partyGroupShort":null,"isCurrent":false,"nsFolders":[]}],"edges":[{"source":"mp:3169","target":"company:tr:208559666","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3169","target":"company:tr:208559666","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3169","target":"company:tr:130345786","kind":"tr_role","role":"procurator","isCurrent":false,"confidence":"medium"},{"source":"person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ","target":"company:tr:208559666","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ","target":"company:tr:208559666","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:3655","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКА СЕВДАЛИНОВА САВОВА","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ","target":"company:tr:130345786","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:130345786","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПРОДАНОВ ЯНЕВ","target":"company:tr:130345786","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ","target":"company:tr:831047739","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","target":"company:tr:000702690","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПРОДАНОВ ЯНЕВ","target":"company:tr:130590508","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КРАСИМИР ПРОДАНОВ ЯНЕВ","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:160","target":"company:tr:000702690","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3578","target":"company:tr:000702690","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4716","target":"company:tr:831635354","kind":"tr_role","role":"representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4716","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:5197","target":"company:tr:831635354","kind":"tr_role","role":"director","isCurrent":true,"confidence":"medium"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3185","target":"company:tr:175995308","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:2547","target":"company:tr:130590508","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1043","target":"company:tr:831047739","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:1043","target":"company:tr:831047739","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:3655","length":2,"nodeIds":["mp:3169","company:tr:130345786","mp:3655"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3578","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","company:tr:000702690","mp:3578"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4716","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","company:tr:831635354","mp:4716"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:3185","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:КРАСИМИР ПРОДАНОВ ЯНЕВ","company:tr:175995308","mp:3185"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:2547","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:КРАСИМИР ПРОДАНОВ ЯНЕВ","company:tr:130590508","mp:2547"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:1043","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ","company:tr:831047739","mp:1043"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5197","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ","company:tr:831635354","mp:5197"],"isAllCurrent":false,"isAllHighConfidence":false},{"targetMpNodeId":"mp:160","length":4,"nodeIds":["mp:3169","company:tr:130345786","person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА","company:tr:000702690","mp:160"],"isAllCurrent":false,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3169",
+  "nodes": [
+    {
+      "id": "mp:3169",
+      "type": "mp",
+      "mpId": 3169,
+      "label": "Пламен Иванов Милев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:208559666",
+      "type": "company",
+      "label": "ДЕРМАЛИС",
+      "slug": null,
+      "uic": "208559666",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:130345786",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ",
+      "slug": null,
+      "uic": "130345786",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Даниел Тодоров Бояджиев"
+    },
+    {
+      "id": "mp:3655",
+      "type": "mp",
+      "mpId": 3655,
+      "label": "Асен Георгиев Балтов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:asen-georgiev-baltov-0bd8a7",
+      "type": "official",
+      "slug": "asen-georgiev-baltov-0bd8a7",
+      "label": "Асен Георгиев Балтов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:zhivka-sevdalinova-savova-d214c5",
+      "type": "official",
+      "slug": "zhivka-sevdalinova-savova-d214c5",
+      "label": "Живка Севдалинова Савова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-georgiev-poromanski-9e5dbf",
+      "type": "official",
+      "slug": "ivan-georgiev-poromanski-9e5dbf",
+      "label": "Иван Георгиев Поромански",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Валентин Димитров Димитров"
+    },
+    {
+      "id": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Златина Георгиева Георгиева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "type": "person",
+      "label": "Владислав Бисеров Божиков"
+    },
+    {
+      "id": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "type": "person",
+      "label": "Красимир Проданов Янев"
+    },
+    {
+      "id": "company:tr:000702690",
+      "type": "company",
+      "label": "ОТЕЧЕСТВЕН СЪЮЗ",
+      "slug": null,
+      "uic": "000702690",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3578",
+      "type": "mp",
+      "mpId": 3578,
+      "label": "Александър Тихомиров Симов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:831635354",
+      "type": "company",
+      "label": "НАЦИОНАЛНА СПОРТНА БАЗА",
+      "slug": null,
+      "uic": "831635354",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4716",
+      "type": "mp",
+      "mpId": 4716,
+      "label": "Венцислав Иванов Петков",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "company:tr:175995308",
+      "type": "company",
+      "label": "БЪЛГАРСКА АСОЦИАЦИЯ ПО МИНИМАЛНО ИНВАЗИВНА И РОБОТИЗИРАНА ХИРУРГИЯ (БАМИРХ)",
+      "slug": null,
+      "uic": "175995308",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "mp:3185",
+      "type": "mp",
+      "mpId": 3185,
+      "label": "Григор Ангелов Горчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:130590508",
+      "type": "company",
+      "label": "БЪЛГАРСКО УРОЛОГИЧНО ДРУЖЕСТВО",
+      "slug": null,
+      "uic": "130590508",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2547",
+      "type": "mp",
+      "mpId": 2547,
+      "label": "Димитър Григоров Шишков",
+      "partyGroupShort": "РБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:831047739",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО ЛЕКА АТЛЕТИКА",
+      "slug": null,
+      "uic": "831047739",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1043",
+      "type": "mp",
+      "mpId": 1043,
+      "label": "Иван Дечков Колев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5197",
+      "type": "mp",
+      "mpId": 5197,
+      "label": "Йордан Йовчев Йовчев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "mp:160",
+      "type": "mp",
+      "mpId": 160,
+      "label": "Трифон Димитров Митев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3169",
+      "target": "company:tr:208559666",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3169",
+      "target": "company:tr:208559666",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3169",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ",
+      "target": "company:tr:208559666",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТОДОРОВ БОЯДЖИЕВ",
+      "target": "company:tr:208559666",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3655",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asen-georgiev-baltov-0bd8a7",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivka-sevdalinova-savova-d214c5",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-georgiev-poromanski-9e5dbf",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-georgiev-poromanski-9e5dbf",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:831047739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000702690",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "target": "company:tr:130590508",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:160",
+      "target": "company:tr:000702690",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3578",
+      "target": "company:tr:000702690",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4716",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5197",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3185",
+      "target": "company:tr:175995308",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2547",
+      "target": "company:tr:130590508",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1043",
+      "target": "company:tr:831047739",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1043",
+      "target": "company:tr:831047739",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:3655",
+      "length": 2,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "mp:3655"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3578",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+        "company:tr:000702690",
+        "mp:3578"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4716",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+        "company:tr:831635354",
+        "mp:4716"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:3185",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+        "company:tr:175995308",
+        "mp:3185"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:2547",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+        "company:tr:130590508",
+        "mp:2547"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:1043",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+        "company:tr:831047739",
+        "mp:1043"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5197",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+        "company:tr:831635354",
+        "mp:5197"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:160",
+      "length": 4,
+      "nodeIds": [
+        "mp:3169",
+        "company:tr:130345786",
+        "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+        "company:tr:000702690",
+        "mp:160"
+      ],
+      "isAllCurrent": false,
+      "isAllHighConfidence": false
+    }
+  ]
+}

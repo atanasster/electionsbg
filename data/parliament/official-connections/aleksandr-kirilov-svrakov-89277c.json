@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aleksandr-kirilov-svrakov-89277c",
+  "nodes": [
+    {
+      "id": "official:aleksandr-kirilov-svrakov-89277c",
+      "type": "official",
+      "slug": "aleksandr-kirilov-svrakov-89277c",
+      "label": "Александър Кирилов Свраков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130941786",
+      "type": "company",
+      "label": "Алрад ЕООД",
+      "slug": null,
+      "uic": "130941786",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121258859",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ БАСКЕТБОЛ - СЛАВИЯ",
+      "slug": null,
+      "uic": "121258859",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО ДИМОВ ДАВИДКОВ",
+      "type": "person",
+      "label": "Митко Димов Давидков"
+    },
+    {
+      "id": "person:ХРИСТО КРЪСТЕВ МАЙМУНКОВ",
+      "type": "person",
+      "label": "Христо Кръстев Маймунков"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИХАЙЛОВ ВЪЖАРОВ",
+      "type": "person",
+      "label": "Николай Михайлов Въжаров"
+    },
+    {
+      "id": "person:ТОШКО ДОЙЧЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Тошко Дойчев Добрев"
+    },
+    {
+      "id": "person:КОНСТАНТИН ГЕОРГИЕВ ГЪРНЕВСКИ",
+      "type": "person",
+      "label": "Константин  Георгиев Гърневски"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ КИРИЛОВ ЛЮБОМИРОВ",
+      "type": "person",
+      "label": "Венцислав Кирилов Любомиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-kirilov-svrakov-89277c",
+      "target": "company:tr:130941786",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-kirilov-svrakov-89277c",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО ДИМОВ ДАВИДКОВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ДИМОВ ДАВИДКОВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КРЪСТЕВ МАЙМУНКОВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИХАЙЛОВ ВЪЖАРОВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШКО ДОЙЧЕВ ДОБРЕВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ГЕОРГИЕВ ГЪРНЕВСКИ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ КИРИЛОВ ЛЮБОМИРОВ",
+      "target": "company:tr:121258859",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

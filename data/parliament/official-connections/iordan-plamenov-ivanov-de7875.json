@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:iordan-plamenov-ivanov-de7875","nodes":[{"id":"official:iordan-plamenov-ivanov-de7875","type":"official","slug":"iordan-plamenov-ivanov-de7875","label":"Йордан Пламенов Иванов","tier":"municipal","role":"councillor","municipality":"Добрич"},{"id":"company:tr:207032928","type":"company","label":"ДП СОФТ","slug":null,"uic":"207032928","legalForm":null,"status":null,"seat":null},{"id":"person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ","type":"person","label":"Петър Стоянов Пантелеймонов"}],"edges":[{"source":"official:iordan-plamenov-ivanov-de7875","target":"company:tr:207032928","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"official:iordan-plamenov-ivanov-de7875","target":"company:tr:207032928","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ","target":"company:tr:207032928","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ","target":"company:tr:207032928","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iordan-plamenov-ivanov-de7875",
+  "nodes": [
+    {
+      "id": "official:iordan-plamenov-ivanov-de7875",
+      "type": "official",
+      "slug": "iordan-plamenov-ivanov-de7875",
+      "label": "Йордан Пламенов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:202254871",
+      "type": "company",
+      "label": "СБ РИТЕЙЛ ЕООД",
+      "slug": null,
+      "uic": "202254871",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207032928",
+      "type": "company",
+      "label": "ДП СОФТ ООД",
+      "slug": null,
+      "uic": "207032928",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ",
+      "type": "person",
+      "label": "Петър Стоянов Пантелеймонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:202254871",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:207032928",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:202254871",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:202254871",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:207032928",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-plamenov-ivanov-de7875",
+      "target": "company:tr:207032928",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ",
+      "target": "company:tr:207032928",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЯНОВ ПАНТЕЛЕЙМОНОВ",
+      "target": "company:tr:207032928",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

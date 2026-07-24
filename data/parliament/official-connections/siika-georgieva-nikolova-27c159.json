@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:siika-georgieva-nikolova-27c159",
+  "nodes": [
+    {
+      "id": "official:siika-georgieva-nikolova-27c159",
+      "type": "official",
+      "slug": "siika-georgieva-nikolova-27c159",
+      "label": "Сийка Георгиева Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206933535",
+      "type": "company",
+      "label": "СЮ-АРТ",
+      "slug": null,
+      "uic": "206933535",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:siika-georgieva-nikolova-27c159",
+      "target": "company:tr:206933535",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:siika-georgieva-nikolova-27c159",
+      "target": "company:tr:206933535",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

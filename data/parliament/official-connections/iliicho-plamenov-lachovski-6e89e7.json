@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliicho-plamenov-lachovski-6e89e7",
+  "nodes": [
+    {
+      "id": "official:iliicho-plamenov-lachovski-6e89e7",
+      "type": "official",
+      "slug": "iliicho-plamenov-lachovski-6e89e7",
+      "label": "Илийчо Пламенов Лачовски",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:208090628",
+      "type": "company",
+      "label": "Вива 1214",
+      "slug": null,
+      "uic": "208090628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliicho-plamenov-lachovski-6e89e7",
+      "target": "company:tr:208090628",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

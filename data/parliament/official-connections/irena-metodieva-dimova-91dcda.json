@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:irena-metodieva-dimova-91dcda",
+  "nodes": [
+    {
+      "id": "official:irena-metodieva-dimova-91dcda",
+      "type": "official",
+      "slug": "irena-metodieva-dimova-91dcda",
+      "label": "Ирена Методиева Димова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Лом"
+    },
+    {
+      "id": "company:tr:111548344",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО СВЕТИ КЛИМЕНТ ОХРИДСКИ ПРИ ПМПГ СВЕТИ КЛИМЕНТ ОХРИДСКИ",
+      "slug": null,
+      "uic": "111548344",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Монтана, 3400"
+    },
+    {
+      "id": "mp:4225",
+      "type": "mp",
+      "mpId": 4225,
+      "label": "Ирена Методиева Димова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Емилия Иванова Петкова"
+    },
+    {
+      "id": "person:КСЕНИЯ ЙОТОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ксения Йотова Георгиева"
+    },
+    {
+      "id": "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Илия Георгиев Георгиев"
+    },
+    {
+      "id": "person:ПЕПА ТОДОРОВА СОТИРОВА",
+      "type": "person",
+      "label": "Пепа Тодорова Сотирова"
+    },
+    {
+      "id": "person:ЛОЗКА БОГДАНОВА НИКОВА",
+      "type": "person",
+      "label": "Лозка Богданова Никова"
+    },
+    {
+      "id": "person:ПЕТКО ЛАЛЕВ ЕНЧЕВСКИ",
+      "type": "person",
+      "label": "Петко Лалев Енчевски"
+    },
+    {
+      "id": "person:ЛЮБЛЯНА КРАСИМИРОВА АВРАМОВА",
+      "type": "person",
+      "label": "Любляна Красимирова Аврамова"
+    },
+    {
+      "id": "person:ОГНЯН МЛАДЕНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Огнян Младенов Петров"
+    },
+    {
+      "id": "person:ТАНЯ ЛЮБЕНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Таня Любенова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-metodieva-dimova-91dcda",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-metodieva-dimova-91dcda",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4225",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4225",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ИВАНОВА ПЕТКОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КСЕНИЯ ЙОТОВА ГЕОРГИЕВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА ТОДОРОВА СОТИРОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗКА БОГДАНОВА НИКОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЛАЛЕВ ЕНЧЕВСКИ",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЛЯНА КРАСИМИРОВА АВРАМОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЛЯНА КРАСИМИРОВА АВРАМОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН МЛАДЕНОВ ПЕТРОВ",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЛЮБЕНОВА ХРИСТОВА",
+      "target": "company:tr:111548344",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

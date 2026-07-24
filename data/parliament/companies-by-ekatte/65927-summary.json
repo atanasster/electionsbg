@@ -1,1 +1,85 @@
-{"ekatte":"65927","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"СДРУЖЕНИЕ-ЦЕНТРАЛЕН-БАЛКАН-2010","displayName":"СДРУЖЕНИЕ \"ЦЕНТРАЛЕН БАЛКАН 2010\"","registeredOffice":"БЪЛГАРИЯ, Севлиево, 5400","mps":[{"mpId":5093,"mpName":"Данаил Лалев Петков","role":"ngo_board","isCurrent":true}]}]}
+{
+  "ekatte": "65927",
+  "count": 5,
+  "mpCount": 2,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "Бокал-ПЕТ-ООД",
+      "displayName": "Бокал - ПЕТ ООД",
+      "registeredOffice": "Севлиево",
+      "mps": [
+        {
+          "mpId": 5092,
+          "mpName": "Богомил Иванов Петков",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5092,
+          "mpName": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "БОКАЛ-ПЕТ-ООД",
+      "displayName": "БОКАЛ-ПЕТ ООД",
+      "registeredOffice": "Севлиево",
+      "mps": [
+        {
+          "mpId": 5092,
+          "mpName": "Богомил Иванов Петков",
+          "role": "partner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5092,
+          "mpName": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Биптан-ЕООД",
+      "displayName": "Биптан ЕООД",
+      "registeredOffice": "Севлиево",
+      "mps": [
+        {
+          "mpId": 5092,
+          "mpName": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Мазалат-ЕООД",
+      "displayName": "Мазалат ЕООД",
+      "registeredOffice": "Севлиево",
+      "mps": [
+        {
+          "mpId": 5092,
+          "mpName": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-ЦЕНТРАЛЕН-БАЛКАН-2010",
+      "displayName": "СДРУЖЕНИЕ \"ЦЕНТРАЛЕН БАЛКАН 2010\"",
+      "registeredOffice": "БЪЛГАРИЯ, Севлиево, 5400",
+      "mps": [
+        {
+          "mpId": 5093,
+          "mpName": "Данаил Лалев Петков",
+          "role": "ngo_board",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

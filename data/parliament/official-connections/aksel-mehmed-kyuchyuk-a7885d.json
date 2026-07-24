@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:aksel-mehmed-kyuchyuk-a7885d",
+  "nodes": [
+    {
+      "id": "official:aksel-mehmed-kyuchyuk-a7885d",
+      "type": "official",
+      "slug": "aksel-mehmed-kyuchyuk-a7885d",
+      "label": "Аксел Мехмед Кючюк",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:175852880",
+      "type": "company",
+      "label": "СНЦ &quot;Местна инициативна група-Исперих&quot;",
+      "slug": null,
+      "uic": "175852880",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛ ДИМИТРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Даниел Димитров Йорданов"
+    },
+    {
+      "id": "person:АЙДЖАН АХМЕД БЕЙТУЛА",
+      "type": "person",
+      "label": "Айджан Ахмед Бейтула"
+    },
+    {
+      "id": "person:РОСТИСЛАВ ВЕЛИЧКОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Ростислав Величков Енчев"
+    },
+    {
+      "id": "person:ТИХОМИР ФИЛИПОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Тихомир Филипов Атанасов"
+    },
+    {
+      "id": "person:ДЕНИЦА ДИМИТРОВА БОГОМИЛОВА",
+      "type": "person",
+      "label": "Деница Димитрова Богомилова"
+    },
+    {
+      "id": "person:КАТЯ ГЕОРГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Катя Георгиева Йорданова"
+    },
+    {
+      "id": "person:ДЖАНАН МУСТАФА РОДОПЛУ",
+      "type": "person",
+      "label": "Джанан Мустафа Родоплу"
+    },
+    {
+      "id": "person:ОСМАН ИСЛЯМ ОСМАН",
+      "type": "person",
+      "label": "Осман Ислям Осман"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aksel-mehmed-kyuchyuk-a7885d",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛ ДИМИТРОВ ЙОРДАНОВ",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙДЖАН АХМЕД БЕЙТУЛА",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСТИСЛАВ ВЕЛИЧКОВ ЕНЧЕВ",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ДИМИТРОВ ЙОРДАНОВ",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ФИЛИПОВ АТАНАСОВ",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ДИМИТРОВА БОГОМИЛОВА",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ГЕОРГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАНАН МУСТАФА РОДОПЛУ",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОСМАН ИСЛЯМ ОСМАН",
+      "target": "company:tr:175852880",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

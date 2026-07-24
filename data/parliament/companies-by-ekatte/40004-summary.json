@@ -1,1 +1,27 @@
-{"ekatte":"40004","count":1,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"ВиС-АГРО","displayName":"ВиС АГРО","registeredOffice":"БЪЛГАРИЯ, с. Крумово, 4112","mps":[{"mpId":3177,"mpName":"Тодор Василев Василев","role":"manager","isCurrent":true},{"mpId":3177,"mpName":"Тодор Василев Василев","role":"partner","isCurrent":true}]}]}
+{
+  "ekatte": "40004",
+  "count": 1,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ВиС-АГРО",
+      "displayName": "ВиС АГРО",
+      "registeredOffice": "БЪЛГАРИЯ, с. Крумово, 4112",
+      "mps": [
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3177,
+          "mpName": "Тодор Василев Василев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,151 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4890","nodes":[{"id":"mp:4890","type":"mp","mpId":4890,"label":"Иван Величков Минев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["50","51"]},{"id":"company:Якото-суши-ООД","type":"company","label":"Якото суши ООД","slug":"Якото-суши-ООД","uic":"207453845","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Хасково, 6300"},{"id":"company:tr:207238534","type":"company","label":"МОТОКРОС КЛУБ ТИЙМ МАСАР","slug":null,"uic":"207238534","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. Хасково, 6300"},{"id":"person:СТОЯН ХРИСТОВ ХРИСТОВ","type":"person","label":"Стоян Христов Христов"},{"id":"person:ГЕРГАНА ПЕНЧЕВА ЧОЧЕВА","type":"person","label":"Гергана Пенчева Чочева"},{"id":"person:КАДИР НУРИ МАСАР","type":"person","label":"Кадир Нури Масар"},{"id":"person:НЕВИЛ ОРХАН МАСАР","type":"person","label":"Невил Орхан Масар"},{"id":"person:КАДРИЕ КАДИР ХАБИЛ","type":"person","label":"Кадрие Кадир Хабил"},{"id":"person:ПАВЕЛ МИЛКОВ РАНЧЕВ","type":"person","label":"Павел Милков Ранчев"}],"edges":[{"source":"mp:4890","target":"company:Якото-суши-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4890","target":"company:Якото-суши-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:4890","target":"company:tr:207238534","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:СТОЯН ХРИСТОВ ХРИСТОВ","target":"company:Якото-суши-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕРГАНА ПЕНЧЕВА ЧОЧЕВА","target":"company:Якото-суши-ООД","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:КАДИР НУРИ МАСАР","target":"company:tr:207238534","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:КАДИР НУРИ МАСАР","target":"company:tr:207238534","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕВИЛ ОРХАН МАСАР","target":"company:tr:207238534","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:КАДРИЕ КАДИР ХАБИЛ","target":"company:tr:207238534","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПАВЕЛ МИЛКОВ РАНЧЕВ","target":"company:tr:207238534","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4890",
+  "nodes": [
+    {
+      "id": "mp:4890",
+      "type": "mp",
+      "mpId": 4890,
+      "label": "Иван Величков Минев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Якото-суши-ООД",
+      "type": "company",
+      "label": "Якото суши ООД",
+      "slug": "Якото-суши-ООД",
+      "uic": "207453845",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "company:tr:207238534",
+      "type": "company",
+      "label": "МОТОКРОС КЛУБ ТИЙМ МАСАР",
+      "slug": null,
+      "uic": "207238534",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "person:СТОЯН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Стоян Христов Христов"
+    },
+    {
+      "id": "person:ГЕРГАНА ПЕНЧЕВА ЧОЧЕВА",
+      "type": "person",
+      "label": "Гергана Пенчева Чочева"
+    },
+    {
+      "id": "person:КАДИР НУРИ МАСАР",
+      "type": "person",
+      "label": "Кадир Нури Масар"
+    },
+    {
+      "id": "person:НЕВИЛ ОРХАН МАСАР",
+      "type": "person",
+      "label": "Невил Орхан Масар"
+    },
+    {
+      "id": "person:КАДРИЕ КАДИР ХАБИЛ",
+      "type": "person",
+      "label": "Кадрие Кадир Хабил"
+    },
+    {
+      "id": "person:ПАВЕЛ МИЛКОВ РАНЧЕВ",
+      "type": "person",
+      "label": "Павел Милков Ранчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4890",
+      "target": "company:Якото-суши-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4890",
+      "target": "company:Якото-суши-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4890",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ХРИСТОВ ХРИСТОВ",
+      "target": "company:Якото-суши-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕНЧЕВА ЧОЧЕВА",
+      "target": "company:Якото-суши-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДИР НУРИ МАСАР",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДИР НУРИ МАСАР",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИЛ ОРХАН МАСАР",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАДРИЕ КАДИР ХАБИЛ",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ МИЛКОВ РАНЧЕВ",
+      "target": "company:tr:207238534",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

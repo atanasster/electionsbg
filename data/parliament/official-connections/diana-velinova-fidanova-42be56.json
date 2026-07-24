@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:diana-velinova-fidanova-42be56",
+  "nodes": [
+    {
+      "id": "official:diana-velinova-fidanova-42be56",
+      "type": "official",
+      "slug": "diana-velinova-fidanova-42be56",
+      "label": "Диана Велинова Фиданова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Баните"
+    },
+    {
+      "id": "company:tr:120547483",
+      "type": "company",
+      "label": "Сдружение с нестопанска цел \"Училищно настоятелство СУ \"Христо Ботев\"",
+      "slug": null,
+      "uic": "120547483",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОРКА АСЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Зорка Асенова Димитрова"
+    },
+    {
+      "id": "person:АТАНАС СЛАВЕЙКОВ КОМИТОВ",
+      "type": "person",
+      "label": "Атанас Славейков Комитов"
+    },
+    {
+      "id": "person:ЮЛИЯ ПЕШОВА КАНДУРОВА",
+      "type": "person",
+      "label": "Юлия Пешова Кандурова"
+    },
+    {
+      "id": "person:ПЛАМЕН ЮЛИЯНОВ ТОПЧИЕВ",
+      "type": "person",
+      "label": "Пламен Юлиянов Топчиев"
+    },
+    {
+      "id": "person:МАРИНА АЛБЕРТОВА ИВАНОВА",
+      "type": "person",
+      "label": "Марина Албертова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-velinova-fidanova-42be56",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diana-velinova-fidanova-42be56",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОРКА АСЕНОВА ДИМИТРОВА",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СЛАВЕЙКОВ КОМИТОВ",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ПЕШОВА КАНДУРОВА",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРКА АСЕНОВА ДИМИТРОВА",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЮЛИЯНОВ ТОПЧИЕВ",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА АЛБЕРТОВА ИВАНОВА",
+      "target": "company:tr:120547483",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

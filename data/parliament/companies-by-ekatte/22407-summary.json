@@ -1,1 +1,40 @@
-{"ekatte":"22407","count":2,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"СКАЙ-БЛУ-33","displayName":"СКАЙ БЛУ 33","registeredOffice":"БЪЛГАРИЯ, гр. Долни Дъбник, 5870","mps":[{"mpId":897,"mpName":"Венцислав Василев Върбанов","role":"sole_owner","isCurrent":true},{"mpId":897,"mpName":"Венцислав Василев Върбанов","role":"partner","isCurrent":false}]},{"slug":"АГРО-6","displayName":"АГРО 6","registeredOffice":"БЪЛГАРИЯ, гр. Долни Дъбник, 5870","mps":[{"mpId":897,"mpName":"Венцислав Василев Върбанов","role":"manager","isCurrent":true}]}]}
+{
+  "ekatte": "22407",
+  "count": 2,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "СКАЙ-БЛУ-33",
+      "displayName": "СКАЙ БЛУ 33",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Долни Дъбник, 5870",
+      "mps": [
+        {
+          "mpId": 897,
+          "mpName": "Венцислав Василев Върбанов",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 897,
+          "mpName": "Венцислав Василев Върбанов",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "АГРО-6",
+      "displayName": "АГРО 6",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Долни Дъбник, 5870",
+      "mps": [
+        {
+          "mpId": 897,
+          "mpName": "Венцислав Василев Върбанов",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

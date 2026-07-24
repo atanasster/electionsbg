@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:momchil-stefanov-nekov-14f9b6",
+  "nodes": [
+    {
+      "id": "official:momchil-stefanov-nekov-14f9b6",
+      "type": "official",
+      "slug": "momchil-stefanov-nekov-14f9b6",
+      "label": "Момчил Стефанов Неков",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203932257",
+      "type": "company",
+      "label": "Витал Прогрес ООД",
+      "slug": null,
+      "uic": "203932257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стефан Димитров Стоянов"
+    },
+    {
+      "id": "person:КИНА МИТЕВА НЕКОВА",
+      "type": "person",
+      "label": "Кина Митева Некова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-stefanov-nekov-14f9b6",
+      "target": "company:tr:203932257",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:203932257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИНА МИТЕВА НЕКОВА",
+      "target": "company:tr:203932257",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИНА МИТЕВА НЕКОВА",
+      "target": "company:tr:203932257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

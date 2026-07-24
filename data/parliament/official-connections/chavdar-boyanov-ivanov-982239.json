@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:chavdar-boyanov-ivanov-982239",
+  "nodes": [
+    {
+      "id": "official:chavdar-boyanov-ivanov-982239",
+      "type": "official",
+      "slug": "chavdar-boyanov-ivanov-982239",
+      "label": "Чавдар Боянов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елхово"
+    },
+    {
+      "id": "company:tr:208328346",
+      "type": "company",
+      "label": "ОБЕДИНЕНА РОМСКА НАДЕЖДА",
+      "slug": null,
+      "uic": "208328346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ЧАВДАРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Росен Чавдаров Иванов"
+    },
+    {
+      "id": "person:АНА БОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ана Боянова Димитрова"
+    },
+    {
+      "id": "person:СТОЯН ДАНЧЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Стоян Данчев Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-boyanov-ivanov-982239",
+      "target": "company:tr:208328346",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ЧАВДАРОВ ИВАНОВ",
+      "target": "company:tr:208328346",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА БОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:208328346",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДАНЧЕВ АТАНАСОВ",
+      "target": "company:tr:208328346",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

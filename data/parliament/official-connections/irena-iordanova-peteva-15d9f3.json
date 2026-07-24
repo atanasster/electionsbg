@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:irena-iordanova-peteva-15d9f3",
+  "nodes": [
+    {
+      "id": "official:irena-iordanova-peteva-15d9f3",
+      "type": "official",
+      "slug": "irena-iordanova-peteva-15d9f3",
+      "label": "Ирена Йорданова Петева",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131421074",
+      "type": "company",
+      "label": "Институт за национална политика",
+      "slug": null,
+      "uic": "131421074",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ГЕОРГИЕВ ДЕНЧЕВ",
+      "type": "person",
+      "label": "Стоян Георгиев Денчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ ПАЛАШЕВ",
+      "type": "person",
+      "label": "Николай Георгиев Палашев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-iordanova-peteva-15d9f3",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-iordanova-peteva-15d9f3",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ДЕНЧЕВ",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ПАЛАШЕВ",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ДЕНЧЕВ",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ПАЛАШЕВ",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ ДЕНЧЕВ",
+      "target": "company:tr:131421074",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

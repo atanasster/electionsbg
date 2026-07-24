@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:yashar-smail-asan-db91cb",
+  "nodes": [
+    {
+      "id": "official:yashar-smail-asan-db91cb",
+      "type": "official",
+      "slug": "yashar-smail-asan-db91cb",
+      "label": "Яшар Смаил Асан",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:825190031",
+      "type": "company",
+      "label": "ХАИР",
+      "slug": null,
+      "uic": "825190031",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЖДЕТ ШАИБОВ ЯШАРОВ",
+      "type": "person",
+      "label": "Неждет Шаибов Яшаров"
+    },
+    {
+      "id": "person:ПЕРХАН РЕДЖЕПОВА КАРАМУКОВА",
+      "type": "person",
+      "label": "Перхан Реджепова Карамукова"
+    },
+    {
+      "id": "person:РЕФЕТ АСАНОВ АХМЕДОВ",
+      "type": "person",
+      "label": "Рефет Асанов Ахмедов"
+    },
+    {
+      "id": "person:ТАЧКО АТАНАСОВ ЯВАШЕВ",
+      "type": "person",
+      "label": "Тачко Атанасов Явашев"
+    },
+    {
+      "id": "person:СЕВДЖАН СЕБАХАТИН МЕРДЖАН",
+      "type": "person",
+      "label": "Севджан Себахатин Мерджан"
+    },
+    {
+      "id": "person:АРСЛАН ЯШАР АСАН",
+      "type": "person",
+      "label": "Арслан Яшар Асан"
+    },
+    {
+      "id": "person:НАСКА ЯНКОВА МИНЕВА",
+      "type": "person",
+      "label": "Наска Янкова Минева"
+    },
+    {
+      "id": "person:СМАИЛ АХМЕД МУСТАФА",
+      "type": "person",
+      "label": "Смаил Ахмед Мустафа"
+    },
+    {
+      "id": "person:ЯШАР АХМЕД ГОВЕДАР",
+      "type": "person",
+      "label": "Яшар Ахмед Говедар"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yashar-smail-asan-db91cb",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yashar-smail-asan-db91cb",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЖДЕТ ШАИБОВ ЯШАРОВ",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕРХАН РЕДЖЕПОВА КАРАМУКОВА",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕФЕТ АСАНОВ АХМЕДОВ",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАЧКО АТАНАСОВ ЯВАШЕВ",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЖДЕТ ШАИБОВ ЯШАРОВ",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЖАН СЕБАХАТИН МЕРДЖАН",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АРСЛАН ЯШАР АСАН",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАСКА ЯНКОВА МИНЕВА",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СМАИЛ АХМЕД МУСТАФА",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯШАР АХМЕД ГОВЕДАР",
+      "target": "company:tr:825190031",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

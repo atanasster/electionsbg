@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:semra-ilhan-mehmed-9df4fc",
+  "nodes": [
+    {
+      "id": "official:semra-ilhan-mehmed-9df4fc",
+      "type": "official",
+      "slug": "semra-ilhan-mehmed-9df4fc",
+      "label": "Семра Илхан Мехмед",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923557",
+      "type": "company",
+      "label": "Пробуда - 1929",
+      "slug": null,
+      "uic": "000923557",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:efraim-ibrahim-redzheb-e318b3",
+      "type": "official",
+      "slug": "efraim-ibrahim-redzheb-e318b3",
+      "label": "Ефраим Ибрахим Реджеб",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хитрино"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ ВЕНЕЛИНОВ ДЕСПОДОВ",
+      "type": "person",
+      "label": "Десислав Венелинов Десподов"
+    },
+    {
+      "id": "person:АВГУСТИНА МИЛЕНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Августина Миленова Стефанова"
+    },
+    {
+      "id": "person:СТАНЧО ГАНЧЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Станчо Ганчев Стефанов"
+    },
+    {
+      "id": "person:АНЕТА ПЕТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Анета Петрова Петрова"
+    },
+    {
+      "id": "person:СНЕЖАНА ДИМОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Снежана Димова Николова"
+    },
+    {
+      "id": "person:ДОНЧО НИКОЛОВ ЦАЧЕВ",
+      "type": "person",
+      "label": "Дончо Николов Цачев"
+    },
+    {
+      "id": "person:ГАБРИЕЛ ГЕНАДИЙЕВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Габриел Генадийев Григоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:semra-ilhan-mehmed-9df4fc",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:efraim-ibrahim-redzheb-e318b3",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ ВЕНЕЛИНОВ ДЕСПОДОВ",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АВГУСТИНА МИЛЕНОВА СТЕФАНОВА",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ГАНЧЕВ СТЕФАНОВ",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ПЕТРОВА ПЕТРОВА",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ДИМОВА НИКОЛОВА",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО НИКОЛОВ ЦАЧЕВ",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛ ГЕНАДИЙЕВ ГРИГОРОВ",
+      "target": "company:tr:000923557",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

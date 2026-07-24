@@ -1,1 +1,81 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4866","nodes":[{"id":"mp:4866","type":"mp","mpId":4866,"label":"Ангел Николаев Славчев","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":["50","51"]},{"id":"company:Апиа-КОнсулт-ЕООД","type":"company","label":"Апиа КОнсулт ЕООД","slug":"Апиа-КОнсулт-ЕООД","uic":"205895811","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. Елин Пелин, 2100"},{"id":"person:ПЕТЯ ИВАНОВА СЛАВЧЕВА","type":"person","label":"Петя Иванова Славчева"},{"id":"person:ИЛИАНА АНТОНОВА ВАСИЛЕВА","type":"person","label":"Илиана Антонова Василева"}],"edges":[{"source":"mp:4866","target":"company:Апиа-КОнсулт-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4866","target":"company:Апиа-КОнсулт-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"},{"source":"person:ПЕТЯ ИВАНОВА СЛАВЧЕВА","target":"company:Апиа-КОнсулт-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИАНА АНТОНОВА ВАСИЛЕВА","target":"company:Апиа-КОнсулт-ЕООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИЛИАНА АНТОНОВА ВАСИЛЕВА","target":"company:Апиа-КОнсулт-ЕООД","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4866",
+  "nodes": [
+    {
+      "id": "mp:4866",
+      "type": "mp",
+      "mpId": 4866,
+      "label": "Ангел Николаев Славчев",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Апиа-КОнсулт-ЕООД",
+      "type": "company",
+      "label": "Апиа КОнсулт ЕООД",
+      "slug": "Апиа-КОнсулт-ЕООД",
+      "uic": "205895811",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Елин Пелин, 2100"
+    },
+    {
+      "id": "person:ПЕТЯ ИВАНОВА СЛАВЧЕВА",
+      "type": "person",
+      "label": "Петя Иванова Славчева"
+    },
+    {
+      "id": "person:ИЛИАНА АНТОНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Илиана Антонова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4866",
+      "target": "company:Апиа-КОнсулт-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4866",
+      "target": "company:Апиа-КОнсулт-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИВАНОВА СЛАВЧЕВА",
+      "target": "company:Апиа-КОнсулт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАНА АНТОНОВА ВАСИЛЕВА",
+      "target": "company:Апиа-КОнсулт-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАНА АНТОНОВА ВАСИЛЕВА",
+      "target": "company:Апиа-КОнсулт-ЕООД",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

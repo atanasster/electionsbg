@@ -1,1 +1,106 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:13","nodes":[{"id":"mp:13","type":"mp","mpId":13,"label":"Несрин Мустафа Узун","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["39"]},{"id":"company:tr:201626870","type":"company","label":"АГРО АСТЕРА","slug":null,"uic":"201626870","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, с. Средна махала, 8581"},{"id":"company:tr:200724564","type":"company","label":"ФОТОН ПАРК","slug":null,"uic":"200724564","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1407"},{"id":"person:НЕДЖМИ МУСТАФА УЗУН","type":"person","label":"Неджми Мустафа Узун"},{"id":"person:МИЙРЕМ МЕХМЕД УЗУН","type":"person","label":"Мийрем Мехмед Узун"}],"edges":[{"source":"mp:13","target":"company:tr:201626870","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:13","target":"company:tr:200724564","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:13","target":"company:tr:200724564","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:13","target":"company:tr:200724564","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:НЕДЖМИ МУСТАФА УЗУН","target":"company:tr:201626870","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:МИЙРЕМ МЕХМЕД УЗУН","target":"company:tr:201626870","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:НЕДЖМИ МУСТАФА УЗУН","target":"company:tr:201626870","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:13",
+  "nodes": [
+    {
+      "id": "mp:13",
+      "type": "mp",
+      "mpId": 13,
+      "label": "Несрин Мустафа Узун",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "company:tr:201626870",
+      "type": "company",
+      "label": "АГРО АСТЕРА",
+      "slug": null,
+      "uic": "201626870",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Средна махала, 8581"
+    },
+    {
+      "id": "company:tr:200724564",
+      "type": "company",
+      "label": "ФОТОН ПАРК",
+      "slug": null,
+      "uic": "200724564",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "person:НЕДЖМИ МУСТАФА УЗУН",
+      "type": "person",
+      "label": "Неджми Мустафа Узун"
+    },
+    {
+      "id": "person:МИЙРЕМ МЕХМЕД УЗУН",
+      "type": "person",
+      "label": "Мийрем Мехмед Узун"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:13",
+      "target": "company:tr:201626870",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:13",
+      "target": "company:tr:200724564",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:13",
+      "target": "company:tr:200724564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:13",
+      "target": "company:tr:200724564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЖМИ МУСТАФА УЗУН",
+      "target": "company:tr:201626870",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЙРЕМ МЕХМЕД УЗУН",
+      "target": "company:tr:201626870",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЖМИ МУСТАФА УЗУН",
+      "target": "company:tr:201626870",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ivan-stefanov-stoyanov-c2e940",
+  "nodes": [
+    {
+      "id": "official:ivan-stefanov-stoyanov-c2e940",
+      "type": "official",
+      "slug": "ivan-stefanov-stoyanov-c2e940",
+      "label": "Иван Стефанов Стоянов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107548000",
+      "type": "company",
+      "label": "Народно читалище &quot;Габрово-2002&quot;",
+      "slug": null,
+      "uic": "107548000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДКА АНГЕЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Радка Ангелова Ангелова"
+    },
+    {
+      "id": "person:МИХАЕЛА ТИХОМИРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Михаела Тихомирова Стоянова"
+    },
+    {
+      "id": "person:ПРОТОЙЕРЕЙ ВАЛЕНТИН СЪБОТИНОВ КАЛЕВ",
+      "type": "person",
+      "label": "Протойерей Валентин Съботинов Калев"
+    },
+    {
+      "id": "person:ХРИСТО ХРИСТОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Христо Христов Добрев"
+    },
+    {
+      "id": "person:ТОТКА ИЛИЕВА ПОЛЯКОВА-МИНКОВА",
+      "type": "person",
+      "label": "Тотка Илиева Полякова-Минкова"
+    },
+    {
+      "id": "person:ТАТЯНА ДИМИТРОВА ДИМИТРОВА-МИХАЙЛОВА",
+      "type": "person",
+      "label": "Татяна Димитрова Димитрова-Михайлова"
+    },
+    {
+      "id": "person:НИКОЛАЙ БОРИСОВ БОНЧЕВ",
+      "type": "person",
+      "label": "Николай Борисов Бончев"
+    },
+    {
+      "id": "person:ВЕНЕТА ГЕОРГИЕВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Венета Георгиева Лазарова"
+    },
+    {
+      "id": "person:ГАЛЯ ЗЛАТИНОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Галя Златинова Стойчева"
+    },
+    {
+      "id": "person:ТОДОР ИЛИЕВ ШАНДУРКОВ",
+      "type": "person",
+      "label": "Тодор Илиев Шандурков"
+    },
+    {
+      "id": "person:МАНОЛ ДИМОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Манол Димов Манолов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-stefanov-stoyanov-c2e940",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДКА АНГЕЛОВА АНГЕЛОВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ТИХОМИРОВА СТОЯНОВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОТОЙЕРЕЙ ВАЛЕНТИН СЪБОТИНОВ КАЛЕВ",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ХРИСТОВ ДОБРЕВ",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОТКА ИЛИЕВА ПОЛЯКОВА-МИНКОВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ДИМИТРОВА ДИМИТРОВА-МИХАЙЛОВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БОРИСОВ БОНЧЕВ",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ГЕОРГИЕВА ЛАЗАРОВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ЗЛАТИНОВА СТОЙЧЕВА",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ШАНДУРКОВ",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАНОЛ ДИМОВ МАНОЛОВ",
+      "target": "company:tr:107548000",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

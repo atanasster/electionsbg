@@ -1,1 +1,638 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:5182","nodes":[{"id":"mp:5182","type":"mp","mpId":5182,"label":"Борислав Пламенов Георгиев","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"company:tr:208810392","type":"company","label":"БАРБЕР ШОП  НЕКСТ ЛЕВЪЛ","slug":null,"uic":"208810392","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Симеоновград, 6490"},{"id":"company:tr:203315284","type":"company","label":"ЯББ","slug":null,"uic":"203315284","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1345"},{"id":"company:tr:208566917","type":"company","label":"Борджио","slug":null,"uic":"208566917","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"company:tr:208566852","type":"company","label":"Борирен","slug":null,"uic":"208566852","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Плевен, 5800"},{"id":"company:tr:203210319","type":"company","label":"ЕМИКС 99","slug":null,"uic":"203210319","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1229"},{"id":"company:tr:206681397","type":"company","label":"ШЕРИФ 1","slug":null,"uic":"206681397","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1220"},{"id":"company:tr:203524177","type":"company","label":"ДИДЖИМАРК ИНТЕРНЕШЪНЪЛ","slug":null,"uic":"203524177","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1229"},{"id":"company:tr:113047175","type":"company","label":"СКАЛА","slug":null,"uic":"113047175","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1229"},{"id":"company:tr:208081796","type":"company","label":"АДРИАНА КОМЕРСИ","slug":null,"uic":"208081796","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1164"},{"id":"company:tr:205432603","type":"company","label":"ИЗИТИЙМ","slug":null,"uic":"205432603","legalForm":"EOOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1000"},{"id":"company:tr:114554836","type":"company","label":"СДРУЖЕНИЕ &quot;ОБЩИНСКИ ФУТБОЛЕН КЛУБ СПАРТАК ПЛЕВЕН&quot;","slug":null,"uic":"114554836","legalForm":"ASSOC","status":"active","seat":null},{"id":"company:tr:206013217","type":"company","label":"ВЕМЕРЕА","slug":null,"uic":"206013217","legalForm":"OOD","status":"active","seat":null},{"id":"person:ДАНИЕЛА ИЛИЯНОВА БОРИСОВА","type":"person","label":"Даниела Илиянова Борисова"},{"id":"person:ВЛАДИМИР ЯНКОВ ДИМОВ","type":"person","label":"Владимир Янков Димов"},{"id":"person:ИВАН ХРИСТОВ ХРИСТОВ","type":"person","label":"Иван Христов Христов"},{"id":"person:ПЛАМЕН ЛЮБЕНОВ АТАНАСОВ","type":"person","label":"Пламен Любенов Атанасов"},{"id":"person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ","type":"person","label":"Мирослав Павлинов Иванов"},{"id":"person:РОСЕН СИМЕОНОВ ВИСОЧКОВ","type":"person","label":"Росен Симеонов Височков"},{"id":"person:ВЕЛИЧКО ИВАНОВ ВЕЛИКОВ","type":"person","label":"Величко Иванов Великов"},{"id":"person:ПЕПО ВАСИЛЕВ ПЕТКОВ","type":"person","label":"Пепо Василев Петков"},{"id":"person:ЕВГЕНИ ИВАНОВ ГЕНОВ","type":"person","label":"Евгени Иванов Генов"},{"id":"person:ХРИСТО ИВАЙЛОВ ТАСЛАКОВ","type":"person","label":"Христо Ивайлов Таслаков"},{"id":"person:ПЕТЬО АНГЕЛОВ ПЕТКОВ","type":"person","label":"Петьо Ангелов Петков"},{"id":"person:ДИМИТЪР ПЕТЕВ ТОНЧЕВ","type":"person","label":"Димитър Петев Тончев"},{"id":"person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ","type":"person","label":"Васил Славейков Иванов"},{"id":"person:ИВАЙЛО ПЕТРОВ МИНКОВ","type":"person","label":"Ивайло Петров Минков"},{"id":"official:svetoslav-aleksandrov-dokov-2265ae","type":"official","slug":"svetoslav-aleksandrov-dokov-2265ae","label":"Светослав Александров Доков","tier":"municipal","role":"councillor","municipality":"Плевен"},{"id":"company:tr:207690100","type":"company","label":"Сдружение \"Заедно за Младен\"","slug":null,"uic":"207690100","legalForm":"Сдружение","status":"active","seat":"БЪЛГАРИЯ, с. Младен, 5428"},{"id":"mp:2937","type":"mp","mpId":2937,"label":"Иглика Иванова Иванова-Събева","partyGroupShort":"КП-СИ","isCurrent":false,"nsFolders":[]},{"id":"company:tr:831641791","type":"company","label":"ИНФОРМАЦИОННО ОБСЛУЖВАНЕ","slug":null,"uic":"831641791","legalForm":"AD","status":"active","seat":null},{"id":"mp:4727","type":"mp","mpId":4727,"label":"Хюсни Осман Адем","partyGroupShort":"АПС","isCurrent":false,"nsFolders":["50"]}],"edges":[{"source":"mp:5182","target":"company:tr:208810392","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:208810392","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:203315284","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:203315284","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:208566917","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5182","target":"company:tr:208566917","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5182","target":"company:tr:208566852","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5182","target":"company:tr:208566852","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"mp:5182","target":"company:tr:203210319","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:203210319","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:206681397","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:206681397","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:203524177","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:203524177","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:113047175","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:113047175","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:208081796","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:208081796","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:205432603","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:205432603","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5182","target":"company:tr:206013217","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ДАНИЕЛА ИЛИЯНОВА БОРИСОВА","target":"company:tr:206681397","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ВЛАДИМИР ЯНКОВ ДИМОВ","target":"company:tr:113047175","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ ХРИСТОВ","target":"company:tr:205432603","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ХРИСТОВ ХРИСТОВ","target":"company:tr:205432603","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"high"},{"source":"person:ПЛАМЕН ЛЮБЕНОВ АТАНАСОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:РОСЕН СИМЕОНОВ ВИСОЧКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕЛИЧКО ИВАНОВ ВЕЛИКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕПО ВАСИЛЕВ ПЕТКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЕВГЕНИ ИВАНОВ ГЕНОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО ИВАЙЛОВ ТАСЛАКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ПЕТЬО АНГЕЛОВ ПЕТКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ДИМИТЪР ПЕТЕВ ТОНЧЕВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАЙЛО ПЕТРОВ МИНКОВ","target":"company:tr:114554836","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"official:svetoslav-aleksandrov-dokov-2265ae","target":"company:tr:206013217","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"official:svetoslav-aleksandrov-dokov-2265ae","target":"company:tr:206013217","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАН ХРИСТОВ ХРИСТОВ","target":"company:tr:207690100","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ","target":"company:tr:831641791","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"high"},{"source":"mp:2937","target":"company:tr:207690100","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:4727","target":"company:tr:831641791","kind":"tr_role","role":"branch_manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:2937","length":4,"nodeIds":["mp:5182","company:tr:205432603","person:ИВАН ХРИСТОВ ХРИСТОВ","company:tr:207690100","mp:2937"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4727","length":4,"nodeIds":["mp:5182","company:tr:114554836","person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ","company:tr:831641791","mp:4727"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:5182",
+  "nodes": [
+    {
+      "id": "mp:5182",
+      "type": "mp",
+      "mpId": 5182,
+      "label": "Борислав Пламенов Георгиев",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "company:tr:208810392",
+      "type": "company",
+      "label": "БАРБЕР ШОП  НЕКСТ ЛЕВЪЛ",
+      "slug": null,
+      "uic": "208810392",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Симеоновград, 6490"
+    },
+    {
+      "id": "company:tr:203315284",
+      "type": "company",
+      "label": "ЯББ",
+      "slug": null,
+      "uic": "203315284",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1345"
+    },
+    {
+      "id": "company:tr:208566917",
+      "type": "company",
+      "label": "Борджио",
+      "slug": null,
+      "uic": "208566917",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:208566852",
+      "type": "company",
+      "label": "Борирен",
+      "slug": null,
+      "uic": "208566852",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:203210319",
+      "type": "company",
+      "label": "ЕМИКС 99",
+      "slug": null,
+      "uic": "203210319",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1229"
+    },
+    {
+      "id": "company:tr:206681397",
+      "type": "company",
+      "label": "ШЕРИФ 1",
+      "slug": null,
+      "uic": "206681397",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1220"
+    },
+    {
+      "id": "company:tr:203524177",
+      "type": "company",
+      "label": "ДИДЖИМАРК ИНТЕРНЕШЪНЪЛ",
+      "slug": null,
+      "uic": "203524177",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1229"
+    },
+    {
+      "id": "company:tr:113047175",
+      "type": "company",
+      "label": "СКАЛА",
+      "slug": null,
+      "uic": "113047175",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1229"
+    },
+    {
+      "id": "company:tr:208081796",
+      "type": "company",
+      "label": "АДРИАНА КОМЕРСИ",
+      "slug": null,
+      "uic": "208081796",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1164"
+    },
+    {
+      "id": "company:tr:205432603",
+      "type": "company",
+      "label": "ИЗИТИЙМ",
+      "slug": null,
+      "uic": "205432603",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:114554836",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ОБЩИНСКИ ФУТБОЛЕН КЛУБ СПАРТАК ПЛЕВЕН&quot;",
+      "slug": null,
+      "uic": "114554836",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206013217",
+      "type": "company",
+      "label": "ВЕМЕРЕА",
+      "slug": null,
+      "uic": "206013217",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ИЛИЯНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Даниела Илиянова Борисова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЯНКОВ ДИМОВ",
+      "type": "person",
+      "label": "Владимир Янков Димов"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Христов Христов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЛЮБЕНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Пламен Любенов Атанасов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Мирослав Павлинов Иванов"
+    },
+    {
+      "id": "person:РОСЕН СИМЕОНОВ ВИСОЧКОВ",
+      "type": "person",
+      "label": "Росен Симеонов Височков"
+    },
+    {
+      "id": "person:ВЕЛИЧКО ИВАНОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Величко Иванов Великов"
+    },
+    {
+      "id": "person:ПЕПО ВАСИЛЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Пепо Василев Петков"
+    },
+    {
+      "id": "person:ЕВГЕНИ ИВАНОВ ГЕНОВ",
+      "type": "person",
+      "label": "Евгени Иванов Генов"
+    },
+    {
+      "id": "person:ХРИСТО ИВАЙЛОВ ТАСЛАКОВ",
+      "type": "person",
+      "label": "Христо Ивайлов Таслаков"
+    },
+    {
+      "id": "person:ПЕТЬО АНГЕЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петьо Ангелов Петков"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТЕВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Димитър Петев Тончев"
+    },
+    {
+      "id": "person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Васил Славейков Иванов"
+    },
+    {
+      "id": "person:ИВАЙЛО ПЕТРОВ МИНКОВ",
+      "type": "person",
+      "label": "Ивайло Петров Минков"
+    },
+    {
+      "id": "official:svetoslav-aleksandrov-dokov-2265ae",
+      "type": "official",
+      "slug": "svetoslav-aleksandrov-dokov-2265ae",
+      "label": "Светослав Александров Доков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:207690100",
+      "type": "company",
+      "label": "Сдружение &quot;Заедно за Младен&quot;",
+      "slug": null,
+      "uic": "207690100",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Младен, 5428"
+    },
+    {
+      "id": "mp:2937",
+      "type": "mp",
+      "mpId": 2937,
+      "label": "Иглика Иванова Иванова-Събева",
+      "partyGroupShort": "КП-СИ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:tr:831641791",
+      "type": "company",
+      "label": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ",
+      "slug": null,
+      "uic": "831641791",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4727",
+      "type": "mp",
+      "mpId": 4727,
+      "label": "Хюсни Осман Адем",
+      "partyGroupShort": "АПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "50"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208810392",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208810392",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203315284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203315284",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208566917",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208566917",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208566852",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208566852",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203210319",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203210319",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:206681397",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:206681397",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203524177",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:203524177",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:113047175",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:113047175",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208081796",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:208081796",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:205432603",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:205432603",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5182",
+      "target": "company:tr:206013217",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ИЛИЯНОВА БОРИСОВА",
+      "target": "company:tr:206681397",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЯНКОВ ДИМОВ",
+      "target": "company:tr:113047175",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:205432603",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:205432603",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛЮБЕНОВ АТАНАСОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН СИМЕОНОВ ВИСОЧКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКО ИВАНОВ ВЕЛИКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПО ВАСИЛЕВ ПЕТКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ИВАНОВ ГЕНОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАЙЛОВ ТАСЛАКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО АНГЕЛОВ ПЕТКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПАВЛИНОВ ИВАНОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТЕВ ТОНЧЕВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ПЕТРОВ МИНКОВ",
+      "target": "company:tr:114554836",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-aleksandrov-dokov-2265ae",
+      "target": "company:tr:206013217",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-aleksandrov-dokov-2265ae",
+      "target": "company:tr:206013217",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ",
+      "target": "company:tr:831641791",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2937",
+      "target": "company:tr:207690100",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4727",
+      "target": "company:tr:831641791",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:2937",
+      "length": 4,
+      "nodeIds": [
+        "mp:5182",
+        "company:tr:205432603",
+        "person:ИВАН ХРИСТОВ ХРИСТОВ",
+        "company:tr:207690100",
+        "mp:2937"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4727",
+      "length": 4,
+      "nodeIds": [
+        "mp:5182",
+        "company:tr:114554836",
+        "person:ВАСИЛ СЛАВЕЙКОВ ИВАНОВ",
+        "company:tr:831641791",
+        "mp:4727"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

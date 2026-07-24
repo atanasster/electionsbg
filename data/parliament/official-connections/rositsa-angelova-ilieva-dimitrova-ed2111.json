@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rositsa-angelova-ilieva-dimitrova-ed2111",
+  "nodes": [
+    {
+      "id": "official:rositsa-angelova-ilieva-dimitrova-ed2111",
+      "type": "official",
+      "slug": "rositsa-angelova-ilieva-dimitrova-ed2111",
+      "label": "Росица Ангелова Илиева-Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176628707",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СЛАВЯНИ- 2013&quot;",
+      "slug": null,
+      "uic": "176628707",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИЛЯНА ВЕНЕЛИНОВА КОСТОВА-КИРИЛОВА",
+      "type": "person",
+      "label": "Биляна Венелинова Костова-Кирилова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ИВАНОВА СПАСОВА",
+      "type": "person",
+      "label": "Веселка Иванова Спасова"
+    },
+    {
+      "id": "person:АННА РАДОСЛАВОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Анна Радославова Георгиева"
+    },
+    {
+      "id": "person:НЕДЕЛЯ БОРИСОВА ГОРАНОВА",
+      "type": "person",
+      "label": "Неделя Борисова Горанова"
+    },
+    {
+      "id": "person:БОЯНА ГЕРАСИМОВА ТОМОВА",
+      "type": "person",
+      "label": "Бояна Герасимова Томова"
+    },
+    {
+      "id": "person:РАЛИЦА ПЛАМЕНОВА ДИМИТРОВА-ПАВЛОВА",
+      "type": "person",
+      "label": "Ралица Пламенова Димитрова-Павлова"
+    },
+    {
+      "id": "person:МИРОСЛАВ КАМЕНОВ МАРКОВ",
+      "type": "person",
+      "label": "Мирослав Каменов Марков"
+    },
+    {
+      "id": "person:СИЛВИЯ ВАЛЕРИЕВА МИТЕВА",
+      "type": "person",
+      "label": "Силвия Валериева Митева"
+    },
+    {
+      "id": "person:МИЛЕНА МИТКОВА БОРИСОВА",
+      "type": "person",
+      "label": "Милена Миткова Борисова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ПЕТКОВА ВРАБЧАРСКА",
+      "type": "person",
+      "label": "Валентина Петкова Врабчарска"
+    },
+    {
+      "id": "person:РАЛИЦА РАЧЕВА МИЛАНОВА-СТЕФАНОВА",
+      "type": "person",
+      "label": "Ралица Рачева Миланова-Стефанова"
+    },
+    {
+      "id": "person:ТАНЯ КРУМОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Таня Крумова Вълчева"
+    },
+    {
+      "id": "person:НЕЛКА ГЕОРГИЕВА ИВАНОВА-БАНИШКА",
+      "type": "person",
+      "label": "Нелка Георгиева Иванова-Банишка"
+    },
+    {
+      "id": "person:ПЕТЯ АНГЕЛОВА НИКОЛОВА-НАЧЕВА",
+      "type": "person",
+      "label": "Петя Ангелова Николова-Начева"
+    },
+    {
+      "id": "person:МИЛЕНА СТОЯНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Милена Стоянова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-angelova-ilieva-dimitrova-ed2111",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯНА ВЕНЕЛИНОВА КОСТОВА-КИРИЛОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ВЕНЕЛИНОВА КОСТОВА-КИРИЛОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ИВАНОВА СПАСОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА РАДОСЛАВОВА ГЕОРГИЕВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЯ БОРИСОВА ГОРАНОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА ГЕРАСИМОВА ТОМОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ПЛАМЕНОВА ДИМИТРОВА-ПАВЛОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ КАМЕНОВ МАРКОВ",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ВАЛЕРИЕВА МИТЕВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МИТКОВА БОРИСОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ПЕТКОВА ВРАБЧАРСКА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА РАЧЕВА МИЛАНОВА-СТЕФАНОВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КРУМОВА ВЪЛЧЕВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛКА ГЕОРГИЕВА ИВАНОВА-БАНИШКА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АНГЕЛОВА НИКОЛОВА-НАЧЕВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СТОЯНОВА ГЕОРГИЕВА",
+      "target": "company:tr:176628707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

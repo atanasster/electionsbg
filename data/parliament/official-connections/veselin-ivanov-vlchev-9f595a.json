@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veselin-ivanov-vlchev-9f595a",
+  "nodes": [
+    {
+      "id": "official:veselin-ivanov-vlchev-9f595a",
+      "type": "official",
+      "slug": "veselin-ivanov-vlchev-9f595a",
+      "label": "Веселин Иванов Вълчев",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131133583",
+      "type": "company",
+      "label": "ИНСТИТУТ ЗА ИКОНОМИКА И МЕЖДУНАРОДНИ ОТНОШЕНИЯ",
+      "slug": null,
+      "uic": "131133583",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР НЕДКОВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Любомир Недков Кючуков"
+    },
+    {
+      "id": "person:ГАНЧО ТОДОРОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Ганчо Тодоров Ганчев"
+    },
+    {
+      "id": "person:ПЛАМЕН ВЪЛКАНОВ ЧЕРВЕНКОВ",
+      "type": "person",
+      "label": "Пламен Вълканов Червенков"
+    },
+    {
+      "id": "person:СЛАВЧО ЛЪЧЕЗАРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Славчо Лъчезаров Георгиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН МЕТОДИЕВ РАДОМИРСКИ",
+      "type": "person",
+      "label": "Валентин Методиев Радомирски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-ivanov-vlchev-9f595a",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-ivanov-vlchev-9f595a",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР НЕДКОВ КЮЧУКОВ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ТОДОРОВ ГАНЧЕВ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР НЕДКОВ КЮЧУКОВ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВЪЛКАНОВ ЧЕРВЕНКОВ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ЛЪЧЕЗАРОВ ГЕОРГИЕВ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МЕТОДИЕВ РАДОМИРСКИ",
+      "target": "company:tr:131133583",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

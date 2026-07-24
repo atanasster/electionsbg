@@ -1,1 +1,105 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:mariya-koleva-zhekova-489cbb","nodes":[{"id":"official:mariya-koleva-zhekova-489cbb","type":"official","slug":"mariya-koleva-zhekova-489cbb","label":"Мария Колева Жекова","tier":"municipal","role":"councillor","municipality":"Стара Загора"},{"id":"company:tr:833105098","type":"company","label":"Ате пласт ООД","slug":null,"uic":"833105098","legalForm":null,"status":null,"seat":null},{"id":"person:ТЕОДОРА ЖИВКОВА ЖЕЛЯЗКОВА","type":"person","label":"Теодора Живкова Желязкова"},{"id":"person:ИВО ЖИВКОВ ЖЕКОВ","type":"person","label":"Иво Живков Жеков"},{"id":"person:ЖИВКО ЖЕЛЯЗКОВ ЖЕКОВ","type":"person","label":"Живко Желязков Жеков"},{"id":"person:МАРИЯ КОЛЕВА ЖЕКОВА","type":"person","label":"Мария Колева Жекова"}],"edges":[{"source":"official:mariya-koleva-zhekova-489cbb","target":"company:tr:833105098","kind":"declared_stake","role":"declared_share","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОРА ЖИВКОВА ЖЕЛЯЗКОВА","target":"company:tr:833105098","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ЖИВКОВ ЖЕКОВ","target":"company:tr:833105098","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ЖИВКО ЖЕЛЯЗКОВ ЖЕКОВ","target":"company:tr:833105098","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:МАРИЯ КОЛЕВА ЖЕКОВА","target":"company:tr:833105098","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:mariya-koleva-zhekova-489cbb",
+  "nodes": [
+    {
+      "id": "official:mariya-koleva-zhekova-489cbb",
+      "type": "official",
+      "slug": "mariya-koleva-zhekova-489cbb",
+      "label": "Мария Колева Жекова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:833105098",
+      "type": "company",
+      "label": "Ате пласт ООД",
+      "slug": null,
+      "uic": "833105098",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123636916",
+      "type": "company",
+      "label": "Алт пак ООД",
+      "slug": null,
+      "uic": "123636916",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ЖИВКОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Теодора Живкова Желязкова"
+    },
+    {
+      "id": "person:ИВО ЖИВКОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Иво Живков Жеков"
+    },
+    {
+      "id": "person:ЖИВКО ЖЕЛЯЗКОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Живко Желязков Жеков"
+    },
+    {
+      "id": "person:МАРИЯ КОЛЕВА ЖЕКОВА",
+      "type": "person",
+      "label": "Мария Колева Жекова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-koleva-zhekova-489cbb",
+      "target": "company:tr:833105098",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-koleva-zhekova-489cbb",
+      "target": "company:tr:123636916",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЖИВКОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:833105098",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ЖИВКОВ ЖЕКОВ",
+      "target": "company:tr:833105098",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ЖЕЛЯЗКОВ ЖЕКОВ",
+      "target": "company:tr:833105098",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОЛЕВА ЖЕКОВА",
+      "target": "company:tr:833105098",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

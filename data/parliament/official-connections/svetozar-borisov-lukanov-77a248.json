@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:svetozar-borisov-lukanov-77a248",
+  "nodes": [
+    {
+      "id": "official:svetozar-borisov-lukanov-77a248",
+      "type": "official",
+      "slug": "svetozar-borisov-lukanov-77a248",
+      "label": "Светозар Борисов Луканов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106512909",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - МЕЗДРА",
+      "slug": null,
+      "uic": "106512909",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetozar-borisov-lukanov-77a248",
+      "target": "company:tr:106512909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

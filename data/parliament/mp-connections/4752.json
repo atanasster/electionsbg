@@ -1,1 +1,185 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:4752","nodes":[{"id":"mp:4752","type":"mp","mpId":4752,"label":"Даниел Петров Петров","partyGroupShort":"Възраждане","isCurrent":false,"nsFolders":["47","48","49","50","51"]},{"id":"company:Вайсънс-ООД","type":"company","label":"Вайсънс ООД","slug":"Вайсънс-ООД","uic":"203125299","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Метал-Инвест-Габрово-ООД","type":"company","label":"Метал Инвест - Габрово ООД","slug":"Метал-Инвест-Габрово-ООД","uic":"203125413","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Металинвест-2002-ООД","type":"company","label":"Металинвест - 2002 ООД","slug":"Металинвест-2002-ООД","uic":"201064591","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"company:Стийл-Гардън-ООД","type":"company","label":"Стийл Гардън ООД","slug":"Стийл-Гардън-ООД","uic":"205402752","legalForm":"OOD","status":"active","seat":"Габрово"},{"id":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","type":"person","label":"Христо Николаев Колев"}],"edges":[{"source":"mp:4752","target":"company:Вайсънс-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Метал-Инвест-Габрово-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Металинвест-2002-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:4752","target":"company:Стийл-Гардън-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Вайсънс-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Метал-Инвест-Габрово-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Металинвест-2002-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ХРИСТО НИКОЛАЕВ КОЛЕВ","target":"company:Стийл-Гардън-ООД","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:4752",
+  "nodes": [
+    {
+      "id": "mp:4752",
+      "type": "mp",
+      "mpId": 4752,
+      "label": "Даниел Петров Петров",
+      "partyGroupShort": "Възраждане",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:Вайсънс-ООД",
+      "type": "company",
+      "label": "Вайсънс ООД",
+      "slug": "Вайсънс-ООД",
+      "uic": "203125299",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Метал-Инвест-Габрово-ООД",
+      "type": "company",
+      "label": "Метал Инвест - Габрово ООД",
+      "slug": "Метал-Инвест-Габрово-ООД",
+      "uic": "203125413",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Метал-Инвест-Габрово-ООД-2",
+      "type": "company",
+      "label": "Метал Инвест-Габрово ООД",
+      "slug": "Метал-Инвест-Габрово-ООД-2",
+      "uic": "203125413",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Металинвест-2002-ООД",
+      "type": "company",
+      "label": "Металинвест - 2002 ООД",
+      "slug": "Металинвест-2002-ООД",
+      "uic": "201064591",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Металинвест-2002-ООД-2",
+      "type": "company",
+      "label": "Металинвест-2002 ООД",
+      "slug": "Металинвест-2002-ООД-2",
+      "uic": "201064591",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "company:Стийл-Гардън-ООД",
+      "type": "company",
+      "label": "Стийл Гардън ООД",
+      "slug": "Стийл-Гардън-ООД",
+      "uic": "205402752",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Габрово"
+    },
+    {
+      "id": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Христо Николаев Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4752",
+      "target": "company:Вайсънс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Метал-Инвест-Габрово-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Метал-Инвест-Габрово-ООД-2",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Металинвест-2002-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Металинвест-2002-ООД-2",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4752",
+      "target": "company:Стийл-Гардън-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Вайсънс-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Метал-Инвест-Габрово-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Метал-Инвест-Габрово-ООД-2",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Металинвест-2002-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Металинвест-2002-ООД-2",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО НИКОЛАЕВ КОЛЕВ",
+      "target": "company:Стийл-Гардън-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

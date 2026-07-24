@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:veska-hristova-georgieva-e619cc",
+  "nodes": [
+    {
+      "id": "official:veska-hristova-georgieva-e619cc",
+      "type": "official",
+      "slug": "veska-hristova-georgieva-e619cc",
+      "label": "Веска Христова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208524188",
+      "type": "company",
+      "label": "НИКИ ВЕНДИНГ 2025",
+      "slug": null,
+      "uic": "208524188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veska-hristova-georgieva-e619cc",
+      "target": "company:tr:208524188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veska-hristova-georgieva-e619cc",
+      "target": "company:tr:208524188",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

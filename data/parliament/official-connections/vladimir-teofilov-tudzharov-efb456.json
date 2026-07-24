@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vladimir-teofilov-tudzharov-efb456",
+  "nodes": [
+    {
+      "id": "official:vladimir-teofilov-tudzharov-efb456",
+      "type": "official",
+      "slug": "vladimir-teofilov-tudzharov-efb456",
+      "label": "Владимир Теофилов Туджаров",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202097007",
+      "type": "company",
+      "label": "РИтъм груп 22 ООД",
+      "slug": null,
+      "uic": "202097007",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204667655",
+      "type": "company",
+      "label": "Корпстрой ООД",
+      "slug": null,
+      "uic": "204667655",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:albena-ivanova-tudzharova-c2b118",
+      "type": "official",
+      "slug": "albena-ivanova-tudzharova-c2b118",
+      "label": "Албена Иванова Туджарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАЙЛО АСЕНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Ивайло Асенов Лазаров"
+    },
+    {
+      "id": "person:ВАСИЛ СТЕФАНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Васил Стефанов Борисов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР БОЯНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Александър Боянов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-teofilov-tudzharov-efb456",
+      "target": "company:tr:202097007",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-teofilov-tudzharov-efb456",
+      "target": "company:tr:204667655",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:albena-ivanova-tudzharova-c2b118",
+      "target": "company:tr:202097007",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО АСЕНОВ ЛАЗАРОВ",
+      "target": "company:tr:202097007",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТЕФАНОВ БОРИСОВ",
+      "target": "company:tr:204667655",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОЯНОВ ИЛИЕВ",
+      "target": "company:tr:204667655",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОЯНОВ ИЛИЕВ",
+      "target": "company:tr:204667655",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,1 +1,396 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3410","nodes":[{"id":"mp:3410","type":"mp","mpId":3410,"label":"Георги Стоянов Кадиев","partyGroupShort":"СБГ","isCurrent":false,"nsFolders":["40","42","43"]},{"id":"company:Енерджи-Съплай-Грийн-ЕООД","type":"company","label":"Енерджи Съплай Грийн ЕООД","slug":"Енерджи-Съплай-Грийн-ЕООД","uic":"200686359","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Енерджи-Съплай-ЕООД","type":"company","label":"Енерджи Съплай ЕООД","slug":"Енерджи-Съплай-ЕООД","uic":"175392783","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Кадиев-Глобал-ЕООД","type":"company","label":"Кадиев Глобал ЕООД","slug":"Кадиев-Глобал-ЕООД","uic":"131216837","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Мивка-ЕООД","type":"company","label":"Мивка ЕООД","slug":"Мивка-ЕООД","uic":"204097098","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:Сонел-777-ЕООД","type":"company","label":"Сонел 777 ЕООД","slug":"Сонел-777-ЕООД","uic":"206067890","legalForm":"EOOD","status":"active","seat":"София"},{"id":"company:tr:831147807","type":"company","label":"Българска федерация по ръгби","slug":null,"uic":"831147807","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1142"},{"id":"company:tr:206653825","type":"company","label":"ДЖИ ЕНД АЙ КАРС","slug":null,"uic":"206653825","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. Бургас, 8009"},{"id":"mp:4706","type":"mp","mpId":4706,"label":"Кирил Николаев Добрев","partyGroupShort":"БСП","isCurrent":false,"nsFolders":["40","41","42","43","44"]},{"id":"person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ","type":"person","label":"Людмил Цветков Димов"},{"id":"person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ","type":"person","label":"Валери Николаев Димитров"},{"id":"person:ЛЮДМИЛ ГЕОРГИЕВ ГЕОРГИЕВ","type":"person","label":"Людмил Георгиев Георгиев"},{"id":"person:ИВО ЛЮБОМИРОВ ВИДЕНОВ","type":"person","label":"Иво Любомиров Виденов"},{"id":"person:ВЕСЕЛИН НАЙДЕНОВ СТОЯНОВ","type":"person","label":"Веселин Найденов Стоянов"},{"id":"person:ИВАН ГЕОРГИЕВ ЛАДЖОВ","type":"person","label":"Иван Георгиев Ладжов"},{"id":"person:ГЕОРГИ ГЕОРГИЕВ БЕБЕЧЕВ","type":"person","label":"Георги Георгиев Бебечев"},{"id":"person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ","type":"person","label":"Георги Михайлов Тодоров"},{"id":"company:tr:206676731","type":"company","label":"БОЯНА БИЛД ИНВЕСТ","slug":null,"uic":"206676731","legalForm":"OOD","status":"active","seat":"БЪЛГАРИЯ, гр. София, 1700"},{"id":"mp:5113","type":"mp","mpId":5113,"label":"Георги Иванов Георгиев","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["48","49","50","51","52"]}],"edges":[{"source":"mp:3410","target":"company:Енерджи-Съплай-Грийн-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3410","target":"company:Енерджи-Съплай-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3410","target":"company:Кадиев-Глобал-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3410","target":"company:Мивка-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3410","target":"company:Сонел-777-ЕООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3410","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3410","target":"company:tr:206653825","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3410","target":"company:tr:206653825","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:4706","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЛЮДМИЛ ГЕОРГИЕВ ГЕОРГИЕВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВО ЛЮБОМИРОВ ВИДЕНОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВЕСЕЛИН НАЙДЕНОВ СТОЯНОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ИВАН ГЕОРГИЕВ ЛАДЖОВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ ГЕОРГИЕВ БЕБЕЧЕВ","target":"company:tr:831147807","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ","target":"company:tr:206653825","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ","target":"company:tr:206653825","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ","target":"company:tr:206676731","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"mp:5113","target":"company:tr:206676731","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:4706","length":2,"nodeIds":["mp:3410","company:tr:831147807","mp:4706"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:5113","length":4,"nodeIds":["mp:3410","company:tr:831147807","person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ","company:tr:206676731","mp:5113"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3410",
+  "nodes": [
+    {
+      "id": "mp:3410",
+      "type": "mp",
+      "mpId": 3410,
+      "label": "Георги Стоянов Кадиев",
+      "partyGroupShort": "СБГ",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "company:Сонел-888-ЕООД",
+      "type": "company",
+      "label": "\"Сонел 888\" ЕООД",
+      "slug": "Сонел-888-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Енерджи-Съплай-Грийн-ЕООД",
+      "type": "company",
+      "label": "Енерджи Съплай Грийн ЕООД",
+      "slug": "Енерджи-Съплай-Грийн-ЕООД",
+      "uic": "200686359",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Енерджи-Съплай-ЕООД",
+      "type": "company",
+      "label": "Енерджи Съплай ЕООД",
+      "slug": "Енерджи-Съплай-ЕООД",
+      "uic": "175392783",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Кадиев-Глобал-ЕООД",
+      "type": "company",
+      "label": "Кадиев Глобал ЕООД",
+      "slug": "Кадиев-Глобал-ЕООД",
+      "uic": "131216837",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Мивка-ЕООД",
+      "type": "company",
+      "label": "Мивка ЕООД",
+      "slug": "Мивка-ЕООД",
+      "uic": "204097098",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Сонел-777-ЕООД",
+      "type": "company",
+      "label": "Сонел 777 ЕООД",
+      "slug": "Сонел-777-ЕООД",
+      "uic": "206067890",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:831147807",
+      "type": "company",
+      "label": "Българска федерация по ръгби",
+      "slug": null,
+      "uic": "831147807",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "company:tr:206653825",
+      "type": "company",
+      "label": "ДЖИ ЕНД АЙ КАРС",
+      "slug": null,
+      "uic": "206653825",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8009"
+    },
+    {
+      "id": "mp:4706",
+      "type": "mp",
+      "mpId": 4706,
+      "label": "Кирил Николаев Добрев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "40",
+        "41",
+        "42",
+        "43",
+        "44"
+      ]
+    },
+    {
+      "id": "person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ",
+      "type": "person",
+      "label": "Людмил Цветков Димов"
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛАЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Кирил Николаев Добрев"
+    },
+    {
+      "id": "person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Валери Николаев Димитров"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Людмил Георгиев Георгиев"
+    },
+    {
+      "id": "person:ИВО ЛЮБОМИРОВ ВИДЕНОВ",
+      "type": "person",
+      "label": "Иво Любомиров Виденов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН НАЙДЕНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Веселин Найденов Стоянов"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ЛАДЖОВ",
+      "type": "person",
+      "label": "Иван Георгиев Ладжов"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ БЕБЕЧЕВ",
+      "type": "person",
+      "label": "Георги Георгиев Бебечев"
+    },
+    {
+      "id": "person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Георги Михайлов Тодоров"
+    },
+    {
+      "id": "company:tr:206676731",
+      "type": "company",
+      "label": "БОЯНА БИЛД ИНВЕСТ",
+      "slug": null,
+      "uic": "206676731",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3410",
+      "target": "company:Сонел-888-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:Енерджи-Съплай-Грийн-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:Енерджи-Съплай-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:Кадиев-Глобал-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:Мивка-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:Сонел-777-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:tr:206653825",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3410",
+      "target": "company:tr:206653825",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4706",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ЦВЕТКОВ ДИМОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ ДОБРЕВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ЛЮБОМИРОВ ВИДЕНОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН НАЙДЕНОВ СТОЯНОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ЛАДЖОВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ БЕБЕЧЕВ",
+      "target": "company:tr:831147807",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ",
+      "target": "company:tr:206653825",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ ТОДОРОВ",
+      "target": "company:tr:206653825",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ",
+      "target": "company:tr:206676731",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:206676731",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:4706",
+      "length": 2,
+      "nodeIds": [
+        "mp:3410",
+        "company:tr:831147807",
+        "mp:4706"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:5113",
+      "length": 4,
+      "nodeIds": [
+        "mp:3410",
+        "company:tr:831147807",
+        "person:ВАЛЕРИ НИКОЛАЕВ ДИМИТРОВ",
+        "company:tr:206676731",
+        "mp:5113"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:iliya-iliev-kalchev-be718f",
+  "nodes": [
+    {
+      "id": "official:iliya-iliev-kalchev-be718f",
+      "type": "official",
+      "slug": "iliya-iliev-kalchev-be718f",
+      "label": "Илия Илиев Калчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206376189",
+      "type": "company",
+      "label": "Българска Медена Компания ООД",
+      "slug": null,
+      "uic": "206376189",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАМЯН СИМЕОНОВ ПИЛКОВ",
+      "type": "person",
+      "label": "Дамян Симеонов Пилков"
+    },
+    {
+      "id": "person:ХРИСТО ИВЕЛИНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Христо Ивелинов Желязков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-iliev-kalchev-be718f",
+      "target": "company:tr:206376189",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iliya-iliev-kalchev-be718f",
+      "target": "company:tr:206376189",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-iliev-kalchev-be718f",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАМЯН СИМЕОНОВ ПИЛКОВ",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВЕЛИНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

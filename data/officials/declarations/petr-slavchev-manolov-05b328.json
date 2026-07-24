@@ -13,25 +13,32 @@
     "controlHash": "92F7970D",
     "sourceUrl": "https://register.cacbg.bg/2017/1C27D518-FB49-4B6B-BDB1-E97AB080403584973.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 13600.364039819411,
+        "amountEurSpouse": 11759.713267513025
+      }
+    ],
     "assets": [
       {
-        "category": "investment",
-        "description": null,
-        "detail": "26600",
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
         "location": null,
         "municipality": null,
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": null,
         "share": null,
-        "currency": "26600",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
+        "currency": "BGN",
+        "amount": 26600,
+        "valueEur": 13600.364039819411,
+        "holderName": "Петър Славчев Манолов",
         "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "не"
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
       }
     ],
     "events": [
@@ -44,8 +51,8 @@
         "areaSqm": 2400,
         "builtAreaSqm": 70,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно"
       },
       {
         "kind": "disposal_property",
@@ -56,92 +63,8 @@
         "areaSqm": 4600,
         "builtAreaSqm": 80,
         "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 13600.364039819411,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
+        "valueEur": 4345.980990167857,
+        "legalBasis": "възмездно"
       }
     ]
   },
@@ -159,7 +82,14 @@
     "controlHash": "51836CB5",
     "sourceUrl": "https://register.cacbg.bg/2016/1C27D518-FB49-4B6B-BDB1-E97AB080403575586.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 12204.537204153736,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "real_estate",
@@ -170,14 +100,14 @@
         "areaSqm": 120,
         "builtAreaSqm": 120,
         "acquiredYear": 2001,
-        "share": "42000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -188,14 +118,14 @@
         "areaSqm": 46,
         "builtAreaSqm": 46,
         "acquiredYear": 2003,
-        "share": "15000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Ваня Манолова",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -206,14 +136,14 @@
         "areaSqm": 15,
         "builtAreaSqm": 15,
         "acquiredYear": 2012,
-        "share": "10000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -224,14 +154,14 @@
         "areaSqm": 54,
         "builtAreaSqm": 54,
         "acquiredYear": 2001,
-        "share": "7000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -242,14 +172,14 @@
         "areaSqm": 540,
         "builtAreaSqm": null,
         "acquiredYear": 1998,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Манолов",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -260,14 +190,14 @@
         "areaSqm": 1200,
         "builtAreaSqm": null,
         "acquiredYear": 2004,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Манолов",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -278,14 +208,14 @@
         "areaSqm": 390,
         "builtAreaSqm": null,
         "acquiredYear": 2001,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Манолов",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -296,14 +226,14 @@
         "areaSqm": 300,
         "builtAreaSqm": null,
         "acquiredYear": 2001,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Манолов",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -314,14 +244,14 @@
         "areaSqm": 1600,
         "builtAreaSqm": null,
         "acquiredYear": 2001,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър Манолов",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -332,14 +262,14 @@
         "areaSqm": 110,
         "builtAreaSqm": 160,
         "acquiredYear": 1998,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "наследяване",
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "real_estate",
@@ -350,14 +280,14 @@
         "areaSqm": 110,
         "builtAreaSqm": 110,
         "acquiredYear": 2006,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -368,14 +298,14 @@
         "areaSqm": 17,
         "builtAreaSqm": 17,
         "acquiredYear": 2012,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "real_estate",
@@ -386,14 +316,14 @@
         "areaSqm": 1450,
         "builtAreaSqm": 45,
         "acquiredYear": 2003,
-        "share": "500",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -404,14 +334,14 @@
         "areaSqm": 2580,
         "builtAreaSqm": 230,
         "acquiredYear": 2013,
-        "share": "7000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -422,14 +352,14 @@
         "areaSqm": 110,
         "builtAreaSqm": 110,
         "acquiredYear": 2004,
-        "share": "2400",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -440,14 +370,14 @@
         "areaSqm": 1000,
         "builtAreaSqm": 120,
         "acquiredYear": 2004,
-        "share": "900",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 900,
+        "valueEur": 460.16269307659667,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -458,14 +388,14 @@
         "areaSqm": 530,
         "builtAreaSqm": 120,
         "acquiredYear": 2003,
-        "share": "1500",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -476,14 +406,14 @@
         "areaSqm": 4300,
         "builtAreaSqm": 250,
         "acquiredYear": 2005,
-        "share": "11000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "35 %",
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -494,14 +424,14 @@
         "areaSqm": 16,
         "builtAreaSqm": null,
         "acquiredYear": 2004,
-        "share": "800",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -512,14 +442,14 @@
         "areaSqm": 25,
         "builtAreaSqm": null,
         "acquiredYear": 2006,
-        "share": "2800",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -530,14 +460,14 @@
         "areaSqm": 5,
         "builtAreaSqm": null,
         "acquiredYear": 2006,
-        "share": "2800",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
         "holderName": "Петър и Ваня Манолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       },
       {
         "category": "real_estate",
@@ -548,14 +478,14 @@
         "areaSqm": 24,
         "builtAreaSqm": null,
         "acquiredYear": 2002,
-        "share": "0",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
         "holderName": "Ваня Манолова",
         "isSpouse": true,
-        "legalBasis": "дарения",
-        "fundsOrigin": null
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
       },
       {
         "category": "vehicle",
@@ -566,101 +496,16 @@
         "areaSqm": null,
         "builtAreaSqm": null,
         "acquiredYear": 2006,
-        "share": "покупко-продажба",
+        "share": "1/1",
         "currency": "BGN",
         "amount": 40000,
         "valueEur": 20451.67524784874,
         "holderName": "Петър и Ваня Маанолови",
         "isSpouse": true,
-        "legalBasis": "заплата и собствени средства",
-        "fundsOrigin": null
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и собствени средства"
       }
     ],
-    "events": [
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 12204.537204153736,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      },
-      {
-        "kind": "guarantee",
-        "description": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
+    "events": []
   }
 ]

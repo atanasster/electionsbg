@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ramadan-halim-veli-d64a6f",
+  "nodes": [
+    {
+      "id": "official:ramadan-halim-veli-d64a6f",
+      "type": "official",
+      "slug": "ramadan-halim-veli-d64a6f",
+      "label": "Рамадан Халим Вели",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108564790",
+      "type": "company",
+      "label": "ПАЗАР НА ПРОИЗВОДИТЕЛИТЕ - КЪРДЖАЛИ",
+      "slug": null,
+      "uic": "108564790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:bahtiyar-bahri-halil-c673b9",
+      "type": "official",
+      "slug": "bahtiyar-bahri-halil-c673b9",
+      "label": "Бахтияр Бахри Халил",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:gyurdzhan-ilyazov-habilov-fec65c",
+      "type": "official",
+      "slug": "gyurdzhan-ilyazov-habilov-fec65c",
+      "label": "Гюрджан Илязов Хабилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:erhan-osman-hasan-b5dd50",
+      "type": "official",
+      "slug": "erhan-osman-hasan-b5dd50",
+      "label": "Ерхан Осман Хасан",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕМИН ЮКСЕЛ ХАЛИЛ",
+      "type": "person",
+      "label": "Емин Юксел Халил"
+    },
+    {
+      "id": "person:МАХМУРЕ МЮМЮН МУСТАФА",
+      "type": "person",
+      "label": "Махмуре Мюмюн Мустафа"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ramadan-halim-veli-d64a6f",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ramadan-halim-veli-d64a6f",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bahtiyar-bahri-halil-c673b9",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bahtiyar-bahri-halil-c673b9",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gyurdzhan-ilyazov-habilov-fec65c",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:erhan-osman-hasan-b5dd50",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:erhan-osman-hasan-b5dd50",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИН ЮКСЕЛ ХАЛИЛ",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИН ЮКСЕЛ ХАЛИЛ",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАХМУРЕ МЮМЮН МУСТАФА",
+      "target": "company:tr:108564790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

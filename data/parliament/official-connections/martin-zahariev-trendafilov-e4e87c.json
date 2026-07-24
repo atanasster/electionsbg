@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:martin-zahariev-trendafilov-e4e87c",
+  "nodes": [
+    {
+      "id": "official:martin-zahariev-trendafilov-e4e87c",
+      "type": "official",
+      "slug": "martin-zahariev-trendafilov-e4e87c",
+      "label": "Мартин Захариев Трендафилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:823073620",
+      "type": "company",
+      "label": "ЖИЛФОНД",
+      "slug": null,
+      "uic": "823073620",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИС ЙОРДАНОВ НЕНКОВ",
+      "type": "person",
+      "label": "Борис Йорданов Ненков"
+    },
+    {
+      "id": "person:МАРТИН ЦВЕТАНОВ ВЕЛКОВ",
+      "type": "person",
+      "label": "Мартин Цветанов Велков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-zahariev-trendafilov-e4e87c",
+      "target": "company:tr:823073620",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИС ЙОРДАНОВ НЕНКОВ",
+      "target": "company:tr:823073620",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЦВЕТАНОВ ВЕЛКОВ",
+      "target": "company:tr:823073620",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

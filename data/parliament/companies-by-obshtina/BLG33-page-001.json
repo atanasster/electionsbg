@@ -1,1 +1,110 @@
-{"obshtina":"BLG33","page":1,"totalPages":1,"count":5,"companies":[{"slug":"ВАН-БИЛДИНГ-СТРОЙ","displayName":"ВАН БИЛДИНГ СТРОЙ","registeredOffice":"БЪЛГАРИЯ, гр. Петрич, 2850","mps":[{"mpId":4038,"mpName":"Иван Валентинов Ганчев","role":"manager","isCurrent":true},{"mpId":4038,"mpName":"Иван Валентинов Ганчев","role":"partner","isCurrent":true}]},{"slug":"ЛОДЖИКОС","displayName":"ЛОДЖИКОС","registeredOffice":"БЪЛГАРИЯ, гр. Петрич, 2850","mps":[{"mpId":724,"mpName":"Коста Георгиев Костов","role":"manager","isCurrent":true},{"mpId":724,"mpName":"Коста Георгиев Костов","role":"sole_owner","isCurrent":true}]},{"slug":"МОУШЪНСПОРТС","displayName":"МОУШЪНСПОРТС","registeredOffice":"БЪЛГАРИЯ, гр. Петрич, 2850","mps":[{"mpId":3922,"mpName":"Десислава Илиева Георгиева","role":"manager","isCurrent":true},{"mpId":3922,"mpName":"Десислава Илиева Георгиева","role":"partner","isCurrent":true}]},{"slug":"ПИЙКЪРС","displayName":"ПИЙКЪРС","registeredOffice":"БЪЛГАРИЯ, гр. Петрич, 2850","mps":[{"mpId":2340,"mpName":"Димитър Крумов Танев","role":"manager","isCurrent":true},{"mpId":2340,"mpName":"Димитър Крумов Танев","role":"partner","isCurrent":false}]},{"slug":"АВГУСТИН-&amp;-ТУРНОВ","displayName":"АВГУСТИН &amp; ТУРНОВ","registeredOffice":"БЪЛГАРИЯ, гр. Петрич, 2890","mps":[{"mpId":4430,"mpName":"Ивайло Ангелов Иванов","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "BLG33",
+  "page": 1,
+  "totalPages": 1,
+  "count": 6,
+  "companies": [
+    {
+      "slug": "ВАН-БИЛДИНГ-СТРОЙ",
+      "displayName": "ВАН БИЛДИНГ СТРОЙ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 4038,
+          "mpName": "Иван Валентинов Ганчев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 4038,
+          "mpName": "Иван Валентинов Ганчев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ЛОДЖИКОС",
+      "displayName": "ЛОДЖИКОС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 724,
+          "mpName": "Коста Георгиев Костов",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 724,
+          "mpName": "Коста Георгиев Костов",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МОУШЪНСПОРТС",
+      "displayName": "МОУШЪНСПОРТС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 3922,
+          "mpName": "Десислава Илиева Георгиева",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 3922,
+          "mpName": "Десислава Илиева Георгиева",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ПИЙКЪРС",
+      "displayName": "ПИЙКЪРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2850",
+      "mps": [
+        {
+          "mpId": 2340,
+          "mpName": "Димитър Крумов Танев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 2340,
+          "mpName": "Димитър Крумов Танев",
+          "role": "partner",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "АВГУСТИН-&amp;-ТУРНОВ",
+      "displayName": "АВГУСТИН &amp; ТУРНОВ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Петрич, 2890",
+      "mps": [
+        {
+          "mpId": 4430,
+          "mpName": "Ивайло Ангелов Иванов",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "Р-и-д-Партнърс",
+      "displayName": "Р и д Партнърс",
+      "registeredOffice": "Иваново",
+      "mps": [
+        {
+          "mpId": 2967,
+          "mpName": "Добрин Ненов Данев",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

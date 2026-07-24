@@ -1,1 +1,90 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","officialNodeId":"official:valentin-penchev-popov-ac41a1","nodes":[{"id":"official:valentin-penchev-popov-ac41a1","type":"official","slug":"valentin-penchev-popov-ac41a1","label":"Валентин Пенчев Попов","tier":"municipal","role":"councillor","municipality":"Златарица"},{"id":"company:tr:104504949","type":"company","label":"СПОРТЕН КЛУБ &quot;ЗЛАТАРИЦА - БОРБА&quot;","slug":null,"uic":"104504949","legalForm":null,"status":null,"seat":null},{"id":"person:ИВАЙЛО ГЕОРГИЕВ АРНАУДОВ","type":"person","label":"Ивайло Георгиев Арнаудов"},{"id":"person:НИКОЛИНА АТАНАСОВА СТАЙКОВА","type":"person","label":"Николина Атанасова Стайкова"},{"id":"person:СТЕФКА ИВАНОВА ВЪЛЧЕВА","type":"person","label":"Стефка Иванова Вълчева"}],"edges":[{"source":"official:valentin-penchev-popov-ac41a1","target":"company:tr:104504949","kind":"tr_owner","role":"actual_owner","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-penchev-popov-ac41a1","target":"company:tr:104504949","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"official:valentin-penchev-popov-ac41a1","target":"company:tr:104504949","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"person:ИВАЙЛО ГЕОРГИЕВ АРНАУДОВ","target":"company:tr:104504949","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НИКОЛИНА АТАНАСОВА СТАЙКОВА","target":"company:tr:104504949","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:СТЕФКА ИВАНОВА ВЪЛЧЕВА","target":"company:tr:104504949","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:valentin-penchev-popov-ac41a1",
+  "nodes": [
+    {
+      "id": "official:valentin-penchev-popov-ac41a1",
+      "type": "official",
+      "slug": "valentin-penchev-popov-ac41a1",
+      "label": "Валентин Пенчев Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златарица"
+    },
+    {
+      "id": "company:tr:104504949",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ &quot;ЗЛАТАРИЦА - БОРБА&quot;",
+      "slug": null,
+      "uic": "104504949",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ АРНАУДОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Арнаудов"
+    },
+    {
+      "id": "person:НИКОЛИНА АТАНАСОВА СТАЙКОВА",
+      "type": "person",
+      "label": "Николина Атанасова Стайкова"
+    },
+    {
+      "id": "person:СТЕФКА ИВАНОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Стефка Иванова Вълчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-penchev-popov-ac41a1",
+      "target": "company:tr:104504949",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-penchev-popov-ac41a1",
+      "target": "company:tr:104504949",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-penchev-popov-ac41a1",
+      "target": "company:tr:104504949",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ АРНАУДОВ",
+      "target": "company:tr:104504949",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА АТАНАСОВА СТАЙКОВА",
+      "target": "company:tr:104504949",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ИВАНОВА ВЪЛЧЕВА",
+      "target": "company:tr:104504949",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

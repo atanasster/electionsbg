@@ -1,0 +1,192 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:myumyun-rahim-dzhila-c6758a",
+  "nodes": [
+    {
+      "id": "official:myumyun-rahim-dzhila-c6758a",
+      "type": "official",
+      "slug": "myumyun-rahim-dzhila-c6758a",
+      "label": "Мюмюн Рахим Джила",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:108042543",
+      "type": "company",
+      "label": "ПРОБУДА 1944",
+      "slug": null,
+      "uic": "108042543",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НУРДЖАН КЯЗИМ САЛИЕВА",
+      "type": "person",
+      "label": "Нурджан Кязим Салиева"
+    },
+    {
+      "id": "person:КЪЙМЕТ НАДЖИ МОЛЛА",
+      "type": "person",
+      "label": "Къймет Наджи Молла"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ДОБРЕВ РАДЕВ",
+      "type": "person",
+      "label": "Венцислав Добрев Радев"
+    },
+    {
+      "id": "person:НАДЕЖДА ВЛАДИМИРОВА МИТКОВА",
+      "type": "person",
+      "label": "Надежда Владимирова Миткова"
+    },
+    {
+      "id": "person:ВЕЛКО РАДЕВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Велко Радев Райчев"
+    },
+    {
+      "id": "person:КАЛИНКА РАЙЧЕВА КАРАДЖОВА",
+      "type": "person",
+      "label": "Калинка Райчева Караджова"
+    },
+    {
+      "id": "person:МЕРДИЕ МЕХМЕДОВА ХАСАН",
+      "type": "person",
+      "label": "Мердие Мехмедова Хасан"
+    },
+    {
+      "id": "person:ВАЛЯ КАРАМФИЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Валя Карамфилова Димитрова"
+    },
+    {
+      "id": "person:ФАТМЕ АХМЕД ИСМАИЛ МЕХМЕД",
+      "type": "person",
+      "label": "Фатме Ахмед Исмаил Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:myumyun-rahim-dzhila-c6758a",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НУРДЖАН КЯЗИМ САЛИЕВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪЙМЕТ НАДЖИ МОЛЛА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ДОБРЕВ РАДЕВ",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ВЛАДИМИРОВА МИТКОВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКО РАДЕВ РАЙЧЕВ",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРДЖАН КЯЗИМ САЛИЕВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ДОБРЕВ РАДЕВ",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ВЛАДИМИРОВА МИТКОВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА РАЙЧЕВА КАРАДЖОВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛКО РАДЕВ РАЙЧЕВ",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕРДИЕ МЕХМЕДОВА ХАСАН",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪЙМЕТ НАДЖИ МОЛЛА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ КАРАМФИЛОВА ДИМИТРОВА",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ АХМЕД ИСМАИЛ МЕХМЕД",
+      "target": "company:tr:108042543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

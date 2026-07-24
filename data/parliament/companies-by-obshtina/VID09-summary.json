@@ -1,1 +1,97 @@
-{"obshtina":"VID09","count":12,"mpCount":8,"totalPages":1,"topCompanies":[{"slug":"ЗД-ИНВЕСТ","displayName":"ЗД - ИНВЕСТ","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ИНИЦИАТИВИ-ЗА-РАЗВИТИЕ-НА-ГРАД-ВИДИН-И-РЕГИОНА","displayName":"ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_board","isCurrent":true},{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_representative","isCurrent":false}]},{"slug":"КЮ-ТИР-СЪРВИС-СОМАТ","displayName":"КЮ ТИР СЪРВИС СОМАТ","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"СДРУЖЕНИЕ-&quot;УЧИЛИЩНО-НАСТОЯТЕЛСТВО-НА-ОУ-ИВАН-ВАЗОВ-ВИДИН&quot;","displayName":"СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_board","isCurrent":true},{"mpId":5082,"mpName":"Любен Иванов Иванов","role":"ngo_representative","isCurrent":false}]},{"slug":"ТИР-СЕРВИЗ-СОМАТ","displayName":"ТИР СЕРВИЗ СОМАТ","registeredOffice":"БЪЛГАРИЯ, гр. Видин, 3700","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "VID09",
+  "count": 13,
+  "mpCount": 8,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ЗД-ИНВЕСТ",
+      "displayName": "ЗД - ИНВЕСТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ИНИЦИАТИВИ-ЗА-РАЗВИТИЕ-НА-ГРАД-ВИДИН-И-РЕГИОНА",
+      "displayName": "ИНИЦИАТИВИ ЗА РАЗВИТИЕ НА ГРАД ВИДИН И РЕГИОНА",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_representative",
+          "isCurrent": false
+        }
+      ]
+    },
+    {
+      "slug": "КЮ-ТИР-СЪРВИС-СОМАТ",
+      "displayName": "КЮ ТИР СЪРВИС СОМАТ",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МАЛ-2018-ООД",
+      "displayName": "МАЛ -2018 ООД",
+      "registeredOffice": "Видин",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "declared_stake",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "СДРУЖЕНИЕ-&quot;УЧИЛИЩНО-НАСТОЯТЕЛСТВО-НА-ОУ-ИВАН-ВАЗОВ-ВИДИН&quot;",
+      "displayName": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ОУ ИВАН ВАЗОВ - ВИДИН&quot;",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Видин, 3700",
+      "mps": [
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_board",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5082,
+          "mpName": "Любен Иванов Иванов",
+          "role": "ngo_representative",
+          "isCurrent": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,318 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:rosen-stefanov-federchev-3ea214",
+  "nodes": [
+    {
+      "id": "official:rosen-stefanov-federchev-3ea214",
+      "type": "official",
+      "slug": "rosen-stefanov-federchev-3ea214",
+      "label": "Росен Стефанов Федерчев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121000727",
+      "type": "company",
+      "label": "СЪЮЗ НА ВЕТЕРИНАРНИТЕ ЛЕКАРИ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "121000727",
+      "legalForm": "Сдружение",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1360"
+    },
+    {
+      "id": "mp:4906",
+      "type": "mp",
+      "mpId": 4906,
+      "label": "Димитър Ангелов Иванов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "official:ivanka-plamenova-kuzmanova-f93529",
+      "type": "official",
+      "slug": "ivanka-plamenova-kuzmanova-f93529",
+      "label": "Иванка Пламенова Кузманова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕВГЕНИ ЙОРДАНОВ МАКАВЕЕВ",
+      "type": "person",
+      "label": "Евгени Йорданов Макавеев"
+    },
+    {
+      "id": "person:МИХАИЛ НИКОЛОВ БАЩАВЕЛОВ",
+      "type": "person",
+      "label": "Михаил Николов Бащавелов"
+    },
+    {
+      "id": "person:МЕЛПОМЕНА НИКОЛОВА КАНЗАФИРОВА-КУНЕВА",
+      "type": "person",
+      "label": "Мелпомена Николова Канзафирова-Кунева"
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ВИДАРКИНСКА",
+      "type": "person",
+      "label": "Диана Георгиева Видаркинска"
+    },
+    {
+      "id": "person:МАРИН ДИМОВ МАРИНОВ",
+      "type": "person",
+      "label": "Марин Димов Маринов"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Димитър Венков Стефанов"
+    },
+    {
+      "id": "person:МАРИНА ИВКОВА ИВАНОВА-ПОЮЖИНА",
+      "type": "person",
+      "label": "Марина Ивкова Иванова-Поюжина"
+    },
+    {
+      "id": "person:ГЕОРГИ АНГЕЛОВ ДЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Георги Ангелов Демерджиев"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ КЪНЧЕВ",
+      "type": "person",
+      "label": "Атанас Димитров Кънчев"
+    },
+    {
+      "id": "person:ЗДРАВКО ТОДОРОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Здравко Тодоров Златев"
+    },
+    {
+      "id": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "type": "person",
+      "label": "Валери Георгиев Велков"
+    },
+    {
+      "id": "person:ЛИДИЯ КИРИЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Лидия Кирилова Василева"
+    },
+    {
+      "id": "person:МАРИАНА ЦВЕТАНОВА ДОКТОРОВА",
+      "type": "person",
+      "label": "Мариана Цветанова Докторова"
+    },
+    {
+      "id": "person:МАЯ ВОЛОДИЕВА МИЛОШЕВА",
+      "type": "person",
+      "label": "Мая Володиева Милошева"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ирина Иванова Тодорова"
+    },
+    {
+      "id": "person:КРАСИМИР БОЖИДАРОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Красимир Божидаров Каменов"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ТОДОРОВ АНТОВ",
+      "type": "person",
+      "label": "Людмил Тодоров Антов"
+    },
+    {
+      "id": "person:ИЛИЯН РАДЕВ КОСТОВ",
+      "type": "person",
+      "label": "Илиян Радев Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-stefanov-federchev-3ea214",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4906",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-plamenova-kuzmanova-f93529",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ ЙОРДАНОВ МАКАВЕЕВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ НИКОЛОВ БАЩАВЕЛОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛПОМЕНА НИКОЛОВА КАНЗАФИРОВА-КУНЕВА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ВИДАРКИНСКА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ДИМОВ МАРИНОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕНКОВ СТЕФАНОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ИВКОВА ИВАНОВА-ПОЮЖИНА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АНГЕЛОВ ДЕМЕРДЖИЕВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ КЪНЧЕВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО ТОДОРОВ ЗЛАТЕВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ГЕОРГИЕВ ВЕЛКОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ КИРИЛОВА ВАСИЛЕВА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ЦВЕТАНОВА ДОКТОРОВА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ВОЛОДИЕВА МИЛОШЕВА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БОЖИДАРОВ КАМЕНОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ТОДОРОВ АНТОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН РАДЕВ КОСТОВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ЙОРДАНОВ МАКАВЕЕВ",
+      "target": "company:tr:121000727",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

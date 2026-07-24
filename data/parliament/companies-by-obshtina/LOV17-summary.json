@@ -1,1 +1,103 @@
-{"obshtina":"LOV17","count":6,"mpCount":1,"totalPages":1,"topCompanies":[{"slug":"ВИЛАЖ-КОМЕРС","displayName":"ВИЛАЖ КОМЕРС","registeredOffice":"БЪЛГАРИЯ, гр. Летница, 5570","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ДОРЕМИ-ПРО","displayName":"ДОРЕМИ ПРО","registeredOffice":"БЪЛГАРИЯ, гр. Летница, 5570","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]},{"slug":"МБИЛСЕД","displayName":"МБИЛСЕД","registeredOffice":"БЪЛГАРИЯ, с. Крушуна, 5561","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true}]},{"slug":"САКИС-САКИ-1914","displayName":"САКИС САКИ 1914","registeredOffice":"БЪЛГАРИЯ, гр. Летница, 5570","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"sole_owner","isCurrent":true}]},{"slug":"ТЕН-ТОТЕМС","displayName":"ТЕН ТОТЕМС","registeredOffice":"БЪЛГАРИЯ, гр. Летница, 5570","mps":[{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"manager","isCurrent":true},{"mpId":5113,"mpName":"Георги Иванов Георгиев","role":"partner","isCurrent":true}]}]}
+{
+  "obshtina": "LOV17",
+  "count": 6,
+  "mpCount": 1,
+  "totalPages": 1,
+  "topCompanies": [
+    {
+      "slug": "ВИЛАЖ-КОМЕРС",
+      "displayName": "ВИЛАЖ КОМЕРС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Летница, 5570",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ДОРЕМИ-ПРО",
+      "displayName": "ДОРЕМИ ПРО",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Летница, 5570",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "МБИЛСЕД",
+      "displayName": "МБИЛСЕД",
+      "registeredOffice": "БЪЛГАРИЯ, с. Крушуна, 5561",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "САКИС-САКИ-1914",
+      "displayName": "САКИС САКИ 1914",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Летница, 5570",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "sole_owner",
+          "isCurrent": true
+        }
+      ]
+    },
+    {
+      "slug": "ТЕН-ТОТЕМС",
+      "displayName": "ТЕН ТОТЕМС",
+      "registeredOffice": "БЪЛГАРИЯ, гр. Летница, 5570",
+      "mps": [
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "manager",
+          "isCurrent": true
+        },
+        {
+          "mpId": 5113,
+          "mpName": "Георги Иванов Георгиев",
+          "role": "partner",
+          "isCurrent": true
+        }
+      ]
+    }
+  ]
+}

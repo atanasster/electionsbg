@@ -1,1 +1,65 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3674","nodes":[{"id":"mp:3674","type":"mp","mpId":3674,"label":"Андрей Николаев Михайлов","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":["45","46"]},{"id":"company:tr:130158384","type":"company","label":"АРМОКОНСУЛТ 2000","slug":null,"uic":"130158384","legalForm":"OOD","status":"active","seat":null},{"id":"person:ЦВЕТАН ТЕОДОРОВ РОШАВЕЛОВ","type":"person","label":"Цветан Теодоров Рошавелов"},{"id":"person:ТЕОДОР ЦВЕТАНОВ РОШАВЕЛОВ","type":"person","label":"Теодор Цветанов Рошавелов"}],"edges":[{"source":"mp:3674","target":"company:tr:130158384","kind":"tr_role","role":"procurator","isCurrent":true,"confidence":"medium"},{"source":"person:ЦВЕТАН ТЕОДОРОВ РОШАВЕЛОВ","target":"company:tr:130158384","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:ТЕОДОР ЦВЕТАНОВ РОШАВЕЛОВ","target":"company:tr:130158384","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3674",
+  "nodes": [
+    {
+      "id": "mp:3674",
+      "type": "mp",
+      "mpId": 3674,
+      "label": "Андрей Николаев Михайлов",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "company:tr:130158384",
+      "type": "company",
+      "label": "АРМОКОНСУЛТ 2000",
+      "slug": null,
+      "uic": "130158384",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАН ТЕОДОРОВ РОШАВЕЛОВ",
+      "type": "person",
+      "label": "Цветан Теодоров Рошавелов"
+    },
+    {
+      "id": "person:ТЕОДОР ЦВЕТАНОВ РОШАВЕЛОВ",
+      "type": "person",
+      "label": "Теодор Цветанов Рошавелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3674",
+      "target": "company:tr:130158384",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАН ТЕОДОРОВ РОШАВЕЛОВ",
+      "target": "company:tr:130158384",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЦВЕТАНОВ РОШАВЕЛОВ",
+      "target": "company:tr:130158384",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

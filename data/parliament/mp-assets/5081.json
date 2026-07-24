@@ -1,1 +1,70 @@
-{"mpId":5081,"name":"Росица Любенова Кирова","partyGroupShort":"ПГ на ГЕРБ – СДС","isCurrent":true,"nsFolders":["45","46","47","48","49","50","51","52"],"latestDeclarationYear":2025,"fiscalYear":2024,"declarationType":"Annualy","sourceUrl":"https://register.cacbg.bg/2025/2F0F89CF-E1F6-431A-B954-37837F3BD0F3217472.xml","totalAssetsEur":7610441.486698741,"totalDebtsEur":822529.9463654816,"netWorthEur":6787911.54033326,"previous":{"year":2023,"totalAssetsEur":1400191.1273832594,"netWorthEur":846698.4013948044},"byCategory":{"real_estate":{"count":126,"valuedCount":126,"totalEur":308539.59699973935},"vehicle":{"count":1,"valuedCount":1,"totalEur":122.71005148709244},"cash":{"count":2,"valuedCount":2,"totalEur":80401.09211945823},"bank":{"count":2,"valuedCount":2,"totalEur":99004.97739067301},"receivable":{"count":5,"valuedCount":5,"totalEur":1799168.1281092938},"debt":{"count":4,"valuedCount":4,"totalEur":822529.9463654816},"investment":{"count":0,"valuedCount":0,"totalEur":0},"security":{"count":6,"valuedCount":6,"totalEur":5323204.982028089}}}
+{
+  "mpId": 5081,
+  "name": "Росица Любенова Кирова",
+  "partyGroupShort": "ПГ на ГЕРБ – СДС",
+  "isCurrent": true,
+  "nsFolders": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52"
+  ],
+  "latestDeclarationYear": 2025,
+  "fiscalYear": 2024,
+  "declarationType": "Annualy",
+  "sourceUrl": "https://register.cacbg.bg/2025/2F0F89CF-E1F6-431A-B954-37837F3BD0F3217472.xml",
+  "totalAssetsEur": 7610441.486698741,
+  "totalDebtsEur": 822529.9463654816,
+  "netWorthEur": 6787911.54033326,
+  "previous": {
+    "year": 2023,
+    "totalAssetsEur": 1400191.1273832594,
+    "netWorthEur": 846698.4013948044
+  },
+  "byCategory": {
+    "real_estate": {
+      "count": 126,
+      "valuedCount": 126,
+      "totalEur": 308539.59699973935
+    },
+    "vehicle": {
+      "count": 1,
+      "valuedCount": 1,
+      "totalEur": 122.71005148709244
+    },
+    "cash": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 80401.09211945823
+    },
+    "bank": {
+      "count": 2,
+      "valuedCount": 2,
+      "totalEur": 99004.97739067301
+    },
+    "receivable": {
+      "count": 5,
+      "valuedCount": 5,
+      "totalEur": 1799168.1281092938
+    },
+    "debt": {
+      "count": 4,
+      "valuedCount": 4,
+      "totalEur": 822529.9463654816
+    },
+    "investment": {
+      "count": 0,
+      "valuedCount": 0,
+      "totalEur": 0
+    },
+    "security": {
+      "count": 6,
+      "valuedCount": 6,
+      "totalEur": 5323204.982028089
+    }
+  }
+}

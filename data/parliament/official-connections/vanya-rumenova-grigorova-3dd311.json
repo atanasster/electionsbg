@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:vanya-rumenova-grigorova-3dd311",
+  "nodes": [
+    {
+      "id": "official:vanya-rumenova-grigorova-3dd311",
+      "type": "official",
+      "slug": "vanya-rumenova-grigorova-3dd311",
+      "label": "Ваня Руменова Григорова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:175874466",
+      "type": "company",
+      "label": "СОЛИДАРНА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "175874466",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛИН ОРЛИНОВ ПЪРВАНОВ",
+      "type": "person",
+      "label": "Калин Орлинов Първанов"
+    },
+    {
+      "id": "person:ЧАВДАР ГЕОРГИЕВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Чавдар Георгиев Найденов"
+    },
+    {
+      "id": "person:ПЕТКО АЛЕКСАНДРОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Петко Александров Цветанов"
+    },
+    {
+      "id": "person:ДАНИЕЛА КРАСИМИРОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Даниела Красимирова Пенкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-rumenova-grigorova-3dd311",
+      "target": "company:tr:175874466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛИН ОРЛИНОВ ПЪРВАНОВ",
+      "target": "company:tr:175874466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ГЕОРГИЕВ НАЙДЕНОВ",
+      "target": "company:tr:175874466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО АЛЕКСАНДРОВ ЦВЕТАНОВ",
+      "target": "company:tr:175874466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА КРАСИМИРОВА ПЕНКОВА",
+      "target": "company:tr:175874466",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

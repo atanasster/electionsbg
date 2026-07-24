@@ -1,0 +1,271 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:zornitsa-valerieva-domozetova-46653f",
+  "nodes": [
+    {
+      "id": "official:zornitsa-valerieva-domozetova-46653f",
+      "type": "official",
+      "slug": "zornitsa-valerieva-domozetova-46653f",
+      "label": "Зорница Валериева Домозетова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206526735",
+      "type": "company",
+      "label": "БУЛГАР ФРУИТ ГАРДЪНС",
+      "slug": null,
+      "uic": "206526735",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ВАЛЕНТИНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Мартин Валентинов Йорданов"
+    },
+    {
+      "id": "person:КАМЕН ДИМИТРОВ АНДОНОВ",
+      "type": "person",
+      "label": "Камен Димитров Андонов"
+    },
+    {
+      "id": "person:ИВО ЙОРДАНОВ ИВАНЧОВ",
+      "type": "person",
+      "label": "Иво Йорданов Иванчов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ГЕОРГИЕВ БАЛАБАНСКИ",
+      "type": "person",
+      "label": "Мирослав Георгиев Балабански"
+    },
+    {
+      "id": "person:БОРИСЛАВ ЙОРДАНОВ АНЕВ",
+      "type": "person",
+      "label": "Борислав Йорданов Анев"
+    },
+    {
+      "id": "person:ИВАЙЛО МИЛЧОВ БОРИСОВ",
+      "type": "person",
+      "label": "Ивайло Милчов Борисов"
+    },
+    {
+      "id": "person:ПЕНКА ТОНЧЕВА БОРИСОВА",
+      "type": "person",
+      "label": "Пенка Тончева Борисова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ИВАНОВА МАЗНЕВА",
+      "type": "person",
+      "label": "Веселка Иванова Мазнева"
+    },
+    {
+      "id": "person:ВЛАДИМИР ГЕОРГИЕВ ЯЗОВАЛИЙСКИ",
+      "type": "person",
+      "label": "Владимир Георгиев Язовалийски"
+    },
+    {
+      "id": "company:name:ВН АГРО",
+      "type": "company",
+      "label": "„ВН АГРО“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ДАН – 1",
+      "type": "company",
+      "label": "„ДАН – 1“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ДЕНИ – М 09",
+      "type": "company",
+      "label": "„ДЕНИ – М 09“ ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ПЛОДОВЕ ОТ КЮСТЕНДИЛ",
+      "type": "company",
+      "label": "„Плодове от Кюстендил“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН ИВАЙЛОВ БОЖКОВ",
+      "type": "person",
+      "label": "Антон Ивайлов Божков"
+    },
+    {
+      "id": "person:ЛЮБОМИР ХРИСТОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Любомир Христов Димитров"
+    },
+    {
+      "id": "person:БОРИСЛАВ ДИМЧОВ СТОЕВ",
+      "type": "person",
+      "label": "Борислав Димчов Стоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zornitsa-valerieva-domozetova-46653f",
+      "target": "company:tr:206526735",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zornitsa-valerieva-domozetova-46653f",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН ВАЛЕНТИНОВ ЙОРДАНОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН ДИМИТРОВ АНДОНОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ЙОРДАНОВ ИВАНЧОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ГЕОРГИЕВ БАЛАБАНСКИ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ЙОРДАНОВ АНЕВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО МИЛЧОВ БОРИСОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТОНЧЕВА БОРИСОВА",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ИВАНОВА МАЗНЕВА",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГЕОРГИЕВ ЯЗОВАЛИЙСКИ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВН АГРО",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДАН – 1",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЕНИ – М 09",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ПЛОДОВЕ ОТ КЮСТЕНДИЛ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ИВАЙЛОВ БОЖКОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ХРИСТОВ ДИМИТРОВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ДИМЧОВ СТОЕВ",
+      "target": "company:tr:206526735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

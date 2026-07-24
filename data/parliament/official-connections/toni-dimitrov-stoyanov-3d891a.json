@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:toni-dimitrov-stoyanov-3d891a",
+  "nodes": [
+    {
+      "id": "official:toni-dimitrov-stoyanov-3d891a",
+      "type": "official",
+      "slug": "toni-dimitrov-stoyanov-3d891a",
+      "label": "Тони Димитров Стоянов",
+      "tier": "executive",
+      "role": "inspectorate",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207443790",
+      "type": "company",
+      "label": "ТГС - ИТ",
+      "slug": null,
+      "uic": "207443790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:toni-dimitrov-stoyanov-3d891a",
+      "target": "company:tr:207443790",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:toni-dimitrov-stoyanov-3d891a",
+      "target": "company:tr:207443790",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

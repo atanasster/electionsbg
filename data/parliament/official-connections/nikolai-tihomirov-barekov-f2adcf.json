@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:nikolai-tihomirov-barekov-f2adcf",
+  "nodes": [
+    {
+      "id": "official:nikolai-tihomirov-barekov-f2adcf",
+      "type": "official",
+      "slug": "nikolai-tihomirov-barekov-f2adcf",
+      "label": "Николай Тихомиров Бареков",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203454202",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ДЕМОКРАТИЧЕН ЦЕНТЪР",
+      "slug": null,
+      "uic": "203454202",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-tihomirov-barekov-f2adcf",
+      "target": "company:tr:203454202",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-tihomirov-barekov-f2adcf",
+      "target": "company:tr:203454202",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

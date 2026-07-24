@@ -1,1 +1,329 @@
-{"generatedAt":"2026-07-03T11:12:56.839Z","mpNodeId":"mp:3427","nodes":[{"id":"mp:3427","type":"mp","mpId":3427,"label":"Петко Ангелов Кущирев","partyGroupShort":"ИТН","isCurrent":false,"nsFolders":[]},{"id":"company:Делта-ТУР-ООД","type":"company","label":"Делта ТУР ООД","slug":"Делта-ТУР-ООД","uic":"126747284","legalForm":"OOD","status":"active","seat":"Хасково"},{"id":"company:Медиарт-студио","type":"company","label":"Медиарт студио","slug":"Медиарт-студио","uic":"201578354","legalForm":"OOD","status":"active","seat":"София (столица)"},{"id":"company:tr:200712697","type":"company","label":"ПАК Дизайн","slug":null,"uic":"200712697","legalForm":"Еднолично дружество с ограничена отговорност","status":"active","seat":"БЪЛГАРИЯ, гр. Хасково, 6300"},{"id":"company:tr:202314393","type":"company","label":"“КОРЕКТ ИНВЕСТ-2012”","slug":null,"uic":"202314393","legalForm":"OOD","status":"active","seat":null},{"id":"company:tr:836150853","type":"company","label":"СДРУЖЕНИЕ &quot;БАСКЕТБОЛЕН КЛУБ - ХАСКОВО&quot;","slug":null,"uic":"836150853","legalForm":"ASSOC","status":"active","seat":null},{"id":"person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ","type":"person","label":"Фридрих Красенов Михайлов"},{"id":"person:БИЛЯНА ТОТЕВА СИМОНОВА - МИХАЙЛОВА","type":"person","label":"Биляна Тотева Симонова - Михайлова"},{"id":"mp:5270","type":"mp","mpId":5270,"label":"Здравко Марков Марков","partyGroupShort":"ПГ \"Прогресивна България\"","isCurrent":true,"nsFolders":["52"]},{"id":"person:ЛЕОНАРД ЙОРДАНОВ МИТОВ","type":"person","label":"Леонард Йорданов Митов"},{"id":"person:ЯНКО ЖЕЛЕВ ЖЕЛЕВ","type":"person","label":"Янко Желев Желев"},{"id":"person:ВИКТОР СТОЯНОВ КОЛЯНОВ","type":"person","label":"Виктор Стоянов Колянов"},{"id":"person:НЕСТОР ПАВЛОВ НЕСТОРОВ","type":"person","label":"Нестор Павлов  Несторов"},{"id":"person:ТЕНЧО ЛЮДМИЛОВ БАНЕВ","type":"person","label":"Тенчо Людмилов Банев"},{"id":"company:tr:126176024","type":"company","label":"УЧИЛИЩНО НАСТОЯТЕЛСТВО  &quot;ИНТЕЛЕКТ&quot;","slug":null,"uic":"126176024","legalForm":"ASSOC","status":"active","seat":"БЪЛГАРИЯ, Хасково, 6300"},{"id":"mp:4373","type":"mp","mpId":4373,"label":"Веселин Жеков Недев","partyGroupShort":"ПП-ДБ","isCurrent":false,"nsFolders":["48","49"]}],"edges":[{"source":"mp:3427","target":"company:Делта-ТУР-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3427","target":"company:Медиарт-студио","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"},{"source":"mp:3427","target":"company:tr:200712697","kind":"tr_owner","role":"sole_owner","isCurrent":true,"confidence":"medium"},{"source":"mp:3427","target":"company:tr:200712697","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3427","target":"company:tr:202314393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"medium"},{"source":"mp:3427","target":"company:tr:202314393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"medium"},{"source":"mp:3427","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:3427","target":"company:tr:200712697","kind":"tr_owner","role":"partner","isCurrent":false,"confidence":"medium"},{"source":"person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ","target":"company:tr:202314393","kind":"tr_role","role":"manager","isCurrent":true,"confidence":"high"},{"source":"person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ","target":"company:tr:202314393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"person:БИЛЯНА ТОТЕВА СИМОНОВА - МИХАЙЛОВА","target":"company:tr:202314393","kind":"tr_owner","role":"partner","isCurrent":true,"confidence":"high"},{"source":"mp:5270","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"},{"source":"mp:5270","target":"company:tr:836150853","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"person:ЛЕОНАРД ЙОРДАНОВ МИТОВ","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ЯНКО ЖЕЛЕВ ЖЕЛЕВ","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ВИКТОР СТОЯНОВ КОЛЯНОВ","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:НЕСТОР ПАВЛОВ НЕСТОРОВ","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ТЕНЧО ЛЮДМИЛОВ БАНЕВ","target":"company:tr:836150853","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ","target":"company:tr:126176024","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"high"},{"source":"mp:4373","target":"company:tr:126176024","kind":"tr_role","role":"ngo_representative","isCurrent":true,"confidence":"medium"},{"source":"mp:4373","target":"company:tr:126176024","kind":"tr_role","role":"ngo_board","isCurrent":true,"confidence":"medium"}],"paths":[{"targetMpNodeId":"mp:5270","length":2,"nodeIds":["mp:3427","company:tr:836150853","mp:5270"],"isAllCurrent":true,"isAllHighConfidence":false},{"targetMpNodeId":"mp:4373","length":4,"nodeIds":["mp:3427","company:tr:202314393","person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ","company:tr:126176024","mp:4373"],"isAllCurrent":true,"isAllHighConfidence":false}]}
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "mpNodeId": "mp:3427",
+  "nodes": [
+    {
+      "id": "mp:3427",
+      "type": "mp",
+      "mpId": 3427,
+      "label": "Петко Ангелов Кущирев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "company:Делта-ТУР-ООД",
+      "type": "company",
+      "label": "Делта ТУР ООД",
+      "slug": "Делта-ТУР-ООД",
+      "uic": "126747284",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ХАСКОВО"
+    },
+    {
+      "id": "company:Медиарт-студио-ООД",
+      "type": "company",
+      "label": "Медиарт студио ООД",
+      "slug": "Медиарт-студио-ООД",
+      "uic": "201578354",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:200712697",
+      "type": "company",
+      "label": "ПАК Дизайн",
+      "slug": null,
+      "uic": "200712697",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "company:tr:202314393",
+      "type": "company",
+      "label": "“КОРЕКТ ИНВЕСТ-2012”",
+      "slug": null,
+      "uic": "202314393",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:836150853",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БАСКЕТБОЛЕН КЛУБ - ХАСКОВО&quot;",
+      "slug": null,
+      "uic": "836150853",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Фридрих Красенов Михайлов"
+    },
+    {
+      "id": "person:БИЛЯНА ТОТЕВА СИМОНОВА - МИХАЙЛОВА",
+      "type": "person",
+      "label": "Биляна Тотева Симонова - Михайлова"
+    },
+    {
+      "id": "mp:5270",
+      "type": "mp",
+      "mpId": 5270,
+      "label": "Здравко Марков Марков",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЛЕОНАРД ЙОРДАНОВ МИТОВ",
+      "type": "person",
+      "label": "Леонард Йорданов Митов"
+    },
+    {
+      "id": "person:ЯНКО ЖЕЛЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Янко Желев Желев"
+    },
+    {
+      "id": "person:ВИКТОР СТОЯНОВ КОЛЯНОВ",
+      "type": "person",
+      "label": "Виктор Стоянов Колянов"
+    },
+    {
+      "id": "person:НЕСТОР ПАВЛОВ НЕСТОРОВ",
+      "type": "person",
+      "label": "Нестор Павлов  Несторов"
+    },
+    {
+      "id": "person:ТЕНЧО ЛЮДМИЛОВ БАНЕВ",
+      "type": "person",
+      "label": "Тенчо Людмилов Банев"
+    },
+    {
+      "id": "company:tr:126176024",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО  &quot;ИНТЕЛЕКТ&quot;",
+      "slug": null,
+      "uic": "126176024",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, Хасково, 6300"
+    },
+    {
+      "id": "mp:4373",
+      "type": "mp",
+      "mpId": 4373,
+      "label": "Веселин Жеков Недев",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48",
+        "49"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3427",
+      "target": "company:Делта-ТУР-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:Медиарт-студио-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:200712697",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:200712697",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:202314393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:202314393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3427",
+      "target": "company:tr:200712697",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ",
+      "target": "company:tr:202314393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ",
+      "target": "company:tr:202314393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ТОТЕВА СИМОНОВА - МИХАЙЛОВА",
+      "target": "company:tr:202314393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5270",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5270",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЕОНАРД ЙОРДАНОВ МИТОВ",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ЖЕЛЕВ ЖЕЛЕВ",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР СТОЯНОВ КОЛЯНОВ",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕСТОР ПАВЛОВ НЕСТОРОВ",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕНЧО ЛЮДМИЛОВ БАНЕВ",
+      "target": "company:tr:836150853",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ",
+      "target": "company:tr:126176024",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4373",
+      "target": "company:tr:126176024",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4373",
+      "target": "company:tr:126176024",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ],
+  "paths": [
+    {
+      "targetMpNodeId": "mp:5270",
+      "length": 2,
+      "nodeIds": [
+        "mp:3427",
+        "company:tr:836150853",
+        "mp:5270"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    },
+    {
+      "targetMpNodeId": "mp:4373",
+      "length": 4,
+      "nodeIds": [
+        "mp:3427",
+        "company:tr:202314393",
+        "person:ФРИДРИХ КРАСЕНОВ МИХАЙЛОВ",
+        "company:tr:126176024",
+        "mp:4373"
+      ],
+      "isAllCurrent": true,
+      "isAllHighConfidence": false
+    }
+  ]
+}

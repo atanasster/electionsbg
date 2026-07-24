@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T03:36:19.294Z",
+  "officialNodeId": "official:ioto-plamenov-nikolov-3ee293",
+  "nodes": [
+    {
+      "id": "official:ioto-plamenov-nikolov-3ee293",
+      "type": "official",
+      "slug": "ioto-plamenov-nikolov-3ee293",
+      "label": "Йото Пламенов Николов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131494313",
+      "type": "company",
+      "label": "Иновативни системи за сигурност и управление на риска",
+      "slug": null,
+      "uic": "131494313",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ioto-plamenov-nikolov-3ee293",
+      "target": "company:tr:131494313",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ioto-plamenov-nikolov-3ee293",
+      "target": "company:tr:131494313",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}
