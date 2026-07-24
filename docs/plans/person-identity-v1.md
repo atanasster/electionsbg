@@ -199,6 +199,18 @@ obshtina corroborants that link a councillor-turned-MP. Person universe 35,272 �
 data tests green. Remaining upstream (not resolver) gaps: older-election ЕРИК donor backfill; ds/
 regulator T1 sources.
 
+**IMPLEMENTATION LOG (2026-07-24, override tier SHIPPED).** Made `person_link_override` real — it
+was an inert stub (the resolver never read it). The resolver now loads the rows and applies them as
+the LAST tier (`scripts/person/overrides.ts`, `applyOverrides()` after the cross-block gold union),
+and the fold-only key was widened with mention-specific `ref_a`/`ref_b` columns (081, idempotent).
+The headline addition is the **ref-level split** — isolate one mention by its source-native ref,
+**vetoing even a Tier-0 gold union**, the mis-merge a name fold is too coarse to target (a CIK
+candidacy `matchMp()` bound to the WRONG same-name MP). Fold-level merge/split still cover the
+cross-block cases. Operator writer `npm run person:override`; hermetic + PG-gate tests; end-to-end
+verified on the live DB (a ref-split split a candidacy off `mp-10` onto its own person, then removed
+cleanly). Full semantics + the key-coarseness rationale in **§3a**. No regression (58221 persons,
+0 overrides = identical baseline).
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
@@ -410,12 +422,65 @@ never an O(n²) all-pairs pass. Within a block, tiers highest confidence first:
    merge**, but `confidence='review'`, `status='review'` — held off public pages, surfaced only in
    the internal adjudication view until a `person_link_override` (possibly LLM-assisted, §5a)
    promotes or splits it.
-4. **Overrides** applied last (merge and split) from `person_link_override`.
+4. **Overrides** applied last (merge and split) from `person_link_override`. See §3a.
 
 Public-surface rule: a page renders a person or an edge only when the underlying rows are
 `status='active'` AND `confidence IN ('exact_id','high','manual')`. `review`/`medium` are internal.
 The existing "следа, не доказателство / name match — identity not verified" disclaimer stays on
 every inferred edge.
+
+### 3a. The override tier — key & semantics (SHIPPED 2026-07-24)
+
+`person_link_override` is the DATA escape hatch for identity decisions the deterministic tiers get
+wrong, so a genuine mis-merge is undone by inserting a row, never by editing resolver code. Applied
+**last**, after every automatic tier, so a hand decision always wins. Applier:
+`scripts/person/overrides.ts` (pure); writer: `scripts/person/add_override.ts` (`npm run
+person:override`); load point: `resolve_persons.ts` reads the rows and calls `applyOverrides()`
+right after the cross-block gold union. A no-override corpus is an exact no-op — the tier can never
+regress the baseline.
+
+**Why the original fold-only key was too coarse.** `fold_a`/`fold_b` are NAME FOLDS. Two genuinely
+different people with an identical 3-part name share one fold, so a fold-vs-fold `split` cannot
+separate one *specific* candidacy from a person. The defamation-critical mis-merge is exactly this:
+`resolveCore.matchMp()` binds a CIK candidacy to an MP by **normalized full name only** (party is a
+soft hint, bypassed for a former MP), stamping that MP's `mpId` on the shard. The candidacy then
+carries the MP's gold `hardId`, and Tier-0 (explicitly exempt from every cluster.ts safety guard)
+unions it onto the MP — so the wrong candidacy and the real MP share BOTH the fold and the hardId.
+No fold-level key can target just the one candidacy.
+
+**The fix — a mention-specific ref key.** Added nullable `ref_a`/`ref_b` columns (081, idempotent
+`ADD COLUMN IF NOT EXISTS` + `DROP NOT NULL` on the fold columns so an already-migrated DB self-heals
+on the next resolve). Three operations now share the one audited table
+(`kind`, `note`, `decided_by`, `decided_at` preserved):
+
+| kind + key | meaning | undoes |
+|---|---|---|
+| `merge` + `fold_a`,`fold_b` | union the two name folds into one person (`confidence='manual'`) | a marriage rename / translit variant that scattered one person across two blocks |
+| `split` + `fold_a`,`fold_b` | forbid two DIFFERENT folds from auto-merging (peel every `fold_b` mention off any component holding `fold_a`) | a wrong **cross-block** gold/merge union of two folds |
+| `split` + `ref_a` | **ISOLATE ONE mention** by its source-native ref (`{election}:{slug}`, `mp:{id}`, an officials slug, …); it never unions into any person, **vetoing even a Tier-0 gold union**; forms its own person | a candidacy `matchMp()` bound to the WRONG same-name MP — the coarse-key gap above |
+
+`ref_a` is matched against three keys per mention — the resolver mention id
+(`candidate:2024_06_09:c-26-…`), the bare ref (`2024_06_09:c-26-…`), and `{source}:{ref}` — so an
+operator names a mention by whichever id they have. Precedence inside the tier: **merge → fold-split
+→ ref-split** (a split always wins over a merge). Confidence is recomputed from the final members
+(shared hard id → `exact_id`; an override-merged component → `manual`; else `high`), mirroring the
+resolver's own rule so untouched components keep their baseline.
+
+Operator flow (mirrors the JSON override tooling `_aliases.json` / `board_link_overrides.json`, but
+the row lives in PG):
+
+```bash
+npm run person:override -- split --ref 2024_06_09:c-26-monika-georgieva-vasileva \
+  --note "different Monika than mp-XXXX" --by <name>
+npm run db:resolve:persons && npm run db:load:person-elections:pg   # person_election_stats re-keys
+```
+
+Tests: `scripts/person/overrides.test.ts` (hermetic — the applier over synthetic groups) +
+`scripts/db/tests/person_override.data.test.ts` (PG gate — constructs a same-name gold mis-merge,
+inserts a ref-split, loads it through the resolver's own SELECT, asserts separation; auto-skips when
+PG is down). End-to-end verified on the live DB: a ref-split on `2014_10_05:mp-10` split that
+candidacy onto its own `high`-confidence person while `mp-10` kept its MP role (58221 → 58222
+persons); removing the row restored the baseline.
 
 ---
 

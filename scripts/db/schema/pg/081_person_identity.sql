@@ -134,19 +134,47 @@ CREATE INDEX IF NOT EXISTS idx_person_role_source_ref ON person_role (source, re
 
 -- ---------------------------------------------------------------------------
 -- person_link_override — human adjudication, audited. Replaces the scattered
--- scripts/officials/_aliases.json. The resolver applies these LAST (plan §3 tier 4).
+-- scripts/officials/_aliases.json. The resolver applies these LAST, after every automatic
+-- tier, so an override always wins (plan §3 tier 4; scripts/person/overrides.ts is the
+-- applier, scripts/person/add_override.ts the operator writer). THREE operations:
+--
+--   merge (fold_a + fold_b)      union the two NAME FOLDS into one person (a marriage rename,
+--                                a translit variant that scattered one person across blocks).
+--   split (fold_a + fold_b)      forbid two DIFFERENT folds from auto-merging (peel fold_b off
+--                                fold_a) — undoes a wrong cross-block gold/merge union.
+--   split (ref_a)                ISOLATE ONE mention by its source-native ref
+--                                (`{election}:{slug}`, `mp:{id}`, an officials slug, …). This
+--                                vetoes even a Tier-0 GOLD union — the case a name fold is too
+--                                coarse for: a CIK candidacy `matchMp()` bound to the WRONG
+--                                same-name MP shares BOTH the fold and the mp-id hardId with
+--                                the real MP, so only a mention-specific veto can split them.
+--
+-- fold_a/fold_b are NULLABLE (a ref-split targets a ref, not a fold); ref_a/ref_b are added
+-- idempotently below so an already-migrated DB gains them without a data reset. The columns
+-- hold translit_bg_latin() folds (the ONE normalizer) — add_override.ts folds the raw name.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS person_link_override (
   override_id bigserial PRIMARY KEY,
-  fold_a      text NOT NULL,
-  fold_b      text NOT NULL,
+  fold_a      text,
+  fold_b      text,
+  ref_a       text,   -- ref-split target: a mention's source-native ref / id
+  ref_b       text,   -- optional second ref to isolate in the same audited decision
   kind        text NOT NULL CHECK (kind IN ('merge', 'split')),
   note        text,
   decided_by  text,
   decided_at  timestamptz NOT NULL DEFAULT now()
 );
+-- Self-healing for a DB created before ref-level targeting existed: add the ref columns and
+-- relax the historical NOT NULL on the fold columns (both idempotent — the resolver re-applies
+-- this file every run).
+ALTER TABLE person_link_override ADD COLUMN IF NOT EXISTS ref_a text;
+ALTER TABLE person_link_override ADD COLUMN IF NOT EXISTS ref_b text;
+ALTER TABLE person_link_override ALTER COLUMN fold_a DROP NOT NULL;
+ALTER TABLE person_link_override ALTER COLUMN fold_b DROP NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_person_link_override_folds
   ON person_link_override (fold_a, fold_b);
+CREATE INDEX IF NOT EXISTS idx_person_link_override_ref
+  ON person_link_override (ref_a);
 
 -- ---------------------------------------------------------------------------
 -- person_link_evidence — external corroboration for a person↔company/person link,

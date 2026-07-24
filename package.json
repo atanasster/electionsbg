@@ -69,6 +69,7 @@
     "db:load:magistrates:pg": "tsx scripts/db/load_magistrates_pg.ts",
     "db:load:magistrates:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:magistrates:pg",
     "db:resolve:persons": "tsx scripts/person/resolve_persons.ts",
+    "person:override": "tsx scripts/person/add_override.ts",
     "db:load:declarations:pg": "tsx scripts/db/load_declarations_pg.ts",
     "db:load:declarations:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg tsx scripts/db/load_declarations_pg.ts",
     "person:slugs": "tsx scripts/person/emit_prerender_slugs.ts",

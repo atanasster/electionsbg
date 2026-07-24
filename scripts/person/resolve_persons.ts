@@ -19,7 +19,10 @@
 // already declare/link to (magistrate_company + company_politicians) via the strong shared-uic
 // corroborant; Bridge B (unique full name) discovers the footprint of a globally-unique-named
 // public person on the one company their exact name appears on (Tier-2, double-gated). Review
-// candidates (§3 tier 3) persist to person_review_candidate.
+// candidates (§3 tier 3) persist to person_review_candidate. Human adjudications
+// (person_link_override) apply LAST (Tier 4, scripts/person/overrides.ts): a fold-level
+// merge/split, and a ref-level split that ISOLATES one mention — the only key specific enough
+// to undo a wrong Tier-0 gold union (a candidacy matchMp()'d onto the wrong same-name MP).
 //
 //   npx tsx scripts/person/resolve_persons.ts
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
@@ -44,6 +47,7 @@ import { parseName } from "./nameParts";
 import { writeIngestState } from "../lib/ingest-state";
 import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
+import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -788,7 +792,7 @@ async function foldAndScore(
   return { fold, namesake };
 }
 
-type M = Mention & { raw: Raw };
+type M = Mention & { raw: Raw; nameFold: string };
 
 // The person-layer schema files, applied (idempotent CREATE … IF NOT EXISTS) before every
 // resolve so `db:refresh` / a fresh clone can rebuild from an empty DB — nothing else wires
@@ -842,6 +846,15 @@ async function main(): Promise<void> {
     ).map((r) => [r.key, r.public_default]),
   );
 
+  // Human adjudication (plan §3 tier 4) — the audited person_link_override rows, applied as
+  // the LAST tier below so a hand-decided merge/split always wins over the automatic result.
+  // The schema is already applied above (SCHEMA_FILES), so the ref columns exist.
+  const overrides = parseOverrides(
+    await allRows<OverrideRow>(
+      `SELECT kind, fold_a, fold_b, ref_a, ref_b FROM person_link_override`,
+    ),
+  );
+
   // GOLD-KEY ALIASING. A mention can carry TWO independent gold keys — the parliament MP
   // id and the Сметна палата register person id — and when both sit on the SAME mention
   // they name one identity by construction (that MP filed that declaration). Fold the two
@@ -878,6 +891,7 @@ async function main(): Promise<void> {
     nameParts: r.nameParts,
     ambiguous: r.ambiguous,
     namesakeRisk: namesake.get(fold.get(r.display)!) ?? 0,
+    nameFold: fold.get(r.display)!,
     corroborants: {
       party: r.cParty,
       place: r.cPlace,
@@ -896,7 +910,7 @@ async function main(): Promise<void> {
     arr.push(m);
   }
 
-  type Group = { ids: string[]; confidence: "exact_id" | "high" };
+  type Group = { ids: string[]; confidence: "exact_id" | "high" | "manual" };
   const groups: Group[] = [];
   type Review = {
     blockKey: string;
@@ -961,6 +975,21 @@ async function main(): Promise<void> {
     };
   });
 
+  // TIER 4 — human overrides (plan §3), applied LAST so a hand-decided merge/split always
+  // wins: a fold-level merge unions two persons the automatic tiers left in different blocks,
+  // a fold-level split peels apart a wrong cross-block union, and a ref-level split ISOLATES
+  // one mention — vetoing even a Tier-0 gold union, the mis-merge a name fold is too coarse
+  // to target (a CIK candidacy bound by matchMp() to the wrong same-name MP). A no-override
+  // corpus returns mergedGroups untouched.
+  const ovMentions = mentions.map((m) => ({
+    id: m.id,
+    source: m.source,
+    ref: m.raw.ref,
+    hardId: m.hardId ?? null,
+    nameFold: m.nameFold,
+  }));
+  const overriddenGroups = applyOverrides(mergedGroups, ovMentions, overrides);
+
   // Build person rows with deterministic slugs, then sort by slug and assign ids so a
   // rebuild is stable.
   type Built = {
@@ -971,11 +1000,11 @@ async function main(): Promise<void> {
     family: string;
     nameParts: number;
     namesake: number;
-    confidence: "exact_id" | "high";
+    confidence: "exact_id" | "high" | "manual";
     isPublic: boolean;
     members: M[];
   };
-  const built: Built[] = mergedGroups
+  const built: Built[] = overriddenGroups
     // Drop bridge-only groups: a TR/NGO officer that failed to bridge to a real person (a
     // same-EIK co-owner, or a patronymic conflict) is NOT materialized (plan §3 bounded
     // universe). Both `tr` and `ngo` are bridge sources — never a standalone person.
@@ -1230,11 +1259,17 @@ async function main(): Promise<void> {
     );
   });
 
+  const ovCount =
+    overrides.merges.length +
+    overrides.foldSplits.length +
+    overrides.refSplits.size;
   const summary =
     `${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
     `${regKeyed} mention(s) keyed by the register person id (${aliased} aliased to an MP id); ` +
     `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
-    `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`;
+    `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s); ` +
+    `${ovCount} human override(s) applied ` +
+    `(${overrides.merges.length} merge, ${overrides.foldSplits.length} fold-split, ${overrides.refSplits.size} ref-split)`;
   console.log(`  ${summary}`);
 
   // Stamp the marker /process-watch-report compares against, from the run
