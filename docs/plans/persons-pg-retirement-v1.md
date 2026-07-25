@@ -1,4 +1,4 @@
-# Retire person JSON from routes → all persons/declarations/connections/companies on Postgres (v1.1)
+# Retire person JSON from routes → all persons/declarations/connections/companies on Postgres (v1.2)
 
 **Status:** design (2026-07-25, revised after deploy-model audit). Goal: **no route or AI
 tool loads person/declaration/connection/company data from a static JSON file**; the only
@@ -16,9 +16,10 @@ Builds on / does not duplicate:
 
 ## Decisions (locked 2026-07-25)
 
-1. **`/officials/:slug` → 301 to `/person/:slug`.** Retire `OfficialProfileScreen`; the
-   PG-backed `PersonDashboard` is the single person surface. Council-activity +
-   official-connections sections graft into it.
+1. **`/officials/:slug` → 301 to `/person/:slug`, served by the `db` Cloud Function**
+   (not a `firebase.json` rule — the slug spaces don't map; see Tier 1). Retire
+   `OfficialProfileScreen`; the PG-backed `PersonDashboard` is the single person surface.
+   Council-activity + official-connections sections graft into it.
 2. **Browse/leaderboards → `functions/db_table.js` REGISTRY**; per-entity aggregates → STABLE
    jsonb functions in `db_routes.js` (mirror the `person-*` routes).
 3. **Council-vote data comes INTO PG** (new tables + loader). **MP photos stay bucket-only
@@ -44,20 +45,52 @@ Measured retirement surface (git-tracked = bucket-synced):
 | `data/parliament/` (by-id 2,123 · profiles 4,284 · official-connections 4,465 · mp-connections 939 · mp-management 846 · mp-assets 769 · declarations 782 · top-level 16) | **19,551** | serve from PG; drop from git + bucket |
 | `data/parliament/photos/` (`.webp`) | 1,651 | **KEEP on bucket** (the only survivor) |
 | `data/parliament/avatars.json` | 1 | metadata → PG; retire |
-| `data/officials/` (declarations 14,496 · municipal 6,681 · derived 4 · top 4 · contacts 1) | **21,186** | declarations become load-source-only; served surfaces → PG |
-| `data/{election}/candidates/**` (per-election shards) | ~388k (bucket-only, **not** git-tracked) | serve from PG; drop from bucket (keep `candidates.json` as load source) |
+| `data/officials/` (declarations 14,496 · municipal 6,681 · derived 4 · top 4 · contacts 1) | **21,186** | served surfaces → PG; declaration shards **move out of `data/`** (load-source-only) |
+| `data/{election}/candidates/**` (per-election shards) | ~388k (bucket-only, **not** git-tracked) | serve from PG; **delete** from disk + bucket (`candidates.json` moves out of `data/` as a load source) |
 
-**Success metric:** after migration, `data/parliament/**` + `data/officials/**` contain **only
-photos (1,651) + non-served load-source JSON**; candidate shards gone from the bucket; the
-person domain drops ~40k git-tracked files and ~430k bucket objects. **Verify:** `bucket:sync`
-scope + `git ls-files data/parliament data/officials | wc -l` before/after.
+**Success metric:** after migration `data/parliament/**` holds **only the 1,651 photos**,
+`data/officials/**` is gone from `data/`, and the candidate shards are gone from both disk and
+bucket — the person domain drops ~40k git-tracked files and ~430k bucket objects, and the local
+`data/` walk shrinks by ~430k entries (the thing that actually shortens `bucket:sync`).
+**Verify, before/after:** `git ls-files data/parliament data/officials | wc -l`; `find data -type f
+| wc -l` (the enumeration driver); `gsutil du gs://data-electionsbg-com/parliament` +
+`/officials` (proves the objects were *deleted*, not merely unreferenced); and a timed
+`npm run bucket:sync`.
 
-**Mechanism (the operational rule):** a file's cost disappears when it stops being *served*.
-For each family: migrate every reader (frontend hook **and** `ai/tools/*`) to PG → then either
-(a) git-untrack + delete if it's purely derived-served, or (b) if it's a **load source** for a
-PG loader (`candidates.json`, `companies-index.json`, `company_links.json`, the officials
-declaration shards), **add it to the `bucket_sync_paths.ts` exclude list** so it stays local
-for the loader but never ships. Both paths kill the bucket/git cost.
+**Mechanism — CORRECTED (this is the part that is easy to get wrong):**
+
+> **Excluding a tree from `bucket:sync` does NOT make the sync faster.** Per the measured note
+> in `scripts/bucket_sync_paths.ts:5-14`, `gsutil rsync` builds **both full listings before it
+> diffs anything** (1,033,739 local files, ~761k bucket objects) and **`-x` filters only AFTER
+> enumeration** — which is why the already-excluded `procurement/` (80,876) and `funds/`
+> (182,377) are still walked on every run. With `parallel_process_count=1` (the macOS
+> workaround) that enumeration is single-process and **dominates: ~30 min regardless of churn**.
+
+Three consequences the plan must honour:
+
+1. **Only files that leave `data/` on disk reduce sync time.** Retiring a served family →
+   **delete it from `data/`**, don't merely exclude it.
+2. **Load sources that stay on disk keep costing enumeration time.** So `candidates.json`,
+   `companies-index.json`, `company_links.json` and the officials declaration shards should
+   **move out of `data/`** into a non-synced top-level tree (e.g. `raw_data/` or a new
+   `local_data/`) with the loaders repointed — otherwise Tier 4's ~388k candidate shards still
+   cost the full walk even after nothing serves them.
+3. **Retired objects linger in the bucket and are served forever.** `bucket:sync` **never
+   passes `-d`** (`bucket_sync_paths.ts:30-38`) — documented precedent: `data/prices/settlement/*`
+   dropped out of the corpus on 2026-07-10 and was still being served. Deleting locally does
+   **not** remove the bucket object. Each family therefore needs an explicit teardown:
+   `npm run bucket:sync:paths -- --dry-run --delete <subtree>` (read the "Would remove" lines)
+   then the real run. **Stale-serving hazard:** until that teardown runs, a regressed hook or a
+   cached client silently reads retired person JSON forever.
+
+**Two-place edit:** the exclusion list is duplicated — the `-x` regex in `package.json`'s
+`bucket:sync` **and** the `isExcluded()` refuse-list in `scripts/bucket_sync_paths.ts:52-76`
+("Keep in sync with bucket:sync's -x regex allow-list in package.json"). Retiring a family
+means editing **both**, plus checking `bucket:gz` ordering (`scripts/bucket_gzip.ts`).
+
+Per-family teardown order: migrate every reader (frontend **and** `ai/tools/*`) → parity-check →
+delete from `data/` (or move to the non-synced tree if a load source) → update both exclusion
+lists → `bucket:sync:paths --delete` the subtree → git-untrack.
 
 ## 0.5 The prerender/deploy-ceiling tension (the one hard tradeoff)
 
@@ -78,10 +111,29 @@ HTML flat. Candidates keep their existing `/candidate` prerender (already the pe
 full `/candidate` → `/person` 301 consolidation is **explicitly out of scope here** to avoid a
 26k-page SEO churn on top of this migration.
 
-**Open build-architecture item:** prerender injects a crawlable `<!-- BODY -->` from committed
-JSON. Person data is PG-only, so the `/person` prerender body must come from either a build-time
-DB read or an SEO body baked into `prerender_slugs.json`. Establish this in Tier 1 (it's the one
-genuinely new build mechanism).
+**RESOLVED (was an open item):** no build-time DB read is needed, and none is allowed.
+`scripts/person/emit_prerender_slugs.ts` already exists and is explicitly "the person slug +
+content-floor manifest that **/person prerender + sitemap read**" — prerender/sitemap "never open
+a DB (they read JSON off disk, and the maintainer's local PG is stale vs Cloud SQL)", so the
+person layer writes the manifest, exactly as `scripts/prices/export_slugs.ts` does for products.
+An enumeration manifest is the sanctioned PG→prerender shape ([[feedback_no_json_from_pg]] forbids
+*serving* generated JSON, not enumerating from it). It runs after `db:resolve:persons` and is
+wired into `db:refresh`. **Tier 1 wires the existing manifest in; it does not invent a mechanism.**
+(`prerender_slugs.json` is a build input, never served — it belongs in the non-synced tree per §0.)
+
+**⚠ CONFLICT with a prior documented decision — resolve before Tier 1.** That manifest encodes
+the **G6 decision** ([persons-declarations-audit-v1.md](persons-declarations-audit-v1.md)): *every*
+public person above a content floor gets a prerendered file + sitemap `<loc>`; only the thin tail
+(bare candidacy, 18,601) stays SPA/noindex. That means **38,353 indexable pages** — and Decision 4
+(net-neutral, ~5,000) **overrides G6**. The arithmetic that motivates the override: deployed today
+≈116k files; G6's set adds ~38k (BG) or ~77k (BG+EN) → ~154k–193k. Known-good is ~116k; known-bad
+is 369k (candidate sub-tabs, reverted) and 453k. **~154k–193k is unmeasured territory.** So:
+net-neutral is the safe default for this migration, but it is a *deliberate deviation* from G6 and
+must be recorded as such — a future implementer reading only `emit_prerender_slugs.ts` will
+otherwise ship the full indexable set and risk the deploy. If the full G6 set is wanted, measure
+the ceiling with a staging deploy **first**, and note that `/person` largely duplicates the
+existing 26,386 `/candidate` pages — which argues for *consolidation* (Decision 4's rejected
+option), not addition.
 
 ## Current state (audited 2026-07-25)
 
@@ -124,8 +176,19 @@ Routes: `mp-entry`, `mp-declarations`, `mp-assets` (person_id-keyed; the `useOff
 TODO). Parity-check each against its JSON.
 
 ### Tier 1 — officials cutover + net-neutral prerender (SEO-gated)
-- `firebase.json` **301** `/officials/:slug` → `/person/:slug`; delete `OfficialProfileScreen`,
-  `useOfficial`, `useOfficialConnections`. Migrate `people.ts:officialsAssetsTop` to `fetchDb`.
+- **The 301 must be Cloud-Function-served, NOT a `firebase.json` rule** (corrected — the
+  original plan was not implementable). The two slug spaces do **not** line up: an officials slug
+  is minted by `officialSlug(name, institution)` with an **institution disambiguator**
+  (`scripts/officials/shared.ts`, see `official_slug.test.ts`), while a person slug is a separate
+  space with its own uniqueness guarantee (`resolve_persons.ts:1089`). So `/officials/ivan-petrov-mvr`
+  → `/person/ivan-petrov` is **not expressible as a glob/capture rewrite**, and enumerating all
+  ~5,001 mappings in `firebase.json`'s `redirects` array exceeds Firebase's per-site redirect
+  limit (1,000). **Do:** add an `/officials/**` rewrite to the existing `db` Cloud Function and
+  issue a real 301 from a PG lookup — the mapping already exists as `person_role.ref =
+  '/officials/<slug>'` for sources `official_exec`/`official_muni` (`081_person_identity.sql:117`).
+  Keep `/officials/assets` (a real page) routed ahead of the wildcard.
+- Delete `OfficialProfileScreen`, `useOfficial`, `useOfficialConnections`. Migrate
+  `people.ts:officialsAssetsTop` to `fetchDb`.
 - **Replace** the officials prerender + sitemap group with a scoped `/person` group (§0.5) —
   wire `emit_prerender_slugs.json`, cap to hold total HTML flat, establish the PG/baked SEO body.
   Prerender + sitemap + 301 move in one commit (avoid soft-404s).
@@ -136,8 +199,12 @@ TODO). Parity-check each against its JSON.
   (declarations↔companies, today's `official-connections.json`) lands with Workstream B
   `ref_connections` in **Tier 3**; council-activity lands in **Tier 4**. Tier 1 ships the
   redirect with the sections it can, the rest fill in as their tiers complete.
-- Exclude `data/officials/declarations` + `municipal/declarations` from `bucket:sync` once
-  they're load-source-only (~21k files off the bucket).
+- Retire `data/officials/**` per the §0 teardown (move the declaration shards to the non-synced
+  load-source tree, update **both** exclusion lists, then `bucket:sync:paths --dry-run --delete
+  officials` before the real delete). ~21k files off the bucket. Give
+  `useMunicipalContacts` (`officials/municipal_contacts/index.json`, 1 file) an explicit
+  disposition — it is contact data, not declarations: either fold into `municipal_officials` or
+  keep as a single bucket-served file.
 
 ### Tier 2 — MP roster/declarations/avatars on PersonDashboard
 Replace `useMpEntry`/`useMpDeclarations`/`useMpAssets` with person_id routes; `assets-rankings`
@@ -161,8 +228,10 @@ stay as **load sources** (rsync-excluded), not retired.
 - **Candidate shards (~388k bucket files):** migrate `useResolvedCandidate`,
   `useCandidateElectionFallback`, `candidate.ts:candidateResult` to PG
   (`candidate_person` + `person_election_stats`, extend for `preferences_stats`). Keep
-  `candidates.json` as prerender/sitemap load source (rsync-excluded); drop the per-candidate
-  shard tree from the bucket.
+  `candidates.json` as the prerender/sitemap load source but **move it out of `data/`** (§0.2) —
+  and **delete** the per-candidate shard tree from disk *and* from the bucket
+  (`bucket:sync:paths --delete`). This is the single biggest sync-time win: ~388k entries out of
+  the enumeration walk.
 - **Council data → PG:** new `099_council_signals.sql` (`councillor_signals`,
   `councillor_conflicts` keyed by person_id), loader `db:load:council-signals:pg` after the
   resolver; surface via `person_by_slug` / a `council-activity` route for the grafted section.
@@ -183,9 +252,16 @@ per Workstream B §7. Note: `gsutil -m` rsync hangs on macOS ([[reference_gsutil
 — fewer bucket files also derisks the sync itself.
 
 ## Risks
-- **Deploy ceiling (§0.5)** — `/person` prerender must be net-neutral, not +38k pages.
-- **SEO** — 301s (not SPA redirects) + lockstep prerender/sitemap or 5,001 soft-404s
-  ([[feedback_static_seo]], [[project_seo_discovery_gap]]).
+- **Deploy ceiling + G6 conflict (§0.5)** — net-neutral `/person` prerender deliberately
+  deviates from the documented G6 full-indexable decision; don't let an implementer silently
+  follow `emit_prerender_slugs.ts` to +38k pages without a staging measurement.
+- **Stale serving after retirement (§0.3)** — a retired JSON left in the bucket is served
+  forever; the `--delete` teardown is mandatory, not optional cleanup.
+- **Exclusion ≠ speed (§0.1)** — excluding a tree does not shorten `bucket:sync`; only removing
+  it from `data/` does. Easy to "finish" the migration and see no time win.
+- **SEO** — the 301 must come from the `db` Cloud Function (glob rewrites can't map the slug
+  spaces; the redirects array can't hold 5,001 entries), with prerender + sitemap moving in the
+  same commit or 5,001 soft-404s ([[feedback_static_seo]], [[project_seo_discovery_gap]]).
 - **Parity drift** — JSON-vs-PG parity check per family before untrack; determinism per
   [[reference_pg_payload_determinism]].
 - **DB perf** — EXPLAIN ANALYZE every new fn/resource on worst-case entity, index both join
