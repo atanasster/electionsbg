@@ -137,3 +137,85 @@ test("globalFtsOnly is a no-op on a non-searchText (name) column", () => {
   });
   assert.ok(whereSql.includes("contractor_name ILIKE"), "name arm unchanged");
 });
+
+// ---- registry shape invariants ----------------------------------------------
+// The engine assumes these and never checks them, so a mistake fails at RUNTIME with a
+// 500 on the live route rather than at commit time. Table-driven over every resource so
+// a new one is covered the moment it is added.
+//
+// NOTE what is deliberately NOT asserted: `select ⊆ columns`. The two serve different
+// purposes — `columns` is the CLIENT-facing whitelist (what may be sorted/filtered/
+// searched, the security boundary), while `select` is the server-controlled projection
+// and is legitimately broader. `ngos` projects `signals` (a real ngos_list column) that
+// is intentionally not client-addressable. Validating projection names needs the live
+// schema, not the registry.
+
+test("every client-addressable column is declared", () => {
+  // The security-relevant direction: anything the client can name in a sort, filter,
+  // search or scope MUST be in `columns`, because that is the only place the engine
+  // validates identifiers before they reach the SQL string.
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    for (const [col] of r.defaultSort ?? [])
+      assert.ok(
+        r.columns[col],
+        `${name}: defaultSort references undeclared column '${col}'`,
+      );
+    for (const c of r.scopeCols ?? [])
+      assert.ok(
+        r.columns[c],
+        `${name}: scopeCol '${c}' is not declared in columns`,
+      );
+  }
+});
+
+test("every column descriptor declares a type", () => {
+  // `type` picks the filter/predicate shape; a descriptor without one silently falls
+  // through the builder's switch and the filter becomes a no-op.
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const [id, d] of Object.entries(r.columns))
+      assert.ok(
+        typeof d === "object" && d !== null && typeof d.type === "string",
+        `${name}.${id}: column descriptor must declare a type`,
+      );
+});
+
+test("the pagination tiebreak column is part of the projection", () => {
+  // buildOrder appends `key` (or select[0]) as the deterministic tiebreak, so it has to
+  // be selected — otherwise paging can repeat or skip a row at a page boundary.
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    const tie = r.columns.key ? "key" : r.select[0];
+    assert.ok(
+      r.select.includes(tie),
+      `${name}: pagination tiebreak '${tie}' is not in select`,
+    );
+  }
+});
+
+test("aggregate columns are declared and numeric", () => {
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    for (const a of r.aggregates ?? []) {
+      if (!a.col) continue; // bare count()
+      assert.ok(
+        r.columns[a.col],
+        `${name}: aggregate over undeclared column '${a.col}'`,
+      );
+    }
+  }
+});
+
+test("no resource carries unknown top-level registry keys", () => {
+  // Guards against inert config that reads as a supported feature — `facets: [...]`
+  // looked declarative but runDbFacets builds from req.columns and never read it.
+  const KNOWN = new Set([
+    "base",
+    "scopeCols",
+    "columns",
+    "select",
+    "defaultSort",
+    "aggregates",
+    "maxPageSize",
+  ]);
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const k of Object.keys(r))
+      assert.ok(KNOWN.has(k), `${name}: unknown registry key '${k}'`);
+});

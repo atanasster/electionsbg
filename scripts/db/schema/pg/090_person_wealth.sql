@@ -27,7 +27,7 @@
 -- 2025, which is a mislabel for all 34,238 annuals in the corpus; worse, it puts
 -- both of those filings in ONE partition and then lets the annual win on filed_at:
 --
---   Лучия Александрова Добрева (luchiya-aleksandrova-dobreva-d06438)
+--   Лучия Александрова Добрева (luchiya-aleksandrova-dobreva-674c5b)
 --     21571 Vacate  · covers 2025 · filed 2025-02-18 · 12 valued rows · net +€382,272
 --     21570 Annualy · covers 2024 · filed 2025-06-13 ·  3 valued rows · net −€274,784
 --

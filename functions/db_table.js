@@ -513,6 +513,75 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // Officials asset leaderboard (matview officials_rankings_table, migration 100) —
+  // replaces data/officials/assets-rankings.json(+-top). One row per PERSON holding a
+  // Court-of-Audit officials role, NOT per officials slug: the JSON's 14,496 rows are
+  // 13,346 people, because the same filing is stored once per slug there and once per
+  // human here. See the migration header before "fixing" that row-count difference.
+  //
+  // is_exec / is_muni are the membership filters, NOT `source`: 503 people hold both an
+  // executive and a municipal post, so the representative `source` cannot answer which
+  // leaderboard they belong on. /officials/assets = is_exec true.
+  //
+  // net_worth_eur is NULL for TWO different facts, and `has_declaration` is what tells
+  // them apart: true = filed but declared no valued assets (2,466 rows; the JSON wrote 0
+  // for this state), false = no declaration on record at all (154). Do not label them the
+  // same way in the UI — "не е подал декларация" is a different claim from "—".
+  officials_rankings: {
+    base: "officials_rankings_table",
+    scopeCols: [],
+    columns: {
+      slug: { type: "text" },
+      // Display only — deliberately NOT filterable. Each person contributes ONE of their
+      // officials refs here (the representative), so 1,700 of the 20,887 refs in
+      // person_role never appear and a lookup by this column would return empty for them
+      // while looking like a miss. Resolve an officials slug -> person against
+      // person_role.ref instead (that is what the /officials/** 301 does).
+      official_slug: { type: "text" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      category: { type: "text", sort: true, filter: "in" },
+      source: { type: "text", filter: "in" },
+      is_exec: { type: "bool", filter: "eq" },
+      is_muni: { type: "bool", filter: "eq" },
+      institution: { type: "text", filter: "text", search: true },
+      position_title: { type: "text", filter: "text" },
+      latest_declaration_year: { type: "int", sort: true, filter: "range" },
+      has_declaration: { type: "bool", filter: "eq" },
+      total_assets_eur: { type: "number", sort: true, filter: "range" },
+      total_debts_eur: { type: "number", sort: true, filter: "range" },
+      net_worth_eur: { type: "number", sort: true, filter: "range" },
+      real_estate_count: { type: "int", sort: true, filter: "range" },
+      real_estate_unvalued: { type: "int", sort: true, filter: "range" },
+      delta_previous_year: { type: "int" },
+      delta_absolute_eur: { type: "number", sort: true, filter: "range" },
+      delta_pct: { type: "number", sort: true, filter: "range" },
+    },
+    select: [
+      "slug",
+      "official_slug",
+      "name",
+      "category",
+      "source",
+      "is_exec",
+      "is_muni",
+      "institution",
+      "position_title",
+      "latest_declaration_year",
+      "has_declaration",
+      "total_assets_eur",
+      "total_debts_eur",
+      "net_worth_eur",
+      "real_estate_count",
+      "real_estate_unvalued",
+      "delta_previous_year",
+      "delta_absolute_eur",
+      "delta_pct",
+    ],
+    defaultSort: [["net_worth_eur", "desc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //

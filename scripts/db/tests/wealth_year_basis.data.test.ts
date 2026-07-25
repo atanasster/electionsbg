@@ -14,7 +14,7 @@
 // following May, so it shares a declaration_year with any exit filing lodged in
 // that year — and then WINS on filed_at while covering the EARLIER period:
 //
-//   Лучия Александрова Добрева (luchiya-aleksandrova-dobreva-d06438)
+//   Лучия Александрова Добрева (luchiya-aleksandrova-dobreva-674c5b)
 //     Vacate  · covers 2025 · filed 2025-02-18 · 12 valued rows · net +€382,272
 //     Annualy · covers 2024 · filed 2025-06-13 ·  3 valued rows · net −€274,784
 //
@@ -283,7 +283,7 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "an exit filing represents the year it covers, not the annual lodged after it",
   async () => {
-    const SLUG = "luchiya-aleksandrova-dobreva-d06438";
+    const SLUG = "luchiya-aleksandrova-dobreva-674c5b";
     const filings = await allRows<{
       declaration_type: string;
       period_year: number;

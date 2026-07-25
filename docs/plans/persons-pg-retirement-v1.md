@@ -175,6 +175,21 @@ REGISTRY: `officials_rankings`, `municipal_officials`, `mp_assets_rankings`, `mp
 Routes: `mp-entry`, `mp-declarations`, `mp-assets` (person_id-keyed; the `useOfficial.tsx:76`
 TODO). Parity-check each against its JSON.
 
+> **⛔ T1.2 BLOCKER found in T0.1 — 106 officials lose their published net worth.**
+> Reconciling `officials_rankings_table` against `assets-rankings.json` (13,346 people,
+> membership parity exact): 11,415 figures match exactly; 1,296 are JSON-`0` vs PG-`NULL`
+> (same meaning — filed, no valued assets); 326 differ because PG uses a *newer* filing from
+> another tier (PG is more current); 20 use an older year and 183 differ within the same year
+> (both unexplained, worth a look); and **106 are a real loss** — the person layer minted
+> **two officials slugs for one human** (`dimitr-georgiev-taskov-39b7b6` holds the role,
+> `-14e4c2` owns all four declarations; `grudi-ivanov-angelov-71ef1f` and `-aeb36f` both carry
+> €518,958). The role attaches to one person row, the wealth to the other, so the leaderboard
+> renders blank. This is a pre-existing person-resolution defect that `/person` already shows
+> today — the migration exposes it rather than causing it — but it becomes user-visible the
+> moment T1.2 repoints `/officials/assets` at PG. **Decide before T1.2:** merge the duplicate
+> officials slugs in the resolver (touches slugLock'd, indexed `/person` URLs) or ship with the
+> 106 documented. Do not let T1.2 land unnoticed on top of it.
+
 ### Tier 1 — officials cutover + net-neutral prerender (SEO-gated)
 - **The 301 must be Cloud-Function-served, NOT a `firebase.json` rule** (corrected — the
   original plan was not implementable). The two slug spaces do **not** line up: an officials slug
@@ -183,10 +198,18 @@ TODO). Parity-check each against its JSON.
   space with its own uniqueness guarantee (`resolve_persons.ts:1089`). So `/officials/ivan-petrov-mvr`
   → `/person/ivan-petrov` is **not expressible as a glob/capture rewrite**, and enumerating all
   ~5,001 mappings in `firebase.json`'s `redirects` array exceeds Firebase's per-site redirect
-  limit (1,000). **Do:** add an `/officials/**` rewrite to the existing `db` Cloud Function and
-  issue a real 301 from a PG lookup — the mapping already exists as `person_role.ref =
-  '/officials/<slug>'` for sources `official_exec`/`official_muni` (`081_person_identity.sql:117`).
-  Keep `/officials/assets` (a real page) routed ahead of the wildcard.
+  limit (1,000).
+  **MEASURED 2026-07-25 (T0.1), and it is worse than the structural argument above:** the two
+  spaces are *mostly* aligned after the officials re-slug — 18,508 of 20,658 officials refs
+  (89.6%) already equal their person slug. A glob rewrite would therefore *appear* to work
+  while silently 301-ing the remaining **2,150 (10.4%)** to a wrong-or-nonexistent `/person`
+  URL. Partial alignment is the trap, not the fix.
+  **Do:** add an `/officials/**` rewrite to the existing `db` Cloud Function and issue a real
+  301 from a PG lookup. `person_role.ref` holds the **bare** officials slug
+  (`sevinch-daudova-karaoglan-bd62ed`) for sources `official_exec` / `official_muni` /
+  `public_sector` / `president` / `mep` / `diplomat` — **not** `/officials/<slug>` as earlier
+  drafts of this plan claimed. 0 refs map to more than one person, so the lookup is
+  unambiguous. Keep `/officials/assets` (a real page) routed ahead of the wildcard.
 - Delete `OfficialProfileScreen`, `useOfficial`, `useOfficialConnections`. Migrate
   `people.ts:officialsAssetsTop` to `fetchDb`.
 - **Replace** the officials prerender + sitemap group with a scoped `/person` group (§0.5) —

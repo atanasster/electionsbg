@@ -13,7 +13,7 @@ The app is a JAMstack SPA: data is pre-processed offline into static JSON files 
 ```bash
 npm run dev          # Start Vite dev server
 npm run build        # TypeScript check + production Vite build
-npm run lint         # ESLint + Prettier check
+npm run lint         # ESLint (prettier runs as an eslint rule, not a separate step)
 npm run preview      # Preview the production build locally
 
 # Tests

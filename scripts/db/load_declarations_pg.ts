@@ -98,6 +98,14 @@ const NEW_FILINGS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/098_new_filings.sql",
 );
+// The officials asset leaderboard served to /officials/assets + the /governance tile
+// (persons-pg-retirement-v1 T0.1). Reads person_wealth_year, so like 097 it must be
+// applied AFTER the REFRESH below — and it is recreated unconditionally because 090's
+// DROP ... CASCADE would otherwise take it with the matview it depends on.
+const OFFICIALS_RANKINGS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/100_officials_rankings.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -571,6 +579,10 @@ const resolve = async () => {
   // that rebuilds person_role without reloading declarations does need one (see 097).
   await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(NEW_FILINGS_SCHEMA, "utf-8"));
+  // Same ordering rule as 097: officials_rankings_table aggregates the REFRESHED
+  // person_wealth_year, so applying it before the refresh would populate the
+  // leaderboard from the pre-reload matview.
+  await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
@@ -583,6 +595,7 @@ const resolve = async () => {
     "declaration_event",
     "person_wealth_year",
     "person_cohort_wealth",
+    "officials_rankings_table",
     "declaration_stake_company",
   ])
     await exec(`ANALYZE ${t}`);
