@@ -226,12 +226,35 @@ async function registerIdByRef(): Promise<Map<string, string>> {
     `SELECT to_regclass('public.declaration')::text AS reg`,
   );
   if (!present[0]?.reg) return new Map(); // cold bootstrap — declarations not loaded yet
+  // UNION the dropped duplicates (migration 101). `declaration` holds at most ONE row
+  // per source_url, so a slug whose every filing was written under another slug too —
+  // an official holding two posts — has no row here at all and would get NO gold key,
+  // which is exactly how one man became two person rows with his role on one and his
+  // wealth on the other. The alias table is the evidence the loader would otherwise
+  // discard. The HAVING guard below is unchanged and still decides everything: a ref
+  // that ends up carrying two distinct GUIDs is still SKIPPED, so widening the input
+  // can only add a union the register itself asserts, never invent one.
   const rows = await allRows<{ subject_ref: string; guid: string }>(
     `SELECT subject_ref, min(guid) AS guid
        FROM (SELECT subject_ref,
                     upper(substring(source_url from
                       '([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})')) AS guid
-               FROM declaration) d
+               FROM (SELECT subject_ref, source_url FROM declaration
+                     UNION
+                     -- FOLD-AGREEMENT GATE. Accept an alias only when the register printed
+                     -- the SAME name on both listings (compared on translit_bg_latin, so
+                     -- re-casing / re-spacing / a dropped "д-р" still agree). A shared
+                     -- source_url is the register's own claim that the two listings are one
+                     -- filing, but this key overrides every namesake veto downstream, so a
+                     -- bad row must not be able to merge two differently-named people on
+                     -- the strength of a URL alone. An alias whose name disagrees is simply
+                     -- not used — the ref keeps whatever key its own filings give it.
+                     SELECT a.subject_ref, a.source_url
+                       FROM declaration_subject_alias a
+                       JOIN declaration d2 ON d2.source_url = a.source_url
+                      WHERE a.declarant_name IS NULL
+                         OR translit_bg_latin(a.declarant_name)
+                            = translit_bg_latin(d2.declarant_name)) u) d
       WHERE guid IS NOT NULL
       GROUP BY subject_ref
      HAVING count(DISTINCT guid) = 1`,
@@ -818,6 +841,12 @@ const SCHEMA_FILES = [
   // Persistent slug locks (099) — NOT truncated by the rebuild; keeps /person URLs stable
   // across re-resolves. Applied here so the table exists before the locks are read below.
   "099_person_slug_lock.sql",
+  // The dropped-duplicate subject aliases (101) registerIdByRef UNIONs into its gold-key
+  // query. load_declarations_pg phase 1 also applies and fills it, but the resolver can
+  // run against a DB where that has never happened (cold bootstrap), and the query must
+  // not fail on a missing relation. CREATE TABLE IF NOT EXISTS, so applying it twice is
+  // a no-op and an empty table simply contributes no aliases.
+  "101_declaration_subject_alias.sql",
 ];
 
 // The skill /process-watch-report queues for the person layer. The marker file

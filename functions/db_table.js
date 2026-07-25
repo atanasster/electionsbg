@@ -523,10 +523,13 @@ const REGISTRY = {
   // executive and a municipal post, so the representative `source` cannot answer which
   // leaderboard they belong on. /officials/assets = is_exec true.
   //
-  // net_worth_eur is NULL for TWO different facts, and `has_declaration` is what tells
-  // them apart: true = filed but declared no valued assets (2,466 rows; the JSON wrote 0
-  // for this state), false = no declaration on record at all (154). Do not label them the
-  // same way in the UI — "не е подал декларация" is a different claim from "—".
+  // net_worth_eur is NULL for TWO different facts, and `has_declaration` tells them apart:
+  // true = filed but declared no valued assets (2,466 rows; the JSON wrote 0 for this
+  // state), false = no declaration on record at all. The second population is EMPTY today —
+  // the 154 rows that looked like non-filers before T0.1b were duplicate person rows whose
+  // twin held the filings — but the distinction stays, because a newly appointed official
+  // who has not yet filed is a real and reportable state. Do not label the two the same way:
+  // "не е подал декларация" is a different claim from "—".
   officials_rankings: {
     base: "officials_rankings_table",
     scopeCols: [],

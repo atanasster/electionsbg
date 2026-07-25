@@ -169,6 +169,9 @@ test.skipIf(skip)("the §6 privacy gate is applied", async () => {
 // official_slug is the representative ref only — one per person — so it is NOT a lookup
 // key and the registry deliberately does not expose it as a filter. This pins the known
 // ceiling so the lossiness cannot silently grow, and documents that it is intentional.
+// The ceiling ROSE from ~1,700 to ~1,853 in T0.1b, and that is the merge working as
+// intended: collapsing 154 duplicate person rows means more refs now share one row, so
+// more of them are not the representative. Correctness moved the opposite way.
 test.skipIf(skip)(
   "unaddressable officials refs stay within the known ceiling",
   async () => {
@@ -182,34 +185,42 @@ test.skipIf(skip)(
       [[...OFFICIAL_DECLARATION_SOURCES]],
     );
     assert.ok(
-      Number(orphans.n) <= 1800,
-      `unaddressable officials refs grew to ${orphans.n} (was ~1,700) — resolve an officials slug against person_role.ref, not this column`,
+      Number(orphans.n) <= 1900,
+      `unaddressable officials refs grew to ${orphans.n} (~1,853 after T0.1b) — resolve an officials slug against person_role.ref, not this column`,
     );
   },
 );
 
-// has_declaration must actually separate the two NULL-net-worth populations. If it ever
-// becomes all-true, the 154 non-filers have silently merged into "declared nothing".
+// has_declaration must stay CONSISTENT with the declaration table. It is currently true
+// for every row: the 154 officials that looked like "no declaration on record" before
+// T0.1b were not non-filers at all — they were the duplicate person rows, holding a role
+// while their twin held the filings, and merging them dissolved the whole population.
+// The column still earns its place (a newly appointed official who has not yet filed is a
+// real state, and one worth reporting), so this asserts the invariant rather than the
+// counts: has_declaration is false exactly when the person has no declaration.
 test.skipIf(skip)(
-  "has_declaration separates non-filers from zero-asset filers",
+  "has_declaration agrees with the declaration table",
   async () => {
-    const [row] = await allRows<{ filed: string; never_filed: string }>(
-      `SELECT count(*) FILTER (WHERE has_declaration)      AS filed,
-            count(*) FILTER (WHERE NOT has_declaration)  AS never_filed
-       FROM officials_rankings_table WHERE net_worth_eur IS NULL`,
+    const [wrong] = await allRows<{ n: string }>(
+      `SELECT count(*) n FROM officials_rankings_table o
+         JOIN person p ON p.slug = o.slug
+        WHERE o.has_declaration <> EXISTS (
+          SELECT 1 FROM declaration d WHERE d.person_id = p.person_id)`,
     );
-    assert.ok(
-      Number(row.filed) > 0 && Number(row.never_filed) > 0,
-      `has_declaration no longer distinguishes the two NULL populations (filed=${row.filed}, never_filed=${row.never_filed})`,
+    assert.equal(
+      Number(wrong.n),
+      0,
+      "has_declaration disagrees with whether the person actually has declarations",
     );
   },
 );
 
-// Per-person parity with the JSON this resource replaces. The T0.1 reconciliation found
-// 11,415 exact matches and a tail of explained differences (PG picks a newer filing from
-// another tier; 0-vs-NULL; and 106 real losses from duplicate officials slugs the person
-// resolver has not merged). Budgeted rather than exact so the known tail passes, but a
-// regression that turns 183 same-year mismatches into 1,830 trips it.
+// Per-person parity with the JSON this resource replaces. After T0.1b merged the duplicate
+// officials person rows (migration 101), the tail is 11,415 exact matches + 1,293 0-vs-NULL
+// (counted equal here) + 530 representative-filing differences (325 where PG uses a NEWER
+// filing from another tier, 21 older, 184 same-year) and — the number that matters — ZERO
+// true losses. Budgeted rather than exact so the explained tail passes, but a regression
+// that turns 184 same-year mismatches into 1,840 trips it.
 const RANKINGS_JSON = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   "../../../data/officials/assets-rankings.json",
@@ -282,8 +293,8 @@ test.skipIf(skip || !haveJson)(
       `parity check compared only ${compared} people`,
     );
     assert.ok(
-      mismatched <= 700,
-      `net-worth parity regressed: ${mismatched} of ${compared} mismatched (known tail ~635)`,
+      mismatched <= 600,
+      `net-worth parity regressed: ${mismatched} of ${compared} mismatched (known tail ~530)`,
     );
   },
 );
@@ -302,5 +313,68 @@ test.skipIf(skip)("the default leaderboard sort uses an index", async () => {
   assert.ok(
     /Index (Only )?Scan/.test(text) && !/Seq Scan/.test(text),
     `default sort is not index-backed:\n${text}`,
+  );
+});
+
+// T0.1b: an official holding two posts is ONE person. The Сметна палата register writes
+// one filing under one slug per institution, and load_declarations_pg drops the duplicate
+// because source_url is UNIQUE — which used to leave the dropped slug with no register
+// GUID, no gold-key union, and so a second person row carrying the role while the first
+// carried the wealth. migration 101 keeps the dropped pairs so registerIdByRef can see
+// them. Димитър Георгиев Тасков (Управител of two hospitals, one filing, entry Г4422) is
+// the canonical case: he must be ONE person, and that person must have his net worth.
+test.skipIf(skip)(
+  "an official holding two posts is one person, with their wealth",
+  async () => {
+    const rows = await allRows<{ slug: string; net_worth_eur: string | null }>(
+      `SELECT o.slug, o.net_worth_eur FROM officials_rankings_table o
+      WHERE o.slug LIKE 'dimitr-georgiev-taskov%'`,
+    );
+    assert.equal(
+      rows.length,
+      1,
+      `expected one leaderboard row, got ${rows.length}: ${rows.map((r) => r.slug).join(", ")} — the duplicate officials slugs have un-merged`,
+    );
+    assert.ok(
+      rows[0].net_worth_eur !== null && Number(rows[0].net_worth_eur) > 0,
+      "the merged official has no net worth — the role and the declarations are on different person rows again",
+    );
+  },
+);
+
+// The general invariant behind that case: no officials slug may be left without a register
+// GUID purely because its filings were all written under another slug too. Zero is the
+// only correct answer, and it is what keeps the parity tail's true-loss count at 0.
+test.skipIf(skip)(
+  "no officials ref is stranded without its filings",
+  async () => {
+    const [stranded] = await allRows<{ n: string }>(
+      `SELECT count(*) n
+       FROM (SELECT DISTINCT subject_ref FROM declaration_subject_alias) a
+      WHERE NOT EXISTS (
+        SELECT 1 FROM person_role r
+          JOIN declaration d ON d.person_id = r.person_id
+         WHERE r.ref = a.subject_ref)`,
+    );
+    assert.equal(
+      Number(stranded.n),
+      0,
+      `${stranded.n} officials slug(s) whose filings were all deduplicated away resolve to a person with no declarations — registerIdByRef is not seeing declaration_subject_alias`,
+    );
+  },
+);
+
+// The mirror-image case: a filing whose WINNING subject_ref resolves to nobody, while a
+// ref that lost the source_url dedup does resolve. Phase 2's alias pass attaches it.
+// Галя Стоянова Василева's 2025 filing landed under ref 4718 (carried by no mention) while
+// she resolves through 5334, which truncated her wealth series at 2023.
+test.skipIf(skip)("every declaration resolves to a person", async () => {
+  const [n] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM declaration WHERE person_id IS NULL",
+  );
+  assert.equal(
+    Number(n.n),
+    0,
+    `${n.n} declaration(s) resolve to nobody — phase 2's declaration_subject_alias pass is not attaching filings whose winning ref has no mention`,
   );
 });

@@ -106,6 +106,13 @@ const OFFICIALS_RANKINGS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/100_officials_rankings.sql",
 );
+// The dropped-duplicate identity evidence (migration 101) the person resolver reads to
+// give every officials slug of one declarant the same register GUID. Applied in phase 1,
+// because that is where the duplicates are detected and where the table is written.
+const SUBJECT_ALIAS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/101_declaration_subject_alias.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -352,6 +359,7 @@ const loadObligations = async (): Promise<number> => {
 
 const load = async () => {
   await exec(fs.readFileSync(SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(SUBJECT_ALIAS_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(INGEST_TRACKING, "utf-8"));
 
   const declRows: Row[] = [];
@@ -359,6 +367,13 @@ const load = async () => {
   const incomeRows: Row[] = [];
   const stakeRows: Row[] = [];
   const eventRows: Row[] = [];
+
+  const aliasRows: Row[] = [];
+  // (subject_ref, source_url) is the PK of declaration_subject_alias, and copyRows does not
+  // dedup. The register does list one filing three times, so the SAME (ref, url) pair can
+  // reach here twice — which would raise a unique violation INSIDE the load transaction and
+  // abort all 47,983 filings. 0 collisions in today's corpus; this keeps it that way.
+  const seenAlias = new Set<string>();
 
   let declId = 0;
   const seenUrls = new Set<string>();
@@ -374,6 +389,23 @@ const load = async () => {
         // (mp → exec → muni → magistrate), then sorted filename within a tier.
         if (seenUrls.has(d.sourceUrl)) {
           dupUrls++;
+          // Keep the dropped pair as IDENTITY evidence (migration 101). It is not a
+          // declaration and must never be counted or served — but it is the only record
+          // that this subject_ref and the one that won name the same human, and
+          // resolve_persons.registerIdByRef() needs it to give both officials slugs the
+          // same Сметна палата GUID. Without this the two slugs become two person rows,
+          // and the one holding the role shows no wealth.
+          const aref = spec.subjectRef(d, file);
+          const akey = `${aref}\u0000${d.sourceUrl}`;
+          if (!seenAlias.has(akey)) {
+            seenAlias.add(akey);
+            aliasRows.push([
+              aref,
+              d.sourceUrl,
+              spec.tier,
+              d.declarantName ?? null,
+            ]);
+          }
           continue;
         }
         seenUrls.add(d.sourceUrl);
@@ -491,6 +523,15 @@ const load = async () => {
     await copyRows(c, "declaration_income", INCOME_COLS, incomeRows);
     await copyRows(c, "declaration_stake", STAKE_COLS, stakeRows);
     await copyRows(c, "declaration_event", EVENT_COLS, eventRows);
+    // Same transaction as the corpus it describes, so the alias map can never
+    // disagree with which filing actually won.
+    await c.query("TRUNCATE declaration_subject_alias");
+    await copyRows(
+      c,
+      "declaration_subject_alias",
+      ["subject_ref", "source_url", "tier", "declarant_name"],
+      aliasRows,
+    );
     // declaration_id was supplied explicitly; move the serial past it so a later
     // manual insert does not collide.
     await c.query(
@@ -515,7 +556,8 @@ const load = async () => {
 
   console.log(
     `declarations: ${declRows.length} filings ` +
-      `(${dupUrls} duplicate URLs skipped), ${assetRows.length} assets, ` +
+      `(${dupUrls} duplicate URLs skipped, kept as ${aliasRows.length} subject aliases), ` +
+      `${assetRows.length} assets, ` +
       `${incomeRows.length} income, ${stakeRows.length} stakes, ` +
       `${eventRows.length} events, ${obligations} register listings — person_id NULL, ` +
       `run --resolve after db:resolve:persons`,
@@ -556,6 +598,29 @@ const resolve = async () => {
           AND pr.ref LIKE '%:mp-' || d.subject_ref`,
     );
     filled += res.rowCount ?? 0;
+
+    // LAST PASS — the mirror image of the bug migration 101 fixes. There, the ref that
+    // LOST the source_url dedup had no filings and so no gold key. Here the ref that WON
+    // it resolves to nobody, while a ref that lost does resolve: the filing is real, the
+    // person is known, and they are joined only through the alias table. Галя Стоянова
+    // Василева's 2025 filing landed under ref 4718, which no mention carries, while she
+    // resolves through 5334 — so her wealth series stopped at 2023.
+    //
+    // Runs last and only fills rows still NULL, so it can never override a direct match.
+    // Fold-gated on the declarant name for the same reason registerIdByRef is: a shared
+    // source_url must not attach one person's filing to another's profile.
+    const aliased = await c.query(
+      `UPDATE declaration d
+          SET person_id = pr.person_id
+         FROM declaration_subject_alias a
+         JOIN person_role pr ON pr.ref = a.subject_ref
+        WHERE d.person_id IS NULL
+          AND a.source_url = d.source_url
+          AND (a.declarant_name IS NULL
+               OR translit_bg_latin(a.declarant_name)
+                  = translit_bg_latin(d.declarant_name))`,
+    );
+    filled += aliased.rowCount ?? 0;
   });
   const [{ n: total }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM declaration",

@@ -175,7 +175,39 @@ REGISTRY: `officials_rankings`, `municipal_officials`, `mp_assets_rankings`, `mp
 Routes: `mp-entry`, `mp-declarations`, `mp-assets` (person_id-keyed; the `useOfficial.tsx:76`
 TODO). Parity-check each against its JSON.
 
-> **⛔ T1.2 BLOCKER found in T0.1 — 106 officials lose their published net worth.**
+> **✅ RESOLVED in T0.1b (2026-07-25) — was: 106 officials lose their published net worth.**
+> Root cause was not a resolver bug but a blinded input. `declaration.source_url` is UNIQUE
+> and one filing is written under two officials slugs when an official holds two posts, so
+> the loader drops the second copy — correctly. But `registerIdByRef()` derives the Сметна
+> палата per-person GUID (the second gold key, whose stated purpose is binding "a register
+> person to every slug the officials ingest minted for them") by reading `declaration`, so a
+> slug whose only filing was dropped got NO gold key and the aliasing never fired. Fix:
+> migration 101 `declaration_subject_alias` keeps the dropped (subject_ref, source_url) pairs
+> as identity evidence and `registerIdByRef` UNIONs them, leaving its
+> `HAVING count(DISTINCT guid) = 1` guard untouched — so it can only add a union the register
+> itself asserts. Result: 154 duplicate person rows merged, **0 slugs changed for surviving
+> persons**, and the officials parity tail went 106 true losses → **0**. Taskov now shows his
+> €2.79M. The remaining 205-row tail is year/representative-filing differences, not loss.
+> It also resolved the LAST unresolved filing (47,983/47,983 now attach to a person, via a
+> phase-2 alias pass) and restored Галя Стоянова Василева's wealth series to 2024.
+>
+> **Two side effects it did NOT handle — both land on T1.4:**
+> 1. **154 retired `/person` slugs now 404.** The merge collapsed them into their canonical
+>    twin and nothing redirects the old URL — the exact breakage migration 099 (slugLock)
+>    exists to prevent, though 099 only pins slugs for surviving mentions. Harmless *today*
+>    (`/person` is neither prerendered nor sitemapped, so none were indexed) and T1.4
+>    regenerates the manifest from the current person table, so they never publish. But if
+>    `/person` is ever prerendered BEFORE a slug-retirement redirect exists, a later merge
+>    will 404 indexed URLs. Build the redirect with T1.4, not after.
+> 2. **Bridge-B roles grew 31,504 → 31,655 (+151).** Collapsing duplicate person rows makes
+>    those name folds people-unique, so name-matched company footprints now attach. Correct
+>    in principle and bounded by the same ≤5-company rule, but it is the defamation-sensitive
+>    surface ([[reference_person_fold_and_bridgeb]]) and nothing currently bounds the growth.
+>    Worth a spot-check before Tier 3 leans on the connections graph.
+>
+> Historical detail follows.
+>
+> **(historical) T1.2 BLOCKER found in T0.1 — 106 officials lose their published net worth.**
 > Reconciling `officials_rankings_table` against `assets-rankings.json` (13,346 people,
 > membership parity exact): 11,415 figures match exactly; 1,296 are JSON-`0` vs PG-`NULL`
 > (same meaning — filed, no valued assets); 326 differ because PG uses a *newer* filing from

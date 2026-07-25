@@ -190,7 +190,10 @@ SELECT
   l.period_year                                    AS latest_declaration_year,
   -- Distinguishes the two very different facts that both render as a NULL net worth:
   --   has_declaration = true  -> filed, but declared no VALUED assets (2,466 rows)
-  --   has_declaration = false -> no declaration on record at all        (154 rows)
+  --   has_declaration = false -> no declaration on record at all        (0 rows today)
+  -- The false population is empty since T0.1b: the 154 rows that looked like non-filers
+  -- were duplicate person rows holding a role while their twin held the filings. The
+  -- column stays because a newly appointed official who has not yet filed is a real state.
   -- The JSON never had to make this distinction: it was built FROM declarations, so a
   -- non-filer simply had no row. Sourcing the roster from person_role (correctly — see
   -- the header) introduces them, and "no declaration on record" for a sitting official is
