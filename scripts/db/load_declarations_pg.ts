@@ -571,6 +571,21 @@ const resolve = async () => {
   // that rebuilds person_role without reloading declarations does need one (see 097).
   await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(NEW_FILINGS_SCHEMA, "utf-8"));
+  // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
+  // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
+  // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
+  // the matviews too so their first serve is planned on real row counts.
+  for (const t of [
+    "declaration",
+    "declaration_asset",
+    "declaration_income",
+    "declaration_stake",
+    "declaration_event",
+    "person_wealth_year",
+    "person_cohort_wealth",
+    "declaration_stake_company",
+  ])
+    await exec(`ANALYZE ${t}`);
   const [{ n: cohortRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_cohort_wealth",
   );

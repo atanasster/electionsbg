@@ -1330,6 +1330,15 @@ async function main(): Promise<void> {
     );
   });
 
+  // Refresh planner statistics on the just-rebuilt tables. A TRUNCATE+COPY leaves stats
+  // stale until autovacuum's autoanalyze catches up (minutes to hours later on Cloud SQL),
+  // and in that window person-serving queries pick bad plans — person_connections ran at
+  // ~2.5s instead of ~0.25s on a freshly re-resolved prod DB. ANALYZE here so the layer is
+  // fast the moment the rebuild finishes.
+  await exec("ANALYZE person");
+  await exec("ANALYZE person_role");
+  await exec("ANALYZE person_alias");
+
   // NB: do NOT refresh declaration_stake_company (096) or person_cohort_wealth (097) here.
   // This run's `DELETE FROM person` nulls declaration.person_id table-wide (ON DELETE SET
   // NULL), and both matviews depend on that column (096 directly, 097 via person_wealth_year)
