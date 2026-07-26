@@ -169,6 +169,16 @@ export const resolveSupplierEik = (
 // gap-fill's --only-buyers whitelist) do we recover the record under the
 // whitelisted authority, taking its positionally-aligned name. This keeps the
 // incremental path — and its double-count invariant — byte-for-byte unchanged.
+// Financial-control / oversight organs that appear in a multi-buyer field
+// ALONGSIDE the real procuring authority — never as the actual buyer. АДФИ rides
+// on АПИ's big road contracts ("175076479999; 000695089"), often listed FIRST.
+// When recovering a multi-buyer record to its primary buyer we skip these so the
+// contract lands on the real authority (АПИ), matching the retired --only-buyers
+// whitelist's attribution. Extend as new co-listed organs surface.
+export const CONTROL_ORGAN_EIKS = new Set<string>([
+  "175076479999", // АДФИ — Агенция за държавна финансова инспекция
+]);
+
 export const resolvePrimaryBuyer = (
   rawEik: string | undefined,
   rawName: string | undefined,
@@ -192,11 +202,16 @@ export const resolvePrimaryBuyer = (
   }
   // Otherwise: DROP by default (a joint-procurement field could mis-attribute,
   // and the incremental path relies on this for its double-count invariant).
-  // But under `recoverToPrimary` (the content-deduped cross-source backfill, where
-  // double-count is impossible) attribute to the PRIMARY — the first valid buyer,
-  // as SIGMA does — rather than lose a real contract (~653 rows / €1.16bn).
+  // But under `recoverToPrimary` (the content-deduped cross-source path, where
+  // double-count is impossible) attribute to the PRIMARY — the first valid buyer
+  // that is NOT a co-listed control organ — rather than lose a real contract
+  // (~653 rows / €1.16bn). Skipping control organs keeps АПИ's road contracts on
+  // АПИ (not the АДФИ often listed first), matching the retired --only-buyers path.
   if (!recoverToPrimary) return { eik: "", name: "" };
-  const idx = canons.findIndex((c) => isValidEik(c));
+  const realIdx = canons.findIndex(
+    (c) => isValidEik(c) && !CONTROL_ORGAN_EIKS.has(c),
+  );
+  const idx = realIdx >= 0 ? realIdx : canons.findIndex((c) => isValidEik(c));
   return idx < 0 ? { eik: "", name: "" } : pick(idx);
 };
 

@@ -14,6 +14,7 @@ import {
   parseBgNumber,
   resolveSupplierEik,
   normalizeEopDay,
+  resolvePrimaryBuyer,
 } from "./normalize_eop";
 
 // [input, expected]. `undefined` = rejected (blank / non-numeric).
@@ -124,4 +125,54 @@ test("normalizeEopDay: all-anonymous multi-supplier keeps full value after key-m
   for (const r of rows) byKey.set(r.key, r);
   const total = [...byKey.values()].reduce((s, r) => s + (r.amount ?? 0), 0);
   assert.equal(total, 1000000);
+});
+
+// resolvePrimaryBuyer — the multi-EIK branches the --self-heal runbook now hinges
+// on. `prefer` = the retired --only-buyers whitelist; `recoverToPrimary` = the
+// cross-source-dedup / --self-heal cadence.
+test("resolvePrimaryBuyer: single EIK passes through unchanged", () => {
+  assert.deepEqual(resolvePrimaryBuyer("000695089", "АПИ"), {
+    eik: "000695089",
+    name: "АПИ",
+  });
+});
+
+test("resolvePrimaryBuyer: multi-EIK is dropped in the general feed", () => {
+  assert.deepEqual(
+    resolvePrimaryBuyer("175076479999; 000695089", "АДФИ; АПИ"),
+    { eik: "", name: "" },
+  );
+});
+
+test("resolvePrimaryBuyer: --only-buyers recovers under the whitelisted authority", () => {
+  assert.deepEqual(
+    resolvePrimaryBuyer(
+      "175076479999; 000695089",
+      "АДФИ; АПИ",
+      new Set(["000695089"]),
+      false,
+    ),
+    { eik: "000695089", name: "АПИ" },
+  );
+});
+
+test("resolvePrimaryBuyer: --self-heal skips the co-listed control organ (АДФИ) → АПИ", () => {
+  // The regression guard: without the control-organ skip this returned АДФИ
+  // 175076479999 (listed first), mis-attributing АПИ's road contracts.
+  assert.deepEqual(
+    resolvePrimaryBuyer(
+      "175076479999; 000695089",
+      "АДФИ; АПИ",
+      undefined,
+      true,
+    ),
+    { eik: "000695089", name: "АПИ" },
+  );
+});
+
+test("resolvePrimaryBuyer: --self-heal keeps the first real buyer when no control organ", () => {
+  assert.deepEqual(
+    resolvePrimaryBuyer("000695089; 000695388", "АПИ; МТ", undefined, true),
+    { eik: "000695089", name: "АПИ" },
+  );
 });
