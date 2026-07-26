@@ -79,6 +79,22 @@ LANGUAGE sql STABLE AS $$
 $$;
 
 -- ---------------------------------------------------------------------------
+-- The ONE definition of "a person_role.source whose `ref` is an officials slug". These six
+-- are exactly the sources with slug-shaped refs (20,887 of 20,887 as of 2026-07); `mp` refs
+-- are numeric ids, `candidate` refs are '{election}:mp-{id}', `magistrate` refs are Cyrillic
+-- names. It lives here rather than being spelled out at each site because the backfill below
+-- and scripts/person/load_slug_redirects.ts both need it, and a seventh officials source
+-- added later that reached only one of them would silently drop redirects.
+--
+-- Deliberately NOT the same list as OFFICIAL_DECLARATION_SOURCES in src/lib/officialSources.ts
+-- even though it currently matches: that one answers "does this person hold an officials
+-- post", this one answers "is this ref a URL". They could legitimately diverge.
+CREATE OR REPLACE FUNCTION person_officials_sources()
+RETURNS text[] LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  SELECT ARRAY['official_exec', 'official_muni', 'public_sector',
+               'president', 'mep', 'diplomat']
+$$;
+
 -- BACKFILL for slugs retired BEFORE this table existed (the 154 that T0.1b merged).
 --
 -- The resolver computes retirements by diffing the slug lock, but that lock was already
@@ -106,8 +122,7 @@ INSERT INTO person_slug_retired (slug, target_slug)
 SELECT DISTINCT r.ref, p.slug
   FROM person_role r
   JOIN person p ON p.person_id = r.person_id
- WHERE r.source IN ('official_exec', 'official_muni', 'public_sector',
-                    'president', 'mep', 'diplomat')
+ WHERE r.source = ANY(person_officials_sources())
    AND r.ref <> p.slug
    AND r.ref ~ '^[a-z0-9]+(-[a-z0-9]+)*-[0-9a-f]{6}$'
    AND NOT EXISTS (SELECT 1 FROM person p2 WHERE p2.slug = r.ref)

@@ -1171,6 +1171,39 @@ async function main(): Promise<void> {
         retired.set(prev, b.slug);
     }
 
+  // ORPHANED LOCK ROWS — the gap this diff structurally cannot see, reported rather than
+  // ignored. The loop above only visits mentions present in `built`, and an officials
+  // mention id IS `official:<slug>`: when the officials ingest re-slugs a declarant, the
+  // OLD lock row is not diffed, it is orphaned — a new row appears under the new mention
+  // id and the old one is never revisited again. That silently stranded 20,057 dead
+  // /person slugs with no redirect until a review found them (T1.4a).
+  //
+  // The pairing cannot be recovered here: at this point the old mention does not exist,
+  // and nothing in declaration / declaration_subject_alias / person_role remembers the old
+  // ref (measured: 0 of 20,057). The thing that knows both sides is whatever renamed the
+  // shards — migrate_slug_normalisation.ts --redirects — and
+  // scripts/person/load_slug_redirects.ts loads that map. So: count them, name the fix,
+  // and never let the number sit at "unknown" again.
+  //
+  // LIVENESS COMES FROM `liveSlugs`, NOT FROM `person`. The person table is not rebuilt
+  // until the transaction ~150 lines below, so it still holds the PREVIOUS run's rows —
+  // including the very slug this run just orphaned. Testing against it masks the fresh
+  // orphan behind its own stale row and reports it a full run late, i.e. never on the run
+  // an operator is actually watching. `person_slug_retired.data.test.ts` asks the same
+  // question against `person`, correctly: by the time it runs, the rebuild has happened.
+  //
+  // The `live` CTE is not cosmetic either: `l.slug <> ALL($1)` over a 58k array rescans
+  // that array for each of the 132k lock rows (measured 10.3 s, on every resolve, purely
+  // to emit a warning). As a hash anti-join it is 55 ms.
+  const orphanedDeadSlugs = await allRows<{ slug: string }>(
+    `WITH live(slug) AS (SELECT unnest($1::text[]))
+     SELECT DISTINCT l.slug
+       FROM person_slug_lock l
+      WHERE NOT EXISTS (SELECT 1 FROM live s WHERE s.slug = l.slug)
+        AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)`,
+    [[...liveSlugs]],
+  );
+
   await withTx(async (c) => {
     await c.query(
       `INSERT INTO person_slug_lock (mention_id, slug)
@@ -1194,6 +1227,20 @@ async function main(): Promise<void> {
     );
   });
   if (retired.size) retiredSlugCount = retired.size;
+  if (orphanedDeadSlugs.length) {
+    console.warn(
+      `  ⚠ ${orphanedDeadSlugs.length} /person slug(s) are dead with no redirect — their ` +
+        `mention id no longer exists, so the lock diff cannot pair them ` +
+        `(e.g. ${orphanedDeadSlugs
+          .slice(0, 3)
+          .map((r) => r.slug)
+          .join(
+            ", ",
+          )}). If an officials re-slug caused this, rebuild the map with ` +
+        `migrate_slug_normalisation.ts --redirects and load it with ` +
+        `\`npm run person:slug-redirects -- <map.json>\` BEFORE /person is prerendered.`,
+    );
+  }
 
   const personRows: unknown[][] = [];
   const roleRows: unknown[][] = [];
@@ -1433,6 +1480,9 @@ async function main(): Promise<void> {
     `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
     `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s); ` +
     `${retiredSlugCount} slug(s) retired to a redirect; ` +
+    // Always printed, including the healthy 0 — the number this guard exists to surface
+    // must not be indistinguishable from "not measured" when it is fine.
+    `${orphanedDeadSlugs.length} dead slug(s) with no redirect; ` +
     `${ovCount} human override(s) applied ` +
     `(${overrides.merges.length} merge, ${overrides.foldSplits.length} fold-split, ${overrides.refSplits.size} ref-split)`;
   console.log(`  ${summary}`);

@@ -26,12 +26,30 @@ npm run data         # Process election data (tsx ./scripts/main.ts)
 npm run prod         # Full pipeline with --all --prod flags
 npm run sitemap      # Generate sitemap
 
+# Postgres (local Docker; db:refresh runs the whole load in order)
+npm run db:pg:up     # Start local Postgres (port 5433)
+npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
+
 # Deployment
 npm run deploy       # Deploy to Firebase (elections-bg project)
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
+
+### Person layer — the one step `db:refresh` cannot infer
+
+Deploying the person layer to **Cloud SQL** needs one extra command after
+`db:resolve:persons:cloud`:
+
+```bash
+npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json
+```
+
+It loads the officials re-slug map into `person_slug_retired`, so the ~20.8k `/person` URLs
+minted under pre-2026-07-24 officials slugs 301 instead of 404. `db:refresh` runs the local
+equivalent automatically; nothing runs it on the cloud side. See
+`raw_data/person/README.md` and `docs/plans/persons-pg-retirement-v1.md` (T1.0).
 
 ## Testing
 

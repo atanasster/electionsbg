@@ -110,6 +110,71 @@ test.skipIf(skip)("the redirect mapping is populated", async () => {
   );
 });
 
+// THE T1.4 BLOCKER, pinned. Every slug the lock has ever served must either belong to a
+// live person or have a redirect — that is the whole contract, and it was violated for
+// 20,057 slugs while every other assertion in this file passed.
+//
+// The hole was structural, not a typo: the resolver computes retirements by diffing the
+// lock keyed on mention_id, and an officials mention id IS `official:<slug>`. A re-slug
+// therefore ORPHANS the old lock row instead of diffing it — a new row appears under the
+// new mention id, and nothing ever revisits the old one. `officialSlug()` rehashes on any
+// register re-spelling (a re-cased name, a dropped "д-р"), so this recurs; it is not a
+// one-off of the 2026-07-24 canonical-slug migration.
+//
+// It stayed invisible because /person is neither prerendered nor sitemapped yet. T1.4
+// changes exactly that, which is why this assertion has to exist BEFORE those 5,000 pages
+// are published rather than after Google has collected the 404s.
+//
+// Fix when this fails: rebuild the map with
+// `migrate_slug_normalisation.ts --redirects <map>` and load it with
+// `npm run person:slug-redirects -- <map>`.
+//
+// Liveness is read from `person` here, and from the in-memory `liveSlugs` in
+// resolve_persons.ts's sibling warning. That difference is deliberate, not drift: the
+// resolver runs BEFORE it rebuilds `person`, so the table still holds the previous run's
+// rows and would mask the orphan the current run just created. By the time this test runs,
+// the rebuild has happened and `person` is the truth.
+test.skipIf(skip)(
+  "no slug the lock has served is dead without a redirect",
+  async () => {
+    const orphans = await allRows<{ slug: string }>(
+      `SELECT DISTINCT l.slug
+       FROM person_slug_lock l
+      WHERE NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = l.slug)
+        AND NOT EXISTS (SELECT 1 FROM person_slug_retired r WHERE r.slug = l.slug)
+      LIMIT 5`,
+    );
+    assert.deepEqual(
+      orphans,
+      [],
+      "lock slugs have no live person and no redirect — /person URLs that once resolved " +
+        "now 404. See scripts/person/load_slug_redirects.ts",
+    );
+  },
+);
+
+// The redirect table has to be big enough to actually cover the re-slug, not just the 154
+// merge-derived rows T1.4a seeded. A regression that reverted the backfill would leave the
+// table populated (so the assertion above about non-emptiness still passes) while 20k URLs
+// silently 404 again — the count is what tells the two apart.
+test.skipIf(skip)(
+  "the re-slug backfill is present, not just the merge seed",
+  async () => {
+    const [n] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM person_slug_retired",
+    );
+    // Half of the 20,767 the re-slug contributed: loose enough that ordinary merge churn
+    // never trips it, tight enough that losing the backfill always does — without it the
+    // table falls back to 103's own 2,347-row merge seed.
+    assert.ok(
+      Number(n.n) > 10000,
+      `person_slug_retired holds only ${n.n} rows — the 2026-07-24 officials re-slug ` +
+        `contributed 20,767, so the backfill has been lost. Restore it with:\n` +
+        `  npm run person:slug-redirects -- raw_data/person/officials_reslug_2026_07_24.json`,
+    );
+  },
+);
+
 // ---- Bridge-B bounds --------------------------------------------------------
 
 // Bridge-B attaches a name-matched company footprint to a person, so its guards are the
@@ -167,3 +232,35 @@ test.skipIf(skip)("ambiguous folds stay out of Bridge-B", async () => {
     "every 3-part public fold is now people-unique — either the corpus changed shape or the uniqueness guard is no longer excluding anyone",
   );
 });
+
+// A redirect landing on *a* live servable person is not the same as landing on the RIGHT
+// one. Every assertion above would pass for a map loaded against the wrong corpus: each row
+// would still point at a real, servable, wrong human. This is the cheap structural check
+// that distinguishes them — an officials slug's body is its name, so a rename should almost
+// always preserve it.
+//
+// Measured on the 2026-07-24 map: 20,098 of 20,151 non-mp rows agree exactly. The 53
+// residuals were inspected individually and are all legitimate — a dropped "д-р" title, a
+// register typo corrected (Руфат→Руфад), or a real surname change
+// (asena-hristova-stoimenova-* → asena-hristova-serbezova-*). mp-* targets are excluded:
+// their body is an id, not a name, so the comparison is meaningless for them.
+test.skipIf(skip)(
+  "retired slugs redirect to a person of the same name",
+  async () => {
+    const [r] = await allRows<{ agree: string; total: string }>(
+      `SELECT count(*) FILTER (
+                WHERE regexp_replace(r.slug, '-[0-9a-f]{6}$', '')
+                    = regexp_replace(r.target_slug, '-[0-9a-f]{6}$', '')) AS agree,
+              count(*) AS total
+         FROM person_slug_retired r
+        WHERE r.target_slug NOT LIKE 'mp-%'`,
+    );
+    const ratio = Number(r.agree) / Number(r.total);
+    assert.ok(
+      ratio > 0.95,
+      `only ${r.agree}/${r.total} retired slugs share a name body with their target ` +
+        `(${(ratio * 100).toFixed(1)}%) — a redirect map loaded against the wrong corpus ` +
+        `sends this to near zero`,
+    );
+  },
+);

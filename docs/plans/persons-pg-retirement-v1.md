@@ -216,7 +216,53 @@ TODO). Parity-check each against its JSON.
 > working, since merging duplicates makes a fold genuinely one person. Measured, the two
 > guards still exclude 880 over-cap and 3,150 ambiguous folds; both are now pinned by tests.
 >
-> **⛔ T1.4 BLOCKER discovered in T1.4a review — 18,428 dead slugs, not 154.**
+> **✅ RESOLVED in T1.0 (2026-07-25) — the T1.4 blocker below is closed.**
+>
+> **Scale, with the metric named** (the two numbers are easy to conflate): **20,099
+> orphaned lock ROWS over 18,433 distinct dead SLUGS** — one slug holds a lock row per
+> mention. The reconstructed map covers **18,428** of those distinct slugs; 103's own
+> merge backfill covers the remaining **5**. Zero left uncovered.
+>
+> **How the mapping was recovered, without name-guessing.** Nothing in the database
+> remembered the old refs (measured: 0 of them appear in `declaration`,
+> `declaration_subject_alias` or `person_role`), so the map was rebuilt from the inputs:
+> `git archive 707bc5871^ data/officials` extracts the pre-rename trees, and
+> `migrate_slug_normalisation.ts --redirects` re-run against that copy — the same script
+> and the same rules that performed the rename — reproduces 20,768 renames, every target a
+> live officials ref.
+>
+> **Loading.** `scripts/person/load_slug_redirects.ts` (`npm run person:slug-redirects`)
+> resolves each new ref through `person_role` → `person` (§6-gated) and upserts
+> `person_slug_retired`. It is **wired into `db:refresh`**: the map is a committed
+> artifact and the load is idempotent and ~1.3 s, so leaving it manual only meant a
+> from-scratch database came up with 20,767 redirects missing.
+>
+> **The map is committed** at `raw_data/person/officials_reslug_2026_07_24.json` (tracked,
+> never bucket-synced — `bucket:sync` targets `data/` only). Not because git has lost the
+> inputs — `707bc5871` and the whole `data/officials` tree are still there — but because
+> reproducing the output depends on `officialSlug()`, `canonicalDeclarantName()` and both
+> alias tables behaving exactly as they did on 2026-07-24. Pinning the output is what makes
+> the backfill reviewable, diffable and re-runnable instead of a 20-minute archaeology
+> session.
+>
+> **Result: 0 dead lock slugs without a redirect, 0 live slugs redirecting.** The one
+> rename the loader refused is a genuine identity collision between two near-namesakes, and
+> it is now named in the log rather than counted.
+>
+> The resolver cannot do this pairing itself and now says so out loud — it counts orphaned
+> dead slugs every run and names the fix, checking liveness against the slug set it is
+> about to write rather than the not-yet-rebuilt `person` table (which masked the fresh
+> orphan behind its own stale row). `person_slug_retired.data.test.ts` pins the invariant,
+> the backfill's size, and that redirects land on a person of the *same name* — a map
+> loaded against the wrong corpus would still point at real, servable, wrong humans, and
+> only that last check catches it.
+>
+> **Deploy checklist (Cloud SQL).** After `db:resolve:persons:cloud`, run
+> `npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json`.
+> Without it the cloud copy of `person_slug_retired` is missing 20,767 rows and every one
+> of those /person URLs 404s once T1.4 publishes them.
+>
+> **(historical) ⛔ T1.4 BLOCKER discovered in T1.4a review — 18,428 dead slugs, not 154.**
 > The retirement hook diffs the slug LOCK, and an officials mention id *is* `official:<slug>`.
 > So when a slug changes, the lock row is **orphaned rather than diffed** — a new row appears
 > under the new mention id and the old one is never revisited. Measured: **18,433 lock slugs
