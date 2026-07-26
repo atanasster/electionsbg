@@ -1,11 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Select,
@@ -120,17 +113,25 @@ export const VoteDemographicMap: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const mapRef = useRef<HTMLDivElement>(null);
+  // Measure via a callback ref rather than a mount-once effect: the map div is
+  // only rendered after census/voteDemo resolve (see the `!census` guard below),
+  // so a `useLayoutEffect(…, [])` would run before the div exists, bail on the
+  // null ref, and never re-run — leaving `size` undefined and the map blank.
+  // A callback ref instead fires whenever the node actually attaches.
   const [size, setSize] = useState<MapCoordinates | undefined>();
-  useLayoutEffect(() => {
-    const el = mapRef.current;
-    if (!el) return;
+  const roRef = useRef<ResizeObserver | null>(null);
+  const mapRef = useCallback((el: HTMLDivElement | null) => {
+    roRef.current?.disconnect();
+    if (!el) {
+      roRef.current = null;
+      return;
+    }
     const measure = () =>
       setSize([el.offsetWidth, el.offsetHeight, el.offsetLeft, el.offsetTop]);
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
-    return () => ro.disconnect();
+    roRef.current = ro;
   }, []);
 
   const partyLabel = (nickName: string) =>
