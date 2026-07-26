@@ -2154,6 +2154,65 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: { entries: rows[0]?.r ?? [] } };
   },
+  // Global header-search index of municipal officials → useSearchItems (the Fuse index).
+  // Replaces the static municipal/search_index.json (persons-pg-retirement-v1 T1.5),
+  // reproducing build_municipal_search.ts: resolve each name to EXACTLY ONE active public
+  // person by folded name (namesake-safe), DROP rows whose person is also a candidate/mp
+  // (the header already lists them as a candidate — avoids a duplicate), and stamp the
+  // survivors with `personSlug` so the row links to /person. Role-priority sort, then name.
+  // The `fold` CTE aggregates person once (0.9ms) rather than a per-row correlated count.
+  "municipal-officials-search-index": async (dbRows) => {
+    const rows = await dbRows(
+      `WITH fold AS (
+         SELECT p.name_fold,
+                count(*) AS n,
+                min(p.slug) AS slug,
+                bool_or(EXISTS(
+                  SELECT 1 FROM person_role r
+                   WHERE r.person_id = p.person_id
+                     AND r.source IN ('candidate','mp'))) AS is_candidate
+         FROM person p
+         WHERE p.status = 'active' AND p.is_public_figure
+         GROUP BY p.name_fold
+       ),
+       matched AS (
+         -- The join fences to exactly-one folded matches (f.n = 1), the namesake-safe rule
+         -- from build_municipal_search: a joined fold row is therefore always the single
+         -- trusted person, and f is NULL for a no-match OR an ambiguous name — both kept,
+         -- unlinked (person_slug NULL, is_candidate false), surviving the dedup filter.
+         SELECT m.official_slug, m.name, m.role, m.municipality, m.district,
+                f.slug AS person_slug,
+                COALESCE(f.is_candidate, false) AS is_candidate
+         FROM municipal_officials_table m
+         LEFT JOIN fold f
+           ON f.name_fold = translit_bg_latin(m.name) AND f.n = 1
+       )
+       SELECT COALESCE(
+                jsonb_agg(
+                  jsonb_strip_nulls(jsonb_build_object(
+                    'slug', official_slug,
+                    'name', name,
+                    'role', role,
+                    'municipality', COALESCE(municipality, ''),
+                    'district', district,
+                    'personSlug', person_slug
+                  )) ORDER BY
+                    CASE role
+                      WHEN 'mayor' THEN 0
+                      WHEN 'council_chair' THEN 1
+                      WHEN 'deputy_mayor' THEN 2
+                      WHEN 'councillor' THEN 3
+                      WHEN 'chief_architect' THEN 4
+                      ELSE 5
+                    END,
+                    name
+                ) FILTER (WHERE NOT is_candidate),
+                '[]'::jsonb
+              ) AS r
+       FROM matched`,
+    ).catch(missingMigrationEmpty);
+    return { body: { entries: rows[0]?.r ?? [] } };
+  },
   // Every election's re-keyed electoral summary for one person (newest first) → the electoral
   // block on the merged person dashboard (person-candidate-merge-v1). The caller runs the
   // existing candidate reducer over each cycle's raw `regions` + preferences_stats fields.

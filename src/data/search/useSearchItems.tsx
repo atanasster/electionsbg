@@ -13,10 +13,13 @@ import { buildPlaceItems } from "./placeSearchItems";
 import { SEARCH_FUSE_OPTIONS } from "./searchConfig";
 import type { SearchVoteIndexFile } from "../parliament/votes/types";
 
-// Slim municipal-officials roster for search — built by
-// scripts/officials/build_municipal_search.ts. ~915 KB raw → ~200 KB gz.
-// Lazy-fetched alongside the other heavy search indexes; React Query
-// caches forever.
+// Slim municipal-officials roster for search — served from Postgres
+// (municipal_officials_table, migration 102) via the municipal-officials-search-index
+// route, which reproduces the retired build_municipal_search.ts: candidate-duplicate rows
+// dropped, survivors stamped with `personSlug`. Lazy-fetched alongside the other heavy
+// search indexes; React Query caches forever.
+// Plan: docs/plans/persons-pg-retirement-v1.md (Tier 1.5) — replaces the static
+// data/officials/municipal/search_index.json.
 type MunicipalSearchFile = {
   entries: Array<{
     slug: string;
@@ -24,16 +27,16 @@ type MunicipalSearchFile = {
     role: string;
     municipality: string;
     district?: string;
-    // Set by the build when the official resolves to exactly one public person in the
+    // Set by the route when the official resolves to exactly one public person in the
     // unified person layer; the row then links to /person/<personSlug>. Candidate-
-    // duplicate rows are dropped at build time, so a person never appears twice.
+    // duplicate rows are dropped server-side, so a person never appears twice.
     personSlug?: string;
   }>;
 };
 
 const fetchMunicipalSearch = async (): Promise<MunicipalSearchFile | null> => {
   try {
-    const r = await fetch(dataUrl("/officials/municipal/search_index.json"));
+    const r = await fetch("/api/db/municipal-officials-search-index");
     if (!r.ok) return null;
     return (await r.json()) as MunicipalSearchFile;
   } catch {

@@ -240,3 +240,53 @@ test("mp-* routes propagate non-migration errors", async () => {
     DB_ROUTES["mp-declarations"](mockDb(boom), { slug: "mp-10" }),
   );
 });
+
+// ─── municipal-officials-* routes (persons-pg-retirement-v1 T1.5) ──────────────────────────
+// Both routes aggregate a single jsonb array and wrap it as { entries }. The SQL invariants
+// (roster grain, candidateLink, the fold-CTE dedup + namesake guard) are pinned by
+// scripts/db/tests/*.data.test.ts against a loaded DB; these pin the thin JS layer — the
+// rows[0].r unwrap, the {entries} shape, and the missing-migration degradation to [].
+test("municipal-officials-name-index unwraps rows[0].r into { entries }", async () => {
+  const entries = [
+    { slug: "s1", name: "N1", role: "mayor", municipality: "Бургас" },
+  ];
+  const db = mockDb([{ r: entries }]);
+  const res = await DB_ROUTES["municipal-officials-name-index"](db);
+  assert.equal(db.calls.length, 1, "exactly one DB call");
+  assert.deepEqual(res.body, { entries });
+});
+
+test("municipal-officials-search-index unwraps rows[0].r into { entries }", async () => {
+  const entries = [
+    { slug: "s1", name: "N1", role: "mayor", municipality: "", personSlug: "p1" },
+  ];
+  const db = mockDb([{ r: entries }]);
+  const res = await DB_ROUTES["municipal-officials-search-index"](db);
+  assert.equal(db.calls.length, 1, "exactly one DB call");
+  assert.deepEqual(res.body, { entries });
+});
+
+// Missing migration (unloaded / pre-migration DB) must degrade to an empty list, never throw —
+// the header search + name resolver render empty rather than crashing the page.
+test("municipal-officials-* routes degrade to empty entries on a missing migration", async () => {
+  for (const code of MIGRATION_CODES) {
+    for (const route of [
+      "municipal-officials-name-index",
+      "municipal-officials-search-index",
+    ]) {
+      const res = await DB_ROUTES[route](mockDb(migrationMissing(code)));
+      assert.deepEqual(res.body, { entries: [] }, `${route} @ ${code}`);
+    }
+  }
+});
+
+// A real (non-migration) DB error must propagate, not render an empty search index.
+test("municipal-officials-* routes propagate non-migration errors", async () => {
+  const boom = Object.assign(new Error("connection reset"), { code: "08006" });
+  await assert.rejects(() =>
+    DB_ROUTES["municipal-officials-name-index"](mockDb(boom)),
+  );
+  await assert.rejects(() =>
+    DB_ROUTES["municipal-officials-search-index"](mockDb(boom)),
+  );
+});

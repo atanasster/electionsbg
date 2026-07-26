@@ -2,6 +2,13 @@
 // update-municipal-contacts skill runs (see
 // scripts/officials/municipal_contacts/README.md). Hook returns undefined
 // for any município not yet in the index — the tile auto-hides.
+//
+// DISPOSITION (persons-pg-retirement-v1 T1.5): this stays a single bucket-served JSON
+// file. It is iisda CONTACT data (phones / emails / addresses, keyed by município), not
+// declaration data, and its municipality-level shape does not fit the per-listing
+// municipal_officials roster — folding it in would denormalise every roster row for one
+// small file. The §0 officials teardown must therefore EXCLUDE
+// data/officials/municipal_contacts/ from the delete; it is not a retirement target.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";

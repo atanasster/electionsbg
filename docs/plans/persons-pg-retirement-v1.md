@@ -369,7 +369,10 @@ TODO). Parity-check each against its JSON.
   officials` before the real delete). ~21k files off the bucket. Give
   `useMunicipalContacts` (`officials/municipal_contacts/index.json`, 1 file) an explicit
   disposition — it is contact data, not declarations: either fold into `municipal_officials` or
-  keep as a single bucket-served file.
+  keep as a single bucket-served file. **RESOLVED (T1.5): keep as a single bucket-served
+  file** — municipality-level contact data (phones/emails/addresses) does not fit the
+  per-listing roster, and it is one small file, so the teardown **excludes**
+  `data/officials/municipal_contacts/`.
 
 > **✅ T1.5 SHIPPED (2026-07-26) — municipal roster readers onto PG, candidateLink into PG.**
 > `useMunicipalOfficials` + `useMunicipalOfficialsByName` now read the `municipal_officials`
@@ -382,11 +385,17 @@ TODO). Parity-check each against its JSON.
 > row** (a person whose resolved display_name differs from the register name); and it
 > **restores** the decoration the committed shards had silently lost (0 → 5,409 links).
 >
-> **Not done here — gates the §0 teardown below:** (1) `useSearchItems` still reads
-> `search_index.json` (its migration needs the build's personSlug resolution + candidate
-> dedup — a distinct route). So the `by_obshtina/` shards are now reader-free and
-> teardown-ready, but `search_index.json` is NOT. (2) `useMunicipalContacts` disposition and
-> the actual `bucket:sync:paths --delete` teardown are still the remaining Tier 1 work.
+> **T1.5 follow-up (also done):** `useSearchItems` migrated off `search_index.json` onto the
+> `municipal-officials-search-index` route (reproduces build_municipal_search's name_fold
+> person-resolve + candidate-dedup + personSlug stamp, set-based fold CTE ~1ms). So
+> `by_obshtina/<code>.json` AND `search_index.json` are now reader-free. `useMunicipalContacts`
+> disposition RESOLVED (keep as a bucket file, excluded from the teardown).
+>
+> **Still gates the §0 officials teardown:** `data/officials/derived/` is read by the
+> council-activity hooks (**Tier 4** — `councillor_signals` / `councillor_conflicts` not yet
+> in PG, no `099_council_signals.sql`) and the connections hooks (**Tier 3** Workstream B).
+> The `by_obshtina/` + `search_index.json` families are reader-free and teardown-ready, but
+> the actual `bucket:sync:paths --delete` cannot run until Tiers 3 + 4 retire `derived/`.
 
 ### Tier 2 — MP roster/declarations/avatars on PersonDashboard
 Replace `useMpEntry`/`useMpDeclarations`/`useMpAssets` with person_id routes; `assets-rankings`
