@@ -20,7 +20,8 @@
 //
 // See docs/plans/ngo-risk-signals-v1.md (Phase 2 / A2).
 
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type { PoolClient } from "pg";
 import { exec, withClient, getPool, end } from "../db/lib/pg";
@@ -43,6 +44,14 @@ const OFFICIALS_MUNI = fileURLToPath(
 // Kept as a robustness fallback: any company-linked official not present in the
 // two indexes above is still added (0 such today, but avoids a silent regression
 // if the officials pipeline ever diverges).
+// The per-obshtina municipal shards. Their DIRECTORY is the only place the app's
+// obshtina code and an official's slug appear together — the municipal index carries the
+// municipality's prose NAME, and the name→code join (municipality_join.ts) needs an alias
+// file plus synthetic Sofia-district codes, so it is not reproducible here or in SQL.
+// Reading the emitted shards takes the answer the shard build already computed.
+const OFFICIALS_MUNI_SHARDS = fileURLToPath(
+  new URL("../../data/officials/municipal/by_obshtina", import.meta.url),
+);
 const OFFICIALS_LINKS = fileURLToPath(
   new URL("../../data/officials/derived/company_links.json", import.meta.url),
 );
@@ -150,9 +159,32 @@ export const loadNgoBoardLinksPg = async (): Promise<{
   // Union the executive index, the municipal index, and (fallback) company_links.
   let roster = 0;
   {
+    // slug → obshtina code, read from the emitted per-obshtina shards. Absent shards
+    // (a fresh clone without the municipal build) simply leave every code NULL, which
+    // degrades to today's behaviour rather than failing the load.
+    const obshtinaBySlug = new Map<string, string>();
+    if (existsSync(OFFICIALS_MUNI_SHARDS)) {
+      for (const f of readdirSync(OFFICIALS_MUNI_SHARDS)) {
+        if (!f.endsWith(".json")) continue;
+        try {
+          const shard = JSON.parse(
+            readFileSync(join(OFFICIALS_MUNI_SHARDS, f), "utf8"),
+          ) as { obshtina?: string; entries?: { slug?: string }[] };
+          // Prefer the shard's own field; the filename is the same code and is the
+          // fallback when an older shard predates it.
+          const code = shard.obshtina ?? f.replace(/\.json$/, "");
+          for (const e of shard.entries ?? [])
+            if (e.slug && !obshtinaBySlug.has(e.slug))
+              obshtinaBySlug.set(e.slug, code);
+        } catch {
+          console.warn(`[ngo-board-links] unreadable municipal shard ${f}`);
+        }
+      }
+    }
+
     const seen = new Map<
       string,
-      [string, string, string | null, string | null]
+      [string, string, string | null, string | null, string | null]
     >();
     const add = (
       name: string | undefined,
@@ -161,7 +193,13 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       tier: string | null,
     ) => {
       if (slug && name && !seen.has(slug))
-        seen.set(slug, [name, slug, role, tier]);
+        seen.set(slug, [
+          name,
+          slug,
+          role,
+          tier,
+          obshtinaBySlug.get(slug) ?? null,
+        ]);
     };
     if (existsSync(OFFICIALS_EXEC)) {
       const j = JSON.parse(
@@ -193,7 +231,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       roster = await copyRows(
         c,
         "official_roster",
-        ["name", "slug", "role", "tier"],
+        ["name", "slug", "role", "tier", "obshtina"],
         seen.values(),
       );
     });

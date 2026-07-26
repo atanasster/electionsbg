@@ -378,7 +378,8 @@ async function collect(): Promise<Raw[]> {
     slug: string;
     role: string | null;
     tier: string | null;
-  }>(`SELECT name, slug, role, tier FROM official_roster`);
+    obshtina: string | null;
+  }>(`SELECT name, slug, role, tier, obshtina FROM official_roster`);
   // A few executive categories have their own person_source — see
   // src/lib/officialSources.ts for which, and for why the others deliberately
   // stay on the generic one.
@@ -392,6 +393,11 @@ async function collect(): Promise<Raw[]> {
         role: o.role ?? "official",
       },
       {
+        // The obshtina code for a municipal official (NULL elsewhere). person_role.place
+        // is the display/scope column, and leaving it NULL is what stopped the municipal
+        // roster from being servable out of Postgres — the code exists nowhere else in
+        // the DB. Set here rather than derived downstream: only the roster knows it.
+        place: o.obshtina ?? null,
         uics: refEik.get(`off:${o.slug}`) ?? [],
         regId: regId.get(o.slug) ?? null,
         cParty: partyOffice.get(o.slug) ?? null,

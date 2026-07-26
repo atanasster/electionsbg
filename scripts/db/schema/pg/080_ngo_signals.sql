@@ -52,8 +52,20 @@ CREATE TABLE IF NOT EXISTS official_roster (
   name text NOT NULL,
   slug text NOT NULL,
   role text,
-  tier text
+  tier text,
+  -- The app's obshtina code (BGS04, S2309, …) for a MUNICIPAL official; NULL for every
+  -- other tier. It is carried here because it cannot be derived in SQL: the register
+  -- names a municipality in prose ("Гоце Делчев") and the name→code join lives in
+  -- scripts/officials/municipality_join.ts, which needs an alias file, four fallback
+  -- strategies and synthetic codes for Sofia's 24 district councils. The municipal shard
+  -- build already resolves it, so the loader reads the answer out of the emitted
+  -- by_obshtina shards rather than re-deriving it. The resolver copies it to
+  -- person_role.place, which is what lets a municipal roster be served from Postgres
+  -- keyed the way /governance/:obshtinaCode asks for it.
+  obshtina text
 );
+-- Older databases predate the column; the loader writes it on every run.
+ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS obshtina text;
 CREATE INDEX IF NOT EXISTS idx_official_roster_fold
   ON official_roster (translit_bg_latin(name));
 
