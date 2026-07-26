@@ -248,7 +248,11 @@ export const VoteDemographicScatter: React.FC = () => {
           <label className="text-xs text-muted-foreground block mb-1">
             {t("census_axis_demographic")}
           </label>
-          <MetricSelector value={metric} onChange={setMetric} />
+          <MetricSelector
+            value={metric}
+            onChange={setMetric}
+            metrics={PERCENT_METRICS}
+          />
         </div>
         <div className="ml-auto text-sm">
           <span className="text-muted-foreground mr-2">
