@@ -1138,9 +1138,15 @@ const runDbFacets = async (q, reqRaw) => {
   const r = REGISTRY[req.resource];
   if (!r) throw new Error(`unknown resource: ${req.resource}`);
 
+  // `filters` are the caller's ACTIVE facet filters (year / CPV / method / …),
+  // merged with the non-editable `fixedFilters` (e.g. tag=contract). Passing them
+  // makes each facet reflect the current selection — a "filter-scoped" facet. To
+  // keep every option visible, the caller EXCLUDES a facet's own dimension from
+  // its filter set (e.g. the procurement_method facet omits the method filter),
+  // so selecting one bucket doesn't collapse the mix to that bucket alone.
   const { whereSql, params } = buildWhere(r, {
     scope: req.scope,
-    filters: { columns: req.fixedFilters ?? [] },
+    filters: { columns: [...(req.fixedFilters ?? []), ...(req.filters ?? [])] },
   });
   const limit = clampInt(req.limit, 100, 1, 500);
   const cols = (req.columns ?? []).filter((c) => r.columns[c]?.filter);

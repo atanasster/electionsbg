@@ -7,19 +7,25 @@
 // risk-indexes payload) — display only, since risk isn't a Postgres column.
 // See docs/plans/pg-query-performance.md.
 
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { cpvDivisionName } from "@/lib/cpvSectors";
-import { Receipt, ExternalLink } from "lucide-react";
+import {
+  cpvDivisionName,
+  groupMethodFacet,
+  procedureBucket,
+  procedureLabel,
+  type ProcedureBucket,
+} from "@/lib/cpvSectors";
+import { Receipt } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
-import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
+import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
 import { formatEur } from "@/lib/currency";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
@@ -47,7 +53,9 @@ export const CompanyContractsDbScreen: FC<{
 
   const [year, setYear] = useState<string>(ALL);
   const [singleBidder, setSingleBidder] = useState(false);
-  const [method, setMethod] = useState<string>(ALL);
+  // Procedure filter is a ProcedureBucket key (null = all); the raw method
+  // strings behind it are resolved from the grouped facet below.
+  const [procBucket, setProcBucket] = useState<ProcedureBucket | null>(null);
   const [cpvDiv, setCpvDiv] = useState<string>(ALL);
   const [companyName, setCompanyName] = useState("");
 
@@ -68,57 +76,133 @@ export const CompanyContractsDbScreen: FC<{
     [isAwarder],
   );
 
-  // Facet options (distinct methods + CPV divisions for THIS company), scoped +
-  // tag-fixed so the dropdowns are stable regardless of the other selections.
-  const { data: facetData } = useQuery({
-    queryKey: ["db-facets", "contracts", eik, tag, side],
-    queryFn: async (): Promise<{
-      facets: Record<string, { value: string; count: number }[]>;
-    }> => {
-      const req = {
-        resource: "contracts",
-        scope: { col: scopeCol, val: eik },
-        fixedFilters: [{ id: "tag", value: [tag] }],
-        columns: ["procurement_method", "cpv"],
-        limit: 100,
-      };
-      const r = await fetch(
-        `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
-      );
-      if (!r.ok) return { facets: {} };
-      return r.json();
-    },
+  // Individual active-filter fragments, so each facet can apply every filter
+  // EXCEPT its own dimension (a filter-scoped facet that still shows all its own
+  // options — see /api/db/facets `filters` and ProcedureMixBar).
+  const yearF = useMemo<DbColumnFilter[]>(
+    () =>
+      year !== ALL
+        ? [{ id: "date", min: `${year}-01-01`, max: `${year}-12-31` }]
+        : [],
+    [year],
+  );
+  const singleF = useMemo<DbColumnFilter[]>(
+    () => (singleBidder ? [{ id: "number_of_tenderers", min: 1, max: 1 }] : []),
+    [singleBidder],
+  );
+  const cpvF = useMemo<DbColumnFilter[]>(
+    () => (cpvDiv !== ALL ? [{ id: "cpv", value: cpvDiv }] : []),
+    [cpvDiv],
+  );
+
+  const fetchFacets = async (
+    columns: string[],
+    filters: DbColumnFilter[],
+  ): Promise<{
+    facets: Record<string, { value: string; count: number }[]>;
+  }> => {
+    const req = {
+      resource: "contracts",
+      scope: { col: scopeCol, val: eik },
+      fixedFilters: [{ id: "tag", value: [tag] }],
+      filters,
+      columns,
+      limit: 100,
+    };
+    const r = await fetch(
+      `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
+    );
+    if (!r.ok) return { facets: {} };
+    return r.json();
+  };
+
+  // Procedure-mix facet — every filter EXCEPT the procedure one, so all buckets
+  // stay visible (the bar/dropdown never collapse to just the selected bucket).
+  const { data: procFacet } = useQuery({
+    queryKey: [
+      "db-facets",
+      "contracts",
+      eik,
+      tag,
+      side,
+      "proc",
+      yearF,
+      singleF,
+      cpvF,
+    ],
+    queryFn: () =>
+      fetchFacets(["procurement_method"], [...yearF, ...singleF, ...cpvF]),
     staleTime: Infinity,
   });
-  const methodOptions = facetData?.facets?.procurement_method ?? [];
-  const cpvOptions = facetData?.facets?.cpv ?? [];
+  const groupedMethods = useMemo(
+    () => groupMethodFacet(procFacet?.facets?.procurement_method ?? []),
+    [procFacet],
+  );
+  // Raw method strings behind the selected bucket → the `in` filter payload.
+  const selectedMethods = useMemo<string[]>(
+    () =>
+      procBucket
+        ? (groupedMethods.find((g) => g.bucket === procBucket)?.methods ?? [])
+        : [],
+    [procBucket, groupedMethods],
+  );
+  const methodF = useMemo<DbColumnFilter[]>(
+    () =>
+      selectedMethods.length
+        ? [{ id: "procurement_method", value: selectedMethods }]
+        : [],
+    [selectedMethods],
+  );
+  // If another filter (year/CPV/single-bid) narrows the scoped facet so the
+  // selected bucket no longer exists, `selectedMethods` would silently become []
+  // and the procedure filter would drop while the UI still reads "selected".
+  // Clear the stale selection once the facet has loaded so the state stays honest.
+  useEffect(() => {
+    if (
+      procBucket &&
+      groupedMethods.length &&
+      !groupedMethods.some((g) => g.bucket === procBucket)
+    ) {
+      setProcBucket(null);
+    }
+  }, [procBucket, groupedMethods]);
 
-  const extraFilters = useMemo<DbColumnFilter[]>(() => {
-    const f: DbColumnFilter[] = [];
-    if (year !== ALL)
-      f.push({ id: "date", min: `${year}-01-01`, max: `${year}-12-31` });
-    if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
-    if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
-    if (cpvDiv !== ALL) f.push({ id: "cpv", value: cpvDiv });
-    return f;
-  }, [year, singleBidder, method, cpvDiv]);
+  // CPV facet — every filter EXCEPT the CPV one, for the same reason.
+  const { data: cpvFacet } = useQuery({
+    queryKey: [
+      "db-facets",
+      "contracts",
+      eik,
+      tag,
+      side,
+      "cpv",
+      yearF,
+      singleF,
+      methodF,
+    ],
+    queryFn: () => fetchFacets(["cpv"], [...yearF, ...singleF, ...methodF]),
+    staleTime: Infinity,
+  });
+  const cpvOptions = cpvFacet?.facets?.cpv ?? [];
+
+  const extraFilters = useMemo<DbColumnFilter[]>(
+    () => [...yearF, ...singleF, ...methodF, ...cpvF],
+    [yearF, singleF, methodF, cpvF],
+  );
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
     () => [
       {
+        // One canonical date = the signing date (always populated; falls back to
+        // `date` at load). Sorting stays on the indexed `date` column via
+        // defaultSort — date_signed is unindexed — so the header isn't resortable.
         id: "date",
-        accessorFn: (r) => r.date,
-        header: t("company_contract_date") || "Date",
+        accessorFn: (r) => r.dateSigned ?? r.date,
+        header: t("company_contract_signed") || "Signed",
+        enableSorting: false,
         cell: ({ row }) => (
           <div className="tabular-nums whitespace-nowrap">
-            <div>{row.original.date}</div>
-            {row.original.dateSigned &&
-            row.original.dateSigned !== row.original.date ? (
-              <div className="text-xs text-muted-foreground">
-                {t("company_contract_signed") || "signed"}:{" "}
-                {row.original.dateSigned}
-              </div>
-            ) : null}
+            {row.original.dateSigned ?? row.original.date}
           </div>
         ),
       },
@@ -178,6 +262,22 @@ export const CompanyContractsDbScreen: FC<{
         ),
       },
       {
+        // Procedure type, bucketed + translated (same vocabulary as the mix bar +
+        // filter). Not sortable — the bucket order ≠ the raw-string order the DB
+        // would sort by; discovery is via the chart/filter instead.
+        id: "procedure",
+        header: t("company_contract_procedure") || "Procedure",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="inline-block whitespace-nowrap rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+            {procedureLabel(
+              procedureBucket(row.original.procurementMethod),
+              i18n.language,
+            )}
+          </span>
+        ),
+      },
+      {
         // Reference-only column (migration 087): for a consortium MEMBER row the
         // amount is €0 (its real share isn't public), so the full joint-contract
         // value is shown HERE, in its own column, to avoid distorting a sort on the
@@ -217,36 +317,11 @@ export const CompanyContractsDbScreen: FC<{
         enableSorting: false,
         cell: ({ row }) => <RiskBadges result={scoreRow(row.original)} />,
       },
-      {
-        id: "source",
-        header: t("company_contract_source") || "Source",
-        enableSorting: false,
-        cell: ({ row }) => {
-          const c = row.original;
-          const src = resolveContractSource(c);
-          return (
-            <div className="flex items-center gap-2 whitespace-nowrap">
-              <Link
-                to={`/procurement/contract/${c.key}`}
-                className="text-xs text-primary hover:underline"
-              >
-                {t("company_contract_details") || "Details"}
-              </Link>
-              <a
-                href={src.url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-muted-foreground hover:text-primary inline-flex items-center gap-0.5"
-              >
-                {src.label === "egov" ? "egov" : "ЕОП"}
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
-          );
-        },
-      },
+      // The source column was removed: "Детайли" duplicated the subject link
+      // (both → /procurement/contract/:key) and the external ЕОП/egov link lives
+      // on that detail screen (ContractDetailScreen).
     ],
-    [t, scoreRow, isAwarder],
+    [t, i18n.language, scoreRow, isAwarder],
   );
 
   return (
@@ -264,6 +339,23 @@ export const CompanyContractsDbScreen: FC<{
             {companyName || `ЕИК ${eik}`}
           </Link>
           <span>· ЕИК {eik}</span>
+        </div>
+
+        {/* Procedure-mix overview — filter-scoped (reflects the active year / CPV
+            / single-bid filters, excluding the procedure dimension itself) and
+            clickable: a segment/chip toggles the same bucket filter as the
+            dropdown. */}
+        <div className="mb-4">
+          <ProcedureMixBar
+            buckets={groupedMethods}
+            selected={procBucket}
+            onSelect={setProcBucket}
+            title={t("contracts_procedure_mix") || "Вид процедура"}
+            note={
+              t("contracts_procedure_mix_note") ||
+              "Дял от договорите с посочена процедура."
+            }
+          />
         </div>
 
         <DbDataTable<ProcurementContract>
@@ -315,18 +407,24 @@ export const CompanyContractsDbScreen: FC<{
                   </SelectContent>
                 </Select>
               ) : null}
-              {methodOptions.length > 0 ? (
-                <Select value={method} onValueChange={setMethod}>
+              {groupedMethods.length > 0 ? (
+                <Select
+                  value={procBucket ?? ALL}
+                  onValueChange={(v) =>
+                    setProcBucket(v === ALL ? null : (v as ProcedureBucket))
+                  }
+                >
                   <SelectTrigger className="w-auto h-9 max-w-[220px]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={ALL}>
-                      {t("company_contracts_all_methods") || "Всички процедури"}
+                      {t("company_contracts_all_procedures") ||
+                        "Всички процедури"}
                     </SelectItem>
-                    {methodOptions.map((o) => (
-                      <SelectItem key={o.value} value={o.value}>
-                        {o.value} ({o.count})
+                    {groupedMethods.map((g) => (
+                      <SelectItem key={g.bucket} value={g.bucket}>
+                        {procedureLabel(g.bucket, i18n.language)} ({g.count})
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -6,7 +6,7 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 
-const { buildWhere, REGISTRY } = require("./db_table.js");
+const { buildWhere, REGISTRY, runDbFacets } = require("./db_table.js");
 
 const contracts = REGISTRY.contracts;
 
@@ -264,4 +264,56 @@ test("buildWhere applies defaultScope when the caller sends none", () => {
     scope: { col: "ns", val: "52" },
   });
   assert.deepEqual(explicit.params, ["52"]);
+});
+
+// ── runDbFacets: filter-scoped facets (the `filters` merge) ──────────────────
+// The contracts table now issues facets that apply the active filters (minus the
+// facet's own dimension) so the mix bar / dropdowns reflect the current scope.
+// runDbFacets must merge req.filters with req.fixedFilters into the WHERE, and
+// omitting req.filters must reproduce the pre-change (fixedFilters-only) behavior.
+
+test("runDbFacets merges req.filters with fixedFilters into the WHERE", async () => {
+  const calls = [];
+  const q = async (sql, params) => {
+    calls.push({ sql, params });
+    return [];
+  };
+  await runDbFacets(q, {
+    resource: "contracts",
+    scope: { col: "contractor_eik", val: "X" },
+    fixedFilters: [{ id: "tag", value: ["contract"] }],
+    filters: [{ id: "date", min: "2024-01-01", max: "2024-12-31" }],
+    columns: ["procurement_method"],
+    limit: 100,
+  });
+  assert.equal(calls.length, 1, "one query per requested facet column");
+  const { sql, params } = calls[0];
+  assert.ok(sql.includes("procurement_method"), "groups by the facet column");
+  assert.ok(params.includes("X"), "scope value present");
+  assert.ok(params.includes("contract"), "fixedFilter (tag) present");
+  assert.ok(
+    params.includes("2024-01-01") && params.includes("2024-12-31"),
+    "user filter (date range) merged into the WHERE",
+  );
+});
+
+test("runDbFacets without req.filters keeps the fixedFilters-only behavior", async () => {
+  const calls = [];
+  const q = async (sql, params) => {
+    calls.push({ sql, params });
+    return [];
+  };
+  await runDbFacets(q, {
+    resource: "contracts",
+    scope: { col: "contractor_eik", val: "X" },
+    fixedFilters: [{ id: "tag", value: ["contract"] }],
+    columns: ["procurement_method"],
+    limit: 100,
+  });
+  const { params } = calls[0];
+  assert.ok(params.includes("X") && params.includes("contract"));
+  assert.ok(
+    !params.includes("2024-01-01"),
+    "no user filter applied when req.filters is omitted",
+  );
 });

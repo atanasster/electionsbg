@@ -245,6 +245,35 @@ export const PROCEDURE_LABEL: Record<
 export const procedureLabel = (b: ProcedureBucket, lang: Lang): string =>
   lang === "bg" ? PROCEDURE_LABEL[b].bg : PROCEDURE_LABEL[b].en;
 
+// One collapsed procedure-mix row: a ProcedureBucket, its summed contract count,
+// and the raw source method strings that fold into it.
+export interface MethodBucketFacet {
+  bucket: ProcedureBucket;
+  count: number;
+  methods: string[];
+}
+
+// Collapse a raw `procurement_method` facet (distinct source strings + counts, as
+// /api/db/facets returns them) into the 7 ProcedureBuckets. This merges the АОП
+// Bulgarian phrases and the ЦАИС ЕОП OCDS enums for the SAME procedure into one
+// row (e.g. "Открита процедура" + "open" → bucket `open`), sums their counts, and
+// keeps the raw method strings so a bucket selection can be pushed straight to the
+// `procurement_method` "in" filter. Ordered by count desc; the display label
+// resolves via procedureLabel().
+export const groupMethodFacet = (
+  rows: { value: string; count: number }[],
+): MethodBucketFacet[] => {
+  const by = new Map<ProcedureBucket, MethodBucketFacet>();
+  for (const r of rows) {
+    const b = procedureBucket(r.value);
+    const cur = by.get(b) ?? { bucket: b, count: 0, methods: [] };
+    cur.count += r.count;
+    cur.methods.push(r.value);
+    by.set(b, cur);
+  }
+  return [...by.values()].sort((a, b) => b.count - a.count);
+};
+
 // Display label for a raw procurementMethod. The АОП feed already publishes a
 // Bulgarian phrase ("Открита процедура", "Договаряне без обявление", …) — keep
 // it verbatim. The ЦАИС ЕОП flat feed publishes bare OCDS enums; translate
