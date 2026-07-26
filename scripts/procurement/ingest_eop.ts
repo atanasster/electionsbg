@@ -9,9 +9,16 @@
 // row can never double-count an OCDS contract (an absent buyer has zero OCDS
 // rows by definition).
 //
-// Two modes (mirrors the kzp_prices pattern):
-//   - INCREMENTAL (default): last ~30 days. Cheap; run by /update-procurement
-//     when the `eop_procurement` watcher source flips. No --backfill needed.
+// Three cadences (window sizing + guard in eop_window.ts):
+//   - INCREMENTAL (default): last ~30 days, absent-buyer gap-fill only. Cheap.
+//     No --backfill needed.
+//   - SELF-HEAL (`--self-heal`): last ~75 days, cross-source-deduped over ALL
+//     buyers — the incremental covered-buyer gap-heal. The window must span АОП's
+//     OCDS-export lag behind the live ЦАИС feed, so it's wider (90-day guard cap,
+//     no --backfill). Safe because ingest.ts evicts each `eop-` row once its
+//     authoritative OCDS twin lands. This is the /update-procurement cadence the
+//     `eop_procurement` watcher fires; it replaces the old plain-gap-fill +
+//     `--only-buyers` infra-recovery pair.
 //   - BACKFILL (one-off, flag-gated): the full 2020→ history (~1,600 daily
 //     files). `--backfill --from 2020-01-01`. Operator-run, never in CI.
 //
@@ -19,7 +26,7 @@
 // data the normal way (single-sourced in ingest.ts), which picks up the new
 // shards from disk:
 //
-//   tsx scripts/procurement/ingest_eop.ts --apply                          # incremental
+//   tsx scripts/procurement/ingest_eop.ts --self-heal --apply              # incremental gap-heal
 //   tsx scripts/procurement/ingest_eop.ts --backfill --from 2020-01-01 --apply  # full history
 //   tsx scripts/procurement/ingest.ts            # rebuilds rollups/derived/by-settlement/index
 //
@@ -34,6 +41,12 @@ import { normalizeEopDay, type EopContractRecord } from "./normalize_eop";
 import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
 import { contentKeys } from "./content_key";
+import {
+  incrementalFromDate,
+  windowGuardCap,
+  enumerateDays,
+  resolveEopModes,
+} from "./eop_window";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -60,16 +73,6 @@ const dayUrl = (day: string): string =>
 
 const sleep = (ms: number): Promise<void> =>
   new Promise((r) => setTimeout(r, ms));
-
-const enumerateDays = (from: string, to: string): string[] => {
-  const out: string[] = [];
-  const start = Date.parse(`${from}T00:00:00Z`);
-  const end = Date.parse(`${to}T00:00:00Z`);
-  for (let t = start; t <= end; t += 86_400_000) {
-    out.push(new Date(t).toISOString().slice(0, 10));
-  }
-  return out;
-};
 
 // Fetch a day's flat договори records, caching the raw JSON gzipped under
 // raw_data/. Returns null when the day is not published (403/404) — the bucket
@@ -205,41 +208,37 @@ const main = async (args: {
   refreshCache: boolean;
   includeExistingBuyers: boolean;
   crossSourceDedup: boolean;
+  selfHeal: boolean;
   onlyBuyers: Set<string>;
   delayMs: number;
 }): Promise<void> => {
   const days = enumerateDays(args.from, args.to);
-  // One-off-backfill guardrail: a window wider than ~5 weeks must opt in with
-  // --backfill so the heavy full-range crawl is never run by accident.
-  if (days.length > 40 && !args.backfill) {
+  // One-off-backfill guardrail: a window wider than the cadence cap must opt in
+  // with --backfill so the heavy full-range crawl is never run by accident.
+  // --self-heal raises the cap to 90 days (its default window is ~75) so the
+  // covered-buyer gap-heal can cover the OCDS-export lag without --backfill.
+  const guardCap = windowGuardCap(args.selfHeal);
+  if (days.length > guardCap && !args.backfill) {
     throw new Error(
-      `window is ${days.length} days — pass --backfill to confirm a large crawl ` +
-        `(or narrow --from/--to)`,
+      `window is ${days.length} days (cap ${guardCap}) — pass --backfill to ` +
+        `confirm a large crawl (or narrow --from/--to)`,
     );
   }
 
-  // --cross-source-dedup keeps every buyer and instead filters on a content key
-  // against what is already on disk. It implies include-existing-buyers (the
-  // buyer-absent guard would defeat the purpose) and is the correct mode for the
-  // 2020/2021 transition-year backfill.
-  const crossSourceDedup = args.crossSourceDedup;
-  const includeExistingBuyers = args.includeExistingBuyers || crossSourceDedup;
-
-  // --only-buyers scopes the run to a whitelist of authority EIKs (the P1
-  // storage.eop.bg coverage-gap fix for already-covered buyers like АПИ). Those
-  // buyers ARE in our corpus, so their EOP rows overlap the OCDS/legacy base and
-  // MUST be content-deduped — refuse to run without --cross-source-dedup, which
-  // is the only mode that drops the overlap. Passing the whitelist into the
-  // normalizer as `preferBuyers` also recovers multi-buyer records (e.g. АДФИ
+  // Resolve the interdependent cadence flags (see resolveEopModes): --self-heal
+  // implies --cross-source-dedup; cross-source-dedup implies keeping existing
+  // buyers; and --only-buyers (the P1 fix for already-covered infra authorities
+  // like АПИ) requires one of those, else its whitelisted buyers double-count the
+  // OCDS/legacy base. When --only-buyers is set, the whitelist is also passed to
+  // the normalizer as `preferBuyers` to recover multi-buyer records (e.g. АДФИ
   // listed alongside АПИ) under the whitelisted authority.
   const onlyBuyers = args.onlyBuyers;
-  if (onlyBuyers.size > 0 && !crossSourceDedup) {
-    throw new Error(
-      `--only-buyers requires --cross-source-dedup — the whitelisted buyers are ` +
-        `already in the corpus, so their EOP rows would double-count the OCDS/` +
-        `legacy base without content dedup`,
-    );
-  }
+  const { crossSourceDedup, includeExistingBuyers } = resolveEopModes({
+    crossSourceDedup: args.crossSourceDedup,
+    selfHeal: args.selfHeal,
+    includeExistingBuyers: args.includeExistingBuyers,
+    onlyBuyersCount: onlyBuyers.size,
+  });
 
   const existing = loadExistingAwarderEiks();
   const years = new Set(days.map((d) => d.slice(0, 4)));
@@ -252,7 +251,8 @@ const main = async (args: {
   );
   if (crossSourceDedup) {
     console.log(
-      `→ --cross-source-dedup: keeping all buyers; deduping against ` +
+      `→ ${args.selfHeal ? "--self-heal (cross-source-dedup)" : "--cross-source-dedup"}: ` +
+        `keeping all buyers; deduping against ` +
         `${existingKeys.size.toLocaleString()} content key(s) from ` +
         `${[...years].sort().join(", ")} already on disk`,
     );
@@ -389,7 +389,7 @@ const cli = command({
       type: optional(string),
       long: "from",
       description:
-        "First bucket day (YYYY-MM-DD). Default: 30 days ago (incremental). Pass --backfill --from 2020-01-01 for the full history.",
+        "First bucket day (YYYY-MM-DD). Default: 30 days ago (75 with --self-heal). Pass --backfill --from 2020-01-01 for the full history.",
     }),
     to: option({
       type: optional(string),
@@ -399,7 +399,8 @@ const cli = command({
     backfill: flag({
       type: optional(boolean),
       long: "backfill",
-      description: "Confirm a large (>40-day) crawl window.",
+      description:
+        "Confirm a crawl window wider than the cadence cap (40 days; 90 with --self-heal).",
       defaultValue: () => false,
     }),
     apply: flag({
@@ -435,6 +436,18 @@ const cli = command({
         "--include-existing-buyers.",
       defaultValue: () => false,
     }),
+    selfHeal: flag({
+      type: optional(boolean),
+      long: "self-heal",
+      description:
+        "Incremental covered-buyer gap-heal. Implies --cross-source-dedup, but " +
+        "widens the default window to ~75 days (to span АОП's OCDS-export lag " +
+        "behind the live ЦАИС feed) and lifts the window guard to 90 days. Safe " +
+        "because ingest.ts evicts each eop- row once its OCDS twin lands. The " +
+        "incremental cadence that ends the covered-buyer gap without a manual " +
+        "recovery — replaces the plain gap-fill + --only-buyers infra step.",
+      defaultValue: () => false,
+    }),
     onlyBuyers: option({
       type: optional(string),
       long: "only-buyers",
@@ -452,18 +465,18 @@ const cli = command({
   },
   handler: (args) =>
     main({
-      // Default to a ~30-day incremental window so the watcher-driven run in
-      // /update-procurement is cheap; the full 2020→ history is the explicit
-      // `--backfill --from 2020-01-01` one-off.
-      from:
-        args.from ??
-        new Date(Date.now() - 30 * 86_400_000).toISOString().slice(0, 10),
+      // Default incremental window so the watcher-driven run in
+      // /update-procurement is cheap: ~30 days for the plain gap-fill, ~75 for
+      // --self-heal (must span the OCDS-export lag). The full 2020→ history is
+      // the explicit `--backfill --from 2020-01-01` one-off.
+      from: args.from ?? incrementalFromDate(Date.now(), !!args.selfHeal),
       to: args.to ?? new Date().toISOString().slice(0, 10),
       backfill: !!args.backfill,
       apply: !!args.apply,
       refreshCache: !!args.refreshCache,
       includeExistingBuyers: !!args.includeExistingBuyers,
       crossSourceDedup: !!args.crossSourceDedup,
+      selfHeal: !!args.selfHeal,
       onlyBuyers: new Set(
         (args.onlyBuyers ?? "")
           .split(",")
