@@ -1,158 +1,7 @@
 {
-  "generatedAt": "2026-05-20T20:44:32.259Z",
+  "generatedAt": "2026-07-26T02:17:52.889Z",
   "minSharedSections": 2,
   "loci": [
-    {
-      "id": "p4",
-      "electionCount": 13,
-      "oblast": "PAZ",
-      "obshtina": "PAZ19",
-      "ekatte": "55155",
-      "centroid": {
-        "lat": 42.191114,
-        "lng": 24.349886
-      },
-      "sectionCount": 15,
-      "sections": [
-        "131900043",
-        "131900044",
-        "131900053",
-        "131900054",
-        "131900060",
-        "131900061",
-        "131900072",
-        "131900076",
-        "131900077",
-        "131900083",
-        "131900084",
-        "131900085",
-        "131900086",
-        "131900089",
-        "131900091"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2005_06_25",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 42.6
-        },
-        {
-          "election": "2009_07_05",
-          "partyNum": 4,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 10,
-          "maxBand": "elevated",
-          "maxScore": 48.7
-        },
-        {
-          "election": "2013_05_12",
-          "partyNum": 40,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 34.2
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 10,
-          "maxBand": "elevated",
-          "maxScore": 58.4
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 12,
-          "maxBand": "elevated",
-          "maxScore": 52.6
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 8,
-          "maxBand": "elevated",
-          "maxScore": 44.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 9,
-          "maxBand": "critical",
-          "maxScore": 86.3
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 11,
-          "maxBand": "elevated",
-          "maxScore": 59.7
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 11,
-          "maxBand": "elevated",
-          "maxScore": 55.4
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 13,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 13,
-          "maxBand": "high",
-          "maxScore": 68.6
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 6,
-          "maxBand": "high",
-          "maxScore": 68.7
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 17,
-          "winnerNickName": "МЕЧ",
-          "winnerColor": "rgba(190, 0, 52)",
-          "sectionCount": 11,
-          "maxBand": "high",
-          "maxScore": 67.4
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 12,
-          "maxBand": "elevated",
-          "maxScore": 59.4
-        }
-      ],
-      "maxScore": 86.3,
-      "maxBand": "critical"
-    },
     {
       "id": "p0",
       "electionCount": 13,
@@ -160,11 +9,12 @@
       "obshtina": "PDV22",
       "ekatte": "56784",
       "centroid": {
-        "lat": 42.154408,
-        "lng": 24.783602
+        "lat": 42.154268,
+        "lng": 24.783644
       },
-      "sectionCount": 37,
+      "sectionCount": 38,
       "sections": [
+        "162202001",
         "162202002",
         "162202005",
         "162202010",
@@ -203,7 +53,7 @@
         "162206078",
         "162206079"
       ],
-      "problemSectionCount": 34,
+      "problemSectionCount": 35,
       "problemNeighborhood": {
         "id": "stolipinovo",
         "nameBg": "Столипиново / Шекер махала",
@@ -215,8 +65,8 @@
           "partyNum": 17,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 22,
-          "maxBand": "elevated",
+          "sectionCount": 24,
+          "maxBand": "high",
           "maxScore": 51.6
         },
         {
@@ -224,81 +74,81 @@
           "partyNum": 4,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 18,
+          "sectionCount": 14,
           "maxBand": "elevated",
-          "maxScore": 44.9
+          "maxScore": 35.9
         },
         {
           "election": "2013_05_12",
           "partyNum": 40,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 13,
+          "sectionCount": 15,
           "maxBand": "elevated",
-          "maxScore": 46.8
+          "maxScore": 37.4
         },
         {
           "election": "2014_10_05",
           "partyNum": 18,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 29,
-          "maxBand": "high",
-          "maxScore": 70
+          "sectionCount": 32,
+          "maxBand": "critical",
+          "maxScore": 67.3
         },
         {
           "election": "2017_03_26",
           "partyNum": 13,
           "winnerNickName": "ДОСТ",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 24,
+          "sectionCount": 26,
           "maxBand": "high",
-          "maxScore": 63.1
+          "maxScore": 50.5
         },
         {
           "election": "2021_04_04",
           "partyNum": 28,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 19,
+          "sectionCount": 23,
           "maxBand": "high",
-          "maxScore": 64.6
+          "maxScore": 58.2
         },
         {
           "election": "2021_07_11",
           "partyNum": 7,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 23,
-          "maxBand": "high",
-          "maxScore": 76.3
+          "sectionCount": 10,
+          "maxBand": "elevated",
+          "maxScore": 28.7
         },
         {
           "election": "2021_11_14",
           "partyNum": 17,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 20,
-          "maxBand": "critical",
-          "maxScore": 80.9
+          "sectionCount": 10,
+          "maxBand": "elevated",
+          "maxScore": 31.1
         },
         {
           "election": "2022_10_02",
           "partyNum": 1,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 22,
-          "maxBand": "high",
-          "maxScore": 73.5
+          "sectionCount": 20,
+          "maxBand": "elevated",
+          "maxScore": 37.2
         },
         {
           "election": "2023_04_02",
           "partyNum": 13,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 28,
+          "sectionCount": 24,
           "maxBand": "high",
-          "maxScore": 73.1
+          "maxScore": 40.9
         },
         {
           "election": "2024_06_09",
@@ -307,33 +157,543 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 30,
           "maxBand": "high",
-          "maxScore": 76.8
+          "maxScore": 51.3
         },
         {
           "election": "2024_10_27",
           "partyNum": 18,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 26,
+          "sectionCount": 19,
           "maxBand": "high",
-          "maxScore": 62.8
+          "maxScore": 46.4
         },
         {
           "election": "2026_04_19",
           "partyNum": 21,
           "winnerNickName": "ПрБ",
           "winnerColor": "#034a3f",
-          "sectionCount": 22,
+          "sectionCount": 12,
           "maxBand": "high",
-          "maxScore": 76
+          "maxScore": 57
         }
       ],
-      "maxScore": 80.9,
+      "maxScore": 67.3,
       "maxBand": "critical"
     },
     {
-      "id": "p3",
+      "id": "p6",
       "electionCount": 13,
+      "oblast": "PAZ",
+      "obshtina": "PAZ19",
+      "ekatte": "55155",
+      "centroid": {
+        "lat": 42.190819,
+        "lng": 24.350004
+      },
+      "sectionCount": 15,
+      "sections": [
+        "131900043",
+        "131900044",
+        "131900053",
+        "131900054",
+        "131900060",
+        "131900061",
+        "131900072",
+        "131900076",
+        "131900077",
+        "131900083",
+        "131900084",
+        "131900085",
+        "131900086",
+        "131900089",
+        "131900091"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
+          "maxBand": "elevated",
+          "maxScore": 31.9
+        },
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 11,
+          "maxBand": "high",
+          "maxScore": 48.7
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 34.2
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 11,
+          "maxBand": "high",
+          "maxScore": 58.4
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 10,
+          "maxBand": "high",
+          "maxScore": 44.6
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 10,
+          "maxBand": "elevated",
+          "maxScore": 36
+        },
+        {
+          "election": "2021_07_11",
+          "partyNum": 7,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.4
+        },
+        {
+          "election": "2021_11_14",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 27.4
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 41.6
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 13,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 11,
+          "maxBand": "elevated",
+          "maxScore": 38.6
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
+          "maxBand": "elevated",
+          "maxScore": 38.6
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 17,
+          "winnerNickName": "МЕЧ",
+          "winnerColor": "rgba(190, 0, 52)",
+          "sectionCount": 8,
+          "maxBand": "elevated",
+          "maxScore": 30.3
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 10,
+          "maxBand": "elevated",
+          "maxScore": 33.4
+        }
+      ],
+      "maxScore": 58.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p3",
+      "electionCount": 11,
+      "oblast": "S23",
+      "obshtina": "S2316",
+      "ekatte": "68134-2316",
+      "centroid": {
+        "lat": 42.646975,
+        "lng": 23.339613
+      },
+      "sectionCount": 9,
+      "sections": [
+        "234616001",
+        "234616002",
+        "234616006",
+        "234616007",
+        "234616009",
+        "234616048",
+        "234616049",
+        "234616055",
+        "234616056"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 6,
+          "winnerNickName": "НДСВ",
+          "winnerColor": "#f5ce42",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 35.4
+        },
+        {
+          "election": "2009_07_05",
+          "partyNum": 3,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 42.9
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 15,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 46.1
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 7,
+          "maxBand": "high",
+          "maxScore": 47.4
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 8,
+          "maxBand": "high",
+          "maxScore": 43.5
+        },
+        {
+          "election": "2021_07_11",
+          "partyNum": 23,
+          "winnerNickName": "ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 50
+        },
+        {
+          "election": "2021_11_14",
+          "partyNum": 25,
+          "winnerNickName": "ПП",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 50
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 9,
+          "winnerNickName": "ПП",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 33.6
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 35.2
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 26,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 24.1
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 7,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 28.7
+        }
+      ],
+      "maxScore": 50,
+      "maxBand": "high"
+    },
+    {
+      "id": "p8",
+      "electionCount": 10,
+      "oblast": "SLV",
+      "obshtina": "SLV20",
+      "ekatte": "67338",
+      "centroid": {
+        "lat": 42.670603,
+        "lng": 26.332174
+      },
+      "sectionCount": 10,
+      "sections": [
+        "212000096",
+        "212000113",
+        "212000114",
+        "212000115",
+        "212000116",
+        "212000117",
+        "212000118",
+        "212000119",
+        "212000120",
+        "212000184"
+      ],
+      "problemSectionCount": 8,
+      "problemNeighborhood": {
+        "id": "nadezhda_sliven",
+        "nameBg": "Надежда (Сливен)",
+        "nameEn": "Nadezhda (Sliven)"
+      },
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 27.1
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 46.8
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 42.7
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 39.9
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 36.2
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 42.5
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 51.5
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 38.9
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 8,
+          "winnerNickName": "ДПС-НН",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 38.9
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 38.8
+        }
+      ],
+      "maxScore": 51.5,
+      "maxBand": "high"
+    },
+    {
+      "id": "p30",
+      "electionCount": 9,
+      "oblast": "S25",
+      "obshtina": "S2524",
+      "ekatte": "02659",
+      "centroid": {
+        "lat": 42.709273,
+        "lng": 23.149818
+      },
+      "sectionCount": 8,
+      "sections": [
+        "254624002",
+        "254624014",
+        "254624015",
+        "254624016",
+        "254624017",
+        "254624018",
+        "254624019",
+        "254624020"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 51.3
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 22,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 53.9
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 10,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 49
+        },
+        {
+          "election": "2021_07_11",
+          "partyNum": 5,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31
+        },
+        {
+          "election": "2021_11_14",
+          "partyNum": 32,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 35.2
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 45.2
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 45.7
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 18,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.6
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 48
+        }
+      ],
+      "maxScore": 53.9,
+      "maxBand": "high"
+    },
+    {
+      "id": "p4",
+      "electionCount": 9,
       "oblast": "S25",
       "obshtina": "S2511",
       "ekatte": "68134-2511",
@@ -368,16 +728,7 @@
           "winnerColor": "lightslategrey",
           "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 35.9
-        },
-        {
-          "election": "2009_07_05",
-          "partyNum": 6,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 31.6
+          "maxScore": 26.9
         },
         {
           "election": "2013_05_12",
@@ -385,8 +736,8 @@
           "winnerNickName": "БСП",
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 7,
-          "maxBand": "elevated",
-          "maxScore": 43.5
+          "maxBand": "high",
+          "maxScore": 41.9
         },
         {
           "election": "2014_10_05",
@@ -395,16 +746,16 @@
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 9,
           "maxBand": "high",
-          "maxScore": 68.1
+          "maxScore": 51.1
         },
         {
           "election": "2017_03_26",
           "partyNum": 10,
           "winnerNickName": "БСП",
           "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 4,
+          "sectionCount": 6,
           "maxBand": "elevated",
-          "maxScore": 44.4
+          "maxScore": 35.5
         },
         {
           "election": "2021_04_04",
@@ -412,44 +763,26 @@
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 6,
-          "maxBand": "elevated",
-          "maxScore": 55.2
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 5,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 51.3
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 32,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 6,
-          "maxBand": "elevated",
-          "maxScore": 59
+          "maxBand": "high",
+          "maxScore": 44.1
         },
         {
           "election": "2022_10_02",
           "partyNum": 24,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 8,
+          "sectionCount": 6,
           "maxBand": "high",
-          "maxScore": 66.7
+          "maxScore": 40
         },
         {
           "election": "2023_04_02",
           "partyNum": 2,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 68
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 38.3
         },
         {
           "election": "2024_06_09",
@@ -457,293 +790,363 @@
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 6,
-          "maxBand": "high",
-          "maxScore": 66.4
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 55.9
+          "maxScore": 37.3
         },
         {
           "election": "2026_04_19",
           "partyNum": 21,
           "winnerNickName": "ПрБ",
           "winnerColor": "#034a3f",
-          "sectionCount": 9,
+          "sectionCount": 7,
           "maxBand": "elevated",
-          "maxScore": 49.2
+          "maxScore": 39.9
         }
       ],
-      "maxScore": 68.1,
+      "maxScore": 51.1,
       "maxBand": "high"
     },
     {
-      "id": "p14",
-      "electionCount": 11,
-      "oblast": "SLV",
-      "obshtina": "SLV20",
-      "ekatte": "67338",
+      "id": "p28",
+      "electionCount": 7,
+      "oblast": "PDV-00",
+      "obshtina": "PDV22",
+      "ekatte": "56784",
       "centroid": {
-        "lat": 42.670491,
-        "lng": 26.33206
+        "lat": 42.138061,
+        "lng": 24.714795
       },
-      "sectionCount": 9,
+      "sectionCount": 5,
       "sections": [
-        "212000113",
-        "212000114",
-        "212000115",
-        "212000116",
-        "212000117",
-        "212000118",
-        "212000119",
-        "212000120",
-        "212000184"
-      ],
-      "problemSectionCount": 8,
-      "problemNeighborhood": {
-        "id": "nadezhda_sliven",
-        "nameBg": "Надежда (Сливен)",
-        "nameEn": "Nadezhda (Sliven)"
-      },
-      "appearances": [
-        {
-          "election": "2013_05_12",
-          "partyNum": 5,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 62.4
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 6,
-          "maxBand": "elevated",
-          "maxScore": 53.3
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 44.5
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 45.3
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 22,
-          "winnerNickName": "ИТН",
-          "winnerColor": "rgb(75, 185, 222)",
-          "sectionCount": 7,
-          "maxBand": "elevated",
-          "maxScore": 59.2
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 57.8
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 72.6
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 6,
-          "maxBand": "critical",
-          "maxScore": 91.5
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 68.1
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 70
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 7,
-          "maxBand": "elevated",
-          "maxScore": 59.7
-        }
-      ],
-      "maxScore": 91.5,
-      "maxBand": "critical"
-    },
-    {
-      "id": "p2",
-      "electionCount": 11,
-      "oblast": "S23",
-      "obshtina": "S2316",
-      "ekatte": "68134-2316",
-      "centroid": {
-        "lat": 42.646788,
-        "lng": 23.339646
-      },
-      "sectionCount": 9,
-      "sections": [
-        "234616001",
-        "234616002",
-        "234616006",
-        "234616007",
-        "234616009",
-        "234616048",
-        "234616049",
-        "234616055",
-        "234616056"
+        "162203014",
+        "162203049",
+        "162203050",
+        "162203051",
+        "162203053"
       ],
       "problemSectionCount": 0,
       "appearances": [
-        {
-          "election": "2005_06_25",
-          "partyNum": 6,
-          "winnerNickName": "НДСВ",
-          "winnerColor": "#f5ce42",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 47.2
-        },
-        {
-          "election": "2009_07_05",
-          "partyNum": 3,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 6,
-          "maxBand": "elevated",
-          "maxScore": 53.6
-        },
         {
           "election": "2013_05_12",
           "partyNum": 15,
           "winnerNickName": "ГЕРБ",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 6,
-          "maxBand": "elevated",
-          "maxScore": 57.6
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 55.2
         },
         {
           "election": "2014_10_05",
           "partyNum": 9,
           "winnerNickName": "ГЕРБ",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
-          "maxBand": "elevated",
-          "maxScore": 59.3
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 44.9
         },
         {
           "election": "2017_03_26",
           "partyNum": 11,
           "winnerNickName": "ГЕРБ",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 8,
+          "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 68.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 23,
-          "winnerNickName": "ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 5,
-          "maxBand": "critical",
-          "maxScore": 86.5
+          "maxScore": 48.8
         },
         {
           "election": "2021_11_14",
           "partyNum": 25,
           "winnerNickName": "ПП",
           "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 6,
+          "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 66.7
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 9,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 76.1
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 12,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 55.8
+          "maxScore": 50
         },
         {
           "election": "2024_06_09",
-          "partyNum": 14,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 43.6
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 18,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 41.4
+          "maxScore": 38.4
         },
         {
           "election": "2026_04_19",
-          "partyNum": 7,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 38.4
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 58.5
         }
       ],
-      "maxScore": 86.5,
-      "maxBand": "critical"
+      "maxScore": 58.5,
+      "maxBand": "high"
     },
     {
-      "id": "p13",
-      "electionCount": 10,
+      "id": "p2",
+      "electionCount": 7,
+      "oblast": "HKV",
+      "obshtina": "HKV34",
+      "ekatte": "77195",
+      "centroid": {
+        "lat": 41.936252,
+        "lng": 25.564759
+      },
+      "sectionCount": 6,
+      "sections": [
+        "293400040",
+        "293400060",
+        "293400062",
+        "293400064",
+        "293400065",
+        "293400068"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 37.3
+        },
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 44.2
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 30
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 7,
+          "winnerNickName": "РБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 28.1
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 34.2
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 28,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 40.9
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 23.1
+        }
+      ],
+      "maxScore": 44.2,
+      "maxBand": "high"
+    },
+    {
+      "id": "p17",
+      "electionCount": 7,
+      "oblast": "SLV",
+      "obshtina": "SLV16",
+      "ekatte": "51809",
+      "centroid": {
+        "lat": 42.492981,
+        "lng": 26.010399
+      },
+      "sectionCount": 5,
+      "sections": [
+        "211600012",
+        "211600013",
+        "211600014",
+        "211600015",
+        "211600016"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 26.5
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 27.1
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 36.6
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 39.7
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 29.8
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 30.2
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 39.1
+        }
+      ],
+      "maxScore": 39.7,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p31",
+      "electionCount": 6,
+      "oblast": "DOB",
+      "obshtina": "DOB28",
+      "ekatte": "72624",
+      "centroid": {
+        "lat": 43.5747,
+        "lng": 27.84541
+      },
+      "sectionCount": 3,
+      "sections": [
+        "082800124",
+        "082800125",
+        "082800126"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 59.6
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 52.2
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 4,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 38.9
+        },
+        {
+          "election": "2021_07_11",
+          "partyNum": 8,
+          "winnerNickName": "ПП ИСМВ",
+          "winnerColor": "rgb(0, 147, 68)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31.9
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 50.5
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 33.3
+        }
+      ],
+      "maxScore": 59.6,
+      "maxBand": "high"
+    },
+    {
+      "id": "p29",
+      "electionCount": 6,
       "oblast": "JAM",
       "obshtina": "JAM26",
       "ekatte": "87374",
@@ -751,9 +1154,8 @@
         "lat": 42.494013,
         "lng": 26.519621
       },
-      "sectionCount": 8,
+      "sectionCount": 7,
       "sections": [
-        "312600041",
         "312600042",
         "312600043",
         "312600044",
@@ -769,9 +1171,9 @@
           "partyNum": 40,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 56.8
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 45.4
         },
         {
           "election": "2014_10_05",
@@ -779,26 +1181,96 @@
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 5,
-          "maxBand": "elevated",
+          "maxBand": "high",
           "maxScore": 56.4
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 50.4
         },
         {
           "election": "2021_04_04",
           "partyNum": 28,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 32.1
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 39.3
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 41.2
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 8,
+          "winnerNickName": "ДПС-НН",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 29.6
+        }
+      ],
+      "maxScore": 56.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p10",
+      "electionCount": 6,
+      "oblast": "PDV",
+      "obshtina": "PDV01",
+      "ekatte": "00702",
+      "centroid": {
+        "lat": 42.014458,
+        "lng": 24.884494
+      },
+      "sectionCount": 6,
+      "sections": [
+        "170100056",
+        "170100058",
+        "170100059",
+        "170100101",
+        "170100104",
+        "170100107"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 40.2
+          "maxScore": 25.3
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 21,
+          "winnerNickName": "НС",
+          "winnerColor": "rgb(82, 82, 82)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 55.5
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 10,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 52.2
         },
         {
           "election": "2021_07_11",
@@ -807,154 +1279,192 @@
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 58.2
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 78.6
+          "maxScore": 35.7
         },
         {
           "election": "2023_04_02",
-          "partyNum": 13,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 58.1
+          "partyNum": 1,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 43
         },
         {
           "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 7,
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 5,
           "maxBand": "high",
-          "maxScore": 65.3
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
           "maxScore": 50
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 41.2
         }
       ],
-      "maxScore": 78.6,
+      "maxScore": 55.5,
       "maxBand": "high"
     },
     {
-      "id": "p16",
-      "electionCount": 8,
-      "oblast": "HKV",
-      "obshtina": "HKV09",
-      "ekatte": "21052",
+      "id": "p23",
+      "electionCount": 6,
+      "oblast": "S23",
+      "obshtina": "S2316",
+      "ekatte": "68134-2316",
       "centroid": {
-        "lat": 42.074174,
-        "lng": 25.61271
+        "lat": 42.656615,
+        "lng": 23.348556
       },
-      "sectionCount": 3,
+      "sectionCount": 6,
       "sections": [
-        "290900056",
-        "290900057",
-        "290900058"
+        "234616003",
+        "234616004",
+        "234616047",
+        "234616050",
+        "234616051",
+        "234616052"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2013_05_12",
-          "partyNum": 5,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
+          "election": "2009_07_05",
+          "partyNum": 3,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 47.6
+          "maxScore": 25.5
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 15,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 44.2
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 45.4
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 37.1
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 38.7
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 7,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 28.6
+        }
+      ],
+      "maxScore": 45.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p13",
+      "electionCount": 6,
+      "oblast": "KRZ",
+      "obshtina": "KRZ16",
+      "ekatte": "40909",
+      "centroid": {
+        "lat": 41.649443,
+        "lng": 25.365377
+      },
+      "sectionCount": 7,
+      "sections": [
+        "091600002",
+        "091600003",
+        "091600004",
+        "091600006",
+        "091600007",
+        "091600008",
+        "091600009"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 40.2
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 32.8
         },
         {
           "election": "2014_10_05",
           "partyNum": 18,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 51.1
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 44.4
         },
         {
           "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 32.6
+          "maxScore": 32
         },
         {
           "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 55.6
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 78.4
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 67.8
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 50.7
+          "maxScore": 30.4
         },
         {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 37.8
+          "maxScore": 31.7
         }
       ],
-      "maxScore": 78.4,
+      "maxScore": 44.4,
       "maxBand": "high"
     },
     {
       "id": "p1",
-      "electionCount": 8,
+      "electionCount": 6,
       "oblast": "S24",
       "obshtina": "S2407",
       "ekatte": "68134-2407",
@@ -980,9 +1490,18 @@
           "partyNum": 17,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
+          "sectionCount": 7,
           "maxBand": "elevated",
-          "maxScore": 43.9
+          "maxScore": 32.9
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 6,
+          "maxBand": "elevated",
+          "maxScore": 24.4
         },
         {
           "election": "2014_10_05",
@@ -990,8 +1509,214 @@
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 42.4
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 28,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
           "maxBand": "elevated",
-          "maxScore": 53
+          "maxScore": 38.4
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 24,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
+          "maxBand": "elevated",
+          "maxScore": 37
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 8,
+          "winnerNickName": "ДПС-НН",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 30.2
+        }
+      ],
+      "maxScore": 42.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p33",
+      "electionCount": 5,
+      "oblast": "S24",
+      "obshtina": "S2401",
+      "ekatte": "68134-2401",
+      "centroid": {
+        "lat": 42.689731,
+        "lng": 23.32565
+      },
+      "sectionCount": 15,
+      "sections": [
+        "234610015",
+        "234610027",
+        "234610109",
+        "244601001",
+        "244601003",
+        "244601011",
+        "244601013",
+        "244601017",
+        "244601023",
+        "244601024",
+        "244601028",
+        "244601043",
+        "244601044",
+        "244601045",
+        "244604035"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 15,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 35.7
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 49.7
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 41.2
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 12,
+          "maxBand": "high",
+          "maxScore": 48.3
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 7,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 54.4
+        }
+      ],
+      "maxScore": 54.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p35",
+      "electionCount": 5,
+      "oblast": "HKV",
+      "obshtina": "HKV09",
+      "ekatte": "21052",
+      "centroid": {
+        "lat": 42.074174,
+        "lng": 25.61271
+      },
+      "sectionCount": 3,
+      "sections": [
+        "290900056",
+        "290900057",
+        "290900058"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 33.8
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 40.9
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 28,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 44.5
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 24,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 47.1
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 42.8
+        }
+      ],
+      "maxScore": 47.1,
+      "maxBand": "high"
+    },
+    {
+      "id": "p36",
+      "electionCount": 5,
+      "oblast": "S25",
+      "obshtina": "S2511",
+      "ekatte": "68134-2511",
+      "centroid": {
+        "lat": 42.697083,
+        "lng": 23.279104
+      },
+      "sectionCount": 5,
+      "sections": [
+        "254611056",
+        "254611058",
+        "254611060",
+        "254611072",
+        "254611073"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 24
         },
         {
           "election": "2017_03_26",
@@ -1000,87 +1725,60 @@
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 34.4
+          "maxScore": 38.1
         },
         {
-          "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 6,
+          "election": "2021_11_14",
+          "partyNum": 25,
+          "winnerNickName": "ПП",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 45.4
+          "maxScore": 33.5
         },
         {
-          "election": "2021_07_11",
+          "election": "2024_06_09",
           "partyNum": 22,
-          "winnerNickName": "ИТН",
-          "winnerColor": "rgb(75, 185, 222)",
-          "sectionCount": 7,
-          "maxBand": "elevated",
-          "maxScore": 43
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
+          "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 61.7
+          "maxScore": 44.6
         },
         {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 43.4
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 8,
-          "maxBand": "elevated",
-          "maxScore": 57.8
+          "maxScore": 39.4
         }
       ],
-      "maxScore": 61.7,
+      "maxScore": 44.6,
       "maxBand": "high"
     },
     {
-      "id": "p5",
-      "electionCount": 8,
-      "oblast": "HKV",
-      "obshtina": "HKV34",
-      "ekatte": "77195",
+      "id": "p25",
+      "electionCount": 5,
+      "oblast": "RSE",
+      "obshtina": "RSE05",
+      "ekatte": "15151",
       "centroid": {
-        "lat": 41.936271,
-        "lng": 25.565154
+        "lat": 43.733389,
+        "lng": 26.389317
       },
       "sectionCount": 6,
       "sections": [
-        "293400040",
-        "293400060",
-        "293400062",
-        "293400064",
-        "293400065",
-        "293400068"
+        "190500007",
+        "190500008",
+        "190500009",
+        "190500010",
+        "190500011",
+        "190500012"
       ],
       "problemSectionCount": 0,
       "appearances": [
-        {
-          "election": "2005_06_25",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 37.3
-        },
         {
           "election": "2009_07_05",
           "partyNum": 4,
@@ -1088,122 +1786,149 @@
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 44.2
-        },
-        {
-          "election": "2013_05_12",
-          "partyNum": 40,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 37.5
+          "maxScore": 21.4
         },
         {
           "election": "2014_10_05",
-          "partyNum": 7,
-          "winnerNickName": "РБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 35.2
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
+          "partyNum": 18,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
+          "sectionCount": 5,
           "maxBand": "elevated",
-          "maxScore": 57
+          "maxScore": 36.5
         },
         {
           "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 6,
           "maxBand": "elevated",
-          "maxScore": 51.1
+          "maxScore": 37.2
         },
         {
-          "election": "2021_07_11",
-          "partyNum": 5,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 43.5
+          "maxScore": 30.8
         },
         {
           "election": "2024_06_09",
           "partyNum": 28,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 36.7
+          "maxScore": 22.4
         }
       ],
-      "maxScore": 57,
+      "maxScore": 37.2,
       "maxBand": "elevated"
     },
     {
-      "id": "p10",
-      "electionCount": 7,
-      "oblast": "PDV-00",
-      "obshtina": "PDV22",
-      "ekatte": "56784",
+      "id": "p44",
+      "electionCount": 4,
+      "oblast": "SZR",
+      "obshtina": "SZR31",
+      "ekatte": "68850",
       "centroid": {
-        "lat": 42.138093,
-        "lng": 24.714905
+        "lat": 42.425254,
+        "lng": 25.608031
       },
-      "sectionCount": 6,
+      "sectionCount": 9,
       "sections": [
-        "162203014",
-        "162203039",
-        "162203049",
-        "162203050",
-        "162203051",
-        "162203053"
+        "273100089",
+        "273100118",
+        "273100132",
+        "273100133",
+        "273100134",
+        "273100135",
+        "273100204",
+        "273100206",
+        "273100207"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2013_05_12",
-          "partyNum": 15,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 73.6
-        },
-        {
           "election": "2014_10_05",
-          "partyNum": 9,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 56.1
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 45.9
         },
         {
           "election": "2017_03_26",
-          "partyNum": 11,
-          "winnerNickName": "ГЕРБ",
+          "partyNum": 10,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 6,
+          "maxBand": "critical",
+          "maxScore": 74.6
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 24,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 5,
+          "maxBand": "high",
+          "maxScore": 44.8
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 18,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 38.8
+        }
+      ],
+      "maxScore": 74.6,
+      "maxBand": "critical"
+    },
+    {
+      "id": "p60",
+      "electionCount": 4,
+      "oblast": "VRC",
+      "obshtina": "VRC10",
+      "ekatte": "12259",
+      "centroid": {
+        "lat": 43.196824,
+        "lng": 23.55911
+      },
+      "sectionCount": 5,
+      "sections": [
+        "061000111",
+        "061000112",
+        "061000113",
+        "061000114",
+        "061000116"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2021_11_14",
+          "partyNum": 32,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 49.7
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 61.1
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 25,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 66.7
+          "maxScore": 51.5
         },
         {
           "election": "2024_06_09",
@@ -1211,132 +1936,36 @@
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 54.5
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
           "maxBand": "high",
-          "maxScore": 68.2
+          "maxScore": 58.6
         },
         {
           "election": "2026_04_19",
           "partyNum": 21,
           "winnerNickName": "ПрБ",
           "winnerColor": "#034a3f",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 78
-        }
-      ],
-      "maxScore": 78,
-      "maxBand": "high"
-    },
-    {
-      "id": "p12",
-      "electionCount": 7,
-      "oblast": "S23",
-      "obshtina": "S2316",
-      "ekatte": "68134-2316",
-      "centroid": {
-        "lat": 42.656354,
-        "lng": 23.348894
-      },
-      "sectionCount": 5,
-      "sections": [
-        "234616003",
-        "234616004",
-        "234616050",
-        "234616051",
-        "234616052"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2013_05_12",
-          "partyNum": 15,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 55.2
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 9,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 56.7
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 11,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 61.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 23,
-          "winnerNickName": "ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 75.1
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 25,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 48.8
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 9,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 50.3
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 12,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
           "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 46
+          "maxBand": "high",
+          "maxScore": 54.6
         }
       ],
-      "maxScore": 75.1,
+      "maxScore": 58.6,
       "maxBand": "high"
     },
     {
-      "id": "p21",
-      "electionCount": 7,
+      "id": "p38",
+      "electionCount": 4,
       "oblast": "BGS",
       "obshtina": "BGS01",
       "ekatte": "00151",
       "centroid": {
-        "lat": 42.697532,
-        "lng": 27.264455
+        "lat": 42.697557,
+        "lng": 27.264353
       },
       "sectionCount": 7,
       "sections": [
-        "020100017",
         "020100020",
+        "020100021",
         "020100025",
         "020100026",
         "020100029",
@@ -1350,9 +1979,9 @@
           "partyNum": 18,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
+          "sectionCount": 5,
           "maxBand": "high",
-          "maxScore": 63.8
+          "maxScore": 51.1
         },
         {
           "election": "2017_03_26",
@@ -1361,121 +1990,136 @@
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 45.3
+          "maxScore": 33.9
         },
         {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 46.6
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
+          "election": "2021_04_04",
+          "partyNum": 9,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 66.5
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 44.2
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 42.4
+          "maxScore": 22
         },
         {
           "election": "2026_04_19",
           "partyNum": 21,
           "winnerNickName": "ПрБ",
           "winnerColor": "#034a3f",
-          "sectionCount": 5,
+          "sectionCount": 3,
           "maxBand": "high",
-          "maxScore": 72.5
+          "maxScore": 54.4
         }
       ],
-      "maxScore": 72.5,
+      "maxScore": 54.4,
       "maxBand": "high"
     },
     {
-      "id": "p23",
-      "electionCount": 7,
-      "oblast": "S25",
-      "obshtina": "S2524",
-      "ekatte": "02659",
+      "id": "p37",
+      "electionCount": 4,
+      "oblast": "BLG",
+      "obshtina": "BLG03",
+      "ekatte": "04279",
       "centroid": {
-        "lat": 42.709546,
-        "lng": 23.150263
+        "lat": 42.008894,
+        "lng": 23.102922
       },
-      "sectionCount": 5,
+      "sectionCount": 13,
       "sections": [
-        "254624015",
-        "254624016",
-        "254624018",
-        "254624019",
-        "254624020"
+        "010300007",
+        "010300008",
+        "010300009",
+        "010300010",
+        "010300071",
+        "010300097",
+        "010300098",
+        "010300099",
+        "010300100",
+        "010300112",
+        "010300113",
+        "010300115",
+        "010300148"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
           "election": "2014_10_05",
-          "partyNum": 22,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 7,
           "maxBand": "high",
-          "maxScore": 71.9
+          "maxScore": 53.8
         },
         {
           "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 23
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 28,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 6,
+          "maxBand": "elevated",
+          "maxScore": 38.7
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 36.2
+        }
+      ],
+      "maxScore": 53.8,
+      "maxBand": "high"
+    },
+    {
+      "id": "p63",
+      "electionCount": 4,
+      "oblast": "S23",
+      "obshtina": "S2310",
+      "ekatte": "68134-2310",
+      "centroid": {
+        "lat": 42.682815,
+        "lng": 23.302746
+      },
+      "sectionCount": 6,
+      "sections": [
+        "234602016",
+        "234602029",
+        "234610111",
+        "234610112",
+        "234610113",
+        "234610116"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2022_10_02",
+          "partyNum": 9,
+          "winnerNickName": "ПП",
+          "winnerColor": "rgb(66, 0, 255)",
           "sectionCount": 3,
           "maxBand": "high",
-          "maxScore": 65.4
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 5,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 41.4
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 32,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 47
+          "maxScore": 43.1
         },
         {
           "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
           "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 60.2
+          "maxBand": "elevated",
+          "maxScore": 35.1
         },
         {
           "election": "2024_10_27",
@@ -1484,37 +2128,34 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 57.7
+          "maxScore": 28.4
         },
         {
           "election": "2026_04_19",
           "partyNum": 21,
           "winnerNickName": "ПрБ",
           "winnerColor": "#034a3f",
-          "sectionCount": 5,
+          "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 64
+          "maxScore": 53
         }
       ],
-      "maxScore": 71.9,
+      "maxScore": 53,
       "maxBand": "high"
     },
     {
-      "id": "p8",
-      "electionCount": 7,
+      "id": "p27",
+      "electionCount": 4,
       "oblast": "VID",
       "obshtina": "VID09",
       "ekatte": "10971",
       "centroid": {
-        "lat": 43.990573,
-        "lng": 22.865731
+        "lat": 43.989407,
+        "lng": 22.865232
       },
-      "sectionCount": 10,
+      "sectionCount": 7,
       "sections": [
-        "050900033",
-        "050900055",
         "050900069",
-        "050900070",
         "050900071",
         "050900072",
         "050900073",
@@ -1531,7 +2172,7 @@
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 5,
           "maxBand": "high",
-          "maxScore": 65.6
+          "maxScore": 52.5
         },
         {
           "election": "2017_03_26",
@@ -1540,1084 +2181,32 @@
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 5,
           "maxBand": "elevated",
-          "maxScore": 45.5
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 51.5
+          "maxScore": 36.4
         },
         {
           "election": "2022_10_02",
           "partyNum": 1,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 7,
+          "sectionCount": 6,
           "maxBand": "high",
-          "maxScore": 71.5
+          "maxScore": 42.9
         },
         {
           "election": "2024_06_09",
           "partyNum": 28,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 55
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 48.2
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 56.2
+          "maxScore": 34.7
         }
       ],
-      "maxScore": 71.5,
+      "maxScore": 52.5,
       "maxBand": "high"
-    },
-    {
-      "id": "p7",
-      "electionCount": 7,
-      "oblast": "KRZ",
-      "obshtina": "KRZ16",
-      "ekatte": "40909",
-      "centroid": {
-        "lat": 41.649394,
-        "lng": 25.365298
-      },
-      "sectionCount": 6,
-      "sections": [
-        "091600003",
-        "091600004",
-        "091600006",
-        "091600007",
-        "091600008",
-        "091600009"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2009_07_05",
-          "partyNum": 4,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 40.2
-        },
-        {
-          "election": "2013_05_12",
-          "partyNum": 40,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 54.6
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 55.5
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 49.4
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 55.4
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 40.2
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 38.4
-        }
-      ],
-      "maxScore": 55.5,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p11",
-      "electionCount": 6,
-      "oblast": "DOB",
-      "obshtina": "DOB28",
-      "ekatte": "72624",
-      "centroid": {
-        "lat": 43.5747,
-        "lng": 27.84541
-      },
-      "sectionCount": 3,
-      "sections": [
-        "082800124",
-        "082800125",
-        "082800126"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2013_05_12",
-          "partyNum": 40,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 59.6
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 52.2
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 4,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 51.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 8,
-          "winnerNickName": "ПП ИСМВ",
-          "winnerColor": "rgb(0, 147, 68)",
-          "sectionCount": 3,
-          "maxBand": "critical",
-          "maxScore": 85
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "critical",
-          "maxScore": 89.7
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 59.2
-        }
-      ],
-      "maxScore": 89.7,
-      "maxBand": "critical"
-    },
-    {
-      "id": "p43",
-      "electionCount": 6,
-      "oblast": "VRC",
-      "obshtina": "VRC10",
-      "ekatte": "12259",
-      "centroid": {
-        "lat": 43.197145,
-        "lng": 23.560007
-      },
-      "sectionCount": 6,
-      "sections": [
-        "061000007",
-        "061000111",
-        "061000112",
-        "061000113",
-        "061000114",
-        "061000116"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2021_11_14",
-          "partyNum": 32,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 66.3
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 57.5
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 68.6
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 78.2
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 67.9
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 72.8
-        }
-      ],
-      "maxScore": 78.2,
-      "maxBand": "high"
-    },
-    {
-      "id": "p37",
-      "electionCount": 6,
-      "oblast": "BGS",
-      "obshtina": "BGS04",
-      "ekatte": "07079",
-      "centroid": {
-        "lat": 42.4777,
-        "lng": 27.4414
-      },
-      "sectionCount": 7,
-      "sections": [
-        "020400076",
-        "020400078",
-        "020400079",
-        "020400080",
-        "020400081",
-        "020400082",
-        "020400083"
-      ],
-      "problemSectionCount": 7,
-      "problemNeighborhood": {
-        "id": "pobeda_burgas",
-        "nameBg": "Победа (Бургас)",
-        "nameEn": "Pobeda (Burgas)"
-      },
-      "appearances": [
-        {
-          "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 56.2
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 58.1
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 13,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 45.8
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 54.5
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 53
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 41.6
-        }
-      ],
-      "maxScore": 58.1,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p24",
-      "electionCount": 5,
-      "oblast": "SZR",
-      "obshtina": "SZR31",
-      "ekatte": "68850",
-      "centroid": {
-        "lat": 42.425035,
-        "lng": 25.608256
-      },
-      "sectionCount": 8,
-      "sections": [
-        "273100089",
-        "273100118",
-        "273100132",
-        "273100134",
-        "273100135",
-        "273100204",
-        "273100206",
-        "273100207"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 57.3
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "critical",
-          "maxScore": 99.4
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 57.3
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 60.6
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 79.1
-        }
-      ],
-      "maxScore": 99.4,
-      "maxBand": "critical"
     },
     {
       "id": "p34",
-      "electionCount": 5,
-      "oblast": "S25",
-      "obshtina": "S2511",
-      "ekatte": "68134-2511",
-      "centroid": {
-        "lat": 42.696968,
-        "lng": 23.279394
-      },
-      "sectionCount": 6,
-      "sections": [
-        "254611018",
-        "254611056",
-        "254611058",
-        "254611060",
-        "254611072",
-        "254611073"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 47.6
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 22,
-          "winnerNickName": "ИТН",
-          "winnerColor": "rgb(75, 185, 222)",
-          "sectionCount": 3,
-          "maxBand": "critical",
-          "maxScore": 95.9
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 25,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 74.8
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 79.3
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 48.4
-        }
-      ],
-      "maxScore": 95.9,
-      "maxBand": "critical"
-    },
-    {
-      "id": "p18",
-      "electionCount": 5,
-      "oblast": "PDV",
-      "obshtina": "PDV01",
-      "ekatte": "00702",
-      "centroid": {
-        "lat": 42.014505,
-        "lng": 24.884384
-      },
-      "sectionCount": 5,
-      "sections": [
-        "170100058",
-        "170100059",
-        "170100101",
-        "170100104",
-        "170100107"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 21,
-          "winnerNickName": "НС",
-          "winnerColor": "rgb(82, 82, 82)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 74.1
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 65.2
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 4,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 56.6
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 1,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 54.5
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
-          "maxBand": "high",
-          "maxScore": 66.7
-        }
-      ],
-      "maxScore": 74.1,
-      "maxBand": "high"
-    },
-    {
-      "id": "p33",
-      "electionCount": 5,
-      "oblast": "S25",
-      "obshtina": "S2519",
-      "ekatte": "68134-2519",
-      "centroid": {
-        "lat": 42.719579,
-        "lng": 23.233186
-      },
-      "sectionCount": 3,
-      "sections": [
-        "254619071",
-        "254619072",
-        "254619132"
-      ],
-      "problemSectionCount": 3,
-      "problemNeighborhood": {
-        "id": "filipovci",
-        "nameBg": "Филиповци",
-        "nameEn": "Filipovci"
-      },
-      "appearances": [
-        {
-          "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 52.3
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 70.6
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 62.2
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 64.9
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 51.1
-        }
-      ],
-      "maxScore": 70.6,
-      "maxBand": "high"
-    },
-    {
-      "id": "p27",
-      "electionCount": 5,
-      "oblast": "SLV",
-      "obshtina": "SLV16",
-      "ekatte": "51809",
-      "centroid": {
-        "lat": 42.492974,
-        "lng": 26.010449
-      },
-      "sectionCount": 5,
-      "sections": [
-        "211600012",
-        "211600013",
-        "211600014",
-        "211600015",
-        "211600016"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 36.6
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 36.5
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 53.1
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 46.5
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 69.5
-        }
-      ],
-      "maxScore": 69.5,
-      "maxBand": "high"
-    },
-    {
-      "id": "p26",
-      "electionCount": 5,
-      "oblast": "PDV-00",
-      "obshtina": "PDV22",
-      "ekatte": "56784",
-      "centroid": {
-        "lat": 42.161346,
-        "lng": 24.721765
-      },
-      "sectionCount": 5,
-      "sections": [
-        "162204014",
-        "162204015",
-        "162204016",
-        "162204033",
-        "162204069"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 45.3
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 55.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 67.8
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 52.8
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 47.8
-        }
-      ],
-      "maxScore": 67.8,
-      "maxBand": "high"
-    },
-    {
-      "id": "p25",
-      "electionCount": 5,
-      "oblast": "SFO",
-      "obshtina": "SFO39",
-      "ekatte": "65231",
-      "centroid": {
-        "lat": 42.345886,
-        "lng": 23.560882
-      },
-      "sectionCount": 4,
-      "sections": [
-        "263900033",
-        "263900034",
-        "263900035",
-        "263900036"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 50.5
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 40.4
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 59.8
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 13,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 45
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 40.4
-        }
-      ],
-      "maxScore": 59.8,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p44",
-      "electionCount": 4,
-      "oblast": "S23",
-      "obshtina": "S2310",
-      "ekatte": "68134-2310",
-      "centroid": {
-        "lat": 42.682738,
-        "lng": 23.302504
-      },
-      "sectionCount": 6,
-      "sections": [
-        "234602016",
-        "234602021",
-        "234610111",
-        "234610112",
-        "234610113",
-        "234610116"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2022_10_02",
-          "partyNum": 9,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 57.5
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 12,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 43.9
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 46.5
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 70.6
-        }
-      ],
-      "maxScore": 70.6,
-      "maxBand": "high"
-    },
-    {
-      "id": "p20",
-      "electionCount": 4,
-      "oblast": "VAR",
-      "obshtina": "VAR06",
-      "ekatte": "10135",
-      "centroid": {
-        "lat": 43.243952,
-        "lng": 27.854685
-      },
-      "sectionCount": 3,
-      "sections": [
-        "030604298",
-        "030604300",
-        "030604308"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 70.2
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 41.4
-        },
-        {
-          "election": "2021_04_04",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 44.9
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 46.1
-        }
-      ],
-      "maxScore": 70.2,
-      "maxBand": "high"
-    },
-    {
-      "id": "p22",
-      "electionCount": 4,
-      "oblast": "S24",
-      "obshtina": "S2401",
-      "ekatte": "68134-2401",
-      "centroid": {
-        "lat": 42.693398,
-        "lng": 23.315226
-      },
-      "sectionCount": 34,
-      "sections": [
-        "234602005",
-        "234602008",
-        "234602093",
-        "234609001",
-        "234609017",
-        "234609026",
-        "234609028",
-        "234609029",
-        "234609068",
-        "234610001",
-        "234610015",
-        "234610027",
-        "234610031",
-        "234610109",
-        "244601011",
-        "244601017",
-        "244601023",
-        "244601024",
-        "244601028",
-        "244601043",
-        "244601044",
-        "244601045",
-        "244603006",
-        "244603028",
-        "244603039",
-        "244603054",
-        "244604006",
-        "244604020",
-        "244604028",
-        "244604035",
-        "254611006",
-        "254612025",
-        "254612040",
-        "254612042"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 9,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 62.1
-        },
-        {
-          "election": "2017_03_26",
-          "partyNum": 11,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 56.1
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 25,
-          "winnerNickName": "ПП",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 51.6
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 12,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 32,
-          "maxBand": "high",
-          "maxScore": 64.4
-        }
-      ],
-      "maxScore": 64.4,
-      "maxBand": "high"
-    },
-    {
-      "id": "p17",
       "electionCount": 4,
       "oblast": "PDV",
       "obshtina": "PDV37",
@@ -2641,7 +2230,7 @@
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 46.7
+          "maxScore": 37.4
         },
         {
           "election": "2017_03_26",
@@ -2649,8 +2238,8 @@
           "winnerNickName": "БСП",
           "winnerColor": "rgb(237, 28, 36)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 57
+          "maxBand": "high",
+          "maxScore": 44.8
         },
         {
           "election": "2024_10_27",
@@ -2659,7 +2248,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 50.9
+          "maxScore": 27.3
         },
         {
           "election": "2026_04_19",
@@ -2668,14 +2257,131 @@
           "winnerColor": "#034a3f",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 49.1
+          "maxScore": 39.3
         }
       ],
-      "maxScore": 57,
+      "maxScore": 44.8,
+      "maxBand": "high"
+    },
+    {
+      "id": "p43",
+      "electionCount": 4,
+      "oblast": "SFO",
+      "obshtina": "SFO39",
+      "ekatte": "65231",
+      "centroid": {
+        "lat": 42.34583,
+        "lng": 23.560867
+      },
+      "sectionCount": 4,
+      "sections": [
+        "263900033",
+        "263900034",
+        "263900035",
+        "263900036"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 40.4
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 32.3
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 13,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 28.4
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 25.5
+        }
+      ],
+      "maxScore": 40.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p22",
+      "electionCount": 4,
+      "oblast": "SZR",
+      "obshtina": "SZR31",
+      "ekatte": "68850",
+      "centroid": {
+        "lat": 42.431938,
+        "lng": 25.605612
+      },
+      "sectionCount": 3,
+      "sections": [
+        "273100136",
+        "273100137",
+        "273100138"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 6,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 30.3
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.5
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 39.6
+        },
+        {
+          "election": "2024_10_27",
+          "partyNum": 8,
+          "winnerNickName": "ДПС-НН",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 30.7
+        }
+      ],
+      "maxScore": 39.6,
       "maxBand": "elevated"
     },
     {
-      "id": "p6",
+      "id": "p12",
       "electionCount": 3,
       "oblast": "BGS",
       "obshtina": "BGS04",
@@ -2705,7 +2411,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 5,
           "maxBand": "high",
-          "maxScore": 68.6
+          "maxScore": 51.4
         },
         {
           "election": "2013_05_12",
@@ -2714,7 +2420,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 5,
           "maxBand": "high",
-          "maxScore": 71.5
+          "maxScore": 53.6
         },
         {
           "election": "2014_10_05",
@@ -2723,68 +2429,173 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 7,
           "maxBand": "critical",
-          "maxScore": 94.4
+          "maxScore": 70.8
         }
       ],
-      "maxScore": 94.4,
+      "maxScore": 70.8,
       "maxBand": "critical"
     },
     {
-      "id": "p31",
+      "id": "p42",
       "electionCount": 3,
-      "oblast": "HKV",
-      "obshtina": "HKV28",
-      "ekatte": "65677",
+      "oblast": "VAR",
+      "obshtina": "VAR06",
+      "ekatte": "10135",
       "centroid": {
-        "lat": 41.770517,
-        "lng": 26.202656
+        "lat": 43.179657,
+        "lng": 27.891326
       },
-      "sectionCount": 5,
+      "sectionCount": 3,
       "sections": [
-        "292800003",
-        "292800018",
-        "292800021",
-        "292800022",
-        "292800023"
+        "030605361",
+        "030605362",
+        "030605372"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2017_03_26",
-          "partyNum": 10,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 53
-        },
-        {
-          "election": "2021_07_11",
-          "partyNum": 22,
-          "winnerNickName": "ИТН",
-          "winnerColor": "rgb(75, 185, 222)",
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 62.7
+          "maxBand": "critical",
+          "maxScore": 63.1
         },
         {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31.8
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31.3
+        }
+      ],
+      "maxScore": 63.1,
+      "maxBand": "critical"
+    },
+    {
+      "id": "p41",
+      "electionCount": 3,
+      "oblast": "VAR",
+      "obshtina": "VAR06",
+      "ekatte": "10135",
+      "centroid": {
+        "lat": 43.243952,
+        "lng": 27.854685
+      },
+      "sectionCount": 3,
+      "sections": [
+        "030604298",
+        "030604300",
+        "030604308"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "critical",
+          "maxScore": 62.2
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31.9
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.4
+        }
+      ],
+      "maxScore": 62.2,
+      "maxBand": "critical"
+    },
+    {
+      "id": "p26",
+      "electionCount": 3,
+      "oblast": "S23",
+      "obshtina": "S2310",
+      "ekatte": "68134-2310",
+      "centroid": {
+        "lat": 42.66431,
+        "lng": 23.297536
+      },
+      "sectionCount": 12,
+      "sections": [
+        "234610063",
+        "234610065",
+        "234610072",
+        "234610090",
+        "234610092",
+        "234610093",
+        "234610094",
+        "234610095",
+        "234610098",
+        "234610099",
+        "234610100",
+        "234610101"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 15,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 8,
+          "maxBand": "high",
+          "maxScore": 52.3
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 7,
+          "maxBand": "high",
+          "maxScore": 59.9
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 76.7
+          "maxScore": 40.4
         }
       ],
-      "maxScore": 76.7,
+      "maxScore": 59.9,
       "maxBand": "high"
     },
     {
-      "id": "p45",
+      "id": "p62",
       "electionCount": 3,
       "oblast": "S23",
-      "obshtina": "S2308",
+      "obshtina": "S2316",
       "ekatte": "68134-2316",
       "centroid": {
         "lat": 42.665156,
@@ -2809,7 +2620,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "high",
-          "maxScore": 66.7
+          "maxScore": 40
         },
         {
           "election": "2024_10_27",
@@ -2817,8 +2628,8 @@
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 68.5
+          "maxBand": "elevated",
+          "maxScore": 38.5
         },
         {
           "election": "2026_04_19",
@@ -2827,168 +2638,70 @@
           "winnerColor": "#034a3f",
           "sectionCount": 7,
           "maxBand": "high",
-          "maxScore": 71.1
+          "maxScore": 51.6
         }
       ],
-      "maxScore": 71.1,
+      "maxScore": 51.6,
       "maxBand": "high"
     },
     {
-      "id": "p32",
+      "id": "p49",
       "electionCount": 3,
-      "oblast": "BGS",
-      "obshtina": "BGS04",
-      "ekatte": "07079",
+      "oblast": "KRZ",
+      "obshtina": "KRZ15",
+      "ekatte": "30538",
       "centroid": {
-        "lat": 42.62556,
-        "lng": 27.486162
+        "lat": 41.442563,
+        "lng": 25.628783
       },
       "sectionCount": 3,
       "sections": [
-        "020400260",
-        "020400261",
-        "020400262"
+        "091500007",
+        "091500069",
+        "091500071"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2017_03_26",
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 35.3
+        },
+        {
+          "election": "2021_04_04",
           "partyNum": 9,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 49.5
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
           "maxBand": "high",
-          "maxScore": 63.4
+          "maxScore": 50.4
         },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 46.7
-        }
-      ],
-      "maxScore": 63.4,
-      "maxBand": "high"
-    },
-    {
-      "id": "p46",
-      "electionCount": 3,
-      "oblast": "SZR",
-      "obshtina": "SZR31",
-      "ekatte": "68850",
-      "centroid": {
-        "lat": 42.431938,
-        "lng": 25.605612
-      },
-      "sectionCount": 3,
-      "sections": [
-        "273100136",
-        "273100137",
-        "273100138"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
         {
           "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 57.8
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 28,
+          "partyNum": 1,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 62.7
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 58.8
+          "maxScore": 28.4
         }
       ],
-      "maxScore": 62.7,
+      "maxScore": 50.4,
       "maxBand": "high"
     },
     {
-      "id": "p41",
-      "electionCount": 3,
-      "oblast": "PAZ",
-      "obshtina": "PAZ21",
-      "ekatte": "56277",
-      "centroid": {
-        "lat": 42.033078,
-        "lng": 24.317992
-      },
-      "sectionCount": 3,
-      "sections": [
-        "132100001",
-        "132100002",
-        "132100023"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2021_07_11",
-          "partyNum": 4,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 55.4
-        },
-        {
-          "election": "2024_06_09",
-          "partyNum": 22,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 37.2
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 52.5
-        }
-      ],
-      "maxScore": 55.4,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p35",
+      "id": "p54",
       "electionCount": 3,
       "oblast": "SFO",
       "obshtina": "SFO20",
       "ekatte": "32901",
       "centroid": {
-        "lat": 42.428821,
-        "lng": 23.825407
+        "lat": 42.429326,
+        "lng": 23.825352
       },
       "sectionCount": 4,
       "sections": [
@@ -3006,15 +2719,15 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 41.5
+          "maxScore": 31.1
         },
         {
           "election": "2021_04_04",
           "partyNum": 28,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
+          "sectionCount": 4,
+          "maxBand": "high",
           "maxScore": 48.1
         },
         {
@@ -3024,47 +2737,47 @@
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 50.7
+          "maxScore": 32.2
         }
       ],
-      "maxScore": 50.7,
-      "maxBand": "elevated"
+      "maxScore": 48.1,
+      "maxBand": "high"
     },
     {
-      "id": "p39",
+      "id": "p50",
       "electionCount": 3,
-      "oblast": "BLG",
-      "obshtina": "BLG33",
-      "ekatte": "56126",
+      "oblast": "SZR",
+      "obshtina": "SZR36",
+      "ekatte": "81414",
       "centroid": {
-        "lat": 41.399811,
-        "lng": 23.214851
+        "lat": 42.199635,
+        "lng": 25.320324
       },
       "sectionCount": 3,
       "sections": [
-        "013300030",
-        "013300031",
-        "013300032"
+        "273600006",
+        "273600007",
+        "273600032"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2021_04_04",
-          "partyNum": 28,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 42.2
+          "maxScore": 36.8
         },
         {
-          "election": "2021_07_11",
-          "partyNum": 5,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 37.5
+          "maxBand": "high",
+          "maxScore": 45.7
         },
         {
           "election": "2023_04_02",
@@ -3072,49 +2785,409 @@
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 48.6
+          "maxBand": "high",
+          "maxScore": 46.9
         }
       ],
-      "maxScore": 48.6,
-      "maxBand": "elevated"
+      "maxScore": 46.9,
+      "maxBand": "high"
     },
     {
-      "id": "p15",
+      "id": "p45",
       "electionCount": 3,
-      "oblast": "BGS",
-      "obshtina": "BGS09",
-      "ekatte": "36525",
+      "oblast": "PDV-00",
+      "obshtina": "PDV22",
+      "ekatte": "56784",
       "centroid": {
-        "lat": 42.646799,
-        "lng": 26.979467
+        "lat": 42.161346,
+        "lng": 24.721765
       },
-      "sectionCount": 4,
+      "sectionCount": 5,
       "sections": [
-        "020900006",
-        "020900018",
-        "020900020",
-        "020900025"
+        "162204014",
+        "162204015",
+        "162204016",
+        "162204033",
+        "162204069"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2013_05_12",
-          "partyNum": 5,
-          "winnerNickName": "БСП",
-          "winnerColor": "rgb(237, 28, 36)",
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 45.3
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 44.8
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 41.7
+        }
+      ],
+      "maxScore": 45.3,
+      "maxBand": "high"
+    },
+    {
+      "id": "p48",
+      "electionCount": 3,
+      "oblast": "BGS",
+      "obshtina": "BGS04",
+      "ekatte": "07079",
+      "centroid": {
+        "lat": 42.499812,
+        "lng": 27.468863
+      },
+      "sectionCount": 10,
+      "sections": [
+        "020400005",
+        "020400036",
+        "020400053",
+        "020400060",
+        "020400061",
+        "020400062",
+        "020400295",
+        "020400329",
+        "020400331",
+        "020400335"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 48
+          "maxScore": 36.5
         },
+        {
+          "election": "2017_03_26",
+          "partyNum": 11,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 8,
+          "maxBand": "high",
+          "maxScore": 42.7
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 43.7
+        }
+      ],
+      "maxScore": 43.7,
+      "maxBand": "high"
+    },
+    {
+      "id": "p61",
+      "electionCount": 3,
+      "oblast": "S25",
+      "obshtina": "S2519",
+      "ekatte": "68134-2519",
+      "centroid": {
+        "lat": 42.719579,
+        "lng": 23.233186
+      },
+      "sectionCount": 3,
+      "sections": [
+        "254619071",
+        "254619072",
+        "254619132"
+      ],
+      "problemSectionCount": 3,
+      "problemNeighborhood": {
+        "id": "filipovci",
+        "nameBg": "Филиповци",
+        "nameEn": "Filipovci"
+      },
+      "appearances": [
         {
           "election": "2022_10_02",
           "partyNum": 24,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 42.4
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 43.7
+          "maxScore": 35
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 40
+        }
+      ],
+      "maxScore": 42.4,
+      "maxBand": "high"
+    },
+    {
+      "id": "p39",
+      "electionCount": 3,
+      "oblast": "SLV",
+      "obshtina": "SLV11",
+      "ekatte": "17436",
+      "centroid": {
+        "lat": 42.793823,
+        "lng": 26.541048
+      },
+      "sectionCount": 4,
+      "sections": [
+        "211100003",
+        "211100004",
+        "211100005",
+        "211100006"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 27.3
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 10,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 38.1
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.6
+        }
+      ],
+      "maxScore": 38.1,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p5",
+      "electionCount": 3,
+      "oblast": "PDV",
+      "obshtina": "PDV01",
+      "ekatte": "00702",
+      "centroid": {
+        "lat": 42.024599,
+        "lng": 24.840748
+      },
+      "sectionCount": 5,
+      "sections": [
+        "170100064",
+        "170100065",
+        "170100066",
+        "170100098",
+        "170100102"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 30.8
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 17,
+          "winnerNickName": "Десните",
+          "winnerColor": "rgb(32, 115, 190)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 38
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 29.2
+        }
+      ],
+      "maxScore": 38,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p15",
+      "electionCount": 3,
+      "oblast": "KRZ",
+      "obshtina": "KRZ16",
+      "ekatte": "53638",
+      "centroid": {
+        "lat": 41.602023,
+        "lng": 25.358935
+      },
+      "sectionCount": 4,
+      "sections": [
+        "091600066",
+        "091600067",
+        "091600127",
+        "091600128"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 35.5
+        },
+        {
+          "election": "2013_05_12",
+          "partyNum": 40,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.7
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 22.9
+        }
+      ],
+      "maxScore": 35.5,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p18",
+      "electionCount": 3,
+      "oblast": "BLG",
+      "obshtina": "BLG02",
+      "ekatte": "39270",
+      "centroid": {
+        "lat": 41.918515,
+        "lng": 23.588353
+      },
+      "sectionCount": 3,
+      "sections": [
+        "010200006",
+        "010200007",
+        "010200008"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 34.1
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32
+        },
+        {
+          "election": "2022_10_02",
+          "partyNum": 1,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 27.4
+        }
+      ],
+      "maxScore": 34.1,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p11",
+      "electionCount": 3,
+      "oblast": "PAZ",
+      "obshtina": "PAZ21",
+      "ekatte": "56277",
+      "centroid": {
+        "lat": 42.033078,
+        "lng": 24.317992
+      },
+      "sectionCount": 3,
+      "sections": [
+        "132100001",
+        "132100002",
+        "132100023"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 19,
+          "winnerNickName": "ОДС",
+          "winnerColor": "rgb(8, 70, 159)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 25.6
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.9
         },
         {
           "election": "2026_04_19",
@@ -3123,14 +3196,64 @@
           "winnerColor": "#034a3f",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 47.5
+          "maxScore": 33.2
         }
       ],
-      "maxScore": 48,
+      "maxScore": 33.2,
       "maxBand": "elevated"
     },
     {
-      "id": "p47",
+      "id": "p52",
+      "electionCount": 3,
+      "oblast": "KRZ",
+      "obshtina": "KRZ35",
+      "ekatte": "81236",
+      "centroid": {
+        "lat": 41.75731,
+        "lng": 25.352222
+      },
+      "sectionCount": 4,
+      "sections": [
+        "093500001",
+        "093500002",
+        "093500031",
+        "093500032"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.5
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 23.1
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 27.3
+        }
+      ],
+      "maxScore": 29.5,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p64",
       "electionCount": 2,
       "oblast": "PAZ",
       "obshtina": "PAZ19",
@@ -3155,7 +3278,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
           "maxBand": "high",
-          "maxScore": 63.9
+          "maxScore": 51.1
         },
         {
           "election": "2026_04_19",
@@ -3164,26 +3287,26 @@
           "winnerColor": "#034a3f",
           "sectionCount": 3,
           "maxBand": "critical",
-          "maxScore": 84.5
+          "maxScore": 63.4
         }
       ],
-      "maxScore": 84.5,
+      "maxScore": 63.4,
       "maxBand": "critical"
     },
     {
-      "id": "p48",
+      "id": "p20",
       "electionCount": 2,
       "oblast": "SHU",
       "obshtina": "SHU30",
       "ekatte": "83510",
       "centroid": {
-        "lat": 43.276597,
-        "lng": 26.912863
+        "lat": 43.275858,
+        "lng": 26.913644
       },
       "sectionCount": 5,
       "sections": [
-        "303000006",
         "303000010",
+        "303000042",
         "303000095",
         "303000125",
         "303000127"
@@ -3191,13 +3314,13 @@
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2023_04_02",
-          "partyNum": 2,
-          "winnerNickName": "ГЕРБ-СДС",
+          "election": "2009_07_05",
+          "partyNum": 3,
+          "winnerNickName": "ГЕРБ",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
-          "maxBand": "critical",
-          "maxScore": 84.4
+          "maxBand": "elevated",
+          "maxScore": 37.1
         },
         {
           "election": "2026_04_19",
@@ -3206,115 +3329,28 @@
           "winnerColor": "#034a3f",
           "sectionCount": 4,
           "maxBand": "critical",
-          "maxScore": 80.1
+          "maxScore": 60.1
         }
       ],
-      "maxScore": 84.4,
+      "maxScore": 60.1,
       "maxBand": "critical"
     },
     {
-      "id": "p9",
+      "id": "p66",
       "electionCount": 2,
-      "oblast": "S23",
-      "obshtina": "S2310",
-      "ekatte": "68134-2310",
+      "oblast": "SZR",
+      "obshtina": "SZR31",
+      "ekatte": "68850",
       "centroid": {
-        "lat": 42.664468,
-        "lng": 23.297295
-      },
-      "sectionCount": 9,
-      "sections": [
-        "234610063",
-        "234610065",
-        "234610072",
-        "234610092",
-        "234610093",
-        "234610094",
-        "234610095",
-        "234610098",
-        "234610099"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2013_05_12",
-          "partyNum": 15,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 69.7
-        },
-        {
-          "election": "2014_10_05",
-          "partyNum": 9,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 7,
-          "maxBand": "high",
-          "maxScore": 79.9
-        }
-      ],
-      "maxScore": 79.9,
-      "maxBand": "high"
-    },
-    {
-      "id": "p51",
-      "electionCount": 2,
-      "oblast": "LOV",
-      "obshtina": "LOV18",
-      "ekatte": "43952",
-      "centroid": {
-        "lat": 43.13312,
-        "lng": 24.708485
+        "lat": 42.425032,
+        "lng": 25.612488
       },
       "sectionCount": 4,
       "sections": [
-        "111800005",
-        "111800068",
-        "111800102",
-        "111800106"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2024_10_27",
-          "partyNum": 18,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 66.7
-        },
-        {
-          "election": "2026_04_19",
-          "partyNum": 21,
-          "winnerNickName": "ПрБ",
-          "winnerColor": "#034a3f",
-          "sectionCount": 3,
-          "maxBand": "high",
-          "maxScore": 60.3
-        }
-      ],
-      "maxScore": 66.7,
-      "maxBand": "high"
-    },
-    {
-      "id": "p50",
-      "electionCount": 2,
-      "oblast": "VAR",
-      "obshtina": "VAR06",
-      "ekatte": "10135",
-      "centroid": {
-        "lat": 43.207778,
-        "lng": 27.896216
-      },
-      "sectionCount": 4,
-      "sections": [
-        "030601073",
-        "030601074",
-        "030601075",
-        "030601076"
+        "273100089",
+        "273100090",
+        "273100108",
+        "273100207"
       ],
       "problemSectionCount": 0,
       "appearances": [
@@ -3323,85 +3359,47 @@
           "partyNum": 22,
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "high",
-          "maxScore": 64.9
-        },
-        {
-          "election": "2024_10_27",
-          "partyNum": 8,
-          "winnerNickName": "ДПС-НН",
-          "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 46.5
+          "maxScore": 33.4
+        },
+        {
+          "election": "2026_04_19",
+          "partyNum": 21,
+          "winnerNickName": "ПрБ",
+          "winnerColor": "#034a3f",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 59.3
         }
       ],
-      "maxScore": 64.9,
+      "maxScore": 59.3,
       "maxBand": "high"
     },
     {
-      "id": "p30",
+      "id": "p55",
       "electionCount": 2,
       "oblast": "BGS",
       "obshtina": "BGS04",
       "ekatte": "07079",
       "centroid": {
-        "lat": 42.500523,
-        "lng": 27.473581
-      },
-      "sectionCount": 6,
-      "sections": [
-        "020400005",
-        "020400036",
-        "020400053",
-        "020400295",
-        "020400331",
-        "020400335"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2017_03_26",
-          "partyNum": 11,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 5,
-          "maxBand": "elevated",
-          "maxScore": 56.9
-        },
-        {
-          "election": "2023_04_02",
-          "partyNum": 12,
-          "winnerNickName": "ПП-ДБ",
-          "winnerColor": "rgb(66, 0, 255)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 58.3
-        }
-      ],
-      "maxScore": 58.3,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p36",
-      "electionCount": 2,
-      "oblast": "BLG",
-      "obshtina": "BLG03",
-      "ekatte": "04279",
-      "centroid": {
-        "lat": 42.009578,
-        "lng": 23.102328
+        "lat": 42.4777,
+        "lng": 27.4414
       },
       "sectionCount": 5,
       "sections": [
-        "010300007",
-        "010300008",
-        "010300009",
-        "010300010",
-        "010300099"
+        "020400076",
+        "020400078",
+        "020400079",
+        "020400080",
+        "020400083"
       ],
-      "problemSectionCount": 0,
+      "problemSectionCount": 5,
+      "problemNeighborhood": {
+        "id": "pobeda_burgas",
+        "nameBg": "Победа (Бургас)",
+        "nameEn": "Pobeda (Burgas)"
+      },
       "appearances": [
         {
           "election": "2021_04_04",
@@ -3409,77 +3407,207 @@
           "winnerNickName": "ГЕРБ-СДС",
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 32.7
+          "maxBand": "high",
+          "maxScore": 45
         },
         {
           "election": "2024_06_09",
-          "partyNum": 28,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
+          "partyNum": 22,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 57.3
+          "maxScore": 30.6
         }
       ],
-      "maxScore": 57.3,
-      "maxBand": "elevated"
+      "maxScore": 45,
+      "maxBand": "high"
     },
     {
-      "id": "p42",
+      "id": "p47",
       "electionCount": 2,
-      "oblast": "MON",
-      "obshtina": "MON02",
-      "ekatte": "03928",
+      "oblast": "S24",
+      "obshtina": "S2403",
+      "ekatte": "68134-2403",
       "centroid": {
-        "lat": 43.226598,
-        "lng": 23.152882
+        "lat": 42.700146,
+        "lng": 23.305112
       },
-      "sectionCount": 3,
+      "sectionCount": 8,
       "sections": [
-        "120200018",
-        "120200019",
-        "120200020"
+        "244603009",
+        "244603011",
+        "244603026",
+        "244603028",
+        "244603039",
+        "244603054",
+        "254611006",
+        "254612025"
       ],
       "problemSectionCount": 0,
       "appearances": [
         {
-          "election": "2021_07_11",
-          "partyNum": 7,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
+          "election": "2014_10_05",
+          "partyNum": 9,
+          "winnerNickName": "ГЕРБ",
+          "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 52.8
+          "maxBand": "high",
+          "maxScore": 44.7
         },
         {
-          "election": "2024_06_09",
-          "partyNum": 28,
+          "election": "2023_04_02",
+          "partyNum": 12,
+          "winnerNickName": "ПП-ДБ",
+          "winnerColor": "rgb(66, 0, 255)",
+          "sectionCount": 7,
+          "maxBand": "elevated",
+          "maxScore": 35.3
+        }
+      ],
+      "maxScore": 44.7,
+      "maxBand": "high"
+    },
+    {
+      "id": "p32",
+      "electionCount": 2,
+      "oblast": "BGS",
+      "obshtina": "BGS09",
+      "ekatte": "36525",
+      "centroid": {
+        "lat": 42.646885,
+        "lng": 26.97949
+      },
+      "sectionCount": 4,
+      "sections": [
+        "020900006",
+        "020900018",
+        "020900020",
+        "020900025"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2013_05_12",
+          "partyNum": 5,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 43.7
+        },
+        {
+          "election": "2017_03_26",
+          "partyNum": 9,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 40.3
+          "maxScore": 38.9
         }
       ],
-      "maxScore": 52.8,
-      "maxBand": "elevated"
+      "maxScore": 43.7,
+      "maxBand": "high"
     },
     {
-      "id": "p38",
+      "id": "p53",
       "electionCount": 2,
-      "oblast": "KRZ",
-      "obshtina": "KRZ15",
-      "ekatte": "30538",
+      "oblast": "HKV",
+      "obshtina": "HKV28",
+      "ekatte": "65677",
       "centroid": {
-        "lat": 41.442563,
-        "lng": 25.628783
+        "lat": 41.77005,
+        "lng": 26.202546
+      },
+      "sectionCount": 7,
+      "sections": [
+        "292800001",
+        "292800003",
+        "292800010",
+        "292800018",
+        "292800021",
+        "292800022",
+        "292800023"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2017_03_26",
+          "partyNum": 10,
+          "winnerNickName": "БСП",
+          "winnerColor": "rgb(237, 28, 36)",
+          "sectionCount": 6,
+          "maxBand": "high",
+          "maxScore": 42.4
+        },
+        {
+          "election": "2023_04_02",
+          "partyNum": 2,
+          "winnerNickName": "ГЕРБ-СДС",
+          "winnerColor": "rgb(12, 69, 135)",
+          "sectionCount": 4,
+          "maxBand": "high",
+          "maxScore": 43.1
+        }
+      ],
+      "maxScore": 43.1,
+      "maxBand": "high"
+    },
+    {
+      "id": "p46",
+      "electionCount": 2,
+      "oblast": "BGS",
+      "obshtina": "BGS18",
+      "ekatte": "63224",
+      "centroid": {
+        "lat": 42.798482,
+        "lng": 27.283301
       },
       "sectionCount": 3,
       "sections": [
-        "091500007",
-        "091500069",
-        "091500071"
+        "021800001",
+        "021800002",
+        "021800003"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "high",
+          "maxScore": 41.9
+        },
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 22.7
+        }
+      ],
+      "maxScore": 41.9,
+      "maxBand": "high"
+    },
+    {
+      "id": "p56",
+      "electionCount": 2,
+      "oblast": "KRZ",
+      "obshtina": "KRZ14",
+      "ekatte": "21631",
+      "centroid": {
+        "lat": 41.383254,
+        "lng": 25.20895
+      },
+      "sectionCount": 3,
+      "sections": [
+        "091400029",
+        "091400030",
+        "091400074"
       ],
       "problemSectionCount": 0,
       "appearances": [
@@ -3490,64 +3618,23 @@
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 50.4
+          "maxScore": 36.9
         },
         {
-          "election": "2023_04_02",
-          "partyNum": 13,
+          "election": "2022_10_02",
+          "partyNum": 1,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 43.8
+          "maxScore": 39.2
         }
       ],
-      "maxScore": 50.4,
+      "maxScore": 39.2,
       "maxBand": "elevated"
     },
     {
-      "id": "p28",
-      "electionCount": 2,
-      "oblast": "PAZ",
-      "obshtina": "PAZ24",
-      "ekatte": "38844",
-      "centroid": {
-        "lat": 42.024349,
-        "lng": 24.109891
-      },
-      "sectionCount": 4,
-      "sections": [
-        "132400009",
-        "132400010",
-        "132400011",
-        "132400012"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 18,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 37.5
-        },
-        {
-          "election": "2021_11_14",
-          "partyNum": 17,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 47.7
-        }
-      ],
-      "maxScore": 47.7,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p49",
+      "id": "p65",
       "electionCount": 2,
       "oblast": "HKV",
       "obshtina": "HKV34",
@@ -3572,7 +3659,7 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 44.4
+          "maxScore": 33.3
         },
         {
           "election": "2024_06_09",
@@ -3581,95 +3668,14 @@
           "winnerColor": "rgb(12, 69, 135)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 47.7
+          "maxScore": 35.8
         }
       ],
-      "maxScore": 47.7,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p19",
-      "electionCount": 2,
-      "oblast": "SLV",
-      "obshtina": "SLV11",
-      "ekatte": "17436",
-      "centroid": {
-        "lat": 42.793823,
-        "lng": 26.541048
-      },
-      "sectionCount": 4,
-      "sections": [
-        "211100003",
-        "211100004",
-        "211100005",
-        "211100006"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2014_10_05",
-          "partyNum": 9,
-          "winnerNickName": "ГЕРБ",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 4,
-          "maxBand": "elevated",
-          "maxScore": 36.4
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 24,
-          "winnerNickName": "ГЕРБ-СДС",
-          "winnerColor": "rgb(12, 69, 135)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 44.8
-        }
-      ],
-      "maxScore": 44.8,
+      "maxScore": 35.8,
       "maxBand": "elevated"
     },
     {
       "id": "p40",
-      "electionCount": 2,
-      "oblast": "VAR",
-      "obshtina": "VAR06",
-      "ekatte": "10135",
-      "centroid": {
-        "lat": 43.179657,
-        "lng": 27.891326
-      },
-      "sectionCount": 3,
-      "sections": [
-        "030605361",
-        "030605362",
-        "030605372"
-      ],
-      "problemSectionCount": 0,
-      "appearances": [
-        {
-          "election": "2021_04_04",
-          "partyNum": 9,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 39.7
-        },
-        {
-          "election": "2022_10_02",
-          "partyNum": 1,
-          "winnerNickName": "ДПС",
-          "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
-          "maxBand": "elevated",
-          "maxScore": 42.7
-        }
-      ],
-      "maxScore": 42.7,
-      "maxBand": "elevated"
-    },
-    {
-      "id": "p29",
       "electionCount": 2,
       "oblast": "HKV",
       "obshtina": "HKV34",
@@ -3692,21 +3698,467 @@
           "partyNum": 18,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
-          "sectionCount": 3,
+          "sectionCount": 4,
           "maxBand": "elevated",
-          "maxScore": 31.7
+          "maxScore": 30.8
         },
         {
-          "election": "2021_11_14",
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 35
+        }
+      ],
+      "maxScore": 35,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p14",
+      "electionCount": 2,
+      "oblast": "KRZ",
+      "obshtina": "KRZ02",
+      "ekatte": "07747",
+      "centroid": {
+        "lat": 41.546504,
+        "lng": 25.073457
+      },
+      "sectionCount": 4,
+      "sections": [
+        "090200010",
+        "090200015",
+        "090200018",
+        "090200034"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 34.6
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 34.8
+        }
+      ],
+      "maxScore": 34.8,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p16",
+      "electionCount": 2,
+      "oblast": "BLG",
+      "obshtina": "BLG11",
+      "ekatte": "06306",
+      "centroid": {
+        "lat": 41.672411,
+        "lng": 23.660562
+      },
+      "sectionCount": 4,
+      "sections": [
+        "011100032",
+        "011100033",
+        "011100034",
+        "011100035"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 33
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 34.8
+        }
+      ],
+      "maxScore": 34.8,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p19",
+      "electionCount": 2,
+      "oblast": "BLG",
+      "obshtina": "BLG42",
+      "ekatte": "12499",
+      "centroid": {
+        "lat": 41.528534,
+        "lng": 23.985556
+      },
+      "sectionCount": 3,
+      "sections": [
+        "014200004",
+        "014200005",
+        "014200006"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.3
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 33.4
+        }
+      ],
+      "maxScore": 33.4,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p57",
+      "electionCount": 2,
+      "oblast": "KRZ",
+      "obshtina": "KRZ21",
+      "ekatte": "48996",
+      "centroid": {
+        "lat": 41.527833,
+        "lng": 25.41115
+      },
+      "sectionCount": 4,
+      "sections": [
+        "092100001",
+        "092100006",
+        "092100007",
+        "092100063"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.5
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 32.9
+        }
+      ],
+      "maxScore": 32.9,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p59",
+      "electionCount": 2,
+      "oblast": "MON",
+      "obshtina": "MON02",
+      "ekatte": "03928",
+      "centroid": {
+        "lat": 43.226598,
+        "lng": 23.152882
+      },
+      "sectionCount": 3,
+      "sections": [
+        "120200018",
+        "120200019",
+        "120200020"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2021_07_11",
+          "partyNum": 7,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 28
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31.8
+        }
+      ],
+      "maxScore": 31.8,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p58",
+      "electionCount": 2,
+      "oblast": "KRZ",
+      "obshtina": "KRZ16",
+      "ekatte": "56928",
+      "centroid": {
+        "lat": 41.651444,
+        "lng": 25.402966
+      },
+      "sectionCount": 3,
+      "sections": [
+        "091600074",
+        "091600142",
+        "091600143"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2021_04_04",
+          "partyNum": 9,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 24.7
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 31
+        }
+      ],
+      "maxScore": 31,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p9",
+      "electionCount": 2,
+      "oblast": "SHU",
+      "obshtina": "SHU07",
+      "ekatte": "87610",
+      "centroid": {
+        "lat": 43.544831,
+        "lng": 26.839099
+      },
+      "sectionCount": 4,
+      "sections": [
+        "300700005",
+        "300700013",
+        "300700014",
+        "300700015"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
           "partyNum": 17,
           "winnerNickName": "ДПС",
           "winnerColor": "rgb(33, 125, 223)",
           "sectionCount": 3,
           "maxBand": "elevated",
-          "maxScore": 34
+          "maxScore": 27
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 4,
+          "maxBand": "elevated",
+          "maxScore": 30.8
         }
       ],
-      "maxScore": 34,
+      "maxScore": 30.8,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p21",
+      "electionCount": 2,
+      "oblast": "SLS",
+      "obshtina": "SLS32",
+      "ekatte": "32839",
+      "centroid": {
+        "lat": 43.999469,
+        "lng": 26.965358
+      },
+      "sectionCount": 3,
+      "sections": [
+        "203200606",
+        "203200607",
+        "203200608"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 26.7
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29.7
+        }
+      ],
+      "maxScore": 29.7,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p24",
+      "electionCount": 2,
+      "oblast": "RAZ",
+      "obshtina": "RAZ11",
+      "ekatte": "54417",
+      "centroid": {
+        "lat": 43.68787,
+        "lng": 26.60697
+      },
+      "sectionCount": 3,
+      "sections": [
+        "181100010",
+        "181100011",
+        "181100012"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2009_07_05",
+          "partyNum": 4,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 29
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 26.7
+        }
+      ],
+      "maxScore": 29,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p7",
+      "electionCount": 2,
+      "oblast": "PAZ",
+      "obshtina": "PAZ03",
+      "ekatte": "51874",
+      "centroid": {
+        "lat": 41.934715,
+        "lng": 24.267826
+      },
+      "sectionCount": 3,
+      "sections": [
+        "130300006",
+        "130300007",
+        "130300008"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2005_06_25",
+          "partyNum": 17,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 28.3
+        },
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 25.2
+        }
+      ],
+      "maxScore": 28.3,
+      "maxBand": "elevated"
+    },
+    {
+      "id": "p51",
+      "electionCount": 2,
+      "oblast": "BLG",
+      "obshtina": "BLG53",
+      "ekatte": "87338",
+      "centroid": {
+        "lat": 42.019473,
+        "lng": 23.671312
+      },
+      "sectionCount": 5,
+      "sections": [
+        "015300001",
+        "015300002",
+        "015300004",
+        "015300006",
+        "015300007"
+      ],
+      "problemSectionCount": 0,
+      "appearances": [
+        {
+          "election": "2014_10_05",
+          "partyNum": 18,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 3,
+          "maxBand": "elevated",
+          "maxScore": 27.8
+        },
+        {
+          "election": "2024_06_09",
+          "partyNum": 28,
+          "winnerNickName": "ДПС",
+          "winnerColor": "rgb(33, 125, 223)",
+          "sectionCount": 5,
+          "maxBand": "elevated",
+          "maxScore": 26.5
+        }
+      ],
+      "maxScore": 27.8,
       "maxBand": "elevated"
     }
   ]
