@@ -585,6 +585,43 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // Per-obshtina municipal roster (matview municipal_officials_table, migration 102) —
+  // replaces the by_obshtina/<code>.json shards and municipal/search_index.json.
+  //
+  // ONE ROW PER ROSTER LISTING, not per person: 46 people sit on more than one municipal
+  // body, so person_slug is NOT unique here and official_slug is the key/tiebreak. Scope a
+  // municipality page with obshtina; the cross-municipality name search the old
+  // search_index.json served is the global `search` over name + municipality.
+  municipal_officials: {
+    base: "municipal_officials_table",
+    scopeCols: ["obshtina"],
+    columns: {
+      official_slug: { type: "text", filter: "in" },
+      person_slug: { type: "text", filter: "in" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      role: { type: "text", sort: true, filter: "in" },
+      role_raw: { type: "text", filter: "text" },
+      obshtina: { type: "text", filter: "in" },
+      municipality: { type: "text", sort: true, filter: "text", search: true },
+      latest_declaration_year: { type: "int", sort: true, filter: "range" },
+      has_declaration: { type: "bool", filter: "eq" },
+    },
+    select: [
+      "official_slug",
+      "person_slug",
+      "name",
+      "role",
+      "role_raw",
+      "obshtina",
+      "municipality",
+      "latest_declaration_year",
+      "has_declaration",
+    ],
+    defaultSort: [["name", "asc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 200,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //

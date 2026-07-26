@@ -113,6 +113,13 @@ const SUBJECT_ALIAS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/101_declaration_subject_alias.sql",
 );
+// The per-obshtina municipal roster served to a municipality page (T0.2). Reads
+// person_role + declaration, so it belongs in phase 2 after person_id is filled; it does
+// NOT read person_wealth_year, so it has no ordering constraint against 090's CASCADE.
+const MUNICIPAL_OFFICIALS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/102_municipal_officials.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -648,6 +655,7 @@ const resolve = async () => {
   // person_wealth_year, so applying it before the refresh would populate the
   // leaderboard from the pre-reload matview.
   await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(MUNICIPAL_OFFICIALS_SCHEMA, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
@@ -661,6 +669,7 @@ const resolve = async () => {
     "person_wealth_year",
     "person_cohort_wealth",
     "officials_rankings_table",
+    "municipal_officials_table",
     "declaration_stake_company",
   ])
     await exec(`ANALYZE ${t}`);
