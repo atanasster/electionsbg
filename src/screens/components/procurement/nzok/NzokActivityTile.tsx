@@ -64,6 +64,16 @@ export const NzokActivityTile: FC = () => {
               ? `За ${data.year} г. НЗОК заплати ${nf(data.totalCases, lang)} случая по ${nf(data.distinctProcedures, lang)} процедури в ${nf(data.distinctFacilities, lang)} лечебни заведения — включително частните болници. Това е знаменателят „на пациент", който липсва в отчетите за разходи.`
               : `In ${data.year} НЗОК paid for ${nf(data.totalCases, lang)} cases across ${nf(data.distinctProcedures, lang)} procedures in ${nf(data.distinctFacilities, lang)} facilities — private hospitals included. This is the per-patient denominator the spending reports lack.`}
           </p>
+          {/* The corpus is keyed by facility NAME, so a share of it never
+              reaches an EIK and is therefore absent from every per-hospital
+              view built on it. Stated here rather than left to be discovered. */}
+          {data.coverage && data.coverage.unmappedCases > 0 && (
+            <p className="text-xs text-muted-foreground">
+              {bg
+                ? `Източникът носи само име на лечебното заведение, без ЕИК. ${nf(data.coverage.unmappedCases, lang)} случая (${data.coverage.unmappedCasesPct}%) в ${nf(data.coverage.unmappedEntities, lang)} заведения не са свързани с ЕИК и затова не участват в разрезите по болница.`
+                : `The source carries a facility name only, no EIK. ${nf(data.coverage.unmappedCases, lang)} cases (${data.coverage.unmappedCasesPct}%) at ${nf(data.coverage.unmappedEntities, lang)} facilities are unlinked and so are absent from the per-hospital views.`}
+            </p>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="text-muted-foreground">

@@ -54,8 +54,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     WHERE a.period = (SELECT p FROM y) AND a.procedure = p_procedure
   ),
   tot AS (
+    -- DISTINCT entity_key, not COUNT(*) — see rule 5 in 053. One row per entity
+    -- per procedure is the invariant; counting entities says so out loud.
     SELECT COALESCE(SUM(cases), 0) AS cases, COALESCE(SUM(zol), 0) AS zol,
-           COUNT(*)::int AS facility_count, min(proc_type COLLATE "C") AS proc_type
+           COUNT(DISTINCT entity_key)::int AS facility_count,
+           min(proc_type COLLATE "C") AS proc_type
     FROM rows
   )
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM rows) THEN NULL ELSE jsonb_build_object(
@@ -80,10 +83,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                                   / NULLIF((SELECT cases FROM tot), 0) * 100), 1),
                'spendEur', CASE WHEN price_eur IS NULL THEN NULL
                                 ELSE ROUND(cases * price_eur) END)
-             ORDER BY cases DESC, facility_fold COLLATE "C")
+             ORDER BY cases DESC, entity_key COLLATE "C")
       FROM (
         SELECT * FROM rows
-        ORDER BY cases DESC, facility_fold COLLATE "C"
+        ORDER BY cases DESC, entity_key COLLATE "C"
         LIMIT 60
       ) t)
   ) END;

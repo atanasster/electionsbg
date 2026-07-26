@@ -271,9 +271,24 @@ export const brandTokens = (name: string): string[] =>
 // crosswalk — comment names the facility.
 export interface Sig {
   tokens: string[];
+  /** Tokens that must be ABSENT. A signature keyed on a town alone will happily
+   *  swallow every other facility in that town, so where the town IS the only
+   *  distinguishing token the sibling brands are excluded explicitly. */
+  notTokens?: string[];
   eik: string;
   rzok?: string;
 }
+
+// ── Branch markers. A name that declares itself a филиал/клон of some parent is
+// a SITE, not the local hospital of the same town, and the two are different
+// legal entities as often as not. Without this gate tier D matched "СБР НК ЕАД
+// филиал Поморие" and "СБР Вита ЕООД клон Поморие" onto МБАЛ Поморие's EIK
+// (102618523) purely on the shared town token — inventing an EIK the payments
+// feed itself leaves NULL, and folding three distinct facilities into one
+// hospital's case-mix. Tiers C/D therefore only pair branch with branch.
+const BRANCH_RE = /(^|[\s,.-])(ФИЛИАЛ|КЛОН|Ф\.)/i;
+const isBranch = (name: string): boolean =>
+  BRANCH_RE.test(name.toUpperCase().replace(/[«»"'`„“”‘’]/g, ""));
 
 // FORCE — applied BEFORE the automatic tiers, to override where a tier would
 // otherwise mis-hit. All МВР facilities (institute + Банкя/Хисар rehab filials) are
@@ -295,7 +310,25 @@ export const FALLBACK_SIGNATURES: Sig[] = [
   { tokens: ["КОЦ", "РУСЕ"], rzok: "18", eik: "117527022" }, // КОЦ Русе
   { tokens: ["ОНКОЛОГИЧЕН", "БУРГАС"], rzok: "02", eik: "000053191" }, // КОЦ Бургас
   { tokens: ["УНИВЕРСИТЕТСКА", "БУРГАС"], rzok: "02", eik: "102274111" }, // УМБАЛ Бургас
-  { tokens: ["ХАСКОВО"], rzok: "26", eik: "126529015" }, // МБАЛ Хасково
+  // МБАЛ Хасково, under both name forms НЗОК has used. The town is this
+  // hospital's ONLY distinguishing token (its brand folds to nothing), so each
+  // form is pinned to its own type word and the siblings that share the town —
+  // МБАЛ Хигия ООД and СБАЛО Хасково ЕООД, both DIFFERENT entities — are
+  // excluded. A bare {tokens:["ХАСКОВО"]} swallowed all three.
+  {
+    tokens: ["МБАЛ", "ХАСКОВО"],
+    notTokens: ["ХИГИЯ"],
+    rzok: "26",
+    eik: "126529015",
+  },
+  { tokens: ["МНОГОПРОФИЛНА", "ХАСКОВО"], rzok: "26", eik: "126529015" },
+  // Its two Хасково siblings, under НЗОК's expanded ALL-CAPS spelling. The
+  // acronym forms (СБАЛО-Хасково, СБАЛПФЗ Хасково) match tier A against the
+  // payments feed; the spelled-out forms match nothing, so without these the
+  // same hospital is two entities either side of м.07. EIKs from
+  // nzok_hospital_payments.
+  { tokens: ["ОНКОЛОГИЯ", "ХАСКОВО"], rzok: "26", eik: "000900156" }, // СБАЛО-Хасково ЕООД
+  { tokens: ["ФТИЗИАТРИЧНИ", "ХАСКОВО"], rzok: "26", eik: "000900131" }, // СБАЛПФЗ Хасково ЕООД
   // Dialysis chains (болнична-помощ payments feed doesn't carry them).
   { tokens: ["ФЪРСТ", "ДИАЛИЗИС"], eik: "131269708" }, // Фърст Диализис Сървисиз (all sites)
   { tokens: ["ДИАЛИЗЕН", "ДРУЖБА"], eik: "206217870" }, // Диализен център Дружба
@@ -309,7 +342,8 @@ const eqSet = (a: string[], b: string[]): boolean =>
 
 const sigMatches = (sig: Sig, foldToks: string[], rzok: string): boolean =>
   (!sig.rzok || sig.rzok === rzok) &&
-  sig.tokens.every((t) => foldToks.includes(t));
+  sig.tokens.every((t) => foldToks.includes(t)) &&
+  !(sig.notTokens ?? []).some((t) => foldToks.includes(t));
 
 export interface NamedEik {
   name: string;
@@ -335,7 +369,12 @@ export const buildActivityEikResolver = (
   // Brand index for the region-scoped tiers (payments only — it carries RZOK).
   const payBrand = payments
     .filter((h) => h.eik)
-    .map((h) => ({ eik: h.eik, rzok: h.rzok ?? "", br: brandTokens(h.name) }))
+    .map((h) => ({
+      eik: h.eik,
+      rzok: h.rzok ?? "",
+      br: brandTokens(h.name),
+      branch: isBranch(h.name),
+    }))
     .filter((h) => h.br.length && h.rzok);
   // Brand index for the financials exact-set fallback (no RZOK).
   const finBrand = financials
@@ -363,11 +402,19 @@ export const buildActivityEikResolver = (
     const ab = brandTokens(name);
     if (ab.length) {
       const abs = new Set(ab);
-      const pool = payBrand.filter((h) => h.rzok === rzok);
+      const nameIsBranch = isBranch(name);
+      // Every brand tier sees only same-branchness candidates. Tier B (exact
+      // brand-set equality) needs the gate as much as C/D do: the brand of a
+      // filial is routinely just its TOWN — "СБР НК ЕАД филиал Поморие" and
+      // "СБР Вита ЕООД клон Поморие" both reduce to [ПОМОРИЕ], which is set-EQUAL
+      // to МБАЛ Поморие's brand and so matched exactly, on the town alone.
+      const tierPool = payBrand.filter(
+        (h) => h.rzok === rzok && h.branch === nameIsBranch,
+      );
 
       // Tier B — exact brand-set equality.
       const setHit = uniqueEik(
-        pool.filter((h) => eqSet(h.br, ab)).map((h) => h.eik),
+        tierPool.filter((h) => eqSet(h.br, ab)).map((h) => h.eik),
       );
       if (setHit) return setHit;
 
@@ -377,7 +424,7 @@ export const buildActivityEikResolver = (
       const distinctive = (toks: string[]): boolean =>
         toks.some((t) => t.length >= 4 && !GENERIC.has(t));
       const subHit = uniqueEik(
-        pool
+        tierPool
           .filter((h) => {
             const hs = new Set(h.br);
             const shorter = h.br.length <= ab.length ? h.br : ab;
@@ -395,7 +442,7 @@ export const buildActivityEikResolver = (
       let best: string | null = null;
       let bestScore = 0;
       let tied = false;
-      for (const h of pool) {
+      for (const h of tierPool) {
         const inter = h.br.filter((t) => abs.has(t));
         if (!inter.some((t) => t.length >= 5 && !GENERIC.has(t))) continue;
         if (inter.length > bestScore) {
