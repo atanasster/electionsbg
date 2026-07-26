@@ -628,6 +628,149 @@ const REGISTRY = {
     maxPageSize: 200,
   },
 
+  // MP wealth leaderboard (matview mp_assets_rankings_table, migration 105) — replaces
+  // data/parliament/assets-rankings.json(+-top).
+  //
+  // FAN-OUT RESOURCE. Rows are emitted one per parliament the MP sat in, plus a literal
+  // ns = 'all' bucket for the national list, because an MP belongs to several and the
+  // engine scopes with a plain equality. `scope: { col: "ns", val: "52" }` is the current
+  // parliament; omitting the scope falls back to `defaultScope` — the national list —
+  // because the union of every bucket would count each MP once per parliament (2.0×
+  // here) with the count aggregate and every facet inflated identically, and look
+  // perfectly plausible. Never remove the defaultScope without removing the fan-out.
+  //
+  // THE FIGURES ARE NOT THE JSON'S, on purpose. They come from person_wealth_year, the
+  // same series /person, /officials/assets and the wealth chart render, whereas
+  // build_assets_rankings.ts also folded company shares (declaration table 10) into the
+  // total. 154 of the ranked MPs declare such shares and read lower here. The migration
+  // header explains why one number sitewide beat matching a file we are deleting.
+  //
+  // TWO YEAR COLUMNS, and they differ for 421 of the 767 ranked MPs:
+  // latest_declaration_year is when the filing was LODGED (label it), period_year is
+  // what it COVERS (join the wealth chart on it). Using one for the other shifts every
+  // annual filing by a year.
+  //
+  // Three distinguishable "no figure" states — do not render them the same way:
+  // person_slug NULL = not resolved to a public person; has_declaration false = nothing
+  // on record; has_declaration true with a NULL net_worth_eur = filed, declared no
+  // valued assets. The JSON could express none of these: it was built FROM declarations,
+  // so a non-filer simply had no row, and only 767 of the 2,122 MPs appeared at all.
+  mp_assets_rankings: {
+    base: "mp_assets_rankings_table",
+    scopeCols: ["ns"],
+    defaultScope: { col: "ns", val: "all" },
+    columns: {
+      ns: { type: "text" },
+      mp_id: { type: "int", filter: "in" },
+      person_slug: { type: "text", filter: "in" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      party_group_short: { type: "text", sort: true, filter: "in" },
+      is_current: { type: "bool", filter: "eq" },
+      latest_declaration_year: { type: "int", sort: true, filter: "range" },
+      latest_fiscal_year: { type: "int", filter: "range" },
+      period_year: { type: "int", sort: true, filter: "range" },
+      has_declaration: { type: "bool", filter: "eq" },
+      total_assets_eur: { type: "number", sort: true, filter: "range" },
+      total_debts_eur: { type: "number", sort: true, filter: "range" },
+      net_worth_eur: { type: "number", sort: true, filter: "range" },
+      real_estate_count: { type: "int", sort: true, filter: "range" },
+      real_estate_unvalued: { type: "int", sort: true, filter: "range" },
+      delta_previous_year: { type: "int" },
+      delta_absolute_eur: { type: "number", sort: true, filter: "range" },
+      delta_pct: { type: "number", sort: true, filter: "range" },
+    },
+    select: [
+      "mp_id",
+      "person_slug",
+      "name",
+      "party_group_short",
+      "is_current",
+      "latest_declaration_year",
+      "latest_fiscal_year",
+      "period_year",
+      "has_declaration",
+      "total_assets_eur",
+      "total_debts_eur",
+      "net_worth_eur",
+      "real_estate_count",
+      "real_estate_unvalued",
+      "delta_previous_year",
+      "delta_absolute_eur",
+      "delta_pct",
+    ],
+    defaultSort: [["net_worth_eur", "desc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
+
+  // MP declared vehicles (matview mp_cars_table, migration 105) — replaces
+  // data/parliament/mp-cars.json. Same ns fan-out and the same defaultScope rule as
+  // mp_assets_rankings above (3.2× inflation here if the default is ever removed).
+  //
+  // mp-cars.json itself has no byNs key — the per-parliament slice is a CLIENT-side
+  // filter today (MpCarsScreen.tsx:49). Note that screen also falls back to the full
+  // list when a parliament's slice is empty; the server has no equivalent, so a scoped
+  // query on an empty bucket returns an empty table. Tier 2 decides whether to keep
+  // that fallback in the client or drop it.
+  //
+  // ONE ROW PER DECLARED VEHICLE, not per MP: the /mp-cars table lists cars, and an MP
+  // with five of them contributes five rows. The dashboard's "top makes" tile asks a
+  // different question (how many MPs drive each make, so three VWs in one garage count
+  // once) — that is a distinct-MP count over these rows, never `count`.
+  //
+  // `make` is NULL when the declared text matched no alias in build_car_makes.ts's brand
+  // map. That is "unknown make", a real state the UI already labels; it is not a row to
+  // filter out, and the builder reports those strings so the map can be extended.
+  mp_cars: {
+    base: "mp_cars_table",
+    scopeCols: ["ns"],
+    defaultScope: { col: "ns", val: "all" },
+    columns: {
+      ns: { type: "text" },
+      car_id: { type: "int" },
+      mp_id: { type: "int", filter: "in" },
+      person_slug: { type: "text", filter: "in" },
+      mp_name: { type: "text", sort: true, filter: "text", search: true },
+      party_group_short: { type: "text", sort: true, filter: "in" },
+      is_current: { type: "bool", filter: "eq" },
+      make: { type: "text", sort: true, filter: "in" },
+      detail: { type: "text", filter: "text", search: true },
+      description: { type: "text", filter: "text" },
+      acquired_year: { type: "int", sort: true, filter: "range" },
+      value_eur: { type: "number", sort: true, filter: "range" },
+      amount: { type: "number" },
+      currency: { type: "text", filter: "in" },
+      is_spouse: { type: "bool", filter: "eq" },
+      share: { type: "text" },
+      merged_from_count: { type: "int" },
+      declaration_year: { type: "int", sort: true, filter: "range" },
+      source_url: { type: "text" },
+    },
+    select: [
+      "car_id",
+      "mp_id",
+      "person_slug",
+      "mp_name",
+      "party_group_short",
+      "is_current",
+      "make",
+      "detail",
+      "description",
+      "acquired_year",
+      "value_eur",
+      "amount",
+      "currency",
+      "is_spouse",
+      "share",
+      "merged_from_count",
+      "declaration_year",
+      "source_url",
+    ],
+    defaultSort: [["value_eur", "desc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 200,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //
@@ -747,11 +890,19 @@ const buildWhere = (r, req) => {
     params.push(...built.params);
   };
 
-  if (req.scope && req.scope.col) {
-    if (!r.scopeCols.includes(req.scope.col))
-      throw new Error(`bad scope column: ${req.scope.col}`);
-    params.push(req.scope.val);
-    where.push(`${req.scope.col} = $${params.length}`);
+  // A resource may declare a `defaultScope` applied when the caller sends none. Only
+  // FAN-OUT resources need it — those whose base emits one row per (entity, scope value)
+  // plus an aggregate bucket, where the union of every bucket is not a bigger answer but
+  // a WRONG one: each entity counted once per bucket it belongs to, with the `count`
+  // aggregate and every facet inflated to match, and no error anywhere. mp_assets_rankings
+  // (2.0×) and mp_cars (3.2×) are those; the other resources are one-row-per-entity and
+  // an absent scope legitimately means "all of them". Validated in db_table.test.js.
+  const scope = req.scope && req.scope.col ? req.scope : r.defaultScope;
+  if (scope && scope.col) {
+    if (!r.scopeCols.includes(scope.col))
+      throw new Error(`bad scope column: ${scope.col}`);
+    params.push(scope.val);
+    where.push(`${scope.col} = $${params.length}`);
   }
 
   for (const f of req.filters?.columns ?? []) {

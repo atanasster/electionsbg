@@ -120,6 +120,19 @@ const MUNICIPAL_OFFICIALS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/102_municipal_officials.sql",
 );
+// The MP roster tables (T0.3) and the serving surfaces built on them. The DATA is
+// COPYed by load_mp_roster_pg.ts — these are applied here only so that 090's
+// DROP … CASCADE, which takes mp_assets_rankings_table down with person_wealth_year,
+// is always followed by a recreate on the same path. 104 is idempotent
+// (CREATE TABLE IF NOT EXISTS) and never touches rows.
+const MP_ROSTER_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/104_mp_roster.sql",
+);
+const MP_SERVING_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/105_mp_serving.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -667,6 +680,14 @@ const resolve = async () => {
   // leaderboard from the pre-reload matview.
   await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(MUNICIPAL_OFFICIALS_SCHEMA, "utf-8"));
+  // Same rule again for the MP leaderboard (T0.3). It is applied HERE as well as in
+  // load_mp_roster_pg.ts because 090's `DROP MATERIALIZED VIEW … CASCADE` above takes
+  // mp_assets_rankings_table with it on every --resolve: without this line a resolve
+  // that does not also reload the roster would leave the resource missing entirely.
+  // 104 runs first so a database that has never seen the roster loader still gets the
+  // (empty) tables 105 selects from, rather than an aborted DDL.
+  await exec(fs.readFileSync(MP_ROSTER_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE
@@ -681,6 +702,8 @@ const resolve = async () => {
     "person_cohort_wealth",
     "officials_rankings_table",
     "municipal_officials_table",
+    "mp_assets_rankings_table",
+    "mp_cars_table",
     "declaration_stake_company",
   ])
     await exec(`ANALYZE ${t}`);

@@ -209,6 +209,7 @@ test("no resource carries unknown top-level registry keys", () => {
   const KNOWN = new Set([
     "base",
     "scopeCols",
+    "defaultScope",
     "columns",
     "select",
     "defaultSort",
@@ -218,4 +219,49 @@ test("no resource carries unknown top-level registry keys", () => {
   for (const [name, r] of Object.entries(REGISTRY))
     for (const k of Object.keys(r))
       assert.ok(KNOWN.has(k), `${name}: unknown registry key '${k}'`);
+});
+
+test("defaultScope, where declared, names a real scope column", () => {
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    if (!r.defaultScope) continue;
+    assert.ok(
+      r.defaultScope.col && typeof r.defaultScope.val === "string",
+      `${name}: defaultScope must be { col, val }`,
+    );
+    assert.ok(
+      r.scopeCols.includes(r.defaultScope.col),
+      `${name}: defaultScope column '${r.defaultScope.col}' is not in scopeCols — ` +
+        `buildWhere would throw on every unscoped request`,
+    );
+  }
+});
+
+// Fan-out resources — those whose base emits one row per (entity, scope value) — MUST
+// declare a defaultScope, because an unscoped query over them returns the union of every
+// bucket: each entity counted once per bucket, count aggregate and facets inflated to
+// match, and no error. Listed explicitly rather than inferred: nothing in the registry
+// distinguishes a fan-out base from a normal one, and a new fan-out resource shipping
+// without a default is precisely the regression this pins.
+test("every fan-out resource declares a defaultScope", () => {
+  const FAN_OUT = ["mp_assets_rankings", "mp_cars"];
+  for (const name of FAN_OUT) {
+    assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);
+    assert.ok(
+      REGISTRY[name].defaultScope,
+      `${name} fans out on ${REGISTRY[name].scopeCols.join("/")} but has no ` +
+        `defaultScope — an unscoped query would silently double-count`,
+    );
+  }
+});
+
+test("buildWhere applies defaultScope when the caller sends none", () => {
+  const { whereSql, params } = buildWhere(REGISTRY.mp_cars, {});
+  assert.match(whereSql, /ns = \$1/);
+  assert.deepEqual(params, ["all"]);
+
+  // An explicit scope still wins over the default.
+  const explicit = buildWhere(REGISTRY.mp_cars, {
+    scope: { col: "ns", val: "52" },
+  });
+  assert.deepEqual(explicit.params, ["52"]);
 });

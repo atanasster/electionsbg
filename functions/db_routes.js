@@ -2262,6 +2262,64 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? [] };
   },
+  // One MP's roster entry (migration 105) → replaces the by-id/<id>.json shard. Keyed
+  // EITHER by parliament.bg's mp id (`id`) or by person slug (`slug`): the id is what a
+  // caller holding a photo URL has, the slug is what PersonDashboard has, and neither
+  // surface should have to learn the other's key space. Returns null for an unknown id;
+  // a slug lookup additionally requires the person to be active + public.
+  "mp-entry": async (dbRows, q) => {
+    // MAX_SAFE_INTEGER, like the sibling declaration-detail route, and NOT a tight upper
+    // bound: clampInt clamps rather than rejects, so a ceiling of 1_000_000 answered
+    // `?id=99999999` with MP 1000000 — a different entity than the one asked for, where
+    // the route promises null for an unknown id. `lo` of 0 keeps `?id=0` / `?id=` (both
+    // trunc to 0) from being lifted onto MP 1; the fn returns NULL for them instead.
+    const id =
+      q.id != null ? clampInt(q.id, null, 0, Number.MAX_SAFE_INTEGER) : null;
+    // `s()` yields "" for an absent param, and mp_entry branches on `p_slug IS NOT NULL`
+    // — an empty string is not null, so pass a real NULL rather than a value the fn
+    // would go looking for in the slug space.
+    const slug = s(q, "slug") || null;
+    if (id == null && !slug) return { body: null };
+    const rows = await dbRows("SELECT mp_entry($1, $2) AS r", [id, slug]).catch(
+      missingMigrationEmpty,
+    );
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
+  // Every filing this person made, in full (assets/income/stakes/events), newest first
+  // → the declarations timeline. ONE query per person, which is the point: the client's
+  // mergeDeclarationTimelines() existed only because the JSON tree split one human's
+  // filings across a file per officials slug. Not restricted to the mp tier — an MP who
+  // also served as a minister filed under both, and hiding half their history would be
+  // an artifact of our ingest, not a fact about them.
+  //
+  // Payload vocabulary is declaration_detail()'s, arrayed. Heavier than
+  // `person-declarations` (which returns per-filing totals only), so call that one when
+  // the nested tables are not being rendered.
+  "mp-declarations": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT mp_declarations($1) AS r", [slug]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? [] };
+  },
+  // The wealth rollup for one person's latest filing (migration 105) → replaces the
+  // mp-assets/<id>.json shard. Answers for non-MPs too (a minister on PersonDashboard):
+  // mpId is simply null and the wealth is still there. Figures come from
+  // person_wealth_year, so this can never disagree with the wealth chart or the
+  // leaderboard — and, for the same reason, does not reproduce the JSON's totals, which
+  // folded company shares in. Object-shaped, so a missing-migration array degrades to
+  // null rather than a shape the client can't read.
+  "mp-assets": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT mp_assets($1) AS r", [slug]).catch(
+      missingMigrationEmpty,
+    );
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
   // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an

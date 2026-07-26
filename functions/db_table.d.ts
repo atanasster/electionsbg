@@ -25,10 +25,42 @@ export type DbRows = ((
   tx?: <T>(cb: (q: DbRows) => Promise<T>) => Promise<T>;
 };
 
+/** One whitelisted column on a resource. `col` redirects a logical filter id to a
+ *  different physical column; `search: true` enrols it in the global free-text OR. */
+export interface DbTableColumn {
+  type: "text" | "int" | "number" | "bool";
+  col?: string;
+  sort?: boolean;
+  filter?: string;
+  search?: boolean;
+  searchCol?: string;
+  searchFold?: boolean;
+  searchText?: boolean;
+  facetExpr?: string;
+}
+
+export interface DbTableResource {
+  base: string;
+  scopeCols: string[];
+  /** Applied by buildWhere when the caller sends no scope. Required for FAN-OUT bases
+   *  (one row per entity per scope value), where the union of every bucket double-counts
+   *  silently — see the mp_assets_rankings / mp_cars entries. */
+  defaultScope?: { col: string; val: string };
+  columns: Record<string, DbTableColumn>;
+  select: string[];
+  defaultSort?: [string, string][];
+  aggregates?: { fn: string; col?: string }[];
+  maxPageSize?: number;
+}
+
+/** The resource whitelist. Exported so a data test can check its column names against
+ *  the live schema — db_table.test.js can only validate the registry against itself. */
+export declare const REGISTRY: Record<string, DbTableResource>;
+
 declare const dbTable: {
   runDbTable: (q: DbRows, req: unknown) => Promise<DbTableResult>;
   runDbFacets: (q: DbRows, req: unknown) => Promise<DbFacetsResult>;
-  REGISTRY: Record<string, unknown>;
+  REGISTRY: Record<string, DbTableResource>;
 };
 
 export default dbTable;

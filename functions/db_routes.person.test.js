@@ -160,3 +160,83 @@ test("a non-migration DB error propagates on every route", async () => {
     "person-stake-procurement must not swallow a real error",
   );
 });
+
+// ─── mp-entry / mp-declarations / mp-assets (persons-pg-retirement T0.3) ─────────────────
+// Two of the three are OBJECT-shaped, and missingMigrationEmpty degrades to the array
+// sentinel `[{ r: [] }]` — so they need the `Array.isArray(r) ? null : r` guard or they
+// serve an array where the client destructures an object. That guard is one line and reads
+// like a redundant safety check, which is exactly why it needs a test before someone
+// "simplifies" it away.
+test("mp-* routes degrade to their own empty shape on a missing migration", async () => {
+  for (const code of MIGRATION_CODES) {
+    const entry = await DB_ROUTES["mp-entry"](mockDb(migrationMissing(code)), {
+      id: "10",
+    });
+    assert.equal(entry.body, null, `mp-entry (${code}) must degrade to null`);
+
+    const assets = await DB_ROUTES["mp-assets"](mockDb(migrationMissing(code)), {
+      slug: "mp-10",
+    });
+    assert.equal(assets.body, null, `mp-assets (${code}) must degrade to null`);
+
+    const decls = await DB_ROUTES["mp-declarations"](
+      mockDb(migrationMissing(code)),
+      { slug: "mp-10" },
+    );
+    assert.deepEqual(
+      decls.body,
+      [],
+      `mp-declarations (${code}) must degrade to []`,
+    );
+  }
+});
+
+// Without a key there is nothing to look up, and the route must not reach the database at
+// all — a bare `SELECT mp_entry(NULL, NULL)` would be a pointless round trip on every
+// malformed request.
+test("mp-* routes short-circuit when no key is supplied", async () => {
+  const db = mockDb([{ r: null }]);
+  assert.equal((await DB_ROUTES["mp-entry"](db, {})).body, null);
+  assert.deepEqual((await DB_ROUTES["mp-declarations"](db, {})).body, []);
+  assert.equal((await DB_ROUTES["mp-assets"](db, {})).body, null);
+  assert.equal(db.calls.length, 0, "no DB call without a key");
+});
+
+// mp-entry takes EITHER key. The id path must pass a number and a null slug, the slug path
+// the reverse — swapping them would silently look up a slug in the id space and answer null
+// for every real MP.
+test("mp-entry passes id and slug through in the right positions", async () => {
+  const byId = mockDb([{ r: { id: 10 } }]);
+  await DB_ROUTES["mp-entry"](byId, { id: "10" });
+  assert.deepEqual(byId.calls[0].params, [10, null]);
+
+  const bySlug = mockDb([{ r: { id: 10 } }]);
+  await DB_ROUTES["mp-entry"](bySlug, { slug: "mp-10" });
+  assert.deepEqual(bySlug.calls[0].params, [null, "mp-10"]);
+});
+
+// An out-of-range or malformed id must MISS, never be clamped onto a different MP. The
+// first cut capped at 1_000_000, so `?id=99999999` answered for MP 1000000 — a real entity,
+// a wrong answer, and no error.
+test("mp-entry does not clamp an out-of-range id onto another MP", async () => {
+  const db = mockDb([{ r: null }]);
+  await DB_ROUTES["mp-entry"](db, { id: "99999999" });
+  assert.equal(db.calls[0].params[0], 99999999, "id must reach SQL unclamped");
+
+  const zero = mockDb([{ r: null }]);
+  await DB_ROUTES["mp-entry"](zero, { id: "0" });
+  assert.equal(zero.calls[0].params[0], 0, "id 0 must stay 0, not become 1");
+});
+
+// A real database error is not a missing migration and must propagate — degrading it to an
+// empty body would render an MP as "no data" during an outage.
+test("mp-* routes propagate non-migration errors", async () => {
+  const boom = Object.assign(new Error("connection reset"), { code: "08006" });
+  await assert.rejects(() => DB_ROUTES["mp-entry"](mockDb(boom), { id: "10" }));
+  await assert.rejects(() =>
+    DB_ROUTES["mp-assets"](mockDb(boom), { slug: "mp-10" }),
+  );
+  await assert.rejects(() =>
+    DB_ROUTES["mp-declarations"](mockDb(boom), { slug: "mp-10" }),
+  );
+});
