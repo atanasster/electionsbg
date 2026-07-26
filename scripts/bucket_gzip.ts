@@ -52,14 +52,17 @@ const GLOBAL_FILES = [
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
   "officials/municipal/search_index.json",
-  "prices/index.json",
-  "prices/dict.json",
-  "prices/ranking.json",
-  "prices/chains.json",
-  // NOTE: procurement AND funds are served from Cloud SQL (/api/db/*), not GCS.
-  // The whole data/procurement/ tree (except roads.json + derived/mp_party.json)
-  // and the whole data/funds/ tree are excluded from bucket:sync and no longer
-  // gzip-uploaded here (funds/confirmed.json is now a fund_payloads row).
+  // NOTE: procurement, funds AND prices are served from Cloud SQL (/api/db/*),
+  // not GCS. The whole data/procurement/ tree (except roads.json +
+  // derived/mp_party.json) and the whole data/funds/ tree are excluded from
+  // bucket:sync and no longer gzip-uploaded here (funds/confirmed.json is now a
+  // fund_payloads row). Same for data/prices/ since migration 048: every
+  // dashboard payload lives in price_payloads and is served by
+  // /api/db/price-payload, so prices/{index,dict,ranking,chains}.json were
+  // dropped from this list. The two files still under data/prices/ —
+  // product_slugs.json (prerender + sitemap) and product_overrides.json (an
+  // input to rebuild_catalog) — are read from the local repo path at build
+  // time, never fetched over HTTP, so they are not uploaded at all.
 ];
 
 // Per-election files (one per ballot folder, YYYY_MM_DD[...]).

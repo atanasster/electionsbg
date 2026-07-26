@@ -672,15 +672,17 @@ Default to asking unless the user said "bootstrap markers" or "run all" or simil
    **Prefer the scoped sync.** The orchestrator always knows exactly which subtrees it touched, so emit those:
 
    ```bash
-   npm run bucket:sync:paths:dry -- prices myarea budget data_map.json data-changes.json   # preview
-   npm run bucket:sync:paths     -- prices myarea budget data_map.json data-changes.json   # push
+   npm run bucket:sync:paths:dry -- myarea budget data_map.json data-changes.json   # preview
+   npm run bucket:sync:paths     -- myarea budget data_map.json data-changes.json   # push
    ```
 
-   `bucket:sync` (the whole-tree rsync) must enumerate **both** full listings before diffing — ~1.03M local files and ~761k bucket objects — and its `-x` exclusions filter only AFTER enumeration, so the PG-served `procurement/` and `funds/` are walked anyway. That fixed overhead is ~30 min _regardless of churn_. Scoped to a typical day's subtrees it is ~1 min (measured 2026-07-10). Same flags, same result.
+   `bucket:sync` (the whole-tree rsync) must enumerate **both** full listings before diffing — ~1.03M local files and ~761k bucket objects — and its `-x` exclusions filter only AFTER enumeration, so the PG-served `procurement/`, `funds/` and `prices/` are walked anyway. That fixed overhead is ~30 min _regardless of churn_. Scoped to a typical day's subtrees it is ~1 min (measured 2026-07-10). Same flags, same result.
 
    Reach for the full `npm run bucket:sync` only after a run that rewrote unknown parts of the tree (e.g. `npm run prod`).
 
    `bucket:sync:paths` REFUSES `procurement/` (except `roads.json` + `derived/mp_party.json`), `funds/`, `parliament/company-connections/` and `_cache/` — the PG-served trees the whole-tree sync merely excludes by regex.
+
+   **Never sync `prices`.** Since migration 048 the price layer is Postgres-only: every dashboard payload lives in `price_payloads` and is served by `/api/db/price-payload`. The whole-tree `bucket:sync` excludes `^prices/.*`, and the two files still under `data/prices/` — `product_slugs.json` (prerender + sitemap) and `product_overrides.json` (an input to `rebuild_catalog`) — are read from the local repo path at build time and never fetched over HTTP. `bucket:sync:paths` deliberately still ACCEPTS `prices` so the one-time `--delete` reap of the orphaned pre-048 tree remains possible; don't pass it in a routine sync.
 
    **Deletions.** Neither sync passes `-d`, so a file removed from `data/` lingers on the bucket and is served forever (e.g. three `prices/settlement/*.json` dropped 2026-07-10 and stayed live). When a skill _removes_ files, dry-run the delete and read the "Would remove" lines before executing:
 
