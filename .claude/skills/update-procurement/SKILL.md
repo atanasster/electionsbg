@@ -88,6 +88,18 @@ One-time historical recovery (already run once): add `--backfill --from 2020-01-
 
 Caveats: the **incremental** gap-fill adds buyers we *lack* — it does not fill missing contracts of buyers we already have, because for any year the OCDS feed covers that would double-count the base. The one exception is years with **no** OCDS at all (2024/2025): there the `--include-existing-buyers` one-off (below) lifts that guard safely. It's the gap-fill, not a re-platform — the OCDS feed stays the base for every year it covers.
 
+**OCDS-lag covered-buyer gap + the eviction guard (2026-07-26).** АОП publishes the data.egov.bg OCDS export on a multi-week lag behind the live ЦАИС ЕОП feed (which is what `sigma.midt.bg` reads). While a fortnight sits published in the flat feed but not yet in OCDS, the incremental gap-fill drops every *covered* buyer's new contracts (deferring to the OCDS that hasn't arrived) — so recent contracts of hospitals, ministries etc. go missing and we lag SIGMA by weeks. Symptom: `SELECT max(date) FROM contracts WHERE contractor_eik=<supplier>` trails SIGMA; the missing УНП is in the cached flat feed (`gzcat raw_data/procurement/eop/<day>.json.gz | grep <unp>`) but absent from our corpus.
+
+Recover the whole gap in one shot (all buyers, not just the infra whitelist) — the window is OCDS-lag-end (newest ingested bundle `periodEnd` in `bundles.json`, +1 day) through the newest flat day:
+
+```bash
+npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup --backfill \
+  --from <ocds-periodEnd+1> --to <newest-flat-day>   # e.g. 2026-06-04 … 2026-07-24
+npm run procurement:ingest                            # rebuild; then db:load:pg (+ :cloud) to publish
+```
+
+This is now double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSupersededEopTwins` (`content_key.ts`): when АОП's OCDS export finally publishes that fortnight, the arriving OCDS row **evicts** the `eop-` twin it stood in for (content match, OCDS authoritative — the two feeds namespace `key`s disjointly, so the key merge alone would keep both). Validated on the real 2026-05-21…06-03 fortnight: 1827/1832 flat rows twin an OCDS row. This is the general form of the infra-buyer `--only-buyers` patch above; that whitelist is now redundant for correctness (the eviction handles the overlap for *any* buyer) but harmless. **Proposed (needs review):** switch the nightly incremental gap-fill itself to `--cross-source-dedup` over the rolling window so the gap self-heals without a manual recovery — the eviction guard makes that safe.
+
 ## Step 1c — Awarder geo-enrichment (place-view coverage)
 
 The flat ЦАИС ЕОП feed carries no buyer address, so the gap-fill schools (and legacy-only buyers) have no `geo` → they're dropped from `by_settlement` and the my-area place tiles. Two map-builders harvest geo from the same storage.eop.bg buckets, then `scripts/procurement/awarder_geo_map.ts` combines all tiers into an EKATTE override map; `buildRollups` applies it **fill-missing** (an address-derived geo always wins). Run after new buyers land, then rebuild:
