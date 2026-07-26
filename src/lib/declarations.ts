@@ -56,6 +56,34 @@ export type DeclarationLike = {
  *  Expects `declarations` newest-first — every producer writes them that way
  *  (`mergeDeclarations` sorts by recency; the MP writer sorts on write). Callers
  *  that build their own array must sort before calling. */
+/** Ceiling on a single declared ASSET row's euro value. Rows above it are excluded from
+ *  every wealth total, in both the SQL layer (asset_row_ceiling_eur() in
+ *  090_person_wealth.sql, which is the authority) and the JSON builders that still write
+ *  data/officials and data/parliament.
+ *
+ *  Exactly one row in the corpus exceeds it: a "ипотечен кредит" — a MORTGAGE, i.e. a
+ *  liability — filed in the SECURITIES table at 7,001,070,875 BGN (€3.58bn). It made that
+ *  person #1 on /officials/assets by a factor of 326 over the next entry, on an indexed,
+ *  prerendered page. The amount is wrong AND the category is wrong, so no override can
+ *  restore what was meant; excluding the row is the only honest option.
+ *
+ *  ASSETS ONLY. Excluding an asset understates wealth (cautious, and visible as a €0);
+ *  excluding a DEBT would overstate net worth — silently making someone look richer than
+ *  they declared, which an accountability page must never do. The largest declared debt is
+ *  already €47M, so a symmetric ceiling would be one filing from firing.
+ *
+ *  Keep this number equal to asset_row_ceiling_eur(). Two definitions of "implausible"
+ *  drifting apart is how a page and its chart end up disagreeing. */
+export const ASSET_ROW_CEILING_EUR = 50_000_000;
+
+/** True when an asset row can be totalled — i.e. it is a debt (never capped) or its value
+ *  is within the ceiling. */
+export const withinAssetCeiling = (a: {
+  category: string;
+  valueEur: number | null;
+}): boolean =>
+  a.category === "debt" || (a.valueEur ?? 0) <= ASSET_ROW_CEILING_EUR;
+
 export const latestDeclarationWith = <T extends DeclarationLike>(
   declarations: readonly T[],
   carries: (d: T) => boolean,

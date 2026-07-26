@@ -47,6 +47,11 @@ export interface OfficialsRankingRow {
   latestDeclarationYear: number | null;
   /** false = nothing on record. true with a NULL netWorthEur = filed, nothing valued. */
   hasDeclaration: boolean;
+  /** >0 means the totals below are INCOMPLETE: 090 could not total an implausible declared
+   *  row (a mortgage filed as a security at €3.58bn is the one case in the corpus). Render
+   *  a caveat rather than the figures alone — and suppress the year-on-year delta, which
+   *  differences a partial total against a whole one and invents a collapse. */
+  excludedAssetRows: number;
   totalAssetsEur: string | null;
   totalDebtsEur: string | null;
   netWorthEur: string | null;
@@ -94,7 +99,10 @@ export const useOfficialsRankingsTop = (limit = 5) => {
       const r = await fetch(
         `/api/db/table?q=${encodeURIComponent(JSON.stringify(req))}`,
       );
-      if (!r.ok) return undefined;
+      // Throw rather than returning undefined: swallowing the failure renders an empty
+      // tile that is indistinguishable from "no officials have declared assets", and
+      // React Query cannot retry or report a resolved promise.
+      if (!r.ok) throw new Error(`officials_rankings: ${r.status} ${r.url}`);
       return r.json();
     },
     staleTime: Infinity,

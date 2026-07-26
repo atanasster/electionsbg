@@ -34,6 +34,7 @@ import {
   byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
+  withinAssetCeiling,
 } from "../../src/lib/declarations";
 
 const ALL_CATEGORIES: MpAssetCategory[] = [
@@ -68,6 +69,10 @@ const totalsForDeclaration = (decl: MpDeclaration): DeclarationTotals => {
   for (const a of assets) {
     const bucket = byCategory[a.category];
     if (!bucket) continue;
+    // Implausible rows are excluded here exactly as person_wealth_year excludes them, so
+    // the JSON leaderboard and the PG one cannot disagree about the same human. See
+    // ASSET_ROW_CEILING_EUR.
+    if (!withinAssetCeiling(a)) continue;
     bucket.count++;
     if (a.valueEur != null) {
       bucket.valuedCount++;

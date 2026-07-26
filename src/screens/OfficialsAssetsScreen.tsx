@@ -14,6 +14,17 @@
 //  2. One row per PERSON, not per officials slug. Someone holding two posts filed once and
 //     was listed twice; they are one row now. 100's header works the arithmetic.
 //
+// And one that is NOT the person layer: the YoY column changed meaning by 100×. The JSON's
+// `delta.pct` was a RATIO (scripts/officials/rankings.ts: abs / |prior|), and the old page
+// ran .toFixed(0) over it — so Пеевски's −10.6% rendered as "0%" and every real movement
+// under ±50% read as zero. 100_officials_rankings.sql emits a PERCENT, so the column is
+// right now; it is called out because "the numbers changed" is otherwise indistinguishable
+// from a regression.
+//
+// A row whose total is incomplete (excludedAssetRows > 0 — 090 could not total an
+// implausible declared value) is marked with an asterisk and shows NO delta: differencing a
+// partial total against a whole one manufactures a collapse.
+//
 // Rows with no declared figures are NOT hidden. `hasDeclaration` tells the two blank states
 // apart — "filed, declared nothing of value" and "no declaration on record" — and the
 // second is arguably the more newsworthy for a sitting official. They sort last
@@ -69,7 +80,10 @@ export const OfficialsAssetsScreen: FC = () => {
         resource: "officials_rankings",
         columns: ["category"],
         fixedFilters: [{ id: "is_exec", value: true }],
-        limit: 40,
+        // OFFICIAL_CATEGORY_ORDER carries 37 buckets today; a limit of 40 leaves three
+        // slots, and runDbFacets orders by COUNT so the ones that would fall off are the
+        // rarest — exactly the chips a reader is least likely to notice missing.
+        limit: 100,
       };
       const r = await fetch(
         `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
@@ -169,7 +183,7 @@ export const OfficialsAssetsScreen: FC = () => {
             {row.original.latestDeclarationYear ??
               (row.original.hasDeclaration
                 ? "—"
-                : t("officials_no_declaration_short") || "не е подал")}
+                : t("officials_no_declaration_short") || "not filed")}
           </div>
         ),
       },
@@ -207,6 +221,17 @@ export const OfficialsAssetsScreen: FC = () => {
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono font-semibold">
             {fmtNum(eur(row.original.netWorthEur), i18n.language)}
+            {row.original.excludedAssetRows > 0 && (
+              <span
+                className="ml-1 text-amber-600 font-sans font-normal cursor-help"
+                title={
+                  t("officials_excluded_row_hint") ||
+                  "This filing declares a value we could not total; the figure is incomplete."
+                }
+              >
+                *
+              </span>
+            )}
           </div>
         ),
       },
@@ -233,7 +258,9 @@ export const OfficialsAssetsScreen: FC = () => {
         cell: ({ row }) => {
           const delta = eur(row.original.deltaAbsoluteEur);
           const pct = eur(row.original.deltaPct);
-          if (delta == null) {
+          // A delta against an incomplete total is a fabricated movement — the excluded
+          // row makes this year look like a collapse that never happened. Blank, not zero.
+          if (delta == null || row.original.excludedAssetRows > 0) {
             return (
               <div className="text-right text-xs text-muted-foreground">—</div>
             );

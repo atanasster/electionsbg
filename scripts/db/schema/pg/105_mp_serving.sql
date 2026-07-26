@@ -519,8 +519,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         FROM unnest(ARRAY['real_estate','vehicle','cash','bank',
                           'receivable','debt','investment','security']) AS c(cat)
         -- LEFT so a category the declarant left empty still emits its zero row.
+        -- The ceiling matches 090's: these header figures come from person_wealth_year,
+        -- which excludes implausible asset rows, so a composition summed without it would
+        -- exceed its own header by billions.
         LEFT JOIN declaration_asset a ON a.declaration_id = l.declaration_id
                                      AND a.category = c.cat
+                                     -- `value_eur IS NULL` FIRST: an unvalued row is a
+                                     -- real filing pattern (092 rule 4) and must still be
+                                     -- COUNTED. `NULL <= n` is NULL, not true, so omitting
+                                     -- this drops every unvalued item from `count` — it
+                                     -- reported 3 properties where the declarant filed 4.
+                                     AND (a.category = 'debt'
+                                          OR a.value_eur IS NULL
+                                          OR a.value_eur <= asset_row_ceiling_eur())
         GROUP BY c.cat
       ) x
     )

@@ -23,6 +23,7 @@ import {
   byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
+  withinAssetCeiling,
 } from "../../src/lib/declarations";
 import { ROOT, writeJson } from "./shared";
 
@@ -59,6 +60,11 @@ export const aggregateAssets = (
   let realEstateUnvalued = 0;
   for (const a of assets) {
     const v = a.valueEur ?? 0;
+    // Skip implausible rows, exactly as person_wealth_year does — the JSON this builds is
+    // still what the prerendered /officials/<slug> pages and the officialsAssetsTop AI tool
+    // read, so leaving it uncapped keeps publishing the €3.58bn artifact from a second
+    // source after the PG surfaces stopped. See ASSET_ROW_CEILING_EUR.
+    if (!withinAssetCeiling(a)) continue;
     if (a.category === "debt") totalDebtsEur += v;
     else totalAssetsEur += v;
     if (a.category === "real_estate") {

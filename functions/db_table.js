@@ -550,6 +550,9 @@ const REGISTRY = {
       position_title: { type: "text", filter: "text" },
       latest_declaration_year: { type: "int", sort: true, filter: "range" },
       has_declaration: { type: "bool", filter: "eq" },
+      // >0 means this person's totals are INCOMPLETE — 090 could not total an implausible
+      // declared row. The UI must caveat the figures rather than present them as whole.
+      excluded_asset_rows: { type: "int", filter: "range" },
       total_assets_eur: { type: "number", sort: true, filter: "range" },
       total_debts_eur: { type: "number", sort: true, filter: "range" },
       net_worth_eur: { type: "number", sort: true, filter: "range" },
@@ -571,6 +574,7 @@ const REGISTRY = {
       "position_title",
       "latest_declaration_year",
       "has_declaration",
+      "excluded_asset_rows",
       "total_assets_eur",
       "total_debts_eur",
       "net_worth_eur",

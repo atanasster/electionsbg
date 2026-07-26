@@ -132,7 +132,7 @@ latest AS (
   -- with no error raised anywhere.
   SELECT DISTINCT ON (w.person_id)
          w.person_id, w.period_year, w.declaration_id,
-         w.assets_eur, w.debts_eur, w.net_eur
+         w.assets_eur, w.debts_eur, w.net_eur, w.excluded_asset_rows
   FROM person_wealth_year w
   ORDER BY w.person_id, w.period_year DESC, w.declaration_id DESC
 ),
@@ -199,6 +199,11 @@ SELECT
   -- the header) introduces them, and "no declaration on record" for a sitting official is
   -- arguably the more newsworthy of the two. Do not let the UI label them the same way.
   (f.person_id IS NOT NULL)                        AS has_declaration,
+  -- Rows 090 could not total (an implausible declared value — see its header). Carried out
+  -- to the client so a row whose figures are INCOMPLETE can say so, instead of publishing a
+  -- €0 net worth and a fabricated -100% year-on-year collapse as though they were facts.
+  -- "No silent caps" is only true if the count reaches a reader.
+  COALESCE(l.excluded_asset_rows, 0)               AS excluded_asset_rows,
   -- Rounded to cents at rest so the sort key is stable across replicas and the API
   -- never has to re-round (reference_pg_payload_determinism).
   ROUND(l.assets_eur, 2)                           AS total_assets_eur,

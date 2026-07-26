@@ -52,7 +52,10 @@ test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
            COALESCE(SUM(value_eur) FILTER (WHERE category =  'debt'), 0) d
            FROM declaration_asset
           WHERE declaration_id = w.declaration_id
-            AND value_eur <= asset_row_ceiling_eur()
+            -- Assets only, matching the implementation: a debt is never capped, because
+            -- dropping one would inflate net worth. Passes either way today (no debt row
+            -- is over the ceiling), so it is written to match rather than to happen to.
+            AND (category = 'debt' OR value_eur <= asset_row_ceiling_eur())
        ) t ON true
       WHERE round(w.assets_eur) <> round(t.a)
          OR round(w.debts_eur)  <> round(t.d)
@@ -204,20 +207,27 @@ test.skipIf(skip)(
     // look before raising the ceiling, because the whole justification is that the gap
     // between the artifact (€3.58bn) and the largest real row (€47M) is enormous.
     assert.ok(
-      Number(r.over_ceiling) <= 2,
-      `${r.over_ceiling} asset rows now exceed the €${r.ceiling} ceiling — 090's headroom argument ` +
-        `assumed one. Inspect them before raising it.`,
+      Number(r.over_ceiling) === 1,
+      `${r.over_ceiling} asset rows exceed the €${r.ceiling} ceiling; 090's argument is built ` +
+        `on there being exactly one. A second is not a threshold to relax — go and look at ` +
+        `it, because either the corpus grew a real holding this large or the parser has a ` +
+        `new failure mode.`,
     );
 
-    // The headroom itself: the largest row BELOW the ceiling must be far below it, or the
-    // ceiling is separating rows that are not obviously different in kind.
-    const [n] = await allRows<{ next: string }>(
-      `SELECT COALESCE(max(value_eur), 0) next FROM declaration_asset
-      WHERE value_eur <= asset_row_ceiling_eur()`,
+    // The headroom, measured on the population the ceiling actually applies to.
+    // `value_eur <= ceiling` would be vacuous — a kept row is under the ceiling by
+    // construction — so this asks the question that matters: how close is the largest
+    // legitimate ASSET to the line? At €12.7M against €50M that is 3.9×. If it ever
+    // approaches 1×, the ceiling stops separating artifacts from holdings and the whole
+    // argument fails.
+    const [a] = await allRows<{ largest: string }>(
+      `SELECT COALESCE(max(value_eur), 0) largest FROM declaration_asset
+        WHERE category <> 'debt' AND value_eur <= asset_row_ceiling_eur()`,
     );
     assert.ok(
-      Number(n.next) < Number(r.ceiling),
-      "the largest kept row is at the ceiling — no headroom left, so the line is arbitrary",
+      Number(a.largest) * 2 < Number(r.ceiling),
+      `the largest legitimate asset is €${a.largest} against a €${r.ceiling} ceiling — ` +
+        `under 2× headroom means the line no longer separates artifacts from holdings`,
     );
   },
 );
@@ -255,3 +265,24 @@ test.skipIf(skip)(
     );
   },
 );
+
+// The ceiling must NEVER touch a debt row. Excluding an asset understates wealth (cautious,
+// and visible as a €0); excluding a debt OVERSTATES net worth — silently making someone
+// look richer than they declared, which is the one direction an accountability page must
+// not fail in. Not hypothetical: the largest declared debt is €47.05M and someone already
+// sits at −€47M net worth, so a symmetric ceiling would be one filing from firing.
+test.skipIf(skip)("the ceiling never drops a debt row", async () => {
+  const [d] = await allRows<{ biggest: string; min_net: string }>(
+    `SELECT (SELECT COALESCE(round(max(value_eur)), 0) FROM declaration_asset
+              WHERE category = 'debt')                       AS biggest,
+            (SELECT round(min(net_eur)) FROM person_wealth_year) AS min_net`,
+  );
+  // The most-indebted person must still carry the largest debt in full. A dropped debt
+  // would pull min(net_eur) up toward zero by exactly that amount.
+  assert.ok(
+    Number(d.min_net) < 0 &&
+      Math.abs(Number(d.min_net)) > Number(d.biggest) * 0.9,
+    `the largest declared debt is €${d.biggest} but the most-indebted person is at ` +
+      `€${d.min_net} — a debt row is being excluded, which inflates net worth`,
+  );
+});

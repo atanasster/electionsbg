@@ -102,17 +102,35 @@
 -- nobody can know what was meant: the amount is wrong AND the category is wrong. Inventing
 -- a corrected figure would be worse than excluding the row.
 --
--- WHY €50M. Measured over the whole corpus: 235 asset rows exceed €1M, 27 exceed €5M,
--- 10 exceed €10M, and exactly ONE exceeds €50M. The next-largest is €47M — a 92M BGN
--- mortgage, correctly filed as `debt`, which is large but not impossible. So the ceiling
--- isolates the artifact with an order of magnitude of headroom on either side. Re-measure
--- it if the corpus grows a legitimate row near the line; do not raise it silently.
+-- ASSETS ONLY — the ceiling deliberately does NOT apply to `debt` rows, and that asymmetry
+-- is the most important line in this header. Excluding an ASSET understates wealth, which
+-- is the cautious direction and stays visible (a €0 net worth invites a look). Excluding a
+-- DEBT would OVERSTATE net worth — the person reads as richer than they declared, silently,
+-- which is the one failure mode an accountability leaderboard must not have. The corpus is
+-- not hypothetically close to this: the largest declared debt is a €47.05M mortgage and
+-- someone already sits at −€47M net worth, so a single slightly larger filing would have
+-- crossed a symmetric ceiling and jumped that person's headline by €50M with no signal.
+--
+-- WHY €50M, AND THE MARGIN IS NOT SYMMETRIC. Measured over the whole corpus: 235 asset rows
+-- exceed €1M, 27 exceed €5M, 10 exceed €10M, and exactly ONE exceeds €50M. Upward the
+-- margin is 71× (€3.58bn vs €50M). Downward it is thin: the largest kept row is that
+-- €47.05M debt, 6% under the line — though since the ceiling is assets-only, the largest
+-- kept ASSET is €12.7M, a 3.9× margin. Re-measure both on every ingest; the margin IS the
+-- argument, so do not raise the ceiling without re-deriving it.
 --
 -- WHAT IT DOES NOT DO. The row is still stored, and declaration_detail() still renders it
 -- exactly as filed — we do not edit the register. Only the AGGREGATES skip it, and
--- excluded_asset_rows says how many, per the "no silent caps" rule. A person whose only
--- valued asset is an excluded row keeps a wealth year with a €0 total rather than
--- vanishing, which is the honest reading: we hold a filing we cannot total.
+-- excluded_asset_rows says how many so a consumer can caveat the total rather than present
+-- it as whole. A person whose only valued asset is an excluded row keeps a wealth year with
+-- a €0 total rather than vanishing, which is the honest reading: we hold a filing we cannot
+-- total.
+--
+-- APPLIED AT EVERY SITE THAT SUMS, and there are five: the three totals below, the
+-- by_category breakdown, the has_valued_assets tier in `ranked` (a filing whose only valued
+-- row is excluded must not out-rank a filing with real values), person_declarations()'s
+-- per-filing totals further down this file, and mp_assets()'s byCategory in 105. Missing
+-- one produces the worst possible outcome — a page showing €3.58bn beside a chart showing
+-- €0 — so treat this list as the checklist it is.
 -- The ceiling as a function rather than a literal repeated at four sites, so raising it is
 -- one edit and so a data test can assert against the same number the matview uses.
 CREATE OR REPLACE FUNCTION asset_row_ceiling_eur()
@@ -136,7 +154,15 @@ WITH ranked AS (
       ORDER BY
         (EXISTS (SELECT 1 FROM declaration_asset a
                   WHERE a.declaration_id = d.declaration_id
-                    AND a.value_eur > 0)) DESC,
+                    -- Same ceiling as the totals: "has valued assets" has to mean
+                    -- "has assets we can actually total", or a shell filing whose only
+                    -- valued row is the excluded artifact out-ranks a sibling filing
+                    -- carrying real values and the year publishes €0. That is the exact
+                    -- defect rankings_selection.test.ts exists to prevent, through a
+                    -- different door.
+                    AND a.value_eur > 0
+                    AND (a.category = 'debt'
+                         OR a.value_eur <= asset_row_ceiling_eur()))) DESC,
         (EXISTS (SELECT 1 FROM declaration_asset a
                   WHERE a.declaration_id = d.declaration_id)) DESC,
         d.filed_at DESC NULLS LAST,
@@ -173,15 +199,16 @@ SELECT
   -- would delete the person's whole year instead of zeroing one line of it.
   COALESCE(SUM(a.value_eur) FILTER (
     WHERE a.category <> 'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0) AS assets_eur,
-  COALESCE(SUM(a.value_eur) FILTER (
-    WHERE a.category =  'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0) AS debts_eur,
+  -- No ceiling on the debt arm — see the header: excluding a debt would OVERSTATE net
+  -- worth, which is the one direction this must never fail in.
+  COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS debts_eur,
   COALESCE(SUM(a.value_eur) FILTER (
     WHERE a.category <> 'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0)
-    - COALESCE(SUM(a.value_eur) FILTER (
-    WHERE a.category =  'debt' AND a.value_eur <= asset_row_ceiling_eur()), 0) AS net_eur,
+    - COALESCE(SUM(a.value_eur) FILTER (WHERE a.category = 'debt'), 0) AS net_eur,
   -- Not a silent cap: how many rows this filing had excluded, so a consumer can caveat a
   -- total it knows is incomplete instead of presenting it as the whole picture.
-  count(*) FILTER (WHERE a.value_eur > asset_row_ceiling_eur())::int
+  count(*) FILTER (
+    WHERE a.category <> 'debt' AND a.value_eur > asset_row_ceiling_eur())::int
     AS excluded_asset_rows,
   COALESCE((
     SELECT SUM(COALESCE(i.eur_declarant, 0))
@@ -200,7 +227,11 @@ SELECT
            -- Same ceiling as the totals above. A category breakdown that included the
            -- excluded row would not sum to its own header, which is exactly the kind of
            -- internal contradiction a reader notices and cannot explain.
-           AND a2.value_eur <= asset_row_ceiling_eur()
+           -- IS NULL first, for the same reason 105's byCategory needs it: `NULL <= n`
+           -- is NULL, so without it a category holding only unvalued rows disappears from
+           -- the breakdown instead of reporting its zero.
+           AND (a2.category = 'debt' OR a2.value_eur IS NULL
+                OR a2.value_eur <= asset_row_ceiling_eur())
          GROUP BY a2.category
       ) c
   ), '{}'::jsonb) AS by_category
@@ -287,8 +318,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'positionTitle', d.position_title,
       'filedAt', d.filed_at,
       'sourceUrl', d.source_url,
+      -- SAME BASIS AS person_wealth_year, INCLUDING THE CEILING. This is the payload
+      -- rendered directly beside the wealth chart, so an uncapped sum here publishes
+      -- €3.58bn next to a chart reading €0 — the contradiction the comment below has
+      -- always promised cannot happen. Assets are capped, debts are not (see the header).
       'assetsEur', round(COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (WHERE a.category <> 'debt')
+        (SELECT SUM(a.value_eur) FILTER (
+                  WHERE a.category <> 'debt'
+                    AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       'debtsEur', round(COALESCE(
         (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
@@ -297,11 +334,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       -- declaration block and the wealth chart cannot publish different net worths
       -- for one person-year.
       'netEur', round(COALESCE(
-        (SELECT SUM(a.value_eur) FILTER (WHERE a.category <> 'debt')
+        (SELECT SUM(a.value_eur) FILTER (
+                  WHERE a.category <> 'debt'
+                    AND a.value_eur <= asset_row_ceiling_eur())
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
         - COALESCE(
         (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
+      -- How many rows this filing had excluded, so the block can caveat a total it
+      -- knows is incomplete rather than presenting it as whole ("no silent caps").
+      'excludedAssetRows', (SELECT count(*) FROM declaration_asset a
+                              WHERE a.declaration_id = d.declaration_id
+                                AND a.category <> 'debt'
+                                AND a.value_eur > asset_row_ceiling_eur()),
       'assetCount', (SELECT count(*) FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id),
       'stakeCount', (SELECT count(*) FROM declaration_stake s
