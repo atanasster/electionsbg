@@ -76,23 +76,27 @@ export const RiskScoreMethodologyScreen = () => {
       </ArticleP>
       <ArticleP>{t("risk_methodology_p_formula2")}</ArticleP>
 
+      <ArticleH2>{t("risk_methodology_h_subscores")}</ArticleH2>
+      <ArticleP>{t("risk_methodology_p_subscores")}</ArticleP>
+      <ArticleP>{t("risk_methodology_p_subscores2")}</ArticleP>
+
       <ArticleH2>{t("risk_methodology_h_bands")}</ArticleH2>
       <ArticleP>{t("risk_methodology_p_bands_intro")}</ArticleP>
       <ArticleUL>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_low")} (0–30):</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_low")} (0–20):</ArticleStrong>{" "}
           {t("risk_methodology_band_low")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_elevated")} (30–60):</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_elevated")} (20–40):</ArticleStrong>{" "}
           {t("risk_methodology_band_elevated")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_high")} (60–80):</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_high")} (40–60):</ArticleStrong>{" "}
           {t("risk_methodology_band_high")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_critical")} (80–100):</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_critical")} (60–100):</ArticleStrong>{" "}
           {t("risk_methodology_band_critical")}
         </ArticleLI>
       </ArticleUL>
@@ -109,6 +113,9 @@ export const RiskScoreMethodologyScreen = () => {
       </LabelP>
       <LabelP label={t("risk_methodology_important_context_t")}>
         {t("risk_methodology_important_context_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_important_invalid_t")}>
+        {t("risk_methodology_important_invalid_p")}
       </LabelP>
 
       <ArticleH2>{t("risk_methodology_h_how_to_use")}</ArticleH2>

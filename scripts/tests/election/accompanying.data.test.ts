@@ -20,6 +20,7 @@
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";
+import { bandOf } from "../../reports/risk_score";
 import {
   listParliamentaryElections,
   loadRegions,
@@ -41,15 +42,6 @@ const haveData = elections.size > 0;
 const suite = haveData ? describe : describe.skip;
 
 const PARLIAMENTARY_RE = /^\d{4}_\d{2}_\d{2}$/;
-
-const bandOf = (score: number): string =>
-  score < 30
-    ? "low"
-    : score < 60
-      ? "elevated"
-      : score < 80
-        ? "high"
-        : "critical";
 
 /** Assert every party vote in a stats entry reconciles with a source map. */
 const reconcileVotes = (

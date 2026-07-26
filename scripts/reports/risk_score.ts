@@ -24,14 +24,35 @@ import type { ReportRow } from "@/data/dataTypes";
 //                                            turnout & winner-share vs. the
 //                                            same section last election
 //
-// Score = 100 × Σ(weight_i × normalized_i over signals i present) /
-//                Σ(weight_i over signals i present)
+// Score = 100 × Σ(weight_i × normalized_i over signals i KNOWN) /
+//                Σ(weight_i over signals i KNOWN)
 //
-// Partial-data masking: if only some signals are available (e.g. early
-// elections with no SUEMG data), the denominator drops accordingly so
-// the score isn't artificially deflated by missing inputs. A
-// `signalsAvailable` count travels with every score so the UI can warn
-// when the score is built on thin evidence.
+// Partial-data masking: if a signal cannot be computed at all (e.g. early
+// elections with no SUEMG data, or no prior election to swing against),
+// the denominator drops accordingly so the score isn't artificially
+// deflated by missing inputs. A `signalsAvailable` count travels with
+// every score so the UI can warn when the score is built on thin evidence.
+//
+// KNOWN vs FIRED — these are different, and conflating them was a real
+// scoring bug. A signal that is computable but simply found no anomaly
+// (no recount happened, winner share below the concentration threshold)
+// is KNOWN and enters at normalized 0 with its full weight. Only a
+// genuinely uncomputable signal leaves the denominator. Scoring "didn't
+// fire" as "unknown" inflated every score — a rare signal lifted a
+// section's rank merely by being present, because `concentrated` fires on
+// ~3% of sections at a mean normalized 0.33, roughly triple the always-on
+// procedural signals. Pooled mean score fell 17.5 → 9.5 when this was
+// fixed, which is why BAND_CUTS had to be recalibrated with it.
+//
+// What that fix does NOT do is make the composite safe for party
+// analysis. Ranking by `score` still tracks the vote-distribution family
+// at the top of the range — measured on 2024_10_27, a party's apparent
+// concentration into the top-400 composite-ranked sections was 2.81x
+// before the fix and 2.81x after, against 3.08x for the distribution
+// family alone. That contamination is inherent: a composite containing
+// distribution signals cannot answer a question about vote distribution.
+// The remedy is the sub-scores below — see PROCEDURAL_SIGNALS /
+// DISTRIBUTION_SIGNALS.
 
 const WEIGHTS = {
   recount: 0.2,
@@ -43,10 +64,53 @@ const WEIGHTS = {
   swing: 0.15,
 } as const;
 
+export type RiskSignalId = keyof typeof WEIGHTS;
+
+// The two signal families, published as separate sub-scores.
+//
+// PROCEDURAL signals derive from the protocol paperwork and machine
+// records — they know nothing about which party won the section.
+// DISTRIBUTION signals derive from the vote distribution itself.
+//
+// The split matters because any analysis of the form "party X's vote is
+// concentrated in unusual sections" is CIRCULAR against the distribution
+// family, which already measures unusual vote concentration. Use
+// `proceduralScore` for those questions.
+//
+// Party-blind is NOT the same as demographically neutral, and
+// `proceduralScore` is not a clean bill of health. `invalidBallots` is
+// its strongest component and correlates with Roma population share
+// (r = +0.36 at municipality level) — a documented pattern with
+// explanations such as ballot complexity, not necessarily manipulation.
+// On the same 2024_10_27 test the procedural family still returned a
+// 1.43x apparent concentration for one party, essentially all of it that
+// confound. Treat a procedural signal as a prompt to look, never as
+// evidence. See the invalid-ballot caveat on the methodology page.
+export const PROCEDURAL_SIGNALS = [
+  "recount",
+  "suemgMismatch",
+  "invalidBallots",
+  "additionalVoters",
+] as const satisfies readonly RiskSignalId[];
+
+export const DISTRIBUTION_SIGNALS = [
+  "concentrated",
+  "peerOutlier",
+  "swing",
+] as const satisfies readonly RiskSignalId[];
+
+const PROCEDURAL_SET: ReadonlySet<RiskSignalId> = new Set(PROCEDURAL_SIGNALS);
+
 // Normalization caps — any value above the cap saturates the signal at
 // 1.0. Chosen so a "noticeable" anomaly is roughly mid-range.
 const CAPS = {
-  recountPct: 0.5, // recount votes / total votes; cap at 50%
+  // Recount churn / total votes. The original 0.5 cap was an order of
+  // magnitude too generous for real churn — the 99th percentile of
+  // observed churn is ~7.7%, so under a 50% cap the signal contributed a
+  // mean normalized 0.014 while claiming the joint-largest weight (0.20),
+  // i.e. it was very nearly inert. At 0.10 a section whose recount moved
+  // a tenth of its votes saturates, and the p99 lands mid-range.
+  recountPct: 0.1,
   suemgPct: 0.5, // |pctSuemg| / 100, cap at 50% delta
   invalidPct: 30, // % invalid ballots; cap at 30% (existing report threshold is 10%)
   additionalPct: 30,
@@ -57,17 +121,37 @@ const CAPS = {
 
 export type RiskBand = "low" | "elevated" | "high" | "critical";
 
-const bandOf = (score: number): RiskBand =>
-  score < 30
+// Band cut points, recalibrated when the KNOWN-vs-FIRED fix landed.
+//
+// The previous 30/60/80 cuts were set against the pre-fix scale, which
+// ran hot: dropping silent signals from the denominator inflated every
+// score (pooled mean 17.5). With silent signals correctly scored as 0 at
+// full weight the same corpus means 9.5, and the old cuts left the top
+// bands nearly empty — 12 critical sections nationally became 0.
+//
+// These cuts hold the SCREENING RATE roughly constant across the change,
+// so "elevated" still means about the same slice of the corpus as before
+// and cross-election comparisons stay meaningful: pooled over all 13
+// elections, elevated-or-above covers 15.2% of sections (was 15.5%) and
+// high-or-above 2.1% (was 1.5%). The absolute numbers on a weighted mean
+// of normalized signals carry no independent meaning — only the ordering
+// and the slice size do.
+export const BAND_CUTS = { elevated: 20, high: 40, critical: 60 } as const;
+
+/** Exported so the data-regression tests assert against these cut points
+ * rather than keeping their own copy — three copies had already drifted
+ * apart once. */
+export const bandOf = (score: number): RiskBand =>
+  score < BAND_CUTS.elevated
     ? "low"
-    : score < 60
+    : score < BAND_CUTS.high
       ? "elevated"
-      : score < 80
+      : score < BAND_CUTS.critical
         ? "high"
         : "critical";
 
 export type RiskComponent = {
-  id: keyof typeof WEIGHTS;
+  id: RiskSignalId;
   rawValue?: number;
   normalized: number; // 0–1
   weight: number;
@@ -96,6 +180,15 @@ export type RiskScoreRow = {
    * negative = lost during the adjustment). */
   affectedPartyChange?: number;
   score: number; // 0–100
+  /** Composite restricted to the party-blind protocol signals (recount,
+   * SUEMG mismatch, invalid ballots, additional voters). Use this — never
+   * `score` — when asking whether some party's vote sits in unusual
+   * sections; the composite's distribution signals make that circular.
+   * Undefined when no procedural signal was computable. */
+  proceduralScore?: number;
+  /** Composite restricted to the vote-distribution signals (concentrated,
+   * peer outlier, swing). Undefined when none was computable. */
+  distributionScore?: number;
   band: RiskBand;
   signalsAvailable: number;
   signalsTotal: number;
@@ -245,6 +338,16 @@ export type SectionStat = {
   totalVotes?: number;
   turnout: number;
   winnerShare: number;
+  /** Whether the section had voting machines. A section with no machines
+   * can have no SUEMG flash-memory record at all, so its `suemgMismatch`
+   * signal is genuinely unknown rather than zero. */
+  hasMachines: boolean;
+  /** Winner's share of the vote on the SAME denominator the concentrated
+   * report uses (protocol valid paper + valid machine votes), so the
+   * signal is defined identically for every section whether or not that
+   * report happens to list it. Falls back to the summed party votes when
+   * the protocol lacks the valid-vote counts (older elections). */
+  concentratedPct: number;
 };
 
 export const loadSectionStats = (
@@ -266,10 +369,13 @@ export const loadSectionStats = (
           ekatte?: string;
           obshtina?: string;
           oblast?: string;
+          num_machines?: number;
           results?: {
             protocol?: {
               totalActualVoters?: number;
               numRegisteredVoters?: number;
+              numValidVotes?: number;
+              numValidMachineVotes?: number;
             };
             votes?: { partyNum: number; totalVotes: number }[];
           };
@@ -300,6 +406,11 @@ export const loadSectionStats = (
           totalVotes,
           turnout: actual / reg,
           winnerShare: topPartyVotes / totalVotes,
+          hasMachines: (s.num_machines ?? 0) > 0,
+          concentratedPct:
+            (100 * topPartyVotes) /
+            ((s.results?.protocol?.numValidVotes ?? 0) +
+              (s.results?.protocol?.numValidMachineVotes ?? 0) || totalVotes),
         });
       }
     } catch {
@@ -407,8 +518,11 @@ const computeSwing = (
     const zW = sdW > 0 ? (d.dWinner - muW) / sdW : 0;
     const zT = sdT > 0 ? (d.dTurnout - muT) / sdT : 0;
     // Upward shift only — a section moving down is not a control signal.
-    const z = Math.max(0, zW, zT);
-    if (z > 0) out.set(d.section, z);
+    // A matched section with no upward shift scores 0 and is still
+    // recorded: "we checked and found nothing" is known, not unknown.
+    // Only sections absent from this map (no prior counterpart, too few
+    // votes, abroad) leave the signal uncomputable.
+    out.set(d.section, Math.max(0, zW, zT));
   }
   return out;
 };
@@ -586,9 +700,9 @@ export const generateRiskScoreReport = ({
   const additional = loadByKey<ReportRow & { section?: string }>(
     `${sectionDir}/additional_voters.json`,
   );
-  const concentrated = loadByKey<ReportRow & { section?: string }>(
-    `${sectionDir}/concentrated.json`,
-  );
+  // NB: concentrated.json is deliberately NOT read. The signal is derived
+  // from `SectionStat.concentratedPct` for every section, on that report's
+  // own denominator, so listed and unlisted sections score identically.
   const problemFlag = loadProblemSectionIds(
     `${publicFolder}/${year}/problem_sections.json`,
   );
@@ -596,6 +710,21 @@ export const generateRiskScoreReport = ({
   const peerZ = computePeerOutliers(stats);
   const priorStats = prevYear ? loadSectionStats(publicFolder, prevYear) : [];
   const swingZ = computeSwing(stats, priorStats);
+
+  // Which signals are computable for this election AT ALL. A source file
+  // that is missing or empty means the signal is unknown everywhere, so
+  // it must leave the denominator rather than scoring 0 — otherwise every
+  // section in an election without, say, SUEMG data would be credited
+  // with a clean flash-memory check it never had.
+  //
+  // `concentrated` has no source-file gate: it is derived from the
+  // section's own winner share, which is always known.
+  const electionHas = {
+    recount: recount.size > 0,
+    suemgMismatch: suemgAdded.size > 0 || suemgRemoved.size > 0,
+    invalidBallots: invalid.size > 0,
+    additionalVoters: additional.size > 0,
+  };
 
   // Universe of sections: anything with stats (registered + actual voters).
   // Per-municipality percentile is computed after the score pass.
@@ -638,6 +767,11 @@ export const generateRiskScoreReport = ({
       weightTotal += w;
     };
 
+    // Each signal below follows the same shape: if the source says the
+    // anomaly occurred, add it at its measured value; if the source is
+    // present for this election but silent about this section, that is a
+    // measured ZERO, not missing data, so it still enters at full weight.
+
     // recount: addedVotes + removedVotes, normalized by section's total
     // votes. Captures recount churn magnitude even when the net is 0.
     const rc = recount.get(s.section);
@@ -650,9 +784,13 @@ export const generateRiskScoreReport = ({
         rc.bottomPartyChange?.partyNum,
         rc.bottomPartyChange?.change,
       );
+    } else if (electionHas.recount) {
+      addSignal("recount", 0, 0); // no recount touched this section
     }
 
     // SUEMG flash-memory mismatch: absolute pctSuemg / 100, capped.
+    // Sections without machines are skipped entirely — there is no flash
+    // memory to compare against, so the signal is unknown, not clean.
     const suemg = suemgAdded.get(s.section) ?? suemgRemoved.get(s.section);
     if (suemg) {
       const pct = Math.abs(suemg.pctSuemg ?? 0) / 100;
@@ -665,43 +803,69 @@ export const generateRiskScoreReport = ({
         suemg.bottomPartyChange?.partyNum,
         suemg.bottomPartyChange?.change,
       );
+    } else if (electionHas.suemgMismatch && s.hasMachines) {
+      addSignal("suemgMismatch", 0, 0); // machine tally matched the paper
     }
 
     const inv = invalid.get(s.section);
     if (inv) {
       addSignal("invalidBallots", inv.value, inv.value / CAPS.invalidPct);
+    } else if (electionHas.invalidBallots) {
+      addSignal("invalidBallots", 0, 0);
     }
 
     const add = additional.get(s.section);
     if (add) {
       addSignal("additionalVoters", add.value, add.value / CAPS.additionalPct);
+    } else if (electionHas.additionalVoters) {
+      addSignal("additionalVoters", 0, 0);
     }
 
-    // Concentrated: only count sections where the top party got ≥80%
-    // (matching the existing "concentrated" report threshold). Map 80–100
-    // → 0–1 linearly.
-    const conc = concentrated.get(s.section);
-    if (conc && conc.value >= 80) {
-      const norm = (conc.value - 80) / 20;
-      addSignal("concentrated", conc.value, norm);
-    }
+    // Concentrated: the winner's share, mapped 80–100 → 0–1 (below 80
+    // scores 0). Always computable, and always from `concentratedPct` —
+    // the concentrated.json report lists only sections above its own
+    // reporting threshold, so reading the value from there when present
+    // and computing it otherwise would score the two groups on different
+    // denominators. Letting this signal in only when it fired was the
+    // single largest source of rank inflation.
+    const concPct = s.concentratedPct;
+    addSignal("concentrated", concPct, concPct >= 80 ? (concPct - 80) / 20 : 0);
 
+    // Peer outlier: |z| vs. settlement peers. Unknown only in settlements
+    // with fewer than 3 sections, which never enter the peerZ map.
     const z = peerZ.get(s.section);
-    if (z !== undefined && z > 0) {
+    if (z !== undefined) {
       addSignal("peerOutlier", z, z / CAPS.peerZ);
     }
 
     // Cross-election swing: z-score of the upward shift vs. the same
-    // section last election. Never fires for the earliest election (no
-    // prior) or for sections with no matched prior counterpart.
+    // section last election. Unknown for the earliest election (no prior)
+    // and for sections with no matched prior counterpart; a matched
+    // section that did not shift upward is present at 0.
     const sw = swingZ.get(s.section);
-    if (sw !== undefined && sw > 0) {
+    if (sw !== undefined) {
       addSignal("swing", sw, sw / CAPS.swingZ);
     }
 
     if (components.length === 0) continue;
 
     const score = weightTotal > 0 ? (100 * weightedSum) / weightTotal : 0;
+
+    // Same weighted-mean formula restricted to one family. Undefined when
+    // the family contributed no computable signal, so a consumer can tell
+    // "clean" apart from "never measured".
+    const familyScore = (procedural: boolean): number | undefined => {
+      let sum = 0;
+      let total = 0;
+      for (const c of components) {
+        if (PROCEDURAL_SET.has(c.id) !== procedural) continue;
+        sum += c.weight * c.normalized;
+        total += c.weight;
+      }
+      return total > 0
+        ? Math.round(((100 * sum) / total) * 10) / 10
+        : undefined;
+    };
     rows.push({
       section: s.section,
       ekatte: s.ekatte,
@@ -724,6 +888,8 @@ export const generateRiskScoreReport = ({
       affectedPartyNum: (affectedParty as typeof affectedParty)?.partyNum,
       affectedPartyChange: (affectedParty as typeof affectedParty)?.change,
       score: Math.round(score * 10) / 10,
+      proceduralScore: familyScore(true),
+      distributionScore: familyScore(false),
       band: bandOf(score),
       signalsAvailable: components.length,
       signalsTotal: Object.keys(WEIGHTS).length,

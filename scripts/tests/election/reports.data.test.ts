@@ -11,6 +11,7 @@
 
 import { describe, test, expect } from "vitest";
 import fs from "node:fs";
+import { bandOf } from "../../reports/risk_score";
 import {
   listParliamentaryElections,
   loadSections,
@@ -53,15 +54,6 @@ const isMonotonic = (nums: number[]): boolean => {
   }
   return inc || dec;
 };
-
-const bandOf = (score: number): string =>
-  score < 30
-    ? "low"
-    : score < 60
-      ? "elevated"
-      : score < 80
-        ? "high"
-        : "critical";
 
 interface FlatRow {
   value: number;
@@ -274,14 +266,14 @@ suite("election reports", () => {
             bad.push(`${row.section} score ${row.score} out of range`);
           // The stored band is computed from the full-precision score while
           // `score` is rounded for display, so a value that rounds onto a band
-          // boundary (30/60/80) can legitimately carry the neighbouring band.
+          // boundary (20/40/60) can legitimately carry the neighbouring band.
           // Accept any band within a ±0.5 window of the rounded score.
           const okBands = new Set([
             bandOf(row.score - 0.5),
             bandOf(row.score),
             bandOf(row.score + 0.5),
           ]);
-          if (!okBands.has(row.band))
+          if (!okBands.has(row.band as ReturnType<typeof bandOf>))
             bad.push(`${row.section} band ${row.band} != ${bandOf(row.score)}`);
           if (row.signalsTotal !== 7) bad.push(`${row.section} signalsTotal`);
           if (

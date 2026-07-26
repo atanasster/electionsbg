@@ -96,7 +96,14 @@ export const RiskScoreScreen = () => {
             <div className="flex items-center gap-1">
               {SIGNAL_ORDER.map((id) => {
                 const c = byId.get(id);
-                const isFired = !!c;
+                // Three states, not two: the signal fired, or it was
+                // checked and came back clean (present at contribution 0,
+                // still carrying full weight in the denominator), or it
+                // could not be computed for this section at all. A clean
+                // check is real information and must not be drawn the
+                // same as missing data.
+                const isFired = !!c && c.contribution > 0;
+                const isClean = !!c && c.contribution === 0;
                 const color = SIGNAL_COLORS[id];
                 return (
                   // `disableHoverableContent` makes the tooltip close
@@ -115,7 +122,14 @@ export const RiskScoreScreen = () => {
                         style={
                           isFired
                             ? { background: color, borderColor: color }
-                            : { borderColor: "hsl(var(--border))" }
+                            : {
+                                borderColor: "hsl(var(--border))",
+                                // Dashed + faded = never measured, as
+                                // opposed to a solid outline for a signal
+                                // that was measured and found clean.
+                                borderStyle: isClean ? "solid" : "dashed",
+                                opacity: isClean ? 1 : 0.5,
+                              }
                         }
                       />
                     </TooltipTrigger>
@@ -156,7 +170,11 @@ export const RiskScoreScreen = () => {
                           </div>
                         ) : (
                           <div className="text-[11px] text-muted-foreground italic">
-                            {t("risk_signal_not_fired")}
+                            {t(
+                              isClean
+                                ? "risk_signal_clean"
+                                : "risk_signal_not_fired",
+                            )}
                           </div>
                         )}
                       </div>

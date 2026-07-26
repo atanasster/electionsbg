@@ -37,9 +37,15 @@ export const RiskWaterfall: FC<{ row: RiskScoreRow }> = ({ row }) => {
   const { t } = useTranslation();
   // Sort contributions so the largest bar is on the left — readers scan
   // left-to-right and the dominant signal is what they should learn first.
-  const sorted = [...row.components].sort(
-    (a, b) => b.contribution - a.contribution,
-  );
+  //
+  // Signals that were checked and found nothing contribute exactly 0 and
+  // are dropped here: they carry full weight in the score's denominator
+  // (holding it DOWN), but as zero-width bars and "+0.0" rows they would
+  // be pure noise. The count of everything checked, clean or not, is
+  // `row.signalsAvailable`, which the surrounding card already shows.
+  const sorted = [...row.components]
+    .filter((c) => c.contribution > 0)
+    .sort((a, b) => b.contribution - a.contribution);
   const total = sorted.reduce((s, c) => s + c.contribution, 0);
 
   return (
