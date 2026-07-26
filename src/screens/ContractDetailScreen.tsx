@@ -39,6 +39,7 @@ import {
   contractCategoryLabel,
 } from "@/lib/cpvSectors";
 import { resolveContractSource } from "./components/candidates/procurement/sourceUrl";
+import { sigmaContractId, sigmaContractUrl } from "@/lib/sigma";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { ErrorSection } from "./components/ErrorSection";
@@ -432,6 +433,26 @@ export const ContractDetailScreen: FC = () => {
                 <Download className="h-3 w-3" />
               </button>
             </p>
+            {import.meta.env.DEV &&
+              (() => {
+                // Dev-only cross-check against the government SIGMA mirror. Gated
+                // on import.meta.env.DEV so it never ships — see src/lib/sigma.ts.
+                const sid = sigmaContractId(c.unp, c.ocid);
+                if (!sid) return null;
+                return (
+                  <p>
+                    SIGMA (само dev):{" "}
+                    <a
+                      href={sigmaContractUrl(sid)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary hover:underline inline-flex items-center gap-0.5"
+                    >
+                      Виж в SIGMA <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </p>
+                );
+              })()}
           </div>
         </div>
       </div>

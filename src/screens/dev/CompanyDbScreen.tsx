@@ -19,6 +19,7 @@ import {
   Target,
   Sprout,
   Sparkles,
+  ExternalLink,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { type AgriRecipientFile } from "@/data/agri/types";
@@ -53,6 +54,7 @@ import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { getSectorPack } from "../components/procurement/sectorPacks";
 import { canonicalAwarderName } from "@/lib/awarderNameOverrides";
+import { sigmaAuthorityUrl, sigmaCompanyUrl } from "@/lib/sigma";
 import { AwarderBreadcrumb } from "../components/procurement/AwarderBreadcrumb";
 import { SectorBreadcrumb } from "../components/procurement/SectorBreadcrumb";
 import { sectorDashboardForLeadEik } from "../sector/sectorDashboards";
@@ -700,6 +702,21 @@ export const CompanyDbScreen: FC = () => {
         {!loading && !error && (
           <div className="mt-2 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span>ЕИК {eik}</span>
+            {/* Dev-only cross-check against the government SIGMA mirror
+                (/authorities for buyers, /companies for bidders). Gated on
+                import.meta.env.DEV so it never ships — see src/lib/sigma.ts. */}
+            {import.meta.env.DEV && (
+              <a
+                href={
+                  isAwarderRoute ? sigmaAuthorityUrl(eik) : sigmaCompanyUrl(eik)
+                }
+                target="_blank"
+                rel="noreferrer"
+                className="text-primary hover:underline inline-flex items-center gap-0.5"
+              >
+                SIGMA (само dev) <ExternalLink className="h-3 w-3" />
+              </a>
+            )}
             {company?.status && <span>{company.status}</span>}
             {institution?.orgType && <span>{institution.orgType}</span>}
             {company?.funds_amount != null && (
