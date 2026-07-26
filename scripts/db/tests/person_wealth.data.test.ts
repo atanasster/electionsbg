@@ -37,6 +37,11 @@ afterAll(async () => {
 
 // net_eur = (every non-debt category) − debt, exactly as src/lib/declarations.ts
 // declarationTotals computes it. Re-derive from the child rows and compare.
+//
+// The re-derivation applies asset_row_ceiling_eur() because the matview does (T1.2) — the
+// one row above it is a mortgage mis-filed as a security at €3.58bn, and including it here
+// would make this test demand that the matview reproduce the artifact. The exclusion
+// itself is asserted separately below, so dropping the ceiling here would not go unnoticed.
 test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
   const bad = await allRows<{ person_id: string; period_year: number }>(
     `SELECT w.person_id, w.period_year
@@ -45,7 +50,9 @@ test.skipIf(skip)("net_eur equals non-debt assets minus debt", async () => {
          SELECT
            COALESCE(SUM(value_eur) FILTER (WHERE category <> 'debt'), 0) a,
            COALESCE(SUM(value_eur) FILTER (WHERE category =  'debt'), 0) d
-           FROM declaration_asset WHERE declaration_id = w.declaration_id
+           FROM declaration_asset
+          WHERE declaration_id = w.declaration_id
+            AND value_eur <= asset_row_ceiling_eur()
        ) t ON true
       WHERE round(w.assets_eur) <> round(t.a)
          OR round(w.debts_eur)  <> round(t.d)
@@ -172,3 +179,79 @@ test.skipIf(skip)("the series never serves a non-public person", async () => {
     "a non-public person's wealth series must be empty",
   );
 });
+
+// ---- the implausible-row ceiling (T1.2) ----------------------------------------------
+//
+// One asset row in the corpus is a "ипотечен кредит" — a MORTGAGE, i.e. a liability —
+// filed in the securities table at 7,001,070,875 BGN (€3.58bn), on a ДКЦ manager's
+// declaration. Two errors compound: the wrong table AND a value four orders of magnitude
+// past anything real. It made that person #1 on /officials/assets by a factor of 326 over
+// the next entry, and it had been live in assets-rankings.json all along.
+//
+// 090 excludes single rows over asset_row_ceiling_eur() from every sum, counts them in
+// excluded_asset_rows, and leaves declaration_detail() rendering the row exactly as filed.
+// These pin the three things that make that safe rather than arbitrary.
+
+test.skipIf(skip)(
+  "the ceiling excludes the artifact and nothing else",
+  async () => {
+    // `over` is a reserved word (the window-function keyword), so the alias is spelled out.
+    const [r] = await allRows<{ over_ceiling: string; ceiling: string }>(
+      `SELECT count(*) AS over_ceiling, max(asset_row_ceiling_eur()) AS ceiling
+       FROM declaration_asset WHERE value_eur > asset_row_ceiling_eur()`,
+    );
+    // Exactly one today. If this grows, a legitimate row may have crossed the line — go and
+    // look before raising the ceiling, because the whole justification is that the gap
+    // between the artifact (€3.58bn) and the largest real row (€47M) is enormous.
+    assert.ok(
+      Number(r.over_ceiling) <= 2,
+      `${r.over_ceiling} asset rows now exceed the €${r.ceiling} ceiling — 090's headroom argument ` +
+        `assumed one. Inspect them before raising it.`,
+    );
+
+    // The headroom itself: the largest row BELOW the ceiling must be far below it, or the
+    // ceiling is separating rows that are not obviously different in kind.
+    const [n] = await allRows<{ next: string }>(
+      `SELECT COALESCE(max(value_eur), 0) next FROM declaration_asset
+      WHERE value_eur <= asset_row_ceiling_eur()`,
+    );
+    assert.ok(
+      Number(n.next) < Number(r.ceiling),
+      "the largest kept row is at the ceiling — no headroom left, so the line is arbitrary",
+    );
+  },
+);
+
+test.skipIf(skip)("no wealth year is built from an excluded row", async () => {
+  const [r] = await allRows<{ years: string; rows: string; max_net: string }>(
+    `SELECT count(*) years, COALESCE(sum(excluded_asset_rows), 0) rows,
+            round(max(net_eur)) max_net
+       FROM person_wealth_year WHERE excluded_asset_rows > 0`,
+  );
+  // The affected person keeps their year — we hold a filing we cannot total, which is not
+  // the same as holding no filing — but the total no longer carries the artifact.
+  assert.ok(
+    Number(r.years) >= 1,
+    "no year records an exclusion, yet declaration_asset still has an over-ceiling row",
+  );
+  assert.ok(
+    Number(r.max_net) < 5e7,
+    `a year with an excluded row still totals €${r.max_net} — the FILTER is not being applied`,
+  );
+});
+
+test.skipIf(skip)(
+  "no declared net worth exceeds the ceiling anywhere",
+  async () => {
+    // The end-state assertion, independent of how the ceiling is implemented: the top of
+    // every wealth surface is a plausible figure. Пеевски's ~€11M is the real maximum.
+    const [r] = await allRows<{ max_net: string }>(
+      "SELECT round(max(net_eur)) max_net FROM person_wealth_year",
+    );
+    assert.ok(
+      Number(r.max_net) < Number(5e7),
+      `the largest declared net worth is €${r.max_net} — an accountability leaderboard ` +
+        `topped by a parsing artifact is a credibility problem, not a data point`,
+    );
+  },
+);

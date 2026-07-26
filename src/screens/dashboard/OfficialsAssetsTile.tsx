@@ -4,11 +4,14 @@
 // nothing when the rankings file is missing (fresh clone before the
 // officials scraper has run).
 
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowRight, ArrowUp, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useOfficialsRankingsTop } from "@/data/officials/useOfficialsRankings";
+import {
+  eur,
+  useOfficialsRankingsTop,
+} from "@/data/officials/useOfficialsRankings";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
@@ -31,15 +34,12 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useOfficialsRankingsTop();
+  // One page of ROWS rows from Postgres, sorted server-side — this used to download
+  // assets-rankings-top.json (276 KB) to render five lines.
+  const { rows: topOfficials } = useOfficialsRankingsTop(ROWS);
   const { nameForBg } = useCandidateName();
 
-  const topOfficials = useMemo(() => {
-    if (!rankings) return [];
-    return rankings.topOfficials.slice(0, ROWS);
-  }, [rankings]);
-
-  if (!rankings || topOfficials.length === 0) return null;
+  if (topOfficials.length === 0) return null;
 
   return (
     <StatCard
@@ -65,7 +65,10 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
     >
       <div className="mt-1">
         {topOfficials.map((row, i) => {
-          const delta = row.delta;
+          // The YoY delta arrives as three flat columns rather than a nested object.
+          const deltaEur = eur(row.deltaAbsoluteEur);
+          const deltaPct = eur(row.deltaPct);
+          const net = eur(row.netWorthEur);
           return (
             <div
               key={row.slug}
@@ -75,7 +78,7 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
                 {i + 1}.
               </span>
               <Link
-                to={`/officials/${row.slug}`}
+                to={`/person/${row.slug}`}
                 className="truncate flex-1 min-w-0 hover:underline"
               >
                 <span className="block truncate">{nameForBg(row.name)}</span>
@@ -87,26 +90,23 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatEurCompact(row.netWorthEur, i18n.language)}
+                {net == null ? "—" : formatEurCompact(net, i18n.language)}
               </span>
-              {delta && delta.absoluteEur !== 0 ? (
+              {deltaEur != null && deltaEur !== 0 ? (
                 <span
                   className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums shrink-0 min-w-[58px] justify-end ${
-                    delta.absoluteEur > 0 ? "text-green-600" : "text-red-600"
+                    deltaEur > 0 ? "text-green-600" : "text-red-600"
                   }`}
-                  title={`${delta.absoluteEur > 0 ? "+" : ""}€${formatThousands(Math.round(delta.absoluteEur))} ${t("vs_previous") || "vs"} ${delta.previousYear}`}
+                  title={`${deltaEur > 0 ? "+" : ""}€${formatThousands(Math.round(deltaEur))} ${t("vs_previous") || "vs"} ${row.deltaPreviousYear}`}
                 >
-                  {delta.absoluteEur > 0 ? (
+                  {deltaEur > 0 ? (
                     <ArrowUp className="h-3 w-3" />
                   ) : (
                     <ArrowDown className="h-3 w-3" />
                   )}
-                  {delta.pct != null
-                    ? `${Math.abs(delta.pct).toFixed(0)}%`
-                    : formatEurCompact(
-                        Math.abs(delta.absoluteEur),
-                        i18n.language,
-                      )}
+                  {deltaPct != null
+                    ? `${Math.abs(deltaPct).toFixed(0)}%`
+                    : formatEurCompact(Math.abs(deltaEur), i18n.language)}
                 </span>
               ) : (
                 <span className="text-[10px] shrink-0 min-w-[58px]" />
