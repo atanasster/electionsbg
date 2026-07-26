@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { DataTableColumnDef } from "./utils";
 import { cellRender } from "./cellRender";
 import { headerRender } from "./headerRender";
@@ -188,7 +189,16 @@ export const DbDataTable = <T,>({
             {table.getHeaderGroups().map((hg) => (
               <TableRow key={hg.id}>
                 {hg.headers.map((h) => (
-                  <TableHead key={h.id} colSpan={h.colSpan}>
+                  <TableHead
+                    key={h.id}
+                    colSpan={h.colSpan}
+                    // Per-column className (e.g. responsive `hidden md:table-cell`)
+                    // — applied to header + every cell so a column hides as a unit.
+                    className={
+                      (h.column.columnDef as DataTableColumnDef<T, unknown>)
+                        .className
+                    }
+                  >
                     {h.isPlaceholder ? null : headerRender(h)}
                   </TableHead>
                 ))}
@@ -212,7 +222,15 @@ export const DbDataTable = <T,>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className="px-2 py-1 md:px-3 group-hover:bg-muted/50 align-top"
+                      className={cn(
+                        "px-2 py-1 md:px-3 group-hover:bg-muted/50 align-top",
+                        (
+                          cell.column.columnDef as DataTableColumnDef<
+                            T,
+                            unknown
+                          >
+                        ).className,
+                      )}
                     >
                       {cellRender(cell)}
                     </TableCell>

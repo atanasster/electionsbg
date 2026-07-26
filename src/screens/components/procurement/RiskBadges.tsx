@@ -157,6 +157,9 @@ type Props = {
   result: ContractRiskResult;
   /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
+  /** Suppress the weak-competition (bid-count) chip — used where the bid count
+   *  has its own dedicated table column, so the signals cell isn't redundant. */
+  hideWeakCompetition?: boolean;
 };
 
 /** Shared body for the foreign-funded-NGO NEUTRAL disclosure (tooltip + the
@@ -215,16 +218,29 @@ const NgoForeignFundedBody: FC<{
   </div>
 );
 
-export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
+export const RiskBadges: FC<Props> = ({
+  result,
+  variant = "chips",
+  hideWeakCompetition = false,
+}) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const [open, setOpen] = useState(false);
   const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
+  // When the ONLY fired flag is weak competition and it's suppressed here (its
+  // count has a dedicated column), there is nothing left to render — fall back to
+  // the "—" placeholder instead of an empty cell.
+  const onlyWeakHidden =
+    hideWeakCompetition && flags.weakCompetition && firedCount === 1;
   // The foreign-funded-NGO disclosure deliberately does NOT bump `firedCount`
   // (hasFlag), so it would be swallowed by this early return — keep it alive in
   // the compact `chips`/row contexts too, not just the detail `full` variant.
-  if (!hasFlag && !flags.ngoForeignFunded && variant !== "full") {
+  if (
+    (!hasFlag || onlyWeakHidden) &&
+    !flags.ngoForeignFunded &&
+    variant !== "full"
+  ) {
     return <span className="text-xs text-muted-foreground">—</span>;
   }
 
@@ -308,7 +324,7 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
         </Tooltip>
       ) : null}
 
-      {flags.weakCompetition ? (
+      {flags.weakCompetition && !hideWeakCompetition ? (
         <Tooltip
           content={
             <div className="space-y-1">
