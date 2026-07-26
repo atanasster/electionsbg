@@ -15,7 +15,7 @@ import { fmtR } from "@/screens/components/demographics/demographicsFormat";
 import { computeCleavageKpis } from "@/screens/components/demographics/cleavageKpis";
 import { DemographicCleavagesPlot } from "@/screens/components/demographics/DemographicCleavagesPlot";
 import { DemographicTrendCharts } from "@/screens/components/demographics/DemographicTrendCharts";
-import { VoteDemographicScatter } from "@/screens/components/demographics/VoteDemographicScatter";
+import { VoteDemographicMap } from "@/screens/components/demographics/VoteDemographicMap";
 
 export const PartyDemographicsScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -171,7 +171,7 @@ export const PartyDemographicsScreen: FC = () => {
             </div>
           }
         >
-          <VoteDemographicScatter />
+          <VoteDemographicMap />
         </StatCard>
       </div>
 

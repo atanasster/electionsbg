@@ -707,9 +707,11 @@ const OfficialsAssetsScreen = lazy(() =>
     default: m.OfficialsAssetsScreen,
   })),
 );
-const OfficialProfileScreen = lazy(() =>
-  import("./screens/OfficialProfileScreen").then((m) => ({
-    default: m.OfficialProfileScreen,
+// The retired /officials/:slug URL resolves to /person/:slug client-side (T1.3). A hard
+// hit is 301'd by the `db` Cloud Function first; this covers the in-app <Link> case.
+const OfficialProfileRedirect = lazy(() =>
+  import("./screens/OfficialProfileRedirect").then((m) => ({
+    default: m.OfficialProfileRedirect,
   })),
 );
 const MpCarsScreen = lazy(() =>
@@ -2782,11 +2784,15 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          {/* /officials/:slug is retired (T1.3): the person profile is the single
+              surface. A hard hit is 301'd to /person/:slug by the `db` Cloud Function
+              (T1.1) ahead of the SPA; this thin route redirects the in-app <Link> case
+              through the same officials_person_slug() lookup. */}
           <Route
             path="officials/:slug"
             element={
               <LayoutScreen>
-                <OfficialProfileScreen />
+                <OfficialProfileRedirect />
               </LayoutScreen>
             }
           />

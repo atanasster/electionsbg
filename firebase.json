@@ -59,6 +59,30 @@
           "function": { "functionId": "sql", "region": "europe-west3" }
         },
         {
+          "source": "/officials/assets",
+          "destination": "/officials/assets/index.html"
+        },
+        {
+          "source": "/officials/assets/",
+          "destination": "/officials/assets/index.html"
+        },
+        {
+          "source": "/en/officials/assets",
+          "destination": "/en/officials/assets/index.html"
+        },
+        {
+          "source": "/en/officials/assets/",
+          "destination": "/en/officials/assets/index.html"
+        },
+        {
+          "source": "/officials/*",
+          "function": { "functionId": "db", "region": "europe-west3" }
+        },
+        {
+          "source": "/en/officials/*",
+          "function": { "functionId": "db", "region": "europe-west3" }
+        },
+        {
           "source": "/en/**",
           "destination": "/en/index.html"
         },
@@ -122,6 +146,24 @@
             {
               "key": "Cache-Control",
               "value": "public, max-age=86400, stale-while-revalidate=604800"
+            }
+          ]
+        },
+        {
+          "source": "/officials/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/en/officials/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
             }
           ]
         }

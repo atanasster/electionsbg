@@ -18,17 +18,46 @@
 // from the same layer, so the sitemap and the prerender cannot disagree about which
 // pages are thin.
 //
+// ---------------------------------------------------------------------------
+// THE `prerender` FLAG — NET-NEUTRAL, A DELIBERATE DEVIATION FROM G6 (T1.4, 2026-07-26).
+//
+// G6 above says EVERY indexable person (38,353 of them) gets a prerendered file + <loc>.
+// That is NOT what ships. The Firebase deploy has already hit the per-site file ceiling
+// once (officials was capped at 5,000, candidate sub-tabs were reverted at 369k), and
+// 38,353 × 2 languages ≈ 77k NEW files on top of ~116k deployed is unmeasured territory.
+// So the officials→person cutover (T1.3) is NET-NEUTRAL: it REPLACES the ~5,000 prerendered
+// /officials/<slug> pages with the SAME ~5,000 people at /person/<slug>, holding total
+// deployed HTML flat (docs/plans/persons-pg-retirement-v1.md §0.5, Decision 4 overrides G6).
+//
+// So `prerender` marks exactly the set officialsForStaticPages picked for /officials — the
+// executive-officials top OFFICIALS_STATIC_PAGE_LIMIT by (priority tier, then declared net
+// worth) — resolved into PERSON slugs. Reusing that one function is what guarantees the
+// person set is the same humans the officials set was, so no indexed URL loses its SEO body
+// as it moves from /officials/<slug> to /person/<slug>. The `card` fields ride along so the
+// prerenderer can build the same net-worth body without a DB read.
+//
+// TO SHIP THE FULL G6 SET LATER: measure the ceiling with a staging deploy FIRST (§0.5),
+// then widen the selection here. A future implementer who just prerenders everything
+// `indexable` will blow the deploy — this comment, and the cap, are the guardrail.
+//
+// ---------------------------------------------------------------------------
 // Stable: person slugs are frozen by the resolver, so this file is append-mostly. A diff
 // is a genuinely new person page (or a thin page crossing the floor), reviewable before
 // it can break an indexed URL.
 //
-// Runs AFTER db:resolve:persons (needs the resolved person + person_role) and the
-// declarations load (the floor consults `declaration`). Wired into db:refresh.
+// Runs AFTER db:resolve:persons (needs the resolved person + person_role), the declarations
+// load (the floor consults `declaration`) AND the officials_rankings_table refresh (the
+// `prerender` set reads it). Wired into db:refresh after those.
 
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, end } from "../db/lib/pg";
+import {
+  OFFICIALS_STATIC_PAGE_LIMIT,
+  officialsForStaticPages,
+} from "@/lib/officialCategoryLabels";
+import type { OfficialCategoryKind } from "@/data/dataTypes";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -36,6 +65,26 @@ const ROOT = path.resolve(
   "..",
 );
 const OUT = path.join(ROOT, "data/person/prerender_slugs.json");
+
+/** The SEO-body fields a prerendered /person page needs, carried in the manifest so the
+ *  prerenderer + sitemap stay DB-free. Present only on `prerender` entries. */
+export type PersonPrerenderCard = {
+  name: string;
+  category: OfficialCategoryKind;
+  institution: string | null;
+  positionTitle: string | null;
+  year: number | null;
+  /** null when the person filed but declared nothing of value. */
+  netWorthEur: number | null;
+};
+
+export type PersonSlugEntry = {
+  slug: string;
+  indexable: boolean;
+  /** true for the net-neutral ex-officials set (see the header). Absent = false. */
+  prerender?: true;
+  card?: PersonPrerenderCard;
+};
 
 // THE CONTENT FLOOR, stated once as the plan states it (G6): a person clears the floor
 // when they have any substance BEYOND a bare candidacy — a filed declaration, or any
@@ -68,14 +117,75 @@ export const emitPersonSlugs = async (): Promise<void> => {
       ORDER BY p.slug COLLATE "C" ASC`,
   );
 
-  const payload = rows.map((r) => ({ slug: r.slug, indexable: r.indexable }));
+  // The net-neutral prerender set: the SAME executive officials officialsForStaticPages
+  // picks for /officials, now keyed by PERSON slug (officials_rankings_table.slug IS the
+  // person slug, and is already §6-gated to active + public). Best-effort: on a DB that
+  // has never loaded declarations the matview is absent, and the manifest degrades to
+  // "nothing prerendered" rather than aborting the resolver pipeline.
+  const cardBySlug = new Map<string, PersonPrerenderCard>();
+  const prerenderSet = new Set<string>();
+  try {
+    const officials = await allRows<{
+      slug: string;
+      name: string;
+      category: OfficialCategoryKind;
+      institution: string | null;
+      position_title: string | null;
+      latest_declaration_year: number | null;
+      net_worth_eur: string | null;
+    }>(
+      `SELECT slug, name, category, institution, position_title,
+              latest_declaration_year, net_worth_eur
+         FROM officials_rankings_table
+        WHERE is_exec`,
+    );
+    const ranked = officials.map((o) => ({
+      slug: o.slug,
+      category: o.category,
+      netWorthEur: o.net_worth_eur == null ? 0 : Number(o.net_worth_eur),
+      raw: o,
+    }));
+    for (const o of officialsForStaticPages(
+      ranked,
+      OFFICIALS_STATIC_PAGE_LIMIT,
+    )) {
+      prerenderSet.add(o.slug);
+      cardBySlug.set(o.slug, {
+        name: o.raw.name,
+        category: o.raw.category,
+        institution: o.raw.institution,
+        positionTitle: o.raw.position_title,
+        year: o.raw.latest_declaration_year,
+        netWorthEur:
+          o.raw.net_worth_eur == null ? null : Number(o.raw.net_worth_eur),
+      });
+    }
+  } catch (e) {
+    console.warn(
+      `[person-slugs] officials_rankings_table unavailable — 0 prerendered (${(e as Error).message})`,
+    );
+  }
+
+  const payload: PersonSlugEntry[] = rows.map((r) => {
+    const entry: PersonSlugEntry = { slug: r.slug, indexable: r.indexable };
+    // A prerendered page must clear the content floor too — but every officials-role
+    // person does, so this is a guard, not a filter.
+    if (r.indexable && prerenderSet.has(r.slug)) {
+      entry.prerender = true;
+      const card = cardBySlug.get(r.slug);
+      if (card) entry.card = card;
+    }
+    return entry;
+  });
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(payload) + "\n");
 
   const indexable = payload.filter((r) => r.indexable).length;
+  const prerendered = payload.filter((r) => r.prerender).length;
   console.log(
     `[person-slugs] wrote ${payload.length} slugs → ${path.relative(ROOT, OUT)} ` +
-      `(${indexable} indexable, ${payload.length - indexable} noindex/thin)`,
+      `(${indexable} indexable, ${payload.length - indexable} noindex/thin, ` +
+      `${prerendered} prerendered — net-neutral vs officials)`,
   );
 };
 

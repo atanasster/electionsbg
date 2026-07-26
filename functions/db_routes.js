@@ -2341,6 +2341,21 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: { personSlug: rows[0]?.r ?? null } };
   },
+  // Resolve an /officials/<slug> to the /person slug that replaced it (T1.3), for the
+  // CLIENT-side redirect. The bare /officials/<slug> hosting rewrite issues a real 301 at
+  // the HTTP layer (functions/index.js), but an in-app <Link to="/officials/x"> is handled
+  // entirely by React Router with no server round-trip, so the SPA needs this JSON lookup
+  // to Navigate correctly. Same officials_person_slug() the 301 uses — current refs and
+  // re-slug-retired ones both resolve, so the 10.4% of slugs that no longer match their
+  // person slug (the trap a naive `/person/${slug}` rewrite would fall into) are handled.
+  "officials-person": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: { personSlug: null } };
+    const rows = await dbRows("SELECT officials_person_slug($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: { personSlug: rows[0]?.r ?? null } };
+  },
 };
 
 module.exports = { DB_ROUTES };

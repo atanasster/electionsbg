@@ -1,11 +1,7 @@
 import fs from "fs";
 import path from "path";
-import type { OfficialCategoryKind } from "../../src/data/dataTypes";
-import {
-  OFFICIAL_CATEGORY_LABELS,
-  officialsForStaticPages,
-} from "../../src/lib/officialCategoryLabels";
-import { OFFICIALS_STATIC_PAGE_LIMIT } from "../../src/lib/officialCategoryLabels";
+import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
+import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
 import {
   CandidatesInfo,
   ElectionInfo,
@@ -3133,80 +3129,78 @@ const OFFICIAL_CATEGORY_EN: Record<string, string> = Object.fromEntries(
 const formatEurForPrerender = (n: number): string =>
   `€${Math.round(n).toLocaleString("en-GB").replace(/,/g, " ")}`;
 
-export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
-  const rankingsFile = path.join(
+// The /person prerender group (T1.4). Reads data/person/prerender_slugs.json — the
+// manifest scripts/person/emit_prerender_slugs.ts writes from Postgres — and emits a
+// static SEO body for every entry flagged `prerender`. That flag is the NET-NEUTRAL
+// ex-officials set (the same ~5,000 executive officials officialsForStaticPages picked for
+// the retired /officials group), so this REPLACES buildOfficialRoutes 1:1 and holds total
+// deployed HTML flat (docs/plans/persons-pg-retirement-v1.md §0.5). The manifest is the
+// single source of truth; no DB read here, and the body fields ride in `card` so the two
+// stay in lockstep. The sitemap enumerates the exact same set (scripts/sitemap enumeratePersons).
+export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
+  const manifestFile = path.join(
     projectRoot,
-    "data/officials/assets-rankings.json",
+    "data/person/prerender_slugs.json",
   );
-  if (!fs.existsSync(rankingsFile)) return [];
-  type RankingEntry = {
-    slug: string;
-    name: string;
-    category: OfficialCategoryKind;
-    institution: string;
-    positionTitle: string | null;
-    latestDeclarationYear: number;
-    netWorthEur: number;
-  };
-  type Rankings = { topOfficials: RankingEntry[] };
-  let rankings: Rankings;
+  if (!fs.existsSync(manifestFile)) return [];
+  let manifest: PersonSlugEntry[];
   try {
-    rankings = JSON.parse(fs.readFileSync(rankingsFile, "utf-8")) as Rankings;
+    manifest = JSON.parse(
+      fs.readFileSync(manifestFile, "utf-8"),
+    ) as PersonSlugEntry[];
   } catch {
     return [];
   }
-  // Cap the prerendered set. The register-wide ingest takes topOfficials from
-  // ~1,500 to 14,490, and each official emits a BG and an EN page — ~29,000 new
-  // static files against a deploy that has already hit Firebase's file ceiling
-  // once. Public-office tiers first, then by declared wealth within tier (see
-  // officialsForStaticPages); the operational bulk stays SPA-rendered and
-  // DB-served.
-  //
-  // This cap is about /officials/:id specifically. The per-person surface is
-  // settled separately (G6 in docs/plans/persons-declarations-audit-v1.md):
-  // every public person gets a working /person/:slug page, and the ones that
-  // clear a content floor — anyone with a filed declaration does — get a
-  // prerendered, indexed page there. So an official capped out here is still
-  // reachable as an indexable page under /person rather than /officials.
   const out: PrerenderRoute[] = [];
-  for (const o of officialsForStaticPages(
-    rankings.topOfficials,
-    OFFICIALS_STATIC_PAGE_LIMIT,
-  )) {
-    const slug = o.slug;
-    const path_ = `officials/${slug}`;
+  for (const entry of manifest) {
+    if (!entry.prerender || !entry.card) continue;
+    const c = entry.card;
+    const path_ = `person/${entry.slug}`;
     const url = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
-    const name = escapeHtmlMinimal(o.name);
-    const institution = escapeHtmlMinimal(o.institution);
-    const position = o.positionTitle
-      ? escapeHtmlMinimal(o.positionTitle)
+    const name = escapeHtmlMinimal(c.name);
+    const institution = c.institution ? escapeHtmlMinimal(c.institution) : null;
+    const position = c.positionTitle
+      ? escapeHtmlMinimal(c.positionTitle)
       : null;
-    const categoryBg = OFFICIAL_CATEGORY_BG[o.category] ?? "Длъжностно лице";
-    const categoryEn = OFFICIAL_CATEGORY_EN[o.category] ?? "Public official";
-    const netWorth = formatEurForPrerender(o.netWorthEur);
-    const title = `${o.name} — декларирано имущество | electionsbg.com`;
-    const titleEn = `${o.name} — declared assets | electionsbg.com`;
-    const description = `Декларирано нетно имущество ${netWorth} (${o.latestDeclarationYear}) на ${o.name}, ${categoryBg} в ${o.institution}. Източник: Сметна палата.`;
-    const descriptionEn = `Declared net worth ${netWorth} (${o.latestDeclarationYear}) for ${o.name}, ${categoryEn} at ${o.institution}. Source: Bulgarian Court of Audit.`;
+    const categoryBg = OFFICIAL_CATEGORY_BG[c.category] ?? "Длъжностно лице";
+    const categoryEn = OFFICIAL_CATEGORY_EN[c.category] ?? "Public official";
+    // net worth is null when the person filed but declared nothing of value — omit the
+    // figure rather than print "€0", which reads as a claim.
+    const netWorth =
+      c.netWorthEur == null ? null : formatEurForPrerender(c.netWorthEur);
+    const yearBg = c.year ? ` (${c.year})` : "";
+    const title = `${c.name} — декларирано имущество | electionsbg.com`;
+    const titleEn = `${c.name} — declared assets | electionsbg.com`;
+    const instBg = institution ? ` в ${institution}` : "";
+    const instEn = institution ? ` at ${institution}` : "";
+    const description = netWorth
+      ? `Декларирано нетно имущество ${netWorth}${yearBg} на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}. Източник: Сметна палата.`
+      : `Профил на ${c.name}, ${categoryBg}${institution ? ` в ${c.institution}` : ""}: декларации за имущество и интереси, връзки, обществени поръчки. Източник: Сметна палата.`;
+    const descriptionEn = netWorth
+      ? `Declared net worth ${netWorth}${yearBg} for ${c.name}, ${categoryEn}${instEn}. Source: Bulgarian Court of Audit.`
+      : `Profile of ${c.name}, ${categoryEn}${instEn}: property/interest declarations, connections, public procurement. Source: Bulgarian Court of Audit.`;
+    const netLineBg = netWorth
+      ? `<p>Декларирано нетно имущество ${netWorth}${c.year ? ` от подадената за ${c.year} г. декларация` : ""} за имущество и интереси пред Сметната палата (декларант + съпруг/а, минус задължения).</p>`
+      : "";
+    const netLineEn = netWorth
+      ? `<p>Declared net worth ${netWorth}${c.year ? ` from the ${c.year} property/interest declaration` : ""} filed with the Court of Audit (declarant + spouse, minus debts).</p>`
+      : "";
     out.push({
       path: path_,
       title,
       description,
       bodyHtml: `
 <h1>${name}</h1>
-<p>${categoryBg} в ${institution}${position ? `. Длъжност: ${position}` : ""}.</p>
-<p>Декларирано нетно имущество ${netWorth} от подадената за ${o.latestDeclarationYear} г. декларация за имущество и интереси пред Сметната палата (декларант + съпруг/а, минус задължения).</p>
+<p>${categoryBg}${instBg}${position ? `. Длъжност: ${position}` : ""}.</p>
+${netLineBg}
 <p>Виж и <a href="${SITE_URL}/officials/assets">класирането на длъжностните лица по активи</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
       jsonLd: [
         buildWebPageLd({ title, description, url }),
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
-          {
-            name: "Длъжностни лица",
-            url: `${SITE_URL}/officials/assets`,
-          },
-          { name: o.name, url },
+          { name: "Длъжностни лица", url: `${SITE_URL}/officials/assets` },
+          { name: c.name, url },
         ]),
       ],
       english: {
@@ -3214,8 +3208,8 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
         description: descriptionEn,
         bodyHtml: `
 <h1>${name}</h1>
-<p>${categoryEn} at ${institution}${position ? `. Position: ${position}` : ""}.</p>
-<p>Declared net worth ${netWorth} from the ${o.latestDeclarationYear} property/interest declaration filed with the Court of Audit (declarant + spouse, minus debts).</p>
+<p>${categoryEn}${instEn}${position ? `. Position: ${position}` : ""}.</p>
+${netLineEn}
 <p>See also the <a href="${SITE_URL}/en/officials/assets">ranking of officials by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
         jsonLd: [
           buildWebPageLd({
@@ -3226,11 +3220,8 @@ export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
           }),
           buildBreadcrumbLd([
             { name: "Home", url: `${SITE_URL}/en/` },
-            {
-              name: "Officials",
-              url: `${SITE_URL}/en/officials/assets`,
-            },
-            { name: o.name, url: enUrl },
+            { name: "Officials", url: `${SITE_URL}/en/officials/assets` },
+            { name: c.name, url: enUrl },
           ]),
         ],
       },
@@ -3529,7 +3520,7 @@ export const buildDynamicRoutes = async (
     ...buildBudgetMinistryRoutes(projectRoot),
     ...buildInstitutionAwarderRoutes(),
     ...buildSchoolRoutes(projectRoot),
-    ...buildOfficialRoutes(projectRoot),
+    ...buildPersonRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),
     ...buildCuratedProjectRoutes(projectRoot),

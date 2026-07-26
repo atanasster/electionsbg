@@ -8,16 +8,8 @@ import {
 } from "../db/lib/seo_settlements";
 import { INSTITUTION_PACKS } from "../prerender/institutions";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
-import {
-  ElectionInfo,
-  OfficialCategoryKind,
-  PartyInfo,
-  SectionIndex,
-} from "@/data/dataTypes";
-import {
-  OFFICIALS_STATIC_PAGE_LIMIT,
-  officialsForStaticPages,
-} from "@/lib/officialCategoryLabels";
+import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
+import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
 
 type SettlementBundleEntry = { ekatte?: string; oblast?: string };
 type PollAgency = { id: string };
@@ -414,31 +406,26 @@ const enumerateLocalMunicipalities = (rootUrl: string, routes: string[]) => {
 // One per file under data/officials/declarations/{slug}.json; the slug is the
 // SPA route parameter. The rankings file's mtime is the canonical "lastmod"
 // for the whole set since the per-official files are regenerated together.
-// A <loc> with no prerendered HTML is a soft-404, so this must select EXACTLY
-// the set scripts/prerender/dynamicRoutes.ts builds — same helper, same limit,
-// not a parallel rule that can drift. There are 14,490 declaration files but
-// only the priority slice gets a static page.
-const enumerateOfficials = (
+// /person/:slug (T1.4) — the prerendered person pages. A <loc> with no prerendered HTML is
+// a soft-404, so this reads the SAME manifest and the SAME `prerender` flag that
+// scripts/prerender/dynamicRoutes.ts buildPersonRoutes emits from — not a parallel rule
+// that can drift. The flag marks the net-neutral ex-officials set (§0.5); the manifest is
+// written by scripts/person/emit_prerender_slugs.ts from Postgres.
+const enumeratePersons = (
   route: RouteDef,
   rootUrl: string,
   routes: string[],
 ) => {
-  const rankingsFile = `${projectPath}/data/officials/assets-rankings.json`;
-  if (!fs.existsSync(rankingsFile)) return;
-  const rankings = JSON.parse(fs.readFileSync(rankingsFile, "utf-8")) as {
-    topOfficials: {
-      slug: string;
-      category: OfficialCategoryKind;
-      netWorthEur: number;
-    }[];
-  };
-  const lastmod = safeFileMod(rankingsFile);
-  for (const o of officialsForStaticPages(
-    rankings.topOfficials,
-    OFFICIALS_STATIC_PAGE_LIMIT,
-  )) {
-    pushUrl(`${rootUrl}/${routes[0]}${o.slug}`, lastmod);
-    pushUrl(`/en${rootUrl}/${routes[0]}${o.slug}`, lastmod);
+  const manifestFile = `${projectPath}/data/person/prerender_slugs.json`;
+  if (!fs.existsSync(manifestFile)) return;
+  const manifest = JSON.parse(
+    fs.readFileSync(manifestFile, "utf-8"),
+  ) as PersonSlugEntry[];
+  const lastmod = safeFileMod(manifestFile);
+  for (const e of manifest) {
+    if (!e.prerender) continue;
+    pushUrl(`${rootUrl}/${routes[0]}${e.slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${e.slug}`, lastmod);
     void route;
   }
 };
@@ -698,8 +685,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateArticles(rootUrl, routes);
     if (route.file === "budget-ministries-list")
       return enumerateBudgetMinistries(route, rootUrl, routes);
-    if (route.file === "officials-list")
-      return enumerateOfficials(route, rootUrl, routes);
+    if (route.file === "person-list")
+      return enumeratePersons(route, rootUrl, routes);
     if (route.file === "cabinets-list")
       return enumerateCabinets(route, rootUrl, routes);
     if (route.file === "funds-themes-list")

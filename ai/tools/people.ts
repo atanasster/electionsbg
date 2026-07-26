@@ -2,7 +2,7 @@
 // party-financing filing compliance, polling accuracy.
 
 import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { ALL_ELECTIONS } from "./dataset";
 import { matchParty } from "./matchParty";
@@ -252,8 +252,10 @@ export const mpConnectionsByParty = async (
 type Official = {
   name: string;
   category: string;
-  institution?: string;
-  totalAssetsEur: number;
+  institution?: string | null;
+  // Postgres `numeric` arrives as a string over the wire (no lossless JS number); parse
+  // with Number() at the point of use.
+  totalAssetsEur: string | null;
 };
 // Derived from the shared vocabulary. A hand-kept copy of four buckets meant
 // the `category` argument silently matched nothing for the other 23 and the
@@ -270,9 +272,6 @@ export const officialsAssetsTop = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const d = await fetchData<{ topOfficials: Official[] }>(
-    "/officials/assets-rankings.json",
-  );
   const catArg = String(args.category ?? "").toLowerCase();
   const cat = Object.keys(OFFICIAL_CAT).find(
     (k) =>
@@ -280,11 +279,25 @@ export const officialsAssetsTop = async (
       catArg.includes(OFFICIAL_CAT[k].bg) ||
       catArg.includes(OFFICIAL_CAT[k].en),
   );
-  let list = d.topOfficials;
-  if (cat) list = list.filter((o) => o.category === cat);
-  const top = [...list]
-    .sort((a, b) => b.totalAssetsEur - a.totalAssetsEur)
-    .slice(0, 12);
+  // Postgres (matview officials_rankings_table, migration 100) via the generic table
+  // registry — replaces the retired data/officials/assets-rankings.json (T1.2). is_exec
+  // scopes it to the executive leaderboard, exactly as /officials/assets does; the category
+  // narrowing is pushed server-side instead of filtering a 767-row JSON slice, so an
+  // uncommon category now ranks over the whole corpus rather than that top slice.
+  const filters: Array<{ id: string; value: unknown }> = [
+    { id: "is_exec", value: true },
+  ];
+  if (cat) filters.push({ id: "category", value: [cat] });
+  const page = await fetchDb<{ rows: Official[] }>("table", {
+    q: JSON.stringify({
+      resource: "officials_rankings",
+      page: 0,
+      pageSize: 12,
+      sort: [{ id: "total_assets_eur", desc: true }],
+      filters: { columns: filters },
+    }),
+  });
+  const top = page.rows;
   const columns: Column[] = [
     { key: "name", label: ctx.lang === "bg" ? "Лице" : "Official" },
     { key: "inst", label: ctx.lang === "bg" ? "Институция" : "Institution" },
@@ -297,7 +310,7 @@ export const officialsAssetsTop = async (
   const rows: Row[] = top.map((o) => ({
     name: o.name,
     inst: o.institution ?? OFFICIAL_CAT[o.category]?.[ctx.lang] ?? o.category,
-    assets: fmtEurCompact(o.totalAssetsEur, ctx.lang),
+    assets: fmtEurCompact(Number(o.totalAssetsEur ?? 0), ctx.lang),
   }));
   return {
     tool: "officialsAssetsTop",
@@ -313,10 +326,10 @@ export const officialsAssetsTop = async (
     facts: {
       richest: top[0]?.name ?? "—",
       richest_assets: top[0]
-        ? fmtEurCompact(top[0].totalAssetsEur, ctx.lang)
+        ? fmtEurCompact(Number(top[0].totalAssetsEur ?? 0), ctx.lang)
         : "—",
     },
-    provenance: ["officials/assets-rankings.json"],
+    provenance: ["db:officials_rankings"],
   };
 };
 

@@ -321,9 +321,14 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "officials/assets",
     file: `data/officials/assets-rankings.json`,
   },
+  // The per-official page is retired (T1.3): /officials/:id 301s to /person/:slug. The
+  // prerendered person pages (the net-neutral ex-officials set) are enumerated as
+  // /person/:slug instead, so no <loc> points at a URL that redirects.
   {
-    path: "officials/:id",
-    file: `officials-list`,
+    // `:id`, not `:slug` — the sitemap generator splits every dynamic path on the literal
+    // ":id" token (index.ts:660); a different param name silently never expands.
+    path: "person/:id",
+    file: `person-list`,
   },
 
   // Public procurement. Every sub-page in the ProcurementNav pills, plus the
