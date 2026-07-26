@@ -1,8 +1,29 @@
 {
-  "updatedAt": "2026-07-26T00:37:25.957Z",
+  "updatedAt": "2026-07-26T01:42:55.895Z",
   "entries": [
     {
-      "timestamp": "2026-07-26T00:37:25.957Z",
+      "timestamp": "2026-07-26T01:42:55.895Z",
+      "date": "2026-07-26",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-25 (+1 daily archive; 1,482,081 store rows, 244 settlements, 204 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-26T01:38:50.527Z",
+      "date": "2026-07-26",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: 27 new complaints for 2026",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-07-26T01:36:22.301Z",
+      "date": "2026-07-26",
+      "skill": "update-procurement",
+      "summary": "EOP gap-fill: 1 new buyer + 3 scoped infra rows (€366k); tenders 232,340 procedures; geo 2,144/2,754 resolved; annex fold 14 updated; corpus 400,514 contracts / €92.71bn",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-26T01:26:31.139Z",
       "date": "2026-07-26",
       "skill": "update-persons",
       "summary": "Профилите на публичните лица преизчислени — 58 084 лица, 111 533 длъжности",
