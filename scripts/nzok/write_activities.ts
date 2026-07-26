@@ -12,6 +12,22 @@
 // a national monthly cases/ЗОЛ series for the trend. The Рег.№→EIK crosswalk is a
 // name fold resolved in the loader (which has Postgres), not here.
 //
+// FACILITY NAMES ARE NOT STABLE WITHIN A YEAR. НЗОК is migrating this feed from
+// mixed-case trade names to ALL-CAPS full legal names, and the migration ran
+// mid-2025 — the cutover is between м.06 and м.07 ("МБАЛ Айтос ЕООД" м.01–06 →
+// "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-АЙТОС ЕООД" м.07–12), lifting the
+// ALL-CAPS share from 48.2% to 54.5%. Because this file's annual key is the
+// NAME fold, a renamed hospital lands as TWO facilities with its cases split
+// between them: 463 folds over 2025 against 376–403 in any single month.
+//
+// The writer cannot fix that on its own — the only thing that re-unites the two
+// halves is the EIK, and the crosswalk lives in the loader. What it CAN do, and
+// does below, is emit `facilityPeriods`: which periods each fold billed in and
+// under which name. That is the evidence the loader needs to (a) key the annual
+// matrix on the resolved ENTITY rather than the name, (b) assert on name churn
+// so a future migration is caught before it ships, and (c) publish per-period
+// coverage instead of silently dropping the unmatched share.
+//
 // Procedure NAMES and лв-value are NOT in the source (it carries the code only);
 // the code's first letter gives the type (P→КП, A→АПр, K→КПр) and that is stored.
 // A pathway price catalogue (НРД) would add value-in-euros — a documented
@@ -130,6 +146,18 @@ interface FacilityProc {
   zol: number;
 }
 
+/** One facility fold's presence across the year's periods: the name it billed
+ *  under in each period and the volume it billed. The loader reads this to pick
+ *  the LATEST-period display name, to detect a name change within one EIK, and
+ *  to publish per-period coverage. Keeping the per-period NAME (not just the
+ *  fold) is the point — a rename is invisible once the names are folded away. */
+interface FacilityPeriod {
+  facilityFold: string;
+  rzok: string;
+  /** Ascending by period. One entry per period the fold appears in. */
+  periods: { period: string; facility: string; cases: number; zol: number }[];
+}
+
 const main = async (): Promise<void> => {
   // Which year? The caller's --year, else the newest year that has all 12 months.
   let year = argYear();
@@ -160,6 +188,8 @@ const main = async (): Promise<void> => {
 
   // (facilityFold \x00 procedure) → annual aggregate; monthly national totals.
   const facProc = new Map<string, FacilityProc>();
+  // facilityFold → its per-period presence (see FacilityPeriod).
+  const facPeriods = new Map<string, FacilityPeriod>();
   const monthlyNational: { period: string; cases: number; zol: number }[] = [];
   const periods: string[] = [];
   let sourceRows = 0;
@@ -207,6 +237,23 @@ const main = async (): Promise<void> => {
       }
       g.cases += r.cases;
       g.zol += r.zol;
+
+      // Per-period presence. The source can spell one facility slightly
+      // differently across its rows in a single file; the fold absorbs that, and
+      // the first spelling seen in the period is kept as that period's name.
+      let fp = facPeriods.get(fold);
+      if (!fp)
+        facPeriods.set(
+          fold,
+          (fp = { facilityFold: fold, rzok: r.rzok, periods: [] }),
+        );
+      let pp = fp.periods[fp.periods.length - 1];
+      if (!pp || pp.period !== period)
+        fp.periods.push(
+          (pp = { period, facility: r.facility, cases: 0, zol: 0 }),
+        );
+      pp.cases += r.cases;
+      pp.zol += r.zol;
     }
     monthlyNational.push({ period, cases: mCases, zol: mZol });
     console.log(
@@ -264,6 +311,28 @@ const main = async (): Promise<void> => {
   const facilityCount = new Set(facilityProcedures.map((g) => g.facilityFold))
     .size;
 
+  const facilityPeriods = [...facPeriods.values()].sort((a, b) =>
+    a.facilityFold.localeCompare(b.facilityFold),
+  );
+  // Name churn, at NAME grain (the loader repeats this at ENTITY grain, where it
+  // can throw — here it is a heads-up in the run log). `maxPeriodFacilities` is
+  // the yardstick: the annual fold count should barely exceed it, and every unit
+  // of excess is either a genuine opening/closure or a rename we have split.
+  const maxPeriodFacilities = Math.max(
+    ...periods.map(
+      (p) =>
+        facilityPeriods.filter((f) => f.periods.some((x) => x.period === p))
+          .length,
+    ),
+  );
+  // Folds whose RAW spelling varied across the year (punctuation/whitespace the
+  // fold absorbs). Deliberately NOT "the rename count": a rename produces two
+  // different FOLDS, which only the loader can pair once it has the EIK. Naming
+  // this `renamedFacilities` would invite exactly that misreading.
+  const foldsWithNameVariants = facilityPeriods.filter(
+    (f) => new Set(f.periods.map((p) => p.facility)).size > 1,
+  ).length;
+
   const out = {
     generatedAt: new Date().toISOString(),
     source: {
@@ -279,12 +348,18 @@ const main = async (): Promise<void> => {
     monthlyNational,
     procedures,
     facilityProcedures,
+    facilityPeriods,
     totals: {
       periodCount: periods.length,
       sourceRows,
       facilityProcedureRows: facilityProcedures.length,
       distinctProcedures: procedures.length,
+      // NB: a NAME count, not an entity count — it over-counts every facility
+      // НЗОК renamed mid-year. The entity count is the loader's to compute (it
+      // owns the EIK crosswalk); read `distinctEntities` off the DB, not this.
       distinctFacilities: facilityCount,
+      maxPeriodFacilities,
+      foldsWithNameVariants,
       totalCases,
     },
   };
@@ -314,7 +389,10 @@ const main = async (): Promise<void> => {
     `\nWrote ${OUT_FILE} (${(bytes / 1024 / 1024).toFixed(1)} MB)\n` +
       `  year ${year} · ${periods.length} months\n` +
       `  ${sourceRows.toLocaleString("en")} source (fac,proc,month) rows → ${facilityProcedures.length.toLocaleString("en")} annual (fac,proc) rows\n` +
-      `  ${procedures.length} distinct procedures · ${facilityCount} facilities · ${totalCases.toLocaleString("en")} total cases\n` +
+      `  ${procedures.length} distinct procedures · ${facilityCount} facility NAMES · ${totalCases.toLocaleString("en")} total cases\n` +
+      `  name churn: ${facilityCount} annual names vs ${maxPeriodFacilities} in the busiest single period ` +
+      `(+${facilityCount - maxPeriodFacilities}); ${foldsWithNameVariants} folds billed under >1 spelling\n` +
+      `  → the loader re-keys these onto the resolved entity; see its churn assert\n` +
       `  top procedure: ${procedures[0]?.procedure} (${procedures[0]?.procType}) — ${procedures[0]?.cases.toLocaleString("en")} cases @ ${procedures[0]?.facilityCount} facilities`,
   );
 };

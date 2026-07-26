@@ -2864,11 +2864,34 @@ export interface NzokActivityOutlier {
   ratio: number;
 }
 
+/** How much of the activity corpus reaches a known EIK. The feed carries only a
+ *  facility NAME, and ~32% of names never resolve, so any eik-keyed reading of
+ *  this corpus (per-hospital case-mix, the map, expected-vs-actual) silently
+ *  omits that share. Published per period so the gap is visible rather than
+ *  inferred — see rule 5 in scripts/db/schema/pg/053_nzok_activities.sql. */
+export interface NzokActivityCoverage {
+  mappedEntities: number;
+  unmappedEntities: number;
+  unmappedCases: number;
+  unmappedCasesPct: number;
+  byPeriod: {
+    period: string;
+    facilities: number;
+    unmappedFacilities: number;
+    cases: number;
+    unmappedCases: number;
+    unmappedCasesPct: number;
+  }[];
+}
+
 export interface NzokActivitiesFile {
   year: number;
   totalCases: number;
   distinctProcedures: number;
+  /** Distinct ENTITIES (eik, else name fold) — not distinct names. НЗОК renames
+   *  facilities mid-year, so a name count over-states this by ~15%. */
   distinctFacilities: number;
+  coverage: NzokActivityCoverage;
   caseBedFloors: { minCases: number; minBeds: number; minPeers: number };
   monthly: { period: string; cases: number; zol: number }[];
   topProcedures: NzokActivityProcedure[];

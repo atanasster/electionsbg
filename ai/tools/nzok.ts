@@ -421,7 +421,14 @@ type NzokActivitiesOverview = {
   totals: {
     totalCases: number;
     distinctProcedures: number;
+    /** Distinct facility NAMES over the year. NOT a facility count: НЗОК renames
+     *  facilities mid-year, so this over-states the real number by ~15%. Only the
+     *  loader can collapse names to entities (it holds the EIK crosswalk), so
+     *  this static companion reports `maxPeriodFacilities` instead. */
     distinctFacilities: number;
+    /** Facilities billing in the busiest single month — a true count, and the
+     *  closest honest figure this file can carry. */
+    maxPeriodFacilities?: number;
   };
   topProcedures: {
     procedure: string;
@@ -494,7 +501,12 @@ export const nzokActivities = async (
       year: String(f.year),
       total_cases: fmtInt(f.totals.totalCases, ctx.lang),
       procedures: fmtInt(f.totals.distinctProcedures, ctx.lang),
-      facilities: fmtInt(f.totals.distinctFacilities, ctx.lang),
+      // Per-month, not per-year: the annual figure counts NAMES, and НЗОК
+      // renames facilities mid-year. Falls back only for a pre-rename artifact.
+      facilities: fmtInt(
+        f.totals.maxPeriodFacilities ?? f.totals.distinctFacilities,
+        ctx.lang,
+      ),
       top_procedure: biggest?.procedure ?? "—",
       top_cases: biggest ? fmtInt(biggest.cases, ctx.lang) : "—",
     },

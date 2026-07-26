@@ -67,6 +67,10 @@ const PAYMENTS: NamedEik[] = [
   },
   // Two same-region hospitals sharing a generic word only — must stay ambiguous.
   { name: "МБАЛ Медицински комплекс Берое ЕООД", eik: "202192245", rzok: "24" },
+  // A town hospital whose brand degenerates to the TOWN alone. The activities
+  // feed also bills rehab FILIALS of other legal entities from this town, whose
+  // brands degenerate to the same token — see the branch-gate test below.
+  { name: "МБАЛ - Поморие ЕООД", eik: "102618523", rzok: "02" },
 ];
 const FINANCIALS: NamedEik[] = [];
 const resolve = buildActivityEikResolver(PAYMENTS, FINANCIALS);
@@ -142,4 +146,63 @@ test("FALLBACK table: abbreviation-only + dialysis holdouts resolve", () => {
 
 test("unknown facility stays null (honest)", () => {
   assert.equal(resolve("МС Здраве Пазарджик", "13 Пазарджик"), null);
+});
+
+// ── Branch gate ────────────────────────────────────────────────────────────
+// A филиал/клон is a SITE of some other legal entity, and its brand routinely
+// degenerates to just its town — set-EQUAL to the town hospital's brand. Before
+// the gate, tier B matched "СБР НК ЕАД филиал Поморие" and "СБР Вита ЕООД клон
+// Поморие" onto МБАЛ Поморие's EIK on the town token alone, inventing an EIK the
+// payments feed itself leaves NULL and folding three distinct facilities into one
+// hospital's case-mix. Keying every aggregate on the EIK makes that mis-merge
+// load-bearing, so it must stay refused.
+test("branch gate: a филиал/клон never matches the town's own hospital", () => {
+  assert.equal(resolve("МБАЛ Поморие ЕООД", "02 Бургас"), "102618523");
+  assert.equal(
+    resolve(
+      "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ПОМОРИЕ  ЕООД",
+      "02 Бургас",
+    ),
+    "102618523",
+    "the ALL-CAPS rename of the same hospital must still resolve",
+  );
+  assert.equal(resolve("СБР НК ЕАД филиал Поморие", "02 Бургас"), null);
+  assert.equal(resolve("СБР ВИТА  ЕООД клон Поморие", "02 Бургас"), null);
+  assert.equal(
+    resolve(
+      "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - НАЦИОНАЛЕН КОМПЛЕКС  ЕАД СОФИЯ, ФИЛИАЛ ПОМОРИЕ",
+      "02 Бургас",
+    ),
+    null,
+  );
+});
+
+// ── Curated signatures must not over-reach ─────────────────────────────────
+// {tokens:["ХАСКОВО"], rzok:"26"} swallowed every facility in Хасково — МБАЛ
+// Хигия ООД and СБАЛО Хасково ЕООД are different legal entities and were both
+// being reported as МБАЛ Хасково. Each name form is now pinned to its own type
+// word, and the siblings carry their own signatures.
+test("Хасково signatures resolve each hospital to ITS OWN eik", () => {
+  const r = (n: string): string | null => resolve(n, "26 Хасково");
+  assert.equal(r("МБАЛ Хасково АД"), "126529015");
+  assert.equal(
+    r("МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ХАСКОВО  АД"),
+    "126529015",
+  );
+  assert.equal(
+    r("СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОНКОЛОГИЯ - ХАСКОВО  ЕООД"),
+    "000900156",
+  );
+  assert.equal(
+    r(
+      "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ ХАСКОВО  ЕООД",
+    ),
+    "000900131",
+  );
+  // Private, EIK genuinely unknown — must NOT inherit МБАЛ Хасково's.
+  assert.equal(r("МБАЛ ХИГИЯ ООД ХАСКОВО"), null);
+  assert.equal(
+    r("МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ  ХИГИЯ   ООД"),
+    null,
+  );
 });
