@@ -26,7 +26,7 @@ CREATE OR REPLACE FUNCTION awarder_group_model(
 RETURNS jsonb LANGUAGE sql STABLE AS $$
 WITH base AS (
   SELECT awarder_eik, contractor_eik, contractor_name, amount_eur, cpv,
-         procurement_method, number_of_tenderers, date
+         procurement_method, number_of_tenderers, date, consortium_role
   FROM contracts
   WHERE awarder_eik = ANY(p_eiks) AND tag = 'contract'
     AND date >= COALESCE(p_from, '')
