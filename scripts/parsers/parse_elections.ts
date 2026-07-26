@@ -10,6 +10,7 @@ import { splitSections } from "./split_sections";
 import { generateSearch } from "scripts/search";
 import { backupFileName } from "scripts/recount/backup_file";
 import { sectionVotesFileName } from "scripts/consts";
+import { preserveSectionCoords } from "./backfill_section_coords";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -33,6 +34,12 @@ const parseElection = async ({
   //const parties =
   const parties = await parseParties(inFolder, outFolder, monthYear, stringify);
   const sections = await parseSections(inFolder, monthYear);
+  // Only the 2026+ CEC source carries GPS, so for every older election the
+  // coordinates live solely in the generated output this run is about to
+  // overwrite — and .gitignore excludes it, so nothing else would notice them
+  // going. Carry them across before any writer runs: splitSections,
+  // generateVotes and the settlement shards all render from this one array.
+  preserveSectionCoords({ inFolder, sections });
 
   const votes = await parseVotes(inFolder, monthYear, parties, hasRecount);
   const protocols = await parseProtocols(

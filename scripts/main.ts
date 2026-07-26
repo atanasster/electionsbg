@@ -314,13 +314,24 @@ const app = command({
       await parseMachinesFlashMemory(inFolder, date, stringify);
     }
     await parseElections({ date, all, stringify, publicFolder });
-    if (coords || all) {
-      backfillSectionCoords({
-        publicFolder,
-        dataFolder: inFolder,
-        stringify,
-      });
-    }
+    // Runs unconditionally. It used to be gated on `coords || all`, which meant
+    // a plain `npm run data -- --date <older election>` rebuilt the section
+    // files from a GPS-less source and then skipped the pass that puts the
+    // coordinates back — silently, because /data/2*/* is gitignored. Six
+    // elections (2021_07_11 … 2024_10_27) were zeroed that way on 2026-07-18
+    // and 2026-07-25 and the loss reached GCS. preserveSectionCoords in
+    // parse_elections.ts is now the first line of defence; this stays as the
+    // populate-a-new-election and repair-a-zeroed-one pass, and it is
+    // idempotent (it only fills sections that lack a coordinate), so there is
+    // no reason to make it opt-in. `--coords` still forces the full sweep.
+    backfillSectionCoords({
+      publicFolder,
+      dataFolder: inFolder,
+      // A single-election run only needs its own year swept; --coords/--all
+      // keep the full cross-election sweep.
+      only: !coords && !all && date ? [date] : undefined,
+      stringify,
+    });
     // Пловдив/Варна район layer (geometry + per-election results + município
     // shards). Derived from the section data + the coords backfilled just
     // above, so it runs here and is folded into `--all` — never stale after a

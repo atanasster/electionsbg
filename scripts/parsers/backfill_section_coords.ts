@@ -10,18 +10,88 @@ import { sectionVotesFileName } from "scripts/consts";
 // is high for 2009+ and near-zero for 2005 (renumbered ID scheme).
 //
 // Updates:
-//   1. public/YYYY_MM_DD/sections/by-oblast/*.json   (per-oblast bundles)
-//   2. public/YYYY_MM_DD/settlements/*.json          (settlement screen — embeds sections array)
-//   3. raw_data/YYYY_MM_DD/section_votes.json        (consumed by reports)
+//   1. data/YYYY_MM_DD/sections/by-oblast/*.json   (per-oblast bundles)
+//   2. data/YYYY_MM_DD/settlements/*.json          (settlement screen — embeds sections array)
+//   3. raw_data/YYYY_MM_DD/section_votes.json      (consumed by reports)
 //
 // Idempotent: only fills sections that don't already have a coordinate.
+//
+// THIS IS A REPAIR PASS, NOT THE PRIMARY DEFENCE. Only the 2026+ CEC source
+// carries GPS (see the parser branches in ./sections.ts) — every older election
+// holds coordinates that exist ONLY here, in generated output that .gitignore
+// excludes (`/data/2*/*`). A re-parse rebuilds those files from `sections.txt`
+// and therefore drops the coordinates, and git cannot notice. That is exactly
+// what happened on 2026-07-18 and 2026-07-25: six elections (2021_07_11
+// through 2024_10_27) were re-parsed without this pass and went to 0 geocoded
+// sections, which then reached GCS.
+//
+// So the primary defence is preserveSectionCoords below, which carries existing
+// coordinates through a re-parse without needing a donor election at all. This
+// pass remains the way to populate a NEW election and to repair one already
+// zeroed.
+/**
+ * Carry coordinates from the CURRENT raw_data/<year>/section_votes.json onto a
+ * freshly parsed section list, for every section the parse left without one.
+ *
+ * Call this immediately after parseSections and before anything writes: the
+ * flat file, the by-oblast bundles and the settlement shards are all rendered
+ * from the same array, so patching it once fixes all three.
+ *
+ * Unlike backfillSectionCoords this needs no donor election — it reads the
+ * election's own previous output — so it holds even when data/ has been wiped
+ * of every other year, and it cannot pull a coordinate from a different
+ * election onto a re-used section code. Returns how many it carried over.
+ */
+export const preserveSectionCoords = ({
+  inFolder,
+  sections,
+}: {
+  inFolder: string;
+  sections: SectionInfo[];
+}): number => {
+  const flatFile = path.join(inFolder, sectionVotesFileName);
+  if (!fs.existsSync(flatFile)) return 0;
+  let prev: SectionInfo[];
+  try {
+    prev = JSON.parse(fs.readFileSync(flatFile, "utf-8"));
+  } catch {
+    return 0;
+  }
+  if (!Array.isArray(prev)) return 0;
+
+  const known = new Map<string, { longitude: number; latitude: number }>();
+  for (const s of prev)
+    if (typeof s.longitude === "number" && typeof s.latitude === "number")
+      known.set(s.section, { longitude: s.longitude, latitude: s.latitude });
+  if (known.size === 0) return 0;
+
+  let carried = 0;
+  for (const s of sections) {
+    if (typeof s.longitude === "number" && typeof s.latitude === "number")
+      continue;
+    const c = known.get(s.section);
+    if (!c) continue;
+    s.longitude = c.longitude;
+    s.latitude = c.latitude;
+    carried += 1;
+  }
+  if (carried)
+    console.log(
+      `preserveSectionCoords: carried ${carried} coordinate(s) through the re-parse`,
+    );
+  return carried;
+};
+
 export const backfillSectionCoords = ({
   publicFolder,
   dataFolder,
+  only,
   stringify,
 }: {
   publicFolder: string;
   dataFolder: string;
+  /** Limit the sweep to these election folders. Omit to sweep every one. */
+  only?: string[];
   stringify: (o: object) => string;
 }) => {
   const lookup = buildCoordsLookup(publicFolder);
@@ -36,10 +106,12 @@ export const backfillSectionCoords = ({
     `backfillSectionCoords: built lookup with ${lookupSize} sections`,
   );
 
+  const onlySet = only && only.length ? new Set(only) : null;
   const years = fs
     .readdirSync(publicFolder, { withFileTypes: true })
     .filter((d) => d.isDirectory() && /^\d{4}_\d{2}_\d{2}$/.test(d.name))
     .map((d) => d.name)
+    .filter((y) => !onlySet || onlySet.has(y))
     .sort();
 
   for (const year of years) {
