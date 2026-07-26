@@ -69,36 +69,34 @@ If the canary line is missing it's because the canary bundle's `datasetUuid` mat
 
 АОП's OCDS "обявления" export (the data.egov.bg feed Step 1 ingests) is a strict **subset** of what ЦАИС ЕОП itself publishes. ЦАИС ЕОП's own daily open-data buckets (`storage.eop.bg/open-data-<YYYY-MM-DD>/`) carry a flat **`договори`** file that lists ~900 small contracting authorities — overwhelmingly schools & kindergartens — whose signed contracts never appear in the OCDS обявления export. The `eop_procurement` watcher source tracks that feed.
 
-Run the incremental gap-fill, **then the scoped infra-buyer recovery** (below), then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
+Run the **self-heal** cadence, then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --apply   # incremental: last ~30 days (absent buyers)
-# Scoped recovery — storage.eop.bg-only contracts of ALREADY-COVERED top infra buyers
-# (the plain gap-fill's existing-buyer guard drops these every fortnight; see below).
-npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup \
-  --only-buyers "000695089,175203478,130823243,106513772,000695388,000696327"
-npm run procurement:ingest                           # rebuild rollups/derived/by-settlement/index
+npx tsx scripts/procurement/ingest_eop.ts --self-heal --apply   # covered-buyer gap-heal, last ~75 days
+npm run procurement:ingest                                       # rebuild rollups/derived/by-settlement/index
 ```
 
-**Why the scoped recovery step (SIGMA-parity P1, 2026-07-16).** The incremental gap-fill only adds buyers ENTIRELY absent from our corpus. But the biggest infra buyers (АПИ 000695089, Булгартрансгаз 175203478, НКЖИ 130823243, АЕЦ Козлодуй 106513772, Мин. транспорт 000695388, Столична община 000696327) ARE in our corpus via OCDS, yet ЦАИС ЕОП carries large consortium road/rail contracts of theirs that the АОП OCDS export omits — e.g. `00044-2020-0085` (Русе–Бяла, €785.8M), `00044-2021-0018` (€170.6M). The existing-buyer guard drops these, and it **recurs every fortnight** as new such contracts publish. `--only-buyers <whitelist> --cross-source-dedup` keeps just those authorities and content-dedups against the corpus (zero double-count — verified: a full run recovered ~1,247 rows / €1.99bn with 0 real collisions, at-signing EUR matching SIGMA `signingEur` to the cent). Do NOT add ЕСО (175201304, МЕР-branch aggregation) or МЗ (central-purchasing-body) — their apparent gaps are attribution artifacts, not holes. Note: `00044-2020-0085`'s `buyerRegistryNumber` is the multi-EIK string `"175076479999; 000695089"` (АДФИ + АПИ); `normalize_eop`'s `resolvePrimaryBuyer` attributes multi-buyer records to a whitelisted authority ONLY when `--only-buyers` is passed (the general feed still skips joint-procurement rows).
+**Why `--self-heal` (shipped 2026-07-26; replaces the old two-step).** `--self-heal` implies `--cross-source-dedup` over a **~75-day** window (wide enough to span АОП's OCDS-export lag behind the live ЦАИС feed; 90-day guard cap, no `--backfill`), keeping **all** buyers and content-deduping against the corpus. It is double-count-**safe** because `ingest.ts::writeMonthShards` evicts each `eop-` row once its authoritative OCDS twin lands (see the OCDS-lag section below). This single command subsumes both halves of the previous runbook:
+- the plain absent-buyer gap-fill (`--apply` with no dedup), and
+- the scoped infra-buyer recovery (`--cross-source-dedup --only-buyers "000695089,175203478,130823243,106513772,000695388,000696327"` — АПИ, Булгартрансгаз, НКЖИ, АЕЦ Козлодуй, Мин. транспорт, Столична община). Those authorities are covered by OCDS yet ЦАИС carries large consortium road/rail contracts the OCDS export omits (e.g. `00044-2020-0085` Русе–Бяла €785.8M); the old plain guard dropped them every fortnight. `--self-heal` now recovers them — and every *other* covered buyer (hospitals under ПЛС/ДСП, ministries) that had the identical gap — without a whitelist.
 
-One-time historical recovery (already run once): add `--backfill --from 2020-01-01` to the scoped command above to sweep the full 2020→ history rather than the rolling ~30-day window.
+`--only-buyers` still exists for a targeted re-run but is no longer part of the nightly path. Multi-buyer attribution note (unchanged): `00044-2020-0085`'s `buyerRegistryNumber` is `"175076479999; 000695089"` (АДФИ + АПИ); under cross-source-dedup `normalize_eop`'s `resolvePrimaryBuyer` attributes such records to the **primary** (first) buyer as SIGMA does (`recoverJointToPrimary`), recovering ~653 rows / €1.16bn the plain feed dropped.
 
-`ingest_eop` fetches the flat `договори` feed and gap-fills **only buyers entirely absent from our corpus** — an absent buyer has zero OCDS rows, so an EOP row can never double-count an existing contract. New buyers get well-formed `Contract` rows (synthetic `eop-<УНП>` ids, namespaced away from OCDS) in the same month-shards, so the existing rollup machinery picks them up with no special handling. The flat feed carries no buyer address, so these awarders won't resolve to an EKATTE (absent from the by-settlement map, present everywhere else).
+`ingest_eop --self-heal` fetches the flat `договори` feed and, for each buyer, adds only the contracts not already in the corpus on a content key. New rows get well-formed `Contract` rows (synthetic `eop-<УНП>` ids, namespaced away from OCDS) in the same month-shards, so the existing rollup machinery picks them up with no special handling. The flat feed carries no buyer address, so these awarders won't resolve to an EKATTE (absent from the by-settlement map, present everywhere else) — see Step 1c geo-enrichment.
 
-Caveats: the **incremental** gap-fill adds buyers we *lack* — it does not fill missing contracts of buyers we already have, because for any year the OCDS feed covers that would double-count the base. The one exception is years with **no** OCDS at all (2024/2025): there the `--include-existing-buyers` one-off (below) lifts that guard safely. It's the gap-fill, not a re-platform — the OCDS feed stays the base for every year it covers.
+Caveat — years with **no** OCDS at all (2024/2025): the `--include-existing-buyers` one-off (below) is still the tool there. For every year OCDS covers, `--self-heal` is the base cadence and the eviction guard keeps it from double-counting.
 
 **OCDS-lag covered-buyer gap + the eviction guard (2026-07-26).** АОП publishes the data.egov.bg OCDS export on a multi-week lag behind the live ЦАИС ЕОП feed (which is what `sigma.midt.bg` reads). While a fortnight sits published in the flat feed but not yet in OCDS, the incremental gap-fill drops every *covered* buyer's new contracts (deferring to the OCDS that hasn't arrived) — so recent contracts of hospitals, ministries etc. go missing and we lag SIGMA by weeks. Symptom: `SELECT max(date) FROM contracts WHERE contractor_eik=<supplier>` trails SIGMA; the missing УНП is in the cached flat feed (`gzcat raw_data/procurement/eop/<day>.json.gz | grep <unp>`) but absent from our corpus.
 
-Recover the whole gap in one shot (all buyers, not just the infra whitelist) — the window is OCDS-lag-end (newest ingested bundle `periodEnd` in `bundles.json`, +1 day) through the newest flat day:
+The nightly `--self-heal` run (above) covers this automatically for any lag up to ~75 days. Only if the OCDS lag ever **exceeds** the self-heal window (the missing `date` predates `today − 75d`) widen it explicitly:
 
 ```bash
 npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup --backfill \
-  --from <ocds-periodEnd+1> --to <newest-flat-day>   # e.g. 2026-06-04 … 2026-07-24
+  --from <ocds-periodEnd+1> --to <newest-flat-day>   # only when the gap is older than 75 days
 npm run procurement:ingest                            # rebuild; then db:load:pg (+ :cloud) to publish
 ```
 
-This is now double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSupersededEopTwins` (`content_key.ts`): when АОП's OCDS export finally publishes that fortnight, the arriving OCDS row **evicts** the `eop-` twin it stood in for (content match, OCDS authoritative — the two feeds namespace `key`s disjointly, so the key merge alone would keep both). Validated on the real 2026-05-21…06-03 fortnight: 1827/1832 flat rows twin an OCDS row. This is the general form of the infra-buyer `--only-buyers` patch above; that whitelist is now redundant for correctness (the eviction handles the overlap for *any* buyer) but harmless. **Proposed (needs review):** switch the nightly incremental gap-fill itself to `--cross-source-dedup` over the rolling window so the gap self-heals without a manual recovery — the eviction guard makes that safe.
+It is double-count-**safe** because `ingest.ts::writeMonthShards` runs `evictSupersededEopTwins` (`content_key.ts`): when АОП's OCDS export finally publishes that fortnight, the arriving OCDS row **evicts** the `eop-` twin it stood in for (content match, OCDS authoritative — the two feeds namespace `key`s disjointly, so the key merge alone would keep both). Validated on the real 2026-05-21…06-03 fortnight: 1827/1832 flat rows twin an OCDS row. **Shipped (2026-07-26):** the nightly cadence is now `--self-heal` (implemented in `eop_window.ts` / `ingest_eop.ts`), so the covered-buyer gap self-heals without a manual recovery and the old `--only-buyers` infra step is retired from the nightly path.
 
 ## Step 1c — Awarder geo-enrichment (place-view coverage)
 
