@@ -411,6 +411,9 @@ const load = async () => {
               d.sourceUrl,
               spec.tier,
               d.declarantName ?? null,
+              d.institution ?? null,
+              d.positionTitle ?? null,
+              d.declarationYear ?? null,
             ]);
           }
           continue;
@@ -536,7 +539,15 @@ const load = async () => {
     await copyRows(
       c,
       "declaration_subject_alias",
-      ["subject_ref", "source_url", "tier", "declarant_name"],
+      [
+        "subject_ref",
+        "source_url",
+        "tier",
+        "declarant_name",
+        "institution",
+        "position_title",
+        "declaration_year",
+      ],
       aliasRows,
     );
     // declaration_id was supplied explicitly; move the serial past it so a later

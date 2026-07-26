@@ -602,6 +602,11 @@ const REGISTRY = {
       role: { type: "text", sort: true, filter: "in" },
       role_raw: { type: "text", filter: "text" },
       obshtina: { type: "text", filter: "in" },
+      // 'Район <NAME>' for a district body folded under a city's obshtina, NULL for a
+      // city-wide official. filter:"eq" so a caller can ask for the city-wide row
+      // directly — /governance distinguishes Plovdiv's mayor from its six район mayors
+      // on exactly this, and picking by sort order instead returns a район mayor.
+      district: { type: "text", filter: "eq" },
       municipality: { type: "text", sort: true, filter: "text", search: true },
       latest_declaration_year: { type: "int", sort: true, filter: "range" },
       has_declaration: { type: "bool", filter: "eq" },
@@ -613,6 +618,7 @@ const REGISTRY = {
       "role",
       "role_raw",
       "obshtina",
+      "district",
       "municipality",
       "latest_declaration_year",
       "has_declaration",

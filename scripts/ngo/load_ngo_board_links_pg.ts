@@ -163,19 +163,25 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     // (a fresh clone without the municipal build) simply leave every code NULL, which
     // degrades to today's behaviour rather than failing the load.
     const obshtinaBySlug = new Map<string, string>();
+    const districtBySlug = new Map<string, string>();
     if (existsSync(OFFICIALS_MUNI_SHARDS)) {
       for (const f of readdirSync(OFFICIALS_MUNI_SHARDS)) {
         if (!f.endsWith(".json")) continue;
         try {
           const shard = JSON.parse(
             readFileSync(join(OFFICIALS_MUNI_SHARDS, f), "utf8"),
-          ) as { obshtina?: string; entries?: { slug?: string }[] };
+          ) as {
+            obshtina?: string;
+            entries?: { slug?: string; district?: string }[];
+          };
           // Prefer the shard's own field; the filename is the same code and is the
           // fallback when an older shard predates it.
           const code = shard.obshtina ?? f.replace(/\.json$/, "");
-          for (const e of shard.entries ?? [])
-            if (e.slug && !obshtinaBySlug.has(e.slug))
-              obshtinaBySlug.set(e.slug, code);
+          for (const e of shard.entries ?? []) {
+            if (!e.slug || obshtinaBySlug.has(e.slug)) continue;
+            obshtinaBySlug.set(e.slug, code);
+            if (e.district) districtBySlug.set(e.slug, e.district);
+          }
         } catch {
           console.warn(`[ngo-board-links] unreadable municipal shard ${f}`);
         }
@@ -184,7 +190,14 @@ export const loadNgoBoardLinksPg = async (): Promise<{
 
     const seen = new Map<
       string,
-      [string, string, string | null, string | null, string | null]
+      [
+        string,
+        string,
+        string | null,
+        string | null,
+        string | null,
+        string | null,
+      ]
     >();
     const add = (
       name: string | undefined,
@@ -199,6 +212,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
           role,
           tier,
           obshtinaBySlug.get(slug) ?? null,
+          districtBySlug.get(slug) ?? null,
         ]);
     };
     if (existsSync(OFFICIALS_EXEC)) {
@@ -231,7 +245,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       roster = await copyRows(
         c,
         "official_roster",
-        ["name", "slug", "role", "tier", "obshtina"],
+        ["name", "slug", "role", "tier", "obshtina", "district"],
         seen.values(),
       );
     });

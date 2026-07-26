@@ -52,6 +52,15 @@ CREATE TABLE IF NOT EXISTS declaration_subject_alias (
   -- two refs are one human" on the strength of a shared URL alone, and a gold key is the
   -- one tier no namesake veto can override — see the header.
   declarant_name text,
+  -- The dropped listing's OWN labels. The surviving row carries the labels of whichever
+  -- listing won the dedup, which is a different office: Чанка Иванова Коралска is
+  -- "Заместник кмет / Бургас" on her municipal listing and "Процедури по ЗОП" on the
+  -- executive one that won, so a municipal roster reading the survivor would publish the
+  -- wrong office for her. These three are what let a roster render the listing it is
+  -- actually showing. Identity lives in the columns above; this is presentation.
+  institution    text,
+  position_title text,
+  declaration_year int,
   PRIMARY KEY (subject_ref, source_url)
 );
 

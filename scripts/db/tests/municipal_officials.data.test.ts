@@ -24,29 +24,38 @@ const SHARD_DIR = path.join(
   "../../../data/officials/municipal/by_obshtina",
 );
 
+// Deliberately gated on the table EXISTING, not on it having rows. Folding "0 rows" into
+// the skip condition — the obvious shape, and the one the sibling gates use — means a
+// matview that silently produced nothing makes every test below skip GREEN, which is the
+// one failure this file most needs to report. Emptiness is asserted as a real test instead.
 const reachable = async (): Promise<boolean> => {
   try {
     const [t] = await allRows<{ ok: boolean }>(
       "SELECT to_regclass('public.municipal_officials_table') IS NOT NULL AS ok",
     );
-    if (!t?.ok) return false;
-    const [c] = await allRows<{ n: string }>(
-      "SELECT count(*) n FROM municipal_officials_table",
-    );
-    return Number(c.n) > 0;
+    return Boolean(t?.ok);
   } catch {
     return false;
   }
 };
 
 const haveDb = await reachable();
-const skip = haveDb
-  ? false
-  : "Postgres unreachable / municipal_officials empty";
+const skip = haveDb ? false : "Postgres unreachable / matview absent";
 const haveShards = existsSync(SHARD_DIR);
 
 afterAll(async () => {
   await end();
+});
+
+// An empty matview is a silent total failure, so it is an assertion, not a skip.
+test.skipIf(skip)("the roster is not empty", async () => {
+  const [c] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM municipal_officials_table",
+  );
+  assert.ok(
+    Number(c.n) > 5_000,
+    `municipal_officials_table has ${c.n} rows — the matview produced (almost) nothing`,
+  );
 });
 
 // The grain. official_slug is one per roster listing and is the paging tiebreak, so it
@@ -106,15 +115,29 @@ test.skipIf(skip)("the §6 privacy gate is applied", async () => {
 test.skipIf(skip || !haveShards)(
   "per-obshtina membership and roles match the shards exactly",
   async () => {
-    const rows = await allRows<{
+    // EVERY published field, not just the key columns. The first cut of this test
+    // compared obshtina/official_slug/role only — the three that happened to be correct —
+    // and so reported "exact parity" while latest_declaration_year was a year behind on
+    // 98% of rows, role_raw/municipality were stamped from the wrong seat for anyone
+    // holding two, and district was missing entirely. Set membership is not parity.
+    type Row = {
       obshtina: string;
       official_slug: string;
       role: string;
-    }>("SELECT obshtina, official_slug, role FROM municipal_officials_table");
-    const pg = new Map<string, Map<string, string>>();
+      role_raw: string | null;
+      municipality: string | null;
+      latest_declaration_year: number | null;
+      district: string | null;
+    };
+    const rows = await allRows<Row>(
+      `SELECT obshtina, official_slug, role, role_raw, municipality,
+              latest_declaration_year, district
+         FROM municipal_officials_table`,
+    );
+    const pg = new Map<string, Map<string, Row>>();
     for (const r of rows) {
       if (!pg.has(r.obshtina)) pg.set(r.obshtina, new Map());
-      pg.get(r.obshtina)!.set(r.official_slug, r.role);
+      pg.get(r.obshtina)!.set(r.official_slug, r);
     }
 
     let jsonEntries = 0;
@@ -127,18 +150,41 @@ test.skipIf(skip || !haveShards)(
         readFileSync(path.join(SHARD_DIR, f), "utf8"),
       ) as {
         obshtina?: string;
-        entries?: { slug?: string; role?: string }[];
+        entries?: {
+          slug?: string;
+          role?: string;
+          roleRaw?: string;
+          municipality?: string;
+          latestDeclarationYear?: number;
+          district?: string;
+        }[];
       };
       const code = shard.obshtina ?? f.replace(/\.json$/, "");
-      const pm = pg.get(code) ?? new Map<string, string>();
+      const pm = pg.get(code) ?? new Map<string, Row>();
       const seen = new Set<string>();
       for (const e of shard.entries ?? []) {
         if (!e.slug) continue;
         jsonEntries++;
         seen.add(e.slug);
-        if (!pm.has(e.slug)) missing.push(`${code}/${e.slug}`);
-        else if (pm.get(e.slug) !== e.role)
-          roleDiff.push(`${e.slug}: json=${e.role} pg=${pm.get(e.slug)}`);
+        const got = pm.get(e.slug);
+        if (!got) {
+          missing.push(`${code}/${e.slug}`);
+          continue;
+        }
+        const cmp: [string, unknown, unknown][] = [
+          ["role", e.role, got.role],
+          ["roleRaw", e.roleRaw ?? null, got.role_raw],
+          ["municipality", e.municipality ?? null, got.municipality],
+          [
+            "year",
+            e.latestDeclarationYear ?? null,
+            got.latest_declaration_year,
+          ],
+          ["district", e.district ?? null, got.district],
+        ];
+        for (const [field, want, have] of cmp)
+          if (want !== have)
+            roleDiff.push(`${e.slug}.${field}: json=${want} pg=${have}`);
       }
       for (const s of pm.keys()) if (!seen.has(s)) extra.push(`${code}/${s}`);
     }
@@ -154,7 +200,7 @@ test.skipIf(skip || !haveShards)(
         roleDiff: roleDiff.slice(0, 5),
       },
       { missing: [], extra: [], roleDiff: [] },
-      `roster drifted from the shards (${missing.length} missing, ${extra.length} extra, ${roleDiff.length} role mismatches)`,
+      `roster drifted from the shards (${missing.length} missing, ${extra.length} extra, ${roleDiff.length} field mismatches)`,
     );
   },
 );

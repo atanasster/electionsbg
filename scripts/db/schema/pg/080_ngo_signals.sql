@@ -62,10 +62,19 @@ CREATE TABLE IF NOT EXISTS official_roster (
   -- by_obshtina shards rather than re-deriving it. The resolver copies it to
   -- person_role.place, which is what lets a municipal roster be served from Postgres
   -- keyed the way /governance/:obshtinaCode asks for it.
-  obshtina text
+  obshtina text,
+  -- 'Район <NAME>' when the official belongs to a district body aggregated under a
+  -- city's obshtina (Пловдив/PDV22, Варна/VAR06); NULL for a city-wide official and for
+  -- Sofia's райони, which have their own obshtina codes. Carried for the same reason as
+  -- obshtina — municipality_join.ts derives it from the institution string
+  -- ('Район "<X>" - <CITY>') in the same pass — and it is load-bearing, not decorative:
+  -- the /governance card uses "has no district" as the ONLY test for which of PDV22's
+  -- seven mayors is the mayor of Plovdiv rather than of a район.
+  district text
 );
--- Older databases predate the column; the loader writes it on every run.
+-- Older databases predate the columns; the loader writes them on every run.
 ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS obshtina text;
+ALTER TABLE official_roster ADD COLUMN IF NOT EXISTS district text;
 CREATE INDEX IF NOT EXISTS idx_official_roster_fold
   ON official_roster (translit_bg_latin(name));
 
