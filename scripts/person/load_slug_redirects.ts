@@ -58,6 +58,10 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, exec, withTx, end } from "../db/lib/pg";
+// One JS definition of officialSlug()'s mint format, shared with the Cloud Function's
+// /officials URL parser. (103 keeps its own copy for the SQL side — a different language,
+// and its backfill runs with no JS in the picture.)
+import { OFFICIALS_SLUG } from "../../functions/officials_redirect.js";
 
 const ROOT = path.resolve(import.meta.dirname, "..", "..");
 const SCHEMA = path.join(
@@ -79,17 +83,19 @@ const run = async (): Promise<void> => {
   const pairs = Object.entries(map);
   if (!pairs.length) throw new Error(`${file}: empty rename map`);
 
-  // Shape guard BEFORE anything is written. `slug` is the primary key of
-  // person_slug_retired, and 103's header records what happened the one time non-slug keys
-  // reached it: 3,113 Cyrillic declarant names ("Мария Венциславова Милушева") became
-  // redirect keys. The surviving defence has been a post-hoc test — the bad rows land, then
-  // get found. This loader is the sanctioned way to write the table from outside the
-  // resolver, so it carries the guard the schema documents rather than relying on that.
-  // Also the only thing standing between a map with null/array values and a silent
-  // "0 redirects written" success.
-  const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*-[0-9a-f]{6}$/;
+  // Shape guard BEFORE anything is written, against the shared OFFICIALS_SLUG pattern.
+  // `slug` is the primary key of person_slug_retired, and 103's header records what
+  // happened the one time non-slug keys reached it: 3,113 Cyrillic declarant names
+  // ("Мария Венциславова Милушева") became redirect keys. The surviving defence has been a
+  // post-hoc test — the bad rows land, then get found. This loader is the sanctioned way to
+  // write the table from outside the resolver, so it carries the guard the schema
+  // documents rather than relying on that. Also the only thing standing between a map with
+  // null/array values and a silent "0 redirects written" success.
   const malformed = pairs.filter(
-    ([o, n]) => typeof n !== "string" || !SLUG.test(o) || !SLUG.test(n),
+    ([o, n]) =>
+      typeof n !== "string" ||
+      !OFFICIALS_SLUG.test(o) ||
+      !OFFICIALS_SLUG.test(n),
   );
   if (malformed.length) {
     throw new Error(

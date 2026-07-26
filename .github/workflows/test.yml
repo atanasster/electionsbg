@@ -58,6 +58,13 @@ jobs:
       - name: Unit tests
         run: npm run test:unit
 
+      # The `functions/` package keeps its own node:test gate (it is CommonJS and
+      # excluded from the root vitest projects), so `test:unit` does not cover it.
+      # Without this step the route table, the registry engine and the /officials
+      # redirect parser are tested only on a developer's machine.
+      - name: Cloud Function tests
+        run: npm run functions:test
+
       # The webServer config in playwright.config.ts boots `firebase
       # emulators:start --only hosting`, which serves dist/. So the dist
       # tree must exist before tests run.

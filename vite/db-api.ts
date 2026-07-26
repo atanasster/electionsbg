@@ -13,6 +13,15 @@ import { allRows, withReadOnlyTx } from "../scripts/db/lib/pg";
 // Function so dev == prod. CJS default-import → the exports object.
 import dbRoutes from "../functions/db_routes.js";
 import type { DbRows } from "../functions/db_table";
+// The same URL parser + not-found body the Cloud Function uses for the /officials 301
+// (T1.1). Production reaches that branch through an `/officials/*` hosting rewrite which
+// does not exist yet (it lands with the prerender swap — see the branch's comment in
+// functions/index.js); the dev server has no rewrite layer at all, so the middleware below
+// is how the redirect is exercised until then.
+import {
+  officialsPath,
+  NOT_FOUND_HTML,
+} from "../functions/officials_redirect.js";
 
 const withHint = (msg: string): string =>
   /ECONNREFUSED|reachable|connect/i.test(msg)
@@ -53,6 +62,48 @@ export const dbApi = (): Plugin => ({
       route(q, query).then(
         ({ status = 200, body }) => send(status, body),
         (e: unknown) => send(400, { error: withHint((e as Error).message) }),
+      );
+    });
+
+    // /officials/<slug> -> /person/<slug>, 301 (T1.1). In production the `/officials/*`
+    // hosting rewrite hands this to the same Cloud Function that serves /api/db; the dev
+    // server has no rewrite layer, so it is mounted here against the same parser and the
+    // same SQL function. Without it the redirect could only be tested by deploying.
+    //
+    // Mounted on the whole server rather than under a prefix because Vite's `use(path, …)`
+    // strips the prefix from req.url, and the parser needs the full path to tell
+    // /officials from /en/officials.
+    server.middlewares.use((req, res, next) => {
+      const url = new URL(req.url ?? "/", "http://localhost");
+      const hit = officialsPath(url.pathname);
+      if (!hit) return next();
+      const notFound = (): void => {
+        // The same honest 404 as production: bouncing an unresolvable slug to a plausible
+        // page would be a soft-404.
+        res.statusCode = 404;
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.end(NOT_FOUND_HTML);
+      };
+      if (!hit.slug) return notFound();
+      allRows<{ slug: string | null }>(
+        "SELECT officials_person_slug($1) AS slug",
+        [hit.slug],
+      ).then(
+        (rows) => {
+          const target = rows[0]?.slug;
+          if (!target) return notFound();
+          res.statusCode = 301;
+          // Query string carried over, as in production: ?elections= is real cross-page
+          // state and ?utm_* is attribution.
+          res.setHeader(
+            "Location",
+            `${hit.prefix}/person/${target}${url.search}`,
+          );
+          res.end();
+        },
+        // A dev database that has never had 106 applied should show the SPA, not a wall —
+        // OfficialProfileScreen still exists until it is deleted alongside the rewrite.
+        () => next(),
       );
     });
   },

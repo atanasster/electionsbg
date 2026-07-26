@@ -22,6 +22,7 @@ const crypto = require("crypto");
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 const { runDbTable, runDbFacets } = require("./db_table.js");
+const { handleOfficialsRequest } = require("./officials_redirect.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
 // with the cloud entries in ai/llm/models.ts.
@@ -452,6 +453,16 @@ const dbRateLimited = (ip) => {
   return false;
 };
 
+/** One indexed lookup: the officials slug -> the /person slug that replaced it, or null.
+ *  Shared shape with vite/db-api.ts's dev stand-in so the two cannot answer differently. */
+const resolveOfficialsTarget = async (pool, slug) => {
+  const { rows } = await pool.query(
+    "SELECT officials_person_slug($1) AS slug",
+    [slug],
+  );
+  return (rows[0] && rows[0].slug) || null;
+};
+
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
@@ -467,6 +478,41 @@ const makeDb = () => {
       maxInstances: 10,
     },
     async (req, res) => {
+      // ---- /officials/<slug> -> /person/<slug>, 301 -------------------------------
+      //
+      // FIRST, ahead of every gate below, because this is a PAGE URL and those gates are
+      // written for an XHR API. Each of them is wrong for a browser navigation:
+      //   * the origin allowlist 403s any request carrying a foreign `Origin` (including
+      //     `Origin: null`, which a redirect from a sandboxed context sends);
+      //   * `GET only` 405s HEAD, which is what a link checker and half the crawlers use;
+      //   * the 120/min per-IP limit 429s a crawler sweeping 20.9k retired URLs — and a
+      //     429 instead of a 301 keeps the OLD url in the index, which is the one outcome
+      //     this feature exists to prevent.
+      // The lookup itself is one indexed SELECT (1.5 ms) and maxInstances bounds the rest.
+      //
+      // This function serves the redirect because a firebase.json rule cannot: the two
+      // slug spaces do not map (106's header has the measurements), and enumerating the
+      // ~20.9k pairs is 20× Firebase's per-site redirect limit.
+      //
+      // NOT REACHABLE IN PRODUCTION YET — there is deliberately no `/officials/*` hosting
+      // rewrite. It lands in the same commit that deletes OfficialProfileScreen and swaps
+      // the prerender group, because only 5,000 of the 20,887 officials slugs are
+      // prerendered (OFFICIALS_STATIC_PAGE_LIMIT): adding the rewrite now would flip the
+      // other 15,887 to a live 301 while the officials page is still shipping, so the same
+      // URL would render one thing on an in-app click and another on a hard reload. Until
+      // then this branch is exercised by the dev server (vite/db-api.ts) and the tests.
+      try {
+        const pool = () => getDbPool(DB_PASSWORD.value());
+        const handled = await handleOfficialsRequest(req, res, async (slug) =>
+          resolveOfficialsTarget(await pool(), slug),
+        );
+        if (handled) return;
+      } catch (e) {
+        console.error("officials redirect error", e);
+        return res.status(500).type("text/plain").send("redirect error");
+      }
+
+      // ---- /api/db/<route> ---------------------------------------------------------
       const origin = req.headers.origin || "";
       const originOk =
         !origin || DB_ALLOWED_ORIGINS.some((re) => re.test(origin));

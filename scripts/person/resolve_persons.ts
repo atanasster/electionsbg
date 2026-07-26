@@ -856,6 +856,11 @@ const SCHEMA_FILES = [
   // Retired-slug redirects (103). Written below from the PREVIOUS lock, so the table must
   // exist before the write; CREATE TABLE IF NOT EXISTS makes re-applying it a no-op.
   "103_person_slug_retired.sql",
+  // The /officials/<slug> -> /person/<slug> lookup (106). Applied AFTER 103 because its
+  // body references person_officials_sources() and person_slug_redirect(), and Postgres
+  // validates a LANGUAGE sql body at CREATE time — a wrong order fails loudly, which is
+  // the good outcome, but there is no reason to court it.
+  "106_officials_redirect.sql",
 ];
 
 // The skill /process-watch-report queues for the person layer. The marker file

@@ -31,9 +31,19 @@ npm run db:pg:up     # Start local Postgres (port 5433)
 npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
 
 # Deployment
-npm run deploy       # Deploy to Firebase (elections-bg project)
+npm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
+npm run deploy:db    # Deploy the `db` Cloud Function (/api/db + the /officials 301)
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
+
+**`npm run deploy` ships hosting only.** When a change spans hosting and the `db` function
+— a new `/api/db` route, a new hosting rewrite pointing at it — deploy in this order:
+
+1. the Cloud SQL migration (`npm run db:*:cloud`),
+2. `npm run deploy:db`,
+3. `npm run deploy`.
+
+Hosting first means the rewrite is live against a function that cannot serve it yet.
 
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 

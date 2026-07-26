@@ -301,6 +301,38 @@ TODO). Parity-check each against its JSON.
 > 106 documented. Do not let T1.2 land unnoticed on top of it.
 
 ### Tier 1 — officials cutover + net-neutral prerender (SEO-gated)
+
+> **✅ T1.1 SHIPPED (2026-07-26) — the mechanism, deliberately NOT yet activated.**
+> `officials_person_slug()` (migration 106), the URL parser + HTTP branch
+> (`functions/officials_redirect.js`, ahead of the `/api/db` origin/method/rate-limit gates
+> because every one of them is wrong for a browser navigation), and a dev-server stand-in in
+> `vite/db-api.ts`. Verified end to end in dev: live ref, retired re-slugged ref, `/en`
+> mirror, query-string carry-over, HEAD, malformed path → HTML 404, `/officials/assets`
+> untouched.
+>
+> **⚠ THE `firebase.json` REWRITE IS NOT IN THAT COMMIT, ON PURPOSE.** The first cut added
+> it on the assumption that prerendered `dist/officials/<slug>/index.html` files would shadow
+> it until the prerender group moves. That is true for only **5,000 of the 20,887** officials
+> slugs (`OFFICIALS_STATIC_PAGE_LIMIT`) — confirmed in the hosting emulator that the other
+> **15,887 would have been rewritten to the function immediately**, so the same URL would
+> render the officials page on an in-app click and 301 on a hard reload, while
+> `OfficialProfileScreen` is still shipping.
+>
+> **Activation checklist — all of this lands in ONE commit, with the screen deletion and the
+> prerender/sitemap swap (T1.3 + T1.4 merge for this reason):**
+> 1. `firebase.json` rewrites, in this order: `/officials/assets` and `/officials/assets/`
+>    (trailing slash — the exact-path guard misses it) → the prerendered leaderboard body,
+>    **not** the bare `/index.html` shell, or the page loses its prerendered SEO body; then
+>    the `/en/` mirrors; then `/officials/*` and `/en/officials/*` → `functionId: "db"`.
+>    Use `*` not `**` — `**` would claim the two-segment `/officials/*.json` data namespace.
+> 2. A `headers` rule for `/officials/**`. Firebase's `**` rule
+>    (`no-cache, max-age=0, must-revalidate`) **overrides function-set `Cache-Control`** —
+>    measured. Without it every one of ~20.9k retired URLs is an uncached function
+>    invocation plus a Cloud SQL round trip on every crawl.
+> 3. Deploy order: Cloud SQL migration → `npm run deploy:db` → `npm run deploy`. Hosting
+>    first would point a live rewrite at a function that cannot serve it.
+> 4. A test pinning the rewrite ordering (the whole design rests on `assets` coming first).
+
 - **The 301 must be Cloud-Function-served, NOT a `firebase.json` rule** (corrected — the
   original plan was not implementable). The two slug spaces do **not** line up: an officials slug
   is minted by `officialSlug(name, institution)` with an **institution disambiguator**
