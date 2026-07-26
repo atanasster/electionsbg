@@ -126,8 +126,18 @@ const main = async (): Promise<void> => {
 const localCount = (table: string): number => {
   const r = spawnSync(
     "docker",
-    ["exec", PG_CONTAINER, "psql", "-U", "postgres", "-tA", "-d", PG_DB, "-c",
-      `SELECT count(*) FROM ${table}`],
+    [
+      "exec",
+      PG_CONTAINER,
+      "psql",
+      "-U",
+      "postgres",
+      "-tA",
+      "-d",
+      PG_DB,
+      "-c",
+      `SELECT count(*) FROM ${table}`,
+    ],
     { encoding: "utf8" },
   );
   return Number((r.stdout ?? "").trim()) || 0;
