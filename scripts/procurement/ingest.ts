@@ -18,6 +18,7 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchBundlesIndex } from "./fetch_dataset_index";
 import { fetchBundle } from "./fetch_bundle";
 import { normalizeBundle } from "./normalize";
+import { evictSupersededEopTwins } from "./content_key";
 import {
   assertUniqueKeys,
   checkDiffSize,
@@ -122,8 +123,9 @@ const writeBundlesIndex = (idx: BundlesIndex): void => {
 // rows that once shared a base tuple now carry distinct keys and both survive.
 const writeMonthShards = (
   rows: Contract[],
-): { newFiles: number; modifiedFiles: number } => {
-  if (rows.length === 0) return { newFiles: 0, modifiedFiles: 0 };
+): { newFiles: number; modifiedFiles: number; eopEvicted: number } => {
+  if (rows.length === 0)
+    return { newFiles: 0, modifiedFiles: 0, eopEvicted: 0 };
   const byMonth = new Map<string, Contract[]>();
   for (const r of rows) {
     const month = r.date.slice(0, 7);
@@ -133,6 +135,7 @@ const writeMonthShards = (
   }
   let newFiles = 0;
   let modifiedFiles = 0;
+  let eopEvicted = 0;
   for (const [month, freshRows] of byMonth) {
     const year = month.slice(0, 4);
     const dir = path.join(CONTRACTS_DIR, year);
@@ -144,13 +147,24 @@ const writeMonthShards = (
     const byKey = new Map<string, Contract>();
     for (const r of existing) byKey.set(r.key, r);
     for (const r of freshRows) byKey.set(r.key, r);
+    // EOP-twin eviction. OCDS is authoritative. The ЦАИС ЕОП flat feed runs
+    // weeks ahead of АОП's OCDS export, so the gap-fill (ingest_eop.ts
+    // --cross-source-dedup) can eagerly stand in an `eop-` row for a covered
+    // buyer's recent contract. When the authoritative OCDS row for that same
+    // contract finally lands here, its `key` differs (source-namespaced), so the
+    // key merge above keeps BOTH — double-counting. `evictSupersededEopTwins`
+    // drops the superseded EOP twin by content match against the arriving OCDS
+    // rows, using the same key set as the gap-fill's forward dedup.
+    const { kept: deduped, evicted } = evictSupersededEopTwins(
+      [...byKey.values()],
+      freshRows,
+    );
+    eopEvicted += evicted;
     // Drop synthetic legacy `-x` twins that duplicate a real row in the same
     // shard (see dropSyntheticLegacyTwins). Self-heals shards polluted by an
     // earlier ingest and prevents a re-introduced blank-document-id row from
     // double-counting against its real twin.
-    const merged = dropSyntheticLegacyTwins([...byKey.values()]).rows.sort(
-      rowSort,
-    );
+    const merged = dropSyntheticLegacyTwins(deduped).rows.sort(rowSort);
     assertUniqueKeys(merged, `${month}.json`);
     const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
     // Month shards keep FULL-precision amountEur (rawJson), NOT the cents
@@ -166,7 +180,7 @@ const writeMonthShards = (
     if (prev == null) newFiles++;
     else modifiedFiles++;
   }
-  return { newFiles, modifiedFiles };
+  return { newFiles, modifiedFiles, eopEvicted };
 };
 
 const writeIndexJson = (
@@ -363,9 +377,12 @@ const main = async (args: {
   }
 
   // 4. Write month-shards.
-  const { newFiles, modifiedFiles } = writeMonthShards(allRows);
+  const { newFiles, modifiedFiles, eopEvicted } = writeMonthShards(allRows);
   console.log(
-    `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
+    `→ wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)` +
+      (eopEvicted > 0
+        ? `; evicted ${eopEvicted} EOP twin(s) superseded by the arriving OCDS rows`
+        : ""),
   );
 
   // 5. Diff cap. Skipped on --renormalize: re-processing every bundle

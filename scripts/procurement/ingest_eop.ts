@@ -33,6 +33,7 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { normalizeEopDay, type EopContractRecord } from "./normalize_eop";
 import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
+import { contentKeys } from "./content_key";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -126,39 +127,9 @@ const loadExistingAwarderEiks = (): Set<string> => {
 // drop any flat row that matches an already-ingested contract on a *content*
 // key — the two feeds namespace their releaseIds disjointly (`eop-` vs
 // `aop-legacy-`), so the month-shard `rowKey` merge can NOT collapse a
-// cross-source duplicate; only a content match can.
-
-// Normalise a free-text contract number for matching: lowercase, strip the
-// punctuation/whitespace/№ that the two feeds format inconsistently ("Д-1/2021"
-// vs "д 1 2021").
-const normContractNo = (s: string | undefined): string =>
-  (s ?? "").toLocaleLowerCase("bg").replace(/[\s".,\-_/№#]/g, "");
-
-// Every content key a row can be matched on. A flat row is a duplicate of an
-// existing contract when ANY key collides. Three independent nets, strongest
-// first: (1) procedure УНП + supplier + rounded €, (2) buyer + supplier +
-// contract-number + signing date (amount-free, survives the multi-supplier
-// split), (3) buyer + supplier + signing date + rounded € (catches rows with
-// neither a УНП nor a usable contract number).
-const contentKeys = (r: Contract): string[] => {
-  const keys: string[] = [];
-  const amt = r.amountEur != null ? String(Math.round(r.amountEur)) : "";
-  if (r.unp && r.contractorEik) {
-    keys.push(`u:${r.unp}:${r.contractorEik}:${amt}`);
-  }
-  const cn = normContractNo(r.contractId);
-  if (cn && r.awarderEik && r.contractorEik) {
-    keys.push(
-      `c:${r.awarderEik}:${r.contractorEik}:${cn}:${r.dateSigned ?? ""}`,
-    );
-  }
-  if (r.awarderEik && r.contractorEik && (r.dateSigned || amt !== "")) {
-    keys.push(
-      `f:${r.awarderEik}:${r.contractorEik}:${r.dateSigned ?? ""}:${amt}`,
-    );
-  }
-  return keys;
-};
+// cross-source duplicate; only a content match can. The `contentKeys` matcher
+// lives in content_key.ts so the reverse direction (ingest.ts evicting an EOP
+// row when its authoritative OCDS twin lands) uses the identical key set.
 
 // Load every already-ingested contract row for the given calendar years off the
 // month-shards on disk, and return the union of their content keys — the set a
