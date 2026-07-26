@@ -68,6 +68,9 @@ SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM t) THEN jsonb_build_object(
         'contractorEik', c.contractor_eik,
         'contractorName', c.contractor_name,
         'amountEur', c.amount_eur,
+        'date', c.date,
+        -- date_signed is always populated (falls back to `date` at load); the
+        -- `date` above lets consumers tell a real signing date from the fallback.
         'dateSigned', c.date_signed,
         'tag', c.tag,
         'title', c.title

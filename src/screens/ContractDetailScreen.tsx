@@ -26,6 +26,7 @@ import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur, formatEur } from "@/lib/currency";
+import { realSignedDate } from "@/lib/signedDate";
 import { splitContractTitle } from "@/lib/contractTitle";
 import {
   projectFromContract,
@@ -104,7 +105,10 @@ export const ContractDetailScreen: FC = () => {
         <p className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-2">
           <Receipt className="h-4 w-4" />
           {tagLabel}
-          {c.dateSigned ? (
+          {/* date_signed is always populated (falls back to `date` at load), so
+              only badge it as "Signed" for a genuinely distinct signing date;
+              otherwise show the plain date. See @/lib/signedDate. */}
+          {realSignedDate(c) ? (
             <span>
               · {t("contract_signed") || "Signed"} {c.dateSigned}
             </span>

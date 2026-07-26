@@ -295,6 +295,11 @@ export const normalizeEopDay = (
     const releaseId = `eop-${procedureRef || "x"}-${contractNumber}`;
 
     const date = parseBgDate(rec.publicationDate) ?? day;
+    // Keep null when the source carries no signing date — the cross-source dedup
+    // content keys (content_key.ts) hash on `dateSigned`, and a per-feed
+    // publication-date fallback here would diverge between the OCDS and ЦАИС ЕОП
+    // twins and defeat EOP-twin eviction. The always-populated `date_signed`
+    // invariant is enforced downstream at load time (load_pg.ts backfill).
     const dateSigned = parseBgDate(rec.contractDate);
     // The FULL contract value, before the multi-supplier split below. Publisher
     // amount errors are corrected here (see amount_overrides.ts) so the split

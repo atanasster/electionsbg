@@ -16,6 +16,10 @@ export type TenderAward = {
   contractorEik: string | null;
   contractorName: string;
   amountEur: number | null;
+  // The contract's canonical date. `dateSigned` is always populated (it falls
+  // back to `date` at load), so compare the two to tell a real signing date from
+  // the fallback.
+  date: string | null;
   dateSigned: string | null;
   tag: ProcurementContractTag;
   title: string;

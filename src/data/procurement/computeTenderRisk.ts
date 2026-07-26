@@ -29,6 +29,7 @@
 // shown as header context on the detail page instead.
 
 import type { TenderAward } from "@/data/procurement/useTender";
+import { realSignedDate } from "@/lib/signedDate";
 
 // The structural minimum the scorer reads — satisfied by the full `Tender`
 // (detail page) AND by the slimmer browser row (`TenderRow`), so the same
@@ -143,9 +144,12 @@ export const computeTenderRisk = (
   //    `awards` is populated via tender_detail()'s unp join (032, fixed in
   //    30aaf2558), so it now resolves corpus-wide, not just for ocid-linked rows.
   const signedAwards = awards.filter((a) => a.tag === "contract");
+  // Only a GENUINE signing date counts here — date_signed is always populated
+  // now (falls back to `date` at load), so a value equal to `date` is a fallback,
+  // not a real signature, and must not skew the deadline→award gap.
   const earliestSigned = signedAwards
-    .filter((a) => a.dateSigned)
-    .map((a) => a.dateSigned as string)
+    .map((a) => realSignedDate(a))
+    .filter((d): d is string => !!d)
     .sort()[0];
   const rawDecisionDays = dayDiff(tender.submissionDeadline, earliestSigned);
   const scoredDecision =

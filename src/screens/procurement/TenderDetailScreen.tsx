@@ -36,6 +36,7 @@ import { ProcurementBreadcrumb } from "@/screens/components/procurement/Procurem
 import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
 import { TenderRiskPanel } from "@/screens/components/procurement/TenderRiskPanel";
 import { formatAmountEur } from "@/lib/currency";
+import { realSignedDate } from "@/lib/signedDate";
 import {
   projectFromTender,
   projectHref,
@@ -310,8 +311,10 @@ const awardToContract = (
   ocid: tender.ocid ?? "",
   releaseId: "",
   tag: a.tag,
-  date: a.dateSigned ?? tender.publicationDate,
-  dateSigned: a.dateSigned ?? undefined,
+  date: a.date ?? a.dateSigned ?? tender.publicationDate,
+  // Only carry a real signing date (date_signed is always populated now, falling
+  // back to `date` at load — a fallback value must not read as a signature).
+  dateSigned: realSignedDate(a),
   awarderEik: tender.buyerEik,
   awarderName: tender.buyerName,
   contractorEik: a.contractorEik ?? "",
@@ -397,7 +400,13 @@ const TenderAwardsCard: FC<{
                 <span className="rounded bg-muted px-1.5 py-0.5">
                   {t(TAG_LABEL[a.tag] || "") || a.tag}
                 </span>
-                {a.dateSigned ? <span>{a.dateSigned}</span> : null}
+                {realSignedDate(a) ? (
+                  <span>
+                    {t("contract_signed") || "Signed"} {a.dateSigned}
+                  </span>
+                ) : a.date ? (
+                  <span>{a.date}</span>
+                ) : null}
                 <Link to={`/contract/${a.key}`} className="hover:underline">
                   {t("tender_award_view") || "View contract"}
                 </Link>

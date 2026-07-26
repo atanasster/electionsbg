@@ -34,6 +34,9 @@ const award = (dateSigned: string | null): TenderAward => ({
   contractorEik: "CT",
   contractorName: "Contractor",
   amountEur: 1000,
+  // null so a provided dateSigned always reads as a genuine signing date
+  // (dateSigned !== date) in the short-decision-period gate.
+  date: null,
   dateSigned,
   tag: "contract",
   title: "t",

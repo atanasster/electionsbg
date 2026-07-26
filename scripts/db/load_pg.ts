@@ -354,6 +354,18 @@ export const loadPg = async (): Promise<{
        WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid)`,
     );
 
+    // date_signed invariant: the contracts table renders date_signed as its
+    // single canonical date, so it must never be null/empty. Normalisation
+    // already falls it back to `date` (normalize*.ts), but stale JSON shards
+    // loaded without a re-normalise could still carry nulls — backfill from
+    // `date` here so every load lands the invariant regardless of shard age.
+    // Idempotent (touches only null/empty rows); mirrors the standalone
+    // 107_contract_date_signed_backfill.sql for cloud no-reload deploys.
+    await c.query(
+      `UPDATE contracts SET date_signed = date
+       WHERE date_signed IS NULL OR date_signed = ''`,
+    );
+
     // Consortium/framework attribution. The MERGE just restored every joint-award
     // member row to its fresh equal split and anti-join-deleted prior synthetic
     // carriers, so the corpus is in the equal-split state rebuild_consortium()

@@ -156,6 +156,36 @@ test.skipIf(skip)(
   },
 );
 
+test.skipIf(skip)(
+  "date_signed is always populated (falls back to date at ingest)",
+  async () => {
+    // The contracts table renders date_signed as its single canonical date, so a
+    // null/empty value would show a blank date. normalize*.ts falls it back to
+    // `date`, and load_pg.ts backfills the invariant after every merge.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*)::text AS n FROM contracts
+       WHERE date_signed IS NULL OR date_signed = ''`,
+    );
+    assert.equal(
+      num(n),
+      0,
+      `${n} contract rows have a null/empty date_signed — the ingest fallback or the load_pg backfill regressed`,
+    );
+    // The date_signed backfill copies `date`, so an EMPTY `date` (text NOT NULL
+    // still permits '') would silently defeat both the backfill and the check
+    // above. Surface it as its own failure rather than a confusing date_signed one.
+    const [{ n: nd }] = await allRows<{ n: string }>(
+      `SELECT count(*)::text AS n FROM contracts
+       WHERE date IS NULL OR date = ''`,
+    );
+    assert.equal(
+      num(nd),
+      0,
+      `${nd} contract rows have an empty date — the date_signed invariant assumes a non-empty date`,
+    );
+  },
+);
+
 // ============================================================================
 // 2. ANCHOR CANARIES — one verified contract per fix. Bounds, not exact.
 // ============================================================================
