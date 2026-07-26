@@ -17,6 +17,14 @@
  *       the /demographics scatter consumes (joined client-side to the census
  *       municipalities payload).
  *
+ * Plus one cross-election artifact (written once, after all elections):
+ *   - party_demographic_trends.json — for every party that ever cleared 4%,
+ *       its Pearson r against each demographic across every election it ran in,
+ *       threaded by canonical lineage so rebrands/mergers stay one series. The
+ *       /party-demographics page renders these as small-multiple bubble-line
+ *       trend charts (one per top demographic). Precomputing keeps the page a
+ *       single ~static fetch instead of ~50 per-party/per-election requests.
+ *
  * Mirrors PERCENT_METRICS and the Pearson helper used client-side, kept here
  * in plain TS so the script can run without a React/JSX toolchain.
  */
@@ -181,6 +189,7 @@ export const pearson = (xs: number[], ys: number[]): number => {
 };
 
 export const round3 = (n: number) => Math.round(n * 1000) / 1000;
+export const round2 = (n: number) => Math.round(n * 100) / 100;
 
 export type PartyDemographicCorrelation = {
   metric: CensusMetric;
@@ -220,6 +229,47 @@ export type DemographicCleavagesPayload = {
   // Rows pre-sorted by spread descending — the most polarizing demographic
   // floats to the top.
   rows: DemographicCleavageRow[];
+};
+
+// ---------------------------------------------------------------------------
+// Cross-election demographic-trends artifact (party_demographic_trends.json).
+// One series per canonical party (threaded across rebrands/mergers), carrying
+// its Pearson r against every demographic in every election it ran in. `rs` is
+// aligned to `metrics` (PERCENT_METRICS order) so the client reads a metric's
+// series with a single index. `pctNational` sizes the bubbles by salience.
+// ---------------------------------------------------------------------------
+export type DemographicTrendPoint = {
+  election: string;
+  pctNational: number;
+  rs: number[];
+};
+
+export type DemographicTrendParty = {
+  canonicalId: string;
+  nickName: string;
+  nickName_en?: string;
+  color?: string;
+  points: DemographicTrendPoint[];
+};
+
+export type DemographicTrendsPayload = {
+  // Election names (YYYY_MM_DD) present in the series, oldest → newest.
+  elections: string[];
+  // The demographic axis order that every party's `rs` array is aligned to.
+  metrics: CensusMetric[];
+  parties: DemographicTrendParty[];
+};
+
+// Minimal shape of canonical_parties.json we consume — just the lineage index
+// mapping (election, CIK partyNum) → canonical id plus per-lineage display meta.
+type CanonicalPartiesFile = {
+  parties: {
+    id: string;
+    displayName: string;
+    displayNameEn?: string;
+    color: string;
+    history: { election: string; partyNum: number; nickName: string }[];
+  }[];
 };
 
 // Per-municipality vote totals consumed by the /demographics scatter. The
@@ -320,6 +370,39 @@ export const buildPartyDemographics = ({
   const elections: ElectionInfo[] = JSON.parse(
     fs.readFileSync(electionsFile, "utf-8"),
   );
+
+  // Canonical lineage index — threads a party across rebrands/mergers so the
+  // trend series stay unbroken. Optional: if canonical_parties.json is missing
+  // we simply skip the cross-election trends artifact.
+  const canonicalPath = path.join(publicFolder, "canonical_parties.json");
+  const canonical: CanonicalPartiesFile | undefined = fs.existsSync(
+    canonicalPath,
+  )
+    ? JSON.parse(fs.readFileSync(canonicalPath, "utf-8"))
+    : undefined;
+  // (election|partyNum) → canonical id, and canonical id → display meta.
+  const canonicalIdByElectionParty = new Map<string, string>();
+  const canonicalMeta = new Map<
+    string,
+    { nickName: string; nickName_en?: string; color?: string }
+  >();
+  if (canonical) {
+    for (const p of canonical.parties) {
+      canonicalMeta.set(p.id, {
+        nickName: p.displayName,
+        nickName_en: p.displayNameEn,
+        color: p.color,
+      });
+      for (const h of p.history) {
+        canonicalIdByElectionParty.set(`${h.election}|${h.partyNum}`, p.id);
+      }
+    }
+  }
+  // canonical id → { election → point }, plus whether it ever cleared 4%.
+  const trendAccum = new Map<
+    string,
+    { points: Map<string, DemographicTrendPoint>; everSignificant: boolean }
+  >();
 
   for (const e of elections) {
     const electionFolder = path.join(publicFolder, e.name);
@@ -425,6 +508,31 @@ export const buildPartyDemographics = ({
         totalsByParty.set(partyNum, (totalsByParty.get(partyNum) ?? 0) + votes);
       }
     }
+    // Accumulate this election's per-party correlations into the cross-election
+    // trends series, keyed by canonical lineage. Skips parties with no canonical
+    // id (minor lists that never joined a tracked lineage).
+    if (canonical) {
+      for (const [partyNum, correlations] of correlationsByParty) {
+        const cid = canonicalIdByElectionParty.get(`${e.name}|${partyNum}`);
+        if (!cid) continue;
+        const votes = totalsByParty.get(partyNum) ?? 0;
+        const pct = nationalTotal ? (100 * votes) / nationalTotal : 0;
+        const rByMetric = new Map(correlations.map((c) => [c.metric, c.r]));
+        const rs = PERCENT_METRICS.map((m) => rByMetric.get(m) ?? 0);
+        let acc = trendAccum.get(cid);
+        if (!acc) {
+          acc = { points: new Map(), everSignificant: false };
+          trendAccum.set(cid, acc);
+        }
+        acc.points.set(e.name, {
+          election: e.name,
+          pctNational: round2(pct),
+          rs,
+        });
+        if (pct >= PARLIAMENT_THRESHOLD_PCT) acc.everSignificant = true;
+      }
+    }
+
     const topParties = parties
       .map((p) => ({
         info: p,
@@ -473,6 +581,48 @@ export const buildPartyDemographics = ({
         `[party demographics] ${e.name}: wrote dashboard/demographic_cleavages.json (${topParties.length} parties ≥${PARLIAMENT_THRESHOLD_PCT}% × ${rows.length} metrics)`,
       );
     }
+  }
+
+  // Cross-election trends artifact — one series per canonical party that ever
+  // cleared 4%, oldest → newest. Rendered as small-multiple bubble-line charts
+  // on /party-demographics.
+  if (canonical) {
+    const electionSet = new Set<string>();
+    const trendParties: DemographicTrendParty[] = [];
+    for (const [cid, acc] of trendAccum) {
+      if (!acc.everSignificant) continue;
+      const meta = canonicalMeta.get(cid);
+      const points = Array.from(acc.points.values()).sort((a, b) =>
+        a.election < b.election ? -1 : 1,
+      );
+      points.forEach((p) => electionSet.add(p.election));
+      trendParties.push({
+        canonicalId: cid,
+        nickName: meta?.nickName ?? cid,
+        nickName_en: meta?.nickName_en,
+        color: meta?.color,
+        points,
+      });
+    }
+    // Sort parties by their most recent salience so the client legend and the
+    // draw order lead with the currently-largest lineages.
+    trendParties.sort(
+      (a, b) =>
+        (b.points[b.points.length - 1]?.pctNational ?? 0) -
+        (a.points[a.points.length - 1]?.pctNational ?? 0),
+    );
+    const trendsPayload: DemographicTrendsPayload = {
+      elections: Array.from(electionSet).sort(),
+      metrics: PERCENT_METRICS,
+      parties: trendParties,
+    };
+    fs.writeFileSync(
+      path.join(publicFolder, "party_demographic_trends.json"),
+      stringify(trendsPayload),
+    );
+    console.log(
+      `[party demographics] wrote party_demographic_trends.json (${trendParties.length} lineages × ${PERCENT_METRICS.length} metrics × ${trendsPayload.elections.length} elections)`,
+    );
   }
 };
 

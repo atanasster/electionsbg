@@ -1,6 +1,6 @@
 import { FC, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Users } from "lucide-react";
+import { ArrowRight, TrendingUp, Users } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Hint } from "@/ux/Hint";
@@ -14,6 +14,7 @@ import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
 import { fmtR } from "@/screens/components/demographics/demographicsFormat";
 import { computeCleavageKpis } from "@/screens/components/demographics/cleavageKpis";
 import { DemographicCleavagesPlot } from "@/screens/components/demographics/DemographicCleavagesPlot";
+import { DemographicTrendCharts } from "@/screens/components/demographics/DemographicTrendCharts";
 import { VoteDemographicScatter } from "@/screens/components/demographics/VoteDemographicScatter";
 
 export const PartyDemographicsScreen: FC = () => {
@@ -137,6 +138,28 @@ export const PartyDemographicsScreen: FC = () => {
           )}
         </StatCard>
       </div>
+
+      {/* Historical trends: for the most polarizing demographics, how each top
+          party's correlation has moved across every election (bubble-lines). */}
+      {payload && payload.rows.length > 0 && (
+        <div className="mt-3">
+          <StatCard
+            label={
+              <Hint
+                text={t("party_demographics_trends_hint")}
+                underline={false}
+              >
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4" />
+                  <span>{t("party_demographics_trends_title")}</span>
+                </div>
+              </Hint>
+            }
+          >
+            <DemographicTrendCharts cleavages={payload} />
+          </StatCard>
+        </div>
+      )}
 
       {/* Drill-down: per-municipality scatter for the chosen metric (URL-driven
           via ?scatter=<metric>, set by clicking a dot-plot row above). */}
