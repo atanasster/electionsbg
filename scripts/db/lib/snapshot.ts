@@ -230,7 +230,11 @@ export const pgRestore = (file: string, url: string = DATABASE_URL): void => {
     return r.status;
   };
   // pg_restore exits non-zero on ignorable "does not exist" notices under
-  // --clean; surface real failures via the post-restore identity check instead.
+  // --clean — but ALSO on a real object-creation failure that --clean then
+  // leaves dropped-not-recreated. The two are indistinguishable from the exit
+  // status alone, so a non-zero exit here is NOT self-clearing: the caller MUST
+  // confirm the load landed (db:sync:cloud's parity gate). Do not treat this as
+  // benign — that assumption silently corrupted Cloud SQL in the 2026-07 incident.
   const status = t.local
     ? run([])
     : withContainerPgpass(t, path.dirname(file), (pgpass) =>
@@ -238,7 +242,8 @@ export const pgRestore = (file: string, url: string = DATABASE_URL): void => {
       );
   if (status !== 0)
     console.warn(
-      `  pg_restore exited ${status} (often benign --clean notices)`,
+      `  pg_restore exited ${status} — may be benign --clean notices OR a real\n` +
+        `  object-creation failure. VERIFY row counts before trusting this target.`,
     );
 };
 
