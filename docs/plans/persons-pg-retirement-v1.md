@@ -371,6 +371,23 @@ TODO). Parity-check each against its JSON.
   disposition — it is contact data, not declarations: either fold into `municipal_officials` or
   keep as a single bucket-served file.
 
+> **✅ T1.5 SHIPPED (2026-07-26) — municipal roster readers onto PG, candidateLink into PG.**
+> `useMunicipalOfficials` + `useMunicipalOfficialsByName` now read the `municipal_officials`
+> registry resource + a new `municipal-officials-name-index` route; no roster hook fetches
+> `by_obshtina/<code>.json` or `search_index.json` any more. The `candidateLink` decoration
+> (party / ballot / MP-photo) moved into Postgres via migration 108 `official_candidate_link`
+> + `load_official_candidate_links_pg.ts` (wired into `db:refresh`; `:cloud` documented in
+> CLAUDE.md), LEFT JOINed by matview 102; the name-join is shared with the JSON decorator
+> (`scripts/officials/candidate_link_join.ts`) so they can't drift. **Parity exact to one
+> row** (a person whose resolved display_name differs from the register name); and it
+> **restores** the decoration the committed shards had silently lost (0 → 5,409 links).
+>
+> **Not done here — gates the §0 teardown below:** (1) `useSearchItems` still reads
+> `search_index.json` (its migration needs the build's personSlug resolution + candidate
+> dedup — a distinct route). So the `by_obshtina/` shards are now reader-free and
+> teardown-ready, but `search_index.json` is NOT. (2) `useMunicipalContacts` disposition and
+> the actual `bucket:sync:paths --delete` teardown are still the remaining Tier 1 work.
+
 ### Tier 2 — MP roster/declarations/avatars on PersonDashboard
 Replace `useMpEntry`/`useMpDeclarations`/`useMpAssets` with person_id routes; `assets-rankings`
 / `mp-cars` / `car-makes` → REGISTRY. Migrate `parliament.ts:partyMps` + `people.ts` MP tools to
