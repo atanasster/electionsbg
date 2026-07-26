@@ -1,0 +1,169 @@
+// The two T1.4 prerequisites recorded in docs/plans/persons-pg-retirement-v1.md:
+// retired-/person-slug redirects (103), and the bound on Bridge-B growth.
+//
+// Both exist because T0.1b merged 154 person rows. That merge was correct, but it had two
+// consequences that only become dangerous when T1.4 prerenders and sitemaps /person:
+//
+//   1. The 154 losing slugs began 404ing with nothing to redirect them. Harmless while
+//      /person is unpublished; the moment those URLs are indexed, bookmarked, or sitting in
+//      the browser-local watchlist (which stores slugs, T3.10), the NEXT merge silently
+//      breaks indexed pages. Migration 099 exists to stop a slug DRIFTING; nothing stopped
+//      one from disappearing.
+//   2. Bridge-B roles grew +151, because collapsing duplicate person rows makes their name
+//      fold people-unique and the bridge stops abstaining. That is the guard working rather
+//      than loosening — but it is the defamation-sensitive surface, so the bound is pinned
+//      here rather than assumed.
+//
+// Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
+//
+//   npm run test:data
+
+import { test, afterAll } from "vitest";
+import assert from "node:assert/strict";
+import { allRows, end } from "../lib/pg";
+
+// Gated on Postgres being REACHABLE, not on migration 103 having been applied. Folding
+// "table missing" into the skip — the obvious shape — makes a never-applied migration
+// indistinguishable from "the database is down", and every assertion below skips GREEN.
+// The person probe already establishes that PG is up, so a missing table is a FAILURE.
+const reachable = async (): Promise<boolean> => {
+  try {
+    const [c] = await allRows<{ n: string }>("SELECT count(*) n FROM person");
+    return Number(c.n) > 0;
+  } catch {
+    return false;
+  }
+};
+
+const haveDb = await reachable();
+const skip = haveDb ? false : "Postgres unreachable / person layer empty";
+
+afterAll(async () => {
+  await end();
+});
+
+// ---- retired slug redirects (103) -------------------------------------------
+
+// A redirect must never shadow a live page. This is the invariant that makes it safe to
+// seed the table generously: person_slug_redirect() only answers for slugs that resolve to
+// nobody, so a wider seed can never turn a real person's page into a 301.
+test.skipIf(skip)("a live slug never redirects", async () => {
+  const [n] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM person p
+      WHERE person_slug_redirect(p.slug) IS NOT NULL`,
+  );
+  assert.equal(
+    Number(n.n),
+    0,
+    "a live person's slug resolves to a redirect — person_slug_redirect would 301 a real page away",
+  );
+});
+
+// Every redirect must land somewhere real. A retired slug pointing at another dead slug is
+// a 404 with extra steps, and it is exactly what a merge chain (A→B, later B→C) produces if
+// the mapping is not recomputed against the final person.
+test.skipIf(skip)("every redirect target is a live person", async () => {
+  const dead = await allRows<{ slug: string; target_slug: string }>(
+    `SELECT r.slug, r.target_slug FROM person_slug_retired r
+      WHERE NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = r.target_slug)
+      LIMIT 5`,
+  );
+  assert.deepEqual(
+    dead,
+    [],
+    "retired slugs point at targets that do not exist — a merge chain was not resolved to the final person",
+  );
+});
+
+// Only slugs. mp refs are numeric ids, candidate refs are '{election}:mp-{id}' and
+// magistrate refs are the declarant's Cyrillic name — none was ever a URL, and seeding them
+// put 3,113 names like "Мария Венциславова Милушева" into this table on the first attempt.
+test.skipIf(skip)("only slug-shaped keys are stored", async () => {
+  const bad = await allRows<{ slug: string }>(
+    `SELECT slug FROM person_slug_retired
+      WHERE slug !~ '^[a-z0-9]+(-[a-z0-9]+)*-[0-9a-f]{6}$' LIMIT 5`,
+  );
+  assert.deepEqual(bad, [], "non-slug keys reached the redirect table");
+});
+
+// Migration 103 must actually be applied. With PG proven up, a missing table is a failure,
+// not a reason to skip.
+test.skipIf(skip)("migration 103 is applied", async () => {
+  const [t] = await allRows<{ ok: boolean }>(
+    "SELECT to_regclass('public.person_slug_retired') IS NOT NULL AS ok",
+  );
+  assert.ok(
+    t?.ok,
+    "person_slug_retired does not exist — migration 103 was never applied",
+  );
+});
+
+// The mapping is not empty — an empty table means the resolver hook and the backfill both
+// silently did nothing, which looks identical to "no merges have happened yet".
+test.skipIf(skip)("the redirect mapping is populated", async () => {
+  const [n] = await allRows<{ n: string }>(
+    "SELECT count(*) n FROM person_slug_retired",
+  );
+  assert.ok(
+    Number(n.n) > 0,
+    "person_slug_retired is empty — neither the backfill nor the resolver hook wrote anything",
+  );
+});
+
+// ---- Bridge-B bounds --------------------------------------------------------
+
+// Bridge-B attaches a name-matched company footprint to a person, so its guards are the
+// thing standing between a public figure and someone else's companies. Two of them are
+// load-bearing and neither is enforced by a constraint: the fold must map to exactly ONE
+// person, and the footprint must be within FOOTPRINT_CAP. If either stops excluding
+// anything, the bridge has silently widened.
+test.skipIf(skip)(
+  "the Bridge-B footprint cap still excludes people",
+  async () => {
+    const [row] = await allRows<{ over: string; within: string }>(
+      `WITH elig AS (
+       SELECT p.person_id, p.name_fold
+         FROM person p
+        WHERE p.name_parts = 3 AND p.is_public_figure
+          AND NOT EXISTS (SELECT 1 FROM person p2
+                           WHERE p2.name_fold = p.name_fold
+                             AND p2.person_id <> p.person_id)
+     ),
+     counted AS (
+       SELECT e.person_id,
+              (SELECT count(DISTINCT t.uic) FROM tr_person_roles t
+                WHERE t.name_fold = e.name_fold) AS n
+         FROM elig e
+     )
+     SELECT count(*) FILTER (WHERE n > 5)            AS over,
+            count(*) FILTER (WHERE n BETWEEN 1 AND 5) AS within
+       FROM counted`,
+    );
+    assert.ok(
+      Number(row.over) > 0,
+      "the <=5 company cap excludes nobody — FOOTPRINT_CAP has been raised or removed, and large name-matched footprints are now attaching to people",
+    );
+    assert.ok(
+      Number(row.within) > 0,
+      "no person is within the cap — the bridge is attaching nothing at all",
+    );
+  },
+);
+
+// The people-uniqueness guard. A fold carrying two persons must never be eligible: that is
+// the case where a name-matched company genuinely cannot be attributed. This is also the
+// guard whose behaviour CHANGED in T0.1b — merging duplicates made folds unique and the
+// bridge correctly stopped abstaining — so it is worth pinning that it still abstains where
+// it should.
+test.skipIf(skip)("ambiguous folds stay out of Bridge-B", async () => {
+  const [n] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM (
+       SELECT name_fold FROM person
+        WHERE name_parts = 3 AND is_public_figure
+        GROUP BY name_fold HAVING count(*) > 1) x`,
+  );
+  assert.ok(
+    Number(n.n) > 0,
+    "every 3-part public fold is now people-unique — either the corpus changed shape or the uniqueness guard is no longer excluding anyone",
+  );
+});

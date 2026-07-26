@@ -191,7 +191,7 @@ TODO). Parity-check each against its JSON.
 > It also resolved the LAST unresolved filing (47,983/47,983 now attach to a person, via a
 > phase-2 alias pass) and restored Галя Стоянова Василева's wealth series to 2024.
 >
-> **Two side effects it did NOT handle — both land on T1.4:**
+> **Two side effects — RESOLVED in T1.4a (2026-07-25), see below:**
 > 1. **154 retired `/person` slugs now 404.** The merge collapsed them into their canonical
 >    twin and nothing redirects the old URL — the exact breakage migration 099 (slugLock)
 >    exists to prevent, though 099 only pins slugs for surviving mentions. Harmless *today*
@@ -204,6 +204,38 @@ TODO). Parity-check each against its JSON.
 >    in principle and bounded by the same ≤5-company rule, but it is the defamation-sensitive
 >    surface ([[reference_person_fold_and_bridgeb]]) and nothing currently bounds the growth.
 >    Worth a spot-check before Tier 3 leans on the connections graph.
+>
+> **T1.4a outcome.** (1) Migration 103 `person_slug_retired` + `person_slug_redirect()` maps
+> a dead slug to the person that absorbed it. Written by the resolver, which is the only
+> thing holding both the previous slug (the lock, in memory) and the new one; recomputed in
+> full each run so a merge CHAIN resolves to the final person, never a dead middle link.
+> The 154 were not recoverable from the lock (that run had already overwritten it) but were
+> recovered EXACTLY from `person_role.ref` — a losing officials ref survives on the winning
+> person — seeding 2,347 slug-shaped redirects. Proven end to end with a synthetic
+> retirement. (2) Bridge-B's growth is NOT unbounded: it is the people-unique-fold guard
+> working, since merging duplicates makes a fold genuinely one person. Measured, the two
+> guards still exclude 880 over-cap and 3,150 ambiguous folds; both are now pinned by tests.
+>
+> **⛔ T1.4 BLOCKER discovered in T1.4a review — 18,428 dead slugs, not 154.**
+> The retirement hook diffs the slug LOCK, and an officials mention id *is* `official:<slug>`.
+> So when a slug changes, the lock row is **orphaned rather than diffed** — a new row appears
+> under the new mention id and the old one is never revisited. Measured: **18,433 lock slugs
+> no live person carries, 18,428 of them with no redirect**, essentially all from the
+> 2026-07-24 officials re-slug (`aglika-stefcheva-videnova-0d444a` → `…-19e71e`, the person
+> alive under the new slug). `officialSlug()` rehashes on any register re-spelling — a
+> re-cased name, a dropped "д-р" — so this RECURS on every officials ingest; it is not a
+> one-off. The T1.4a backfill recovers only the 2,347 whose losing ref still sits on the
+> winning person (the merge case); a re-slug leaves no such ref.
+> **This decides whether T1.4 can publish /person at all**: prerendering 5,000 person pages
+> on top of a slug space that silently sheds ~18k URLs per re-slug hands Google a growing
+> pile of 404s. Fix route: `scripts/officials/migrate_slug_normalisation.ts` already
+> recomputes a pre-migration slug from a current row (see `officials_slug.data.test.ts`), so
+> old→new is derivable deterministically rather than by name-guessing. Own step, before T1.4.
+>
+> **Also still open for T1.4:** wiring the 301. The mapping and the lookup exist; issuing
+> a real 301 from them belongs with T1.1's `db`-Cloud-Function redirect, which is the same
+> mechanism. Until that lands a retired slug still 404s — it just now knows where it should
+> have gone.
 >
 > Historical detail follows.
 >

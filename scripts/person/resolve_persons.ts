@@ -853,6 +853,9 @@ const SCHEMA_FILES = [
   // not fail on a missing relation. CREATE TABLE IF NOT EXISTS, so applying it twice is
   // a no-op and an empty table simply contributes no aliases.
   "101_declaration_subject_alias.sql",
+  // Retired-slug redirects (103). Written below from the PREVIOUS lock, so the table must
+  // exist before the write; CREATE TABLE IF NOT EXISTS makes re-applying it a no-op.
+  "103_person_slug_retired.sql",
 ];
 
 // The skill /process-watch-report queues for the person layer. The marker file
@@ -1035,6 +1038,7 @@ async function main(): Promise<void> {
   // mention belonged to. Lets a name-hash person keep their /person URL across re-resolves
   // even as their cluster drifts. Empty on the first run — then every slug is the derived
   // one and the lock is simply seeded, so nothing changes.
+  let retiredSlugCount = 0;
   const slugLocks = new Map<string, { slug: string; firstSeen: number }>();
   for (const r of await allRows<{
     mention_id: string;
@@ -1144,6 +1148,29 @@ async function main(): Promise<void> {
       lockIds.push(m.id);
       lockSlugs.push(b.slug);
     }
+  // Retired slugs (103), computed BEFORE the upsert below overwrites the lock. `slugLocks`
+  // still holds each mention's PREVIOUS slug, and `built` has its new one, so a slug that
+  // some mention used to serve and that no live person now carries is retired — and the
+  // person those mentions belong to today is where it should redirect.
+  //
+  // Recomputed in full from the whole lock every run, not just for mentions that moved this
+  // time: that is what keeps a chain (A merged into B, later B into C) pointing at C rather
+  // than at the dead middle link, without any recursive lookup when serving.
+  //
+  // Only mentions still present in `built` are considered, so a slug whose members have ALL
+  // left the person universe (an official dropped from the roster entirely) is not retired
+  // here — there is no person left to redirect it to, and inventing one would be worse than
+  // the 404. The lock keeps such rows indefinitely, so they are visible if that ever needs
+  // handling.
+  const liveSlugs = new Set(built.map((b) => b.slug));
+  const retired = new Map<string, string>();
+  for (const b of built)
+    for (const m of b.members) {
+      const prev = slugLocks.get(m.id)?.slug;
+      if (prev && prev !== b.slug && !liveSlugs.has(prev))
+        retired.set(prev, b.slug);
+    }
+
   await withTx(async (c) => {
     await c.query(
       `INSERT INTO person_slug_lock (mention_id, slug)
@@ -1151,7 +1178,22 @@ async function main(): Promise<void> {
        ON CONFLICT (mention_id) DO UPDATE SET slug = EXCLUDED.slug`,
       [lockIds, lockSlugs],
     );
+    if (retired.size)
+      await c.query(
+        `INSERT INTO person_slug_retired (slug, target_slug)
+           SELECT * FROM unnest($1::text[], $2::text[])
+         ON CONFLICT (slug) DO UPDATE SET target_slug = EXCLUDED.target_slug`,
+        [[...retired.keys()], [...retired.values()]],
+      );
+    // A slug that came BACK (a merge undone by a split override) must stop redirecting,
+    // or a live person 301s to whoever absorbed them.
+    await c.query(
+      `DELETE FROM person_slug_retired r
+        WHERE EXISTS (SELECT 1 FROM unnest($1::text[]) s WHERE s = r.slug)`,
+      [[...liveSlugs]],
+    );
   });
+  if (retired.size) retiredSlugCount = retired.size;
 
   const personRows: unknown[][] = [];
   const roleRows: unknown[][] = [];
@@ -1390,6 +1432,7 @@ async function main(): Promise<void> {
     `${regKeyed} mention(s) keyed by the register person id (${aliased} aliased to an MP id); ` +
     `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
     `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s); ` +
+    `${retiredSlugCount} slug(s) retired to a redirect; ` +
     `${ovCount} human override(s) applied ` +
     `(${overrides.merges.length} merge, ${overrides.foldSplits.length} fold-split, ${overrides.refSplits.size} ref-split)`;
   console.log(`  ${summary}`);
