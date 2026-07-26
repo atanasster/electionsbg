@@ -155,6 +155,14 @@ const writeMonthShards = (
     // key merge above keeps BOTH — double-counting. `evictSupersededEopTwins`
     // drops the superseded EOP twin by content match against the arriving OCDS
     // rows, using the same key set as the gap-fill's forward dedup.
+    //
+    // Per-shard eviction is sufficient: a twin always co-shards with its arrival.
+    // Sharding keys on `date`, which is the ЦАИС publication date in BOTH feeds
+    // (OCDS `truncateDate(release.date)` == EOP `parseBgDate(publicationDate)` —
+    // the OCDS bundle publishes weeks later but each release.date is still the
+    // original notice date, not the export timestamp). Verified on the real
+    // 2026-05-21…06-03 fortnight (straddles the month boundary): 1827/1827
+    // matched twins fell in the same shard, 0 cross-month.
     const { kept: deduped, evicted } = evictSupersededEopTwins(
       [...byKey.values()],
       freshRows,

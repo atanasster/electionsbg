@@ -60,12 +60,19 @@ export const isEopSourced = (r: Contract): boolean =>
 // and would both survive the month-shard key merge — double-counting. This drops
 // the EOP twin by content match. Only `eop-` rows are ever removed; OCDS/legacy
 // rows always pass through. Returns the surviving rows and how many were evicted.
+//
+// Only NON-EOP arrivals supersede — the "OCDS authoritative" contract is enforced
+// here, not left to the caller. Were an arriving `eop-` row allowed to contribute
+// keys, it would content-match the identical on-disk EOP row and evict it (silent
+// row loss). The current writer only passes OCDS rows, so this guard is a
+// belt-and-braces on a shared, exported primitive.
 export const evictSupersededEopTwins = (
   rows: Contract[],
   arriving: Contract[],
 ): { kept: Contract[]; evicted: number } => {
   const arrivingKeys = new Set<string>();
-  for (const r of arriving) for (const k of contentKeys(r)) arrivingKeys.add(k);
+  for (const r of arriving)
+    if (!isEopSourced(r)) for (const k of contentKeys(r)) arrivingKeys.add(k);
   let evicted = 0;
   const kept = rows.filter((r) => {
     if (!isEopSourced(r)) return true;

@@ -6,7 +6,7 @@
 // evict an EOP row when its authoritative OCDS twin finally lands. Both MUST use
 // the identical key set or a twin survives in one direction and double-counts.
 //
-//   npx tsx --test scripts/procurement/content_key.test.ts
+//   npx vitest run scripts/procurement/content_key.test.ts
 
 import { test } from "vitest";
 import assert from "node:assert/strict";
@@ -56,6 +56,64 @@ test("contentKeys: rounded euro tolerates sub-euro drift", () => {
   const a = row({ unp: "U", amountEur: 1000.4 });
   const b = row({ unp: "U", amountEur: 1000.49 });
   assert.deepEqual(contentKeys(a), contentKeys(b));
+});
+
+test("contentKeys: matches only via the c: (contract-number) net", () => {
+  // No УНП and DIFFERENT amounts, so neither the u: nor the f: net can fire;
+  // the punctuation-normalised contract number is the sole bridge.
+  const eop = row({
+    releaseId: "eop-1",
+    unp: "",
+    contractId: "Д-1/2021",
+    amountEur: 100,
+  });
+  const ocds = row({
+    releaseId: "aop-1",
+    unp: "",
+    contractId: "д 1 2021",
+    amountEur: 200,
+  });
+  const shared = contentKeys(eop).filter((k) => contentKeys(ocds).includes(k));
+  assert.equal(shared.length, 1);
+  assert.ok(shared[0].startsWith("c:"), shared[0]);
+});
+
+test("contentKeys: matches only via the f: (buyer+supplier+date+amount) net", () => {
+  // No УНП and no contract number → the amount-and-date net is the only one left.
+  const eop = row({
+    releaseId: "eop-1",
+    unp: "",
+    contractId: "",
+    amountEur: 500,
+  });
+  const ocds = row({
+    releaseId: "aop-1",
+    unp: "",
+    contractId: "",
+    amountEur: 500,
+  });
+  const shared = contentKeys(eop).filter((k) => contentKeys(ocds).includes(k));
+  assert.equal(shared.length, 1);
+  assert.ok(shared[0].startsWith("f:"), shared[0]);
+});
+
+test("eviction: an arriving EOP row never supersedes a content-identical on-disk EOP row", () => {
+  // Guards the "OCDS authoritative" contract: only non-EOP arrivals may evict.
+  const onDisk = row({
+    key: "e1",
+    releaseId: "eop-1",
+    unp: "U",
+    amountEur: 100,
+  });
+  const arrivingEop = row({
+    key: "e2",
+    releaseId: "eop-2",
+    unp: "U",
+    amountEur: 100,
+  });
+  const { kept, evicted } = evictSupersededEopTwins([onDisk], [arrivingEop]);
+  assert.equal(evicted, 0);
+  assert.equal(kept.length, 1);
 });
 
 test("isEopSourced only flags the eop- namespace", () => {
