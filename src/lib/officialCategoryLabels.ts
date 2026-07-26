@@ -369,11 +369,21 @@ export const OFFICIAL_PRERENDER_PRIORITY: ReadonlySet<OfficialCategoryKind> =
 
 /** Officials to emit a static page for, highest priority first.
  *
- *  Priority tier first, then declared net worth inside each tier. Shared by the
- *  prerenderer and the sitemap so a <loc> can never point at a page that was
- *  not built. */
+ *  Priority tier first, then declared net worth inside each tier, then SLUG — the
+ *  slug tiebreak is load-bearing, not cosmetic: without it two officials that tie on
+ *  (tier, net worth) resolve in input order, so which one lands inside vs. outside the
+ *  cap flips run-to-run when the source order is not stable (a matview seq scan is not),
+ *  silently churning the prerendered set and the sitemap. The retired JSON source
+ *  pre-sorted by slug for exactly this reason (scripts/officials/rankings.ts). `slug` is
+ *  optional in the constraint only so older callers that never tied still compile; every
+ *  real caller passes it. Shared by the prerenderer and the sitemap so a <loc> can never
+ *  point at a page that was not built. */
 export const officialsForStaticPages = <
-  T extends { category: OfficialCategoryKind; netWorthEur?: number | null },
+  T extends {
+    category: OfficialCategoryKind;
+    netWorthEur?: number | null;
+    slug?: string;
+  },
 >(
   officials: readonly T[],
   limit: number,
@@ -383,7 +393,8 @@ export const officialsForStaticPages = <
       (a, b) =>
         Number(OFFICIAL_PRERENDER_PRIORITY.has(b.category)) -
           Number(OFFICIAL_PRERENDER_PRIORITY.has(a.category)) ||
-        (b.netWorthEur ?? 0) - (a.netWorthEur ?? 0),
+        (b.netWorthEur ?? 0) - (a.netWorthEur ?? 0) ||
+        (a.slug ?? "").localeCompare(b.slug ?? ""),
     )
     .slice(0, limit);
 

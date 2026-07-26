@@ -19,19 +19,23 @@ const fetchPersonSlug = async (slug: string): Promise<string | null> => {
   const r = await fetch(
     `/api/db/officials-person?slug=${encodeURIComponent(slug)}`,
   );
-  if (!r.ok) return null;
+  // THROW on a transient failure (5xx / network); return null ONLY for the genuine
+  // "resolves to nobody" (HTTP 200 + personSlug: null). Collapsing the two — as an
+  // `if (!r.ok) return null` would — turns a momentary API blip into a hard 404 for a URL
+  // a real person exists behind. useQuery retries the throw; the null is final.
+  if (!r.ok) throw new Error(`officials-person: ${r.status}`);
   const body = (await r.json()) as { personSlug: string | null };
   return body.personSlug;
 };
 
 export const OfficialProfileRedirect: FC = () => {
   const { slug } = useParams();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["officials_person", slug] as [string, string | undefined],
     queryFn: () => fetchPersonSlug(slug as string),
     enabled: !!slug,
     staleTime: Infinity,
-    retry: false,
+    retry: 2,
   });
 
   if (!slug) return <NotFound />;
@@ -43,7 +47,9 @@ export const OfficialProfileRedirect: FC = () => {
     );
   }
   // Resolved to a live person → replace history so the retired /officials URL leaves no
-  // back-button trap. Unresolvable (a slug that maps to nobody) → the app's own 404, not a
-  // bounce to a plausible-looking wrong page.
-  return data ? <Navigate to={`/person/${data}`} replace /> : <NotFound />;
+  // back-button trap. A genuine null (resolves to nobody, after a 200) OR a persistent
+  // lookup failure (isError, after retries) → the app's own 404, never a bounce to a
+  // plausible-looking wrong page.
+  if (data && !isError) return <Navigate to={`/person/${data}`} replace />;
+  return <NotFound />;
 };

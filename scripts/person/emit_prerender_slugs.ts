@@ -29,12 +29,15 @@
 // /officials/<slug> pages with the SAME ~5,000 people at /person/<slug>, holding total
 // deployed HTML flat (docs/plans/persons-pg-retirement-v1.md §0.5, Decision 4 overrides G6).
 //
-// So `prerender` marks exactly the set officialsForStaticPages picked for /officials — the
-// executive-officials top OFFICIALS_STATIC_PAGE_LIMIT by (priority tier, then declared net
-// worth) — resolved into PERSON slugs. Reusing that one function is what guarantees the
-// person set is the same humans the officials set was, so no indexed URL loses its SEO body
-// as it moves from /officials/<slug> to /person/<slug>. The `card` fields ride along so the
-// prerenderer can build the same net-worth body without a DB read.
+// So `prerender` marks the executive-officials top OFFICIALS_STATIC_PAGE_LIMIT, in PERSON
+// space. But count-neutral is NOT set-neutral — the retired JSON was keyed per officials
+// POSITION (5,000 positions → ~4,487 persons), so a naive person-grain top-5,000 silently
+// drops ~114 of those persons near the net-worth boundary, and their indexed /officials URL
+// would then 301 to a non-prerendered /person page (a soft-404). To honor "no indexed URL
+// loses its SEO body," the selection below FORCE-INCLUDES the persons the old officials
+// pages 301 to (continuity), then tops up the remaining budget with the current
+// highest-value officials (freshness). See emitPersonSlugs. The `card` fields ride along so
+// the prerenderer builds the net-worth body without a DB read.
 //
 // TO SHIP THE FULL G6 SET LATER: measure the ceiling with a staging deploy FIRST (§0.5),
 // then widen the selection here. A future implementer who just prerenders everything
@@ -117,14 +120,30 @@ export const emitPersonSlugs = async (): Promise<void> => {
       ORDER BY p.slug COLLATE "C" ASC`,
   );
 
-  // The net-neutral prerender set: the SAME executive officials officialsForStaticPages
-  // picks for /officials, now keyed by PERSON slug (officials_rankings_table.slug IS the
-  // person slug, and is already §6-gated to active + public). Best-effort: on a DB that
-  // has never loaded declarations the matview is absent, and the manifest degrades to
-  // "nothing prerendered" rather than aborting the resolver pipeline.
+  // The net-neutral prerender set. Two forces, in order:
+  //
+  //   1. CONTINUITY (no indexed URL loses its SEO body — §0.5 requires this, and it is the
+  //      whole point of the cutover). The retired /officials group prerendered the top
+  //      OFFICIALS_STATIC_PAGE_LIMIT officials POSITIONS; those pages are indexed today and
+  //      301 to /person, so the person they redirect to MUST be prerendered or Google lands
+  //      on the SPA shell (a soft-404). Count-neutral is not set-neutral: 5,000 positions
+  //      collapse to ~4,487 persons, and a fresh person-grain top-5,000 drops ~114 of them
+  //      near the net-worth boundary. So the OLD set's redirect targets are force-included.
+  //   2. FRESHNESS. Any budget left under the cap is filled with the current highest-value
+  //      executive officials (person-grain), so a newly-appointed high-net-worth official
+  //      still gets a page.
+  //
+  // officials_rankings_table.slug IS the person slug, §6-gated to active + public. The
+  // whole thing is best-effort: on a DB that has never loaded declarations the matview is
+  // absent and the manifest degrades to "nothing prerendered" rather than aborting the
+  // resolver pipeline.
   const cardBySlug = new Map<string, PersonPrerenderCard>();
   const prerenderSet = new Set<string>();
   try {
+    // ORDER BY is not cosmetic: it makes the top-N boundary reproducible across matview
+    // refreshes (idx_officials_rankings_exec is btree (net_worth_eur DESC NULLS LAST, slug)
+    // WHERE is_exec — a covering match), and officialsForStaticPages's slug tiebreak
+    // finishes the job for cross-tier ties.
     const officials = await allRows<{
       slug: string;
       name: string;
@@ -137,28 +156,78 @@ export const emitPersonSlugs = async (): Promise<void> => {
       `SELECT slug, name, category, institution, position_title,
               latest_declaration_year, net_worth_eur
          FROM officials_rankings_table
-        WHERE is_exec`,
+        WHERE is_exec
+        ORDER BY net_worth_eur DESC NULLS LAST, slug`,
     );
+    // Card for EVERY exec official — a continuity person may sit outside the person-grain
+    // top-N, so cards can't be built only for the selected slice.
+    for (const o of officials) {
+      cardBySlug.set(o.slug, {
+        name: o.name,
+        category: o.category,
+        institution: o.institution,
+        positionTitle: o.position_title,
+        year: o.latest_declaration_year,
+        netWorthEur: o.net_worth_eur == null ? null : Number(o.net_worth_eur),
+      });
+    }
     const ranked = officials.map((o) => ({
       slug: o.slug,
       category: o.category,
       netWorthEur: o.net_worth_eur == null ? 0 : Number(o.net_worth_eur),
-      raw: o,
     }));
+
+    // (1) Continuity: the persons the retired officials group's pages 301 to. Read the
+    // still-present assets-rankings.json (the actual old source) and map each selected
+    // officials slug through officials_person_slug() — the SAME function the 301 uses, so a
+    // current OR re-slug-retired slug both resolve. Best-effort: once T1.5 retires that
+    // JSON, this yields nothing and the set is pure person-grain — by then the swap's
+    // continuity has long served its purpose (Google has re-indexed /person).
+    const oldRankingsFile = path.join(
+      ROOT,
+      "data/officials/assets-rankings.json",
+    );
+    if (fs.existsSync(oldRankingsFile)) {
+      try {
+        const old = JSON.parse(fs.readFileSync(oldRankingsFile, "utf-8")) as {
+          topOfficials?: {
+            slug: string;
+            category: OfficialCategoryKind;
+            netWorthEur?: number | null;
+          }[];
+        };
+        const oldSlugs = officialsForStaticPages(
+          old.topOfficials ?? [],
+          OFFICIALS_STATIC_PAGE_LIMIT,
+        ).map((o) => o.slug);
+        const mapped = await allRows<{ person_slug: string | null }>(
+          `SELECT officials_person_slug(s) AS person_slug
+             FROM unnest($1::text[]) AS s`,
+          [oldSlugs],
+        );
+        for (const m of mapped) {
+          // Only force-include a continuity person we can actually render a body for. One
+          // who lost their card (now muni-only, or no longer public) SHOULD drop — they are
+          // no longer an indexable exec official.
+          if (m.person_slug && cardBySlug.has(m.person_slug)) {
+            prerenderSet.add(m.person_slug);
+          }
+        }
+      } catch (e) {
+        console.warn(
+          `[person-slugs] assets-rankings.json unreadable — continuity skipped (${(e as Error).message})`,
+        );
+      }
+    }
+
+    // (2) Freshness top-up: fill the remaining budget with the current highest-value
+    // person-grain officials, capped at the limit. Superset of the continuity set.
     for (const o of officialsForStaticPages(
       ranked,
       OFFICIALS_STATIC_PAGE_LIMIT,
     )) {
+      if (prerenderSet.size >= OFFICIALS_STATIC_PAGE_LIMIT) break;
       prerenderSet.add(o.slug);
-      cardBySlug.set(o.slug, {
-        name: o.raw.name,
-        category: o.raw.category,
-        institution: o.raw.institution,
-        positionTitle: o.raw.position_title,
-        year: o.raw.latest_declaration_year,
-        netWorthEur:
-          o.raw.net_worth_eur == null ? null : Number(o.raw.net_worth_eur),
-      });
     }
   } catch (e) {
     console.warn(

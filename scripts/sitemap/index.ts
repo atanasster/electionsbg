@@ -412,7 +412,7 @@ const enumerateLocalMunicipalities = (rootUrl: string, routes: string[]) => {
 // that can drift. The flag marks the net-neutral ex-officials set (§0.5); the manifest is
 // written by scripts/person/emit_prerender_slugs.ts from Postgres.
 const enumeratePersons = (
-  route: RouteDef,
+  _route: RouteDef,
   rootUrl: string,
   routes: string[],
 ) => {
@@ -426,7 +426,6 @@ const enumeratePersons = (
     if (!e.prerender) continue;
     pushUrl(`${rootUrl}/${routes[0]}${e.slug}`, lastmod);
     pushUrl(`/en${rootUrl}/${routes[0]}${e.slug}`, lastmod);
-    void route;
   }
 };
 
