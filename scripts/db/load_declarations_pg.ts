@@ -120,6 +120,14 @@ const MUNICIPAL_OFFICIALS_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/102_municipal_officials.sql",
 );
+// The candidateLink decoration table (T1.5) that 102 LEFT JOINs. Applied BEFORE 102 so
+// its CREATE MATERIALIZED VIEW never references a missing table — empty until
+// load_official_candidate_links_pg.ts fills it and REFRESHes 102 (mirrors 104's
+// empty-first, loader-populated pattern). Idempotent: CREATE TABLE IF NOT EXISTS.
+const OFFICIAL_CANDIDATE_LINK_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/108_official_candidate_link.sql",
+);
 // The MP roster tables (T0.3) and the serving surfaces built on them. The DATA is
 // COPYed by load_mp_roster_pg.ts — these are applied here only so that 090's
 // DROP … CASCADE, which takes mp_assets_rankings_table down with person_wealth_year,
@@ -679,6 +687,10 @@ const resolve = async () => {
   // person_wealth_year, so applying it before the refresh would populate the
   // leaderboard from the pre-reload matview.
   await exec(fs.readFileSync(OFFICIALS_RANKINGS_SCHEMA, "utf-8"));
+  // 108 first: 102's matview LEFT JOINs official_candidate_link, so the table must exist
+  // before 102's CREATE. Empty on a fresh DB until load_official_candidate_links_pg.ts
+  // populates it and REFRESHes 102.
+  await exec(fs.readFileSync(OFFICIAL_CANDIDATE_LINK_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(MUNICIPAL_OFFICIALS_SCHEMA, "utf-8"));
   // Same rule again for the MP leaderboard (T0.3). It is applied HERE as well as in
   // load_mp_roster_pg.ts because 090's `DROP MATERIALIZED VIEW … CASCADE` above takes

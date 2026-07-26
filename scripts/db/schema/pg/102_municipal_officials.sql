@@ -96,7 +96,19 @@ SELECT
   ld.institution              AS municipality,
   ld.period_year              AS latest_declaration_year,
   o.district,
-  (ld.listing_ref IS NOT NULL) AS has_declaration
+  (ld.listing_ref IS NOT NULL) AS has_declaration,
+  -- candidateLink decoration (migration 108, T1.5): party / ballot / MP-photo enrichment
+  -- the by_obshtina JSON shards carried. NULL for a listing with neither a local-election
+  -- slate match nor an MP-photo match (and for chief_architect / other, which the loader
+  -- never decorates). The frontend reassembles the OfficialCandidateLink object from these.
+  cl.cycle                    AS candidate_cycle,
+  cl.party_name               AS candidate_party_name,
+  cl.party_canonical_id       AS candidate_party_canonical_id,
+  cl.list_pos                 AS candidate_list_pos,
+  cl.pref_votes               AS candidate_pref_votes,
+  cl.is_elected               AS candidate_is_elected,
+  cl.mp_id                    AS candidate_mp_id,
+  cl.photo_url                AS candidate_photo_url
 FROM person_role r
 JOIN person p ON p.person_id = r.person_id
              -- §6 privacy gate (see the header).
@@ -106,6 +118,10 @@ LEFT JOIN latest_decl ld ON ld.listing_ref = r.ref
 -- district lives on the roster for the same reason obshtina does — municipality_join.ts
 -- derives both from the institution string in one pass and neither is reproducible here.
 LEFT JOIN official_roster o ON o.slug = r.ref
+-- candidateLink, keyed on the listing's official_slug. Populated by
+-- load_official_candidate_links_pg.ts, which REFRESHes this matview after it COPYs; empty
+-- (all NULLs) on a fresh DB until that loader runs.
+LEFT JOIN official_candidate_link cl ON cl.official_slug = r.ref
 WHERE r.source = 'official_muni'
   AND r.place IS NOT NULL;
 

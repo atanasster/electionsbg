@@ -61,6 +61,18 @@ minted under pre-2026-07-24 officials slugs 301 instead of 404. `db:refresh` run
 equivalent automatically; nothing runs it on the cloud side. See
 `raw_data/person/README.md` and `docs/plans/persons-pg-retirement-v1.md` (T1.0).
 
+Likewise, after `db:load:declarations:pg:cloud -- --resolve` (which creates the municipal
+roster matview), run the candidateLink loader so the Cloud SQL municipal roster carries the
+party colours / councillor avatars the /governance + My-Area tiles render:
+
+```bash
+npm run db:load:official-candidate-links:pg:cloud
+```
+
+It populates `official_candidate_link` and REFRESHes `municipal_officials_table`. `db:refresh`
+runs the local equivalent automatically; the cloud side does not. See
+`docs/plans/persons-pg-retirement-v1.md` (T1.5).
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

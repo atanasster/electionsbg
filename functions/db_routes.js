@@ -2118,6 +2118,42 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // Global municipal-officials name index → useMunicipalOfficialsByName (ChmiFeedScreen's
+  // name → /officials link resolver). Replaces the static municipal/search_index.json
+  // (persons-pg-retirement-v1 T1.5). One compact row per roster listing; the client builds
+  // its own name maps and matches locally, so this is a single cached fetch (staleTime
+  // Infinity), not a per-name round trip. Shape mirrors the retired file: {entries:[…]}.
+  "municipal-officials-name-index": async (dbRows) => {
+    const rows = await dbRows(
+      // municipality is COALESCEd to '' — the matview leaves institution NULL for a listing
+      // with no filing, and the consumer's name-map build would otherwise carry a null.
+      // ORDER BY puts role priority ahead of the slug tiebreak so the client's first-wins
+      // byName map resolves a namesake collision to the mayor (then chair/deputy), matching
+      // the retired role-sorted search_index.json.
+      `SELECT COALESCE(
+                jsonb_agg(
+                  jsonb_build_object(
+                    'slug', official_slug,
+                    'name', name,
+                    'role', role,
+                    'municipality', COALESCE(municipality, ''),
+                    'district', district
+                  ) ORDER BY name,
+                           CASE role
+                             WHEN 'mayor' THEN 0
+                             WHEN 'council_chair' THEN 1
+                             WHEN 'deputy_mayor' THEN 2
+                             WHEN 'councillor' THEN 3
+                             ELSE 4
+                           END,
+                           official_slug
+                ),
+                '[]'::jsonb
+              ) AS r
+         FROM municipal_officials_table`,
+    ).catch(missingMigrationEmpty);
+    return { body: { entries: rows[0]?.r ?? [] } };
+  },
   // Every election's re-keyed electoral summary for one person (newest first) → the electoral
   // block on the merged person dashboard (person-candidate-merge-v1). The caller runs the
   // existing candidate reducer over each cycle's raw `regions` + preferences_stats fields.

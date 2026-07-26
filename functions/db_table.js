@@ -626,6 +626,19 @@ const REGISTRY = {
       "municipality",
       "latest_declaration_year",
       "has_declaration",
+      // candidateLink decoration (matview LEFT JOIN official_candidate_link, migration 108).
+      // Display-only pass-through — never filtered/sorted/searched, so kept out of `columns`.
+      // The frontend (useMunicipalOfficials) reassembles the OfficialCandidateLink from the
+      // camelCased projection (candidate_party_name → candidatePartyName, …); every field is
+      // NULL for a listing with no slate/MP match, in which case no link is emitted.
+      "candidate_cycle",
+      "candidate_party_name",
+      "candidate_party_canonical_id",
+      "candidate_list_pos",
+      "candidate_pref_votes",
+      "candidate_is_elected",
+      "candidate_mp_id",
+      "candidate_photo_url",
     ],
     defaultSort: [["name", "asc"]],
     aggregates: [{ fn: "count" }],
