@@ -13,7 +13,9 @@ import {
   type ContractsAnalyticsArgs,
 } from "./useContractsAnalytics";
 
-type FacetRows = { value: string; count: number }[];
+// value is `string | boolean` because a bool facet (is_eu_funded) serialises as a
+// JS boolean, mirroring node-postgres — the tenders share KPI must handle that.
+type FacetRows = { value: string | boolean; count: number }[];
 type Req = {
   columns: string[];
   filters: { id: string }[];
@@ -42,9 +44,11 @@ const facetFor = (col: string): FacetRows => {
       { value: "3", count: 70 },
     ];
   if (col === "is_eu_funded")
+    // A bool facet returns JS booleans (node-postgres), NOT the strings "true"/
+    // "false" — the share predicate must coerce, so mock the real shape.
     return [
-      { value: "true", count: 35 },
-      { value: "false", count: 65 },
+      { value: true, count: 35 },
+      { value: false, count: 65 },
     ];
   if (col === "cpv")
     return [
@@ -272,7 +276,7 @@ describe("useContractsAnalytics — tenders shape (method-only + shareFacet)", (
     procBucket: null,
     methodColumn: "procedure_type",
     bidColumn: null,
-    shareFacet: { column: "is_eu_funded", match: (v) => v === "true" },
+    shareFacet: { column: "is_eu_funded", match: (v) => String(v) === "true" },
   };
 
   it("derives the mix + directPct + sharePct with no bid facet", async () => {

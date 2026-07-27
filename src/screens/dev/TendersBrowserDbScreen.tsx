@@ -4,14 +4,24 @@
 // header says so. Curated topic deep-links (?topic=guardrails, the "мантинели за
 // 1 млрд" case) prefilter the subject by the topic's keyword and show its label.
 // See docs/plans/postgres-migration-v1.md.
+//
+// The analysis strip (reactive KPI cards + the clickable "Вид процедура" mix bar)
+// mirrors the contracts browser via the shared useContractsAnalytics hook, but
+// with tender-shaped metrics: forecast Σ + count (from the table's aggregates),
+// direct-award % and EU-funded % (facet-based). Tenders have no bid data, so
+// there's no single-bidder KPI.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
-import { ClipboardList, ExternalLink } from "lucide-react";
+import { ClipboardList, ExternalLink, Coins, Gavel, Star } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
+import { StatCard } from "@/screens/dashboard/StatCard";
+import {
+  DbDataTable,
+  type DbColumnFilter,
+  type DbTableResponse,
+} from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
@@ -19,17 +29,13 @@ import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseS
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import { TenderRiskChips } from "@/screens/components/procurement/TenderRiskPanel";
+import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
+import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
-import { formatEurCompact } from "@/lib/currency";
+import { formatEur, formatEurCompact } from "@/lib/currency";
+import { type ProcedureBucket } from "@/lib/cpvSectors";
 import { decodeEntities } from "@/lib/decodeEntities";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   CpvFilterCombobox,
   CPV_ALL,
@@ -56,8 +62,6 @@ interface TenderRow {
   appealSuspended: boolean | null;
 }
 
-const ALL = "__all__";
-
 export const TendersBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const [params] = useSearchParams();
@@ -65,63 +69,93 @@ export const TendersBrowserDbScreen: FC = () => {
   const { from, to, all } = useScopeWindow();
 
   // ?sector= → the sector browse pack (§4.3): restrict to its buyer EIK-set and
-  // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik).
+  // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik). The
+  // pack renders its own summary, so the generic KPI/mix block stands down there.
   const browsePack = useMemo(
     () => getSectorBrowsePack(params.get("sector")),
     [params],
   );
+  const showAnalysis = !browsePack;
 
-  const [procedure, setProcedure] = useState<string>(ALL);
-  const [cancelled, setCancelled] = useState(false);
-
-  const { data: facetData } = useQuery({
-    queryKey: ["db-facets", "tenders"],
-    queryFn: async (): Promise<{
-      facets: Record<string, { value: string; count: number }[]>;
-    }> => {
-      const req = {
-        resource: "tenders",
-        columns: ["procedure_type", "cpv"],
-        limit: 40,
-      };
-      const r = await fetch(
-        `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
-      );
-      if (!r.ok) return { facets: {} };
-      return r.json();
-    },
-    staleTime: Infinity,
-  });
-  const procedureOptions = facetData?.facets?.procedure_type ?? [];
-  const cpvOptions = facetData?.facets?.cpv ?? [];
-  // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV
-  // filter — search by sector name or by any CPV code, beyond the 2-digit
-  // divisions. Shared with the contracts browser.
-  const { data: cpvCatalog } = useCpvCatalog();
-
+  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
+  // its raw procedure_type strings are re-derived from the facet by the hook.
+  const [procBucket, setProcBucket] = useState<ProcedureBucket | null>(null);
   // The CPV filter is interactive (the shared CpvFilterCombobox) and also seeded
   // by the ?cpv= deep link from the tender normalcy panel's "browse similar" —
-  // both resolve through cpv_prefix (same physical column, LIKE match), so a
-  // cohort prefix (2–8 digits) or a picked division/code filters the same way.
+  // both resolve through cpv_prefix (same physical column, LIKE match).
   const [cpvSel, setCpvSel] = useState<string>(
     () => params.get("cpv") ?? CPV_ALL,
   );
+  const [cancelled, setCancelled] = useState(false);
 
-  const extraFilters = useMemo<DbColumnFilter[]>(() => {
+  // Scope filters shared by the facets AND the table (window + buyer EIK-set +
+  // curated topic CPV set) so the analysis strip matches the rows.
+  const scopeFilters = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     // Curated topic → filter by its precise CPV set (the discriminator the
     // offline builder used); catches the procedures however they're worded.
     if (topic?.cpv?.length) f.push({ id: "cpv", value: topic.cpv });
-    if (cpvSel !== CPV_ALL) f.push({ id: "cpv_prefix", value: cpvSel });
     // Section scope (?pscope) → bound the announcement date. Exclusive end ≈
     // inclusive max, off by ≤1 day — same convention as the contracts browser.
     if (!all && from)
       f.push({ id: "publication_date", min: from, max: to ?? undefined });
-    if (procedure !== ALL) f.push({ id: "procedure_type", value: [procedure] });
-    if (cancelled) f.push({ id: "is_cancelled", value: true });
     if (browsePack) f.push({ id: "buyer_eik", value: [...browsePack.eiks] });
     return f;
-  }, [topic, cpvSel, all, from, to, procedure, cancelled, browsePack]);
+  }, [topic, all, from, to, browsePack]);
+
+  const cancelledFilter = useMemo<DbColumnFilter[]>(
+    () => (cancelled ? [{ id: "is_cancelled", value: true }] : []),
+    [cancelled],
+  );
+  const cpvFilter = useMemo<DbColumnFilter[]>(
+    () => (cpvSel !== CPV_ALL ? [{ id: "cpv_prefix", value: cpvSel }] : []),
+    [cpvSel],
+  );
+
+  // Facet-driven analysis, shared with the contracts browsers. Tender-shaped:
+  // procedure_type as the mix column, NO bid column (no single-bid KPI), and an
+  // EU-funded % share KPI. Static CPV facet (keep the combobox list stable).
+  const { groupedMethods, cpvOptions, directPct, sharePct, methodF } =
+    useContractsAnalytics({
+      resource: "tenders",
+      fixedFilters: scopeFilters,
+      commonFilters: cancelledFilter,
+      singleFilter: [],
+      cpvFilter,
+      procBucket,
+      methodColumn: "procedure_type",
+      bidColumn: null,
+      // is_eu_funded is a PG bool → the facet value arrives as a JS boolean (via
+      // JSON), so coerce before comparing (a bare v === "true" is always false).
+      shareFacet: {
+        column: "is_eu_funded",
+        match: (v) => String(v) === "true",
+      },
+      enabled: showAnalysis,
+      reactiveCpv: false,
+      onBucketInvalid: () => setProcBucket(null),
+    });
+  // Named CPV-code catalogue powers the searchable CPV filter — search by sector
+  // name or by any CPV code. Shared with the contracts browser.
+  const { data: cpvCatalog } = useCpvCatalog();
+
+  // Reactive headline aggregates (Σ estimated €, count) for the whole FILTERED
+  // set — DbDataTable computes them server-side and hands them back via onData.
+  const [agg, setAgg] = useState<{
+    sumEstimatedValueEur?: number;
+    count?: number;
+  }>({});
+  const handleData = useCallback((resp: DbTableResponse<TenderRow>) => {
+    setAgg({
+      sumEstimatedValueEur: resp.aggregates?.sumEstimatedValueEur,
+      count: resp.aggregates?.count ?? resp.total,
+    });
+  }, []);
+
+  const extraFilters = useMemo<DbColumnFilter[]>(
+    () => [...scopeFilters, ...cancelledFilter, ...methodF, ...cpvFilter],
+    [scopeFilters, cancelledFilter, methodF, cpvFilter],
+  );
 
   const columns = useMemo<DataTableColumnDef<TenderRow, unknown>[]>(
     () => [
@@ -271,10 +305,91 @@ export const TendersBrowserDbScreen: FC = () => {
           <SectorBrowseSlot pack={browsePack} scope={{ from, to }} />
         )}
 
+        {showAnalysis && (
+          <>
+            {/* Reactive headline KPIs (Σ estimated / count follow the filters AND
+                the search) + integrity KPIs (direct-award / EU-funded share;
+                facet-based, so they don't move with the free-text search). */}
+            <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+              <StatCard
+                label={t("tenders_kpi_estimated") || "Прогнозна стойност"}
+              >
+                <div className="flex items-baseline gap-2">
+                  <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span
+                    className="text-lg font-bold tabular-nums md:text-xl"
+                    title={formatEur(
+                      agg.sumEstimatedValueEur ?? 0,
+                      i18n.language,
+                    )}
+                  >
+                    {formatEurCompact(
+                      agg.sumEstimatedValueEur ?? 0,
+                      i18n.language,
+                    )}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard label={t("tenders_kpi_count") || "Процедури"}>
+                <div className="flex items-baseline gap-2">
+                  <ClipboardList className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {(agg.count ?? 0).toLocaleString("bg-BG")}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard
+                label={t("tenders_stat_direct") || "Пряко / без обявление"}
+                hint={
+                  t("tenders_stat_direct_hint") ||
+                  "Дял от процедурите с посочен вид, обявени пряко / без обявление."
+                }
+              >
+                <div className="flex items-baseline gap-2">
+                  <Gavel className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard
+                label={t("tenders_stat_eu") || "ЕС-финансирани"}
+                hint={
+                  t("tenders_stat_eu_hint") ||
+                  "Дял от процедурите, финансирани със средства от ЕС."
+                }
+              >
+                <div className="flex items-baseline gap-2">
+                  <Star className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {sharePct == null ? "—" : `${sharePct.toFixed(0)}%`}
+                  </span>
+                </div>
+              </StatCard>
+            </div>
+
+            {/* Procedure-mix overview — filter-scoped and clickable: a segment/chip
+                toggles the same bucket filter that narrows the table. */}
+            <div className="mb-4">
+              <ProcedureMixBar
+                buckets={groupedMethods}
+                selected={procBucket}
+                onSelect={setProcBucket}
+                title={t("contracts_procedure_mix") || "Вид процедура"}
+                note={
+                  t("tenders_procedure_mix_note") ||
+                  "Дял от процедурите с посочен вид."
+                }
+              />
+            </div>
+          </>
+        )}
+
         <DbDataTable<TenderRow>
           resource="tenders"
           extraFilters={extraFilters}
           columns={columns}
+          onData={handleData}
           defaultSort={[{ id: "estimated_value_eur", desc: true }]}
           pageSize={25}
           initialSearch={params.get("q") ?? ""}
@@ -291,23 +406,6 @@ export const TendersBrowserDbScreen: FC = () => {
                   catalog={cpvCatalog ?? []}
                 />
               ) : null}
-              {procedureOptions.length > 0 ? (
-                <Select value={procedure} onValueChange={setProcedure}>
-                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={ALL}>
-                      {t("company_contracts_all_methods") || "Всички процедури"}
-                    </SelectItem>
-                    {procedureOptions.map((o) => (
-                      <SelectItem key={o.value} value={o.value}>
-                        {o.value} ({o.count})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : null}
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -318,15 +416,18 @@ export const TendersBrowserDbScreen: FC = () => {
               </label>
             </>
           }
-          renderAggregates={(agg, total, exact) => (
+          renderAggregates={(footerAgg, total, exact) => (
             <span className="text-sm text-muted-foreground">
               <span className="font-semibold tabular-nums text-foreground">
-                {formatEurCompact(agg.sumEstimatedValueEur ?? 0, i18n.language)}
+                {formatEurCompact(
+                  footerAgg.sumEstimatedValueEur ?? 0,
+                  i18n.language,
+                )}
               </span>{" "}
               {t("tenders_estimated_over") || "прогнозно по"}{" "}
               <span className="tabular-nums">
                 {exact ? "" : "≈"}
-                {(agg.count ?? total).toLocaleString("bg-BG")}
+                {(footerAgg.count ?? total).toLocaleString("bg-BG")}
               </span>{" "}
               {t("tenders_word") || "процедури"}
             </span>
