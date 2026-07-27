@@ -35,7 +35,12 @@ import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics"
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { isProcedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
+import {
+  isProcedureBucket,
+  procedureBucket,
+  procedureLabel,
+  type ProcedureBucket,
+} from "@/lib/cpvSectors";
 import { decodeEntities } from "@/lib/decodeEntities";
 import {
   CpvFilterCombobox,
@@ -241,13 +246,23 @@ export const TendersBrowserDbScreen: FC = () => {
         ),
       },
       {
+        // Procedure type, bucketed + translated (same vocabulary as the mix bar +
+        // filter). The raw procedure_type string stays on the hover title, since
+        // bucketing folds several phrasings together. Not sortable.
         id: "procedure_type",
         accessorFn: (r) => r.procedureType,
         header: t("tender_procedure") || "Procedure",
         enableSorting: false,
+        className: "hidden md:table-cell",
         cell: ({ row }) => (
-          <span className="text-xs text-muted-foreground">
-            {row.original.procedureType || "—"}
+          <span
+            className="inline-block whitespace-nowrap rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+            title={row.original.procedureType || undefined}
+          >
+            {procedureLabel(
+              procedureBucket(row.original.procedureType ?? undefined),
+              i18n.language,
+            )}
           </span>
         ),
       },
@@ -268,6 +283,22 @@ export const TendersBrowserDbScreen: FC = () => {
             {row.original.estimatedValueEur != null
               ? formatEurCompact(row.original.estimatedValueEur, i18n.language)
               : "—"}
+          </span>
+        ),
+      },
+      {
+        // Lot count — sortable (indexed). The scale signal for a procedure split
+        // into обособени позиции (lots).
+        id: "lots_count",
+        accessorFn: (r) => r.lotsCount ?? null,
+        header: t("tender_lots") || "Позиции",
+        meta: { align: "right" },
+        className: "hidden sm:table-cell",
+        cell: ({ row }) => (
+          <span className="block text-right text-sm tabular-nums text-muted-foreground">
+            {row.original.lotsCount == null
+              ? "—"
+              : row.original.lotsCount.toLocaleString("bg-BG")}
           </span>
         ),
       },
