@@ -20,24 +20,31 @@ const hydrate = (mp: MpIndexEntry): MpIndexEntry => ({
   normalizedName_en: normalizeMpName(mp.normalizedName_en),
 });
 
-// Per-MP roster shard (~0.4 KB) written by scripts/parliament/lib/writeMpById.
-// Content-type guard: Vite dev (and SPA-style hosts) return index.html for a
-// missing static path with a 200, so treat any non-JSON body as a miss instead
-// of throwing a JSON-parse error — the caller then falls back to the full
-// roster (useMps) just as it would on a real 404.
-const fetchMpEntry = async (id: number): Promise<MpIndexEntry | null> => {
-  const r = await fetch(dataUrl(`/parliament/by-id/${id}.json`));
-  if (r.status === 404) return null;
+// One MP's roster entry, from the PG mp-entry route (mp_profile, migration 105) —
+// replaces the per-MP data/parliament/by-id/<id>.json shard (persons-pg-retirement-v1 T2.1).
+// mp_entry() returns the identical MpIndexEntry shape (photoUrl relative-or-absolute, so
+// hydrate resolves it exactly as it did off the shard); an unknown id yields a null body,
+// which the caller treats as a miss and falls back to the full roster (useMps).
+export const fetchMpEntry = async (
+  id: number,
+): Promise<MpIndexEntry | null> => {
+  const r = await fetch(`/api/db/mp-entry?id=${id}`);
   if (!r.ok) return null;
+  // Guard a pathological non-JSON 200 (a misroute / SPA fallthrough) the same way the old
+  // shard fetch did — treat it as a miss so the caller falls back to useMps rather than
+  // surfacing a parse error.
   const ct = r.headers.get("content-type") ?? "";
   if (!ct.includes("json")) return null;
-  return hydrate((await r.json()) as MpIndexEntry);
+  const body = (await r.json()) as MpIndexEntry | null;
+  // typeof [] === "object": the route already collapses an array result to null, but keep
+  // the client self-defending so an array can never be spread into hydrate().
+  if (!body || Array.isArray(body) || typeof body !== "object") return null;
+  return hydrate(body);
 };
 
-/** Resolve a single MP's roster entry by id from its own shard, avoiding the
- * ~950 KB parliament/index.json download. Returns `undefined` while loading or
- * when the shard is missing (legacy deploy) — callers should fall back to the
- * full roster in that case. */
+/** Resolve a single MP's roster entry by id from PG, avoiding the ~950 KB
+ * parliament/index.json download. Returns `undefined` while loading or when the id is
+ * unknown — callers should fall back to the full roster in that case. */
 export const useMpEntry = (
   id?: number | null,
 ): {
