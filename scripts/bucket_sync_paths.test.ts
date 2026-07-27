@@ -58,6 +58,35 @@ describe("isExcluded", () => {
   });
 });
 
+describe("isExcluded — parliament PG-served families (T2.1b/T2.3/T2.4)", () => {
+  it("refuses the retired parliament shard trees + roster", () => {
+    for (const p of [
+      "parliament/profiles/2258.json",
+      "parliament/index.json",
+      "parliament/declarations/5100.json",
+      "parliament/mp-assets/5100.json",
+    ])
+      expect(isExcluded(p)).toBeTruthy();
+  });
+
+  it("spares the .webp photos + still-served parliament siblings", () => {
+    expect(isExcluded("parliament/photos/5100.webp")).toBeNull();
+    expect(isExcluded("parliament/connections.json")).toBeNull();
+    expect(isExcluded("parliament/votes/index.json")).toBeNull();
+  });
+
+  it("a parliament-scoped dir sync can't re-upload the retired children", () => {
+    const rx = childExcludeRegexes("parliament");
+    const hit = (p: string) => rx.some((r) => new RegExp(r).test(p));
+    expect(hit("profiles/2258.json")).toBe(true);
+    expect(hit("index.json")).toBe(true);
+    expect(hit("declarations/5100.json")).toBe(true);
+    expect(hit("mp-assets/5100.json")).toBe(true);
+    // …but never the photos that stay on the bucket.
+    expect(hit("photos/5100.webp")).toBe(false);
+  });
+});
+
 describe("childExcludeRegexes (FINDING-001: parent-scoped dir sync)", () => {
   const matchesAny = (regexes: string[], relPath: string): boolean =>
     regexes.some((r) => new RegExp(r).test(relPath));

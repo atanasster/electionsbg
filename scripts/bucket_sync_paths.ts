@@ -68,6 +68,16 @@ export const isExcluded = (rel: string): string | null => {
   // parliament/photos/*.webp binaries STAY on the bucket (Decision 3).
   if (rel === "parliament/index.json")
     return "parliament/index.json is a PG load source, served from Cloud SQL — never upload it";
+  // Per-MP declaration + assets-rollup shards: served from Cloud SQL (mp_declarations()/
+  // mp_assets(), /api/db/mp-declarations + mp-assets) since persons-pg-retirement-v1 T2.1b. Kept
+  // on disk only as the parity-test reference (mp_serving / mp_declarations_assets gates); the
+  // PG declaration tables load from the raw cacbg data, not these shards, so nothing needs them
+  // at build time either. Never re-upload.
+  if (
+    rel.startsWith("parliament/declarations") ||
+    rel.startsWith("parliament/mp-assets")
+  )
+    return "parliament/{declarations,mp-assets}/ are PG-served — never upload them";
   // The municipal-officials roster + name/search index are served from Cloud SQL
   // (municipal_officials_table, /api/db/table + municipal-officials-*-index) since
   // persons-pg-retirement-v1 T1.5. by_obshtina stays on disk as a PG LOAD SOURCE
@@ -125,6 +135,8 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // or the roster.
   { path: "parliament/profiles", isDir: true },
   { path: "parliament/index.json", isDir: false },
+  { path: "parliament/declarations", isDir: true },
+  { path: "parliament/mp-assets", isDir: true },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

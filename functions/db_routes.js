@@ -81,6 +81,31 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// Resolve the person slug the mp_assets()/mp_declarations() fns key on. The person screens
+// have a slug; the candidate screens (persons-pg-retirement-v1 T2.1b) have only the mp id, so
+// accept `?id=` and map it to the slug via person_role (source='mp', ref=<mp id>). A ?slug=
+// wins when present. Returns null when neither resolves (unknown id, non-MP, or a DB predating
+// the person layer) so the caller can serve its empty body.
+const mpSlugFromQuery = async (dbRows, q) => {
+  const slug = s(q, "slug");
+  if (slug) return slug;
+  const id = q.id != null ? clampInt(q.id, null, 0, 2147483647) : null;
+  if (id == null) return null;
+  const rows = await dbRows(
+    `SELECT p.slug
+       FROM person p
+       JOIN person_role r ON r.person_id = p.person_id
+                         AND r.source = 'mp' AND r.ref = $1
+      WHERE p.status = 'active' AND p.is_public_figure
+      -- One mp id resolves to one person in practice, but idx_person_role_source_ref is
+      -- non-unique, so ORDER BY makes the pick deterministic (as mp_entry/mp_assets do).
+      ORDER BY p.person_id
+      LIMIT 1`,
+    [String(id)],
+  ).catch(missingMigrationEmpty);
+  return rows[0]?.slug ?? null;
+};
+
 // "Шльокавица" — best-effort Latin→Cyrillic phonetic transliteration so a user
 // typing on a Latin keyboard ("kafe", "sirene", "mlyako") matches the Cyrillic
 // product titles. Greedy digraph pass (sht/sh/ch/zh/ts/yu/ya/yo) then single
@@ -2406,7 +2431,7 @@ const DB_ROUTES = {
   // `person-declarations` (which returns per-filing totals only), so call that one when
   // the nested tables are not being rendered.
   "mp-declarations": async (dbRows, q) => {
-    const slug = s(q, "slug");
+    const slug = await mpSlugFromQuery(dbRows, q);
     if (!slug) return { body: [] };
     const rows = await dbRows("SELECT mp_declarations($1) AS r", [slug]).catch(
       missingMigrationEmpty,
@@ -2421,7 +2446,7 @@ const DB_ROUTES = {
   // folded company shares in. Object-shaped, so a missing-migration array degrades to
   // null rather than a shape the client can't read.
   "mp-assets": async (dbRows, q) => {
-    const slug = s(q, "slug");
+    const slug = await mpSlugFromQuery(dbRows, q);
     if (!slug) return { body: null };
     const rows = await dbRows("SELECT mp_assets($1) AS r", [slug]).catch(
       missingMigrationEmpty,
