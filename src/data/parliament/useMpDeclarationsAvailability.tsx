@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useConnectionsRankings } from "./useConnectionsRankings";
 import { toScopedMpIds, useMpAssetsTopRows } from "./useAssetsRankings";
-import { useMpCars } from "./useMpCars";
+import { useCarMakesAgg } from "./useCarMakes";
 import { useMps } from "./useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "./nsFolders";
@@ -59,7 +59,13 @@ export const useRegionDeclarationsHasContent = (params: {
     limit: 1,
     enabled: isRegional && !!regionMpIds?.size,
   });
-  const { mpCars } = useMpCars({ enabled: isRegional });
+  // "Does any of this region's MPs declare a car (with a recognised make)" — the car-makes
+  // route filtered to the region's mp-ids (persons-pg-retirement-v1 T2.2); non-empty ⇒ yes.
+  const { makes: carMakes, isLoading: carsLoading } = useCarMakesAgg({
+    ns: "all",
+    mpIds: toScopedMpIds(regionMpIds ? [...regionMpIds] : null),
+    enabled: isRegional && !!regionMpIds?.size,
+  });
 
   return useMemo(() => {
     if (!isRegional) return true;
@@ -67,10 +73,18 @@ export const useRegionDeclarationsHasContent = (params: {
     // Stay visible while any source is still loading so the header doesn't
     // pop in after the tiles. Once everything resolves, hide if none has a
     // row for this region's MPs.
-    if (!connRankings || assetsLoading || !mpCars) return true;
+    if (!connRankings || assetsLoading || carsLoading) return true;
     const hasConn = connRankings.topMps.some((m) => regionMpIds.has(m.mpId));
     const hasAssets = assetRows.length > 0;
-    const hasCars = mpCars.cars.some((c) => c.make && regionMpIds.has(c.mpId));
+    const hasCars = carMakes.length > 0;
     return hasConn || hasAssets || hasCars;
-  }, [isRegional, regionMpIds, connRankings, assetsLoading, assetRows, mpCars]);
+  }, [
+    isRegional,
+    regionMpIds,
+    connRankings,
+    assetsLoading,
+    assetRows,
+    carsLoading,
+    carMakes,
+  ]);
 };

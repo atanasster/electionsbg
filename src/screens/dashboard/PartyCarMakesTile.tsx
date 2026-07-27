@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Car, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
-import { useMpCars } from "@/data/parliament/useMpCars";
+import { useCarMakesAgg } from "@/data/parliament/useCarMakes";
+import { toScopedMpIds } from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
@@ -40,7 +41,6 @@ type Props = { data: PartyDashboardSummary };
 export const PartyCarMakesTile: FC<Props> = ({ data }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
-  const { mpCars } = useMpCars();
   const { findCandidate } = useCandidates();
   const { findMpByName } = useMps();
   const { findParty } = usePartyInfo();
@@ -72,35 +72,19 @@ export const PartyCarMakesTile: FC<Props> = ({ data }) => {
     return ids;
   }, [stats, findCandidate, findMpByName]);
 
-  const topCars: CarMakeEntry[] = useMemo(() => {
-    if (!mpCars || !partyMpIds) return [];
-    const makesByMp = new Map<string, Set<number>>();
-    const vehiclesByMake = new Map<string, number>();
-    for (const row of mpCars.cars) {
-      if (!row.make) continue;
-      if (!partyMpIds.has(row.mpId)) continue;
-      if (folder && !row.nsFolders.includes(folder)) continue;
-      let mpSet = makesByMp.get(row.make);
-      if (!mpSet) {
-        mpSet = new Set<number>();
-        makesByMp.set(row.make, mpSet);
-      }
-      mpSet.add(row.mpId);
-      vehiclesByMake.set(row.make, (vehiclesByMake.get(row.make) ?? 0) + 1);
-    }
-    const aggregated: CarMakeEntry[] = Array.from(makesByMp.entries()).map(
-      ([make, mpSet]) => ({
-        make,
-        mpCount: mpSet.size,
-        vehicleCount: vehiclesByMake.get(make) ?? 0,
-        sampleMpIds: Array.from(mpSet).slice(0, 6),
-      }),
-    );
-    aggregated.sort(
-      (a, b) => b.mpCount - a.mpCount || b.vehicleCount - a.vehicleCount,
-    );
-    return aggregated.slice(0, ROWS);
-  }, [mpCars, partyMpIds, folder]);
+  // Distinct-MP-per-make for the party's MPs within the selected parliament's ns bucket, from
+  // the car-makes route (replaces the client rollup over the flat mp-cars.json list; the old
+  // screen filtered that list by nsFolders.includes(folder), which the ns bucket already is).
+  const mpIds = useMemo(
+    () => toScopedMpIds(partyMpIds ? [...partyMpIds] : null),
+    [partyMpIds],
+  );
+  const { makes } = useCarMakesAgg({
+    ns: folder ?? "all",
+    mpIds,
+    enabled: partyMpIds != null,
+  });
+  const topCars: CarMakeEntry[] = makes.slice(0, ROWS);
 
   const detailsTo = useMemo(() => {
     const party = findParty(data.partyNum);
@@ -112,7 +96,7 @@ export const PartyCarMakesTile: FC<Props> = ({ data }) => {
       : `/mp-cars?partyNum=${data.partyNum}`;
   }, [findParty, canonicalIdFor, data.partyNum]);
 
-  if (!mpCars || !stats || topCars.length === 0) return null;
+  if (!stats || topCars.length === 0) return null;
 
   return (
     <StatCard

@@ -343,3 +343,45 @@ test("mp-avatars degrades to null on a missing migration, propagates real errors
   const boom = Object.assign(new Error("connection reset"), { code: "08006" });
   await assert.rejects(() => DB_ROUTES["mp-avatars"](mockDb(boom)));
 });
+
+// ─── car-makes (persons-pg-retirement-v1 T2.2) ─────────────────────────────────────────────
+// Distinct-MP-per-make aggregate. Array-shaped, with a scope sentinel: no ns or an
+// all-junk/empty mp-id set short-circuits to [] WITHOUT a DB call; a real scoped set is passed
+// as a bound int[] param (never spliced into SQL); a missing migration degrades to [].
+test("car-makes: no ns → [] without a DB call", async () => {
+  const db = mockDb([{ r: [{ make: "X" }] }]);
+  assert.deepEqual((await DB_ROUTES["car-makes"](db, { ns: "" })).body, []);
+  assert.equal(db.calls.length, 0, "no ns must not issue SQL");
+});
+
+test("car-makes: an all-junk mpIds set short-circuits to [] without a DB call", async () => {
+  const db = mockDb([{ r: [{ make: "X" }] }]);
+  assert.deepEqual(
+    (await DB_ROUTES["car-makes"](db, { ns: "52", mpIds: "abc" })).body,
+    [],
+  );
+  assert.equal(db.calls.length, 0, "all-NaN mpIds → empty scope, no SQL");
+});
+
+test("car-makes: a scoped mpIds set is a bound int[] param, never spliced into SQL", async () => {
+  const db = mockDb([{ r: [] }]);
+  await DB_ROUTES["car-makes"](db, { ns: "all", mpIds: "-1,5100" });
+  assert.equal(db.calls.length, 1);
+  assert.deepEqual(db.calls[0].params, ["all", [-1, 5100]]);
+  assert.ok(!db.calls[0].sql.includes("5100"), "id text never in the SQL string");
+});
+
+test("car-makes: unwraps rows[0].r and degrades a missing migration to []", async () => {
+  const makes = [{ make: "Toyota", mpCount: 7, vehicleCount: 9, sampleMpIds: [] }];
+  assert.deepEqual(
+    (await DB_ROUTES["car-makes"](mockDb([{ r: makes }]), { ns: "52" })).body,
+    makes,
+  );
+  for (const code of MIGRATION_CODES) {
+    assert.deepEqual(
+      (await DB_ROUTES["car-makes"](mockDb(migrationMissing(code)), { ns: "52" }))
+        .body,
+      [],
+    );
+  }
+});

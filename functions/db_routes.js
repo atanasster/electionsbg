@@ -2479,6 +2479,50 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // "Top car makes" — distinct MPs per make within one parliament's car slice (mp_cars_table,
+  // ns bucket), optionally restricted to a region/party mp-id set → CarMakesTile /
+  // PartyCarMakesTile (persons-pg-retirement-v1 T2.2). Deliberately NOT a plain facet: the
+  // tile counts DISTINCT MPs per make, not car rows (three VWs in one garage = one MP). Reads
+  // ns + optional `mpIds` (comma-separated); a scoped-but-empty id set returns [] rather than
+  // the whole ns. Rebuilds the retired car-makes.json CarMakeEntry shape.
+  "car-makes": async (dbRows, q) => {
+    const ns = s(q, "ns");
+    if (!ns) return { body: [] };
+    const raw = s(q, "mpIds");
+    // null = unscoped (whole ns); [] = a scope was asked for but is empty → zero makes.
+    const mpIds = raw
+      ? raw
+          .split(",")
+          .map((x) => parseInt(x, 10))
+          .filter(Number.isFinite)
+      : null;
+    if (mpIds && mpIds.length === 0) return { body: [] };
+    const rows = await dbRows(
+      `SELECT COALESCE(
+                jsonb_agg(
+                  jsonb_build_object(
+                    'make', make,
+                    'mpCount', mp_count,
+                    'vehicleCount', vehicle_count,
+                    'sampleMpIds', sample_ids
+                  ) ORDER BY mp_count DESC, vehicle_count DESC, make
+                ),
+                '[]'::jsonb
+              ) AS r
+       FROM (
+         SELECT make,
+                count(DISTINCT mp_id) AS mp_count,
+                count(*) AS vehicle_count,
+                (array_agg(DISTINCT mp_id ORDER BY mp_id))[1:6] AS sample_ids
+         FROM mp_cars_table
+         WHERE ns = $1 AND make IS NOT NULL
+           AND ($2::int[] IS NULL OR mp_id = ANY($2))
+         GROUP BY make
+       ) g`,
+      [ns, mpIds],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
   // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an

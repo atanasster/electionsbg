@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import type { MpCarsFile } from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
+// The whole-file useMpCars(mp-cars.json) hook was retired in persons-pg-retirement-v1 T2.2:
+// the /mp-cars explorer reads the mp_cars registry, the car-makes tiles read the car-makes
+// aggregate route, and the region-availability probe reads the same. Only the registry ROW
+// TYPE remains, imported by MpCarsScreen.
 
 /** One declared-vehicle row as the /api/db/table `mp_cars` resource (matview mp_cars_table,
  *  migration 105) delivers it — the matview columns in camelCase. ONE ROW PER CAR. Money
@@ -27,22 +28,3 @@ export interface MpCarRegistryRow {
   declarationYear: number;
   sourceUrl: string;
 }
-
-const queryFn = async (): Promise<MpCarsFile | undefined> => {
-  const response = await fetch(dataUrl(`/parliament/mp-cars.json`));
-  if (response.status === 404) return undefined;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return response.json();
-};
-
-export const useMpCars = (options?: { enabled?: boolean }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["mp_cars"] as [string],
-    queryFn,
-    staleTime: Infinity,
-    enabled: options?.enabled ?? true,
-  });
-  return { mpCars: data, isLoading };
-};

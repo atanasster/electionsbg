@@ -2,8 +2,8 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Car, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useCarMakes } from "@/data/parliament/useCarMakes";
-import { useMpCars } from "@/data/parliament/useMpCars";
+import { useCarMakesAgg } from "@/data/parliament/useCarMakes";
+import { toScopedMpIds } from "@/data/parliament/useAssetsRankings";
 import { useDataProvenance } from "@/data/parliament/useDataProvenance";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -35,7 +35,6 @@ export const CarMakesTile: FC<Props> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { carMakes } = useCarMakes();
   const { provenance } = useDataProvenance();
   const { selected } = useElectionContext();
   const { findMpsByRegion } = useMps();
@@ -60,46 +59,30 @@ export const CarMakesTile: FC<Props> = ({
 
   const isRegional = regionMpIds != null;
 
-  // Per-MP car rows are only needed when we recompute regional rollups.
-  // The national tile uses the pre-aggregated `byNs` slice and skips this fetch.
-  const { mpCars } = useMpCars({ enabled: isRegional });
-
-  const topCars: CarMakeEntry[] = useMemo(() => {
-    if (isRegional) {
-      if (!mpCars) return [];
-      // Aggregate distinct MP count per make for the region's MPs only.
-      const makesByMp = new Map<string, Set<number>>();
-      const vehiclesByMake = new Map<string, number>();
-      for (const row of mpCars.cars) {
-        if (!row.make) continue;
-        if (!regionMpIds!.has(row.mpId)) continue;
-        let mpSet = makesByMp.get(row.make);
-        if (!mpSet) {
-          mpSet = new Set<number>();
-          makesByMp.set(row.make, mpSet);
-        }
-        mpSet.add(row.mpId);
-        vehiclesByMake.set(row.make, (vehiclesByMake.get(row.make) ?? 0) + 1);
-      }
-      const aggregated: CarMakeEntry[] = Array.from(makesByMp.entries()).map(
-        ([make, mpSet]) => ({
-          make,
-          mpCount: mpSet.size,
-          vehicleCount: vehiclesByMake.get(make) ?? 0,
-          sampleMpIds: Array.from(mpSet).slice(0, 6),
-        }),
-      );
-      aggregated.sort(
-        (a, b) => b.mpCount - a.mpCount || b.vehicleCount - a.vehicleCount,
-      );
-      return aggregated.slice(0, ROWS);
-    }
-    if (!carMakes) return [];
-    if (selectedFolder && carMakes.byNs[selectedFolder]) {
-      return carMakes.byNs[selectedFolder].topMakes.slice(0, ROWS);
-    }
-    return carMakes.all.topMakes.slice(0, ROWS);
-  }, [carMakes, mpCars, isRegional, regionMpIds, selectedFolder]);
+  // Distinct-MP-per-make from the car-makes route. National → the selected parliament's ns
+  // bucket, lifetime ('all') fallback when it has none; regional → the lifetime bucket filtered
+  // to the region's mp-ids (the old regional rollup ran over the flat, un-ns-filtered car list).
+  const mpIds = useMemo(
+    () => (regionMpIds ? toScopedMpIds([...regionMpIds]) : null),
+    [regionMpIds],
+  );
+  const primary = useCarMakesAgg({
+    ns: isRegional ? "all" : (selectedFolder ?? "all"),
+    mpIds,
+  });
+  const doFallback =
+    !isRegional &&
+    selectedFolder != null &&
+    !primary.isLoading &&
+    primary.makes.length === 0;
+  const fallback = useCarMakesAgg({
+    ns: "all",
+    mpIds: null,
+    enabled: doFallback,
+  });
+  const topCars: CarMakeEntry[] = (
+    primary.makes.length ? primary.makes : fallback.makes
+  ).slice(0, ROWS);
 
   const provenanceScope = useMemo(() => {
     if (!provenance) return undefined;
@@ -121,8 +104,11 @@ export const CarMakesTile: FC<Props> = ({
     return "/mp-cars";
   }, [regionCode, regionCodes]);
 
-  if (!isRegional && !carMakes) return null;
-  if (isRegional && !mpCars) return null;
+  // Hidden while the aggregate is still resolving. A car-less REGION hides entirely (as before
+  // — the parliament-wide empty-state copy doesn't fit a region, and useRegionDeclarationsHasContent
+  // decides the surrounding section); the national tile keeps its empty-state below.
+  const isLoading = primary.isLoading || (doFallback && fallback.isLoading);
+  if (isLoading) return null;
   if (isRegional && topCars.length === 0) return null;
 
   const titleKey = isRegional
