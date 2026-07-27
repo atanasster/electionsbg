@@ -125,8 +125,19 @@ test.skipIf(skip)(
           mismatches.push(`${src.key}: absent from Postgres`);
           continue;
         }
+        // Model the date_signed=date backfill (load_pg.ts:364-367 / migration
+        // 107): PG never stores a null/empty date_signed — it falls back to
+        // `date`. Legacy shards (e.g. 2011) omit dateSigned entirely, so PG
+        // returns dateSigned (= date) where the shard has none. Mirror the same
+        // backfill onto the source before comparing, else deepStrictEqual
+        // false-fails on this one intentional field. Real drift is still caught:
+        // if PG's dateSigned differs from the shard's `date`, they still mismatch.
+        const expected =
+          src.dateSigned === undefined || src.dateSigned === ""
+            ? { ...src, dateSigned: src.date }
+            : src;
         try {
-          assert.deepStrictEqual(rebuilt, src);
+          assert.deepStrictEqual(rebuilt, expected);
         } catch {
           mismatches.push(src.key);
         }
