@@ -1,0 +1,56 @@
+{
+  "obshtina": "RAZ17",
+  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0023",
+      "title": "Предоставяне на топъл обяд в община Лозница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 796692.31,
+      "totalEur": 993656.95,
+      "paidEur": 691520.46,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Лозница",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0146",
+      "title": "Изграждане на дигитален клуб в село Ловско",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13604.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Димо Арсов - 1926\" Г.",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0176",
+      "title": "Изграждане на дигитален клуб в село Сейдол",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 12348.53,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Развитие - 1906\" Г.",
+      "detectedAt": "2026-07-27"
+    }
+  ]
+}

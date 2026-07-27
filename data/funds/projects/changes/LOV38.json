@@ -1,0 +1,76 @@
+{
+  "obshtina": "LOV38",
+  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0043",
+      "title": "Топъл обяд в община Ябланица",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 399477.8,
+      "totalEur": 401721.32,
+      "paidEur": 321022.99,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ябланица",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-11.020-0124",
+      "title": "\"Подвижни картини\" - киното като глобален език за разбирателство и толерантност",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 45435.25,
+      "totalEur": 43545.99,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"ЯТО\"",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0936",
+      "title": "Подобряване на производствения капацитет на фирма КОТТА",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 28867.28,
+      "totalEur": 27992.2,
+      "paidEur": 20994.15,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Котта ООД",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-0640",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 13383.57,
+      "totalEur": 13383.57,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Уебмейт ООД",
+      "detectedAt": "2026-07-27"
+    }
+  ]
+}

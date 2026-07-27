@@ -1,0 +1,55 @@
+{
+  "obshtina": "SFO34",
+  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0012",
+      "title": "Топъл обяд в Община Правец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 281974.76,
+      "totalEur": 283657.4,
+      "paidEur": 254621.64,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Правец",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0830",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"НАПРЕДЪК 1895\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 11908.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Напредък 1895\"",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0881",
+      "title": "Изграждане в дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ВЪЗРАЖДАНЕ 1927\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11646.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Възраждане 1927\"",
+      "detectedAt": "2026-07-27"
+    }
+  ]
+}

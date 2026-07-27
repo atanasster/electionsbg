@@ -6,31 +6,31 @@
   },
   "latestYear": 2026,
   "total": {
-    "eur": 61875899,
-    "contracts": 10804,
+    "eur": 61900694,
+    "contracts": 10808,
     "suppliers": 69,
     "schoolBuyers": 647
   },
   "concentration": {
     "hhiGroup": 3009,
     "top1Pct": 37.9,
-    "top2Pct": 74.9,
+    "top2Pct": 75,
     "cr4Pct": 91.3
   },
   "groups": [
     {
       "id": "prosveta",
-      "eur": 23451153,
+      "eur": 23461593,
       "pct": 37.9,
-      "contracts": 2306,
+      "contracts": 2307,
       "entityCount": 7,
       "restEur": 4474,
       "entities": [
         {
           "eik": "131106522",
           "name": "Просвета-София АД",
-          "eur": 20759477,
-          "contracts": 1889
+          "eur": 20769917,
+          "contracts": 1890
         },
         {
           "eik": "206339963",
@@ -66,17 +66,17 @@
     },
     {
       "id": "klett",
-      "eur": 22924121,
-      "pct": 37,
-      "contracts": 2016,
+      "eur": 22934540,
+      "pct": 37.1,
+      "contracts": 2017,
       "entityCount": 4,
       "restEur": 0,
       "entities": [
         {
           "eik": "130878827",
           "name": "Клет България ООД",
-          "eur": 20383748,
-          "contracts": 1680
+          "eur": 20394167,
+          "contracts": 1681
         },
         {
           "eik": "131576447",
@@ -100,9 +100,9 @@
     },
     {
       "id": "distributor",
-      "eur": 8153815,
+      "eur": 8157108,
       "pct": 13.2,
-      "contracts": 2397,
+      "contracts": 2398,
       "entityCount": 4,
       "restEur": 0,
       "entities": [
@@ -115,8 +115,8 @@
         {
           "eik": "115749729",
           "name": "Юнивърс ЕООД",
-          "eur": 2186263,
-          "contracts": 525
+          "eur": 2189556,
+          "contracts": 526
         },
         {
           "eik": "201264752",
@@ -208,17 +208,17 @@
     },
     {
       "id": "bit",
-      "eur": 1121230,
+      "eur": 1121874,
       "pct": 1.8,
-      "contracts": 945,
+      "contracts": 946,
       "entityCount": 1,
       "restEur": 0,
       "entities": [
         {
           "eik": "103795327",
           "name": "Бит и техника ООД",
-          "eur": 1121230,
-          "contracts": 945
+          "eur": 1121874,
+          "contracts": 946
         }
       ]
     },
@@ -320,8 +320,8 @@
   "byBuyerType": [
     {
       "type": "school",
-      "eur": 57647662,
-      "contracts": 10228,
+      "eur": 57672458,
+      "contracts": 10232,
       "buyers": 647
     },
     {
@@ -416,8 +416,8 @@
     },
     {
       "year": 2026,
-      "eur": 10033160,
-      "contracts": 1493
+      "eur": 10057956,
+      "contracts": 1497
     }
   ],
   "yearly": {
@@ -3643,13 +3643,13 @@
     },
     "2026": {
       "total": {
-        "eur": 10033160,
-        "contracts": 1493,
+        "eur": 10057956,
+        "contracts": 1497,
         "suppliers": 24,
-        "schoolBuyers": 249
+        "schoolBuyers": 250
       },
       "concentration": {
-        "hhiGroup": 3350,
+        "hhiGroup": 3351,
         "top1Pct": 43.3,
         "top2Pct": 80,
         "cr4Pct": 93.7
@@ -3657,17 +3657,17 @@
       "groups": [
         {
           "id": "prosveta",
-          "eur": 4347136,
+          "eur": 4357576,
           "pct": 43.3,
-          "contracts": 311,
+          "contracts": 312,
           "entityCount": 3,
           "restEur": 0,
           "entities": [
             {
               "eik": "131106522",
               "name": "ПРОСВЕТА-СОФИЯ АД",
-              "eur": 3795696,
-              "contracts": 252
+              "eur": 3806136,
+              "contracts": 253
             },
             {
               "eik": "206339963",
@@ -3685,25 +3685,25 @@
         },
         {
           "id": "klett",
-          "eur": 3678575,
+          "eur": 3688994,
           "pct": 36.7,
-          "contracts": 267,
+          "contracts": 268,
           "entityCount": 1,
           "restEur": 0,
           "entities": [
             {
               "eik": "130878827",
               "name": "Клет българия ООД",
-              "eur": 3678575,
-              "contracts": 267
+              "eur": 3688994,
+              "contracts": 268
             }
           ]
         },
         {
           "id": "distributor",
-          "eur": 1036077,
+          "eur": 1039371,
           "pct": 10.3,
-          "contracts": 370,
+          "contracts": 371,
           "entityCount": 4,
           "restEur": 0,
           "entities": [
@@ -3716,8 +3716,8 @@
             {
               "eik": "115749729",
               "name": "Юнивърс ЕООД",
-              "eur": 217800,
-              "contracts": 75
+              "eur": 221093,
+              "contracts": 76
             },
             {
               "eik": "201264752",
@@ -3751,17 +3751,17 @@
         },
         {
           "id": "bit",
-          "eur": 282259,
+          "eur": 282903,
           "pct": 2.8,
-          "contracts": 137,
+          "contracts": 138,
           "entityCount": 1,
           "restEur": 0,
           "entities": [
             {
               "eik": "103795327",
               "name": "БИТ и Техника ООД",
-              "eur": 282259,
-              "contracts": 137
+              "eur": 282903,
+              "contracts": 138
             }
           ]
         },
@@ -3822,7 +3822,7 @@
         {
           "id": "other",
           "eur": 55210,
-          "pct": 0.6,
+          "pct": 0.5,
           "contracts": 47,
           "entityCount": 9,
           "restEur": 1037,
@@ -3885,9 +3885,9 @@
       "byBuyerType": [
         {
           "type": "school",
-          "eur": 9318961,
-          "contracts": 1396,
-          "buyers": 249
+          "eur": 9343757,
+          "contracts": 1400,
+          "buyers": 250
         },
         {
           "type": "other",

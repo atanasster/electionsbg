@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-07-24T13:10:45.030Z",
+  "generatedAt": "2026-07-27T19:26:33.087Z",
   "totals": {
-    "flaggedEiks": 826,
-    "mpOnly": 178,
-    "officialOnly": 591,
-    "both": 57,
+    "flaggedEiks": 837,
+    "mpOnly": 175,
+    "officialOnly": 602,
+    "both": 60,
     "debarredFlagged": 0,
-    "contractedEur": 7511089988.55,
-    "paidEur": 3021211299.49,
-    "procurementEur": 1869081129.7
+    "contractedEur": 7521305538.33,
+    "paidEur": 3027196039.09,
+    "procurementEur": 1873425604.07
   },
   "top": [
     {
@@ -21,7 +21,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "aleksandr-veselinov-vetskov-f0aa99",
+          "slug": "aleksandr-veselinov-vetskov-0877f9",
           "name": "Александър Веселинов Вецков",
           "category": "state_enterprise",
           "tier": "executive",
@@ -46,7 +46,7 @@
           ]
         },
         {
-          "slug": "iordan-evgeniev-vrbanov-5f0863",
+          "slug": "iordan-evgeniev-vrbanov-d52838",
           "name": "Йордан Евгениев Върбанов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -65,7 +65,7 @@
           ]
         },
         {
-          "slug": "krasimir-hristov-papukchiiski-eb5637",
+          "slug": "krasimir-hristov-papukchiiski-67bc6f",
           "name": "Красимир Христов Папукчийски",
           "category": "deputy_minister",
           "tier": "executive",
@@ -84,7 +84,7 @@
           ]
         },
         {
-          "slug": "mariya-donova-genova-fab1d6",
+          "slug": "mariya-donova-genova-21dbdc",
           "name": "Мария Донова Генова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -136,7 +136,32 @@
       ],
       "officials": [
         {
-          "slug": "pavel-nikolaev-lisev-d2a96b",
+          "slug": "aleksandr-angelov-georgiev-9752ca",
+          "name": "Александър Ангелов Георгиев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "pavel-nikolaev-lisev-210547",
           "name": "Павел Николаев Лисев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -164,7 +189,7 @@
       "procurementEur": 108903119.99,
       "procurementContractCount": 4,
       "debarred": false,
-      "exposureScore": 27.79
+      "exposureScore": 28.08
     },
     {
       "eik": "000632256",
@@ -176,7 +201,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "stoyan-bratoev-ivanov-690038",
+          "slug": "stoyan-bratoev-ivanov-2298fc",
           "name": "Стоян Братоев Иванов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -260,7 +285,7 @@
       ],
       "officials": [
         {
-          "slug": "zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+          "slug": "zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
           "name": "Златомира Димитрова Карагеоргиева-Мострова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -285,8 +310,8 @@
           ]
         },
         {
-          "slug": "stanislav-ivanov-darachev-aaa028",
-          "name": "Станислав Иванов Дарачев",
+          "slug": "metodi-georgiev-smilov-fb3639",
+          "name": "Методи Георгиев Смилов",
           "category": "state_enterprise",
           "tier": "executive",
           "role": "state_enterprise",
@@ -302,12 +327,31 @@
               "valueEur": null
             }
           ]
+        },
+        {
+          "slug": "stanislav-ivanov-darachev-e2483c",
+          "name": "Станислав Иванов Дарачев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
         }
       ],
       "procurementEur": 2699157.47,
       "procurementContractCount": 44,
       "debarred": false,
-      "exposureScore": 25
+      "exposureScore": 25.22
     },
     {
       "eik": "130316140",
@@ -319,7 +363,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "angel-borisov-zaburtov-fd5ef9",
+          "slug": "angel-borisov-zaburtov-4bbaca",
           "name": "Ангел Борисов Забуртов",
           "category": "deputy_minister",
           "tier": "executive",
@@ -338,7 +382,26 @@
           ]
         },
         {
-          "slug": "ioan-ioanov-kostadinov-ff547a",
+          "slug": "anna-stoyanova-mihneva-natova-2ae453",
+          "name": "Анна Стоянова Михнева-Натова",
+          "category": "deputy_minister",
+          "tier": "executive",
+          "role": "deputy_minister",
+          "institution": "Министерство на транспорта и съобщенията",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "ioan-ioanov-kostadinov-6ef0af",
           "name": "Йоан Йоанов Костадинов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -357,7 +420,7 @@
           ]
         },
         {
-          "slug": "pencho-georgiev-petkov-d839f4",
+          "slug": "pencho-georgiev-petkov-36365b",
           "name": "Пенчо Георгиев Петков",
           "category": "state_enterprise",
           "tier": "executive",
@@ -376,7 +439,7 @@
           ]
         },
         {
-          "slug": "rosen-todorov-borisov-743d0f",
+          "slug": "rosen-todorov-borisov-30055e",
           "name": "Росен Тодоров Борисов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -398,7 +461,7 @@
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 20.21
+      "exposureScore": 20.4
     },
     {
       "eik": "115010670",
@@ -410,7 +473,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "yulian-rumenov-kovachev-ccde43",
+          "slug": "yulian-rumenov-kovachev-588564",
           "name": "Юлиан Руменов Ковачев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -450,7 +513,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "radostin-ivanov-milanov-c5c552",
+          "slug": "radostin-ivanov-milanov-555cf9",
           "name": "Радостин Иванов Миланов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -475,8 +538,8 @@
           ]
         }
       ],
-      "procurementEur": 6399236.67,
-      "procurementContractCount": 113,
+      "procurementEur": 6469236.67,
+      "procurementContractCount": 114,
       "debarred": false,
       "exposureScore": 23.87
     },
@@ -502,7 +565,7 @@
       ],
       "officials": [
         {
-          "slug": "mariya-kamenova-todorova-245537",
+          "slug": "mariya-kamenova-todorova-d99d1e",
           "name": "Мария Каменова Тодорова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -527,7 +590,7 @@
           ]
         },
         {
-          "slug": "mihail-mitkov-teodosiev-2095f2",
+          "slug": "mihail-mitkov-teodosiev-fefa70",
           "name": "Михаил Митков Теодосиев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -546,7 +609,7 @@
           ]
         },
         {
-          "slug": "nikolai-dinev-nikolov-e7cfae",
+          "slug": "nikolai-dinev-nikolov-623798",
           "name": "Николай Динев Николов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -571,7 +634,7 @@
           ]
         },
         {
-          "slug": "sarkis-harutyun-karadzhiyan-a43370",
+          "slug": "sarkis-harutyun-karadzhiyan-ca775e",
           "name": "Саркис Харутюн Караджиян",
           "category": "state_enterprise",
           "tier": "executive",
@@ -623,7 +686,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "rositsa-svilenova-itova-d88b45",
+          "slug": "rositsa-svilenova-itova-4deef7",
           "name": "Росица Свиленова Итова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -642,8 +705,8 @@
           ]
         }
       ],
-      "procurementEur": 370887.71,
-      "procurementContractCount": 51,
+      "procurementEur": 371887.71,
+      "procurementContractCount": 52,
       "debarred": false,
       "exposureScore": 22.61
     },
@@ -657,7 +720,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "kliment-hristov-todorov-bedf3a",
+          "slug": "kliment-hristov-todorov-b9eb33",
           "name": "Климент Христов Тодоров",
           "category": "state_enterprise",
           "tier": "executive",
@@ -731,7 +794,7 @@
       ],
       "officials": [
         {
-          "slug": "antoaneta-nikolova-drndova-bb3501",
+          "slug": "antoaneta-nikolova-drndova-6c1176",
           "name": "Антоанета Николова Дръндова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -756,7 +819,7 @@
           ]
         },
         {
-          "slug": "nikolai-dinev-karafiziev-b1ce89",
+          "slug": "nikolai-dinev-karafiziev-fb1861",
           "name": "Николай Динев Карафизиев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -781,7 +844,7 @@
           ]
         },
         {
-          "slug": "petr-konstantinov-mitev-0ee5b4",
+          "slug": "petr-konstantinov-mitev-875abb",
           "name": "Петър Константинов Митев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -812,7 +875,7 @@
           ]
         },
         {
-          "slug": "salih-mehmed-metrash-bf9c9b",
+          "slug": "salih-mehmed-metrash-8d4655",
           "name": "Салих Мехмед Метраш",
           "category": "state_enterprise",
           "tier": "executive",
@@ -837,7 +900,7 @@
           ]
         },
         {
-          "slug": "sevinch-daudova-karaoglan-962ebf",
+          "slug": "sevinch-daudova-karaoglan-bd62ed",
           "name": "Севинч Даудова Караоглан",
           "category": "state_enterprise",
           "tier": "executive",
@@ -874,7 +937,7 @@
           ]
         },
         {
-          "slug": "snezhina-dimitrova-dineva-85104e",
+          "slug": "snezhina-dimitrova-dineva-164c1b",
           "name": "Снежина Димитрова Динева",
           "category": "state_enterprise",
           "tier": "executive",
@@ -923,7 +986,7 @@
           ]
         },
         {
-          "slug": "stanislava-todorova-iotova-d7a996",
+          "slug": "stanislava-todorova-iotova-2bf45a",
           "name": "Станислава Тодорова Йотова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -948,7 +1011,7 @@
           ]
         },
         {
-          "slug": "yancho-knchev-vasilev-e5e7dd",
+          "slug": "yancho-knchev-vasilev-7c94d5",
           "name": "Янчо Кънчев Василев",
           "category": "regional_director",
           "tier": "executive",
@@ -982,7 +1045,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "bozhidar-atanasov-zhelyazkov-6199f7",
+          "slug": "bozhidar-atanasov-zhelyazkov-384d26",
           "name": "Божидар Атанасов Желязков",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1007,7 +1070,7 @@
           ]
         },
         {
-          "slug": "nenko-kirkov-dervenkov-81b369",
+          "slug": "nenko-kirkov-dervenkov-4aac39",
           "name": "Ненко Кирков Дервенков",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1047,7 +1110,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "kostadin-iliev-totev-cd4621",
+          "slug": "kostadin-iliev-totev-86f4f8",
           "name": "Костадин Илиев Тотев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1072,7 +1135,7 @@
           ]
         },
         {
-          "slug": "rumyana-atanasova-yanchevska-7a7145",
+          "slug": "rumyana-atanasova-yanchevska-f55f05",
           "name": "Румяна Атанасова Янчевска",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1112,7 +1175,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "ivan-iordanov-pushkarov-fcfa5b",
+          "slug": "ivan-iordanov-pushkarov-1f4cbb",
           "name": "Иван Йорданов Пушкаров",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1146,7 +1209,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "slavcho-dimov-slavkov-622c5d",
+          "slug": "slavcho-dimov-slavkov-7341d6",
           "name": "Славчо Димов Славков",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1165,10 +1228,10 @@
           ]
         }
       ],
-      "procurementEur": 1048058.15,
-      "procurementContractCount": 47,
+      "procurementEur": 1148058.15,
+      "procurementContractCount": 48,
       "debarred": false,
-      "exposureScore": 22.47
+      "exposureScore": 22.5
     },
     {
       "eik": "201383265",
@@ -1180,7 +1243,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "maya-krumova-hristova-0da290",
+          "slug": "maya-krumova-hristova-9d5b59",
           "name": "Мая Крумова Христова",
           "category": "diplomat",
           "tier": "executive",
@@ -1214,7 +1277,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "krasimir-ivanov-stefanov-a56fd7",
+          "slug": "krasimir-ivanov-stefanov-9835ab",
           "name": "Красимир Иванов Стефанов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1248,7 +1311,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "valeri-stoyanov-manov-84272b",
+          "slug": "valeri-stoyanov-manov-3f6d6f",
           "name": "Валери Стоянов Манов",
           "category": "councillor",
           "tier": "municipal",
@@ -1296,7 +1359,7 @@
       ],
       "officials": [
         {
-          "slug": "veselin-naidenov-mareshki-a2b73d",
+          "slug": "veselin-naidenov-mareshki-607310",
           "name": "Веселин Найденов Марешки",
           "category": "party_leader",
           "tier": "executive",
@@ -1353,7 +1416,7 @@
       ],
       "officials": [
         {
-          "slug": "elvira-petrova-shopova-82158a",
+          "slug": "elvira-petrova-shopova-c52d82",
           "name": "Елвира Петрова Шопова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1378,7 +1441,7 @@
           ]
         },
         {
-          "slug": "tano-braikov-tanev-4b9751",
+          "slug": "tano-braikov-tanev-9c1d62",
           "name": "Таньо Брайков Танев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1403,7 +1466,7 @@
           ]
         },
         {
-          "slug": "tihomir-gochev-tenev-b68bca",
+          "slug": "tihomir-gochev-tenev-4b0cce",
           "name": "Тихомир Гочев Тенев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1443,7 +1506,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "valerii-marinov-marinov-1a7301",
+          "slug": "valerii-marinov-marinov-ea50ea",
           "name": "Валерий Маринов Маринов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1477,7 +1540,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "boyan-ivanov-boev-a09ac1",
+          "slug": "boyan-ivanov-boev-0348c2",
           "name": "Боян Иванов Боев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1496,7 +1559,7 @@
           ]
         },
         {
-          "slug": "milan-angelov-milanov-03d3a9",
+          "slug": "milan-angelov-milanov-5a58dc",
           "name": "Милан Ангелов Миланов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1515,7 +1578,7 @@
           ]
         },
         {
-          "slug": "ruslan-tanev-germanov-ce375d",
+          "slug": "ruslan-tanev-germanov-d756e8",
           "name": "Руслан Танев Германов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1561,7 +1624,7 @@
       ],
       "officials": [
         {
-          "slug": "zdravko-milkov-marinov-98b578",
+          "slug": "zdravko-milkov-marinov-db6889",
           "name": "Здравко Милков Маринов",
           "category": "civil_society",
           "tier": "executive",
@@ -1580,7 +1643,7 @@
           ]
         },
         {
-          "slug": "nikolai-stefanov-chobanov-b51a6b",
+          "slug": "nikolai-stefanov-chobanov-f391c7",
           "name": "Николай Стефанов Чобанов",
           "category": "civil_society",
           "tier": "executive",
@@ -1599,7 +1662,7 @@
           ]
         },
         {
-          "slug": "steli-todorova-dzhambazova-e52f39",
+          "slug": "steli-todorova-dzhambazova-8945be",
           "name": "Стели Тодорова Джамбазова",
           "category": "civil_society",
           "tier": "executive",
@@ -1618,10 +1681,10 @@
           ]
         }
       ],
-      "procurementEur": 996784.06,
-      "procurementContractCount": 5,
+      "procurementEur": 1208213.48,
+      "procurementContractCount": 6,
       "debarred": false,
-      "exposureScore": 22.58
+      "exposureScore": 22.64
     },
     {
       "eik": "201847598",
@@ -1645,7 +1708,32 @@
       ],
       "officials": [
         {
-          "slug": "dilyana-biserova-kalinova-gizdova-54b1df",
+          "slug": "veselina-vasileva-encheva-4031a7",
+          "name": "Веселина Василева Енчева",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "dilyana-biserova-kalinova-gizdova-c7d81e",
           "name": "Диляна Бисерова Калинова-Гиздова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1664,7 +1752,7 @@
           ]
         },
         {
-          "slug": "zlatina-lambova-georgieva-64b615",
+          "slug": "zlatina-lambova-georgieva-1981ad",
           "name": "Златина Ламбова Георгиева",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1702,7 +1790,7 @@
           ]
         },
         {
-          "slug": "kremena-sbcheva-koseva-122f20",
+          "slug": "kremena-sbcheva-koseva-330826",
           "name": "Кремена Събчева Косева",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1727,7 +1815,7 @@
           ]
         },
         {
-          "slug": "petr-valentinov-ivanov-e0c591",
+          "slug": "petr-valentinov-ivanov-9037b6",
           "name": "Петър Валентинов Иванов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -1755,7 +1843,7 @@
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 18.76
+      "exposureScore": 18.89
     },
     {
       "eik": "207764344",
@@ -1767,7 +1855,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "konstantin-ivanov-hadzhiivanov-759467",
+          "slug": "konstantin-ivanov-hadzhiivanov-cbe75e",
           "name": "Константин Иванов Хаджииванов",
           "category": "deputy_minister",
           "tier": "executive",
@@ -1807,7 +1895,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "vladislav-bogdanov-georgiev-8241ab",
+          "slug": "vladislav-bogdanov-georgiev-46492d",
           "name": "Владислав Богданов Георгиев",
           "category": "regional_director",
           "tier": "executive",
@@ -1850,7 +1938,7 @@
           ]
         },
         {
-          "slug": "galina-simeonova-simeonova-00fe12",
+          "slug": "galina-simeonova-simeonova-a73d4f",
           "name": "Галина Симеонова Симеонова",
           "category": "eu_funds_controller",
           "tier": "executive",
@@ -1869,7 +1957,7 @@
           ]
         },
         {
-          "slug": "magdalena-lyubcheva-georgieva-666289",
+          "slug": "magdalena-lyubcheva-georgieva-29a460",
           "name": "Магдалена Любчева Георгиева",
           "category": "regional_director",
           "tier": "executive",
@@ -1993,7 +2081,7 @@
       ],
       "officials": [
         {
-          "slug": "dobrin-mladenov-dobrev-af1519",
+          "slug": "dobrin-mladenov-dobrev-272c8a",
           "name": "Добрин Младенов Добрев",
           "category": "deputy_mayor",
           "tier": "municipal",
@@ -2012,7 +2100,7 @@
           ]
         },
         {
-          "slug": "stanislav-ivanov-vladimirov-88ff46",
+          "slug": "stanislav-ivanov-vladimirov-70a197",
           "name": "Станислав Иванов Владимиров",
           "category": "mayor",
           "tier": "municipal",
@@ -2046,7 +2134,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "hristina-georgieva-mikutseva-petrova-08c0b5",
+          "slug": "hristina-georgieva-mikutseva-petrova-f76d09",
           "name": "Христина Георгиева Микуцева-Петрова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2069,12 +2157,37 @@
               "valueEur": null
             }
           ]
+        },
+        {
+          "slug": "tsvetan-svetozarov-sikov-93716d",
+          "name": "Цветан Светозаров Съйков",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
         }
       ],
       "procurementEur": 2577814.7,
       "procurementContractCount": 36,
       "debarred": false,
-      "exposureScore": 21.57
+      "exposureScore": 21.97
     },
     {
       "eik": "206974197",
@@ -2098,7 +2211,7 @@
       ],
       "officials": [
         {
-          "slug": "klavdiya-georgieva-grigorova-gancheva-aac7ef",
+          "slug": "klavdiya-georgieva-grigorova-gancheva-456516",
           "name": "Клавдия Георгиева Григорова-Ганчева",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2127,12 +2240,31 @@
               "valueEur": null
             }
           ]
+        },
+        {
+          "slug": "radoslav-radoev-radev-15b0b0",
+          "name": "Радослав Радоев Радев",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Общински предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
         }
       ],
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 17.42
+      "exposureScore": 17.71
     },
     {
       "eik": "201570119",
@@ -2144,7 +2276,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "anastasiya-ilieva-marinova-c33728",
+          "slug": "anastasiya-ilieva-marinova-f537a8",
           "name": "Анастасия Илиева Маринова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2163,7 +2295,7 @@
           ]
         },
         {
-          "slug": "boryana-aleksandrova-lozanova-866fa7",
+          "slug": "boryana-aleksandrova-lozanova-6b1181",
           "name": "Боряна Александрова Лозанова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2182,7 +2314,7 @@
           ]
         },
         {
-          "slug": "desislav-petkov-danov-578b4d",
+          "slug": "desislav-petkov-danov-1dbf21",
           "name": "Десислав Петков Данов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2201,7 +2333,7 @@
           ]
         },
         {
-          "slug": "ivanka-slavcheva-veselinova-df102c",
+          "slug": "ivanka-slavcheva-veselinova-958131",
           "name": "Иванка Славчева Веселинова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2224,12 +2356,56 @@
               "valueEur": null
             }
           ]
+        },
+        {
+          "slug": "mariyana-hristova-arsenova-vladimirova-6c0aa4",
+          "name": "Марияна Христова Арсенова-Владимирова",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        },
+        {
+          "slug": "petya-stanislavova-ivanova-f7f5df",
+          "name": "Петя Станиславова Иванова",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Държавни предприятия",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
         }
       ],
       "procurementEur": 196935.13,
       "procurementContractCount": 1,
       "debarred": false,
-      "exposureScore": 21.59
+      "exposureScore": 21.93
     },
     {
       "eik": "206797195",
@@ -2241,11 +2417,11 @@
       "mps": [],
       "officials": [
         {
-          "slug": "margarita-nikolova-ivanova-6dd2ea",
+          "slug": "margarita-nikolova-ivanova-5bea3a",
           "name": "Маргарита Николова Иванова",
-          "category": "state_enterprise",
+          "category": "kindergarten",
           "tier": "executive",
-          "role": "state_enterprise",
+          "role": "kindergarten",
           "institution": "Детски градини, ясли, детка кухня",
           "municipality": null,
           "confidence": "high",
@@ -2275,7 +2451,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "ilko-kirilov-iliev-d77b8c",
+          "slug": "ilko-kirilov-iliev-ff3ad4",
           "name": "Илко Кирилов Илиев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2315,7 +2491,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "blagoi-mihailov-milev-b941ed",
+          "slug": "blagoi-mihailov-milev-2d1242",
           "name": "Благой Михайлов Милев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2340,7 +2516,7 @@
           ]
         },
         {
-          "slug": "damyan-iliev-damyanov-6206fa",
+          "slug": "damyan-iliev-damyanov-5dea1f",
           "name": "Дамян Илиев Дамянов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2407,7 +2583,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "dian-nikolov-boev-f5d580",
+          "slug": "dian-nikolov-boev-7fa310",
           "name": "Диан Николов Боев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2432,7 +2608,7 @@
           ]
         },
         {
-          "slug": "hristiyan-borislavov-krstev-1fa5a9",
+          "slug": "hristiyan-borislavov-krstev-4b8dc1",
           "name": "Християн Бориславов Кръстев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2469,6 +2645,40 @@
       "exposureScore": 22.11
     },
     {
+      "eik": "201617654",
+      "name": "Югоизточно държавно предприятие",
+      "orgType": "Държавна администрация",
+      "contractCount": 3,
+      "contractedEur": 7828898.46,
+      "paidEur": 4758149.83,
+      "mps": [],
+      "officials": [
+        {
+          "slug": "deyan-ivanov-belemezov-edb37e",
+          "name": "Деян Иванов Белемезов",
+          "category": "state_enterprise",
+          "tier": "executive",
+          "role": "state_enterprise",
+          "institution": "Югоизточно държавно предприятие ДП-гр.Сливен",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2025,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "manager",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
+        }
+      ],
+      "procurementEur": 20294.35,
+      "procurementContractCount": 2,
+      "debarred": false,
+      "exposureScore": 19.54
+    },
+    {
       "eik": "201617412",
       "name": "Североизточно държавно предприятие",
       "orgType": "Държавна администрация",
@@ -2478,7 +2688,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "ivelin-tsvetanov-todorov-50438f",
+          "slug": "ivelin-tsvetanov-todorov-438337",
           "name": "Ивелин Цветанов Тодоров",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2524,7 +2734,7 @@
       ],
       "officials": [
         {
-          "slug": "aleksandr-miladinov-aleksandrov-331a89",
+          "slug": "aleksandr-miladinov-aleksandrov-0acd95",
           "name": "Александър Миладинов Александров",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2549,7 +2759,7 @@
           ]
         },
         {
-          "slug": "ivan-hristov-dipchikov-d76c42",
+          "slug": "ivan-hristov-dipchikov-fcb8cb",
           "name": "Иван Христов Дипчиков",
           "category": "procurement_officer",
           "tier": "executive",
@@ -2557,7 +2767,7 @@
           "institution": "Процедури по ЗОП",
           "municipality": null,
           "confidence": "high",
-          "latestDeclarationYear": 2020,
+          "latestDeclarationYear": 2021,
           "roles": [
             {
               "source": "tr",
@@ -2568,7 +2778,7 @@
           ]
         },
         {
-          "slug": "kiril-vasilev-karagozov-cb6e33",
+          "slug": "kiril-vasilev-karagozov-d01f1c",
           "name": "Кирил Василев Карагьозов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2593,7 +2803,7 @@
           ]
         },
         {
-          "slug": "stefan-todorov-semov-9a92b3",
+          "slug": "stefan-todorov-semov-4cbdbd",
           "name": "Стефан Тодоров Семов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2612,7 +2822,7 @@
           ]
         },
         {
-          "slug": "tihomir-iliev-todorov-f053cf",
+          "slug": "tihomir-iliev-todorov-f746af",
           "name": "Тихомир Илиев Тодоров",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2652,7 +2862,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "asen-borislavov-ivanov-66b232",
+          "slug": "asen-borislavov-ivanov-7f71e0",
           "name": "Асен Бориславов Иванов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2671,7 +2881,7 @@
           ]
         },
         {
-          "slug": "zdravko-dimitrov-bakalov-d28480",
+          "slug": "zdravko-dimitrov-bakalov-e041d8",
           "name": "Здравко Димитров Бакалов",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2735,7 +2945,7 @@
       ],
       "officials": [
         {
-          "slug": "aleksandr-vlkov-vlkov-2bcaa2",
+          "slug": "aleksandr-vlkov-vlkov-2d5feb",
           "name": "Александър Вълков Вълков",
           "category": "hospital_head",
           "tier": "executive",
@@ -2743,7 +2953,7 @@
           "institution": "УМБАЛ  “Д-р Георги Странски” ЕАД, гр.Плевен",
           "municipality": null,
           "confidence": "high",
-          "latestDeclarationYear": 2024,
+          "latestDeclarationYear": 2025,
           "roles": [
             {
               "source": "tr",
@@ -2760,7 +2970,7 @@
           ]
         },
         {
-          "slug": "ventsislav-tsvetanov-grozev-ddf69c",
+          "slug": "ventsislav-tsvetanov-grozev-71b80a",
           "name": "Венцислав Цветанов Грозев",
           "category": "hospital_head",
           "tier": "executive",
@@ -2779,7 +2989,7 @@
           ]
         },
         {
-          "slug": "diyan-lyubomirov-svrakov-62a7b5",
+          "slug": "diyan-lyubomirov-svrakov-2ed465",
           "name": "Диян Любомиров Свраков",
           "category": "hospital_head",
           "tier": "executive",
@@ -2802,12 +3012,43 @@
               "valueEur": null
             }
           ]
+        },
+        {
+          "slug": "tsvetan-hristoforov-lukanov-3bd5d3",
+          "name": "Цветан Христофоров Луканов",
+          "category": "hospital_head",
+          "tier": "executive",
+          "role": "hospital_head",
+          "institution": "УМБАЛ  “Д-р Георги Странски” ЕАД, гр.Плевен",
+          "municipality": null,
+          "confidence": "high",
+          "latestDeclarationYear": 2024,
+          "roles": [
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "representative",
+              "shareSize": null,
+              "valueEur": null
+            },
+            {
+              "source": "tr",
+              "trRole": "director",
+              "shareSize": null,
+              "valueEur": null
+            }
+          ]
         }
       ],
       "procurementEur": 0,
       "procurementContractCount": 0,
       "debarred": false,
-      "exposureScore": 17.13
+      "exposureScore": 17.31
     },
     {
       "eik": "123535874",
@@ -2819,7 +3060,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "irena-blagoeva-milanova-4e5321",
+          "slug": "irena-blagoeva-milanova-c12fb6",
           "name": "Ирена Благоева Миланова",
           "category": "hospital_head",
           "tier": "executive",
@@ -2838,7 +3079,7 @@
           ]
         },
         {
-          "slug": "filka-nikolova-simeonova-ce9b11",
+          "slug": "filka-nikolova-simeonova-7fcefb",
           "name": "Филка Николова Симеонова",
           "category": "hospital_head",
           "tier": "executive",
@@ -2884,7 +3125,7 @@
       ],
       "officials": [
         {
-          "slug": "angel-ventsislavov-tanev-2912bf",
+          "slug": "angel-ventsislavov-tanev-c17561",
           "name": "Ангел Венциславов Танев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2903,7 +3144,7 @@
           ]
         },
         {
-          "slug": "andreana-krasimirova-premyanova-yankova-22d57f",
+          "slug": "andreana-krasimirova-premyanova-yankova-c4b8d5",
           "name": "Андреана Красимирова Премянова-Янкова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2922,7 +3163,7 @@
           ]
         },
         {
-          "slug": "docho-minev-karadochev-74378a",
+          "slug": "docho-minev-karadochev-541887",
           "name": "Дочо Минев Карадочев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2941,7 +3182,7 @@
           ]
         },
         {
-          "slug": "konstantin-chavdarov-palaveev-431122",
+          "slug": "konstantin-chavdarov-palaveev-6c8e10",
           "name": "Константин Чавдаров Палавеев",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2960,7 +3201,7 @@
           ]
         },
         {
-          "slug": "ognyana-ilieva-iorgova-8a3b82",
+          "slug": "ognyana-ilieva-iorgova-c954e8",
           "name": "Огняна Илиева Йоргова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -2979,7 +3220,7 @@
           ]
         },
         {
-          "slug": "radostina-deyanova-sitova-911104",
+          "slug": "radostina-deyanova-sitova-c8ff06",
           "name": "Радостина Деянова Ситова",
           "category": "state_enterprise",
           "tier": "executive",
@@ -3025,7 +3266,7 @@
       ],
       "officials": [
         {
-          "slug": "georgi-nikolov-gelov-cb8320",
+          "slug": "georgi-nikolov-gelov-2bde95",
           "name": "Георги Николов Гелов",
           "category": "hospital_head",
           "tier": "executive",
@@ -3044,7 +3285,7 @@
           ]
         },
         {
-          "slug": "milena-georgieva-lazova-d49938",
+          "slug": "milena-georgieva-lazova-af4046",
           "name": "Милена Георгиева Лазова",
           "category": "hospital_head",
           "tier": "executive",
@@ -3114,7 +3355,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "stanislav-rumenov-kostadinov-6585ce",
+          "slug": "stanislav-rumenov-kostadinov-3a58fe",
           "name": "Станислав Руменов Костадинов",
           "category": "councillor",
           "tier": "municipal",
@@ -3154,7 +3395,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "temenuzhka-svetoslavova-sotirova-299f71",
+          "slug": "temenuzhka-svetoslavova-sotirova-f87e45",
           "name": "Теменужка Светославова Сотирова",
           "category": "deputy_mayor",
           "tier": "municipal",
@@ -3188,7 +3429,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "kalin-krasimirov-statkov-783ccb",
+          "slug": "kalin-krasimirov-statkov-7fd044",
           "name": "Калин Красимиров Статков",
           "category": "councillor",
           "tier": "municipal",
@@ -3222,11 +3463,11 @@
       "mps": [],
       "officials": [
         {
-          "slug": "galinka-ivanova-pavlova-8d0d63",
+          "slug": "galinka-ivanova-pavlova-95b8fc",
           "name": "Галинка Иванова Павлова",
-          "category": "state_enterprise",
+          "category": "medical_center",
           "tier": "executive",
-          "role": "state_enterprise",
+          "role": "medical_center",
           "institution": "ДКЦ, МЦ, ЦТХ",
           "municipality": null,
           "confidence": "high",
@@ -3256,7 +3497,7 @@
       "mps": [],
       "officials": [
         {
-          "slug": "atanas-ivanov-kundurdzhiev-151bc7",
+          "slug": "atanas-ivanov-kundurdzhiev-3093b4",
           "name": "Атанас Иванов Кундурджиев",
           "category": "hospital_head",
           "tier": "executive",
@@ -3285,40 +3526,6 @@
       "procurementContractCount": 5,
       "debarred": false,
       "exposureScore": 19.54
-    },
-    {
-      "eik": "120550180",
-      "name": "Родопи ЕКО проджектс ЕООД",
-      "orgType": "Компания",
-      "contractCount": 2,
-      "contractedEur": 2995264.39,
-      "paidEur": 1489045.17,
-      "mps": [],
-      "officials": [
-        {
-          "slug": "svetlozar-veselinov-pehlivanov-d77a17",
-          "name": "Светлозар Веселинов Пехливанов",
-          "category": "councillor",
-          "tier": "municipal",
-          "role": "councillor",
-          "institution": null,
-          "municipality": "Златоград",
-          "confidence": "high",
-          "latestDeclarationYear": null,
-          "roles": [
-            {
-              "source": "tr",
-              "trRole": "manager",
-              "shareSize": null,
-              "valueEur": null
-            }
-          ]
-        }
-      ],
-      "procurementEur": 0,
-      "procurementContractCount": 0,
-      "debarred": false,
-      "exposureScore": 15.61
     }
   ],
   "flaggedEiks": [
@@ -3358,6 +3565,7 @@
     "201627506",
     "202162424",
     "175403856",
+    "201617654",
     "201617412",
     "103061301",
     "201619580",
@@ -3404,6 +3612,7 @@
     "826018141",
     "104055430",
     "204051656",
+    "110502461",
     "176001209",
     "110503990",
     "200707650",
@@ -3451,6 +3660,7 @@
     "202918009",
     "126005176",
     "110001952",
+    "114686820",
     "208092497",
     "203219909",
     "208041435",
@@ -3494,11 +3704,12 @@
     "125537379",
     "120549872",
     "201429467",
+    "177232069",
     "131172383",
-    "203827288",
     "204461484",
     "204103188",
     "102872963",
+    "102663856",
     "119611565",
     "831605845",
     "206769445",
@@ -3506,7 +3717,6 @@
     "117050304",
     "201596509",
     "176704710",
-    "108564349",
     "203524177",
     "205449182",
     "000014516",
@@ -3518,6 +3728,7 @@
     "831491758",
     "175712639",
     "831646048",
+    "000090154",
     "176574899",
     "107532149",
     "176813178",
@@ -3542,6 +3753,7 @@
     "176186537",
     "201888095",
     "833066695",
+    "205207994",
     "128041947",
     "117622506",
     "101055748",
@@ -3587,7 +3799,9 @@
     "203559514",
     "176235500",
     "175844886",
+    "160044550",
     "000153124",
+    "118502097",
     "205443012",
     "177007161",
     "202458906",
@@ -3631,6 +3845,7 @@
     "131066056",
     "000214050",
     "200111255",
+    "107548712",
     "175847117",
     "116530670",
     "000923169",
@@ -3644,6 +3859,7 @@
     "205738219",
     "000770047",
     "000014498",
+    "200234845",
     "000283559",
     "114107675",
     "000083890",
@@ -3679,6 +3895,7 @@
     "205745904",
     "206679542",
     "204033505",
+    "200062954",
     "115312277",
     "204770025",
     "130101604",
@@ -3726,13 +3943,13 @@
     "202314393",
     "200197279",
     "121125663",
-    "102627700",
     "119626033",
+    "200726024",
+    "102627700",
     "103248895",
     "107554850",
     "147137715",
     "200622239",
-    "200726024",
     "200758221",
     "201738862",
     "203768562",
@@ -3817,6 +4034,7 @@
     "000762164",
     "000962752",
     "103856132",
+    "112073509",
     "114090973",
     "000014975",
     "000499891",
@@ -3836,7 +4054,6 @@
     "000183740",
     "101717486",
     "000559655",
-    "103758994",
     "000770111",
     "000962834",
     "000522906",
@@ -3985,11 +4202,9 @@
     "117634273",
     "102655436",
     "836163459",
-    "130995143",
     "107558642",
     "112649921",
     "202823511",
-    "131283070",
     "203717219",
     "201832124",
     "201068091",
@@ -3997,6 +4212,7 @@
     "202966915",
     "201433615",
     "104606174",
+    "107585430",
     "200090708",
     "201630096",
     "204500873",
@@ -4004,10 +4220,10 @@
     "030420686",
     "101672621",
     "101793690",
-    "107585430",
     "112008155",
     "113567368",
     "115814753",
+    "117008230",
     "117692885",
     "119637186",
     "121699842",
@@ -4021,13 +4237,14 @@
     "130199413",
     "130378264",
     "130478555",
+    "147004469",
     "148061117",
     "175030948",
     "175054529",
     "175161310",
+    "175161997",
     "200165712",
     "200239504",
-    "200471659",
     "200534376",
     "200552303",
     "200817869",
@@ -4052,6 +4269,7 @@
     "203791011",
     "204002506",
     "204306263",
+    "204361427",
     "204454618",
     "204546828",
     "204633652",
@@ -4068,13 +4286,14 @@
     "000404249",
     "200070794",
     "205497316",
+    "205082050",
     "201883701",
     "126630975",
+    "201324911",
     "204099526",
     "205452851",
     "204098759",
     "175400568",
-    "204636962",
     "200052180",
     "000045216",
     "201254167",
@@ -4095,21 +4314,18 @@
     "205477566",
     "130322321",
     "201346142",
-    "203139975",
     "205052501",
     "203814742",
     "115505907",
     "103835309",
     "203308336",
-    "126530074",
     "204177950",
     "203816605",
+    "204471418",
     "205689537",
     "104667451",
     "201995337",
-    "202188617",
     "205408328",
-    "123649034",
     "204003323",
     "200783776",
     "114599995",
@@ -4117,9 +4333,11 @@
     "203762214",
     "205564793",
     "204766048",
+    "101016987",
     "203961732",
     "204319924",
     "205416296",
+    "201895148",
     "205244761",
     "204964553",
     "130508347",

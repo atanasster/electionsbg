@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-27T13:04:37.484Z",
+  "generatedAt": "2026-07-27T19:31:55.800Z",
   "nodes": [
     {
       "id": "src:water",
@@ -403,7 +403,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-19T06:09:20.174Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -424,8 +424,7 @@
           "id": "egov_commerce",
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
-          "cadence": "daily",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "cadence": "daily"
         },
         {
           "id": "egov_budget_execution",
@@ -452,15 +451,13 @@
           "id": "indicators_mon_dzi",
           "label": "МОН: ДЗИ резултати (data.egov.bg)",
           "url": "https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4",
-          "cadence": "daily",
-          "freshness": "2026-06-28T16:34:00.777Z"
+          "cadence": "daily"
         },
         {
           "id": "indicators_mon_nvo",
           "label": "МОН: НВО 7. клас резултати (data.egov.bg)",
           "url": "https://data.egov.bg/data/view/b56288b6-25aa-4049-9aa6-de2cd4cdabf8",
-          "cadence": "daily",
-          "freshness": "2026-07-11T06:08:58.769Z"
+          "cadence": "daily"
         },
         {
           "id": "mon_ri_register",
@@ -635,8 +632,7 @@
           "id": "isun_eu_funds_projects",
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
-          "cadence": "weekly",
-          "freshness": "2026-07-20T06:08:49.083Z"
+          "cadence": "weekly"
         }
       ],
       "x": 28,
@@ -665,7 +661,6 @@
       "url": "https://www.dfz.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-08T06:09:00.761Z",
       "skills": [
         "update-agri"
       ],
@@ -674,8 +669,7 @@
           "id": "dfz_subsidies",
           "label": "ДФ Земеделие — изплатени субсидии",
           "url": "https://data.egov.bg/data?org%5B0%5D=56",
-          "cadence": "weekly",
-          "freshness": "2026-07-08T06:09:00.761Z"
+          "cadence": "weekly"
         }
       ],
       "x": 28,

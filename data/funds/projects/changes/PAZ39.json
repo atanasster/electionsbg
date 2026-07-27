@@ -1,0 +1,41 @@
+{
+  "obshtina": "PAZ39",
+  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0238",
+      "title": "Топъл обяд в община Сърница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 515013.49,
+      "totalEur": 560359.13,
+      "paidEur": 441367.75,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Сърница",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0117",
+      "title": "Инсталиране на фотоволтаичнa системa (ФЕЦ) в съществуващa социалнa услугa - ДЦДМУ - гр. Сърница, делегирана от държавата дейност и закупуване на електрическо превозно средство, включително свързана зарядна станция, за предоставяне на социални услуги",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 108456,
+      "totalEur": 108456,
+      "paidEur": 106524,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Сърница",
+      "detectedAt": "2026-07-27"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T00:42:24.916Z",
+  "generatedAt": "2026-07-27T18:48:48.061Z",
   "nodes": [
     {
       "id": "contractor:122055819",
@@ -85,6 +85,11 @@
       "id": "contractor:115010670",
       "type": "contractor",
       "label": "Водоснабдяване и канализация ЕООД"
+    },
+    {
+      "id": "awarder:000455471",
+      "type": "awarder",
+      "label": "Медицински университет - пловдив"
     },
     {
       "id": "contractor:126720807",
@@ -290,11 +295,6 @@
       "id": "awarder:115552190",
       "type": "awarder",
       "label": "Електроразпределение Юг ЕАД"
-    },
-    {
-      "id": "awarder:115576405",
-      "type": "awarder",
-      "label": "Университетска многопрофилна болница за активно лечение \"Свети георги\" ЕАД"
     },
     {
       "id": "awarder:121082521",
@@ -1001,72 +1001,72 @@
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 354207853.39
+      "valueEur": 354302108.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:ivailo-borisov-filipov-65173d",
-      "valueEur": 354207853.39
+      "valueEur": 354302108.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:nikolina-todorova-naidenova-640c03",
-      "valueEur": 354207853.39
+      "valueEur": 354302108.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-7e7aff",
-      "valueEur": 354207853.39
+      "valueEur": 354302108.59
     },
     {
       "source": "contractor:831641791",
       "target": "official:yuliyana-petrova-kalcheva-9ed43d",
-      "valueEur": 354207853.39
+      "valueEur": 354302108.59
     },
     {
       "source": "contractor:121396123",
       "target": "mp:1129",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "mp:938",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:elena-georgieva-aleksandrova-georgieva-1d1d4c",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:emiliya-dimitrova-facheva-82c030",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:nadezhda-petrova-mazova-3442f3",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:pavel-ivanov-masov-e19cc2",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:radoslav-stefanov-benevreshki-e2bb9b",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:stanislav-dochev-dochev-0c377d",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:121396123",
       "target": "official:tsvetiliya-ivanova-stoilkova-50e652",
-      "valueEur": 209900237.81
+      "valueEur": 210001473.6
     },
     {
       "source": "contractor:203740812",
@@ -1616,7 +1616,7 @@
     {
       "source": "contractor:127003032",
       "target": "mp:2647",
-      "valueEur": 12625473.39
+      "valueEur": 12743538.39
     },
     {
       "source": "awarder:175201304",
@@ -1739,9 +1739,9 @@
       "valueEur": 4847504.42
     },
     {
-      "source": "awarder:115576405",
+      "source": "awarder:000455471",
       "target": "contractor:115010670",
-      "valueEur": 5461683.79
+      "valueEur": 2055582.8
     },
     {
       "source": "awarder:000632256",

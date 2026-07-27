@@ -1,6 +1,54 @@
 {
-  "updatedAt": "2026-07-26T11:08:23.090Z",
+  "updatedAt": "2026-07-27T19:31:01.953Z",
   "entries": [
+    {
+      "timestamp": "2026-07-27T19:31:01.953Z",
+      "date": "2026-07-27",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-26 (+1 daily archive; 1,329,565 store rows, 243 settlements, 210 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-27T19:27:14.114Z",
+      "date": "2026-07-27",
+      "skill": "update-funds",
+      "summary": "ИСУН EU-funds projects: 171 new + 1,630 modified contracts across 245 общини",
+      "source": "ИСУН 2020 (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-07-27T19:22:05.305Z",
+      "date": "2026-07-27",
+      "skill": "update-schools",
+      "summary": "Per-school ДЗИ 2026 + 7. клас НВО 2026 added; textbook-market concentration refreshed",
+      "source": "МОН ДЗИ/НВО (data.egov.bg)"
+    },
+    {
+      "timestamp": "2026-07-27T19:20:22.510Z",
+      "date": "2026-07-27",
+      "skill": "update-indicators",
+      "summary": "ДЗИ 2026 matura results added per municipality (243 общини)",
+      "source": "МОН ДЗИ (data.egov.bg)",
+      "links": [
+        {
+          "to": "/demographics/municipalities",
+          "labelKey": "data_changes_link_municipalities_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-27T19:18:43.946Z",
+      "date": "2026-07-27",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill (+18 договори) + tenders refresh + current-value fold (net +€2.22bn)",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-27T19:11:44.350Z",
+      "date": "2026-07-27",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 58 084 лица, 111 923 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
     {
       "timestamp": "2026-07-26T11:08:23.090Z",
       "date": "2026-07-26",

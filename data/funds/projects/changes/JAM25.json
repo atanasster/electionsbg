@@ -1,0 +1,56 @@
+{
+  "obshtina": "JAM25",
+  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0054",
+      "title": "Топъл обяд в Община \"Тунджа\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur"
+      ],
+      "prevTotalEur": 1150883.2,
+      "totalEur": 1153442.94,
+      "paidEur": 993125.47,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Тунджа",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1025",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище НАПРЕДЪК - 1930_с. КАБИЛЕ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13891.73,
+      "totalEur": 13891.73,
+      "paidEur": 12194.89,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Напредък - 1930_с. кабиле",
+      "detectedAt": "2026-07-27"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1328",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ ВАСИЛ ЛЕВСКИ-1950",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13256.78,
+      "totalEur": 13256.78,
+      "paidEur": 12759.75,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище васил ЛЕВСКИ-1950",
+      "detectedAt": "2026-07-27"
+    }
+  ]
+}
