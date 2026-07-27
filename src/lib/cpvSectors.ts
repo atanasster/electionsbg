@@ -236,14 +236,13 @@ export const procedureBucket = (
     s.includes("покана")
   )
     return "competition";
-  // Framework-family systems (dynamic purchasing / qualification) group with
-  // рамково споразумение.
-  if (
-    s.includes("рамков") ||
-    s.includes("динамична система") ||
-    s.includes("квалификационна система")
-  )
-    return "framework";
+  // Only a рамково споразумение is a framework. NB: the tenders feed models
+  // frameworks as the separate is_framework_agreement flag (a status), and its
+  // procedure_type never says "рамков" — so this bucket is populated by the
+  // contracts procurement_method vocabulary only. Dynamic-purchasing /
+  // qualification SYSTEMS are distinct standing instruments, not framework
+  // agreements — they fall through to "other" rather than mislabelling the mix.
+  if (s.includes("рамков")) return "framework";
   if (s.includes("неизвест") || s.includes("неопределен")) return "unknown";
   return "other";
 };

@@ -64,9 +64,13 @@ describe("procedureBucket — tenders procedure_type vocabulary", () => {
     ["състезателна процедура с договаряне", "competition"],
     ["състезателен диалог", "competition"],
     ["Партньорство за иновации", "competition"],
-    ["Динамична система за покупки", "framework"],
-    ["Квалификационна система", "framework"],
+    // DPS / qualification systems are distinct standing instruments, NOT framework
+    // agreements — they must NOT inflate a "Рамково споразумение" bucket.
+    ["Динамична система за покупки", "other"],
+    ["Квалификационна система", "other"],
     ["неопределен", "unknown"],
+    // A рамково споразумение (contracts vocabulary) is the only framework.
+    ["Рамково споразумение", "framework"],
   ];
   it.each(cases)("maps %s → %s", (value, bucket) => {
     expect(procedureBucket(value)).toBe(bucket);
