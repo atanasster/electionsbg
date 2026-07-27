@@ -51,7 +51,9 @@ const GLOBAL_FILES = [
   "parliament/connections-search.json",
   "parliament/votes/index.json",
   "parliament/votes/derived/search_index.json",
-  "officials/municipal/search_index.json",
+  // officials/municipal/search_index.json retired from the bucket (persons-pg-retirement-v1
+  // T1.5): the header search reads municipal_officials_table via /api/db, so the file is no
+  // longer served or gzip-uploaded. It stays on disk only for the offline search harness.
   // NOTE: procurement, funds AND prices are served from Cloud SQL (/api/db/*),
   // not GCS. The whole data/procurement/ tree (except roads.json +
   // derived/mp_party.json) and the whole data/funds/ tree are excluded from

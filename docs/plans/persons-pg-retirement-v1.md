@@ -394,8 +394,18 @@ TODO). Parity-check each against its JSON.
 > **Still gates the §0 officials teardown:** `data/officials/derived/` is read by the
 > council-activity hooks (**Tier 4** — `councillor_signals` / `councillor_conflicts` not yet
 > in PG, no `099_council_signals.sql`) and the connections hooks (**Tier 3** Workstream B).
-> The `by_obshtina/` + `search_index.json` families are reader-free and teardown-ready, but
-> the actual `bucket:sync:paths --delete` cannot run until Tiers 3 + 4 retire `derived/`.
+>
+> **✅ Bucket teardown done for the two reader-free families (2026-07-26).** After deploying
+> the T1.5 stack to prod (Cloud SQL 108 + 102 re-apply + candidate-links loader → `deploy:db`
+> → hosting) and verifying live that the roster / header-search / chmi pages fetch `/api/db/*`
+> with **zero** legacy-JSON requests, `officials/municipal/by_obshtina/` and
+> `officials/municipal/search_index.json` were removed from the bucket and added to BOTH
+> exclusion lists (package.json `-x` + `bucket_sync_paths.ts`, plus dropped from `bucket_gzip`).
+> They stay **on disk**: `by_obshtina/` is a PG load source (`load_ngo_board_links_pg` →
+> `official_roster.obshtina`, + the councillor-signals builders), and `search_index.json` is
+> kept only for the offline search harness. So this is a bucket-serve retirement, **not** the
+> §0.2 sync-time win (which needs the load source moved out of `data/`) and **not** the
+> generator/harness cleanup (Tier 5). The `derived/` families remain, gated on Tiers 3 + 4.
 
 ### Tier 2 — MP roster/declarations/avatars on PersonDashboard
 Replace `useMpEntry`/`useMpDeclarations`/`useMpAssets` with person_id routes; `assets-rankings`

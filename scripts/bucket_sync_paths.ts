@@ -49,13 +49,23 @@ const CACHE_CONTROL = "public,max-age=300,must-revalidate";
 const GZIP_EXTS = "json,svg,xml,txt,html,css,md";
 
 /** Paths under data/ that bucket:sync's -x regex excludes, i.e. never upload. */
-const isExcluded = (rel: string): string | null => {
+export const isExcluded = (rel: string): string | null => {
   if (rel === "_cache" || rel.startsWith("_cache/"))
     return "_cache/ is a local build cache";
   if (rel === "funds" || rel.startsWith("funds/"))
     return "funds/ is served from Cloud SQL (db:load:funds:pg:cloud)";
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
+  // The municipal-officials roster + name/search index are served from Cloud SQL
+  // (municipal_officials_table, /api/db/table + municipal-officials-*-index) since
+  // persons-pg-retirement-v1 T1.5. by_obshtina stays on disk as a PG LOAD SOURCE
+  // (load_ngo_board_links_pg reads it for official_roster.obshtina; the councillor-signals
+  // builders read it too) but must never re-upload to the bucket; search_index.json is a
+  // retired served artifact kept on disk only for the offline search harness.
+  if (rel.startsWith("officials/municipal/by_obshtina"))
+    return "officials/municipal/by_obshtina/ is a PG load source, served from Cloud SQL — never upload it";
+  if (rel === "officials/municipal/search_index.json")
+    return "officials/municipal/search_index.json is retired — the header search reads municipal_officials_table via /api/db";
   if (rel === "procurement" || rel.startsWith("procurement/")) {
     // Keep in sync with bucket:sync's -x regex allow-list in package.json.
     // procurement/projects/ is the exception: small static curated-project
@@ -74,6 +84,26 @@ const isExcluded = (rel: string): string | null => {
   }
   return null;
 };
+
+// Excluded subtrees that live UNDER a still-bucket-served parent, so a scoped DIRECTORY
+// rsync of that parent (e.g. `bucket:sync:paths -- officials/municipal`, a natural way to
+// re-push the still-served index.json) would otherwise recursively re-upload them —
+// isExcluded only guards the top-level argument, and the directory rsync's own -x carries
+// just .DS_Store. Keep in lockstep with the isExcluded branches above. Deliberately NOT a
+// blanket `search_index.json` match: parliament/votes/derived/search_index.json IS bucket-
+// served, so the pattern must be anchored to the officials path.
+const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
+  { path: "officials/municipal/by_obshtina", isDir: true },
+  { path: "officials/municipal/search_index.json", isDir: false },
+];
+
+/** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under
+ *  the directory `relDir` — so scoping a sync to an ancestor cannot re-upload them. */
+export const childExcludeRegexes = (relDir: string): string[] =>
+  CHILD_EXCLUDES.filter((c) => c.path.startsWith(`${relDir}/`)).map((c) => {
+    const rest = c.path.slice(relDir.length + 1).replace(/\./g, String.raw`\.`);
+    return c.isDir ? `^${rest}/.*` : `^${rest}$`;
+  });
 
 const run = (args: string[], dryRun: boolean): number => {
   console.log(`  gsutil ${args.join(" ")}`);
@@ -116,8 +146,10 @@ export const syncPaths = (
           "-r",
           ...(del ? ["-d"] : []),
           ...(dryRun ? ["-n"] : []),
+          // .DS_Store + any excluded child living under this dir (FINDING-001): a scoped
+          // sync of an ancestor must not re-upload a retired subtree the full-tree -x drops.
           "-x",
-          String.raw`.*\.DS_Store$`,
+          [String.raw`.*\.DS_Store$`, ...childExcludeRegexes(rel)].join("|"),
           "-j",
           GZIP_EXTS,
           local,
