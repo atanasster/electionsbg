@@ -58,7 +58,7 @@ export const MpAvatarView: FC<ViewProps> = ({
 
 /** Connected avatar — resolves the MP's photo + party ring by id (and name).
  *
- * Reads the slim ~36 KB parliament/avatars.json first; the full ~970 KB
+ * Reads the slim avatar index from PG (/api/db/mp-avatars) first; the full ~970 KB
  * parliament/index.json is fetched ONLY as a fallback (deferred via
  * `enabled`) — when the caller gave no id, or the id isn't in the slim
  * projection (e.g. a local-election candidate id, or a brand-new MP). This
@@ -78,9 +78,9 @@ export const MpAvatar: FC<Props> = ({
   // caller also supplied one (for initials + alt text). Otherwise fall back to
   // the full roster — which also covers name-only callers and slim misses.
   // Gate the fallback on the avatars query having SETTLED: on the first render
-  // (avatars.json not yet loaded) slim is undefined for everyone, and an
-  // ungated fallback would fire the ~970 KB index fetch before avatars.json
-  // even arrives. Once settled, a still-missing id legitimately falls back.
+  // (the avatar index not yet loaded) slim is undefined for everyone, and an
+  // ungated fallback would fire the ~970 KB index fetch before the mp-avatars
+  // route even responds. Once settled, a still-missing id legitimately falls back.
   const slimUsable = !!slim && !!name;
   const needIndex = isSettled && !slimUsable && (mpId != null || !!name);
   const { findMpByName, findMpById } = useMps(needIndex);

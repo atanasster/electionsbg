@@ -323,3 +323,23 @@ test("mp-networth-rank degrades to null on a missing migration, propagates real 
     DB_ROUTES["mp-networth-rank"](mockDb(boom), { mpId: "10", ns: "52" }),
   );
 });
+
+// ─── mp-avatars (persons-pg-retirement-v1 T2.3) ────────────────────────────────────────────
+// The slim avatar index rebuilt from mp_profile — object-shaped, no params. Unwraps rows[0].r,
+// degrades a missing migration to null, propagates real errors (same contract as mp-assets).
+test("mp-avatars unwraps rows[0].r into the avatar-index object", async () => {
+  const idx = { total: 2, groups: { "1": "ГЕРБ" }, noPhoto: [2], extra: {} };
+  const db = mockDb([{ r: idx }]);
+  const res = await DB_ROUTES["mp-avatars"](db);
+  assert.equal(db.calls.length, 1, "one DB call");
+  assert.deepEqual(res.body, idx);
+});
+
+test("mp-avatars degrades to null on a missing migration, propagates real errors", async () => {
+  for (const code of MIGRATION_CODES) {
+    const res = await DB_ROUTES["mp-avatars"](mockDb(migrationMissing(code)));
+    assert.equal(res.body, null, `mp-avatars @ ${code} → null`);
+  }
+  const boom = Object.assign(new Error("connection reset"), { code: "08006" });
+  await assert.rejects(() => DB_ROUTES["mp-avatars"](mockDb(boom)));
+});

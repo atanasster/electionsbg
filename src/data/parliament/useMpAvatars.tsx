@@ -1,12 +1,13 @@
 // Slim per-MP avatar lookup — photo + party-group short, keyed by MP id.
 //
-// Reads parliament/avatars.json (~36 KB), the projection emitted by
-// scripts/parliament/build_avatars.ts. This exists so <MpAvatar> can render a
-// face + party ring WITHOUT pulling the full ~970 KB parliament/index.json on
-// pages that only surface an MP through a connection (/company/:eik,
-// /awarder/:eik, /officials/:slug, political links). The full index stays the
-// source of truth for screens that genuinely browse the roster; MpAvatar falls
-// back to it only when this slim projection can't answer (see MpAvatar.tsx).
+// Served from Postgres (mp_profile, migration 104) via the /api/db/mp-avatars route —
+// replaces the static parliament/avatars.json (persons-pg-retirement-v1 T2.3). This exists so
+// <MpAvatar> can render a face + party ring WITHOUT pulling the full ~970 KB
+// parliament/index.json on pages that only surface an MP through a connection
+// (/company/:eik, /awarder/:eik, /officials/:slug, political links). METADATA ONLY: the .webp
+// photos stay on the bucket, and the client still builds /parliament/photos/{id}.webp for the
+// default case (see resolvePhoto). The full index stays the source of truth for screens that
+// genuinely browse the roster; MpAvatar falls back to it only when this can't answer.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -33,10 +34,16 @@ const resolvePhoto = (url: string): string =>
   !url ? "" : url.startsWith("http") ? url : dataUrl(url);
 
 const queryFn = async (): Promise<AvatarsFile | undefined> => {
-  const r = await fetch(dataUrl("/parliament/avatars.json"));
-  if (r.status === 404) return undefined;
-  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as AvatarsFile;
+  const r = await fetch("/api/db/mp-avatars");
+  // Throw on a real error (500 etc.) so it stays visible + retryable — otherwise a persistent
+  // failure would silently degrade EVERY avatar to the ~970 KB index fallback with no signal.
+  // A missing migration is NOT an error: the route returns 200 + a null body (Array.isArray
+  // guard), which becomes undefined here → <MpAvatar> falls back to the roster / initials.
+  if (!r.ok) throw new Error(`mp-avatars: ${r.status} ${r.url}`);
+  const body = (await r.json()) as AvatarsFile | null;
+  return body && typeof body === "object" && !Array.isArray(body)
+    ? body
+    : undefined;
 };
 
 export const useMpAvatars = (enabled = true) => {

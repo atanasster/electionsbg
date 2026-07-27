@@ -2447,6 +2447,38 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // The slim MP-avatar index (photo availability + party-group ring + any external photo URL,
+  // keyed by mp id) → useMpAvatars / <MpAvatar> (persons-pg-retirement-v1 T2.3). Rebuilds the
+  // retired data/parliament/avatars.json shape from mp_profile (migration 104), so a face +
+  // party ring renders on connection pages WITHOUT the ~970 KB parliament/index.json. The
+  // actual .webp images STAY on the bucket (Decision 3) — this is metadata only, and the
+  // client still builds /parliament/photos/{id}.webp for the default case. `noPhoto` = the MPs
+  // whose scrape found no image (photo_url NULL/''); `extra` = the rare external portrait URL.
+  "mp-avatars": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT jsonb_build_object(
+         'scrapedAt', max(scraped_at)::text,
+         'total', count(*),
+         'groups', coalesce(
+           jsonb_object_agg(mp_id::text, current_party_group_short), '{}'::jsonb),
+         'noPhoto', coalesce(
+           jsonb_agg(mp_id) FILTER (WHERE photo_url IS NULL OR photo_url = ''),
+           '[]'::jsonb),
+         -- extra = any non-empty photo_url that is NOT the canonical default
+         -- /parliament/photos/<id>.webp (an external portrait, or any custom relative path).
+         -- Matches build_avatars.ts's rule exactly, not just http, so a future non-canonical
+         -- relative URL can't be silently replaced by the default photo.
+         'extra', coalesce(
+           jsonb_object_agg(mp_id::text, photo_url) FILTER (
+             WHERE photo_url IS NOT NULL AND photo_url <> ''
+               AND photo_url <> '/parliament/photos/' || mp_id || '.webp'),
+           '{}'::jsonb)
+       ) AS r
+       FROM mp_profile`,
+    ).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
   // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an
