@@ -43,11 +43,35 @@ import {
 } from "@/screens/components/procurement/CpvFilterCombobox";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { facetShare, bucketShare } from "@/lib/facetStats";
-import { groupMethodFacet, type ProcedureBucket } from "@/lib/cpvSectors";
+import {
+  groupMethodFacet,
+  procedureLabel,
+  type ProcedureBucket,
+} from "@/lib/cpvSectors";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Facets = { facets: Record<string, { value: string; count: number }[]> };
+
+const PROC_ALL = "__all__";
+// The valid procedure-bucket literals, for validating the untrusted ?proc URL
+// value (a crafted ?proc=garbage must resolve to null, not a fake bucket).
+const PROC_BUCKETS = new Set<ProcedureBucket>([
+  "open",
+  "competition",
+  "collection",
+  "direct",
+  "framework",
+  "other",
+  "unknown",
+]);
 
 export const ContractsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -57,15 +81,48 @@ export const ContractsBrowserDbScreen: FC = () => {
   // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
   // below — the cpv column is registered with filter:"prefix", so this value
   // (a 2-digit division) matches every contract whose code starts with it.
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
 
-  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
-  // its raw source-method strings are re-derived from the facet below.
-  const [procBucket, setProcBucket] = useState<ProcedureBucket | null>(null);
-  const [cpvDiv, setCpvDiv] = useState<string>(
-    () => params.get("cpv") ?? CPV_ALL,
+  // Filters are URL-backed (?proc / ?cpv / ?single) so a filtered view is
+  // shareable — the app's URL-contract convention. ?cpv doubles as the deep-link
+  // seed from /procurement/sectors. Set/clear one param, preserving the others
+  // (?pscope / ?sector / ?q etc.).
+  const setParam = useCallback(
+    (key: string, val: string | null) =>
+      setParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          if (val == null || val === "") p.delete(key);
+          else p.set(key, val);
+          return p;
+        },
+        { replace: true },
+      ),
+    [setParams],
   );
-  const [singleBidder, setSingleBidder] = useState(false);
+  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
+  // its raw source-method strings are re-derived from the facet below. The ?proc
+  // value is untrusted URL input, so validate it against the known bucket set.
+  const rawProc = params.get("proc");
+  const procBucket: ProcedureBucket | null =
+    rawProc && PROC_BUCKETS.has(rawProc as ProcedureBucket)
+      ? (rawProc as ProcedureBucket)
+      : null;
+  const cpvDiv = params.get("cpv") ?? CPV_ALL;
+  const singleBidder = params.get("single") === "1";
+  const setProcBucket = useCallback(
+    (v: ProcedureBucket | null) => setParam("proc", v),
+    [setParam],
+  );
+  // Each caller normalizes its own "all" sentinel to null; setParam stays generic.
+  const setCpvDiv = useCallback(
+    (v: string) => setParam("cpv", v === CPV_ALL ? null : v),
+    [setParam],
+  );
+  const setSingleBidder = useCallback(
+    (v: boolean) => setParam("single", v ? "1" : null),
+    [setParam],
+  );
 
   // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
   // restrict the table to that sector's awarder EIK-set and mount its enrichment
@@ -225,7 +282,7 @@ export const ContractsBrowserDbScreen: FC = () => {
     ) {
       setProcBucket(null);
     }
-  }, [procBucket, groupedMethods]);
+  }, [procBucket, groupedMethods, setProcBucket]);
 
   // Bid-count facet — every filter EXCEPT single-bid, for the single-bidder % KPI.
   // The facet's limit bounds distinct bidder-counts, not rows — real counts are
@@ -515,6 +572,34 @@ export const ContractsBrowserDbScreen: FC = () => {
                   divisions={cpvOptions}
                   catalog={cpvCatalog ?? []}
                 />
+              ) : null}
+              {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary
+                  and drives the same ?proc filter. Travels with the analysis
+                  block, so it's hidden on ?sector pages (no proc facet there). */}
+              {showAnalysis && groupedMethods.length > 0 ? (
+                <Select
+                  value={procBucket ?? PROC_ALL}
+                  onValueChange={(v) =>
+                    setProcBucket(
+                      v === PROC_ALL ? null : (v as ProcedureBucket),
+                    )
+                  }
+                >
+                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={PROC_ALL}>
+                      {t("company_contracts_all_procedures") ||
+                        "Всички процедури"}
+                    </SelectItem>
+                    {groupedMethods.map((g) => (
+                      <SelectItem key={g.bucket} value={g.bucket}>
+                        {procedureLabel(g.bucket, i18n.language)} ({g.count})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               ) : null}
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
