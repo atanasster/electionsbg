@@ -253,7 +253,6 @@ export interface HubStats {
   fuelGapPct: number | null;
   electricityGapPct: number | null;
   gasGapPct: number | null;
-  euFoodPli: number | null;
   foodInflationPct: number | null;
 }
 export const useHubStats = () =>

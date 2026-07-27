@@ -42,6 +42,7 @@ import {
   fmtPriceDate,
   priceChangeColor,
 } from "@/data/prices/usePrices";
+import { usePricePli } from "@/data/macro/useMacroPeers";
 
 // A dashboard tile: a card whose header links to its sub-page (internal links
 // inside the body — e.g. chain rows — keep working, so the whole card is NOT a
@@ -78,6 +79,8 @@ export const PricesScreen: FC = () => {
   const { data: chains } = useNationalChains();
   const { data: deals } = useDeals();
   const { data: hub } = useHubStats();
+  // Overall EU price level (BG vs EU=100), shared with /consumption/eu.
+  const euPriceLevel = usePricePli()?.values?.BG?.A01 ?? null;
 
   const catName = useMemo(
     () =>
@@ -266,13 +269,13 @@ export const PricesScreen: FC = () => {
           title={T("Спрямо ЕС", "vs the EU")}
           icon={Globe}
         >
-          {hub?.euFoodPli != null ? (
+          {euPriceLevel != null ? (
             <div>
               <div className="text-2xl font-bold tabular-nums">
-                {Math.round(hub.euFoodPli)}%
+                {Math.round(euPriceLevel)}%
               </div>
               <div className="text-xs text-muted-foreground">
-                {T("от средното за ЕС (храни)", "of the EU average (food)")}
+                {T("от средното за ЕС", "of the EU average")}
               </div>
             </div>
           ) : null}

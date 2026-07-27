@@ -12,6 +12,7 @@ import { ConsumptionSearchTile } from "@/screens/components/consumption/Consumpt
 import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
 import { useHubStats } from "@/data/prices/usePrices";
+import { usePricePli } from "@/data/macro/useMacroPeers";
 
 export const ConsumptionScreen = () => {
   const { t, i18n } = useTranslation();
@@ -25,6 +26,9 @@ export const ConsumptionScreen = () => {
     "Цени, потребление и издръжка на живота в България.";
 
   const { data: s } = useHubStats();
+  // Overall EU price level (BG vs EU=100) — from the same Eurostat block that
+  // drives /consumption/eu, so the tile and the page always agree.
+  const euPriceLevel = usePricePli()?.values?.BG?.A01 ?? null;
 
   // Metric formatters — a headline number is shown only when its stat is present.
   const int = (n: number | null | undefined) =>
@@ -80,7 +84,7 @@ export const ConsumptionScreen = () => {
       caption: T("инфлация храни", "food CPI"),
     },
     eu: {
-      metric: s?.euFoodPli != null ? pct(Math.round(s.euFoodPli)) : undefined,
+      metric: euPriceLevel != null ? pct(Math.round(euPriceLevel)) : undefined,
       caption: T("спрямо ЕС", "vs the EU"),
     },
     fuel: {
@@ -221,7 +225,7 @@ export const ConsumptionScreen = () => {
           "eu",
           "/consumption/eu",
           T("Спрямо ЕС", "vs the EU"),
-          T("Храната у нас спрямо Европа", "Our food vs Europe"),
+          T("Цените у нас спрямо Европа", "Our prices vs Europe"),
           TILE_ACCENTS.indigo,
         ),
         tile(

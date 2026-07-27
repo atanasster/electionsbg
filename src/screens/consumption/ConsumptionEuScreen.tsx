@@ -51,27 +51,132 @@ const TREND_GEOS: PeerGeo[] = ["BG", "EU27_2020", "RO", "GR", "HU", "HR"];
 const cheaperText = "rgb(16 185 129)"; // emerald-500
 const dearerText = "rgb(244 63 94)"; // rose-500
 
-// One diverging bar around the EU=100 baseline. `inset` renders the food-detail
-// rows a step in and a touch quieter than their parent division.
+// A short gloss per category — the concrete prices each COICOP class covers, so
+// the abstract labels ("Miscellaneous", "Recreation") are legible at a glance.
+// Keyed by ppp_cat18 code; energy rows carry their own inline descriptions.
+const CAT_DESC: Record<string, { bg: string; en: string }> = {
+  // Divisions
+  A0101: {
+    bg: "Хляб, месо, млечни, плодове, зеленчуци, напитки",
+    en: "Bread, meat, dairy, fruit, vegetables, drinks",
+  },
+  A0102: {
+    bg: "Спиртни напитки, вино, бира, цигари",
+    en: "Spirits, wine, beer, cigarettes",
+  },
+  A0103: {
+    bg: "Дрехи, обувки и аксесоари",
+    en: "Clothes, footwear and accessories",
+  },
+  A0104: {
+    bg: "Наеми, вода, ток, газ, отопление, поддръжка",
+    en: "Rent, water, electricity, gas, heating, upkeep",
+  },
+  A0105: {
+    bg: "Мебели, домакински уреди, текстил, инструменти",
+    en: "Furniture, appliances, textiles, tools",
+  },
+  A0106: {
+    bg: "Лекарства, лекарски и болнични услуги",
+    en: "Medicines, doctor and hospital services",
+  },
+  A0107: {
+    bg: "Коли, горива, ремонти, билети за транспорт",
+    en: "Cars, fuel, repairs, transport tickets",
+  },
+  A0108: {
+    bg: "Телефон, интернет, поща, устройства",
+    en: "Phone, internet, post, devices",
+  },
+  A0109: {
+    bg: "Електроника, спорт, книги, туризъм, хоби",
+    en: "Electronics, sport, books, holidays, hobbies",
+  },
+  A0110: {
+    bg: "Такси за градина, училище, университет, курсове",
+    en: "Preschool, school, university and course fees",
+  },
+  A0111: {
+    bg: "Хранене навън, кафенета, хотели, настаняване",
+    en: "Eating out, cafés, hotels, accommodation",
+  },
+  A0112: {
+    bg: "Козметика, фризьор, застраховки, лични услуги",
+    en: "Personal care, insurance, personal services",
+  },
+  // Food detail
+  A01010101: {
+    bg: "Хляб, брашно, тестени, ориз, зърнени закуски",
+    en: "Bread, flour, pasta, rice, cereals",
+  },
+  A01010102: {
+    bg: "Прясно, замразено и преработено месо",
+    en: "Fresh, frozen and processed meat",
+  },
+  A01010103: {
+    bg: "Прясна, замразена и консервирана риба и морски дарове",
+    en: "Fresh, frozen and canned fish and seafood",
+  },
+  A01010104: {
+    bg: "Мляко, сирене, кисело мляко, масло, яйца",
+    en: "Milk, cheese, yoghurt, butter, eggs",
+  },
+  A01010105: {
+    bg: "Олио, зехтин, масло, маргарин",
+    en: "Cooking oils, olive oil, butter, margarine",
+  },
+  A01010106: {
+    bg: "Пресни, сушени и замразени плодове и ядки",
+    en: "Fresh, dried and frozen fruit and nuts",
+  },
+  A01010107: {
+    bg: "Пресни зеленчуци, картофи, бобови",
+    en: "Fresh vegetables, potatoes, pulses",
+  },
+  A01010108: {
+    bg: "Захар, шоколад, сладкиши, сладолед",
+    en: "Sugar, chocolate, sweets, ice cream",
+  },
+  A01010109: {
+    bg: "Готови ястия, сосове, подправки, детски храни",
+    en: "Ready meals, sauces, condiments, baby food",
+  },
+  A010102: {
+    bg: "Кафе, чай, минерална вода, сокове, газирани",
+    en: "Coffee, tea, water, juices, soft drinks",
+  },
+};
+
+// One diverging bar around the EU=100 baseline. `desc` is a small, light gloss
+// under the label naming the concrete prices the category covers. `inset`
+// renders the food-detail rows a step in and a touch quieter than their parent.
 const DivergingRow: FC<{
   label: string;
   value: number;
+  desc?: string;
   inset?: boolean;
-}> = ({ label, value, inset }) => {
+}> = ({ label, value, desc, inset }) => {
   const dearer = value > 100;
   const p = barPos(value);
   return (
     <div
       className={cn("flex items-center gap-2 text-sm", inset && "text-[13px]")}
     >
-      <span
-        className={cn(
-          "w-32 shrink-0 truncate sm:w-44",
-          inset ? "text-muted-foreground" : "font-medium",
-        )}
-      >
-        {label}
-      </span>
+      <div className="w-36 shrink-0 sm:w-56">
+        <div
+          className={cn(
+            "truncate",
+            inset ? "text-muted-foreground" : "font-medium",
+          )}
+        >
+          {label}
+        </div>
+        {desc ? (
+          <div className="text-[11px] leading-snug text-muted-foreground/60">
+            {desc}
+          </div>
+        ) : null}
+      </div>
       <div className="relative h-4 flex-1 rounded-full bg-muted/50">
         <div
           className="absolute inset-y-0 w-px bg-foreground/25"
@@ -144,12 +249,17 @@ export const ConsumptionEuScreen: FC = () => {
   // Household energy & fuel, BG-vs-EU (EU=100) — a fresher, unit-price companion
   // to the annual PPP basket above. Electricity/gas are half-year; fuel weekly.
   const energyRows = useMemo(() => {
-    const rows: { key: string; label: string; value: number }[] = [];
+    const rows: { key: string; label: string; desc: string; value: number }[] =
+      [];
     const e = elec.data ? latestCommonPrice(elec.data) : null;
     if (e)
       rows.push({
         key: "elec",
         label: T("Ток", "Electricity"),
+        desc: T(
+          "Битова цена на електроенергия с всички данъци",
+          "Household electricity price, all taxes",
+        ),
         value: e.pctOfEu,
       });
     const g = gas.data ? latestCommonPrice(gas.data) : null;
@@ -157,6 +267,10 @@ export const ConsumptionEuScreen: FC = () => {
       rows.push({
         key: "gas",
         label: T("Природен газ", "Natural gas"),
+        desc: T(
+          "Битова цена на природен газ с всички данъци",
+          "Household natural gas price, all taxes",
+        ),
         value: g.pctOfEu,
       });
     const series = fuel.data?.series;
@@ -171,6 +285,10 @@ export const ConsumptionEuScreen: FC = () => {
           rows.push({
             key: "fuel",
             label: T("Горива (А95/дизел)", "Fuel (95/diesel)"),
+            desc: T(
+              "Бензин А95 и дизел на бензиностанция",
+              "Petrol 95 and diesel at the pump",
+            ),
             value: Math.round(((pb / pe + db / de) / 2) * 100),
           });
           break;
@@ -317,7 +435,7 @@ export const ConsumptionEuScreen: FC = () => {
             )}
             icon={Wallet}
           >
-            <Card className="flex flex-col gap-1.5 p-5">
+            <Card className="flex flex-col gap-2.5 p-5">
               <div className="mb-1 flex items-center justify-between text-[11px] text-muted-foreground">
                 <span>{T("По-евтино", "Cheaper")}</span>
                 <span>{T("ЕС = 100", "EU = 100")}</span>
@@ -325,15 +443,22 @@ export const ConsumptionEuScreen: FC = () => {
               </div>
               {divisions.map(({ c, v }) => (
                 <div key={c.code}>
-                  <DivergingRow label={bg ? c.bg : c.en} value={v} />
+                  <DivergingRow
+                    label={bg ? c.bg : c.en}
+                    value={v}
+                    desc={bg ? CAT_DESC[c.code]?.bg : CAT_DESC[c.code]?.en}
+                  />
                   {/* Food shown in full — its detail always visible, indented. */}
                   {c.code === "A0101" && foodDetail.length > 0 ? (
-                    <div className="mt-1.5 mb-1.5 ml-2 flex flex-col gap-1 border-l border-border/70 pl-3">
+                    <div className="mt-2 mb-1 ml-2 flex flex-col gap-2 border-l border-border/70 pl-3">
                       {foodDetail.map(({ c: fc, v: fv }) => (
                         <DivergingRow
                           key={fc.code}
                           label={bg ? fc.bg : fc.en}
                           value={fv}
+                          desc={
+                            bg ? CAT_DESC[fc.code]?.bg : CAT_DESC[fc.code]?.en
+                          }
                           inset
                         />
                       ))}
@@ -351,11 +476,12 @@ export const ConsumptionEuScreen: FC = () => {
                       "Household energy prices · vs the EU",
                     )}
                   </div>
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-2">
                     {energyRows.map((r) => (
                       <DivergingRow
                         key={r.key}
                         label={r.label}
+                        desc={r.desc}
                         value={r.value}
                       />
                     ))}
