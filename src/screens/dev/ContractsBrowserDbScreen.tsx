@@ -42,13 +42,9 @@ import {
   CpvFilterCombobox,
   CPV_ALL,
 } from "@/screens/components/procurement/CpvFilterCombobox";
-import {
-  isProcedureBucket,
-  procedureBucket,
-  procedureLabel,
-  type ProcedureBucket,
-} from "@/lib/cpvSectors";
+import { procedureBucket, procedureLabel } from "@/lib/cpvSectors";
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
+import { useUrlProcurementFilters } from "@/data/procurement/useUrlProcurementFilters";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
 
@@ -60,61 +56,21 @@ export const ContractsBrowserDbScreen: FC = () => {
   // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
   // below — the cpv column is registered with filter:"prefix", so this value
   // (a 2-digit division) matches every contract whose code starts with it.
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
 
-  // Filters are URL-backed (?proc / ?cpv / ?single) so a filtered view is
-  // shareable — the app's URL-contract convention. ?cpv doubles as the deep-link
-  // seed from /procurement/sectors. Set/clear one param, preserving the others
-  // (?pscope / ?sector / ?q etc.).
-  const setParam = useCallback(
-    (key: string, val: string | null) =>
-      setParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          if (val == null || val === "") p.delete(key);
-          else p.set(key, val);
-          return p;
-        },
-        { replace: true },
-      ),
-    [setParams],
-  );
-  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
-  // its raw source-method strings are re-derived from the facet below. The ?proc
-  // value is untrusted URL input, so validate it against the known bucket set.
-  const rawProc = params.get("proc");
-  const procBucket: ProcedureBucket | null = isProcedureBucket(rawProc)
-    ? rawProc
-    : null;
-  const cpvDiv = params.get("cpv") ?? CPV_ALL;
-  const singleBidder = params.get("single") === "1";
-  const setProcBucket = useCallback(
-    (v: ProcedureBucket | null) => setParam("proc", v),
-    [setParam],
-  );
-  // Each caller normalizes its own "all" sentinel to null; setParam stays generic.
-  const setCpvDiv = useCallback(
-    (v: string) => setParam("cpv", v === CPV_ALL ? null : v),
-    [setParam],
-  );
-  const setSingleBidder = useCallback(
-    (v: boolean) => setParam("single", v ? "1" : null),
-    [setParam],
-  );
-  const hasActiveFilters =
-    procBucket !== null || cpvDiv !== CPV_ALL || singleBidder;
-  const clearFilters = useCallback(
-    () =>
-      setParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          ["proc", "cpv", "single"].forEach((k) => p.delete(k));
-          return p;
-        },
-        { replace: true },
-      ),
-    [setParams],
-  );
+  // The URL-backed filter dimensions (?proc / ?cpv / ?single) — shared with the
+  // tenders + company browsers so a filtered view stays shareable. ?cpv doubles as
+  // the deep-link seed from /procurement/sectors.
+  const {
+    procBucket,
+    cpvSel: cpvDiv,
+    toggle: singleBidder,
+    setProcBucket,
+    setCpvSel: setCpvDiv,
+    setToggle: setSingleBidder,
+    hasActiveFilters,
+    clearFilters,
+  } = useUrlProcurementFilters({ toggleParam: "single" });
 
   // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
   // restrict the table to that sector's awarder EIK-set and mount its enrichment

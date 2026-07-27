@@ -35,12 +35,8 @@ import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics"
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import {
-  isProcedureBucket,
-  procedureBucket,
-  procedureLabel,
-  type ProcedureBucket,
-} from "@/lib/cpvSectors";
+import { procedureBucket, procedureLabel } from "@/lib/cpvSectors";
+import { useUrlProcurementFilters } from "@/data/procurement/useUrlProcurementFilters";
 import { decodeEntities } from "@/lib/decodeEntities";
 import {
   CpvFilterCombobox,
@@ -70,26 +66,23 @@ interface TenderRow {
 
 export const TendersBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
   const topic = topicBySlug(params.get("topic"));
   const { from, to, all } = useScopeWindow();
 
-  // Filters are URL-backed (?proc / ?cpv / ?cancelled) so a filtered view is
-  // shareable. ?cpv doubles as the deep-link seed from the tender normalcy panel.
-  // Set/clear one param, preserving the others (?pscope / ?topic / ?sector / ?q).
-  const setParam = useCallback(
-    (key: string, val: string | null) =>
-      setParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          if (val == null || val === "") p.delete(key);
-          else p.set(key, val);
-          return p;
-        },
-        { replace: true },
-      ),
-    [setParams],
-  );
+  // The URL-backed filter dimensions (?proc / ?cpv / ?cancelled) — shared with the
+  // contracts + company browsers so a filtered view stays shareable. ?cpv doubles
+  // as the deep-link seed from the tender normalcy panel's "browse similar".
+  const {
+    procBucket,
+    cpvSel,
+    toggle: cancelled,
+    setProcBucket,
+    setCpvSel,
+    setToggle: setCancelled,
+    hasActiveFilters,
+    clearFilters,
+  } = useUrlProcurementFilters({ toggleParam: "cancelled" });
 
   // ?sector= → the sector browse pack (§4.3): restrict to its buyer EIK-set and
   // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik). The
@@ -99,45 +92,6 @@ export const TendersBrowserDbScreen: FC = () => {
     [params],
   );
   const showAnalysis = !browsePack;
-
-  // Procedure filter is a bucketed selection (same vocabulary as the mix bar); its
-  // raw procedure_type strings are re-derived from the facet by the hook. ?proc is
-  // untrusted URL input, so validate it against the known bucket set.
-  const rawProc = params.get("proc");
-  const procBucket: ProcedureBucket | null = isProcedureBucket(rawProc)
-    ? rawProc
-    : null;
-  // The CPV filter is interactive (the shared CpvFilterCombobox) and also seeded
-  // by the ?cpv= deep link from the tender normalcy panel's "browse similar" —
-  // both resolve through cpv_prefix (same physical column, LIKE match).
-  const cpvSel = params.get("cpv") ?? CPV_ALL;
-  const cancelled = params.get("cancelled") === "1";
-  const setProcBucket = useCallback(
-    (v: ProcedureBucket | null) => setParam("proc", v),
-    [setParam],
-  );
-  const setCpvSel = useCallback(
-    (v: string) => setParam("cpv", v === CPV_ALL ? null : v),
-    [setParam],
-  );
-  const setCancelled = useCallback(
-    (v: boolean) => setParam("cancelled", v ? "1" : null),
-    [setParam],
-  );
-  const hasActiveFilters =
-    procBucket !== null || cpvSel !== CPV_ALL || cancelled;
-  const clearFilters = useCallback(
-    () =>
-      setParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          ["proc", "cpv", "cancelled"].forEach((k) => p.delete(k));
-          return p;
-        },
-        { replace: true },
-      ),
-    [setParams],
-  );
 
   // Scope filters shared by the facets AND the table (window + buyer EIK-set +
   // curated topic CPV set) so the analysis strip matches the rows.

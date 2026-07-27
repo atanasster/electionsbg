@@ -12,11 +12,13 @@ import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   cpvDivisionName,
-  isProcedureBucket,
   procedureBucket,
   procedureLabel,
-  type ProcedureBucket,
 } from "@/lib/cpvSectors";
+import {
+  FILTER_ALL,
+  useUrlProcurementFilters,
+} from "@/data/procurement/useUrlProcurementFilters";
 import { SEO } from "@/ux/SEO";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
@@ -40,7 +42,6 @@ import {
 const YEARS: string[] = Array.from({ length: 2026 - 2007 + 1 }, (_, i) =>
   String(2026 - i),
 );
-const ALL = "__all__";
 
 export const CompanyContractsDbScreen: FC<{
   tag: "contract" | "contractAmendment";
@@ -53,55 +54,23 @@ export const CompanyContractsDbScreen: FC<{
   const { scoreRow } = useContractRiskScorer();
 
   // Filters are URL-backed (?year / ?proc / ?cpv / ?single) so a filtered view is
-  // shareable — the app's URL-contract convention. The free-text search is seeded
-  // once from ?q (DbDataTable owns its box thereafter).
-  const [searchParams, setSearchParams] = useSearchParams();
-  const year = searchParams.get("year") ?? ALL;
-  const rawProc = searchParams.get("proc");
-  const procBucket: ProcedureBucket | null = isProcedureBucket(rawProc)
-    ? rawProc
-    : null;
-  const cpvDiv = searchParams.get("cpv") ?? ALL;
-  const singleBidder = searchParams.get("single") === "1";
+  // shareable — the app's URL-contract convention. This page adds the ?year
+  // dimension the global browsers lack. The free-text search is seeded once from
+  // ?q (DbDataTable owns its box thereafter).
+  const [searchParams] = useSearchParams();
   const initialSearch = searchParams.get("q") ?? undefined;
-  // Set/clear one filter param, preserving the others (and ?elections etc.).
-  const setParam = useCallback(
-    (key: string, val: string | null) =>
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          if (val == null || val === "" || val === ALL) p.delete(key);
-          else p.set(key, val);
-          return p;
-        },
-        { replace: true },
-      ),
-    [setSearchParams],
-  );
-  const setYear = useCallback((v: string) => setParam("year", v), [setParam]);
-  const setCpvDiv = useCallback((v: string) => setParam("cpv", v), [setParam]);
-  const setSingleBidder = useCallback(
-    (v: boolean) => setParam("single", v ? "1" : null),
-    [setParam],
-  );
-  const setProcBucket = useCallback(
-    (v: ProcedureBucket | null) => setParam("proc", v),
-    [setParam],
-  );
-  const hasActiveFilters =
-    year !== ALL || cpvDiv !== ALL || singleBidder || procBucket !== null;
-  const clearFilters = useCallback(
-    () =>
-      setSearchParams(
-        (prev) => {
-          const p = new URLSearchParams(prev);
-          ["year", "proc", "cpv", "single"].forEach((k) => p.delete(k));
-          return p;
-        },
-        { replace: true },
-      ),
-    [setSearchParams],
-  );
+  const {
+    year,
+    procBucket,
+    cpvSel: cpvDiv,
+    toggle: singleBidder,
+    setYear,
+    setProcBucket,
+    setCpvSel: setCpvDiv,
+    setToggle: setSingleBidder,
+    hasActiveFilters,
+    clearFilters,
+  } = useUrlProcurementFilters({ toggleParam: "single", withYear: true });
 
   const [companyName, setCompanyName] = useState("");
   // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
@@ -145,7 +114,7 @@ export const CompanyContractsDbScreen: FC<{
   // options — see /api/db/facets `filters` and ProcedureMixBar).
   const yearF = useMemo<DbColumnFilter[]>(
     () =>
-      year !== ALL
+      year !== FILTER_ALL
         ? [{ id: "date", min: `${year}-01-01`, max: `${year}-12-31` }]
         : [],
     [year],
@@ -155,7 +124,7 @@ export const CompanyContractsDbScreen: FC<{
     [singleBidder],
   );
   const cpvF = useMemo<DbColumnFilter[]>(
-    () => (cpvDiv !== ALL ? [{ id: "cpv", value: cpvDiv }] : []),
+    () => (cpvDiv !== FILTER_ALL ? [{ id: "cpv", value: cpvDiv }] : []),
     [cpvDiv],
   );
 
@@ -408,7 +377,7 @@ export const CompanyContractsDbScreen: FC<{
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={ALL}>
+                  <SelectItem value={FILTER_ALL}>
                     {t("company_contracts_all_years") || "Всички години"}
                   </SelectItem>
                   {YEARS.map((y) => (
@@ -424,7 +393,7 @@ export const CompanyContractsDbScreen: FC<{
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value={ALL}>
+                    <SelectItem value={FILTER_ALL}>
                       {t("company_contracts_all_cpv") ||
                         "Всички категории (CPV)"}
                     </SelectItem>
