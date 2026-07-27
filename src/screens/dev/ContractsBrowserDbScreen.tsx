@@ -45,6 +45,7 @@ import { formatEur, formatEurCompact } from "@/lib/currency";
 import { facetShare, bucketShare } from "@/lib/facetStats";
 import {
   groupMethodFacet,
+  procedureBucket,
   procedureLabel,
   type ProcedureBucket,
 } from "@/lib/cpvSectors";
@@ -393,38 +394,101 @@ export const ContractsBrowserDbScreen: FC = () => {
         accessorFn: (r) => r.amountEur,
         header: t("company_contract_amount") || "Amount",
         meta: { align: "right" },
-        cell: ({ row }) =>
-          // A €0 consortium member row (migration 087) keeps its real €0 here so a
-          // sort on the amount stays honest; the full joint value is on the "обед."
-          // chip's tooltip (the value sits on the carrier — its share isn't public).
-          row.original.consortiumRole === "member" ? (
-            <span className="inline-flex items-center gap-1 whitespace-nowrap">
-              <ContractAmount amountEur={row.original.amountEur} />
-              <span
-                className="rounded bg-muted px-1 py-0.5 text-[10px] text-muted-foreground"
-                title={`Договор на обединение — пълна стойност ${formatEur(
-                  row.original.consortiumFullEur ?? 0,
-                  i18n.language,
-                )}; дялът на всеки член не е публичен.`}
-              >
-                обед.
-              </span>
+        // A €0 consortium member row (migration 087) keeps its real €0 here so a
+        // sort on the amount stays honest; the full joint value has its own
+        // "Обединение" column below (the value sits on the carrier — the member's
+        // share isn't public).
+        cell: ({ row }) => (
+          <ContractAmount
+            amountEur={row.original.amountEur}
+            amount={row.original.amount}
+            currency={row.original.currency}
+          />
+        ),
+      },
+      {
+        // Procedure type, bucketed + translated (same vocabulary as the mix bar +
+        // filter). Display-only — discovery is via the chart / filter instead.
+        id: "procedure",
+        header: t("company_contract_procedure") || "Procedure",
+        enableSorting: false,
+        className: "hidden md:table-cell",
+        cell: ({ row }) => (
+          <span className="inline-block whitespace-nowrap rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+            {procedureLabel(
+              procedureBucket(row.original.procurementMethod),
+              i18n.language,
+            )}
+          </span>
+        ),
+      },
+      {
+        // Bid count — sortable competition signal. Coloured rose when the shared
+        // scorer flags weak competition, the signal the СИГНАЛИ pill used to carry
+        // (now hidden there via hideWeakCompetition, so it isn't shown twice).
+        id: "number_of_tenderers",
+        accessorFn: (r) => r.numberOfTenderers ?? null,
+        header: t("company_contracts_bids") || "Bids",
+        className: "hidden sm:table-cell",
+        cell: ({ row }) => {
+          const n = row.original.numberOfTenderers;
+          if (n == null)
+            return <span className="text-xs text-muted-foreground">—</span>;
+          const weak = scoreRow(row.original).flags.weakCompetition;
+          return (
+            <span
+              className={`block text-right text-sm tabular-nums ${
+                weak ? "font-medium text-rose-600 dark:text-rose-400" : ""
+              }`}
+            >
+              {n}
             </span>
-          ) : (
-            <ContractAmount
-              amountEur={row.original.amountEur}
-              amount={row.original.amount}
-              currency={row.original.currency}
-            />
-          ),
+          );
+        },
+      },
+      {
+        // Reference-only column (migration 087): a consortium MEMBER row's amount
+        // is €0 (its real share isn't public), so the full joint-contract value is
+        // shown HERE to avoid distorting a sort on the real amount. Empty otherwise.
+        id: "consortium_full_eur",
+        accessorFn: (r) => r.consortiumFullEur ?? null,
+        header: t("company_contract_consortium_full", {
+          defaultValue: "Обединение",
+        }),
+        meta: { align: "right" },
+        className: "hidden lg:table-cell",
+        enableSorting: false,
+        cell: ({ row }) =>
+          row.original.consortiumRole === "member" ? (
+            <span
+              className="whitespace-nowrap text-xs text-muted-foreground"
+              title={t("company_contract_consortium_full_tip", {
+                defaultValue:
+                  "Пълна стойност на договора на обединението — тази фирма е участник; реалният ѝ дял не е публичен.",
+              })}
+            >
+              {row.original.consortiumEik ? (
+                <Link
+                  to={`/company/${row.original.consortiumEik}`}
+                  className="text-primary hover:underline"
+                >
+                  <ContractAmount amountEur={row.original.consortiumFullEur} />
+                </Link>
+              ) : (
+                <ContractAmount amountEur={row.original.consortiumFullEur} />
+              )}
+            </span>
+          ) : null,
       },
       {
         id: "risk",
         header: t("company_contract_risk") || "Flags",
         enableSorting: false,
+        // Bid count moved to its own column, so drop the weak-competition chip
+        // here to avoid showing the same signal twice.
         cell: ({ row }) => (
           <div className="flex flex-wrap items-center gap-1">
-            <RiskBadges result={scoreRow(row.original)} />
+            <RiskBadges result={scoreRow(row.original)} hideWeakCompetition />
             {row.original.hasAppeal && !row.original.appealUpheld ? (
               <AppealChip />
             ) : null}
