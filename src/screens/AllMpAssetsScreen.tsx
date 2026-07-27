@@ -4,14 +4,22 @@ import { useTranslation } from "react-i18next";
 import { ArrowUp, ArrowDown, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
-import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
+import {
+  eur,
+  type MpAssetsRankingRow,
+} from "@/data/parliament/useAssetsRankings";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
-import type { MpAssetsRankingEntry } from "@/data/dataTypes";
-import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
+import { DbDataTable } from "@/ux/data_table/DbDataTable";
+import type { DataTableColumnDef } from "@/ux/data_table/utils";
+import {
+  mpAssetsNsScope,
+  mpAssetsIdFilters,
+  type MpAssetsScope,
+} from "@/screens/utils/mpAssetsScope";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
@@ -19,9 +27,22 @@ import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
-type Scope = "ns" | "all";
+// MPs by declared assets, served from Postgres (matview mp_assets_rankings_table, migration
+// 105) through the /api/db/table registry engine — replaces the whole-file
+// data/parliament/assets-rankings.json (persons-pg-retirement-v1 T2.2). Server-side
+// paging/sorting/filtering, so the page never downloads the full ranking.
+//
+// SCOPE MAPS TO REGISTRY FILTERS: the ns/all toggle is the resource's `ns` scope (fan-out
+// bucket, defaultScope 'all'); the region + party chips become an `mp_id IN (...)` filter
+// (the intersection when both are active, mirroring the old double `.filter`).
+//
+// FIGURES ARE person_wealth_year's, NOT the JSON's — the ~154 MPs with declared company
+// shares read lower here than the retired file (see MpAssetsRankingRow); one number sitewide,
+// consistent with the wealth chart and /person.
 
-const fmtNum = (n: number, lang: string): string => {
+const fmtNum = (v: string | number | null, lang: string): string => {
+  const n = eur(v);
+  if (n == null) return "—";
   const locale = lang === "bg" ? "bg-BG" : "en-GB";
   return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
     Math.round(n),
@@ -30,10 +51,9 @@ const fmtNum = (n: number, lang: string): string => {
 
 export const AllMpAssetsScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
   const { partyGroupShortLabel } = useCanonicalParties();
-  const [scope, setScope] = useState<Scope>("ns");
+  const [scope, setScope] = useState<MpAssetsScope>("ns");
   const {
     regionMpIds,
     label: regionLabel,
@@ -49,63 +69,59 @@ export const AllMpAssetsScreen: FC = () => {
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
 
-  const source: MpAssetsRankingEntry[] = useMemo(() => {
-    if (!rankings) return [];
-    let rows: MpAssetsRankingEntry[];
-    if (scope === "ns" && folder && rankings.byNs[folder]?.topMps?.length) {
-      rows = rankings.byNs[folder].topMps;
-    } else {
-      rows = rankings.topMps;
-    }
-    if (regionMpIds) {
-      rows = rows.filter((m) => regionMpIds.has(m.mpId));
-    }
-    if (partyMpIds) {
-      rows = rows.filter((m) => partyMpIds.has(m.mpId));
-    }
-    return rows;
-  }, [rankings, scope, folder, regionMpIds, partyMpIds]);
+  const dbScope = useMemo(
+    () => mpAssetsNsScope(scope, folder),
+    [scope, folder],
+  );
+  const extraFilters = useMemo(
+    () => mpAssetsIdFilters(regionMpIds, partyMpIds),
+    [regionMpIds, partyMpIds],
+  );
 
-  const columns: DataTableColumns<MpAssetsRankingEntry, unknown> = useMemo(
+  const columns = useMemo<DataTableColumnDef<MpAssetsRankingRow, unknown>[]>(
     () => [
       {
-        accessorKey: "label",
+        id: "name",
+        accessorFn: (r) => r.name,
         header: t("mp_assets_col_mp") || "MP",
         cell: ({ row }) => (
           <div className="flex items-center gap-2 min-w-0">
-            <MpAvatar mpId={row.original.mpId} name={row.original.label} />
+            <MpAvatar mpId={row.original.mpId} name={row.original.name} />
             <Link
               to={candidateUrlForMp(row.original.mpId)}
               className="hover:underline truncate"
             >
-              {row.original.label}
+              {row.original.name}
             </Link>
           </div>
         ),
       },
       {
-        accessorKey: "partyGroupShort",
+        id: "party_group_short",
+        accessorFn: (r) => r.partyGroupShort,
         header: t("mp_assets_col_party") || "Party group",
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground truncate max-w-[160px] block">
-            {partyGroupShortLabel(row.original.partyGroupShort) ??
+            {partyGroupShortLabel(row.original.partyGroupShort ?? undefined) ??
               row.original.partyGroupShort ??
               "—"}
           </span>
         ),
       },
       {
-        accessorKey: "latestDeclarationYear",
+        id: "latest_declaration_year",
+        accessorFn: (r) => r.latestDeclarationYear,
         header: t("mp_assets_col_year") || "Year",
         cell: ({ row }) => (
           <div className="text-right text-xs tabular-nums">
-            {row.original.latestDeclarationYear}
+            {row.original.latestDeclarationYear ?? "—"}
           </div>
         ),
       },
       {
-        accessorKey: "totalAssetsEur",
+        id: "total_assets_eur",
+        accessorFn: (r) => eur(r.totalAssetsEur),
         header: t("mp_assets_col_assets") || "Assets (€)",
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono">
@@ -114,20 +130,23 @@ export const AllMpAssetsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "totalDebtsEur",
+        id: "total_debts_eur",
+        accessorFn: (r) => eur(r.totalDebtsEur),
         header: t("mp_assets_col_debts") || "Debts (€)",
-        cell: ({ row }) => (
-          <div
-            className={`text-right tabular-nums font-mono ${row.original.totalDebtsEur > 0 ? "text-red-600" : "text-muted-foreground"}`}
-          >
-            {row.original.totalDebtsEur > 0
-              ? fmtNum(row.original.totalDebtsEur, i18n.language)
-              : "—"}
-          </div>
-        ),
+        cell: ({ row }) => {
+          const debts = eur(row.original.totalDebtsEur);
+          return (
+            <div
+              className={`text-right tabular-nums font-mono ${debts && debts > 0 ? "text-red-600" : "text-muted-foreground"}`}
+            >
+              {debts && debts > 0 ? fmtNum(debts, i18n.language) : "—"}
+            </div>
+          );
+        },
       },
       {
-        accessorKey: "netWorthEur",
+        id: "net_worth_eur",
+        accessorFn: (r) => eur(r.netWorthEur),
         header: t("mp_assets_col_net") || "Net (€)",
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono font-semibold">
@@ -136,7 +155,8 @@ export const AllMpAssetsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "realEstateCount",
+        id: "real_estate_count",
+        accessorFn: (r) => r.realEstateCount,
         header: t("mp_assets_col_real_estate") || "Properties",
         cell: ({ row }) => (
           <div className="text-right text-xs tabular-nums">
@@ -151,34 +171,36 @@ export const AllMpAssetsScreen: FC = () => {
         ),
       },
       {
-        id: "delta",
-        accessorFn: (row) => row.delta?.absoluteEur ?? null,
+        id: "delta_absolute_eur",
+        accessorFn: (r) => eur(r.deltaAbsoluteEur),
         header: t("mp_assets_col_yoy") || "YoY change",
-        sortUndefined: "last",
+        // NULL ordering is a server concern here (DbDataTable sorts in manualSorting mode);
+        // the engine's buildOrder emits NULLS LAST, so no-delta rows sort to the bottom.
         cell: ({ row }) => {
-          const delta = row.original.delta;
-          if (!delta) {
+          const abs = eur(row.original.deltaAbsoluteEur);
+          const pct = eur(row.original.deltaPct);
+          if (abs == null) {
             return (
               <div className="text-right text-xs text-muted-foreground">—</div>
             );
           }
           const colorClass =
-            delta.absoluteEur > 0
+            abs > 0
               ? "text-green-600"
-              : delta.absoluteEur < 0
+              : abs < 0
                 ? "text-red-600"
                 : "text-muted-foreground";
           return (
             <div className={`text-right text-xs tabular-nums ${colorClass}`}>
               <span className="inline-flex items-center gap-0.5">
-                {delta.absoluteEur > 0 ? (
+                {abs > 0 ? (
                   <ArrowUp className="h-3 w-3" />
-                ) : delta.absoluteEur < 0 ? (
+                ) : abs < 0 ? (
                   <ArrowDown className="h-3 w-3" />
                 ) : null}
-                {delta.pct != null
-                  ? `${Math.abs(delta.pct).toFixed(0)}%`
-                  : `${formatThousands(Math.round(Math.abs(delta.absoluteEur)))}`}
+                {pct != null
+                  ? `${Math.abs(pct).toFixed(0)}%`
+                  : `${formatThousands(Math.round(Math.abs(abs)))}`}
               </span>
             </div>
           );
@@ -202,8 +224,6 @@ export const AllMpAssetsScreen: FC = () => {
     [t, i18n.language, partyGroupShortLabel],
   );
 
-  if (!rankings) return null;
-
   const scopeToggle = (
     <div className="flex items-center gap-2 flex-wrap">
       {regionLabel && (
@@ -223,7 +243,10 @@ export const AllMpAssetsScreen: FC = () => {
             ? "bg-primary text-primary-foreground border-primary"
             : "bg-card hover:bg-muted/40"
         }`}
-        disabled={!folder || !rankings.byNs[folder]?.topMps?.length}
+        // Old screen also disabled this when the selected parliament had no rows in the
+        // ranking; server-side paging can't know the per-ns count without a request, and the
+        // fan-out matview has rows for every parliament, so we relax to just "no folder".
+        disabled={!folder}
       >
         {t("mp_assets_scope_ns") || "Selected parliament"}
         {folder ? ` · ${folder}` : ""}
@@ -269,13 +292,14 @@ export const AllMpAssetsScreen: FC = () => {
         className="mt-5"
       />
 
-      <DataTable<MpAssetsRankingEntry, unknown>
-        title={pageTitle}
-        pageSize={25}
+      <DbDataTable<MpAssetsRankingRow>
+        resource="mp_assets_rankings"
+        scope={dbScope}
         columns={columns}
-        data={source}
-        toolbarItems={scopeToggle}
-        initialSort={[{ id: "netWorthEur", desc: true }]}
+        extraFilters={extraFilters}
+        defaultSort={[{ id: "net_worth_eur", desc: true }]}
+        pageSize={25}
+        toolbar={scopeToggle}
       />
 
       <div className="text-xs text-muted-foreground mt-4">
