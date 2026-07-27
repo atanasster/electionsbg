@@ -11,22 +11,34 @@ import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
 
 // ---- MP declared assets -----------------------------------------------------
 
-type MpAsset = {
-  label: string;
-  partyGroupShort?: string;
-  totalAssetsEur: number;
-  totalDebtsEur?: number;
-  netWorthEur?: number;
+// One row of the `mp_assets_rankings` registry (matview mp_assets_rankings_table, migration
+// 105) as /api/db/table delivers it — camelCase, money columns as STRINGS (Postgres numeric).
+// This is the person_wealth_year series, NOT the retired assets-rankings.json figures: 154
+// share-declaring MPs read lower here because the JSON also folded company shares in. See the
+// registry header in functions/db_table.js. (persons-pg-retirement-v1 T2.5)
+type MpRankRow = {
+  name: string;
+  partyGroupShort: string | null;
+  isCurrent: boolean;
+  totalAssetsEur: string | null;
+  netWorthEur: string | null;
 };
 
 export const mpAssetsTop = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const d = await fetchData<{ topMps: MpAsset[] }>(
-    "/parliament/assets-rankings-top.json",
-  );
-  const top = d.topMps.slice(0, 12);
+  // Registry, national list (defaultScope ns='all'), net-worth-ranked top 12 — the same order
+  // and figures the /mp-assets tile renders, replacing the retired assets-rankings-top.json.
+  const page = await fetchDb<{ rows: MpRankRow[] }>("table", {
+    q: JSON.stringify({
+      resource: "mp_assets_rankings",
+      page: 0,
+      pageSize: 12,
+      sort: [{ id: "net_worth_eur", desc: true }],
+    }),
+  });
+  const top = page.rows;
   const columns: Column[] = [
     { key: "mp", label: ctx.lang === "bg" ? "Депутат" : "MP" },
     { key: "group", label: ctx.lang === "bg" ? "Група" : "Group" },
@@ -37,9 +49,9 @@ export const mpAssetsTop = async (
     },
   ];
   const rows: Row[] = top.map((m) => ({
-    mp: m.label,
+    mp: m.name,
     group: m.partyGroupShort ?? "—",
-    assets: fmtEurCompact(m.totalAssetsEur, ctx.lang),
+    assets: fmtEurCompact(Number(m.totalAssetsEur ?? 0), ctx.lang),
   }));
   return {
     tool: "mpAssetsTop",
@@ -53,12 +65,12 @@ export const mpAssetsTop = async (
     rows,
     viz: "none",
     facts: {
-      richest: top[0]?.label ?? "—",
+      richest: top[0]?.name ?? "—",
       richest_assets: top[0]
-        ? fmtEurCompact(top[0].totalAssetsEur, ctx.lang)
+        ? fmtEurCompact(Number(top[0].totalAssetsEur ?? 0), ctx.lang)
         : "—",
     },
-    provenance: ["parliament/assets-rankings-top.json"],
+    provenance: ["db:mp_assets_rankings"],
   };
 };
 
@@ -154,10 +166,31 @@ export const mpAssetsByParty = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<{ topMps: GroupMp[] }>(
-    "/parliament/assets-rankings.json",
-  );
-  const rows0 = aggregateByParty(d.topMps, (m) => m.totalAssetsEur ?? 0).sort(
+  // Registry, national list (defaultScope ns='all'), every CURRENT MP WHO FILED a declaration in
+  // one page (maxPageSize 300 covers a full 240-seat parliament), rolled up per party client-side
+  // exactly as the old assets-rankings.json pass did. The has_declaration filter matters: ns='all'
+  // carries all 240 seats, but ~half have no declaration and would enter the per-party average as
+  // €0 members and halve it — the old JSON only ever held the ~declaring MPs. Both filters push
+  // server-side, so aggregateByParty's own isCurrent!==false skip is a no-op here.
+  const page = await fetchDb<{ rows: MpRankRow[] }>("table", {
+    q: JSON.stringify({
+      resource: "mp_assets_rankings",
+      page: 0,
+      pageSize: 300,
+      filters: {
+        columns: [
+          { id: "is_current", value: true },
+          { id: "has_declaration", value: true },
+        ],
+      },
+    }),
+  });
+  const groupMps: GroupMp[] = page.rows.map((m) => ({
+    partyGroupShort: m.partyGroupShort ?? undefined,
+    isCurrent: m.isCurrent,
+    totalAssetsEur: Number(m.totalAssetsEur ?? 0),
+  }));
+  const rows0 = aggregateByParty(groupMps, (m) => m.totalAssetsEur ?? 0).sort(
     (a, b) => b.avg - a.avg,
   );
   const top = rows0[0];
@@ -192,7 +225,7 @@ export const mpAssetsByParty = async (
         ? `${top.party} (${fmtEurCompact(top.avg, ctx.lang)})`
         : "—",
     },
-    provenance: ["parliament/assets-rankings.json"],
+    provenance: ["db:mp_assets_rankings"],
   };
 };
 

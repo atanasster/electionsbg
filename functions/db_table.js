@@ -717,7 +717,10 @@ const REGISTRY = {
     ],
     defaultSort: [["net_worth_eur", "desc"]],
     aggregates: [{ fn: "count" }],
-    maxPageSize: 100,
+    // 300 (was 100) so the AI mpAssetsByParty tool can pull every CURRENT MP of the
+    // national list in one page (up to a full 240-seat parliament) to roll up per-party
+    // averages server-side. The /mp-assets UI still pages 50 at a time. (persons-pg-retirement-v1 T2.5)
+    maxPageSize: 300,
   },
 
   // MP declared vehicles (matview mp_cars_table, migration 105) — replaces
