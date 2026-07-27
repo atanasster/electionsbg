@@ -123,6 +123,10 @@ const toProfile = (
     .filter(Boolean),
 });
 
+// Served from Postgres (mp_profile_detail, migration 110) via /api/db/mp-profile — replaces
+// the data/parliament/profiles/{id}.json shard tree (persons-pg-retirement-v1 T2.3b). The
+// route returns the same raw parliament.bg A_ns_* blob; a null body (unknown id, or a DB
+// predating 110) becomes undefined, so toProfile is skipped exactly as the old 404 path did.
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string, number | undefined]>): Promise<
@@ -130,12 +134,12 @@ const queryFn = async ({
 > => {
   const id = queryKey[1];
   if (!id) return undefined;
-  const response = await fetch(dataUrl(`/parliament/profiles/${id}.json`));
-  if (response.status === 404) return undefined;
+  const response = await fetch(`/api/db/mp-profile?id=${id}`);
   if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+    throw new Error(`mp-profile: ${response.status} ${response.url}`);
   }
-  return response.json();
+  const body = (await response.json()) as RawProfile | null;
+  return body ?? undefined;
 };
 
 export const useMpProfile = (name?: string | null) => {

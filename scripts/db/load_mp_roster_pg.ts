@@ -1,7 +1,8 @@
 // Load the parliament.bg MP roster (data/parliament/index.json, written by the
-// parliament-scrape skill) and the declared-vehicle rows (data/parliament/mp-cars.json,
-// written by scripts/declarations/build_car_makes.ts) into Postgres — schema
-// 104_mp_roster.sql, serving surfaces 105_mp_serving.sql.
+// parliament-scrape skill), the declared-vehicle rows (data/parliament/mp-cars.json,
+// written by scripts/declarations/build_car_makes.ts) and the per-MP bio profile shards
+// (data/parliament/profiles/{id}.json) into Postgres — schemas 104_mp_roster.sql +
+// 110_mp_profile_detail.sql, serving surfaces 105_mp_serving.sql.
 //
 // SERVING loader — never writes JSON back. Once Tier 2 moves the hooks, the MP roster,
 // leaderboard, cars and per-MP shards are all served from here instead of ~3,700
@@ -18,7 +19,7 @@
 //
 // Run: `npm run db:load:mp-roster:pg` (local) / `:cloud` (Cloud SQL proxy).
 
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, exec, withClient, end } from "./lib/pg";
@@ -39,8 +40,13 @@ const INGEST_TRACKING = path.join(
   ROOT,
   "scripts/db/schema/pg/005_ingest_tracking.sql",
 );
+const PROFILE_DETAIL_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/110_mp_profile_detail.sql",
+);
 const ROSTER_SRC = path.join(ROOT, "data/parliament/index.json");
 const CARS_SRC = path.join(ROOT, "data/parliament/mp-cars.json");
+const PROFILES_DIR = path.join(ROOT, "data/parliament/profiles");
 
 /** parliament.bg publishes an unknown date of birth as the zero date "0000-00-00"
  *  (one MP today, id 766). It is a MySQL-ism the scraper passes through verbatim;
@@ -105,6 +111,7 @@ const run = async (): Promise<void> => {
 
   await exec(readFileSync(ROSTER_SCHEMA, "utf8"));
   await exec(readFileSync(INGEST_TRACKING, "utf8"));
+  await exec(readFileSync(PROFILE_DETAIL_SCHEMA, "utf8"));
 
   const roster = (
     JSON.parse(readFileSync(ROSTER_SRC, "utf8")) as { mps: RosterEntry[] }
@@ -120,12 +127,43 @@ const run = async (): Promise<void> => {
   if (!Array.isArray(cars))
     throw new Error(`${CARS_SRC}: expected { cars: [...] }`);
 
+  // The per-MP profile shards (persons-pg-retirement-v1 T2.3b) — one blob per file,
+  // keyed by the payload's own A_ns_MP_id (== the filename). Covers every MP ever
+  // scraped (~4.3k), a superset of the roster: ~2.2k are historical MPs the current
+  // index.json omits, which is why mp_profile_detail carries no FK to mp_profile.
+  if (!existsSync(PROFILES_DIR))
+    throw new Error(
+      `${PROFILES_DIR} not found — run /update-mps first (parliament-scrape skill)`,
+    );
+  const profiles: { mpId: number; raw: unknown }[] = [];
+  for (const f of readdirSync(PROFILES_DIR)) {
+    if (!f.endsWith(".json")) continue;
+    const raw = JSON.parse(
+      readFileSync(path.join(PROFILES_DIR, f), "utf8"),
+    ) as {
+      A_ns_MP_id?: number;
+    };
+    const mpId = raw?.A_ns_MP_id;
+    if (typeof mpId !== "number") {
+      console.warn(
+        `mp_profile_detail: ${f} has no numeric A_ns_MP_id — skipped`,
+      );
+      continue;
+    }
+    profiles.push({ mpId, raw });
+  }
+  if (profiles.length === 0)
+    throw new Error(`${PROFILES_DIR} is empty — run /update-mps first`);
+
   // A car row whose mpId is not in the roster would violate nothing (mp_car has no FK,
   // deliberately — see 104) but would vanish from mp_cars_table's inner join to
   // mp_profile, silently. Count them here instead: a non-zero number means the two
   // artifacts were built from different scrapes and one of them needs regenerating.
   const rosterIds = new Set(roster.map((m) => m.id));
   const orphanCars = cars.filter((c) => !rosterIds.has(c.mpId));
+  // Informational only (no FK): profiles for MPs the current roster omits are historical
+  // and expected — served fine by id, they just never surface a roster-driven page.
+  const profileOrphans = profiles.filter((p) => !rosterIds.has(p.mpId)).length;
   const droppedBirthDates = roster.filter(
     (m) => m.birthDate && birthDate(m.birthDate) === null,
   );
@@ -242,6 +280,19 @@ const run = async (): Promise<void> => {
       })(),
     );
 
+    // Per-MP full bio blobs (T2.3b). copyRows renders a JS object into a jsonb column
+    // (escaped JSON.stringify), so the payload lands verbatim. No RESTART IDENTITY —
+    // mp_id is the natural key, not a surrogate.
+    await client.query("TRUNCATE mp_profile_detail");
+    await copyRows(
+      client,
+      "mp_profile_detail",
+      ["mp_id", "payload"],
+      (function* () {
+        for (const p of profiles) yield [p.mpId, p.raw];
+      })(),
+    );
+
     // feedback_pg_changelog_required — every PG-migrated dataset wires into
     // recent_updates. Keyed on the MP id: the roster is the dataset, a car is a detail
     // of one.
@@ -269,6 +320,7 @@ const run = async (): Promise<void> => {
   // ANALYZE loop at the end of load_declarations_pg.ts.
   for (const t of [
     "mp_profile",
+    "mp_profile_detail",
     "mp_car",
     "mp_assets_rankings_table",
     "mp_cars_table",
@@ -278,7 +330,8 @@ const run = async (): Promise<void> => {
 
   const current = roster.filter((m) => m.isCurrent).length;
   console.log(
-    `mp_roster: loaded ${roster.length} MPs (${current} sitting), ${cars.length} declared vehicles`,
+    `mp_roster: loaded ${roster.length} MPs (${current} sitting), ${cars.length} declared vehicles, ` +
+      `${profiles.length} profile blobs (${profileOrphans} for MPs outside the current roster)`,
   );
   if (droppedBirthDates.length) {
     console.warn(

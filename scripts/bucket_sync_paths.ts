@@ -56,6 +56,12 @@ export const isExcluded = (rel: string): string | null => {
     return "funds/ is served from Cloud SQL (db:load:funds:pg:cloud)";
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
+  // Per-MP bio profile shards: served from Cloud SQL (mp_profile_detail, schema 110,
+  // /api/db/mp-profile) since persons-pg-retirement-v1 T2.3b. Kept on disk as the loader
+  // SOURCE + the rollcall/name-casing build scripts read them; never re-upload. The sibling
+  // parliament/photos/*.webp binaries STAY on the bucket (Decision 3).
+  if (rel.startsWith("parliament/profiles"))
+    return "parliament/profiles/ is a PG load source, served from Cloud SQL — never upload it";
   // The municipal-officials roster + name/search index are served from Cloud SQL
   // (municipal_officials_table, /api/db/table + municipal-officials-*-index) since
   // persons-pg-retirement-v1 T1.5. by_obshtina stays on disk as a PG LOAD SOURCE
@@ -108,6 +114,9 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
   { path: "judiciary/magistrate_holdings.json", isDir: false },
   { path: "judiciary/declarations.json", isDir: false },
+  // Under the still-served parliament/ parent (index.json, photos/*.webp), so a scoped
+  // `bucket:sync:paths -- parliament` must not re-upload the PG-served profile shards.
+  { path: "parliament/profiles", isDir: true },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

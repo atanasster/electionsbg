@@ -2493,6 +2493,24 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // One MP's full bio profile blob (mp_profile_detail, migration 110), served verbatim so
+  // useMpProfile stops downloading data/parliament/profiles/{id}.json from the bucket
+  // (persons-pg-retirement-v1 T2.3b). Returns the raw parliament.bg A_ns_* shape the hook's
+  // toProfile() maps; a null body (unknown id, or a DB predating 110) → the hook's undefined.
+  "mp-profile": async (dbRows, q) => {
+    // Same clamp idiom as mp-entry above: default null + lo 0 (NOT 1), so junk (`?id=abc`)
+    // and `?id=0`/`?id=` resolve to null / mp_id 0 — never lifted onto MP 1. clampInt clamps
+    // rather than rejects, so a lo of 1 would answer `?id=abc` with mp_id 1's profile.
+    // hi = int4 max because mp_id is `integer`: an id past it would otherwise be bound to the
+    // int4 comparison and raise 22003 (out of range) — a 500, not the promised null body.
+    const id = q.id != null ? clampInt(q.id, null, 0, 2147483647) : null;
+    if (id == null) return { body: null };
+    const rows = await dbRows(
+      "SELECT payload FROM mp_profile_detail WHERE mp_id = $1",
+      [id],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
+  },
   // "Top car makes" — distinct MPs per make within one parliament's car slice (mp_cars_table,
   // ns bucket), optionally restricted to a region/party mp-id set → CarMakesTile /
   // PartyCarMakesTile (persons-pg-retirement-v1 T2.2). Deliberately NOT a plain facet: the
