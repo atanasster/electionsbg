@@ -5,8 +5,8 @@
 //                                                        per-body spend + own revenue
 //   judiciaryCaseload     /judiciary/caseload.json     — cases filed/resolved/pending
 //   judiciaryWorkload     /judiciary/caseload.json     — both official workload measures
-//   judiciaryDeclarations /judiciary/declarations.json — the ИВСС register index +
-//                                                        its non-compliance lists
+//   judiciaryDeclarations db:judiciary_payloads          — the ИВСС register index +
+//                          (was /judiciary/declarations.json) its non-compliance lists
 //
 // Amounts are in EUR. Mirrors the fiscal/НЗОК tools' Envelope shape; every fact
 // goes through ctx.lang, and the tool never computes prose numbers — narrate()
@@ -16,7 +16,7 @@
 // ИВСС itself publishes about non-compliance. It never reports the contents of a
 // declaration, and never infers anything about an individual's wealth.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { round2 } from "./dataset";
 import type { Column, Envelope, Row, ToolArgs, ToolContext } from "./types";
@@ -575,8 +575,11 @@ export const judiciaryDeclarations = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<DeclarationsFile>("/judiciary/declarations.json");
-  if (!f.years?.length) {
+  // Served from PG (judiciary_payloads, migration 109) — replaces the retired
+  // /judiciary/declarations.json (persons-pg-retirement-v1 T2.6). A DB predating
+  // 109 returns a null body → the no-data envelope below.
+  const f = await fetchDb<DeclarationsFile | null>("judiciary-declarations");
+  if (!f?.years?.length) {
     return {
       tool: "judiciaryDeclarations",
       domain: "people",
@@ -584,7 +587,7 @@ export const judiciaryDeclarations = async (
       title: bg ? "Няма данни за декларациите" : "No declaration data",
       viz: "none",
       facts: {},
-      provenance: ["judiciary/declarations.json"],
+      provenance: ["db:judiciary_payloads"],
     };
   }
 
@@ -652,6 +655,6 @@ export const judiciaryDeclarations = async (
       filed_late: filedLate,
       discrepancy_people: discrepancyPeople,
     },
-    provenance: ["judiciary/declarations.json"],
+    provenance: ["db:judiciary_payloads"],
   };
 };

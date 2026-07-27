@@ -7,7 +7,6 @@
 // are deliberately not surfaced as a per-magistrate compliance score.
 
 import { useQuery } from "@tanstack/react-query";
-import { dataUrl } from "@/data/dataUrl";
 
 export interface DeclarationYear {
   year: number;
@@ -74,15 +73,24 @@ export interface DeclarationsFile {
   integrity: IntegrityList[];
 }
 
-const fetchJson = async <T,>(path: string): Promise<T> => {
-  const res = await fetch(dataUrl(path));
-  if (!res.ok) throw new Error(`fetch ${path} -> ${res.status}`);
-  return res.json();
+// Served from Postgres (judiciary_payloads, migration 109) via /api/db/judiciary-declarations
+// — replaces the static data/judiciary/declarations.json (persons-pg-retirement-v1 T2.6). The
+// route returns the register-index blob verbatim; a DB predating migration 109 returns a 200 +
+// null body, which becomes undefined here so every consumer's `data?.years` guard shows the
+// empty state instead of throwing.
+const fetchDeclarations = async (): Promise<DeclarationsFile | undefined> => {
+  const res = await fetch("/api/db/judiciary-declarations");
+  if (!res.ok)
+    throw new Error(`judiciary-declarations: ${res.status} ${res.url}`);
+  const body = (await res.json()) as DeclarationsFile | null;
+  return body && typeof body === "object" && Array.isArray(body.years)
+    ? body
+    : undefined;
 };
 
 export const useJudiciaryDeclarations = () =>
   useQuery({
     queryKey: ["judiciary", "declarations"] as const,
-    queryFn: () => fetchJson<DeclarationsFile>("/judiciary/declarations.json"),
+    queryFn: fetchDeclarations,
     staleTime: Infinity,
   });

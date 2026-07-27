@@ -2074,6 +2074,20 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? [] };
   },
 
+  // The ИВСС magistrate-declaration register index (kind='declarations', key=''),
+  // served verbatim from judiciary_payloads (schema 109) — replaces the static
+  // data/judiciary/declarations.json. missingMigrationEmpty degrades a DB predating
+  // 109 to a null body, and both consumers (useJudiciaryDeclarations, the
+  // judiciaryDeclarations AI tool) render their own empty state on null.
+  // (persons-pg-retirement-v1 T2.6)
+  "judiciary-declarations": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT payload FROM judiciary_payloads WHERE kind = 'declarations' AND key = ''",
+      [],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
+  },
+
   // Unified person identity (migration 082, resolved by scripts/person/resolve_persons.ts).
   // Distinct from the legacy name-keyed `person`/`person-search` above (the tr_officer
   // graph): these serve the new person_id layer by stable slug + a folded name search.

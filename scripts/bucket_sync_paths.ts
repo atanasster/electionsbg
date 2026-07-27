@@ -66,6 +66,15 @@ export const isExcluded = (rel: string): string | null => {
     return "officials/municipal/by_obshtina/ is a PG load source, served from Cloud SQL — never upload it";
   if (rel === "officials/municipal/search_index.json")
     return "officials/municipal/search_index.json is retired — the header search reads municipal_officials_table via /api/db";
+  // Judiciary PG load sources, served from Cloud SQL, never the bucket: magistrate_holdings.json
+  // → the magistrate_* routes (schema 070); declarations.json → /api/db/judiciary-declarations
+  // (judiciary_payloads, schema 109, persons-pg-retirement-v1 T2.6). Their still-served siblings
+  // (caseload.json, court_load.json, budget/vss) stay on the bucket, so this is per-file.
+  if (
+    rel === "judiciary/magistrate_holdings.json" ||
+    rel === "judiciary/declarations.json"
+  )
+    return "judiciary/*.json PG load source — served from Cloud SQL, never upload it";
   if (rel === "procurement" || rel.startsWith("procurement/")) {
     // Keep in sync with bucket:sync's -x regex allow-list in package.json.
     // procurement/projects/ is the exception: small static curated-project
@@ -95,6 +104,10 @@ export const isExcluded = (rel: string): string | null => {
 const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "officials/municipal/by_obshtina", isDir: true },
   { path: "officials/municipal/search_index.json", isDir: false },
+  // Under the still-served judiciary/ parent (caseload.json etc.), so a scoped
+  // `bucket:sync:paths -- judiciary` must not re-upload these PG load sources.
+  { path: "judiciary/magistrate_holdings.json", isDir: false },
+  { path: "judiciary/declarations.json", isDir: false },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under
