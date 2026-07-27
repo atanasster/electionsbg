@@ -3,7 +3,11 @@ import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
-import { eur, useMpAssetsTopRows } from "@/data/parliament/useAssetsRankings";
+import {
+  eur,
+  toScopedMpIds,
+  useMpAssetsTopRows,
+} from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
@@ -104,8 +108,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
   }, [stats, findCandidate, findMpByName]);
 
   // ns bucket for the selected parliament, lifetime ('all') fallback when it has no rows.
-  const mpIds =
-    partyMpIds == null ? null : partyMpIds.length ? partyMpIds : [-1];
+  const mpIds = useMemo(() => toScopedMpIds(partyMpIds), [partyMpIds]);
   const primary = useMpAssetsTopRows({
     ns: folder ?? "all",
     mpIds,
@@ -148,7 +151,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
         {topMps.map((row, i) => {
           const deltaAbs = eur(row.deltaAbsoluteEur);
           const deltaPct = eur(row.deltaPct);
-          const net = eur(row.netWorthEur) ?? 0;
+          const net = eur(row.netWorthEur);
           // The registry `name` is Bulgarian-only; recover the MP record for the
           // locale-correct display name.
           const mp = findMpById(row.mpId);
@@ -172,7 +175,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatEurCompact(net, i18n.language)}
+                {net == null ? "—" : formatEurCompact(net, i18n.language)}
               </span>
               {deltaAbs != null && deltaAbs !== 0 ? (
                 <span

@@ -2,7 +2,11 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { eur, useMpAssetsTopRows } from "@/data/parliament/useAssetsRankings";
+import {
+  eur,
+  toScopedMpIds,
+  useMpAssetsTopRows,
+} from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
@@ -74,9 +78,9 @@ export const MpAssetsTile: FC<Props> = ({
   const isRegional = regionMpIds != null;
 
   // Registry top-N (mp_assets_rankings). Regional → an mp_id IN filter; an empty region set
-  // uses the -1 sentinel so it yields zero rows rather than the whole scope.
-  const mpIds = useMemo<number[] | null>(
-    () => (regionMpIds ? (regionMpIds.size ? [...regionMpIds] : [-1]) : null),
+  // becomes the -1 sentinel (via toScopedMpIds) so it yields zero rows, not the whole scope.
+  const mpIds = useMemo(
+    () => toScopedMpIds(regionMpIds ? [...regionMpIds] : null),
     [regionMpIds],
   );
 
@@ -140,7 +144,7 @@ export const MpAssetsTile: FC<Props> = ({
         {topMps.map((row, i) => {
           const deltaAbs = eur(row.deltaAbsoluteEur);
           const deltaPct = eur(row.deltaPct);
-          const net = eur(row.netWorthEur) ?? 0;
+          const net = eur(row.netWorthEur);
           const mp = findMpById(row.mpId);
           const display = mp ? mpName(mp) : row.name;
           return (
@@ -168,14 +172,14 @@ export const MpAssetsTile: FC<Props> = ({
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatEurCompact(net, i18n.language)}
+                {net == null ? "—" : formatEurCompact(net, i18n.language)}
               </span>
               {deltaAbs != null && deltaAbs !== 0 ? (
                 <span
                   className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums shrink-0 min-w-[58px] justify-end ${
                     deltaAbs > 0 ? "text-green-600" : "text-red-600"
                   }`}
-                  title={`${deltaAbs > 0 ? "+" : ""}€${formatThousands(Math.round(deltaAbs))} ${t("vs_previous") || "vs"} ${row.deltaPreviousYear ?? ""}`}
+                  title={`${deltaAbs > 0 ? "+" : ""}€${formatThousands(Math.round(deltaAbs))}${row.deltaPreviousYear != null ? ` ${t("vs_previous") || "vs"} ${row.deltaPreviousYear}` : ""}`}
                 >
                   {deltaAbs > 0 ? (
                     <ArrowUp className="h-3 w-3" />

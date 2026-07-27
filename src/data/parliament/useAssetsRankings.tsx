@@ -101,24 +101,14 @@ export const useMpAssetsTopRows = (opts: {
   return { rows: data ?? [], isLoading };
 };
 
-// Top-50 slim variant. Use from dashboard tiles that render only the top 5
-// rows. PartyMpAssetsTile and useMpScorecard still need the full file —
-// they look up specific MPs that may be far down the list.
-const queryFnTop = async (): Promise<MpAssetsRankings | undefined> => {
-  const response = await fetch(dataUrl(`/parliament/assets-rankings-top.json`));
-  if (response.status === 404) return undefined;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return response.json();
-};
-
-export const useAssetsRankingsTop = (options?: { enabled?: boolean }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["mp_assets_rankings_top"] as [string],
-    queryFn: queryFnTop,
-    staleTime: Infinity,
-    enabled: options?.enabled ?? true,
-  });
-  return { rankings: data, isLoading };
+/** Turn a resolved region/party MP-id list into a `useMpAssetsTopRows` `mpIds` argument:
+ *  `null` (unscoped — the whole scope) is preserved, and a SCOPED-BUT-EMPTY set becomes the
+ *  impossible-id sentinel `[-1]`, NOT `[]` — the server drops an `mp_id IN ()` filter, which
+ *  would show the whole scope instead of zero rows. Shared by the MP-assets tiles so their
+ *  empty-set handling can't drift. (persons-pg-retirement-v1 T2.2) */
+export const toScopedMpIds = (
+  ids: number[] | null | undefined,
+): number[] | null => {
+  if (ids == null) return null;
+  return ids.length ? ids : [-1];
 };
