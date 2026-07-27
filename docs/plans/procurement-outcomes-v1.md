@@ -3,7 +3,7 @@
 Date: 2026-07-25. Status: **DRAFT — §6 open questions RESOLVED against the data
 2026-07-25**. Owner: TBD.
 
-> **Precedence: §8 > §7 > §6 > everything above.** §6 changed W1's denominator
+> **Precedence: §9 > §8 > §7 > §6 > everything above.** §6 changed W1's denominator
 > (§6a), downgraded W2 (§6b) and settled W3's route (§6c); the headline figures
 > in §1a are restated on the corrected basis in §6a — **use those, not §1a's**.
 > §7 then established that W2's data source is reachable after all, so §6b's
@@ -683,3 +683,154 @@ it is a second independent reason the raw ranking was never publishable.
 
 **Corpus floor to state publicly:** activity data begins Jan 2024. Any "trend"
 claim beyond that has no source.
+
+---
+
+## 9. Кайзен (continuous improvement) as an analytical lens — feasibility
+
+Investigated 2026-07-25. **Verdict: measurable on exactly one dataset, and the
+answer it returns is negative — which is the finding worth publishing.**
+
+First, a disambiguation that matters: Кайзен is not an entity in our data. The
+Commerce Registry holds a handful of small firms by that name (a karate club, a
+marketing shop, a consultancy); **none appears in the procurement corpus**, and
+there is no Kaizen reference anywhere in the codebase or docs. This section is
+about the method as a lens, not a company.
+
+### 9a. The lens, stated as a testable claim
+
+Kaizen means small, continuous, *sustained* improvement in repeated standardized
+work. As a data claim on public spending: **for a public body that procures or
+performs the same thing repeatedly, does its performance improve incrementally
+and persistently, net of what everyone else is doing?**
+
+Three preconditions, tested in order:
+
+1. **Repetition** — the same body doing the same thing many times.
+2. **A comparable unit** — so round N is measurable against round N−1.
+3. **A metric that can improve, with a stable key over enough periods.**
+
+The word that does the work is **persistently**. One-off gains are noise; Kaizen
+predicts a *ratchet*. That distinction is what §9d tests.
+
+### 9b. Precondition 1 — repetition: MET, abundantly
+
+Grouping contracts (2015+) by `(awarder_eik, CPV4)`:
+
+| threshold | groups | share of contracted € |
+|---|---|---|
+| ≥3 contracts | 18,897 | — |
+| ≥5 contracts over ≥3 years | 9,567 | **77.9%** |
+| ≥10 contracts over ≥5 years | 3,958 | 65.8% |
+
+Repeated procurement is the norm, not the exception. The structural precondition
+is comfortably satisfied.
+
+### 9c. Precondition 2 — a comparable unit: MOSTLY ABSENT
+
+This is where the lens fails for procurement. **`contracts` carries an amount but
+no quantity**, so "cheaper per unit" is uncomputable across the corpus. Checking
+every candidate that might supply a denominator:
+
+- `nzok_drug_quarterly` — `(inn, quarter, eur)` only. Spend per INN per quarter
+  with **no pack/unit count**, so a falling number cannot be separated from
+  simply buying less. Unusable as a price series.
+- `nzok_drug_overpay` — **100 rows, `period` entirely NULL**. A top-N snapshot,
+  not a time series.
+- Roads €/km — ~7% of road rows survive the workType + segment-parse guards
+  (`project_api_road_effectiveness`). Too thin for per-buyer trends.
+- НЗОК €/case — blocked twice over: tariffs (§7) and the rename bug (§8d).
+- `price_*` (КЗП) — genuine repeated unit prices over time, but **retail**, not
+  public spending. Wrong domain.
+
+### 9d. Precondition 3 — the two metrics we can actually test
+
+**Test A — competition (`number_of_tenderers`): no signal.**
+
+First, the field cannot carry a long series at all. Coverage by year swings
+violently — 6.3% (2015), 91.8% (2016), 8.3% (2018), 100% (2020–23), **42.8%
+(2024)**, 99.6% (2025). The apparent national collapse in average bidders
+(8.52 in 2016 → 2.73 in 2025) is therefore substantially a **coverage artifact**,
+not a market fact, and must not be published as a trend.
+
+Restricting to the clean window (2021–23 + 2025; 2024 is a 43%-coverage hole,
+2020 a corpus gap) and comparing each buyer×CPV4 group's early vs late mean
+bidders **net of that CPV4's own national move** — a difference-in-differences:
+
+| | |
+|---|---|
+| qualifying groups | 2,785 |
+| raw delta | −0.355 bidders |
+| **net delta (CPV trend removed)** | **+0.013** |
+| net standard deviation | 2.355 |
+| improved / worsened | 1,516 / 1,258 (54.5% / 45.5%) |
+
+The net effect is **zero to three decimal places**, with dispersion 180× the
+mean, and the improved/worsened split is a coin flip. There is no per-buyer
+learning signal in competition. Any "buyer improvement score" built on this
+would be noise with a number attached.
+
+**Test B — court productivity (`court_load`): the one real panel, and it
+mean-reverts.**
+
+`court_load` is the only substrate that satisfies all three preconditions:
+**178–180 courts × 8 consecutive years (2018–2025)**, a stable name key (180→178,
+negligible churn), and `resolved_per_month` — which is already normalized per
+judge (`corr(judges, resolved_per_month) = −0.191` in 2025, i.e. it is
+натовареност, not a court total, so it is not confounded by court size).
+
+National average dips for COVID and recovers: 28.53 (2018) → 25.40 (2020) →
+29.36 (2025). The Kaizen question is whether *individual* courts ratchet. Taking
+each court's year-over-year change net of the national change:
+
+| | |
+|---|---|
+| observations | 1,016 |
+| **autocorrelation of net YoY change** | **−0.215** |
+| mean net change | −0.041 |
+| sd | 6.278 |
+
+**The autocorrelation is negative.** A court that improves one year tends to give
+it back the next — the statistical signature of noise with mean reversion, and
+the precise opposite of a ratchet.
+
+The persistence distribution confirms it. Of 150 courts with all 7 transitions,
+counting how many years each beat the national move:
+
+| years improved (of 7) | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| courts | 2 | 26 | 50 | 51 | 18 | 3 | **0** |
+
+**No court improved in all 7 years, and only 3 managed 6.** The distribution is
+*more* clustered at 3–4 than a fair coin would produce (binomial(7, ½) over 150
+courts expects ~8 at six-of-seven and ~1 at seven) — exactly what mean reversion
+looks like. There is no tail of persistent improvers to find, because there are
+no persistent improvers.
+
+### 9e. Verdict
+
+**Feasible to compute on `court_load`; not feasible anywhere else; and the
+computation returns "no continuous improvement exists."**
+
+That is not a dead end — it is the most publishable thing in this section, and it
+sits naturally beside the §4a article. The OBC piece argues Bulgaria buys social
+outcomes on lowest price; this adds that where we *can* watch the same public
+body do the same work for eight years, it does not get better — it oscillates.
+Both are findings about the absence of an improvement mechanism, which is a
+stronger joint claim than either alone.
+
+What to do:
+
+1. **Do not build a per-buyer or per-court "improvement score."** Tests A and B
+   both say it would be noise. This is the same trap as the §6b €/case ranking.
+2. **Do publish the negative result**, as a section of the §4a article or its own
+   short piece: 8 years, 178 courts, autocorrelation −0.215, zero persistent
+   improvers. State the method (net of national trend) so it is checkable.
+3. **Publish the bidder-coverage artifact as a data-quality note**, not a market
+   trend. "Average bidders fell from 8.5 to 2.7" is currently a wrong claim that
+   our own corpus would support if nobody checked coverage — worth pre-empting.
+4. **Revisit only if a unit denominator lands.** The tariff ingest (§7) plus the
+   monthly EIK-keyed activity panel (§8e) would create the first genuine
+   repeated-unit-cost series in the health data — 30 monthly periods per hospital.
+   That is the one place a Kaizen test could later become meaningful, and it
+   should be run then, not now.
