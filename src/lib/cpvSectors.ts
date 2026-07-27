@@ -264,6 +264,26 @@ export const PROCEDURE_LABEL: Record<
 export const procedureLabel = (b: ProcedureBucket, lang: Lang): string =>
   lang === "bg" ? PROCEDURE_LABEL[b].bg : PROCEDURE_LABEL[b].en;
 
+// Exhaustive-by-construction bucket set: this Record fails to COMPILE if a member
+// is ever added to the ProcedureBucket union without being listed here, so the
+// untrusted-?proc validator below can't silently go stale.
+const PROCEDURE_BUCKET_SET: Record<ProcedureBucket, true> = {
+  open: true,
+  competition: true,
+  collection: true,
+  direct: true,
+  framework: true,
+  other: true,
+  unknown: true,
+};
+
+// Validate an untrusted string (a ?proc URL value) as a ProcedureBucket. Shared by
+// every procurement browser so the bucket vocabulary lives in one place.
+export const isProcedureBucket = (
+  v: string | null | undefined,
+): v is ProcedureBucket =>
+  v != null && Object.prototype.hasOwnProperty.call(PROCEDURE_BUCKET_SET, v);
+
 // One collapsed procedure-mix row: a ProcedureBucket, its summed contract count,
 // and the raw source method strings that fold into it.
 export interface MethodBucketFacet {

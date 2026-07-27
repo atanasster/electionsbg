@@ -12,6 +12,7 @@ import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   cpvDivisionName,
+  isProcedureBucket,
   procedureBucket,
   procedureLabel,
   type ProcedureBucket,
@@ -56,8 +57,10 @@ export const CompanyContractsDbScreen: FC<{
   // once from ?q (DbDataTable owns its box thereafter).
   const [searchParams, setSearchParams] = useSearchParams();
   const year = searchParams.get("year") ?? ALL;
-  const procBucket =
-    (searchParams.get("proc") as ProcedureBucket | null) || null;
+  const rawProc = searchParams.get("proc");
+  const procBucket: ProcedureBucket | null = isProcedureBucket(rawProc)
+    ? rawProc
+    : null;
   const cpvDiv = searchParams.get("cpv") ?? ALL;
   const singleBidder = searchParams.get("single") === "1";
   const initialSearch = searchParams.get("q") ?? undefined;

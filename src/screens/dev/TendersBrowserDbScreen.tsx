@@ -30,11 +30,12 @@ import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import { TenderRiskChips } from "@/screens/components/procurement/TenderRiskPanel";
 import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
+import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { type ProcedureBucket } from "@/lib/cpvSectors";
+import { isProcedureBucket, type ProcedureBucket } from "@/lib/cpvSectors";
 import { decodeEntities } from "@/lib/decodeEntities";
 import {
   CpvFilterCombobox,
@@ -64,9 +65,26 @@ interface TenderRow {
 
 export const TendersBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const topic = topicBySlug(params.get("topic"));
   const { from, to, all } = useScopeWindow();
+
+  // Filters are URL-backed (?proc / ?cpv / ?cancelled) so a filtered view is
+  // shareable. ?cpv doubles as the deep-link seed from the tender normalcy panel.
+  // Set/clear one param, preserving the others (?pscope / ?topic / ?sector / ?q).
+  const setParam = useCallback(
+    (key: string, val: string | null) =>
+      setParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          if (val == null || val === "") p.delete(key);
+          else p.set(key, val);
+          return p;
+        },
+        { replace: true },
+      ),
+    [setParams],
+  );
 
   // ?sector= → the sector browse pack (§4.3): restrict to its buyer EIK-set and
   // mount its enrichment strip. Tenders scope on buyer_eik (= awarder_eik). The
@@ -77,16 +95,44 @@ export const TendersBrowserDbScreen: FC = () => {
   );
   const showAnalysis = !browsePack;
 
-  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
-  // its raw procedure_type strings are re-derived from the facet by the hook.
-  const [procBucket, setProcBucket] = useState<ProcedureBucket | null>(null);
+  // Procedure filter is a bucketed selection (same vocabulary as the mix bar); its
+  // raw procedure_type strings are re-derived from the facet by the hook. ?proc is
+  // untrusted URL input, so validate it against the known bucket set.
+  const rawProc = params.get("proc");
+  const procBucket: ProcedureBucket | null = isProcedureBucket(rawProc)
+    ? rawProc
+    : null;
   // The CPV filter is interactive (the shared CpvFilterCombobox) and also seeded
   // by the ?cpv= deep link from the tender normalcy panel's "browse similar" —
   // both resolve through cpv_prefix (same physical column, LIKE match).
-  const [cpvSel, setCpvSel] = useState<string>(
-    () => params.get("cpv") ?? CPV_ALL,
+  const cpvSel = params.get("cpv") ?? CPV_ALL;
+  const cancelled = params.get("cancelled") === "1";
+  const setProcBucket = useCallback(
+    (v: ProcedureBucket | null) => setParam("proc", v),
+    [setParam],
   );
-  const [cancelled, setCancelled] = useState(false);
+  const setCpvSel = useCallback(
+    (v: string) => setParam("cpv", v === CPV_ALL ? null : v),
+    [setParam],
+  );
+  const setCancelled = useCallback(
+    (v: boolean) => setParam("cancelled", v ? "1" : null),
+    [setParam],
+  );
+  const hasActiveFilters =
+    procBucket !== null || cpvSel !== CPV_ALL || cancelled;
+  const clearFilters = useCallback(
+    () =>
+      setParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          ["proc", "cpv", "cancelled"].forEach((k) => p.delete(k));
+          return p;
+        },
+        { replace: true },
+      ),
+    [setParams],
+  );
 
   // Scope filters shared by the facets AND the table (window + buyer EIK-set +
   // curated topic CPV set) so the analysis strip matches the rows.
@@ -406,6 +452,14 @@ export const TendersBrowserDbScreen: FC = () => {
                   catalog={cpvCatalog ?? []}
                 />
               ) : null}
+              {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary
+                  and drives the same ?proc filter. Self-hides until the facet has
+                  buckets (so it's absent on ?sector pages). */}
+              <ProcedureBucketSelect
+                groupedMethods={groupedMethods}
+                value={procBucket}
+                onChange={setProcBucket}
+              />
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -414,6 +468,15 @@ export const TendersBrowserDbScreen: FC = () => {
                 />
                 {t("tender_status_cancelled") || "Cancelled"}
               </label>
+              {hasActiveFilters ? (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="text-xs text-primary underline underline-offset-2 hover:no-underline"
+                >
+                  {t("contracts_clear_filters") || "Изчисти филтрите"}
+                </button>
+              ) : null}
             </>
           }
           renderAggregates={(footerAgg, total, exact) => (

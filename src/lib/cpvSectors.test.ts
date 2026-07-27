@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { groupMethodFacet, procedureBucket } from "./cpvSectors";
+import {
+  groupMethodFacet,
+  isProcedureBucket,
+  procedureBucket,
+} from "./cpvSectors";
 
 describe("groupMethodFacet", () => {
   it("merges the АОП BG phrase and the ЦАИС ЕОП enum for the same procedure", () => {
@@ -70,5 +74,31 @@ describe("procedureBucket — tenders procedure_type vocabulary", () => {
 
   it("still routes the legacy НВМОП ordinance to other (no procedure grain)", () => {
     expect(procedureBucket("НВМОП")).toBe("other");
+  });
+});
+
+describe("isProcedureBucket", () => {
+  it("accepts every valid bucket literal", () => {
+    for (const b of [
+      "open",
+      "competition",
+      "collection",
+      "direct",
+      "framework",
+      "other",
+      "unknown",
+    ]) {
+      expect(isProcedureBucket(b)).toBe(true);
+    }
+  });
+
+  it("rejects untrusted / unknown ?proc values", () => {
+    expect(isProcedureBucket("garbage")).toBe(false);
+    expect(isProcedureBucket("")).toBe(false);
+    expect(isProcedureBucket(null)).toBe(false);
+    expect(isProcedureBucket(undefined)).toBe(false);
+    // Object.prototype keys must not slip through the hasOwnProperty guard.
+    expect(isProcedureBucket("toString")).toBe(false);
+    expect(isProcedureBucket("hasOwnProperty")).toBe(false);
   });
 });
