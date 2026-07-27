@@ -65,6 +65,11 @@ describe("isExcluded — parliament PG-served families (T2.1b/T2.3/T2.4)", () =>
       "parliament/index.json",
       "parliament/declarations/5100.json",
       "parliament/mp-assets/5100.json",
+      "parliament/avatars.json",
+      "parliament/assets-rankings.json",
+      "parliament/assets-rankings-top.json",
+      "parliament/mp-cars.json",
+      "parliament/car-makes.json",
     ])
       expect(isExcluded(p)).toBeTruthy();
   });

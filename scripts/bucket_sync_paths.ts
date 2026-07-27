@@ -78,6 +78,18 @@ export const isExcluded = (rel: string): string | null => {
     rel.startsWith("parliament/mp-assets")
   )
     return "parliament/{declarations,mp-assets}/ are PG-served — never upload them";
+  // Reader-free MP leaderboard/avatars singletons: their frontend readers moved to the PG
+  // registry + routes in persons-pg-retirement-v1 T2.2/T2.3 (mp_assets_rankings / mp_cars /
+  // car-makes / mp-avatars), but the files were never excluded — so bucket:sync would re-upload
+  // them. They stay on disk (build output + parity-test reference); never serve them.
+  if (
+    rel === "parliament/avatars.json" ||
+    rel === "parliament/assets-rankings.json" ||
+    rel === "parliament/assets-rankings-top.json" ||
+    rel === "parliament/mp-cars.json" ||
+    rel === "parliament/car-makes.json"
+  )
+    return "parliament/{avatars,assets-rankings*,mp-cars,car-makes}.json are PG-served — never upload them";
   // The municipal-officials roster + name/search index are served from Cloud SQL
   // (municipal_officials_table, /api/db/table + municipal-officials-*-index) since
   // persons-pg-retirement-v1 T1.5. by_obshtina stays on disk as a PG LOAD SOURCE
@@ -137,6 +149,11 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "parliament/index.json", isDir: false },
   { path: "parliament/declarations", isDir: true },
   { path: "parliament/mp-assets", isDir: true },
+  { path: "parliament/avatars.json", isDir: false },
+  { path: "parliament/assets-rankings.json", isDir: false },
+  { path: "parliament/assets-rankings-top.json", isDir: false },
+  { path: "parliament/mp-cars.json", isDir: false },
+  { path: "parliament/car-makes.json", isDir: false },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under
