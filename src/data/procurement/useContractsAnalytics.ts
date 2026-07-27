@@ -1,19 +1,26 @@
-// Shared facet-driven analytics for the contracts browsers (the global
-// /procurement/contracts browser and the per-entity /company|/awarder screens).
-// Owns the /api/db/facets scaffolding both screens duplicated: the procedure-mix
-// + bid-count + CPV facets (each excluding its OWN dimension so its options stay
-// visible under the other filters), the derived integrity KPIs (single-bidder %,
-// direct-award %), the bucket→raw-method translation, and the stale-bucket guard.
+// Shared facet-driven analytics for the procurement browsers — the contracts
+// browsers (global /procurement/contracts + per-entity /company|/awarder) and the
+// tenders browser (/procurement/tenders). Owns the /api/db/facets scaffolding they
+// duplicated: the procedure-mix + (optional) bid-count + CPV facets (each excluding
+// its OWN dimension so its options stay visible under the other filters), the
+// derived integrity KPIs, the bucket→raw-method translation, and the stale-bucket
+// guard.
 //
-// The two callers differ only in a few flags:
+// The callers differ only in a few flags:
+//   • resource     — the DbDataTable registry resource ("contracts" | "tenders")
+//   • methodColumn — the procedure column faceted into the mix ("procurement_method"
+//                    for contracts, "procedure_type" for tenders)
+//   • bidColumn    — the bid-count column driving the single-bidder % KPI; pass null
+//                    to disable it (tenders have no bid data at announcement)
+//   • shareFacet   — an optional extra bool/enum share KPI, e.g. tenders' EU-funded %
 //   • scope        — an entity scope { col, val } (company/awarder) or none (global)
 //   • fixedFilters — the always-applied filters (tag [+ window / awarder EIK-set])
 //   • commonFilters— filters applied to EVERY facet, never an excluded dimension
 //                    (e.g. the company screen's year range)
 //   • reactiveCpv  — whether the CPV facet reflects the active method/single filters
-//                    (company: yes) or stays static (global: keep the list stable)
+//                    (company: yes) or stays static (global/tenders: keep it stable)
 //   • enabled      — stand the analysis facets down when the block is hidden
-//                    (the global screen's ?sector pages); the CPV facet still runs.
+//                    (the ?sector pages); the CPV facet still runs (it powers a filter).
 //
 // Cost control: while no procedure/single filter is active the proc-mix and
 // bid-count facets share one filter set, so they're fetched in ONE request; once
@@ -45,8 +52,16 @@ export interface ContractsAnalyticsArgs {
   /** Active CPV fragment (excluded from the CPV facet when reactiveCpv). */
   cpvFilter: DbColumnFilter[];
   procBucket: ProcedureBucket | null;
-  /** When false the analysis facets (proc-mix + bid-count) stand down — KPIs go
-   *  null and the mix empties. The CPV facet always runs (it powers a filter). */
+  /** The procedure column faceted into the mix. Default "procurement_method". */
+  methodColumn?: string;
+  /** The bid-count column behind the single-bidder % KPI. Default
+   *  "number_of_tenderers"; pass null to disable it (e.g. tenders have no bids). */
+  bidColumn?: string | null;
+  /** An optional extra share KPI: the % of the filtered set whose `column` facet
+   *  value satisfies `match` (e.g. tenders' EU-funded %). */
+  shareFacet?: { column: string; match: (value: string) => boolean };
+  /** When false the analysis facets (proc-mix + bid-count + share) stand down —
+   *  KPIs go null and the mix empties. The CPV facet always runs. */
   enabled?: boolean;
   /** When true the CPV facet applies the active method/single filters; when false
    *  it's scope-only, so the division list doesn't shift as you pick a procedure. */
@@ -60,9 +75,12 @@ export interface ContractsAnalyticsArgs {
 export interface ContractsAnalytics {
   groupedMethods: MethodBucketFacet[];
   cpvOptions: FacetRows;
+  /** Single-bidder share — null when no denominator or no bidColumn. */
   singleBidPct: number | null;
   directPct: number | null;
-  /** The procurement_method `in` fragment for the selected bucket (or []). */
+  /** The optional shareFacet's share — null when no shareFacet or denominator. */
+  sharePct: number | null;
+  /** The methodColumn `in` fragment for the selected bucket (or []). */
   methodF: DbColumnFilter[];
 }
 
@@ -74,11 +92,16 @@ export const useContractsAnalytics = ({
   singleFilter,
   cpvFilter,
   procBucket,
+  methodColumn = "procurement_method",
+  bidColumn = "number_of_tenderers",
+  shareFacet,
   enabled = true,
   reactiveCpv = false,
   limit = 100,
   onBucketInvalid,
 }: ContractsAnalyticsArgs): ContractsAnalytics => {
+  const hasBid = !!bidColumn;
+  const shareColumn = shareFacet?.column;
   // A combined request asks for several columns under one `limit`; /api/db/facets
   // applies it PER column (top-N distinct values each), not globally — so adding a
   // high-cardinality column to a combined request stays safe for the others.
@@ -105,14 +128,19 @@ export const useContractsAnalytics = ({
   const scopeKey = scope ? `${scope.col}:${scope.val}` : "global";
   const bothUnfiltered = !procBucket && singleFilter.length === 0;
 
-  // Combined proc-mix + bid-count facet, fired only while both dimensions are
-  // unfiltered (their filter sets coincide then).
+  // Combined facet, fired only while both dimensions are unfiltered (their filter
+  // sets coincide then): the proc-mix column plus — when present — the bid-count
+  // and share columns, all under one request. When a filter narrows one dimension
+  // they split into per-dimension requests below.
   const { data: combinedFacet } = useQuery({
     queryKey: [
       "db-facets",
       resource,
       scopeKey,
       "combined",
+      methodColumn,
+      bidColumn,
+      shareColumn ?? "",
       fixedFilters,
       commonFilters,
       cpvFilter,
@@ -120,7 +148,11 @@ export const useContractsAnalytics = ({
     enabled: enabled && bothUnfiltered,
     queryFn: () =>
       fetchFacets(
-        ["procurement_method", "number_of_tenderers"],
+        [
+          methodColumn,
+          ...(hasBid ? [bidColumn as string] : []),
+          ...(shareColumn ? [shareColumn] : []),
+        ],
         [...commonFilters, ...cpvFilter],
       ),
     staleTime: Infinity,
@@ -132,6 +164,7 @@ export const useContractsAnalytics = ({
       resource,
       scopeKey,
       "proc",
+      methodColumn,
       fixedFilters,
       commonFilters,
       singleFilter,
@@ -140,14 +173,14 @@ export const useContractsAnalytics = ({
     enabled: enabled && !bothUnfiltered,
     queryFn: () =>
       fetchFacets(
-        ["procurement_method"],
+        [methodColumn],
         [...commonFilters, ...singleFilter, ...cpvFilter],
       ),
     staleTime: Infinity,
   });
   const methodRows = bothUnfiltered
-    ? combinedFacet?.facets?.procurement_method
-    : procFacet?.facets?.procurement_method;
+    ? combinedFacet?.facets?.[methodColumn]
+    : procFacet?.facets?.[methodColumn];
   const groupedMethods = useMemo(
     () => groupMethodFacet(methodRows ?? []),
     [methodRows],
@@ -162,9 +195,9 @@ export const useContractsAnalytics = ({
   const methodF = useMemo<DbColumnFilter[]>(
     () =>
       selectedMethods.length
-        ? [{ id: "procurement_method", value: selectedMethods }]
+        ? [{ id: methodColumn, value: selectedMethods }]
         : [],
-    [selectedMethods],
+    [selectedMethods, methodColumn],
   );
 
   // If another filter narrows the scoped facet so the selected bucket no longer
@@ -184,29 +217,33 @@ export const useContractsAnalytics = ({
     }
   }, [procBucket, groupedMethods]);
 
-  // Bid-count facet (split) — every filter EXCEPT single-bid.
+  // Bid-count facet (split) — every filter EXCEPT single-bid. Only when the
+  // resource has a bid column.
   const { data: bidFacet } = useQuery({
     queryKey: [
       "db-facets",
       resource,
       scopeKey,
       "bids",
+      bidColumn,
       fixedFilters,
       commonFilters,
       methodF,
       cpvFilter,
     ],
-    enabled: enabled && !bothUnfiltered,
+    enabled: enabled && !bothUnfiltered && hasBid,
     queryFn: () =>
       fetchFacets(
-        ["number_of_tenderers"],
+        [bidColumn as string],
         [...commonFilters, ...methodF, ...cpvFilter],
       ),
     staleTime: Infinity,
   });
-  const bidRows = bothUnfiltered
-    ? combinedFacet?.facets?.number_of_tenderers
-    : bidFacet?.facets?.number_of_tenderers;
+  const bidRows = hasBid
+    ? bothUnfiltered
+      ? combinedFacet?.facets?.[bidColumn as string]
+      : bidFacet?.facets?.[bidColumn as string]
+    : undefined;
 
   // CPV facet — reactive (excludes its own dimension) or static (scope-only).
   const { data: cpvFacet } = useQuery({
@@ -231,8 +268,40 @@ export const useContractsAnalytics = ({
   });
   const cpvOptions = cpvFacet?.facets?.cpv ?? [];
 
-  // Integrity KPIs over the facet's own scope (contracts with a known value):
-  // single-bidder share + direct-award share. Null when there's no denominator.
+  // Optional share KPI (e.g. EU-funded %) over the FULL active filter set — its
+  // column isn't otherwise filtered, so there's no own-dimension to exclude. While
+  // unfiltered its filter set coincides with the combined facet's, so it rides
+  // that request; a separate query only fires once a filter is set.
+  const { data: shareData } = useQuery({
+    queryKey: [
+      "db-facets",
+      resource,
+      scopeKey,
+      "share",
+      shareColumn ?? "",
+      fixedFilters,
+      commonFilters,
+      singleFilter,
+      methodF,
+      cpvFilter,
+    ],
+    enabled: enabled && !!shareColumn && !bothUnfiltered,
+    queryFn: () =>
+      fetchFacets(
+        [shareColumn as string],
+        [...commonFilters, ...singleFilter, ...methodF, ...cpvFilter],
+      ),
+    staleTime: Infinity,
+  });
+  const shareRows = shareColumn
+    ? bothUnfiltered
+      ? combinedFacet?.facets?.[shareColumn]
+      : shareData?.facets?.[shareColumn]
+    : undefined;
+
+  // Integrity KPIs over the facet's own scope (rows with a known value):
+  // single-bidder share + direct-award share + the optional share. Null when
+  // there's no denominator.
   const singleBidPct = useMemo<number | null>(
     () => facetShare(bidRows ?? [], (v) => Number(v) === 1),
     [bidRows],
@@ -241,12 +310,19 @@ export const useContractsAnalytics = ({
     () => bucketShare(groupedMethods, "direct"),
     [groupedMethods],
   );
+  // Left inline (not useMemo'd like its siblings): facetShare is O(rows) cheap and
+  // shareFacet is typically a fresh inline object, so memoizing on it would defeat
+  // itself. The returned object is recreated every render regardless.
+  const sharePct = shareFacet
+    ? facetShare(shareRows ?? [], shareFacet.match)
+    : null;
 
   return {
     groupedMethods,
     cpvOptions,
     singleBidPct,
     directPct,
+    sharePct,
     methodF,
   };
 };

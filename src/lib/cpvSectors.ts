@@ -221,11 +221,30 @@ export const procedureBucket = (
     s.includes("договаряне без")
   )
     return "direct";
-  // "състеза" matches both "състезателна процедура" and "публично състезание"
-  // (a bare "състезат" missed the latter — it read as "Друга").
-  if (s.includes("състеза") || s.includes("конкурс")) return "competition";
-  if (s.includes("рамков")) return "framework";
-  if (s.includes("неизвест")) return "unknown";
+  // Competitive procedures. "състеза" matches both "състезателна процедура" and
+  // "публично състезание" (a bare "състезат" missed the latter — it read as
+  // "Друга"). The tenders corpus (procedure_type) also carries: "Ограничена
+  // процедура" (restricted), "Партньорство за иновации", and negotiated-WITH-call
+  // /-publication forms — "договаряне с …" (plain "договаряне без" is already
+  // direct above) and "Покана до определени лица" — all competitive, not direct.
+  if (
+    s.includes("състеза") ||
+    s.includes("конкурс") ||
+    s.includes("ограничен") ||
+    s.includes("партньорство") ||
+    s.includes("договаряне с") ||
+    s.includes("покана")
+  )
+    return "competition";
+  // Framework-family systems (dynamic purchasing / qualification) group with
+  // рамково споразумение.
+  if (
+    s.includes("рамков") ||
+    s.includes("динамична система") ||
+    s.includes("квалификационна система")
+  )
+    return "framework";
+  if (s.includes("неизвест") || s.includes("неопределен")) return "unknown";
   return "other";
 };
 

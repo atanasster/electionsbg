@@ -40,3 +40,35 @@ describe("groupMethodFacet", () => {
     expect(groupMethodFacet([])).toEqual([]);
   });
 });
+
+describe("procedureBucket — tenders procedure_type vocabulary", () => {
+  // The tenders corpus (procedure_type) carries phrasings the contracts
+  // procurement_method matcher didn't cover; these previously fell to "other".
+  const cases: [string, string][] = [
+    ["Открита процедура", "open"],
+    ["открита", "open"],
+    ["Публично състезание", "competition"],
+    ["Събиране на оферти с обява", "collection"],
+    ["Договаряне без предварително обявление", "direct"],
+    ["Пряко договаряне", "direct"],
+    ["Договаряне без предварителна покана за участие", "direct"],
+    ["Договаряне с предварителна покана за участие", "competition"],
+    ["Договаряне с публикуване на обявление за поръчка", "competition"],
+    ["Покана до определени лица", "competition"],
+    ["Ограничена процедура", "competition"],
+    ["Ограничена процедура по ДСП", "competition"],
+    ["състезателна процедура с договаряне", "competition"],
+    ["състезателен диалог", "competition"],
+    ["Партньорство за иновации", "competition"],
+    ["Динамична система за покупки", "framework"],
+    ["Квалификационна система", "framework"],
+    ["неопределен", "unknown"],
+  ];
+  it.each(cases)("maps %s → %s", (value, bucket) => {
+    expect(procedureBucket(value)).toBe(bucket);
+  });
+
+  it("still routes the legacy НВМОП ordinance to other (no procedure grain)", () => {
+    expect(procedureBucket("НВМОП")).toBe("other");
+  });
+});

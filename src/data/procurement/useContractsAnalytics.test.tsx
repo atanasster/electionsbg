@@ -27,9 +27,11 @@ const jsonResponse = (body: unknown) =>
   });
 
 // One canned facet per column: two procedures (open 80 / direct 20), two bid
-// counts (single 30 / competitive 70), two CPV divisions.
+// counts (single 30 / competitive 70), two CPV divisions. The tenders-shaped
+// columns (procedure_type, is_eu_funded) mirror the contracts ones so the
+// generalised hook can be exercised without a bid column.
 const facetFor = (col: string): FacetRows => {
-  if (col === "procurement_method")
+  if (col === "procurement_method" || col === "procedure_type")
     return [
       { value: "Открита процедура", count: 80 },
       { value: "Пряко възлагане", count: 20 },
@@ -38,6 +40,11 @@ const facetFor = (col: string): FacetRows => {
     return [
       { value: "1", count: 30 },
       { value: "3", count: 70 },
+    ];
+  if (col === "is_eu_funded")
+    return [
+      { value: "true", count: 35 },
+      { value: "false", count: 65 },
     ];
   if (col === "cpv")
     return [
@@ -251,5 +258,62 @@ describe("useContractsAnalytics", () => {
     );
     await waitFor(() => expect(cpvReqs(staticCalls).length).toBeGreaterThan(0));
     expect(cpvReqs(staticCalls).some(hasMethod)).toBe(false);
+  });
+});
+
+// Tenders-shaped usage: a custom methodColumn, NO bid column (no single-bid data),
+// and an optional share KPI (EU-funded %).
+describe("useContractsAnalytics — tenders shape (method-only + shareFacet)", () => {
+  const tenderArgs: ContractsAnalyticsArgs = {
+    resource: "tenders",
+    fixedFilters: [],
+    singleFilter: [],
+    cpvFilter: [],
+    procBucket: null,
+    methodColumn: "procedure_type",
+    bidColumn: null,
+    shareFacet: { column: "is_eu_funded", match: (v) => v === "true" },
+  };
+
+  it("derives the mix + directPct + sharePct with no bid facet", async () => {
+    const calls = stubFacets();
+    const { result } = renderHook(() => useContractsAnalytics(tenderArgs), {
+      wrapper: makeWrapper(),
+    });
+    await waitFor(() =>
+      expect(result.current.groupedMethods.length).toBeGreaterThan(0),
+    );
+    // open 80 + direct 20 → direct share 20%.
+    expect(result.current.directPct).toBeCloseTo(20);
+    // is_eu_funded true 35 / (35+65) → 35%.
+    await waitFor(() => expect(result.current.sharePct).toBeCloseTo(35));
+    // No bid column → single-bid KPI is null and number_of_tenderers is never
+    // requested.
+    expect(result.current.singleBidPct).toBeNull();
+    expect(calls.some((c) => c.columns.includes("number_of_tenderers"))).toBe(
+      false,
+    );
+    // While unfiltered the share column rides the combined method request (one
+    // round-trip), not a separate one.
+    expect(
+      calls.some(
+        (c) =>
+          c.columns.includes("procedure_type") &&
+          c.columns.includes("is_eu_funded"),
+      ),
+    ).toBe(true);
+  });
+
+  it("builds methodF against the custom methodColumn", async () => {
+    stubFacets();
+    const { result } = renderHook(
+      () => useContractsAnalytics({ ...tenderArgs, procBucket: "open" }),
+      { wrapper: makeWrapper() },
+    );
+    await waitFor(() =>
+      expect(result.current.methodF).toEqual([
+        { id: "procedure_type", value: ["Открита процедура"] },
+      ]),
+    );
   });
 });
