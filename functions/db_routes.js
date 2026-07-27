@@ -2415,6 +2415,38 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // The MP-scorecard net-worth metric's rank cohort: the MP's rank + cohort size + median
+  // within one parliament's assets slice (mp_assets_rankings_table, ns bucket) — replaces the
+  // client rankIn/median over the chamber-wide assets-rankings.json byNs slice
+  // (persons-pg-retirement-v1 T2.2). median is a person_wealth_year numeric (the same series
+  // the wealth chart + /officials/assets show). rank is NULL for an mp not in that ns slice;
+  // the caller takes the MP's own net-worth VALUE from its wealth rollup (same series), so
+  // this route need only return the cohort context. Gated caller-side on hasNetWorth &&
+  // servedInSelectedNs, so it only fires when there is a rank to show.
+  "mp-networth-rank": async (dbRows, q) => {
+    const mpId = clampInt(q.mpId, null, 0, Number.MAX_SAFE_INTEGER);
+    const ns = s(q, "ns");
+    if (mpId == null || !ns) return { body: null };
+    const rows = await dbRows(
+      `WITH slice AS (
+         SELECT mp_id, net_worth_eur
+         FROM mp_assets_rankings_table
+         WHERE ns = $2 AND net_worth_eur IS NOT NULL
+       ),
+       me AS (SELECT net_worth_eur AS v FROM slice WHERE mp_id = $1)
+       SELECT jsonb_build_object(
+         'rank', CASE WHEN (SELECT v FROM me) IS NULL THEN NULL
+                      ELSE (SELECT count(*) FROM slice
+                             WHERE net_worth_eur > (SELECT v FROM me)) + 1 END,
+         'cohortSize', (SELECT count(*) FROM slice),
+         'median', (SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY net_worth_eur)
+                    FROM slice)
+       ) AS r`,
+      [mpId, ns],
+    ).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
   // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an

@@ -290,3 +290,36 @@ test("municipal-officials-* routes propagate non-migration errors", async () => 
     DB_ROUTES["municipal-officials-search-index"](mockDb(boom)),
   );
 });
+
+// ─── mp-networth-rank (persons-pg-retirement-v1 T2.2) ──────────────────────────────────────
+// Object-shaped like mp-entry/mp-assets: it unwraps rows[0].r, degrades a missing migration
+// to null (not an array), and short-circuits without a DB call when a required key is absent.
+test("mp-networth-rank unwraps rows[0].r and needs both mpId + ns", async () => {
+  const payload = { rank: 1, cohortSize: 127, median: 60844 };
+  const db = mockDb([{ r: payload }]);
+  const res = await DB_ROUTES["mp-networth-rank"](db, { mpId: "5100", ns: "52" });
+  assert.equal(db.calls.length, 1, "one DB call");
+  assert.deepEqual(res.body, payload);
+
+  const noMp = mockDb([{ r: payload }]);
+  assert.equal((await DB_ROUTES["mp-networth-rank"](noMp, { ns: "52" })).body, null);
+  assert.equal(noMp.calls.length, 0, "no mpId → no DB call");
+
+  const noNs = mockDb([{ r: payload }]);
+  assert.equal((await DB_ROUTES["mp-networth-rank"](noNs, { mpId: "5100" })).body, null);
+  assert.equal(noNs.calls.length, 0, "no ns → no DB call");
+});
+
+test("mp-networth-rank degrades to null on a missing migration, propagates real errors", async () => {
+  for (const code of MIGRATION_CODES) {
+    const res = await DB_ROUTES["mp-networth-rank"](mockDb(migrationMissing(code)), {
+      mpId: "10",
+      ns: "52",
+    });
+    assert.equal(res.body, null, `mp-networth-rank @ ${code} → null`);
+  }
+  const boom = Object.assign(new Error("connection reset"), { code: "08006" });
+  await assert.rejects(() =>
+    DB_ROUTES["mp-networth-rank"](mockDb(boom), { mpId: "10", ns: "52" }),
+  );
+});

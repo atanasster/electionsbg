@@ -1,6 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import type { MpAssetsRankings } from "@/data/dataTypes";
-import { dataUrl } from "@/data/dataUrl";
 
 /** One MP-wealth leaderboard row as the /api/db/table `mp_assets_rankings` resource
  *  (matview mp_assets_rankings_table, migration 105) delivers it — the matview columns in
@@ -39,25 +37,6 @@ export const eur = (v: string | number | null | undefined): number | null => {
   if (v == null || v === "") return null;
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
-};
-
-const queryFn = async (): Promise<MpAssetsRankings | undefined> => {
-  const response = await fetch(dataUrl(`/parliament/assets-rankings.json`));
-  if (response.status === 404) return undefined;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
-  }
-  return response.json();
-};
-
-export const useAssetsRankings = (options?: { enabled?: boolean }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["mp_assets_rankings"] as [string],
-    queryFn,
-    staleTime: Infinity,
-    enabled: options?.enabled ?? true,
-  });
-  return { rankings: data, isLoading };
 };
 
 /** Top-N MP-wealth rows from the PG registry — one page from the server, not the whole file

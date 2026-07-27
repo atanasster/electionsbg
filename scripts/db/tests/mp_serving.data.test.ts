@@ -683,3 +683,76 @@ test.skipIf(skip)("REGISTRY columns exist on the mp matviews", async () => {
     }
   }
 });
+
+// mp-networth-rank route SQL (persons-pg-retirement-v1 T2.2): the MP's rank + cohort size +
+// median within one parliament's assets slice, which replaced the client rankIn/medianOf over
+// the retired assets-rankings.json. Pins that the top MP ranks 1, cohortSize is the ns's
+// non-null count, an out-of-slice id gets a null rank (cohort/median still present), and that
+// numeric-in-jsonb deserialises as a JS number (not a node-pg numeric string).
+test.skipIf(skip)(
+  "mp-networth-rank: top MP ranks 1; cohort/median/typeof pinned",
+  async () => {
+    const ns = "52";
+    const runRank = async (
+      mpId: number,
+    ): Promise<{
+      rank: number | null;
+      cohortSize: number;
+      median: number | null;
+    }> => {
+      const [row] = await allRows<{
+        r: { rank: number | null; cohortSize: number; median: number | null };
+      }>(
+        `WITH slice AS (
+           SELECT mp_id, net_worth_eur FROM mp_assets_rankings_table
+           WHERE ns = $2 AND net_worth_eur IS NOT NULL
+         ),
+         me AS (SELECT net_worth_eur AS v FROM slice WHERE mp_id = $1)
+         SELECT jsonb_build_object(
+           'rank', CASE WHEN (SELECT v FROM me) IS NULL THEN NULL
+                        ELSE (SELECT count(*) FROM slice
+                               WHERE net_worth_eur > (SELECT v FROM me)) + 1 END,
+           'cohortSize', (SELECT count(*) FROM slice),
+           'median', (SELECT percentile_cont(0.5) WITHIN GROUP (ORDER BY net_worth_eur)
+                      FROM slice)
+         ) AS r`,
+        [mpId, ns],
+      );
+      return row.r;
+    };
+
+    const [top] = await allRows<{ mp_id: number }>(
+      `SELECT mp_id FROM mp_assets_rankings_table
+        WHERE ns = $1 AND net_worth_eur IS NOT NULL
+        ORDER BY net_worth_eur DESC LIMIT 1`,
+      [ns],
+    );
+    assert.ok(top?.mp_id, `no ranked MP in ns ${ns}`);
+
+    const topRank = await runRank(top.mp_id);
+    assert.equal(topRank.rank, 1, "the top-net-worth MP must rank 1");
+
+    const [c] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM mp_assets_rankings_table WHERE ns=$1 AND net_worth_eur IS NOT NULL",
+      [ns],
+    );
+    assert.equal(
+      topRank.cohortSize,
+      Number(c.n),
+      "cohortSize must equal the ns non-null count",
+    );
+    assert.equal(
+      typeof topRank.median,
+      "number",
+      "median must deserialise as a number, not a node-pg numeric string",
+    );
+
+    const absent = await runRank(-1);
+    assert.equal(absent.rank, null, "an out-of-slice mp_id has a null rank");
+    assert.equal(
+      absent.cohortSize,
+      Number(c.n),
+      "cohort still present for a null rank",
+    );
+  },
+);

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useConnectionsRankings } from "./useConnectionsRankings";
-import { useAssetsRankings } from "./useAssetsRankings";
+import { toScopedMpIds, useMpAssetsTopRows } from "./useAssetsRankings";
 import { useMpCars } from "./useMpCars";
 import { useMps } from "./useMps";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -50,8 +50,14 @@ export const useRegionDeclarationsHasContent = (params: {
   const { rankings: connRankings } = useConnectionsRankings({
     enabled: isRegional,
   });
-  const { rankings: assetRankings } = useAssetsRankings({
-    enabled: isRegional,
+  // "Does any of this region's MPs have an assets row" — a 1-row registry probe filtered to
+  // the region's mp_ids (persons-pg-retirement-v1 T2.2), instead of scanning the whole
+  // assets-rankings.json. Only fires once the region's mp-id set is resolved and non-empty.
+  const { rows: assetRows, isLoading: assetsLoading } = useMpAssetsTopRows({
+    ns: "all",
+    mpIds: toScopedMpIds(regionMpIds ? [...regionMpIds] : null),
+    limit: 1,
+    enabled: isRegional && !!regionMpIds?.size,
   });
   const { mpCars } = useMpCars({ enabled: isRegional });
 
@@ -61,10 +67,10 @@ export const useRegionDeclarationsHasContent = (params: {
     // Stay visible while any source is still loading so the header doesn't
     // pop in after the tiles. Once everything resolves, hide if none has a
     // row for this region's MPs.
-    if (!connRankings || !assetRankings || !mpCars) return true;
+    if (!connRankings || assetsLoading || !mpCars) return true;
     const hasConn = connRankings.topMps.some((m) => regionMpIds.has(m.mpId));
-    const hasAssets = assetRankings.topMps.some((m) => regionMpIds.has(m.mpId));
+    const hasAssets = assetRows.length > 0;
     const hasCars = mpCars.cars.some((c) => c.make && regionMpIds.has(c.mpId));
     return hasConn || hasAssets || hasCars;
-  }, [isRegional, regionMpIds, connRankings, assetRankings, mpCars]);
+  }, [isRegional, regionMpIds, connRankings, assetsLoading, assetRows, mpCars]);
 };

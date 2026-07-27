@@ -10,7 +10,6 @@ import { electionToNsFolder } from "./nsFolders";
 import { useMpEntryForName } from "@/data/candidates/CandidateMpContext";
 import { useMpLoyalty } from "./votes/useMpLoyalty";
 import { useMpAssets } from "./useMpAssets";
-import { useAssetsRankings } from "./useAssetsRankings";
 
 // Connected-contracts scorecard metric, served by /api/db/mp-scorecard
 // (mp_scorecard() — the MP's connected-contract total + its rank / cohort size /
@@ -31,6 +30,25 @@ const fetchMpScorecard = async (
   const ct = r.headers.get("content-type") ?? "";
   if (!ct.includes("json")) return null;
   return (await r.json()) as MpScorecardStats | null;
+};
+
+// The net-worth metric's rank cohort, from PG (mp_assets_rankings_table, one ns slice) —
+// replaces the client rankIn/median over the retired assets-rankings.json byNs slice (T2.2).
+type NetWorthRank = {
+  rank: number | null;
+  cohortSize: number;
+  median: number | null;
+};
+const fetchNetWorthRank = async (
+  mpId: number,
+  ns: string,
+): Promise<NetWorthRank | null> => {
+  const r = await fetch(
+    `/api/db/mp-networth-rank?mpId=${mpId}&ns=${encodeURIComponent(ns)}`,
+  );
+  if (!r.ok) return null;
+  const body = (await r.json()) as NetWorthRank | null;
+  return body && typeof body === "object" && !Array.isArray(body) ? body : null;
 };
 
 export type ScorecardMetric = {
@@ -112,13 +130,18 @@ export const useMpScorecard = (
   } = useMpLoyalty(mpId, name, servedInSelectedNs);
 
   const { rollup: assetsRollup, isLoading: assetsLoading } = useMpAssets(name);
-  // The net-worth metric ranks the MP within the selected NS's assets slice,
-  // so the chamber-wide assets-rankings.json (~850 KB) is only worth loading
-  // when this MP both has a declared net worth and actually served in that NS.
-  // A former / off-ballot MP has no rank to show, so we skip the fetch.
+  // The net-worth metric ranks the MP within the selected NS's assets slice — one small PG
+  // aggregate (rank + cohort + median) instead of the chamber-wide assets-rankings.json.
+  // Only worth fetching when this MP has a declared net worth AND served in that NS; a
+  // former / off-ballot MP has no rank to show.
   const hasNetWorth = assetsRollup?.netWorthEur != null;
-  const { rankings: assetsRankings, isLoading: assetsRankingsLoading } =
-    useAssetsRankings({ enabled: hasNetWorth && servedInSelectedNs });
+  const netWorthRankQuery = useQuery({
+    queryKey: ["mp_networth_rank", mpId ?? 0, ns ?? ""] as const,
+    queryFn: () => fetchNetWorthRank(mpId!, ns!),
+    enabled: hasNetWorth && servedInSelectedNs && mpId != null && !!ns,
+    staleTime: Infinity,
+    retry: false,
+  });
 
   // Connected-contracts metric — one lightweight /api/db/mp-scorecard call
   // (value + rank + cohort) instead of the old per-MP shard + chamber-wide
@@ -195,22 +218,16 @@ export const useMpScorecard = (
     };
 
     // --- Net worth --------------------------------------------------------
-    // Rank cohort = the same-NS assets-rankings slice. This already includes
-    // every MP we have a parsed declaration for in that parliament (not just
-    // top-N), so rank within it is meaningful.
-    const netWorthValue = assetsRollup?.netWorthEur ?? null;
-    const nsSlice =
-      ns && assetsRankings?.byNs?.[ns]?.topMps
-        ? assetsRankings.byNs[ns].topMps
-        : [];
-    const netWorthValues = nsSlice
-      .map((m) => m.netWorthEur)
-      .sort((a, b) => b - a);
+    // Rank cohort = the same-NS assets slice (mp_assets_rankings_table), which includes every
+    // MP with a parsed declaration in that parliament — so rank within it is meaningful. The
+    // rank/cohort/median come from PG (mp-networth-rank); the value stays from the MP's own
+    // wealth rollup (same person_wealth_year series, so the two agree).
+    const nwr = netWorthRankQuery.data;
     const netWorth: ScorecardMetric = {
-      value: netWorthValue,
-      rank: rankIn(netWorthValue, netWorthValues),
-      cohortSize: netWorthValues.length,
-      median: medianOf(netWorthValues),
+      value: assetsRollup?.netWorthEur ?? null,
+      rank: nwr?.rank ?? null,
+      cohortSize: nwr?.cohortSize ?? 0,
+      median: nwr?.median ?? null,
     };
 
     // --- Connected contracts ---------------------------------------------
@@ -244,8 +261,7 @@ export const useMpScorecard = (
     loyaltySlice,
     loyaltyShard,
     assetsRollup,
-    assetsRankings,
-    ns,
+    netWorthRankQuery.data,
     scorecardQuery.data,
   ]);
 
@@ -253,7 +269,7 @@ export const useMpScorecard = (
     mpsLoading ||
     loyaltyLoading ||
     assetsLoading ||
-    assetsRankingsLoading ||
+    netWorthRankQuery.isLoading ||
     (mpId != null && scorecardQuery.isLoading);
 
   if (!mpId) {
