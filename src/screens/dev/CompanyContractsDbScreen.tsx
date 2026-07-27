@@ -10,10 +10,8 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import {
   cpvDivisionName,
-  groupMethodFacet,
   procedureBucket,
   procedureLabel,
   type ProcedureBucket,
@@ -28,7 +26,7 @@ import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { facetShare, bucketShare } from "@/lib/facetStats";
+import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   Select,
@@ -158,132 +156,24 @@ export const CompanyContractsDbScreen: FC<{
     [cpvDiv],
   );
 
-  const fetchFacets = async (
-    columns: string[],
-    filters: DbColumnFilter[],
-  ): Promise<{
-    facets: Record<string, { value: string; count: number }[]>;
-  }> => {
-    const req = {
+  // Facet-driven analysis (procedure mix, integrity KPIs, CPV options), shared
+  // with the global /procurement/contracts browser. Entity-scoped; the year
+  // filter is a common filter applied to every facet; the CPV facet is reactive
+  // (its counts reflect the active method/single filters). The bid facet's
+  // limit bounds distinct bidder-counts, not rows — real counts are tiny (~1–30)
+  // and value === 1 is always present, so the single-bid denominator is safe.
+  const { groupedMethods, cpvOptions, singleBidPct, directPct, methodF } =
+    useContractsAnalytics({
       resource: "contracts",
       scope: { col: scopeCol, val: eik },
       fixedFilters: [{ id: "tag", value: [tag] }],
-      filters,
-      columns,
-      limit: 100,
-    };
-    const r = await fetch(
-      `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
-    );
-    if (!r.ok) return { facets: {} };
-    return r.json();
-  };
-
-  // Procedure-mix facet — every filter EXCEPT the procedure one, so all buckets
-  // stay visible (the bar/dropdown never collapse to just the selected bucket).
-  const { data: procFacet } = useQuery({
-    queryKey: [
-      "db-facets",
-      "contracts",
-      eik,
-      tag,
-      side,
-      "proc",
-      yearF,
-      singleF,
-      cpvF,
-    ],
-    queryFn: () =>
-      fetchFacets(["procurement_method"], [...yearF, ...singleF, ...cpvF]),
-    staleTime: Infinity,
-  });
-  const groupedMethods = useMemo(
-    () => groupMethodFacet(procFacet?.facets?.procurement_method ?? []),
-    [procFacet],
-  );
-  // Raw method strings behind the selected bucket → the `in` filter payload.
-  const selectedMethods = useMemo<string[]>(
-    () =>
-      procBucket
-        ? (groupedMethods.find((g) => g.bucket === procBucket)?.methods ?? [])
-        : [],
-    [procBucket, groupedMethods],
-  );
-  const methodF = useMemo<DbColumnFilter[]>(
-    () =>
-      selectedMethods.length
-        ? [{ id: "procurement_method", value: selectedMethods }]
-        : [],
-    [selectedMethods],
-  );
-  // If another filter (year/CPV/single-bid) narrows the scoped facet so the
-  // selected bucket no longer exists, `selectedMethods` would silently become []
-  // and the procedure filter would drop while the UI still reads "selected".
-  // Clear the stale selection once the facet has loaded so the state stays honest.
-  useEffect(() => {
-    if (
-      procBucket &&
-      groupedMethods.length &&
-      !groupedMethods.some((g) => g.bucket === procBucket)
-    ) {
-      setProcBucket(null);
-    }
-  }, [procBucket, groupedMethods, setProcBucket]);
-
-  // CPV facet — every filter EXCEPT the CPV one, for the same reason.
-  const { data: cpvFacet } = useQuery({
-    queryKey: [
-      "db-facets",
-      "contracts",
-      eik,
-      tag,
-      side,
-      "cpv",
-      yearF,
-      singleF,
-      methodF,
-    ],
-    queryFn: () => fetchFacets(["cpv"], [...yearF, ...singleF, ...methodF]),
-    staleTime: Infinity,
-  });
-  const cpvOptions = cpvFacet?.facets?.cpv ?? [];
-
-  // Bid-count facet — every filter EXCEPT single-bid, for the single-bidder % KPI.
-  const { data: bidFacet } = useQuery({
-    queryKey: [
-      "db-facets",
-      "contracts",
-      eik,
-      tag,
-      side,
-      "bids",
-      yearF,
-      cpvF,
-      methodF,
-    ],
-    queryFn: () =>
-      fetchFacets(["number_of_tenderers"], [...yearF, ...cpvF, ...methodF]),
-    staleTime: Infinity,
-  });
-
-  // Integrity KPIs, computed over the facet's own scope (contracts with a known
-  // value): single-bidder share (from the bid-count facet) and direct-award
-  // share (from the procedure mix). Null when there's no denominator.
-  // The bid facet's `limit: 100` bounds distinct bidder-counts, not rows — real
-  // counts are tiny (~1–30) and `value === 1` is always in the top 100, so the
-  // single-bid denominator is never truncated.
-  const singleBidPct = useMemo<number | null>(
-    () =>
-      facetShare(
-        bidFacet?.facets?.number_of_tenderers ?? [],
-        (v) => Number(v) === 1,
-      ),
-    [bidFacet],
-  );
-  const directPct = useMemo<number | null>(
-    () => bucketShare(groupedMethods, "direct"),
-    [groupedMethods],
-  );
+      commonFilters: yearF,
+      singleFilter: singleF,
+      cpvFilter: cpvF,
+      procBucket,
+      reactiveCpv: true,
+      onBucketInvalid: () => setProcBucket(null),
+    });
 
   const extraFilters = useMemo<DbColumnFilter[]>(
     () => [...yearF, ...singleF, ...methodF, ...cpvF],

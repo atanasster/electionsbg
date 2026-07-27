@@ -13,10 +13,9 @@
 // mix bar ride /api/db/facets and do NOT react to the search box (the facets omit
 // the global term, same split as the company page).
 
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
 import { Receipt, ExternalLink, Coins, FileText, Users } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -42,13 +41,12 @@ import {
   CPV_ALL,
 } from "@/screens/components/procurement/CpvFilterCombobox";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { facetShare, bucketShare } from "@/lib/facetStats";
 import {
-  groupMethodFacet,
   procedureBucket,
   procedureLabel,
   type ProcedureBucket,
 } from "@/lib/cpvSectors";
+import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
@@ -58,8 +56,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-type Facets = { facets: Record<string, { value: string; count: number }[]> };
 
 const PROC_ALL = "__all__";
 // The valid procedure-bucket literals, for validating the untrusted ?proc URL
@@ -123,6 +119,20 @@ export const ContractsBrowserDbScreen: FC = () => {
   const setSingleBidder = useCallback(
     (v: boolean) => setParam("single", v ? "1" : null),
     [setParam],
+  );
+  const hasActiveFilters =
+    procBucket !== null || cpvDiv !== CPV_ALL || singleBidder;
+  const clearFilters = useCallback(
+    () =>
+      setParams(
+        (prev) => {
+          const p = new URLSearchParams(prev);
+          ["proc", "cpv", "single"].forEach((k) => p.delete(k));
+          return p;
+        },
+        { replace: true },
+      ),
+    [setParams],
   );
 
   // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
@@ -189,132 +199,26 @@ export const ContractsBrowserDbScreen: FC = () => {
     [singleBidder],
   );
 
-  const fetchFacets = useCallback(
-    async (columns: string[], filters: DbColumnFilter[]): Promise<Facets> => {
-      const req = {
-        resource: "contracts",
-        fixedFilters: [{ id: "tag", value: ["contract"] }, ...scopeBase],
-        filters,
-        columns,
-        // 100 distinct values/column — enough to cover the whole-corpus method
-        // vocabulary + every CPV division without truncating the mix denominator.
-        limit: 100,
-      };
-      const r = await fetch(
-        `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
-      );
-      if (!r.ok) return { facets: {} };
-      return r.json();
-    },
-    [scopeBase],
-  );
-
-  // CPV-division facet — kept STATIC (scope-base only, not reactive to the
-  // method/single filters) so the combobox's division list doesn't shift as you
-  // pick a procedure. Powers the searchable CPV filter.
-  const { data: cpvFacet } = useQuery({
-    queryKey: ["db-facets", "contracts-global", "cpv", scopeBase],
-    queryFn: () => fetchFacets(["cpv"], []),
-    staleTime: Infinity,
-  });
-  const cpvOptions = cpvFacet?.facets?.cpv ?? [];
   // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
   // — search by sector name or by any CPV code, beyond the 2-digit divisions.
   const { data: cpvCatalog } = useCpvCatalog();
 
-  // Facet cost control: while no procedure/single filter is active the proc-mix
-  // and bid-count facets share one filter set (scope + cpv), so fetch them in ONE
-  // request. Once either is set the two facets must each EXCLUDE their own
-  // dimension (so every bucket / bid-count stays visible), which needs two.
-  const bothUnfiltered = !procBucket && !singleBidder;
-
-  const { data: combinedFacet } = useQuery({
-    queryKey: ["db-facets", "contracts-global", "combined", scopeBase, cpvF],
-    enabled: showAnalysis && bothUnfiltered,
-    queryFn: () =>
-      fetchFacets(["procurement_method", "number_of_tenderers"], [...cpvF]),
-    staleTime: Infinity,
-  });
-  // Procedure-mix facet — every filter EXCEPT the procedure one.
-  const { data: procFacet } = useQuery({
-    queryKey: [
-      "db-facets",
-      "contracts-global",
-      "proc",
-      scopeBase,
-      singleF,
-      cpvF,
-    ],
-    enabled: showAnalysis && !bothUnfiltered,
-    queryFn: () => fetchFacets(["procurement_method"], [...singleF, ...cpvF]),
-    staleTime: Infinity,
-  });
-  const methodRows = bothUnfiltered
-    ? combinedFacet?.facets?.procurement_method
-    : procFacet?.facets?.procurement_method;
-  const groupedMethods = useMemo(
-    () => groupMethodFacet(methodRows ?? []),
-    [methodRows],
-  );
-  // Raw method strings behind the selected bucket → the `in` filter payload.
-  const selectedMethods = useMemo<string[]>(
-    () =>
-      procBucket
-        ? (groupedMethods.find((g) => g.bucket === procBucket)?.methods ?? [])
-        : [],
-    [procBucket, groupedMethods],
-  );
-  const methodF = useMemo<DbColumnFilter[]>(
-    () =>
-      selectedMethods.length
-        ? [{ id: "procurement_method", value: selectedMethods }]
-        : [],
-    [selectedMethods],
-  );
-  // If another filter (CPV / single-bid) narrows the scoped facet so the selected
-  // bucket no longer exists, selectedMethods would silently become [] and the
-  // procedure filter would drop while the mix bar still reads "selected". Clear the
-  // stale selection once the facet has loaded so the state stays honest.
-  useEffect(() => {
-    if (
-      procBucket &&
-      groupedMethods.length &&
-      !groupedMethods.some((g) => g.bucket === procBucket)
-    ) {
-      setProcBucket(null);
-    }
-  }, [procBucket, groupedMethods, setProcBucket]);
-
-  // Bid-count facet — every filter EXCEPT single-bid, for the single-bidder % KPI.
-  // The facet's limit bounds distinct bidder-counts, not rows — real counts are
-  // tiny (~1–30) and `value === 1` is always present, so the denominator is safe.
-  const { data: bidFacet } = useQuery({
-    queryKey: [
-      "db-facets",
-      "contracts-global",
-      "bid",
-      scopeBase,
-      methodF,
-      cpvF,
-    ],
-    enabled: showAnalysis && !bothUnfiltered,
-    queryFn: () => fetchFacets(["number_of_tenderers"], [...methodF, ...cpvF]),
-    staleTime: Infinity,
-  });
-  const bidRows = bothUnfiltered
-    ? combinedFacet?.facets?.number_of_tenderers
-    : bidFacet?.facets?.number_of_tenderers;
-
-  // Integrity KPIs over the facet's own scope: single-bidder share + direct-award
-  // share. Null when there's no denominator (render "—" not a misleading 0%).
-  const singleBidPct = useMemo<number | null>(
-    () => facetShare(bidRows ?? [], (v) => Number(v) === 1),
-    [bidRows],
-  );
-  const directPct = useMemo<number | null>(
-    () => bucketShare(groupedMethods, "direct"),
-    [groupedMethods],
-  );
+  // Facet-driven analysis (procedure mix, integrity KPIs, CPV options), shared
+  // with the company/awarder screens. Scope = the whole ?pscope window + awarder
+  // EIK-set (folded into fixedFilters); the CPV facet is kept STATIC so the
+  // combobox's division list doesn't shift as you pick a procedure; the analysis
+  // facets stand down on ?sector pages (showAnalysis=false).
+  const { groupedMethods, cpvOptions, singleBidPct, directPct, methodF } =
+    useContractsAnalytics({
+      resource: "contracts",
+      fixedFilters: [{ id: "tag", value: ["contract"] }, ...scopeBase],
+      singleFilter: singleF,
+      cpvFilter: cpvF,
+      procBucket,
+      enabled: showAnalysis,
+      reactiveCpv: false,
+      onBucketInvalid: () => setProcBucket(null),
+    });
 
   // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
   // DbDataTable computes them server-side (exact, since the resource declares
@@ -673,6 +577,15 @@ export const ContractsBrowserDbScreen: FC = () => {
                 />
                 {t("company_contracts_single_bidder") || "само 1 оферта"}
               </label>
+              {hasActiveFilters ? (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="text-xs text-primary underline underline-offset-2 hover:no-underline"
+                >
+                  {t("contracts_clear_filters") || "Изчисти филтрите"}
+                </button>
+              ) : null}
             </>
           }
           renderAggregates={(footerAgg, total, exact) => (
