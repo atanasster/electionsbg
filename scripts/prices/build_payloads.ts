@@ -330,9 +330,9 @@ export const buildPayloads = async (): Promise<void> => {
   const gasGapPct = energyGapPct("data/energy/gas_prices.json");
 
   const peers = readJson<{
-    foodPli?: { values?: Record<string, Record<string, number>> };
+    pricePli?: { values?: Record<string, Record<string, number>> };
   }>("data/macro_peers.json");
-  const euFoodPli = peers?.foodPli?.values?.BG?.A010101 ?? null;
+  const euFoodPli = peers?.pricePli?.values?.BG?.A010101 ?? null;
 
   const macro = readJson<{
     series?: { inflationFood?: { value: number }[] };

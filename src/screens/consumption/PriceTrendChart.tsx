@@ -105,15 +105,40 @@ const PriceLegend: FC<{
     className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-2 text-[11px]"
     style={{ paddingLeft: padLeft }}
   >
-    {geos.map((geo) => (
-      <span
-        key={geo}
-        className="inline-flex items-center gap-1 text-muted-foreground"
-      >
-        <Flag geo={geo} size={11} />
-        {geoLabel(geo, lang)}
-      </span>
-    ))}
+    {geos.map((geo) => {
+      const s = lineStyle(geo);
+      return (
+        <span
+          key={geo}
+          className="inline-flex items-center gap-1.5 text-muted-foreground"
+        >
+          {/* A swatch matching the chart line (colour + dash + weight) so the
+              flag isn't the only cue — the flag palette doesn't map to the
+              line palette, which made the coloured lines ambiguous. */}
+          <svg
+            width="16"
+            height="10"
+            viewBox="0 0 16 10"
+            aria-hidden
+            className="shrink-0"
+          >
+            <line
+              x1="0"
+              y1="5"
+              x2="16"
+              y2="5"
+              stroke={GEO_COLOR[geo]}
+              strokeWidth={s.width}
+              strokeDasharray={s.dash}
+              strokeOpacity={s.opacity}
+              strokeLinecap="round"
+            />
+          </svg>
+          <Flag geo={geo} size={11} />
+          {geoLabel(geo, lang)}
+        </span>
+      );
+    })}
   </div>
 );
 

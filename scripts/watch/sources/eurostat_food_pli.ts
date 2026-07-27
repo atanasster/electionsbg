@@ -1,6 +1,7 @@
-// Food price-level watcher (BG). Fingerprints the Eurostat dataset behind the
-// /consumption/eu "food vs the EU" tile — prc_ppp_ind_1 (price level indices,
-// EU27=100), the foodPli block written into data/macro_peers.json by
+// Price-level watcher (BG). Fingerprints the Eurostat dataset behind the
+// /consumption/eu "Цените спрямо ЕС" page — prc_ppp_ind_1 (price level indices,
+// EU27=100), the pricePli block (full consumption basket + real-consumption
+// volumes + convergence trend) written into data/macro_peers.json by
 // scripts/macro/fetch_food_pli.ts. Kept separate from eurostat.ts /
 // eurostat_policy.ts so a PLI release is named on its own; PPP price levels
 // publish annually (typically June).
@@ -20,8 +21,7 @@ const URL_ =
 
 export const eurostatFoodPli: WatchSource = {
   id: "eurostat_food_pli",
-  label:
-    "Eurostat food price levels (BG): PPP price level indices (prc_ppp_ind_1)",
+  label: "Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1)",
   url: "https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1",
   cadence: "monthly",
 

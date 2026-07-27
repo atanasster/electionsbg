@@ -129,16 +129,70 @@ const CATS: {
     kind: "food",
     parent: "A0101",
   },
-  { code: "A01010101", bg: "Хляб и зърнени", en: "Bread & cereals", kind: "food", parent: "A0101" },
+  {
+    code: "A01010101",
+    bg: "Хляб и зърнени",
+    en: "Bread & cereals",
+    kind: "food",
+    parent: "A0101",
+  },
   { code: "A01010102", bg: "Месо", en: "Meat", kind: "food", parent: "A0101" },
-  { code: "A01010103", bg: "Риба", en: "Fish & seafood", kind: "food", parent: "A0101" },
-  { code: "A01010104", bg: "Мляко, млечни, яйца", en: "Milk, dairy & eggs", kind: "food", parent: "A0101" },
-  { code: "A01010105", bg: "Масла и мазнини", en: "Oils & fats", kind: "food", parent: "A0101" },
-  { code: "A01010106", bg: "Плодове", en: "Fruit & nuts", kind: "food", parent: "A0101" },
-  { code: "A01010107", bg: "Зеленчуци", en: "Vegetables", kind: "food", parent: "A0101" },
-  { code: "A01010108", bg: "Захар и сладки", en: "Sugar & confectionery", kind: "food", parent: "A0101" },
-  { code: "A01010109", bg: "Готови храни", en: "Ready-made food", kind: "food", parent: "A0101" },
-  { code: "A010102", bg: "Безалкохолни", en: "Non-alcoholic beverages", kind: "food", parent: "A0101" },
+  {
+    code: "A01010103",
+    bg: "Риба",
+    en: "Fish & seafood",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010104",
+    bg: "Мляко, млечни, яйца",
+    en: "Milk, dairy & eggs",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010105",
+    bg: "Масла и мазнини",
+    en: "Oils & fats",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010106",
+    bg: "Плодове",
+    en: "Fruit & nuts",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010107",
+    bg: "Зеленчуци",
+    en: "Vegetables",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010108",
+    bg: "Захар и сладки",
+    en: "Sugar & confectionery",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A01010109",
+    bg: "Готови храни",
+    en: "Ready-made food",
+    kind: "food",
+    parent: "A0101",
+  },
+  {
+    code: "A010102",
+    bg: "Безалкохолни",
+    en: "Non-alcoholic beverages",
+    kind: "food",
+    parent: "A0101",
+  },
 ];
 
 // Divisions that also carry a per-capita real-consumption volume (VI_PPS_HAB).
@@ -182,7 +236,12 @@ const fetchJsonStat = async (url: string): Promise<JsonStat> => {
 };
 
 const main = async () => {
-  const years = ["2025", "2024", "2023"]; // prefer newest, fall back per cell
+  // Candidate years, newest-first, derived from the current year so the window
+  // self-advances when Eurostat publishes a new PLI vintage (~June annually) —
+  // a hardcoded list would silently serve a year-old figure. The per-cell
+  // `years.find(...)` fallback below handles the not-yet-published newest year.
+  const nowY = new Date().getFullYear();
+  const years = [nowY, nowY - 1, nowY - 2, nowY - 3].map(String);
 
   // --- 1. Price level indices (PLI) for the whole basket -------------------
   const pliParams = new URLSearchParams();
@@ -210,8 +269,12 @@ const main = async () => {
         }) != null,
     ) ?? years[years.length - 1];
 
+  // Prefer the resolved headline `year` so the page reads one consistent vintage,
+  // then fall back to the remaining years newest-first. `year` is dropped from the
+  // tail so it is not probed twice.
+  const yearOrder = [year, ...years.filter((y) => y !== year)];
   const cellPli = (geo: string, code: string): number | undefined => {
-    for (const y of [year, ...years]) {
+    for (const y of yearOrder) {
       const v = getPli({
         freq: "A",
         indic_ppp: "PLI_EU27_2020",
@@ -247,7 +310,7 @@ const main = async () => {
   );
   const getVol = makeGetter(jVol);
   const cellVol = (geo: string, code: string): number | undefined => {
-    for (const y of [year, ...years]) {
+    for (const y of yearOrder) {
       const v = getVol({
         freq: "A",
         indic_ppp: "VI_PPS_EU27_2020_HAB",

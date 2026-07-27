@@ -1171,15 +1171,22 @@ export const basketVsInflation = async (
 // 6b. euFoodPriceLevels — BG food prices vs the EU (Eurostat PLI, EU27=100)
 // =============================================================================
 // Official Eurostat–OECD PPP-programme price level indices (prc_ppp_ind_1),
-// merged into macro_peers.json as `foodPli`. Answers "по-скъпа ли е храната у нас
-// от ЕС" with the per-category picture (dairy & oils above, meat/bread below).
+// merged into macro_peers.json as `pricePli` (full basket). Answers "по-скъпа ли
+// е храната у нас от ЕС" with the per-category food picture (dairy & oils above,
+// meat/bread below); reads the `food`-kind detail rows of the basket block.
 
-interface FoodPliLite {
-  foodPli?: {
+interface PricePliLite {
+  pricePli?: {
     source: string;
     sourceUrl: string;
     year: number;
-    categories: { code: string; bg: string; en: string; agg?: boolean }[];
+    categories: {
+      code: string;
+      bg: string;
+      en: string;
+      kind: "headline" | "division" | "food";
+      parent?: string;
+    }[];
     values: Record<string, Record<string, number>>;
   };
 }
@@ -1189,8 +1196,8 @@ export const euFoodPriceLevels = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const lang = ctx.lang;
-  const peers = await fetchData<FoodPliLite>("/macro_peers.json");
-  const fp = peers?.foodPli;
+  const peers = await fetchData<PricePliLite>("/macro_peers.json");
+  const fp = peers?.pricePli;
   const title =
     lang === "bg"
       ? "Храната у нас спрямо ЕС (Евростат, ЕС=100)"
@@ -1205,7 +1212,10 @@ export const euFoodPriceLevels = async (
 
   const bgVals = fp.values.BG;
   const totalPli = bgVals["A010101"];
-  const subs = fp.categories.filter((c) => !c.agg);
+  // food detail rows only (exclude the A010101 "Food (total)" aggregate)
+  const subs = fp.categories.filter(
+    (c) => c.kind === "food" && c.code !== "A010101",
+  );
   const rows: Row[] = [];
   let dearest: { label: string; v: number } | null = null;
   let cheapest: { label: string; v: number } | null = null;

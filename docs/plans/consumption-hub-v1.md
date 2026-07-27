@@ -1,5 +1,10 @@
 # Consumption Hub v1 — plan, audit & EU price comparison
 
+> **Shipped note (2026-07-27):** the EU price comparison shipped as a `pricePli` block
+> (the whole COICOP consumption basket + real-consumption volumes + a since-2010
+> convergence trend), superseding the `foodPli` (food-only) naming used throughout this
+> historical plan. Read every `foodPli` mention below as `pricePli`.
+
 Status: PLAN (2026-07-18). Turns `/consumption` from a stack of dashboards into a
 navigation-first **hub** (mirroring `ProcurementScreen`), adds a top search control,
 several new sub-pages off data already in Postgres, grocery-**chain ↔ company** cross-corpus
