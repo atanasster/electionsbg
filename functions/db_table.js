@@ -754,7 +754,7 @@ const REGISTRY = {
       detail: { type: "text", filter: "text", search: true },
       description: { type: "text", filter: "text" },
       acquired_year: { type: "int", sort: true, filter: "range" },
-      value_eur: { type: "number", sort: true, filter: "range" },
+      value_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
       amount: { type: "number" },
       currency: { type: "text", filter: "in" },
       is_spouse: { type: "bool", filter: "eq" },
@@ -784,7 +784,13 @@ const REGISTRY = {
       "source_url",
     ],
     defaultSort: [["value_eur", "desc"]],
-    aggregates: [{ fn: "count" }],
+    // count(*) = total cars; count(value_eur) = cars with a declared value;
+    // sum(value_eur) = combined value — the /mp-cars summary line.
+    aggregates: [
+      { fn: "count" },
+      { fn: "count", col: "value_eur" },
+      { fn: "sum", col: "value_eur" },
+    ],
     maxPageSize: 200,
   },
 
@@ -1051,11 +1057,16 @@ const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const buildAggSelect = (r) => {
   const sel = ["count(*)::bigint AS _count"];
   for (const a of r.aggregates ?? []) {
-    if (a.fn === "count") continue;
+    // Bare `count` is the always-present count(*) above; a column-scoped `count`
+    // is a NON-NULL count (e.g. "how many rows carry a declared value").
+    if (a.fn === "count" && !a.col) continue;
+    if (!a.col || !r.columns[a.col]) continue; // col is registry-sourced (safe)
     const camel = cap(snakeToCamel(a.col));
-    if (a.fn === "sum" && r.columns[a.col]?.agg === "sum")
+    if (a.fn === "count")
+      sel.push(`count(${a.col})::bigint AS "count${camel}"`);
+    else if (a.fn === "sum" && r.columns[a.col]?.agg === "sum")
       sel.push(`coalesce(sum(${a.col}),0) AS "sum${camel}"`);
-    if (a.fn === "avg")
+    else if (a.fn === "avg")
       sel.push(`avg(${a.col})::double precision AS "avg${camel}"`);
   }
   return sel.join(", ");
@@ -1123,8 +1134,14 @@ const runDbTable = async (q, reqRaw) => {
       );
       total = Number(a._count);
       totalExact = true;
+      // node-pg hands bigint/numeric back as STRINGS (sum, count(col)); coerce every
+      // aggregate to a real number so DbTableResponse.aggregates: Record<string, number> is
+      // honest and a consumer can't `sumA + sumB` into string concatenation. Magnitudes here
+      // (counts, euro sums) are well inside 2^53.
       aggregates = Object.fromEntries(
-        Object.entries(a).filter(([k]) => k !== "_count"),
+        Object.entries(a)
+          .filter(([k]) => k !== "_count")
+          .map(([k, v]) => [k, Number(v)]),
       );
       aggregates.count = total;
     } else {
@@ -1188,4 +1205,10 @@ const runDbFacets = async (q, reqRaw) => {
   return { facets };
 };
 
-module.exports = { runDbTable, runDbFacets, REGISTRY, buildWhere };
+module.exports = {
+  runDbTable,
+  runDbFacets,
+  REGISTRY,
+  buildWhere,
+  buildAggSelect,
+};

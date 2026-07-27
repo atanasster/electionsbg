@@ -132,25 +132,37 @@ export type WgiBlock = {
   >;
 };
 
-// Eurostat food Price Level Indices (prc_ppp_ind_1, EU27=100) — the official
-// cross-country food price comparison behind /consumption/eu. `values[geo][code]`
-// is the PLI for that COICOP-2018 food category (100 = EU27 average; >100 dearer,
-// <100 cheaper). Merged by scripts/macro/fetch_food_pli.ts.
-export type FoodPliCategory = {
+// Eurostat Price Level Indices (prc_ppp_ind_1, EU27=100) — the official
+// cross-country price comparison behind /consumption/eu, covering the whole
+// household consumption basket. `values[geo][code]` is the PLI for that
+// COICOP-2018 category (100 = EU27 average; >100 dearer, <100 cheaper).
+// `volumes[geo][code]` is the income-adjusted real per-capita consumption volume
+// (VI_PPS_HAB, EU=100). `trend` is the overall-consumption (A01) price-level
+// series since 2010 for BG + neighbour peers. Merged by fetch_food_pli.ts.
+export type PricePliCategory = {
   code: string;
   bg: string;
   en: string;
-  /** the "Food (total)" aggregate row, distinct from the subgroups. */
-  agg?: boolean;
+  /** headline = overall consumption (A01); division = COICOP division; food = detail row. */
+  kind: "headline" | "division" | "food";
+  /** parent category code (food detail rows point at their division). */
+  parent?: string;
 };
-export type FoodPliBlock = {
+export type PricePliTrend = {
+  years: number[];
+  /** geo → per-year A01 price level (null where a year is missing). */
+  values: Record<string, (number | null)[]>;
+};
+export type PricePliBlock = {
   source: string;
   sourceUrl: string;
   year: number;
   baseline: string;
   geos: string[];
-  categories: FoodPliCategory[];
+  categories: PricePliCategory[];
   values: Record<string, Record<string, number>>;
+  volumes: Record<string, Record<string, number>>;
+  trend: PricePliTrend;
 };
 
 export type MacroPeersPayload = {
@@ -180,8 +192,8 @@ export type MacroPeersPayload = {
   // v3 — World Bank WGI per-peer snapshot (6 dimensions × peer roster +
   // computed EU27 average). Powers the WGI radar tile on /indicators/compare.
   wgi?: WgiBlock;
-  // Eurostat food PLI (EU27=100) — the /consumption/eu comparison.
-  foodPli?: FoodPliBlock;
+  // Eurostat PLI (EU27=100) — the /consumption/eu full-basket comparison.
+  pricePli?: PricePliBlock;
 };
 
 export const useMacroPeers = () =>
@@ -213,8 +225,8 @@ export const usePeerIndicatorAnnual = (
   return data?.indicatorsAnnual?.[key];
 };
 
-// The Eurostat food PLI block (EU27=100), or undefined while loading / missing.
-export const useFoodPli = (): FoodPliBlock | undefined => {
+// The Eurostat price-level block (EU27=100), or undefined while loading / missing.
+export const usePricePli = (): PricePliBlock | undefined => {
   const { data } = useMacroPeers();
-  return data?.foodPli;
+  return data?.pricePli;
 };

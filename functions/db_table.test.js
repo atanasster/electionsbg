@@ -6,7 +6,12 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 
-const { buildWhere, REGISTRY, runDbFacets } = require("./db_table.js");
+const {
+  buildWhere,
+  REGISTRY,
+  runDbFacets,
+  buildAggSelect,
+} = require("./db_table.js");
 
 const contracts = REGISTRY.contracts;
 
@@ -315,5 +320,45 @@ test("runDbFacets without req.filters keeps the fixedFilters-only behavior", asy
   assert.ok(
     !params.includes("2024-01-01"),
     "no user filter applied when req.filters is omitted",
+  );
+});
+
+// buildAggSelect (persons-pg-retirement-v1 T2.2): a column-scoped `count` is a NON-NULL
+// count, distinct from the always-present count(*); sum still requires agg:"sum". These lock
+// the backward-compat contract so the /mp-cars summary (count / count(value_eur) /
+// sum(value_eur)) can't silently regress.
+test("buildAggSelect: bare count is count(*); column count is a non-null count", () => {
+  const r = {
+    base: "t",
+    columns: { value_eur: { type: "number", agg: "sum" } },
+    aggregates: [
+      { fn: "count" },
+      { fn: "count", col: "value_eur" },
+      { fn: "sum", col: "value_eur" },
+    ],
+  };
+  const sql = buildAggSelect(r);
+  assert.match(sql, /count\(\*\)::bigint AS _count/);
+  assert.match(sql, /count\(value_eur\)::bigint AS "countValueEur"/);
+  assert.match(sql, /coalesce\(sum\(value_eur\),0\) AS "sumValueEur"/);
+});
+
+test("buildAggSelect: sum without agg:'sum', or a count over an unknown column, emit nothing extra", () => {
+  const noAggFlag = buildAggSelect({
+    base: "t",
+    columns: { x: { type: "number" } },
+    aggregates: [{ fn: "count" }, { fn: "sum", col: "x" }],
+  });
+  assert.equal(noAggFlag, "count(*)::bigint AS _count", "sum needs agg:'sum'");
+
+  const unknownCol = buildAggSelect({
+    base: "t",
+    columns: {},
+    aggregates: [{ fn: "count" }, { fn: "count", col: "nope" }],
+  });
+  assert.equal(
+    unknownCol,
+    "count(*)::bigint AS _count",
+    "a count over a column absent from the registry is dropped",
   );
 });

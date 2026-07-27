@@ -4,14 +4,21 @@ import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
-import { useMpCars } from "@/data/parliament/useMpCars";
+import { eur } from "@/data/parliament/useAssetsRankings";
+import type { MpCarRegistryRow } from "@/data/parliament/useMpCars";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
-import type { MpCarRow } from "@/data/dataTypes";
 import { formatEur } from "@/lib/currency";
-import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
+import { DbDataTable } from "@/ux/data_table/DbDataTable";
+import type { DataTableColumnDef } from "@/ux/data_table/utils";
+// Generic MP-registry scope→filter helpers (shared with /mp-assets): ns bucket + mp_id IN.
+import {
+  mpAssetsNsScope,
+  mpAssetsIdFilters,
+  type MpAssetsScope,
+} from "@/screens/utils/mpAssetsScope";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
@@ -19,14 +26,23 @@ import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
-type Scope = "ns" | "all";
+// MP-declared cars, served from Postgres (matview mp_cars_table, migration 105) through the
+// /api/db/table registry engine — replaces the whole-file data/parliament/mp-cars.json
+// (persons-pg-retirement-v1 T2.2). Server-paged; the ns/all toggle is the resource's ns
+// scope, region/party chips → an mp_id IN filter, and the summary line comes from
+// server-side aggregates (count + count(value_eur) + sum(value_eur)).
+//
+// INTENTIONAL BEHAVIOUR CHANGE vs the JSON screen (shared with /mp-assets): the old client
+// screen fell back to the lifetime list when the selected parliament had zero rows; server
+// paging can't detect an empty ns bucket without a round trip, so an older parliament with no
+// declarations now shows an empty table (the user switches to "All parliaments"). The current
+// parliament always has rows, so this only affects historical election selections.
 
 export const MpCarsScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { mpCars } = useMpCars();
   const { selected } = useElectionContext();
   const { partyGroupShortLabel } = useCanonicalParties();
-  const [scope, setScope] = useState<Scope>("ns");
+  const [scope, setScope] = useState<MpAssetsScope>("ns");
   const {
     regionMpIds,
     label: regionLabel,
@@ -41,31 +57,20 @@ export const MpCarsScreen: FC = () => {
   } = usePartyScope();
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
+  const dbScope = useMemo(
+    () => mpAssetsNsScope(scope, folder),
+    [scope, folder],
+  );
+  const extraFilters = useMemo(
+    () => mpAssetsIdFilters(regionMpIds, partyMpIds),
+    [regionMpIds, partyMpIds],
+  );
 
-  const source: MpCarRow[] = useMemo(() => {
-    if (!mpCars) return [];
-    let rows: MpCarRow[];
-    if (scope === "ns" && folder) {
-      const inScope = mpCars.cars.filter((c) => c.nsFolders.includes(folder));
-      // Fall back to lifetime when the selected NS produced nothing — avoids
-      // an empty page on parliaments with no filings yet.
-      rows = inScope.length > 0 ? inScope : mpCars.cars;
-    } else {
-      rows = mpCars.cars;
-    }
-    if (regionMpIds) {
-      rows = rows.filter((c) => regionMpIds.has(c.mpId));
-    }
-    if (partyMpIds) {
-      rows = rows.filter((c) => partyMpIds.has(c.mpId));
-    }
-    return rows;
-  }, [mpCars, scope, folder, regionMpIds, partyMpIds]);
-
-  const columns: DataTableColumns<MpCarRow, unknown> = useMemo(
+  const columns = useMemo<DataTableColumnDef<MpCarRegistryRow, unknown>[]>(
     () => [
       {
-        accessorKey: "mpName",
+        id: "mp_name",
+        accessorFn: (r) => r.mpName,
         header: t("mp_cars_col_mp") || "MP",
         cell: ({ row }) => (
           <div className="flex items-center gap-2 min-w-0">
@@ -80,19 +85,21 @@ export const MpCarsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "partyGroupShort",
+        id: "party_group_short",
+        accessorFn: (r) => r.partyGroupShort,
         header: t("mp_cars_col_party") || "Party group",
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground truncate max-w-[160px] block">
-            {partyGroupShortLabel(row.original.partyGroupShort) ??
+            {partyGroupShortLabel(row.original.partyGroupShort ?? undefined) ??
               row.original.partyGroupShort ??
               "—"}
           </span>
         ),
       },
       {
-        accessorKey: "make",
+        id: "make",
+        accessorFn: (r) => r.make,
         header: t("mp_cars_col_make") || "Make",
         cell: ({ row }) =>
           row.original.make ?? (
@@ -102,7 +109,8 @@ export const MpCarsScreen: FC = () => {
           ),
       },
       {
-        accessorKey: "detail",
+        id: "detail",
+        accessorFn: (r) => r.detail,
         header: t("mp_cars_col_detail") || "Model (declared)",
         enableSorting: false,
         cell: ({ row }) => (
@@ -127,9 +135,9 @@ export const MpCarsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "acquiredYear",
+        id: "acquired_year",
+        accessorFn: (r) => r.acquiredYear,
         header: t("mp_cars_col_year") || "Year",
-        sortUndefined: "last",
         cell: ({ row }) => (
           <div className="text-right text-xs tabular-nums">
             {row.original.acquiredYear ?? "—"}
@@ -137,21 +145,25 @@ export const MpCarsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "valueEur",
+        id: "value_eur",
+        accessorFn: (r) => eur(r.valueEur),
         header: t("mp_cars_col_value") || "Value (€)",
-        sortUndefined: "last",
-        cell: ({ row }) => (
-          <div className="text-right tabular-nums font-mono">
-            {row.original.valueEur != null ? (
-              formatEur(row.original.valueEur, i18n.language)
-            ) : (
-              <span className="text-muted-foreground">—</span>
-            )}
-          </div>
-        ),
+        cell: ({ row }) => {
+          const v = eur(row.original.valueEur);
+          return (
+            <div className="text-right tabular-nums font-mono">
+              {v != null ? (
+                formatEur(v, i18n.language)
+              ) : (
+                <span className="text-muted-foreground">—</span>
+              )}
+            </div>
+          );
+        },
       },
       {
-        accessorKey: "isSpouse",
+        id: "is_spouse",
+        accessorFn: (r) => r.isSpouse,
         header: t("mp_cars_col_holder") || "Holder",
         enableSorting: false,
         cell: ({ row }) => (
@@ -182,11 +194,6 @@ export const MpCarsScreen: FC = () => {
     [t, i18n.language, partyGroupShortLabel],
   );
 
-  if (!mpCars) return null;
-
-  const totalValue = source.reduce((s, r) => s + (r.valueEur ?? 0), 0);
-  const valued = source.filter((r) => r.valueEur != null).length;
-
   const scopeToggle = (
     <div className="flex items-center gap-2 flex-wrap">
       {regionLabel && (
@@ -206,6 +213,8 @@ export const MpCarsScreen: FC = () => {
             ? "bg-primary text-primary-foreground border-primary"
             : "bg-card hover:bg-muted/40"
         }`}
+        // Old screen also disabled this when the selected parliament had no cars; server-side
+        // paging can't know that without a request, so we relax to "no folder".
         disabled={!folder}
       >
         {t("mp_cars_scope_ns") || "Selected parliament"}
@@ -252,23 +261,30 @@ export const MpCarsScreen: FC = () => {
         className="mt-5"
       />
 
-      <div className="text-xs text-muted-foreground mt-4 mb-2">
-        {t("mp_cars_page_summary", {
-          defaultValue:
-            "{{total}} cars · {{valued}} with declared value · combined {{sum}}",
-          total: source.length,
-          valued,
-          sum: formatEur(totalValue, i18n.language),
-        })}
-      </div>
-
-      <DataTable<MpCarRow, unknown>
-        title={pageTitle}
-        pageSize={25}
+      <DbDataTable<MpCarRegistryRow>
+        resource="mp_cars"
+        scope={dbScope}
         columns={columns}
-        data={source}
-        toolbarItems={scopeToggle}
-        initialSort={[{ id: "valueEur", desc: true }]}
+        extraFilters={extraFilters}
+        defaultSort={[{ id: "value_eur", desc: true }]}
+        pageSize={25}
+        toolbar={scopeToggle}
+        renderAggregates={(agg) => {
+          const total = Number(agg.count ?? 0);
+          const valued = Number(agg.countValueEur ?? 0);
+          const sum = Number(agg.sumValueEur ?? 0);
+          return (
+            <span className="text-xs text-muted-foreground">
+              {t("mp_cars_page_summary", {
+                defaultValue:
+                  "{{total}} cars · {{valued}} with declared value · combined {{sum}}",
+                total,
+                valued,
+                sum: formatEur(sum, i18n.language),
+              })}
+            </span>
+          );
+        }}
       />
 
       <div className="text-xs text-muted-foreground mt-4">

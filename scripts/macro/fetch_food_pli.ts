@@ -1,11 +1,20 @@
-// Fetch Eurostat food Price Level Indices (PLI, EU27=100) and MERGE them into
-// data/macro_peers.json as a `foodPli` block. Official cross-country comparison
-// from the Eurostat–OECD PPP programme (dataset prc_ppp_ind_1, COICOP 2018) —
-// already VAT-handled and quality-adjusted at source, CC-BY 4.0. This is the
-// clean EU price comparison for /consumption/eu (cijene.dev was dropped — see
-// docs/plans/consumption-hub-v1.md §1).
+// Fetch Eurostat Price Level Indices (PLI, EU27=100) for the FULL household
+// consumption basket and MERGE them into data/macro_peers.json as a `pricePli`
+// block. Official cross-country comparison from the Eurostat–OECD PPP programme
+// (dataset prc_ppp_ind_1, COICOP 2018) — already VAT-handled and quality-adjusted
+// at source, CC-BY 4.0. This powers the /consumption/eu "Цените спрямо ЕС" page
+// (formerly food-only; cijene.dev was dropped — see docs/plans/consumption-hub-v1.md §1).
 //
-// Targeted: reads the existing macro_peers.json, sets .foodPli, writes back —
+// Emits three things in one block:
+//   • values  — PLI (EU27=100) per COICOP category: the headline "actual individual
+//               consumption" (A01), the 12 divisions under it, and the food detail.
+//   • volumes — VI_PPS_EU27_2020_HAB (real per-capita consumption volume, EU=100):
+//               the income-adjusted counterpoint ("cheap prices, but how much do
+//               people actually consume?"). Fetched for A01 + the divisions.
+//   • trend   — the A01 price-level series since 2010 for BG + neighbour peers, so
+//               the page can show price CONVERGENCE toward the EU average over time.
+//
+// Targeted: reads the existing macro_peers.json, sets .pricePli, writes back —
 // does NOT re-run the whole peer fetch. Run: `npx tsx scripts/macro/fetch_food_pli.ts`.
 
 import fs from "node:fs";
@@ -28,20 +37,114 @@ const GEOS = [
   "AT",
 ] as const;
 
-// COICOP-2018 food categories (ppp_cat18) with curated BG/EN labels — the
-// subgroups, plus the "Food" aggregate as the headline.
-const CATS: { code: string; bg: string; en: string; agg?: boolean }[] = [
-  { code: "A010101", bg: "Храни (общо)", en: "Food (total)", agg: true },
-  { code: "A01010101", bg: "Хляб и зърнени", en: "Bread & cereals" },
-  { code: "A01010102", bg: "Месо", en: "Meat" },
-  { code: "A01010103", bg: "Риба", en: "Fish & seafood" },
-  { code: "A01010104", bg: "Мляко, млечни, яйца", en: "Milk, dairy & eggs" },
-  { code: "A01010105", bg: "Масла и мазнини", en: "Oils & fats" },
-  { code: "A01010106", bg: "Плодове", en: "Fruit & nuts" },
-  { code: "A01010107", bg: "Зеленчуци", en: "Vegetables" },
-  { code: "A01010108", bg: "Захар и сладки", en: "Sugar & confectionery" },
-  { code: "A01010109", bg: "Готови храни", en: "Ready-made food" },
-  { code: "A010102", bg: "Безалкохолни", en: "Non-alcoholic beverages" },
+// Neighbour peers shown in the convergence trend (kept small for readability).
+const TREND_GEOS = ["BG", "RO", "GR", "HU", "HR"] as const;
+const TREND_FROM = 2010;
+
+// COICOP-2018 categories (ppp_cat18) with curated BG/EN labels.
+//   kind: "headline" = actual individual consumption (the overall price level)
+//         "division" = a top-level COICOP division (the main basket bars)
+//         "food"     = the expandable food-detail rows under the food division
+type Kind = "headline" | "division" | "food";
+const CATS: {
+  code: string;
+  bg: string;
+  en: string;
+  kind: Kind;
+  /** parent category code (for the food detail rows). */
+  parent?: string;
+}[] = [
+  // Headline — overall consumption price level.
+  {
+    code: "A01",
+    bg: "Потребление (общо)",
+    en: "Consumption (overall)",
+    kind: "headline",
+  },
+  // The 12 divisions under actual individual consumption.
+  {
+    code: "A0101",
+    bg: "Храни и безалкохолни",
+    en: "Food & non-alcoholic drinks",
+    kind: "division",
+  },
+  {
+    code: "A0102",
+    bg: "Алкохол и тютюн",
+    en: "Alcohol & tobacco",
+    kind: "division",
+  },
+  {
+    code: "A0103",
+    bg: "Облекло и обувки",
+    en: "Clothing & footwear",
+    kind: "division",
+  },
+  {
+    code: "A0104",
+    bg: "Жилище, вода, енергия",
+    en: "Housing, water, energy",
+    kind: "division",
+  },
+  {
+    code: "A0105",
+    bg: "Обзавеждане и уреди",
+    en: "Furnishings & household",
+    kind: "division",
+  },
+  { code: "A0106", bg: "Здраве", en: "Health", kind: "division" },
+  { code: "A0107", bg: "Транспорт", en: "Transport", kind: "division" },
+  {
+    code: "A0108",
+    bg: "Съобщения",
+    en: "Information & communication",
+    kind: "division",
+  },
+  {
+    code: "A0109",
+    bg: "Развлечения и култура",
+    en: "Recreation & culture",
+    kind: "division",
+  },
+  { code: "A0110", bg: "Образование", en: "Education", kind: "division" },
+  {
+    code: "A0111",
+    bg: "Ресторанти и хотели",
+    en: "Restaurants & hotels",
+    kind: "division",
+  },
+  {
+    code: "A0112",
+    bg: "Други стоки и услуги",
+    en: "Miscellaneous goods & services",
+    kind: "division",
+  },
+  // Food detail — expandable under the "Храни и безалкохолни" division. A010101
+  // ("Food") is kept because scripts/prices/build_payloads.ts + the AI food tool
+  // read pricePli.values.BG.A010101 for the consumption-hub "food vs EU" stat.
+  {
+    code: "A010101",
+    bg: "Храни (общо)",
+    en: "Food (total)",
+    kind: "food",
+    parent: "A0101",
+  },
+  { code: "A01010101", bg: "Хляб и зърнени", en: "Bread & cereals", kind: "food", parent: "A0101" },
+  { code: "A01010102", bg: "Месо", en: "Meat", kind: "food", parent: "A0101" },
+  { code: "A01010103", bg: "Риба", en: "Fish & seafood", kind: "food", parent: "A0101" },
+  { code: "A01010104", bg: "Мляко, млечни, яйца", en: "Milk, dairy & eggs", kind: "food", parent: "A0101" },
+  { code: "A01010105", bg: "Масла и мазнини", en: "Oils & fats", kind: "food", parent: "A0101" },
+  { code: "A01010106", bg: "Плодове", en: "Fruit & nuts", kind: "food", parent: "A0101" },
+  { code: "A01010107", bg: "Зеленчуци", en: "Vegetables", kind: "food", parent: "A0101" },
+  { code: "A01010108", bg: "Захар и сладки", en: "Sugar & confectionery", kind: "food", parent: "A0101" },
+  { code: "A01010109", bg: "Готови храни", en: "Ready-made food", kind: "food", parent: "A0101" },
+  { code: "A010102", bg: "Безалкохолни", en: "Non-alcoholic beverages", kind: "food", parent: "A0101" },
+];
+
+// Divisions that also carry a per-capita real-consumption volume (VI_PPS_HAB).
+const VOLUME_CODES = [
+  "A01",
+  ...CATS.filter((c) => c.kind === "division").map((c) => c.code),
 ];
 
 // Eurostat codes Greece as "EL"; the rest of the app uses ISO "GR". Query with
@@ -72,61 +175,141 @@ const makeGetter = (j: JsonStat) => {
   };
 };
 
-const main = async () => {
-  const years = ["2024", "2023"]; // prefer 2024, fall back to 2023 per cell
-  const params = new URLSearchParams();
-  params.set("format", "JSON");
-  params.set("lang", "EN");
-  params.set("indic_ppp", "PLI_EU27_2020");
-  for (const g of GEOS) params.append("geo", EUROSTAT_GEO(g));
-  for (const c of CATS) params.append("ppp_cat18", c.code);
-  for (const y of years) params.append("time", y);
-
-  const url = `${BASE}/prc_ppp_ind_1?${params.toString()}`;
+const fetchJsonStat = async (url: string): Promise<JsonStat> => {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Eurostat ${res.status} ${res.statusText}`);
-  const j = (await res.json()) as JsonStat;
-  const get = makeGetter(j);
+  return (await res.json()) as JsonStat;
+};
 
-  // Determine the newest year that actually carries BG food data.
-  const yearOf = (): string => {
-    for (const y of years)
-      if (
-        get({
+const main = async () => {
+  const years = ["2025", "2024", "2023"]; // prefer newest, fall back per cell
+
+  // --- 1. Price level indices (PLI) for the whole basket -------------------
+  const pliParams = new URLSearchParams();
+  pliParams.set("format", "JSON");
+  pliParams.set("lang", "EN");
+  pliParams.set("indic_ppp", "PLI_EU27_2020");
+  for (const g of GEOS) pliParams.append("geo", EUROSTAT_GEO(g));
+  for (const c of CATS) pliParams.append("ppp_cat18", c.code);
+  for (const y of years) pliParams.append("time", y);
+  const jPli = await fetchJsonStat(
+    `${BASE}/prc_ppp_ind_1?${pliParams.toString()}`,
+  );
+  const getPli = makeGetter(jPli);
+
+  // Newest year that actually carries BG headline data.
+  const year =
+    years.find(
+      (y) =>
+        getPli({
           freq: "A",
           indic_ppp: "PLI_EU27_2020",
-          ppp_cat18: "A010101",
+          ppp_cat18: "A01",
           geo: "BG",
           time: y,
-        }) != null
-      )
-        return y;
-    return years[years.length - 1];
+        }) != null,
+    ) ?? years[years.length - 1];
+
+  const cellPli = (geo: string, code: string): number | undefined => {
+    for (const y of [year, ...years]) {
+      const v = getPli({
+        freq: "A",
+        indic_ppp: "PLI_EU27_2020",
+        ppp_cat18: code,
+        geo: EUROSTAT_GEO(geo),
+        time: y,
+      });
+      if (v != null) return v;
+    }
+    return undefined;
   };
-  const year = yearOf();
 
   const values: Record<string, Record<string, number>> = {};
   for (const g of GEOS) {
     const row: Record<string, number> = {};
     for (const c of CATS) {
-      // prefer the chosen year, fall back to the older one if a cell is missing
-      let v: number | undefined;
-      for (const y of [year, ...years]) {
-        v = get({
-          freq: "A",
-          indic_ppp: "PLI_EU27_2020",
-          ppp_cat18: c.code,
-          geo: EUROSTAT_GEO(g),
-          time: y,
-        });
-        if (v != null) break;
-      }
+      const v = cellPli(g, c.code);
       if (v != null) row[c.code] = v;
     }
     if (Object.keys(row).length > 0) values[g] = row;
   }
 
-  const foodPli = {
+  // --- 2. Real per-capita consumption volume (VI_PPS_HAB, EU=100) ----------
+  const volParams = new URLSearchParams();
+  volParams.set("format", "JSON");
+  volParams.set("lang", "EN");
+  volParams.set("indic_ppp", "VI_PPS_EU27_2020_HAB");
+  for (const g of GEOS) volParams.append("geo", EUROSTAT_GEO(g));
+  for (const c of VOLUME_CODES) volParams.append("ppp_cat18", c);
+  for (const y of years) volParams.append("time", y);
+  const jVol = await fetchJsonStat(
+    `${BASE}/prc_ppp_ind_1?${volParams.toString()}`,
+  );
+  const getVol = makeGetter(jVol);
+  const cellVol = (geo: string, code: string): number | undefined => {
+    for (const y of [year, ...years]) {
+      const v = getVol({
+        freq: "A",
+        indic_ppp: "VI_PPS_EU27_2020_HAB",
+        ppp_cat18: code,
+        geo: EUROSTAT_GEO(geo),
+        time: y,
+      });
+      if (v != null) return v;
+    }
+    return undefined;
+  };
+  const volumes: Record<string, Record<string, number>> = {};
+  for (const g of GEOS) {
+    const row: Record<string, number> = {};
+    for (const c of VOLUME_CODES) {
+      const v = cellVol(g, c);
+      if (v != null) row[c] = v;
+    }
+    if (Object.keys(row).length > 0) volumes[g] = row;
+  }
+
+  // --- 3. Convergence trend: A01 price level since 2010 --------------------
+  const trendParams = new URLSearchParams();
+  trendParams.set("format", "JSON");
+  trendParams.set("lang", "EN");
+  trendParams.set("indic_ppp", "PLI_EU27_2020");
+  trendParams.set("ppp_cat18", "A01");
+  for (const g of TREND_GEOS) trendParams.append("geo", EUROSTAT_GEO(g));
+  const jTrend = await fetchJsonStat(
+    `${BASE}/prc_ppp_ind_1?${trendParams.toString()}`,
+  );
+  const getTrend = makeGetter(jTrend);
+  const trendYears: number[] = [];
+  for (let y = TREND_FROM; y <= Number(year); y++) {
+    const has = TREND_GEOS.some(
+      (g) =>
+        getTrend({
+          freq: "A",
+          indic_ppp: "PLI_EU27_2020",
+          ppp_cat18: "A01",
+          geo: EUROSTAT_GEO(g),
+          time: String(y),
+        }) != null,
+    );
+    if (has) trendYears.push(y);
+  }
+  const trendValues: Record<string, (number | null)[]> = {};
+  for (const g of TREND_GEOS) {
+    const row = trendYears.map(
+      (y) =>
+        getTrend({
+          freq: "A",
+          indic_ppp: "PLI_EU27_2020",
+          ppp_cat18: "A01",
+          geo: EUROSTAT_GEO(g),
+          time: String(y),
+        }) ?? null,
+    );
+    if (row.some((v) => v != null)) trendValues[g] = row;
+  }
+
+  const pricePli = {
     source: "Eurostat prc_ppp_ind_1 (PPP programme, EU27=100)",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1",
@@ -135,16 +318,26 @@ const main = async () => {
     geos: GEOS.filter((g) => values[g]),
     categories: CATS,
     values,
+    volumes,
+    trend: { years: trendYears, values: trendValues },
   };
 
   const peers = JSON.parse(fs.readFileSync(OUT, "utf8"));
-  peers.foodPli = foodPli;
+  peers.pricePli = pricePli;
+  delete peers.foodPli; // superseded by the full-basket block
   // Match fetch_eu_peers' 2-space pretty-print so the diff is only the new block.
   fs.writeFileSync(OUT, JSON.stringify(peers, null, 2));
   console.log(
-    `foodPli merged into ${OUT}: year ${year}, ${foodPli.geos.length} geos, ${CATS.length} categories.`,
+    `pricePli merged into ${OUT}: year ${year}, ${pricePli.geos.length} geos, ${CATS.length} categories.`,
   );
-  console.log("BG food (total) PLI:", values.BG?.A010101);
+  console.log(
+    "BG overall PLI:",
+    values.BG?.A01,
+    "· BG real consumption/capita (EU=100):",
+    volumes.BG?.A01,
+    "· trend years:",
+    trendYears.length,
+  );
 };
 
 main().catch((e) => {

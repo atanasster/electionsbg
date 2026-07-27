@@ -407,6 +407,12 @@ TODO). Parity-check each against its JSON.
 > §0.2 sync-time win (which needs the load source moved out of `data/`) and **not** the
 > generator/harness cleanup (Tier 5). The `derived/` families remain, gated on Tiers 3 + 4.
 
+> **T2.2 note (intentional):** the /mp-assets + /mp-cars explorers, now server-paged on the
+> registry, dropped the old client-side "empty selected-parliament → show the lifetime list"
+> fallback (server paging can't cheaply detect an empty ns bucket). The current parliament
+> always has rows; only a historical election with no declarations shows an empty table, where
+> the user switches to "All parliaments". Documented in the screen headers.
+
 ### Tier 2 — MP roster/declarations/avatars on PersonDashboard
 Replace `useMpEntry`/`useMpDeclarations`/`useMpAssets` with person_id routes; `assets-rankings`
 / `mp-cars` / `car-makes` → REGISTRY. Migrate `parliament.ts:partyMps` + `people.ts` MP tools to
