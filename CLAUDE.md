@@ -45,6 +45,17 @@ npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 
 Hosting first means the rewrite is live against a function that cannot serve it yet.
 
+The same migration-before-writer rule applies to the hand-run ingests that have no
+`db:load:*:cloud` wrapper. `scripts/procurement/fetch_company_founded.ts` writes
+`http_status`/`attempts`, so `033_procurement_risk_indexes.sql` must be applied to the target
+database first:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
+```
+
+The script preflights and exits 2 with that command in the message if the columns are missing.
+
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 
 ### Person layer — the one step `db:refresh` cannot infer

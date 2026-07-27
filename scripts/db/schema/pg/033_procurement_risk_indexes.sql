@@ -25,12 +25,30 @@ SET check_function_bodies = off;
 -- ⚠️ Dates == 2008 are the ТР re-registration date (the register launched
 -- 2008-01-01), NOT true founding — harmless here: such firms are old and never
 -- fire a "new firm" check.
+-- ⚠️ A NULL founded_date means "the register answered and had no dated deed" —
+-- it must NEVER mean "we failed to reach the register". The fetcher's resume
+-- query skips every EIK already present, so a row written on a failed fetch is
+-- a permanent, silent lie. The 2026-07 backfill learned this the hard way: as
+-- the source throttled the crawler, the daily null rate climbed 4.7% → 47.2%
+-- and ~4,100 reachable firms were recorded as undated. http_status/attempts
+-- exist so that failure mode is auditable rather than invisible; the fetcher
+-- now refuses to write a row it could not actually resolve.
+-- http_status/attempts are the provenance that makes a NULL auditable: a row
+-- with http_status IS NULL predates the fix and cannot be trusted, which is
+-- what `--requeue-nulls` targets.
 CREATE TABLE IF NOT EXISTS company_founded (
   eik          text PRIMARY KEY,
   founded_date date,
   source       text,
-  fetched_at   timestamptz NOT NULL DEFAULT now()
+  fetched_at   timestamptz NOT NULL DEFAULT now(),
+  http_status  int,
+  attempts     int
 );
+-- Repeated below as ALTERs so re-applying 033 over a table created before the
+-- columns existed is still a no-op (these files are idempotent full re-applies,
+-- not a sequential migration chain).
+ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS http_status int;
+ALTER TABLE company_founded ADD COLUMN IF NOT EXISTS attempts    int;
 GRANT SELECT ON company_founded TO app_readonly;
 
 -- The cache matview depends on the function — drop it first so the

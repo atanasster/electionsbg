@@ -843,7 +843,7 @@ optional — it is the guardrail that makes the inverted contract safe.
 | c | `db:resolve:persons:cloud` | re-runs the **person resolver on cloud** (`--no-stamp`), reading cloud upstreams | resolver is expensive; ship `person_*` from local instead |
 | d | `build:project-members:cloud` | rebuilds dossier members on cloud | ship from local |
 | e | `prices:ingest:cloud` | full prices pipeline (re-cluster ~118k catalogue + payloads) on cloud | out of scope for this plan; already has its own daily cloud path ([[project_prices_pg_migration]]) — flag, don't touch |
-| f | `fetch_company_founded.ts` | ~39h backfill written directly against the target DB | see G19 |
+| f | `fetch_company_founded.ts` | pace-dependent backfill (~14h/10k EIKs healthy, far longer when the source throttles) written directly against the target DB; requires 033's `http_status`/`attempts` columns first | see G19 |
 
 Each is a place the mirror model does not yet apply. (a) is the one this plan must
 fix; (b)-(d) are follow-ups; (e) is explicitly left alone.

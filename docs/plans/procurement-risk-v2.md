@@ -734,8 +734,15 @@ as relative ordering only.
    `foundedByEik` payload slice → `useCompanyFoundedByEik` → the `newFirmWinner` scorer flag
    (award − founded < 12 months). ⚠️ **Remaining operational step: the full ~28k-EIK backfill.**
    Only a ~75-EIK sample is loaded locally; the flag lights up corpus-wide once
-   `tsx scripts/procurement/fetch_company_founded.ts` (no args, resumable) finishes the ~39h run
-   — locally, then against cloud PG (26,626 contractors remain unfetched). ⚠️ **Not yet wired to
+   `tsx scripts/procurement/fetch_company_founded.ts` (no args, resumable) finishes — locally,
+   then shipped to cloud PG. Runtime is **pace-dependent, not a fixed ~39h**: ~14h for ~10k EIKs
+   while the source answers at ~5s, indefinitely longer once it throttles (the 2026-07 run
+   degraded to ~30 min/EIK by day 7). ⚠️ **The 2026-07 run also poisoned ~4,100 rows** — every
+   failure was persisted as a NULL founding date and the resume query never revisits an EIK it
+   has a row for. Fixed 2026-07-27: failures are no longer written, `http_status`/`attempts`
+   record provenance, and a one-time `--requeue-nulls` (then a re-crawl) repairs the poisoned
+   rows. Verify with `SELECT count(*) FROM company_founded WHERE http_status IS NULL` → 0.
+   ⚠️ **Not yet wired to
    a refresh cadence** — the default fetch mode already picks up only new contractors
    (contractor_eik NOT IN company_founded), so a periodic no-args run keeps it current; formal
    watcher integration is a later step. **No `recent_updates` entry — deliberate:** that feed
