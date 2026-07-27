@@ -2,10 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import {
-  useAssetsRankings,
-  useAssetsRankingsTop,
-} from "@/data/parliament/useAssetsRankings";
+import { eur, useMpAssetsTopRows } from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
@@ -76,31 +73,28 @@ export const MpAssetsTile: FC<Props> = ({
 
   const isRegional = regionMpIds != null;
 
-  // The slim top-50 file is fine for the nationwide tile, but regional pages
-  // need the full ranking — most oblasts don't crack the national top-50, so
-  // filtering the slim file leaves them empty.
-  const { rankings: topRankings } = useAssetsRankingsTop({
-    enabled: !isRegional,
-  });
-  const { rankings: fullRankings } = useAssetsRankings({ enabled: isRegional });
-  const rankings = isRegional ? fullRankings : topRankings;
+  // Registry top-N (mp_assets_rankings). Regional → an mp_id IN filter; an empty region set
+  // uses the -1 sentinel so it yields zero rows rather than the whole scope.
+  const mpIds = useMemo<number[] | null>(
+    () => (regionMpIds ? (regionMpIds.size ? [...regionMpIds] : [-1]) : null),
+    [regionMpIds],
+  );
 
-  const topMps = useMemo(() => {
-    if (!rankings) return [];
-    if (isRegional) {
-      // Prefer the per-NS slice so the ranking matches the selected election;
-      // fall back to the lifetime list when the NS has no slice yet.
-      const pool =
-        selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length
-          ? rankings.byNs[selectedFolder].topMps
-          : rankings.topMps;
-      return pool.filter((m) => regionMpIds!.has(m.mpId)).slice(0, ROWS);
-    }
-    if (selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length) {
-      return rankings.byNs[selectedFolder].topMps.slice(0, ROWS);
-    }
-    return rankings.topMps.slice(0, ROWS);
-  }, [rankings, isRegional, regionMpIds, selectedFolder]);
+  // Prefer the selected parliament's ns bucket; fall back to the lifetime ('all') list when
+  // that bucket has no rows. (Slightly more eager than the old pool-level fallback for the
+  // regional case — an ns bucket present but holding none of the region's MPs also falls
+  // back — which shows the region's lifetime top rather than an empty tile.)
+  const primaryNs = selectedFolder ?? "all";
+  const primary = useMpAssetsTopRows({ ns: primaryNs, mpIds, limit: ROWS });
+  const doFallback =
+    selectedFolder != null && !primary.isLoading && primary.rows.length === 0;
+  const fallback = useMpAssetsTopRows({
+    ns: "all",
+    mpIds,
+    limit: ROWS,
+    enabled: doFallback,
+  });
+  const topMps = primary.rows.length ? primary.rows : fallback.rows;
 
   const detailsTo = useMemo(() => {
     if (regionCodes && regionCodes.length > 0) {
@@ -114,7 +108,6 @@ export const MpAssetsTile: FC<Props> = ({
     return "/mp-assets";
   }, [regionCode, regionCodes]);
 
-  if (!rankings) return null;
   if (topMps.length === 0) return null;
 
   const titleKey = isRegional
@@ -145,9 +138,11 @@ export const MpAssetsTile: FC<Props> = ({
     >
       <div className="mt-1">
         {topMps.map((row, i) => {
-          const delta = row.delta;
+          const deltaAbs = eur(row.deltaAbsoluteEur);
+          const deltaPct = eur(row.deltaPct);
+          const net = eur(row.netWorthEur) ?? 0;
           const mp = findMpById(row.mpId);
-          const display = mp ? mpName(mp) : row.label;
+          const display = mp ? mpName(mp) : row.name;
           return (
             <div
               key={row.mpId}
@@ -173,26 +168,23 @@ export const MpAssetsTile: FC<Props> = ({
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatEurCompact(row.netWorthEur, i18n.language)}
+                {formatEurCompact(net, i18n.language)}
               </span>
-              {delta && delta.absoluteEur !== 0 ? (
+              {deltaAbs != null && deltaAbs !== 0 ? (
                 <span
                   className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums shrink-0 min-w-[58px] justify-end ${
-                    delta.absoluteEur > 0 ? "text-green-600" : "text-red-600"
+                    deltaAbs > 0 ? "text-green-600" : "text-red-600"
                   }`}
-                  title={`${delta.absoluteEur > 0 ? "+" : ""}€${formatThousands(Math.round(delta.absoluteEur))} ${t("vs_previous") || "vs"} ${delta.previousYear}`}
+                  title={`${deltaAbs > 0 ? "+" : ""}€${formatThousands(Math.round(deltaAbs))} ${t("vs_previous") || "vs"} ${row.deltaPreviousYear ?? ""}`}
                 >
-                  {delta.absoluteEur > 0 ? (
+                  {deltaAbs > 0 ? (
                     <ArrowUp className="h-3 w-3" />
                   ) : (
                     <ArrowDown className="h-3 w-3" />
                   )}
-                  {delta.pct != null
-                    ? `${Math.abs(delta.pct).toFixed(0)}%`
-                    : formatEurCompact(
-                        Math.abs(delta.absoluteEur),
-                        i18n.language,
-                      )}
+                  {deltaPct != null
+                    ? `${Math.abs(deltaPct).toFixed(0)}%`
+                    : formatEurCompact(Math.abs(deltaAbs), i18n.language)}
                 </span>
               ) : (
                 <span className="text-[10px] shrink-0 min-w-[58px]" />

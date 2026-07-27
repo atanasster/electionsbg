@@ -1,4 +1,4 @@
-# Watch report — 2026-07-27 (27.07.2026 г., 13:38 Europe/Sofia)
+# Watch report — 2026-07-27 (27.07.2026 г., 13:47 Europe/Sofia)
 
 ## Changed
 _(no changes — all upstreams stable)_
@@ -118,4 +118,4 @@ _(none)_
 - **МОН: НВО 7. клас резултати (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-07-27T10:38:28.786Z UTC._
+_Watcher run at 2026-07-27T10:47:27.822Z UTC._

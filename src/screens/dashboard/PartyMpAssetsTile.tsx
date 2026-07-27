@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
-import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
+import { eur, useMpAssetsTopRows } from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
@@ -14,7 +14,7 @@ import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
-import type { MpAssetsRankingEntry, PreferencesInfo } from "@/data/dataTypes";
+import type { PreferencesInfo } from "@/data/dataTypes";
 import type { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
 import { StatCard } from "./StatCard";
 import { dataUrl } from "@/data/dataUrl";
@@ -57,7 +57,6 @@ type Props = { data: PartyDashboardSummary };
 export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
-  const { rankings } = useAssetsRankings();
   const { findCandidate } = useCandidates();
   const { findMpByName, findMpById } = useMps();
   const { mpName } = useCandidateName();
@@ -85,18 +84,11 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
       : `/mp-assets?partyNum=${data.partyNum}`;
   }, [findParty, canonicalIdFor, data.partyNum]);
 
-  const topMps = useMemo(() => {
-    if (!rankings || !stats?.top) return [];
-
-    // Map of mpId → ranking entry for O(1) lookup
-    const byId = new Map<number, MpAssetsRankingEntry>();
-    const source =
-      folder && rankings.byNs[folder]?.topMps?.length
-        ? rankings.byNs[folder].topMps
-        : rankings.topMps;
-    for (const e of source) byId.set(e.mpId, e);
-
-    const partyMps: MpAssetsRankingEntry[] = [];
+  // The party's MPs, resolved from its preference-stats leaders (name → MP id). The registry
+  // then returns their wealth rows sorted + capped server-side, so no client-side ranking.
+  const partyMpIds = useMemo<number[] | null>(() => {
+    if (!stats?.top) return null;
+    const ids: number[] = [];
     const seen = new Set<number>();
     for (const p of stats.top) {
       const candidate = p.oblast
@@ -104,18 +96,33 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
         : undefined;
       if (!candidate) continue;
       const mp = findMpByName(candidate.name);
-      if (!mp) continue;
-      if (seen.has(mp.id)) continue;
-      const entry = byId.get(mp.id);
-      if (!entry) continue;
+      if (!mp || seen.has(mp.id)) continue;
       seen.add(mp.id);
-      partyMps.push(entry);
+      ids.push(mp.id);
     }
-    partyMps.sort((a, b) => b.netWorthEur - a.netWorthEur);
-    return partyMps.slice(0, ROWS);
-  }, [rankings, stats, folder, findCandidate, findMpByName]);
+    return ids;
+  }, [stats, findCandidate, findMpByName]);
 
-  if (!rankings || !stats || topMps.length === 0) return null;
+  // ns bucket for the selected parliament, lifetime ('all') fallback when it has no rows.
+  const mpIds =
+    partyMpIds == null ? null : partyMpIds.length ? partyMpIds : [-1];
+  const primary = useMpAssetsTopRows({
+    ns: folder ?? "all",
+    mpIds,
+    limit: ROWS,
+    enabled: partyMpIds != null,
+  });
+  const doFallback =
+    folder != null && !primary.isLoading && primary.rows.length === 0;
+  const fallback = useMpAssetsTopRows({
+    ns: "all",
+    mpIds,
+    limit: ROWS,
+    enabled: doFallback && partyMpIds != null,
+  });
+  const topMps = primary.rows.length ? primary.rows : fallback.rows;
+
+  if (!stats || topMps.length === 0) return null;
 
   return (
     <StatCard
@@ -139,12 +146,13 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
     >
       <div className="mt-1">
         {topMps.map((row, i) => {
-          const delta = row.delta;
-          // The rankings JSON ships a Bulgarian-only `label`; recover the MP
-          // record so we can show the locale-correct name without re-baking
-          // the rankings file.
+          const deltaAbs = eur(row.deltaAbsoluteEur);
+          const deltaPct = eur(row.deltaPct);
+          const net = eur(row.netWorthEur) ?? 0;
+          // The registry `name` is Bulgarian-only; recover the MP record for the
+          // locale-correct display name.
           const mp = findMpById(row.mpId);
-          const display = mp ? mpName(mp) : row.label;
+          const display = mp ? mpName(mp) : row.name;
           return (
             <div
               key={row.mpId}
@@ -164,25 +172,22 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatEurCompact(row.netWorthEur, i18n.language)}
+                {formatEurCompact(net, i18n.language)}
               </span>
-              {delta && delta.absoluteEur !== 0 ? (
+              {deltaAbs != null && deltaAbs !== 0 ? (
                 <span
                   className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums shrink-0 min-w-[58px] justify-end ${
-                    delta.absoluteEur > 0 ? "text-green-600" : "text-red-600"
+                    deltaAbs > 0 ? "text-green-600" : "text-red-600"
                   }`}
                 >
-                  {delta.absoluteEur > 0 ? (
+                  {deltaAbs > 0 ? (
                     <ArrowUp className="h-3 w-3" />
                   ) : (
                     <ArrowDown className="h-3 w-3" />
                   )}
-                  {delta.pct != null
-                    ? `${Math.abs(delta.pct).toFixed(0)}%`
-                    : formatEurCompact(
-                        Math.abs(delta.absoluteEur),
-                        i18n.language,
-                      )}
+                  {deltaPct != null
+                    ? `${Math.abs(deltaPct).toFixed(0)}%`
+                    : formatEurCompact(Math.abs(deltaAbs), i18n.language)}
                 </span>
               ) : (
                 <span className="text-[10px] shrink-0 min-w-[58px]" />
