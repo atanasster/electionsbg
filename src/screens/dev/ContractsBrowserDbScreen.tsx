@@ -4,14 +4,27 @@
 // shards. Respects the section scope (?pscope): the selected parliament's window
 // bounds the rows, "all" spans the corpus. Risk chips are scored client-side per
 // page (risk isn't a Postgres column). See docs/plans/postgres-migration-v1.md.
+//
+// The analysis strip (reactive KPI cards + the clickable "Вид процедура" mix bar)
+// mirrors CompanyContractsDbScreen, but scoped to the whole ?pscope window (+ any
+// sector / ?awarder EIK-set) instead of one entity. The Σ€ / count cards ride the
+// table's own aggregates via onData (free — the footer already computes them and
+// they react to the free-text search); the single-bid % / direct % cards + the
+// mix bar ride /api/db/facets and do NOT react to the search box (the facets omit
+// the global term, same split as the company page).
 
-import { FC, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
-import { Receipt, ExternalLink } from "lucide-react";
+import { Receipt, ExternalLink, Coins, FileText, Users } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
+import { StatCard } from "@/screens/dashboard/StatCard";
+import {
+  DbDataTable,
+  type DbColumnFilter,
+  type DbTableResponse,
+} from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
@@ -19,6 +32,7 @@ import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseS
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
+import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
@@ -27,18 +41,13 @@ import {
   CpvFilterCombobox,
   CPV_ALL,
 } from "@/screens/components/procurement/CpvFilterCombobox";
-import { formatEur } from "@/lib/currency";
+import { formatEur, formatEurCompact } from "@/lib/currency";
+import { facetShare, bucketShare } from "@/lib/facetStats";
+import { groupMethodFacet, type ProcedureBucket } from "@/lib/cpvSectors";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-const ALL = "__all__";
+type Facets = { facets: Record<string, { value: string; count: number }[]> };
 
 export const ContractsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -50,7 +59,9 @@ export const ContractsBrowserDbScreen: FC = () => {
   // (a 2-digit division) matches every contract whose code starts with it.
   const [params] = useSearchParams();
 
-  const [method, setMethod] = useState<string>(ALL);
+  // Procedure filter is a bucketed selection (same vocabulary as the mix bar);
+  // its raw source-method strings are re-derived from the facet below.
+  const [procBucket, setProcBucket] = useState<ProcedureBucket | null>(null);
   const [cpvDiv, setCpvDiv] = useState<string>(
     () => params.get("cpv") ?? CPV_ALL,
   );
@@ -67,6 +78,10 @@ export const ContractsBrowserDbScreen: FC = () => {
   // banner carries its thread's buyerEik so the browser matches the count shown).
   const awarderParam = params.get("awarder");
 
+  // The sector browse pack renders its own summary strip (SectorBrowseSlot), so
+  // suppress the generic KPI/mix block — and stand down its facet queries — there.
+  const showAnalysis = !browsePack;
+
   // The parliament window is the base temporal bound (exclusive end ≈ inclusive
   // max, off by ≤1 day — fine for a browser). "All years" drops it.
   const windowFilter = useMemo<DbColumnFilter[]>(
@@ -75,18 +90,57 @@ export const ContractsBrowserDbScreen: FC = () => {
     [all, from, to],
   );
 
-  // Facet dropdowns (methods + CPV divisions) bounded to the current window so
-  // the corpus-wide DISTINCT stays cheap.
-  const { data: facetData } = useQuery({
-    queryKey: ["db-facets", "contracts-global", from, to, all],
-    queryFn: async (): Promise<{
-      facets: Record<string, { value: string; count: number }[]>;
-    }> => {
+  // Awarder-EIK scope (sector pack or ?awarder=), applied to the table AND every
+  // facet/KPI query so the analysis strip matches the rows. (The old window-only
+  // facet ignored this scope, so its dropdowns disagreed with the sector table.)
+  const awarderScope = useMemo<DbColumnFilter[]>(() => {
+    if (browsePack) return [{ id: "awarder_eik", value: [...browsePack.eiks] }];
+    if (awarderParam) {
+      const eiks = awarderParam
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (eiks.length) return [{ id: "awarder_eik", value: eiks }];
+    }
+    return [];
+  }, [browsePack, awarderParam]);
+
+  // Base scope every facet request shares (fixed, not user-editable): the window +
+  // the awarder-EIK set. The `tag` fixed filter is added at request-build time.
+  const scopeBase = useMemo<DbColumnFilter[]>(
+    () => [...windowFilter, ...awarderScope],
+    [windowFilter, awarderScope],
+  );
+
+  // A sector category can span several CPV divisions (?cpv=72,48,32,30) — pass
+  // them as an array so the prefix filter ORs them for an exact category match.
+  const cpvF = useMemo<DbColumnFilter[]>(
+    () =>
+      cpvDiv !== CPV_ALL
+        ? [
+            {
+              id: "cpv",
+              value: cpvDiv.includes(",") ? cpvDiv.split(",") : cpvDiv,
+            },
+          ]
+        : [],
+    [cpvDiv],
+  );
+  const singleF = useMemo<DbColumnFilter[]>(
+    () => (singleBidder ? [{ id: "number_of_tenderers", min: 1, max: 1 }] : []),
+    [singleBidder],
+  );
+
+  const fetchFacets = useCallback(
+    async (columns: string[], filters: DbColumnFilter[]): Promise<Facets> => {
       const req = {
         resource: "contracts",
-        fixedFilters: [{ id: "tag", value: ["contract"] }, ...windowFilter],
-        columns: ["procurement_method", "cpv"],
-        limit: 60,
+        fixedFilters: [{ id: "tag", value: ["contract"] }, ...scopeBase],
+        filters,
+        columns,
+        // 100 distinct values/column — enough to cover the whole-corpus method
+        // vocabulary + every CPV division without truncating the mix denominator.
+        limit: 100,
       };
       const r = await fetch(
         `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,
@@ -94,40 +148,134 @@ export const ContractsBrowserDbScreen: FC = () => {
       if (!r.ok) return { facets: {} };
       return r.json();
     },
+    [scopeBase],
+  );
+
+  // CPV-division facet — kept STATIC (scope-base only, not reactive to the
+  // method/single filters) so the combobox's division list doesn't shift as you
+  // pick a procedure. Powers the searchable CPV filter.
+  const { data: cpvFacet } = useQuery({
+    queryKey: ["db-facets", "contracts-global", "cpv", scopeBase],
+    queryFn: () => fetchFacets(["cpv"], []),
     staleTime: Infinity,
   });
-  const methodOptions = facetData?.facets?.procurement_method ?? [];
-  const cpvOptions = facetData?.facets?.cpv ?? [];
+  const cpvOptions = cpvFacet?.facets?.cpv ?? [];
   // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
   // — search by sector name or by any CPV code, beyond the 2-digit divisions.
   const { data: cpvCatalog } = useCpvCatalog();
 
-  const extraFilters = useMemo<DbColumnFilter[]>(() => {
-    const f: DbColumnFilter[] = [...windowFilter];
-    if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
-    if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
-    // A sector category can span several CPV divisions (?cpv=72,48,32,30) — pass
-    // them as an array so the prefix filter ORs them for an exact category match.
-    if (cpvDiv !== CPV_ALL)
-      f.push({
-        id: "cpv",
-        value: cpvDiv.includes(",") ? cpvDiv.split(",") : cpvDiv,
-      });
-    // Restrict to the sector's awarder EIK-set (awarder_eik IN …).
-    if (browsePack) f.push({ id: "awarder_eik", value: [...browsePack.eiks] });
-    // A deep-link can scope to a buyer set via ?awarder=<eik,eik> (e.g. the
-    // project-file "see all" banner mirrors its thread's buyerEik so the
-    // destination matches the buyer-scoped count that produced the link). Only
-    // when no sector pack already set the awarder scope.
-    else if (awarderParam) {
-      const eiks = awarderParam
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      if (eiks.length) f.push({ id: "awarder_eik", value: eiks });
+  // Facet cost control: while no procedure/single filter is active the proc-mix
+  // and bid-count facets share one filter set (scope + cpv), so fetch them in ONE
+  // request. Once either is set the two facets must each EXCLUDE their own
+  // dimension (so every bucket / bid-count stays visible), which needs two.
+  const bothUnfiltered = !procBucket && !singleBidder;
+
+  const { data: combinedFacet } = useQuery({
+    queryKey: ["db-facets", "contracts-global", "combined", scopeBase, cpvF],
+    enabled: showAnalysis && bothUnfiltered,
+    queryFn: () =>
+      fetchFacets(["procurement_method", "number_of_tenderers"], [...cpvF]),
+    staleTime: Infinity,
+  });
+  // Procedure-mix facet — every filter EXCEPT the procedure one.
+  const { data: procFacet } = useQuery({
+    queryKey: [
+      "db-facets",
+      "contracts-global",
+      "proc",
+      scopeBase,
+      singleF,
+      cpvF,
+    ],
+    enabled: showAnalysis && !bothUnfiltered,
+    queryFn: () => fetchFacets(["procurement_method"], [...singleF, ...cpvF]),
+    staleTime: Infinity,
+  });
+  const methodRows = bothUnfiltered
+    ? combinedFacet?.facets?.procurement_method
+    : procFacet?.facets?.procurement_method;
+  const groupedMethods = useMemo(
+    () => groupMethodFacet(methodRows ?? []),
+    [methodRows],
+  );
+  // Raw method strings behind the selected bucket → the `in` filter payload.
+  const selectedMethods = useMemo<string[]>(
+    () =>
+      procBucket
+        ? (groupedMethods.find((g) => g.bucket === procBucket)?.methods ?? [])
+        : [],
+    [procBucket, groupedMethods],
+  );
+  const methodF = useMemo<DbColumnFilter[]>(
+    () =>
+      selectedMethods.length
+        ? [{ id: "procurement_method", value: selectedMethods }]
+        : [],
+    [selectedMethods],
+  );
+  // If another filter (CPV / single-bid) narrows the scoped facet so the selected
+  // bucket no longer exists, selectedMethods would silently become [] and the
+  // procedure filter would drop while the mix bar still reads "selected". Clear the
+  // stale selection once the facet has loaded so the state stays honest.
+  useEffect(() => {
+    if (
+      procBucket &&
+      groupedMethods.length &&
+      !groupedMethods.some((g) => g.bucket === procBucket)
+    ) {
+      setProcBucket(null);
     }
-    return f;
-  }, [windowFilter, singleBidder, method, cpvDiv, browsePack, awarderParam]);
+  }, [procBucket, groupedMethods]);
+
+  // Bid-count facet — every filter EXCEPT single-bid, for the single-bidder % KPI.
+  // The facet's limit bounds distinct bidder-counts, not rows — real counts are
+  // tiny (~1–30) and `value === 1` is always present, so the denominator is safe.
+  const { data: bidFacet } = useQuery({
+    queryKey: [
+      "db-facets",
+      "contracts-global",
+      "bid",
+      scopeBase,
+      methodF,
+      cpvF,
+    ],
+    enabled: showAnalysis && !bothUnfiltered,
+    queryFn: () => fetchFacets(["number_of_tenderers"], [...methodF, ...cpvF]),
+    staleTime: Infinity,
+  });
+  const bidRows = bothUnfiltered
+    ? combinedFacet?.facets?.number_of_tenderers
+    : bidFacet?.facets?.number_of_tenderers;
+
+  // Integrity KPIs over the facet's own scope: single-bidder share + direct-award
+  // share. Null when there's no denominator (render "—" not a misleading 0%).
+  const singleBidPct = useMemo<number | null>(
+    () => facetShare(bidRows ?? [], (v) => Number(v) === 1),
+    [bidRows],
+  );
+  const directPct = useMemo<number | null>(
+    () => bucketShare(groupedMethods, "direct"),
+    [groupedMethods],
+  );
+
+  // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
+  // DbDataTable computes them server-side (exact, since the resource declares
+  // aggregates) and hands them back via onData. No extra request.
+  const [agg, setAgg] = useState<{ sumAmountEur?: number; count?: number }>({});
+  const handleData = useCallback(
+    (resp: DbTableResponse<ProcurementContract>) => {
+      setAgg({
+        sumAmountEur: resp.aggregates?.sumAmountEur,
+        count: resp.aggregates?.count ?? resp.total,
+      });
+    },
+    [],
+  );
+
+  const extraFilters = useMemo<DbColumnFilter[]>(
+    () => [...scopeBase, ...singleF, ...methodF, ...cpvF],
+    [scopeBase, singleF, methodF, cpvF],
+  );
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
     () => [
@@ -273,11 +421,84 @@ export const ContractsBrowserDbScreen: FC = () => {
           <SectorBrowseSlot pack={browsePack} scope={{ from, to }} />
         )}
 
+        {showAnalysis && (
+          <>
+            {/* Reactive headline KPIs (Σ€/count follow the filters AND the search)
+                + integrity KPIs (single-bidder / direct-award share; facet-based,
+                so they don't move with the free-text search). */}
+            <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+              <StatCard label={t("contracts_kpi_total") || "Обща стойност"}>
+                <div className="flex items-baseline gap-2">
+                  <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span
+                    className="text-lg font-bold tabular-nums md:text-xl"
+                    title={formatEur(agg.sumAmountEur ?? 0, i18n.language)}
+                  >
+                    {formatEurCompact(agg.sumAmountEur ?? 0, i18n.language)}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard label={t("company_contracts") || "Договори"}>
+                <div className="flex items-baseline gap-2">
+                  <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {(agg.count ?? 0).toLocaleString("bg-BG")}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard
+                label={t("contracts_stat_single_bid") || "1 оферта"}
+                hint={
+                  t("contracts_stat_single_bid_hint") ||
+                  "Дял от договорите с известен брой оферти, спечелени с една оферта."
+                }
+              >
+                <div className="flex items-baseline gap-2">
+                  <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {singleBidPct == null ? "—" : `${singleBidPct.toFixed(0)}%`}
+                  </span>
+                </div>
+              </StatCard>
+              <StatCard
+                label={t("contracts_stat_direct") || "Пряко възлагане"}
+                hint={
+                  t("contracts_stat_direct_hint") ||
+                  "Дял от договорите с посочена процедура, възложени пряко / без обявление."
+                }
+              >
+                <div className="flex items-baseline gap-2">
+                  <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
+                  <span className="text-lg font-bold tabular-nums md:text-xl">
+                    {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
+                  </span>
+                </div>
+              </StatCard>
+            </div>
+
+            {/* Procedure-mix overview — filter-scoped and clickable: a segment/chip
+                toggles the same bucket filter that narrows the table. */}
+            <div className="mb-4">
+              <ProcedureMixBar
+                buckets={groupedMethods}
+                selected={procBucket}
+                onSelect={setProcBucket}
+                title={t("contracts_procedure_mix") || "Вид процедура"}
+                note={
+                  t("contracts_procedure_mix_note") ||
+                  "Дял от договорите с посочена процедура."
+                }
+              />
+            </div>
+          </>
+        )}
+
         <DbDataTable<ProcurementContract>
           resource="contracts"
           fixedFilters={[{ id: "tag", value: ["contract"] }]}
           extraFilters={extraFilters}
           columns={columns}
+          onData={handleData}
           defaultSort={[{ id: "amount_eur", desc: true }]}
           pageSize={25}
           initialSearch={params.get("q") ?? ""}
@@ -295,23 +516,6 @@ export const ContractsBrowserDbScreen: FC = () => {
                   catalog={cpvCatalog ?? []}
                 />
               ) : null}
-              {methodOptions.length > 0 ? (
-                <Select value={method} onValueChange={setMethod}>
-                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={ALL}>
-                      {t("company_contracts_all_methods") || "Всички процедури"}
-                    </SelectItem>
-                    {methodOptions.map((o) => (
-                      <SelectItem key={o.value} value={o.value}>
-                        {o.value} ({o.count})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : null}
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
                 <input
                   type="checkbox"
@@ -322,15 +526,15 @@ export const ContractsBrowserDbScreen: FC = () => {
               </label>
             </>
           }
-          renderAggregates={(agg, total, exact) => (
+          renderAggregates={(footerAgg, total, exact) => (
             <span className="text-sm text-muted-foreground">
               <span className="font-semibold tabular-nums text-foreground">
-                {formatEur(agg.sumAmountEur ?? 0)}
+                {formatEur(footerAgg.sumAmountEur ?? 0)}
               </span>{" "}
               {t("company_contracts_total_over") || "по"}{" "}
               <span className="tabular-nums">
                 {exact ? "" : "≈"}
-                {(agg.count ?? total).toLocaleString("bg-BG")}
+                {(footerAgg.count ?? total).toLocaleString("bg-BG")}
               </span>{" "}
               {t("procurement_contracts_word") || "договора"}
             </span>
