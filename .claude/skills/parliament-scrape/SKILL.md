@@ -97,7 +97,24 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    regenerates them inline; this step is the cheap re-match for when only the
    parliament index moved.)
 
-7. **Commit**:
+7. **Reload Postgres — the roster, profiles and avatars are PG-served now**
+   (persons-pg-retirement-v1 T2.2/T2.3/T2.4). Since that migration `useMps`
+   (roster), `useMpProfile` (bio), `useMpAvatars`, and the MP assets/cars
+   leaderboards read Cloud SQL via `/api/db`, **not** `parliament/index.json` /
+   `profiles/` / `avatars.json` — those are dropped from the bucket and excluded
+   from `bucket:sync`. So a scrape reaches prod ONLY after the loader runs;
+   regenerating the JSON alone changes nothing on the live site:
+   ```bash
+   npm run db:load:mp-roster:pg          # local: mp_profile + mp_profile_detail + mp_roster_meta;
+                                         # also rebuilds the 105 mp_assets_rankings / mp_cars matviews
+   npm run db:load:mp-roster:pg:cloud    # prod Cloud SQL (needs the proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
+   ```
+   The JSON stays on disk as the loader SOURCE (the `mp_serving` / `mp_roster` /
+   `mp_profile_detail` parity gates read it); it is never served from the bucket
+   again. The step-6 `bucket:sync` still ships the gitignored candidate-resolution
+   shards — those remain bucket-served — it just no longer carries the roster.
+
+8. **Commit**:
    ```bash
    git add public/parliament/ data/
    git commit -m "Update parliament data for 52nd NS"

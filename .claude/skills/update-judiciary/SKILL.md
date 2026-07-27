@@ -108,6 +108,18 @@ concurrency 4) plus the ИВСС's four non-compliance lists, and writes
 paths goes to `raw_data/judiciary/declarations_index.json` (gitignored) — it is the
 input for the magistrate-holdings ingest below.
 
+`declarations.json` is **PG-served** since persons-pg-retirement-v1 T2.6: `/judiciary`
++ the `judiciaryDeclarations` AI tool read it via `/api/db/judiciary-declarations`
+(`judiciary_payloads`, migration 109), NOT the bucket — the file is excluded from
+`bucket:sync`. So reload PG after writing it, or the live register stays stale:
+```bash
+npm run db:load:judiciary-payloads:pg          # local: judiciary_payloads blob
+npm run db:load:judiciary-payloads:pg:cloud     # prod Cloud SQL (proxy on :5434 + PGPASSFILE=$PWD/.pgpass)
+```
+The JSON stays on disk as the loader source (the `judiciary_payloads` parity gate reads
+it). `bucket:sync data/judiciary/` still ships the bucket-served siblings
+(`caseload.json`, `court_load.json`); it no longer carries `declarations.json`.
+
 ## Magistrate declared-companies ingest (the connections slice)
 
 ```bash
