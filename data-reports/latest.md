@@ -1,4 +1,4 @@
-# Watch report — 2026-07-27 (27.07.2026 г., 13:52 Europe/Sofia)
+# Watch report — 2026-07-27 (27.07.2026 г., 16:09 Europe/Sofia)
 
 ## Changed
 _(no changes — all upstreams stable)_
@@ -96,7 +96,7 @@ _(none)_
 - Общински наредби за местни данъци (weekly): 10 município(s) wired · next check 2026-07-31
 - КЗП Колко струва (retail prices, kolkostruva.bg) (daily): latest 2026-07-26 · 14 days advertised · next check 2026-07-28
 - EC Weekly Oil Bulletin: consumer fuel prices (petrol 95 & diesel) (weekly): history XLSX 906e60ca… · next check 2026-07-29
-- Eurostat food price levels (BG): PPP price level indices (prc_ppp_ind_1) (monthly): PLI updated 2026-07-09T23:00:00+0200 · next check 2026-08-16
+- Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1) (monthly): PLI updated 2026-07-09T23:00:00+0200 · next check 2026-08-16
 - НЗОК болнични плащания по лечебни заведения — БМП/ЛП/МИ (nhif.bg) (monthly): newest БМП payments: 2026-05 · next check 2026-08-06
 - НЗОК Справка 5 (ПЛС2) — реимбурсирани лекарства по лечебни заведения (monthly): newest Справка 5: 2026-05 (71 files listed) · next check 2026-08-09
 - МЗ финансови показатели на болниците (ЕЕОФ, тримесечно) (monthly): newest quarter: 2025-Q3 (26 quarters listed) · next check 2026-08-09
@@ -118,4 +118,4 @@ _(none)_
 - **МОН: НВО 7. клас резултати (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-07-27T10:52:54.009Z UTC._
+_Watcher run at 2026-07-27T13:09:26.831Z UTC._
