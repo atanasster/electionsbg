@@ -46,7 +46,9 @@ const GLOBAL_FILES = [
   "indicators.json",
   "macro.json",
   "regional.json",
-  "parliament/index.json",
+  // parliament/index.json retired from the bucket (persons-pg-retirement-v1 T2.4): useMps + the
+  // partyMps AI tool read mp_profile + mp_roster_meta via /api/db/mp-roster, so the roster is no
+  // longer served or gzip-uploaded. It stays on disk as the loader source + for the build scripts.
   "parliament/connections.json",
   "parliament/connections-search.json",
   "parliament/votes/index.json",

@@ -3,7 +3,7 @@
 // ("who votes like X"), and a topic/keyword vote search. All read the
 // precomputed derived metrics keyed by НС (parliament) number.
 
-import { fetchData } from "./dataClient";
+import { fetchData, fetchDb } from "./dataClient";
 import { round2 } from "./dataset";
 import { matchParty } from "./matchParty";
 import { fuzzyBestMatch } from "./resolve";
@@ -634,8 +634,9 @@ type RosterIndex = { currentNs?: string; mps: RosterMp[] };
 
 let rosterCache: Promise<RosterIndex> | null = null;
 const loadRoster = (): Promise<RosterIndex> => {
-  if (!rosterCache)
-    rosterCache = fetchData<RosterIndex>("/parliament/index.json");
+  // Served from PG (mp_profile + mp_roster_meta) via /api/db/mp-roster — replaces the ~950 KB
+  // parliament/index.json download (persons-pg-retirement-v1 T2.4). Same roster shape.
+  if (!rosterCache) rosterCache = fetchDb<RosterIndex>("mp-roster");
   return rosterCache;
 };
 
@@ -723,7 +724,7 @@ export const partyMps = async (
         : `No parliamentary group matched "${query}" in the ${nsLabel}`,
       viz: "none",
       facts: { query, ns: nsLabel, available },
-      provenance: ["parliament/index.json"],
+      provenance: ["db:mp_roster"],
     };
   }
 
@@ -763,6 +764,6 @@ export const partyMps = async (
       count: members.length,
       members: members.length > 5 ? `${preview}…` : preview,
     },
-    provenance: ["parliament/index.json"],
+    provenance: ["db:mp_roster"],
   };
 };

@@ -43,13 +43,18 @@ type IndexFile = {
   mps: MpIndexEntry[];
 };
 
+// Served from Postgres (mp_profile + mp_roster_meta, migrations 104/111) via /api/db/mp-roster
+// — replaces the ~950 KB static parliament/index.json (persons-pg-retirement-v1 T2.4). The
+// route returns the same IndexFile shape with RELATIVE photoUrls (resolved below), so the
+// per-consumer post-processing is unchanged. A null body (a DB predating 111) → undefined,
+// exactly as the old 404 path did.
 const queryFn = async (): Promise<IndexFile | undefined> => {
-  const response = await fetch(dataUrl(`/parliament/index.json`));
-  if (response.status === 404) return undefined;
+  const response = await fetch(`/api/db/mp-roster`);
   if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+    throw new Error(`mp-roster: ${response.status} ${response.url}`);
   }
-  const file = (await response.json()) as IndexFile;
+  const file = (await response.json()) as IndexFile | null;
+  if (!file) return undefined;
   for (const mp of file.mps) {
     // Resolve photoUrl once at ingest so every consumer sees an absolute,
     // bucket-resolved URL without having to know about the dataUrl seam.

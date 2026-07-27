@@ -2511,6 +2511,45 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.payload ?? null };
   },
+  // The full MP roster IndexFile — mp_profile rows + the mp_roster_meta header — so useMps and
+  // the partyMps AI tool stop downloading the ~950 KB parliament/index.json (persons-pg-
+  // retirement-v1 T2.4). photoUrl is RELATIVE (the hook resolves it through dataUrl); birthDate
+  // is the date as text; nsFolders is the text[] as a JSON array. A DB predating 111 → the
+  // missingMigrationEmpty sentinel ([]), which the Array.isArray guard maps to a null body →
+  // the hook's undefined.
+  "mp-roster": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT jsonb_build_object(
+         'scrapedAt', m.scraped_at,
+         'currentNs', m.current_ns,
+         'total', m.total,
+         'mps', (
+           SELECT coalesce(jsonb_agg(jsonb_build_object(
+             'id', mp_id,
+             'name', name,
+             'name_en', name_en,
+             'normalizedName', normalized_name,
+             'normalizedName_en', normalized_name_en,
+             'photoUrl', coalesce(photo_url, ''),
+             'currentRegion', CASE WHEN current_region_code IS NOT NULL
+                THEN jsonb_build_object('code', current_region_code, 'name', current_region_name)
+                ELSE NULL END,
+             'currentPartyGroup', current_party_group,
+             'currentPartyGroupShort', current_party_group_short,
+             'position', position_title,
+             'birthDate', birth_date::text,
+             'nsFolders', to_jsonb(ns_folders),
+             'isCurrent', is_current
+           ) ORDER BY mp_id), '[]'::jsonb)
+           FROM mp_profile
+         )
+       ) AS r
+       FROM mp_roster_meta m`,
+      [],
+    ).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // "Top car makes" — distinct MPs per make within one parliament's car slice (mp_cars_table,
   // ns bucket), optionally restricted to a region/party mp-id set → CarMakesTile /
   // PartyCarMakesTile (persons-pg-retirement-v1 T2.2). Deliberately NOT a plain facet: the

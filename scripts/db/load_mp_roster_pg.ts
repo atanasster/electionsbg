@@ -44,6 +44,10 @@ const PROFILE_DETAIL_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/110_mp_profile_detail.sql",
 );
+const ROSTER_META_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/111_mp_roster_meta.sql",
+);
 const ROSTER_SRC = path.join(ROOT, "data/parliament/index.json");
 const CARS_SRC = path.join(ROOT, "data/parliament/mp-cars.json");
 const PROFILES_DIR = path.join(ROOT, "data/parliament/profiles");
@@ -112,10 +116,15 @@ const run = async (): Promise<void> => {
   await exec(readFileSync(ROSTER_SCHEMA, "utf8"));
   await exec(readFileSync(INGEST_TRACKING, "utf8"));
   await exec(readFileSync(PROFILE_DETAIL_SCHEMA, "utf8"));
+  await exec(readFileSync(ROSTER_META_SCHEMA, "utf8"));
 
-  const roster = (
-    JSON.parse(readFileSync(ROSTER_SRC, "utf8")) as { mps: RosterEntry[] }
-  ).mps;
+  const rosterFile = JSON.parse(readFileSync(ROSTER_SRC, "utf8")) as {
+    mps: RosterEntry[];
+    currentNs?: string;
+    scrapedAt?: string;
+    total?: number;
+  };
+  const roster = rosterFile.mps;
   const cars = (
     JSON.parse(readFileSync(CARS_SRC, "utf8")) as { cars: CarRow[] }
   ).cars;
@@ -291,6 +300,19 @@ const run = async (): Promise<void> => {
       (function* () {
         for (const p of profiles) yield [p.mpId, p.raw];
       })(),
+    );
+
+    // Roster-file header scalars for /api/db/mp-roster (T2.4). One row; the mp-roster
+    // route joins it to mp_profile to rebuild the whole IndexFile the SPA/AI read.
+    await client.query("TRUNCATE mp_roster_meta");
+    await client.query(
+      `INSERT INTO mp_roster_meta (id, current_ns, scraped_at, total)
+       VALUES (true, $1, $2, $3)`,
+      [
+        rosterFile.currentNs ?? "",
+        rosterFile.scrapedAt ?? null,
+        rosterFile.total ?? roster.length,
+      ],
     );
 
     // feedback_pg_changelog_required — every PG-migrated dataset wires into
