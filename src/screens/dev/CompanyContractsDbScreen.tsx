@@ -16,16 +16,16 @@ import {
   procedureLabel,
   type ProcedureBucket,
 } from "@/lib/cpvSectors";
-import { Coins, FileText, Users } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { StatCard } from "@/screens/dashboard/StatCard";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
-import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
-import { formatEur, formatEurCompact } from "@/lib/currency";
+import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
+import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
+import { SingleBidderToggle } from "@/screens/components/procurement/SingleBidderToggle";
+import { ContractsAggregatesFooter } from "@/screens/components/procurement/ContractsAggregatesFooter";
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
@@ -366,75 +366,22 @@ export const CompanyContractsDbScreen: FC<{
         </div>
 
         {/* Reactive headline KPIs (react to the active filters) + integrity KPIs
-            (single-bidder / direct-award share of the scoped set). */}
-        <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          <StatCard label={t("contracts_kpi_total") || "Обща стойност"}>
-            <div className="flex items-baseline gap-2">
-              <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span
-                className="text-lg font-bold tabular-nums md:text-xl"
-                title={formatEur(agg.sumAmountEur ?? 0, i18n.language)}
-              >
-                {formatEurCompact(agg.sumAmountEur ?? 0, i18n.language)}
-              </span>
-            </div>
-          </StatCard>
-          <StatCard
-            label={isAnnex ? "Анекси" : t("company_contracts") || "Договори"}
-          >
-            <div className="flex items-baseline gap-2">
-              <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span className="text-lg font-bold tabular-nums md:text-xl">
-                {(agg.count ?? 0).toLocaleString("bg-BG")}
-              </span>
-            </div>
-          </StatCard>
-          <StatCard
-            label={t("contracts_stat_single_bid") || "1 оферта"}
-            hint={
-              t("contracts_stat_single_bid_hint") ||
-              "Дял от договорите с известен брой оферти, спечелени с една оферта."
-            }
-          >
-            <div className="flex items-baseline gap-2">
-              <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span className="text-lg font-bold tabular-nums md:text-xl">
-                {singleBidPct == null ? "—" : `${singleBidPct.toFixed(0)}%`}
-              </span>
-            </div>
-          </StatCard>
-          <StatCard
-            label={t("contracts_stat_direct") || "Пряко възлагане"}
-            hint={
-              t("contracts_stat_direct_hint") ||
-              "Дял от договорите с посочена процедура, възложени пряко / без обявление."
-            }
-          >
-            <div className="flex items-baseline gap-2">
-              <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span className="text-lg font-bold tabular-nums md:text-xl">
-                {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
-              </span>
-            </div>
-          </StatCard>
-        </div>
-
-        {/* Procedure-mix overview — filter-scoped (reflects the active year / CPV
-            / single-bid filters, excluding the procedure dimension itself) and
-            clickable: a segment/chip toggles the same bucket filter as the
-            dropdown. */}
-        <div className="mb-4">
-          <ProcedureMixBar
-            buckets={groupedMethods}
-            selected={procBucket}
-            onSelect={setProcBucket}
-            title={t("contracts_procedure_mix") || "Вид процедура"}
-            note={
-              t("contracts_procedure_mix_note") ||
-              "Дял от договорите с посочена процедура."
-            }
-          />
-        </div>
+            (single-bidder / direct-award share) + the filter-scoped, clickable
+            procedure-mix bar. */}
+        <ContractsAnalysisStrip
+          sumAmountEur={agg.sumAmountEur}
+          count={agg.count}
+          singleBidPct={singleBidPct}
+          directPct={directPct}
+          groupedMethods={groupedMethods}
+          procBucket={procBucket}
+          onSelectBucket={setProcBucket}
+          countLabel={
+            isAnnex
+              ? t("procurement_index_amendments") || "Анекси"
+              : t("company_contracts") || "Договори"
+          }
+        />
 
         <DbDataTable<ProcurementContract>
           resource="contracts"
@@ -486,37 +433,15 @@ export const CompanyContractsDbScreen: FC<{
                   </SelectContent>
                 </Select>
               ) : null}
-              {groupedMethods.length > 0 ? (
-                <Select
-                  value={procBucket ?? ALL}
-                  onValueChange={(v) =>
-                    setProcBucket(v === ALL ? null : (v as ProcedureBucket))
-                  }
-                >
-                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={ALL}>
-                      {t("company_contracts_all_procedures") ||
-                        "Всички процедури"}
-                    </SelectItem>
-                    {groupedMethods.map((g) => (
-                      <SelectItem key={g.bucket} value={g.bucket}>
-                        {procedureLabel(g.bucket, i18n.language)} ({g.count})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : null}
-              <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={singleBidder}
-                  onChange={(e) => setSingleBidder(e.target.checked)}
-                />
-                {t("company_contracts_single_bidder") || "само 1 оферта"}
-              </label>
+              <ProcedureBucketSelect
+                groupedMethods={groupedMethods}
+                value={procBucket}
+                onChange={setProcBucket}
+              />
+              <SingleBidderToggle
+                checked={singleBidder}
+                onChange={setSingleBidder}
+              />
               {hasActiveFilters ? (
                 <button
                   type="button"
@@ -529,17 +454,16 @@ export const CompanyContractsDbScreen: FC<{
             </>
           }
           renderAggregates={(footerAgg, total, exact) => (
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold tabular-nums text-foreground">
-                {formatEur(footerAgg.sumAmountEur ?? 0)}
-              </span>{" "}
-              {t("company_contracts_total_over") || "по"}{" "}
-              <span className="tabular-nums">
-                {exact ? "" : "≈"}
-                {(footerAgg.count ?? total).toLocaleString("bg-BG")}
-              </span>{" "}
-              {isAnnex ? "анекса" : "договора"}
-            </span>
+            <ContractsAggregatesFooter
+              agg={footerAgg}
+              total={total}
+              exact={exact}
+              word={
+                isAnnex
+                  ? t("procurement_annexes_word") || "анекса"
+                  : t("procurement_contracts_word") || "договора"
+              }
+            />
           )}
         />
       </section>

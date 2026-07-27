@@ -16,9 +16,8 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Receipt, ExternalLink, Coins, FileText, Users } from "lucide-react";
+import { Receipt, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { StatCard } from "@/screens/dashboard/StatCard";
 import {
   DbDataTable,
   type DbColumnFilter,
@@ -31,7 +30,10 @@ import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseS
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
-import { ProcedureMixBar } from "@/screens/components/procurement/ProcedureMixBar";
+import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
+import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
+import { SingleBidderToggle } from "@/screens/components/procurement/SingleBidderToggle";
+import { ContractsAggregatesFooter } from "@/screens/components/procurement/ContractsAggregatesFooter";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
@@ -40,7 +42,6 @@ import {
   CpvFilterCombobox,
   CPV_ALL,
 } from "@/screens/components/procurement/CpvFilterCombobox";
-import { formatEur, formatEurCompact } from "@/lib/currency";
 import {
   procedureBucket,
   procedureLabel,
@@ -49,15 +50,7 @@ import {
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { decodeEntities } from "@/lib/decodeEntities";
 import type { ProcurementContract } from "@/data/dataTypes";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-const PROC_ALL = "__all__";
 // The valid procedure-bucket literals, for validating the untrusted ?proc URL
 // value (a crafted ?proc=garbage must resolve to null, not a fake bucket).
 const PROC_BUCKETS = new Set<ProcedureBucket>([
@@ -447,75 +440,16 @@ export const ContractsBrowserDbScreen: FC = () => {
         )}
 
         {showAnalysis && (
-          <>
-            {/* Reactive headline KPIs (Σ€/count follow the filters AND the search)
-                + integrity KPIs (single-bidder / direct-award share; facet-based,
-                so they don't move with the free-text search). */}
-            <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-              <StatCard label={t("contracts_kpi_total") || "Обща стойност"}>
-                <div className="flex items-baseline gap-2">
-                  <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-                  <span
-                    className="text-lg font-bold tabular-nums md:text-xl"
-                    title={formatEur(agg.sumAmountEur ?? 0, i18n.language)}
-                  >
-                    {formatEurCompact(agg.sumAmountEur ?? 0, i18n.language)}
-                  </span>
-                </div>
-              </StatCard>
-              <StatCard label={t("company_contracts") || "Договори"}>
-                <div className="flex items-baseline gap-2">
-                  <FileText className="h-5 w-5 shrink-0 text-muted-foreground" />
-                  <span className="text-lg font-bold tabular-nums md:text-xl">
-                    {(agg.count ?? 0).toLocaleString("bg-BG")}
-                  </span>
-                </div>
-              </StatCard>
-              <StatCard
-                label={t("contracts_stat_single_bid") || "1 оферта"}
-                hint={
-                  t("contracts_stat_single_bid_hint") ||
-                  "Дял от договорите с известен брой оферти, спечелени с една оферта."
-                }
-              >
-                <div className="flex items-baseline gap-2">
-                  <Users className="h-5 w-5 shrink-0 text-muted-foreground" />
-                  <span className="text-lg font-bold tabular-nums md:text-xl">
-                    {singleBidPct == null ? "—" : `${singleBidPct.toFixed(0)}%`}
-                  </span>
-                </div>
-              </StatCard>
-              <StatCard
-                label={t("contracts_stat_direct") || "Пряко възлагане"}
-                hint={
-                  t("contracts_stat_direct_hint") ||
-                  "Дял от договорите с посочена процедура, възложени пряко / без обявление."
-                }
-              >
-                <div className="flex items-baseline gap-2">
-                  <Coins className="h-5 w-5 shrink-0 text-muted-foreground" />
-                  <span className="text-lg font-bold tabular-nums md:text-xl">
-                    {directPct == null ? "—" : `${directPct.toFixed(0)}%`}
-                  </span>
-                </div>
-              </StatCard>
-            </div>
-
-            {/* Procedure-mix overview — filter-scoped and clickable: a segment/chip
-                toggles the same bucket filter that narrows the table. */}
-            <div className="mb-4">
-              <ProcedureMixBar
-                buckets={groupedMethods}
-                selected={procBucket}
-                onSelect={setProcBucket}
-                title={t("contracts_procedure_mix") || "Вид процедура"}
-                note={
-                  t("contracts_procedure_mix_note") ||
-                  "Дял от договорите с посочена процедура."
-                }
-              />
-            </div>
-          </>
+          <ContractsAnalysisStrip
+            sumAmountEur={agg.sumAmountEur}
+            count={agg.count}
+            singleBidPct={singleBidPct}
+            directPct={directPct}
+            groupedMethods={groupedMethods}
+            procBucket={procBucket}
+            onSelectBucket={setProcBucket}
+            countLabel={t("company_contracts") || "Договори"}
+          />
         )}
 
         <DbDataTable<ProcurementContract>
@@ -544,39 +478,17 @@ export const ContractsBrowserDbScreen: FC = () => {
               {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary
                   and drives the same ?proc filter. Travels with the analysis
                   block, so it's hidden on ?sector pages (no proc facet there). */}
-              {showAnalysis && groupedMethods.length > 0 ? (
-                <Select
-                  value={procBucket ?? PROC_ALL}
-                  onValueChange={(v) =>
-                    setProcBucket(
-                      v === PROC_ALL ? null : (v as ProcedureBucket),
-                    )
-                  }
-                >
-                  <SelectTrigger className="w-auto h-9 max-w-[220px]">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={PROC_ALL}>
-                      {t("company_contracts_all_procedures") ||
-                        "Всички процедури"}
-                    </SelectItem>
-                    {groupedMethods.map((g) => (
-                      <SelectItem key={g.bucket} value={g.bucket}>
-                        {procedureLabel(g.bucket, i18n.language)} ({g.count})
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : null}
-              <label className="flex items-center gap-1.5 text-xs text-muted-foreground cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  checked={singleBidder}
-                  onChange={(e) => setSingleBidder(e.target.checked)}
+              {showAnalysis ? (
+                <ProcedureBucketSelect
+                  groupedMethods={groupedMethods}
+                  value={procBucket}
+                  onChange={setProcBucket}
                 />
-                {t("company_contracts_single_bidder") || "само 1 оферта"}
-              </label>
+              ) : null}
+              <SingleBidderToggle
+                checked={singleBidder}
+                onChange={setSingleBidder}
+              />
               {hasActiveFilters ? (
                 <button
                   type="button"
@@ -589,17 +501,12 @@ export const ContractsBrowserDbScreen: FC = () => {
             </>
           }
           renderAggregates={(footerAgg, total, exact) => (
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold tabular-nums text-foreground">
-                {formatEur(footerAgg.sumAmountEur ?? 0)}
-              </span>{" "}
-              {t("company_contracts_total_over") || "по"}{" "}
-              <span className="tabular-nums">
-                {exact ? "" : "≈"}
-                {(footerAgg.count ?? total).toLocaleString("bg-BG")}
-              </span>{" "}
-              {t("procurement_contracts_word") || "договора"}
-            </span>
+            <ContractsAggregatesFooter
+              agg={footerAgg}
+              total={total}
+              exact={exact}
+              word={t("procurement_contracts_word") || "договора"}
+            />
           )}
         />
       </section>
