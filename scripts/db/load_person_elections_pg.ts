@@ -20,6 +20,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { exec, allRows, withClient, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import { candidacyRegions, type RegionRow } from "../person/candidateRegions";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 
 const ROOT = path.resolve(
@@ -37,10 +38,6 @@ interface BySlug {
   slug: string;
   name: string;
   partyNum: number | null;
-}
-interface RegionRow {
-  partyNum?: number;
-  totalVotes?: number;
 }
 interface CikParty {
   number: number;
@@ -147,33 +144,15 @@ const run = async (): Promise<void> => {
         continue; // candidacy didn't resolve to a person → /candidate/{slug} falls through
       }
 
-      const regionsAll =
-        readJson<RegionRow[]>(
-          path.join(candidatesRoot, c.name, "regions.json"),
-        ) ?? [];
-      const distinctParties = new Set(
-        regionsAll.map((r) => r.partyNum).filter((p) => p != null),
+      // Shared with db:resolve:persons, which needs the same party-disambiguated answer
+      // two steps EARLIER in db:refresh than this table exists — see candidateRegions.ts.
+      const { regions, effectiveParty, isCollision } = candidacyRegions(
+        candidatesRoot,
+        c.name,
+        c.partyNum,
       );
-      const isCollision = distinctParties.size > 1;
-
-      // The candidacy's party: from the c-{party}-… slug (authoritative), else the folder's
-      // sole party for an mp-{id} candidacy in a clean folder. An mp candidacy landing in a
-      // collision folder can't be party-disambiguated from the slug — rare; count it.
-      const effectiveParty =
-        c.partyNum ??
-        (distinctParties.size === 1 ? [...distinctParties][0]! : null);
       if (effectiveParty == null && isCollision) mpCollision++;
       if (isCollision) collisions++;
-
-      // Party-filter to keep namesakes split. When the party is known → filter to it. When it
-      // ISN'T (an mp candidacy in a multi-party collision folder) → empty, an honest absence,
-      // NEVER the mixed-party rows (which would re-conflate the namesakes we just separated).
-      const regions =
-        effectiveParty != null
-          ? regionsAll.filter((r) => r.partyNum === effectiveParty)
-          : isCollision
-            ? []
-            : regionsAll;
       const totalVotes = regions.reduce((s, r) => s + (r.totalVotes ?? 0), 0);
 
       // preferences_stats (history + geography tiles) is name-folder-keyed and thus

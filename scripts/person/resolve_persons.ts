@@ -51,7 +51,9 @@ import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
-import { obshtinaLabels, type PlaceLabel } from "./places";
+import { obshtinaLabels, mirLabels, type PlaceLabel } from "./places";
+import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
+import { mirToOblast } from "../../src/data/parliament/nsFolders";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 import { foldJudicialName } from "../judiciary/judicialBodies";
 
@@ -220,6 +222,21 @@ const obshtinaPlaceFor = (
   const label = labels.get(code) ?? null;
   return {
     placeKind: "obshtina",
+    placeCode: code,
+    placeLabel: label?.bg ?? null,
+    placeLabelEn: label?.en ?? null,
+  };
+};
+
+// Build a typed МИР place from a site oblast/МИР code (`BLG`, `S23`, `PDV-00`).
+const mirPlaceFor = (
+  labels: Map<string, PlaceLabel>,
+  code: string | null | undefined,
+): TypedPlace => {
+  if (!code) return NO_PLACE;
+  const label = labels.get(code) ?? null;
+  return {
+    placeKind: "mir",
     placeCode: code,
     placeLabel: label?.bg ?? null,
     placeLabelEn: label?.en ?? null,
@@ -472,8 +489,9 @@ async function collect(): Promise<Raw[]> {
       },
     );
 
-  // Obshtina code → display name, for the typed place columns (migration 115).
+  // Code → display name, for the typed place columns (migration 115).
   const obshtinaLabel = obshtinaLabels();
+  const mirLabel = mirLabels();
   const obshtinaPlace = (raw: string | null | undefined): TypedPlace =>
     obshtinaPlaceFor(obshtinaLabel, raw);
 
@@ -513,6 +531,11 @@ async function collect(): Promise<Raw[]> {
   // MPs (data/parliament/index.json) — the mp id is the cross-source GOLD KEY (Tier 0),
   // and birthDate is a strong name-independent corroborant. Degrades gracefully if the
   // file is absent (fresh clone without the parliament data).
+  // mp id → parliament.bg's 2-digit seated-МИР number. Rule 1 of §3a needs it on the
+  // CANDIDATE loop below as well as on the mp roles, because a candidacy that seated
+  // someone should show the МИР they were seated from rather than the one they happened
+  // to poll best in.
+  const seatedMirByMpId = new Map<number, string>();
   const mpPath = path.join(REPO_ROOT, "data/parliament/index.json");
   if (fs.existsSync(mpPath)) {
     const idx = JSON.parse(fs.readFileSync(mpPath, "utf8")) as {
@@ -522,11 +545,18 @@ async function collect(): Promise<Raw[]> {
         // currentRegion is a bare region NAME on most rows but a {code,name} object on
         // some — normalize to the name string so it never renders as raw JSON.
         currentRegion: string | { code?: string; name?: string } | null;
+        // The МИР the MP was SEATED from — present for ALL 2,122 MPs where
+        // currentRegion covers only the 240 sitting ones (T3a). This is Rule 1 of
+        // §3a, and it is read from index.json rather than mp_profile because
+        // db:refresh loads that table TWO STEPS AFTER this resolver runs.
+        seatedRegion?: { code?: string; name?: string } | null;
         currentPartyGroupShort: string | null;
         birthDate: string | null;
       }[];
     };
     for (const mp of idx.mps) {
+      if (mp.seatedRegion?.code)
+        seatedMirByMpId.set(mp.id, mp.seatedRegion.code);
       const region =
         typeof mp.currentRegion === "object" && mp.currentRegion !== null
           ? (mp.currentRegion.name ?? null)
@@ -538,6 +568,9 @@ async function collect(): Promise<Raw[]> {
           hardId: `mp:${mp.id}`,
           regId: regId.get(String(mp.id)) ?? null,
           place: region,
+          // Rule 1 (§3a): the seated МИР, mapped from parliament.bg's own 2-digit
+          // number onto the site's МИР code. Takes `mp` fill from 11.3% to 100%.
+          ...mirPlaceFor(mirLabel, mirToOblast(mp.seatedRegion?.code)),
           cParty: mp.currentPartyGroupShort,
           cPlace: region,
           cBirth: mp.birthDate,
@@ -732,6 +765,8 @@ async function collect(): Promise<Raw[]> {
     path.join(REPO_ROOT, "data/2*/candidates/by-slug"),
   )) {
     const election = path.basename(path.dirname(path.dirname(dir)));
+    // `data/{election}/candidates` — the per-name folders holding regions.json.
+    const candidatesRoot = path.dirname(dir);
     for (const file of fs.readdirSync(dir)) {
       if (!file.endsWith(".json")) continue;
       const c = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")) as {
@@ -746,6 +781,24 @@ async function collect(): Promise<Raw[]> {
           ? (partyMap.get(`${election}#${c.partyNum}`) ?? null)
           : null;
       const oblast = c.oblasts[0] ?? null;
+      // The PRIMARY МИР for this candidacy (§3a). `oblasts[0]` is not it: the array is
+      // built from preference-vote rows and its order is arbitrary, so on the 15.9% of
+      // candidacies that span more than one МИР it picks the seated one just 47% of the
+      // time. Rule 1 — the МИР the person was actually seated from — wins when this
+      // candidacy put them in parliament; otherwise Rule 2, the МИР where they drew the
+      // most preference votes.
+      const regions = candidacyRegions(
+        candidatesRoot,
+        c.name,
+        c.partyNum,
+      ).regions;
+      // Both rules of §3a, in order — see pickPrimaryMir for why Rule 1 may only
+      // disambiguate among the МИР this candidacy actually contested.
+      const primaryMir = pickPrimaryMir(
+        regions,
+        c.mpId != null ? mirToOblast(seatedMirByMpId.get(c.mpId)) : null,
+        oblast,
+      );
       add(
         c.name,
         {
@@ -757,6 +810,7 @@ async function collect(): Promise<Raw[]> {
         {
           hardId: c.mpId != null ? `mp:${c.mpId}` : null,
           place: oblast,
+          ...mirPlaceFor(mirLabel, primaryMir),
           cParty: canon,
           cPlace: oblast,
         },

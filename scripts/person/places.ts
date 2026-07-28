@@ -13,6 +13,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { SYNTHETIC_OBSHTINA_LABELS } from "../../src/lib/obshtinaPlace";
+import { OBLAST_NAME } from "../../src/lib/regionalOblast";
+import { MIR_CODES } from "../../src/data/parliament/nsFolders";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -49,5 +51,34 @@ export function obshtinaLabels(): Map<string, PlaceLabel> {
   }
   for (const [code, label] of Object.entries(SYNTHETIC_OBSHTINA_LABELS))
     m.set(code, label);
+  return m;
+}
+
+// The МИР codes that are NOT simply their oblast. There are 31 МИР against 28 statistical
+// oblasts, and the difference is the whole reason `place_kind` is 'mir' rather than
+// 'oblast': Sofia city elects from three separate constituencies, and Пловдив splits into
+// град (МИР 16) and област (МИР 17). Naming them by their oblast would merge distinct
+// electorates on the page.
+const MIR_ONLY_LABELS: Record<string, PlaceLabel> = {
+  S23: { bg: "София 23 МИР", en: "Sofia 23rd MMC" },
+  S24: { bg: "София 24 МИР", en: "Sofia 24th MMC" },
+  S25: { bg: "София 25 МИР", en: "Sofia 25th MMC" },
+  "PDV-00": { bg: "Пловдив-град", en: "Plovdiv (city)" },
+  PDV: { bg: "Пловдив-област", en: "Plovdiv (province)" },
+  SFO: { bg: "София-област", en: "Sofia (province)" },
+};
+
+/** МИР code → { bg, en } for all 31 electoral constituencies. Everything that is not in
+ *  MIR_ONLY_LABELS coincides with its oblast and is named from the canonical map, so the
+ *  two can never drift apart for the 25 codes they share. */
+export function mirLabels(): Map<string, PlaceLabel> {
+  const m = new Map<string, PlaceLabel>();
+  // Driven by MIR_CODES, so the label set is exactly the constituency set by
+  // construction — not "the oblast map minus a hard-coded skip", which was equal to it
+  // only by coincidence and unpinned in both directions.
+  for (const code of MIR_CODES) {
+    const label = MIR_ONLY_LABELS[code] ?? OBLAST_NAME[code];
+    if (label) m.set(code, label);
+  }
   return m;
 }

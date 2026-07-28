@@ -39,6 +39,25 @@ const OBLAST_TO_MIR: Record<string, string> = {
 export const oblastToMir = (oblast?: string | null): string | null =>
   oblast ? (OBLAST_TO_MIR[oblast] ?? null) : null;
 
+/** The 31 electoral constituencies, as the site codes them. THE single source — labels,
+ *  validation and the person_role place gates all derive from this rather than each
+ *  rebuilding their own list (which is how a 32nd entry, e.g. the "World" pseudo-region
+ *  scripts/parsers/region_codes.ts carries, would slip through unnoticed). */
+export const MIR_CODES: readonly string[] = Object.keys(OBLAST_TO_MIR);
+
+// The inverse, built from the map above rather than written out again — a second literal
+// would be free to drift, and the two halves disagreeing would silently mis-seat MPs.
+const MIR_TO_OBLAST: Record<string, string> = Object.fromEntries(
+  Object.entries(OBLAST_TO_MIR).map(([oblast, mir]) => [mir, oblast]),
+);
+
+/** parliament.bg's 2-digit МИР number (`"16"`, `"23"`) → the site's МИР code
+ *  (`"PDV-00"`, `"S23"`). Accepts an unpadded number for safety. */
+export const mirToOblast = (mir?: string | null): string | null => {
+  if (!mir) return null;
+  return MIR_TO_OBLAST[mir.padStart(2, "0")] ?? null;
+};
+
 // Mapping from election date (YYYY_MM_DD, matching public/<date>/) to the
 // parliament.bg NS "folder" string used throughout the API and our index.
 // Source: official Bulgarian National Assembly numbering.

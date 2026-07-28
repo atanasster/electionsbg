@@ -20,6 +20,7 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
+import { MIR_CODES } from "../../../src/data/parliament/nsFolders";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -162,6 +163,115 @@ test.skipIf(skip)(
       `non-place source(s) gained a typed place: ${rows
         .map((r) => `${r.source} (${r.n})`)
         .join(", ")}`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "every MP carries the МИР they were seated from",
+  async () => {
+    // parliament.bg carries a seat on every profile it holds, so anything short of 100%
+    // means index.json was rebuilt without `seatedRegion` (T3a) or the crosswalk lost an
+    // entry. The old `currentRegion` path covered only the 240 sitting MPs.
+    const [row] = await allRows<{ total: string; coded: string }>(
+      `SELECT count(*) AS total,
+            count(*) FILTER (WHERE place_kind = 'mir' AND place_code IS NOT NULL) AS coded
+       FROM person_role WHERE source = 'mp'`,
+    );
+    // Floor first: `0 === 0` would otherwise pass on an empty table, which is exactly
+    // the silent green this file's header argues against.
+    assert.ok(
+      Number(row.total) > 2000,
+      `only ${row.total} mp role(s) — the roster did not load`,
+    );
+    assert.equal(
+      row.coded,
+      row.total,
+      `${Number(row.total) - Number(row.coded)} mp role(s) have no seated МИР`,
+    );
+  },
+);
+
+test.skipIf(skip)("every МИР place_code is one of the 31", async () => {
+  // A code outside the constituency set means the crosswalk or the shard data drifted —
+  // e.g. a statistical oblast (28 of them) leaking in where a МИР (31) belongs.
+  const rows = await allRows<{ place_code: string; n: string }>(
+    `SELECT place_code, count(*) n FROM person_role
+      WHERE place_kind = 'mir'
+        AND place_code <> ALL($1::text[])
+      GROUP BY 1 LIMIT 10`,
+    // From the crosswalk itself, not a fourth hand-written copy — nsFolders.test.ts
+    // pins that list against its own witness, so there is one place to be wrong.
+    [[...MIR_CODES]],
+  );
+  assert.equal(
+    rows.length,
+    0,
+    `non-МИР code(s) in a 'mir' place: ${rows.map((r) => `${r.place_code} (${r.n})`).join(", ")}`,
+  );
+  const [total] = await allRows<{ n: string }>(
+    `SELECT count(*) n FROM person_role WHERE place_kind = 'mir'`,
+  );
+  assert.ok(
+    Number(total.n) > 50000,
+    `only ${total.n} 'mir' place(s) — the gate is passing vacuously`,
+  );
+});
+
+test.skipIf(skip)(
+  "a candidacy's МИР is one the candidacy actually contested",
+  async () => {
+    // The bug this pins: parliament.bg holds ONE seat per person with no cycle attached,
+    // so using it wherever an mpId exists back-stamped a 39th-NS seat onto 2022–2026
+    // candidacies that recorded no votes anywhere. The seated МИР may only DISAMBIGUATE
+    // among the МИР a candidacy actually has — never assert one it does not.
+    // person_election_stats is keyed on (person, election), NOT on the candidacy — a
+    // person who appears in one cycle under both an `mp-{id}` shard and a `c-{party}`
+    // one collapses to a single stats row. Restrict to people with exactly ONE candidacy
+    // in the election so the stats row unambiguously describes the role being checked;
+    // otherwise this compares a candidacy against a different candidacy's regions.
+    const [row] = await allRows<{ n: string }>(
+      `WITH solo AS (
+         SELECT person_id, split_part(ref, ':', 1) AS election_date
+           FROM person_role WHERE source = 'candidate'
+          GROUP BY 1, 2 HAVING count(*) = 1
+       )
+       SELECT count(*) n
+         FROM person_role r
+         JOIN solo o
+           ON o.person_id = r.person_id
+          AND o.election_date = split_part(r.ref, ':', 1)
+         JOIN person_election_stats s
+           ON s.person_id = r.person_id
+          AND s.election_date = o.election_date
+        WHERE r.source = 'candidate'
+          AND r.place_code IS NOT NULL
+          AND jsonb_array_length(s.regions) > 0
+          AND NOT EXISTS (
+            SELECT 1 FROM jsonb_array_elements(s.regions) g
+             WHERE g->>'oblast' = r.place_code
+          )`,
+    );
+    assert.equal(
+      row.n,
+      "0",
+      `${row.n} candidacy place(s) name a МИР absent from that candidacy's own region rows`,
+    );
+    // …and the join must actually match something, or "0 mismatches" means "0 rows".
+    const [scope] = await allRows<{ n: string }>(
+      `WITH solo AS (
+         SELECT person_id, split_part(ref, ':', 1) AS election_date
+           FROM person_role WHERE source = 'candidate'
+          GROUP BY 1, 2 HAVING count(*) = 1
+       )
+       SELECT count(*) n FROM person_role r
+         JOIN solo o ON o.person_id = r.person_id
+                    AND o.election_date = split_part(r.ref, ':', 1)
+        WHERE r.source = 'candidate' AND r.place_code IS NOT NULL`,
+    );
+    assert.ok(
+      Number(scope.n) > 40000,
+      `only ${scope.n} candidacy place(s) in scope — the gate is passing vacuously`,
     );
   },
 );
