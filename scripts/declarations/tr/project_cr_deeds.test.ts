@@ -15,6 +15,7 @@ import {
   deedToPersonRows,
   eligibleFounding,
   foundingChunkSql,
+  foundingDatesFromStore,
   type FoundingAnswer,
 } from "./project_cr_deeds";
 import { parseCrDeed } from "./parse_cr_deeds";
@@ -165,6 +166,17 @@ describe("projectCrDeedsToState — additive merge", () => {
     projectCrDeedsToState(statePath, store);
     const cr = rowsFor("121587769").filter((r) => r.persons_source === "cr");
     expect(cr.length).toBe(first.parties); // the guard ran before any delete
+  });
+});
+
+describe("foundingDatesFromStore", () => {
+  it("returns one entry per real capture, carrying date + real status", () => {
+    store.putAnswer("121587769", loadFixture("eood1"), 200, "t");
+    store.putAnswer("999999999", null, 200, "t"); // empty-200 — not a real capture
+    const founding = foundingDatesFromStore(store);
+    expect(founding.map((f) => f.eik)).toEqual(["121587769"]);
+    expect(founding[0]).toMatchObject({ httpStatus: 200 });
+    expect(founding[0].date).toMatch(/^\d{4}-\d\d-\d\d$/);
   });
 });
 

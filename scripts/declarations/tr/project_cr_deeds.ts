@@ -81,6 +81,14 @@ export type FoundingAnswer = {
   httpStatus: number;
 };
 
+/** The single (uic, parsed, status) → FoundingAnswer mapping, so the two producers
+ * (projectCrDeedsToState's loop and foundingDatesFromStore) can't drift. */
+const captureToFounding = (
+  uic: string,
+  parsed: CrDeedParsed,
+  httpStatus: number,
+): FoundingAnswer => ({ eik: uic, date: parsed.foundingDate, httpStatus });
+
 export type ProjectStats = {
   companies: number; // deeds that contributed ≥1 party
   parties: number; // company_persons rows written
@@ -117,11 +125,7 @@ export const projectCrDeedsToState = (
         const parsed = parseCrDeed(body);
         if (!parsed) continue; // unparseable — never touch this uic's rows
         // A founding date is an answer even for a party-less company (e.g. an ET).
-        stats.founding.push({
-          eik: uic,
-          date: parsed.foundingDate,
-          httpStatus,
-        });
+        stats.founding.push(captureToFounding(uic, parsed, httpStatus));
 
         const rows = deedToPersonRows(parsed);
         if (rows.length === 0) continue; // ≥1-party guard: don't wipe on empty parse
@@ -154,6 +158,23 @@ export const projectCrDeedsToState = (
     db.close();
   }
   return stats;
+};
+
+/**
+ * Founding dates for every real capture — the input to the standalone company_founded
+ * loader (load_cr_founding_pg.ts), which is a SEPARATE process from the sqlite persons
+ * projection, so this single parse pass is not paired with projectCrDeedsToState's.
+ * (In-process, read `stats.founding` instead — do not call both.)
+ */
+export const foundingDatesFromStore = (
+  store: CrDeedsStore,
+): FoundingAnswer[] => {
+  const out: FoundingAnswer[] = [];
+  for (const { uic, body, httpStatus } of store.captured()) {
+    const parsed = parseCrDeed(body);
+    if (parsed) out.push(captureToFounding(uic, parsed, httpStatus));
+  }
+  return out;
 };
 
 /** Only company-level 9-digit EIKs belong in company_founded (a 13-digit клон ЕИК

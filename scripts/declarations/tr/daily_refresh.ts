@@ -14,7 +14,15 @@
  *      (e.g. 2023-04-19, 2024-12-09, 2024-12-18) strands the rest,
  *   3. reconstructs raw_data/tr/state.sqlite from the merged daily/ + bulk
  *      sources,
+ *   3b. folds in the CR Deeds captures (the pre-2021 owner backfill) —
+ *       projectCrDeedsToState merges them into company_persons; skipped cleanly
+ *       when no crawl has run (no cr_deeds.sqlite). Must run AFTER step 3 (which
+ *       rewrites state.sqlite) and BEFORE step 4 / the PG load,
  *   4. rebuilds the per-EIK company → people-in-power files.
+ *
+ * The `tr:daily-refresh` npm wrapper then loads state.sqlite into Postgres
+ * (db:load:tr:pg) and folds the CR founding dates into company_founded
+ * (db:load:cr-founding:pg) — those touch PG, so they live in the wrapper, not here.
  *
  * Steps 3 + 4 run every time (cheap, ~2 min + ~3 s) so the rebuild reflects
  * whatever was fetched plus any curated-graph change. The bucket upload is the
@@ -39,6 +47,9 @@ import {
 import { fetchAllDailyResilient } from "./fetch_daily";
 import { reconstructState } from "./reconstruct_state";
 import { buildCompanyConnections } from "./build_company_connections";
+import { CrDeedsStore } from "./cr_deeds_store";
+import { CR_DEEDS_DB } from "./fetch_cr_deeds";
+import { projectCrDeedsToState } from "./project_cr_deeds";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -115,6 +126,25 @@ const main = async (): Promise<void> => {
     `[tr/daily-refresh] reconstructed ${recon.companies.toLocaleString()} companies, ` +
       `${recon.persons.toLocaleString()} person rows`,
   );
+
+  // Fold in the CR Deeds captures (the pre-2021 owner backfill). reconstructState
+  // rewrites state.sqlite from scratch every run, so this MUST re-run here after it,
+  // before buildCompanyConnections (which reads company_persons) and the PG load.
+  // Skipped cleanly when no crawl has run yet (no cr_deeds.sqlite). The founding-date
+  // fold to PG is a separate step (db:load:cr-founding:pg) — Postgres isn't up here.
+  if (fs.existsSync(CR_DEEDS_DB)) {
+    const store = new CrDeedsStore(CR_DEEDS_DB);
+    try {
+      const proj = projectCrDeedsToState(recon.outPath, store);
+      console.log(
+        `[tr/daily-refresh] CR Deeds projection: ${proj.companies.toLocaleString()} companies, ` +
+          `${proj.parties.toLocaleString()} owner/officer rows merged`,
+      );
+    } finally {
+      store.close();
+    }
+  }
+
   buildCompanyConnections();
 
   console.log(

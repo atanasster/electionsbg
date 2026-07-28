@@ -17,8 +17,9 @@
 // After shipping, the served payload must be rebuilt or the new dates are in
 // the table but not in `foundedByEik`; this refreshes it for you.
 
-import { allRows, exec, end } from "./lib/pg";
+import { allRows, end } from "./lib/pg";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
+import { refreshRiskIndexesIfPresent } from "./lib/refreshRiskIndexes";
 
 const main = async () => {
   if (!targetIsCloud()) {
@@ -56,8 +57,7 @@ const main = async () => {
   await shipTable("company_founded");
   // The risk-indexes payload embeds foundedByEik, so the ship is only visible
   // to the SPA once the cache is rebuilt.
-  await exec("REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache");
-  console.log("  refreshed procurement_risk_indexes_cache");
+  await refreshRiskIndexesIfPresent();
   await end();
 };
 
