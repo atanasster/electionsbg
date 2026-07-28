@@ -32,6 +32,10 @@
 
 SET check_function_bodies = off;
 
+-- The grade used to take the CRI; drop that overload so nothing binds to a
+-- stale signature after this file is re-applied over an older database.
+DROP FUNCTION IF EXISTS contract_risk_grade_letter(numeric);
+
 -- Fold a contractor name for debarred matching — SQL mirror of
 -- normalizeContractorName() in src/data/procurement/useDebarred.tsx, which in
 -- turn mirrors scripts/procurement/debarred.ts. Strip decoration, strip the
@@ -46,15 +50,41 @@ RETURNS text LANGUAGE sql IMMUTABLE AS $$
            '\s+', ' ', 'g')));
 $$;
 
--- Contract-grain CRI → letter. SEPARATE from risk_grade_letter (041) on purpose:
--- that one bands a value-weighted 0..100 ENTITY exposure score, whereas this
--- bands a fired/available ratio whose denominator can be as small as 5, so one
--- fired check moves it 20 points. Keeping its own function means the contract
--- bands can be calibrated against the real distribution without moving every
--- buyer's grade. Until calibrated it delegates, so the two agree by default.
-CREATE OR REPLACE FUNCTION contract_risk_grade_letter(p_cri numeric)
+-- Contract-grain grade. SEPARATE from risk_grade_letter (041) and banded on the
+-- FIRED COUNT, not on the CRI ratio. Both choices are forced by the measured
+-- distribution over all 407,560 contracts (2026-07-27):
+--
+--   fired  0: 258,706 (63.5%)   3: 2,938 (0.72%)
+--          1: 122,334 (30.0%)   4:   403 (0.10%)
+--          2:  23,098 ( 5.7%)   5:    70 (0.02%)   6: 11 (0.003%)
+--
+-- The CRI is not a continuous score — it is a 23-value lattice, because
+-- `fired` only ever reaches 6 and `available` only varies 7..11. Feeding it to
+-- 041's bands (A<10 … F>=70) put 99% of the corpus in A/B and made **F
+-- mathematically unreachable**: the corpus maximum CRI is 60, so the eleven
+-- most-flagged contracts in the country would read "E". A grade nobody can
+-- score is not a grade.
+--
+-- Banding on the fired count instead gives every letter a real population and a
+-- one-sentence meaning ("F = five or more checks fired"), which is also what
+-- the UI has to explain anyway. The CRI stays as the sortable continuous key.
+--
+-- ⚠️ Known wrinkle, deliberately not hidden: because the CRI divides by a
+-- varying denominator it is *almost* monotone in `fired`, but not quite — a
+-- 4-of-11 contract scores 36 while a 3-of-8 scores 38. So a handful of rows
+-- sort just below a lower grade. The grade itself is unaffected (it reads
+-- `fired` directly), and the leaderboard orders by fired first for this reason.
+CREATE OR REPLACE FUNCTION contract_risk_grade_letter(p_fired int)
 RETURNS text LANGUAGE sql IMMUTABLE AS $$
-  SELECT risk_grade_letter(p_cri);
+  SELECT CASE
+    WHEN p_fired IS NULL THEN NULL
+    WHEN p_fired <= 0 THEN 'A'
+    WHEN p_fired = 1 THEN 'B'
+    WHEN p_fired = 2 THEN 'C'
+    WHEN p_fired = 3 THEN 'D'
+    WHEN p_fired = 4 THEN 'E'
+    ELSE 'F'
+  END;
 $$;
 
 -- Bit positions for available_mask / fired_mask. This ORDER IS A CONTRACT with
@@ -264,9 +294,7 @@ BEGIN
          CASE WHEN a.available = 0 THEN 0
               ELSE round(100.0 * a.fired / a.available)::int END AS cri,
          a.score,
-         contract_risk_grade_letter(
-           CASE WHEN a.available = 0 THEN 0
-                ELSE round(100.0 * a.fired / a.available) END) AS grade,
+         contract_risk_grade_letter(a.fired) AS grade,
          -- Bit order per the contract documented on the table above.
          (a.a_debarred::int << 0) | (a.a_mp::int      << 1) | (a.a_pep::int    << 2)
        | (a.a_conc::int     << 3) | (a.a_amend::int   << 4) | (a.a_annex::int  << 5)

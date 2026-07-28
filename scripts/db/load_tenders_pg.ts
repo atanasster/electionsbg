@@ -41,6 +41,15 @@ const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 // for openTenders' corpus path, kzk_appeals_summary for procurementAppeals) —
 // applied after KZK_FILE since both read those tables.
 const AI_FILE = path.join(SCHEMA_DIR, "044_procurement_ai.sql");
+// Covering indexes for the DbDataTable browsers — touches BOTH contracts and
+// tenders, so it is applied here (this loader runs after both base tables exist
+// and after 042 built the *_list views), NOT from load_pg.ts which can run before
+// `tenders` exists on a fresh db:refresh. Idempotent (CREATE INDEX IF NOT EXISTS
+// + DROP IF EXISTS of the narrower originals). See the file header.
+const BROWSER_IDX_FILE = path.join(
+  SCHEMA_DIR,
+  "113_procurement_browser_covering_indexes.sql",
+);
 // "How typical is this tender?" cohort payloads (fn + set-based cache matview).
 const TENDER_NORMALCY_FILE = path.join(SCHEMA_DIR, "067_tender_normalcy.sql");
 const TENDER_NORMALCY_BUILD_FILE = path.join(
@@ -166,6 +175,11 @@ export const loadTendersPg = async (): Promise<{
   await exec(readFileSync(KZK_FILE, "utf8"));
   // AI-chat serving fns (functions only; replaced each run).
   await exec(readFileSync(AI_FILE, "utf8"));
+  // Browser covering indexes (contracts + tenders). Both base tables + the
+  // *_list views (042 above) now exist. The count/sum + facet queries in
+  // functions/db_table.js aggregate over the BASE tables and these serve them
+  // index-only.
+  await exec(readFileSync(BROWSER_IDX_FILE, "utf8"));
 
   // Refresh planner statistics immediately — same reason as load_pg.ts: a
   // freshly TRUNCATE+INSERT'd table carries reltuples=0 and no column histograms

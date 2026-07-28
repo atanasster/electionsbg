@@ -26,6 +26,7 @@ import { ProcurementSectionHeader } from "../components/procurement/ProcurementS
 import { ProcurementKpiRow } from "../components/procurement/ProcurementKpiRow";
 import { ProcurementSectorsTile } from "../components/procurement/ProcurementSectorsTile";
 import { RiskSignalsTile } from "../components/procurement/RiskSignalsTile";
+import { RiskiestContractsTile } from "../components/procurement/RiskiestContractsTile";
 import {
   RiskGradeLeaderboardTile,
   RISK_GRADE_BOARD_PREVIEW,
@@ -184,6 +185,9 @@ export const ProcurementOverviewScreen: FC = () => {
           ) : (
             <RiskSignalsTile />
           )}
+          {/* Contract-grain board beside the buyer-grain one: the same 12 checks
+              ranked per CONTRACT rather than per institution. */}
+          <RiskiestContractsTile />
           <ProcurementBenchmarksTile />
         </DashboardSection>
 

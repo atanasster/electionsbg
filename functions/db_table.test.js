@@ -213,6 +213,7 @@ test("no resource carries unknown top-level registry keys", () => {
   // looked declarative but runDbFacets builds from req.columns and never read it.
   const KNOWN = new Set([
     "base",
+    "aggBase",
     "scopeCols",
     "defaultScope",
     "columns",

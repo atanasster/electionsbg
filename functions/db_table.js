@@ -28,6 +28,13 @@ const REGISTRY = {
     // selects has_appeal/appeal_upheld): apply 042 to Cloud SQL BEFORE functions:db,
     // else 42P01. `db:load:tenders:pg:cloud` applies it; so does apply_functions.ts.
     base: "contracts_list",
+    // The count+sum aggregate and the facet GROUP BYs reference only base columns,
+    // so they run against `contracts` directly — the contracts_list view's LEFT
+    // JOINs (appeal flags, risk cache) block index-only scans, so aggregating over
+    // the view makes the covering indexes (migration 113) useless. Routed via
+    // aggBaseFor(), which falls back to the view the moment a WHERE clause or facet
+    // touches a viewOnly column below. See 113_procurement_browser_covering_indexes.sql.
+    aggBase: "contracts",
     scopeCols: ["contractor_eik", "awarder_eik"],
     columns: {
       // filter:"in" so the project-file resolver can fetch a member set by
@@ -42,8 +49,11 @@ const REGISTRY = {
       // LEFT-JOIN flags (ao.ocid IS NOT NULL), so `WHERE flag = $1` can't reduce
       // the join → a full-corpus scan twice per request. Re-add a filter only via
       // a matview semi-join if a UI ever needs it.
-      has_appeal: { type: "bool" },
-      appeal_upheld: { type: "bool" },
+      // viewOnly: added by the contracts_list view (LEFT JOIN), absent from the
+      // base table — a request filtering/faceting on these must aggregate over the
+      // view, not aggBase. See aggBaseFor().
+      has_appeal: { type: "bool", viewOnly: true },
+      appeal_upheld: { type: "bool", viewOnly: true },
       tag: { type: "text", filter: "in" },
       date: { type: "date", sort: true, filter: "range" },
       date_signed: { type: "date" },
@@ -115,12 +125,16 @@ const REGISTRY = {
       // filter:"in" so it is multi-select AND facetable in one declaration;
       // sorting it lexically is honest here because A<B<…<F is the risk order
       // (unlike `procedure`, which every screen leaves unsortable for that reason).
-      risk_cri: { type: "number", sort: true, filter: "range" },
-      risk_grade: { type: "text", sort: true, filter: "in" },
-      risk_fired: { type: "int" },
-      risk_available: { type: "int" },
-      risk_fired_mask: { type: "int" },
-      risk_available_mask: { type: "int" },
+      // viewOnly: sourced from contract_risk_cache via the view (see above).
+      risk_cri: { type: "number", sort: true, filter: "range", viewOnly: true },
+      risk_grade: { type: "text", sort: true, filter: "in", viewOnly: true },
+      // sort:true so the "riskiest contracts" board can order by fired count.
+      // Ordering by risk_cri would be subtly wrong: the CRI divides by a varying
+      // denominator, so a 4-of-11 (36) sorts below a 3-of-8 (38).
+      risk_fired: { type: "int", sort: true, viewOnly: true },
+      risk_available: { type: "int", viewOnly: true },
+      risk_fired_mask: { type: "int", viewOnly: true },
+      risk_available_mask: { type: "int", viewOnly: true },
     },
     // Projection returned to the client (camelCased). ProcurementContract-shaped
     // so the client can reuse the risk scorer + row components.
@@ -175,6 +189,10 @@ const REGISTRY = {
     // tenders_list = tenders + a per-row КЗК-appeal flag (migration 042); a view
     // over the base table, so all filters/sorts still resolve.
     base: "tenders_list",
+    // Aggregate/facet over the base `tenders` table (index-only via migration 113);
+    // the tenders_list view's appeal LEFT JOIN blocks it. Falls back to the view
+    // when a WHERE/facet touches a viewOnly column. See aggBaseFor().
+    aggBase: "tenders",
     scopeCols: ["buyer_eik"],
     columns: {
       // filter:"in" so the project-file resolver can fetch procedures by УНП
@@ -183,8 +201,9 @@ const REGISTRY = {
       ocid: { type: "text" },
       // Projected badge, not filterable — correlated EXISTS can't be index-driven
       // as a WHERE predicate (full ~125k scan). See the contracts note above.
-      has_appeal: { type: "bool" },
-      appeal_suspended: { type: "bool" },
+      // viewOnly: added by the tenders_list view (appeal LEFT JOIN). See aggBaseFor().
+      has_appeal: { type: "bool", viewOnly: true },
+      appeal_suspended: { type: "bool", viewOnly: true },
       publication_date: { type: "date", sort: true, filter: "range" },
       // filter:"in" so a sector browse pack can pass an EIK-set (buyer_eik IN
       // (...)) as a fixedFilter — same as contracts.awarder_eik. Scalar callers
@@ -1073,6 +1092,22 @@ const buildOrder = (r, req) => {
   return `ORDER BY ${terms.join(", ")}`;
 };
 
+// The relation to run the count/sum aggregate + facet GROUP BYs over. Prefer the
+// cheap base table (`r.aggBase`) so the covering indexes (migration 113) serve
+// them as INDEX-ONLY scans; the *_list VIEW's LEFT JOINs (appeal flags, risk
+// cache) defeat index-only scans even when the joins are semantically eliminable
+// (MEASURED: all-years contracts count+sum stayed a 940 MB seq scan through the
+// view, 40 MB index-only against the base). Fall back to the view the instant the
+// request references a viewOnly column — a WHERE filter, the scope, or (facets) the
+// faceted dimension itself — since that column does not exist on the base table.
+// `whereIds`/`facetIds` are registry-sourced column ids (never raw SQL).
+const touchesViewOnly = (r, ids) =>
+  ids.some((id) => id && r.columns[id]?.viewOnly);
+const aggBaseFor = (r, whereIds, facetIds = []) =>
+  r.aggBase && !touchesViewOnly(r, whereIds) && !touchesViewOnly(r, facetIds)
+    ? r.aggBase
+    : r.base;
+
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const buildAggSelect = (r) => {
   const sel = ["count(*)::bigint AS _count"];
@@ -1148,8 +1183,15 @@ const runDbTable = async (q, reqRaw) => {
     let totalExact;
     let aggregates = {};
     if (exact) {
+      // Aggregate over the base table when the WHERE touches only base columns —
+      // the covering indexes make it index-only. buildWhere referenced the same
+      // columns, so the identical whereSql/params are valid against aggBase.
+      const whereIds = [
+        req.scope?.col,
+        ...(req.filters?.columns ?? []).map((f) => f.id),
+      ];
       const [a] = await qq(
-        `SELECT ${buildAggSelect(r)} FROM ${r.base} ${whereSql}`,
+        `SELECT ${buildAggSelect(r)} FROM ${aggBaseFor(r, whereIds)} ${whereSql}`,
         params,
       );
       total = Number(a._count);
@@ -1201,6 +1243,14 @@ const runDbFacets = async (q, reqRaw) => {
   const limit = clampInt(req.limit, 100, 1, 500);
   const cols = (req.columns ?? []).filter((c) => r.columns[c]?.filter);
 
+  // Column ids the shared WHERE touches (scope + fixed + active filters) — used
+  // per-facet to decide whether it can aggregate over the base table.
+  const whereIds = [
+    req.scope?.col,
+    ...(req.fixedFilters ?? []).map((f) => f.id),
+    ...(req.filters ?? []).map((f) => f.id),
+  ];
+
   // Each facet is an independent query — run them concurrently rather than
   // awaiting one column at a time.
   const facets = {};
@@ -1216,8 +1266,11 @@ const runDbFacets = async (q, reqRaw) => {
           ? `${expr} IS NOT NULL`
           : `${expr} IS NOT NULL AND ${expr} <> ''`;
       const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;
+      // Base table when neither the WHERE nor this facet's own dimension is
+      // viewOnly — makes the GROUP BY an index-only scan (migration 113).
+      const rel = aggBaseFor(r, whereIds, [c]);
       facets[c] = await q(
-        `SELECT ${expr} AS value, count(*)::int AS count FROM ${r.base} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,
+        `SELECT ${expr} AS value, count(*)::int AS count FROM ${rel} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,
         params,
       );
     }),

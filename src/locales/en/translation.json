@@ -5294,5 +5294,8 @@
   "risk_methodology_important_invalid_p": "The procedural signals do not know which party won, but that does not make them demographically neutral. The share of invalid ballots is systematically higher in sections in Roma neighbourhoods — a documented pattern with plausible explanations such as literacy and ballot complexity, not necessarily manipulation. At municipality level this signal correlates with Roma population share (r = +0.36). A high value here should therefore not be read as evidence of irregularity, including within the procedural sub-score.",
   "risk_signal_clean": "Checked — no anomaly found.",
   "company_contract_risk_grade": "Grade",
-  "company_contract_risk_grade_any": "Grade: all"
+  "company_contract_risk_grade_any": "Grade: all",
+  "risk_board_contracts_title": "Highest-flagged contracts",
+  "risk_board_checks_abbr": "checks",
+  "risk_board_contracts_note": "Number of automated checks that fired — an indicator for review, not proof of wrongdoing."
 }
