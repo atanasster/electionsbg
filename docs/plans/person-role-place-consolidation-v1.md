@@ -93,7 +93,16 @@ ALTER TABLE person_role
     CHECK (place_kind IN ('mir', 'obshtina', 'judicial')),
   ADD COLUMN IF NOT EXISTS place_code  text,   -- canonical id within place_kind
   ADD COLUMN IF NOT EXISTS place_label text;   -- Bulgarian display string, precomputed
+
+-- G6: never a kind without a code. One check for consumers, not two.
+ALTER TABLE person_role DROP CONSTRAINT IF EXISTS person_role_place_pair;
+ALTER TABLE person_role ADD CONSTRAINT person_role_place_pair
+  CHECK ((place_kind IS NULL) = (place_code IS NULL));
 ```
+
+Applied by adding `115_person_role_place.sql` to `resolve_persons.ts` `SCHEMA_FILES`
+**before `082_person_api.sql`**, which reads the new columns (G4 — there is no readdir-based
+schema runner; every loader lists its files explicitly).
 
 `mir` (electoral constituency, 31 of them) rather than `oblast` (statistical, 28) is the
 right kind for electoral roles — see §0a.3. The МИР→oblast rollup already exists in
@@ -108,7 +117,7 @@ Per-source mapping:
 
 | source | kind | code | label |
 |---|---|---|---|
-| `official_muni` | `obshtina` | `official_roster.obshtina` (unchanged) | name via `municipality_join.ts`'s own table |
+| `official_muni` | `obshtina` | `official_roster.obshtina`, `SFO_CITY`→`SOF` (G2) | `data/municipalities.json` name, by code |
 | `local` | `obshtina` | `d.obshtinaCode` — already in the shard, currently discarded | `d.obshtinaName` |
 | `candidate` | `mir` | primary МИР — elected-from, else most preferences (§3) | МИР name |
 | `mp` | `mir` | most recent seating МИР (§3) | МИР name |
@@ -250,40 +259,125 @@ multi-МИР candidacies, 1,277 (12.0%) were seated and go to Rule 1, the other 
 is a flat ~1,600 per election across all ten cycles, so it is structural in the candidate
 shards, not a data-quality tail. Out of scope; worth its own look.
 
+## 3c. Audit findings (2026-07-27) — gaps found against the codebase
+
+Ranked. Each is folded into the tier it belongs to; listed here so the reasoning is not lost.
+
+**G1 — BLOCKING: `db:refresh` order puts both T3 sources AFTER the resolver.**
+Step 17 is `db:resolve:persons`; `person_election_stats` (Rule 2) is loaded at **step 19** and
+`mp_profile` (Rule 1) at **step 20**. A fresh refresh would run the resolver against an empty
+`person_election_stats` and an un-widened `mp_profile`, leaving every `mp` / `candidate`
+`place_code` NULL on the first pass and correct only on a second run — silent staleness of
+exactly the kind [[reference_migrated_family_watch_reload]] describes.
+**Resolution: the resolver reads from DISK, not from those tables.** Rule 1 →
+`data/parliament/index.json`, which `resolve_persons.ts:411` already opens for the MP loop.
+Rule 2 → `data/{election}/candidates/{NAME}/regions.json`, the same shards
+`load_person_elections_pg.ts:150-177` reads. That logic is **not** a plain read (party
+filtering with an `effectiveParty` fallback), so extract it into a shared lib and have both
+call it — do not duplicate it, and do not reorder `db:refresh`.
+
+**G2 — Sofia's two synthetic codes defeat the T4 dedupe.** `official_muni` writes
+`SFO_CITY` (75 roles) where `local` writes `SOF` for the same body. Keying the dedupe on
+`(role, place_code)` therefore leaves **35 Sofia people still double-rowed** — the exact
+defect T4 exists to fix. A documented translation already exists
+([candidate_link_join.ts:38](../../scripts/officials/candidate_link_join.ts)); reuse it, do
+not re-derive. `SFO_CITY` is also the **one code of 288** absent from
+`data/municipalities.json` (287/288 resolve), so it needs an explicit `place_label`.
+
+**G3 — an existing data test asserts on the dropped column.**
+[official_roster_obshtina.data.test.ts:72-120](../../scripts/db/tests/official_roster_obshtina.data.test.ts)
+has four assertions on `person_role.place`. T4's `DROP COLUMN` breaks CI. Rewrite against
+`place_code` / `place_kind` in the same commit.
+
+**G4 — new migrations have no applier.** There is no readdir-based schema runner; every
+loader carries an explicit ordered file list. `115` goes into `resolve_persons.ts`
+`SCHEMA_FILES` **before `082`** (which reads the new columns). `116` needs its own named
+loader, a `db:load:judicial-bodies:pg:cloud` wrapper, and a `db:refresh` slot — between step
+11 (`db:load:magistrates:pg`) and step 17 (`db:resolve:persons`).
+
+**G5 — the AI tool layer is a missed consumer.** [ai/tools/person.ts:24](../../ai/tools/person.ts)
+declares `place: string | null` mirroring the `person_by_slug` payload, with five fixtures in
+`ai/tools/person.test.ts`. It only declares the field and never reads it, so impact is type
+drift, not behaviour — but it belongs in T4's list.
+*Checked and NOT affected:* `person_roles(q)` in `008_connections.sql` is over
+`tr_person_roles` (TR company officerships). Name collision only.
+
+**G6 — `place_kind` is unspecified for rows with no place.** 394 `magistrate` roles have a
+NULL court and 16,124 `candidate` roles have no МИР. Rule: **`place_kind` is NULL whenever
+`place_code` is NULL** — never a kind without a code, so consumers get one check, not two.
+Add it as a table CHECK: `(place_kind IS NULL) = (place_code IS NULL)`.
+
+**G7 — `place_label` is single-language.** The site is bg/en. `data/municipalities.json`
+carries `name_en` for **294/294**, so the EN label is free at write time and expensive to
+retrofit. Decide now: either add `place_label_en`, or accept Bulgarian-only (which is the
+*existing* behaviour for `local`, so it is a conscious carry-over, not a regression).
+
+**G8 — `mp_profile` widening is under-specified.** `mp_profile` is defined in
+`104_mp_roster.sql` and loaded by `load_mp_roster_pg.ts` (TRUNCATE + COPY), so widening it
+means a migration edit, a COPY column-list edit, **and** `index.json` carrying the field
+first. Note that under G1's resolution this widening is **optional** — the resolver gets the
+value from `index.json` directly. Do it only if a serving surface wants `seated_region_*`.
+
+*Also checked, no action:* `sync_cloud.ts` lists `person_role` in `CRITICAL_TABLES` but the
+parity gate compares row counts only, so column changes do not affect it.
+
 ## Tiers
 
 **T1 — schema + resolver fill (additive, nothing breaks).**
-`115_person_role_place.sql`; `resolve_persons.ts` fills the triple alongside the existing
-`place` for `official_muni` and `local` (both already hold the code, `local` just discards
-it). `ds`/`sanctions`/`regulator` write NULL. Data test: every `official_muni` row has
-`place_kind='obshtina'` and a `place_code` matching `^[A-Z]{3}[0-9]{2}$`.
+`115_person_role_place.sql`, wired into `SCHEMA_FILES` before `082` (G4);
+`resolve_persons.ts` fills the triple alongside the existing `place` for `official_muni` and
+`local` (both already hold the code, `local` just discards it), normalizing `SFO_CITY`→`SOF`
+via the existing `candidate_link_join.ts` map and labelling the synthetic explicitly (G2).
+`ds`/`sanctions`/`regulator` write NULL for all three. Data tests: every `official_muni` row
+has `place_kind='obshtina'` and a `place_code` that is either `^[A-Z]{3}[0-9]{2}$` or the
+known synthetic; every `place_code` resolves to a non-null `place_label`.
 
-**T2 — judicial dimension.** `116_judicial_body.sql` + a loader building the alias table from
-`magistrate.court` ∪ `court_load.name`; `magistrate` roles fill `place_kind='judicial'`.
-Report unresolved strings; do not guess. `court_load` keeps its own `name` for now — pointing
-it at `body_code` is a follow-up inside the judiciary pack, not a blocker here.
+**T2 — judicial dimension.** `116_judicial_body.sql` + a **named loader with a
+`db:load:judicial-bodies:pg:cloud` wrapper**, slotted into `db:refresh` between step 11
+(`db:load:magistrates:pg`, which fills `magistrate.court`) and step 17
+(`db:resolve:persons`, which consumes it) — G4. Without the cloud wrapper the live judicial
+labels go stale while local is current. The loader builds the alias table from
+`magistrate.court` ∪ `court_load.name`; `magistrate` roles then fill `place_kind='judicial'`
+— **except the 394 with a NULL court, which get NULL/NULL per G6.** Report unresolved
+strings; do not guess. `court_load` keeps its own `name` for now — pointing it at `body_code`
+is a follow-up inside the judiciary pack, not a blocker here.
 
 **T3 — MP + candidate backfill (§3).** Three parts, in order:
 
-1. **`scrape_mps.ts`: persist `A_ns_Va_name`.** Add a `seatedRegion` field parsed by the
-   existing `parseRegion()` (it already handles the `"23-СОФИЯ"` shape), sourced from the
-   profile response rather than the current-NS list, so former MPs stop getting NULL. Widen
-   `mp_profile` with `seated_region_code` / `seated_region_name` — keep `current_region_*`
-   as-is, it means something different (still-sitting). Needs one `--all --refresh-current`
-   run (~10 min, git-committed output).
-2. **Resolver**: `mp.place_code` from `seated_region_code` via the existing `OBLAST_TO_MIR`
-   inverse; `candidate.place_code` per §3a.
-3. **Data tests**: `OBLAST_TO_MIR` is a bijection covering exactly the 31
+1. **`scrape_mps.ts`: persist `A_ns_Va_name` into `index.json`.** Add a `seatedRegion` field
+   parsed by the existing `parseRegion()` (it already handles the `"23-СОФИЯ"` shape),
+   sourced from the **profile** response rather than the current-NS list, so former MPs stop
+   getting NULL. Needs one `--all --refresh-current` run (~10 min, git-committed output).
+   `index.json` — not `mp_profile` — is the delivery vehicle, because that is what the
+   resolver can read at step 17 (G1).
+2. **Resolver, reading from disk (G1).** `mp.place_code` from `index.json`'s `seatedRegion`
+   via the existing `OBLAST_TO_MIR` inverse. `candidate.place_code` per §3a from
+   `data/{election}/candidates/{NAME}/regions.json` — through a **shared lib extracted from
+   `load_person_elections_pg.ts:150-177`**, which carries real party-filter /
+   `effectiveParty` fallback logic that must not be duplicated. Do **not** query
+   `person_election_stats` or `mp_profile`: both load after the resolver.
+3. **Optional (G8):** widen `mp_profile` with `seated_region_code` / `seated_region_name`
+   (`104_mp_roster.sql` + the `load_mp_roster_pg.ts` COPY column list) — keep
+   `current_region_*` as-is, it means something different (still-sitting). Only worth doing
+   if a serving surface wants it; the resolver does not.
+4. **Data tests**: `OBLAST_TO_MIR` is a bijection covering exactly the 31
    `preferences/by_region/*.json` shards; `PDV` / `PDV-00` stay distinct and map to 17 / 16
-   respectively; every `mp` role has a `place_code`.
+   respectively; every `mp` role has a `place_code` **after a single clean `db:refresh`** —
+   the assertion that would have caught G1.
 
-**T4 — consumers switch, `place` drops.**
-- `102_municipal_officials.sql`: `r.place` → `r.place_code WHERE r.place_kind='obshtina'`.
-  Pure rename, no semantic change.
-- `082_person_api.sql`: emit `placeKind` / `placeCode` / `placeLabel` in the roles jsonb.
+**T4 — consumers switch, `place` drops.** The complete consumer list, audited:
+- `102_municipal_officials.sql`: `r.place` → `r.place_code WHERE r.place_kind='obshtina'`
+  (lines 95, 126). Pure rename, no semantic change.
+- `082_person_api.sql:33`: emit `placeKind` / `placeCode` / `placeLabel` in the roles jsonb.
 - `PersonProfileScreen`: render `placeLabel`; **delete the stale place-less dedupe rule** and
-  key the dedupe on `(role, place_code)` — that is what actually fixes the 3,682 double-rows.
-  `magistrateRoleKey` retires in favour of the server-side `kind`.
+  key the dedupe on `(role, place_code)` — which fixes the 3,682 double-rows **only because
+  T1 already normalized `SFO_CITY`→`SOF`**, else 35 Sofia people stay doubled (G2).
+  `magistrateRoleKey` + its test retire in favour of the server-side `kind`.
+- `usePersonProfile.ts:13` — the payload type.
+- `ai/tools/person.ts:24` + the five fixtures in `ai/tools/person.test.ts` (G5).
+- `scripts/db/tests/official_roster_obshtina.data.test.ts:72-120` — four assertions on the
+  dropped column; rewrite in the same commit or CI goes red (G3).
+- `080_ngo_signals.sql:63` — a comment referencing `person_role.place`; update the prose.
 - `ALTER TABLE person_role DROP COLUMN place`.
 
 **T5 — `cPlace` unification (separate, gated).** Set `cPlace` uniformly to `oblast:<code>` —
@@ -298,10 +392,18 @@ output**: it needs a before/after diff on merge counts and a pass through
 
 ## Cost, risk, deploy
 
-Blast radius is small: two SQL consumers, one resolver, one screen. The work is in the
+Blast radius after the audit: **three SQL consumers, one resolver, one screen, one AI type,
+two test files**. Still small, but larger than the first draft claimed. The work is in the
 mapping tables (T2's alias dictionary), not the plumbing.
 
 T1–T3 are additive and can land independently. T4 is the only breaking step and must follow
 the migration-before-writer rule (CLAUDE.md): apply `115`/`116` to Cloud SQL, then
-`db:resolve:persons:cloud`, then `deploy:db`, then `deploy`. `102` is REFRESHed by
-`load_declarations_pg --resolve`, so the roster cannot serve a stale key shape.
+`db:load:judicial-bodies:pg:cloud`, then `db:resolve:persons:cloud`, then `deploy:db`, then
+`deploy`. `102` is REFRESHed by `load_declarations_pg --resolve`, so the roster cannot serve
+a stale key shape. `sync_cloud.ts`'s parity gate compares row counts only, so the column
+changes do not affect it.
+
+**Open decision (G7):** `place_label` is Bulgarian-only as designed. `data/municipalities.json`
+has `name_en` for 294/294, so adding `place_label_en` is free now and a migration later.
+Bulgarian-only is the *existing* behaviour for `local`, so shipping without EN is a conscious
+carry-over rather than a regression — but it is a decision, not an omission.
