@@ -10,7 +10,7 @@ Four things were not implementable as first drafted and are now folded in:
 
 | # | finding | lands in |
 |---|---|---|
-| 1 | §0a's ЗБНЗОК line list leaves **€146.1M unaccounted** — it drops чл. 1 ал. 2 т. 1.6, the line the generator carries as `devices_hospital`. T1 would have silently swept it into the reserve residual | §0a box, **T1.0**, T1.2 |
+| 1 | §0a's ЗБНЗОК line list leaves **€146.1M unaccounted** — it drops чл. 1 ал. 2 т. 1.6, the line the generator carries as `devices_hospital`. T1 would have silently swept it into the reserve residual. **✅ RESOLVED 2026-07-28** — re-read confirms it was two errors (missing 1.1.3.6 = 111,338.2k + БМП keyed at 1.1.3.7.1 instead of the parent = 34,767.8k; together exactly 146,106.0k). Full table in **§0a′**, corrected line values in **T1.1** | §0a′, T1.0, **T1.1** |
 | 2 | §0f.1's "reserve −362.0M" contradicts T1.2's own residual design — that number can never appear on the tile | §0f.1 |
 | 3 | T5's "the DV HTML we already fetch and cache" is false; nothing fetches the fund laws, and `fetchLawHtml`'s cache key is the **fiscal year**, so the two idMats would overwrite each other | **T5.0** |
 | 4 | T2.5 listed 2 call sites; there are **8**, four in `scripts/` — including the generator that bakes `policy_baseline.json`. The `__smoke_*` gates that would catch a regression are outside `test:unit` | T2.1, T2.5 |
@@ -74,21 +74,49 @@ Balanced budget, revenue = expenditure = **€5,256,677.2 thousand**. Headline l
 нефинансови активи 2,068.7k · резерв 154,148.1k · МЗ трансфери 101,490.7k. чл. 2 fixes the
 health contribution at **8%**.
 
-> **⚠ This transcription is INCOMPLETE and T1 is blocked on completing it.** The lines above
-> sum to 4,852,863.7k (care + admin); add the three residual components (154,148.1 + 2,068.7
-> + 101,490.7 = **257,707.5k**) and the total is 5,110,571.2k against a 5,256,677.2k
-> headline — **146,106.0k unaccounted**.
+> **RESOLVED 2026-07-28 — re-read from idMat 244981. The headline list above is superseded by
+> §0a′ below; T1.0 is no longer blocking.** The €146,106.0k gap was **two** errors, not one:
 >
-> The cause is a missing line, not a mis-key: чл. 1 ал. 2 **т. 1.6 „медицински изделия,
-> прилагани в болничната медицинска помощ"** is a line of its own, distinct from т. 1.5
-> above. The generator already carries it as `devices_hospital`
-> ([__write_budget.ts:114](../../scripts/budget/nzok/__write_budget.ts)), 114,587.8k in the
-> draft. There may be a second small line in the same position.
+> 1. **A missing line** — 1.1.3.6 „Медицински изделия, прилагани в болничната медицинска
+>    помощ" = **111,338.2k**, the generator's `devices_hospital`, exactly as predicted.
+> 2. **БМП keyed at the wrong level** — the 2,307,171.5 above is sub-line **1.1.3.7.1**
+>    („Дейности болнична помощ"). The parent **1.1.3.7 = 2,341,939.3k**; the difference of
+>    34,767.8k is two „медицински персонал в лечебните заведения" sub-lines (types а and б)
+>    of 17,383.9k each.
 >
-> **Before T1.1, re-read чл. 1 ал. 2 from idMat 244981 and key every т. 1.x explicitly.**
-> Implementing T1.1 against the list as it stands would drop a visible bar from the bridge
-> tile and sweep €146.1M into the reserve residual without tripping the generator's overshoot
-> throw (which only fires when named lines *exceed* the total).
+> `111,338.2 + 34,767.8 = 146,106.0` — the gap, to the last decimal.
+
+### 0a′. чл. 1 ал. 2 as promulgated (thousand EUR)
+
+Read from idMat 244981 on 2026-07-28. Balanced budget: I. ПРИХОДИ И ТРАНСФЕРИ = II. РАЗХОДИ И
+ТРАНСФЕРИ = **5,256,677.2**. чл. 2 fixes the health contribution at **8%**.
+
+| code | line | k€ |
+|---|---|---|
+| 1.1.1 | Разходи за персонал | 48,157.8 |
+| 1.1.2 | Издръжка на административните дейности | 17,709.1 |
+| 1.1.3 | **Здравноосигурителни плащания** | **4,933,102.8** |
+| 1.1.3.1 | Първична извънболнична медицинска помощ | 345,609.8 |
+| 1.1.3.2 | Специализирана извънболнична медицинска помощ | 351,246.0 |
+| 1.1.3.3 | Дентална помощ | 231,049.4 |
+| 1.1.3.4 | Медико-диагностична дейност | 168,254.3 |
+| 1.1.3.5 | Лекарствени продукти, мед. изделия и диетични храни за домашно лечение | 1,334,348.5 |
+| 1.1.3.5.4 | — от които ПЛС | 1,264,322.9 |
+| 1.1.3.5.4.1 | — — референтни и специални | 1,136,682.8 |
+| 1.1.3.5.4.2 | — — генерични | 127,640.1 |
+| 1.1.3.6 | **Медицински изделия в болничната медицинска помощ** | **111,338.2** |
+| 1.1.3.7 | **Болнична медицинска помощ** | **2,341,939.3** |
+| 1.1.3.7.1 | — дейности | 2,307,171.5 |
+| 1.1.3.7.2/3 | — медицински персонал (тип а / тип б) | 17,383.9 + 17,383.9 |
+| 1.1.3.8 | Други здравноосигурителни плащания | 49,317.3 |
+| 1.1.4 | Плащания от трансфери от МЗ | 101,490.7 |
+| 1.2 | Придобиване на нефинансови активи | 2,068.7 |
+| 1.3 | Резерв за непредвидени и неотложни разходи | 154,148.1 |
+
+**Every level reconciles exactly** — 1.1.3 sums to 4,933,102.8; 1.1 (48,157.8 + 17,709.1 +
+4,933,102.8 + 101,490.7) to 5,100,460.4; the total to 5,256,677.2. The ПЛС sub-lines sum to
+1,264,322.9 and the five МЗ-transfer sub-lines to 101,490.7. That internal consistency is the
+evidence the read is faithful rather than partial — the property §0a's first pass lacked.
 
 ### 0b. ЗБДОО — statutory parameters, all of them split-year (чл. 9–15)
 
@@ -159,15 +187,21 @@ simulator profile. Any surface that implies a general contribution change is wro
    2025-10-29, total €5,537,996,900. The adopted law is €5,256,677,200: **we overstate the
    2026 NHIF budget by €281.3M (5.1%)** on the health pack bridge tile
    ([NzokBudgetBridgeTile.tsx](../../src/screens/components/procurement/nzok/NzokBudgetBridgeTile.tsx))
-   at `/awarder/121858220`. Per-line: БМП −52.7M, ПИМП −3.7M, dental −2.5M, СИМП −1.2M,
-   personnel −3.5M, издръжка −0.3M, drugs (т. 1.5) +2.3M, diagnostics +0.8M, други плащания
-   +6.5M, `devices_hospital` **unknown until §0a is completed**.
+   at `/awarder/121858220`. Per-line (final, from §0a′): БМП **−17.9M**, ПИМП −3.7M, dental
+   −2.5M, СИМП −1.2M, `devices_hospital` −3.2M, personnel −3.5M, издръжка −0.3M, drugs
+   (1.1.3.5) +2.3M, diagnostics +0.8M, други плащания +6.5M. Deltas sum to −281,319.7k ✓.
+
+   **The earlier "БМП −52.7M" was wrong** — it differenced the draft's parent against the
+   law's *child* (1.1.3.7.1), the same level-mismatch that hid €34.8M in §0a. One assumption
+   to record in the generator comment: `hospital` is matched **parent-to-parent**, consistent
+   with it always having been the headline БМП line, but the draft's own basis cannot be
+   verified from the promulgated text.
 
    **The reserve line does not move −362.0M.** That figure differences the draft *residual*
    (5,537,996.9 − 5,021,850.2 = 516,146.7k) against the law's *named* reserve (154,148.1k) —
    but the tile renders the residual, which T1.2 keeps. The bar actually moves 516,146.7 →
-   257,707.5 (**−258.4M**) once §0a is complete, or → 403,813.5 (−112.3M) if it is
-   implemented as currently transcribed. Do not publish −362.0M in the T1.5 changelog entry.
+   **257,707.5 (−258.4M)** — confirmed against §0a′. Do not publish −362.0M in the T1.5
+   changelog entry.
 2. **`MIN_PENSION = 322.37`** ([bgTax.ts:55](../../src/lib/bgTax.ts)) has been superseded
    **since 1 July 2026** — it is stale as of today, not as of August.
 3. **`MOD_BY_YEAR[2026] = 2112`** and **`MIN_SELF_INSURED_INCOME = 550.66`** go stale on
@@ -181,19 +215,44 @@ simulator profile. Any surface that implies a general contribution change is wro
 
 ## T1 — ЗБНЗОК: replace the draft with the promulgated law
 
-**Highest value. Do this first and alone — but it is NOT zero-risk: it is blocked on T1.0.**
+**Highest value. Do this first and alone. T1.0 is DONE — T1 is unblocked.**
 
-**T1.0 (blocking)** — complete the §0a transcription. Re-read чл. 1 ал. 2 from idMat 244981
-and key **every** т. 1.x sub-line, including т. 1.6 „медицински изделия, прилагани в
-болничната медицинска помощ". As transcribed, §0a leaves 146,106.0k unexplained; T1.1 must
-not be started until the named lines plus the three residual components reconcile to
-5,256,677.2k. See the warning box in §0a.
+**T1.0 — ✅ RESOLVED 2026-07-28.** чл. 1 ал. 2 re-read from idMat 244981; the full structure is
+in **§0a′** and the €146,106.0k gap is fully explained (missing 1.1.3.6 = 111,338.2k + БМП
+level-mismatch = 34,767.8k). Key T1.1 from §0a′, not from the §0a headline list.
 
-**T1.1** — `scripts/budget/nzok/__write_budget.ts`: rewrite `YEARS[0]` (FY2026) from the
-promulgated чл. 1 ал. 2 table. `basis: "draft"` → `"law"`, `totalK: 5_537_996.9` →
-`5_256_677.2`, and every `k` from §0a. Update the file header comment: source becomes
-"ЗБНЗОК 2026 (обн. ДВ бр. 68 от 28.07.2026, idMat 244981)" replacing "проект, приет от
-Надзорния съвет 29.10.2025 / nhif.bg/upload/29401".
+**T1.1** — `scripts/budget/nzok/__write_budget.ts`: rewrite `YEARS[0]` (FY2026).
+`basis: "draft"` → `"law"`, `totalK: 5_537_996.9` → `5_256_677.2`, and the ten `k` values
+below. Update the file header comment: source becomes "ЗБНЗОК 2026 (обн. ДВ бр. 68 от
+28.07.2026, idMat 244981)" replacing "проект, приет от Надзорния съвет 29.10.2025 /
+nhif.bg/upload/29401".
+
+| `id` | law code | `k` | vs draft |
+|---|---|---|---|
+| `gp` | 1.1.3.1 | `345_609.8` | −3.7M |
+| `specialist` | 1.1.3.2 | `351_246.0` | −1.2M |
+| `dental` | 1.1.3.3 | `231_049.4` | −2.5M |
+| `diagnostics` | 1.1.3.4 | `168_254.3` | +0.8M |
+| `drugs` | 1.1.3.5 | `1_334_348.5` | +2.3M |
+| `devices_hospital` | **1.1.3.6** | `111_338.2` | −3.2M |
+| `hospital` | **1.1.3.7** (parent) | `2_341_939.3` | **−17.9M** |
+| `other_care` | 1.1.3.8 | `49_317.3` | +6.5M |
+| `personnel` | 1.1.1 | `48_157.8` | −3.5M |
+| `operations` | 1.1.2 | `17_709.1` | −0.3M |
+| `reserve` | *(residual)* | 257,707.5 | −258.4M |
+
+Named lines sum to **4,998,969.7k**, so the residual lands on 257,707.5k exactly. Take
+`hospital` from the **parent** 1.1.3.7, not 1.1.3.7.1 — that mismatch is what hid €34.8M in
+the first pass, and it is worth a comment in the generator so the next reader does not
+"correct" it back.
+
+**T1.1a — record the sub-lines, but do NOT restructure the tile.** The law publishes far more
+detail than we hold: ПЛС splits **референтни €1,136.7M vs генерични €127.6M** — a 90/10 split
+that is the most interesting number in the law and has nowhere to go today — plus a
+biomarker-diagnostics line and a five-way МЗ-transfer breakdown. Capture them in the
+generator (as a commented sub-line block or an optional `children` field), but keep the ten
+flat lines: the tile is a composition bar and T1's acceptance criterion is explicitly "no
+component edited". Surfacing the drug split is a T7-class follow-up.
 
 **T1.2** — Decide the `reserve` residual. The law names резерв (154,148.1k), нефинансови
 активи (2,068.7k) and МЗ трансфери (101,490.7k) separately; our `reserve` line is a computed
@@ -432,9 +491,51 @@ nothing to avoid.
 - **Not clean — the calibration year.** `baselineYear` is 2025, which *is* on that list, and
   `MOD_BY_YEAR[2025] = 2112` is the "longer part of the year" value by the comment's own
   admission. κ is therefore calibrated against a year the model already misstates for part
-  of. **Fixing 2026 without fixing 2025 relocates the error rather than removing it** — and
-  the 2025 split date is recorded nowhere in the repo, so it must be sourced from the 2025
-  ЗБДОО before the weighting is honest. Same for 2022 if the back-series matters.
+  of. **Fixing 2026 without fixing 2025 relocates the error rather than removing it.**
+
+  *(2025 split RESOLVED 2026-07-28 — see T2.6g. It is **1 April 2025**, costing €40.7M.)*
+
+### T2.6g. The 2025 split, and the rule that generates the whole schedule
+
+From [ЗБДОО-2025, ДВ бр. 25 от 25.03.2025](https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233617),
+чл. 9 — in force retroactively from 1 Jan 2025 per § 7:
+
+| period | МОД | min self-insured |
+|---|---|---|
+| 1 Jan – 31 Mar 2025 | 3,750 лв = **€1,917.34** | 933 лв = €477.03 |
+| 1 Apr – 31 Dec 2025 | 4,130 лв = **€2,111.64** | 1,077 лв = **€550.66** |
+
+So 2025 is **3 + 9 months**, and `MOD_BY_YEAR[2025] = 2112` is the nine-month value —
+consistent with the "longer part of the year" comment.
+
+**Cost of not weighting it:** on the same band grid, scalar-2112 overstates the 2025 base by
+**€146.5M and revenue by €40.7M** (0.47%). Smaller than 2026's €72.7M — the step is smaller
+and lands earlier — but it sits in the *current* calibration year, so T2.6 must back-fill
+2025 in the same change or κ keeps €40.7M of the defect.
+
+**The structural finding matters more than the date.** Both steps are late-budget artifacts
+and follow one rule:
+
+| year | promulgated | step | first-period value |
+|---|---|---|---|
+| 2025 | ДВ бр. 25, **25 Mar** | **1 Apr** | €1,917.34 = `MOD_BY_YEAR[2024]` |
+| 2026 | ДВ бр. 68, **28 Jul** | **1 Aug** | €2,111.64 = `MOD_BY_YEAR[2025]` |
+
+The step takes effect **the first of the month after promulgation**, and **the first period of
+year N is year N−1's cap, carried by the extension law until the late budget passes.**
+
+Two consequences:
+
+1. `MOD_SCHEDULE` is mechanically back-fillable — the first segment is never a new number,
+   only the carried previous cap. 2022 still needs checking, but it should follow the pattern.
+2. **The split-year is the normal case, not a 2026 quirk.** Three consecutive late budgets
+   means the scalar-per-year model has been wrong more often than right. `MOD_SCHEDULE` is
+   permanent infrastructure, which retires the "is this worth the complexity" question.
+
+**Provenance corrections that fall out:** `MIN_SELF_INSURED_INCOME = 550.66` is commented
+"(2026)" in [bgTax.ts:59](../../src/lib/bgTax.ts) but has been in force since **1 April
+2025** — it is a 2025 value the 2026 law carried, not a 2026 one. And the `MOD_BY_YEAR`
+comment naming "(2022, 2025)" must add 2026.
 
 ### T2.6e. Where month-weighting would be WRONG
 
@@ -825,7 +926,7 @@ basis and the annualisation band collapses — the structure does not change.
 ## Sequencing
 
 ```
-T1.0 ──► T1 ──► T1.4a  re-read чл. 1 ал. 2, then ship, then bucket:sync or it lands nowhere
+T1 ──► T1.4a         T1.0 DONE (§0a′) — T1 is ready to implement; bucket:sync or it lands nowhere
 T2.1 ──► T2.6 ──► T8   schedule → month-weighting → the 2026 re-base (T2.6 is a PRECONDITION:
                        a 2026 baseline priced at a whole-year cap bakes the error in)
 T2  ──►  T3 ──► T3.4 schema, then constants, then the /pensions consolidation
@@ -857,7 +958,8 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 
 | risk | mitigation |
 |---|---|
-| The line-by-line ЗБНЗОК figures are hand-keyed from a 45k-char HTML render | **This already bit once — §0a dropped т. 1.6 and lost €146.1M.** T1.2's hard residual assertion + the T1 smoke's line-id-superset check are the mitigations; the generator's overshoot throw is NOT one, since it only catches over-keying. The balanced-budget identity (revenue = expenditure = 5,256,677.2) is an independent check |
+| The line-by-line ЗБНЗОК figures are hand-keyed from a 45k-char HTML render | **This already bit once — §0a dropped 1.1.3.6 and mis-levelled БМП, losing €146.1M.** Both are fixed in §0a′. T1.2's hard residual assertion + the T1 smoke's line-id-superset check are the standing mitigations; the generator's overshoot throw is NOT one, since it only catches over-keying |
+| A figure is keyed from a sub-line instead of its parent | The §0a БМП error was invisible because 2,307,171.5 is a real number in the law — just at the wrong level. §0a′ records the code for every line; T1.1 says parent-to-parent explicitly. Prefer sourcing by **code** (1.1.3.7) over by label |
 | A missing line silently inflates the reserve residual instead of failing | T1.2 asserts the residual equals 257,707.5k, so an under-keyed table throws rather than absorbing the shortfall into a bar labelled "Резерв, трансфери и капиталови разходи" |
 | Prил. 1/1А parse silently drops or mis-columns rows | Fixed 9-column check + an expected row count — **after** resolving the 744 rows-vs-cells ambiguity (§0d). The floor check is a counter, not an assertion (T5.1) |
 | Two fund laws overwrite each other in the HTML cache | T5.0: `fetchLawHtml`'s key is `law-${fiscalYear}`, so both idMats collide today. Re-key before T5.1 |
@@ -868,7 +970,7 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 | A user books a saving the law has already taken (`ssp` €126.1M, pension floor €245.4M) | T8.3 migrates enacted policy into the baseline and leaves only the residual as a lever. This is wrong **today**, independent of T8 |
 | The annualised 2026 baseline is presented as precise | T8.2 rule 2: the ±1.1–1.6pp seasonality σ is ±€0.8–1.7bn. Publish the band; re-annualise monthly |
 | Someone implements T2.6 as a blended (weighted-average) cap | T2.6c: `min(w, cap)` is concave, so a blended cap overstates by construction (+€3.7M here). Weight the outputs, never the cap |
-| 2025's own mid-year step keeps contaminating κ after 2026 is fixed | T2.6d: `baselineYear` is 2025 and `MOD_BY_YEAR[2025]` is the longer-part value. The 2025 split date is nowhere in the repo — source it from the 2025 ЗБДОО, or T2.6 relocates the error instead of removing it |
+| 2025's own mid-year step keeps contaminating κ after 2026 is fixed | **Date resolved (T2.6g): 1 Apr 2025, worth €40.7M.** Back-fill 2025 into `MOD_SCHEDULE` in the same change, or T2.6 relocates the error instead of removing it. 2022 still unchecked |
 | Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6, and stated in code comments — but the real mitigation is T6's separate `"civil-servant"` profile, which leaves the default employee path untouched by construction |
 | ЗДБРБ-2026 lands mid-implementation and moves these numbers | It cannot — the fund budgets are their own laws. A ЗИД to either would, and `dv_laws` reports ЗИД forms under the same `kind` |
 
