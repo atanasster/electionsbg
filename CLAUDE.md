@@ -56,6 +56,13 @@ DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/a
 
 The script preflights and exits 2 with that command in the message if the columns are missing.
 
+`procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
+against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run
+`npm run db:load:annexes:pg:cloud` **after** the contracts corpus is loaded and whenever
+`ingest_anexi` refreshes the cache — otherwise the per-annex breakdown (and the чл.116 ал.2
+vs ал.3 labeling on the contract page) goes stale on prod while local is current. `db:refresh`
+runs the local equivalent automatically (after `db:load:pg`); nothing runs it on the cloud side.
+
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 
 ### Person layer — the one step `db:refresh` cannot infer

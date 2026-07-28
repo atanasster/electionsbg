@@ -52,6 +52,14 @@ export interface EopAnnexRecord {
   currentContractValue?: string; // value after this annex ("текуща стойност")
   contractValueDifference?: string;
   contractCurrency?: string;
+  // Annex-detail fields: present in the raw feed, previously undeclared because
+  // the current-value fold ignored them. The annexes TABLE (114) stores them to
+  // label WHY a contract was modified (чл.116 ал.2 vs ал.3 grounds).
+  noticeId?: number; // the annex publication id
+  changeDescription?: string;
+  changeReason?: string; // the ЗОП ground code / short label
+  changeReasonDescription?: string;
+  directAwardJustification?: string;
 }
 
 // The flat анекси object key embeds the day as DD.MM.YYYY, exactly like the
