@@ -56,7 +56,7 @@ type CheckMeta = {
   ref?: string;
 };
 
-const CHECK_CATALOG: CheckMeta[] = [
+const CHECK_CATALOG = [
   {
     key: "debarred",
     icon: Ban,
@@ -151,7 +151,22 @@ const CHECK_CATALOG: CheckMeta[] = [
     naReasonKey: "risk_na_generic",
     ref: "ЗОП чл.116",
   },
-];
+] satisfies readonly CheckMeta[];
+
+/** COMPILE-TIME COMPLETENESS. `satisfies` above preserves each entry's literal
+ *  `key`, so this resolves to `never` only when the catalogue covers every
+ *  RiskComponentKey. Add a 13th component to the scorer without adding it here
+ *  and the build fails with the missing key named in the type error — instead of
+ *  the check silently vanishing from the explained ledger, which is the one
+ *  surface whose entire job is to say what was and was not checked. */
+type MissingFromCatalog = Exclude<
+  RiskComponentKey,
+  (typeof CHECK_CATALOG)[number]["key"]
+>;
+const _catalogIsComplete: MissingFromCatalog extends never
+  ? true
+  : ["CHECK_CATALOG is missing", MissingFromCatalog] = true;
+void _catalogIsComplete;
 
 type Props = {
   result: ContractRiskResult;
