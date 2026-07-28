@@ -57,6 +57,13 @@ CREATE TABLE IF NOT EXISTS mp_profile (
   -- Current mandate only — NULL for every MP not sitting in the current NS.
   current_region_code       text,
   current_region_name       text,
+  -- The МИР the MP was SEATED from, off their own parliament.bg profile record. Distinct
+  -- from current_region_* above, which comes from the CURRENT-NS roster and is therefore
+  -- NULL for every MP who no longer sits (240 of 2,122 populated, vs 2,122 here).
+  -- mp_entry must serve it because the by-id shard carries it and the two are held to
+  -- byte parity by mp_serving.data.test.ts.
+  seated_region_code        text,
+  seated_region_name        text,
   current_party_group       text,
   current_party_group_short text,
   position_title            text,
@@ -103,3 +110,7 @@ CREATE TABLE IF NOT EXISTS mp_car (
 );
 
 CREATE INDEX IF NOT EXISTS idx_mp_car_mp ON mp_car (mp_id);
+
+-- Self-healing for a database created before the seated МИР existed.
+ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_code text;
+ALTER TABLE mp_profile ADD COLUMN IF NOT EXISTS seated_region_name text;

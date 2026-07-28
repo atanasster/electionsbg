@@ -72,6 +72,9 @@ interface RosterEntry {
   normalizedName_en: string | null;
   photoUrl: string | null;
   currentRegion: { code: string; name: string } | null;
+  // Present on every MP (2,122/2,122) where currentRegion is only on the 240 sitting
+  // ones — see scripts/parliament/lib/region.ts.
+  seatedRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   currentPartyGroupShort: string | null;
   position: string | null;
@@ -214,6 +217,8 @@ const run = async (): Promise<void> => {
         "photo_url",
         "current_region_code",
         "current_region_name",
+        "seated_region_code",
+        "seated_region_name",
         "current_party_group",
         "current_party_group_short",
         "position_title",
@@ -233,6 +238,8 @@ const run = async (): Promise<void> => {
             m.photoUrl,
             m.currentRegion?.code ?? null,
             m.currentRegion?.name ?? null,
+            m.seatedRegion?.code ?? null,
+            m.seatedRegion?.name ?? null,
             m.currentPartyGroup,
             m.currentPartyGroupShort,
             m.position,

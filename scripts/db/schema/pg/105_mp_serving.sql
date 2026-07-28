@@ -312,6 +312,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                                THEN jsonb_build_object('code', t.current_region_code,
                                                        'name', t.current_region_name)
                           END,
+    -- Key order matters here only for readability; the parity gate compares parsed JSON.
+    'seatedRegion',       CASE WHEN t.seated_region_code IS NOT NULL
+                               THEN jsonb_build_object('code', t.seated_region_code,
+                                                       'name', t.seated_region_name)
+                          END,
     'currentPartyGroup',      t.current_party_group,
     'currentPartyGroupShort', t.current_party_group_short,
     'position',           t.position_title,

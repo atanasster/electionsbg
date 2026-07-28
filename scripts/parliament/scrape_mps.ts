@@ -27,9 +27,15 @@
  *   public/parliament/index.json                 → flat lookup: id, name, photoUrl, nsFolders[]
  *   public/parliament/profiles/{id}.json         → trimmed profile per MP (frontend fields only)
  *
- * Caveat: parliament.bg's profile gives only the MP's CURRENT region/party. For past
- * terms it tells you which NSes they served in (oldnsList) but not the seat detail.
- * For original election-day winners use the CIK seat page (Cloudflare-protected).
+ * Caveat: parliament.bg's profile gives only ONE region/party per person, and no
+ * per-term seat detail — `oldnsList` says which NSes an MP served in, not what they held
+ * in each. For per-term, election-day seat detail use the CIK seat page
+ * (Cloudflare-protected).
+ *
+ * What the profile DOES carry, for every MP on file rather than only sitting ones, is
+ * the МИР they were seated from (`A_ns_Va_name`) — emitted as `seatedRegion`, distinct
+ * from `currentRegion`, which comes from the current-NS roster and is therefore null for
+ * the ~1,880 MPs who no longer sit. See lib/region.ts.
  */
 
 import fs from "fs";
@@ -41,6 +47,7 @@ import { titleCaseBgName } from "./name_case";
 import { transliterateName } from "../../src/data/candidates/transliterateName";
 import { buildAvatars } from "./build_avatars";
 import { writeMpByIdShards } from "./lib/writeMpById";
+import { parseRegion, seatedRegionOf } from "./lib/region";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
@@ -183,13 +190,6 @@ const fetchJson = async <T>(url: string, attempt = 0): Promise<T> => {
     }
     throw new Error(`fetch failed for ${url}: ${(e as Error).message}`);
   }
-};
-
-const parseRegion = (vaName: string): { code: string; name: string } => {
-  // "23-СОФИЯ"  or  "1-БЛАГОЕВГРАД"
-  const m = vaName.match(/^(\d{1,2})-(.+)$/);
-  if (!m) return { code: "", name: vaName };
-  return { code: m[1].padStart(2, "0"), name: m[2].trim() };
 };
 
 const toMp = (raw: RawMp): Mp => {
@@ -338,6 +338,17 @@ type IndexEntry = {
   normalizedName_en: string; // upper, single-spaced English form
   photoUrl: string;
   currentRegion: { code: string; name: string } | null;
+  // The МИР the MP was SEATED from, present for every MP parliament.bg has on file —
+  // former ones included. `currentRegion` above comes from the CURRENT-NS roster lookup,
+  // so it is null for the ~1,880 MPs who no longer sit; this comes from the MP's own
+  // profile record, which the scrape already fetches and which carries the seat
+  // regardless (measured: 200/200 sampled former MPs, and identical to the roster value
+  // on 30/30 sitting ones). Consumed by db:resolve:persons for person_role.place_code.
+  //
+  // CAVEAT: parliament.bg holds ONE value per person, so for a multi-term MP it cannot
+  // be attributed to a particular parliament — it is a badge, not a history. The
+  // per-cycle, sometimes multi-МИР record lives in person_election_stats.
+  seatedRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   currentPartyGroupShort: string | null;
   position: string | null;
@@ -392,6 +403,10 @@ const buildIndexEntry = (
     normalizedName_en: nameEn.toUpperCase().replace(/\s+/g, " ").trim(),
     photoUrl: hasRealPhoto(raw.A_ns_MP_img) ? localPhotoUrl(id) : "",
     currentRegion: mp?.region ?? null,
+    // From the PROFILE (raw), not the current-NS list (mp) — that is the whole point.
+    // parseRegion returns an empty code for an unparseable value, which we normalise to
+    // null so a consumer never sees a half-filled region.
+    seatedRegion: seatedRegionOf(raw),
     currentPartyGroup: mp?.partyGroup ?? null,
     currentPartyGroupShort: mp?.partyGroupShort ?? null,
     position: mp?.position ?? null,
@@ -663,6 +678,12 @@ const runHistory = async (opts: {
     if (loser.scrapedAt > winner.scrapedAt) {
       winner.scrapedAt = loser.scrapedAt;
     }
+    // Same principle as the nsFolders union: never lose a value the merge had in hand.
+    // 292 of 2,122 people (13.8%) hold records spanning more than one МИР, and the
+    // winner is chosen for term coverage, not for carrying a seat — so take the loser's
+    // only when the winner has none. (No record is missing one today; this keeps that
+    // from becoming load-bearing.)
+    winner.seatedRegion ??= loser.seatedRegion;
     byName.set(e.normalizedName, winner);
   }
   const deduped = [...byName.values()].sort((a, b) => a.id - b.id);
