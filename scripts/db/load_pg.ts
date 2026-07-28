@@ -12,18 +12,9 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import {
-  getPool,
-  exec,
-  withClient,
-  withTx,
-  end,
-  LOCAL_DATABASE_URL,
-} from "./lib/pg";
-import { Pool } from "pg";
-import { to as copyTo, from as copyFrom } from "pg-copy-streams";
-import { pipeline } from "node:stream/promises";
+import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 import {
   COLUMN_NAMES,
@@ -143,13 +134,6 @@ const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
 
-// True when this load targets the Cloud SQL proxy (:5434) rather than local
-// docker (:5433). Only the port distinguishes them — the cloud URL is otherwise
-// password-less (resolved from .pgpass). Used to decide whether the normalcy
-// payloads are COMPUTED here or SHIPPED from local.
-const targetIsCloud = (): boolean =>
-  /:5434\b/.test(process.env.DATABASE_URL ?? "");
-
 // Populate procurement_normalcy_cache (064, a TABLE). LOCAL: run the 064b build
 // query in-place — cheap on dedicated cores. CLOUD: the build would take ~40 min
 // on the shared-core instance, so instead stream the already-computed rows from
@@ -162,46 +146,9 @@ const buildOrShipNormalcy = async (): Promise<void> => {
     await exec(readFileSync(PROC_NORMALCY_BUILD_FILE, "utf8"));
     return;
   }
-  // CLOUD path: pull precomputed rows from local docker (:5433).
-  const src = new Pool({ connectionString: LOCAL_DATABASE_URL, max: 1 });
-  try {
-    const { rows } = await src.query<{ n: string }>(
-      "SELECT count(*)::text AS n FROM procurement_normalcy_cache",
-    );
-    const localCount = Number(rows[0]?.n ?? "0");
-    if (localCount === 0)
-      throw new Error(
-        "local procurement_normalcy_cache is empty — run `npm run db:refresh` " +
-          "(local) before shipping normalcy to cloud",
-      );
-    const srcClient = await src.connect();
-    try {
-      await withClient(async (dst) => {
-        await dst.query("TRUNCATE procurement_normalcy_cache");
-        const reader = srcClient.query(
-          copyTo("COPY procurement_normalcy_cache TO STDOUT"),
-        );
-        const writer = dst.query(
-          copyFrom("COPY procurement_normalcy_cache FROM STDIN"),
-        );
-        await pipeline(reader, writer);
-      });
-    } finally {
-      srcClient.release();
-    }
-    const dstCount = await getPool()
-      .query<{ n: string }>(
-        "SELECT count(*)::text AS n FROM procurement_normalcy_cache",
-      )
-      .then((r) => Number(r.rows[0]?.n ?? "0"));
-    if (dstCount !== localCount)
-      throw new Error(
-        `normalcy ship mismatch: local ${localCount} → cloud ${dstCount}`,
-      );
-    console.log(`  normalcy: shipped ${dstCount} row(s) from local → cloud`);
-  } finally {
-    await src.end();
-  }
+  // CLOUD path: pull precomputed rows from local docker (:5433). The COPY
+  // pipeline + emptiness guard + row-count verification live in lib/shipTable.
+  await shipTable("procurement_normalcy_cache");
 };
 
 const gitSha = (): string => {
