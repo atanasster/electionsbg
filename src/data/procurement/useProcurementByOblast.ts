@@ -12,6 +12,7 @@
 // be pinned to its Sofia HQ oblast.
 
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import regions from "@/data/json/regions.json";
 import { dataUrl } from "@/data/dataUrl";
@@ -97,14 +98,20 @@ export const useProcurementByOblast = (): {
     staleTime: Infinity,
   });
 
+  const { i18n } = useTranslation();
+  const isEn = i18n.language !== "bg";
   const codeToName = useMemo(() => {
     const m = new Map<string, string>();
-    for (const r of regions as Array<{ name: string; oblast: string }>) {
-      m.set(r.oblast, r.name);
+    for (const r of regions as Array<{
+      name: string;
+      name_en?: string;
+      oblast: string;
+    }>) {
+      m.set(r.oblast, isEn ? (r.name_en ?? r.name) : r.name);
     }
-    m.set(SOFIA_CITY, "София (столица)");
+    m.set(SOFIA_CITY, isEn ? "Sofia (capital)" : "София (столица)");
     return m;
-  }, []);
+  }, [isEn]);
 
   const buckets = useMemo(() => {
     const out = new Map<string, OblastBucket>();

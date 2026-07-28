@@ -29,11 +29,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { latinSkeleton } from "@/lib/translitSearch";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { useProcurementBySettlementIndex } from "@/data/procurement/useSettlementProcurement";
-import { provinceToCanon } from "@/data/procurement/useProcurementByOblast";
+import {
+  provinceToCanon,
+  featureToCanon,
+} from "@/data/procurement/useProcurementByOblast";
+import regions from "@/data/json/regions.json";
 import { ProcurementChoroplethTile } from "@/screens/components/procurement/ProcurementChoroplethTile";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 
@@ -52,6 +57,21 @@ const SINGLE_BUYER_FLAG_EUR = 50_000_000;
 // village would top the ranking with a fake "average"), so we only compute it
 // for settlements with at least this many contracts. ~39% fall below the bar.
 const AVG_MIN_CONTRACTS = 5;
+
+// Oblast Bulgarian-name → English, via the shared oblast reference. Keyed by
+// the canonical bucket code so all the province-name quirks (София→SFO,
+// Пловдив→PDV-00→PDV, София (столица)→SOFIA_CITY) resolve exactly like the
+// choropleth does through provinceToCanon.
+const OBLAST_EN_BY_CANON = new Map<string, string>();
+for (const r of regions as Array<{ name_en?: string; oblast: string }>) {
+  if (r.name_en) OBLAST_EN_BY_CANON.set(featureToCanon(r.oblast), r.name_en);
+}
+OBLAST_EN_BY_CANON.set("SOFIA_CITY", "Sofia (capital)");
+
+const provinceEnOf = (bg: string): string => {
+  const canon = provinceToCanon(bg);
+  return (canon && OBLAST_EN_BY_CANON.get(canon)) || bg;
+};
 
 type SettlementRow = {
   totalEur: number;
@@ -74,8 +94,11 @@ type SortKey =
 
 export const ProcurementBySettlementScreen: FC = () => {
   const { t, i18n } = useTranslation();
+  const isEn = i18n.language !== "bg";
   const q = useProcurementBySettlementIndex();
   const data = q.data;
+
+  const provinceOf = (bg: string): string => (isEn ? provinceEnOf(bg) : bg);
   const [sortKey, setSortKey] = useState<SortKey>("totalEur");
   const [query, setQuery] = useState("");
   const [oblast, setOblast] = useState<{ code: string; name: string } | null>(
@@ -89,14 +112,16 @@ export const ProcurementBySettlementScreen: FC = () => {
     if (oblast) {
       rows = rows.filter((s) => provinceToCanon(s.province) === oblast.code);
     }
-    const qLower = query.trim().toLowerCase();
-    if (qLower) {
+    // Fold the query to a Latin skeleton once so a user can type shljokavica
+    // ("veliko tarnovo") and match the Cyrillic settlement/oblast names.
+    const qSkel = latinSkeleton(query);
+    if (qSkel) {
       rows = rows.filter(
         (s) =>
-          s.name.toLowerCase().includes(qLower) ||
-          s.province.toLowerCase().includes(qLower) ||
-          s.obshtina.toLowerCase().includes(qLower) ||
-          s.ekatte.includes(qLower),
+          latinSkeleton(s.name).includes(qSkel) ||
+          latinSkeleton(s.province).includes(qSkel) ||
+          latinSkeleton(s.obshtina).includes(qSkel) ||
+          s.ekatte.includes(qSkel),
       );
     }
     const sorted = [...rows].sort((a, b) => {
@@ -156,7 +181,7 @@ export const ProcurementBySettlementScreen: FC = () => {
           s.ekatte,
           esc(s.name),
           esc(s.obshtina),
-          esc(s.province),
+          esc(provinceOf(s.province)),
           Math.round(s.totalEur),
           s.contractCount,
           s.awarderCount,
@@ -472,11 +497,11 @@ export const ProcurementBySettlementScreen: FC = () => {
                           )}
                         </span>
                         <div className="text-xs text-muted-foreground md:hidden">
-                          {s.province}
+                          {provinceOf(s.province)}
                         </div>
                       </td>
                       <td className="px-3 py-2 text-muted-foreground hidden md:table-cell">
-                        {s.province}
+                        {provinceOf(s.province)}
                       </td>
                       <td className="px-3 py-2 text-right tabular-nums">
                         <div className="relative">
