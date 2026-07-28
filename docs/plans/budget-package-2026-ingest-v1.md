@@ -31,6 +31,15 @@ Three further findings, all folded in:
 | 7 | **`capBaselineEur` is a latent coupling, not an absent one.** `baselineYear` is `revenueYears[last]`, so it is 2025 today and becomes 2026 when the FY2026 КФП completes — repricing the incidence model months later, disconnected from this change | A2.2 |
 | 8 | **The annual aggregates should month-weight the cap, not scalar it.** A whole-year 2300 overstates the contribution base by €261M / revenue by €72.7M, and the simulator's МОД lever by €51.5M — while `budget2026_package.ts` already prorates the same measure via `effMonths: 5` | **T2.6** |
 
+**Scope decision, 2026-07-28 (operator): `/budget/simulator` becomes a FY2026 simulator.**
+This adds **T8** and changes what the plan is for — it is no longer only an ingest. The
+ЗДБРБ-2026 is still unpromulgated, so FY2026 has no single legal frame; T8 treats that as a
+design requirement (a mixed-provenance baseline with a per-line `basis`) rather than a reason
+to wait. **T2.6 becomes a precondition** for it: once 2026 is the baseline year, the baseline
+year is itself the split-year, and a whole-year cap bakes the €72.7M error into the baseline
+instead of a lever. Two simulator levers (`ssp`, pension floor) are also **wrong today**,
+independent of the re-base — see T8.3.
+
 Builds on / does not duplicate:
 
 - The `dv_laws` watcher + `FUND_BUDGET_LAWS` catalogue landed in `db3541f3f9` — this plan
@@ -648,11 +657,177 @@ that directly serves §0's warning never to say "the 2026 budget".
 
 ---
 
+## T8 — Re-base the policy simulator on FY2026
+
+**DECIDED 2026-07-28 (operator): `/budget/simulator` is a 2026 simulator from now on.**
+
+The concern was raised that the ЗДБРБ-2026 is unpromulgated and reaffirmed; this section
+implements the decision. The constraint does not go away, it becomes a design requirement:
+**FY2026 has no single legal frame, so the 2026 baseline is a mixed-provenance object and
+every line has to say which kind of number it is.**
+
+Today the simulator is a *2025* model: `policy_baseline.json` carries `baselineYear: 2025`,
+revenue €26.31bn and balance −€3.11bn straight off the 2025 КФП December snapshot, with 2026
+policy offered as levers on top.
+
+### T8.1. The four bases
+
+Tag every baseline line with one, in the `basis: "law" | "draft"` idiom `NzokBudgetYear`
+already uses. This is what makes T7.1's provenance chip reusable here rather than a
+second mechanism.
+
+| basis | source | applies to |
+|---|---|---|
+| `law` | ЗБДОО + ЗБНЗОК, ДВ бр. 68 | statutory parameters, the NHIF envelope, the ДОО fund plan — **exact** |
+| `interim` | ЗСПИР-2026 (idMat `240166`) + its ЗИД (`242170`) | the legal frame the state side actually ran on. FY2026 is not lawless; it is on a bridging law, and `INTERIM_BUDGET_LAWS` already catalogues both |
+| `execution` | 2026 КФП YTD, seasonally annualised (T8.2) | state revenue and expenditure |
+| `carried` | 2025 (or older) actuals, grown | everything with no 2026 source — see the vintage table in T8.6 |
+
+**The UI must render the mix, not hide it.** A "2026" headline over a number that is 40%
+`carried` is exactly the claim §0 forbids.
+
+### T8.2. Revenue and expenditure — annualise the YTD, and do it per series
+
+`kfp.json` carries **monthly** `observations` for 2021–2026 (`series`: revenue, expenditure,
+balance, financing, euContribution), with 2026 populated **through May**. The share of
+full-year execution landed by May is stable enough to annualise on:
+
+| series | 2022 | 2023 | 2024 | 2025 | mean | σ |
+|---|---|---|---|---|---|---|
+| revenue | 0.375 | 0.350 | 0.372 | 0.369 | **0.3666** | 0.0114 |
+| expenditure | 0.348 | 0.362 | 0.364 | 0.387 | **0.3652** | 0.0161 |
+| balance | 0.190 | 0.461 | 0.313 | 0.539 | — | — |
+
+Applying it to the 2026 YTD (revenue €9.905bn, expenditure €11.895bn to 2026-05-31):
+
+| | 2026 annualised | band (min/max historical share) | 2025 actual |
+|---|---|---|---|
+| revenue | **€27.01bn** | €26.38 – 28.30bn | €26.31bn |
+| expenditure | **€32.57bn** | €30.76 – 34.22bn | €28.38bn |
+| balance | **−€5.56bn** (≈ −4.5% of the €123.9bn 2026 GDP) | — | −€3.11bn |
+
+**Three hard rules:**
+
+1. **Never annualise the balance directly.** Its share-by-May ranges 0.190–0.539 across four
+   years — it is a small difference of two large numbers and the seasonality does not survive
+   the subtraction. Annualise revenue and expenditure separately and *derive* the balance.
+2. **Publish the band, not just the point.** ±1.1–1.6pp on the share is ±€0.8–1.7bn on the
+   annualised figure; a simulator whose levers move tens of millions must not present a
+   baseline with a billion-euro band as a hard number.
+3. **Re-annualise as months land.** The band narrows monotonically through the year; by the
+   December snapshot the estimate becomes an actual and `basis` flips `execution` → `carried`.
+
+**There is no 2026 `planned` line and there will not be one until the ЗДБРБ.** Confirmed
+against the feed: every 2026 observation has `planned: null`, where 2025 carries a full plan
+(revenue €28.21bn, expenditure €30.82bn, balance −€3.65bn). So the simulator cannot show
+plan-vs-actual for 2026, and any UI affordance that assumes a plan must degrade, not blank.
+
+### T8.3. Enacted policy moves from lever to baseline
+
+This is the substance of the re-base, and two levers are **wrong today** regardless of it —
+in a 2025-based model they were future policy; in a 2026-based model they are current law and
+belong in the baseline, with only the residual left as a lever.
+
+**T8.3a — the `ssp` lever is now partly enacted.**
+[`scoreSscSelfPaid`](../../src/lib/bgTaxPolicy.ts) offers moving ~132,862 budget-paid people
+onto their own 13.78%. § 6 ЗБДОО enacted exactly that for part of them, and
+[`BUDGET_PAID_SSC_GROUPS`](../../scripts/budget/run_policy_baseline.ts) splits along the
+statutory line almost exactly:
+
+| group | КСО чл. 4 ал. 1 | § 6 outcome | lever value |
+|---|---|---|---|
+| 64,178 — админ + съдии/прокурори/следователи + ЧИК | т. 2, 3, 10 | **enacted from 1 Aug 2026** | €126.1M/yr |
+| 68,684 — отбрана и сигурност | **т. 4** | explicitly retained | €127.5M/yr |
+
+§ 6 narrows чл. 6 ал. 5 *"from т. 2, 3, 4 и 10 to т. 4"*, so row 1 is law and row 2 is the
+only remaining what-if. Leaving the lever whole lets a user book €126.1M the budget has
+already taken.
+
+Two things to encode rather than rediscover:
+
+- The law is a **phased employer/employee split** (11.8/3.0 from 1 Aug 2026, 8.22/6.58 from
+  1 Jan 2027), not the full 13.78% shift the lever models — so the enacted 2026 slice is a
+  fraction of €126.1M and the lever's own arithmetic overstates what the law achieves.
+- The employer absorbs it through December so net pay is protected — **which is precisely the
+  lever's `grossUp` branch, the one that returns €0.** For Aug–Dec 2026 the law *is* the
+  fiscally-neutral variant; the money starts in January.
+
+**T8.3b — the pension floor is stale.** `expenditure.pensionFloor.minimumEur = 322.37`
+(`asOf: "2026-03-31"`); чл. 10 ЗБДОО set €347.51 from **1 July 2026**. Scored on the baked
+band grid: **€245.4M/yr full-year, €122.7M for Jul–Dec 2026, lifting 813,567 pensioners
+(39.3% of 2.07M)**. Same defect class — move it into the baseline and re-anchor the lever's
+"current minimum" to €347.51.
+
+### T8.4. Consequences of flipping `baselineYear` to 2026
+
+The flip is one field, and it detonates three things the plan has already documented as
+latent:
+
+1. **A2.2's latent coupling becomes immediate.** `capBaselineEur = MOD_BY_YEAR[baselineYear]`
+   — with `baselineYear: 2026` and the Addendum's 2300 decision, κ recalibrates *in this
+   change* rather than silently when the FY2026 КФП completes. Do it deliberately, with the
+   drift gate ([`:887`](../../scripts/budget/run_policy_baseline.ts)) checked in the same run.
+2. **T2.6 stops being an improvement and becomes a precondition.** The baseline year is now
+   itself the split-year: a 2026 baseline priced at a whole-year cap carries the full €72.7M
+   error *in the baseline*, not just in a lever. **T2.6 must land before or with T8.**
+3. **κ's wage bridge lengthens.** `earnings.wageGrowthToBaseline` is 1.160 for 2024→2025; it
+   becomes a 2024→2026 bridge. The NAP identity year stays 2024 (`napYear` is the last PIT
+   breakdown available, and `revenue_breakdown/pit/` holds only `2024.json`), so the Pareto
+   anchor is undisturbed — but the extrapolation is a year longer and should be captioned.
+
+### T8.5. Presets and copy
+
+`PRESETS` contains `{ id: "budget2026", apply: { mod: 2300, vign: 30, soe: 90, cigarettes: 120 } }`,
+commented *"one click loads the government's budget"*. On a 2026 baseline that preset
+**double-counts by construction** — it applies 2026 policy on top of a 2026 baseline. Worse,
+its МОД component is already self-cancelling: once `currentCap` is 2300, `scoreModCap(identity,
+2300, 2300)` scores **exactly €0** while the chip still claims to model the raise.
+
+Re-purpose it as "what the 2026 package changed **vs 2025**" (a comparison, not an overlay),
+or retire it. Also correct the comment: €2,300 is чл. 9 **ЗБДОО**, not ЗДБРБ-2026 — the preset
+currently mixes instruments in exactly the way §0 warns against.
+
+### T8.6. What stays stale — publish the vintages
+
+A "2026 simulator" still rests on components anchored years back. Surface this table rather
+than let the 2026 label imply otherwise:
+
+| component | vintage |
+|---|---|
+| `earnings.sesWave` | 2022 |
+| `vat.structureYear` | 2022 |
+| `incomeTiers.taxYear` | 2023 (НАП) |
+| `expenditure.pensions.year`, `administration.payrollYear`, `socialBenefits.cofogYear`, `teachers.wageYear` | 2024 |
+| `modIdentity.year` | 2024 |
+| state revenue / expenditure | 2026 YTD → annualised |
+| statutory parameters, NHIF envelope, ДОО plan | **2026 law** |
+
+`expenditure.pensions` (2024, €11.13bn) is the worst offender and the one the ЗБДОО can
+improve — subject to §0c's caveat that the per-fund figures are gross "revenue + transfers"
+and are **not** a drop-in replacement for an expenditure mass.
+
+### T8.7. Acceptance
+
+- `policy_baseline.json` carries `baselineYear: 2026`, a per-line `basis`, and an explicit
+  annualisation band for the two `execution` lines.
+- The balance is derived, never annualised (assert it in the generator).
+- `ssp` and `pensionFloor` reflect enacted law; their levers price only the residual.
+- The `budget2026` preset no longer contributes €0 while claiming otherwise.
+- T2.6 has landed — a 2026 baseline on a whole-year cap is not acceptable.
+- The UI states the mix and never labels a `carried` line "2026".
+
+**Non-goal:** waiting for the ЗДБРБ. This section is explicitly the answer to "what does a
+2026 simulator look like without one." When it lands, `interim`/`execution` lines get a `law`
+basis and the annualisation band collapses — the structure does not change.
+
+---
+
 ## Sequencing
 
 ```
 T1.0 ──► T1 ──► T1.4a  re-read чл. 1 ал. 2, then ship, then bucket:sync or it lands nowhere
-T2.1 ──► T2.6        the schedule first; month-weighting derives its weights from it
+T2.1 ──► T2.6 ──► T8   schedule → month-weighting → the 2026 re-base (T2.6 is a PRECONDITION:
+                       a 2026 baseline priced at a whole-year cap bakes the error in)
 T2  ──►  T3 ──► T3.4 schema, then constants, then the /pensions consolidation
 T4  (independent)
 T5.0 ──► T5.1-5.3 ──► T5.4   cache key, then parsers, then UI
@@ -688,7 +863,10 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 | Two fund laws overwrite each other in the HTML cache | T5.0: `fetchLawHtml`'s key is `law-${fiscalYear}`, so both idMats collide today. Re-key before T5.1 |
 | A `MOD_BY_YEAR` derivation silently reprices the fiscal baseline | T2.1 derives from the *first* step of the year, making the map byte-identical. The `__smoke_*` gates that would catch a regression are tsx scripts outside `test:unit` — re-run them by hand (T2.5) |
 | A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent. Note A2.5: with the 2300 decision the shift happens once, at deploy, instead |
-| The annual revenue model prices a split-year cap as if it held all 12 months | T2.6 month-weights `scoreModCapBands` / `pitRevenueOnBands` / `scoreModCap`. Measured cost of not doing it: €72.7M on the contribution side, €51.5M on the simulator's МОД lever |
+| The annual revenue model prices a split-year cap as if it held all 12 months | T2.6 month-weights `scoreModCapBands` / `pitRevenueOnBands` / `scoreModCap`. Measured cost of not doing it: €72.7M on the contribution side, €51.5M on the simulator's МОД lever. **After T8 this moves from a lever error to a baseline error** — the baseline year becomes the split-year one |
+| The 2026 simulator is read as "the 2026 budget" when a third of the package does not exist | T8.1's per-line `basis` + T8.6's vintage table. The ЗДБРБ absence is a design input, not a caveat to bury: no 2026 `planned` line exists in the КФП feed at all |
+| A user books a saving the law has already taken (`ssp` €126.1M, pension floor €245.4M) | T8.3 migrates enacted policy into the baseline and leaves only the residual as a lever. This is wrong **today**, independent of T8 |
+| The annualised 2026 baseline is presented as precise | T8.2 rule 2: the ±1.1–1.6pp seasonality σ is ±€0.8–1.7bn. Publish the band; re-annualise monthly |
 | Someone implements T2.6 as a blended (weighted-average) cap | T2.6c: `min(w, cap)` is concave, so a blended cap overstates by construction (+€3.7M here). Weight the outputs, never the cap |
 | 2025's own mid-year step keeps contaminating κ after 2026 is fixed | T2.6d: `baselineYear` is 2025 and `MOD_BY_YEAR[2025]` is the longer-part value. The 2025 split date is nowhere in the repo — source it from the 2025 ЗБДОО, or T2.6 relocates the error instead of removing it |
 | Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6, and stated in code comments — but the real mitigation is T6's separate `"civil-servant"` profile, which leaves the default employee path untouched by construction |
