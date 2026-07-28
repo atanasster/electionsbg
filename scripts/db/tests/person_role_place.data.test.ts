@@ -79,11 +79,10 @@ test.skipIf(skip)("place_kind is set exactly when place_code is", async () => {
   );
 });
 
-test.skipIf(skip)("every place_code resolves to both labels", async () => {
+test.skipIf(skip)("every place_code resolves to a display label", async () => {
   const rows = await allRows<{ place_kind: string; place_code: string }>(
     `SELECT DISTINCT place_kind, place_code FROM person_role
-      WHERE place_code IS NOT NULL
-        AND (place_label IS NULL OR place_label_en IS NULL)
+      WHERE place_code IS NOT NULL AND place_label IS NULL
       LIMIT 20`,
   );
   assert.equal(
@@ -94,6 +93,28 @@ test.skipIf(skip)("every place_code resolves to both labels", async () => {
       .join(
         ", ",
       )} — the label map is missing an entry, so the /person offices tile renders blank`,
+  );
+});
+
+test.skipIf(skip)("place kinds with an English name carry one", async () => {
+  // `judicial` is deliberately Bulgarian-only: there is no official English register of
+  // Bulgarian courts and prosecution offices to translate against, and an invented
+  // translation on a named magistrate's profile is worse than the Bulgarian name. Every
+  // OTHER kind draws its label from a source that carries name_en, so a NULL there is a
+  // gap rather than a decision.
+  const rows = await allRows<{ place_kind: string; place_code: string }>(
+    `SELECT DISTINCT place_kind, place_code FROM person_role
+      WHERE place_code IS NOT NULL
+        AND place_kind <> 'judicial'
+        AND place_label_en IS NULL
+      LIMIT 20`,
+  );
+  assert.equal(
+    rows.length,
+    0,
+    `place code(s) with no English label: ${rows
+      .map((r) => `${r.place_kind}:${r.place_code}`)
+      .join(", ")}`,
   );
 });
 
@@ -144,6 +165,41 @@ test.skipIf(skip)(
     );
   },
 );
+
+test.skipIf(skip)(
+  "every magistrate role with a resolvable court carries a judicial place",
+  async () => {
+    // The 394 roles whose ИВСС record names no institution, and the ~35 spellings the
+    // parser refuses to guess at, legitimately have none — so this pins the RATIO rather
+    // than demanding 100%. A collapse here means judicial_body_alias was not loaded
+    // before db:resolve:persons (db:refresh order) and every magistrate lost their court.
+    const [row] = await allRows<{ typed: string; withcourt: string }>(
+      `SELECT count(*) FILTER (WHERE r.place_kind = 'judicial') AS typed,
+              count(*) FILTER (WHERE m.court IS NOT NULL AND m.court <> '') AS withcourt
+         FROM person_role r JOIN magistrate m ON m.name = r.ref
+        WHERE r.source = 'magistrate'`,
+    );
+    const ratio = Number(row.typed) / Math.max(1, Number(row.withcourt));
+    assert.ok(
+      ratio > 0.95,
+      `only ${row.typed}/${row.withcourt} magistrate roles with a court got a judicial place (${(100 * ratio).toFixed(1)}%) — db:load:judicial-bodies:pg did not run before db:resolve:persons, or the parser regressed`,
+    );
+  },
+);
+
+test.skipIf(skip)("every judicial place_code is a real body", async () => {
+  const rows = await allRows<{ place_code: string }>(
+    `SELECT DISTINCT r.place_code FROM person_role r
+      WHERE r.place_kind = 'judicial'
+        AND NOT EXISTS (SELECT 1 FROM judicial_body b WHERE b.body_code = r.place_code)
+      LIMIT 10`,
+  );
+  assert.equal(
+    rows.length,
+    0,
+    `judicial place code(s) with no body row: ${rows.map((r) => r.place_code).join(", ")}`,
+  );
+});
 
 // The typed-place spread sits on the GENERIC official_roster loop, so any roster row with
 // an obshtina gains a typed place regardless of which person_source it resolves to. Today

@@ -103,6 +103,21 @@ It populates `official_candidate_link` and REFRESHes `municipal_officials_table`
 runs the local equivalent automatically; the cloud side does not. See
 `docs/plans/persons-pg-retirement-v1.md` (T1.5).
 
+Same shape, and it must run **BEFORE** `db:resolve:persons:cloud` rather than after: the
+judicial dimension (migration 116) is what gives every magistrate their court on `/person`.
+
+```bash
+npm run db:load:judicial-bodies:pg:cloud
+```
+
+It rebuilds `judicial_body` + `judicial_body_alias` from `magistrate.court` ∪
+`court_load.name`, so re-run it whenever **either** of those is reloaded on the cloud side
+(`db:load:magistrates:pg:cloud`, `db:load:court-load:pg:cloud`) — then re-run
+`db:resolve:persons:cloud`, which reads the alias table. Skipping it does not fail: the
+resolve simply finds an empty alias table and ~2,700 magistrate roles publish with no
+court, green locally and blank on prod. See
+`docs/plans/person-role-place-consolidation-v1.md` (T2).
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

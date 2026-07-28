@@ -172,11 +172,24 @@ are all derived server-side from the `magistrate` table (schema 069/070). So aft
 generating the JSON:
 
 ```bash
-npm run db:load:court-load:pg      # + :cloud for Cloud SQL
-npm run db:load:magistrates:pg     # + :cloud
+npm run db:load:court-load:pg          # + :cloud for Cloud SQL
+npm run db:load:magistrates:pg         # + :cloud
+npm run db:load:judicial-bodies:pg     # + :cloud — MUST follow the two above
 ```
 
-(Both are also wired into `db:refresh`.) The magistrate views no longer emit
+(All three are wired into `db:refresh`.)
+
+**`db:load:judicial-bodies:pg` rebuilds the canonical court/прокуратура/следствен-отдел
+dimension** (migration 116) from `magistrate.court` ∪ `court_load.name`, so it has to run
+after BOTH — and, on the cloud side, before `db:resolve:persons:cloud`, which reads
+`judicial_body_alias` to give every magistrate their court on `/person`. Skipping it does
+not fail anything: the resolve just finds an empty alias table and ~2,700 magistrate roles
+publish with no institution. See `docs/plans/person-role-place-consolidation-v1.md` (T2).
+
+The loader prints every institution name it could not classify, per source. That list is
+the work-list for extending `scripts/judiciary/judicialBodies.ts` — it never guesses a
+court, because a wrong court on a named magistrate's profile is a misstatement about a
+real person. The magistrate views no longer emit
 `magistrate_company_index.json` / `magistrate_search.json` — those are PG-derived.
 
 The magistrate loader also applies **`071_magistrate_connections.sql`** (the

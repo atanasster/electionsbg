@@ -53,6 +53,7 @@ import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
 import { obshtinaLabels, type PlaceLabel } from "./places";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
+import { foldJudicialName } from "../judiciary/judicialBodies";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -409,6 +410,49 @@ async function collect(): Promise<Raw[]> {
     expect(r.eik, r.politician);
   }
 
+  // The canonical judicial institution behind each raw court string (migration 116,
+  // db:load:judicial-bodies:pg). Keyed on the SAME fold the loader wrote, so a spelling
+  // it could not classify simply misses and the magistrate keeps a NULL place — never a
+  // guessed court on a named person's public profile.
+  //
+  // The schema is APPLIED (in SCHEMA_FILES) rather than the query being wrapped in a
+  // catch-all: on a cold bootstrap the tables then exist and are simply empty, which is
+  // the same outcome, while a genuinely broken query or a dropped connection still
+  // fails loudly instead of silently NULLing all ~2,700 magistrate places.
+  const judicialByAlias = new Map<
+    string,
+    { code: string; name: string; kind: string }
+  >();
+  for (const b of await allRows<{
+    alias_norm: string;
+    body_code: string;
+    name: string;
+    kind: string;
+  }>(
+    `SELECT a.alias_norm, a.body_code, b.name, b.kind
+       FROM judicial_body_alias a JOIN judicial_body b USING (body_code)`,
+  ))
+    judicialByAlias.set(b.alias_norm, {
+      code: b.body_code,
+      name: b.name,
+      kind: b.kind,
+    });
+
+  const judicialPlace = (court: string | null): TypedPlace => {
+    if (!court) return NO_PLACE;
+    const body = judicialByAlias.get(foldJudicialName(court));
+    if (!body) return NO_PLACE;
+    return {
+      placeKind: "judicial",
+      placeCode: body.code,
+      placeLabel: body.name,
+      // The institution names are Bulgarian-only — there is no official English register
+      // of Bulgarian courts to translate them against, and inventing one would be worse
+      // than showing the Bulgarian name to an English reader.
+      placeLabelEn: null,
+    };
+  };
+
   const mags = await allRows<{ name: string; court: string | null }>(
     `SELECT name, court FROM magistrate`,
   );
@@ -421,7 +465,11 @@ async function collect(): Promise<Raw[]> {
         ref: m.name,
         role: "magistrate",
       },
-      { place: m.court, uics: magEik.get(m.name) ?? [] },
+      {
+        place: m.court,
+        ...judicialPlace(m.court),
+        uics: magEik.get(m.name) ?? [],
+      },
     );
 
   // Obshtina code → display name, for the typed place columns (migration 115).
@@ -908,6 +956,11 @@ const SCHEMA_FILES = [
   // body is validated at CREATE time, so the wrong order would fail loudly then. The
   // ordering is locked in now so that step is a one-line change.
   "115_person_role_place.sql",
+  // The judicial dimension (116). Applied — not merely read — so a cold bootstrap finds
+  // EMPTY tables rather than missing ones, which lets the magistrate lookup below fail
+  // loudly on a real error instead of being wrapped in a catch-all that cannot tell a
+  // missing table from a broken query. db:load:judicial-bodies:pg fills them.
+  "116_judicial_body.sql",
   "085_person_elections.sql",
   "082_person_api.sql",
   "083_person_review.sql",
