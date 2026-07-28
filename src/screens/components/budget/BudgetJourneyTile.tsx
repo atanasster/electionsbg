@@ -24,10 +24,13 @@ import type {
 const STAGE_ORDER: Record<BudgetDocument["kind"], number> = {
   law: 0,
   "interim-law": 1,
-  amendment: 2,
-  "execution-report": 3,
-  "audit-report": 4,
-  "kfp-feed": 5,
+  // The fund budgets (ЗБДОО / ЗБНЗОК) pass as one package with the ЗДБРБ, so
+  // they sit directly after it and before any mid-year amendment.
+  "fund-law": 2,
+  amendment: 3,
+  "execution-report": 4,
+  "audit-report": 5,
+  "kfp-feed": 6,
 };
 
 const ROLE_PRIORITY: BudgetDocumentSource["role"][] = [

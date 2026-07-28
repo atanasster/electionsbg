@@ -20,6 +20,7 @@ import {
   LAW_DV_MATERIALS,
   AMENDMENT_DV_MATERIALS,
   INTERIM_BUDGET_LAWS,
+  FUND_BUDGET_LAWS,
   EXECUTION_REPORTS,
   lawDvUrl,
 } from "./fetch_sources";
@@ -180,6 +181,38 @@ const buildInterimLawDocuments = (): BudgetDocument[] =>
         : "Amendment to the interim bridging law — catalogued for provenance.",
   }));
 
+// One "fund-law" entry per social-fund budget law (ЗБДОО / ЗБНЗОК) and each of
+// its ЗИД amendments. These pass as one package with the State Budget Law but
+// appropriate their own funds, not the first-level spending units — so, like
+// amendments and interim laws, they are catalogued for provenance only and no
+// figures are parsed from the DV HTML. See FUND_BUDGET_LAWS.
+const buildFundLawDocuments = (): BudgetDocument[] =>
+  FUND_BUDGET_LAWS.map((l) => ({
+    id: `fund-law-${l.fund}-${l.fiscalYear}-${l.seq}`,
+    kind: "fund-law" as const,
+    fiscalYear: l.fiscalYear,
+    seq: l.seq,
+    title: l.title,
+    sources: [
+      {
+        role: "promulgated" as const,
+        url: lawDvUrl(l.idMat),
+        format: "html" as const,
+        label: `Държавен вестник — ${l.dvIssue}`,
+      },
+    ],
+    promulgationDate: l.promulgationDate,
+    discovery: "auto-confirmed" as const,
+    notes:
+      (l.fund === "doo"
+        ? "Social-security fund budget (ДОО/НОИ)"
+        : "Health-insurance fund budget (НЗОК)") +
+      (l.seq === 0 ? "" : " — ЗИД amendment") +
+      ". Passes as one package with the State Budget Law but appropriates its " +
+      "own fund, so no per-spending-unit tables are parsed; catalogued for " +
+      "provenance.",
+  }));
+
 // One "execution-report" entry per curated ministry program-budget execution
 // report. The pipeline parses the figures out of these; the entry exists so
 // the budget-journey UI can link the source document. The link is a direct
@@ -289,6 +322,7 @@ export const buildDocuments = (
     buildKfpDocument(parsed),
     ...buildLawDocuments(parsed),
     ...buildInterimLawDocuments(),
+    ...buildFundLawDocuments(),
     ...buildAmendmentDocuments(),
     ...buildExecutionDocuments(),
   ];

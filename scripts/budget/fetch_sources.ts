@@ -142,6 +142,56 @@ export const INTERIM_BUDGET_LAWS: InterimBudgetLaw[] = [
   },
 ];
 
+// The two social-fund budget laws that pass as one package with the ЗДБРБ:
+// the ЗБДОО (Закон за бюджета на държавното обществено осигуряване — НОИ) and
+// the ЗБНЗОК (Закон за бюджета на Националната здравноосигурителна каса).
+//
+// They are NOT State Budget Law entries: they appropriate their own funds, not
+// the first-level spending units, so nothing here is parsed for per-ministry
+// figures. They are catalogued for two reasons:
+//   1. provenance — the budget-journey timeline should show that the fiscal
+//      year's package landed, not just its ЗДБРБ third;
+//   2. the ЗБДОО is where the tax simulator's statutory constants come from
+//      (МОД cap, SSC/health contribution rates, min/max pension, min
+//      self-insured income, the 2nd-year maternity benefit) — see
+//      src/lib/bgTax.ts + src/lib/bgTaxPolicy.ts. A new row here is the cue to
+//      re-verify them against the promulgated text.
+//
+// Hand-curated, same as the arrays above: the `dv_laws` watcher reports the
+// promulgation but ДВ's RSS carries no idMat, so resolve it on
+// dv.parliament.bg and add the row. `seq` 0 = the base law, 1..N = its ЗИД.
+export interface FundBudgetLaw {
+  fiscalYear: number;
+  fund: "doo" | "nzok";
+  seq: number;
+  idMat: string;
+  promulgationDate: string; // ISO — the Държавен вестник promulgation date
+  dvIssue: string; // "ДВ бр. 68 от 2026 г." — for the source label
+  title: string;
+}
+
+export const FUND_BUDGET_LAWS: FundBudgetLaw[] = [
+  {
+    fiscalYear: 2026,
+    fund: "doo",
+    seq: 0,
+    idMat: "244982",
+    promulgationDate: "2026-07-28",
+    dvIssue: "ДВ бр. 68 от 2026 г.",
+    title: "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+  },
+  {
+    fiscalYear: 2026,
+    fund: "nzok",
+    seq: 0,
+    idMat: "244981",
+    promulgationDate: "2026-07-28",
+    dvIssue: "ДВ бр. 68 от 2026 г.",
+    title:
+      "Закон за бюджета на Националната здравноосигурителна каса за 2026 г.",
+  },
+];
+
 const lawHtmlUrl = (idMat: string): string =>
   `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${idMat}`;
 

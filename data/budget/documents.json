@@ -707,6 +707,42 @@
     {
       "discovery": "auto-confirmed",
       "fiscalYear": 2026,
+      "id": "fund-law-doo-2026-0",
+      "kind": "fund-law",
+      "notes": "Social-security fund budget (ДОО/НОИ). Passes as one package with the State Budget Law but appropriates its own fund, so no per-spending-unit tables are parsed; catalogued for provenance.",
+      "promulgationDate": "2026-07-28",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 68 от 2026 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=244982"
+        }
+      ],
+      "title": "Закон за бюджета на държавното обществено осигуряване за 2026 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2026,
+      "id": "fund-law-nzok-2026-0",
+      "kind": "fund-law",
+      "notes": "Health-insurance fund budget (НЗОК). Passes as one package with the State Budget Law but appropriates its own fund, so no per-spending-unit tables are parsed; catalogued for provenance.",
+      "promulgationDate": "2026-07-28",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 68 от 2026 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=244981"
+        }
+      ],
+      "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2026,
       "id": "interim-law-2026-0",
       "kind": "interim-law",
       "notes": "Interim bridging law — adopted because no State Budget Law was in force at the start of the fiscal year. Catalogued for provenance; the DV HTML carries no per-spending-unit appropriation tables.",
@@ -1122,5 +1158,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-07-16T18:54:49.887Z"
+  "generatedAt": "2026-07-28T18:44:31.374Z"
 }

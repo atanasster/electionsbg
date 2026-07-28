@@ -61,6 +61,7 @@ import { nssiB1 } from "./nssi_b1";
 import { nssiYearbook } from "./nssi_yearbook";
 import { kfnPensions } from "./kfn_pensions";
 import { dvInvestmentAnnex } from "./dv_investment_annex";
+import { dvLaws } from "./dv_laws";
 import { capitalPrograms } from "./capital_programs";
 import { ipop } from "./ipop";
 import { bgpostPostcodes } from "./bgpost_postcodes";
@@ -156,6 +157,7 @@ export const SOURCES: WatchSource[] = [
   nssiYearbook,
   kfnPensions,
   dvInvestmentAnnex,
+  dvLaws,
   capitalPrograms,
   ipop,
   eurostat,

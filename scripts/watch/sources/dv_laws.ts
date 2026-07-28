@@ -1,0 +1,267 @@
+// Държавен вестник — promulgation watcher for the budget-package laws.
+//
+// The gap this closes: nothing in the watcher read ДВ for a *new law*. The
+// only budget-law signal was `budget_law`, which does not read
+// dv.parliament.bg at all — it fingerprints the Wayback CDX index of
+// `minfin.bg/upload/*.pdf`, so it (a) lags by however long Wayback takes to
+// re-crawl a WAF-blocked host and (b) matches only ЗДБ/ЗДБРБ/удължителен
+// filenames. The ЗБДОО and ЗБНЗОК halves of the annual budget package are
+// invisible to it by construction — minfin is not even their publisher — so
+// ДВ бр. 68 от 28.07.2026 (ЗБДОО-2026 + ЗБНЗОК-2026) passed with no signal.
+//
+// Source: ДВ publishes an RSS feed of the *current* issue's official section
+// at `DVWeb/rss_newspaper.jsp` — plain XML, no Cloudflare, no JSF postback.
+// Each <item> carries the issuing body as <title> and the act's full name as
+// <description>. The feed has no issue number, so the issue list at
+// `broeveList.faces` is scraped alongside it purely to label the issue and to
+// detect issues that published between two watcher runs.
+//
+// LIMITATION (structural, not fixable here): the RSS is a rolling window over
+// ONE issue. ДВ publishes ~2×/week, so a daily cadence sees every issue — but
+// an issue that publishes while the watcher is down is gone from the feed for
+// good. That is what the gap tracking is for: a skipped issue number is
+// recorded permanently in `meta.gaps` and reported as a change, so the
+// operator knows to open that брой by hand.
+//
+// Because the feed only ever shows one issue, the fingerprint is CUMULATIVE:
+// it hashes every budget-package law seen so far plus every uninspected issue
+// number. An ordinary issue with no budget law leaves both sets untouched and
+// reports `unchanged`; a promulgation appends and flips exactly once.
+//
+// The feed carries no idMat (every <link> points at the same issue object), so
+// the operator still resolves the idMat on dv.parliament.bg and adds the row to
+// LAW_DV_MATERIALS / INTERIM_BUDGET_LAWS / AMENDMENT_DV_MATERIALS in
+// scripts/budget/fetch_sources.ts. Maps to `update-budget`.
+
+import type { WatchSource, Fingerprint, WatchState } from "../types";
+import { fetchText, sha256Short } from "../fingerprint";
+import { readState } from "../state";
+
+const SOURCE_ID = "dv_laws";
+const RSS = "https://dv.parliament.bg/DVWeb/rss_newspaper.jsp";
+const ISSUE_LIST = "https://dv.parliament.bg/DVWeb/broeveList.faces";
+
+// The acts this repo's budget pipeline actually consumes. Matched against the
+// act's full name; `kind` is the short label carried into the report line so
+// the operator knows which catalogue in fetch_sources.ts to extend.
+//
+// ЗИД forms are covered by the same patterns — "Закон за изменение и
+// допълнение на Закона за държавния бюджет…" still contains the phrase.
+//
+// ORDER IS LOAD-BEARING: first match wins, and the удължителен law's own title
+// names all three laws it bridges to ("…до приемането на Закона за държавния
+// бюджет на Република България за 2026 г., Закона за бюджета на държавното
+// обществено осигуряване…"). Checked last it would be filed as ЗДБРБ, so the
+// most specific pattern goes first.
+const LAW_PATTERNS: { kind: string; re: RegExp }[] = [
+  {
+    kind: "удължителен",
+    re: /събирането\s+на\s+приходи\s+и\s+извършването\s+на\s+разходи/i,
+  },
+  { kind: "ЗДБРБ", re: /за\s+държавния\s+бюджет\s+на\s+република\s+българия/i },
+  {
+    kind: "ЗБДОО",
+    re: /бюджета\s+на\s+държавното\s+обществено\s+осигуряване/i,
+  },
+  {
+    kind: "ЗБНЗОК",
+    re: /бюджета\s+на\s+националната\s+здравноосигурителна\s+каса/i,
+  },
+];
+
+// Only acts that are themselves laws. Постановления routinely reallocate money
+// "по бюджета на …" and would otherwise match every pattern above.
+// NB: `\b` is useless here — JS word boundaries are ASCII-only, so there is no
+// boundary between "закон" and the following space. Match the space directly.
+const IS_LAW = /^\s*закон(\s|$)/i;
+
+export interface DvLawMatch {
+  date: string; // ISO promulgation date (the issue's date)
+  issue: number; // ДВ брой; 0 when the issue list was unreachable
+  kind: string; // ЗДБРБ | ЗБДОО | ЗБНЗОК | удължителен
+  title: string;
+}
+
+interface DvLawsMeta {
+  matches?: DvLawMatch[];
+  gaps?: number[]; // issue numbers that published between runs, never inspected
+  lastIssue?: number;
+  lastDate?: string;
+}
+
+const decode = (s: string): string =>
+  s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
+      String.fromCodePoint(parseInt(h, 16)),
+    )
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+
+// <item> descriptions of the current issue's official section. The channel-level
+// <title>/<description> are double-encoded junk in the upstream feed — parsing
+// per-item avoids them entirely.
+const feedItems = async (): Promise<{ acts: string[]; date: string }> => {
+  const xml = await fetchText(RSS, {
+    headers: { Accept: "application/rss+xml, text/xml, */*" },
+  });
+  if (!xml) return { acts: [], date: "" };
+  const acts: string[] = [];
+  let date = "";
+  const itemRe = /<item>([\s\S]*?)<\/item>/g;
+  let m: RegExpExecArray | null;
+  while ((m = itemRe.exec(xml))) {
+    const block = m[1];
+    const desc = /<description>([\s\S]*?)<\/description>/.exec(block)?.[1];
+    if (desc) acts.push(decode(desc));
+    if (!date) {
+      // "2026-07-28 00:00:00.0"
+      const pub = /<pubDate>\s*(\d{4}-\d{2}-\d{2})/.exec(block)?.[1];
+      if (pub) date = pub;
+    }
+  }
+  return { acts, date };
+};
+
+// "Брой 68, 28.7.2026 г." → { issue: 68, date: "2026-07-28" }
+const issueList = async (): Promise<{ issue: number; date: string }[]> => {
+  let html: string | null = null;
+  try {
+    html = await fetchText(ISSUE_LIST);
+  } catch {
+    return []; // decoration only — never fail the whole source on this
+  }
+  if (!html) return [];
+  const out: { issue: number; date: string }[] = [];
+  const re = /Брой\s+(\d+),\s*(\d{1,2})\.(\d{1,2})\.(\d{4})/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(html.replace(/<[^>]*>/g, " ")))) {
+    out.push({
+      issue: Number(m[1]),
+      date: `${m[4]}-${m[3].padStart(2, "0")}-${m[2].padStart(2, "0")}`,
+    });
+  }
+  return out.sort((a, b) => b.issue - a.issue);
+};
+
+// Exported for unit tests — this is the whole editorial judgment of the source.
+export const classifyAct = (act: string): string | null => {
+  if (!IS_LAW.test(act)) return null;
+  for (const { kind, re } of LAW_PATTERNS) if (re.test(act)) return kind;
+  return null;
+};
+
+const key = (m: DvLawMatch): string => `${m.date}|${m.kind}|${m.title}`;
+
+export const dvLaws: WatchSource = {
+  id: SOURCE_ID,
+  label: "ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК)",
+  url: RSS,
+  cadence: "daily",
+
+  async fingerprint(): Promise<Fingerprint> {
+    const { acts, date } = await feedItems();
+    if (acts.length === 0) {
+      throw new Error("ДВ RSS returned no items for the current issue");
+    }
+
+    const issues = await issueList();
+    // Prefer the issue whose date matches the feed; fall back to the newest.
+    const issue =
+      issues.find((i) => i.date === date)?.issue ?? issues[0]?.issue ?? 0;
+
+    const prev = (readState(SOURCE_ID)?.meta ?? {}) as DvLawsMeta;
+    const prevMatches = prev.matches ?? [];
+    const prevGaps = prev.gaps ?? [];
+    const lastIssue = Number(prev.lastIssue ?? 0);
+
+    // Issues that published between two runs are gone from the rolling feed.
+    // Record them once, permanently, so the operator can open them by hand.
+    // Skipped on the first run — there is no "since" to measure against.
+    const gaps = [...prevGaps];
+    if (lastIssue > 0 && issue > lastIssue + 1) {
+      for (let n = lastIssue + 1; n < issue; n++) {
+        if (!gaps.includes(n)) gaps.push(n);
+      }
+    }
+    gaps.sort((a, b) => a - b);
+
+    const merged = new Map(prevMatches.map((m) => [key(m), m] as const));
+    const fresh: DvLawMatch[] = [];
+    for (const act of acts) {
+      const kind = classifyAct(act);
+      if (!kind) continue;
+      const match: DvLawMatch = { date, issue, kind, title: act };
+      if (merged.has(key(match))) continue;
+      merged.set(key(match), match);
+      fresh.push(match);
+    }
+
+    const matches = [...merged.values()].sort(
+      (a, b) => a.date.localeCompare(b.date) || a.kind.localeCompare(b.kind),
+    );
+
+    const value = sha256Short(
+      [...matches.map(key), ...gaps.map((n) => `gap:${n}`)].join("\n"),
+    );
+
+    const issueLabel = issue > 0 ? `бр. ${issue}` : "бр. ?";
+    const detailParts = [
+      `${issueLabel} от ${date || "?"} · ${acts.length} акт(а) в официалния раздел`,
+      `${matches.length} бюджетен(ни) закон(а) проследени`,
+    ];
+    if (fresh.length > 0) {
+      detailParts.push(`нови: ${fresh.map((f) => f.kind).join(", ")}`);
+    }
+    if (gaps.length > 0) {
+      detailParts.push(`неинспектирани броеве: ${gaps.join(", ")}`);
+    }
+
+    return {
+      value,
+      detail: detailParts.join(" · "),
+      meta: {
+        matches,
+        gaps,
+        lastIssue: issue || lastIssue,
+        lastDate: date,
+      } satisfies DvLawsMeta,
+    };
+  },
+
+  describe(prev: WatchState | null, curr: Fingerprint): string {
+    if (!prev) return curr.detail;
+    const prevMeta = (prev.meta ?? {}) as DvLawsMeta;
+    const currMeta = (curr.meta ?? {}) as DvLawsMeta;
+    const seen = new Set((prevMeta.matches ?? []).map(key));
+    const fresh = (currMeta.matches ?? []).filter((m) => !seen.has(key(m)));
+    const prevGaps = new Set(prevMeta.gaps ?? []);
+    const newGaps = (currMeta.gaps ?? []).filter((n) => !prevGaps.has(n));
+
+    const lines: string[] = [];
+    if (fresh.length > 0) {
+      const what = fresh
+        .map((f) => `${f.kind} (ДВ бр. ${f.issue} от ${f.date})`)
+        .join("; ");
+      lines.push(
+        `обнародван(и) ${what} — run /update-budget: resolve the idMat on ` +
+          `dv.parliament.bg and add the row to LAW_DV_MATERIALS / ` +
+          `INTERIM_BUDGET_LAWS / AMENDMENT_DV_MATERIALS in ` +
+          `scripts/budget/fetch_sources.ts, then re-verify the simulator ` +
+          `constants in src/lib/bgTax.ts + src/lib/bgTaxPolicy.ts`,
+      );
+    }
+    if (newGaps.length > 0) {
+      lines.push(
+        `ДВ бр. ${newGaps.join(", ")} published between runs and is no longer ` +
+          `in the rolling RSS window — open it manually on dv.parliament.bg`,
+      );
+    }
+    return lines.length > 0 ? lines.join(" · ") : curr.detail;
+  },
+};

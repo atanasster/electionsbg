@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-28T13:57:09.579Z",
+  "generatedAt": "2026-07-28T18:41:17.029Z",
   "nodes": [
     {
       "id": "src:water",
@@ -144,15 +144,15 @@
         "en": "budget law and annexes"
       },
       "desc": {
-        "bg": "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините) и Приложение III — инвестиционната програма по проекти.",
-        "en": "The promulgated State Budget Law with Article 53 municipal transfers and Annex III — the per-project investment programme."
+        "bg": "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините) и Приложение III — инвестиционната програма по проекти. Официалният раздел на ДВ се следи ежедневно за обнародване на целия бюджетен пакет — ЗДБРБ, ЗБДОО и ЗБНЗОК, както и удължителните закони и техните ЗИД.",
+        "en": "The promulgated State Budget Law with Article 53 municipal transfers and Annex III — the per-project investment programme. The gazette's official section is watched daily for the promulgation of the whole budget package — the state budget law, the social-security fund budget and the health-fund budget, plus the interim bridging laws and their amendments."
       },
       "tags": [
         "fiscal"
       ],
       "url": "https://dv.parliament.bg/",
       "origin": "state",
-      "cadence": "weekly",
+      "cadence": "daily",
       "freshness": "2026-07-04T06:09:29.998Z",
       "skills": [
         "update-budget"
@@ -171,6 +171,12 @@
           "url": "https://dv.parliament.bg/",
           "cadence": "weekly",
           "freshness": "2026-07-04T06:09:29.998Z"
+        },
+        {
+          "id": "dv_laws",
+          "label": "ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК)",
+          "url": "https://dv.parliament.bg/DVWeb/rss_newspaper.jsp",
+          "cadence": "daily"
         }
       ],
       "x": 28,
