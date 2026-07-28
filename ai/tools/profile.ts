@@ -15,6 +15,7 @@ import {
   resolvePlaceForData,
 } from "./place";
 import { muniLocator, settlementLocator } from "./geo";
+import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 import { round2 } from "./dataset";
 import type {
   Column,
@@ -537,9 +538,10 @@ type AlertEventRow = {
 type AlertsFeed = { obshtina: string; events: AlertEventRow[] };
 
 // Sofia city's alert feed is keyed SFO_CITY in build_alerts (municipalities.json),
-// while resolvePlaceForData hands back the synthetic "SOF" obshtina.
+// while resolvePlaceForData hands back the synthetic "SOF" obshtina. Same fold as every
+// other consumer of the officials/frontend obshtina namespace — see obshtinaPlace.ts.
 const alertObshtina = (obshtina: string): string =>
-  obshtina === "SOF" ? "SFO_CITY" : obshtina;
+  canonicalObshtina(obshtina) ?? obshtina;
 
 const eventTypeLabel = (e: AlertEventRow, bg: boolean): string => {
   if (e.kind === "procurement") {

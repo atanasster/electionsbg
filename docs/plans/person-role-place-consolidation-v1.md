@@ -279,10 +279,32 @@ call it — do not duplicate it, and do not reorder `db:refresh`.
 **G2 — Sofia's two synthetic codes defeat the T4 dedupe.** `official_muni` writes
 `SFO_CITY` (75 roles) where `local` writes `SOF` for the same body. Keying the dedupe on
 `(role, place_code)` therefore leaves **35 Sofia people still double-rowed** — the exact
-defect T4 exists to fix. A documented translation already exists
-([candidate_link_join.ts:38](../../scripts/officials/candidate_link_join.ts)); reuse it, do
-not re-derive. `SFO_CITY` is also the **one code of 288** absent from
+defect T4 exists to fix. `SFO_CITY` is also the **one code of 288** absent from
 `data/municipalities.json` (287/288 resolve), so it needs an explicit `place_label`.
+
+**Direction corrected during T1 implementation: canonicalise `SOF` → `SFO_CITY`, not the
+reverse.** `SFO_CITY` is the code the **frontend** speaks —
+`municipal_officials_table` is queried with it
+([useMunicipalOfficials.tsx:173](../../src/data/officials/useMunicipalOfficials.tsx)), and
+`councilObshtinaMap` / My-Area key on it. Rewriting it to `SOF` would have broken the
+Sofia municipal roster outright. Sofia's 24 районa (`S2***`) are **not** collapsed: both
+sources already agree on them and a кмет на район holds that район's own office.
+Implemented as `canonicalObshtina()` in [src/lib/obshtinaPlace.ts](../../src/lib/obshtinaPlace.ts),
+consumed by the resolver and by `ai/tools/profile.ts`. **Measured after T1: the typed
+codes now agree on 3,674 people, so T4's `(role, place_code)` dedupe will collapse them
+— it would have collapsed 0 before.** T1 itself changes no consumer; the offices tile and
+`102` still key on the legacy `place` until T4.
+
+The **reverse** fold (`SFO_CITY` → `SOF`, the shard-tree namespace) is a different
+question and is still hand-rolled in `candidate_link_join.ts`, `build_alerts.ts` and
+`councilObshtinaMap.ts`. Retiring those onto a `shardObshtina()` export is worth doing but
+is a behaviour-bearing change across four shard trees — not part of this plan.
+
+The 21 that remain are not this bug: they are genuine two-seat holders (one councillor
+sits in both Перник and Радомир) plus an **upstream ambiguous-name join defect** —
+`municipality_join.ts` resolves the two different municipalities named *Бяла* (Русе
+`RSE04` vs Варна `VAR05`) inconsistently against the local shards. Out of scope here;
+the typed place correctly keeps distinct codes apart.
 
 **G3 — an existing data test asserts on the dropped column.**
 [official_roster_obshtina.data.test.ts:72-120](../../scripts/db/tests/official_roster_obshtina.data.test.ts)

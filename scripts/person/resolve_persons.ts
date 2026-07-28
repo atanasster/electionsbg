@@ -51,6 +51,8 @@ import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
+import { obshtinaLabels, type PlaceLabel } from "./places";
+import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -72,7 +74,15 @@ type Raw = {
   family: string;
   nameParts: 2 | 3;
   ambiguous: boolean;
-  place: string | null; // for person_role display
+  place: string | null; // legacy untyped display column — dropped in plan T4
+  // The TYPED place (migration 115): which namespace, the canonical id in it, and the
+  // display strings. `placeKind` is NULL exactly when `placeCode` is (DB CHECK), so a
+  // source with no place for a given row writes all four as NULL rather than a
+  // half-filled state.
+  placeKind: "mir" | "obshtina" | "judicial" | null;
+  placeCode: string | null;
+  placeLabel: string | null;
+  placeLabelEn: string | null;
   // Matching corroborants (kept SEPARATE from `place` display — a magistrate's court
   // is a display place but not a reliable cross-person corroborant).
   cParty: string | null;
@@ -178,6 +188,43 @@ function buildPartyNameMap(): Map<string, string> {
   return m;
 }
 
+// The four typed-place fields, as one unit — every source either fills all of them or
+// none (migration 115 enforces kind-iff-code).
+type TypedPlace = Pick<
+  Raw,
+  "placeKind" | "placeCode" | "placeLabel" | "placeLabelEn"
+>;
+
+const NO_PLACE: TypedPlace = {
+  placeKind: null,
+  placeCode: null,
+  placeLabel: null,
+  placeLabelEn: null,
+};
+
+// Build the typed obshtina place for a source-native code. Canonicalises Sofia's
+// city-wide synonym (`SOF` → `SFO_CITY`) so the officials roster and the local-election
+// shards agree on ONE code for the Столична община — without which the /person offices
+// tile lists a Sofia councillor's single seat twice.
+//
+// Module scope, not a closure inside collect(): T2 adds magistrate places ABOVE the
+// point where the closure used to be declared, and a helper only some sources can see is
+// a footgun rather than a convenience.
+const obshtinaPlaceFor = (
+  labels: Map<string, PlaceLabel>,
+  raw: string | null | undefined,
+): TypedPlace => {
+  const code = canonicalObshtina(raw);
+  if (!code) return NO_PLACE;
+  const label = labels.get(code) ?? null;
+  return {
+    placeKind: "obshtina",
+    placeCode: code,
+    placeLabel: label?.bg ?? null,
+    placeLabelEn: label?.en ?? null,
+  };
+};
+
 // Build the parse-derived + defaulted fields shared by every source, so each source
 // only spells out what differs (id/source/ref/role + any hardId/corroborants).
 const fields = (
@@ -193,6 +240,10 @@ const fields = (
   nameParts: p.nameParts,
   ambiguous: p.ambiguous,
   place: null,
+  placeKind: null,
+  placeCode: null,
+  placeLabel: null,
+  placeLabelEn: null,
   cParty: null,
   cPlace: null,
   cBirth: null,
@@ -373,6 +424,11 @@ async function collect(): Promise<Raw[]> {
       { place: m.court, uics: magEik.get(m.name) ?? [] },
     );
 
+  // Obshtina code → display name, for the typed place columns (migration 115).
+  const obshtinaLabel = obshtinaLabels();
+  const obshtinaPlace = (raw: string | null | undefined): TypedPlace =>
+    obshtinaPlaceFor(obshtinaLabel, raw);
+
   const offs = await allRows<{
     name: string;
     slug: string;
@@ -393,11 +449,12 @@ async function collect(): Promise<Raw[]> {
         role: o.role ?? "official",
       },
       {
-        // The obshtina code for a municipal official (NULL elsewhere). person_role.place
-        // is the display/scope column, and leaving it NULL is what stopped the municipal
-        // roster from being servable out of Postgres — the code exists nowhere else in
-        // the DB. Set here rather than derived downstream: only the roster knows it.
+        // The obshtina code for a municipal official (NULL elsewhere). Leaving it NULL
+        // is what stopped the municipal roster from being servable out of Postgres —
+        // the code exists nowhere else in the DB. Set here rather than derived
+        // downstream: only the roster knows it.
         place: o.obshtina ?? null,
+        ...obshtinaPlace(o.obshtina),
         uics: refEik.get(`off:${o.slug}`) ?? [],
         regId: regId.get(o.slug) ?? null,
         cParty: partyOffice.get(o.slug) ?? null,
@@ -734,7 +791,12 @@ async function collect(): Promise<Raw[]> {
           ref: `${d.cycle}:${d.obshtinaCode}:mayor`,
           role: "mayor",
         },
-        { place, cParty: mayor.primaryCanonicalId ?? null, cPlace: place },
+        {
+          place,
+          ...obshtinaPlace(d.obshtinaCode),
+          cParty: mayor.primaryCanonicalId ?? null,
+          cPlace: place,
+        },
       );
     for (const party of councilIsReplica || !Array.isArray(d.council)
       ? []
@@ -751,6 +813,7 @@ async function collect(): Promise<Raw[]> {
             },
             {
               place,
+              ...obshtinaPlace(d.obshtinaCode),
               cParty: party.primaryCanonicalId ?? null,
               cPlace: place,
             },
@@ -840,6 +903,11 @@ const SCHEMA_DIR = path.resolve(
 );
 const SCHEMA_FILES = [
   "081_person_identity.sql",
+  // The typed place columns (115). Sits between 081 (which creates person_role) and
+  // 082, whose serving functions WILL read the new columns in plan T4 — a LANGUAGE sql
+  // body is validated at CREATE time, so the wrong order would fail loudly then. The
+  // ordering is locked in now so that step is a one-line change.
+  "115_person_role_place.sql",
   "085_person_elections.sql",
   "082_person_api.sql",
   "083_person_review.sql",
@@ -1282,6 +1350,10 @@ async function main(): Promise<void> {
         // rather than take the resolver's word for it.
         m.source === "mp" ? null : m.raw.cParty,
         m.raw.place,
+        m.raw.placeKind,
+        m.raw.placeCode,
+        m.raw.placeLabel,
+        m.raw.placeLabelEn,
         null, // start_date
         null, // end_date
         b.confidence,
@@ -1367,6 +1439,10 @@ async function main(): Promise<void> {
         "role",
         "party",
         "place",
+        "place_kind",
+        "place_code",
+        "place_label",
+        "place_label_en",
         "start_date",
         "end_date",
         "confidence",
