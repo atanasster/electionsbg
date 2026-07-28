@@ -1892,7 +1892,6 @@ export type ProcurementBySettlementFile = {
   byYear: ProcurementByYear[];
 };
 
-
 /** Per-contractor rollup at data/procurement/contractors/<EIK>.json. */
 export type ProcurementContractorRollup = {
   eik: string;
