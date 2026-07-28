@@ -20,6 +20,16 @@ assertion would throw on valid data (T5.1); §0c's parts sum *exactly*, so the �
 gross, not consolidated (§0c, T4); `/pensions` holds a second, 2024-BGN copy of the very
 constants T3 sources (**T3.4**); and the three new artifacts need `/data`-map entries.
 
+**Second audit pass, 2026-07-28 (post-addendum).** The Addendum records the operator's
+`MOD_BY_YEAR[2026] = 2300` decision but was not itself an ingest — no data or code changed.
+Three further findings, all folded in:
+
+| # | finding | lands in |
+|---|---|---|
+| 5 | **T1 ships nothing without a `bucket:sync`.** `data/budget` is bucket-served in production via `dataUrl()`; A3 said "committed JSON only", which is true for T2/T3 and false for T1 | **T1.4a**, **A4** |
+| 6 | **Nothing detects the 2112 → 2300 repricing.** `__smoke_mod_identity.ts` reads `YEAR = 2024` and never touches the 2026 key; the Vitest `resolveMod` cases are written relative to the map, so they follow the change instead of catching it | A2.3, A2.4 |
+| 7 | **`capBaselineEur` is a latent coupling, not an absent one.** `baselineYear` is `revenueYears[last]`, so it is 2025 today and becomes 2026 when the FY2026 КФП completes — repricing the incidence model months later, disconnected from this change | A2.2 |
+
 Builds on / does not duplicate:
 
 - The `dv_laws` watcher + `FUND_BUDGET_LAWS` catalogue landed in `db3541f3f9` — this plan
@@ -195,8 +205,13 @@ and a silently absorbed nine-figure error on a live page.
 **T1.4** — `npx tsx scripts/budget/nzok/__write_budget.ts`, confirm the reconciliation echo
 prints drift €0 for both years.
 
+**T1.4a** — `npm run bucket:sync:paths -- budget`. **Without this T1 corrects the number only
+on localhost** — `data/budget` is bucket-served in production. See A4 for why; do not treat it
+as optional or as a follow-up.
+
 **Acceptance:** `/awarder/121858220` shows €5.26bn labelled "закон", composition sums to the
-headline, no component edited.
+headline, no component edited — verified **on the deployed site**, not just in `npm run dev`,
+since that is the only way to tell T1.4a actually ran.
 
 **Tests:** extend the generator's existing reconciliation echo into a real assertion, or add
 `scripts/budget/nzok/__smoke_budget.ts` in the `__smoke_*` convention asserting (a) FY2026
@@ -595,16 +610,39 @@ assuming the opposite. An implementer must handle all of this in the same change
    year" is void.** Replace it with an explicit expected-diff: exactly one key moves,
    `2026: 2112 → 2300`.
 2. **[`run_policy_baseline.ts:791,836`](../../scripts/budget/run_policy_baseline.ts) bakes
-   `capBaselineEur` into `policy_baseline.json`.** If `baselineYear` resolves to 2026 the
-   baked baseline reprices; if it resolves to 2025 it does not. Determine which **before**
-   editing, and if it does move, re-run the generator and re-check its self-validating drift
-   gate (>12% VAT-calibration spread) in the same pass.
-3. **The three `__smoke_*` gates are tsx scripts outside `test:unit`** — nothing in CI catches
-   a repricing here. `__smoke_mod_identity.ts` is the one that will actually fail:
-   it asserts against `MOD_BY_YEAR[YEAR]`. Re-run all three by hand.
-4. **`src/lib/bgTax.test.ts:50`** asserts `resolveMod(2025) = {mod: 2112, exact: true}` — that
-   one still passes; the case that changes is any test snapping to the latest year
-   (`resolveMod(2030)`, `resolveMod(null)`), which now yields 2300.
+   `capBaselineEur` into `policy_baseline.json`.** *(Resolved 2026-07-28 — the answer is
+   "both, in sequence".)* Today it does **not** reprice:
+   [`policy_baseline.json`](../../data/budget/derived/policy_baseline.json) carries
+   `baselineYear: 2025` and `earnings.capEur: 2112`.
+
+   But [`:737`](../../scripts/budget/run_policy_baseline.ts) is
+   `const baseline = revenueYears[revenueYears.length - 1]` — the latest *complete* КФП year,
+   resolved at runtime and not pinned. When FY2026 completes and `budget:ingest` runs,
+   `baselineYear` becomes 2026, `capBaselineEur` silently becomes 2300, and the incidence
+   model reprices **months after this change ships, with nothing in the history connecting
+   the two**. A latent coupling, not an absent one. Pin `capBaselineEur` explicitly, or add
+   it to the generator's self-validating drift gate ([`:887`](../../scripts/budget/run_policy_baseline.ts),
+   the >12% VAT-calibration spread — that gate does exist and is the right place).
+3. **Nothing currently fails — that is the problem.** *(Corrected 2026-07-28; the list below
+   replaces the earlier claim that `__smoke_mod_identity.ts` would catch this.)* The `__smoke_*`
+   gates are tsx scripts outside `test:unit`, so CI sees none of them — and of the three, two
+   never read the 2026 key at all:
+
+   | gate | reads | affected? |
+   |---|---|---|
+   | [`__smoke_mod_identity.ts`](../../scripts/budget/__smoke_mod_identity.ts) | `const YEAR = 2024` (`:35`), plus `MOD_BY_YEAR[2024]`/`[2025]` (`:92-93`) | **no** — it never touches 2026 |
+   | [`__smoke_earnings.ts:88`](../../scripts/budget/__smoke_earnings.ts) | `MOD_BY_YEAR[2025]` | **no** |
+   | [`__smoke_behavioral.ts:99`](../../scripts/budget/__smoke_behavioral.ts) | `resolveMod(null)` → 2300 | **yes** — the only affected script gate |
+
+4. **The Vitest suite keeps passing too.** All four `resolveMod` cases in `bgTax.test.ts` are
+   written *relative to the map* — `MOD_BY_YEAR[latest]` (`:38`), `MOD_BY_YEAR[2026]` (`:62`)
+   — so they follow the change by construction rather than detecting it. The only literal
+   assertions are `:50-52` (2025 / 2018 / 2022), all untouched.
+
+   **So the 2112 → 2300 repricing is invisible to every gate, in CI and out.** A2 is a list of
+   consequences with no detector in it. Add one in the same change: a literal pin
+   `expect(MOD_BY_YEAR[2026]).toBe(2300)` **and** an assertion on `resolveMod(null).mod`,
+   since that is the exact value both production call sites read.
 5. **The T2.2 permalink hazard becomes immediate rather than dated.** The plan's mitigation
    was "no wall-clock default, so the slider window does not shift on 1 Aug". With the scalar
    itself at 2300, `currentCap` moves €188 **on deploy** — so `modMin`/`modMax`
@@ -627,4 +665,31 @@ assuming the opposite. An implementer must handle all of this in the same change
 - **No `fetch_sources.ts` catalogue edit.** Confirmed against the ДВ RSS: брой 68 has no
   ЗДБРБ, so the `LAW_DV_MATERIALS` non-goal is intact and the two 2026 rows remain
   `INTERIM_BUDGET_LAWS`.
-- **No `bucket:sync` / Cloud SQL step.** T1–T3 are code and committed JSON only.
+- ~~**No `bucket:sync` / Cloud SQL step.** T1–T3 are code and committed JSON only.~~
+  **WRONG — corrected 2026-07-28. See A4.**
+
+### A4. T1 needs a `bucket:sync` or it ships nothing
+
+A3's original third bullet said T1–T3 are "code and committed JSON only". That is true for
+T2/T3 — `bgTax.ts` is bundled into the app — and **false for T1**.
+
+`data/budget` is a bucket-synced subtree: it is the worked example in the header of
+[`bucket_sync_paths.ts`](../../scripts/bucket_sync_paths.ts) (`npm run bucket:sync:paths --
+prices myarea budget`), measured there at 63 s. And
+[`useBudget.tsx:92`](../../src/data/budget/useBudget.tsx) fetches through `dataUrl()`, which
+in production resolves against `VITE_DATA_BASE_URL` — the CDN-fronted GCS bucket, **not** the
+Firebase deploy. `data/` is mounted at the dev root by Vite's `serve-data-dir` plugin, which
+is why the generator's header comment describes the dev path and says nothing about prod.
+
+So committing the corrected `budget.json` changes nothing a visitor sees. Add to T1, after
+T1.4 and before T1.5:
+
+```bash
+npm run bucket:sync:paths -- budget
+```
+
+**This is the whole point of T1.** The task exists to correct a live €281.3M overstatement;
+without the sync it corrects it only on localhost. Treat the sync as part of the acceptance
+criterion, not as a follow-up — and note that a 63 s sync of the whole `budget` subtree also
+republishes anything else uncommitted-but-generated under `data/budget/`, so run it from a
+clean tree.
