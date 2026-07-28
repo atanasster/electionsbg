@@ -77,20 +77,30 @@ CREATE TABLE IF NOT EXISTS procurement_ngo_foreign_link (
   eur       numeric             -- total foreign funding to the NGO
 );
 
-DROP FUNCTION IF EXISTS procurement_risk_indexes();
-CREATE OR REPLACE FUNCTION procurement_risk_indexes()
-RETURNS jsonb LANGUAGE sql STABLE AS $$
-WITH c AS (
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Shared risk derivations, as VIEWS.
+--
+-- These were inline CTEs inside procurement_risk_indexes(). They are now views
+-- because a SECOND consumer needs exactly the same numbers: the per-contract
+-- risk cache (112) that backs the sortable/filterable risk column. Two
+-- hand-maintained copies of "what counts as a concentrated pair" would drift,
+-- and the drift would be invisible — the browser column and the contract page
+-- would quietly disagree. One definition, two readers.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- tag='contract' base (excludes amendments, which carry their own rows).
+CREATE OR REPLACE VIEW risk_contract_base AS
   SELECT awarder_eik, awarder_name, contractor_eik, contractor_name,
          amount_eur, cpv, number_of_tenderers
-  FROM contracts WHERE tag = 'contract'
-),
-awtot AS (
-  SELECT awarder_eik, SUM(amount_eur) AS total
-  FROM c GROUP BY awarder_eik
-  HAVING SUM(amount_eur) >= 100000
-),
-pairs AS (
+  FROM contracts WHERE tag = 'contract';
+
+-- Buyer→supplier pairs where the supplier holds >=30% of a >=EUR100k buyer's spend.
+CREATE OR REPLACE VIEW risk_pair_concentration AS
+  WITH awtot AS (
+    SELECT awarder_eik, SUM(amount_eur) AS total
+    FROM risk_contract_base GROUP BY awarder_eik
+    HAVING SUM(amount_eur) >= 100000
+  )
   -- COLLATE "C" pins MIN() to byte order: the local Docker and Cloud SQL
   -- glibc builds sort quotes/hyphens differently under the same en_US.utf8
   -- name, so an unpinned MIN picks different name variants per instance.
@@ -98,42 +108,42 @@ pairs AS (
          c.contractor_eik, MIN(c.contractor_name COLLATE "C") AS contractor_name,
          SUM(c.amount_eur) AS pair_total, COUNT(*)::int AS n,
          awtot.total AS awarder_total
-  FROM c
+  FROM risk_contract_base c
   JOIN awtot ON awtot.awarder_eik = c.awarder_eik
   WHERE c.contractor_eik IS NOT NULL AND c.contractor_eik <> ''
   GROUP BY c.awarder_eik, c.contractor_eik, awtot.total
-  HAVING SUM(c.amount_eur) / NULLIF(awtot.total, 0) >= 0.3
-),
-cpvdiv AS (
+  HAVING SUM(c.amount_eur) / NULLIF(awtot.total, 0) >= 0.3;
+
+CREATE OR REPLACE VIEW risk_cpv_division AS
   SELECT left(cpv, 2) AS division,
          COUNT(*)::int AS contract_count,
          (COUNT(*) FILTER (WHERE number_of_tenderers IS NOT NULL))::int AS with_bid_data,
          (COUNT(*) FILTER (WHERE number_of_tenderers = 1))::int AS single_bid
-  FROM c
+  FROM risk_contract_base
   WHERE cpv IS NOT NULL AND left(cpv, 2) ~ '^\d{2}$'
-  GROUP BY left(cpv, 2)
-),
+  GROUP BY left(cpv, 2);
+
 -- Typical bidder count per 5-digit CPV prefix — the baseline the graded
 -- weak-competition flag reads ("materially fewer bidders than THIS market's
 -- norm"). Only competitive markets (median >= 3, >= 30 rows with a bid count)
 -- can trigger it, so we emit only those — keeps the payload small and the flag
 -- conservative. Validated against the single-bidding price premium: below-norm
 -- multi-bidder awards land ~13pp closer to the buyer's estimate.
-cpv5med AS (
+CREATE OR REPLACE VIEW risk_cpv_median AS
   SELECT left(cpv, 5) AS cpv5,
          percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) AS med,
          COUNT(*) AS n
-  FROM c
+  FROM risk_contract_base
   WHERE cpv IS NOT NULL AND number_of_tenderers IS NOT NULL
   GROUP BY left(cpv, 5)
   HAVING COUNT(*) >= 30
-     AND percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) >= 3
-),
+     AND percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) >= 3;
+
 -- Split-purchase PATTERN (threshold-hugging). A (buyer, supplier, 2-digit CPV,
 -- calendar year) group where EVERY contract is a direct award (no competition),
 -- EACH is at/under the ЗОП чл.20 ал.4 direct-award ceiling, and together they
 -- sum OVER it — i.e. money that, aggregated, would have required a competitive
--- procedure was instead placed as ≥2 sub-threshold direct awards.
+-- procedure was instead placed as >=2 sub-threshold direct awards.
 -- ⚠️ FRAMING: this is a PATTERN CONSISTENT WITH splitting, NOT a proven breach —
 -- чл.20 ал.4 permits repeated direct awards for genuinely separate recurring
 -- needs; only чл.21 bars slicing ONE need, which the data cannot distinguish.
@@ -141,8 +151,8 @@ cpv5med AS (
 -- 2024-01-01): works (CPV 45) 25 565 ≤2023 / 40 903 2024+; goods & services
 -- 15 339 ≤2023 / 25 565 2024+. See scripts/procurement/tender_base_rates.sql
 -- and docs/plans/procurement-risk-v2.md §7.4.
-split_src AS (
-  SELECT awarder_eik, awarder_name, contractor_eik, contractor_name,
+CREATE OR REPLACE VIEW risk_split_source AS
+  SELECT key, awarder_eik, awarder_name, contractor_eik, contractor_name,
          left(cpv, 2) AS cpv_div,
          substr(date, 1, 4) AS yr,
          amount_eur,
@@ -158,20 +168,30 @@ split_src AS (
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
     AND awarder_eik IS NOT NULL AND amount_eur > 0
     AND cpv IS NOT NULL AND left(cpv, 2) ~ '^\d{2}$'
-    AND date ~ '^\d{4}-\d\d-\d\d'
-),
-splits AS (
+    AND date ~ '^\d{4}-\d\d-\d\d';
+
+CREATE OR REPLACE VIEW risk_split_group AS
   SELECT awarder_eik, MIN(awarder_name COLLATE "C") AS awarder_name,
          contractor_eik, MIN(contractor_name COLLATE "C") AS contractor_name,
          cpv_div, yr,
          COUNT(*)::int AS n, SUM(amount_eur) AS total, MIN(ceiling) AS ceiling
-  FROM split_src
+  FROM risk_split_source
   GROUP BY awarder_eik, contractor_eik, cpv_div, yr
   HAVING COUNT(*) >= 2
      AND bool_and(is_direct)                 -- every award is direct (no competition)
      AND bool_and(amount_eur <= ceiling)     -- each individually sub-threshold
-     AND SUM(amount_eur) > MIN(ceiling)      -- but together over the ceiling
-)
+     AND SUM(amount_eur) > MIN(ceiling);     -- but together over the ceiling
+
+GRANT SELECT ON risk_contract_base, risk_pair_concentration, risk_cpv_division,
+                risk_cpv_median, risk_split_source, risk_split_group TO app_readonly;
+
+DROP FUNCTION IF EXISTS procurement_risk_indexes();
+CREATE OR REPLACE FUNCTION procurement_risk_indexes()
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+WITH pairs   AS (SELECT * FROM risk_pair_concentration),
+     cpvdiv  AS (SELECT * FROM risk_cpv_division),
+     cpv5med AS (SELECT * FROM risk_cpv_median),
+     splits  AS (SELECT * FROM risk_split_group)
 SELECT jsonb_build_object(
   'debarred', jsonb_build_object(
     'entries', (

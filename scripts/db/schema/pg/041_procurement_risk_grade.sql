@@ -42,11 +42,20 @@ $$;
 -- A method string is a "direct award" (no open advert) — SQL mirror of
 -- procedureBucket()==='direct': OCDS limited/direct, an explicit rationale, or a
 -- пряко / без обявление / без публикуване / договаряне без phrase.
+-- ⚠️ The `открит` guard mirrors procedureBucket()'s ORDERING, which tests
+-- `includes("открит") -> open` BEFORE the без-обявление arm. Without it a
+-- method like "Открита процедура без предварително обявление" reads `open` in
+-- TS and `direct` here — the two definitions would disagree on the same row.
+-- Measured impact on the current corpus: 0 contracts match both patterns, so
+-- this changes no grade today; it exists so the definitions stay provably
+-- identical as the method vocabulary drifts. An explicit rationale still wins,
+-- exactly as in TS (directAward = bucket==='direct' || !!rationale).
 CREATE OR REPLACE FUNCTION is_direct_award(p_method text, p_rationale text)
 RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
   SELECT p_rationale IS NOT NULL AND p_rationale <> ''
       OR lower(coalesce(p_method,'')) IN ('limited','direct')
-      OR lower(coalesce(p_method,'')) ~ 'пряко|без обявление|без публикуване|договаряне без';
+      OR (lower(coalesce(p_method,'')) !~ 'открит'
+          AND lower(coalesce(p_method,'')) ~ 'пряко|без обявление|без публикуване|договаряне без');
 $$;
 
 -- Per-buyer КЗК merits-appeal rollup — the ONLY authoritative (regulator-ruled)
