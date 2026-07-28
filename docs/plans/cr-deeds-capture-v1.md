@@ -158,7 +158,7 @@ rows flow through with **no schema change** to the load path.
 
 | Tier | Target set | Count | Wall-clock |
 |---|---|---|---|
-| 0 | Re-fetch the ~26.7k contractors (raw was discarded) + finish the 6.3k tail | ~26.7k | ~2 days |
+| 0 | Re-fetch the ~26.7k contractors (raw was discarded — only the derived founding date was kept) + the ~10,953 never-fetched tail | ~26.7k | ~2 days |
 | 1 | Missing-owner ∩ (contractor ∪ EU-funds ∪ subsidy ∪ person-bridged) | ~30k unique | ~2 days |
 | 2 | All EOOD/ООД missing owner/partner | ~478k | ~4 weeks |
 | 3 | Full corpus (durable-store completeness) | ~1M+ | months, background |
