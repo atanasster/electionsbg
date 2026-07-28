@@ -12,7 +12,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withClient, withTx, end } from "./lib/pg";
+import { getPool, exec, allRows, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
@@ -518,6 +518,24 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
+  // The PER-SCOPE by-settlement precomputes (119). They are created and refreshed by
+  // db:load:procurement-scopes:pg — which runs later in db:refresh, because they read
+  // place_dim (117) and procurement_scopes (118), both loaded after this script. Refreshed
+  // AGAIN here, guarded on existence, so a contracts-only reload cannot leave the
+  // by-settlement page serving the previous corpus while every other view has moved on.
+  for (const mv of [
+    "procurement_settlement_rank",
+    "procurement_geo_payloads",
+  ]) {
+    const [{ present }] = await allRows<{ present: boolean }>(
+      `SELECT to_regclass($1) IS NOT NULL AS present`,
+      [mv],
+    );
+    if (!present) continue;
+    // CONCURRENTLY: both are on the serving path, and a plain REFRESH would hold an
+    // AccessExclusiveLock for the whole recompute.
+    await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
+  }
   // Cross-corpus leaderboard cache (077). Both source relations exist (015/016
   // applied above), so this refresh always succeeds; the intersection is empty
   // until funds are loaded, at which point load_funds_pg re-refreshes it. Must

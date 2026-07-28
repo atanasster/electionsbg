@@ -32,7 +32,45 @@ const SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/118_procurement_scopes.sql",
 );
+// The per-scope precomputes that ITERATE those rows. Applied here rather than in load_pg
+// because they read place_dim (117) and procurement_scopes (118), both of which are loaded
+// after it — building them any earlier would populate them from empty inputs.
+const SCOPED = path.join(
+  ROOT,
+  "scripts/db/schema/pg/119_procurement_settlement_scoped.sql",
+);
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
+
+const SCOPED_MATVIEWS = [
+  "procurement_settlement_rank",
+  "procurement_geo_payloads",
+] as const;
+
+/** REFRESH the scoped precomputes, CONCURRENTLY where possible.
+ *
+ *  CONCURRENTLY because both sit on the /procurement/by-settlement serving path and a plain
+ *  REFRESH holds an AccessExclusiveLock for the whole ~12 s recompute — it would stall the
+ *  page rather than merely delay its data. It requires a populated matview and a unique
+ *  index (119 creates both), so the first refresh after a CREATE falls back to the plain
+ *  form. Cannot run inside a transaction, hence exec() rather than withTx(). */
+export const refreshScopedSettlement = async (): Promise<void> => {
+  for (const mv of SCOPED_MATVIEWS) {
+    try {
+      await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
+    } catch (err) {
+      // ONLY 0A000 (feature_not_supported) — Postgres raises it for "CONCURRENTLY cannot be
+      // used when the materialized view is not populated". 119 creates both WITH NO DATA,
+      // so the first refresh after an apply always lands here and must fall back to the
+      // plain form. (0A000, not the more intuitive 55000: verified against the server.)
+      //
+      // Narrow on purpose: a bare catch would swallow a lock timeout, a permissions error
+      // or a unique violation and then silently take the very AccessExclusiveLock the
+      // CONCURRENTLY form exists to avoid — turning a loud failure into a stalled page.
+      if ((err as { code?: string })?.code !== "0A000") throw err;
+      await exec(`REFRESH MATERIALIZED VIEW ${mv}`);
+    }
+  }
+};
 
 export const readScopeWindows = (nowYear: number): ScopeWindow[] => {
   const elections = JSON.parse(
@@ -67,6 +105,13 @@ const main = async (): Promise<void> => {
       [windows.map((w) => w.key)],
     );
   });
+
+  // Rebuild the per-scope precomputes against the window set just written. Applied AND
+  // refreshed here so "the scopes changed" and "the precomputes match the scopes" can never
+  // be two separate states — a new election otherwise leaves its own scope with no rows,
+  // which reads as "this parliament awarded nothing" rather than as staleness.
+  await exec(readFileSync(SCOPED, "utf8"));
+  await refreshScopedSettlement();
 
   console.log(
     `procurement_scopes: ${windows.length} window(s) ` +

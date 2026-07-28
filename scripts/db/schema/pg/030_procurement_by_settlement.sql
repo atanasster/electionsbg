@@ -12,9 +12,15 @@
 SET check_function_bodies = off;
 
 -- Landing index: every settlement with ≥1 local-tier contract + the national card.
--- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033.
-DROP MATERIALIZED VIEW IF EXISTS procurement_by_settlement_cache;
-DROP FUNCTION IF EXISTS procurement_by_settlement(text, text);
+--
+-- NOT dropped before the CREATE, deliberately. This function now has THREE dependent
+-- matviews — procurement_by_settlement_cache (below) plus procurement_settlement_rank and
+-- procurement_geo_payloads (119) — and DROP FUNCTION fails outright once anything depends
+-- on it ("cannot drop function … because other objects depend on it"), which would break
+-- every db:load:pg run since this file is re-applied on each one. CREATE OR REPLACE is
+-- sufficient while the SIGNATURE and RETURN TYPE are unchanged, and it leaves the dependents
+-- pointing at the new body. If either ever does change, drop the three dependents in the
+-- same statement here and let their own migrations recreate them.
 CREATE OR REPLACE FUNCTION procurement_by_settlement(
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL
