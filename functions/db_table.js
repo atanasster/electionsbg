@@ -110,6 +110,17 @@ const REGISTRY = {
       tender_period_end_date: { type: "date" },
       bundle_uuid: { type: "text" },
       source_url: { type: "text" },
+      // Per-contract risk index (112 → contracts_list). Declared `number`, not
+      // `text`: the facet NULL-guard branches on type. The grade takes
+      // filter:"in" so it is multi-select AND facetable in one declaration;
+      // sorting it lexically is honest here because A<B<…<F is the risk order
+      // (unlike `procedure`, which every screen leaves unsortable for that reason).
+      risk_cri: { type: "number", sort: true, filter: "range" },
+      risk_grade: { type: "text", sort: true, filter: "in" },
+      risk_fired: { type: "int" },
+      risk_available: { type: "int" },
+      risk_fired_mask: { type: "int" },
+      risk_available_mask: { type: "int" },
     },
     // Projection returned to the client (camelCased). ProcurementContract-shaped
     // so the client can reuse the risk scorer + row components.
@@ -147,6 +158,12 @@ const REGISTRY = {
       "consortium_role",
       "consortium_eik",
       "consortium_full_eur",
+      "risk_cri",
+      "risk_grade",
+      "risk_fired",
+      "risk_available",
+      "risk_fired_mask",
+      "risk_available_mask",
     ],
     defaultSort: [["date", "desc"]],
     aggregates: [{ fn: "count" }, { fn: "sum", col: "amount_eur" }],

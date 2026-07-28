@@ -117,30 +117,50 @@ $$;
 -- both loaders (FN_FILE), so it exists before either caller. plpgsql bodies are
 -- validation-deferred, so referencing the appeals matviews here is fine even on a
 -- contracts-/appeals-less DB; the guards adapt at call time.
+-- Composed from optional fragments rather than one EXECUTE per combination:
+-- there are now two independent optional dependencies (the КЗК appeal matviews
+-- from 042, the risk cache from 112), and enumerating branches for each pair
+-- was already the shape that invites "whichever runs last wins" drift.
 CREATE OR REPLACE FUNCTION rebuild_contracts_list() RETURNS void AS $fn$
+DECLARE
+  cols text := '';
+  joins text := '';
 BEGIN
   IF to_regclass('public.contracts') IS NULL THEN
     RETURN;
   END IF;
-  DROP VIEW IF EXISTS contracts_list;
+
   IF to_regclass('public.appealed_ocids') IS NOT NULL
      AND to_regclass('public.upheld_ocids') IS NOT NULL THEN
-    EXECUTE $v$
-      CREATE VIEW contracts_list AS
-        SELECT c.*,
-          (ao.ocid IS NOT NULL) AS has_appeal,
-          (uo.ocid IS NOT NULL) AS appeal_upheld
-        FROM contracts c
-        LEFT JOIN appealed_ocids ao ON ao.ocid = c.ocid
-        LEFT JOIN upheld_ocids uo ON uo.ocid = c.ocid
-    $v$;
+    cols := cols || ', (ao.ocid IS NOT NULL) AS has_appeal'
+                 || ', (uo.ocid IS NOT NULL) AS appeal_upheld';
+    joins := joins || ' LEFT JOIN appealed_ocids ao ON ao.ocid = c.ocid'
+                   || ' LEFT JOIN upheld_ocids uo ON uo.ocid = c.ocid';
   ELSE
-    EXECUTE $v$
-      CREATE VIEW contracts_list AS
-        SELECT c.*, false AS has_appeal, false AS appeal_upheld
-        FROM contracts c
-    $v$;
+    cols := cols || ', false AS has_appeal, false AS appeal_upheld';
   END IF;
+
+  -- Per-contract risk index (112). Exposed here because the table engine reads
+  -- contracts_list, never `contracts` — a column that is not on this view cannot
+  -- be sorted or filtered however well it is declared in the registry.
+  -- NULL (not 0) when the cache has not been built: an unscored contract is
+  -- unknown, not clean, and 0 would rank it as the safest row in the corpus.
+  IF to_regclass('public.contract_risk_cache') IS NOT NULL THEN
+    cols := cols || ', rk.cri AS risk_cri, rk.grade AS risk_grade'
+                 || ', rk.fired AS risk_fired, rk.available AS risk_available'
+                 || ', rk.available_mask AS risk_available_mask'
+                 || ', rk.fired_mask AS risk_fired_mask';
+    joins := joins || ' LEFT JOIN contract_risk_cache rk ON rk.key = c.key';
+  ELSE
+    cols := cols || ', NULL::int AS risk_cri, NULL::text AS risk_grade'
+                 || ', NULL::int AS risk_fired, NULL::int AS risk_available'
+                 || ', NULL::int AS risk_available_mask'
+                 || ', NULL::int AS risk_fired_mask';
+  END IF;
+
+  DROP VIEW IF EXISTS contracts_list;
+  EXECUTE 'CREATE VIEW contracts_list AS SELECT c.*' || cols
+       || ' FROM contracts c' || joins;
   EXECUTE 'GRANT SELECT ON contracts_list TO app_readonly';
 END;
 $fn$ LANGUAGE plpgsql;

@@ -282,3 +282,9 @@ BEGIN
   RETURN n;
 END;
 $fn$ LANGUAGE plpgsql;
+
+-- contracts_list is a `SELECT c.*` view whose column list freezes at creation,
+-- so it must be rebuilt now that the risk cache exists — otherwise the columns
+-- are invisible to the table engine no matter how they are declared in the
+-- registry. Migrations 042 and 050 rebuild it for the same reason.
+SELECT rebuild_contracts_list();

@@ -301,9 +301,11 @@ export const CompanyContractsDbScreen: FC<{
           ) : null,
       },
       {
-        id: "risk",
+        // id MUST match the registry column, not a display name: buildOrder
+        // silently drops an ORDER BY for an id it does not recognise, so a
+        // column called "risk" would look sortable and quietly do nothing.
+        id: "risk_cri",
         header: t("company_contract_risk") || "Flags",
-        enableSorting: false,
         // Bid count moved to its own column, so drop the weak-competition chip
         // here to avoid showing the same signal twice.
         cell: ({ row }) => (
