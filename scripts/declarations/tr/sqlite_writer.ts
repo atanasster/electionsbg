@@ -56,6 +56,10 @@ CREATE TABLE IF NOT EXISTS company_persons (
   field_ident    TEXT NOT NULL,
   added_at       TEXT,
   erased_at      TEXT,
+  -- Provenance: NULL for rows derived from the daily-filings feed, 'cr' for rows
+  -- projected from a full CR Deeds capture (project_cr_deeds.ts). The two coexist
+  -- additively — CR fills the pre-2021 owner gap without wiping the feed's history.
+  persons_source TEXT,
   PRIMARY KEY (uic, record_id, field_ident)
 );
 

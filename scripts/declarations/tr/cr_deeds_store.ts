@@ -183,6 +183,25 @@ export class CrDeedsStore {
     return gunzipSync(Buffer.from(row.raw_gz)).toString("utf8");
   }
 
+  /**
+   * Iterate every real capture (byte_len > 0 — skips the "no such company" rows)
+   * as (uic, body, httpStatus), one gunzip at a time so the projection over ~478k
+   * companies never holds them all in memory. The uic list is loaded up front;
+   * bodies stream. httpStatus is yielded so the founding-date fold can record the
+   * REAL status rather than assuming 200.
+   */
+  *captured(): Generator<{ uic: string; body: string; httpStatus: number }> {
+    const rows = this.db
+      .prepare(
+        `SELECT uic, http_status FROM cr_deeds WHERE byte_len > 0 ORDER BY uic`,
+      )
+      .all() as Array<{ uic: string; http_status: number }>;
+    for (const { uic, http_status } of rows) {
+      const body = this.getBody(uic);
+      if (body) yield { uic, body, httpStatus: http_status };
+    }
+  }
+
   stats(): CrDeedsStats {
     const c = this.db
       .prepare(
