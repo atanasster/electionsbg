@@ -26,11 +26,12 @@
 // They carry a NULL oblast_code and mir_code (canonOblast/MIR_SET reject the "32"
 // pseudo-oblast), and their count is pinned by the test.
 //
-// ORDER. Must run BEFORE db:resolve:persons — once the person-label join lands, its 082
-// serving functions will read this table for 'mir'/'obshtina' labels, and the procurement
-// matview will join it for settlement names. Nothing reads it yet; the ordering is set now
-// so it never has to move. db:refresh sequences it; the cloud side needs
-// `npm run db:load:place-dim:pg:cloud` run by hand, like every other loader.
+// ORDER. Must run BEFORE db:resolve:persons: 082_person_api.sql JOINs this table for the
+// 'mir'/'obshtina' label on every /person role, so the table has to be FILLED, not merely
+// created. resolve_persons applies 117 as CREATE TABLE IF NOT EXISTS, which means a
+// database that never ran this loader resolves and serves cleanly with an EMPTY dimension —
+// ~76.5k roles publish a null placeLabel, green locally and blank on prod. db:refresh
+// sequences it; the cloud side needs `npm run db:load:place-dim:pg:cloud` run by hand.
 //
 // Run: `npm run db:load:place-dim:pg` (local) / `:cloud` (Cloud SQL proxy).
 
@@ -241,9 +242,12 @@ const main = async (): Promise<void> => {
   const rows = buildPlaceDimRows(settlements, municipalities);
 
   await withTx(async (c) => {
-    // TRUNCATE holds an AccessExclusiveLock for the whole COPY. Safe here BECAUSE the
-    // table is small (~5.7k rows, well under a second); if it ever grows or this lands on
-    // a hot serving path, switch to the staging-swap pattern the contracts reload uses.
+    // TRUNCATE holds an AccessExclusiveLock for the whole COPY, and this table now sits on
+    // the /person serving path — so the lock blocks readers, not just writers. It stays
+    // acceptable ONLY because the table is tiny (~5.7k rows, well under a second) and the
+    // loader is operator-run, not part of a request. If it grows, gains a bigger namespace,
+    // or starts running on a schedule, switch to the staging-swap the contracts reload uses
+    // (COPY into place_dim_new, then DROP + RENAME in one transaction).
     await c.query("TRUNCATE place_dim");
     await copyRows(
       c,

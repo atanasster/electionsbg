@@ -1010,6 +1010,11 @@ const SCHEMA_FILES = [
   // loudly on a real error instead of being wrapped in a catch-all that cannot tell a
   // missing table from a broken query. db:load:judicial-bodies:pg fills them.
   "116_judicial_body.sql",
+  // The canonical place dimension (117). Applied for the same reason as 116, and it MUST
+  // precede 082, whose roles array now JOINs it for the mir/obshtina labels: a LANGUAGE
+  // sql body is validated at CREATE time, so the wrong order fails loudly right here.
+  // db:load:place-dim:pg fills it; an empty table only costs blank labels, never an error.
+  "117_place_dim.sql",
   "085_person_elections.sql",
   "082_person_api.sql",
   "083_person_review.sql",

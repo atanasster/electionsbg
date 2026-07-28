@@ -119,8 +119,9 @@ court, green locally and blank on prod. See
 `docs/plans/person-role-place-consolidation-v1.md` (T2).
 
 Same shape again, and also **BEFORE** `db:resolve:persons:cloud`: the canonical place
-dimension (migration 117) is the code→name dictionary `person_role` joins for its
-`mir` / `obshtina` labels and `/procurement/by-settlement` joins for settlement names.
+dimension (migration 117) is the code→name dictionary `082_person_api.sql` JOINs for the
+`mir` / `obshtina` label on every `/person` role, and `/procurement/by-settlement` joins
+for settlement names.
 
 ```bash
 npm run db:load:place-dim:pg:cloud
@@ -128,10 +129,14 @@ npm run db:load:place-dim:pg:cloud
 
 It is built from `data/settlements.json` + `data/municipalities.json` (labels via
 `scripts/person/places.ts`), so re-run it whenever either file changes. `db:refresh` runs
-the local equivalent automatically; the cloud side does not. Nothing reads the table yet —
-but once the person-label join lands and `person_role.place_label` drops, skipping this
-loader does not fail: the joins simply return no row, and every place badge on `/person`
-plus the localised settlement names publish blank on prod while local is green.
+the local equivalent automatically; the cloud side does not.
+
+**Skipping it does not fail — it blanks.** `db:resolve:persons` applies 117 with
+`CREATE TABLE IF NOT EXISTS`, so a cloud database that never ran this loader gets an EMPTY
+dimension, `person_by_slug()` still compiles, and all ~76.5k `mir`/`obshtina` roles publish
+`placeLabel: null` — green locally, blank on prod, and baked into the prerendered `/person`
+HTML. The ~2.7k judicial roles keep their label (they resolve via `judicial_body`), so the
+damage looks partial rather than total and is easy to miss.
 
 ## Testing
 

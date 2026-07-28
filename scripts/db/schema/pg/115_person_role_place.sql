@@ -19,18 +19,24 @@
 -- `place_code` is in, and `place_label`/`place_label_en` carry the display string so
 -- no consumer has to own a code→name dictionary.
 --
--- WHY THE LABEL IS STORED, not joined. Every existing code→name hook in the app
+-- WHY THE LABEL WAS STORED, not joined. Every existing code→name hook in the app
 -- (src/data/municipalities/*, src/data/regions/*) is keyed on the SELECTED ELECTION,
--- and a /person page is not election-scoped. Materialising the label here is a few
--- hundred KB across the table and removes the need for a person-page place
--- dictionary entirely.
+-- and a /person page is not election-scoped, so there was no dictionary to join.
+--
+-- SUPERSEDED: place_dim (117) is now that dictionary, and 082_person_api.sql JOINs it for
+-- the 'mir'/'obshtina' label (judicial_body supplies 'judicial'). place_label/place_label_en
+-- are still WRITTEN here but no longer read by the serving layer; they are retired in a
+-- later step, gated on a before/after label diff.
 --
 -- THE OLD COLUMN IS GONE (plan T4). It was left in place through T1..T3 so those tiers
 -- could land independently against a half-migrated database; every consumer now reads the
 -- typed columns:
 --   102_municipal_officials.sql  → place_code WHERE place_kind = 'obshtina'
---   082_person_api.sql           → placeKind / placeCode / placeLabel(_en) + judicialKind
---   PersonProfileScreen          → place_label, and dedupes seats on (role, place_code)
+--   082_person_api.sql           → placeKind / placeCode + judicialKind; the LABELS are
+--                                  joined from place_dim (117) / judicial_body (116),
+--                                  no longer read from place_label(_en)
+--   PersonProfileScreen          → the joined placeLabel, and dedupes seats on
+--                                  (role, place_code)
 -- The DROP is idempotent and runs on every db:resolve:persons, which is what applies this
 -- file — so a database that never had the column and one that still does both converge.
 

@@ -27,22 +27,38 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       WHERE r.person_id = pick.person_id
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
-    -- The TYPED place (migration 115) replaces the old free-text `place`: `placeKind`
-    -- says which namespace `placeCode` is in, and the labels are precomputed so the page
-    -- needs no code→name dictionary (every existing one is election-scoped, and a person
-    -- page is not). `judicialKind` rides along for magistrate roles only — it is what
-    -- retired src/lib/magistrateRole.ts, which sniffed Съдия/Прокурор/Следовател out of
-    -- the institution STRING client-side.
+    -- The TYPED place (migration 115): `placeKind` says which namespace `placeCode` is in.
+    --
+    -- The LABELS ARE JOINED, not read off person_role. 115 materialised place_label /
+    -- place_label_en because every code→name hook in the app is election-scoped and a
+    -- person page is not — place_dim (117) is that missing dictionary, so the columns
+    -- become a join and stop being a second copy that can drift from its producer.
+    --
+    -- The two dictionaries are MUTUALLY EXCLUSIVE by construction — pd matches only
+    -- 'mir'/'obshtina', jb only 'judicial' — so COALESCE picks the one that applies and
+    -- yields NULL for a placeless role, without a CASE over place_kind. name_bg is NOT
+    -- NULL in place_dim, so a joined row can never coalesce past itself.
+    --
+    -- placeLabelEn is pd-only ON PURPOSE: judicial_body carries no English name, and
+    -- person_role.place_label_en was already NULL for 100% of judicial roles — so this
+    -- reproduces the existing contract rather than regressing it. The page falls back to
+    -- the Bulgarian label (PersonProfileScreen.placeText).
+    --
+    -- `judicialKind` rides along for magistrate roles only — it is what retired
+    -- src/lib/magistrateRole.ts, which sniffed Съдия/Прокурор/Следовател out of the
+    -- institution STRING client-side.
     'roles', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'source', r.source, 'facet', s.facet, 'sourceLabel', s.label_bg,
         'role', r.role, 'ref', r.ref, 'confidence', r.confidence,
         'placeKind', r.place_kind, 'placeCode', r.place_code,
-        'placeLabel', r.place_label, 'placeLabelEn', r.place_label_en,
+        'placeLabel', COALESCE(pd.name_bg, jb.name), 'placeLabelEn', pd.name_en,
         'judicialKind', jb.kind
       ) ORDER BY s.facet, r.role)
       FROM person_role r
       JOIN person_source s ON s.key = r.source
+      LEFT JOIN place_dim pd
+        ON pd.kind = r.place_kind AND pd.code = r.place_code
       LEFT JOIN judicial_body jb
         ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
       WHERE r.person_id = pick.person_id

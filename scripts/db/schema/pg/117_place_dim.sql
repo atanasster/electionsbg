@@ -85,4 +85,12 @@ CREATE TABLE IF NOT EXISTS place_dim (
 CREATE INDEX IF NOT EXISTS idx_place_dim_obshtina
   ON place_dim (obshtina_code) WHERE obshtina_code IS NOT NULL;
 
-GRANT SELECT ON place_dim TO app_readonly;
+-- Guarded because this file is applied by db:resolve:persons (SCHEMA_FILES, before 082),
+-- which must still work on a cold bootstrap where roles_readonly.sql has never run — an
+-- unconditional GRANT to a missing role would abort the whole resolve.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
+    GRANT SELECT ON place_dim TO app_readonly;
+  END IF;
+END $$;
