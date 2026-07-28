@@ -472,3 +472,129 @@ Run Tier 0→1, reassess, then let Tier 2/3 grind unattended with checkpointing.
 - Whether to add the auxiliary endpoints behind `hasInstructions` / `hasAssignments` /
   `hasCompanyCasees` / `hasNotifications` to Layer 1 now (while we are paying the per-EIK
   rate limit anyway) or leave the design principle scoped to the deed body (§0a).
+- Which §8 UI slice ships with Tier 1. (Default: A2 + B1 + A3 — see §8's shortlist.)
+
+---
+
+## 8. UI integration — what the capture unlocks
+
+Two framing points drive everything below, and both are easy to get wrong:
+
+- **It is corpus-wide, not per-page.** ~478k companies × ~15 fields nothing else in the repo
+  carries. The instinct is "add a tile to the company page"; the larger payoff is **new
+  facets on the browsers and new leaderboards**, because that is where 478k rows earn out.
+- **⚠️ It has no history (§0a).** Every ownership surface renders "as recorded on
+  2008-09-04", never as a from–to timeline. The moment a time axis is drawn over CR data,
+  the dataset is being misused. Role history stays daily-feed-sourced.
+
+Surfaces referenced: `src/screens/dev/CompanyDbScreen.tsx` (the `/company/:eik` dashboard),
+the `company_person_roles` matview behind `/company/:eik/officers` (`022_company_officers.sql`),
+`src/screens/person/PersonCompanies.tsx` + `PersonConnections.tsx`,
+`src/screens/components/procurement/CompanyRiskChips.tsx` + `EntityRiskGradeCard.tsx`.
+
+### 8.1 Tier A — closing the ownership gap
+
+**A1. A real "Собственост" block, separate from the officers list.** Owners and managers are
+collapsed today into one `company_person_roles` list ordered by role code. Split it:
+**едноличен собственик / съдружници** (with share % where CR supplies it) above
+**управители**, each stamped with its `fieldEntryDate`.
+
+**A2. ⭐ Tri-state coverage, not absence.** The UI face of the §0 invariant; treat as
+non-negotiable. Three distinct renderings:
+
+| state | render |
+|---|---|
+| owner recorded | the name (+ entry date) |
+| deed captured, no owner field in it | "няма вписан собственик" — for an EOOD this is a genuine registry anomaly, worth surfacing |
+| not yet captured | "още не е проверено" + the tier it is queued in |
+
+A missing owner currently renders as blank, indistinguishable from "we never looked." During
+a months-long crawl that ambiguity covers most of the corpus, and it is exactly the
+answered-vs-unreachable confusion §0 exists to prevent — the same bug, in pixels.
+
+**A3. ⭐⭐ The ownership chain.** `CR_F_23_L` carries the owner's **ЕИК inline** when the
+owner is a legal entity (measured: `ОБЩИНА РАЗЛОГ, ЕИК/ПИК 000024948`;
+`"ШНАЙДЕР ЕЛЕКТРИК ИНДЪСТРИЗ" С.А.С., Идентификация 954503439, ФРАНЦИЯ`). The owner graph is
+therefore **walkable**: EOOD → parent → … → terminal owner (person, община, or foreign
+entity). New UI object: a breadcrumb-style chain on the company page ("зад това дружество
+стои…"), plus an **ultimate-owner column** in the contracts browsers. This answers "who
+actually won this contract", which no current surface can.
+
+**A4. Ownership-type badges → a new browsable class.** Terminal owner type is derivable:
+person / company / община / state body / foreign. Municipal and state-owned companies are
+invisible as a class today (the 961 leading-zero missing-owner EOODs in §3 are largely
+these). Ship: a `общинско дружество` chip on the company page, a facet on
+`/procurement/contractors`, and a **"дружествата на моята община"** tile on the
+governance / my-area dashboards, which already carry the municipal roster.
+
+**A5. Foreign ownership with flags.** `Държава: ФРАНЦИЯ` comes straight out of the field;
+reuse the shared Flag component. A "чуждестранна собственост" facet over the contractor
+corpus is a story on its own.
+
+### 8.2 Tier B — fields nothing else in the repo has
+
+**B1. ⭐⭐⭐ НКИД vs CPV mismatch.** `CR_F_6a_L` gives the declared activity class
+(`Група по НКИД: 27.12`). Cross it with the contract's CPV division: *does this winner do
+this for a living?* A firm whose only declared activity is retail winning a €4M road
+contract is a first-class risk signal — cheap, corpus-wide, and it drops into the existing
+risk index and `CompanyRiskChips` / `EntityRiskGradeCard` with no new surface. **If one thing
+ships from this plan, it is this.**
+
+**B2. Thin capitalisation.** `CR_F_31/32/33_L`, already denominated in €. "Капитал 2 €,
+спечелени договори 12 млн. €" — a ratio chip on the contract detail page and a sortable
+column in the contracts browser.
+
+**B3. Successor lineage / phoenix detection.** `CR_GL_TRANSFORMATION_L` +
+`CR_GL_PROV_RIGHT_L` carry вливане/преобразуване with both parties' ЕИК. Two payoffs: a
+"поело е X" banner that stitches a predecessor's contracts into the successor's history
+(contract attribution is currently broken across mergers), and a debarment-evasion signal
+when a debarred firm's business reappears under a fresh EIK.
+
+**B4. ГФО compliance chip.** `CR_GL_ANNOUNCED_ACTS_L` carries per-act announce dates.
+"Последен подаден ГФО: 2019" is a dormancy flag, corpus-wide, and it pairs with the existing
+ГФО revenue ingest.
+
+**B5. ⭐ Shared registered addresses.** `CR_F_5_L` is a full structured seat. The awarder
+pages already render a seat; this extends it to **contractors** — and with 478k seats,
+*"23 contractors registered at the same apartment"* falls out of a GROUP BY. Shell-company
+signal, map tile, and leaderboard from one field.
+
+**B6. UBO vs registered owner.** `CR_F_550_L` is the ЗМИП действителен собственик, legally
+distinct from the registered owner. Rendering both side by side makes divergence visible,
+which is the entire point of the ЗМИП register.
+
+### 8.3 Tier C — corpus-scale surfaces
+
+- **New facets** on `/procurement/contractors`: ownership type, foreign flag, capital band,
+  NKID↔CPV mismatch, shared-address.
+- **Coverage meter on `/data`** — % of companies with a captured deed, by tier. The honest
+  way to display a months-long crawl, and it doubles as the operator's progress bar.
+- **Leaderboards**: largest municipal-company portfolios · top foreign owners by contract
+  value · addresses hosting the most contractors · biggest capital-to-contract gaps.
+- **Connections graph**: an ownership edge is *evidence*; today's name-matched officer edge
+  is an *inference*. Style them differently and add "ownership chain" as a path type in
+  `connection_between` — every edge currently looks equally certain, which flatters the weak
+  ones.
+- **AI chat**: an `ultimateOwner` / `companyOwnership` tool over the chain — a question the
+  existing tool set cannot answer.
+- **Наясно post** (DATASET kind): "71% от ЕООД-тата нямаха вписан собственик — вече имат."
+
+### 8.4 Guardrails the UI must carry
+
+1. **No timelines over CR data.** Entry dates only (§0a). Role history stays daily-feed-sourced.
+2. **Legal-entity owners are not people** — no MpAvatar, no `/person/` link for
+   `ОБЩИНА РАЗЛОГ`. Already ~9% of current `sole_owner` rows; that share rises sharply after
+   the backfill.
+3. **Keep the name-only caveat** wherever a recovered owner drives a person link — CR carries
+   no ЕГН, so the existing caveat chip applies unchanged.
+4. **⚠️ Bridge B lands BEFORE, not after** (§5). Owner backfill pushes people past
+   `FOOTPRINT_CAP = 5`, and the cap is a hard `BETWEEN 1 AND 5` — a person going 5→6 loses
+   **all** her companies from the page. Ship the cap change with the Tier-1 load, or person
+   pages get emptier rather than richer.
+
+### 8.5 Shortlist
+
+**B1** (НКИД vs CPV) — biggest analytic payoff per line of code, reuses the risk chips
+wholesale. **A3** (ownership chain) — the genuinely new UI object; nothing in the app answers
+"who is behind this". **A2** (tri-state coverage) — small, and without it every other
+ownership surface lies by omission for months.
