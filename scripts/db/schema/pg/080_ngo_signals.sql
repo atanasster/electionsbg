@@ -60,7 +60,8 @@ CREATE TABLE IF NOT EXISTS official_roster (
   -- strategies and synthetic codes for Sofia's 24 district councils. The municipal shard
   -- build already resolves it, so the loader reads the answer out of the emitted
   -- by_obshtina shards rather than re-deriving it. The resolver copies it to
-  -- person_role.place, which is what lets a municipal roster be served from Postgres
+  -- person_role.place_code (migration 115), which is what lets a municipal roster be served
+  -- from Postgres
   -- keyed the way /governance/:obshtinaCode asks for it.
   obshtina text,
   -- 'Район <NAME>' when the official belongs to a district body aggregated under a

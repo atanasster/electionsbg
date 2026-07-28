@@ -59,7 +59,7 @@ const fmtElection = (d: string): string => {
 // Pure render over an already-fetched profile; fetching lives in usePersonProfile so both
 // entry routes can share it.
 export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
   // §8 Connections surface. Loaded lazily; absent for most people.
@@ -97,17 +97,30 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         r.source === "magistrate" ||
         r.source === "local",
     );
-    // A single seat is often recorded by more than one source — e.g. a municipal councillor
-    // shows up in BOTH the local-election results (`local`, carries the place "Ловеч") and the
-    // Court-of-Audit officials roster (`official_muni`, place-less). The place-less roster row
-    // just restates a role we already show WITH a place, so drop it; the electoral row keeps
-    // the richer label + place.
-    const placedRoles = new Set(held.filter((r) => r.place).map((r) => r.role));
+    // A single seat is often recorded by more than one source: a municipal councillor
+    // shows up in BOTH the local-election results (`local`) and the Court-of-Audit
+    // officials roster (`official_muni`). Now that both carry the SAME typed place code
+    // (migration 115 canonicalises Sofia's two synonyms too), one seat is one
+    // (role, placeCode) pair regardless of which source recorded it — which is what
+    // collapses the 3,674 people who used to list the same seat twice.
+    //
+    // Keyed WITHOUT the source on purpose. The older rule kept the source in the key and
+    // instead dropped place-LESS officials rows, which stopped working the moment
+    // `official_muni` gained codes — every one of those people got a second row reading
+    // a raw "BLG11".
+    //
+    // LATENT, measured at 0 today: Plovdiv (PDV22) and Varna (VAR06) file their районни
+    // bodies under the CITY's obshtina code, so one person holding the same role in two
+    // different районa of those two cities would collapse to one row. The distinguishing
+    // field (`district`) is on official_roster, not in this payload, so it cannot be
+    // fixed at render time — it would need to reach the typed place first.
     const seen = new Set<string>();
     return held.filter((r) => {
-      if (!r.place && isOfficialSource(r.source) && placedRoles.has(r.role))
-        return false;
-      const k = `${r.source}\t${r.role}\t${r.place ?? ""}`;
+      // A place-less role can only be deduped against another place-less one; two seats
+      // we cannot locate are not evidence of being the same seat.
+      const k = r.placeCode
+        ? `${r.role}\t${r.placeCode}`
+        : `${r.source}\t${r.role}\t`;
       if (seen.has(k)) return false;
       seen.add(k);
       return true;
@@ -128,6 +141,18 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   // nothing extra and both sides agree on which declarations block to show.
   const { rollup: mpAssetRollup } = useMpAssets(p.name);
 
+  // The place badge, in the reader's language. Both labels are precomputed by the
+  // resolver (migration 115); judicial bodies are Bulgarian-only by design — there is no
+  // official English register of Bulgarian courts to translate against — so they fall
+  // back to the Bulgarian name rather than rendering blank.
+  const placeText = (r: {
+    placeLabel?: string | null;
+    placeLabelEn?: string | null;
+  }): string | null =>
+    (i18n.language?.startsWith("bg") ? r.placeLabel : r.placeLabelEn) ??
+    r.placeLabel ??
+    null;
+
   // Local office role → localized heading; unknown role codes pass through.
   const roleLabel = (role: string): string => {
     const k = `pp_role_${role}`;
@@ -143,11 +168,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   const officeHeading = (r: {
     source: string;
     role: string;
-    place?: string | null;
+    placeCode?: string | null;
+    judicialKind?: string | null;
     sourceLabel: string;
   }): string => {
     if (r.source === "magistrate") {
-      const k = magistrateRoleKey(r.place);
+      const k = magistrateRoleKey(r.judicialKind, r.placeCode);
       return k ? t(k) : r.sourceLabel;
     }
     // local + officials: the SPECIFIC role (Кмет / Член на кабинета / Зам.-кмет…) is the most
@@ -430,7 +456,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                   <span className="text-sm font-medium">
                     {officeHeading(r)}
                   </span>
-                  {r.place &&
+                  {placeText(r) &&
                     (() => {
                       const href = localOfficeHref(r);
                       return href ? (
@@ -438,11 +464,11 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                           to={href}
                           className="shrink-0 text-xs text-primary hover:underline"
                         >
-                          {r.place}
+                          {placeText(r)}
                         </Link>
                       ) : (
                         <span className="shrink-0 text-xs text-muted-foreground">
-                          {r.place}
+                          {placeText(r)}
                         </span>
                       );
                     })()}

@@ -1,14 +1,15 @@
-// Infer a magistrate's ROLE (judge / prosecutor / investigator / SJC / inspectorate) from the
-// institution named on their Court-of-Audit declaration. The explicit `position` field is filled
-// for only ~1.6% of magistrates, but the institution (court / prosecutor's office / investigation
-// service) is on ~87%, and its TYPE reliably implies the role — validated at 99.6% coverage over
-// the 975 distinct institution names (the ~0.4% miss are source typos → fall back to the generic
-// "magistrate" label).
+// A magistrate's ROLE (judge / prosecutor / investigator / SJC / inspectorate) from the
+// canonical judicial body their declaration names.
 //
-// Order matters:
-//   • the Supreme Judicial Council (ВСС) and its Inspectorate contain "съд" but aren't a court seat;
-//   • an investigation office ("ОСлО при ОП…", "НСлС") sits UNDER a prosecutor's office, yet its
-//     holder is an investigator, not a prosecutor — so both are matched before prosecution/court.
+// This used to sniff the role out of the institution STRING with a stack of Cyrillic
+// regexes, because the explicit `position` field is filled for only ~1.6% of magistrates
+// and the raw institution name was all there was. Migration 116 turned those 975 free-text
+// spellings into 283 canonical bodies each carrying a `kind`, so the inference is now a
+// lookup: person_by_slug hands back `judicialKind` alongside the place, and the only thing
+// left to decide here is a label.
+//
+// `council` splits by BODY, not by kind — the Върховен съдебен съвет and its Inspectorate
+// are both councils but a member of one is not a member of the other.
 
 export type MagistrateRoleKey =
   | "mag_role_judge"
@@ -17,34 +18,23 @@ export type MagistrateRoleKey =
   | "mag_role_vss"
   | "mag_role_inspector";
 
-export const magistrateRoleKey = (
-  institution?: string | null,
-): MagistrateRoleKey | null => {
-  const s = (institution ?? "").toLowerCase().trim();
-  if (!s) return null;
-  // Inspectorate (към ВСС) before the ВСС check — its name contains "ВСС" but the seat differs.
-  if (/инспекторат/.test(s)) return "mag_role_inspector";
-  if (/висш съдебен съвет|(^|[^а-я])всс([^а-я]|$)/.test(s))
-    return "mag_role_vss";
-  // `sep` = the separators the source uses between an abbreviation and the town: space, dot,
-  // hyphen, en-dash and em-dash (e.g. "РП–Сливен").
-  if (
-    /следствен|следстви|национална следствена|(^|[^а-я])(нслс|осло|осо)([^а-я]|$)|(^|[^а-я])со[\s–—-]/.test(
-      s,
-    )
-  )
-    return "mag_role_investigator";
-  if (
-    /прокуратур|прокурор|прокур|(^|[^а-я])(вкп|вап|оп|рп|сгп|воп|ап)([\s.–—-]|$)/.test(
-      s,
-    )
-  )
-    return "mag_role_prosecutor";
-  if (
-    /(^|[^а-я])съд([^а-я]|$)|съдия|(^|[^а-я])(вкс|вас|асс?г|сгс|срс|рс|ос|ас)([\s.–—-]|$)/.test(
-      s,
-    )
-  )
-    return "mag_role_judge";
-  return null;
+const BY_KIND: Record<string, MagistrateRoleKey> = {
+  court: "mag_role_judge",
+  prosecution: "mag_role_prosecutor",
+  investigation: "mag_role_investigator",
 };
+
+const BY_BODY: Record<string, MagistrateRoleKey> = {
+  vss: "mag_role_vss",
+  ivss: "mag_role_inspector",
+};
+
+/** Null when the declaration named no institution, or one the dictionary could not
+ *  classify — the caller then shows the generic "Магистрати" label rather than guessing. */
+export const magistrateRoleKey = (
+  judicialKind?: string | null,
+  bodyCode?: string | null,
+): MagistrateRoleKey | null =>
+  (bodyCode ? BY_BODY[bodyCode] : undefined) ??
+  (judicialKind ? BY_KIND[judicialKind] : undefined) ??
+  null;

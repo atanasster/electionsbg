@@ -419,10 +419,23 @@ two test files**. Still small, but larger than the first draft claimed. The work
 mapping tables (T2's alias dictionary), not the plumbing.
 
 T1–T3 are additive and can land independently. T4 is the only breaking step and must follow
-the migration-before-writer rule (CLAUDE.md): apply `115`/`116` to Cloud SQL, then
-`db:load:judicial-bodies:pg:cloud`, then `db:resolve:persons:cloud`, then `deploy:db`, then
-`deploy`. `102` is REFRESHed by `load_declarations_pg --resolve`, so the roster cannot serve
-a stale key shape. `sync_cloud.ts`'s parity gate compares row counts only, so the column
+the migration-before-writer rule (CLAUDE.md). The cloud sequence, in order:
+
+```bash
+npm run db:load:judicial-bodies:pg:cloud          # 116 + the dimension (T2)
+npm run db:resolve:persons:cloud                  # applies 115 → DROPS person_role.place
+npm run db:load:declarations:pg:cloud -- --resolve # applies 102 → REBUILDS the roster matview
+npm run db:load:official-candidate-links:pg:cloud # re-decorates + REFRESHes it
+npm run deploy:db && npm run deploy
+```
+
+**The third line is not optional and the ordering is not cosmetic.** `102` is *applied* by
+`load_declarations_pg`, not merely refreshed — and `115` has to drop
+`municipal_officials_table` to get the column out from under it. Stop after the resolve and
+Cloud SQL has no roster at all: `db_routes.js` catches `42P01` and degrades to an empty
+list, so `/governance` and the officials search go **silently blank** rather than erroring.
+`115`'s drop is guarded on the legacy column existing, so it is genuinely one-time — but
+the window it opens still has to be closed in the same session. `sync_cloud.ts`'s parity gate compares row counts only, so the column
 changes do not affect it.
 
 **Open decision (G7):** `place_label` is Bulgarian-only as designed. `data/municipalities.json`

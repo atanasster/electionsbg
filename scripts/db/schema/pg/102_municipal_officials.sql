@@ -17,13 +17,14 @@
 -- and person_slug is a non-unique attribute used only to link out to /person.
 --
 -- ---------------------------------------------------------------------------
--- WHERE THE OBSHTINA CODE COMES FROM. person_role.place, filled by db:resolve:persons from
+-- WHERE THE OBSHTINA CODE COMES FROM. person_role.place_code (migration 115, place_kind
+-- = 'obshtina'), filled by db:resolve:persons from
 -- official_roster.obshtina, which the roster loader reads out of the emitted by_obshtina
 -- shards (T0.2a, migration 080). It is NOT derivable here: the register names a
 -- municipality in prose ("Гоце Делчев") and the name→code join lives in
 -- scripts/officials/municipality_join.ts behind an alias file, four fallback strategies and
 -- synthetic codes for Sofia's 24 district councils. Attempting it in SQL would be a second
--- source of truth. If place is ever NULL again this matview simply loses those rows —
+-- source of truth. If place_code is ever NULL again this matview simply loses those rows —
 -- official_roster_obshtina.data.test.ts is what catches that.
 --
 -- role_raw / municipality / latest_declaration_year are the LISTING's own labels, resolved
@@ -92,7 +93,7 @@ SELECT
   p.display_name              AS name,
   r.role,
   ld.position_title           AS role_raw,
-  r.place                     AS obshtina,
+  r.place_code                AS obshtina,
   ld.institution              AS municipality,
   ld.period_year              AS latest_declaration_year,
   o.district,
@@ -123,7 +124,7 @@ LEFT JOIN official_roster o ON o.slug = r.ref
 -- (all NULLs) on a fresh DB until that loader runs.
 LEFT JOIN official_candidate_link cl ON cl.official_slug = r.ref
 WHERE r.source = 'official_muni'
-  AND r.place IS NOT NULL;
+  AND r.place_kind = 'obshtina';
 
 -- official_slug is the paging tiebreak buildOrder appends, so it must be unique.
 CREATE UNIQUE INDEX idx_municipal_officials_slug ON municipal_officials_table (official_slug);

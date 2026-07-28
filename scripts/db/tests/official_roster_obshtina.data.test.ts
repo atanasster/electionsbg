@@ -8,8 +8,9 @@
 // district councils — it is not reproducible in SQL, and re-implementing it there would
 // be a second source of truth. So the municipal shard build resolves it once, the roster
 // loader reads the answer out of the emitted by_obshtina shards, and the resolver copies
-// it to person_role.place. These tests pin that chain end to end, because every link in it
-// fails silently: a missing code just leaves place NULL and the municipal roster
+// it to person_role.place_code (migration 115, place_kind='obshtina'). These tests pin that
+// chain end to end, because every link in it fails silently: a missing code just leaves the
+// typed place NULL and the municipal roster
 // unservable from Postgres, which is the state this replaced.
 //
 // Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
@@ -69,17 +70,19 @@ test.skipIf(skip)(
 // The resolver leg. official_roster having the code is useless if person_role does not,
 // since that is what a served municipal roster would actually be keyed on.
 test.skipIf(skip)(
-  "person_role.place carries the code for municipal roles",
+  "person_role carries a typed obshtina place for municipal roles",
   async () => {
     const [row] = await allRows<{ total: string; placed: string }>(
       `SELECT count(*) AS total,
-            count(*) FILTER (WHERE place IS NOT NULL) AS placed
+            count(*) FILTER (
+              WHERE place_kind = 'obshtina' AND place_code IS NOT NULL
+            ) AS placed
        FROM person_role WHERE source = 'official_muni'`,
     );
     assert.equal(
       row.placed,
       row.total,
-      `${Number(row.total) - Number(row.placed)} official_muni role(s) have a NULL place — db:resolve:persons ran against a roster without obshtina, or the place is no longer being set`,
+      `${Number(row.total) - Number(row.placed)} official_muni role(s) have no typed obshtina place — db:resolve:persons ran against a roster without obshtina codes, or the fill regressed`,
     );
   },
 );
@@ -94,14 +97,14 @@ test.skipIf(skip || !haveShards)(
         .filter((f) => f.endsWith(".json"))
         .map((f) => f.replace(/\.json$/, "")),
     );
-    const rows = await allRows<{ place: string }>(
-      `SELECT DISTINCT place FROM person_role
-        WHERE source = 'official_muni' AND place IS NOT NULL`,
+    const rows = await allRows<{ place_code: string }>(
+      `SELECT DISTINCT place_code FROM person_role
+        WHERE source = 'official_muni' AND place_kind = 'obshtina'`,
     );
-    for (const { place } of rows)
+    for (const { place_code } of rows)
       assert.ok(
-        known.has(place),
-        `person_role.place '${place}' is not an obshtina shard`,
+        known.has(place_code),
+        `person_role.place_code '${place_code}' is not an obshtina shard`,
       );
   },
 );
@@ -112,14 +115,14 @@ test.skipIf(skip || !haveShards)(
 test.skipIf(skip || !haveShards)(
   "the per-obshtina membership matches the shards exactly",
   async () => {
-    const rows = await allRows<{ place: string; ref: string }>(
-      `SELECT place, ref FROM person_role
-        WHERE source = 'official_muni' AND place IS NOT NULL`,
+    const rows = await allRows<{ place_code: string; ref: string }>(
+      `SELECT place_code, ref FROM person_role
+        WHERE source = 'official_muni' AND place_kind = 'obshtina'`,
     );
     const pg = new Map<string, Set<string>>();
     for (const r of rows) {
-      if (!pg.has(r.place)) pg.set(r.place, new Set());
-      pg.get(r.place)!.add(r.ref);
+      if (!pg.has(r.place_code)) pg.set(r.place_code, new Set());
+      pg.get(r.place_code)!.add(r.ref);
     }
 
     let jsonSlugs = 0;

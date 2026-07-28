@@ -161,13 +161,27 @@ against the cloud proxy:
 # The resolver reads its PG sources (magistrate / official_roster / tr_person_roles /
 # contracts) from whatever DATABASE_URL points at, so those must ALREADY be loaded on
 # Cloud SQL (db:load:magistrates:pg:cloud, db:load:tr:pg:cloud, db:load:pg:cloud) first.
-npm run db:resolve:persons:cloud            # applies 081+085+082-084 + rebuilds person_* on Cloud SQL
+# The judicial dimension FIRST: db:resolve:persons reads judicial_body_alias to give every
+# magistrate their court. Skipping it publishes ~2,700 magistrates with no institution.
+npm run db:load:judicial-bodies:pg:cloud
+npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
+# MANDATORY after the resolve: 115 drops person_role.place, which forces the municipal
+# roster matview to be dropped with it. Only this command re-applies 102 and rebuilds it.
+npm run db:load:declarations:pg:cloud -- --resolve
+npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
 npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
 ```
 
-BOTH commands are required — the first rebuilds the identity/roles/connections layer, the
-second fills the electoral tables behind the merged `/candidate` block. Publishing only the
-first leaves `/candidate/:id` and the header search's party badge stale/empty on prod. On a
+ALL of these are required. The resolver rebuilds the identity/roles/connections layer;
+`person-elections` fills the electoral tables behind the merged `/candidate` block, and
+publishing without it leaves `/candidate/:id` and the header search's party badge
+stale/empty on prod.
+
+**Stopping after `db:resolve:persons:cloud` leaves Cloud SQL with NO municipal roster.**
+`db_routes.js` catches the missing relation and degrades to an empty list, so `/governance`
+and the officials search go silently blank rather than erroring — nothing alerts you. The
+drop is one-time (guarded on the legacy column existing), but the window has to be closed
+in the same session. See `docs/plans/person-role-place-consolidation-v1.md` (T4). On a
 FRESH Cloud SQL (person tables absent), `db:resolve:persons:cloud` now self-bootstraps the
 right order (085 before 082); if you ever hit `relation "person_election_stats" does not exist`
 on an older checkout, apply `085_person_elections.sql` by hand first, then re-run.

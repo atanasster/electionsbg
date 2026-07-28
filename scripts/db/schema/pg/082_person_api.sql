@@ -27,12 +27,24 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       WHERE r.person_id = pick.person_id
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
+    -- The TYPED place (migration 115) replaces the old free-text `place`: `placeKind`
+    -- says which namespace `placeCode` is in, and the labels are precomputed so the page
+    -- needs no code→name dictionary (every existing one is election-scoped, and a person
+    -- page is not). `judicialKind` rides along for magistrate roles only — it is what
+    -- retired src/lib/magistrateRole.ts, which sniffed Съдия/Прокурор/Следовател out of
+    -- the institution STRING client-side.
     'roles', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'source', r.source, 'facet', s.facet, 'sourceLabel', s.label_bg,
-        'role', r.role, 'ref', r.ref, 'place', r.place, 'confidence', r.confidence
+        'role', r.role, 'ref', r.ref, 'confidence', r.confidence,
+        'placeKind', r.place_kind, 'placeCode', r.place_code,
+        'placeLabel', r.place_label, 'placeLabelEn', r.place_label_en,
+        'judicialKind', jb.kind
       ) ORDER BY s.facet, r.role)
-      FROM person_role r JOIN person_source s ON s.key = r.source
+      FROM person_role r
+      JOIN person_source s ON s.key = r.source
+      LEFT JOIN judicial_body jb
+        ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
       WHERE r.person_id = pick.person_id
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),

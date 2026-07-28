@@ -77,7 +77,6 @@ type Raw = {
   family: string;
   nameParts: 2 | 3;
   ambiguous: boolean;
-  place: string | null; // legacy untyped display column — dropped in plan T4
   // The TYPED place (migration 115): which namespace, the canonical id in it, and the
   // display strings. `placeKind` is NULL exactly when `placeCode` is (DB CHECK), so a
   // source with no place for a given row writes all four as NULL rather than a
@@ -257,7 +256,6 @@ const fields = (
   family: p.family,
   nameParts: p.nameParts,
   ambiguous: p.ambiguous,
-  place: null,
   placeKind: null,
   placeCode: null,
   placeLabel: null,
@@ -458,7 +456,13 @@ async function collect(): Promise<Raw[]> {
   const judicialPlace = (court: string | null): TypedPlace => {
     if (!court) return NO_PLACE;
     const body = judicialByAlias.get(foldJudicialName(court));
-    if (!body) return NO_PLACE;
+    // An institution the dictionary cannot classify (43 magistrates: source typos, and
+    // "Върховна прокуратура", which could be ВКП or ВАП) gets NO code — a guessed court
+    // on a named person's profile is a misstatement. But it keeps the declaration's OWN
+    // text as the label: that is the source speaking, not us inferring, and dropping it
+    // would silently blank a badge the old untyped column did render. kind/code stay
+    // NULL, which is what every consumer keys on.
+    if (!body) return { ...NO_PLACE, placeLabel: court.trim() || null };
     return {
       placeKind: "judicial",
       placeCode: body.code,
@@ -483,7 +487,6 @@ async function collect(): Promise<Raw[]> {
         role: "magistrate",
       },
       {
-        place: m.court,
         ...judicialPlace(m.court),
         uics: magEik.get(m.name) ?? [],
       },
@@ -519,7 +522,6 @@ async function collect(): Promise<Raw[]> {
         // is what stopped the municipal roster from being servable out of Postgres —
         // the code exists nowhere else in the DB. Set here rather than derived
         // downstream: only the roster knows it.
-        place: o.obshtina ?? null,
         ...obshtinaPlace(o.obshtina),
         uics: refEik.get(`off:${o.slug}`) ?? [],
         regId: regId.get(o.slug) ?? null,
@@ -567,7 +569,6 @@ async function collect(): Promise<Raw[]> {
         {
           hardId: `mp:${mp.id}`,
           regId: regId.get(String(mp.id)) ?? null,
-          place: region,
           // Rule 1 (§3a): the seated МИР, mapped from parliament.bg's own 2-digit
           // number onto the site's МИР code. Takes `mp` fill from 11.3% to 100%.
           ...mirPlaceFor(mirLabel, mirToOblast(mp.seatedRegion?.code)),
@@ -616,7 +617,6 @@ async function collect(): Promise<Raw[]> {
         },
         {
           hardId: `mp:${d.mpId}`,
-          place: d.program,
           sourceRow: {
             program: d.program,
             authority: d.authority,
@@ -674,7 +674,6 @@ async function collect(): Promise<Raw[]> {
         },
         {
           hardId: `mp:${d.mpId}`,
-          place: d.bodyContext,
           sourceRow: {
             decisionNo: d.decisionNo,
             decisionDate: d.decisionDate,
@@ -738,7 +737,6 @@ async function collect(): Promise<Raw[]> {
         },
         {
           hardId: m.mpId != null ? `mp:${m.mpId}` : null,
-          place: m.body,
           sourceRow: {
             body: m.body,
             seat: m.seat,
@@ -809,7 +807,6 @@ async function collect(): Promise<Raw[]> {
         },
         {
           hardId: c.mpId != null ? `mp:${c.mpId}` : null,
-          place: oblast,
           ...mirPlaceFor(mirLabel, primaryMir),
           cParty: canon,
           cPlace: oblast,
@@ -894,7 +891,6 @@ async function collect(): Promise<Raw[]> {
           role: "mayor",
         },
         {
-          place,
           ...obshtinaPlace(d.obshtinaCode),
           cParty: mayor.primaryCanonicalId ?? null,
           cPlace: place,
@@ -914,7 +910,6 @@ async function collect(): Promise<Raw[]> {
               role: "councillor",
             },
             {
-              place,
               ...obshtinaPlace(d.obshtinaCode),
               cParty: party.primaryCanonicalId ?? null,
               cPlace: place,
@@ -1456,7 +1451,6 @@ async function main(): Promise<void> {
         // person_resolve gate re-check the party-office merge licence against the data
         // rather than take the resolver's word for it.
         m.source === "mp" ? null : m.raw.cParty,
-        m.raw.place,
         m.raw.placeKind,
         m.raw.placeCode,
         m.raw.placeLabel,
@@ -1545,7 +1539,6 @@ async function main(): Promise<void> {
         "ref",
         "role",
         "party",
-        "place",
         "place_kind",
         "place_code",
         "place_label",

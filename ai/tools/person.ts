@@ -21,7 +21,16 @@ type ProfileRole = {
   sourceLabel: string;
   role: string;
   ref: string;
-  place: string | null;
+  // The TYPED place (migration 115). `placeKind` names the namespace `placeCode` is in
+  // — 'mir' (31 electoral constituencies), 'obshtina' (the app's municipality codes) or
+  // 'judicial' (a judicial_body code) — and both labels are precomputed server-side, so
+  // no consumer needs a code→name dictionary. `judicialKind` is set for magistrate roles
+  // only and drives the Съдия/Прокурор/Следовател heading.
+  placeKind: "mir" | "obshtina" | "judicial" | null;
+  placeCode: string | null;
+  placeLabel: string | null;
+  placeLabelEn: string | null;
+  judicialKind: string | null;
 };
 type ProfileCompany = { eik: string; name: string | null; roles: string[] };
 type PersonProfilePayload = {

@@ -57,19 +57,20 @@ interface Listing {
 }
 
 const main = async (): Promise<void> => {
-  // Same membership as municipal_officials_table: official_muni listings with a place,
+  // Same membership as municipal_officials_table: official_muni listings with a typed
+  // obshtina place (migration 115),
   // gated to active public figures (§6). Ordered so the per-obshtina slate index is built
   // once and reused for the whole run of one município's rows.
   const listings = await allRows<Listing>(
-    `SELECT r.ref AS official_slug, p.display_name AS name, r.place AS obshtina
+    `SELECT r.ref AS official_slug, p.display_name AS name, r.place_code AS obshtina
        FROM person_role r
        JOIN person p ON p.person_id = r.person_id
                     AND p.status = 'active'
                     AND p.is_public_figure
       WHERE r.source = 'official_muni'
-        AND r.place IS NOT NULL
+        AND r.place_kind = 'obshtina'
         AND r.role IN ${DECORATED_ROLE_SQL}
-      ORDER BY r.place, r.ref`,
+      ORDER BY r.place_code, r.ref`,
   );
   console.log(
     `[official-candidate-links] ${listings.length} decoratable municipal listing(s)`,
