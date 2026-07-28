@@ -118,6 +118,21 @@ resolve simply finds an empty alias table and ~2,700 magistrate roles publish wi
 court, green locally and blank on prod. See
 `docs/plans/person-role-place-consolidation-v1.md` (T2).
 
+Same shape again, and also **BEFORE** `db:resolve:persons:cloud`: the canonical place
+dimension (migration 117) is the code→name dictionary `person_role` joins for its
+`mir` / `obshtina` labels and `/procurement/by-settlement` joins for settlement names.
+
+```bash
+npm run db:load:place-dim:pg:cloud
+```
+
+It is built from `data/settlements.json` + `data/municipalities.json` (labels via
+`scripts/person/places.ts`), so re-run it whenever either file changes. `db:refresh` runs
+the local equivalent automatically; the cloud side does not. Nothing reads the table yet —
+but once the person-label join lands and `person_role.place_label` drops, skipping this
+loader does not fail: the joins simply return no row, and every place badge on `/person`
+plus the localised settlement names publish blank on prod while local is green.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).
