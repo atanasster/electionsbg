@@ -402,7 +402,10 @@ is a follow-up inside the judiciary pack, not a blocker here.
 - `080_ngo_signals.sql:63` — a comment referencing `person_role.place`; update the prose.
 - `ALTER TABLE person_role DROP COLUMN place`.
 
-**T5 — `cPlace` unification (separate, gated).** Set `cPlace` uniformly to `oblast:<code>` —
+**T5 — NOT SHIPPED. The measurement it was gated on says don't.** Implemented, measured
+against the full corpus, and reverted; the tree stands at T4. Detail in §5 below.
+
+**T5 as designed (kept for the record).** Set `cPlace` uniformly to `oblast:<code>` —
 the **statistical** oblast, rolling both obshtina and МИР up to it via
 [regionalOblast.ts](../../src/lib/regionalOblast.ts) (`PDV`+`PDV-00`→`PDV`,
 `S22..S25`→`SOFIA_CITY`). Rolling up is right *here* and wrong in `place_code`: a corroborant
@@ -442,3 +445,52 @@ changes do not affect it.
 has `name_en` for 294/294, so adding `place_label_en` is free now and a migration later.
 Bulgarian-only is the *existing* behaviour for `local`, so shipping without EN is a conscious
 carry-over rather than a regression — but it is a decision, not an omission.
+
+## 5. T5 outcome: measured, and deliberately not shipped (2026-07-28)
+
+T5 was gated on "a before/after diff on merge counts and a pass through
+`person_review_candidate` before it lands". That measurement was taken. It says the change
+should not land in the form the plan describes.
+
+**What T5 does.** Deriving `cPlace` from the typed place makes weak-both corroboration
+(`party AND place`) comparable across sources for the first time — before it, `mp` fed the
+corroborant an uppercase МИР name, `candidate` an oblast code, `local` an obshtina name, so
+it could only ever fire *within* one source.
+
+**Diff over the full corpus** (58,084 persons / 12,162 review candidates at baseline):
+
+| variant | persons | review candidates |
+|---|---|---|
+| baseline (per-source raw strings) | 58,084 | 12,162 |
+| unified namespace, oblast granularity | 57,658 (−426) | 11,661 (−501) |
+| …plus the `oblastToCanon` roll-up | 57,546 (−538) | 11,521 (−641) |
+
+The roll-up half is easy to reject: it buys 112 of the 538 merges, and only from pairs that
+**disagree** about the constituency and are merged anyway for sharing a party and a city.
+
+**The namespace unification itself is the problem, and the codebase already knew.**
+`person_resolve.data.test.ts` asserts *no cross-source merge on a common name without a
+gold key or shared-company bridge*. The unified corroborant produces **311 violations** —
+because the cases it newly unlocks are overwhelmingly mass names. The worst is
+`Георги Иванов Георгиев`, **namesake_risk 198**, merged with a Силистра councillor on
+nothing but party + oblast. `cluster.ts` says exactly this in its own header: *"two
+different 'Георги Иванов' in the same party is common"*. Weak-both was safe only because
+the namespaces happened not to line up.
+
+**Namesake-gating weak-both does not rescue it.** Applying the existing
+`PARTY_OFFICE_NAMESAKE_CAP` (12) to weak-both still leaves **271** violations, and takes the
+person count to 58,095 — *above* baseline, because it also un-merges within-source pairs
+that used to slip through. At that point the tier delivers no net merges. Tightening the cap
+further reduces T5 to a no-op with extra machinery. It also destabilised a T3b gate: merging
+changes which `person_election_stats` row a candidacy joins to, taking
+"a candidacy's МИР is one it contested" from 0 to 5,314 mismatches.
+
+**Decision: not shipped.** The corroborant stays per-source. This is a merge-policy change
+on a defamation-sensitive layer that contradicts an explicit, tested invariant, so it is not
+an implementation detail to settle unilaterally. T1–T4 do not depend on it — the typed place
+is a display/structural improvement and lands complete without it.
+
+**If it is ever revisited**, the viable shape is not "make weak-both cross-source" but
+"add a NAME-INDEPENDENT corroborant" — the thing the invariant actually asks for. The typed
+place makes that easier to build (a shared obshtina *plus* a shared birth-year, say), but
+place alone is not evidence of identity and never was.
