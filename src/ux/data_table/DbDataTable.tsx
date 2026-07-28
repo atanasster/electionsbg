@@ -9,7 +9,7 @@
 // (functions/db_table.js); this component only knows column ids + filter values.
 // See docs/plans/pg-query-performance.md.
 
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState, useRef } from "react";
 import {
   getCoreRowModel,
   useReactTable,
@@ -73,9 +73,11 @@ interface Props<T> {
     total: number,
     totalExact: boolean,
   ) => ReactNode;
-  /** Called whenever a page loads — lets the parent derive a header (e.g. the
-   *  entity name) from the rows without a second request. Memoize it. */
-  /** `request` is the exact body that produced `resp` — scope, filters, sort and the
+  /** Called once per loaded page — lets the parent derive a header (e.g. the entity name)
+   *  from the rows without a second request. Does NOT need memoizing: it is invoked through
+   *  a ref, so an inline arrow is fine.
+   *
+   *  `request` is the exact body that produced `resp` — scope, filters, sort and the
    *  DEBOUNCED free-text search this component owns. An exporter needs it to re-issue the
    *  same query at a larger pageSize; without it a "download everything" button silently
    *  drops whatever the user typed. Existing callers may ignore it. */
@@ -149,9 +151,23 @@ export const DbDataTable = <T,>({
     staleTime: 60_000,
   });
 
+  // BOTH the callback and the request are read through refs, so this effect depends on
+  // `data` alone — one notification per response, whatever the caller does.
+  //
+  // Neither is safe as a dependency. `request` is a memo keyed on `scope` / `fixedFilters` /
+  // `extraFilters`, which callers routinely pass as inline object literals, and `onData` is
+  // just as often an inline arrow — so both get a fresh identity on every render. Depending
+  // on either fires this effect every render, and an onData that sets state then re-renders,
+  // which loops until React throws "Maximum update depth exceeded". That shipped once and
+  // blanked /procurement/contracts; a memoize-me note in the prop docs is not enough, since
+  // nothing enforces it and the failure is invisible until a page happens to set state here.
+  const onDataRef = useRef(onData);
+  onDataRef.current = onData;
+  const requestRef = useRef(request);
+  requestRef.current = request;
   useEffect(() => {
-    if (data && onData) onData(data, request);
-  }, [data, onData, request]);
+    if (data) onDataRef.current?.(data, requestRef.current);
+  }, [data]);
 
   const rows = data?.rows ?? [];
   const total = data?.total ?? 0;
