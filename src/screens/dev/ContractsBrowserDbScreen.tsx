@@ -32,6 +32,7 @@ import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
 import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
 import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
+import { RiskGradeFilter } from "@/screens/components/procurement/RiskGradeFilter";
 import { SingleBidderToggle } from "@/screens/components/procurement/SingleBidderToggle";
 import { ContractsAggregatesFooter } from "@/screens/components/procurement/ContractsAggregatesFooter";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
@@ -68,9 +69,11 @@ export const ContractsBrowserDbScreen: FC = () => {
     setProcBucket,
     setCpvSel: setCpvDiv,
     setToggle: setSingleBidder,
+    grades,
+    setGrades,
     hasActiveFilters,
     clearFilters,
-  } = useUrlProcurementFilters({ toggleParam: "single" });
+  } = useUrlProcurementFilters({ toggleParam: "single", withRisk: true });
 
   // ?sector=water|roads|noi|nzok|agri|judiciary — the sector browse pack (§4.3):
   // restrict the table to that sector's awarder EIK-set and mount its enrichment
@@ -136,6 +139,13 @@ export const ContractsBrowserDbScreen: FC = () => {
     [singleBidder],
   );
 
+  // Risk grade filters SERVER-side on the whole corpus (migration 112), not on
+  // the loaded page — the point of moving the index into Postgres.
+  const gradeF = useMemo<DbColumnFilter[]>(
+    () => (grades.length ? [{ id: "risk_grade", value: grades }] : []),
+    [grades],
+  );
+
   // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
   // — search by sector name or by any CPV code, beyond the 2-digit divisions.
   const { data: cpvCatalog } = useCpvCatalog();
@@ -148,7 +158,14 @@ export const ContractsBrowserDbScreen: FC = () => {
   const { groupedMethods, cpvOptions, singleBidPct, directPct, methodF } =
     useContractsAnalytics({
       resource: "contracts",
-      fixedFilters: [{ id: "tag", value: ["contract"] }, ...scopeBase],
+      // gradeF belongs here, not just on the table: without it the KPI strip
+      // would show a grade-filtered count and Σ€ beside single-bid/direct
+      // percentages computed over the UNfiltered set.
+      fixedFilters: [
+        { id: "tag", value: ["contract"] },
+        ...scopeBase,
+        ...gradeF,
+      ],
       singleFilter: singleF,
       cpvFilter: cpvF,
       procBucket,
@@ -172,8 +189,8 @@ export const ContractsBrowserDbScreen: FC = () => {
   );
 
   const extraFilters = useMemo<DbColumnFilter[]>(
-    () => [...scopeBase, ...singleF, ...methodF, ...cpvF],
-    [scopeBase, singleF, methodF, cpvF],
+    () => [...scopeBase, ...singleF, ...methodF, ...cpvF, ...gradeF],
+    [scopeBase, singleF, methodF, cpvF, gradeF],
   );
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
@@ -431,6 +448,7 @@ export const ContractsBrowserDbScreen: FC = () => {
                   onChange={setProcBucket}
                 />
               ) : null}
+              <RiskGradeFilter value={grades} onChange={setGrades} />
               <SingleBidderToggle
                 checked={singleBidder}
                 onChange={setSingleBidder}

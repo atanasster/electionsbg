@@ -172,3 +172,118 @@ describe("useUrlProcurementFilters — clearFilters", () => {
     expect(p.get("q")).toBe("пътища");
   });
 });
+
+describe("useUrlProcurementFilters — ?grade (risk)", () => {
+  it("reads and canonicalises a validated A–F set", () => {
+    const { result } = setup("/procurement/contracts?grade=F,d,f", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    // Deduped, upper-cased and sorted, so F,d,f and D,F are one filter.
+    expect(result.current.f.grades).toEqual(["D", "F"]);
+    expect(result.current.f.hasActiveFilters).toBe(true);
+  });
+
+  it("drops junk letters rather than passing them into the DbColumnFilter", () => {
+    // ?grade is untrusted input that reaches an `in` predicate; Z/1/'' must not
+    // survive, and an all-junk value must read as no filter at all.
+    const { result } = setup("/procurement/contracts?grade=Z,1,,C", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    expect(result.current.f.grades).toEqual(["C"]);
+
+    const { result: junk } = setup("/procurement/contracts?grade=Z,9", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    expect(junk.current.f.grades).toEqual([]);
+    expect(junk.current.f.hasActiveFilters).toBe(false);
+  });
+
+  it("ignores ?grade entirely when withRisk is not set", () => {
+    // The tenders browser has no per-tender risk index, so a grade filter there
+    // would render a control that can never match a row.
+    const { result } = setup("/procurement/tenders?grade=D,F", {
+      toggleParam: "cancelled",
+    });
+    expect(result.current.f.grades).toEqual([]);
+    expect(result.current.f.hasActiveFilters).toBe(false);
+    // setGrades is a no-op here (the setYear precedent), so a param that was
+    // already in the URL is left exactly as it was rather than rewritten.
+    act(() => result.current.f.setGrades(["D"]));
+    expect(q(result.current.search).get("grade")).toBe("D,F");
+  });
+
+  it("writes a sorted ?grade and deletes it when the set empties", () => {
+    const { result } = setup("/procurement/contracts", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    act(() => result.current.f.setGrades(["F", "C"]));
+    expect(q(result.current.search).get("grade")).toBe("C,F");
+    act(() => result.current.f.setGrades([]));
+    expect(q(result.current.search).get("grade")).toBeNull();
+  });
+
+  it("clearFilters removes ?grade but preserves unmanaged params", () => {
+    const { result } = setup(
+      "/procurement/contracts?grade=D&cpv=45&pscope=all&q=пътища",
+      { toggleParam: "single", withRisk: true },
+    );
+    act(() => result.current.f.clearFilters());
+    const p = q(result.current.search);
+    expect(p.get("grade")).toBeNull();
+    expect(p.get("cpv")).toBeNull();
+    expect(p.get("pscope")).toBe("all");
+    expect(p.get("q")).toBe("пътища");
+  });
+});
+
+describe("useUrlProcurementFilters — referential stability", () => {
+  // REGRESSION: `grades` is spread into the screens' extraFilters, and
+  // DbDataTable resets pagination on an identity-keyed effect. A fresh array
+  // each render therefore pinned /procurement/contracts to page 1 forever.
+  it("keeps the same grades array identity across re-renders", () => {
+    const { result, rerender } = setup("/procurement/contracts?grade=D,F", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    const first = result.current.f.grades;
+    rerender();
+    expect(result.current.f.grades).toBe(first);
+  });
+
+  it("keeps a stable identity for the empty case too", () => {
+    const { result, rerender } = setup("/procurement/contracts", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    const first = result.current.f.grades;
+    rerender();
+    expect(result.current.f.grades).toBe(first);
+    expect(first).toEqual([]);
+  });
+
+  it("returns the SAME identity when only junk letters change", () => {
+    // Both parse to [], so the table must not see a filter change.
+    const { result } = setup("/procurement/contracts?grade=Z", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    const { result: other } = setup("/procurement/contracts?grade=9", {
+      toggleParam: "single",
+      withRisk: true,
+    });
+    expect(result.current.f.grades).toBe(other.current.f.grades);
+  });
+
+  it("rejects prototype keys, not just unknown letters", () => {
+    // `v in GRADE_TONE` would accept these via the prototype chain.
+    const { result } = setup(
+      "/procurement/contracts?grade=toString,constructor,valueOf",
+      { toggleParam: "single", withRisk: true },
+    );
+    expect(result.current.f.grades).toEqual([]);
+  });
+});

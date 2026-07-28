@@ -27,6 +27,7 @@ import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
 import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
+import { RiskGradeFilter } from "@/screens/components/procurement/RiskGradeFilter";
 import { SingleBidderToggle } from "@/screens/components/procurement/SingleBidderToggle";
 import { ContractsAggregatesFooter } from "@/screens/components/procurement/ContractsAggregatesFooter";
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
@@ -68,9 +69,15 @@ export const CompanyContractsDbScreen: FC<{
     setProcBucket,
     setCpvSel: setCpvDiv,
     setToggle: setSingleBidder,
+    grades,
+    setGrades,
     hasActiveFilters,
     clearFilters,
-  } = useUrlProcurementFilters({ toggleParam: "single", withYear: true });
+  } = useUrlProcurementFilters({
+    toggleParam: "single",
+    withYear: true,
+    withRisk: true,
+  });
 
   const [companyName, setCompanyName] = useState("");
   // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
@@ -128,6 +135,18 @@ export const CompanyContractsDbScreen: FC<{
     [cpvDiv],
   );
 
+  // Risk grade filters SERVER-side over this entity's whole contract set
+  // (migration 112), not just the loaded page.
+  const gradeF = useMemo<DbColumnFilter[]>(
+    () => (grades.length ? [{ id: "risk_grade", value: grades }] : []),
+    [grades],
+  );
+
+  const gradeCommonF = useMemo<DbColumnFilter[]>(
+    () => [...yearF, ...gradeF],
+    [yearF, gradeF],
+  );
+
   // Facet-driven analysis (procedure mix, integrity KPIs, CPV options), shared
   // with the global /procurement/contracts browser. Entity-scoped; the year
   // filter is a common filter applied to every facet; the CPV facet is reactive
@@ -139,7 +158,10 @@ export const CompanyContractsDbScreen: FC<{
       resource: "contracts",
       scope: { col: scopeCol, val: eik },
       fixedFilters: [{ id: "tag", value: [tag] }],
-      commonFilters: yearF,
+      // gradeF rides commonFilters so the KPI strip and the table describe the
+      // SAME set — otherwise a grade-filtered count sits beside single-bid and
+      // direct percentages computed over the unfiltered set.
+      commonFilters: gradeCommonF,
       singleFilter: singleF,
       cpvFilter: cpvF,
       procBucket,
@@ -148,8 +170,8 @@ export const CompanyContractsDbScreen: FC<{
     });
 
   const extraFilters = useMemo<DbColumnFilter[]>(
-    () => [...yearF, ...singleF, ...methodF, ...cpvF],
-    [yearF, singleF, methodF, cpvF],
+    () => [...yearF, ...singleF, ...methodF, ...cpvF, ...gradeF],
+    [yearF, singleF, methodF, cpvF, gradeF],
   );
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
@@ -412,6 +434,7 @@ export const CompanyContractsDbScreen: FC<{
                 value={procBucket}
                 onChange={setProcBucket}
               />
+              <RiskGradeFilter value={grades} onChange={setGrades} />
               <SingleBidderToggle
                 checked={singleBidder}
                 onChange={setSingleBidder}
