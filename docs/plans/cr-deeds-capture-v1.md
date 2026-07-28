@@ -5,8 +5,54 @@ company we care about, from the authoritative Registry Agency API, so that today
 (missing ownership) and any future feature (activities, addresses, capital history,
 branches, insolvency, transformations, …) are served from data we fetched **once**.
 
-Starts **after** the running `fetch_company_founded` crawl finishes (~3 days from
-2026-07-25, ~6.3k contractor EIKs left of 26.7k).
+## 0. Status — what this plan inherited (2026-07-27)
+
+**The `fetch_company_founded` crawl was CANCELLED mid-run so it could be folded into this
+plan.** This is no longer "starts after that crawl finishes"; that crawl is not going to
+finish separately, and three things now belong to this plan:
+
+1. **The remaining founding-date work set: ~10,953 contractor EIKs.** `company_founded`
+   holds 15,887 rows (15,799 dated). The crawl stopped at 100/10,953 with 0 failures — the
+   earlier IP block had expired by then (measured 6.0s/EIK, 2/2 answered).
+2. **The refresh cadence.** `procurement-risk-v2` §7.5 deliberately did NOT wire a periodic
+   `fetch_company_founded` run into the watcher, because two independent daily crawlers
+   against one rate-limited host would throttle each other and re-create the block that
+   corrupted the 2026-07 run. Whichever crawler survives owns the cadence — that is this one.
+3. **The hardened fetch semantics below.** Do not re-derive them.
+
+### ⚠️ The invariant this plan MUST carry over
+
+`fetch_company_founded` was hardened on 2026-07-27 after it silently corrupted its own
+table: it returned a bare `null` for **every** failure mode and persisted it, and because the
+resume query skips any EIK already present, a failed fetch became a permanent, never-retried
+claim that the firm has no founding date. The daily null rate climbed 4.7% → 47.2% in
+lockstep with the source throttling us.
+
+**A row means "the register answered." A null field means "it answered and had nothing."
+It must never mean "we could not reach it."** Copying the old crawler's shape and
+re-deriving this would silently reopen the same hole at 478k–1M-request scale, where it
+would be far harder to notice. Reuse `fetchFounded`'s discriminated result
+(`{ok:true,…} | {ok:false,reason,…}`) — see DUP-001 in the 2026-07-27 review: extract the
+shared client rather than fork it.
+
+**Measured response semantics (live API, 2026-07-27) — build on these, not on guesses:**
+
+| response | meaning | persist? |
+|---|---|---|
+| 200 + JSON object with `uic`/`deedStatus`/`sections` (~36KB) | real company | ✅ |
+| 200 + **empty body** (confirmed twice) | no such company — it does **not** 404 | ✅ as a real null |
+| 200 + parseable JSON without the deed shape (`{}`, `[]`, `null`, `{"Message":…}`) | block page / error envelope | ❌ |
+| 200 + unparseable body | interstitial | ❌ |
+| 404 / other non-200 / 429 / timeout | no answer (404 never occurs in practice ⇒ treat as WAF) | ❌ |
+
+Also inherited and worth reusing: adaptive pacing + a circuit breaker on both consecutive
+failures and wall-clock silence (a stalled run must be loud — the old one ground for days at
+~30 min/EIK before anyone looked), a read-only `--probe` to measure block state before
+committing to a long run, and `http_status`/`attempts` provenance columns so a null is
+auditable after the fact.
+
+⚠️ `company_founded` carries `http_status`/`attempts` (migration 033). Apply 033 to any
+target DB **before** writing, or the upsert fails; the script preflights and exits 2.
 
 ---
 
@@ -55,9 +101,15 @@ Store the complete API response per EIK, immutable, gzipped.
   ```
   (SQLite chosen for consistency with `state.sqlite`, trivial resume/query, one file.
    Gitignored; large. Alternative if it outgrows a file: a PG `cr_deeds_raw` jsonb table.)
-- Fetcher `scripts/declarations/tr/fetch_cr_deeds.ts`: reuse the `fetch_company_founded`
-  harness verbatim (curl, `-w %{http_code}`, 5s pace, exp backoff on 429, empty-body retry,
-  30s timeout). For each target EIK: fetch → store raw body → nothing parsed here.
+- Fetcher `scripts/declarations/tr/fetch_cr_deeds.ts`: **extract** the
+  `fetch_company_founded` client into a shared module and call it — do not copy it. It
+  carries the ok/not-ok invariant in §0 plus curl (TLS fingerprinting), `-w %{http_code}`,
+  adaptive pacing from 5s, exp backoff on 429, confirmed-empty-body handling, a circuit
+  breaker and a 30s timeout. A verbatim copy forks those semantics, and only one fork gets
+  the next fix. For each target EIK: fetch → store raw body → nothing parsed here.
+  ⚠️ At this scale the raw store must record the FAILURE too (eik, reason, status, attempts)
+  rather than dropping it — over weeks a silent gap is indistinguishable from "this company
+  has no deeds."
 - **Resumable / idempotent:** skip EIKs already present with a recent `fetched_at` (unless
   `--refresh-before <date>`). Checkpoint-friendly for a weeks-long crawl.
 - **Politeness:** single IP token bucket — **never run concurrently** with
@@ -120,7 +172,7 @@ Run Tier 0→1, reassess, then let Tier 2/3 grind unattended with checkpointing.
 
 ---
 
-## 4. Spikes to resolve first (when the founding crawl is done)
+## 4. Spikes to resolve first (nothing blocks these now — the founding crawl was cancelled)
 
 1. **Deeds JSON schema inventory** — fetch ~8 diverse EIKs (EOOD, ООД, АД/ЕАД, ЕТ, ЮЛНЦ,
    a branch, a bankrupt, a transformed company), dump raw, enumerate every element/field.
@@ -129,7 +181,9 @@ Run Tier 0→1, reassess, then let Tier 2/3 grind unattended with checkpointing.
    but **may differ in field names** — this is the main unknown.
 2. **Current-state derivation** — confirm the Deeds tree carries erasure/validity so we can
    reconstruct *active* vs *erased* records (owners closed on transfer, ex-managers). The
-   founding crawl proves full history is returned; confirm the active/erased signal.
+   ~15.8k EIKs the founding crawl did fetch confirm the Deeds tree returns dated history
+   (`min(fieldEntryDate)` resolves for every one of them); the active/erased signal is still
+   unconfirmed and is the real unknown here.
 3. **Storage sizing** — measure avg gzipped deed size × target count. 478k × ~15-40 KB ⇒
    ~10-20 GB raw. Confirm SQLite-blob store is comfortable (or switch to sharded
    `raw_data/tr/deeds/{shard}/{eik}.json.gz`, or a PG jsonb table).
@@ -157,8 +211,11 @@ Run Tier 0→1, reassess, then let Tier 2/3 grind unattended with checkpointing.
 - **Licensing.** CR is CC-BY — add attribution (as the ГФО ingest does).
 - **Changelog.** New/enriched owner data is a dataset change → wire into `recent_updates`
   per the PG-changelog rule.
-- **Egress.** curl endpoint reachable from the run host (the founding crawl runs there).
-  Re-confirm if run elsewhere.
+- **Egress.** curl endpoint reachable from the run host — confirmed on the dev machine
+  2026-07-27 (`--probe`: 2/2 answered, 6.0s/EIK). Re-confirm if run elsewhere, and note the
+  limit is **per-IP**: the 2026-07 block tightened over ~7 days of sustained crawling from
+  one address, so a weeks-long Tier-3 run should assume it will be throttled and plan the
+  egress accordingly rather than discovering it on day 6.
 - **⚠ Scrape fragility at Tier-3 scale.** 478k–1M requests over weeks/months at 1/5s is
   exposed to IP-blocking, silent API-shape changes mid-crawl, and ToS limits on an unofficial
   bulk extraction. **Before committing to Tier 3, evaluate an official full-database bulk**
