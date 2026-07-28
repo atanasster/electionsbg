@@ -55,72 +55,35 @@
 //   tsx scripts/procurement/fetch_company_founded.ts --requeue-all-nulls  # incl. verified ones
 //   tsx scripts/procurement/fetch_company_founded.ts                 # full backfill
 
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
 import { allRows, withClient, end } from "../db/lib/pg";
+import {
+  fetchDeed,
+  minEntryDate,
+  makePacer,
+  BASE_PACE_MS,
+  MAX_PACE_MS,
+  PACE_GROWTH,
+  MAX_RETRY,
+  DEGRADED_AFTER,
+  DEGRADED_MAX_RETRY,
+  MAX_CONSECUTIVE_FAILURES,
+  MAX_SILENCE_MS,
+  sleep,
+  type CurlRunner,
+} from "../declarations/tr/lib/crDeedsClient";
 
-const pexec = promisify(execFile);
+// The curl/pacing/classifier is shared with the raw-capture crawler
+// (fetch_cr_deeds.ts) via lib/crDeedsClient — see DUP-001 in the 2026-07-27
+// review. Re-export the helpers this module's public surface (and its unit tests)
+// depend on, so the extraction is invisible to callers.
+export {
+  minEntryDate,
+  makePacer,
+  isDeedTree,
+  BASE_PACE_MS,
+} from "../declarations/tr/lib/crDeedsClient";
 
-const DEEDS_URL = (eik: string) =>
-  `https://portal.registryagency.bg/CR/api/Deeds/${eik}`;
-export const BASE_PACE_MS = 5000; // 1 req / 5s per the measured token bucket
-const MAX_PACE_MS = 120_000; // ceiling for the adaptive widening
-const PACE_GROWTH = 1.5; // multiplier applied per consecutive failure
-const MAX_RETRY = 5;
-// Once the source is clearly refusing us, retrying six times per EIK spends the
-// token budget re-asking a question already answered.
-const DEGRADED_AFTER = 3;
-const DEGRADED_MAX_RETRY = 1;
-// Two consecutive empty 200s is the register's "no such company" (measured).
-const EMPTY_CONFIRM = 2;
-const MAX_CONSECUTIVE_FAILURES = 10; // circuit breaker — bail instead of grinding
-const MAX_SILENCE_MS = 20 * 60_000; // …or 20 min with no answer at all
 const DEFAULT_PROBE = 20;
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-// Collect every `fieldEntryDate` (and `recordMinActionDate`) string in the tree
-// and return the minimum's date part (YYYY-MM-DD), or null.
-export const minEntryDate = (root: unknown): string | null => {
-  let min: string | null = null;
-  const walk = (v: unknown): void => {
-    if (v == null) return;
-    if (Array.isArray(v)) {
-      for (const x of v) walk(x);
-      return;
-    }
-    if (typeof v === "object") {
-      for (const [k, val] of Object.entries(v as Record<string, unknown>)) {
-        if (
-          (k === "fieldEntryDate" || k === "recordMinActionDate") &&
-          typeof val === "string" &&
-          /^\d{4}-\d\d-\d\d/.test(val)
-        ) {
-          const d = val.slice(0, 10);
-          if (min === null || d < min) min = d;
-        } else {
-          walk(val);
-        }
-      }
-    }
-  };
-  walk(root);
-  return min;
-};
-
-/**
- * Is this parsed body an actual deed tree, or something that merely happens to
- * be valid JSON? Deliberately a POSITIVE assertion keyed on the measured
- * top-level shape: "JSON.parse didn't throw" is not evidence the register
- * answered. `null`, `[]`, `{}`, `"blocked"` and the stock ASP.NET
- * `{"Message":"An error has occurred."}` envelope all parse cleanly and all
- * walk to a null date — writing any of them would be a permanent lie.
- */
-export const isDeedTree = (v: unknown): boolean => {
-  if (v == null || typeof v !== "object" || Array.isArray(v)) return false;
-  const o = v as Record<string, unknown>;
-  return "uic" in o || "deedStatus" in o || "sections" in o;
-};
 
 /**
  * The register either ANSWERED (`ok: true` — `date` is the founding date, or
@@ -134,118 +97,23 @@ export type FetchResult =
   | { ok: true; date: string | null; status: number; attempts: number }
   | { ok: false; reason: string; status: number | null; attempts: number };
 
-type CurlRunner = (url: string) => Promise<{ stdout: string }>;
-
-// ⚠️ MUST use curl, not Node's fetch: the CR host TLS-fingerprints and returns
-// HTTP 500 to undici (verified) but 200 to curl. `-w \n%{http_code}` appends the
-// status as a trailing line so we can detect 429/500 without --fail eating the body.
-const curlRunner: CurlRunner = (url) =>
-  pexec("curl", ["-s", "-m", "30", "-w", "\n%{http_code}", url], {
-    maxBuffer: 10_000_000,
-  });
-
+/**
+ * Founding date for one EIK. A thin wrapper over the shared deed client:
+ * `min(fieldEntryDate)` over the answered body, or a real `null` for the
+ * confirmed-empty-200 "no such company". A failure (`ok: false`) is passed
+ * straight through so it is never written — the invariant this file protects.
+ */
 export const fetchFounded = async (
   eik: string,
   opts: { run?: CurlRunner; pace?: number; maxRetry?: number } = {},
 ): Promise<FetchResult> => {
-  const { run = curlRunner, pace = BASE_PACE_MS, maxRetry = MAX_RETRY } = opts;
-  // Sleeping before we give up buys nothing — on the 429 ladder the final
-  // backoff alone was 51% of a failed EIK's total cost.
-  const backoff = async (ms: number, attempt: number): Promise<void> => {
-    if (attempt < maxRetry) await sleep(ms);
-  };
-
-  let lastStatus: number | null = null;
-  let lastReason = "no-attempt";
-  let emptyStreak = 0;
-  let attempt = 0;
-
-  for (; attempt <= maxRetry; attempt++) {
-    let out: string;
-    try {
-      ({ stdout: out } = await run(DEEDS_URL(eik)));
-    } catch {
-      // curl itself failed (timeout, DNS, connection reset) — no answer.
-      lastReason = "curl-failed";
-      emptyStreak = 0;
-      await backoff(pace * (attempt + 1), attempt);
-      continue;
-    }
-    const nl = out.lastIndexOf("\n");
-    const status = Number(out.slice(nl + 1).trim());
-    const body = out.slice(0, nl);
-    lastStatus = status;
-
-    if (status === 429) {
-      lastReason = "rate-limited";
-      emptyStreak = 0;
-      await backoff(pace * Math.pow(2, attempt), attempt);
-      continue;
-    }
-    // 404 is NOT treated as "no such company": the register answers an unknown
-    // EIK with an empty 200 (measured), so a 404 here is far more likely to be
-    // an edge/WAF layer — and persisting it would look legitimate in
-    // http_status while being exactly the original bug.
-    if (status !== 200) {
-      lastReason = `http-${status}`;
-      emptyStreak = 0;
-      await backoff(pace * (attempt + 1), attempt);
-      continue;
-    }
-    if (!body.trim()) {
-      // An empty 200 IS the register's "no such company" — but confirm it,
-      // since a truncated/dropped response looks identical on a single sample.
-      emptyStreak++;
-      if (emptyStreak >= EMPTY_CONFIRM)
-        return { ok: true, date: null, status, attempts: attempt + 1 };
-      lastReason = "empty-body";
-      await backoff(pace, attempt);
-      continue;
-    }
-    emptyStreak = 0;
-
-    let parsed: unknown;
-    try {
-      parsed = JSON.parse(body);
-    } catch {
-      // A 200 that isn't JSON is a block/interstitial page, not an answer.
-      lastReason = "unparseable-body";
-      await backoff(pace * (attempt + 1), attempt);
-      continue;
-    }
-    if (!isDeedTree(parsed)) {
-      lastReason = "unexpected-shape";
-      await backoff(pace * (attempt + 1), attempt);
-      continue;
-    }
-    return {
-      ok: true,
-      date: minEntryDate(parsed),
-      status,
-      attempts: attempt + 1,
-    };
-  }
+  const r = await fetchDeed(eik, opts);
+  if (!r.ok) return r;
   return {
-    ok: false,
-    reason: lastReason,
-    status: lastStatus,
-    attempts: attempt,
-  };
-};
-
-/** Adaptive pace: widen on failure, decay back toward the base on success. */
-export const makePacer = (base: number, max: number, growth: number) => {
-  let cur = base;
-  return {
-    onOk: () => {
-      cur = Math.max(base, Math.round(cur / growth));
-    },
-    onFail: () => {
-      cur = Math.min(max, Math.round(cur * growth));
-    },
-    get current() {
-      return cur;
-    },
+    ok: true,
+    date: r.parsed ? minEntryDate(r.parsed) : null,
+    status: r.status,
+    attempts: r.attempts,
   };
 };
 

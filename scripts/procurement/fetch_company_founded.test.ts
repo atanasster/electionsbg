@@ -71,6 +71,15 @@ describe("fetchFounded — which outcomes may be persisted", () => {
     expect(r).toMatchObject({ ok: true, date: null, status: 200 });
   });
 
+  it("maps an answered but undated deed tree to a dated answer of null", async () => {
+    // A real deed tree with no fieldEntryDate anywhere: the register answered, so
+    // the row is written — but with founded_date null. Pins the wrapper's own
+    // r.parsed → minEntryDate mapping, not just the compositional minEntryDate test.
+    const undated = '{"uic":"1","sections":[]}';
+    const r = await fetchFounded("1", { run: runner(undated, 200), pace: 0 });
+    expect(r).toMatchObject({ ok: true, date: null, status: 200 });
+  });
+
   it.each([
     "null",
     "[]",
