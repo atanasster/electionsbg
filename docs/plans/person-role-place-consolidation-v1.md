@@ -50,8 +50,9 @@ anywhere in the database** to normalize against.
    none**.
 
    **Correction to an earlier read of this: `PDV` and `PDV-00` are NOT duplicates.** They are
-   two distinct МИР — Пловдив-град (МИР 16) and Пловдив-област (МИР 17) — and both exist as
-   their own shard in `data/{election}/preferences/by_region/` (31 files = 31 МИР). Folding
+   two distinct МИР — **`PDV-00` is Пловдив-ГРАД (МИР 16)** and **`PDV` is Пловдив-ОБЛАСТ
+   (МИР 17)** — and both exist as their own shard in
+   `data/{election}/preferences/by_region/` (31 files = 31 МИР). Folding
    `PDV-00` into `PDV` would merge two separate constituencies. The `PDV-00 → PDV` rule in
    [regionalOblast.ts:47](../../src/lib/regionalOblast.ts) is the **statistical oblast**
    rollup for regional indicators, a different namespace from the electoral one. This is the
@@ -175,35 +176,71 @@ Two facts make a scalar `place` the wrong home for that history:
 
 Two rules, in order — elected-from first, most-preferences as the fallback:
 
-**Rule 1 — the МИР they were seated from.** Correct when available, but the corpus does not
-carry it: the parliamentary CIK data is **votes-only, with no elected flag per МИР** (only
-the *local* election parsers emit `isElected`). The one place it exists is
-`mp_profile.current_region_code` — and that is:
-- **the current parliament only** (240 of 2,122 `mp_profile` rows), and
-- **the МИР *number*** (`16`, `23`), a third namespace again, with no number→code crosswalk
-  anywhere in the repo.
+**Rule 1 — the МИР they were seated from. Backfillable from parliament.bg for every MP.**
+Our own corpus cannot answer it (the parliamentary CIK data is votes-only, with no elected
+flag per МИР — only the *local* parsers emit `isElected`). But parliament.bg does, on the
+`mp-profile` endpoint the scraper **already fetches for all 2,122 MPs** in `--all` mode:
 
-So Rule 1 needs one new piece of static reference data: a **31-row МИР number → site МИР
-code** table (`01 Благоевград → BLG` … `16 Пловдив-град → PDV`, `17 Пловдив-област → PDV-00`,
-`23/24/25 София → S23/S24/S25`, `26 София-област → SFO`, … `31 Ямбол → JAM`). It is complete,
-static and cheap — worth writing down once, and it will be needed again by anything that
-consumes parliament.bg region fields.
+```
+GET /api/v1/mp-profile/bg/{mpId}  →  A_ns_Va_name: "23-СОФИЯ"
+```
+
+Measured 2026-07-27:
+- **200/200 randomly sampled FORMER MPs carry it** — 100% fill, all 31 МИР represented.
+- **30/30 sampled current MPs: the profile value is identical** to the `coll-list-ns/bg`
+  roster region the scraper uses today. Same field, same value.
+- The scraper **discards it**:
+  [scrape_mps.ts:394](../../scripts/parliament/scrape_mps.ts) sets
+  `currentRegion: mp?.region ?? null`, taking the region only from the *current-NS list*
+  lookup, so every former MP gets NULL even though the profile response in hand has it.
+  That single line is why `person_role.place` is 11.3% filled for `mp`.
+
+So this is a **field-mapping change to an existing scrape, not a new crawl.** No CIK seat
+page, no Cloudflare, no new source. (The scraper's own header caveat — "for original
+election-day winners use the CIK seat page (Cloudflare-protected)" — is about per-term seat
+*detail*, which is still true; see the provenance caveat below.)
+
+**The crosswalk already exists — no new reference data.**
+[src/data/parliament/nsFolders.ts](../../src/data/parliament/nsFolders.ts) carries
+`OBLAST_TO_MIR` (all 31, `PDV-00→16`, `PDV→17`, `S23/S24/S25`, `SFO→26`) plus
+`ELECTION_TO_NS`, mirrored in `scripts/parsers/region_codes.ts`. Independently re-derived
+from the data as a check: learning МИР→oblast from the 202 single-oblast current MPs yields
+**31/31 codes with zero ambiguity**, matching the table exactly.
+
+**Provenance caveat — one scalar per person, not per term.** `A_ns_Va_name` is a single
+value; for a multi-term MP it cannot be attributed to a specific parliament. On 40
+single-term former MPs it landed inside that term's candidacy oblast set 34/40 (85%); the 6
+misses are explained by Rule 2's data, not by a bad profile value (see below). This is
+exactly why §3b writes it as a **badge, not a history**.
 
 **Rule 2 — most preference votes.** `person_election_stats.regions[].totalVotes` is the
 preference votes received in that МИР (`regions[].pref` is the *ballot number*, not a count —
-easy to misread). `argmax(totalVotes)` is unambiguous and available for essentially everyone
-with region stats.
+easy to misread; the candidate shards' `prefs` map is the same thing and equally unusable for
+this). `argmax(totalVotes)` is unambiguous and available for everyone with region stats.
 
-**Coverage, so the split of work is honest:** of the 10,679 multi-МИР candidacies, only
-**1,277 (12.0%) were seated at all** — and of those, elected-from is derivable today for the
-240 current MPs. Rule 2 therefore carries ~99% of the load; Rule 1 is a correctness
-refinement for the current cohort that gets better every time the parliament scrape runs.
+**What `oblasts` actually means — and why Rule 1 outranks it.** The by-slug shards' `oblasts`
+array is built from **preference-vote rows**
+([bundle_party_data.ts:357](../../scripts/parties/bundle_party_data.ts), `subset.map(r =>
+r.oblast)`), so it is "МИР where this candidate has recorded preferences", **not** "МИР where
+they stood on the ballot". That single fact explains both open anomalies: the 24.0% of
+candidacies with an empty array (no recorded preferences anywhere), and the 6/40 single-term
+MPs whose seated МИР falls outside their candidacy set. The set is a *subset* of the true
+ballot МИР, so parliament.bg is the better ground truth wherever the two disagree — Rule 1
+wins, and a Rule-1 value outside the candidacy set is not a conflict to be resolved away.
+
+**Rule 1 is a genuine selection, and Rule 2's current proxy is a coin flip.** For the 38
+multi-МИР current MPs, the seated МИР is inside the candidacy oblast set **38/38** — so
+picking among the candidacies is the right frame. But today's `oblasts[0]` picks the seated
+МИР only **18/38 (47%)**. That is the measured value of this fix.
+
+**Coverage split:** Rule 1 now covers **all 2,122 MPs** once the scrape change lands, so it
+carries every seated candidacy. Rule 2 carries the non-seated remainder — of the 10,679
+multi-МИР candidacies, 1,277 (12.0%) were seated and go to Rule 1, the other 9,402 to Rule 2.
 
 ### 3b. What gets written
 
-- `mp.place_code` = most recent seating МИР — Rule 1 where available, else Rule 2 on the
-  latest `election_date`. A **badge**, not a history. Fill goes 11.3% → effectively complete
-  for anyone with electoral history.
+- `mp.place_code` = the seated МИР from `A_ns_Va_name` (Rule 1), else Rule 2 on the latest
+  `election_date`. A **badge**, not a history. Fill goes **11.3% → 100%**.
 - `candidate.place_code` = the primary МИР for that candidacy per §3a, replacing `oblasts[0]`
   and its arbitrary-first truncation on the 15.9% multi-МИР rows.
 - The full per-cycle, multi-МИР history stays in `person_election_stats`. No duplication.
@@ -226,9 +263,19 @@ it). `ds`/`sanctions`/`regulator` write NULL. Data test: every `official_muni` r
 Report unresolved strings; do not guess. `court_load` keeps its own `name` for now — pointing
 it at `body_code` is a follow-up inside the judiciary pack, not a blocker here.
 
-**T3 — MP + candidate backfill** from `person_election_stats` (§3), plus the 31-row МИР
-number→code crosswalk Rule 1 needs (§3a). Data test: the crosswalk is exhaustive against the
-31 `preferences/by_region/*.json` shards, and `PDV` / `PDV-00` stay distinct.
+**T3 — MP + candidate backfill (§3).** Three parts, in order:
+
+1. **`scrape_mps.ts`: persist `A_ns_Va_name`.** Add a `seatedRegion` field parsed by the
+   existing `parseRegion()` (it already handles the `"23-СОФИЯ"` shape), sourced from the
+   profile response rather than the current-NS list, so former MPs stop getting NULL. Widen
+   `mp_profile` with `seated_region_code` / `seated_region_name` — keep `current_region_*`
+   as-is, it means something different (still-sitting). Needs one `--all --refresh-current`
+   run (~10 min, git-committed output).
+2. **Resolver**: `mp.place_code` from `seated_region_code` via the existing `OBLAST_TO_MIR`
+   inverse; `candidate.place_code` per §3a.
+3. **Data tests**: `OBLAST_TO_MIR` is a bijection covering exactly the 31
+   `preferences/by_region/*.json` shards; `PDV` / `PDV-00` stay distinct and map to 17 / 16
+   respectively; every `mp` role has a `place_code`.
 
 **T4 — consumers switch, `place` drops.**
 - `102_municipal_officials.sql`: `r.place` → `r.place_code WHERE r.place_kind='obshtina'`.
