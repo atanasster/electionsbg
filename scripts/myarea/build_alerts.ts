@@ -38,6 +38,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { readMunicipalAwardersByEkatte } from "../db/lib/muni_awarders";
 
 type MunicipalityInfo = {
   ekatte: string;
@@ -50,10 +51,6 @@ type ProcurementAwarder = {
   eik: string;
   name: string;
   tier?: string;
-};
-
-type ProcurementBySettlement = {
-  awarders?: ProcurementAwarder[];
 };
 
 type ProcurementAwarderFile = {
@@ -194,10 +191,6 @@ const PROJECT_ROOT = path.resolve(
 );
 const MUNICIPALITIES_FILE = path.join(PROJECT_ROOT, "data/municipalities.json");
 const COUNCIL_INDEX = path.join(PROJECT_ROOT, "data/council/index.json");
-const PROC_BY_SETTLEMENT = path.join(
-  PROJECT_ROOT,
-  "data/procurement/by_settlement",
-);
 const PROC_AWARDERS = path.join(PROJECT_ROOT, "data/procurement/awarders");
 const TENDERS_RECENT = path.join(
   PROJECT_ROOT,
@@ -746,7 +739,10 @@ const buildCouncilResolutionEvents = (
   });
 };
 
-const main = () => {
+const main = async () => {
+  // One query for every settlement — procurement_settlement_detail() re-runs the whole
+  // per-settlement aggregation per call, and this walks ~265 municípios.
+  const muniAwardersByEkatte = await readMunicipalAwardersByEkatte();
   fs.mkdirSync(OUT_DIR, { recursive: true });
   // Rebuild place_tenders/ from scratch so a município that dropped to zero open
   // tenders doesn't keep (and re-upload) a stale summary (F-008; mirrors the
@@ -773,13 +769,11 @@ const main = () => {
       todayMs,
     );
     councilEvents += council.length;
-    // The município's municipal-tier awarders — read its centroid by_settlement
-    // ONCE and share across the contract + tender builders (F-009).
-    const muniAwarders = (
-      readJson<ProcurementBySettlement>(
-        path.join(PROC_BY_SETTLEMENT, `${m.ekatte}.json`),
-      )?.awarders ?? []
-    ).filter((a) => a.tier === "municipal");
+    // The município's municipal-tier awarders, shared across the contract + tender
+    // builders (F-009). Sourced from Postgres — the by_settlement shards this used to read
+    // were retired with the rest of that static tree — and already filtered to the
+    // municipal tier by the query.
+    const muniAwarders = muniAwardersByEkatte.get(m.ekatte) ?? [];
     const allEvents: AlertEvent[] = [
       ...council,
       ...buildProcurementEvents(muniAwarders),
@@ -821,4 +815,7 @@ const main = () => {
   );
 };
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});

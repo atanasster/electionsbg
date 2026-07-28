@@ -50,12 +50,12 @@ Expected output on a normal day (one new fortnight published):
 → wrote 1 new + 2 modified month-shard(s)
 → rebuilding contractor/awarder rollups
   4823 contractor file(s), 1102 awarder file(s)
-→ building per-settlement procurement shards
-  by_settlement/: 388 settlement file(s); 1460 local-tier buyer(s) pinned, 346 aggregated into _national.json, 1586 dropped (no cached address)
 ✓ index.json + bundles.json updated
 ```
 
-The per-settlement step (added 2026) reads each awarder rollup's `geo` block (set by `buildRollups` via the resolver in `scripts/procurement/resolve_ekatte.ts`) and groups local-tier buyers by EKATTE. Output lives at `data/procurement/by_settlement/{ekatte}.json` + `index.json` + `_national.json` — drives the /procurement/by-settlement landing and the procurement tile on the existing settlement detail pages. Central ministries and national state companies are *not* pinned to settlements — they're aggregated into the national rollup. See [[project_procurement_geo]] for the methodology + the curated tier overrides in `scripts/procurement/awarder_tier.ts`.
+**The per-settlement shards no longer exist.** `data/procurement/by_settlement/` and its writer were retired: /procurement/by-settlement, the settlement detail pages and the My-Area alert feed all read the same rollup from **Postgres** now (`procurement_by_settlement()` in migration 030, precomputed per `?pscope` window by migration 119). The ingest still resolves each awarder's `geo` block via `scripts/procurement/resolve_ekatte.ts` — that is what the SQL groups by — so nothing about the METHODOLOGY changed: central ministries and national state companies are still not pinned to settlements, they are aggregated into the national rollup. See [[project_procurement_geo]] and the curated tier overrides in `scripts/procurement/awarder_tier.ts`.
+
+After an ingest, publish the by-settlement views with `npm run db:load:procurement-scopes:pg` (local; `db:refresh` runs it) and `npm run db:load:procurement-scopes:pg:cloud` (prod) — otherwise the page keeps serving the previous corpus.
 
 **Notice type on the rollup rows:** since 2026 the slim `topContracts` rows in the contractor / awarder / by_settlement rollups carry the OCDS `tag` (`award` = announced/обявена, `contract` = awarded/възложена, `contractAmendment` = annex/анекс), and value-bearing `award` rows are no longer discarded. This lets the place dashboards and the My-Area alert feed (`scripts/myarea/build_alerts.ts`) label each contract announced / awarded / annex. No new ingest — a normal `procurement:ingest` rebuild populates it; publish via `db:refresh` (local) + the `db:load:*:cloud` loaders (prod), per the Deployment note in Step 1e.
 

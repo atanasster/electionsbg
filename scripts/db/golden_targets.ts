@@ -33,9 +33,6 @@ const STATIC_TARGETS = [
   "debarred.json",
   // Faceted aggregates.
   "by_ns/2013_05_12.json",
-  "by_settlement/index.json",
-  "by_settlement/_national.json",
-  "by_settlement/00084.json",
   // Derived analytics (the curated, repo-committed ones).
   "derived/top_contractors.json",
   "derived/flow_full.json",

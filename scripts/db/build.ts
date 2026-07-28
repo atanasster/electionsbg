@@ -34,7 +34,6 @@ const STEPS: Array<[string, boolean]> = [
   ["db:gen-shards", true],
   ["db:gen-xref", true],
   ["db:gen-derived", true],
-  ["db:gen-settlement", true],
   ["db:gen-byns", true],
   ["db:gen-index", true],
 ];

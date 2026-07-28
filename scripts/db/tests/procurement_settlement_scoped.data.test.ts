@@ -268,3 +268,60 @@ test.skipIf(!ok)("orders deterministically, with a tiebreak", async () => {
     SELECT indexdef AS def FROM pg_indexes WHERE indexname = 'idx_psr_scope_total'`);
   assert.match(i.def, /total_eur DESC, ekatte/);
 });
+
+// ── The methodology itself ───────────────────────────────────────────────────────────────
+// These two replace a guarantee that lapsed when the offline JS builder was deleted. That
+// builder was an INDEPENDENT implementation of the local-vs-national split, and the shards
+// it wrote were verified byte-identical against the SQL — so a change to the split showed up
+// as a diff. Everything else in this file is SQL-vs-SQL, which cannot see that: editing
+// 030's `source='geo' AND is_local_hq` predicate, or loading awarder_seats with a NULL tier,
+// would keep every reconciliation green while silently moving billions between the
+// per-settlement ranking and the "national procurement" card.
+
+test.skipIf(!ok)("pins settlements to LOCAL-tier buyers only", async () => {
+  // A central ministry's Sofia HQ is not where its money was spent — the whole reason the
+  // page separates the two. If a national buyer leaked into a settlement, that
+  // settlement's total would jump by the ministry's entire budget.
+  const [r] = await allRows<{ n: string }>(`
+      SELECT count(*) n
+        FROM awarder_seats s
+       WHERE s.source = 'geo' AND NOT s.is_local_hq
+         AND EXISTS (SELECT 1 FROM procurement_settlement_rank r
+                      WHERE r.scope_key = 'all' AND r.ekatte = s.ekatte
+                        AND r.awarder_count > 0)
+         AND NOT EXISTS (SELECT 1 FROM awarder_seats l
+                          WHERE l.ekatte = s.ekatte AND l.is_local_hq)`);
+  // A national buyer may SHARE an ekatte with local ones (Sofia has both); what must not
+  // happen is a settlement existing ONLY because of national buyers.
+  assert.equal(r.n, "0");
+});
+
+test.skipIf(!ok)(
+  "keeps the national tier out of the settlement totals",
+  async () => {
+    // The national card is reported separately, never folded into the ranking. Checked as a
+    // magnitude: the two are disjoint, so the local sum must stay well under the corpus.
+    const [r] = await allRows<{ local: string; national: string }>(`
+      SELECT (payload->'summary'->>'totalEur')          AS local,
+             (payload->'summary'->'national'->>'totalEur') AS national
+        FROM procurement_geo_payloads WHERE scope_key = 'all'`);
+    assert.ok(
+      Number(r.local) > 0,
+      "no local spend at all — the tier split has collapsed",
+    );
+    assert.ok(
+      Number(r.national) > 0,
+      "no national spend at all — every central buyer has been pinned to a settlement",
+    );
+    // Every geo-resolved seat is one or the other, so neither side may be empty and the
+    // local side must not have swallowed the corpus.
+    const [t] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM awarder_seats WHERE source='geo' AND is_local_hq IS NULL",
+    );
+    assert.equal(
+      t.n,
+      "0",
+      "geo-resolved seat(s) with no tier — the split is undefined",
+    );
+  },
+);

@@ -1892,29 +1892,6 @@ export type ProcurementBySettlementFile = {
   byYear: ProcurementByYear[];
 };
 
-/** Landing-page index — by_settlement/index.json. */
-export type ProcurementBySettlementIndex = {
-  generatedAt: string;
-  totalEur: number;
-  totalContracts: number;
-  settlementCount: number;
-  national: {
-    contractCount: number;
-    awardCount: number;
-    totalEur: number;
-    totalOther: Record<string, number>;
-    awarderCount: number;
-  };
-  settlements: Array<{
-    ekatte: string;
-    name: string;
-    province: string;
-    obshtina: string;
-    contractCount: number;
-    totalEur: number;
-    awarderCount: number;
-  }>;
-};
 
 /** Per-contractor rollup at data/procurement/contractors/<EIK>.json. */
 export type ProcurementContractorRollup = {

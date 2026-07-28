@@ -48,7 +48,6 @@ import { writeByIdShards } from "./by_id_shards";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
-import { buildBySettlement } from "./by_settlement";
 import type {
   BundlesIndex,
   Contract,
@@ -347,12 +346,6 @@ const main = async (): Promise<void> => {
   console.log(
     `  risk_feed.json: ${riskFeed.topConcentration.length} conc + ${riskFeed.topMpTied.length} mp-tied; ` +
       `concentration_full.json: ${concFull.total}; person_procurement_index.json: ${personIndex.total}`,
-  );
-
-  console.log("→ building per-settlement procurement shards");
-  const bs = await buildBySettlement();
-  console.log(
-    `  by_settlement/: ${bs.settlementFiles} settlement file(s), ${bs.nationalAwarders} national, ${bs.pruned} orphan(s) pruned`,
   );
 
   // Rewrite index.json — totals from the fresh rollup pass, periods from the

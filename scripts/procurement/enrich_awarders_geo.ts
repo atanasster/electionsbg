@@ -20,9 +20,9 @@
 // Usage:
 //   npx tsx scripts/procurement/enrich_awarders_geo.ts
 //
-// After this runs you can build by_settlement.ts shards via:
-//   npx tsx -e "import('./scripts/procurement/by_settlement').then(m =>
-//     m.buildBySettlement().then(r => console.log(r)))"
+// The by-settlement views read the resolved seats from Postgres
+// (procurement_by_settlement, 030 → the per-scope precomputes in 119), so after this runs
+// refresh them with `npm run db:load:procurement-scopes:pg`.
 
 import fs from "fs";
 import zlib from "zlib";
