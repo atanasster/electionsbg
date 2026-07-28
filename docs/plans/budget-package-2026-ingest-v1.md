@@ -29,6 +29,7 @@ Three further findings, all folded in:
 | 5 | **T1 ships nothing without a `bucket:sync`.** `data/budget` is bucket-served in production via `dataUrl()`; A3 said "committed JSON only", which is true for T2/T3 and false for T1 | **T1.4a**, **A4** |
 | 6 | **Nothing detects the 2112 → 2300 repricing.** `__smoke_mod_identity.ts` reads `YEAR = 2024` and never touches the 2026 key; the Vitest `resolveMod` cases are written relative to the map, so they follow the change instead of catching it | A2.3, A2.4 |
 | 7 | **`capBaselineEur` is a latent coupling, not an absent one.** `baselineYear` is `revenueYears[last]`, so it is 2025 today and becomes 2026 when the FY2026 КФП completes — repricing the incidence model months later, disconnected from this change | A2.2 |
+| 8 | **The annual aggregates should month-weight the cap, not scalar it.** A whole-year 2300 overstates the contribution base by €261M / revenue by €72.7M, and the simulator's МОД lever by €51.5M — while `budget2026_package.ts` already prorates the same measure via `effMonths: 5` | **T2.6** |
 
 Builds on / does not duplicate:
 
@@ -333,9 +334,123 @@ in the acceptance criteria. `MAX_MOD = 4000` already accommodates 2,300, so the 
 no range change.
 
 **Acceptance:** the calculator's МОД label names the period in force, not just the year; the
-simulator's `currentCap` reflects the in-force value; `MOD_BY_YEAR` is byte-identical to its
-pre-change values for every year; `__smoke_mod_identity.ts`, `__smoke_earnings.ts` and
+simulator's `currentCap` reflects the in-force value; `MOD_BY_YEAR` matches the expected diff
+(one key: `2026: 2112 → 2300`, per the Addendum decision — the original "byte-identical"
+criterion is void, see A2.1); `__smoke_mod_identity.ts`, `__smoke_earnings.ts` and
 `__smoke_behavioral.ts` re-run green.
+
+---
+
+## T2.6 — Month-weight the annual aggregates (analysis, 2026-07-28)
+
+**This is not an enhancement. It is the correct model, and the scalar is the approximation.**
+МОД is a *monthly* cap applied per month under КСО, so the true annual insurable base is
+
+```
+B_year = Σ_months Σ_workers min(wage, cap_month)
+```
+
+`scalar × 12` is only right when the cap held all year. It didn't in 2022, doesn't in 2025,
+and doesn't in 2026 — three of the last five years, so the mid-year step is the rule rather
+than the exception, and the `MOD_BY_YEAR` doc comment naming only "(2022, 2025)" is already
+stale.
+
+### T2.6a. The seam — three sites, one of which hardcodes the assumption
+
+| site | the hardcoded bit |
+|---|---|
+| [`scoreModCapBands`](../../src/lib/bgTaxPolicy.ts) (`:351`) | `deltaBaseEur *= 12` |
+| [`pitRevenueOnBands`](../../src/lib/bgTaxPolicy.ts) (`:275`) | `return total * 12` |
+| [`scoreModCap`](../../src/lib/bgTaxPolicy.ts) (`:427`) | `identity.aboveCapMassEur` is an annual mass |
+
+Proposed shape — sums over segments instead of multiplying by 12:
+
+```ts
+export interface CapMonths { capEur: number; months: number }
+export const capMonths = (year: number): CapMonths[] => … // derived from MOD_SCHEDULE (T2.1)
+```
+
+Scalar callers pass `[{ capEur, months: 12 }]` and get today's answer byte-for-byte — which
+doubles as the regression check that finding #6 says T2 currently lacks.
+
+**The vocabulary already exists in this repo.**
+[`budget2026_package.ts:8`](../../scripts/budget/budget2026_package.ts) documents `effMonths`
+("months the measure is live in 2026 (01.08 → 5, 01.09 → 4)") and prints full-year beside
+prorated "to compare like-for-like". The package scorecard month-weights; the shared engine
+the simulator and the baseline both use does not. That is an internal inconsistency, not a
+missing capability.
+
+### T2.6b. Magnitudes — measured on the baked 120-band grid (2.63M workers, α = 2.273)
+
+| basis | annual base | SSC revenue |
+|---|---|---|
+| scalar 2112 all year (today) | €31.215bn | €8,677.7M |
+| scalar 2300 all year (the Addendum decision) | €31.663bn | €8,802.3M |
+| **month-weighted 7×2112 + 5×2300** | **€31.401bn** | **€8,729.6M** |
+
+Shipping 2300 as a whole-year scalar **overstates the contribution base by €261M and revenue
+by €72.7M**. Today's 2112 understates by €187M / €51.9M. The weighted figure sits between, as
+it must.
+
+On the simulator's headline Pareto lever the gap is starker: raising 2112 → 2300 scores
+**€88.3M/yr full-year**, but 2026 only collects **€36.8M** (5/12) — the scalar overstates the
+actual 2026 yield by **€51.5M**.
+
+That number is the argument. It is almost exactly the **€50.9M** the government's own package
+attributes to the 01.08 threshold measure in `budget2026_package.ts` — an entry that *already*
+carries `effMonths: 5`. Two parts of our own system price the same legislated change ~2.4×
+apart purely because one prorates and the other does not.
+
+### T2.6c. Weight the outputs, never the cap
+
+The tempting shortcut is a blended cap, 7/12·2112 + 5/12·2300 = €2,190.33. It is wrong:
+`min(w, cap)` is **concave** in cap, as the grid shows directly —
+
+```
+dB/dcap  @1900: 284,866   @2112: 223,888   @2190: 193,399   @2300: 178,537   @3000: 99,273
+                                                              EUR/mo of base per EUR of cap
+```
+
+so by Jensen `B(blended) ≥ Σ w_m·B(cap_m)` and a blended cap **overstates**: +€13.4M base /
++€3.7M revenue here. Small at a €188 step, but it grows with the square of the step and costs
+nothing to avoid.
+
+### T2.6d. What is clean, and what this does not fix on its own
+
+- **Clean — the Pareto anchor.** `modIdentity` anchors on **2024** (cap €1,917), which the
+  `MOD_BY_YEAR` comment does *not* list as a mid-year mover. The fit is uncontaminated, so
+  month-weighting can be layered on **without refitting α**. This is what makes T2.6 cheap.
+- **Not clean — the calibration year.** `baselineYear` is 2025, which *is* on that list, and
+  `MOD_BY_YEAR[2025] = 2112` is the "longer part of the year" value by the comment's own
+  admission. κ is therefore calibrated against a year the model already misstates for part
+  of. **Fixing 2026 without fixing 2025 relocates the error rather than removing it** — and
+  the 2025 split date is recorded nowhere in the repo, so it must be sourced from the 2025
+  ЗБДОО before the weighting is honest. Same for 2022 if the back-series matters.
+
+### T2.6e. Where month-weighting would be WRONG
+
+Only the annual-aggregate consumers weight. The point-in-time ones must not:
+
+- `computeLabourTax` and the tax calculator compute a **payslip**. Nobody's August payslip
+  uses a blended cap — there the answer is `asOf` (T2.2): pick the month, don't average it.
+- A `resolveMod(year)` **label** must name the period in force, not blend two values into a
+  number that was never law.
+
+This is the split T2 was already reaching for: dated resolution for point-in-time surfaces,
+month-weighted aggregation for annual revenue. Applying the wrong one to either class is a
+new defect, not a partial fix.
+
+### T2.6f. Caveats to state rather than paper over
+
+The band grid is a static monthly wage distribution, so this captures neither within-year wage
+growth nor lumpy December bonuses — and those land inside the 2300 window, meaning
+month-weighting probably still *slightly* understates. Second-order against a €72.7M scalar
+error, but do not present the result as precise.
+
+**Sequencing:** T2.6 depends on `MOD_SCHEDULE`, so it rides T2.1 rather than preceding it. It
+is also the strongest argument for A2.6's "do not ship the scalar bump without the schedule" —
+with the schedule, the 2300 decision is recoverable; without it, the €72.7M overstatement is
+simply baked in.
 
 ---
 
@@ -536,7 +651,8 @@ that directly serves §0's warning never to say "the 2026 budget".
 ## Sequencing
 
 ```
-T1.0 ──► T1          T1.0 is a re-read of чл. 1 ал. 2; T1 cannot ship without it
+T1.0 ──► T1 ──► T1.4a  re-read чл. 1 ал. 2, then ship, then bucket:sync or it lands nowhere
+T2.1 ──► T2.6        the schedule first; month-weighting derives its weights from it
 T2  ──►  T3 ──► T3.4 schema, then constants, then the /pensions consolidation
 T4  (independent)
 T5.0 ──► T5.1-5.3 ──► T5.4   cache key, then parsers, then UI
@@ -571,7 +687,10 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 | Prил. 1/1А parse silently drops or mis-columns rows | Fixed 9-column check + an expected row count — **after** resolving the 744 rows-vs-cells ambiguity (§0d). The floor check is a counter, not an assertion (T5.1) |
 | Two fund laws overwrite each other in the HTML cache | T5.0: `fetchLawHtml`'s key is `law-${fiscalYear}`, so both idMats collide today. Re-key before T5.1 |
 | A `MOD_BY_YEAR` derivation silently reprices the fiscal baseline | T2.1 derives from the *first* step of the year, making the map byte-identical. The `__smoke_*` gates that would catch a regression are tsx scripts outside `test:unit` — re-run them by hand (T2.5) |
-| A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent |
+| A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent. Note A2.5: with the 2300 decision the shift happens once, at deploy, instead |
+| The annual revenue model prices a split-year cap as if it held all 12 months | T2.6 month-weights `scoreModCapBands` / `pitRevenueOnBands` / `scoreModCap`. Measured cost of not doing it: €72.7M on the contribution side, €51.5M on the simulator's МОД lever |
+| Someone implements T2.6 as a blended (weighted-average) cap | T2.6c: `min(w, cap)` is concave, so a blended cap overstates by construction (+€3.7M here). Weight the outputs, never the cap |
+| 2025's own mid-year step keeps contaminating κ after 2026 is fixed | T2.6d: `baselineYear` is 2025 and `MOD_BY_YEAR[2025]` is the longer-part value. The 2025 split date is nowhere in the repo — source it from the 2025 ЗБДОО, or T2.6 relocates the error instead of removing it |
 | Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6, and stated in code comments — but the real mitigation is T6's separate `"civil-servant"` profile, which leaves the default employee path untouched by construction |
 | ЗДБРБ-2026 lands mid-implementation and moves these numbers | It cannot — the fund budgets are their own laws. A ЗИД to either would, and `dv_laws` reports ЗИД forms under the same `kind` |
 
@@ -655,6 +774,12 @@ assuming the opposite. An implementer must handle all of this in the same change
    modelling the year retrospectively"). The dated `MOD_SCHEDULE` (T2.1) is what makes it
    recoverable — so the schedule is now **more** load-bearing, not less. Do not ship the
    scalar bump without it.
+
+   *(Quantified 2026-07-28 — see **T2.6**. On the baked band grid the whole-year 2300 scalar
+   overstates the contribution base by €261M and SSC revenue by €72.7M against the correct
+   7×2112 + 5×2300 weighting, and overstates the simulator's МОД lever by €51.5M. "Do not
+   ship the scalar bump without the schedule" is therefore a hard requirement, not a
+   preference: the schedule is what T2.6 derives the month weights from.)*
 
 ### A3. Not required by this flip (checked, so nobody re-derives it)
 
