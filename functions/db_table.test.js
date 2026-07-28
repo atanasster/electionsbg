@@ -249,7 +249,7 @@ test("defaultScope, where declared, names a real scope column", () => {
 // distinguishes a fan-out base from a normal one, and a new fan-out resource shipping
 // without a default is precisely the regression this pins.
 test("every fan-out resource declares a defaultScope", () => {
-  const FAN_OUT = ["mp_assets_rankings", "mp_cars"];
+  const FAN_OUT = ["mp_assets_rankings", "mp_cars", "procurement_settlements"];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);
     assert.ok(
@@ -362,4 +362,82 @@ test("buildAggSelect: sum without agg:'sum', or a count over an unknown column, 
     "count(*)::bigint AS _count",
     "a count over a column absent from the registry is dropped",
   );
+});
+
+// ── procurement_settlements (the by-settlement ranking) ─────────────────────────────────
+// Registered in the same commit that moved /procurement/by-settlement off a 196 KB static
+// blob. Every assertion below guards a SILENT failure: the wrong scope unions ~30 time
+// windows into one ranking, a missing tiebreak shuffles rows between pages, and a raw
+// ILIKE search would seq-scan every scope instead of using the trigram index.
+
+const settlements = REGISTRY.procurement_settlements;
+
+test("procurement_settlements is scoped by scope_key", () => {
+  // Without this the resource would union every pscope window — ~30 copies of each
+  // settlement summed into a ranking that matches no period on the page.
+  assert.deepEqual(settlements.scopeCols, ["scope_key"]);
+});
+
+test("procurement_settlements searches the transliterated fold, not the raw name", () => {
+  const { whereSql } = buildWhere(settlements, {
+    filters: { global: "veliko tarnovo" },
+  });
+  // The fold is what makes Latin input match Cyrillic names AND what the gin_trgm index
+  // is built on; searching `name` directly would be both wrong and a seq scan.
+  assert.ok(whereSql.includes("name_fold"), "fold arm present");
+  assert.ok(
+    whereSql.includes("translit_bg_latin"),
+    "query is folded with the same function as the column",
+  );
+  assert.ok(!whereSql.includes("name ILIKE"), "raw name is not searched");
+});
+
+test("procurement_settlements sorts by value with an ekatte tiebreak", () => {
+  // total_eur alone is not a total order — settlements share values — so pagination would
+  // drop or repeat rows without the second key.
+  assert.deepEqual(settlements.defaultSort, [
+    ["total_eur", "desc"],
+    ["ekatte", "asc"],
+  ]);
+});
+
+test("procurement_settlements exposes count, sum and max of total_eur", () => {
+  // max backs the in-cell magnitude bar: its denominator is the largest value in the
+  // CURRENT filtered set, which is a property of the whole result rather than of the page.
+  const sql = buildAggSelect(settlements);
+  assert.ok(sql.includes('count(*)::bigint AS "_count"') || sql.includes("count(*)::bigint"));
+  assert.ok(sql.includes('sum(total_eur)'), "sum arm present");
+  assert.ok(
+    sql.includes('coalesce(max(total_eur),0) AS "maxTotalEur"'),
+    "max arm present and coalesced — an empty filtered set must size the bar as 0, not NaN",
+  );
+});
+
+test("the max aggregate is gated exactly like sum", () => {
+  // A caller must not be able to aggregate an arbitrary column…
+  const rogue = {
+    columns: { ekatte: { type: "text" } },
+    aggregates: [{ fn: "max", col: "ekatte" }],
+  };
+  assert.ok(
+    !buildAggSelect(rogue).includes("max(ekatte)"),
+    "max on an un-marked column must be dropped",
+  );
+  // …and a truthy-but-wrong `agg` marker must not slip a text column through, whose max
+  // the client would read via Number() as NaN.
+  const mislabelled = {
+    columns: { province: { type: "text", agg: "count" } },
+    aggregates: [{ fn: "max", col: "province" }],
+  };
+  assert.ok(
+    !buildAggSelect(mislabelled).includes("max(province)"),
+    "max must require agg === 'sum', not merely a truthy agg",
+  );
+});
+
+test("procurement_settlements projects the English name without sorting on it", () => {
+  // The ranking is one row per place; re-ordering it by transliteration would reshuffle
+  // the table for an English reader with no explanation.
+  assert.ok(settlements.select.includes("name_en"), "name_en is projected");
+  assert.ok(!settlements.columns.name_en.sort, "name_en is not sortable");
 });

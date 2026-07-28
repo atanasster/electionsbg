@@ -707,6 +707,43 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // The by-settlement page's maps + header: the four KPI tiles, the "national procurement"
+  // card, and the ≤32-row per-oblast aggregate the three choropleths colour. Everything on
+  // that page EXCEPT the ranking table, which is served by the `procurement_settlements`
+  // DbDataTable resource.
+  //
+  // Precomputed per pscope (119), so this is a primary-key seek rather than the ~390 ms
+  // live aggregate the page used to run on every cache miss. Falls back to computing the
+  // window live when the scope has no precomputed row — a just-added election, or a cloud
+  // database where db:load:procurement-scopes:pg:cloud has not been run yet — so the page
+  // degrades to "slow" rather than to "empty".
+  // Precomputed per pscope (119), so this is a primary-key seek rather than the ~390 ms
+  // live aggregate the page used to run on every cache miss.
+  //
+  // NO LIVE FALLBACK, deliberately. An earlier draft recomputed the payload for a scope
+  // with no row; it was removed because (a) it duplicated 119's payload SQL verbatim, which
+  // 119's own header forbids for exactly the drift reason, (b) without that file's
+  // AS MATERIALIZED fence it ran 4-5× slower — 3.3 s for the full corpus against a 10 s
+  // statement_timeout — and (c) it was unreachable anyway: one loader command writes the
+  // scope rows AND refreshes both matviews, so a scope either has a payload or does not
+  // exist. A missing scope is an operational error (the loader was not run on this
+  // database), not a slow path.
+  "procurement-geo": async (dbRows, q) => {
+    const scope = s(q, "scope") || "all";
+    // missingMigrationRows, NOT missingMigrationEmpty: the latter's [{r:[]}] sentinel is
+    // TRUTHY, so `rows[0]` would pass and `rows[0].payload` (undefined) would be served as
+    // the body — an empty map under a confident heading.
+    const rows = await dbRows(
+      "SELECT payload FROM procurement_geo_payloads WHERE scope_key = $1",
+      [scope],
+    ).catch(missingMigrationRows);
+    // 404 rather than a 200 carrying null: /api/db responses are CDN-cached for an hour
+    // with a 24 h stale-while-revalidate, so a transient "loader hasn't run yet" null would
+    // be pinned at the edge long after the data landed.
+    if (!rows[0]?.payload)
+      return { status: 404, body: { error: "unknown or unbuilt scope" } };
+    return { body: rows[0].payload };
+  },
   // Per-settlement detail (awarders + top contracts + by-year).
   "procurement-settlement": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");

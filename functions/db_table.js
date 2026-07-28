@@ -887,6 +887,76 @@ const REGISTRY = {
     aggregates: [{ fn: "count" }],
     maxPageSize: 100,
   },
+  // Local-tier procurement per settlement, for /procurement/by-settlement.
+  //
+  // SCOPED, not global: procurement_settlement_rank (119) holds one row per settlement PER
+  // pscope window, so this resource FANS OUT — an unscoped query returns the union of ~30
+  // windows (10,207 rows, €147bn, each settlement counted once per window) with HTTP 200
+  // and no error. `defaultScope` is what makes that impossible; do not remove it. The key
+  // the client sends comes from useScopeWindow().scopeKey — the same shared definition the
+  // precompute itself was built from.
+  //
+  // Replaces a 196 KB blob the page paginated, sorted and searched in the browser.
+  procurement_settlements: {
+    base: "procurement_settlement_rank",
+    scopeCols: ["scope_key"],
+    defaultScope: { col: "scope_key", val: "all" },
+    columns: {
+      // Declared because it is the scope column — the engine requires every
+      // client-addressable column to be in the registry. Not projected: the caller already
+      // knows which scope it asked for, and echoing it on all 868 rows is pure weight.
+      scope_key: { type: "text" },
+      ekatte: { type: "text" },
+      // Sorted by the BULGARIAN name in both languages: the ranking is one row per place,
+      // and re-ordering it by the English transliteration would shuffle the table for an
+      // English reader without telling them why. name_en is projected, not sorted on.
+      name: { type: "text", sort: true },
+      name_en: { type: "text" },
+      province: { type: "text", sort: true, filter: "in" },
+      obshtina: { type: "text" },
+      // Global search hits the transliterated fold (gin_trgm-indexed), so Latin
+      // "veliko tarnovo" matches "Велико Търново" — the server-side replacement for the
+      // in-memory latinSkeleton filter this page used to run. The raw columns have no
+      // trigram index, so a raw ILIKE would seq-scan every scope's rows.
+      name_fold: {
+        type: "text",
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+      },
+      // agg on total_eur backs BOTH the sum (the footer total) and the max (the in-cell
+      // magnitude bar's denominator — the largest value in the current filtered set).
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contract_count: { type: "number", sort: true, filter: "range", agg: "sum" },
+      awarder_count: { type: "number", sort: true, filter: "range", agg: "sum" },
+    },
+    select: [
+      "ekatte",
+      "name",
+      "name_en",
+      "province",
+      "obshtina",
+      "total_eur",
+      "contract_count",
+      "awarder_count",
+    ],
+    // ekatte is the tiebreak, not decoration: total_eur alone is not a total order (many
+    // settlements share a value), and without it equal rows swap between pages mid-scroll.
+    defaultSort: [
+      ["total_eur", "desc"],
+      ["ekatte", "asc"],
+    ],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+      { fn: "max", col: "total_eur" },
+    ],
+    // An EXPORT CEILING, not a browsing page size: the widest scope holds 868 settlements,
+    // so "Download CSV" fetches the whole filtered set in one request instead of walking
+    // offsets. Higher than every other resource (100) deliberately — a full page is ~145 kB,
+    // still smaller than the 196 KB blob this replaces, and MAX_OFFSET still caps paging.
+    maxPageSize: 1000,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
@@ -1123,6 +1193,13 @@ const buildAggSelect = (r) => {
       sel.push(`coalesce(sum(${a.col}),0) AS "sum${camel}"`);
     else if (a.fn === "avg")
       sel.push(`avg(${a.col})::double precision AS "avg${camel}"`);
+    // `max` shares sum's `agg === "sum"` gate — that marker means "this numeric column is
+    // safe to aggregate". Gated on the exact value, not on `agg` being truthy: a looser
+    // check would admit a text or date column whose max the client then reads through
+    // Number() as NaN. coalesce for the same reason sum has it — an empty filtered set
+    // must yield 0, not null, since the client divides by this to size a magnitude bar.
+    else if (a.fn === "max" && r.columns[a.col]?.agg === "sum")
+      sel.push(`coalesce(max(${a.col}),0) AS "max${camel}"`);
   }
   return sel.join(", ");
 };
