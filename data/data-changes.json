@@ -1,19 +1,26 @@
 {
-  "updatedAt": "2026-07-28T18:19:30.563Z",
+  "updatedAt": "2026-07-28T23:14:01.692Z",
   "entries": [
     {
-      "timestamp": "2026-07-28T18:19:30.563Z",
+      "timestamp": "2026-07-28T23:14:01.692Z",
+      "date": "2026-07-28",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-28 (+2 daily archives; 1,495,762 store rows, 240 settlements, 208 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-28T23:09:07.245Z",
+      "date": "2026-07-28",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП self-heal: 147 нови договора от 64 възложителя; корпусът е 401 551 договора / €93,15 млрд.",
+      "source": "ЦАИС ЕОП (storage.eop.bg) — договори, поръчки и обявления"
+    },
+    {
+      "timestamp": "2026-07-28T23:00:13.392Z",
       "date": "2026-07-28",
       "skill": "update-persons",
       "summary": "Профилите на публичните лица преизчислени — 58 084 лица, 111 923 длъжности",
       "source": "Регистър на лицата (обединена самоличност)"
-    },
-    {
-      "timestamp": "2026-07-28T01:01:34.484Z",
-      "date": "2026-07-28",
-      "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-07-27 (+2 daily archives; 1,409,118 store rows, 243 settlements, 210 chains)",
-      "source": "КЗП Колко струва (retail prices)"
     },
     {
       "timestamp": "2026-07-27T19:31:01.953Z",

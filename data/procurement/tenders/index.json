@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-27T18:47:38.138Z",
+  "generatedAt": "2026-07-28T22:48:03.135Z",
   "source": "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
   "valueSemantics": "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
   "coverage": {
     "firstDay": "2010-01-04",
-    "lastDay": "2026-07-25",
+    "lastDay": "2026-07-27",
     "months": [
       "2010-01",
       "2010-02",
@@ -206,11 +206,11 @@
     ]
   },
   "totals": {
-    "procedures": 232341,
-    "lots": 194554,
+    "procedures": 232418,
+    "lots": 194730,
     "cancelled": 18969,
-    "withEstimate": 209751,
-    "estimatedValueEur": 139468490242.25
+    "withEstimate": 209828,
+    "estimatedValueEur": 139531112777.13
   },
   "byYear": [
     {
@@ -311,9 +311,9 @@
     },
     {
       "year": "2026",
-      "procedures": 11443,
+      "procedures": 11520,
       "cancelled": 592,
-      "estimatedValueEur": 7877850609.55
+      "estimatedValueEur": 7940473144.43
     }
   ],
   "byProcedureType": [
@@ -324,18 +324,18 @@
     },
     {
       "type": "Открита процедура",
-      "procedures": 37562,
-      "estimatedValueEur": 58638807830.27
+      "procedures": 37594,
+      "estimatedValueEur": 58655526254.88
     },
     {
       "type": "Публично състезание",
-      "procedures": 35131,
-      "estimatedValueEur": 9832054701.22
+      "procedures": 35154,
+      "estimatedValueEur": 9844476926.64
     },
     {
       "type": "Събиране на оферти с обява",
-      "procedures": 33531,
-      "estimatedValueEur": 1437507629.63
+      "procedures": 33543,
+      "estimatedValueEur": 1438030199.97
     },
     {
       "type": "договаряне без предварително обявление",
@@ -349,8 +349,8 @@
     },
     {
       "type": "Договаряне без предварително обявление",
-      "procedures": 8063,
-      "estimatedValueEur": 5595983002.67
+      "procedures": 8066,
+      "estimatedValueEur": 5621417965.39
     },
     {
       "type": "НВМОП",
@@ -359,8 +359,8 @@
     },
     {
       "type": "Пряко договаряне",
-      "procedures": 6904,
-      "estimatedValueEur": 788019304.07
+      "procedures": 6908,
+      "estimatedValueEur": 788658865.52
     },
     {
       "type": "пряко договаряне",
@@ -374,13 +374,13 @@
     },
     {
       "type": "Покана до определени лица",
-      "procedures": 2165,
-      "estimatedValueEur": 60556268.03
+      "procedures": 2166,
+      "estimatedValueEur": 60606268.03
     },
     {
       "type": "Договаряне с предварителна покана за участие",
-      "procedures": 940,
-      "estimatedValueEur": 2098643588.11
+      "procedures": 942,
+      "estimatedValueEur": 2105478378.45
     },
     {
       "type": "Договаряне без предварителна покана за участие",
@@ -3513,9 +3513,9 @@
     {
       "eik": "000696327",
       "name": "Столична Община",
-      "procedures": 5314,
+      "procedures": 5316,
       "cancelled": 417,
-      "estimatedValueEur": 4446934514.95
+      "estimatedValueEur": 4447062909.19
     },
     {
       "eik": "201619580",
@@ -3527,23 +3527,23 @@
     {
       "eik": "106513772",
       "name": "АЕЦ Козлодуй ЕАД",
-      "procedures": 3959,
+      "procedures": 3960,
       "cancelled": 329,
-      "estimatedValueEur": 2513432796.31
+      "estimatedValueEur": 2518767586.65
     },
     {
       "eik": "175201304",
       "name": "Електроенергиен системен оператор ЕАД",
-      "procedures": 3227,
+      "procedures": 3229,
       "cancelled": 221,
-      "estimatedValueEur": 2208544323.64
+      "estimatedValueEur": 2208867323.64
     },
     {
       "eik": "121082521",
       "name": "Териториално поделение на националния осигурителен институт - кърджали",
-      "procedures": 3219,
+      "procedures": 3222,
       "cancelled": 225,
-      "estimatedValueEur": 128212207.02
+      "estimatedValueEur": 128287220.81
     },
     {
       "eik": "123531939",
@@ -3555,16 +3555,16 @@
     {
       "eik": "201627506",
       "name": "Териториално поделение \"Държавно горско стопанство - трън\"",
-      "procedures": 2807,
+      "procedures": 2808,
       "cancelled": 218,
-      "estimatedValueEur": 166337859.39
+      "estimatedValueEur": 166352859.39
     },
     {
       "eik": "201617654",
       "name": "Териториално поделение \"Държавно ловно стопанство ропотамо\"",
-      "procedures": 2656,
+      "procedures": 2657,
       "cancelled": 387,
-      "estimatedValueEur": 65261286.4
+      "estimatedValueEur": 65302136.4
     },
     {
       "eik": "833017552",
@@ -3576,9 +3576,9 @@
     {
       "eik": "000471504",
       "name": "Община Пловдив",
-      "procedures": 2344,
+      "procedures": 2345,
       "cancelled": 159,
-      "estimatedValueEur": 1522961124.56
+      "estimatedValueEur": 1522986684.89
     },
     {
       "eik": "121858220",
@@ -3590,9 +3590,9 @@
     {
       "eik": "201617412",
       "name": "Териториално поделение - държавно горско стопанство суворово",
-      "procedures": 2149,
+      "procedures": 2152,
       "cancelled": 94,
-      "estimatedValueEur": 77335206.18
+      "estimatedValueEur": 77364806.74
     },
     {
       "eik": "000695089",
@@ -3611,9 +3611,9 @@
     {
       "eik": "115552190",
       "name": "Електроразпределение Юг ЕАД",
-      "procedures": 1916,
+      "procedures": 1917,
       "cancelled": 81,
-      "estimatedValueEur": 1437787279.37
+      "estimatedValueEur": 1439287279.37
     },
     {
       "eik": "130175000",
@@ -3646,9 +3646,9 @@
     {
       "eik": "000056814",
       "name": "Община Бургас",
-      "procedures": 1380,
+      "procedures": 1381,
       "cancelled": 77,
-      "estimatedValueEur": 1679819446.89
+      "estimatedValueEur": 1680455779.69
     },
     {
       "eik": "000818022",
@@ -3742,6 +3742,13 @@
       "estimatedValueEur": 364868112.44
     },
     {
+      "eik": "831609046",
+      "name": "Топлофикация софия ЕАД",
+      "procedures": 874,
+      "cancelled": 27,
+      "estimatedValueEur": 870254907.71
+    },
+    {
       "eik": "000291709",
       "name": "Община Троян",
       "procedures": 873,
@@ -3749,32 +3756,25 @@
       "estimatedValueEur": 112725944.88
     },
     {
-      "eik": "831609046",
-      "name": "Топлофикация софия ЕАД",
-      "procedures": 870,
-      "cancelled": 27,
-      "estimatedValueEur": 867401988.06
-    },
-    {
       "eik": "000083633",
       "name": "Медицински УНИВЕРСИТЕТ-ВАРНА \"Проф. Д-Р Параскев ИВ.СТОЯНОВ\"",
-      "procedures": 823,
+      "procedures": 825,
       "cancelled": 48,
-      "estimatedValueEur": 138665655.57
+      "estimatedValueEur": 138769435.57
     },
     {
       "eik": "000695324",
       "name": "Министерство на отбраната",
-      "procedures": 815,
+      "procedures": 816,
       "cancelled": 63,
-      "estimatedValueEur": 1301671643.7
+      "estimatedValueEur": 1326685809.76
     },
     {
       "eik": "000386751",
       "name": "Община Перник",
-      "procedures": 808,
+      "procedures": 809,
       "cancelled": 76,
-      "estimatedValueEur": 440184203.54
+      "estimatedValueEur": 440670208.42
     },
     {
       "eik": "115576405",
@@ -3884,16 +3884,16 @@
     {
       "eik": "000817778",
       "name": "Община Казанлък",
-      "procedures": 688,
+      "procedures": 689,
       "cancelled": 84,
-      "estimatedValueEur": 369459536.35
+      "estimatedValueEur": 369465671.85
     },
     {
       "eik": "000057122",
       "name": "Община Несебър",
-      "procedures": 674,
+      "procedures": 675,
       "cancelled": 76,
-      "estimatedValueEur": 242662355.15
+      "estimatedValueEur": 244357355.15
     },
     {
       "eik": "000670680",
@@ -3905,9 +3905,9 @@
     {
       "eik": "000590654",
       "name": "Община Сливен",
-      "procedures": 628,
+      "procedures": 629,
       "cancelled": 50,
-      "estimatedValueEur": 424548070.89
+      "estimatedValueEur": 424964737.55
     },
     {
       "eik": "812115210",
@@ -4015,6 +4015,13 @@
       "estimatedValueEur": 152120239.32
     },
     {
+      "eik": "000133965",
+      "name": "Община Свищов",
+      "procedures": 569,
+      "cancelled": 43,
+      "estimatedValueEur": 157354911.45
+    },
+    {
       "eik": "000970496",
       "name": "Община Ямбол",
       "procedures": 566,
@@ -4027,13 +4034,6 @@
       "procedures": 566,
       "cancelled": 34,
       "estimatedValueEur": 184125699.33
-    },
-    {
-      "eik": "000133965",
-      "name": "Община Свищов",
-      "procedures": 564,
-      "cancelled": 43,
-      "estimatedValueEur": 157011911.45
     },
     {
       "eik": "129010164",
@@ -4087,9 +4087,16 @@
     {
       "eik": "104518621",
       "name": "Електроразпределение север АД",
-      "procedures": 534,
+      "procedures": 535,
       "cancelled": 24,
-      "estimatedValueEur": 548183094.34
+      "estimatedValueEur": 548583094.34
+    },
+    {
+      "eik": "000697179",
+      "name": "Държавно предприятие \"Ръководство на въздушното движение\" ТПП",
+      "procedures": 526,
+      "cancelled": 23,
+      "estimatedValueEur": 178689995.98
     },
     {
       "eik": "000695025",
@@ -4099,13 +4106,6 @@
       "estimatedValueEur": 197765333.27
     },
     {
-      "eik": "000697179",
-      "name": "Държавно предприятие \"Ръководство на въздушното движение\" ТПП",
-      "procedures": 525,
-      "cancelled": 23,
-      "estimatedValueEur": 178639995.98
-    },
-    {
       "eik": "121100421",
       "name": "Държавен фонд \"Земеделие\"",
       "procedures": 521,
@@ -4113,18 +4113,18 @@
       "estimatedValueEur": 124647112.9
     },
     {
+      "eik": "129010125",
+      "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
+      "procedures": 519,
+      "cancelled": 65,
+      "estimatedValueEur": 532830453.01
+    },
+    {
       "eik": "000133673",
       "name": "Община Горна оряховица",
       "procedures": 519,
       "cancelled": 42,
       "estimatedValueEur": 179510957.5
-    },
-    {
-      "eik": "129010125",
-      "name": "Главна дирекция \"Гранична полиция\" /Гдгп/ към Министерство на вътрешните работи /МВР/",
-      "procedures": 518,
-      "cancelled": 65,
-      "estimatedValueEur": 532583983.01
     },
     {
       "eik": "831605795",
@@ -4171,9 +4171,9 @@
     {
       "eik": "000235750",
       "name": "Община Ардино",
-      "procedures": 500,
+      "procedures": 501,
       "cancelled": 41,
-      "estimatedValueEur": 73157569.03
+      "estimatedValueEur": 73255434.03
     },
     {
       "eik": "107507217",
@@ -4232,18 +4232,18 @@
       "estimatedValueEur": 186706894.42
     },
     {
+      "eik": "000024916",
+      "name": "Община Петрич",
+      "procedures": 448,
+      "cancelled": 45,
+      "estimatedValueEur": 217031459.19
+    },
+    {
       "eik": "115010670",
       "name": "Водоснабдяване и канализация ЕООД",
       "procedures": 448,
       "cancelled": 34,
       "estimatedValueEur": 336957122.05
-    },
-    {
-      "eik": "000024916",
-      "name": "Община Петрич",
-      "procedures": 447,
-      "cancelled": 45,
-      "estimatedValueEur": 215222367.95
     },
     {
       "eik": "000351580",
@@ -4360,9 +4360,9 @@
     {
       "eik": "000093638",
       "name": "Община Провадия",
-      "procedures": 402,
+      "procedures": 404,
       "cancelled": 42,
-      "estimatedValueEur": 68787374.88
+      "estimatedValueEur": 74840810.62
     },
     {
       "eik": "000776089",
@@ -4472,16 +4472,16 @@
     {
       "eik": "000235913",
       "name": "Община Крумовград",
-      "procedures": 360,
+      "procedures": 361,
       "cancelled": 18,
-      "estimatedValueEur": 107638148.85
+      "estimatedValueEur": 108192507.63
     },
     {
       "eik": "000931625",
       "name": "Община Велики преслав",
-      "procedures": 359,
+      "procedures": 360,
       "cancelled": 49,
-      "estimatedValueEur": 52706846.48
+      "estimatedValueEur": 52715273.88
     },
     {
       "eik": "000672343",
@@ -4528,9 +4528,9 @@
     {
       "eik": "824106518",
       "name": "Водоснабдяване и канализация ЕООД",
-      "procedures": 347,
+      "procedures": 348,
       "cancelled": 26,
-      "estimatedValueEur": 179087908.4
+      "estimatedValueEur": 179117908.4
     },
     {
       "eik": "000565626",
@@ -4556,9 +4556,9 @@
     {
       "eik": "000024745",
       "name": "Община Гоце Делчев",
-      "procedures": 344,
+      "procedures": 345,
       "cancelled": 66,
-      "estimatedValueEur": 137478230.49
+      "estimatedValueEur": 138252299.49
     },
     {
       "eik": "827184123",
@@ -4626,16 +4626,16 @@
     {
       "eik": "102274111",
       "name": "Университетска многопрофилна болница за активно лечение - бургас АД",
-      "procedures": 325,
+      "procedures": 326,
       "cancelled": 16,
-      "estimatedValueEur": 139006166.26
+      "estimatedValueEur": 141422646.59
     },
     {
       "eik": "831601932",
       "name": "Държавна агенция за бежанците при Министерския съвет",
-      "procedures": 324,
+      "procedures": 325,
       "cancelled": 22,
-      "estimatedValueEur": 91171496.11
+      "estimatedValueEur": 92236971.11
     },
     {
       "eik": "000662776",
@@ -4643,6 +4643,13 @@
       "procedures": 324,
       "cancelled": 24,
       "estimatedValueEur": 507209228.92
+    },
+    {
+      "eik": "000057236",
+      "name": "Община Созопол",
+      "procedures": 323,
+      "cancelled": 40,
+      "estimatedValueEur": 154950232.52
     },
     {
       "eik": "127521092",
@@ -4659,13 +4666,6 @@
       "estimatedValueEur": 149611597.66
     },
     {
-      "eik": "000057236",
-      "name": "Община Созопол",
-      "procedures": 322,
-      "cancelled": 40,
-      "estimatedValueEur": 154815232.52
-    },
-    {
       "eik": "000875920",
       "name": "Община Търговище",
       "procedures": 317,
@@ -4680,6 +4680,13 @@
       "estimatedValueEur": 82339908.28
     },
     {
+      "eik": "131218471",
+      "name": "Държавно предприятие \"Радиоактивни отпадъци\" ДП",
+      "procedures": 315,
+      "cancelled": 23,
+      "estimatedValueEur": 56932651.15
+    },
+    {
       "eik": "000413942",
       "name": "Община Искър",
       "procedures": 315,
@@ -4692,13 +4699,6 @@
       "procedures": 314,
       "cancelled": 62,
       "estimatedValueEur": 70001754.61
-    },
-    {
-      "eik": "131218471",
-      "name": "Държавно предприятие \"Радиоактивни отпадъци\" ДП",
-      "procedures": 313,
-      "cancelled": 23,
-      "estimatedValueEur": 56665184.93
     },
     {
       "eik": "000235831",
@@ -4850,9 +4850,9 @@
     {
       "eik": "000235888",
       "name": "Община Кирково",
-      "procedures": 278,
+      "procedures": 280,
       "cancelled": 13,
-      "estimatedValueEur": 72287525.9
+      "estimatedValueEur": 73182364.41
     },
     {
       "eik": "120503871",
@@ -4867,6 +4867,13 @@
       "procedures": 277,
       "cancelled": 25,
       "estimatedValueEur": 56438232.89
+    },
+    {
+      "eik": "000291602",
+      "name": "Община Луковит",
+      "procedures": 276,
+      "cancelled": 27,
+      "estimatedValueEur": 129642964.07
     },
     {
       "eik": "202218735",
@@ -4895,13 +4902,6 @@
       "procedures": 276,
       "cancelled": 52,
       "estimatedValueEur": 57823199.1
-    },
-    {
-      "eik": "000291602",
-      "name": "Община Луковит",
-      "procedures": 275,
-      "cancelled": 27,
-      "estimatedValueEur": 129398945.43
     },
     {
       "eik": "000776259",
@@ -5046,9 +5046,9 @@
     {
       "eik": "000505928",
       "name": "Община Самуил",
-      "procedures": 253,
+      "procedures": 254,
       "cancelled": 40,
-      "estimatedValueEur": 39237939.68
+      "estimatedValueEur": 40403835.68
     },
     {
       "eik": "000024948",
@@ -5172,9 +5172,9 @@
     {
       "eik": "129010196",
       "name": "Командване на военноморските сили",
-      "procedures": 229,
+      "procedures": 230,
       "cancelled": 31,
-      "estimatedValueEur": 41882109.56
+      "estimatedValueEur": 41932109.56
     },
     {
       "eik": "000133844",
@@ -5212,18 +5212,25 @@
       "estimatedValueEur": 24940189.48
     },
     {
+      "eik": "129007218",
+      "name": "Медицински институт на МВР",
+      "procedures": 225,
+      "cancelled": 2,
+      "estimatedValueEur": 279036301.15
+    },
+    {
+      "eik": "000590597",
+      "name": "Община Нова загора",
+      "procedures": 224,
+      "cancelled": 8,
+      "estimatedValueEur": 108110826.1
+    },
+    {
       "eik": "104055066",
       "name": "Водоснабдяване и канализация йовковци ООД",
       "procedures": 224,
       "cancelled": 22,
       "estimatedValueEur": 287133057.75
-    },
-    {
-      "eik": "129007218",
-      "name": "Медицински институт на МВР",
-      "procedures": 224,
-      "cancelled": 2,
-      "estimatedValueEur": 276836301.15
     },
     {
       "eik": "000405689",
@@ -5238,13 +5245,6 @@
       "procedures": 223,
       "cancelled": 7,
       "estimatedValueEur": 86697920.02
-    },
-    {
-      "eik": "000590597",
-      "name": "Община Нова загора",
-      "procedures": 223,
-      "cancelled": 8,
-      "estimatedValueEur": 108069758.65
     },
     {
       "eik": "129010698",
@@ -5301,6 +5301,13 @@
       "procedures": 218,
       "cancelled": 15,
       "estimatedValueEur": 326492344.26
+    },
+    {
+      "eik": "000776363",
+      "name": "Община Костинброд",
+      "procedures": 218,
+      "cancelled": 13,
+      "estimatedValueEur": 131796501.86
     },
     {
       "eik": "000471671",
@@ -5364,13 +5371,6 @@
       "procedures": 216,
       "cancelled": 0,
       "estimatedValueEur": 39267027.24
-    },
-    {
-      "eik": "000776363",
-      "name": "Община Костинброд",
-      "procedures": 215,
-      "cancelled": 13,
-      "estimatedValueEur": 129353358.49
     },
     {
       "eik": "129010011",
@@ -5478,6 +5478,13 @@
       "estimatedValueEur": 42856082.56
     },
     {
+      "eik": "000193460",
+      "name": "Община Роман",
+      "procedures": 204,
+      "cancelled": 26,
+      "estimatedValueEur": 36197229.31
+    },
+    {
       "eik": "821152916",
       "name": "Водоснабдяване и канализация ООД",
       "procedures": 203,
@@ -5490,13 +5497,6 @@
       "procedures": 203,
       "cancelled": 11,
       "estimatedValueEur": 100859269.35
-    },
-    {
-      "eik": "000193460",
-      "name": "Община Роман",
-      "procedures": 203,
-      "cancelled": 26,
-      "estimatedValueEur": 36168985.6
     },
     {
       "eik": "000351693",
@@ -5830,16 +5830,16 @@
     {
       "eik": "837068284",
       "name": "Водоснабдяване и КАНАЛИЗАЦИЯ-ШУМЕН ООД",
-      "procedures": 174,
+      "procedures": 175,
       "cancelled": 22,
-      "estimatedValueEur": 86155074.26
+      "estimatedValueEur": 86615074.26
     },
     {
       "eik": "000471340",
       "name": "Община Калояново",
-      "procedures": 174,
+      "procedures": 175,
       "cancelled": 24,
-      "estimatedValueEur": 54082360.19
+      "estimatedValueEur": 54086490.19
     },
     {
       "eik": "205967328",
@@ -5926,18 +5926,18 @@
       "estimatedValueEur": 149452213.87
     },
     {
+      "eik": "000471582",
+      "name": "Община Садово",
+      "procedures": 166,
+      "cancelled": 14,
+      "estimatedValueEur": 68326321.66
+    },
+    {
       "eik": "000351558",
       "name": "Община Белово",
       "procedures": 165,
       "cancelled": 19,
       "estimatedValueEur": 83177453.93
-    },
-    {
-      "eik": "000471582",
-      "name": "Община Садово",
-      "procedures": 165,
-      "cancelled": 14,
-      "estimatedValueEur": 68074808.2
     },
     {
       "eik": "000530657",
@@ -5982,6 +5982,13 @@
       "estimatedValueEur": 34675139.99
     },
     {
+      "eik": "000505814",
+      "name": "Община Завет",
+      "procedures": 162,
+      "cancelled": 16,
+      "estimatedValueEur": 23921550.85
+    },
+    {
       "eik": "000193088",
       "name": "Община Мизия",
       "procedures": 162,
@@ -5994,13 +6001,6 @@
       "procedures": 161,
       "cancelled": 12,
       "estimatedValueEur": 27232689.88
-    },
-    {
-      "eik": "000505814",
-      "name": "Община Завет",
-      "procedures": 161,
-      "cancelled": 16,
-      "estimatedValueEur": 23857655.85
     },
     {
       "eik": "101533900",
@@ -6451,6 +6451,13 @@
       "estimatedValueEur": 62697176.34
     },
     {
+      "eik": "115631816",
+      "name": "Община Куклен",
+      "procedures": 129,
+      "cancelled": 11,
+      "estimatedValueEur": 22027308.21
+    },
+    {
       "eik": "000776178",
       "name": "Община Горна Малина",
       "procedures": 129,
@@ -6470,13 +6477,6 @@
       "procedures": 128,
       "cancelled": 15,
       "estimatedValueEur": 28386694.59
-    },
-    {
-      "eik": "115631816",
-      "name": "Община Куклен",
-      "procedures": 128,
-      "cancelled": 11,
-      "estimatedValueEur": 21635641.54
     },
     {
       "eik": "000291723",
@@ -6535,6 +6535,13 @@
       "estimatedValueEur": 31113500.51
     },
     {
+      "eik": "115517517",
+      "name": "Многопрофилна болница за активно лечение \"СВ. Пантелеймон - пловдив\" ЕООД",
+      "procedures": 123,
+      "cancelled": 2,
+      "estimatedValueEur": 25224980.35
+    },
+    {
       "eik": "126532456",
       "name": "Многопрофилна болница за активно лечение - свиленград ЕООД",
       "procedures": 123,
@@ -6554,13 +6561,6 @@
       "procedures": 123,
       "cancelled": 3,
       "estimatedValueEur": 15997687.89
-    },
-    {
-      "eik": "115517517",
-      "name": "Многопрофилна болница за активно лечение \"СВ. Пантелеймон - пловдив\" ЕООД",
-      "procedures": 122,
-      "cancelled": 2,
-      "estimatedValueEur": 25071592.79
     },
     {
       "eik": "815123415",
@@ -6612,6 +6612,13 @@
       "estimatedValueEur": 21274887.12
     },
     {
+      "eik": "129003305",
+      "name": "Военна академия \"Г. с. Раковски\" - гр. София",
+      "procedures": 116,
+      "cancelled": 22,
+      "estimatedValueEur": 14759749.37
+    },
+    {
       "eik": "129010641",
       "name": "Главна дирекция национална полиция",
       "procedures": 116,
@@ -6638,13 +6645,6 @@
       "procedures": 116,
       "cancelled": 8,
       "estimatedValueEur": 36308796.75
-    },
-    {
-      "eik": "129003305",
-      "name": "Военна академия \"Г. с. Раковски\" - гр. София",
-      "procedures": 115,
-      "cancelled": 22,
-      "estimatedValueEur": 14438009.37
     },
     {
       "eik": "000777248",
@@ -6738,6 +6738,13 @@
       "estimatedValueEur": 40794471.93
     },
     {
+      "eik": "121292046",
+      "name": "Център за спешна Медицинска помощ",
+      "procedures": 107,
+      "cancelled": 3,
+      "estimatedValueEur": 23509235.68
+    },
+    {
       "eik": "113513858",
       "name": "МБАЛ \" Рахила Ангелова\" АД",
       "procedures": 107,
@@ -6771,13 +6778,6 @@
       "procedures": 106,
       "cancelled": 24,
       "estimatedValueEur": 39741163.66
-    },
-    {
-      "eik": "121292046",
-      "name": "Център за спешна Медицинска помощ",
-      "procedures": 106,
-      "cancelled": 3,
-      "estimatedValueEur": 23074235.68
     },
     {
       "eik": "129009105",
@@ -8341,6 +8341,13 @@
       "estimatedValueEur": 11547659.99
     },
     {
+      "eik": "000083398",
+      "name": "Професионална гимназия по селско стопанство \"СВ. Георги победоносец\"",
+      "procedures": 41,
+      "cancelled": 5,
+      "estimatedValueEur": 2729686.37
+    },
+    {
       "eik": "000672293",
       "name": "Национална библиотека \"СВ.СВ.КИРИЛ и Методий - софия\"",
       "procedures": 41,
@@ -8402,13 +8409,6 @@
       "procedures": 41,
       "cancelled": 0,
       "estimatedValueEur": 501855.37
-    },
-    {
-      "eik": "000083398",
-      "name": "Професионална гимназия по селско стопанство \"СВ. Георги победоносец\"",
-      "procedures": 40,
-      "cancelled": 5,
-      "estimatedValueEur": 2636107.97
     },
     {
       "eik": "119002144",
@@ -8621,6 +8621,13 @@
       "estimatedValueEur": 5645565.04
     },
     {
+      "eik": "130098909",
+      "name": "Комисия за енергийно и водно регулиране",
+      "procedures": 38,
+      "cancelled": 3,
+      "estimatedValueEur": 1244408.09
+    },
+    {
       "eik": "824033568",
       "name": "Проучване и добив на нефт и ГАЗ АД",
       "procedures": 38,
@@ -8740,13 +8747,6 @@
       "estimatedValueEur": 2037445.12
     },
     {
-      "eik": "130098909",
-      "name": "Комисия за енергийно и водно регулиране",
-      "procedures": 37,
-      "cancelled": 3,
-      "estimatedValueEur": 1209408.09
-    },
-    {
       "eik": "131275351",
       "name": "Център за развитие на човешките ресурси и регионални инициативи",
       "procedures": 37,
@@ -8780,6 +8780,13 @@
       "procedures": 36,
       "cancelled": 1,
       "estimatedValueEur": 2622552.63
+    },
+    {
+      "eik": "175030371",
+      "name": "Ученически отдих и спорт ЕАД",
+      "procedures": 36,
+      "cancelled": 2,
+      "estimatedValueEur": 15383565.01
     },
     {
       "eik": "131209472",
@@ -8836,13 +8843,6 @@
       "procedures": 35,
       "cancelled": 1,
       "estimatedValueEur": 4430234.39
-    },
-    {
-      "eik": "175030371",
-      "name": "Ученически отдих и спорт ЕАД",
-      "procedures": 35,
-      "cancelled": 2,
-      "estimatedValueEur": 15254247.36
     },
     {
       "eik": "000812172",
@@ -9811,6 +9811,13 @@
       "estimatedValueEur": 918532.76
     },
     {
+      "eik": "121536408",
+      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център XXV-СОФИЯ ЕООД",
+      "procedures": 25,
+      "cancelled": 4,
+      "estimatedValueEur": 1929494.71
+    },
+    {
       "eik": "000669393",
       "name": "31-ВО Средно училище за чужди езици и математика \"Иван Вазов\"",
       "procedures": 25,
@@ -9991,13 +9998,6 @@
       "procedures": 24,
       "cancelled": 1,
       "estimatedValueEur": 1232200.74
-    },
-    {
-      "eik": "121536408",
-      "name": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН Център XXV-СОФИЯ ЕООД",
-      "procedures": 24,
-      "cancelled": 4,
-      "estimatedValueEur": 1879494.71
     },
     {
       "eik": "106519070",
