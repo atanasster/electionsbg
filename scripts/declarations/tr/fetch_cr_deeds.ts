@@ -38,12 +38,14 @@ import {
   MAX_SILENCE_MS,
 } from "./lib/crDeedsClient";
 import { CrDeedsStore } from "./cr_deeds_store";
+import { acquireCrawlLock } from "./crawl_lock";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const CR_DEEDS_DB = path.resolve(
   __dirname,
   "../../../raw_data/tr/cr_deeds.sqlite",
 );
+export const CR_DEEDS_LOCK = `${CR_DEEDS_DB}.lock`;
 
 // Include leading-zero EIKs (^[0-9]{9}$, NOT the founding crawler's ^[1-9]…):
 // they are disproportionately municipal hospitals / utilities — exactly the
@@ -203,6 +205,16 @@ let store: CrDeedsStore | undefined;
 
 const main = async () => {
   const opts = parseArgs(process.argv.slice(2));
+
+  // Single-writer lock: refuse to start if another CR crawl (probe or capture) is
+  // live — two writers fight over the SQLite WAL writer and throttle the source.
+  // Registered on 'exit' so it releases on normal completion, the circuit-breaker
+  // exit, and process.exit; SIGINT/SIGTERM route through 'exit'. Readers (the daily
+  // projection / founding fold) never take this, so process-watch-report is unaffected.
+  const releaseLock = acquireCrawlLock(CR_DEEDS_LOCK);
+  process.on("exit", releaseLock);
+  process.on("SIGINT", () => process.exit(130));
+  process.on("SIGTERM", () => process.exit(143));
 
   // Resolve the candidate EIK list (explicit --eiks, or the tier query).
   let candidates: string[];
