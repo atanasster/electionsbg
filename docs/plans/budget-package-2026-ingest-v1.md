@@ -218,6 +218,15 @@ case, and name the `dv_laws` watcher's `ЗБНЗОК` describe-line as its trigg
 
 ## T2 — The split-year problem: give the statutory constants a schedule
 
+> **DECIDED 2026-07-28 (operator): `MOD_BY_YEAR[2026] = 2300`** — the latest official value,
+> keyed to 2026 rather than deferred to a 2027 row. This **overrides T2.1's "derive from the
+> FIRST step of the year" back-compatibility rule**, which would have kept 2026 at 2112. The
+> dated `MOD_SCHEDULE` below is unaffected and still wanted; what changes is which step the
+> back-compat scalar reads. See the Addendum for the consequences an implementer must absorb —
+> in particular, the scalar map is **no longer byte-identical**, so the four `scripts/` call
+> sites in T2.5 reprice and the "silently reprices the fiscal baseline" risk row is now live
+> rather than mitigated.
+
 **This is the one real design decision in the plan.** All three ЗБДОО parameters step
 mid-year. `MOD_BY_YEAR` is `Record<number, number>` with a comment conceding it uses "the
 value in force for the longer part of the year" — a heuristic that picks Jan–Jul for 2026
@@ -550,3 +559,72 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 | A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent |
 | Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6, and stated in code comments — but the real mitigation is T6's separate `"civil-servant"` profile, which leaves the default employee path untouched by construction |
 | ЗДБРБ-2026 lands mid-implementation and moves these numbers | It cannot — the fund budgets are their own laws. A ЗИД to either would, and `dv_laws` reports ЗИД forms under the same `kind` |
+
+---
+
+## Addendum — 2026-07-28 orchestrator run (`/process-watch-report`)
+
+The `dv_laws` watcher flipped at `2026-07-28T18:45Z` (`бр. 68 · 12 акта в официалния раздел ·
+нови: ЗБДОО, ЗБНЗОК`), which is what queued `update-budget` and produced this addendum. The
+ingest side of that queue entry was **not** run — no data was written, no marker stamped, so
+`dv_laws` re-surfaces on the next orchestrator run until this plan lands.
+
+### A1. §0b independently corroborated
+
+§0b was keyed from the promulgated ДВ text. Every parameter was re-checked against sources
+that do not share that reading; all nine agree, and the ДВ RSS confirms брой 68 carries
+exactly the two fund laws and **no ЗДБРБ** (so the `LAW_DV_MATERIALS` non-goal holds).
+
+| parameter | §0b | corroboration | verdict |
+|---|---|---|---|
+| МОД cap → €2,300 from 1 Aug | ✔ | kik-info, 24 часа, 3e-news | confirmed, incl. the 1 **Aug** date (not 1 Jul, as some coverage has it) |
+| min insurable, self-insured → €620.20 from 1 Aug | ✔ | kik-info, 3e-news | confirmed |
+| min pension ОСВ → €347.51 from 1 Jul | ✔ | МТСП (ministry statement), banker.bg, forbes.bg | confirmed. **The €346.87 figure in circulation is the draft**; the adopted value is €347.51 |
+| max pension €1,738.40 whole year | ✔ | kik-info | confirmed — validates the carried-over constant |
+| child-rearing to age 2 €398.81, no increase | ✔ | kik-info | confirmed |
+| ordinary-employee SSC rates unchanged | ✔ | kik-info ("без промяна"), 24 часа | confirmed — **the previously-drafted +2pp pension contribution was dropped**, which is why §0e's scope caveat is load-bearing rather than defensive |
+
+### A2. The `MOD_BY_YEAR[2026] = 2300` decision — what it costs
+
+The operator chose the latest official value over T2.1's byte-identical derivation. That is a
+legitimate call (the scalar is read as "the cap now" far more often than "the cap averaged
+over the fiscal year"), but it is **not free**, and T2's acceptance criteria were written
+assuming the opposite. An implementer must handle all of this in the same change:
+
+1. **The acceptance line "`MOD_BY_YEAR` is byte-identical to its pre-change values for every
+   year" is void.** Replace it with an explicit expected-diff: exactly one key moves,
+   `2026: 2112 → 2300`.
+2. **[`run_policy_baseline.ts:791,836`](../../scripts/budget/run_policy_baseline.ts) bakes
+   `capBaselineEur` into `policy_baseline.json`.** If `baselineYear` resolves to 2026 the
+   baked baseline reprices; if it resolves to 2025 it does not. Determine which **before**
+   editing, and if it does move, re-run the generator and re-check its self-validating drift
+   gate (>12% VAT-calibration spread) in the same pass.
+3. **The three `__smoke_*` gates are tsx scripts outside `test:unit`** — nothing in CI catches
+   a repricing here. `__smoke_mod_identity.ts` is the one that will actually fail:
+   it asserts against `MOD_BY_YEAR[YEAR]`. Re-run all three by hand.
+4. **`src/lib/bgTax.test.ts:50`** asserts `resolveMod(2025) = {mod: 2112, exact: true}` — that
+   one still passes; the case that changes is any test snapping to the latest year
+   (`resolveMod(2030)`, `resolveMod(null)`), which now yields 2300.
+5. **The T2.2 permalink hazard becomes immediate rather than dated.** The plan's mitigation
+   was "no wall-clock default, so the slider window does not shift on 1 Aug". With the scalar
+   itself at 2300, `currentCap` moves €188 **on deploy** — so `modMin`/`modMax`
+   ([BudgetPolicySimulator.tsx:1232](../../src/screens/components/budget/BudgetPolicySimulator.tsx))
+   shift once, at release, and existing `?mod=` permalinks near the old floor clamp then. This
+   is a one-off rather than a recurring boundary problem, but it should be a deliberate
+   release note, not a surprise.
+6. **Jan–Jul 2026 is now the period the scalar misstates.** That is the cost the plan named
+   when it rejected this option ("silently misstates seven months of 2026 for anyone
+   modelling the year retrospectively"). The dated `MOD_SCHEDULE` (T2.1) is what makes it
+   recoverable — so the schedule is now **more** load-bearing, not less. Do not ship the
+   scalar bump without it.
+
+### A3. Not required by this flip (checked, so nobody re-derives it)
+
+- **No `run_policy_baseline.ts` re-run is triggered by the promulgation itself.** The
+  generator reads the КФП/НАП/Eurostat inputs, none of which moved; it consumes `MOD_BY_YEAR`
+  but does not track ЗБДОО. It only needs re-running if A2.2 shows the baked
+  `capBaselineEur` actually moves.
+- **No `fetch_sources.ts` catalogue edit.** Confirmed against the ДВ RSS: брой 68 has no
+  ЗДБРБ, so the `LAW_DV_MATERIALS` non-goal is intact and the two 2026 rows remain
+  `INTERIM_BUDGET_LAWS`.
+- **No `bucket:sync` / Cloud SQL step.** T1–T3 are code and committed JSON only.
