@@ -7,8 +7,11 @@
 // doing so is SILENT — a missing row renders a blank badge, a re-derived label renders the
 // wrong place name, a dropped seed blanks the capital. So each invariant gets an assertion.
 //
-// The label-parity and coverage tests are the two that gate the DROP COLUMN: while they are
-// green, the join returns byte-identical strings for every role in the corpus.
+// The DROP COLUMN is gated by the byte-identity parity test in
+// person_place_label_join.data.test.ts, not here — that file owns the comparison against
+// the materialised columns because it has to retire itself when they go. What this file
+// pins is the dimension's own shape: the coverage, containment and seed invariants that
+// have to hold for such a join to resolve at all.
 //
 // Auto-skips when Postgres is down or the dimension has never been loaded — like the other
 // *.data.test.ts gates. The probe is TOP-LEVEL and feeds test.skipIf
@@ -45,19 +48,10 @@ const count = async (where: string): Promise<number> => {
   return Number(r.n);
 };
 
-test.skipIf(!ok)(
-  "labels are byte-identical to the materialised person_role labels",
-  async () => {
-    // THE invariant protecting the planned DROP COLUMN. Non-zero means the dimension
-    // re-derived a label instead of reusing obshtinaLabels()/mirLabels().
-    const [r] = await allRows<{ n: string }>(`
-      SELECT count(*) n FROM person_role r
-        JOIN place_dim p ON p.kind = r.place_kind AND p.code = r.place_code
-       WHERE r.place_label    IS DISTINCT FROM p.name_bg
-          OR r.place_label_en IS DISTINCT FROM p.name_en`);
-    assert.equal(r.n, "0");
-  },
-);
+// NOTE: the byte-identity check against the materialised person_role.place_label /
+// place_label_en lives in person_place_label_join.data.test.ts, not here — it has to retire
+// itself when those columns drop, and keeping the self-retiring guard in one file avoids a
+// second copy that would simply go red at the DROP.
 
 test.skipIf(!ok)(
   "covers every mir/obshtina place_code person_role carries",

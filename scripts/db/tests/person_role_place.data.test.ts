@@ -4,10 +4,15 @@
 // WHAT THESE PIN. `place` used to be one untyped text column carrying five mutually
 // incompatible namespaces, which is how raw obshtina codes ("BLG11") ended up rendered
 // to users on /person and how a single council seat came to be listed twice. The
-// replacement is a (kind, code, label) triple, and every failure mode of that triple is
-// SILENT — a NULL kind just drops the badge, a missing label just renders blank, a
-// stale Sofia synonym just re-splits the seat it was introduced to merge. So each
-// invariant gets an assertion rather than a comment.
+// replacement is a typed (kind, code) pair whose label is resolved from place_dim (117) /
+// judicial_body (116), and every failure mode of that pair is SILENT — a NULL kind just
+// drops the badge, a code the dictionary does not carry just renders blank, a stale Sofia
+// synonym just re-splits the seat it was introduced to merge. So each invariant gets an
+// assertion rather than a comment.
+//
+// The label assertions below run against the JOIN rather than the materialised
+// place_label/place_label_en columns, which are being retired — see
+// person_place_label_join.data.test.ts for the parity gate that covers that transition.
 //
 // Auto-skips when Postgres is down or the person layer has never been resolved — like
 // the other *.data.test.ts gates. The probe is TOP-LEVEL and feeds test.skipIf
@@ -81,9 +86,24 @@ test.skipIf(skip)("place_kind is set exactly when place_code is", async () => {
 });
 
 test.skipIf(skip)("every place_code resolves to a display label", async () => {
+  // Asserted against the JOINED label, not person_role.place_label: 082 resolves the label
+  // from place_dim (117) / judicial_body (116), and the materialised columns are on their
+  // way out. The invariant is unchanged — a code with no label is a blank badge — but its
+  // subject is now the dictionary, which is where a missing entry would actually originate.
+  // (The old form was green even on a database where db:load:place-dim:pg never ran, since
+  // resolve_persons wrote place_label in JS independently of the dimension.)
+  //
+  // Deliberately duplicated: person_place_label_join.data.test.ts carries the same guard
+  // with richer diagnostics, but that file is scoped to the column-retirement window. This
+  // is the durable copy.
   const rows = await allRows<{ place_kind: string; place_code: string }>(
-    `SELECT DISTINCT place_kind, place_code FROM person_role
-      WHERE place_code IS NOT NULL AND place_label IS NULL
+    `SELECT DISTINCT r.place_kind, r.place_code FROM person_role r
+       LEFT JOIN place_dim pd
+         ON pd.kind = r.place_kind AND pd.code = r.place_code
+       LEFT JOIN judicial_body jb
+         ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
+      WHERE r.place_code IS NOT NULL
+        AND COALESCE(pd.name_bg, jb.name) IS NULL
       LIMIT 20`,
   );
   assert.equal(
@@ -103,11 +123,16 @@ test.skipIf(skip)("place kinds with an English name carry one", async () => {
   // translation on a named magistrate's profile is worse than the Bulgarian name. Every
   // OTHER kind draws its label from a source that carries name_en, so a NULL there is a
   // gap rather than a decision.
+  //
+  // Against the joined label for the same reason as above; place_dim is where the English
+  // name now comes from, and judicial_body has no name_en column at all.
   const rows = await allRows<{ place_kind: string; place_code: string }>(
-    `SELECT DISTINCT place_kind, place_code FROM person_role
-      WHERE place_code IS NOT NULL
-        AND place_kind <> 'judicial'
-        AND place_label_en IS NULL
+    `SELECT DISTINCT r.place_kind, r.place_code FROM person_role r
+       LEFT JOIN place_dim pd
+         ON pd.kind = r.place_kind AND pd.code = r.place_code
+      WHERE r.place_code IS NOT NULL
+        AND r.place_kind <> 'judicial'
+        AND pd.name_en IS NULL
       LIMIT 20`,
   );
   assert.equal(

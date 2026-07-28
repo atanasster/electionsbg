@@ -40,17 +40,23 @@ const reachable = async (): Promise<boolean> => {
 };
 const ok = await reachable();
 
-/** True while person_role still carries the materialised labels. The parity tests below
- *  compare against them, so they retire themselves the moment the columns drop rather than
- *  turning red on a change that is by then intended. */
+/** True while person_role still carries POPULATED materialised labels. The parity tests
+ *  below compare against them, so they retire themselves the moment the columns go away
+ *  rather than turning red on a change that is by then intended.
+ *
+ *  Deliberately tests for DATA, not just for the column: 115_person_role_place.sql re-adds
+ *  both columns with ADD COLUMN IF NOT EXISTS and runs on EVERY db:resolve:persons, so a
+ *  drop that does not also strip those lines brings them back all-NULL. A column-existence
+ *  probe would flip back to true there and the parity tests would then compare real joined
+ *  labels against a column of NULLs — red for the one reason that is not a regression. */
 const hasLegacyLabels = async (): Promise<boolean> => {
   try {
     const [c] = await allRows<{ n: string }>(
-      `SELECT count(*) n FROM information_schema.columns
-        WHERE table_name = 'person_role' AND column_name = 'place_label'`,
+      "SELECT count(*) n FROM person_role WHERE place_label IS NOT NULL",
     );
     return Number(c.n) > 0;
   } catch {
+    // Column gone — the intended end state.
     return false;
   }
 };
