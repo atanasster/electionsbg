@@ -75,7 +75,11 @@ interface Props<T> {
   ) => ReactNode;
   /** Called whenever a page loads — lets the parent derive a header (e.g. the
    *  entity name) from the rows without a second request. Memoize it. */
-  onData?: (resp: DbTableResponse<T>) => void;
+  /** `request` is the exact body that produced `resp` — scope, filters, sort and the
+   *  DEBOUNCED free-text search this component owns. An exporter needs it to re-issue the
+   *  same query at a larger pageSize; without it a "download everything" button silently
+   *  drops whatever the user typed. Existing callers may ignore it. */
+  onData?: (resp: DbTableResponse<T>, request: Record<string, unknown>) => void;
 }
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -146,8 +150,8 @@ export const DbDataTable = <T,>({
   });
 
   useEffect(() => {
-    if (data && onData) onData(data);
-  }, [data, onData]);
+    if (data && onData) onData(data, request);
+  }, [data, onData, request]);
 
   const rows = data?.rows ?? [];
   const total = data?.total ?? 0;

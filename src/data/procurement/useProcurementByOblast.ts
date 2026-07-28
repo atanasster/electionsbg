@@ -1,6 +1,6 @@
-// Per-oblast procurement aggregation for the choropleth. Built client-side
-// from the committed by_settlement index (local-tier procurement, keyed by
-// settlement province name) joined to:
+// Per-oblast procurement aggregation for the choropleth. The per-province totals are
+// precomputed per pscope in Postgres (119) and fetched by useProcurementGeo; the FOLD to
+// canonical oblast buckets stays here, joined to:
 //   - regions.json (province name → oblast code, the key the region map uses)
 //   - regional.json `series.population` (oblast-code → population, for per-capita)
 //
@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import regions from "@/data/json/regions.json";
 import { dataUrl } from "@/data/dataUrl";
-import { useProcurementBySettlementIndex } from "./useSettlementProcurement";
+import { useProcurementGeo } from "./useProcurementGeo";
 
 export type OblastMetric = "total" | "perCapita" | "avg";
 
@@ -91,7 +91,9 @@ export const useProcurementByOblast = (): {
   valueFor: (featureCode: string, metric: OblastMetric) => number | undefined;
   isLoading: boolean;
 } => {
-  const { data: idx, isLoading } = useProcurementBySettlementIndex();
+  // The ≤32-row per-oblast aggregate, precomputed per scope (119) — not the ~868-row
+  // settlement list this used to fold in the browser.
+  const { data: geo, isLoading } = useProcurementGeo();
   const { data: population } = useQuery({
     queryKey: ["regional_population"] as const,
     queryFn: fetchPopulation,
@@ -115,8 +117,8 @@ export const useProcurementByOblast = (): {
 
   const buckets = useMemo(() => {
     const out = new Map<string, OblastBucket>();
-    if (!idx) return out;
-    for (const s of idx.settlements) {
+    if (!geo) return out;
+    for (const s of geo.oblasti) {
       // Normalise to the canonical bucket: regions.json keys Plovdiv as
       // "обл. Пловдив"→PDV AND "Пловдив"→PDV-00, and the index uses "Пловдив",
       // so the raw lookup yields "PDV-00" — a bucket no feature code resolves
@@ -152,7 +154,7 @@ export const useProcurementByOblast = (): {
       for (const [code, b] of out) b.population = popByCanon.get(code) ?? 0;
     }
     return out;
-  }, [idx, population, codeToName]);
+  }, [geo, population, codeToName]);
 
   const valueFor = useMemo(() => {
     return (featureCode: string, metric: OblastMetric): number | undefined => {

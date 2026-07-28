@@ -4,36 +4,36 @@
 // national state companies) whose Sofia HQ is *not* a meaningful proxy
 // for where the contract was spent.
 //
-// Methodology mirrors what's in scripts/procurement/by_settlement.ts and
-// what the About page describes — see also [[project_procurement_geo]].
+// Methodology lives in procurement_by_settlement() (migration 030) and is described on the
+// About page — see also [[project_procurement_geo]].
+//
+// SERVED FROM POSTGRES, per pscope. The page used to download one ~196 KB blob carrying
+// every settlement and then paginate, sort, search and re-aggregate it in the browser (plus,
+// in English, a 940 KB EKATTE master just to localise the names). Now:
+//   - the ranking is a server-paginated DbDataTable over procurement_settlement_rank (119),
+//     which also does the sorting and the shliokavica search;
+//   - the maps + KPI header read one precomputed ≤32-row payload (useProcurementGeo).
+// Both are keyed by the scope the user selected, so the DEFAULT view (a single parliament)
+// is a primary-key seek rather than the ~390 ms live aggregate it used to be.
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
   Building2,
   MapPin,
   Banknote,
-  ArrowRight,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
   Download,
+  ArrowRight,
   X,
 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { latinSkeleton } from "@/lib/translitSearch";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
-import { useProcurementBySettlementIndex } from "@/data/procurement/useSettlementProcurement";
+import { DbDataTable } from "@/ux/data_table/DbDataTable";
+import type { DataTableColumnDef } from "@/ux/data_table/utils";
+import { useProcurementGeo } from "@/data/procurement/useProcurementGeo";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import {
   provinceToCanon,
   featureToCanon,
@@ -44,8 +44,6 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
-
-const PAGE_SIZE = 50;
 
 // A single buyer accounting for the whole total is the norm for small towns
 // (≈62% of settlements), so it's only worth flagging when the total is large
@@ -73,184 +71,239 @@ const provinceEnOf = (bg: string): string => {
   return (canon && OBLAST_EN_BY_CANON.get(canon)) || bg;
 };
 
+/** One row of procurement_settlement_rank, camelCased by the table engine. */
 type SettlementRow = {
+  ekatte: string;
+  name: string;
+  nameEn: string | null;
+  province: string;
+  obshtina: string;
   totalEur: number;
   contractCount: number;
   awarderCount: number;
 };
 
-// Mean contract value, or undefined when the sample is too thin to average.
+/** Mean contract value, or undefined when the sample is too thin to average. */
 const avgContractEur = (s: SettlementRow): number | undefined =>
   s.contractCount >= AVG_MIN_CONTRACTS
     ? s.totalEur / s.contractCount
     : undefined;
 
-type SortKey =
-  | "totalEur"
-  | "contractCount"
-  | "awarderCount"
-  | "avgEur"
-  | "name";
-
 export const ProcurementBySettlementScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language !== "bg";
-  const q = useProcurementBySettlementIndex();
-  const data = q.data;
+  const { scopeKey } = useScopeWindow();
+  const geo = useProcurementGeo();
+  const summary = geo.data?.summary;
 
-  const provinceOf = (bg: string): string => (isEn ? provinceEnOf(bg) : bg);
-  const [sortKey, setSortKey] = useState<SortKey>("totalEur");
-  const [query, setQuery] = useState("");
   const [oblast, setOblast] = useState<{ code: string; name: string } | null>(
     null,
   );
-  const [page, setPage] = useState(0);
-
-  const filtered = useMemo(() => {
-    if (!data) return [];
-    let rows = data.settlements;
-    if (oblast) {
-      rows = rows.filter((s) => provinceToCanon(s.province) === oblast.code);
-    }
-    // Fold the query to a Latin skeleton once so a user can type shljokavica
-    // ("veliko tarnovo") and match the Cyrillic settlement/oblast names.
-    const qSkel = latinSkeleton(query);
-    if (qSkel) {
-      rows = rows.filter(
-        (s) =>
-          latinSkeleton(s.name).includes(qSkel) ||
-          latinSkeleton(s.province).includes(qSkel) ||
-          latinSkeleton(s.obshtina).includes(qSkel) ||
-          s.ekatte.includes(qSkel),
-      );
-    }
-    const sorted = [...rows].sort((a, b) => {
-      if (sortKey === "name") return a.name.localeCompare(b.name, "bg");
-      if (sortKey === "avgEur") {
-        // Settlements with too few contracts have no meaningful average —
-        // push them to the bottom instead of letting them top the ranking.
-        const av = avgContractEur(a) ?? -Infinity;
-        const bv = avgContractEur(b) ?? -Infinity;
-        return bv - av;
-      }
-      return (b[sortKey] as number) - (a[sortKey] as number);
-    });
-    return sorted;
-  }, [data, query, sortKey, oblast]);
-
-  // Biggest total in the current result set — drives the in-cell magnitude
-  // bars. sqrt keeps small towns visible without Sofia swamping everything.
-  const maxEur = useMemo(
-    () => filtered.reduce((m, s) => Math.max(m, s.totalEur), 0),
-    [filtered],
-  );
-
-  // Reset to the first page whenever the result set changes.
-  useEffect(() => setPage(0), [query, sortKey, oblast]);
-
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, pageCount - 1);
-  const pageStart = safePage * PAGE_SIZE;
-  const pageRows = filtered.slice(pageStart, pageStart + PAGE_SIZE);
-
   const handleSelectOblast = (canon: string, name: string) =>
     setOblast((cur) => (cur?.code === canon ? null : { code: canon, name }));
 
-  // Export the current filtered+sorted result set (every row, not just the
-  // visible page). Semicolon-delimited to match the project's other CSVs and
-  // so Bulgarian Excel doesn't split on the comma in numbers.
-  const downloadCsv = () => {
-    if (filtered.length === 0) return;
-    const cols = [
-      "EKATTE",
-      t("procurement_settlement_col_name") || "Settlement",
-      t("procurement_settlement_col_municipality") || "Municipality",
-      t("procurement_settlement_col_province") || "Province",
-      t("procurement_settlement_col_eur") || "Total EUR",
-      t("procurement_settlement_col_contracts") || "Contracts",
-      t("procurement_settlement_col_buyers") || "Buyers",
-      t("procurement_settlement_col_avg") || "Avg contract EUR",
-    ];
-    const esc = (v: string) =>
-      /[";\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
-    const lines = [cols.join(";")];
-    for (const s of filtered) {
-      const avg = avgContractEur(s);
-      lines.push(
-        [
-          s.ekatte,
-          esc(s.name),
-          esc(s.obshtina),
-          esc(provinceOf(s.province)),
-          Math.round(s.totalEur),
-          s.contractCount,
-          s.awarderCount,
-          avg != null ? Math.round(avg) : "",
-        ].join(";"),
+  // Clicking an oblast on the map filters the table. The map speaks canonical oblast CODES
+  // and the ranking stores province NAMES, so the selection is resolved to the set of names
+  // that fold into that bucket — taken from the geo payload, which is the same list the map
+  // itself was coloured from, rather than from a second name table that could disagree.
+  const extraFilters = useMemo(() => {
+    if (!oblast) return undefined;
+    const names = (geo.data?.oblasti ?? [])
+      .map((o) => o.province)
+      .filter((p) => provinceToCanon(p) === oblast.code);
+    // NEVER fall through to `undefined` while the pill claims a province: that would show
+    // the ENTIRE ranking under a filter chip, which reads as "this oblast spent €49bn". If
+    // no province folds to the selected bucket — the payload is still loading, the scope
+    // changed, or that oblast has no rows in this window — filter on a sentinel that
+    // matches nothing so the table honestly says "no results". An empty array is not an
+    // option: the server drops empty `in` filters, which is the fail-open case again.
+    return [{ id: "province", value: names.length ? names : ["\u0000"] }];
+  }, [oblast, geo.data]);
+
+  // A pill must not outlive the data it was chosen from. Switching pscope replaces the
+  // whole geo payload, and an oblast with no settlements in the new window would otherwise
+  // leave a filter chip pinned to a bucket that no longer exists.
+  useEffect(() => setOblast(null), [scopeKey]);
+
+  // The magnitude bar's denominator is the largest total in the CURRENT filtered set, which
+  // only the server knows — it comes back as a `max` aggregate alongside the page.
+  const [maxEur, setMaxEur] = useState(0);
+  // The exact request that produced the current page, kept so "Download CSV" can re-issue
+  // it at a larger pageSize. Without it the export would silently drop the user's search.
+  const lastRequest = useRef<Record<string, unknown> | null>(null);
+  const onData = useCallback(
+    (
+      resp: { aggregates: Record<string, number> },
+      request: Record<string, unknown>,
+    ) => {
+      setMaxEur(resp.aggregates?.maxTotalEur ?? 0);
+      lastRequest.current = request;
+    },
+    [],
+  );
+
+  const nameOf = (s: SettlementRow) => (isEn ? (s.nameEn ?? s.name) : s.name);
+  const provinceOf = (bg: string) => (isEn ? provinceEnOf(bg) : bg);
+
+  // Export the current filtered+sorted result set — every row, not just the visible page.
+  // Semicolon-delimited to match the project's other CSVs and so Bulgarian Excel doesn't
+  // split on the comma in numbers.
+  const [exporting, setExporting] = useState(false);
+  const downloadCsv = async () => {
+    if (!lastRequest.current || exporting) return;
+    setExporting(true);
+    try {
+      const r = await fetch(
+        `/api/db/table?q=${encodeURIComponent(
+          JSON.stringify({ ...lastRequest.current, page: 0, pageSize: 1000 }),
+        )}`,
       );
+      if (!r.ok) return;
+      const { rows } = (await r.json()) as { rows: SettlementRow[] };
+      const cols = [
+        "EKATTE",
+        t("procurement_settlement_col_name") || "Settlement",
+        t("procurement_settlement_col_municipality") || "Municipality",
+        t("procurement_settlement_col_province") || "Province",
+        t("procurement_settlement_col_eur") || "Total EUR",
+        t("procurement_settlement_col_contracts") || "Contracts",
+        t("procurement_settlement_col_buyers") || "Buyers",
+        t("procurement_settlement_col_avg") || "Avg contract EUR",
+      ];
+      const esc = (v: string) =>
+        /[";\r\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+      const lines = [cols.join(";")];
+      for (const s of rows) {
+        const avg = avgContractEur(s);
+        lines.push(
+          [
+            s.ekatte,
+            esc(nameOf(s)),
+            esc(s.obshtina),
+            esc(provinceOf(s.province)),
+            Math.round(s.totalEur),
+            s.contractCount,
+            s.awarderCount,
+            avg != null ? Math.round(avg) : "",
+          ].join(";"),
+        );
+      }
+      const blob = new Blob(["﻿" + lines.join("\n")], {
+        type: "text/csv;charset=utf-8;",
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `procurement-by-settlement-${scopeKey.replace(/[:]/g, "-")}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      setExporting(false);
     }
-    const blob = new Blob([lines.join("\r\n")], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `procurement_by_settlement${oblast ? `_${oblast.code}` : ""}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
-  if (q.isLoading || !data) {
-    return (
-      <div>
-        <Title>
-          {t("procurement_settlement_title") || "Procurement by settlement"}
-        </Title>
-        <div className="h-64 animate-pulse rounded-xl bg-muted" />
-      </div>
-    );
-  }
+  const columns = useMemo<DataTableColumnDef<SettlementRow, unknown>[]>(
+    () => [
+      {
+        accessorKey: "name",
+        header: t("procurement_settlement_col_name") || "Settlement",
+        cell: ({ row }) => {
+          const s = row.original;
+          const singleBuyer =
+            s.awarderCount === 1 && s.totalEur >= SINGLE_BUYER_FLAG_EUR;
+          return (
+            <span className="inline-flex flex-wrap items-center gap-1.5">
+              <Link
+                to={`/procurement/settlement/${s.ekatte}`}
+                className="font-medium hover:underline"
+              >
+                {nameOf(s)}
+              </Link>
+              {singleBuyer && (
+                <span
+                  className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-700 dark:text-amber-400"
+                  title={
+                    t("procurement_settlement_single_buyer_tip") ||
+                    "The entire amount comes from a single buyer (often a state-company HQ)."
+                  }
+                >
+                  {t("procurement_settlement_single_buyer") || "1 buyer"}
+                </span>
+              )}
+            </span>
+          );
+        },
+      },
+      {
+        accessorKey: "province",
+        header: t("procurement_settlement_col_province") || "Province",
+        cell: ({ row }) => (
+          <span className="text-muted-foreground">
+            {provinceOf(row.original.province)}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "total_eur",
+        header: t("procurement_settlement_col_eur") || "Total EUR",
+        className: "text-right tabular-nums",
+        cell: ({ row }) => {
+          // sqrt keeps small towns visible without Sofia swamping everything.
+          const pct =
+            maxEur > 0
+              ? Math.max(2, Math.sqrt(row.original.totalEur / maxEur) * 100)
+              : 0;
+          return (
+            <div className="relative">
+              <div
+                className="absolute inset-y-0 right-0 rounded-sm bg-primary/15"
+                style={{ width: `${pct}%` }}
+                aria-hidden
+              />
+              <span className="relative">
+                €{eurFmt.format(Math.round(row.original.totalEur))}
+              </span>
+            </div>
+          );
+        },
+      },
+      {
+        accessorKey: "contract_count",
+        header: t("procurement_settlement_col_contracts") || "Contracts",
+        className: "text-right tabular-nums hidden sm:table-cell",
+        cell: ({ row }) => countFmt.format(row.original.contractCount),
+      },
+      {
+        id: "avg",
+        header: t("procurement_settlement_col_avg") || "Avg contract",
+        // Not sortable: the average is derived per row, so the server cannot order by it
+        // without materialising a column. Suppressed below the sample bar either way.
+        enableSorting: false,
+        className: "text-right tabular-nums hidden lg:table-cell",
+        cell: ({ row }) => {
+          const avg = avgContractEur(row.original);
+          return avg == null ? (
+            <span className="text-muted-foreground">—</span>
+          ) : (
+            `€${eurFmt.format(Math.round(avg))}`
+          );
+        },
+      },
+      {
+        accessorKey: "awarder_count",
+        header: t("procurement_settlement_col_buyers") || "Buyers",
+        className: "text-right tabular-nums hidden md:table-cell",
+        cell: ({ row }) => countFmt.format(row.original.awarderCount),
+      },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t, isEn, maxEur],
+  );
 
   const localShareOfMoney =
-    data.totalEur / (data.totalEur + data.national.totalEur);
-
-  // A sortable column header: click sets the sort key. Numeric columns sort
-  // descending (down arrow); the name column sorts A→Z (up arrow).
-  const sortHeader = (
-    key: SortKey,
-    label: string,
-    opts: { align?: "left" | "right"; className?: string } = {},
-  ) => {
-    const align = opts.align ?? "left";
-    const active = sortKey === key;
-    return (
-      <th
-        scope="col"
-        aria-sort={
-          active ? (key === "name" ? "ascending" : "descending") : "none"
-        }
-        onClick={() => setSortKey(key)}
-        className={`cursor-pointer select-none px-3 py-2 hover:text-foreground ${
-          align === "right" ? "text-right" : "text-left"
-        } ${active ? "text-foreground" : ""} ${opts.className ?? ""}`}
-      >
-        <span
-          className={`inline-flex items-center gap-1 ${
-            align === "right" ? "justify-end" : ""
-          }`}
-        >
-          {label}
-          {active ? (
-            key === "name" ? (
-              <ChevronUp className="h-3 w-3" />
-            ) : (
-              <ChevronDown className="h-3 w-3" />
-            )
-          ) : null}
-        </span>
-      </th>
-    );
-  };
+    summary && summary.totalEur + summary.national.totalEur > 0
+      ? summary.totalEur / (summary.totalEur + summary.national.totalEur)
+      : 0;
 
   return (
     <div>
@@ -276,7 +329,7 @@ export const ProcurementBySettlementScreen: FC = () => {
               {t("procurement_settlement_kpi_settlements") || "Settlements"}
             </div>
             <div className="mt-1 text-2xl font-semibold tabular-nums">
-              {countFmt.format(data.settlementCount)}
+              {summary ? countFmt.format(summary.settlementCount) : "—"}
             </div>
           </CardContent>
         </Card>
@@ -287,7 +340,7 @@ export const ProcurementBySettlementScreen: FC = () => {
               {t("procurement_settlement_kpi_contracts") || "Local contracts"}
             </div>
             <div className="mt-1 text-2xl font-semibold tabular-nums">
-              {countFmt.format(data.totalContracts)}
+              {summary ? countFmt.format(summary.totalContracts) : "—"}
             </div>
           </CardContent>
         </Card>
@@ -298,12 +351,16 @@ export const ProcurementBySettlementScreen: FC = () => {
               {t("procurement_settlement_kpi_local_eur") || "Local total"}
             </div>
             <div className="mt-1 text-2xl font-semibold tabular-nums">
-              €{eurFmt.format(Math.round(data.totalEur))}
+              {summary
+                ? `€${eurFmt.format(Math.round(summary.totalEur))}`
+                : "—"}
             </div>
-            <div className="mt-1 text-xs text-muted-foreground tabular-nums">
-              {(localShareOfMoney * 100).toFixed(1)}%{" "}
-              {t("procurement_settlement_of_total") || "of total spending"}
-            </div>
+            {summary ? (
+              <div className="mt-1 text-xs text-muted-foreground tabular-nums">
+                {(localShareOfMoney * 100).toFixed(1)}%{" "}
+                {t("procurement_settlement_of_total") || "of total spending"}
+              </div>
+            ) : null}
           </CardContent>
         </Card>
         <Card>
@@ -313,15 +370,19 @@ export const ProcurementBySettlementScreen: FC = () => {
               {t("procurement_settlement_kpi_national_eur") || "National total"}
             </div>
             <div className="mt-1 text-2xl font-semibold tabular-nums">
-              €{eurFmt.format(Math.round(data.national.totalEur))}
+              {summary
+                ? `€${eurFmt.format(Math.round(summary.national.totalEur))}`
+                : "—"}
             </div>
-            <div className="mt-1 text-xs text-muted-foreground tabular-nums">
-              {countFmt.format(data.national.contractCount)}{" "}
-              {t("procurement_settlement_contracts") || "contracts"}
-              {" · "}
-              {countFmt.format(data.national.awarderCount)}{" "}
-              {t("procurement_settlement_buyers") || "buyers"}
-            </div>
+            {summary ? (
+              <div className="mt-1 text-xs text-muted-foreground tabular-nums">
+                {countFmt.format(summary.national.contractCount)}{" "}
+                {t("procurement_settlement_contracts") || "contracts"}
+                {" · "}
+                {countFmt.format(summary.national.awarderCount)}{" "}
+                {t("procurement_settlement_buyers") || "buyers"}
+              </div>
+            ) : null}
           </CardContent>
         </Card>
       </div>
@@ -331,69 +392,6 @@ export const ProcurementBySettlementScreen: FC = () => {
         onSelectOblast={handleSelectOblast}
       />
 
-      {/* Search + sort controls */}
-      <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
-        <input
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder={
-            t("procurement_settlement_search") ||
-            "Search settlement, municipality, province…"
-          }
-          className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-1.5 text-sm shadow-sm"
-        />
-        <span className="text-xs text-muted-foreground sm:hidden inline-flex items-center gap-1.5">
-          {t("procurement_settlement_sort") || "Sort by"}:
-          <Select
-            value={sortKey}
-            onValueChange={(v) => setSortKey(v as SortKey)}
-          >
-            <SelectTrigger
-              aria-label={t("procurement_settlement_sort") || "Sort by"}
-              className="w-auto gap-1 rounded-md border-border bg-background px-2 py-1 text-xs"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="totalEur">
-                {t("procurement_settlement_sort_eur") || "Total EUR"}
-              </SelectItem>
-              <SelectItem value="contractCount">
-                {t("procurement_settlement_sort_contracts") || "Contracts"}
-              </SelectItem>
-              <SelectItem value="awarderCount">
-                {t("procurement_settlement_sort_buyers") || "Buyers"}
-              </SelectItem>
-              <SelectItem value="avgEur">
-                {t("procurement_settlement_col_avg") || "Avg contract"}
-              </SelectItem>
-              <SelectItem value="name">
-                {t("procurement_settlement_sort_name") || "Name (A→Z)"}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </span>
-        <Button
-          variant="outline"
-          size="sm"
-          className="ml-auto h-8 gap-1.5 px-2.5"
-          onClick={downloadCsv}
-          disabled={filtered.length === 0}
-          title={t("procurement_settlement_export_csv") || "Download CSV"}
-        >
-          <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">
-            {t("procurement_settlement_export_csv") || "Download CSV"}
-          </span>
-        </Button>
-        <span className="text-xs text-muted-foreground tabular-nums">
-          {countFmt.format(filtered.length)}{" "}
-          {t("procurement_settlement_results") || "results"}
-        </span>
-      </div>
-
-      {/* Active oblast filter chip (set by clicking a map) */}
       {oblast && (
         <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
           <button
@@ -410,176 +408,33 @@ export const ProcurementBySettlementScreen: FC = () => {
         </div>
       )}
 
-      {/* Sortable settlements table */}
-      <Card>
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
-                <tr>
-                  <th scope="col" className="w-10 px-3 py-2 text-left">
-                    #
-                  </th>
-                  {sortHeader(
-                    "name",
-                    t("procurement_settlement_col_name") || "Settlement",
-                  )}
-                  <th
-                    scope="col"
-                    className="hidden px-3 py-2 text-left md:table-cell"
-                  >
-                    {t("procurement_settlement_col_province") || "Province"}
-                  </th>
-                  {sortHeader(
-                    "totalEur",
-                    t("procurement_settlement_col_eur") || "Total EUR",
-                    { align: "right", className: "tabular-nums" },
-                  )}
-                  {sortHeader(
-                    "contractCount",
-                    t("procurement_settlement_col_contracts") || "Contracts",
-                    {
-                      align: "right",
-                      className: "tabular-nums hidden sm:table-cell",
-                    },
-                  )}
-                  {sortHeader(
-                    "avgEur",
-                    t("procurement_settlement_col_avg") || "Avg contract",
-                    {
-                      align: "right",
-                      className: "tabular-nums hidden lg:table-cell",
-                    },
-                  )}
-                  {sortHeader(
-                    "awarderCount",
-                    t("procurement_settlement_col_buyers") || "Buyers",
-                    {
-                      align: "right",
-                      className: "tabular-nums hidden md:table-cell",
-                    },
-                  )}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {pageRows.map((s, idx) => {
-                  const barPct =
-                    maxEur > 0
-                      ? Math.max(2, Math.sqrt(s.totalEur / maxEur) * 100)
-                      : 0;
-                  const avg = avgContractEur(s);
-                  const singleBuyer =
-                    s.awarderCount === 1 && s.totalEur >= SINGLE_BUYER_FLAG_EUR;
-                  return (
-                    <tr key={s.ekatte} className="hover:bg-muted/30">
-                      <td className="px-3 py-2 text-muted-foreground tabular-nums">
-                        {pageStart + idx + 1}
-                      </td>
-                      <td className="px-3 py-2">
-                        <span className="inline-flex flex-wrap items-center gap-1.5">
-                          <Link
-                            to={`/procurement/settlement/${s.ekatte}`}
-                            className="font-medium hover:underline"
-                          >
-                            {s.name}
-                          </Link>
-                          {singleBuyer && (
-                            <span
-                              className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-700 dark:text-amber-400"
-                              title={
-                                t("procurement_settlement_single_buyer_tip") ||
-                                "The entire amount comes from a single buyer (often a state-company HQ)."
-                              }
-                            >
-                              {t("procurement_settlement_single_buyer") ||
-                                "1 buyer"}
-                            </span>
-                          )}
-                        </span>
-                        <div className="text-xs text-muted-foreground md:hidden">
-                          {provinceOf(s.province)}
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 text-muted-foreground hidden md:table-cell">
-                        {provinceOf(s.province)}
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums">
-                        <div className="relative">
-                          <div
-                            className="absolute inset-y-0 right-0 rounded-sm bg-primary/15"
-                            style={{ width: `${barPct}%` }}
-                            aria-hidden
-                          />
-                          <span className="relative">
-                            €{eurFmt.format(Math.round(s.totalEur))}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums hidden sm:table-cell">
-                        {countFmt.format(s.contractCount)}
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums hidden lg:table-cell">
-                        {avg != null ? (
-                          `€${eurFmt.format(Math.round(avg))}`
-                        ) : (
-                          <span className="text-muted-foreground/50">—</span>
-                        )}
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums hidden md:table-cell">
-                        {countFmt.format(s.awarderCount)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination footer */}
-          <div className="flex items-center justify-between gap-2 border-t px-3 py-2 text-xs text-muted-foreground">
-            <span className="tabular-nums">
-              {filtered.length === 0
-                ? t("no_results") || "No results"
-                : `${t("showing") || "Showing"} ${countFmt.format(
-                    pageStart + 1,
-                  )}–${countFmt.format(
-                    pageStart + pageRows.length,
-                  )} ${t("of") || "of"} ${countFmt.format(filtered.length)}`}
-            </span>
-            {pageCount > 1 && (
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-7 gap-1 px-2"
-                  onClick={() => setPage((p) => Math.max(0, p - 1))}
-                  disabled={safePage === 0}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  <span className="hidden sm:inline">
-                    {t("previous") || "Previous"}
-                  </span>
-                </Button>
-                <span className="tabular-nums">
-                  {safePage + 1} / {pageCount}
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-7 gap-1 px-2"
-                  onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
-                  disabled={safePage >= pageCount - 1}
-                >
-                  <span className="hidden sm:inline">
-                    {t("next") || "Next"}
-                  </span>
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      <DbDataTable<SettlementRow>
+        resource="procurement_settlements"
+        columns={columns}
+        // The ranking fans out over pscope windows — one row per settlement PER scope — so
+        // this scope is what keeps the table showing a single period.
+        scope={{ col: "scope_key", val: scopeKey }}
+        extraFilters={extraFilters}
+        defaultSort={[{ id: "total_eur", desc: true }]}
+        pageSize={50}
+        searchPlaceholder={
+          t("procurement_settlement_search") ||
+          "Search settlement, municipality, province…"
+        }
+        onData={onData}
+        toolbar={
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 gap-1.5 px-2.5"
+            onClick={downloadCsv}
+            disabled={exporting}
+          >
+            <Download className="h-3.5 w-3.5" />
+            {t("procurement_settlement_export_csv") || "Download CSV"}
+          </Button>
+        }
+      />
 
       <p className="mt-3 text-xs text-muted-foreground">
         {t("procurement_settlement_table_note") ||
