@@ -1,8 +1,24 @@
 # Ingest the promulgated 2026 budget package (ЗБДОО + ЗБНЗОК) — v1
 
-**Status:** design (2026-07-28). Goal: everything the two promulgated fund-budget laws
-publish that we currently guess, show as a draft, or don't hold at all becomes sourced data
-— and the one figure we are currently overstating on a live page gets corrected.
+**Status:** design, audited against the codebase 2026-07-28. Goal: everything the two
+promulgated fund-budget laws publish that we currently guess, show as a draft, or don't hold
+at all becomes sourced data — and the one figure we are currently overstating on a live page
+gets corrected.
+
+**Audit outcome — read before implementing.** Every file/line anchor below was verified.
+Four things were not implementable as first drafted and are now folded in:
+
+| # | finding | lands in |
+|---|---|---|
+| 1 | §0a's ЗБНЗОК line list leaves **€146.1M unaccounted** — it drops чл. 1 ал. 2 т. 1.6, the line the generator carries as `devices_hospital`. T1 would have silently swept it into the reserve residual | §0a box, **T1.0**, T1.2 |
+| 2 | §0f.1's "reserve −362.0M" contradicts T1.2's own residual design — that number can never appear on the tile | §0f.1 |
+| 3 | T5's "the DV HTML we already fetch and cache" is false; nothing fetches the fund laws, and `fetchLawHtml`'s cache key is the **fiscal year**, so the two idMats would overwrite each other | **T5.0** |
+| 4 | T2.5 listed 2 call sites; there are **8**, four in `scripts/` — including the generator that bakes `policy_baseline.json`. The `__smoke_*` gates that would catch a regression are outside `test:unit` | T2.1, T2.5 |
+
+Smaller corrections carried below: "744 cells" is not divisible by 9 (§0d); T5.1's floor
+assertion would throw on valid data (T5.1); §0c's parts sum *exactly*, so the ДОО total is
+gross, not consolidated (§0c, T4); `/pensions` holds a second, 2024-BGN copy of the very
+constants T3 sources (**T3.4**); and the three new artifacts need `/data`-map entries.
 
 Builds on / does not duplicate:
 
@@ -33,10 +49,26 @@ budget".
 
 Balanced budget, revenue = expenditure = **€5,256,677.2 thousand**. Headline lines:
 ПИМП 345,609.8k · СИМП 351,246.0k · дентална 231,049.4k · медико-диагностична 168,254.3k ·
-лекарства/изделия/храни 1,334,348.5k (of which ПЛС 1,264,322.9k) · БМП 2,307,171.5k ·
-други плащания 49,317.3k · персонал 48,157.8k · издръжка 17,709.1k · нефинансови активи
-2,068.7k · резерв 154,148.1k · МЗ трансфери 101,490.7k. чл. 2 fixes the health contribution
-at **8%**.
+лекарства/изделия/храни (т. 1.5) 1,334,348.5k (of which ПЛС 1,264,322.9k) · БМП
+2,307,171.5k · други плащания 49,317.3k · персонал 48,157.8k · издръжка 17,709.1k ·
+нефинансови активи 2,068.7k · резерв 154,148.1k · МЗ трансфери 101,490.7k. чл. 2 fixes the
+health contribution at **8%**.
+
+> **⚠ This transcription is INCOMPLETE and T1 is blocked on completing it.** The lines above
+> sum to 4,852,863.7k (care + admin); add the three residual components (154,148.1 + 2,068.7
+> + 101,490.7 = **257,707.5k**) and the total is 5,110,571.2k against a 5,256,677.2k
+> headline — **146,106.0k unaccounted**.
+>
+> The cause is a missing line, not a mis-key: чл. 1 ал. 2 **т. 1.6 „медицински изделия,
+> прилагани в болничната медицинска помощ"** is a line of its own, distinct from т. 1.5
+> above. The generator already carries it as `devices_hospital`
+> ([__write_budget.ts:114](../../scripts/budget/nzok/__write_budget.ts)), 114,587.8k in the
+> draft. There may be a second small line in the same position.
+>
+> **Before T1.1, re-read чл. 1 ал. 2 from idMat 244981 and key every т. 1.x explicitly.**
+> Implementing T1.1 against the list as it stands would drop a visible bar from the bridge
+> tile and sweep €146.1M into the reserve residual without tripping the generator's overshoot
+> throw (which only fires when named lines *exceed* the total).
 
 ### 0b. ЗБДОО — statutory parameters, all of them split-year (чл. 9–15)
 
@@ -64,6 +96,14 @@ Consolidated ДОО 15,265,782.4 · Пенсии 5,572,766.5 · Пенсии п�
 355,504.7 · НОИ 6,610,463.3. Приложение 3 = ГВРС budget, 4 = Учителски пенсионен фонд,
 5 = consolidated all-funds.
 
+**The parts sum to 15,265,782.4 exactly — and that is the finding, not a validation.** A
+genuinely *consolidated* total eliminates inter-fund transfers, so parts would exceed it. An
+exact sum means the 15,265,782.4 line is a gross arithmetic total. Two constraints on T4
+follow: do not label it „консолидиран бюджет на ДОО", and do not put it in variance against
+the B1 **actual**, which *is* consolidated — the variance would be structurally wrong, not
+just imprecise. Separately, the €6,610,463.3 „НОИ" line is 43% of the total and is not a peer
+of „Пенсии"; it must not render as an equal bar beside the funds.
+
 ### 0d. ЗБДОО appendices — two tables we do not hold in any form
 
 Measured from the promulgated text:
@@ -73,6 +113,12 @@ Measured from the promulgated text:
 | Прил. 1 (1 Jan – 31 Jul) | КИД-2025 activity × 9 qualification groups, 744 МОД cells | only **2.2% above** the €550.66 floor, max €901.41 — the frozen carryover |
 | Прил. 1А (1 Aug – 31 Dec) | same shape, 744 cells | **66.9% above** the €620.20 floor, max €1,532.00 — a genuinely renegotiated schedule |
 | Прил. 2 / 2А | 87 economic-activity groups | ТЗПБ contribution rate ∈ {0.4, 0.5, 0.7, 0.9, 1.1}% |
+
+> **⚠ "744 cells" cannot be right as stated:** 744 ÷ 9 = 82.67. Either 744 is the *row*
+> (activity) count — in which case the cell count is 6,696 — or the 9-column claim is wrong.
+> T5.1 and the Risks table below turn this into a hard assertion, so **resolve which it is
+> against the promulgated text before writing the parser**, and record both numbers (rows and
+> rows × 9) so the assertion has two independent handles.
 
 ### 0e. The policy change (§ 6 ЗБДОО, § 5 ЗБДОО, § 20 ЗБНЗОК)
 
@@ -93,8 +139,15 @@ simulator profile. Any surface that implies a general contribution change is wro
    2025-10-29, total €5,537,996,900. The adopted law is €5,256,677,200: **we overstate the
    2026 NHIF budget by €281.3M (5.1%)** on the health pack bridge tile
    ([NzokBudgetBridgeTile.tsx](../../src/screens/components/procurement/nzok/NzokBudgetBridgeTile.tsx))
-   at `/awarder/121858220`. Per-line: hospital −52.7M, ПИМП −3.7M, dental −2.5M, personnel
-   −3.5M, reserve −362.0M, drugs +2.3M, diagnostics +0.8M.
+   at `/awarder/121858220`. Per-line: БМП −52.7M, ПИМП −3.7M, dental −2.5M, СИМП −1.2M,
+   personnel −3.5M, издръжка −0.3M, drugs (т. 1.5) +2.3M, diagnostics +0.8M, други плащания
+   +6.5M, `devices_hospital` **unknown until §0a is completed**.
+
+   **The reserve line does not move −362.0M.** That figure differences the draft *residual*
+   (5,537,996.9 − 5,021,850.2 = 516,146.7k) against the law's *named* reserve (154,148.1k) —
+   but the tile renders the residual, which T1.2 keeps. The bar actually moves 516,146.7 →
+   257,707.5 (**−258.4M**) once §0a is complete, or → 403,813.5 (−112.3M) if it is
+   implemented as currently transcribed. Do not publish −362.0M in the T1.5 changelog entry.
 2. **`MIN_PENSION = 322.37`** ([bgTax.ts:55](../../src/lib/bgTax.ts)) has been superseded
    **since 1 July 2026** — it is stale as of today, not as of August.
 3. **`MOD_BY_YEAR[2026] = 2112`** and **`MIN_SELF_INSURED_INCOME = 550.66`** go stale on
@@ -108,7 +161,13 @@ simulator profile. Any surface that implies a general contribution change is wro
 
 ## T1 — ЗБНЗОК: replace the draft with the promulgated law
 
-**Highest value, lowest risk. Do this first and alone.**
+**Highest value. Do this first and alone — but it is NOT zero-risk: it is blocked on T1.0.**
+
+**T1.0 (blocking)** — complete the §0a transcription. Re-read чл. 1 ал. 2 from idMat 244981
+and key **every** т. 1.x sub-line, including т. 1.6 „медицински изделия, прилагани в
+болничната медицинска помощ". As transcribed, §0a leaves 146,106.0k unexplained; T1.1 must
+not be started until the named lines plus the three residual components reconcile to
+5,256,677.2k. See the warning box in §0a.
 
 **T1.1** — `scripts/budget/nzok/__write_budget.ts`: rewrite `YEARS[0]` (FY2026) from the
 promulgated чл. 1 ал. 2 table. `basis: "draft"` → `"law"`, `totalK: 5_537_996.9` →
@@ -116,13 +175,18 @@ promulgated чл. 1 ал. 2 table. `basis: "draft"` → `"law"`, `totalK: 5_537_
 "ЗБНЗОК 2026 (обн. ДВ бр. 68 от 28.07.2026, idMat 244981)" replacing "проект, приет от
 Надзорния съвет 29.10.2025 / nhif.bg/upload/29401".
 
-**T1.2** — Decide the `reserve` residual. The law names реserve (154,148.1k), нефинансови
+**T1.2** — Decide the `reserve` residual. The law names резерв (154,148.1k), нефинансови
 активи (2,068.7k) and МЗ трансфери (101,490.7k) separately; our `reserve` line is a computed
 residual labelled "Резерв, трансфери и капиталови разходи", which is exactly those three.
 Keep the residual mechanism (it guarantees reconciliation) and verify it lands at
-257,707.6k ± rounding. If it does not, the named lines were mis-keyed — the generator
-already throws on overshoot; add a soft check that logs the residual against the law's
-154,148.1 + 2,068.7 + 101,490.7.
+**257,707.5k** (154,148.1 + 2,068.7 + 101,490.7) ± rounding.
+
+Make this a **hard assertion, not a soft log.** The generator's existing throw only fires
+when the named lines *exceed* the total, so an under-keyed table — exactly the §0a defect —
+passes silently and inflates the reserve bar by the shortfall. A residual that misses
+257,707.5k by more than a rounding euro means a line is missing or mis-keyed; throw with the
+drift in the message. This assertion is the only thing standing between a dropped sub-line
+and a silently absorbed nine-figure error on a live page.
 
 **T1.3** — Update `source.description` in the generator's output header: FY2026 is no longer
 "проект … суми в евро" but "обн. закон". The tile's `basisLabel` already switches on
@@ -136,11 +200,19 @@ headline, no component edited.
 
 **Tests:** extend the generator's existing reconciliation echo into a real assertion, or add
 `scripts/budget/nzok/__smoke_budget.ts` in the `__smoke_*` convention asserting (a) FY2026
-total = 5_256_677_200, (b) Σ lines = total for every year, (c) FY2026 `basis === "law"`.
+total = 5_256_677_200, (b) Σ lines = total for every year, (c) FY2026 `basis === "law"`,
+(d) the FY2026 residual = 257,707,500 ± rounding, and (e) the FY2026 line-id set is a
+superset of FY2025's — the check that would have caught `devices_hospital` disappearing.
 
 **T1.5** — `npx tsx scripts/append-data-change.ts` (skill `update-nzok`) noting the 2026
 NHIF budget moved from draft to promulgated law and the €281.3M correction. This is a
-user-visible number changing on a live page; it belongs in the changelog.
+user-visible number changing on a live page; it belongs in the changelog. Use the corrected
+per-line deltas from §0f.1 — **not** the −362.0M reserve figure.
+
+**T1.6** — amend [`update-nzok/SKILL.md:29`](../../.claude/skills/update-nzok/SKILL.md). It
+says `budget.json` is re-run "only when a new fiscal year's law is added" — a draft→law flip
+for an existing year is exactly what T1 does and the skill text does not cover it. Add the
+case, and name the `dv_laws` watcher's `ЗБНЗОК` describe-line as its trigger.
 
 ---
 
@@ -171,23 +243,75 @@ retrospectively, and the same problem recurs every year the МОД moves mid-yea
 already did).
 
 **T2.1** — `src/lib/bgTax.ts`: introduce `StatutoryStep`, `MOD_SCHEDULE`; derive
-`MOD_BY_YEAR` from it for back-compatibility (last step of the year) or delete it and
-migrate the two call sites.
+`MOD_BY_YEAR` from it for back-compatibility, or delete it and migrate the call sites (see
+T2.5 — there are eight, not two).
+
+**Derive from the FIRST step of the year, not the last.** "Last step" flips
+`MOD_BY_YEAR[2026]` from 2112 to 2300 for every existing consumer at once; "first step"
+reproduces today's exact values for every year in the table, making the derivation a true
+no-op and confining the behaviour change to the call sites that opt into `asOf`. The
+back-compat map must be back-compatible or it is not worth having.
+
 **T2.2** — extend `resolveMod` with `asOf` + `steps`; keep the year-snapping behaviour and
 the `exact` flag exactly as documented (the doc comment about never claiming a year whose
 cap it isn't showing is a real invariant — preserve it and extend it to dates).
+
+**Do not default `asOf` to `new Date()`.** The plan's original recommendation ("default
+`asOf` = today") has three costs that outweigh the convenience:
+
+- `src/lib/bgTax.test.ts` becomes time-dependent — the suite's result changes on 1 Aug 2026
+  with no code change.
+- [`BudgetPolicySimulator.tsx:1232-1234`](../../src/screens/components/budget/BudgetPolicySimulator.tsx)
+  derives `modMin`/`modMax` from `currentCap`; `:1323` clamps `?mod` into that window and
+  `:1627` writes `?mod` only when it differs from `currentCap`. A today-defaulted cap shifts
+  the slider window €188 overnight, so a **shared scenario permalink changes meaning across
+  the date boundary** — links near the old floor clamp silently, and `?mod=2112` starts
+  serialising as an explicit param.
+- The scripts in T2.5 bake values into artifacts; a wall-clock default makes those artifacts
+  non-reproducible.
+
+Instead: `resolveMod(year, asOf?)` where **omitting `asOf` preserves today's year-scalar
+semantics** (first step of the year). Callers that want in-force-now pass an explicit date.
+Every `scripts/` call site passes an explicit `asOf` or stays on the scalar.
+
+*Non-issue, stated so an implementer does not "fix" it:* the МОД lever's neutrality is safe
+regardless of `currentCap`, because
+[`BudgetPolicySimulator.tsx:461`](../../src/screens/components/budget/BudgetPolicySimulator.tsx)
+passes `s.currentCap` as `scoreModCap`'s `fromCapEur`, so `mod === currentCap` scores zero by
+construction. The baked baseline's own `earnings.capEur` (2112, `baselineYear: 2025`) is a
+separate anchor and is not disturbed.
+
 **T2.3** — same treatment for `MIN_PENSION` and `MIN_SELF_INSURED_INCOME`. `MAX_PENSION`
 needs **no schedule**: § 4 ал. 2 sets €1,738.40 for the whole of 2026, matching what we
 already hold. Do not restructure it — instead attach the ДВ citation so the next reader knows
 it is sourced, not inherited.
 **T2.4** — `src/lib/bgTax.test.ts` currently asserts `resolveMod(2025) = {mod: 2112}` and
 `resolveMod(2030) → MOD_BY_YEAR[2026]`. Both need updating; add cases for the Aug-2026 step
-in both directions and for an `asOf` inside each half-year.
-**T2.5** — call sites: `BudgetTaxCalculator.tsx:351`, `BudgetPolicySimulator.tsx:735,1232`.
-`MAX_MOD = 4000` already accommodates 2,300, so the slider needs no range change.
+in both directions and for an `asOf` inside each half-year. Add an explicit test that the
+**no-`asOf` path is time-independent** (it must return 2112 for 2026 whenever it runs).
+
+**T2.5** — call sites. There are **eight**, and four are in `scripts/`:
+
+| file | usage | note |
+|---|---|---|
+| [BudgetTaxCalculator.tsx:351](../../src/screens/components/budget/BudgetTaxCalculator.tsx) | `resolveMod(fiscalYear)` | the one surface that should show the step |
+| [BudgetPolicySimulator.tsx:735,1232](../../src/screens/components/budget/BudgetPolicySimulator.tsx) | `resolveMod(null)` | see the URL-contract note in T2.2 |
+| [run_policy_baseline.ts:791,836](../../scripts/budget/run_policy_baseline.ts) | `MOD_BY_YEAR[napYear]`, `MOD_BY_YEAR[baselineYear]` | **bakes `capBaselineEur` into `policy_baseline.json`** |
+| [nap_income_tiers.ts:176](../../scripts/budget/nap_income_tiers.ts) | `MOD_BY_YEAR[NAP_TABLE_YEAR]` | NAP tier calibration |
+| [__smoke_mod_identity.ts:76,92](../../scripts/budget/__smoke_mod_identity.ts) | `MOD_BY_YEAR[YEAR]`, `[2024]`, `[2025]` | the МОД identity gate itself |
+| [__smoke_earnings.ts:88](../../scripts/budget/__smoke_earnings.ts) | `MOD_BY_YEAR[2025]` | |
+| [__smoke_behavioral.ts:99](../../scripts/budget/__smoke_behavioral.ts) | `resolveMod(null)` | |
+| [budget2026_package.ts](../../scripts/budget/budget2026_package.ts) | see T5.5 | |
+
+**The `__smoke_*` gates are tsx scripts, not Vitest** — they do not run in
+`npm run test:unit`, so CI catches nothing here. Re-run them by hand as part of T2 and say so
+in the acceptance criteria. `MAX_MOD = 4000` already accommodates 2,300, so the slider needs
+no range change.
 
 **Acceptance:** the calculator's МОД label names the period in force, not just the year; the
-simulator's `currentCap` reflects the in-force value.
+simulator's `currentCap` reflects the in-force value; `MOD_BY_YEAR` is byte-identical to its
+pre-change values for every year; `__smoke_mod_identity.ts`, `__smoke_earnings.ts` and
+`__smoke_behavioral.ts` re-run green.
 
 ---
 
@@ -206,6 +330,20 @@ to adjust the rate.
 the `budget_law` watcher. Both halves are now wrong: the ЗБДОО is adopted, and the
 authoritative watcher is `dv_laws`.
 
+**T3.4 — consolidate the second, stale copy of these constants.** `bgTax.ts` has exactly two
+importers, both under `src/screens/components/budget/` (the calculator and the simulator).
+`/pensions` does **not** use it:
+[`PensionReplacementTile.tsx:42-48`](../../src/screens/pensions/PensionReplacementTile.tsx)
+hardcodes its own **2024 BGN** statutory values — min wage 933 лв, МОД 3750 лв (€1,917),
+таван на пенсиите 3400 лв (€1,738.40) — and re-implements the КСО formula that
+`computePension` already encodes.
+
+So the min/max pension this task is sourcing already has a live home, two years stale and
+denominated in a currency the site retired on 2026-01-01. Point that tile at the schedule
+rather than adding a third copy. **Without T3.4 the plan makes the divergence worse**: T3.1
+would put a correct, sourced `MIN_PENSION` schedule in a library that `/pensions` cannot see,
+while `/pensions` keeps rendering 580 лв.
+
 ---
 
 ## T4 — ЗБДОО per-fund plan beside the B1 actual
@@ -223,9 +361,21 @@ maintained in parallel — see the `BudgetDocKind` pair).
 `BudgetSocialFundsTile.tsx` / `BudgetFlowSocialFundsDrilldown.tsx` as a plan marker on the
 existing actual bars.
 
+**T4.4** — register `data/budget/noi/fund_plan.json` in
+[`scripts/data_map/model.ts`](../../scripts/data_map/model.ts). `data/budget/noi/pensions.json`
+is there; a new sibling artifact that is not is invisible on the site's own `/data` map.
+
 **Caveat to respect:** `funds.json` FY2023 has zero revenue (a parse gap, `complete: false`).
 Only render plan-vs-actual for years where the actual side is complete; do not compute a
 variance against a zero.
+
+**Second caveat — the basis mismatch (see §0c).** The чл. 1 total is a gross arithmetic sum;
+the B1 actual is consolidated. Putting them on one axis without stating that is a
+structurally wrong variance, not a rounding one. Either restrict plan-vs-actual to the
+per-fund pairs (where both sides are gross) and omit the consolidated row, or label the
+headline explicitly as „сбор на фондовете", never „консолидиран". And do not render the
+€6.61bn „НОИ" line as a bar beside „Пенсии" — it is 43% of the total and not the same kind
+of thing.
 
 **Non-goal:** back-keying the plan for 2018–2025. One year proves the shape; earlier years
 are a separate, larger transcription job and should not gate this.
@@ -234,20 +384,51 @@ are a separate, larger transcription job and should not gate this.
 
 ## T5 — Приложение 1А + 2/2А as ingested datasets
 
-The two appendix tables are the genuinely new data. Both are inside the DV HTML we already
-fetch and cache for the law text.
+The two appendix tables are the genuinely new data. They live in the DV HTML for the two
+idMats — which, contrary to this plan's first draft, **we do not currently fetch or cache**.
+
+**T5.0 (blocking, and invisible in the original plan)** — make the fund-law HTML fetchable
+and cacheable.
+
+Nothing calls [`fetchLawHtml`](../../scripts/budget/fetch_sources.ts) with a
+`FUND_BUDGET_LAWS` idMat; that catalogue holds URLs only
+([`buildFundLawDocuments`](../../scripts/budget/documents.ts) emits `sources` and no facts),
+and `raw_data/budget/` has no cache entry for 244981, 244982, or 2026 at all.
+
+Worse, the cache key is **`law-${fiscalYear}.html.gz` — keyed by fiscal year, not idMat**. As
+written, `fetchLawHtml(2026, "244982")` and `fetchLawHtml(2026, "244981")` overwrite each
+other, and both would later collide with the ЗДБРБ-2026 when it lands. Re-key to
+`law-${idMat}.html.gz` (with a migration for the existing `law-YYYY.html.gz` files) or add a
+separate `fetchFundLawHtml`. Decide which before T5.1 — a silent cache collision between two
+laws would be very hard to spot downstream.
 
 **T5.1** — parser `scripts/budget/noi/parse_mod_schedule.ts`: extract Прил. 1 and 1А into
 `{ periodFrom, kidCode, kidSection, activityName, byQualificationGroup: number[9] }`.
-744 cells per appendix; assert exactly 9 value columns per row and that every value ≥ the
-period's floor (550.66 / 620.20) — a row failing either is a parse error, not a data point.
+**Throw** on the structural checks — exactly 9 value columns per row, and the expected row
+count (resolve the 744 rows-vs-cells ambiguity flagged in §0d first).
+
+**Do not throw on the floor check.** §0d's own finding is that only 2.2% of Прил. 1 sits
+*above* €550.66, i.e. 97.8% is at or below it; the МОД annex has historically lagged the МРЗ
+for some activity/qualification cells. A `value < floor` row is a legitimate data point that
+matters editorially — count and log it, and surface the count in the output so the "is the
+floor binding?" question stays answerable from the data.
+
 **T5.2** — parser for Прил. 2/2А: 87 activity groups → ТЗПБ rate. Assert the rate set is a
 subset of {0.4, 0.5, 0.7, 0.9, 1.1}.
-**T5.3** — `data/budget/noi/mod_schedule.json` + `tzpb_rates.json`.
+**T5.3** — `data/budget/noi/mod_schedule.json` + `tzpb_rates.json`. Register both in
+[`scripts/data_map/model.ts`](../../scripts/data_map/model.ts).
+
+**T5.3a** — revise the two places that assert we parse nothing from fund-law HTML, because
+after T5.1 that is false: the comment block above `FUND_BUDGET_LAWS`
+([`fetch_sources.ts:149`](../../scripts/budget/fetch_sources.ts)) and the `notes` string in
+[`buildFundLawDocuments`](../../scripts/budget/documents.ts) ("no per-spending-unit tables
+are parsed; catalogued for provenance"). The *per-spending-unit* half stays true — the
+appendices are not appropriations — so narrow the wording rather than deleting it.
 **T5.4** — **only then** consider a UI. The obvious one is a per-sector employer-cost
 lookup in the tax calculator ("your industry's legal minimum insurable wage and ТЗПБ rate")
 replacing the 0.5% placeholder documented at `bgTax.ts:26-29`. Treat that as a separate
-design pass — T5.1–T5.3 stand on their own as sourced data.
+design pass — T5.1–T5.3 stand on their own as sourced data. See T7.3 for the fuller shape
+and for the one join that is **not** currently possible.
 
 **T5.5** — correct `scripts/budget/budget2026_package.ts:147` and `:363`. The "BOTTOM-UP
 BLOCKED AT SOURCE" note must be narrowed: the МОД schedule is published, the
@@ -256,49 +437,116 @@ reproduce — but for a different and smaller reason than the note currently giv
 
 ---
 
-## T6 — The public-sector contribution shift, editorially
+## T6 — The public-sector contribution shift
 
-Not a constant. An article / tile: civil servants, judges and prosecutors start paying their
-own social and health contributions, phased over Aug-2026 → Jan-2027, with the employer
-absorbing the shift for five months (§ 5 + § 6 + § 20) so net pay is protected until January.
+**Revised: a taxpayer profile first, the article second.**
 
-**Hard requirement:** frame it as a public-sector change. `SSC_EMPLOYEE_RATE` is unchanged
-for чл. 4 ал. 1 т. 1 employees, and any copy implying a general contribution hike is factually
-wrong. See §0e.
+The original framing was an article/tile. But `TaxpayerProfile` is already
+`"employee" | "self" | "company"`, and the calculator already renders exactly this shape — a
+payslip with an employee/employer split. Adding a fourth profile, `"civil-servant"`, with the
+§ 6 pension phasing (11.8/3.0 from 1 Aug 2026, 8.22/6.58 from 1 Jan 2027), the § 20 health
+80:20 and the § 5 universal-pension 4/1 for Aug–Dec, answers "what changes on my payslip in
+August, and again in January" for the several hundred thousand people it actually affects.
 
-**Blocked-ish:** worth holding until the ЗДБРБ-2026 lands so the piece can describe the whole
-package rather than two thirds of it. `dv_laws` will flag it.
+That is strictly better than prose, and it also **enforces the scope caveat structurally**:
+the default `"employee"` profile is untouched by construction, which is a far stronger
+guarantee than the plan's current strategy of repeating a warning in three places. The
+article then links to the calculator rather than carrying the burden alone.
+
+**Hard requirement (unchanged):** frame it as a public-sector change. `SSC_EMPLOYEE_RATE` is
+unchanged for чл. 4 ал. 1 т. 1 employees, and any copy implying a general contribution hike is
+factually wrong. See §0e.
+
+**What is actually blocked:** only the *article*, and only if it wants to describe the whole
+package — worth holding until the ЗДБРБ-2026 lands. `dv_laws` will flag it. The profile is
+not blocked: both laws that set these rates are promulgated.
+
+---
+
+## T7 — Surfaces (folded in from the UI/UX pass)
+
+T1–T5 produce sourced numbers; without T7 most of them land in a library nobody renders.
+None of these is required to ship T1.
+
+**T7.1 — `<StatutoryValue>` chip.** Every value in this package is a dated statutory fact
+with a ДВ citation, and nothing on the site renders that. One shared chip —
+`€620.20 · от 01.08.2026 · ДВ бр. 68/2026`, linking the idMat — used wherever a constant
+appears. minfin and НОИ publish numbers; per-value provenance is the differentiator, and it
+is a small component.
+
+**T7.2 — a stepped rail, not a scalar.** The whole package is date-stepped and the site has
+no way to say "this changed on 1 Aug". A horizontal year rail with step markers (before /
+after / % change, citation on hover), reused by the calculator's МОД label, `/pensions`, and
+`BudgetJourneyTile`. This is T2's schema earning its keep visually.
+
+**T7.3 — `/budget/mod`, the browser for Прил. 1А.** The single highest-value payload in the
+package and the one with no home: КИД-2025 activity × 9 qualification groups answers "what is
+the legal minimum insurable wage for *my* job", and the schedule genuinely renegotiated
+(2.2% → 66.9% of cells above the floor). Pick industry → pick qualification group → floor
+Jan–Jul vs Aug–Dec, plus the ТЗПБ rate from Прил. 2, which is what replaces the 0.5%
+placeholder in T5.4. Deep-link `?kid=…&q=…`.
+
+> **The obvious follow-on is blocked.** "This company's own floor and ТЗПБ rate on
+> `/company/:eik`" needs an EIK→КИД mapping, and
+> [`tr_companies`](../../scripts/db/schema/pg/003_tr_search.sql) has no NACE/КИД column —
+> nor does anything else in the corpus. Scope that as its own ingest; do not assume it.
+
+**T7.4 — keep the draft, don't overwrite it.** We hold both sides of the ЗБНЗОК: the Надзор
+asked for a €516M reserve and Parliament left €154M. `basis: "draft" | "law"` is already in
+the type, so the bridge tile can render проект→закон as a diff wherever both exist. T1 as
+written deletes the more interesting half of the story; consider keeping the draft as a
+sibling year-entry instead of replacing it.
+
+**T7.5 — the five numbers people search for, on `/pensions`.** Rides T3.4: min pension
+322.37 → 347.51 (1 Jul), max 1,738.40 (unchanged, now sourced), unemployment €9.21–54.78/day,
+child-rearing €398.81, death grant €276.10 — in EUR with citations, replacing the stale 2024
+BGN hardcodes. A strip, not a project.
+
+**T7.6 — a "2 of 3" completeness meter on `BudgetJourneyTile`.** FY2026's journey is
+genuinely unusual: bridging law (Dec 2025) → ЗИД (Mar 2026) → two fund laws (Jul 2026) →
+ЗДБРБ still absent. The data is already in `documents.json`; the meter is a rendering change
+that directly serves §0's warning never to say "the 2026 budget".
 
 ---
 
 ## Sequencing
 
 ```
-T1  ──────────────►  ship alone, it is a live correction
-T2  ──►  T3         schema first, then the new constants ride it
+T1.0 ──► T1          T1.0 is a re-read of чл. 1 ал. 2; T1 cannot ship without it
+T2  ──►  T3 ──► T3.4 schema, then constants, then the /pensions consolidation
 T4  (independent)
-T5.1-5.3 ──► T5.4   data first, UI as a separate design pass
-T6  after ЗДБРБ-2026
+T5.0 ──► T5.1-5.3 ──► T5.4   cache key, then parsers, then UI
+T6  profile now; article after ЗДБРБ-2026
+T7  any time after the task it renders
 ```
 
-T1 is independently shippable and should not wait for T2. T2 must land before T3 or the new
-constants inherit the scalar-per-year defect they were added to avoid.
+T1 is independently shippable — **but only after T1.0**. It should not wait for T2. T2 must
+land before T3 or the new constants inherit the scalar-per-year defect they were added to
+avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a correct library.
 
 ## Non-goals
 
 - Re-parsing the ЗБНЗОК/ЗБДОО for per-spending-unit appropriations. They appropriate their
   own funds, not first-level spending units — that is why `buildFundLawDocuments` in
   `scripts/budget/documents.ts` catalogues them as provenance with `sources` and no facts.
+  (T5 does parse the *appendices* from that HTML, which is why T5.3a narrows the wording;
+  the per-spending-unit non-goal is unaffected.)
 - Anything on `LAW_DV_MATERIALS`. That is the ЗДБРБ catalogue and 2026 is still correctly
-  absent.
+  absent — the two 2026 rows in `fetch_sources.ts` are `INTERIM_BUDGET_LAWS` (the bridging
+  law and its ЗИД), not ЗДБРБ entries.
 - Touching the `budget_law` watcher. `dv_laws` supersedes it as the promulgation signal;
   retiring it is a separate call.
+- An EIK→КИД ingest. See the blocked note in T7.3 — it is a real gap, but its own project.
 
 ## Risks
 
 | risk | mitigation |
 |---|---|
-| The line-by-line ЗБНЗОК figures are hand-keyed from a 45k-char HTML render | T1 reconciliation assertion + the generator's existing overshoot throw; the balanced-budget identity (revenue = expenditure = 5,256,677.2) is an independent check |
-| Prил. 1/1А parse silently drops or mis-columns rows | T5.1's floor assertion + fixed 9-column check; 744 cells is a hard expected count |
-| Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6; state it in code comments too |
+| The line-by-line ЗБНЗОК figures are hand-keyed from a 45k-char HTML render | **This already bit once — §0a dropped т. 1.6 and lost €146.1M.** T1.2's hard residual assertion + the T1 smoke's line-id-superset check are the mitigations; the generator's overshoot throw is NOT one, since it only catches over-keying. The balanced-budget identity (revenue = expenditure = 5,256,677.2) is an independent check |
+| A missing line silently inflates the reserve residual instead of failing | T1.2 asserts the residual equals 257,707.5k, so an under-keyed table throws rather than absorbing the shortfall into a bar labelled "Резерв, трансфери и капиталови разходи" |
+| Prил. 1/1А parse silently drops or mis-columns rows | Fixed 9-column check + an expected row count — **after** resolving the 744 rows-vs-cells ambiguity (§0d). The floor check is a counter, not an assertion (T5.1) |
+| Two fund laws overwrite each other in the HTML cache | T5.0: `fetchLawHtml`'s key is `law-${fiscalYear}`, so both idMats collide today. Re-key before T5.1 |
+| A `MOD_BY_YEAR` derivation silently reprices the fiscal baseline | T2.1 derives from the *first* step of the year, making the map byte-identical. The `__smoke_*` gates that would catch a regression are tsx scripts outside `test:unit` — re-run them by hand (T2.5) |
+| A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent |
+| Someone reads §0e as a general SSC change | The scope caveat is repeated in §0e, T5.4 and T6, and stated in code comments — but the real mitigation is T6's separate `"civil-servant"` profile, which leaves the default employee path untouched by construction |
 | ЗДБРБ-2026 lands mid-implementation and moves these numbers | It cannot — the fund budgets are their own laws. A ЗИД to either would, and `dv_laws` reports ЗИД forms under the same `kind` |
