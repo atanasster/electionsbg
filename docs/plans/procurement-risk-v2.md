@@ -742,10 +742,14 @@ as relative ordering only.
    has a row for. Fixed 2026-07-27: failures are no longer written, `http_status`/`attempts`
    record provenance, and a one-time `--requeue-nulls` (then a re-crawl) repairs the poisoned
    rows. Verify with `SELECT count(*) FROM company_founded WHERE http_status IS NULL` → 0.
-   ⚠️ **Not yet wired to
-   a refresh cadence** — the default fetch mode already picks up only new contractors
-   (contractor_eik NOT IN company_founded), so a periodic no-args run keeps it current; formal
-   watcher integration is a later step. **No `recent_updates` entry — deliberate:** that feed
+   ⚠️ **Refresh cadence is DEFERRED TO `cr-deeds-capture-v1` (decision 2026-07-27), not
+   wired here.** The default fetch mode already picks up only new contractors
+   (contractor_eik NOT IN company_founded), so a periodic no-args run would keep it current —
+   but `docs/plans/cr-deeds-capture-v1.md` crawls the *same* host for the same companies and
+   folds founding-date capture in, retiring this script. Two independent daily crawlers against
+   one rate-limited source would throttle each other and re-create the block that corrupted the
+   2026-07 run. The cadence belongs to whichever crawler survives; wiring one here first would
+   have to be unwired. **No `recent_updates` entry — deliberate:** that feed
    tracks user-facing *datasets* (tender, tr_company, nzok_*…); enrichment indexes (`debarred`,
    `company_politicians`) are absent by design and `company_founded` is the same kind of derived
    table ([[feedback_pg_changelog_required]] is for datasets, not indexes). Original feasibility
