@@ -1,6 +1,7 @@
 # Хора — the global persons browser (`/persons`) — implementation plan v1
 
-Status: **DRAFT (2026-07-27), audited 2026-07-27 (§0), place section rewritten 2026-07-28.**
+Status: **DRAFT (2026-07-27), audited 2026-07-27 (§0a–0c), place section rewritten 2026-07-28,
+re-audited 2026-07-28 (§0d).**
 The 2026-07-28 revision follows the `person_role.place` consolidation
 (`person-role-place-consolidation-v1.md`, migrations 115–117): **§4 is replaced** — the
 normalization it specified now exists upstream, so the browser joins the typed triple +
@@ -146,7 +147,38 @@ change spans a migration, the `db` function (the registry lives in `functions/`)
 per CLAUDE.md it ships **migration → `npm run deploy:db` → `npm run deploy`**. Hosting first
 would put the route live against a function that cannot serve it.
 
-### 0d. CONFIRMED — no change needed
+### 0d. SECOND AUDIT (2026-07-28, after the place rewrite)
+
+**F10 — the place columns are scalar on a per-person row, with no pick rule and no filter
+target. This is the party bug the plan already fixed, repeated one block lower.** §5 declares
+`place_kind` / `place_code` / `place_label` / `oblast_code` as single values, but a person has
+many roles in many places. Measured: **4,616 persons hold roles in 2+ distinct places, and
+1,851 span 2+ oblasts** (a candidate in Варна who is also a councillor in Бургас). Two
+consequences, both silent:
+
+- *Display* — with no documented rule the pick is whatever the plan's `DISTINCT ON` happens to
+  order by, and it changes between REFRESHes. §6 already solved this for party (highest
+  `prominence`, then latest `start_date`, then code ascending); **place must reuse that exact
+  rule**, so a person's primary role, primary party and primary place all describe the same
+  seat rather than three unrelated ones.
+- *Filtering* — `?oblast=VAR` matching only the primary column **omits 1,851 people who
+  genuinely serve there**, which reads as "no such people" rather than as a narrowed view. §6
+  already reasoned this out for party and chose `party_codes`; place needs the same
+  **`oblast_codes`** (space-padded, `filter:"text"`), with the scalar kept for display.
+
+**F11 — `onData` changed under this plan (commit `53736184e0`), in a way worth using.** It now
+takes a second argument — the exact request that produced the response — so a caller can
+re-issue the same query at a larger `pageSize`. That is the **CSV-export seam**, and a persons
+browser is a natural place for it (the connections screen already ships `exportPairsCsv`).
+The same commit made `onData` ref-invoked, so it **no longer needs memoizing**; the §8 KPI
+wiring is unaffected but should not imply otherwise.
+
+**F12 — §7 never declares the place columns' filter shapes.** Add: `place_kind` / `place_code` /
+`obshtina_code` / `judicial_kind` / `judicial_tier` as `filter:"in"` (the last two also
+facetable — they are what make "all районен prosecutors" one click), `oblast_codes` as
+`filter:"text"`, and `institution` as `filter:"text", search: true`.
+
+### 0e. CONFIRMED — no change needed (both rounds)
 
 `/persons` is free (only `person/:name` at routes.tsx:3764) · ~~`115_` is the next free
 migration~~ → **`120_`** (115–119 landed since: person_role_place, judicial_body, place_dim,
@@ -159,6 +191,15 @@ this corpus · the gated row count is exactly **56,801** (all 58,084 persons are
 today, so the gate is `is_public_figure` alone — keep both predicates anyway, per 100's argument) ·
 the 1,070 money-carrying persons reconcile across both verification queries (540+364+159+7 =
 710+360).
+
+Round 2 (2026-07-28) re-verified after the place consolidation and the artifact regen
+(`0070b5d3f8`): the judicial two-hop resolves **270/270** of the judicial codes person_role
+actually uses — to a body AND to an oblast — so §4's "the full placed set" is exact, not
+optimistic · `officials_rankings_table.institution` is non-NULL for **19,022/19,034** rows, so
+it is a real source for the executive institution, not a mostly-empty one · `120_` is still the
+next free migration · the F5 line citations still resolve
+(`prerender/routes.ts:3756`/`:3663`, `sitemap/route_defs.ts:342`/`:321`) · and the two headline
+figures are unchanged after the regen — **56,801** gated persons, **1,070** money-carrying.
 
 ## 1. Goal & thesis
 
@@ -352,12 +393,18 @@ person_browse_table (matview, ~56.8k rows)
   party_primary_name   text
   parties_n            smallint
   party_codes          text   -- space-PADDED distinct canonicalIds (filter:"text", F6)
--- place (§4 — joined from the typed triple, NOT normalized here)
+-- place (§4 — joined from the typed triple, NOT normalized here).
+-- SCALARS BELOW ARE THE REPRESENTATIVE SEAT, picked by the SAME rule as party_primary
+-- (highest prominence → latest start_date → code asc). 4,616 people hold roles in 2+
+-- places, so an undocumented pick drifts between REFRESHes. See F10.
   place_kind      text      -- 'mir' | 'obshtina' | 'judicial'
   place_code      text
   place_label     text      -- COALESCE(pd.name_bg, jb.name, r.place_raw) — copied from 082
   place_label_en  text      -- pd.name_en alone (judicial_body has no EN name)
-  oblast_code     text      -- via place_dim, WITH the judicial two-hop
+  oblast_code     text      -- representative, via place_dim, WITH the judicial two-hop
+  oblast_codes    text      -- space-PADDED set of EVERY oblast this person holds a role in;
+                            --   the FILTER target. Filtering on the scalar drops 1,851
+                            --   people from an oblast they genuinely serve (F10).
   obshtina_code   text
   institution     text      -- judicial_body.name | officials_rankings_table.institution
   judicial_kind   text      -- court | prosecution | investigation | council
@@ -460,6 +507,11 @@ New `persons` resource. Notes that must be comments in the file, not just here:
   `searchCol` alone matches a Cyrillic term against a Latin fold and returns nothing) — plus
   `institution`.
 - `primary_facet` is filterable + facetable (it feeds the mix bar); `primary_role` likewise.
+- **Place columns (F12):** `place_kind`, `place_code`, `obshtina_code`, `judicial_kind`,
+  `judicial_tier` → `filter:"in"`, the last two also facetable (they are what make "all
+  районен prosecutors" one click); `oblast_codes` → `filter:"text"` (the multi-value target,
+  F10); `institution` → `filter:"text", search: true`. `oblast_code` is display-only —
+  registering it as a filter is the F10 bug in one line.
 - Multi-select facets ride the **boolean-flag + space-joined-codes** pair, because the engine's
   filter shapes are `eq / in / text / prefix / range` with no array containment. This is the
   shipped idiom — `ngos.signal_codes` does exactly this (`db_table.js:444`).
@@ -475,6 +527,11 @@ so the two browsers feel like one system.
 2. **KPI strip** — Лица · С декларация % · С фирми в ТР % · Общини. The count rides the
    table's own aggregate via `onData` (free, reacts to the search box); the percentages ride
    `/api/db/facets` and do not react to search — the same split the contracts screen documents.
+   `onData` needs no memoizing (it is ref-invoked since `53736184e0`), and its second argument
+   — the exact request that produced the response — is the **CSV-export seam**: a "Свали CSV"
+   button re-issues the user's current query at a larger `pageSize` without dropping their
+   filters or search term. Worth taking in T2; `exportPairsCsv` on the connections screen is
+   the precedent for the download half.
 3. **"Тип лице" mix bar** where contracts has "Вид процедура": политици / изпълнителна власт /
    общинска / магистрати / ЮЛНЦ / бизнес / дарители. Clickable → sets `?facet`. Per **F2** this
    partitions on the single-valued `primary_facet`, and it is **not** a drop-in reuse:
@@ -491,7 +548,7 @@ so the two browsers feel like one system.
    | Име (`MpAvatarView` + name) | always | caveat tooltip when `tr_link_basis='name_match'` |
    | Роля (chips, +N) | always | `primary_role` + overflow |
    | Партия | always | coloured pill, `+N` when `parties_n > 1`, sortable by `parties_n` |
-   | Област / Община | `hidden md:` | |
+   | Място | `hidden md:` | `place_label` (`place_label_en` in EN) — one column, not "Област / Община": the label already reads as МИР, obshtina or court per `place_kind` |
    | Декларация (year) | `hidden sm:` | three distinguishable blank states, per §9 |
    | Нетно състояние | `hidden md:` | sortable, `*` when `excluded_asset_rows > 0` |
    | Фирми | `hidden lg:` | `companies_n` |
@@ -580,6 +637,10 @@ Per `docs/testing-standards.md` — co-located `*.test.ts(x)`, PG gates as `*.da
   - every row with a `place_code` has a non-NULL `place_label` (the empty-dimension guard,
     F3b) and an `oblast_code` — the latter fails without the judicial two-hop, which is the
     point of asserting it;
+  - `oblast_code ∈ oblast_codes`, and a person with roles in two oblasts appears under **both**
+    when filtered (F10 — assert on a known multi-oblast person, of which there are 1,851);
+  - the representative place, party and role come from the **same** role — three independent
+    `DISTINCT ON`s would each pick a different seat and the row would describe nobody;
   - `party_primary` ∈ `party_codes`, and the pick is stable across two REFRESHes;
   - **`is_exec` lockstep with `OFFICIAL_DECLARATION_SOURCES`** (F4) — the assertion
     `officials_rankings.data.test.ts` already carries, because a `source LIKE 'official%'`
