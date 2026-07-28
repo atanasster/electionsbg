@@ -51,7 +51,6 @@ import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
 import { chooseStableSlug } from "./slugLock";
-import { obshtinaLabels, mirLabels, type PlaceLabel } from "./places";
 import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
 import { mirToOblast } from "../../src/data/parliament/nsFolders";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
@@ -77,14 +76,21 @@ type Raw = {
   family: string;
   nameParts: 2 | 3;
   ambiguous: boolean;
-  // The TYPED place (migration 115): which namespace, the canonical id in it, and the
-  // display strings. `placeKind` is NULL exactly when `placeCode` is (DB CHECK), so a
-  // source with no place for a given row writes all four as NULL rather than a
-  // half-filled state.
+  // The TYPED place (migration 115): which namespace, and the canonical id in it.
+  // `placeKind` is NULL exactly when `placeCode` is (DB CHECK), so a source with no place
+  // for a given row writes both as NULL rather than a half-filled state.
+  //
+  // NO DISPLAY STRING for a place that RESOLVES: 082_person_api.sql joins place_dim (117)
+  // for mir/obshtina and judicial_body (116) for judicial, so the resolver records WHICH
+  // PLACE, not what it is called.
+  //
+  // `placeRaw` is the exception, and is not a label: it is the declaration's OWN
+  // institution text, kept only when no dictionary can resolve it (43 magistrate rows —
+  // source typos, plus "Върховна прокуратура", which could be ВКП or ПРБ). That text
+  // exists nowhere else, so dropping it would blank a badge rather than de-duplicate one.
   placeKind: "mir" | "obshtina" | "judicial" | null;
   placeCode: string | null;
-  placeLabel: string | null;
-  placeLabelEn: string | null;
+  placeRaw: string | null;
   // Matching corroborants (kept SEPARATE from `place` display — a magistrate's court
   // is a display place but not a reliable cross-person corroborant).
   cParty: string | null;
@@ -190,18 +196,15 @@ function buildPartyNameMap(): Map<string, string> {
   return m;
 }
 
-// The four typed-place fields, as one unit — every source either fills all of them or
-// none (migration 115 enforces kind-iff-code).
-type TypedPlace = Pick<
-  Raw,
-  "placeKind" | "placeCode" | "placeLabel" | "placeLabelEn"
->;
+// The typed place, as one unit — every source either fills kind+code or neither
+// (migration 115 enforces kind-iff-code). `placeRaw` is independent of the pair: it is set
+// only when a source named a place that no dictionary resolves.
+type TypedPlace = Pick<Raw, "placeKind" | "placeCode" | "placeRaw">;
 
 const NO_PLACE: TypedPlace = {
   placeKind: null,
   placeCode: null,
-  placeLabel: null,
-  placeLabelEn: null,
+  placeRaw: null,
 };
 
 // Build the typed obshtina place for a source-native code. Canonicalises Sofia's
@@ -212,34 +215,40 @@ const NO_PLACE: TypedPlace = {
 // Module scope, not a closure inside collect(): T2 adds magistrate places ABOVE the
 // point where the closure used to be declared, and a helper only some sources can see is
 // a footgun rather than a convenience.
-const obshtinaPlaceFor = (
-  labels: Map<string, PlaceLabel>,
-  raw: string | null | undefined,
-): TypedPlace => {
+const obshtinaPlaceFor = (raw: string | null | undefined): TypedPlace => {
   const code = canonicalObshtina(raw);
   if (!code) return NO_PLACE;
-  const label = labels.get(code) ?? null;
-  return {
-    placeKind: "obshtina",
-    placeCode: code,
-    placeLabel: label?.bg ?? null,
-    placeLabelEn: label?.en ?? null,
-  };
+  return { placeKind: "obshtina", placeCode: code, placeRaw: null };
+};
+
+// Build a typed judicial place by folding a free-text court name onto a judicial_body.
+//
+// Module scope for the same reason as its two siblings — and because this is the only one
+// of the three with a real decision in it, so it needs to be reachable from a unit test
+// without a database.
+export const judicialPlaceFor = (
+  byAlias: Map<string, { code: string }>,
+  court: string | null,
+): TypedPlace => {
+  if (!court) return NO_PLACE;
+  const body = byAlias.get(foldJudicialName(court));
+  // An institution the dictionary cannot classify (~43 magistrates: source typos, and
+  // "Върховна прокуратура", which could be ВКП or ПРБ) gets NO code — a guessed court on a
+  // named person's profile is a misstatement. But it keeps the declaration's OWN text in
+  // place_raw: that is the source speaking, not us inferring, and dropping it would blank a
+  // badge rather than de-duplicate a label. kind/code stay NULL, which is what every
+  // consumer keys on; 082 falls back to place_raw only because they are.
+  if (!body) return { ...NO_PLACE, placeRaw: court.trim() || null };
+  // Resolved — 082 joins judicial_body for the name. Those names are Bulgarian-only: there
+  // is no official English register of Bulgarian courts to translate against, and inventing
+  // one would be worse than showing an English reader the Bulgarian.
+  return { placeKind: "judicial", placeCode: body.code, placeRaw: null };
 };
 
 // Build a typed МИР place from a site oblast/МИР code (`BLG`, `S23`, `PDV-00`).
-const mirPlaceFor = (
-  labels: Map<string, PlaceLabel>,
-  code: string | null | undefined,
-): TypedPlace => {
+const mirPlaceFor = (code: string | null | undefined): TypedPlace => {
   if (!code) return NO_PLACE;
-  const label = labels.get(code) ?? null;
-  return {
-    placeKind: "mir",
-    placeCode: code,
-    placeLabel: label?.bg ?? null,
-    placeLabelEn: label?.en ?? null,
-  };
+  return { placeKind: "mir", placeCode: code, placeRaw: null };
 };
 
 // Build the parse-derived + defaulted fields shared by every source, so each source
@@ -258,8 +267,7 @@ const fields = (
   ambiguous: p.ambiguous,
   placeKind: null,
   placeCode: null,
-  placeLabel: null,
-  placeLabelEn: null,
+  placeRaw: null,
   cParty: null,
   cPlace: null,
   cBirth: null,
@@ -453,26 +461,8 @@ async function collect(): Promise<Raw[]> {
       kind: b.kind,
     });
 
-  const judicialPlace = (court: string | null): TypedPlace => {
-    if (!court) return NO_PLACE;
-    const body = judicialByAlias.get(foldJudicialName(court));
-    // An institution the dictionary cannot classify (43 magistrates: source typos, and
-    // "Върховна прокуратура", which could be ВКП or ВАП) gets NO code — a guessed court
-    // on a named person's profile is a misstatement. But it keeps the declaration's OWN
-    // text as the label: that is the source speaking, not us inferring, and dropping it
-    // would silently blank a badge the old untyped column did render. kind/code stay
-    // NULL, which is what every consumer keys on.
-    if (!body) return { ...NO_PLACE, placeLabel: court.trim() || null };
-    return {
-      placeKind: "judicial",
-      placeCode: body.code,
-      placeLabel: body.name,
-      // The institution names are Bulgarian-only — there is no official English register
-      // of Bulgarian courts to translate them against, and inventing one would be worse
-      // than showing the Bulgarian name to an English reader.
-      placeLabelEn: null,
-    };
-  };
+  const judicialPlace = (court: string | null): TypedPlace =>
+    judicialPlaceFor(judicialByAlias, court);
 
   const mags = await allRows<{ name: string; court: string | null }>(
     `SELECT name, court FROM magistrate`,
@@ -492,11 +482,9 @@ async function collect(): Promise<Raw[]> {
       },
     );
 
-  // Code → display name, for the typed place columns (migration 115).
-  const obshtinaLabel = obshtinaLabels();
-  const mirLabel = mirLabels();
-  const obshtinaPlace = (raw: string | null | undefined): TypedPlace =>
-    obshtinaPlaceFor(obshtinaLabel, raw);
+  // No label maps here any more: the resolver records WHICH place, and 082_person_api.sql
+  // joins place_dim (117) / judicial_body (116) for the name. scripts/person/places.ts
+  // still owns those label maps — it is what BUILDS place_dim.
 
   const offs = await allRows<{
     name: string;
@@ -522,7 +510,7 @@ async function collect(): Promise<Raw[]> {
         // is what stopped the municipal roster from being servable out of Postgres —
         // the code exists nowhere else in the DB. Set here rather than derived
         // downstream: only the roster knows it.
-        ...obshtinaPlace(o.obshtina),
+        ...obshtinaPlaceFor(o.obshtina),
         uics: refEik.get(`off:${o.slug}`) ?? [],
         regId: regId.get(o.slug) ?? null,
         cParty: partyOffice.get(o.slug) ?? null,
@@ -571,7 +559,7 @@ async function collect(): Promise<Raw[]> {
           regId: regId.get(String(mp.id)) ?? null,
           // Rule 1 (§3a): the seated МИР, mapped from parliament.bg's own 2-digit
           // number onto the site's МИР code. Takes `mp` fill from 11.3% to 100%.
-          ...mirPlaceFor(mirLabel, mirToOblast(mp.seatedRegion?.code)),
+          ...mirPlaceFor(mirToOblast(mp.seatedRegion?.code)),
           cParty: mp.currentPartyGroupShort,
           cPlace: region,
           cBirth: mp.birthDate,
@@ -807,7 +795,7 @@ async function collect(): Promise<Raw[]> {
         },
         {
           hardId: c.mpId != null ? `mp:${c.mpId}` : null,
-          ...mirPlaceFor(mirLabel, primaryMir),
+          ...mirPlaceFor(primaryMir),
           cParty: canon,
           cPlace: oblast,
         },
@@ -891,7 +879,7 @@ async function collect(): Promise<Raw[]> {
           role: "mayor",
         },
         {
-          ...obshtinaPlace(d.obshtinaCode),
+          ...obshtinaPlaceFor(d.obshtinaCode),
           cParty: mayor.primaryCanonicalId ?? null,
           cPlace: place,
         },
@@ -910,7 +898,7 @@ async function collect(): Promise<Raw[]> {
               role: "councillor",
             },
             {
-              ...obshtinaPlace(d.obshtinaCode),
+              ...obshtinaPlaceFor(d.obshtinaCode),
               cParty: party.primaryCanonicalId ?? null,
               cPlace: place,
             },
@@ -1458,8 +1446,7 @@ async function main(): Promise<void> {
         m.source === "mp" ? null : m.raw.cParty,
         m.raw.placeKind,
         m.raw.placeCode,
-        m.raw.placeLabel,
-        m.raw.placeLabelEn,
+        m.raw.placeRaw,
         null, // start_date
         null, // end_date
         b.confidence,
@@ -1546,8 +1533,7 @@ async function main(): Promise<void> {
         "party",
         "place_kind",
         "place_code",
-        "place_label",
-        "place_label_en",
+        "place_raw",
         "start_date",
         "end_date",
         "confidence",

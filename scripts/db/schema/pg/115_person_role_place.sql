@@ -41,10 +41,43 @@
 -- file — so a database that never had the column and one that still does both converge.
 
 ALTER TABLE person_role
-  ADD COLUMN IF NOT EXISTS place_kind     text,
-  ADD COLUMN IF NOT EXISTS place_code     text,
-  ADD COLUMN IF NOT EXISTS place_label    text,
-  ADD COLUMN IF NOT EXISTS place_label_en text;
+  ADD COLUMN IF NOT EXISTS place_kind text,
+  ADD COLUMN IF NOT EXISTS place_code text,
+  -- NOT a label: the source's OWN institution text, kept only when no dictionary resolves
+  -- it (see below). Everything that DOES resolve is named by the join in 082.
+  ADD COLUMN IF NOT EXISTS place_raw  text;
+
+-- The materialised labels ARE RETIRED, here, in this file. place_dim (117) +
+-- judicial_body (116) are the dictionary 082_person_api.sql joins, so
+-- place_label/place_label_en were a second copy of strings their own producers already own.
+-- DROPPED rather than left NULL so nothing can quietly start reading a stale duplicate
+-- again — and dropped in the SAME file that used to add them, since this runs on every
+-- db:resolve:persons and an ADD that outlived the DROP would resurrect them empty on the
+-- next run.
+--
+-- What did NOT go is the unresolved magistrate text, which now lives in place_raw above.
+-- That is source data, not a duplicated label: the ИВСС declaration form is free text, so
+-- ~43 entries are typos ("Роайонен съд - Пловдив") or genuinely ambiguous ("Върховна
+-- прокуратура" — ВКП or ПРБ). The dictionary refuses to guess a body for them, that text
+-- exists nowhere else, and the declaration's own words beat a blank badge.
+ALTER TABLE person_role
+  DROP COLUMN IF EXISTS place_label,
+  DROP COLUMN IF EXISTS place_label_en;
+
+-- place_raw is the FALLBACK, never a second label: if a place resolved, its name comes from
+-- the dictionary. Enforced rather than merely intended, because the failure is silent —
+-- raw text on a resolved row would render instead of nothing and hide a dictionary miss,
+-- and the only other guard is a .data.test.ts that skips wherever Postgres is absent (CI).
+-- Its two sibling invariants are CHECKs; this one should be too.
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint WHERE conname = 'person_role_place_raw_unresolved'
+  ) THEN
+    ALTER TABLE person_role ADD CONSTRAINT person_role_place_raw_unresolved
+      CHECK (place_raw IS NULL OR place_code IS NULL);
+  END IF;
+END $$;
 
 -- The namespace tag. `mir` is the ELECTORAL constituency (31 of them — Пловдив
 -- град/област are two, `PDV-00` and `PDV`), deliberately NOT the statistical oblast

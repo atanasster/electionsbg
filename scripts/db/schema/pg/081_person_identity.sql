@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS person_role (
   ref        text NOT NULL,   -- source native key: mp id, official slug, uic, obshtina+listpos …
   role       text NOT NULL,   -- 'mp'|'mayor'|'councillor'|'cabinet_min'|'tr_manager'|'ngo_board'|…
   party      text,            -- references the site's party canonicalId where applicable
-  -- The TYPED place (place_kind / place_code / place_label / place_label_en) is added
+  -- The TYPED place (place_kind / place_code / place_raw) is added
   -- by 115_person_role_place.sql, which also drops the untyped `place` this used to
   -- declare. Kept out of the CREATE so a fresh database never mints the old column.
   start_date date,

@@ -10,9 +10,9 @@
 // synonym just re-splits the seat it was introduced to merge. So each invariant gets an
 // assertion rather than a comment.
 //
-// The label assertions below run against the JOIN rather than the materialised
-// place_label/place_label_en columns, which are being retired — see
-// person_place_label_join.data.test.ts for the parity gate that covers that transition.
+// The label assertions below run against the JOIN. The materialised
+// place_label/place_label_en columns they used to read are GONE (dropped in 115) — see
+// person_place_label_join.data.test.ts for the drift guards that replaced them.
 //
 // Auto-skips when Postgres is down or the person layer has never been resolved — like
 // the other *.data.test.ts gates. The probe is TOP-LEVEL and feeds test.skipIf
@@ -91,7 +91,7 @@ test.skipIf(skip)("every place_code resolves to a display label", async () => {
   // way out. The invariant is unchanged — a code with no label is a blank badge — but its
   // subject is now the dictionary, which is where a missing entry would actually originate.
   // (The old form was green even on a database where db:load:place-dim:pg never ran, since
-  // resolve_persons wrote place_label in JS independently of the dimension.)
+  // resolve_persons used to write the label in JS, independently of the dimension.)
   //
   // Deliberately duplicated: person_place_label_join.data.test.ts carries the same guard
   // with richer diagnostics, but that file is scoped to the column-retirement window. This

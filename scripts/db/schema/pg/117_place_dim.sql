@@ -29,9 +29,8 @@
 -- they carry a NULL oblast_code and mir_code.
 --
 -- The JUDICIAL namespace stays in judicial_body (116): it carries kind/tier/geo this table
--- has no column for, and person_role already joins it by body_code. Once the label join
--- lands, person_role will resolve 'mir'/'obshtina' labels from here and 'judicial' from
--- judicial_body.
+-- has no column for, and person_role already joins it by body_code. 082_person_api.sql
+-- resolves 'mir'/'obshtina' labels from here and 'judicial' from judicial_body.
 --
 -- CONTAINMENT COLUMNS name the places CONTAINING the row, and are NULL on the row's own
 -- kind (a mir row has no mir_code). Both oblast_code and mir_code exist because the two

@@ -1,13 +1,14 @@
-// Display labels for the typed `person_role.place_*` columns (migration 115).
+// Display labels for the typed place namespaces — the source of place_dim (migration 117).
 //
-// The resolver materialised the label at write time because every code→name hook in the app
-// is keyed on the SELECTED ELECTION (src/data/municipalities/*, src/data/regions/*) and a
-// /person page is not election-scoped, so there was no dictionary to join.
+// THESE MAPS BUILD place_dim (117). They used to be called by resolve_persons, which
+// materialised the label onto person_role because every code→name hook in the app is keyed
+// on the SELECTED ELECTION (src/data/municipalities/*, src/data/regions/*) and a /person
+// page is not election-scoped, so there was no dictionary to join. place_dim IS that
+// dictionary now: scripts/db/load_place_dim_pg.ts fills its obshtina/mir rows from exactly
+// these two functions, and 082_person_api.sql joins it for the label.
 //
-// THESE MAPS ARE NOW ALSO THE SOURCE OF place_dim (117), which 082_person_api.sql joins for
-// the label — scripts/db/load_place_dim_pg.ts builds its obshtina/mir rows from exactly
-// these two functions, so the joined label and the materialised one cannot drift. Keep it
-// that way: a caller that re-derives a label from data/municipalities.json instead would
+// So the label has ONE producer again rather than two copies. Keep it that way: a caller
+// that re-derives a name from data/municipalities.json instead of coming through here would
 // silently turn "Пловдив-град" into "Пловдив".
 //
 // Both maps are built from files already in the repo — data/municipalities.json is the

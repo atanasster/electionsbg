@@ -39,6 +39,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- yields NULL for a placeless role, without a CASE over place_kind. name_bg is NOT
     -- NULL in place_dim, so a joined row can never coalesce past itself.
     --
+    -- place_raw is the LAST arm, and is only ever set when neither dictionary resolved:
+    -- 43 magistrate rows whose ИВСС free-text court is a typo or is ambiguous between two
+    -- real bodies. Showing the declaration's own words beats blanking the badge, and it
+    -- cannot mask a dictionary miss because a resolved place never populates it.
+    --
     -- placeLabelEn is pd-only ON PURPOSE: judicial_body carries no English name, and
     -- person_role.place_label_en was already NULL for 100% of judicial roles — so this
     -- reproduces the existing contract rather than regressing it. The page falls back to
@@ -52,7 +57,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         'source', r.source, 'facet', s.facet, 'sourceLabel', s.label_bg,
         'role', r.role, 'ref', r.ref, 'confidence', r.confidence,
         'placeKind', r.place_kind, 'placeCode', r.place_code,
-        'placeLabel', COALESCE(pd.name_bg, jb.name), 'placeLabelEn', pd.name_en,
+        'placeLabel', COALESCE(pd.name_bg, jb.name, r.place_raw),
+        'placeLabelEn', pd.name_en,
         'judicialKind', jb.kind
       ) ORDER BY s.facet, r.role)
       FROM person_role r
