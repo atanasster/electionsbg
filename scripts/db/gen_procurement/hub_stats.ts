@@ -19,6 +19,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { allRows } from "../lib/pg";
+import {
+  newestFirst,
+  parliamentWindow,
+  type ElectionRef,
+} from "../../../src/data/scope/windows";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -26,8 +31,6 @@ const ROOT = path.resolve(
 );
 const OUT = path.join(ROOT, "data/procurement/derived/hub_stats.json");
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
-
-const dash = (d: string): string => d.replace(/_/g, "-");
 
 interface HubStat {
   totalEur: number;
@@ -85,9 +88,13 @@ const one = async (
 
 const main = async (): Promise<void> => {
   const t0 = Date.now();
-  const elections = JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as Array<{
-    name: string;
-  }>;
+  // newestFirst + parliamentWindow rather than a local copy of the formula: the loop below
+  // reads elections[i-1] as the next-newer election, which is only correct while the source
+  // happens to be sorted. src/data/scope/windows is the one definition the React hook and
+  // every other scoped precompute share.
+  const elections = newestFirst(
+    JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as ElectionRef[],
+  );
   // Distinct contract years present (for the y:<year> scopes the hub's year
   // picker offers).
   const yearRows = (await allRows(
@@ -101,10 +108,9 @@ const main = async (): Promise<void> => {
   out["all"] = await one(null, null);
 
   // per-parliament windows (newest-first: the next election sits at idx-1)
-  for (let i = 0; i < elections.length; i++) {
-    const from = dash(elections[i].name);
-    const to = i > 0 ? dash(elections[i - 1].name) : null;
-    out[`ns:${elections[i].name}`] = await one(from, to);
+  for (const e of elections) {
+    const { from, to } = parliamentWindow(elections, e.name);
+    out[`ns:${e.name}`] = await one(from, to);
   }
 
   // per-year windows

@@ -57,6 +57,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { allRows } from "../lib/pg";
+import {
+  newestFirst,
+  parliamentWindow,
+  type ElectionRef,
+} from "../../../src/data/scope/windows";
 import { API_EIK } from "../../../src/lib/roadAttributes";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
@@ -70,7 +75,6 @@ const ROOT = path.resolve(
 const OUT = path.join(ROOT, "data/procurement/derived/sector_stats.json");
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
 
-const dash = (d: string): string => d.replace(/_/g, "-");
 const readJson = <T>(p: string): T =>
   JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8")) as T;
 
@@ -376,9 +380,13 @@ const main = async (): Promise<void> => {
       console.warn(`  ⚠ sector_stats: ${label} produced no data`);
   }
 
-  const elections = JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as Array<{
-    name: string;
-  }>;
+  // newestFirst + parliamentWindow rather than a local copy of the formula: the loop below
+  // reads elections[i-1] as the next-newer election, which is only correct while the source
+  // happens to be sorted. src/data/scope/windows is the one definition the React hook and
+  // every other scoped precompute share.
+  const elections = newestFirst(
+    JSON.parse(fs.readFileSync(ELECTIONS, "utf8")) as ElectionRef[],
+  );
   const yearRows = (await allRows(
     "SELECT DISTINCT left(date,4) AS y FROM contracts WHERE date >= '2011' ORDER BY y",
     [],
@@ -386,10 +394,9 @@ const main = async (): Promise<void> => {
 
   const out: Record<string, ScopeStats> = {};
   out["all"] = await scopeStats(null, null, null);
-  for (let i = 0; i < elections.length; i++) {
-    const from = dash(elections[i].name);
-    const to = i > 0 ? dash(elections[i - 1].name) : null;
-    out[`ns:${elections[i].name}`] = await scopeStats(from, to, null);
+  for (const e of elections) {
+    const { from, to } = parliamentWindow(elections, e.name);
+    out[`ns:${e.name}`] = await scopeStats(from, to, null);
   }
   for (const { y } of yearRows) {
     const year = Number(y);

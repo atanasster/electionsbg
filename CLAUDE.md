@@ -131,6 +131,19 @@ It is built from `data/settlements.json` + `data/municipalities.json` (labels vi
 `scripts/person/places.ts`), so re-run it whenever either file changes. `db:refresh` runs
 the local equivalent automatically; the cloud side does not.
 
+Related, and the only loader whose trigger is a **calendar rollover** rather than a source
+change — the pscope windows the scoped procurement precomputes iterate (migration 118):
+
+```bash
+npm run db:load:procurement-scopes:pg:cloud
+```
+
+Re-run it whenever a new election lands in `src/data/json/elections.json` (a new `ns:`
+window) **and every January** (a new `y:<year>` window). The year windows are enumerated
+`SCOPE_FIRST_YEAR..currentYear`, so on 1 January the `?pscope=y:<new year>` option appears
+in the UI while the table still stops at the old year, and that scope serves an empty page.
+`db:refresh` runs the local equivalent automatically; the cloud side does not.
+
 **Skipping it does not fail — it blanks.** `db:resolve:persons` applies 117 with
 `CREATE TABLE IF NOT EXISTS`, so a cloud database that never ran this loader gets an EMPTY
 dimension, `person_by_slug()` still compiles, and all ~76.5k `mir`/`obshtina` roles publish

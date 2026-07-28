@@ -13,12 +13,11 @@
 
 import { readFileSync } from "node:fs";
 import type { PoolClient } from "pg";
-import { SCOPE_FIRST_YEAR } from "../../../src/data/scope/constants";
+import {
+  allScopeWindows,
+  type ElectionRef,
+} from "../../../src/data/scope/windows";
 
-// The scope windows the UI can request — MUST match src/data/procurement/
-// useScopeWindow: 'all' + each calendar year (from SCOPE_FIRST_YEAR)
-// + each parliament (election date → next-newer election).
-const FIRST_YEAR = SCOPE_FIRST_YEAR;
 const COLS =
   "eik, name, total_eur, supplier_count, linked_eur, score, grade, " +
   "connection_share, single_share, direct_share, conc_share, upheld_share";
@@ -26,31 +25,20 @@ const COLS =
 export const rebuildRiskGradeScoped = async (
   c: PoolClient,
 ): Promise<number> => {
-  const elections = (
-    JSON.parse(
-      readFileSync(
-        new URL("../../../src/data/json/elections.json", import.meta.url),
-        "utf8",
-      ),
-    ) as Array<{ name: string }>
-  )
-    // Sort newest-first EXPLICITLY (names are YYYY_MM_DD, so string desc == date
-    // desc). The window upper bound below reads elections[i-1] as the next-newer
-    // election; if the source were ever re-sorted oldest-first, every ns: window
-    // would invert (from > to) and silently return empty sets.
-    .slice()
-    .sort((a, b) => b.name.localeCompare(a.name));
-  const dash = (d: string) => d.replace(/_/g, "-");
-  const nowYear = new Date().getFullYear();
-  const windows: Array<{ key: string; from: string; to: string | null }> = [];
-  for (let y = FIRST_YEAR; y <= nowYear; y++)
-    windows.push({ key: `y:${y}`, from: `${y}-01-01`, to: `${y + 1}-01-01` });
-  elections.forEach((e, i) =>
-    windows.push({
-      key: `ns:${e.name}`,
-      from: dash(e.name),
-      to: i > 0 ? dash(elections[i - 1].name) : null,
-    }),
+  // The scope windows the UI can request. Derived by the SAME function the React hook
+  // calls (src/data/scope/windows) rather than re-implemented here: a precompute keyed on
+  // a window the UI computes differently serves the wrong period under the right label,
+  // which no test of this file alone would catch.
+  const elections = JSON.parse(
+    readFileSync(
+      new URL("../../../src/data/json/elections.json", import.meta.url),
+      "utf8",
+    ),
+  ) as ElectionRef[];
+  // 'all' is inserted separately below from the already-refreshed corpus matview, so it is
+  // filtered out of the windowed loop rather than recomputed.
+  const windows = allScopeWindows(elections, new Date().getFullYear()).filter(
+    (w) => w.key !== "all",
   );
 
   await c.query("BEGIN");

@@ -40,6 +40,7 @@ import {
 } from "./validate";
 import { ekatteToNuts3 } from "./resolve_ekatte";
 import { toEur } from "@/lib/currency";
+import { newestFirst, parliamentWindow } from "@/data/scope/windows";
 
 // Top-N cap per category in each per-NS file. Keeps file size predictable
 // (top 50 × ~150 bytes/row ≈ 7.5 KB per category).
@@ -62,21 +63,16 @@ export interface NsRange {
   end: string | null; // ISO YYYY-MM-DD (exclusive), null = open-ended
 }
 
-const electionDate = (name: string): string =>
-  // "2026_04_19" → "2026-04-19"
-  name.replace(/_/g, "-");
-
-// Derive the [start, end) range for each election. Input is the elections
-// list newest-first (as it lives in src/data/json/elections.json); we walk
-// it so each election's end is the next-newer election's start.
-export const buildNsRanges = (elections: ElectionEntry[]): NsRange[] => {
-  const sorted = [...elections].sort((a, b) => b.name.localeCompare(a.name));
-  return sorted.map((e, i) => ({
-    electionDate: e.name,
-    start: electionDate(e.name),
-    end: i === 0 ? null : electionDate(sorted[i - 1].name),
-  }));
-};
+// Derive the [start, end) range for each election — the same window
+// src/data/scope/windows calls a parliament, in this module's own NsRange shape.
+// parliamentWindow() (which sorts newest-first itself) is the shared definition every
+// scoped precompute and the React hook resolve through, so the "end is the next-NEWER
+// election" rule lives in exactly one place.
+export const buildNsRanges = (elections: ElectionEntry[]): NsRange[] =>
+  newestFirst(elections).map((e) => {
+    const { from, to } = parliamentWindow(elections, e.name);
+    return { electionDate: e.name, start: from as string, end: to };
+  });
 
 export interface NsTopContractor {
   eik: string;
