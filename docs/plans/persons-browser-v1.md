@@ -1,6 +1,12 @@
 # Хора — the global persons browser (`/persons`) — implementation plan v1
 
-Status: **DRAFT (2026-07-27).** Owner: TBD. Prior art it builds on: `person-identity-v1.md`
+Status: **DRAFT (2026-07-27), audited 2026-07-27 (§0), place section rewritten 2026-07-28.**
+The 2026-07-28 revision follows the `person_role.place` consolidation
+(`person-role-place-consolidation-v1.md`, migrations 115–117): **§4 is replaced** — the
+normalization it specified now exists upstream, so the browser joins the typed triple +
+`place_dim` + `judicial_body` instead of deriving anything — the matview number moves
+**115 → 120**, F3b adds the two dimension loaders as upstream dependencies, and risk 4 is
+rewritten. Owner: TBD. Prior art it builds on: `person-identity-v1.md`
 (the person layer), `persons-pg-retirement-v1.md` (Tier 0.1 — the `officials_rankings`
 resource this generalizes), `postgres-migration-v1.md` (the `/api/db/table` engine).
 
@@ -75,6 +81,15 @@ wiring:
   must also refresh this matview, or the money column silently drifts from
   `/procurement/contracts`. Wire it into the procurement reload path too, per
   `reference_migrated_family_watch_reload`.
+- **F3b (added 2026-07-28 with the place rewrite) — two more upstream dependencies, and their
+  failure mode is silent.** The place columns join `place_dim` (117) and `judicial_body` (116),
+  loaded by `db:load:place-dim:pg` and `db:load:judicial-bodies:pg` — both of which CLAUDE.md
+  requires to run **before** `db:resolve:persons` on the cloud side, and neither of which
+  `db:refresh` runs on the cloud side at all. Their documented failure is exactly this
+  matview's: an empty dimension does not error, it publishes NULL labels — "green locally,
+  blank on prod", baked into prerendered HTML. So `db:load:persons-browse:pg:cloud` must be
+  ordered after both, and the `.data.test.ts` must assert a non-NULL `place_label` for every
+  row with a `place_code` (§12) rather than trusting the ordering.
 
 ### 0b. CORRECTNESS
 
@@ -133,7 +148,9 @@ would put the route live against a function that cannot serve it.
 
 ### 0d. CONFIRMED — no change needed
 
-`/persons` is free (only `person/:name` at routes.tsx:3764) · `115_` is the next free migration ·
+`/persons` is free (only `person/:name` at routes.tsx:3764) · ~~`115_` is the next free
+migration~~ → **`120_`** (115–119 landed since: person_role_place, judicial_body, place_dim,
+procurement_scopes, procurement_settlement_scoped) ·
 `TILE_ACCENTS.indigo` exists (`#7f85a3`) · the Bridge-A derivation in §5 works on all three arms
 (mp 57, official 450, magistrate 245 rows) · adding a REGISTRY entry needs **no** route change
 (both `functions/index.js:24` and `db_routes.js:9` consume it generically) · facets already
@@ -167,7 +184,7 @@ Every figure below was measured, not estimated. They set the shape of the UI.
 | with TR company roles | 10,703 (18%) |
 | with any ЗОП contractor money | **1,070 (1.8%)** |
 | with a party | 36,387 (63%) — of which **4,723 carry 2+ parties** |
-| with a place | 44,345 (76%) — but see §4, the field is heterogeneous |
+| with a typed place | **44,961 (77%)** — 29,622 `mir`, 15,223 `obshtina`, 2,676 `judicial`; 43 unresolved rows (§4) |
 | with a photo | **2,120** via `mp_profile` (2,122 MPs, 2 unresolved) + ≤192 via `official_candidate_link` (≈4%) |
 
 Role vocabulary is long-tailed: `candidate` 29,622 people, `councillor` 13,777,
@@ -236,38 +253,76 @@ tables (query in §5).
    just here; a later contributor adding `agg: "sum"` to the column would produce a large,
    plausible, wrong number.
 
-## 4. The `place` field is heterogeneous — do NOT surface it raw
+## 4. Place — REWRITTEN 2026-07-28, the consolidation did this work already
 
-Second finding that would have bitten during implementation. `person_role.place` is a free
-field whose vocabulary differs per source:
+**This section previously specified a normalization the site has since built.** The v1 text
+described `person_role.place` as one untyped column holding five incompatible namespaces and
+asked this matview to derive `oblast` / `obshtina` / `institution` from it. That column **no
+longer exists**: `115_person_role_place.sql` (plan `person-role-place-consolidation-v1.md`)
+split it into a typed triple, and migrations 116/117 added the two dictionaries it keys into.
+The browser now **joins**, it does not normalize — strictly better, and the old §4 would have
+built a second, competing normalizer.
 
-| source | distinct values | what it actually holds |
-|---|---|---|
-| `magistrate` | 975 | **court names**, unnormalized (`Административен съд - Благоевград` / `Административен съд Благоевград` / `АДМИНИСТРАТИВЕН СЪД БЛАГОЕВГРАД` — all one court) |
-| `local` | 289 | obshtina **names** (`Аврен`, `Айтос`) |
-| `official_muni` | 288 | obshtina **codes** (`BGS01`, `BGS04`) |
-| `candidate` | 31 | **МИР codes** (`VAR`, `S23`, `PDV-00`) |
-| `mp` | 29 | uppercase oblast **names** (`ВЕЛИКО ТЪРНОВО`) |
-| `ds` / `regulator` / `sanctions` | 16 | **not a place at all** — an institution or a note (`Народен представител (36–37 НС)`, `US Global Magnitsky`) |
+### What the schema looks like now
 
-A single "Място" filter over this column would offer a dropdown mixing courts, notes,
-municipality names and three incompatible code systems. The matview must therefore derive
-**two** columns and never expose `place`:
+```
+person_role.place_kind  text  CHECK (NULL OR 'mir' | 'obshtina' | 'judicial')
+person_role.place_code  text  -- paired with kind: CHECK ((kind IS NULL) = (code IS NULL))
+person_role.place_raw   text  -- unresolved residue ONLY: CHECK (raw IS NULL OR code IS NULL)
+    INDEX (place_kind, place_code) WHERE place_code IS NOT NULL
 
-- **`oblast`** — normalized 3-letter oblast code, via: МИР→oblast map (mind the
-  `S23/S24/S25` Sofia-city and `PDV-00` quirks documented in
-  `project_oblast_code_shard_mismatch`), obshtina-code prefix, obshtina-name→code map, and
-  an uppercase-name→code map. NULL when the source has no place.
-- **`institution`** — court / regulator / agency name, trigram-searchable, for the sources
-  whose "place" is really an institution. Reuse the court-name normalization if one exists;
-  otherwise fold whitespace + case and accept the residue for v1 (documented, not silently
-  deduped wrong).
+place_dim      (kind, code) → name_bg, name_en, oblast_code, obshtina_code, mir_code,
+                              + the SFO_CITY-only shard/governance/price alias columns   -- 117
+judicial_body  body_code    → name, kind (court|prosecution|investigation|council),
+                              tier, place_code, lat, lng                                 -- 116
+```
 
-`obshtina` is a third column worth carrying (from `local` + `official_muni`) since the
-municipal roster is the densest local layer — it makes "everyone in my município" work,
-which is the `/governance/:id` cross-link.
+Measured coverage (2026-07-28), which supersedes the old table:
 
-## 5. Data layer — `person_browse_table` (migration `115_person_browse.sql`)
+| place_kind | sources | roles | persons | codes |
+|---|---|---|---|---|
+| `mir` | candidate, mp | 53,133 | 29,622 | 31 |
+| `obshtina` | local, official_muni | 23,327 | 15,223 | 289 |
+| `judicial` | magistrate | 2,676 | 2,676 | 270 |
+| NULL | tr, ngo, official_exec, public_sector, donor, … | 64,117 | — | — |
+
+**44,961 persons carry a typed place** — more than the 44,345 the untyped column reached,
+because magistrates' courts now resolve. Unresolved residue is **43 rows / 39 distinct
+strings**, down from ~975 unnormalized court spellings. `ds` / `regulator` / `sanctions` no
+longer carry a place at all: their values were never places, and the consolidation dropped
+them (they remain in `source_row`).
+
+### What the matview carries
+
+- **`place_kind`, `place_code`** — verbatim, both filterable (`in`), riding the existing
+  partial index.
+- **`place_label` / `place_label_en`** — **copy the expression from
+  [082_person_api.sql:59–69](../../scripts/db/schema/pg/082_person_api.sql) verbatim**:
+  `COALESCE(pd.name_bg, jb.name, r.place_raw)` for BG, and `pd.name_en` **alone** for EN
+  (judicial_body carries no English name — that asymmetry is deliberate there, so mirror it
+  rather than inventing a fallback). A different label expression here means `/persons` and
+  `/person` print different place names for the same role.
+- **`oblast_code`** — `place_dim.oblast_code`, which is populated for **31/31** mir codes and
+  **289/295** obshtina codes. The Sofia `S23/S24/S25` and `PDV-00` quirks
+  (`project_oblast_code_shard_mismatch`) are already resolved inside the dimension; do not
+  re-handle them.
+- **A two-hop for judicial roles, or 2,676 magistrates vanish from the oblast filter.**
+  A judicial `place_code` is a `body_code`, not a place — it has no `place_dim` row, so the
+  single-hop join leaves oblast NULL for every magistrate (measured: single-hop reaches 42,315
+  of the 44,961 placed persons, and the 2,646-person gap is exactly this). All **283**
+  judicial bodies carry their own `place_code` resolving to an obshtina with an oblast, so:
+  `person_role.place_code → judicial_body.body_code → judicial_body.place_code →
+  place_dim(kind='obshtina').oblast_code`. With the hop, oblast coverage is the full placed set.
+- **`obshtina_code`** — `place_dim.obshtina_code`, the `/governance/:id` cross-link
+  ("everyone in my município"). `SFO_CITY`'s alias columns are what map Sofia onto the
+  governance route.
+- **`institution` no longer comes from place.** For magistrates it is `judicial_body.name`
+  (plus `kind`/`tier`, which make "all районен prosecutors" a real filter, and `lat`/`lng`,
+  which make a court map possible later). For executives it is
+  `officials_rankings_table.institution`, which already derives it from the newest
+  officials-tier declaration.
+
+## 5. Data layer — `person_browse_table` (migration `120_person_browse.sql`)
 
 One row per PERSON. **Not one row per role.** `person_role` has 143k rows for 57k people;
 browsing it directly lists Пеевски seven times and inflates the `count` aggregate and every
@@ -297,10 +352,16 @@ person_browse_table (matview, ~56.8k rows)
   party_primary_name   text
   parties_n            smallint
   party_codes          text   -- space-PADDED distinct canonicalIds (filter:"text", F6)
--- place (§4)
-  oblast          text
-  obshtina        text
-  institution     text
+-- place (§4 — joined from the typed triple, NOT normalized here)
+  place_kind      text      -- 'mir' | 'obshtina' | 'judicial'
+  place_code      text
+  place_label     text      -- COALESCE(pd.name_bg, jb.name, r.place_raw) — copied from 082
+  place_label_en  text      -- pd.name_en alone (judicial_body has no EN name)
+  oblast_code     text      -- via place_dim, WITH the judicial two-hop
+  obshtina_code   text
+  institution     text      -- judicial_body.name | officials_rankings_table.institution
+  judicial_kind   text      -- court | prosecution | investigation | council
+  judicial_tier   text      -- районен | окръжен | апелативен | административен | …
 -- accountability
   latest_declaration_year int
   has_declaration         bool
@@ -442,7 +503,10 @@ so the two browsers feel like one system.
 
 ### URL contract
 
-`?q ?facet ?role ?party ?oblast ?obshtina ?decl ?held ?sort` — owned by a new
+`?q ?facet ?role ?party ?oblast ?obshtina ?court ?decl ?held ?sort` — `?court` is the judicial
+body filter the consolidation made possible (`place_kind='judicial'` + `place_code`), and it is
+the one filter whose values a reader will never type, so it needs a facet-driven picker rather
+than a free-text box. Owned by a new
 `useUrlPersonFilters` modeled on
 [useUrlProcurementFilters](../../src/data/procurement/useUrlProcurementFilters.ts). **Every
 value validated on read**; unknown values dropped rather than passed into a `DbColumnFilter`.
@@ -513,7 +577,9 @@ Per `docs/testing-standards.md` — co-located `*.test.ts(x)`, PG gates as `*.da
     never disagree;
   - `tr_link_basis='declared'` ⟹ the pair really is in a curated table;
   - no row with `status='review'` or `is_public_figure = false`;
-  - `oblast` is NULL or a real oblast code — never a court name, never a МИР code;
+  - every row with a `place_code` has a non-NULL `place_label` (the empty-dimension guard,
+    F3b) and an `oblast_code` — the latter fails without the judicial two-hop, which is the
+    point of asserting it;
   - `party_primary` ∈ `party_codes`, and the pick is stable across two REFRESHes;
   - **`is_exec` lockstep with `OFFICIAL_DECLARATION_SOURCES`** (F4) — the assertion
     `officials_rankings.data.test.ts` already carries, because a `source LIKE 'official%'`
@@ -534,9 +600,9 @@ Per `docs/testing-standards.md` — co-located `*.test.ts(x)`, PG gates as `*.da
 
 | tier | scope | ships |
 |---|---|---|
-| **T0** | `115_person_browse.sql` + the 3-point refresh wiring (F3) + watch-skill entry + `.data.test.ts` | nothing user-visible |
+| **T0** | `120_person_browse.sql` + the refresh wiring (F3/F3b) + watch-skill entry + `.data.test.ts` | nothing user-visible |
 | **T1** | registry resource (F1 search flags) + `PersonsBrowserScreen` + route + `useUrlPersonFilters` + bg/en i18n keys | the browser, name/facet/role/party filters, prominence sort |
-| **T2** | generic `MixBar` extraction + `ProcedureMixBar` refactor (F2) + KPI strip + "Тип лице" bar + place normalization (§4) | discovery surface |
+| **T2** | generic `MixBar` extraction + `ProcedureMixBar` refactor (F2) + KPI strip + "Тип лице" bar + the place/court filters (§4 — joins only, no normalization work) | discovery surface |
 | **T3** | money + wealth columns with §3/§9 caveats | the accountability columns |
 | **T4** | hub tile + scene + declarations sub-hub tile + CLAUDE.md URL-contract block + **prerender `staticPage` (bg+en) + `/og/persons.png` + sitemap `route_defs` entry (F5)** | the entry points, and the page Google can see |
 
@@ -553,9 +619,13 @@ without it.
    disagrees with the profile. Mitigated by the reconciliation test.
 3. **Stale live table.** The cloud refresh is not wired into the watch skill → the tenders-stale
    bug class. Mitigated by doing it in the same commit as the migration.
-4. **Place normalization rots.** New sources add new `place` vocabularies and `oblast` silently
-   goes NULL for them. Mitigated by the "never a court name / never a МИР code" assertion,
-   which fails loudly on an unmapped vocabulary rather than degrading.
+4. **An empty place dimension blanks the place column silently** (rewritten 2026-07-28 — the
+   old "place normalization rots" risk died with the consolidation; this replaces it). A cloud
+   database that never ran `db:load:place-dim:pg:cloud` / `db:load:judicial-bodies:pg:cloud`
+   gets NULL labels, not an error — CLAUDE.md documents this exact failure for `/person` roles
+   ("green locally, blank on prod"), and it is worse here because the browser's place *filter*
+   also goes empty, which reads as "no such people". Mitigated by the F3b ordering plus the
+   non-NULL `place_label` assertion in §12.
 5. ~~**SEO.** v1 does not prerender it.~~ **Superseded by F5.** Both sibling browsers are
    prerendered and sitemapped; skipping it would make `/persons` the only browser Google cannot
    see, for the cost of one static shell. The deploy-ceiling tension
