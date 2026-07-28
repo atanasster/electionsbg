@@ -46,6 +46,17 @@ describe("html helpers", () => {
       "гр. София р-н Младост",
     );
   });
+
+  it("never throws on an out-of-range character reference (leaves it verbatim)", () => {
+    // String.fromCodePoint would RangeError; parseCrDeed must never throw.
+    expect(() => decodeEntities("x&#9999999999;y")).not.toThrow();
+    expect(() => decodeEntities("x&#xFFFFFFFF;y")).not.toThrow();
+    expect(decodeEntities("x&#9999999999;y")).toContain("x");
+  });
+
+  it("decodes an uppercase named entity", () => {
+    expect(decodeEntities("&QUOT;x&QUOT;")).toBe('"x"');
+  });
 });
 
 describe("parseParty", () => {
@@ -102,6 +113,41 @@ describe("parseParty", () => {
     expect(p.positionLabel).toBe("Председател на Управителния съвет");
     expect(p.country).toBe("БЪЛГАРИЯ");
   });
+
+  it("keeps a quoted entity name with an internal comma intact", () => {
+    const p = parseParty(
+      '"АБВ, ГД" ООД, ЕИК/ПИК 123456789',
+      "partner",
+      "f",
+      null,
+    );
+    expect(p.eik).toBe("123456789");
+    expect(p.name).toContain("ГД"); // not truncated to '"АБВ'
+    expect(p.isLegalEntity).toBe(true);
+  });
+
+  it("flags a bare company name (legal-form token) as an entity even without an ЕИК", () => {
+    const p = parseParty(
+      '"ДЕВНЯ ЦИМЕНТ" АД, Държава: БЪЛГАРИЯ',
+      "partner",
+      "f",
+      null,
+    );
+    expect(p.isLegalEntity).toBe(true);
+    expect(p.eik).toBeNull();
+  });
+
+  it("does not mistake an едноличен търговец for a legal entity", () => {
+    // ЕТ is a natural person trading under a firm name — must stay a person.
+    const p = parseParty(
+      "ЕТ ИВАН ПЕТРОВ, Държава: БЪЛГАРИЯ",
+      "manager",
+      "f",
+      null,
+    );
+    expect(p.isLegalEntity).toBe(false);
+    expect(p.eik).toBeNull();
+  });
 });
 
 describe("parseCapital", () => {
@@ -117,6 +163,15 @@ describe("parseCapital", () => {
       currency: "BGN",
     });
   });
+  it("reads a comma-thousands amount without losing magnitude", () => {
+    expect(parseCapital("1,000,000.00 лв.")).toEqual({
+      amount: 1000000,
+      currency: "BGN",
+    });
+  });
+  it("returns a null amount for a currency-only field", () => {
+    expect(parseCapital("лв.")).toEqual({ amount: null, currency: "BGN" });
+  });
 });
 
 describe("parseCrDeed — against real fixtures", () => {
@@ -125,6 +180,40 @@ describe("parseCrDeed — against real fixtures", () => {
     expect(parseCrDeed("")).toBeNull();
     expect(parseCrDeed("<html>blocked</html>")).toBeNull();
     expect(parseCrDeed("{}")).toBeNull(); // valid JSON, not a deed tree
+  });
+
+  it("skips empty (op-2) and unknown fields without throwing or emitting parties", () => {
+    const tree = JSON.stringify({
+      uic: "1",
+      deedStatus: 2,
+      sections: [
+        {
+          subDeeds: [
+            {
+              groups: [
+                {
+                  fields: [
+                    { nameCode: "CR_F_23_L", htmlData: "", fieldIdent: "x" }, // op-2 empty
+                    {
+                      nameCode: "CR_F_9999_L",
+                      htmlData: "junk",
+                      fieldIdent: "y",
+                    }, // unknown
+                    { nameCode: "CR_F_31_L", htmlData: "лв.", fieldIdent: "z" }, // no amount
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+    const d = parseCrDeed(tree);
+    expect(d).not.toBeNull();
+    expect(d!.parties).toEqual([]);
+    // currency must not be set without an amount (FINDING-007)
+    expect(d!.capitalAmount).toBeNull();
+    expect(d!.capitalCurrency).toBeNull();
   });
 
   it("EOOD: resolves the sole owner, managers, UBO, capital, founding date", () => {

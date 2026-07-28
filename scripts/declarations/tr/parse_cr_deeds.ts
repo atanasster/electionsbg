@@ -37,6 +37,9 @@ export type CrDeedRole =
 
 const FIELD_TO_ROLE: Record<string, CrDeedRole> = {
   CR_F_7_L: "manager", // управител (ООД/ЕООД)
+  // NB: CR_F_9 folds supervisory-board (надзорен съвет) members into `director`
+  // alongside CR_F_10's съвет на директорите — a coarse mapping the current TrRole
+  // set does not distinguish; a `director` here may be a supervisory-board member.
   CR_F_9_L: "director", // член на управителен/надзорен орган (АД, кооперация)
   CR_F_10_L: "director", // съвет на директорите / член (АД/ЕАД)
   CR_F_10a_L: "ngo_board", // управителен орган на ЮЛНЦ
@@ -50,7 +53,11 @@ export type CrDeedParty = {
   role: CrDeedRole;
   name: string;
   /** True when the party is a legal entity (община, state body, company, foreign
-   * legal person) rather than a natural person — MUST NOT feed the person graph. */
+   * legal person) rather than a natural person — MUST NOT feed the person graph.
+   * Detection is marker-based (inline ЕИК/ПИК · Идентификация · "юридическо лице" ·
+   * a trailing legal-form token like ООД/АД/ОБЩИНА); a legal entity rendered with
+   * none of those reads as false. Treat false as *probably*, not *certainly*, a
+   * natural person, and never as licence to skip the name-only caveat downstream. */
   isLegalEntity: boolean;
   /** The entity's own ЕИК/identification when it is a legal entity — the walkable
    * ownership chain (plan §8 A3). null for natural persons. */
@@ -89,14 +96,32 @@ const NAMED_ENTITIES: Record<string, string> = {
   raquo: "»",
 };
 
+// An out-of-range numeric reference (&#9999999999;) throws RangeError from
+// String.fromCodePoint. parseCrDeed's contract is "never throw on a hostile body",
+// and htmlData is external, so guard the conversion and leave a bad reference
+// verbatim rather than crashing the whole parse.
+const safeFromCodePoint = (cp: number): string | null => {
+  if (!Number.isInteger(cp) || cp < 0 || cp > 0x10ffff) return null;
+  try {
+    return String.fromCodePoint(cp);
+  } catch {
+    return null;
+  }
+};
+
 /** Decode the HTML entities the CR renderer emits (&quot;, &#039;, &nbsp;, …). */
 export const decodeEntities = (s: string): string =>
   s
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, n) =>
-      String.fromCodePoint(parseInt(n, 16)),
+    .replace(/&#(\d+);/g, (m, n) => safeFromCodePoint(Number(n)) ?? m)
+    .replace(
+      /&#x([0-9a-f]+);/gi,
+      (m, n) => safeFromCodePoint(parseInt(n, 16)) ?? m,
     )
-    .replace(/&([a-z]+);/gi, (m, name) => NAMED_ENTITIES[name] ?? m);
+    // Named entities are conventionally lower-case; fold case so &QUOT; resolves too.
+    .replace(
+      /&([a-z]+);/gi,
+      (m, name) => NAMED_ENTITIES[name.toLowerCase()] ?? m,
+    );
 
 /** Strip tags, decode entities, collapse whitespace. */
 export const stripHtml = (html: string): string =>
@@ -108,7 +133,9 @@ export const stripHtml = (html: string): string =>
  * One text per record. The CR renderer wraps every record in a
  * `<p class='field-text'>…</p>` (a multi-person field is several of them, split by
  * `<hr>`); falling back to the whole stripped field keeps single-value meta fields
- * working even if the wrapper ever changes.
+ * working even if the wrapper ever changes. NB the fallback is meant for
+ * single-value meta: if the wrapper ever vanished from a multi-party role field it
+ * would merge the parties into one record — measured data always carries the `<p>`.
  */
 export const fieldRecords = (html: string): string[] => {
   const out: string[] = [];
@@ -125,6 +152,13 @@ export const fieldRecords = (html: string): string[] => {
   return out;
 };
 
+// A trailing Bulgarian legal-form / institution token marks a party as a legal
+// entity even when the render carries no ЕИК/Идентификация (FINDING-002). ЕТ is
+// deliberately excluded: an едноличен търговец is a natural person trading under a
+// firm name, so its record should still resolve to the person.
+const LEGAL_FORM_TOKEN =
+  /(?:^|\s|")(?:ЕООД|ООД|ЕАД|АД|КДА|КД|СД|ДЗЗД|ЮЛНЦ|СНЦ|ФОНДАЦИЯ|СДРУЖЕНИЕ|КООПЕРАЦИЯ|ОБЩИНА|МИНИСТЕРСТВО|АГЕНЦИЯ|ДЪРЖАВНО)\.?(?:,|$|\s)/;
+
 /** Parse one person/entity record text: "NAME, Държава: X[, Длъжност: Y][ ЕИК/ПИК N]". */
 export const parseParty = (
   text: string,
@@ -132,10 +166,19 @@ export const parseParty = (
   fieldIdent: string,
   entryDate: string | null,
 ): CrDeedParty => {
-  const name = (text.split(",")[0] ?? text).trim();
+  // Cut the name at the comma that introduces a known key, NOT the first comma —
+  // a quoted entity name ("АБВ, ГД" ООД) contains its own comma (FINDING-003).
+  const name = text
+    .split(
+      /,\s*(?=ЕИК\/ПИК|Идентификаци[яи]|Държава|Длъжност|Чуждестранно|Вид|Данни)/,
+    )[0]
+    .trim();
   const eikM = text.match(/(?:ЕИК\/ПИК|Идентификаци[яи])\s*([0-9]{6,})/);
   const eik = eikM ? eikM[1] : null;
-  const isLegalEntity = eik !== null || /юридическо лице/i.test(text);
+  const isLegalEntity =
+    eik !== null ||
+    /юридическо лице/i.test(text) ||
+    LEGAL_FORM_TOKEN.test(name);
   const countryM = text.match(
     /Държава:\s*([^,]+?)(?=,|\s+(?:Държава на|Длъжност|Вид|Данни|ЕИК)|$)/,
   );
@@ -158,23 +201,42 @@ const CURRENCY: Array<[RegExp, string]> = [
   [/лв|BGN/i, "BGN"],
 ];
 
-/** "5112918.81 €" → { amount: 5112918.81, currency: "EUR" }. */
+/** "5112918.81 €" → { amount: 5112918.81, currency: "EUR" }. Handles both decimal
+ * conventions — "1,000,000.00" and "5 000,00" — by treating the LAST separator as
+ * the decimal point and stripping the other as a thousands grouping. */
 export const parseCapital = (
   text: string,
 ): { amount: number | null; currency: string | null } => {
-  const numM = text.replace(/\s/g, "").match(/-?\d+(?:[.,]\d+)?/);
-  const amount = numM ? Number(numM[0].replace(",", ".")) : null;
+  const raw = text.replace(/\s/g, "").match(/-?[\d.,]+/)?.[0];
+  let amount: number | null = null;
+  if (raw) {
+    const lastComma = raw.lastIndexOf(",");
+    const lastDot = raw.lastIndexOf(".");
+    const norm =
+      lastComma > lastDot
+        ? raw.replace(/\./g, "").replace(",", ".") // comma is the decimal
+        : raw.replace(/,/g, ""); // dot is the decimal (or none)
+    const n = Number(norm);
+    amount = Number.isFinite(n) ? n : null;
+  }
   let currency: string | null = null;
   for (const [re, code] of CURRENCY)
     if (re.test(text)) {
       currency = code;
       break;
     }
-  return { amount: Number.isFinite(amount) ? amount : null, currency };
+  return { amount, currency };
 };
 
 const dateSlice = (v: unknown): string | null =>
   typeof v === "string" && /^\d{4}-\d\d-\d\d/.test(v) ? v.slice(0, 10) : null;
+
+/** An array-valued property of an unknown object, or [] — the sections→subDeeds→
+ * groups→fields walk is four of these. */
+const arrayProp = <T = unknown>(obj: unknown, key: string): T[] => {
+  const v = (obj as Record<string, unknown> | null)?.[key];
+  return Array.isArray(v) ? (v as T[]) : [];
+};
 
 type DeedField = {
   nameCode?: string;
@@ -217,20 +279,10 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
     nkid: null,
   };
 
-  const sections = Array.isArray(d.sections) ? d.sections : [];
-  for (const sec of sections) {
-    const subDeeds = Array.isArray((sec as { subDeeds?: unknown }).subDeeds)
-      ? ((sec as { subDeeds: unknown[] }).subDeeds as unknown[])
-      : [];
-    for (const sd of subDeeds) {
-      const groups = Array.isArray((sd as { groups?: unknown }).groups)
-        ? ((sd as { groups: unknown[] }).groups as unknown[])
-        : [];
-      for (const g of groups) {
-        const fields = Array.isArray((g as { fields?: unknown }).fields)
-          ? ((g as { fields: unknown[] }).fields as DeedField[])
-          : [];
-        for (const f of fields) {
+  for (const sec of arrayProp(d, "sections")) {
+    for (const sd of arrayProp(sec, "subDeeds")) {
+      for (const g of arrayProp(sd, "groups")) {
+        for (const f of arrayProp<DeedField>(g, "fields")) {
           const code = f.nameCode;
           const html = f.htmlData ?? "";
           if (!code || !html) continue;
@@ -261,9 +313,13 @@ export const parseCrDeed = (body: string | null): CrDeedParsed | null => {
               out.nkid ??= text;
               break;
             case "CR_F_31_L": {
+              // Record the currency only alongside a real amount — never a
+              // currency with a null amount (FINDING-007).
               const { amount, currency } = parseCapital(text);
-              out.capitalAmount ??= amount;
-              out.capitalCurrency ??= currency;
+              if (amount != null) {
+                out.capitalAmount ??= amount;
+                out.capitalCurrency ??= currency;
+              }
               break;
             }
           }
