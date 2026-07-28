@@ -46,15 +46,27 @@ npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 Hosting first means the rewrite is live against a function that cannot serve it yet.
 
 The same migration-before-writer rule applies to the hand-run ingests that have no
-`db:load:*:cloud` wrapper. `scripts/procurement/fetch_company_founded.ts` writes
-`http_status`/`attempts`, so `033_procurement_risk_indexes.sql` must be applied to the target
-database first:
+`db:load:*:cloud` wrapper. `company_founded` writes `http_status`/`attempts`, so
+`033_procurement_risk_indexes.sql` must be applied to the target database first:
 
 ```bash
 DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 033_procurement_risk_indexes.sql
 ```
 
-The script preflights and exits 2 with that command in the message if the columns are missing.
+The founding-date writer (`upsertFoundingDates`) preflights and throws with that command in
+the message if the columns are missing.
+
+**CR Deeds full-capture** (`docs/plans/cr-deeds-capture-v1.md`) supersedes the old
+`fetch_company_founded` crawl. The rate-limited crawl is an operator action — `npm run
+tr:cr-deeds` (tiers 0/1/2a/2b/3; `--probe` first to gauge the block state); it writes the
+durable raw store `raw_data/tr/cr_deeds.sqlite` (gitignored, never uploaded). Two projections
+read that cache offline, no re-fetch:
+- **owners** → `tr:daily-refresh` runs the persons projection automatically (inside
+  `daily_refresh.ts`, additive into `company_persons`), then `db:load:cr-founding:pg` folds
+  the founding dates into local `company_founded`. To publish owners + founding to prod, run
+  `npm run db:load:tr:pg:cloud` and `npm run db:load:company-founded:pg:cloud` (the latter
+  ships local `company_founded` → Cloud SQL, 033 applied there first). Nothing on the cloud
+  side is automatic.
 
 `procurement_annexes` (migration 114, `db:load:annexes:pg`) is the same shape: it resolves
 against the `contracts` table and reads the raw ЦАИС ЕОП annex cache, so on the cloud side run

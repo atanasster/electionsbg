@@ -21,8 +21,14 @@ import {
   foundingDatesFromStore,
   upsertFoundingDates,
 } from "../declarations/tr/project_cr_deeds";
-import { end } from "./lib/pg";
+import { allRows, end, withTx } from "./lib/pg";
 import { refreshRiskIndexesIfPresent } from "./lib/refreshRiskIndexes";
+import { recordIngestBatch } from "./lib/ingest_changelog";
+
+// The CR-sourced slice of company_founded — the changelog's corpus (as a subquery
+// so recordIngestBatch's `FROM ${table} t` records first-seen over exactly it).
+const CR_FOUNDED =
+  "(SELECT eik, founded_date FROM company_founded WHERE source = 'registryagency:CR/Deeds')";
 
 // Sidecar marking the store mtime we last folded. The crawl is a rare, manual
 // operator action, but this loader rides the DAILY tr:daily-refresh — so without a
@@ -73,6 +79,29 @@ const main = async () => {
   console.log(
     `✓ company_founded: upserted ${written} founding date(s) from ${founding.length} capture(s).`,
   );
+
+  // Changelog (PG-changelog rule): record first-seen for the CR-sourced founding
+  // rows so the ingest surfaces in recent_updates like every other PG dataset.
+  // Scoped via CR_FOUNDED so it tracks the CR fold only, not the retired crawler's
+  // legacy rows. Runs POST-COMMIT (upsertFoundingDates owns its own connection and
+  // already committed), so it is deliberately not atomic with the data write — the
+  // data is what matters and it already succeeded. rowsTotal is the CR CORPUS size,
+  // not this fold's `written` delta, so the summary line reads coherently (the first
+  // fold summarises the whole ~15.8k legacy corpus in one "N new · N total" line).
+  const [{ n }] = await allRows<{ n: string }>(
+    `SELECT count(*)::text AS n FROM ${CR_FOUNDED} t`,
+  );
+  const changelog = await withTx((c) =>
+    recordIngestBatch(c, {
+      source: "cr_deeds_founding",
+      table: CR_FOUNDED,
+      keyExpr: "t.eik",
+      nameExpr: "t.eik",
+      detailExpr: "'основано ' || COALESCE(t.founded_date::text, '—')",
+      rowsTotal: Number(n),
+    }),
+  );
+  console.log(`  changelog: ${changelog.rowsNew} new (${changelog.mode} mode)`);
 
   // The risk-indexes payload embeds foundedByEik, so the SPA only sees the new dates
   // once the cache is rebuilt.

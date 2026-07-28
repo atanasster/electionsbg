@@ -429,33 +429,43 @@ Run Tier 0→1, reassess, then let Tier 2/3 grind unattended with checkpointing.
 
 ## 6. Deliverables / order of work
 
-1. ~~Spike §4.1–§4.2~~ — done (§0a). Remaining: sample the 6 untried entity types, extend
-   the field map, resolve `fieldOperation`.
-2. Extract the shared CR client from `fetch_company_founded.ts` (widen the result to carry
-   the raw body; keep `fetch_company_founded.test.ts` green).
-3. `fetch_cr_deeds.ts` (Layer 1) + the `cr_deeds` / `cr_deeds_failed` schema. Start the
-   Tier 0/1 crawl (26,731 then 29,652 EIKs, `^[0-9]{9}$`).
-4. `parse_cr_deeds.ts` (Layer 2) + fixtures → persons projection → **additive** merge into
-   `company_persons` with `persons_source='cr'` (add the column to `sqlite_writer.ts`'s
-   `SCHEMA`); fold in founding-date so `fetch_company_founded` is retired.
-5. Wire the projection into `daily_refresh.ts` between `reconstructState` and
-   `buildCompanyConnections`, and extend the `tr:daily-refresh` script (§2 Layer 3) — without
-   this the projection is wiped on the next watcher flip.
-6. `db:load:tr:pg` reload → `db:resolve:persons`; verify Хърикейн/Алфред Дюмон/АЙ РОУД show
-   Ирина as **Едноличен собственик** and МБАЛ Разлог shows ОБЩИНА РАЗЛОГ; re-check the
-   Bridge B cap + invariant test.
-7. **Cloud path** (not optional — prod currently holds only a `company_founded` stub, so
-   `newFirmWinner` is dormant there):
-   - apply `033_procurement_risk_indexes.sql` to Cloud SQL before any write,
-   - `npm run db:load:company-founded:pg:cloud` (ships the table + refreshes
-     `procurement_risk_indexes_cache`),
-   - `npm run db:load:tr:pg:cloud` for the owner rows,
-   - add both to the regenerating watch skill so the live copy cannot go stale.
-8. Tier 2/3 background crawl with checkpointing; refresh policy (§4.4).
-9. Regression test + changelog entry. ⚠️ **Assert `≥ 1` active owner, not "exactly one"** —
-   4,127 companies today already have >1 non-erased `sole_owner` row and 4,074 have >1
-   distinct non-erased owner *name*, because `tr_person_roles` keeps one row per filing. An
-   "exactly one" assertion fails on the existing corpus before CR contributes anything.
+**Status 2026-07-28: the code layers (2–5, 9) are BUILT and committed; the live crawl,
+cloud ship, and end-to-end verify (3-run, 6, 7, 8) are operator actions — they hit a
+rate-limited host / Cloud SQL and are not run in the build.**
+
+1. ✅ ~~Spike §4.1–§4.2~~ — done (§0a); field map extended across 8 sampled entity types
+   (EOOD/OOD/AD/EAD/ET/ЮЛНЦ/bankrupt); `fieldOperation` resolved (NOT an active/erased flag —
+   op-2 rows carry an empty body and are skipped; the body is current state regardless).
+2. ✅ **Shared client extracted** → `scripts/declarations/tr/lib/crDeedsClient.ts`
+   (`fetchDeed` widened to carry the raw body); `fetch_company_founded.ts` is now a thin
+   wrapper; its test stays green.
+3. ✅ **Layer 1 BUILT** — `cr_deeds_store.ts` (`cr_deeds` answers-only + `cr_deeds_failed`,
+   `raw_gz NOT NULL` enforcing the §0 invariant) + `fetch_cr_deeds.ts` CLI (`npm run
+   tr:cr-deeds`; tiers 0/1/2a/2b/3, `^[0-9]{9}$`, `--probe`/`--refresh-before`, circuit
+   breaker). ⏳ **Operator: run the Tier 0/1 crawl** (rate-limited, per-IP).
+4. ✅ **Layer 2 BUILT** — `parse_cr_deeds.ts` scraper + 8 fixtures; `project_cr_deeds.ts`
+   does the **additive** merge into `company_persons` (`persons_source='cr'`, added to
+   `sqlite_writer.ts`'s SCHEMA); `upsertFoundingDates` + `load_cr_founding_pg.ts` fold the
+   founding dates into `company_founded`, retiring `fetch_company_founded`'s write path.
+5. ✅ **Wired** — `daily_refresh.ts` runs the projection after `reconstructState`, before
+   `buildCompanyConnections`; `tr:daily-refresh` gained `db:load:cr-founding:pg` (guarded so
+   it's a no-op until the crawl runs; a store-mtime gate skips a quiet day).
+6. ⏳ **Operator verify** (needs the crawl's output): after a crawl + `tr:daily-refresh` +
+   `db:resolve:persons`, confirm Хърикейн/Алфред Дюмон/АЙ РОУД show Ирина as **Едноличен
+   собственик** and МБАЛ Разлог shows ОБЩИНА РАЗЛОГ; re-check the Bridge B cap + invariant.
+7. ⏳ **Operator cloud path** (prod holds only a `company_founded` stub, so `newFirmWinner`
+   is dormant there):
+   - apply `033_procurement_risk_indexes.sql` to Cloud SQL first,
+   - `npm run db:load:cr-founding:pg` (local, from the crawl) → `npm run
+     db:load:company-founded:pg:cloud` (ship local → Cloud SQL + refresh the risk cache),
+   - `npm run db:load:tr:pg:cloud` for the owner rows.
+8. ⏳ **Operator**: Tier 2/3 background crawl with checkpointing; refresh policy (§4.4).
+9. ✅ **Regression test + changelog BUILT** — `scripts/db/tests/cr_deeds_founding.data.test.ts`
+   (PG-backed, auto-skips when PG is down; a synthetic-EIK write + cleanup proves the fold
+   records provenance honestly); `load_cr_founding_pg.ts` records a `cr_deeds_founding` ingest
+   batch (recent_updates). ⚠️ The owner-count regression (a sampled EOOD has **≥ 1** active
+   owner, NOT "exactly one" — 4,127 companies already have >1 non-erased `sole_owner` row) is
+   deferred until CR data lands, since it needs a real crawl.
 
 ---
 
