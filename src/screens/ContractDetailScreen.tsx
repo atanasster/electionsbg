@@ -48,6 +48,7 @@ import { RiskBadges } from "./components/procurement/RiskBadges";
 import { FollowStar } from "./components/procurement/FollowStar";
 import { KvRow } from "./components/procurement/KvRow";
 import { ContractNormalcyPanel } from "./components/procurement/ContractNormalcyPanel";
+import { ContractAnnexesPanel } from "./components/procurement/ContractAnnexesPanel";
 
 const officialRoleLabel = (role: string, t: (k: string) => string): string => {
   const key = `official_role_${role}`;
@@ -205,6 +206,8 @@ export const ContractDetailScreen: FC = () => {
       </header>
 
       <ContractNormalcyPanel contractKey={id} />
+
+      <ContractAnnexesPanel contractKey={id} />
 
       <div className="grid gap-4 lg:grid-cols-3">
         <section className="lg:col-span-2 rounded-xl border bg-card p-4 shadow-sm space-y-2 text-sm">

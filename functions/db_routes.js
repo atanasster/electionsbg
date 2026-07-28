@@ -81,6 +81,14 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// Same degradation, but wrapping a caller-supplied sentinel as `[{ r: sentinel }]`
+// — for a route whose empty payload is not `[]` (e.g. an object the client
+// destructures). Served via `rows[0].r`, like the scalar-function routes.
+const missingMigration = (sentinel) => (e) =>
+  e?.code === "42883" || e?.code === "42P01"
+    ? [{ r: sentinel }]
+    : Promise.reject(e);
+
 // Resolve the person slug the mp_assets()/mp_declarations() fns key on. The person screens
 // have a slug; the candidate screens (persons-pg-retirement-v1 T2.1b) have only the mp id, so
 // accept `?id=` and map it to the slug via person_role (source='mp', ref=<mp id>). A ?slug=
@@ -586,6 +594,18 @@ const DB_ROUTES = {
         : Promise.reject(e),
     );
     return { body: { contract: rows[0] ?? null } };
+  },
+  // Per-annex breakdown for one contract (migration 114) — the itemised
+  // modifications behind its signing→current move: how many annexes, each Δ, and
+  // the ЗОП ground. Answers "one annex at the cap, or several summing to it?".
+  // Degrades to an empty payload on a DB predating the migration.
+  "contract-annexes": async (dbRows, q) => {
+    const key = s(q, "key");
+    if (!key) return { status: 400, body: { error: "missing key" } };
+    const rows = await dbRows("SELECT contract_annexes($1) AS r", [key]).catch(
+      missingMigration({ annexCount: 0, rows: [] }),
+    );
+    return { body: rows[0]?.r ?? { annexCount: 0, rows: [] } };
   },
   // "How normal is this procurement?" — one contract positioned in its cohort of
   // similar procurements (adaptive-CPV-prefix, era-matched) across value, bidder
