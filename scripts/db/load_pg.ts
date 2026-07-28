@@ -112,6 +112,10 @@ const PROC_RISK_INDEXES_FILE = path.join(
   SCHEMA_DIR,
   "033_procurement_risk_indexes.sql",
 );
+const CONTRACT_RISK_CACHE_FILE = path.join(
+  SCHEMA_DIR,
+  "112_contract_risk_cache.sql",
+);
 const REF_PROCUREMENT_FILE = path.join(SCHEMA_DIR, "034_ref_procurement.sql");
 const PROC_SEARCH_FILE = path.join(SCHEMA_DIR, "035_procurement_search.sql");
 const PROC_SECTORS_FILE = path.join(SCHEMA_DIR, "036_procurement_sectors.sql");
@@ -285,6 +289,10 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(DUAL_CORPUS_FILE, "utf8"));
   await exec(readFileSync(TENDER_DETAIL_FILE, "utf8"));
   await exec(readFileSync(PROC_RISK_INDEXES_FILE, "utf8"));
+  // Per-contract risk index — depends on the shared risk views 033 just created
+  // (and on is_direct_award from 041, applied by load_tr_pg; the rebuild guards
+  // on it and returns 0 rather than failing when it is not there yet).
+  await exec(readFileSync(CONTRACT_RISK_CACHE_FILE, "utf8"));
   await exec(readFileSync(REF_PROCUREMENT_FILE, "utf8"));
   await exec(readFileSync(PROC_SEARCH_FILE, "utf8"));
   await exec(readFileSync(PROC_SECTORS_FILE, "utf8"));
@@ -553,6 +561,10 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW awarder_totals");
   await exec("REFRESH MATERIALIZED VIEW sector_contractor_stats");
   await exec("REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache");
+  // Per-contract risk index (112). Must run AFTER the risk-indexes refresh:
+  // both read the same 033 views, and the browser column would otherwise serve
+  // a CRI derived from a different snapshot than the contract page's chips.
+  await exec("SELECT rebuild_contract_risk_cache()");
   // Full-corpus (all-years) caches for the overview / rankings / by-settlement
   // payloads — too slow (~330-530ms) to compute per request; the routes serve
   // these when from/to are both absent (025/031/030).

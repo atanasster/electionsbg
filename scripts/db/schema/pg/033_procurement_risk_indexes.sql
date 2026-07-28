@@ -273,14 +273,24 @@ SELECT jsonb_build_object(
   'cpvBidderMedians', (
     SELECT COALESCE(jsonb_object_agg(cpv5, med), '{}'::jsonb) FROM cpv5med
   ),
-  -- EIK → incorporation date, for the newFirmWinner flag. Bounded to firms
-  -- founded 2018+ (a 2020–2026 contract can only be "shortly after founding" for
-  -- a firm younger than that) and to EIKs that actually appear as a contractor,
-  -- so the map stays small (a few thousand, not the whole register).
+  -- EIK → incorporation date, for the newFirmWinner flag. Restricted to EIKs
+  -- that actually appear as a contractor (the register at large is irrelevant
+  -- here), but NOT bounded by founding year.
+  --
+  -- ⚠️ It used to carry `founded_date >= '2018-01-01'` to keep the map small.
+  -- That silently broke parity with contract_risk_cache (112), which joins
+  -- company_founded unbounded: 333,411 contracts were "checkable" server-side
+  -- and "not checkable" in the browser, 48% of all newFirmWinner fires could not
+  -- fire client-side at all, and the CRI disagreed on 30.2% of the corpus — a
+  -- contract stored as cri=18 rendering as "2 of 10 checks". Availability is
+  -- per-CONTRACTOR, so trimming the map by founding year changes the DENOMINATOR,
+  -- not just the hits; the bound was never sound. Cost of dropping it: ~2.3k →
+  -- ~15.8k entries, +426KB on a session-cached payload. The whole slice goes
+  -- away once the browser stops scoring and renders the server masks instead.
   'foundedByEik', (
     SELECT COALESCE(jsonb_object_agg(f.eik, f.founded_date::text), '{}'::jsonb)
     FROM company_founded f
-    WHERE f.founded_date >= '2018-01-01'
+    WHERE f.founded_date IS NOT NULL
       AND EXISTS (SELECT 1 FROM contracts ct
                   WHERE ct.tag='contract' AND ct.contractor_eik = f.eik)
   ),

@@ -57,15 +57,44 @@ RETURNS text LANGUAGE sql IMMUTABLE AS $$
   SELECT risk_grade_letter(p_cri);
 $$;
 
+-- Bit positions for available_mask / fired_mask. This ORDER IS A CONTRACT with
+-- every reader (the serving view, the SPA ledger, the parity harness) — append
+-- new checks at the end, never renumber, or historic masks silently re-map.
+--   0 debarred          4 amendment       8  appealUpheld
+--   1 mpConnected       5 annexGrowth     9  weakCompetition
+--   2 pepConnected      6 newFirmWinner   10 directAward
+--   3 awarderConcentration 7 splitPurchase 11 shortTenderPeriod
+--
+-- Masks rather than a per-row jsonb object: the jsonb form measured 284 MB for
+-- 407k rows — ~700 bytes to carry 24 bits — which is a real cost on a
+-- db-g1-small. Two ints carry the same information in 8 bytes.
 CREATE TABLE IF NOT EXISTS contract_risk_cache (
-  key        text PRIMARY KEY,
-  fired      int  NOT NULL,
-  available  int  NOT NULL,
-  cri        int  NOT NULL,
-  score      int  NOT NULL,
-  grade      text,
-  components jsonb NOT NULL
+  key            text PRIMARY KEY,
+  fired          int  NOT NULL,
+  available      int  NOT NULL,
+  cri            int  NOT NULL,
+  score          int  NOT NULL,
+  grade          text,
+  available_mask int  NOT NULL,
+  fired_mask     int  NOT NULL
 );
+-- Migrating from the jsonb shape: drop the old column if an earlier apply made it.
+ALTER TABLE contract_risk_cache DROP COLUMN IF EXISTS components;
+ALTER TABLE contract_risk_cache ADD COLUMN IF NOT EXISTS available_mask int NOT NULL DEFAULT 0;
+ALTER TABLE contract_risk_cache ADD COLUMN IF NOT EXISTS fired_mask     int NOT NULL DEFAULT 0;
+
+-- Decode a mask to the check names, so SQL consumers and ad-hoc queries do not
+-- each hard-code the bit order above.
+CREATE OR REPLACE FUNCTION contract_risk_checks(p_mask int)
+RETURNS text[] LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(array_agg(name ORDER BY bit), '{}'::text[])
+  FROM unnest(ARRAY['debarred','mpConnected','pepConnected','awarderConcentration',
+                    'amendment','annexGrowth','newFirmWinner','splitPurchase',
+                    'appealUpheld','weakCompetition','directAward','shortTenderPeriod'])
+       WITH ORDINALITY AS t(name, ord)
+  CROSS JOIN LATERAL (SELECT (ord - 1)::int AS bit) b
+  WHERE (p_mask >> b.bit) & 1 = 1;
+$$;
 -- Sorting is the whole point of this table; the key tiebreak keeps paging
 -- deterministic (the engine already falls back to `key`).
 CREATE INDEX IF NOT EXISTS idx_contract_risk_cache_cri
@@ -83,6 +112,23 @@ GRANT SELECT ON contract_risk_cache TO app_readonly;
 CREATE OR REPLACE FUNCTION rebuild_contract_risk_cache() RETURNS bigint AS $fn$
 DECLARE n bigint;
 BEGIN
+  -- Every relation this function names must EXIST, even on the branch that
+  -- "guards" it: a statement is parse-analysed as a whole, so a runtime
+  -- CASE/IF around a missing relation still raises "relation does not exist".
+  -- upheld_ocids is created by 042 (a LATER loader than the one applying this
+  -- file), so it is reached through a view that is re-pointed at reality here,
+  -- at rebuild time, rather than referenced directly.
+  IF to_regclass('public.upheld_ocids') IS NOT NULL THEN
+    EXECUTE 'CREATE OR REPLACE VIEW risk_upheld_ocid AS SELECT ocid FROM upheld_ocids';
+  ELSE
+    EXECUTE 'CREATE OR REPLACE VIEW risk_upheld_ocid AS SELECT NULL::text AS ocid WHERE false';
+  END IF;
+  EXECUTE 'GRANT SELECT ON risk_upheld_ocid TO app_readonly';
+
+  -- Bail politely only when the whole corpus is absent; the remaining
+  -- dependencies (debarred, company_politicians, company_founded, the 033 views,
+  -- is_direct_award) all ship in migrations applied before this one, so a
+  -- missing one is a broken install that should surface, not be swallowed.
   IF to_regclass('public.contracts') IS NULL
      OR to_regprocedure('is_direct_award(text,text)') IS NULL THEN
     RETURN 0;
@@ -90,7 +136,8 @@ BEGIN
 
   DELETE FROM contract_risk_cache;
 
-  INSERT INTO contract_risk_cache (key, fired, available, cri, score, grade, components)
+  INSERT INTO contract_risk_cache
+    (key, fired, available, cri, score, grade, available_mask, fired_mask)
   WITH deb AS (
     SELECT DISTINCT fold_contractor_name(name) AS fname
     FROM debarred WHERE coalesce(name, '') <> ''
@@ -116,9 +163,7 @@ BEGIN
            substr(c.date, 1, 4) AS yr,
            left(c.cpv, 2) AS cpv_div,
            left(c.cpv, 5) AS cpv5,
-           CASE WHEN to_regclass('public.upheld_ocids') IS NULL THEN false
-                ELSE EXISTS (SELECT 1 FROM upheld_ocids uo WHERE uo.ocid = c.ocid)
-           END AS appeal_upheld
+           EXISTS (SELECT 1 FROM risk_upheld_ocid uo WHERE uo.ocid = c.ocid) AS appeal_upheld
     FROM contracts c
   ),
   f AS (
@@ -222,20 +267,15 @@ BEGIN
          contract_risk_grade_letter(
            CASE WHEN a.available = 0 THEN 0
                 ELSE round(100.0 * a.fired / a.available) END) AS grade,
-         jsonb_build_object(
-           'debarred',             jsonb_build_object('a', a.a_debarred, 'f', a.f_debarred),
-           'mpConnected',          jsonb_build_object('a', a.a_mp,       'f', a.f_mp),
-           'pepConnected',         jsonb_build_object('a', a.a_pep,      'f', a.f_pep),
-           'awarderConcentration', jsonb_build_object('a', a.a_conc,     'f', a.f_conc),
-           'amendment',            jsonb_build_object('a', a.a_amend,    'f', a.f_amend),
-           'annexGrowth',          jsonb_build_object('a', a.a_annex,    'f', a.f_annex),
-           'newFirmWinner',        jsonb_build_object('a', a.a_newfirm,  'f', a.f_newfirm),
-           'splitPurchase',        jsonb_build_object('a', a.a_split,    'f', a.f_split),
-           'appealUpheld',         jsonb_build_object('a', a.a_appeal,   'f', a.f_appeal),
-           'weakCompetition',      jsonb_build_object('a', a.a_weak,     'f', a.f_weak),
-           'directAward',          jsonb_build_object('a', a.a_direct,   'f', a.f_direct),
-           'shortTenderPeriod',    jsonb_build_object('a', a.a_short,    'f', a.f_short)
-         )
+         -- Bit order per the contract documented on the table above.
+         (a.a_debarred::int << 0) | (a.a_mp::int      << 1) | (a.a_pep::int    << 2)
+       | (a.a_conc::int     << 3) | (a.a_amend::int   << 4) | (a.a_annex::int  << 5)
+       | (a.a_newfirm::int  << 6) | (a.a_split::int   << 7) | (a.a_appeal::int << 8)
+       | (a.a_weak::int     << 9) | (a.a_direct::int  << 10)| (a.a_short::int  << 11),
+         (a.f_debarred::int << 0) | (a.f_mp::int      << 1) | (a.f_pep::int    << 2)
+       | (a.f_conc::int     << 3) | (a.f_amend::int   << 4) | (a.f_annex::int  << 5)
+       | (a.f_newfirm::int  << 6) | (a.f_split::int   << 7) | (a.f_appeal::int << 8)
+       | (a.f_weak::int     << 9) | (a.f_direct::int  << 10)| (a.f_short::int  << 11)
   FROM agg a;
 
   GET DIAGNOSTICS n = ROW_COUNT;
