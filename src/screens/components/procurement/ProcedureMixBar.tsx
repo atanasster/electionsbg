@@ -1,11 +1,14 @@
-// Procedure-mix overview for the contracts table: a 100%-stacked horizontal bar
-// of the ProcedureBuckets present for the scoped entity, doubling AS the procedure
-// filter — clicking a segment (or its legend chip) selects that bucket; clicking
-// the active one clears it. Fed by the filter-scoped `procurement_method` facet
-// (excludes its OWN dimension, so every bucket stays visible while another filter
-// is active). Pure CSS bars — no chart lib — per the project's infographic-bar
-// convention. See CompanyContractsDbScreen.
-import { FC } from "react";
+// Procedure-mix overview for the contracts table: a 100%-stacked horizontal bar of the
+// ProcedureBuckets present for the scoped entity, doubling AS the procedure filter. Fed by
+// the filter-scoped `procurement_method` facet (which excludes its OWN dimension, so every
+// bucket stays visible while another filter is active). See CompanyContractsDbScreen.
+//
+// The bar, legend, dimming and a11y now live in the generic MixBar (src/ux/MixBar.tsx),
+// which /persons also renders. What stays HERE is the part that is actually about
+// procurement: the bucket palette (which hue means "no open advert") and the localized
+// bucket labels. Behaviour is unchanged — same markup, same interactions.
+
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   procedureLabel,
@@ -13,6 +16,7 @@ import {
   type ProcedureBucket,
 } from "@/lib/cpvSectors";
 import { useIsDark } from "@/screens/components/procurement/chartColors";
+import { MixBar } from "@/ux/MixBar";
 
 // One distinct hue per bucket, brightened at the -400 step for dark mode so each
 // segment clears non-text contrast against the navy background.
@@ -35,8 +39,6 @@ const BUCKET_DARK: Record<ProcedureBucket, string> = {
   unknown: "#cbd5e1",
 };
 
-const nfmt = new Intl.NumberFormat("bg-BG");
-
 export const ProcedureMixBar: FC<{
   buckets: MethodBucketFacet[];
   /** Currently-selected bucket key, or null when unfiltered. */
@@ -53,82 +55,26 @@ export const ProcedureMixBar: FC<{
   const { i18n } = useTranslation();
   const dark = useIsDark();
   const colors = dark ? BUCKET_DARK : BUCKET_LIGHT;
-  const total = buckets.reduce((s, b) => s + b.count, 0);
-  if (!buckets.length || total === 0) return null;
 
-  const pct = (n: number) => (n / total) * 100;
-  const toggle = (b: MethodBucketFacet) =>
-    selected === b.bucket ? onSelect(null) : onSelect(b.bucket);
+  const segments = useMemo(
+    () =>
+      buckets.map((b) => ({
+        key: b.bucket,
+        label: procedureLabel(b.bucket, i18n.language),
+        count: b.count,
+        color: colors[b.bucket],
+      })),
+    [buckets, colors, i18n.language],
+  );
 
   return (
-    <div className="rounded-xl border bg-card p-3 md:p-4">
-      {title ? (
-        <div className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          {title}
-        </div>
-      ) : null}
-      {/* The stacked bar. Each segment is a button so the bar itself filters. */}
-      <div className="flex h-3 w-full overflow-hidden rounded-full">
-        {buckets.map((b) => {
-          const active = selected === b.bucket;
-          const label = procedureLabel(b.bucket, i18n.language);
-          const desc = `${label} · ${nfmt.format(b.count)} (${pct(b.count).toFixed(0)}%)`;
-          return (
-            <button
-              key={b.bucket}
-              type="button"
-              onClick={() => toggle(b)}
-              aria-pressed={active}
-              aria-label={desc}
-              title={desc}
-              className="h-full transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              style={{
-                width: `${pct(b.count)}%`,
-                backgroundColor: colors[b.bucket],
-                opacity: selected && !active ? 0.35 : 1,
-              }}
-            />
-          );
-        })}
-      </div>
-      {/* Clickable legend — the accessible hit target for narrow segments. */}
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1.5">
-        {buckets.map((b) => {
-          const active = selected === b.bucket;
-          const label = procedureLabel(b.bucket, i18n.language);
-          return (
-            <button
-              key={b.bucket}
-              type="button"
-              onClick={() => toggle(b)}
-              aria-pressed={active}
-              className={`flex items-center gap-1.5 text-xs transition-opacity ${
-                selected && !active ? "opacity-50" : "opacity-100"
-              } hover:opacity-100`}
-            >
-              <span
-                className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm"
-                style={{ backgroundColor: colors[b.bucket] }}
-              />
-              <span
-                className={
-                  active
-                    ? "font-semibold text-foreground"
-                    : "text-muted-foreground"
-                }
-              >
-                {label}
-              </span>
-              <span className="tabular-nums text-muted-foreground">
-                {pct(b.count).toFixed(0)}%
-              </span>
-            </button>
-          );
-        })}
-      </div>
-      {note ? (
-        <p className="mt-2 text-[11px] text-muted-foreground">{note}</p>
-      ) : null}
-    </div>
+    <MixBar<ProcedureBucket>
+      segments={segments}
+      selected={selected}
+      onSelect={onSelect}
+      title={title}
+      note={note}
+      locale={i18n.language?.startsWith("bg") ? "bg-BG" : "en-GB"}
+    />
   );
 };

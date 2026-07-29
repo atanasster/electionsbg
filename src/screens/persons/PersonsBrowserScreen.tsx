@@ -21,12 +21,16 @@
 // face — a 972 KB index for one avatar is a regression this codebase has already fixed
 // once (project_mp_avatar_index).
 
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Users } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
+import {
+  DbDataTable,
+  type DbColumnFilter,
+  type DbTableResponse,
+} from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { MpAvatarView } from "@/screens/components/candidates/MpAvatar";
@@ -44,6 +48,13 @@ import {
   groupByKey,
 } from "@/data/persons/personGroups";
 import { PersonFilterSelect } from "./PersonFilterSelect";
+import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
+import { oblastName } from "@/lib/regionalOblast";
+import {
+  fetchPersonsCsv,
+  downloadCsv,
+  EXPORT_MAX,
+} from "@/data/persons/exportPersonsCsv";
 import type { PersonBrowseRow } from "@/data/persons/personBrowseTypes";
 
 export const PersonsBrowserScreen: FC = () => {
@@ -55,22 +66,23 @@ export const PersonsBrowserScreen: FC = () => {
 
   const {
     facet,
+    primaryFacet,
     role,
     party,
     oblast,
     court,
     declaredOnly,
     heldOfficeOnly,
+    obshtina,
     setFacet,
+    setPrimaryFacet,
     setRole,
     setParty,
-    obshtina,
-    // ?oblast, ?obshtina and ?court are READ here but have no pickers yet — the place/court selectors
-    // land in T2, which is also where their vocabularies get solved properly. Faceting
-    // `oblast_code` would be both unavailable (runDbFacets only facets FILTERABLE columns,
-    // and that one is display-only by design) and misleading (it counts representative
-    // seats, while the filter matches every seat, so the dropdown would promise fewer
-    // people than clicking it returns). A deep link into either already works.
+    setOblast,
+    setCourt,
+    // ?obshtina has no picker — it is a CROSS-LINK target (/governance/:id sends a reader
+    // here scoped to one municipality), not something anyone browses to among 289 options.
+    // It is validated, filtered and cleared like the rest.
     setDeclaredOnly,
     setHeldOfficeOnly,
     hasActiveFilters,
@@ -86,6 +98,15 @@ export const PersonsBrowserScreen: FC = () => {
     const g = groupByKey(facet);
     return g ? [{ id: g.column, value: true }] : [];
   }, [facet]);
+  // The mix bar's dimension. Distinct from groupF: this is the person's PRIMARY facet
+  // (single-valued, so a real partition), that one is membership (overlapping).
+  const primaryF = useMemo<DbColumnFilter[]>(
+    () =>
+      primaryFacet !== PERSON_FILTER_ALL
+        ? [{ id: "primary_facet", value: [primaryFacet] }]
+        : [],
+    [primaryFacet],
+  );
   const roleF = useMemo<DbColumnFilter[]>(
     () =>
       role !== PERSON_FILTER_ALL
@@ -100,16 +121,28 @@ export const PersonsBrowserScreen: FC = () => {
         : [],
     [party],
   );
-  const placeF = useMemo<DbColumnFilter[]>(() => {
+  const oblastF = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     if (oblast !== PERSON_FILTER_ALL)
       f.push({ id: "oblast_codes", value: codeSetMatch(oblast) });
     if (obshtina !== PERSON_FILTER_ALL)
       f.push({ id: "obshtina_code", value: [obshtina] });
-    if (court !== PERSON_FILTER_ALL)
-      f.push({ id: "place_code", value: [court] });
     return f;
-  }, [oblast, obshtina, court]);
+  }, [oblast, obshtina]);
+  // EXACT (an `in` set), never a substring: one court name contains another
+  // ("… съд - Пловдив"), so an ILIKE would silently widen the selection and make the
+  // picker's own counts wrong.
+  const courtF = useMemo<DbColumnFilter[]>(
+    () =>
+      court !== PERSON_FILTER_ALL
+        ? [{ id: "institution", value: [court] }]
+        : [],
+    [court],
+  );
+  const placeF = useMemo<DbColumnFilter[]>(
+    () => [...oblastF, ...courtF],
+    [oblastF, courtF],
+  );
   const toggleF = useMemo<DbColumnFilter[]>(() => {
     const f: DbColumnFilter[] = [];
     if (declaredOnly) f.push({ id: "has_declaration", value: true });
@@ -118,8 +151,8 @@ export const PersonsBrowserScreen: FC = () => {
   }, [declaredOnly, heldOfficeOnly]);
 
   const extraFilters = useMemo<DbColumnFilter[]>(
-    () => [...groupF, ...roleF, ...partyF, ...placeF, ...toggleF],
-    [groupF, roleF, partyF, placeF, toggleF],
+    () => [...groupF, ...primaryF, ...roleF, ...partyF, ...placeF, ...toggleF],
+    [groupF, primaryF, roleF, partyF, placeF, toggleF],
   );
 
   // Dropdown vocabularies. Each EXCLUDES its own dimension so the control it feeds never
@@ -143,8 +176,51 @@ export const PersonsBrowserScreen: FC = () => {
           columns: ["party_primary"],
           filters: [...groupF, ...roleF, ...placeF, ...toggleF],
         },
+        // oblast_code is `facet: true` but NOT filterable — it is the representative seat,
+        // the only place the oblast vocabulary lives, while the FILTER matches oblast_codes
+        // (every seat). Same reason its options carry no counts.
+        oblasts: {
+          columns: ["oblast_code"],
+          filters: [...groupF, ...roleF, ...partyF, ...courtF, ...toggleF],
+        },
+        // COURTS ONLY. `institution` spans 1,246 values corpus-wide — courts, ministries,
+        // hospitals, schools — which no dropdown can hold and which the facet cap would
+        // silently truncate to the most common few hundred, hiding the rest. Scoped to
+        // judicial rows it is 270 bodies: complete, under any cap, and it is the filter the
+        // plan actually asked for. Non-judicial institutions stay reachable through the
+        // free-text search, which has its own arm over this column.
+        courts: {
+          columns: ["institution"],
+          filters: [
+            ...groupF,
+            ...roleF,
+            ...partyF,
+            ...oblastF,
+            ...toggleF,
+            { id: "place_kind", value: ["judicial"] },
+          ],
+        },
+        // The mix bar's own partition — excludes its own dimension like every other facet,
+        // so selecting a segment does not collapse the bar to that one segment.
+        primary: {
+          columns: ["primary_facet"],
+          filters: [...groupF, ...roleF, ...partyF, ...placeF, ...toggleF],
+        },
+        // The KPI denominators. has_declaration / is_company are bool facets over the FULL
+        // active filter set, so the percentages describe exactly the rows on screen.
+        kpis: {
+          columns: ["has_declaration", "is_company", "obshtina_code"],
+          filters: [
+            ...groupF,
+            ...primaryF,
+            ...roleF,
+            ...partyF,
+            ...placeF,
+            ...toggleF,
+          ],
+        },
       }),
-      [groupF, roleF, partyF, placeF, toggleF],
+      [groupF, primaryF, roleF, partyF, oblastF, courtF, placeF, toggleF],
     ),
   );
 
@@ -183,6 +259,94 @@ export const PersonsBrowserScreen: FC = () => {
       })),
     [facets, displayNameForId],
   );
+  const oblastOptions = useMemo(
+    () =>
+      (facets.oblast_code ?? [])
+        .map((o) => ({ value: o.value, label: oblastName(o.value, isBg) }))
+        .sort((a, b) => a.label.localeCompare(b.label, "bg")),
+    [facets, isBg],
+  );
+  // Courts are the one vocabulary a reader could never type — "Окръжен съд - Кърджали" is
+  // not guessable — which is why this is a picker rather than a search box.
+  //
+  // It facets AND filters the same column with an EXACT `in`, so unlike role/party its
+  // counts are true. The URL carries the NAME rather than a body code because `place_code`
+  // would need a code→name dictionary the client does not have, and one facet cannot
+  // return both.
+  const courtOptions = useMemo(
+    () =>
+      (facets.institution ?? [])
+        .map((o) => ({ value: o.value, label: o.value, count: o.count }))
+        .sort((a, b) => a.label.localeCompare(b.label, "bg")),
+    [facets],
+  );
+
+  const boolTrue = (col: string): number | undefined => {
+    const f = facets[col];
+    if (!f) return undefined;
+    return f.find((o) => String(o.value) === "true")?.count ?? 0;
+  };
+  const boolTotal = (col: string): number | undefined => {
+    const f = facets[col];
+    if (!f) return undefined;
+    return f.reduce((s2, o) => s2 + o.count, 0);
+  };
+  const withDeclaration = boolTrue("has_declaration");
+  const withCompanies = boolTrue("is_company");
+  const facetTotal = boolTotal("has_declaration");
+  const obshtinaCount = facets.obshtina_code?.length;
+  const facetMix = useMemo(() => facets.primary_facet ?? [], [facets]);
+
+  // Reactive row count for the headline card. The table computes it server-side and hands
+  // it back for free; unlike the facets above it DOES react to the free-text search.
+  const [agg, setAgg] = useState<{ count?: number }>({});
+  // The request that produced the visible page — the CSV export re-issues exactly this at a
+  // larger pageSize, so a download can never silently drop the reader's filters or search.
+  const lastRequest = useRef<Record<string, unknown> | null>(null);
+  const handleData = useCallback(
+    (
+      resp: DbTableResponse<PersonBrowseRow>,
+      request: Record<string, unknown>,
+    ) => {
+      setAgg({ count: resp.aggregates?.count ?? resp.total });
+      lastRequest.current = request;
+    },
+    [],
+  );
+
+  const [exporting, setExporting] = useState(false);
+  // Reported INLINE, not through window.alert — the only alert() in src/ would be an
+  // unthemed, focus-stealing browser modal for a message that needs no decision. Both
+  // states have to reach the reader: a truncated file looks complete, and a failed export
+  // otherwise looks like a button that does nothing.
+  const [exportNote, setExportNote] = useState<string | null>(null);
+  const onExport = useCallback(async () => {
+    const req = lastRequest.current;
+    if (!req || exporting) return;
+    setExporting(true);
+    setExportNote(null);
+    try {
+      const { csv, rows, truncated } = await fetchPersonsCsv(req);
+      downloadCsv(csv, "persons.csv");
+      if (truncated)
+        setExportNote(
+          t("persons_export_truncated", {
+            defaultValue:
+              "Свалени са първите {{rows}} реда от {{max}} максимум. Стеснете филтрите за пълен списък.",
+            rows,
+            max: EXPORT_MAX,
+          }),
+        );
+    } catch {
+      setExportNote(
+        t("persons_export_failed", {
+          defaultValue: "Свалянето не успя. Опитайте отново.",
+        }),
+      );
+    } finally {
+      setExporting(false);
+    }
+  }, [exporting, t]);
 
   const columns = useMemo<DataTableColumnDef<PersonBrowseRow, unknown>[]>(
     () => [
@@ -377,8 +541,22 @@ export const PersonsBrowserScreen: FC = () => {
             "Един човек, събран от девет регистъра — парламент, местна власт, съд, Търговски регистър и дарения."}
         </div>
 
+        <PersonsAnalysisStrip
+          count={agg.count}
+          withDeclaration={withDeclaration}
+          withCompanies={withCompanies}
+          facetTotal={facetTotal}
+          obshtinaCount={obshtinaCount}
+          facetMix={facetMix}
+          selectedFacet={
+            primaryFacet === PERSON_FILTER_ALL ? null : primaryFacet
+          }
+          onSelectFacet={setPrimaryFacet}
+        />
+
         <DbDataTable<PersonBrowseRow>
           resource="persons"
+          onData={handleData}
           extraFilters={extraFilters}
           columns={columns}
           defaultSort={[{ id: "prominence", desc: true }]}
@@ -421,6 +599,29 @@ export const PersonsBrowserScreen: FC = () => {
                   defaultValue: "Партия",
                 })}
               />
+              <PersonFilterSelect
+                value={oblast}
+                onChange={setOblast}
+                options={oblastOptions}
+                allLabel={t("persons_filter_all_oblasts", {
+                  defaultValue: "Цялата страна",
+                })}
+                label={t("persons_filter_oblast_label", {
+                  defaultValue: "Област",
+                })}
+              />
+              <PersonFilterSelect
+                value={court}
+                onChange={setCourt}
+                options={courtOptions}
+                allLabel={t("persons_filter_all_institutions", {
+                  defaultValue: "Всички институции",
+                })}
+                label={t("persons_filter_institution_label", {
+                  defaultValue: "Институция",
+                })}
+                locale={isBg ? "bg-BG" : "en-GB"}
+              />
               <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <input
                   type="checkbox"
@@ -443,6 +644,19 @@ export const PersonsBrowserScreen: FC = () => {
                   defaultValue: "само с декларация",
                 })}
               </label>
+              <button
+                type="button"
+                onClick={onExport}
+                disabled={exporting}
+                className="text-xs text-primary underline underline-offset-2 hover:no-underline disabled:opacity-50"
+              >
+                {t("persons_export_csv", { defaultValue: "Свали CSV" })}
+              </button>
+              {exportNote ? (
+                <span role="status" className="text-xs text-muted-foreground">
+                  {exportNote}
+                </span>
+              ) : null}
               {hasActiveFilters ? (
                 <button
                   type="button"

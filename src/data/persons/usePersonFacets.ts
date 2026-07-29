@@ -33,11 +33,14 @@ const fetchFacets = async (
     resource: "persons",
     columns,
     filters,
-    // 320 > every vocabulary here (289 obshtina codes is the largest), so nothing falls off
-    // the end. runDbFacets orders by count, so a lower cap would silently drop the RAREST
-    // options — exactly the ones a reader is least likely to notice missing, and most
-    // likely to be hunting for.
-    limit: 320,
+    // The server's maximum (runDbFacets clamps at 500). Every vocabulary this file requests
+    // fits under it — 289 obshtini, 270 courts, 141 parties, 54 roles — and that is a
+    // REQUIREMENT, not an observation: runDbFacets orders by count, so a vocabulary
+    // exceeding the cap loses its RAREST members, which are exactly the options a reader is
+    // least likely to notice missing and most likely to be hunting for. A dimension that
+    // outgrows 500 needs a scoped facet (the way the court picker restricts to judicial
+    // rows) or a searchable combobox — never a silently shorter list.
+    limit: 500,
   };
   const r = await fetch(
     `/api/db/facets?q=${encodeURIComponent(JSON.stringify(req))}`,

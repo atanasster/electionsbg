@@ -11,6 +11,7 @@ import assert from "node:assert/strict";
 import {
   escapeLike,
   codeSetMatch,
+  isInstitutionName,
   PERSON_FILTER_ALL,
 } from "./useUrlPersonFilters";
 import { PERSON_GROUPS, groupByKey } from "./personGroups";
@@ -82,5 +83,32 @@ describe("the filter vocabulary", () => {
       new Set(PERSON_GROUPS.map((g) => g.column)).size,
       PERSON_GROUPS.length,
     );
+  });
+});
+
+describe("the court/institution param", () => {
+  test("accepts the punctuation real institution names contain", () => {
+    // Each of these is a live value the picker itself offers. A too-narrow class rejects
+    // the reader's own click and the control snaps back to "all" with no explanation.
+    for (const name of [
+      "Окръжен съд - Кърджали",
+      '"Български пощи" ЕАД',
+      "Софийски районен съд, гр. София",
+      "Апелативен специализиран наказателен съд",
+      "Комисия за защита от дискриминация (КЗД)",
+      "Агенция „Митници“",
+      "МБАЛ - Плевен + филиали",
+      "Дирекция №2 — Изпълнение",
+    ])
+      assert.ok(
+        isInstitutionName(name),
+        `rejected a real institution: ${name}`,
+      );
+  });
+
+  test("rejects junk and over-long values rather than forwarding them", () => {
+    assert.ok(!isInstitutionName("<script>alert(1)</script>"));
+    assert.ok(!isInstitutionName("a".repeat(201)));
+    assert.ok(!isInstitutionName(""));
   });
 });

@@ -20,6 +20,14 @@ const snakeToCamel = (s) =>
 // Per dataset: base table, allowed scope columns, and a column whitelist. Each
 // column flags what the client may do with it: sort, filter (+ how), search
 // (global text), agg. `type` picks the filter/predicate shape.
+//
+// `facet: true` is a fourth, narrower permission: this column may be GROUPed for a
+// /api/db/facets vocabulary even though it is not filterable. It exists for a column that
+// is the only place a vocabulary lives while being the wrong thing to filter — persons
+// `oblast_code` is the person's representative seat, so filtering it would drop people
+// from an oblast they genuinely serve, but the padded `oblast_codes` set it is filtered
+// through cannot be GROUP BY'd. A filterable column is facetable already; do NOT add
+// `facet: true` beside a `filter`, which is inert config (db_table.test.js guards it).
 const REGISTRY = {
   contracts: {
     // contracts_list = contracts + a per-row КЗК-appeal flag via the appealed-
@@ -705,13 +713,20 @@ const REGISTRY = {
       place_code: { type: "text", filter: "in" },
       place_label: { type: "text", sort: true },
       place_label_en: { type: "text" },
-      // Display only — deliberately NOT filterable. `oblast_codes` below is the filter
-      // target; registering this one would silently narrow every place filter to the
-      // representative seat (see the header).
-      oblast_code: { type: "text" },
+      // `facet: true`, NOT `filter` — deliberately. This column is the representative seat,
+      // so it is the only place the oblast VOCABULARY lives (the padded set cannot be
+      // GROUP BY'd), but filtering it would narrow every place filter to that one seat and
+      // drop 1,851 people from an oblast they genuinely serve. The UI facets this and
+      // filters `oblast_codes`. Same for judicial bodies below.
+      oblast_code: { type: "text", facet: true },
       oblast_codes: { type: "text", filter: "text" },
       obshtina_code: { type: "text", filter: "in" },
-      institution: { type: "text", filter: "text", search: true },
+      // filter:"in" (EXACT), not "text": the picker facets and filters this same column, so
+      // an ILIKE '%…%' would make its counts wrong wherever one name contains another —
+      // "Окръжен съд - Пловдив (59)" also matched "Административен съд - Пловдив" and
+      // returned 358. `search: true` still gives the free-text box a substring arm over it,
+      // which is where a partial name belongs.
+      institution: { type: "text", filter: "in", search: true },
       judicial_kind: { type: "text", filter: "in" },
       judicial_tier: { type: "text", filter: "in" },
       latest_declaration_year: { type: "int", sort: true, filter: "range" },
@@ -1082,8 +1097,18 @@ const REGISTRY = {
       // agg on total_eur backs BOTH the sum (the footer total) and the max (the in-cell
       // magnitude bar's denominator — the largest value in the current filtered set).
       total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
-      contract_count: { type: "number", sort: true, filter: "range", agg: "sum" },
-      awarder_count: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contract_count: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
+      awarder_count: {
+        type: "number",
+        sort: true,
+        filter: "range",
+        agg: "sum",
+      },
     },
     select: [
       "ekatte",
@@ -1473,7 +1498,15 @@ const runDbFacets = async (q, reqRaw) => {
     filters: { columns: [...(req.fixedFilters ?? []), ...(req.filters ?? [])] },
   });
   const limit = clampInt(req.limit, 100, 1, 500);
-  const cols = (req.columns ?? []).filter((c) => r.columns[c]?.filter);
+  // A column may be faceted because it is FILTERABLE (the common case — the dropdown and
+  // the filter are the same column) or because it explicitly opts in with `facet: true`.
+  // The second exists for a column that supplies a VOCABULARY but must not be a filter
+  // target: persons.oblast_code is the representative seat, so filtering it would drop
+  // people from an oblast they genuinely serve, but it is still the only place the list of
+  // oblasts lives. Facets are read-only aggregates, so opting one in adds no filter surface.
+  const cols = (req.columns ?? []).filter(
+    (c) => r.columns[c]?.filter || r.columns[c]?.facet,
+  );
 
   // Column ids the shared WHERE touches (scope + fixed + active filters) — used
   // per-facet to decide whether it can aggregate over the base table.

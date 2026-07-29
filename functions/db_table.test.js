@@ -235,7 +235,12 @@ test("persons filters the padded code sets, never the display scalar", () => {
   const c = REGISTRY.persons.columns;
   assert.ok(!c.oblast_code.filter, "oblast_code must stay display-only");
   assert.equal(c.oblast_codes.filter, "text");
-  for (const set of ["role_codes", "facet_codes", "party_codes", "oblast_codes"])
+  for (const set of [
+    "role_codes",
+    "facet_codes",
+    "party_codes",
+    "oblast_codes",
+  ])
     assert.equal(c[set].filter, "text", `${set} must be a text (ILIKE) filter`);
 });
 
@@ -249,6 +254,44 @@ test("persons searches the name FOLD, with the term folded too", () => {
     true,
     "name targets name_fold without folding the search term — every Cyrillic search returns 0 rows",
   );
+});
+
+test("facet:true is only used where the column is NOT filterable", () => {
+  // A filterable column is facetable already, so `facet: true` beside a `filter` is inert
+  // config that reads as a supported feature — the exact class of bug the unknown-keys test
+  // below exists for. The flag is only meaningful on a column deliberately kept
+  // unfilterable (persons.oblast_code).
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const [col, d] of Object.entries(r.columns))
+      if (d.facet)
+        assert.ok(
+          !d.filter,
+          `${name}.${col} declares both filter and facet:true — the facet flag does nothing there`,
+        );
+});
+
+test("runDbFacets groups a facet:true column that has no filter", async () => {
+  // The regression this guards: runDbFacets used to require `filter`, so a facet-only
+  // column returned NO bucket at all — the dropdown it feeds silently rendered empty and
+  // the control vanished, with no error anywhere.
+  const seen = [];
+  const q = async (sql) => {
+    seen.push(sql);
+    return [];
+  };
+  await runDbFacets(q, { resource: "persons", columns: ["oblast_code"] });
+  assert.equal(seen.length, 1, "facet:true column was skipped");
+  assert.match(seen[0], /GROUP BY oblast_code/);
+});
+
+test("runDbFacets still refuses a column that is neither filterable nor facetable", async () => {
+  const seen = [];
+  const q = async (sql) => {
+    seen.push(sql);
+    return [];
+  };
+  await runDbFacets(q, { resource: "persons", columns: ["photo_url"] });
+  assert.equal(seen.length, 0, "a non-facetable column was grouped anyway");
 });
 
 test("no resource carries unknown top-level registry keys", () => {
@@ -448,8 +491,11 @@ test("procurement_settlements exposes count, sum and max of total_eur", () => {
   // max backs the in-cell magnitude bar: its denominator is the largest value in the
   // CURRENT filtered set, which is a property of the whole result rather than of the page.
   const sql = buildAggSelect(settlements);
-  assert.ok(sql.includes('count(*)::bigint AS "_count"') || sql.includes("count(*)::bigint"));
-  assert.ok(sql.includes('sum(total_eur)'), "sum arm present");
+  assert.ok(
+    sql.includes('count(*)::bigint AS "_count"') ||
+      sql.includes("count(*)::bigint"),
+  );
+  assert.ok(sql.includes("sum(total_eur)"), "sum arm present");
   assert.ok(
     sql.includes('coalesce(max(total_eur),0) AS "maxTotalEur"'),
     "max arm present and coalesced — an empty filtered set must size the bar as 0, not NaN",
