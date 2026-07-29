@@ -75,3 +75,46 @@ test("several missing inputs are all listed", () => {
       `${t} is missing but unnamed in the message`,
     );
 });
+
+// The join-key check. This is the gap that shipped: Cloud SQL held all 47,983 `declaration`
+// rows with `person_id` NULL, so presence and row count both passed while the matview
+// published has_declaration=false for every one of 56,801 people.
+const KEY = {
+  table: "declaration",
+  column: "person_id",
+  fix: "db:load:declarations:pg -- --resolve (phase 2 links declarations to the person layer)",
+};
+
+test("a wholly-NULL join key fails the preflight, even when the table is full", () => {
+  const err = preflightError(ALL, [], [KEY]);
+  assert.ok(
+    err,
+    "a present, non-empty table whose join key is NULL on every row must NOT pass",
+  );
+  assert.match(err, /declaration\.person_id is NULL on every row/);
+  // The operator needs the command, not just the diagnosis.
+  assert.match(err, /--resolve/);
+});
+
+test("the join-key failure is reported separately from missing and empty", () => {
+  const err = preflightError(ALL, [], [KEY]);
+  assert.ok(err);
+  assert.doesNotMatch(err, /missing:/);
+  assert.doesNotMatch(err, /empty:/);
+});
+
+test("all three failure kinds can be reported at once", () => {
+  const err = preflightError(
+    ALL.filter((t) => t !== "place_dim"),
+    ["contracts"],
+    [KEY],
+  );
+  assert.ok(err);
+  assert.match(err, /missing: place_dim/);
+  assert.match(err, /empty: contracts/);
+  assert.match(err, /declaration\.person_id is NULL/);
+});
+
+test("a fully linked database still produces no error", () => {
+  assert.equal(preflightError(ALL, [], []), null);
+});

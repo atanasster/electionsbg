@@ -168,7 +168,8 @@ npm run db:load:persons-browse:pg:cloud
 ```
 
 It folds six upstream datasets, so it must run **after all of them**: `db:resolve:persons`,
-`db:load:declarations:pg:cloud -- --resolve` (net worth), `db:load:official-candidate-links:pg:cloud`
+`db:load:declarations:pg:cloud -- --resolve` (net worth **and** `declaration.person_id`),
+`db:load:official-candidate-links:pg:cloud`
 (the non-MP photos), `db:load:judicial-bodies:pg:cloud` + `db:load:place-dim:pg:cloud` (every
 place label and the magistrates' oblast), and the contracts corpus. Re-run it:
 
@@ -176,6 +177,13 @@ place label and the magistrates' oblast), and the contracts corpus. Re-run it:
 - **after a contracts reload**, which is the non-obvious one: `public_money_eur` is computed
   from `contracts`, so a procurement refresh without this one lets the money column drift
   away from `/procurement/contracts` with nothing failing.
+
+**`--resolve` is not optional, and skipping it is invisible to a row count.** Phase 2 is what
+fills `declaration.person_id`; without it that column is NULL on every row, the table is still
+present and full, and `person_browse_table` publishes `has_declaration = false` for all 56,801
+people — the "с декларация" filter matches nobody and its KPI reads 0%, while net worth keeps
+rendering from `person_wealth_year`, so the page looks healthy. This shipped to prod once; the
+loader's preflight now checks join-key population, not just row counts.
 
 Skipping it after a *place* loader blanks the same way `/person` does — the loader itself
 throws if any placed row lost its label, but only for the rows it can see at build time.

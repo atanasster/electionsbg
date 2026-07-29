@@ -8,7 +8,8 @@
 // datasets, four of which db:refresh loads AFTER db:resolve:persons:
 //
 //   db:resolve:persons                  person / person_role      (the identity core)
-//   db:load:declarations:pg -- --resolve person_wealth_year        (net worth, delta)
+//   db:load:declarations:pg -- --resolve person_wealth_year        (net worth, delta) AND
+//                                        declaration.person_id     (has_declaration)
 //   db:load:official-candidate-links:pg  official_candidate_link   (the ≤192 non-MP photos)
 //   db:load:judicial-bodies:pg           judicial_body             (court name + oblast hop)
 //   db:load:place-dim:pg                 place_dim                 (every place LABEL)
@@ -20,6 +21,12 @@
 // FILTER, which reads to a user as "there are no such people". person_browse.data.test.ts
 // asserts a non-NULL place_label for every row carrying a place_code rather than trusting
 // this ordering to hold.
+//
+// `--resolve` IS PHASE 2, AND IT IS THE ONE THAT BIT US. Loading declarations without it
+// leaves `declaration.person_id` NULL on every row: the table is present and full, so a
+// row-count preflight passes, and `has_declaration` publishes FALSE for all 56,801 people —
+// the "с декларация" filter matches nobody while net worth still renders from
+// person_wealth_year, so the page looks like it works. JOIN_KEYS below now catches it.
 //
 // TWO REFRESH TRIGGERS, not one. The person layer is the obvious one. The other is a
 // CONTRACTS reload — the procurement watch skill reloads that corpus independently, and
@@ -60,18 +67,57 @@ const INPUTS = [
   "magistrate_company",
 ] as const;
 
+/** JOIN KEYS that a LINKING step fills, and that are wholly NULL until it runs.
+ *
+ *  Presence and row count are not enough, and this list exists because that gap shipped:
+ *  Cloud SQL had all 47,983 `declaration` rows with `person_id` NULL on every one, because
+ *  the resolve pass had never run there. The table was present and non-empty, so the
+ *  preflight passed — and `has_declaration` published FALSE for all 56,801 people, so the
+ *  "с декларация" filter matched nobody and its KPI read 0%. Net worth still rendered (it
+ *  comes from person_wealth_year), which is what made the failure look like a working page.
+ *
+ *  The rule: a column here is one whose TOTAL nullness means an upstream step was skipped,
+ *  never a legitimate data state. Columns that are legitimately sparse (contract EIKs,
+ *  photo URLs) do NOT belong — a false alarm here would train an operator to ignore it. */
+const JOIN_KEYS: { table: string; column: string; fix: string }[] = [
+  {
+    table: "declaration",
+    column: "person_id",
+    fix: "db:load:declarations:pg -- --resolve (phase 2 links declarations to the person layer)",
+  },
+  {
+    table: "judicial_body",
+    column: "place_code",
+    fix: "db:load:judicial-bodies:pg (without it every magistrate loses their oblast)",
+  },
+  {
+    table: "place_dim",
+    column: "oblast_code",
+    fix: "db:load:place-dim:pg (without it no row resolves an oblast)",
+  },
+  {
+    table: "company_politicians",
+    column: "eik",
+    fix: "db:load:declarations:pg (bridge A; without it every TR link reads as name-matched)",
+  },
+];
+
 /** The operator-facing message for a preflight failure, as a pure function so the wording
  *  — the only thing that tells someone WHICH loader they skipped — is unit-testable
- *  without a database. Returns null when every input is present and non-empty. */
+ *  without a database. Returns null when every input is present, non-empty, and carries a
+ *  populated join key. */
 export const preflightError = (
   present: readonly string[],
   empty: readonly string[],
+  unlinked: readonly { table: string; column: string; fix: string }[] = [],
 ): string | null => {
   const missing = INPUTS.filter((t) => !present.includes(t));
-  if (!missing.length && !empty.length) return null;
+  if (!missing.length && !empty.length && !unlinked.length) return null;
   const parts: string[] = [];
   if (missing.length) parts.push(`missing: ${missing.join(", ")}`);
   if (empty.length) parts.push(`empty: ${empty.join(", ")}`);
+  for (const u of unlinked)
+    parts.push(`${u.table}.${u.column} is NULL on every row — run ${u.fix}`);
   return (
     `person_browse_table would publish blanks — ${parts.join("; ")}. ` +
     `Run the loaders that fill them first (see the ORDER block at the top of ` +
@@ -102,7 +148,26 @@ const preflight = async (): Promise<void> => {
     empty = counts.filter((r) => r.n === "0").map((r) => r.relname);
   }
 
-  const err = preflightError(present, empty);
+  // Join keys, for the tables that are present AND non-empty (an absent or empty table is
+  // already reported above; probing it again would just repeat the same failure).
+  const probeable = JOIN_KEYS.filter(
+    (k) => present.includes(k.table) && !empty.includes(k.table),
+  );
+  let unlinked: typeof JOIN_KEYS = [];
+  if (probeable.length) {
+    const linked = await allRows<{ k: string; n: string }>(
+      probeable
+        .map(
+          (k) =>
+            `SELECT '${k.table}.${k.column}' AS k, count(${k.column})::text AS n FROM ${k.table}`,
+        )
+        .join(" UNION ALL "),
+    );
+    const zero = new Set(linked.filter((r) => r.n === "0").map((r) => r.k));
+    unlinked = probeable.filter((k) => zero.has(`${k.table}.${k.column}`));
+  }
+
+  const err = preflightError(present, empty, unlinked);
   if (err) throw new Error(err);
 };
 
