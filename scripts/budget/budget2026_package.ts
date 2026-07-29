@@ -22,7 +22,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { resolveMod } from "../../src/lib/bgTax";
+import { MOD_SCHEDULE } from "../../src/lib/bgTax";
 import {
   scoreRoadComponentUplift,
   scoreCollectionRealism,
@@ -57,7 +57,15 @@ const baseline = JSON.parse(
 
 const M = (v: number): string =>
   `${v >= 0 ? "+" : "−"}€${Math.abs(v / 1e6).toFixed(1)}M`;
-const cap = resolveMod(null).mod; // current-law 2026 МОД cap our engine uses
+// The МОД baseline this package is measured FROM must be the pre-step
+// carry-over (the year's first window), NOT the headline scalar. Once
+// ЗБДОО-2026 was promulgated the scalar became €2,300 — the post-step value —
+// and scoring "raise the cap to €2,300" from €2,300 is a no-op that printed
+// €0.0M / Infinity× / −€NaNM. Reading the schedule's first step keeps the
+// measurement anchored to what the law actually changed.
+const MOD_2026 = MOD_SCHEDULE[2026];
+const cap = MOD_2026[0].value; // €2,111.64 — the Jan–Jul carry-over
+const capAfter = MOD_2026[MOD_2026.length - 1].value; // €2,300 from 01.08
 
 // Engine helpers --------------------------------------------------------------
 const dyn = (change: TaxChange): { full: number; band: [number, number] } => {
@@ -68,8 +76,17 @@ const dyn = (change: TaxChange): { full: number; band: [number, number] } => {
 
 // МОД cap → €2,300 (full-year, dynamic), plus the "measured from the 2025 cap
 // €1,917" view: the increment ratio scales the same dynamic figure.
-const modDyn = dyn({ kind: "modCap", capEur: 2300 });
-const modFrom2025Full = (modDyn.full * (2300 - 1917)) / (2300 - cap);
+const modDyn = dyn({ kind: "modCap", capEur: capAfter });
+// The "measured from the 2025 cap €1,917" view rescales the same dynamic
+// figure by the wider increment. Guarded: a zero denominator would mean the
+// two windows are identical, i.e. the year did not actually step.
+const modIncrement = capAfter - cap;
+if (modIncrement <= 0)
+  throw new Error(
+    `budget2026_package: МОД did not step in 2026 (${cap} → ${capAfter}) — ` +
+      `the package's МОД row measures a change that MOD_SCHEDULE does not show`,
+  );
+const modFrom2025Full = (modDyn.full * (capAfter - 1917)) / modIncrement;
 
 // Vignette +30% on the vignette-ONLY slice (the new split lever). Static; the
 // vignette base is near-inelastic so we treat the dynamic ≈ static here.

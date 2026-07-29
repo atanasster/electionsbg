@@ -3900,6 +3900,8 @@
   "budget_tax_bill_profit_label": "Месечна печалба на фирмата",
   "budget_tax_bill_mod_label": "Макс. осигурителен доход (МОД)",
   "budget_tax_bill_mod_default": "по подразбиране за {{year}} г.",
+  "budget_tax_bill_mod_default_stepped": "по подразбиране за {{year}} г. — в сила от {{from}} (дотогава {{prev}})",
+  "budget_tax_bill_mod_reset_stepped": "върни стойността по подразбиране за {{year}} г. — {{eur}} €, в сила от {{from}} (дотогава {{prev}})",
   "budget_tax_bill_mod_reset": "върни по подразбиране за {{year}} г. (€{{eur}})",
   "budget_tax_bill_children_label": "Деца",
   "budget_tax_bill_ssc": "Осигуровки (13,78%)",

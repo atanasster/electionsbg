@@ -16,7 +16,7 @@ import {
   CORP_TAX_RATE,
   DIVIDEND_TAX_RATE,
   VAT_STANDARD_RATE,
-  resolveMod,
+  currentStatutoryMod,
 } from "../../src/lib/bgTax";
 import {
   VAT_REDUCED_RATE,
@@ -96,7 +96,7 @@ const main = (): void => {
       "utf-8",
     ),
   ) as BaselineFile;
-  const currentCap = resolveMod(null).mod;
+  const currentCap = currentStatutoryMod();
   const e = b.earnings;
 
   // Mirror of the simulator's static scenario composition for the revenue

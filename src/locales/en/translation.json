@@ -3900,6 +3900,8 @@
   "budget_tax_bill_profit_label": "Monthly company profit",
   "budget_tax_bill_mod_label": "Max. insurable income (МОД)",
   "budget_tax_bill_mod_default": "default for {{year}}",
+  "budget_tax_bill_mod_default_stepped": "default for {{year}} — in force from {{from}} (was {{prev}} before)",
+  "budget_tax_bill_mod_reset_stepped": "reset to the {{year}} default {{eur}} €, in force from {{from}} (was {{prev}})",
   "budget_tax_bill_mod_reset": "reset to {{year}} default (€{{eur}})",
   "budget_tax_bill_children_label": "Children",
   "budget_tax_bill_ssc": "Social security (13.78%)",

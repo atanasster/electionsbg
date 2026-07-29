@@ -58,6 +58,15 @@ const TESTS: { file: string; what: string }[] = [
     file: "__smoke_income_tiers.ts",
     what: "НАП income-tier body validation + tail ordering",
   },
+  {
+    // Not a __smoke_* file, but it consumes the same engine and was the ONLY
+    // budget script outside this suite — which is how it came to print
+    // "+€0.0M / Infinity× / −€NaNM" for the МОД row, unnoticed, after the
+    // 2026 cap scalar moved. It asserts its own preconditions now, so running
+    // it here turns that blind spot into a gate.
+    file: "budget2026_package.ts",
+    what: "2026 package scorecard (gov-vs-engine, МОД/vignette/tobacco rows)",
+  },
 ];
 
 const lastLine = (s: string): string => {

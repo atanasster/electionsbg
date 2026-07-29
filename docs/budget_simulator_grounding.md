@@ -21,9 +21,17 @@ at the locked rate 1 EUR = 1.95583 BGN.
   10y domestic reopening yielded **4.34%** amid the budget impasse. Implicit rate on
   the stock ≈ 3.0% (Eurostat D41PAY 0.8% of GDP ÷ debt). Average residual maturity
   8y3m (Debt Management Strategy 2026-2028) → ~12%/yr rollover.
-- Extension-law parameters in force: МРЗ €620.20, МОД frozen at €2,111.64, contribution
-  rates unchanged (the +2пп pension-contribution hike was dropped). Donev's May-2026
-  guidelines: МОД €2,300 from 2026-08-01, frozen through 2028.
+- Statutory parameters in force: МРЗ €620.20, contribution rates unchanged (the +2пп
+  pension-contribution hike WAS dropped — confirmed by the adopted law, so the scope
+  caveat matters: § 6 ЗБДОО moves state servants/judiciary onto an employer-employee
+  split, it does NOT change чл. 4 ал. 1 т. 1 employee rates).
+  **The МОД is no longer frozen at €2,111.64.** ЗБДОО-2026 (обн. ДВ бр. 68 от
+  28.07.2026) raised it to **€2,300 from 1 Aug 2026**; €2,111.64 survives as the
+  Jan–Jul carry-over window, and both live in `MOD_SCHEDULE`. Also adopted: min
+  pension €347.51 from 1 Jul (NOT the €346.87 draft figure still in circulation)
+  and min self-insured income €620.20 from 1 Aug. Donev's May-2026 guidelines
+  project the €2,300 cap frozen through 2028 — that is a GUIDELINE, not
+  legislation, so 2027/2028 are deliberately absent from `MOD_SCHEDULE`.
 
 ## Published estimates vs the engine (base: 2025 execution)
 

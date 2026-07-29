@@ -347,10 +347,33 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
 
   // МОД default tracks the selected fiscal year (election-scoped reuse);
   // resolveMod reports the year the value is drawn from so the label always
-  // names the year whose cap is on screen.
+  // names the year whose cap is on screen. When that year STEPPED mid-year the
+  // scalar matches only part of it, so the label names the period too — a bare
+  // "default for 2026" would describe €2,300 as if it had applied since January
+  // when it takes effect on 1 August.
   const modRes = resolveMod(fiscalYear);
   const defaultMod = modRes.mod;
   const modYear = modRes.year;
+  // Find the step the scalar ACTUALLY is, rather than assuming it is the last
+  // one. MOD_BY_YEAR's documented convention is "the value in force for the
+  // longer part of the year", so a year that steps late (say in October) is
+  // labelled by its FIRST window — assuming the last step would then print a
+  // start date the shown number does not belong to.
+  const modSteps = modRes.steps;
+  const modStepIdx =
+    modSteps?.findIndex((st) => Math.abs(st.value - defaultMod) <= 1) ?? -1;
+  const modStep = modStepIdx > 0 ? modSteps?.[modStepIdx] : undefined;
+  const modPrevStep = modStepIdx > 0 ? modSteps?.[modStepIdx - 1] : undefined;
+  // Format for the active locale — a raw ISO date and a bare number read as
+  // untranslated debug output in the Bulgarian UI.
+  const modStepLabel = modStep
+    ? new Intl.DateTimeFormat(locale, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date(`${modStep.from}T00:00:00Z`))
+    : undefined;
+  const modPrevLabel = modPrevStep ? eur(modPrevStep.value) : undefined;
   const modParam = searchParams.get("mod");
   const initialMod =
     modParam != null
@@ -799,13 +822,29 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                     onClick={resetMod}
                     className="text-primary hover:underline"
                   >
-                    {t("budget_tax_bill_mod_reset", {
-                      year: modYear,
-                      eur: defaultMod,
-                    })}
+                    {t(
+                      modStep && modPrevStep
+                        ? "budget_tax_bill_mod_reset_stepped"
+                        : "budget_tax_bill_mod_reset",
+                      {
+                        year: modYear,
+                        eur: defaultMod,
+                        from: modStepLabel,
+                        prev: modPrevLabel,
+                      },
+                    )}
                   </button>
                 ) : (
-                  t("budget_tax_bill_mod_default", { year: modYear })
+                  t(
+                    modStep && modPrevStep
+                      ? "budget_tax_bill_mod_default_stepped"
+                      : "budget_tax_bill_mod_default",
+                    {
+                      year: modYear,
+                      from: modStepLabel,
+                      prev: modPrevLabel,
+                    },
+                  )
                 )}
               </div>
             </div>

@@ -2665,6 +2665,10 @@ export interface PolicyBaselineFile {
     alphaCentral: number;
     alphaHigh: number;
   };
+  /** Years whose МОД stepped mid-year but that the baseline prices at a single
+   *  scalar — the artifact's own record of where it approximates. Empty once
+   *  the aggregates are month-weighted. */
+  splitYearApproximations?: { year: number; role: string; scalarEur: number }[];
 }
 
 // Съдебна власт (judiciary) annual budget, as adopted in each year's ЗДБРБ.

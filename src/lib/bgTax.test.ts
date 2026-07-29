@@ -24,6 +24,18 @@ import {
   MIN_SELF_INSURED_INCOME,
   CHILD_RELIEF_BASE,
   MOD_BY_YEAR,
+  MOD_SCHEDULE,
+  MIN_PENSION_SCHEDULE,
+  MIN_SELF_INSURED_SCHEDULE,
+  UNEMPLOYMENT_BENEFIT_DAILY_MIN,
+  UNEMPLOYMENT_BENEFIT_DAILY_MAX,
+  CHILD_REARING_BENEFIT,
+  DEATH_GRANT,
+  GUARANTEED_CLAIMS_CAP,
+  GVRS_CONTRIBUTION_DUE_2026,
+  latestScheduledValue,
+  currentStatutoryMod,
+  stepAt,
   resolveMod,
   computeLabourTax,
   computeVat,
@@ -31,15 +43,169 @@ import {
   computePension,
 } from "./bgTax";
 
+// The statutory scalars are LITERAL pins, not assertions against the map they
+// come from. Writing `expect(resolveMod(2030).mod).toBe(MOD_BY_YEAR[2026])`
+// follows the value instead of checking it: when 2026 moved 2112 → 2300 every
+// such test kept passing, so nothing anywhere detected the repricing. These
+// literals are the detector.
+describe("statutory scalars (literal pins)", () => {
+  it("pins the 2026 МОД cap to the ЗБДОО-2026 value", () => {
+    expect(MOD_BY_YEAR[2026]).toBe(2300);
+  });
+
+  it("pins what the production call sites actually read", () => {
+    // BudgetPolicySimulator reads resolveMod(null).mod for `currentCap`.
+    expect(resolveMod(null).mod).toBe(2300);
+  });
+
+  it("pins the ЗБДОО-2026 pension and self-insured figures", () => {
+    expect(MIN_PENSION).toBe(347.51); // чл. 10, from 1 Jul 2026
+    expect(MAX_PENSION).toBe(1738.4); // § 4 ал. 2, whole year
+    expect(MIN_SELF_INSURED_INCOME).toBe(620.2); // чл. 9, from 1 Aug 2026
+  });
+
+  it("pins the WHOLE МОД table, not just the years that moved", () => {
+    // A per-year `some()` drift guard is too loose to be a detector on its own:
+    // €2,112 matches the €2,111.64 carry-over step within its ±1 tolerance, so
+    // reverting 2026 to 2112 would slip past it. The whole-table equality is
+    // what actually fails, and it covers the years no literal pin names.
+    expect(MOD_BY_YEAR).toEqual({
+      2018: 1329,
+      2019: 1534,
+      2020: 1534,
+      2021: 1534,
+      2022: 1738,
+      2023: 1738,
+      2024: 1917,
+      2025: 2112,
+      2026: 2300,
+    });
+  });
+
+  it("never lets a scalar drift to a value that was never law", () => {
+    // Every headline scalar must appear in its own year's schedule (to the
+    // whole euro the map is rounded to).
+    for (const [yearStr, scalar] of Object.entries(MOD_BY_YEAR)) {
+      const steps = MOD_SCHEDULE[Number(yearStr)];
+      expect(steps, `MOD_SCHEDULE missing ${yearStr}`).toBeDefined();
+      const matches = steps.some((s) => Math.abs(s.value - scalar) <= 1);
+      expect(matches, `${yearStr}: ${scalar} is in no step`).toBe(true);
+    }
+  });
+
+  it("covers every scheduled year with a scalar (both directions)", () => {
+    // The converse of the guard above: a schedule year with no scalar would be
+    // invisible to resolveMod, which reads MOD_BY_YEAR for its year set.
+    expect(Object.keys(MOD_SCHEDULE).sort()).toEqual(
+      Object.keys(MOD_BY_YEAR).sort(),
+    );
+  });
+
+  it("pins the ЗБДОО-2026 benefit constants", () => {
+    expect(UNEMPLOYMENT_BENEFIT_DAILY_MIN).toBe(9.21); // чл. 11
+    expect(UNEMPLOYMENT_BENEFIT_DAILY_MAX).toBe(54.78); // чл. 11
+    expect(CHILD_REARING_BENEFIT).toBe(398.81); // чл. 12
+    expect(DEATH_GRANT).toBe(276.1); // чл. 13
+    expect(GUARANTEED_CLAIMS_CAP).toBe(1550.5); // чл. 15 ал. 2
+    expect(GVRS_CONTRIBUTION_DUE_2026).toBe(false); // чл. 15 ал. 1
+  });
+
+  it("derives the scalars from the LATEST scheduled year, not a fixed index", () => {
+    // Guards the staleness class directly: adding a 2027 schedule must move
+    // these, and a hard-coded [2026] lookup would freeze them while the literal
+    // pins above kept passing.
+    expect(MIN_PENSION).toBe(latestScheduledValue(MIN_PENSION_SCHEDULE));
+    expect(MIN_SELF_INSURED_INCOME).toBe(
+      latestScheduledValue(MIN_SELF_INSURED_SCHEDULE),
+    );
+    const withFuture = {
+      ...MIN_PENSION_SCHEDULE,
+      2027: [{ from: "2027-01-01", value: 999 }],
+    };
+    expect(latestScheduledValue(withFuture)).toBe(999);
+  });
+});
+
+describe("stepAt", () => {
+  it("returns the last step when no date is given", () => {
+    expect(stepAt(MOD_SCHEDULE[2026]).value).toBe(2300);
+  });
+
+  it("resolves the step in force on a date", () => {
+    const s26 = MOD_SCHEDULE[2026];
+    expect(stepAt(s26, "2026-01-01").value).toBe(2111.64);
+    expect(stepAt(s26, "2026-07-31").value).toBe(2111.64);
+    expect(stepAt(s26, "2026-08-01").value).toBe(2300); // boundary, inclusive
+    expect(stepAt(s26, "2026-12-31").value).toBe(2300);
+  });
+
+  it("clamps a date before the first step to the first step", () => {
+    expect(stepAt(MOD_SCHEDULE[2026], "2025-06-01").value).toBe(2111.64);
+  });
+
+  it("throws on an empty schedule rather than returning undefined", () => {
+    expect(() => stepAt([])).toThrow(/empty schedule/);
+  });
+});
+
+describe("MOD_SCHEDULE", () => {
+  it("records the two known mid-year steps", () => {
+    // 2025: обн. 25 Mar → step 1 Apr. 2026: обн. 28 Jul → step 1 Aug.
+    expect(MOD_SCHEDULE[2025].map((s) => s.from)).toEqual([
+      "2025-01-01",
+      "2025-04-01",
+    ]);
+    expect(MOD_SCHEDULE[2026].map((s) => s.from)).toEqual([
+      "2026-01-01",
+      "2026-08-01",
+    ]);
+  });
+
+  it("carries the previous year's cap into EVERY stepped year's first period", () => {
+    // The generative rule: until the late budget passes, the extension law
+    // carries year N−1's value. Looped rather than spelled out per year, so a
+    // newly added mover cannot be given an inconsistent first step — which is
+    // exactly how 2022 was first entered wrong (€1,738 from 1 Jan, when Q1 was
+    // still the €1,534 carry-over and the step landed 1 Apr).
+    for (const [yearStr, steps] of Object.entries(MOD_SCHEDULE)) {
+      if (steps.length < 2) continue;
+      const prev = MOD_BY_YEAR[Number(yearStr) - 1];
+      if (prev == null) continue;
+      expect(steps[0].value, `${yearStr} first step != ${prev}`).toBeCloseTo(
+        prev,
+        0,
+      );
+    }
+  });
+
+  it("records all three known mid-year movers", () => {
+    const movers = Object.entries(MOD_SCHEDULE)
+      .filter(([, steps]) => steps.length > 1)
+      .map(([y]) => Number(y));
+    expect(movers).toEqual([2022, 2025, 2026]);
+    expect(MOD_SCHEDULE[2022].map((s) => s.from)).toEqual([
+      "2022-01-01",
+      "2022-04-01",
+    ]);
+  });
+
+  it("keeps every schedule ascending by date", () => {
+    for (const [year, steps] of Object.entries(MOD_SCHEDULE)) {
+      const dates = steps.map((s) => s.from);
+      expect(dates, `${year} is not ascending`).toEqual([...dates].sort());
+    }
+  });
+});
+
 describe("resolveMod", () => {
   it("defaults to the latest table year when the year is null/undefined", () => {
     const latest = 2026;
-    expect(resolveMod(null)).toEqual({
+    expect(resolveMod(null)).toMatchObject({
       mod: MOD_BY_YEAR[latest],
       year: latest,
       exact: false,
     });
-    expect(resolveMod(undefined)).toEqual({
+    expect(resolveMod(undefined)).toMatchObject({
       mod: MOD_BY_YEAR[latest],
       year: latest,
       exact: false,
@@ -47,19 +213,39 @@ describe("resolveMod", () => {
   });
 
   it("returns the exact value for a year present in the table", () => {
-    expect(resolveMod(2025)).toEqual({ mod: 2112, year: 2025, exact: true });
-    expect(resolveMod(2018)).toEqual({ mod: 1329, year: 2018, exact: true });
-    expect(resolveMod(2022)).toEqual({ mod: 1738, year: 2022, exact: true });
+    expect(resolveMod(2025)).toMatchObject({
+      mod: 2112,
+      year: 2025,
+      exact: true,
+    });
+    expect(resolveMod(2018)).toMatchObject({
+      mod: 1329,
+      year: 2018,
+      exact: true,
+    });
+    expect(resolveMod(2022)).toMatchObject({
+      mod: 1738,
+      year: 2022,
+      exact: true,
+    });
   });
 
   it("snaps a year below the table to the earliest known year", () => {
     const res = resolveMod(2005);
-    expect(res).toEqual({ mod: MOD_BY_YEAR[2018], year: 2018, exact: false });
+    expect(res).toMatchObject({
+      mod: MOD_BY_YEAR[2018],
+      year: 2018,
+      exact: false,
+    });
   });
 
   it("snaps a year above the table to the latest known year", () => {
     const res = resolveMod(2030);
-    expect(res).toEqual({ mod: MOD_BY_YEAR[2026], year: 2026, exact: false });
+    expect(res).toMatchObject({
+      mod: MOD_BY_YEAR[2026],
+      year: 2026,
+      exact: false,
+    });
   });
 
   it("never reports a year whose cap it is not actually showing", () => {
@@ -69,6 +255,72 @@ describe("resolveMod", () => {
     expect(res.exact).toBe(false);
     expect(MOD_BY_YEAR[res.year]).toBe(res.mod);
     expect(res.year).not.toBe(2040);
+  });
+
+  it("is time-independent without asOf", () => {
+    // No wall-clock default: the same call must return the same value whenever
+    // it runs, or the test suite and shared ?mod= permalinks both drift.
+    expect(resolveMod(2026).mod).toBe(2300);
+    expect(resolveMod(2026).asOf).toBeUndefined();
+  });
+
+  it("resolves the in-force step on both sides of the 2026 boundary", () => {
+    expect(resolveMod(2026, "2026-07-31").mod).toBe(2111.64);
+    expect(resolveMod(2026, "2026-08-01").mod).toBe(2300);
+  });
+
+  it("resolves the in-force step on both sides of the 2025 boundary", () => {
+    expect(resolveMod(2025, "2025-03-31").mod).toBe(1917.34);
+    expect(resolveMod(2025, "2025-04-01").mod).toBe(2111.64);
+  });
+
+  it("ignores an asOf outside the resolved year rather than clamping", () => {
+    // Asking for 2026 as of a 2025 date would otherwise clamp to 2026's first
+    // step and return a real-looking number for a period it never covered.
+    expect(resolveMod(2026, "2025-05-01").mod).toBe(MOD_BY_YEAR[2026]);
+    expect(resolveMod(2026, "2025-05-01").asOf).toBeUndefined();
+  });
+
+  it("applies asOf on a SNAPPED year only when the date is in that year", () => {
+    // 2030 snaps to 2026; a 2026 date then resolves 2026's steps.
+    expect(resolveMod(2030, "2026-01-15").mod).toBe(2111.64);
+    // …but a 2030 date does not, because 2030 has no schedule of its own.
+    expect(resolveMod(2030, "2030-01-15").mod).toBe(MOD_BY_YEAR[2026]);
+  });
+
+  it("does not hand out the live schedule array", () => {
+    const res = resolveMod(2026);
+    res.steps![0].value = 1;
+    expect(MOD_SCHEDULE[2026][0].value).toBe(2111.64);
+  });
+
+  it("exposes the steps so a caller can label the period, not just the year", () => {
+    const res = resolveMod(2026);
+    expect(res.steps).toHaveLength(2);
+    expect(res.steps?.[1]).toEqual({ from: "2026-08-01", value: 2300 });
+    // Single-step years carry no `steps` — nothing to disambiguate.
+    expect(resolveMod(2024).steps).toBeUndefined();
+  });
+});
+
+describe("statutory schedules for the non-МОД constants", () => {
+  it("steps the minimum pension on 1 July 2026", () => {
+    const s = MIN_PENSION_SCHEDULE[2026];
+    expect(stepAt(s, "2026-06-30").value).toBe(322.37);
+    expect(stepAt(s, "2026-07-01").value).toBe(347.51);
+  });
+
+  it("steps the self-insured floor on 1 August 2026", () => {
+    const s = MIN_SELF_INSURED_SCHEDULE[2026];
+    expect(stepAt(s, "2026-07-31").value).toBe(550.66);
+    expect(stepAt(s, "2026-08-01").value).toBe(620.2);
+  });
+
+  it("records that €550.66 dates from 1 April 2025, not from 2026", () => {
+    expect(stepAt(MIN_SELF_INSURED_SCHEDULE[2025], "2025-04-01").value).toBe(
+      550.66,
+    );
+    expect(MIN_SELF_INSURED_SCHEDULE[2026][0].value).toBe(550.66);
   });
 });
 
@@ -404,8 +656,13 @@ describe("statutory constants", () => {
     const years = Object.keys(MOD_BY_YEAR).map(Number);
     const sorted = [...years].sort((a, b) => a - b);
     expect(years).toEqual(sorted);
-    // The transitional 2026 cap equals the 2025 cap (frozen extension law).
-    expect(MOD_BY_YEAR[2026]).toBe(MOD_BY_YEAR[2025]);
+    // The 2026 cap NO LONGER equals the 2025 one. It did while Bulgaria ran on
+    // the extension law that froze the 2025 amounts; чл. 9 ЗБДОО-2026 (обн. ДВ
+    // бр. 68 от 28.07.2026) raised it to €2,300 from 1 Aug 2026. The frozen
+    // value survives as the year's FIRST step, which is where the carry-over
+    // invariant properly lives — see the MOD_SCHEDULE suite above.
+    expect(MOD_BY_YEAR[2026]).toBeGreaterThan(MOD_BY_YEAR[2025]);
+    expect(MOD_SCHEDULE[2026][0].value).toBeCloseTo(MOD_BY_YEAR[2025], 0);
   });
 
   it("has plausible rate magnitudes (guards against a typo'd constant)", () => {
@@ -414,5 +671,12 @@ describe("statutory constants", () => {
     expect(SSC_EMPLOYEE_RATE).toBeLessThan(SSC_SELF_INSURED_RATE);
     expect(SSC_EMPLOYER_RATE).toBeGreaterThan(0);
     expect(MIN_PENSION).toBeLessThan(MAX_PENSION);
+  });
+});
+
+describe("currentStatutoryMod", () => {
+  it("names the concept the call sites were each re-deriving", () => {
+    expect(currentStatutoryMod()).toBe(resolveMod(null).mod);
+    expect(currentStatutoryMod()).toBe(2300);
   });
 });

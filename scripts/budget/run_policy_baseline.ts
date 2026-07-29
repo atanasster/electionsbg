@@ -32,7 +32,13 @@ import {
   latestCompleteNoiYear,
   type NoiYearLike,
 } from "../../src/data/budget/noiYear";
-import { MOD_BY_YEAR, PIT_RATE, SSC_EMPLOYEE_RATE } from "../../src/lib/bgTax";
+import {
+  MIN_PENSION,
+  MOD_BY_YEAR,
+  MOD_SCHEDULE,
+  PIT_RATE,
+  SSC_EMPLOYEE_RATE,
+} from "../../src/lib/bgTax";
 import {
   VAT_SLICES,
   VAT_POLICY_CURRENT,
@@ -616,6 +622,37 @@ interface ExciseAnchors {
   source: string;
 }
 
+// A year whose МОД stepped mid-year is only partly described by its headline
+// scalar: the cap is a MONTHLY cap applied per month, so the true annual
+// insurable base sums min(wage, cap_month) over months. Baking the scalar into
+// the artifact silently misprices such a year — €40.7M for 2025, €72.7M for
+// 2026 on the current band grid. Warn loudly wherever we still do it, so the
+// approximation is visible in the run log rather than only in the plan.
+/** Years priced at a single scalar despite having stepped mid-year. Collected
+ *  as the run goes and emitted into the artifact, so a consumer can see the
+ *  approximation without reading the build log. */
+const splitYearApproximations: {
+  year: number;
+  role: string;
+  scalarEur: number;
+}[] = [];
+
+const warnIfSplitYear = (
+  year: number,
+  role: string,
+  scalarEur: number,
+): void => {
+  const steps = MOD_SCHEDULE[year];
+  if (!steps || steps.length < 2) return;
+  splitYearApproximations.push({ year, role, scalarEur });
+  const windows = steps.map((st) => `${st.from}→€${st.value}`).join(", ");
+  console.warn(
+    `  ⚠ ${role} year ${year} has a MID-YEAR МОД step (${windows}) but is ` +
+      `priced at the single scalar €${scalarEur}. The annual aggregate is an ` +
+      `approximation until the month-weighting lands (plan T2.6).`,
+  );
+};
+
 /** Excise split for the per-product policy levers. Reads the Митници chronicle
  *  breakdown for the baseline year (diesel + petrol itemised; tobacco + alcohol
  *  as category lines), walking back up to two prior years if that file is not
@@ -790,6 +827,7 @@ const main = async (): Promise<void> => {
   const aboveCapMassEur = grossWageMass - insurableBase;
   const capEur = MOD_BY_YEAR[napYear];
   if (!capEur) throw new Error(`MOD_BY_YEAR has no ${napYear}`);
+  warnIfSplitYear(napYear, "identity", capEur);
 
   // --- earnings distribution (bracket scoring + МОД incidence) -------------
   const sodBgn = NOI_SOD_EMPLOYEES_BGN[napYear];
@@ -835,6 +873,10 @@ const main = async (): Promise<void> => {
     nonEmployment / (employment + nonEmployment + finalTax);
   const capBaselineEur = MOD_BY_YEAR[baselineYear];
   if (!capBaselineEur) throw new Error(`MOD_BY_YEAR has no ${baselineYear}`);
+  // LATENT COUPLING: baselineYear is revenueYears[last], resolved at runtime.
+  // It is 2025 today; when the FY2026 КФП completes it becomes 2026 and this
+  // reprices κ with nothing tying the change back to the law that caused it.
+  warnIfSplitYear(baselineYear, "baseline", capBaselineEur);
   const bandsBaseline = fit.bands.map((b) => ({
     grossEur: Math.round(b.grossEur * wageGrowth * 100) / 100,
     workers: b.workers,
@@ -982,6 +1024,20 @@ const main = async (): Promise<void> => {
   // --- pension floor (минимална пенсия) -------------------------------------
   console.log(`Fetching НОИ STATB bulletin (${NOI_STATB_URL})…`);
   const pensionFloor = parsePensionFloor(await fetchNoiStatb());
+  // The НОИ bulletin's minimum is an OBSERVED figure at `asOf`; MIN_PENSION is
+  // the statutory one. They diverge whenever the law steps after the bulletin
+  // was published — as чл. 10 ЗБДОО-2026 did on 1 Jul 2026 (€322.37 → €347.51),
+  // leaving the simulator offering as a "what if" a raise already in force.
+  // Surfaced here rather than silently reconciled: fixing it properly means
+  // moving the enacted floor into the baseline (plan T8.3b), not overwriting a
+  // sourced statistic with a constant.
+  if (Math.abs(pensionFloor.minimumEur - MIN_PENSION) > 0.01) {
+    console.warn(
+      `  ⚠ pension floor: НОИ bulletin (${pensionFloor.asOf}) says ` +
+        `€${pensionFloor.minimumEur} but the statutory minimum is ` +
+        `€${MIN_PENSION}. The floor lever prices a raise the law already made.`,
+    );
+  }
   // Validation gate (warn, don't throw): the band-grain model's implied
   // CURRENT top-up-to-minimum cost vs НОИ's own published figure. Band
   // midpoints are coarse exactly where it matters — pensions cluster AT the
@@ -1186,6 +1242,10 @@ const main = async (): Promise<void> => {
       alphaCentral: fit.alpha,
       alphaHigh: fit.alpha + 0.5,
     },
+    // Years whose МОД stepped mid-year but that are priced here at a single
+    // scalar. Empty once the month-weighting lands (plan T2.6); until then this
+    // is the artifact's own record of where it approximates.
+    splitYearApproximations,
   };
 
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });

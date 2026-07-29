@@ -5,12 +5,54 @@
 //
 // Provenance & watcher: these statutory constants (rates, МОД cap, min/max
 // pension, contributions, child relief) track the State Budget + Social-Security
-// Budget laws (ЗДБРБ / ЗБДОО). As of 2026-06 there is NO adopted 2026 budget —
-// Bulgaria runs on transitional extension laws that FREEZE the 2025 amounts, so
-// these values are the in-force law. They are re-verified when the `budget_law`
-// watcher flips (the 2026 package, expected after end-June 2026) against the
-// ЗБДОО in ДВ + the НАП "осигурителни вноски" table — see the budget_law row in
-// the process-watch-report skill.
+// Budget laws (ЗДБРБ / ЗБДОО).
+//
+// The 2026 social-security half IS adopted: ЗБДОО-2026 (idMat 244982) and
+// ЗБНЗОК-2026 (idMat 244981), обн. ДВ бр. 68 от 28.07.2026, in force
+// retroactively from 1 Jan 2026. The ЗДБРБ half (the STATE budget) was NOT in
+// that issue and is still unpromulgated — FY2026 runs its state side on a
+// bridging law. "The 2026 budget" therefore does not exist as one thing; do not
+// describe it as such, and treat anything the ЗДБРБ sets (child relief, the
+// party subsidy, the ЗХ gambling fee) as carry-over pending the next flip.
+//
+// MID-YEAR STEPS ARE THE NORMAL CASE, not an exception. A late budget takes
+// effect the first of the month after promulgation, and the first period of
+// year N is year N−1's value, carried by the extension law until it passes:
+//   2025 — обн. ДВ бр. 25 от 25.03.2025 → step 1 Apr (МОД €1,917.34 → €2,111.64)
+//   2026 — обн. ДВ бр. 68 от 28.07.2026 → step 1 Aug (МОД €2,111.64 → €2,300.00)
+// Three of the last five years stepped, so a scalar-per-year is the wrong shape.
+// The dated *_SCHEDULE tables below are the truth; the scalar constants beside
+// them are a labelled convenience, pinned by test to a value that was actually
+// law in that year.
+//
+// Re-verified when the `dv_laws` watcher flips. `dv_laws` is the AUTHORITATIVE
+// promulgation signal — `budget_law` is a Wayback-lagged minfin proxy that only
+// ever sees the ЗДБРБ half and never reports a ЗБДОО/ЗБНЗОК. Check against the
+// ДВ text + the НАП "осигурителни вноски" table; see the dv_laws row in the
+// process-watch-report skill.
+
+/** A statutory value and the date it takes effect, in force until the next
+ *  entry. `from` is an ISO date (`"2026-08-01"`); entries ascend. */
+export interface StatutoryStep {
+  from: string;
+  value: number;
+}
+
+/** The step in force on `asOf`. With no `asOf` this returns the LAST step —
+ *  the latest official value — which is the convention the scalar constants
+ *  below follow. Never defaults to wall-clock time: a value that changes on an
+ *  uncontrolled date makes tests time-dependent and makes shared simulator
+ *  permalinks mean different things on different days. */
+export const stepAt = (
+  steps: readonly StatutoryStep[],
+  asOf?: string,
+): StatutoryStep => {
+  if (steps.length === 0) throw new Error("stepAt: empty schedule");
+  if (asOf == null) return steps[steps.length - 1];
+  let found = steps[0];
+  for (const s of steps) if (s.from <= asOf) found = s;
+  return found;
+};
 
 export type TaxpayerProfile = "employee" | "self" | "company";
 
@@ -52,11 +94,71 @@ export const PENSION_SELF_RATE = 0.198;
 // service (the post-December-2021 rate). Simplified — the lower 1.2%
 // credited-service weighting is folded in.
 export const PENSION_ACCRUAL_RATE = 0.0135;
-export const MIN_PENSION = 322.37;
+
+// Минимален размер на пенсията за осигурителен стаж и възраст (чл. 10 ЗБДОО).
+// Stepped 1 Jul 2026 — €346.87 is the DRAFT figure still in circulation; the
+// adopted value is €347.51.
+export const MIN_PENSION_SCHEDULE: Record<number, StatutoryStep[]> = {
+  2025: [{ from: "2025-01-01", value: 322.37 }], // 630.40 лв, чл. 10 ЗБДОО-2025
+  2026: [
+    { from: "2026-01-01", value: 322.37 },
+    { from: "2026-07-01", value: 347.51 }, // чл. 10 ЗБДОО-2026
+  ],
+};
+/** The latest year present in a schedule. Used so the scalars below advance
+ *  with the table instead of freezing at a hard-coded index — the staleness
+ *  class this whole schedule model exists to prevent. */
+export const latestScheduleYear = (
+  schedule: Record<number, StatutoryStep[]>,
+): number => Math.max(...Object.keys(schedule).map(Number));
+
+/** The latest official value in a schedule — its last step in its last year. */
+export const latestScheduledValue = (
+  schedule: Record<number, StatutoryStep[]>,
+): number => stepAt(schedule[latestScheduleYear(schedule)]).value;
+
+export const MIN_PENSION = latestScheduledValue(MIN_PENSION_SCHEDULE);
+
+// Максимален размер на получаваните една или повече пенсии без добавките
+// (§ 4 ал. 2 ЗБДОО-2026) — €1,738.40 for the WHOLE of 2026, so no schedule.
+// The one constant this law confirms rather than moves; it is sourced, not
+// inherited. § 4 ал. 3 computes the чл. 84 КСО supplement off the capped amount.
 export const MAX_PENSION = 1738.4;
 
-// Minimum monthly insurable income for self-insured persons (2026).
-export const MIN_SELF_INSURED_INCOME = 550.66;
+// Минимален месечен осигурителен доход за самоосигуряващите се лица (чл. 9
+// ЗБДОО). €550.66 has been in force since 1 Apr 2025 (1,077 лв, чл. 9
+// ЗБДОО-2025) — it is a 2025 value the 2026 law carried, not a 2026 one.
+export const MIN_SELF_INSURED_SCHEDULE: Record<number, StatutoryStep[]> = {
+  2025: [
+    { from: "2025-01-01", value: 477.03 }, // 933 лв
+    { from: "2025-04-01", value: 550.66 }, // 1,077 лв
+  ],
+  2026: [
+    { from: "2026-01-01", value: 550.66 },
+    { from: "2026-08-01", value: 620.2 }, // чл. 9 ЗБДОО-2026
+  ],
+};
+export const MIN_SELF_INSURED_INCOME = latestScheduledValue(
+  MIN_SELF_INSURED_SCHEDULE,
+);
+
+// Обезщетения по ЗБДОО-2026, all whole-year (no mid-year step):
+/** Дневно обезщетение за безработица, чл. 11 — min/max. */
+export const UNEMPLOYMENT_BENEFIT_DAILY_MIN = 9.21;
+export const UNEMPLOYMENT_BENEFIT_DAILY_MAX = 54.78;
+/** Месечно обезщетение за отглеждане на дете до 2 г., чл. 12. Unchanged from
+ *  2025 — the ЗБДОО-2026 confirms it rather than raising it. */
+export const CHILD_REARING_BENEFIT = 398.81;
+/** Еднократна помощ при смърт на осигурено лице, чл. 13. */
+export const DEATH_GRANT = 276.1;
+/** Максимален размер на гарантираните вземания, чл. 15 ал. 2. */
+export const GUARANTEED_CLAIMS_CAP = 1550.5;
+
+// чл. 15 ал. 1 ЗБДОО-2026: NO contributions are due to the Гаранционен фонд
+// (ГВРС) in 2026. This is a real employer-cost fact but NOT a rate change:
+// SSC_EMPLOYER_RATE (19.02%) never included ГВРС, so nothing below moves.
+// Encoded as a note deliberately — resist "correcting" the employer rate.
+export const GVRS_CONTRIBUTION_DUE_2026 = false;
 
 // Child tax relief — annual taxable-base reduction by number of children
 // (key 3 = "three or more"). 6 000 / 12 000 / 18 000 BGN at the locked
@@ -68,9 +170,43 @@ export const CHILD_RELIEF_BASE: Record<number, number> = {
   3: 9203.25,
 };
 
-// Максимален осигурителен доход — monthly cap on insurable income, by
-// fiscal year. Where the cap moved mid-year (2022, 2025) the value in force
-// for the longer part of the year is used.
+// Максимален осигурителен доход — monthly cap on insurable income.
+//
+// MOD_SCHEDULE is the truth: dated steps, in force until the next entry.
+// Years with no recorded step are single-step at the rounded whole-euro value
+// they were carried at. The three known movers (2022, 2025, 2026) all follow
+// the same rule: the step lands the first of the month after promulgation, and
+// the year's FIRST period is the previous year's cap carried by the extension
+// law. That rule is asserted in bgTax.test.ts, so a new mover cannot be added
+// with an inconsistent first step.
+export const MOD_SCHEDULE: Record<number, StatutoryStep[]> = {
+  2018: [{ from: "2018-01-01", value: 1329 }],
+  2019: [{ from: "2019-01-01", value: 1534 }],
+  2020: [{ from: "2020-01-01", value: 1534 }],
+  2021: [{ from: "2021-01-01", value: 1534 }],
+  2022: [
+    { from: "2022-01-01", value: 1533.98 }, // 3,000 лв — the 2021 carry-over
+    { from: "2022-04-01", value: 1738.4 }, // 3,400 лв, ЗБДОО-2022
+  ],
+  2023: [{ from: "2023-01-01", value: 1738 }],
+  2024: [{ from: "2024-01-01", value: 1917 }],
+  2025: [
+    { from: "2025-01-01", value: 1917.34 }, // 3,750 лв — the 2024 carry-over
+    { from: "2025-04-01", value: 2111.64 }, // 4,130 лв, чл. 9 ЗБДОО-2025
+  ],
+  2026: [
+    { from: "2026-01-01", value: 2111.64 }, // the 2025 carry-over
+    { from: "2026-08-01", value: 2300 }, // чл. 9 ЗБДОО-2026
+  ],
+};
+
+// The headline scalar per year — what a caller means by "the 2026 cap" when it
+// is labelling one number. Deliberately EXPLICIT rather than derived: the
+// convention is a judgment call per year (historically "the value in force for
+// the longer part of the year"; for 2026 the latest official value, €2,300),
+// and no single derivation rule reproduces every year. bgTax.test.ts pins each
+// entry to a value that actually appears in that year's schedule, so this can
+// never drift to a number that was never law.
 export const MOD_BY_YEAR: Record<number, number> = {
   2018: 1329,
   2019: 1534,
@@ -80,7 +216,7 @@ export const MOD_BY_YEAR: Record<number, number> = {
   2023: 1738,
   2024: 1917,
   2025: 2112,
-  2026: 2112,
+  2026: 2300,
 };
 const MOD_YEARS = Object.keys(MOD_BY_YEAR)
   .map(Number)
@@ -95,23 +231,70 @@ export interface ModResolution {
   year: number;
   /** True when the requested year had its own entry. */
   exact: boolean;
+  /** The resolved year's dated steps, when it has more than one — so a caller
+   *  can label "€2,112 → €2,300 from 1 Aug" instead of a bare scalar that
+   *  matches only part of the year. Absent for single-step years. */
+  steps?: StatutoryStep[];
+  /** The date the value was resolved at, when `asOf` was supplied. */
+  asOf?: string;
 }
 
 // Resolve the МОД for a fiscal year. Years outside the table snap to the
 // nearest known year, and the resolution reports THAT year — so a caller
 // labelling the value never claims a year whose cap it isn't showing.
-export function resolveMod(year: number | null | undefined): ModResolution {
-  if (year == null)
+//
+// `asOf` (ISO date) resolves the step actually in force on that date instead of
+// the year's headline scalar. OMITTING IT KEEPS THE YEAR-SCALAR SEMANTICS and
+// is time-INDEPENDENT — there is deliberately no wall-clock default, so this
+// function returns the same value whenever it runs. Callers that want
+// in-force-now pass an explicit date.
+export function resolveMod(
+  year: number | null | undefined,
+  asOf?: string,
+): ModResolution {
+  // `asOf` only means something INSIDE the resolved year. A cross-year date
+  // (asking for 2026 as of 2025-05-01) would otherwise clamp to the year's
+  // first step and return a real-looking number for a period it never covered,
+  // so it is ignored and the year's scalar is used instead.
+  const appliesTo = (y: number): boolean =>
+    asOf != null && Number(asOf.slice(0, 4)) === y;
+  const decorate = (r: ModResolution): ModResolution => {
+    const steps = MOD_SCHEDULE[r.year];
     return {
-      mod: MOD_BY_YEAR[LATEST_MOD_YEAR],
+      ...r,
+      // Copy: callers must not be able to mutate the schedule through this.
+      ...(steps && steps.length > 1
+        ? { steps: steps.map((st) => ({ ...st })) }
+        : {}),
+      ...(appliesTo(r.year) ? { asOf } : {}),
+    };
+  };
+  const valueFor = (y: number): number => {
+    const steps = MOD_SCHEDULE[y];
+    if (appliesTo(y) && steps) return stepAt(steps, asOf).value;
+    return MOD_BY_YEAR[y];
+  };
+  if (year == null)
+    return decorate({
+      mod: valueFor(LATEST_MOD_YEAR),
       year: LATEST_MOD_YEAR,
       exact: false,
-    };
+    });
   if (MOD_BY_YEAR[year] != null)
-    return { mod: MOD_BY_YEAR[year], year, exact: true };
+    return decorate({ mod: valueFor(year), year, exact: true });
   const snapped = year < MOD_YEARS[0] ? MOD_YEARS[0] : LATEST_MOD_YEAR;
-  return { mod: MOD_BY_YEAR[snapped], year: snapped, exact: false };
+  return decorate({ mod: valueFor(snapped), year: snapped, exact: false });
 }
+
+/** The МОД cap in force under current law — what a UI means by "the current
+ *  cap" when it centres a slider or labels a default. Named here because it was
+ *  re-derived as `resolveMod(null).mod` at every call site, which made it
+ *  invisible that some of those callers wanted the cap the BASELINE ARTIFACT
+ *  was built at instead (see `baselineCap` in ai/tools/taxPolicy.ts — the two
+ *  are not the same thing and conflating them silently zeroed the 2026 МОД
+ *  lever). If you are scoring against a baseline, you almost certainly want
+ *  that baseline's own cap, not this. */
+export const currentStatutoryMod = (): number => resolveMod(null).mod;
 
 export interface LabourTaxInput {
   monthlyGross: number;

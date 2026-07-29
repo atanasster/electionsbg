@@ -49,7 +49,7 @@ import {
   DIVIDEND_TAX_RATE,
   VAT_STANDARD_RATE,
   SSC_EMPLOYEE_RATE,
-  resolveMod,
+  currentStatutoryMod,
 } from "@/lib/bgTax";
 import {
   VAT_ADJUSTABLE_GROUPS,
@@ -732,7 +732,7 @@ const NEUTRAL_LEVERS = (currentCap: number): LeverState => ({
 // same computeStaticScenario the live breakdown uses, so the chip's number
 // is the number the breakdown then shows.
 const presetStaticEur = (baseline: Baseline, p: PresetApply): number => {
-  const s = NEUTRAL_LEVERS(resolveMod(null).mod);
+  const s = NEUTRAL_LEVERS(currentStatutoryMod());
   if (p.nm != null) s.nm = p.nm;
   if (p.b2) {
     s.bracket2 = true;
@@ -1229,7 +1229,7 @@ export const BudgetPolicySimulator: FC = () => {
     isSuccess: baselineSettled,
   } = usePolicyBaseline();
 
-  const currentCap = resolveMod(null).mod;
+  const currentCap = currentStatutoryMod();
   const modMin = currentCap - MOD_STEPS_DOWN * MOD_STEP;
   const modMax = currentCap + MOD_STEPS_UP * MOD_STEP;
   const [searchParams, setSearchParams] = useSearchParams();

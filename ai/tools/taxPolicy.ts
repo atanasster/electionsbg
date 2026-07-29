@@ -1395,12 +1395,25 @@ export interface ScenarioScore {
 }
 
 // Exported so the harness can score a change directly against the golden
+/** The МОД cap a scenario is scored FROM.
+ *
+ *  This must be the cap the BASELINE ARTIFACT was built at, not the current
+ *  statutory scalar. `earnings.bands` and `earnings.kappa` were calibrated
+ *  against `earnings.capEur`, and the PIT side of every scenario already scores
+ *  on it — deriving the МОД side from `resolveMod(null)` instead put two
+ *  different caps inside one scoring pass, and silently made the enacted 2026
+ *  raise unscoreable once the scalar itself became €2,300 (target === from ⇒
+ *  exactly zero). Falls back to the statutory scalar only for an artifact old
+ *  enough to predate the field. */
+const baselineCap = (baseline: PolicyBaselineFile): number =>
+  baseline.earnings?.capEur ?? resolveMod(null).mod;
+
 // simulator numbers (the parity gate).
 export const scoreScenario = (
   baseline: PolicyBaselineFile,
   change: TaxChange,
 ): ScenarioScore => {
-  const currentCap = resolveMod(null).mod;
+  const currentCap = baselineCap(baseline);
   const {
     vatStd,
     regimes,
@@ -1733,7 +1746,7 @@ export const scoreDynamicScenario = (
   change: TaxChange,
   score: ScenarioScore,
 ): DynamicScore => {
-  const currentCap = resolveMod(null).mod;
+  const currentCap = baselineCap(baseline);
   const p = paramsFor(change, currentCap);
   const input = buildDynamicInput(
     baseline,
@@ -2078,7 +2091,7 @@ export const simulateTaxChange = async (
   const baseline = await fetchData<PolicyBaselineFile>(
     "/budget/derived/policy_baseline.json",
   );
-  const currentCap = resolveMod(null).mod;
+  const currentCap = baselineCap(baseline);
   const p = paramsFor(change, currentCap);
   const score = scoreScenario(baseline, change);
   // The screen's default headline is the DYNAMIC (behavioral) estimate —
