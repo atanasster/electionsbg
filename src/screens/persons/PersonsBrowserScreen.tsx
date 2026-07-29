@@ -19,7 +19,9 @@
 // THE AVATAR IS PRESENTATIONAL (MpAvatarView, not MpAvatar). photo_url is denormalized
 // into the matview precisely so this page never downloads parliament/index.json for a
 // face — a 972 KB index for one avatar is a regression this codebase has already fixed
-// once (project_mp_avatar_index).
+// once (project_mp_avatar_index). The trade is that this screen must apply the dataUrl
+// seam ITSELF (see the avatar cell): the index hook resolves photo paths at ingest, and
+// skipping the index means skipping that too.
 
 import { FC, useCallback, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -34,6 +36,7 @@ import {
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { MpAvatarView } from "@/screens/components/candidates/MpAvatar";
+import { resolvePhoto } from "@/data/parliament/useMps";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { usePersonLabels } from "@/lib/personLabels";
 import {
@@ -363,7 +366,15 @@ export const PersonsBrowserScreen: FC = () => {
               className="flex items-center gap-2 hover:underline"
             >
               <MpAvatarView
-                photoUrl={p.photoUrl}
+                // RESOLVED through the dataUrl seam, not passed raw. The matview stores the
+                // relative path the scraper wrote ("/parliament/photos/3.webp"), but the
+                // photo BINARIES live in the GCS bucket, not in dist/ — so in production the
+                // raw path hits the SPA rewrite and returns index.html as `text/html`. The
+                // <img> then fails silently and every row falls back to initials, which
+                // looks like "we have no photo" rather than a broken URL. Dev never shows it
+                // (VITE_DATA_BASE_URL is empty, so the path is served locally). Same helper
+                // useMps applies once at ingest, for the same reason.
+                photoUrl={p.photoUrl ? resolvePhoto(p.photoUrl) : null}
                 displayName={p.name}
                 ringColor={p.partyPrimary ? colorFor(p.partyPrimary) : null}
                 className="h-7 w-7 shrink-0"

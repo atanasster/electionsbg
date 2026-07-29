@@ -10,7 +10,7 @@ import { normalizeMpName } from "@/lib/utils";
 // bucket origin in production. Backwards-compat: legacy index files
 // (pre-photo-caching) may still have absolute parliament.bg URLs — those
 // pass through unchanged.
-const resolvePhoto = (url: string): string => {
+export const resolvePhoto = (url: string): string => {
   if (!url) return "";
   if (url.startsWith("http")) return url;
   return dataUrl(url);
