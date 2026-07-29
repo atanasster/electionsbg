@@ -192,31 +192,61 @@ no error shown.
 
 ### 1.E Audit findings — what changed in this revision
 
-**The parity gate is currently a no-op, and this is a prerequisite, not a
-footnote.** `risk_parity.harness.ts` — the gate migration 112's header names as
-the thing holding TS to SQL, and which runs inside `npm run ai:test:all` — exits
-0 with `· parity harness skipped (relation "risk_upheld_ocid" does not exist)` on
-a **fully loaded** local database (`contract_risk_cache` = 407,693 rows,
-`contracts_list` carries all 6 risk columns). Two causes compound:
+**The parity gate was a no-op. It has now been run — and parity HOLDS.**
+`risk_parity.harness.ts` — the gate migration 112's header names as the thing
+holding TS to SQL — exited 0 with
+`· parity harness skipped (relation "risk_upheld_ocid" does not exist)` on a
+**fully loaded** local database (`contract_risk_cache` = 407,693 rows,
+`contracts_list` carrying all 6 risk columns). After recreating the missing view
+it runs, and over the **entire corpus** (407,693 contracts, seed 42, 2.6 s):
 
-- `risk_upheld_ocid` is created only *inside* `rebuild_contract_risk_cache()`
-  ([112:151](scripts/db/schema/pg/112_contract_risk_cache.sql:151)), so it is
-  absent on any database whose cache arrived by another path, while the harness
-  reads it directly ([harness:179](scripts/procurement/risk_parity.harness.ts:179)).
-- The skip predicate is `/ECONNREFUSED|does not exist|role .* does not exist/i`
-  ([harness:265](scripts/procurement/risk_parity.harness.ts:265)) — written for
-  "no DB", it swallows *any* missing relation.
+```
+✓ debarred/mpConnected/pepConnected/awarderConcentration/amendment/annexGrowth/
+  newFirmWinner/splitPurchase/appealUpheld/weakCompetition/directAward/
+  shortTenderPeriod   — 0 mismatches each
+✓ cri differs on 0 · score differs on 0
+```
 
-So the drift the harness exists to make loud is currently invisible, and T5's
-"extend the harness" buys nothing until this is fixed. Promoted to **T-1**.
+**T1 is therefore unblocked and is a relocation, not a behaviour change**: the
+mask decodes to exactly the flags the chips render today, on every contract in
+the corpus.
 
-**`contracts_list` fragility becomes load-bearing after T1.** The risk columns
-live on a `SELECT c.*` view whose column list freezes at creation; 112 ends with
-`SELECT rebuild_contracts_list()` precisely because 042 and 050 hit the same
-trap. Today a stale view degrades to the client scorer. After T1 there is no
-fallback — chips vanish silently, green locally and blank on prod, the exact
-failure class `CLAUDE.md` documents for the place/persons loaders. T1 must ship
-with a guard, not just a test.
+**Why the gate was dark is structural, not a one-off.**
+`042_kzk_appeals.sql:152` runs
+`DROP MATERIALIZED VIEW IF EXISTS upheld_ocids CASCADE`, and the cascade takes
+`risk_upheld_ocid` with it — verified in a rolled-back transaction, where the
+`DETAIL` names both `contracts_list` and `risk_upheld_ocid`. 042 rebuilds
+`contracts_list` ([042:166](scripts/db/schema/pg/042_kzk_appeals.sql:166)) but
+nothing rebuilds `risk_upheld_ocid` except `rebuild_contract_risk_cache()`. So
+**every КЗК appeals ingest re-breaks the gate**, and it stays broken until the
+next contracts reload — an operation rare and expensive enough (~68 min CPU on
+Cloud SQL) that "dark" is the steady state, not the exception. The skip predicate
+`/ECONNREFUSED|does not exist|role .* does not exist/i`
+([harness:265](scripts/procurement/risk_parity.harness.ts:265)), written for
+"no DB", then reports it as green.
+
+**And it never runs in CI.** `.github/workflows/test.yml` runs `lint`,
+`test:unit`, `functions:test`, `build` and Playwright — not `ai:test:all`, the
+only script that references the harness. So the gate depends on someone running
+it locally, on a database where it silently skips.
+
+**Correction to an earlier draft of this section — the failure mode is NULL, not
+absent.** `rebuild_contracts_list()`
+([000_search_fns.sql:124](scripts/db/schema/pg/000_search_fns.sql:124)) guards
+the risk join on `to_regclass('public.contract_risk_cache')` and emits
+`NULL::int` columns when it is absent, so the six `risk_*` columns can never
+disappear from the view. What degrades is their **value**: the join is a LEFT
+JOIN, so any contract without a cache row serves `risk_fired_mask = NULL` (0 such
+rows today, but it is the state between a contracts load and the risk rebuild at
+[load_pg.ts:514](scripts/db/load_pg.ts:514)).
+
+That makes a specific requirement on T1, not a general one: **the decoder must
+treat a NULL mask as *unknown* and must not decode it to 0.** The SQL author
+already reasoned this exact point at
+[000_search_fns.sql:147](scripts/db/schema/pg/000_search_fns.sql:147) — *"NULL
+(not 0) … an unscored contract is unknown, not clean, and 0 would rank it as the
+safest row in the corpus."* Decoding null→0 would reproduce the §1.C bug the tier
+exists to fix, just with a different trigger.
 
 **`mergeContractRisk` loses one magnitude under T1 alone.** The dossier merge
 deliberately keeps the most concerning magnitude across a group — lowest
@@ -238,18 +268,29 @@ existing cloud and watch-skill wiring — no new npm script, no new watch entry
 
 ### T-1 — make the parity gate actually run (prerequisite for T1 and T5)
 
+**Step 3 is done and it came back clean (§1.E): full corpus, zero mismatches.**
+T1 may proceed. Steps 1, 2 and 4 remain, and they are what keeps that result
+true rather than momentary.
+
 1. Have the harness resolve upheld appeals without depending on a view that only
-   a rebuild creates: read `upheld_ocids` directly, guarded on
-   `to_regclass`, treating absence as "appealUpheld unavailable" exactly as the
-   SQL does.
+   a rebuild creates: read `upheld_ocids` directly, guarded on `to_regclass`,
+   treating absence as "appealUpheld unavailable" exactly as the SQL does. This
+   is the fix for the КЗК-ingest cycle, not just for today's missing view —
+   without it the gate goes dark again on the next appeals refresh.
 2. Narrow the skip predicate to connection failures and a genuinely empty
    `contract_risk_cache`. A missing relation on a loaded database must **fail**,
    not skip.
-3. Re-run `npx tsx scripts/procurement/risk_parity.harness.ts` and record the
-   real drift, if any, before changing behaviour. **If it reports mismatches, that
-   result reorders everything below** — the mask would then be a different answer
-   from today's chips rather than the same one, and the delta needs a decision
-   before T1 ships.
+3. ~~Re-run and record the real drift.~~ **Done** — 407,693 contracts, 0
+   mismatches on all 12 checks, `cri`/`score` identical. Re-run after (1) and (2)
+   to confirm the gate still passes for the right reason.
+4. Put the harness where it will actually run. CI does not invoke `ai:test:all`
+   (§1.E); either add it to `.github/workflows/test.yml` behind the same
+   auto-skip-without-Postgres convention the `scripts/db/tests/*.data.test.ts`
+   gates use, or fold the comparison into those gates, which CI already runs.
+
+Local note: `risk_upheld_ocid` was recreated on the dev database with the exact
+statement `rebuild_contract_risk_cache()` uses, so the local harness works today.
+That is a restored state, not a fix — step 1 is the fix.
 
 ### T0 — transport (helps all ~110 `/api/db` routes; no page changes)
 
@@ -278,7 +319,9 @@ conditional request.
    4 amendment, 5 annexGrowth, 6 newFirmWinner, 7 splitPurchase, 8 appealUpheld,
    9 weakCompetition, 10 directAward, 11 shortTenderPeriod` — plus
    `contractRiskFromMasks(firedMask, availableMask, row)` returning a
-   `ContractRiskResult`. The two masks fully determine `components`,
+   `ContractRiskResult`. **A NULL mask means unknown, never 0** (§1.E) — return
+   `null` and let the caller render an explicit unknown state, not `—`. The two
+   masks fully determine `components`,
    `firedCount`, `availableCount`, `cri` and `hasFlag`; `annexGrowthPct`,
    `bidCount` and `tenderPeriodDays` are derivable from fields already on the row
    (`amountEur`/`signingAmountEur`, `numberOfTenderers`, the tender-period dates).
@@ -289,11 +332,12 @@ conditional request.
 3. Keep a small fetch for `ngoForeignFunded` — the one input the mask does not
    carry, a neutral disclosure that deliberately does not bump `firedCount`
    (6.3 kB, 35 entries), not a reason to keep the 1.29 MB.
-4. **Guard the view dependency.** A `scripts/db/tests/*.data.test.ts` case
-   asserting `contracts_list` exposes all six `risk_*` columns and that
-   `contract_risk_cache` is non-empty, so a contracts reload that skips
-   `rebuild_contracts_list()` fails the gate instead of silently blanking the
-   column on prod.
+4. **Guard the view dependency — assert values, not columns.** The six `risk_*`
+   columns always exist (§1.E), so their presence proves nothing. The
+   `scripts/db/tests/*.data.test.ts` case must assert `contract_risk_cache` is
+   non-empty *and* that `contracts_list.risk_fired_mask` is non-NULL across a
+   sample, which is what actually catches a contracts reload that never ran the
+   risk rebuild.
 5. Fix the screen header comments that assert risk is not a DB column.
 
 ### T2 — per-flag tooltip detail, lazily
@@ -361,6 +405,8 @@ migration must be applied to Cloud SQL before the function that reads it, and
 
 Redesigning the risk model, the grade bands, or the CRI. This plan changes where
 the existing checks are evaluated and how the bytes reach the browser — the
-scores it renders are the ones `contract_risk_cache` already publishes. The one
-thing that could change a rendered number is T-1 surfacing real TS↔SQL drift; if
-it does, that is a decision to take before T1, not a silent side effect of it.
+scores it renders are the ones `contract_risk_cache` already publishes — now
+measured rather than assumed: T-1 found zero TS↔SQL drift across all 407,693
+contracts, so no rendered number changes. The one visible difference will be
+contracts whose masks are NULL, which today render as `—` (clean) and after T1
+must render as unknown.
