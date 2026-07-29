@@ -65,6 +65,44 @@ export default tseslint.config(
     },
   },
   {
+    // src/main.tsx AWAITS initI18n() before the first render: only the active
+    // language's bundle is loaded, and react-i18next runs with
+    // useSuspense: false, so there is no boundary that would retry a render
+    // started without resources.
+    //
+    // Components calling useTranslation() are fine — they run after the render
+    // begins. What breaks the invariant is a module calling t() at MODULE
+    // SCOPE: the module evaluates while the entry executes, before initI18n()
+    // resolves, so it captures an empty translation table and freezes a raw key
+    // into a constant. Nothing throws; the label is just permanently wrong,
+    // which is why this needs a static gate rather than a runtime one.
+    //
+    // `:not(:function CallExpression)` is what makes it precise — esquery's
+    // `:function` covers function declarations, expressions and arrows, so
+    // "module scope" is expressed structurally as "not inside any function
+    // body" rather than approximated by indentation.
+    //
+    // Scoped to src/**: ai/** has its own module-scope-safe `t(bg, en)` helper
+    // (see the ai/** block above) and must not trip this.
+    files: ["src/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "CallExpression[callee.name='t']:not(:function CallExpression)",
+          message:
+            "t() at module scope evaluates before initI18n() resolves and freezes a raw translation key into a constant — nothing throws, the label is just permanently wrong. Call it inside a component via useTranslation(), or take TFunction as a parameter.",
+        },
+        {
+          selector:
+            "CallExpression[callee.object.name='i18n'][callee.property.name='t']:not(:function CallExpression)",
+          message:
+            "i18n.t() at module scope — same reason as above: it runs before initI18n() resolves and captures an empty translation table.",
+        },
+      ],
+    },
+  },
+  {
     // The AI site (`ai/`) is a separate, much smaller Vite build that does NOT
     // use i18next. It renders bilingual UI with a homegrown inline
     // `t(bg, en)` helper, so it must never import the main site's i18n stack
