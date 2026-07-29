@@ -178,7 +178,9 @@ describe("personGuidFilings — the same-run collision test", () => {
 describe("workOf — the employer inside a declaration XML", () => {
   it("pulls <Work> out and collapses its whitespace", () => {
     expect(
-      workOf("<Personal><Name>Х</Name><Work>ОУ  \" Климент\nОхридски\"</Work></Personal>"),
+      workOf(
+        '<Personal><Name>Х</Name><Work>ОУ  " Климент\nОхридски"</Work></Personal>',
+      ),
     ).toBe('ОУ " Климент Охридски"');
   });
 
