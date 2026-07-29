@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-07-24T13:10:44.631Z",
-  "total": 252,
+  "generatedAt": "2026-07-29T13:04:21.304Z",
+  "total": 253,
   "mpCount": 202,
-  "beneficiaryCount": 235,
-  "contractedEur": 2635696935.03,
-  "paidEur": 1177632073.41,
+  "beneficiaryCount": 236,
+  "contractedEur": 2636366561.84,
+  "paidEur": 1178112304.77,
   "entries": [
     {
       "mpId": 4838,
@@ -444,7 +444,7 @@
       "mpId": 3427,
       "mpName": "Петко Ангелов Кущирев",
       "beneficiaryEik": "200712697",
-      "beneficiaryName": "ПАК дизайн ООД",
+      "beneficiaryName": "ПАК Дизайн ООД",
       "orgType": "Компания",
       "relations": [
         {
@@ -1084,6 +1084,23 @@
       "paidEur": 427695.66
     },
     {
+      "mpId": 5113,
+      "mpName": "Георги Иванов Георгиев",
+      "beneficiaryEik": "201549826",
+      "beneficiaryName": "Вато БГ ООД",
+      "orgType": "Компания",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "contractCount": 3,
+      "contractedEur": 669626.81,
+      "paidEur": 445528.76
+    },
+    {
       "mpId": 5160,
       "mpName": "Васил Тодоров Филев",
       "beneficiaryEik": "822090225",
@@ -1611,7 +1628,7 @@
       ],
       "contractCount": 2,
       "contractedEur": 233999.38,
-      "paidEur": 111925.72
+      "paidEur": 118603.9
     },
     {
       "mpId": 3249,
@@ -2522,7 +2539,7 @@
       ],
       "contractCount": 3,
       "contractedEur": 71069.24,
-      "paidEur": 5112.92
+      "paidEur": 27464.86
     },
     {
       "mpId": 4807,
@@ -3371,7 +3388,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 22046.91,
-      "paidEur": 13783.56
+      "paidEur": 17510.38
     },
     {
       "mpId": 2956,
@@ -3524,7 +3541,7 @@
       ],
       "contractCount": 1,
       "contractedEur": 14316.17,
-      "paidEur": 7694.18
+      "paidEur": 9639.84
     },
     {
       "mpId": 5113,
@@ -3667,7 +3684,14 @@
         {
           "kind": "manager",
           "isCurrent": true,
-          "confidence": "medium"
+          "confidence": "high"
+        },
+        {
+          "kind": "stake",
+          "shareSize": "100%",
+          "valueEur": 2556.4594059810925,
+          "fiscalYear": 2022,
+          "declarationYear": 2023
         }
       ],
       "contractCount": 1,

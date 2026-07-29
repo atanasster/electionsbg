@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:897",
   "nodes": [
     {
@@ -13,6 +13,16 @@
         "39",
         "40"
       ]
+    },
+    {
+      "id": "company:tr:207484221",
+      "type": "company",
+      "label": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
+      "slug": null,
+      "uic": "207484221",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
     },
     {
       "id": "company:tr:131302510",
@@ -35,16 +45,6 @@
       "seat": "БЪЛГАРИЯ, гр. Долни Дъбник, 5870"
     },
     {
-      "id": "company:tr:207484221",
-      "type": "company",
-      "label": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
-      "slug": null,
-      "uic": "207484221",
-      "legalForm": "ASSOC",
-      "status": "active",
-      "seat": "БЪЛГАРИЯ, гр. София, 1606"
-    },
-    {
       "id": "company:tr:205242224",
       "type": "company",
       "label": "АГРО 6",
@@ -63,76 +63,6 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
-    },
-    {
-      "id": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
-      "type": "person",
-      "label": "Николай Димитров Димов"
-    },
-    {
-      "id": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
-      "type": "person",
-      "label": "Цанко Славчев Цанев"
-    },
-    {
-      "id": "person:МАРТИН ПАВЛОВ ДРАГАНОВ",
-      "type": "person",
-      "label": "Мартин Павлов Драганов"
-    },
-    {
-      "id": "person:ИВАН ДИМИТРОВ ИВАНОВ",
-      "type": "person",
-      "label": "Иван Димитров Иванов"
-    },
-    {
-      "id": "person:ВЕСЕЛИН СТЕФАНОВ ЖЕЛЯЗКОВ",
-      "type": "person",
-      "label": "Веселин Стефанов Желязков"
-    },
-    {
-      "id": "person:ТАНЯ ХРИСТОВА ГЕОРГИЕВА",
-      "type": "person",
-      "label": "Таня Христова Георгиева"
-    },
-    {
-      "id": "person:ИВАЙЛО ДИМИТРОВ ТОДОРОВ",
-      "type": "person",
-      "label": "Ивайло Димитров Тодоров"
-    },
-    {
-      "id": "person:ИВАН ХРИСТОВ ГЕОРГИЕВ",
-      "type": "person",
-      "label": "Иван Христов Георгиев"
-    },
-    {
-      "id": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
-      "type": "person",
-      "label": "Живко Тодоров Живков"
-    },
-    {
-      "id": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
-      "type": "person",
-      "label": "Станислав Стоилов Йорданов"
-    },
-    {
-      "id": "person:АЛБИНА АЛЕКСАНДРОВНА ЯСИНСКАЯ",
-      "type": "person",
-      "label": "Албина Александровна Ясинская"
-    },
-    {
-      "id": "person:ПЕТЬО РАНГЕЛОВ КИРОВ",
-      "type": "person",
-      "label": "Петьо Рангелов Киров"
-    },
-    {
-      "id": "person:ИВИЯНА БОЖИДАРОВА МИТОВА-ЦВЕТАНОВА",
-      "type": "person",
-      "label": "Ивияна Божидарова Митова-Цветанова"
-    },
-    {
-      "id": "person:ЕМИЛ ГЕОРГИЕВ АНДРЕЕВ",
-      "type": "person",
-      "label": "Емил Георгиев Андреев"
     },
     {
       "id": "official:violeta-zlateva-bozhanova-d14d12",
@@ -256,6 +186,76 @@
       "id": "person:ЦВЕТАН АСЕНОВ ХУБЕНОВ",
       "type": "person",
       "label": "Цветан Асенов Хубенов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
+      "type": "person",
+      "label": "Николай Димитров Димов"
+    },
+    {
+      "id": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+      "type": "person",
+      "label": "Цанко Славчев Цанев"
+    },
+    {
+      "id": "person:МАРТИН ПАВЛОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Мартин Павлов Драганов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Димитров Иванов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН СТЕФАНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Веселин Стефанов Желязков"
+    },
+    {
+      "id": "person:ТАНЯ ХРИСТОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Таня Христова Георгиева"
+    },
+    {
+      "id": "person:ИВАЙЛО ДИМИТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Ивайло Димитров Тодоров"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Христов Георгиев"
+    },
+    {
+      "id": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
+      "type": "person",
+      "label": "Живко Тодоров Живков"
+    },
+    {
+      "id": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Станислав Стоилов Йорданов"
+    },
+    {
+      "id": "person:АЛБИНА АЛЕКСАНДРОВНА ЯСИНСКАЯ",
+      "type": "person",
+      "label": "Албина Александровна Ясинская"
+    },
+    {
+      "id": "person:ПЕТЬО РАНГЕЛОВ КИРОВ",
+      "type": "person",
+      "label": "Петьо Рангелов Киров"
+    },
+    {
+      "id": "person:ИВИЯНА БОЖИДАРОВА МИТОВА-ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Ивияна Божидарова Митова-Цветанова"
+    },
+    {
+      "id": "person:ЕМИЛ ГЕОРГИЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Емил Георгиев Андреев"
     },
     {
       "id": "person:КИРИЛ МИНЧЕВ КОЛЕВ",
@@ -398,6 +398,14 @@
   "edges": [
     {
       "source": "mp:897",
+      "target": "company:tr:207484221",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:897",
       "target": "company:tr:131302510",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -409,14 +417,6 @@
       "target": "company:tr:200908393",
       "kind": "tr_owner",
       "role": "sole_owner",
-      "isCurrent": true,
-      "confidence": "medium"
-    },
-    {
-      "source": "mp:897",
-      "target": "company:tr:207484221",
-      "kind": "tr_role",
-      "role": "ngo_board",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -451,118 +451,6 @@
       "role": "partner",
       "isCurrent": false,
       "confidence": "medium"
-    },
-    {
-      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:МАРТИН ПАВЛОВ ДРАГАНОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ВЕСЕЛИН СТЕФАНОВ ЖЕЛЯЗКОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ТАНЯ ХРИСТОВА ГЕОРГИЕВА",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАЙЛО ДИМИТРОВ ТОДОРОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАН ХРИСТОВ ГЕОРГИЕВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:АЛБИНА АЛЕКСАНДРОВНА ЯСИНСКАЯ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ПЕТЬО РАНГЕЛОВ КИРОВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВИЯНА БОЖИДАРОВА МИТОВА-ЦВЕТАНОВА",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЕМИЛ ГЕОРГИЕВ АНДРЕЕВ",
-      "target": "company:tr:131302510",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
     },
     {
       "source": "official:violeta-zlateva-bozhanova-d14d12",
@@ -749,6 +637,118 @@
       "confidence": "high"
     },
     {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ПАВЛОВ ДРАГАНОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН СТЕФАНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ХРИСТОВА ГЕОРГИЕВА",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ДИМИТРОВ ТОДОРОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБИНА АЛЕКСАНДРОВНА ЯСИНСКАЯ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО РАНГЕЛОВ КИРОВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВИЯНА БОЖИДАРОВА МИТОВА-ЦВЕТАНОВА",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ГЕОРГИЕВ АНДРЕЕВ",
+      "target": "company:tr:131302510",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
       "source": "person:КИРИЛ МИНЧЕВ КОЛЕВ",
       "target": "company:tr:205242224",
       "kind": "tr_owner",
@@ -769,46 +769,6 @@
       "target": "company:tr:207297556",
       "kind": "tr_owner",
       "role": "sole_owner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
-      "target": "company:tr:205753616",
-      "kind": "tr_role",
-      "role": "ngo_representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
-      "target": "company:tr:205753616",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
-      "target": "company:tr:117509832",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
-      "target": "company:tr:175843663",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
-      "target": "company:tr:831622969",
-      "kind": "tr_role",
-      "role": "representative",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -849,6 +809,46 @@
       "target": "company:tr:206749559",
       "kind": "tr_role",
       "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
+      "target": "company:tr:205753616",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
+      "target": "company:tr:205753616",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+      "target": "company:tr:117509832",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:175843663",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ТОДОРОВ ЖИВКОВ",
+      "target": "company:tr:831622969",
+      "kind": "tr_role",
+      "role": "representative",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -949,8 +949,8 @@
       "length": 4,
       "nodeIds": [
         "mp:897",
-        "company:tr:131302510",
-        "person:НИКОЛАЙ ДИМИТРОВ ДИМОВ",
+        "company:tr:207484221",
+        "person:ИВАН АНГЕЛОВ ВЕНИНСКИ",
         "company:tr:205753616",
         "mp:2505"
       ],
@@ -962,8 +962,8 @@
       "length": 4,
       "nodeIds": [
         "mp:897",
-        "company:tr:131302510",
-        "person:ЦАНКО СЛАВЧЕВ ЦАНЕВ",
+        "company:tr:207484221",
+        "person:ДИМИТЪР СЛАВЧЕВ ЗОРОВ",
         "company:tr:117509832",
         "mp:4022"
       ],

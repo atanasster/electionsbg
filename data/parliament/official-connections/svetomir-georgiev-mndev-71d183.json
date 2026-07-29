@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:svetomir-georgiev-mndev-71d183",
+  "nodes": [
+    {
+      "id": "official:svetomir-georgiev-mndev-71d183",
+      "type": "official",
+      "slug": "svetomir-georgiev-mndev-71d183",
+      "label": "Светомир Георгиев Мъндев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:208897340",
+      "type": "company",
+      "label": "Бидонас Трейд 2010",
+      "slug": null,
+      "uic": "208897340",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetomir-georgiev-mndev-71d183",
+      "target": "company:tr:208897340",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetomir-georgiev-mndev-71d183",
+      "target": "company:tr:208897340",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

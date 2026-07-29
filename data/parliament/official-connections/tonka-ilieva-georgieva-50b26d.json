@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:tonka-ilieva-georgieva-50b26d",
   "nodes": [
     {
@@ -10,6 +10,16 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:203354390",
+      "type": "company",
+      "label": "Мико Транс ЕООД",
+      "slug": null,
+      "uic": "203354390",
+      "legalForm": null,
+      "status": null,
+      "seat": null
     },
     {
       "id": "company:tr:207424199",
@@ -28,6 +38,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "official:tonka-ilieva-georgieva-50b26d",
+      "target": "company:tr:203354390",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
     {
       "source": "official:tonka-ilieva-georgieva-50b26d",
       "target": "company:tr:207424199",

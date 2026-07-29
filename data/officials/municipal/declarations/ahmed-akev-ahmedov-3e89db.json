@@ -5,6 +5,36 @@
     "institution": "Антоново",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-01-30",
+    "entryNumber": "Г21",
+    "controlHash": "16B46BB3",
+    "sourceUrl": "https://register.cacbg.bg/2025/EA154D68-206A-4C05-93F3-A18A5E55983B201524.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4432.389318090018,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9378.11568490104,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ahmed-akev-ahmedov-3e89db",
+    "declarantName": "Ахмед Акъев Ахмедов",
+    "institution": "Антоново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-01-30",
@@ -69,36 +99,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "ahmed-akev-ahmedov-3e89db",
-    "declarantName": "Ахмед Акъев Ахмедов",
-    "institution": "Антоново",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-01-30",
-    "entryNumber": "Г21",
-    "controlHash": "16B46BB3",
-    "sourceUrl": "https://register.cacbg.bg/2025/EA154D68-206A-4C05-93F3-A18A5E55983B201524.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 4432.389318090018,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 9378.11568490104,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [],
     "events": []
   }
 ]

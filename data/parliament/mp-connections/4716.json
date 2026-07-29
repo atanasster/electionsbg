@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:4716",
   "nodes": [
     {
@@ -153,6 +153,11 @@
       "id": "person:ЦВЕТОСТИН ОГНЯНОВ ЦВЕТКОВ",
       "type": "person",
       "label": "Цветостин Огнянов Цветков"
+    },
+    {
+      "id": "person:ДОБРОМИР ЖОРЖ ИВАНОВ",
+      "type": "person",
+      "label": "Добромир Жорж Иванов"
     },
     {
       "id": "company:tr:176936800",
@@ -749,6 +754,14 @@
     },
     {
       "source": "person:ЦВЕТОСТИН ОГНЯНОВ ЦВЕТКОВ",
+      "target": "company:tr:831635354",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ЖОРЖ ИВАНОВ",
       "target": "company:tr:831635354",
       "kind": "tr_role",
       "role": "director",

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:petko-ivanov-prokopiev-fe6766",
+  "nodes": [
+    {
+      "id": "official:petko-ivanov-prokopiev-fe6766",
+      "type": "official",
+      "slug": "petko-ivanov-prokopiev-fe6766",
+      "label": "Петко Иванов Прокопиев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Район \"Тракия\" - Пловдив"
+    },
+    {
+      "id": "company:tr:115885978",
+      "type": "company",
+      "label": "\"Орак студио\" ЕООД",
+      "slug": null,
+      "uic": "115885978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-ivanov-prokopiev-fe6766",
+      "target": "company:tr:115885978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

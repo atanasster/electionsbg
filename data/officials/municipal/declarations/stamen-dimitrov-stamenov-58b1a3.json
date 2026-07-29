@@ -1,55 +1,6 @@
 [
   {
     "slug": "stamen-dimitrov-stamenov-58b1a3",
-    "declarantName": "(unknown)",
-    "institution": "Чавдар",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-04-22",
-    "entryNumber": "Г3314",
-    "controlHash": "A68623EA",
-    "sourceUrl": "https://register.cacbg.bg/2025/286890D0-1798-47E1-90C9-BB8D0DC26E7C206073.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "Председател на ПК\"Възкресение\"",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "Председател на ПК\"Възкресение\"",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ПК\"Възкресение\"",
-        "detail": null,
-        "location": "Председател на ПК \"Възкресение\"",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "stamen-dimitrov-stamenov-58b1a3",
     "declarantName": "Стамен Димитров Стаменов",
     "institution": "Чавдар",
     "positionTitle": "Общински съветник",
@@ -132,5 +83,54 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "stamen-dimitrov-stamenov-58b1a3",
+    "declarantName": "(unknown)",
+    "institution": "Чавдар",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г3314",
+    "controlHash": "A68623EA",
+    "sourceUrl": "https://register.cacbg.bg/2025/286890D0-1798-47E1-90C9-BB8D0DC26E7C206073.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "Председател на ПК\"Възкресение\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "Председател на ПК\"Възкресение\"",
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПК\"Възкресение\"",
+        "detail": null,
+        "location": "Председател на ПК \"Възкресение\"",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

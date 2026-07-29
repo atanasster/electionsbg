@@ -5,6 +5,109 @@
     "institution": "Варна",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11187",
+    "controlHash": "61F11C9C",
+    "sourceUrl": "https://register.cacbg.bg/2025/C517FC26-2A07-472A-93DC-D7E6943305DD214318.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32578.496086060648,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 67825.93579196556
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 26505.371121211967,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Облагаеми доходи по ЗДДФЛ от източници в чужбина, за които в\nсъответната СИДДО е предвиден методът “Освобождаване с прогресия” /част I, приложение 9 към ГДД по ЗДДФЛ/",
+        "amountEurDeclarant": 11403.854118200457,
+        "amountEurSpouse": 11403.854118200457
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента /необлагаеми, част III, Приложение 13 към ГДД по ЗДДФЛ/",
+        "amountEurDeclarant": 2930.213771135528,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 122935,
+        "valueEur": 62855.66741485712,
+        "holderName": "ДИАН МАРИНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 66096,
+        "valueEur": 66095.72406599755,
+        "holderName": "ДИАН МАРИНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69784,
+        "valueEur": 35679.992637396914,
+        "holderName": "НАДЕЖДА ЙОРДАНОВА КАРАКАШЕВА-ИВАНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dian-marinov-ivanov-14ff9b",
+    "declarantName": "ДИАН МАРИНОВ ИВАНОВ",
+    "institution": "Варна",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-06-05",
@@ -1039,109 +1142,6 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "dian-marinov-ivanov-14ff9b",
-    "declarantName": "ДИАН МАРИНОВ ИВАНОВ",
-    "institution": "Варна",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г11187",
-    "controlHash": "61F11C9C",
-    "sourceUrl": "https://register.cacbg.bg/2025/C517FC26-2A07-472A-93DC-D7E6943305DD214318.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 32578.496086060648,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 67825.93579196556
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 26505.371121211967,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Облагаеми доходи по ЗДДФЛ от източници в чужбина, за които в\nсъответната СИДДО е предвиден методът “Освобождаване с прогресия” /част I, приложение 9 към ГДД по ЗДДФЛ/",
-        "amountEurDeclarant": 11403.854118200457,
-        "amountEurSpouse": 11403.854118200457
-      },
-      {
-        "parent": null,
-        "category": "Доходи от рента /необлагаеми, част III, Приложение 13 към ГДД по ЗДДФЛ/",
-        "amountEurDeclarant": 2930.213771135528,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 122935,
-        "valueEur": 62855.66741485712,
-        "holderName": "ДИАН МАРИНОВ ИВАНОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 66096,
-        "valueEur": 66095.72406599755,
-        "holderName": "ДИАН МАРИНОВ ИВАНОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 69784,
-        "valueEur": 35679.992637396914,
-        "holderName": "НАДЕЖДА ЙОРДАНОВА КАРАКАШЕВА-ИВАНОВ",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "по Таблица 12 - ръчно"
       }
     ],
     "events": []

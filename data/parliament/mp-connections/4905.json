@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:4905",
   "nodes": [
     {
@@ -16,14 +16,14 @@
       ]
     },
     {
-      "id": "company:Алекса-Про-ЕООД",
+      "id": "company:Алекса-про-ЕООД",
       "type": "company",
-      "label": "Алекса Про ЕООД",
-      "slug": "Алекса-Про-ЕООД",
+      "label": "Алекса про ЕООД",
+      "slug": "Алекса-про-ЕООД",
       "uic": "202813240",
       "legalForm": "EOOD",
       "status": "active",
-      "seat": "София (столица)"
+      "seat": "София"
     },
     {
       "id": "company:Издателска-къща-Селекта-ЕООД",
@@ -54,7 +54,7 @@
   "edges": [
     {
       "source": "mp:4905",
-      "target": "company:Алекса-Про-ЕООД",
+      "target": "company:Алекса-про-ЕООД",
       "kind": "declared_stake",
       "role": "current_share",
       "isCurrent": true,

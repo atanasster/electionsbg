@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:ivan-kirilov-kirilov-33cecd",
+  "nodes": [
+    {
+      "id": "official:ivan-kirilov-kirilov-33cecd",
+      "type": "official",
+      "slug": "ivan-kirilov-kirilov-33cecd",
+      "label": "Иван Кирилов Кирилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:206038006",
+      "type": "company",
+      "label": "ФТР \"Подкрепа\" ООД",
+      "slug": null,
+      "uic": "206038006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-kirilov-kirilov-33cecd",
+      "target": "company:tr:206038006",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

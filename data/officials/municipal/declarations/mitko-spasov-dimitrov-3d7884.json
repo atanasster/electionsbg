@@ -7,55 +7,6 @@
     "declarationYear": 2025,
     "fiscalYear": null,
     "declarationType": "Other",
-    "filedAt": "2025-04-25",
-    "entryNumber": "Г12448",
-    "controlHash": "739EAF98",
-    "sourceUrl": "https://register.cacbg.bg/2025/83D82D4C-5A02-4069-A010-32C79AB4CE53215616.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "член на СД",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "член на СД",
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ДЕАРИ ФУУД БЪЛГАРИЯ АД с  ЕИК 204294057",
-        "detail": null,
-        "location": "член на СД",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "mitko-spasov-dimitrov-3d7884",
-    "declarantName": "(unknown)",
-    "institution": "Габрово",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
     "filedAt": "2025-02-21",
     "entryNumber": "Г12441",
     "controlHash": "7F1F1C48",
@@ -348,5 +299,54 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "mitko-spasov-dimitrov-3d7884",
+    "declarantName": "(unknown)",
+    "institution": "Габрово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-04-25",
+    "entryNumber": "Г12448",
+    "controlHash": "739EAF98",
+    "sourceUrl": "https://register.cacbg.bg/2025/83D82D4C-5A02-4069-A010-32C79AB4CE53215616.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "член на СД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "член на СД",
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ДЕАРИ ФУУД БЪЛГАРИЯ АД с  ЕИК 204294057",
+        "detail": null,
+        "location": "член на СД",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-28T23:12:13.732Z",
+  "generatedAt": "2026-07-29T13:09:27.177Z",
   "nodes": [
     {
       "id": "src:water",
@@ -208,7 +208,7 @@
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-connections",
         "update-officials",
@@ -241,21 +241,21 @@
           "label": "Сметна палата declarations — MPs",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "cacbg_officials",
           "label": "Сметна палата declarations — executive (officials)",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "cacbg_local",
           "label": "Сметна палата declarations — municipal (mayors & councillors)",
           "url": "https://register.cacbg.bg/",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         }
       ],
       "x": 28,
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-19T06:09:20.174Z",
+      "freshness": "2026-07-29T11:54:26.454Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -425,13 +425,14 @@
           "label": "data.egov.bg АОП (Агенция по обществени поръчки)",
           "url": "https://data.egov.bg/data?org%5B0%5D=502&page=1",
           "cadence": "weekly",
-          "freshness": "2026-07-05T06:09:03.234Z"
+          "freshness": "2026-07-29T11:54:26.454Z"
         },
         {
           "id": "egov_commerce",
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
-          "cadence": "daily"
+          "cadence": "daily",
+          "freshness": "2026-07-29T11:54:26.454Z"
         },
         {
           "id": "egov_budget_execution",
@@ -585,7 +586,7 @@
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [],
       "sources": [
         {
@@ -593,7 +594,7 @@
           "label": "КЗК procurement-appeals register (жалби по ЗОП)",
           "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         }
       ],
       "x": 28,
@@ -623,7 +624,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-funds"
       ],
@@ -633,7 +634,7 @@
           "label": "ИСУН EU funds (beneficiaries)",
           "url": "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "isun_eu_funds_projects",
@@ -742,7 +743,7 @@
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-budget",
         "update-noi",
@@ -791,7 +792,7 @@
           "label": "Агенция \"Митници\" — Митническа хроника annual reports",
           "url": "https://customs.bg/wps/portal/agency/media-center/customs-chronicle",
           "cadence": "weekly",
-          "freshness": "2026-05-26T06:08:44.085Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "customs_excise_register",
@@ -805,7 +806,7 @@
           "label": "НАП — Годишен отчет за дейността",
           "url": "https://nra.bg/wps/portal/nra/za-nap/osnovni-dokumenti/Godishni-otcheti-za-deynostta-na-NAP",
           "cadence": "weekly",
-          "freshness": "2026-07-04T06:09:29.998Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "nssi_b1",
@@ -931,7 +932,7 @@
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-27T06:09:23.383Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-budget",
         "update-council-minutes",
@@ -943,7 +944,7 @@
           "label": "Общински капиталови програми (per-municipality capital lists)",
           "url": "https://www.sofia.bg/",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "council_minutes",
@@ -1421,7 +1422,7 @@
       "url": "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-macro"
       ],
@@ -1431,7 +1432,7 @@
           "label": "BNB domestic ДЦК auctions",
           "url": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
           "cadence": "weekly",
-          "freshness": "2026-05-15T17:02:29.874Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "bnb_fdi",
@@ -1903,7 +1904,7 @@
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-24T12:01:33.160Z",
+      "freshness": "2026-07-29T11:45:08.536Z",
       "skills": [
         "update-culture"
       ],
@@ -1920,7 +1921,7 @@
           "label": "НФК news feed (grant results, ncf.bg)",
           "url": "https://ncf.bg/bg/novini",
           "cadence": "weekly",
-          "freshness": "2026-07-24T12:01:33.160Z"
+          "freshness": "2026-07-29T11:45:08.536Z"
         },
         {
           "id": "nfc_commissions",

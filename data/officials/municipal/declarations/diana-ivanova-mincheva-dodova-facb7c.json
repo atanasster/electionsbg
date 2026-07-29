@@ -5,6 +5,42 @@
     "institution": "Каварна",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г4196",
+    "controlHash": "F58C8F75",
+    "sourceUrl": "https://register.cacbg.bg/2025/8E7C3CCB-29C5-4952-BC67-1CF147D5A785207035.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23827.224247506176,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12399.339410889495
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3988.076673330504
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "diana-ivanova-mincheva-dodova-facb7c",
+    "declarantName": "Диана Иванова Минчева - Додова",
+    "institution": "Каварна",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-07-08",
@@ -427,42 +463,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "diana-ivanova-mincheva-dodova-facb7c",
-    "declarantName": "Диана Иванова Минчева - Додова",
-    "institution": "Каварна",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-04-28",
-    "entryNumber": "Г4196",
-    "controlHash": "F58C8F75",
-    "sourceUrl": "https://register.cacbg.bg/2025/8E7C3CCB-29C5-4952-BC67-1CF147D5A785207035.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 23827.224247506176,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 12399.339410889495
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 3988.076673330504
-      }
-    ],
-    "assets": [],
     "events": []
   }
 ]

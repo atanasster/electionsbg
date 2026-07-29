@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:5067",
   "nodes": [
     {
@@ -146,6 +146,16 @@
       "id": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
       "type": "person",
       "label": "Проф.д-Р Стоян Петков Маринов"
+    },
+    {
+      "id": "person:ЙОВКА СЕВОВА КОСЕВА",
+      "type": "person",
+      "label": "Йовка Севова Косева"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА НЕДЯЛКОВА ПОПОВА",
+      "type": "person",
+      "label": "Веселина Недялкова Попова"
     },
     {
       "id": "company:tr:000703415",
@@ -498,6 +508,22 @@
     },
     {
       "source": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА СЕВОВА КОСЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА НЕДЯЛКОВА ПОПОВА",
       "target": "company:tr:103188964",
       "kind": "tr_role",
       "role": "ngo_board",

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:asen-emilov-belev-dbda30",
+  "nodes": [
+    {
+      "id": "official:asen-emilov-belev-dbda30",
+      "type": "official",
+      "slug": "asen-emilov-belev-dbda30",
+      "label": "Асен Емилов Белев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Неделино"
+    },
+    {
+      "id": "company:tr:203940421",
+      "type": "company",
+      "label": "Ивасим Трейд",
+      "slug": null,
+      "uic": "203940421",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-emilov-belev-dbda30",
+      "target": "company:tr:203940421",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

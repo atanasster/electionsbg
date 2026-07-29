@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:hristo-veskov-mnkov-22a61a",
   "nodes": [
     {
@@ -50,6 +50,16 @@
       "id": "person:РУСИ ДИМИТРОВ РУСЕВ",
       "type": "person",
       "label": "Руси Димитров Русев"
+    },
+    {
+      "id": "company:name:ТЕХНО ИНСТАЛ",
+      "type": "company",
+      "label": "\"ТЕХНО ИНСТАЛ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
     }
   ],
   "edges": [
@@ -135,6 +145,14 @@
     },
     {
       "source": "person:РУСИ ДИМИТРОВ РУСЕВ",
+      "target": "company:tr:203264092",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ТЕХНО ИНСТАЛ",
       "target": "company:tr:203264092",
       "kind": "tr_owner",
       "role": "partner",

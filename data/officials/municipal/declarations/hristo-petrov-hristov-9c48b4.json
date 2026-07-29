@@ -1,73 +1,6 @@
 [
   {
     "slug": "hristo-petrov-hristov-9c48b4",
-    "declarantName": "(unknown)",
-    "institution": "Балчик",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "Г13084",
-    "controlHash": "E0A8B4A5",
-    "sourceUrl": "https://register.cacbg.bg/2025/6B14C51A-5356-4AFA-81A7-0BAB95C00B7A216277.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "security",
-        "description": "потребителски кредит",
-        "detail": "Христо Петров Христов",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "38274",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "банка ОББ",
-        "isSpouse": true,
-        "legalBasis": "спестявания/погасяване-07.05.25",
-        "fundsOrigin": null
-      },
-      {
-        "category": "security",
-        "description": "ипотечен кредит/внесени 07.05.25г.",
-        "detail": "Христо Петров Христов",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "35000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "банка ОББ",
-        "isSpouse": true,
-        "legalBasis": "спестявания/частично погасяване",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Електроразпределение Север АД, ЕИК 104518621",
-        "detail": null,
-        "location": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "hristo-petrov-hristov-9c48b4",
     "declarantName": "Христо Петров Христов",
     "institution": "Балчик",
     "positionTitle": "Общински съветник",
@@ -282,5 +215,72 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "hristo-petrov-hristov-9c48b4",
+    "declarantName": "(unknown)",
+    "institution": "Балчик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г13084",
+    "controlHash": "E0A8B4A5",
+    "sourceUrl": "https://register.cacbg.bg/2025/6B14C51A-5356-4AFA-81A7-0BAB95C00B7A216277.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "потребителски кредит",
+        "detail": "Христо Петров Христов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "38274",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "банка ОББ",
+        "isSpouse": true,
+        "legalBasis": "спестявания/погасяване-07.05.25",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "ипотечен кредит/внесени 07.05.25г.",
+        "detail": "Христо Петров Христов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "35000",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "банка ОББ",
+        "isSpouse": true,
+        "legalBasis": "спестявания/частично погасяване",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Електроразпределение Север АД, ЕИК 104518621",
+        "detail": null,
+        "location": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

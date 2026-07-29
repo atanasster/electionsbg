@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:5182",
   "nodes": [
     {
@@ -12,6 +12,16 @@
       "nsFolders": [
         "52"
       ]
+    },
+    {
+      "id": "company:tr:206013217",
+      "type": "company",
+      "label": "ВЕМЕРЕА",
+      "slug": null,
+      "uic": "206013217",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
     },
     {
       "id": "company:tr:208810392",
@@ -124,14 +134,13 @@
       "seat": null
     },
     {
-      "id": "company:tr:206013217",
-      "type": "company",
-      "label": "ВЕМЕРЕА",
-      "slug": null,
-      "uic": "206013217",
-      "legalForm": "OOD",
-      "status": "active",
-      "seat": null
+      "id": "official:svetoslav-aleksandrov-dokov-1be822",
+      "type": "official",
+      "slug": "svetoslav-aleksandrov-dokov-1be822",
+      "label": "Светослав Александров Доков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
     },
     {
       "id": "person:ДАНИЕЛА ИЛИЯНОВА БОРИСОВА",
@@ -204,15 +213,6 @@
       "label": "Ивайло Петров Минков"
     },
     {
-      "id": "official:svetoslav-aleksandrov-dokov-1be822",
-      "type": "official",
-      "slug": "svetoslav-aleksandrov-dokov-1be822",
-      "label": "Светослав Александров Доков",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Плевен"
-    },
-    {
       "id": "company:tr:207690100",
       "type": "company",
       "label": "Сдружение &quot;Заедно за Младен&quot;",
@@ -254,6 +254,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "mp:5182",
+      "target": "company:tr:206013217",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
     {
       "source": "mp:5182",
       "target": "company:tr:208810392",
@@ -423,10 +431,26 @@
       "confidence": "medium"
     },
     {
-      "source": "mp:5182",
+      "source": "official:svetoslav-aleksandrov-dokov-1be822",
+      "target": "company:tr:206013217",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-aleksandrov-dokov-1be822",
       "target": "company:tr:206013217",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-aleksandrov-dokov-1be822",
+      "target": "company:tr:206013217",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -557,22 +581,6 @@
       "role": "ngo_board",
       "isCurrent": true,
       "confidence": "high"
-    },
-    {
-      "source": "official:svetoslav-aleksandrov-dokov-1be822",
-      "target": "company:tr:206013217",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:svetoslav-aleksandrov-dokov-1be822",
-      "target": "company:tr:206013217",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "medium"
     },
     {
       "source": "person:ИВАН ХРИСТОВ ХРИСТОВ",

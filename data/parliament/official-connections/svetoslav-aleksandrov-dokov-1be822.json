@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:svetoslav-aleksandrov-dokov-1be822",
   "nodes": [
     {
@@ -47,6 +47,14 @@
       "target": "company:tr:206013217",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-aleksandrov-dokov-1be822",
+      "target": "company:tr:206013217",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "medium"
     },

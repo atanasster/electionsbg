@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-27T18:48:38.679Z",
-  "total": 451,
-  "officialCount": 442,
+  "generatedAt": "2026-07-29T12:42:33.767Z",
+  "total": 454,
+  "officialCount": 445,
   "entries": [
     {
       "slug": "geno-ivanov-georgiev-caa806",
@@ -21563,6 +21563,50 @@
       ]
     },
     {
+      "slug": "vasil-iordavnov-vasilev-e0db01",
+      "name": "Васил Йордавнов Василев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "contractorEik": "206803748",
+      "contractorName": "Строна консулт ООД",
+      "totalEur": 439879.74,
+      "totalOther": {},
+      "contractCount": 2,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "20 лв",
+          "valueEur": 5.11
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 2,
+          "totalEur": 439879.74,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000413974",
+          "name": "Община Плевен",
+          "contractCount": 1,
+          "totalEur": 411845.61,
+          "totalOther": {}
+        },
+        {
+          "eik": "000961458",
+          "name": "Средно училище \"Пейо Крачолов Яворов\"",
+          "contractCount": 1,
+          "totalEur": 28034.13,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "krasimir-petrov-prvanov-2c8561",
       "name": "Красимир Петров Първанов",
       "tier": "executive",
@@ -27917,6 +27961,43 @@
       ]
     },
     {
+      "slug": "petko-ivanov-prokopiev-fe6766",
+      "name": "Петко Иванов Прокопиев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "contractorEik": "115885978",
+      "contractorName": "Орак студио ООД, Пловдив",
+      "totalEur": 63911.49,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "100",
+          "valueEur": 31700.1
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 63911.49,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000471504",
+          "name": "Община Пловдив",
+          "contractCount": 1,
+          "totalEur": 63911.49,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "diana-dimova-savateva-2b1247",
       "name": "Диана Димова Саватева",
       "tier": "municipal",
@@ -28616,6 +28697,43 @@
           "name": "Териториално поделение държавно горско стопанство /ТПДГС/ - Върбица към Държавно предприятие - Североизточно държавно предприятие /ДПСИДП/ - Шумен",
           "contractCount": 3,
           "totalEur": 48204.6,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "tsenko-nikolaev-zhikov-07d31c",
+      "name": "Ценко Николаев Жиков",
+      "tier": "municipal",
+      "role": "councillor",
+      "contractorEik": "204322456",
+      "contractorName": "Консулт Инвест Стандарт ООД",
+      "totalEur": 45760.62,
+      "totalOther": {},
+      "contractCount": 1,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50",
+          "valueEur": 0.51
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2025",
+          "contractCount": 1,
+          "totalEur": 45760.62,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000057001",
+          "name": "Община Камено",
+          "contractCount": 1,
+          "totalEur": 45760.62,
           "totalOther": {}
         }
       ]
@@ -31674,6 +31792,12 @@
       "contractCount": 1,
       "awardCount": 0,
       "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "2",
+          "valueEur": 1.02
+        },
         {
           "role": "manager",
           "confidence": "high"

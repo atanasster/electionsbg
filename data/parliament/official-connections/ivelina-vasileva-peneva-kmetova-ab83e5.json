@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
   "nodes": [
     {
@@ -14,7 +14,7 @@
     {
       "id": "company:tr:206973978",
       "type": "company",
-      "label": "АРХИ проект",
+      "label": "АРХИ Проект ЕООД",
       "slug": null,
       "uic": "206973978",
       "legalForm": null,
@@ -28,6 +28,14 @@
     }
   ],
   "edges": [
+    {
+      "source": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
+      "target": "company:tr:206973978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
     {
       "source": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
       "target": "company:tr:206973978",

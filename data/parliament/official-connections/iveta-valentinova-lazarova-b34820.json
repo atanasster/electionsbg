@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:iveta-valentinova-lazarova-b34820",
+  "nodes": [
+    {
+      "id": "official:iveta-valentinova-lazarova-b34820",
+      "type": "official",
+      "slug": "iveta-valentinova-lazarova-b34820",
+      "label": "Ивета Валентинова Лазарова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:208144346",
+      "type": "company",
+      "label": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+      "slug": null,
+      "uic": "208144346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕТА ВАЛЕНТИНОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Ивета Валентинова Лазарова"
+    },
+    {
+      "id": "person:ТАШКА АТАНАСОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Ташка Атанасова Койчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iveta-valentinova-lazarova-b34820",
+      "target": "company:tr:208144346",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТА ВАЛЕНТИНОВА ЛАЗАРОВА",
+      "target": "company:tr:208144346",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТА ВАЛЕНТИНОВА ЛАЗАРОВА",
+      "target": "company:tr:208144346",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАШКА АТАНАСОВА КОЙЧЕВА",
+      "target": "company:tr:208144346",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

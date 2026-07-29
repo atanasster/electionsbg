@@ -5,6 +5,36 @@
     "institution": "Дряново",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-04",
+    "entryNumber": "Г1889",
+    "controlHash": "B8BC1CCF",
+    "sourceUrl": "https://register.cacbg.bg/2025/283DF86A-EF25-404A-B9D4-B40B878BAA1B204454.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7621.828072992029,
+        "amountEurSpouse": 19940.38336665252
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16872.63207947521,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "nadezhda-emilova-kiselkova-yumerova-6e7513",
+    "declarantName": "Надежда Емилова Киселкова-Юмерова",
+    "institution": "Дряново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-05-05",
@@ -141,36 +171,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "nadezhda-emilova-kiselkova-yumerova-6e7513",
-    "declarantName": "Надежда Емилова Киселкова-Юмерова",
-    "institution": "Дряново",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-04-04",
-    "entryNumber": "Г1889",
-    "controlHash": "B8BC1CCF",
-    "sourceUrl": "https://register.cacbg.bg/2025/283DF86A-EF25-404A-B9D4-B40B878BAA1B204454.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7621.828072992029,
-        "amountEurSpouse": 19940.38336665252
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 16872.63207947521,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [],
     "events": []
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T18:48:48.061Z",
+  "generatedAt": "2026-07-29T12:42:42.094Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -1810,6 +1810,16 @@
       "id": "contractor:204219357",
       "type": "contractor",
       "label": "Водоснабдяване и канализация добрич АД"
+    },
+    {
+      "id": "awarder:000961458",
+      "type": "awarder",
+      "label": "Средно училище \"Пейо Крачолов Яворов\""
+    },
+    {
+      "id": "contractor:206803748",
+      "type": "contractor",
+      "label": "Строна консулт ООД"
     },
     {
       "id": "awarder:000970165",
@@ -5227,6 +5237,11 @@
       "label": "Георги Иванов Славов"
     },
     {
+      "id": "official:vasil-iordavnov-vasilev-e0db01",
+      "type": "official",
+      "label": "Васил Йордавнов Василев"
+    },
+    {
       "id": "official:krasimir-petrov-prvanov-2c8561",
       "type": "official",
       "label": "Красимир Петров Първанов"
@@ -5937,6 +5952,16 @@
       "label": "Теменужка Светославова Сотирова"
     },
     {
+      "id": "contractor:115885978",
+      "type": "contractor",
+      "label": "Орак студио ООД, Пловдив"
+    },
+    {
+      "id": "official:petko-ivanov-prokopiev-fe6766",
+      "type": "official",
+      "label": "Петко Иванов Прокопиев"
+    },
+    {
       "id": "official:diana-dimova-savateva-2b1247",
       "type": "official",
       "label": "Диана Димова Саватева"
@@ -6070,6 +6095,16 @@
       "id": "official:osman-mehmedov-palazov-4fc540",
       "type": "official",
       "label": "Осман Мехмедов Палазов"
+    },
+    {
+      "id": "contractor:204322456",
+      "type": "contractor",
+      "label": "Консулт Инвест Стандарт ООД"
+    },
+    {
+      "id": "official:tsenko-nikolaev-zhikov-07d31c",
+      "type": "official",
+      "label": "Ценко Николаев Жиков"
     },
     {
       "id": "contractor:208328830",
@@ -7075,6 +7110,11 @@
       "id": "awarder:130344823",
       "type": "awarder",
       "label": "Специализирани болници за рехабилитация - Национален комплекс /СБР - НК/ ЕАД - София"
+    },
+    {
+      "id": "awarder:000057001",
+      "type": "awarder",
+      "label": "Община Камено"
     },
     {
       "id": "awarder:000817931",
@@ -8747,6 +8787,11 @@
       "source": "awarder:000934863",
       "target": "contractor:204219357",
       "valueEur": 30678
+    },
+    {
+      "source": "awarder:000961458",
+      "target": "contractor:206803748",
+      "valueEur": 28034.13
     },
     {
       "source": "awarder:000970165",
@@ -12394,6 +12439,11 @@
       "valueEur": 475692.21
     },
     {
+      "source": "contractor:206803748",
+      "target": "official:vasil-iordavnov-vasilev-e0db01",
+      "valueEur": 439879.74
+    },
+    {
       "source": "contractor:201609173",
       "target": "official:krasimir-petrov-prvanov-2c8561",
       "valueEur": 435388.04
@@ -12954,6 +13004,11 @@
       "valueEur": 66687.58
     },
     {
+      "source": "contractor:115885978",
+      "target": "official:petko-ivanov-prokopiev-fe6766",
+      "valueEur": 63911.49
+    },
+    {
       "source": "contractor:208188531",
       "target": "official:diana-dimova-savateva-2b1247",
       "valueEur": 62500
@@ -13037,6 +13092,11 @@
       "source": "contractor:203882402",
       "target": "official:osman-mehmedov-palazov-4fc540",
       "valueEur": 48204.6
+    },
+    {
+      "source": "contractor:204322456",
+      "target": "official:tsenko-nikolaev-zhikov-07d31c",
+      "valueEur": 45760.62
     },
     {
       "source": "contractor:208328830",
@@ -14114,6 +14174,11 @@
       "valueEur": 18662.15
     },
     {
+      "source": "awarder:000471504",
+      "target": "contractor:115885978",
+      "valueEur": 63911.49
+    },
+    {
       "source": "awarder:176789478",
       "target": "contractor:176182033",
       "valueEur": 62500
@@ -14167,6 +14232,11 @@
       "source": "awarder:201617412",
       "target": "contractor:203882402",
       "valueEur": 48204.6
+    },
+    {
+      "source": "awarder:000057001",
+      "target": "contractor:204322456",
+      "valueEur": 45760.62
     },
     {
       "source": "awarder:000817931",

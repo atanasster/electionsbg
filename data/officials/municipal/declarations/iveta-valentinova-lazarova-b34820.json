@@ -1,55 +1,6 @@
 [
   {
     "slug": "iveta-valentinova-lazarova-b34820",
-    "declarantName": "(unknown)",
-    "institution": "Стара Загора",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-02-10",
-    "entryNumber": "Г13563",
-    "controlHash": "32FA6961",
-    "sourceUrl": "https://register.cacbg.bg/2025/67133FC2-C311-450D-BA58-1B222BECB62C216790.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
-        "detail": null,
-        "location": "1 дял на номинална стойност 1 лев, 50% от капитала",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
-        "detail": null,
-        "location": "управител",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "iveta-valentinova-lazarova-b34820",
     "declarantName": "Ивета Валентинова Лазарова",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
@@ -108,5 +59,54 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "iveta-valentinova-lazarova-b34820",
+    "declarantName": "(unknown)",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-02-10",
+    "entryNumber": "Г13563",
+    "controlHash": "32FA6961",
+    "sourceUrl": "https://register.cacbg.bg/2025/67133FC2-C311-450D-BA58-1B222BECB62C216790.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+        "detail": null,
+        "location": "1 дял на номинална стойност 1 лев, 50% от капитала",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
+        "detail": null,
+        "location": "управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

@@ -1,55 +1,6 @@
 [
   {
     "slug": "krasimir-simeonov-chervilov-156014",
-    "declarantName": "(unknown)",
-    "institution": "Стара Загора",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-01-27",
-    "entryNumber": "Г6664",
-    "controlHash": "B47C473F",
-    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894209628.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "Д.К.С. Инвестмънт ООД",
-        "detail": null,
-        "location": "50%",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "Фондация \"Фондация ВМРО\"",
-        "detail": null,
-        "location": "Член на управителния съвет",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "krasimir-simeonov-chervilov-156014",
     "declarantName": "Красимир Симеонов Червилов",
     "institution": "Стара Загора",
     "positionTitle": "Общински съветник",
@@ -108,5 +59,54 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "krasimir-simeonov-chervilov-156014",
+    "declarantName": "(unknown)",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-01-27",
+    "entryNumber": "Г6664",
+    "controlHash": "B47C473F",
+    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894209628.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Д.К.С. Инвестмънт ООД",
+        "detail": null,
+        "location": "50%",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"Фондация ВМРО\"",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
   }
 ]

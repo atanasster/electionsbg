@@ -5,6 +5,110 @@
     "institution": "Каолиново",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г5932",
+    "controlHash": "464824B1",
+    "sourceUrl": "https://register.cacbg.bg/2025/7DEA4DD1-E837-4AEB-A5E0-1EE668F80F19208878.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30922.421682866097,
+        "amountEurSpouse": 10219.190829468818
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел Зафира",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3300,
+        "valueEur": 1687.263207947521,
+        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10002,
+        "valueEur": 5113.941395724577,
+        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31090,
+        "valueEur": 31089.102836136066,
+        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  },
+  {
+    "slug": "bilgin-osmanov-myumyunov-b22fdb",
+    "declarantName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
+    "institution": "Каолиново",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-05-13",
@@ -124,109 +228,5 @@
       }
     ],
     "events": []
-  },
-  {
-    "slug": "bilgin-osmanov-myumyunov-b22fdb",
-    "declarantName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
-    "institution": "Каолиново",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-02",
-    "entryNumber": "Г5932",
-    "controlHash": "464824B1",
-    "sourceUrl": "https://register.cacbg.bg/2025/7DEA4DD1-E837-4AEB-A5E0-1EE668F80F19208878.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30922.421682866097,
-        "amountEurSpouse": 10219.190829468818
-      }
-    ],
-    "assets": [
-      {
-        "category": "vehicle",
-        "description": "Лек автомобил",
-        "detail": "Опел Зафира",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": 2024,
-        "share": null,
-        "currency": "BGN",
-        "amount": 3300,
-        "valueEur": 1687.263207947521,
-        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 10002,
-        "valueEur": 5113.941395724577,
-        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 31090,
-        "valueEur": 31089.102836136066,
-        "holderName": "БИЛГИН ОСМАНОВ МЮМЮНОВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "АПАРТАМЕНТ",
-        "detail": null,
-        "location": "ШУМЕН",
-        "municipality": "ШУМЕН",
-        "areaSqm": 59,
-        "builtAreaSqm": 59,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      },
-      {
-        "kind": "disposal_property",
-        "description": "АПАРТАМЕНТ",
-        "detail": null,
-        "location": "ШУМЕН",
-        "municipality": "ШУМЕН",
-        "areaSqm": 59,
-        "builtAreaSqm": 59,
-        "currency": "BGN",
-        "valueEur": 0,
-        "legalBasis": "безвъзмездно"
-      }
-    ]
   }
 ]

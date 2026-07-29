@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:mariyana-grigorova-kalinova-d13626",
   "nodes": [
     {
@@ -65,6 +65,16 @@
       "id": "person:ПАРАСКЕВА ЦВЯТКОВА СТОЯНОВА",
       "type": "person",
       "label": "Параскева Цвяткова Стоянова"
+    },
+    {
+      "id": "person:НИКОЛЕТА РОСЕНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Николета Росенова Александрова"
+    },
+    {
+      "id": "person:РУЗИЕ ДАИЛОВА ЮМЕРОВА",
+      "type": "person",
+      "label": "Рузие Даилова Юмерова"
     }
   ],
   "edges": [
@@ -73,6 +83,14 @@
       "target": "company:tr:117057665",
       "kind": "tr_role",
       "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-grigorova-kalinova-d13626",
+      "target": "company:tr:117057665",
+      "kind": "tr_role",
+      "role": "ngo_representative",
       "isCurrent": true,
       "confidence": "medium"
     },
@@ -142,6 +160,30 @@
     },
     {
       "source": "person:ПАРАСКЕВА ЦВЯТКОВА СТОЯНОВА",
+      "target": "company:tr:117057665",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА РОСЕНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:117057665",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА БОРИСОВА КОЕВА",
+      "target": "company:tr:117057665",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУЗИЕ ДАИЛОВА ЮМЕРОВА",
       "target": "company:tr:117057665",
       "kind": "tr_role",
       "role": "verifier",

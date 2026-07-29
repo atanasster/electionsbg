@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:5230",
   "nodes": [
     {
@@ -20,30 +20,30 @@
       ]
     },
     {
-      "id": "company:Айрън-Бюти-ООД",
+      "id": "company:Айрън-бюти-ООД",
       "type": "company",
-      "label": "Айрън Бюти ООД",
-      "slug": "Айрън-Бюти-ООД",
+      "label": "Айрън бюти ООД",
+      "slug": "Айрън-бюти-ООД",
       "uic": "203304195",
       "legalForm": "EOOD",
       "status": "active",
       "seat": "София (столица)"
     },
     {
-      "id": "company:Ивент-Проджект-ООД",
+      "id": "company:Ивент-проджект-ООД",
       "type": "company",
-      "label": "Ивент Проджект ООД",
-      "slug": "Ивент-Проджект-ООД",
+      "label": "Ивент проджект ООД",
+      "slug": "Ивент-проджект-ООД",
       "uic": "202910610",
       "legalForm": "OOD",
       "status": "active",
       "seat": "София (столица)"
     },
     {
-      "id": "company:Прайм-Го-ООД",
+      "id": "company:Прайм-го-ООД",
       "type": "company",
-      "label": "Прайм Го ООД",
-      "slug": "Прайм-Го-ООД",
+      "label": "Прайм го ООД",
+      "slug": "Прайм-го-ООД",
       "uic": "205689537",
       "legalForm": "OOD",
       "status": "active",
@@ -98,7 +98,7 @@
   "edges": [
     {
       "source": "mp:5230",
-      "target": "company:Айрън-Бюти-ООД",
+      "target": "company:Айрън-бюти-ООД",
       "kind": "declared_stake",
       "role": "current_share",
       "isCurrent": true,
@@ -106,7 +106,7 @@
     },
     {
       "source": "mp:5230",
-      "target": "company:Ивент-Проджект-ООД",
+      "target": "company:Ивент-проджект-ООД",
       "kind": "declared_stake",
       "role": "current_share",
       "isCurrent": true,
@@ -114,7 +114,7 @@
     },
     {
       "source": "mp:5230",
-      "target": "company:Прайм-Го-ООД",
+      "target": "company:Прайм-го-ООД",
       "kind": "declared_stake",
       "role": "current_share",
       "isCurrent": true,
@@ -146,7 +146,7 @@
     },
     {
       "source": "person:КРАСИМИРА ЛЮДМИЛОВА ХАДЖИИВАНОВА",
-      "target": "company:Айрън-Бюти-ООД",
+      "target": "company:Айрън-бюти-ООД",
       "kind": "tr_owner",
       "role": "sole_owner",
       "isCurrent": true,
@@ -154,7 +154,7 @@
     },
     {
       "source": "person:ОЛЯ БОЯНОВА АНТОНОВА",
-      "target": "company:Прайм-Го-ООД",
+      "target": "company:Прайм-го-ООД",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,

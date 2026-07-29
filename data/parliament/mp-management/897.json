@@ -1,9 +1,23 @@
 {
   "mpId": 897,
   "mpName": "Венцислав Василев Върбанов",
-  "generatedAt": "2026-07-24T18:01:32.596Z",
+  "generatedAt": "2026-07-29T12:24:54.037Z",
   "total": 9,
   "roles": [
+    {
+      "uic": "207484221",
+      "companyName": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
+      "legalForm": "ASSOC",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606",
+      "status": "active",
+      "role": "ngo_board",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2026-07-25T12:23:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
     {
       "uic": "131302510",
       "companyName": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ЗЕМЕДЕЛСКИТЕ ПРОИЗВОДИТЕЛИ В БЪЛГАРИЯ&quot;",
@@ -28,20 +42,6 @@
       "positionLabel": null,
       "sharePercent": 100,
       "addedAt": "2025-12-04T14:10:04",
-      "erasedAt": null,
-      "confidence": "medium",
-      "confidenceReason": "full-name match"
-    },
-    {
-      "uic": "207484221",
-      "companyName": "БЪЛГАРСКА АГРОХРАНИТЕЛНА КАМАРА",
-      "legalForm": "ASSOC",
-      "seat": "БЪЛГАРИЯ, гр. София, 1606",
-      "status": "active",
-      "role": "ngo_board",
-      "positionLabel": null,
-      "sharePercent": null,
-      "addedAt": "2025-08-04T15:22:54",
       "erasedAt": null,
       "confidence": "medium",
       "confidenceReason": "full-name match"

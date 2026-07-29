@@ -1,0 +1,298 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:naim-mustafa-naim-a3d8b2",
+  "nodes": [
+    {
+      "id": "official:naim-mustafa-naim-a3d8b2",
+      "type": "official",
+      "slug": "naim-mustafa-naim-a3d8b2",
+      "label": "Наим Мустафа Наим",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кайнарджа"
+    },
+    {
+      "id": "company:tr:000560305",
+      "type": "company",
+      "label": "РОДИНА - 1941",
+      "slug": null,
+      "uic": "000560305",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САЛИ КАРАНИ ТАЛИБ",
+      "type": "person",
+      "label": "Сали Карани Талиб"
+    },
+    {
+      "id": "person:СМЕТ АРУН МУСТАФА",
+      "type": "person",
+      "label": "Смет Арун Мустафа"
+    },
+    {
+      "id": "person:НЕВАЙДИН ДЖЕМАЛДИН СЕИД",
+      "type": "person",
+      "label": "Невайдин Джемалдин Сеид"
+    },
+    {
+      "id": "person:СУНАЙ НАЗИФОВ ИСМАИЛОВ",
+      "type": "person",
+      "label": "Сунай Назифов Исмаилов"
+    },
+    {
+      "id": "person:ШЕРИФЕ АЛИЕВА МЕХМЕД",
+      "type": "person",
+      "label": "Шерифе Алиева Мехмед"
+    },
+    {
+      "id": "person:ФИЛИЗ ЕРДЖАН ОСМАН",
+      "type": "person",
+      "label": "Филиз Ерджан Осман"
+    },
+    {
+      "id": "person:АДИЛЯ МЮСТЕДЖЕБ ФЕРАД",
+      "type": "person",
+      "label": "Адиля Мюстеджеб Ферад"
+    },
+    {
+      "id": "person:ЗЕХГИН ЗЕЙНУН РАМИС",
+      "type": "person",
+      "label": "Зехгин Зейнун Рамис"
+    },
+    {
+      "id": "person:МИНЕВЕР ИБРАИЛ ОСМАН",
+      "type": "person",
+      "label": "Миневер Ибраил Осман"
+    },
+    {
+      "id": "person:ИВАН СТЕФАНОВ АНТОНОВ",
+      "type": "person",
+      "label": "Иван Стефанов Антонов"
+    },
+    {
+      "id": "person:СВЕТОМИРА ИВАНОВА ВАЧЕВА",
+      "type": "person",
+      "label": "Светомира Иванова Вачева"
+    },
+    {
+      "id": "person:ОРХАН МЕХМЕД КАДИР",
+      "type": "person",
+      "label": "Орхан Мехмед Кадир"
+    },
+    {
+      "id": "person:СЕДАТ САЛИЕВ АЛИЕВ",
+      "type": "person",
+      "label": "Седат Салиев Алиев"
+    },
+    {
+      "id": "person:САЛИ САДЪК АЛИ",
+      "type": "person",
+      "label": "Сали Садък Али"
+    },
+    {
+      "id": "person:ФЕВЗИ ОСМАН САДУЛА",
+      "type": "person",
+      "label": "Февзи Осман Садула"
+    },
+    {
+      "id": "person:АЛИ БЕЙЗАТ МУСТАФА",
+      "type": "person",
+      "label": "Али Бейзат Мустафа"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Веселин Димитров Георгиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМОВ ДЖАМБАЗОВ",
+      "type": "person",
+      "label": "Димитър Димов Джамбазов"
+    },
+    {
+      "id": "person:БОНКА СТОЯНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Бонка Стоянова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:naim-mustafa-naim-a3d8b2",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САЛИ КАРАНИ ТАЛИБ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СМЕТ АРУН МУСТАФА",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВАЙДИН ДЖЕМАЛДИН СЕИД",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУНАЙ НАЗИФОВ ИСМАИЛОВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕРИФЕ АЛИЕВА МЕХМЕД",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИЗ ЕРДЖАН ОСМАН",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДИЛЯ МЮСТЕДЖЕБ ФЕРАД",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕХГИН ЗЕЙНУН РАМИС",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНЕВЕР ИБРАИЛ ОСМАН",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВАЙДИН ДЖЕМАЛДИН СЕИД",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТЕФАНОВ АНТОНОВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОМИРА ИВАНОВА ВАЧЕВА",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОРХАН МЕХМЕД КАДИР",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕДАТ САЛИЕВ АЛИЕВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САЛИ САДЪК АЛИ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕВЗИ ОСМАН САДУЛА",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИ БЕЙЗАТ МУСТАФА",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ДЖАМБАЗОВ",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА СТОЯНОВА ЙОРДАНОВА",
+      "target": "company:tr:000560305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

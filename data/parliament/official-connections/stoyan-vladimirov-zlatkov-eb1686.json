@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-29T12:25:04.082Z",
+  "officialNodeId": "official:stoyan-vladimirov-zlatkov-eb1686",
+  "nodes": [
+    {
+      "id": "official:stoyan-vladimirov-zlatkov-eb1686",
+      "type": "official",
+      "slug": "stoyan-vladimirov-zlatkov-eb1686",
+      "label": "Стоян Владимиров Златков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:204587159",
+      "type": "company",
+      "label": "ГЕЗУНДХАЙТ ООД",
+      "slug": null,
+      "uic": "204587159",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-vladimirov-zlatkov-eb1686",
+      "target": "company:tr:204587159",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

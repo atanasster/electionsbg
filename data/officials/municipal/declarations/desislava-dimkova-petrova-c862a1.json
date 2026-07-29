@@ -5,6 +5,49 @@
     "institution": "Шумен",
     "positionTitle": "Заместник кмет",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13717",
+    "controlHash": "7DCA98E4",
+    "sourceUrl": "https://register.cacbg.bg/2025/0BC1D8DA-1876-4D0D-A0EB-F1C132D126DE216964.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34531.11978034901,
+        "amountEurSpouse": 12271.005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Десислава Димкова Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "desislava-dimkova-petrova-c862a1",
+    "declarantName": "Десислава Димкова Петрова",
+    "institution": "Шумен",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-06-25",
@@ -139,49 +182,6 @@
         "isSpouse": true,
         "legalBasis": "банков кредит - потребителски 4.25%",
         "fundsOrigin": null
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "desislava-dimkova-petrova-c862a1",
-    "declarantName": "Десислава Димкова Петрова",
-    "institution": "Шумен",
-    "positionTitle": "Заместник кмет",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-13",
-    "entryNumber": "Г13717",
-    "controlHash": "7DCA98E4",
-    "sourceUrl": "https://register.cacbg.bg/2025/0BC1D8DA-1876-4D0D-A0EB-F1C132D126DE216964.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 34531.11978034901,
-        "amountEurSpouse": 12271.005148709244
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 35000,
-        "valueEur": 17895.215841867648,
-        "holderName": "Десислава Димкова Петрова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
       }
     ],
     "events": []

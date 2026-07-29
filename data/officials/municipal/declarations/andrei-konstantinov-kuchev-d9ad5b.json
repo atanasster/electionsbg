@@ -5,6 +5,65 @@
     "institution": "Кнежа",
     "positionTitle": "Главен архитект",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13431",
+    "controlHash": "FDCA0340",
+    "sourceUrl": "https://register.cacbg.bg/2025/8EEE82E3-8C67-41A2-907E-C0DBF5FEFE43216643.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялов капитал",
+        "shareSize": "100%",
+        "companyName": "\"УРБИНО\"ЕООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Андрей Константинов Кучев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дялов капитал",
+        "shareSize": "79%",
+        "companyName": "\"ВАРИАНТ-22\"ООД",
+        "registeredOffice": "Плевен",
+        "valueEur": 2019.602930725063,
+        "holderName": "Андрей Константинов Кучев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7900.482148243968,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 3157.7386582678455,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6528.686030994514,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "andrei-konstantinov-kuchev-d9ad5b",
+    "declarantName": "Андрей Константинов Кучев",
+    "institution": "Кнежа",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": null,
@@ -254,65 +313,6 @@
         "fundsOrigin": null
       }
     ],
-    "events": []
-  },
-  {
-    "slug": "andrei-konstantinov-kuchev-d9ad5b",
-    "declarantName": "Андрей Константинов Кучев",
-    "institution": "Кнежа",
-    "positionTitle": "Главен архитект",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г13431",
-    "controlHash": "FDCA0340",
-    "sourceUrl": "https://register.cacbg.bg/2025/8EEE82E3-8C67-41A2-907E-C0DBF5FEFE43216643.xml",
-    "ownershipStakes": [
-      {
-        "table": "10",
-        "itemType": "дялов капитал",
-        "shareSize": "100%",
-        "companyName": "\"УРБИНО\"ЕООД",
-        "registeredOffice": "Плевен",
-        "valueEur": 2556.4594059810925,
-        "holderName": "Андрей Константинов Кучев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      },
-      {
-        "table": "10",
-        "itemType": "дялов капитал",
-        "shareSize": "79%",
-        "companyName": "\"ВАРИАНТ-22\"ООД",
-        "registeredOffice": "Плевен",
-        "valueEur": 2019.602930725063,
-        "holderName": "Андрей Константинов Кучев",
-        "legalBasis": "други",
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 7900.482148243968,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
-        "amountEurDeclarant": 3157.7386582678455,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 6528.686030994514,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [],
     "events": []
   }
 ]

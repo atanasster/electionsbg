@@ -1,6 +1,84 @@
 {
-  "updatedAt": "2026-07-29T11:23:14.647Z",
+  "updatedAt": "2026-07-29T13:08:58.109Z",
   "entries": [
+    {
+      "timestamp": "2026-07-29T13:08:58.109Z",
+      "date": "2026-07-29",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: derived rebuild — officials→contractor links 451→454 pairs, hub/sector stats refreshed",
+      "source": "data.egov.bg АОП"
+    },
+    {
+      "timestamp": "2026-07-29T13:07:16.317Z",
+      "date": "2026-07-29",
+      "skill": "kzk_appeals",
+      "summary": "КЗК procurement-appeals register refreshed: +16 complaints, 7,884 total",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-07-29T13:05:27.294Z",
+      "date": "2026-07-29",
+      "skill": "update-funds",
+      "summary": "ИСУН EU funds: 81,917 contracts (+9), €44.024bn contracted, €17.613bn paid",
+      "source": "ИСУН EU funds (beneficiaries)"
+    },
+    {
+      "timestamp": "2026-07-29T13:00:34.959Z",
+      "date": "2026-07-29",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 58 151 лица, 111 933 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-07-29T12:39:13.826Z",
+      "date": "2026-07-29",
+      "skill": "tr-daily-refresh",
+      "summary": "Търговски регистър: 1,019,750 companies (268 new), 765,285 officers reloaded",
+      "source": "data.egov.bg Commerce Registry (ТРРЮЛНЦ)"
+    },
+    {
+      "timestamp": "2026-07-29T12:29:29.301Z",
+      "date": "2026-07-29",
+      "skill": "update-officials",
+      "summary": "municipal declarations refreshed (6,671 filings, 6,391 officials); officials company-links + connections rebuilt",
+      "source": "Сметна палата declarations — executive + municipal",
+      "links": [
+        {
+          "to": "/officials/assets",
+          "labelKey": "data_changes_link_officials"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29T12:22:31.760Z",
+      "date": "2026-07-29",
+      "skill": "update-connections",
+      "summary": "2025 MP declarations 285→297; connections graph 33,310 nodes / 38,548 edges",
+      "source": "Сметна палата declarations — MPs",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-29T12:16:55.076Z",
+      "date": "2026-07-29",
+      "skill": "update-macro",
+      "summary": "BNB ДЦК auctions: +1 (2026-07-27, €100M 5y, yield 3.43%) — 66 total",
+      "source": "BNB domestic ДЦК auctions",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-29T11:23:14.647Z",
       "date": "2026-07-29",

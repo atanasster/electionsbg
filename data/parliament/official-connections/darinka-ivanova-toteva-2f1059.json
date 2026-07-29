@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "officialNodeId": "official:darinka-ivanova-toteva-2f1059",
   "nodes": [
     {
@@ -10,6 +10,26 @@
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Борово"
+    },
+    {
+      "id": "company:tr:117693268",
+      "type": "company",
+      "label": "Силвена 99 ООД",
+      "slug": null,
+      "uic": "117693268",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205440386",
+      "type": "company",
+      "label": "Организация на производители \"Натурален мед\" ООД",
+      "slug": null,
+      "uic": "205440386",
+      "legalForm": null,
+      "status": null,
+      "seat": null
     },
     {
       "id": "company:tr:000523082",
@@ -96,6 +116,22 @@
     }
   ],
   "edges": [
+    {
+      "source": "official:darinka-ivanova-toteva-2f1059",
+      "target": "company:tr:117693268",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:darinka-ivanova-toteva-2f1059",
+      "target": "company:tr:205440386",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
     {
       "source": "official:darinka-ivanova-toteva-2f1059",
       "target": "company:tr:000523082",

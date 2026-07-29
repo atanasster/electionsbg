@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "generatedAt": "2026-07-29T12:25:04.082Z",
   "mpNodeId": "mp:3572",
   "nodes": [
     {
@@ -58,6 +58,11 @@
       "id": "person:МОМЧИЛ КУНЧЕВ ИВАНОВ",
       "type": "person",
       "label": "Момчил Кунчев Иванов"
+    },
+    {
+      "id": "person:ЕЛЕНКА МИХАЙЛОВА МОЛЛОВА",
+      "type": "person",
+      "label": "Еленка Михайлова Моллова"
     },
     {
       "id": "official:georgi-krstev-markov-325912",
@@ -160,6 +165,14 @@
     },
     {
       "source": "person:МОМЧИЛ КУНЧЕВ ИВАНОВ",
+      "target": "company:tr:208522988",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА МИХАЙЛОВА МОЛЛОВА",
       "target": "company:tr:208522988",
       "kind": "tr_owner",
       "role": "partner",

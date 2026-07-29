@@ -5,6 +5,55 @@
     "institution": "Сандански",
     "positionTitle": "Общински съветник",
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-12",
+    "entryNumber": "Г688",
+    "controlHash": "907A57DD",
+    "sourceUrl": "https://register.cacbg.bg/2025/A9B5B401-B2E8-4245-B0CA-14ED0127D46F202880.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21909.36840113916,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 30555.314112167212,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49911,
+        "valueEur": 25519.08908238446,
+        "holderName": "Илина Борисова Никова",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ilina-borisova-nikova-9eaef5",
+    "declarantName": "Илина Борисова Никова",
+    "institution": "Сандански",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-02-12",
@@ -174,55 +223,6 @@
         "legalBasis": null,
         "fundsOrigin": null
       },
-      {
-        "category": "debt",
-        "description": "Ипотечен кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 49911,
-        "valueEur": 25519.08908238446,
-        "holderName": "Илина Борисова Никова",
-        "isSpouse": false,
-        "legalBasis": "Договор за кредит",
-        "fundsOrigin": null
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "ilina-borisova-nikova-9eaef5",
-    "declarantName": "Илина Борисова Никова",
-    "institution": "Сандански",
-    "positionTitle": "Общински съветник",
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-02-12",
-    "entryNumber": "Г688",
-    "controlHash": "907A57DD",
-    "sourceUrl": "https://register.cacbg.bg/2025/A9B5B401-B2E8-4245-B0CA-14ED0127D46F202880.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 21909.36840113916,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Дивиденти",
-        "amountEurDeclarant": 30555.314112167212,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
       {
         "category": "debt",
         "description": "Ипотечен кредит",
