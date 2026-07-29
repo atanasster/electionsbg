@@ -7,7 +7,7 @@
 // person. Every case below is a way that could happen.
 
 import { describe, expect, it } from "vitest";
-import { findSplits } from "./split_collision_slugs";
+import { applySplits, findSplits, type ShardIO } from "./split_collision_slugs";
 import { officialSlug } from "./shared";
 import type {
   OfficialDeclaration,
@@ -65,11 +65,7 @@ describe("findSplits", () => {
       filing(BARE, PROSECUTOR, 2020),
       filing(BARE, COMMANDER, 2025),
     ];
-    const splits = findSplits(
-      [entry(BARE)],
-      () => shard,
-      new Set([COMMANDER]),
-    );
+    const splits = findSplits([entry(BARE)], () => shard, new Set([COMMANDER]));
     expect(splits).toHaveLength(1);
     expect(splits[0].from).toBe(BARE);
     expect(splits[0].to).toBe(FOLDED);
@@ -138,9 +134,7 @@ describe("findSplits", () => {
       () => shard,
       new Set([COMMANDER, third]),
     );
-    expect(splits.map((s) => s.guid).sort()).toEqual(
-      [COMMANDER, third].sort(),
-    );
+    expect(splits.map((s) => s.guid).sort()).toEqual([COMMANDER, third].sort());
     // Distinct targets — folding the GUID in means two listed ids can never
     // land on one slug.
     expect(new Set(splits.map((s) => s.to)).size).toBe(2);
@@ -167,5 +161,98 @@ describe("findSplits", () => {
     expect(findSplits([entry(BARE)], () => [], new Set([COMMANDER]))).toEqual(
       [],
     );
+  });
+});
+
+// The apply path, driven against an in-memory shard store. This is where the
+// order-dependent corruption lived: findSplits computes each split's `staying`
+// against the ORIGINAL shard, so the WRITES have to be sequenced carefully.
+describe("applySplits", () => {
+  // A store that records the final state of every shard, so a test can assert
+  // where a filing ended up rather than trusting the call order.
+  const makeIO = (
+    initial: Record<string, OfficialDeclaration[]>,
+  ): { io: ShardIO; store: Map<string, OfficialDeclaration[]> } => {
+    const store = new Map(Object.entries(initial).map(([k, v]) => [k, v]));
+    return {
+      store,
+      io: {
+        readShard: (slug) => store.get(slug) ?? [],
+        writeShard: (slug, decls) => store.set(slug, decls),
+        removeShard: (slug) => store.delete(slug),
+      },
+    };
+  };
+  const guidsOn = (decls: OfficialDeclaration[] | undefined): string[] =>
+    (decls ?? [])
+      .map((d) => d.sourceUrl.match(/\/([0-9A-Fa-f-]{36})\d+\.xml$/)?.[1] ?? "")
+      .sort();
+
+  it("moves the listed GUID to its folded slug and leaves the peer on the bare one", () => {
+    const shard = [
+      filing(BARE, PROSECUTOR, 2019),
+      filing(BARE, PROSECUTOR, 2020),
+      filing(BARE, COMMANDER, 2025),
+    ];
+    const { io, store } = makeIO({ [BARE]: shard });
+    const splits = findSplits(
+      [entry(BARE)],
+      io.readShard,
+      new Set([COMMANDER]),
+    );
+    const kept = applySplits(splits, [entry(BARE)], io);
+
+    expect(guidsOn(store.get(FOLDED))).toEqual([COMMANDER]);
+    expect(guidsOn(store.get(BARE))).toEqual([PROSECUTOR, PROSECUTOR]);
+    // Source year re-pointed to the newest STAYING filing, not the moved one.
+    expect(kept.get(BARE)?.latestDeclarationYear).toBe(2020);
+    expect(kept.get(BARE)?.descriptorYear).toBe(2020);
+    expect(kept.get(FOLDED)?.latestDeclarationYear).toBe(2025);
+  });
+
+  it("renames + removes the source when every filing leaves it", () => {
+    const { io, store } = makeIO({ [BARE]: [filing(BARE, COMMANDER, 2025)] });
+    const splits = findSplits(
+      [entry(BARE)],
+      io.readShard,
+      new Set([COMMANDER]),
+    );
+    const kept = applySplits(splits, [entry(BARE)], io);
+
+    expect(store.has(BARE)).toBe(false);
+    expect(kept.has(BARE)).toBe(false);
+    expect(guidsOn(store.get(FOLDED))).toEqual([COMMANDER]);
+  });
+
+  // THE REGRESSION PIN. Three people on one bare shard, two of them listed. A
+  // per-split write of the source would let the second split (whose `staying`
+  // was computed against the ORIGINAL shard) put the first split's already-moved
+  // GUID back on the bare slug — publishing it on two profiles. Every GUID must
+  // end up on exactly one shard.
+  it("never leaves a moved GUID on two shards when one source yields two splits", () => {
+    const THIRD = "11111111-2222-3333-4444-555555555555";
+    const shard = [
+      filing(BARE, PROSECUTOR, 2019),
+      filing(BARE, COMMANDER, 2025),
+      filing(BARE, THIRD, 2024, "2"),
+    ];
+    const { io, store } = makeIO({ [BARE]: shard });
+    const listed = new Set([COMMANDER, THIRD]);
+    const splits = findSplits([entry(BARE)], io.readShard, listed);
+    applySplits(splits, [entry(BARE)], io);
+
+    const foldedCommander = officialSlug(NAME, `${INSTITUTION}|${COMMANDER}`);
+    const foldedThird = officialSlug(NAME, `${INSTITUTION}|${THIRD}`);
+    expect(guidsOn(store.get(foldedCommander))).toEqual([COMMANDER]);
+    expect(guidsOn(store.get(foldedThird))).toEqual([THIRD]);
+    // The bare slug keeps ONLY the unlisted peer — no moved GUID crept back.
+    expect(guidsOn(store.get(BARE))).toEqual([PROSECUTOR]);
+
+    // And globally: every GUID lives on exactly one shard.
+    const placement = new Map<string, string[]>();
+    for (const [slug, decls] of store)
+      for (const g of guidsOn(decls))
+        placement.set(g, [...(placement.get(g) ?? []), slug]);
+    for (const [, slugs] of placement) expect(slugs).toHaveLength(1);
   });
 });

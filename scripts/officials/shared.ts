@@ -10,7 +10,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Agent } from "undici";
-import { REGISTER_BASE } from "../lib/cacbg_register";
+import { REGISTER_BASE, registerFolderSegment } from "../lib/cacbg_register";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -218,6 +218,28 @@ export const fetchTextOptional = (url: string): Promise<string | null> =>
 
 const cachePath = (year: number, xmlFile: string): string =>
   path.join(RAW_DIR, String(year), xmlFile);
+
+/** Read a declaration XML back out of the `fetchDeclaration` cache, keyed on its
+ *  `sourceUrl` rather than a (year, xmlFile) pair — for callers (the collision
+ *  report's employer line) that hold a URL. Mirrors `cachePath`'s layout: the
+ *  register folder segment IS the cache directory (`.../<folder>/<file>`), which
+ *  is why the segment must come from the same helper the loader keys on and not
+ *  a re-parse. Never throws — a cache miss returns null, costing at most one
+ *  `работи:` line. `rawDir` is injectable so the path construction is testable.
+ */
+export const readCachedDeclarationXml = (
+  sourceUrl: string,
+  rawDir: string = RAW_DIR,
+): string | null => {
+  const folder = registerFolderSegment(sourceUrl);
+  const xmlFile = sourceUrl.split("/").pop();
+  if (!folder || !xmlFile) return null;
+  try {
+    return fs.readFileSync(path.join(rawDir, folder, xmlFile), "utf-8");
+  } catch {
+    return null;
+  }
+};
 
 // Fetch one declaration XML, caching it under raw_data/officials/<year>/.
 // `xml` is null when the register lists a declaration whose file is missing

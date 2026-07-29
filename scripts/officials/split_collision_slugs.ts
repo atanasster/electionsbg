@@ -67,9 +67,9 @@ export const listedGuids = (
   file = path.join(ROOT, "scripts/officials/_slug_collisions.json"),
 ): Set<string> =>
   new Set(
-    (JSON.parse(fs.readFileSync(file, "utf-8")) as { guids: string[] }).guids.map(
-      (g) => g.toUpperCase(),
-    ),
+    (
+      JSON.parse(fs.readFileSync(file, "utf-8")) as { guids: string[] }
+    ).guids.map((g) => g.toUpperCase()),
   );
 
 export type Split = {
@@ -117,7 +117,9 @@ export const findSplits = (
       });
     }
   }
-  return out.sort((a, b) => a.from.localeCompare(b.from) || a.guid.localeCompare(b.guid));
+  return out.sort(
+    (a, b) => a.from.localeCompare(b.from) || a.guid.localeCompare(b.guid),
+  );
 };
 
 const latestYear = (decls: readonly OfficialDeclaration[]): number =>
@@ -127,6 +129,91 @@ const readShard = (slug: string): OfficialDeclaration[] => {
   const file = path.join(DECL_DIR, `${slug}.json`);
   if (!fs.existsSync(file)) return [];
   return JSON.parse(fs.readFileSync(file, "utf-8")) as OfficialDeclaration[];
+};
+
+/** The shard store the apply step reads and writes. Injected so the write
+ *  sequencing — where the multi-split-per-shard hazard lives — is testable
+ *  against an in-memory map, no data tree. */
+export type ShardIO = {
+  readShard: (slug: string) => OfficialDeclaration[];
+  writeShard: (slug: string, decls: OfficialDeclaration[]) => void;
+  removeShard: (slug: string) => void;
+};
+
+/** Apply the splits to the shard store and return the updated index-entry map.
+ *  Pure with respect to I/O: the caller supplies `io`, so this is where the
+ *  order-independent write discipline is exercised in a test.
+ *
+ *  Two passes, and the ORDER of the second matters. Targets are written first
+ *  (one per listed GUID — a distinct GUID folds into a distinct slug, so targets
+ *  never collide). Sources are then rewritten ONCE PER SHARD: a shard can yield
+ *  more than one split (three people under one group label, two listed), and
+ *  each split's `staying` was computed against the ORIGINAL shard, so a
+ *  per-split write would let the second split's `staying` — which still holds the
+ *  first split's moved GUID — overwrite the first and put an already-moved filing
+ *  back on the bare slug. That filing would then publish on BOTH profiles: the
+ *  "strictly worse than the collision" corruption this script exists to prevent.
+ *  Grouping by source and unioning the moved URLs makes it order-independent. */
+export const applySplits = (
+  moves: readonly Split[],
+  entries: readonly OfficialIndexEntry[],
+  io: ShardIO,
+): Map<string, OfficialIndexEntry> => {
+  const kept = new Map(entries.map((e) => [e.slug, e]));
+
+  for (const s of moves) {
+    const merged = mergeDeclarations(
+      io.readShard(s.to),
+      s.moving.map((d) => ({ ...d, slug: s.to })),
+      [],
+    );
+    io.writeShard(s.to, merged);
+    // Descriptors carry over — by construction the two shards share name and
+    // institution — but both year fields are stamped to the target's own newest
+    // filing rather than inherited from the source (whose newest may be the
+    // filing that STAYED).
+    kept.set(s.to, {
+      ...s.entry,
+      slug: s.to,
+      latestDeclarationYear: latestYear(merged),
+      descriptorYear: latestYear(merged),
+    });
+  }
+
+  const bySource = new Map<string, Split[]>();
+  for (const s of moves) {
+    bySource.set(s.from, [...(bySource.get(s.from) ?? []), s]);
+  }
+  for (const [from, group] of bySource) {
+    const movedUrls = new Set(
+      group.flatMap((s) => s.moving.map((d) => d.sourceUrl)),
+    );
+    const staying = io
+      .readShard(from)
+      .filter((d) => !movedUrls.has(d.sourceUrl));
+    if (staying.length === 0) {
+      io.removeShard(from);
+      kept.delete(from);
+      continue;
+    }
+    io.writeShard(from, staying);
+    // Recompute BOTH year fields from the staying rows. Leaving descriptorYear
+    // stale would keep the row advertising a folder year whose filing has moved
+    // away; recomputing keeps source and targets each pointing at their own
+    // newest filing. latestDeclarationYear is an exact folder-year proxy for
+    // these single-filing-per-folder officials rows, and immaterial regardless:
+    // a collision pair shares name + institution + position, so the descriptor
+    // CONTENT is identical and only the year pointer is at stake.
+    const prior = kept.get(from);
+    if (prior) {
+      kept.set(from, {
+        ...prior,
+        latestDeclarationYear: latestYear(staying),
+        descriptorYear: latestYear(staying),
+      });
+    }
+  }
+  return kept;
 };
 
 const cmd = command({
@@ -148,7 +235,9 @@ const cmd = command({
     const splits = findSplits(index.entries, readShard, listed);
 
     if (splits.length === 0) {
-      console.log("→ every listed GUID is already on its own slug — nothing to do");
+      console.log(
+        "→ every listed GUID is already on its own slug — nothing to do",
+      );
       return;
     }
 
@@ -193,43 +282,12 @@ const cmd = command({
       return;
     }
 
-    const keptEntries = new Map(index.entries.map((e) => [e.slug, e]));
-    for (const s of moves) {
-      // A pure union on the target: no folder is authoritative in a repair, so
-      // every row on both sides survives and mergeDeclarations only dedupes by
-      // sourceUrl and re-sorts. The moved rows carry the target slug from now on.
-      const merged = mergeDeclarations(
-        readShard(s.to),
-        s.moving.map((d) => ({ ...d, slug: s.to })),
-        [],
-      );
-      writeJson(path.join(DECL_DIR, `${s.to}.json`), merged);
-
-      if (s.staying.length > 0) {
-        writeJson(path.join(DECL_DIR, `${s.from}.json`), s.staying);
-      } else {
-        fs.rmSync(path.join(DECL_DIR, `${s.from}.json`));
-        keptEntries.delete(s.from);
-      }
-
-      // The index row for the new slug: the same declarant descriptors, because
-      // by construction the two shards share a name and an institution. Only the
-      // year has to be recomputed — it describes the shard, and both shards just
-      // changed shape. Leaving the source's stale would let a profile advertise a
-      // filing year it no longer holds.
-      const prior = keptEntries.get(s.from);
-      if (prior && s.staying.length > 0) {
-        keptEntries.set(s.from, {
-          ...prior,
-          latestDeclarationYear: latestYear(s.staying),
-        });
-      }
-      keptEntries.set(s.to, {
-        ...s.entry,
-        slug: s.to,
-        latestDeclarationYear: latestYear(merged),
-      });
-    }
+    const keptEntries = applySplits(moves, index.entries, {
+      readShard,
+      writeShard: (slug, decls) =>
+        writeJson(path.join(DECL_DIR, `${slug}.json`), decls),
+      removeShard: (slug) => fs.rmSync(path.join(DECL_DIR, `${slug}.json`)),
+    });
 
     const entries = [...keptEntries.values()].sort((a, b) =>
       a.name.localeCompare(b.name, "bg"),
@@ -250,7 +308,9 @@ const cmd = command({
     // exists to undo. Rebuilt from the shards, no fetch.
     const rankingEntries = buildRankingEntries(entries);
     writeRankings(rankingEntries, index.years);
-    console.log(`  rebuilt assets-rankings.json (${rankingEntries.length} row(s))`);
+    console.log(
+      `  rebuilt assets-rankings.json (${rankingEntries.length} row(s))`,
+    );
 
     console.log(
       [

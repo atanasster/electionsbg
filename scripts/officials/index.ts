@@ -54,7 +54,6 @@ import { aliasedDeclarantName } from "./declarant_aliases";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
 import {
   ROOT,
-  RAW_DIR,
   REGISTER_BASE,
   sleep,
   canonicalDeclarantName,
@@ -62,24 +61,16 @@ import {
   officialSlug,
   fetchText,
   fetchDeclaration,
+  readCachedDeclarationXml,
   writeJson,
 } from "./shared";
-import { registerFolderSegment } from "../lib/cacbg_register";
 
-// A filing's XML as `fetchDeclaration` cached it, for the collision report's
-// employer line. Read from disk rather than kept in memory: the cross-year check
-// compares against filings from EARLIER runs, which this process never fetched.
-// Never throws — a missing cache entry just costs the operator that one line.
-const cachedDeclarationXml = (sourceUrl: string): string | null => {
-  const folder = registerFolderSegment(sourceUrl);
-  const xmlFile = sourceUrl.split("/").pop();
-  if (!folder || !xmlFile) return null;
-  try {
-    return fs.readFileSync(path.join(RAW_DIR, folder, xmlFile), "utf-8");
-  } catch {
-    return null;
-  }
-};
+// The collision report's employer line reads each filing's XML back out of the
+// `fetchDeclaration` cache — from disk, because the cross-year check compares
+// against filings from EARLIER runs this process never fetched. See
+// `readCachedDeclarationXml` in ./shared.ts (never throws; a miss costs one
+// `работи:` line).
+const cachedDeclarationXml = readCachedDeclarationXml;
 
 // Register person-GUIDs that must not share a slug with a same-named peer —
 // see ./_slug_collisions.json for why the default slug is not always unique.
