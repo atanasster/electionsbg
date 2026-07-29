@@ -462,10 +462,26 @@ recurring, and it runs off `dist/` with no browser. Add as a Vitest node test th
 
 ### T5.3 — Size budgets, brotli (A5), ratcheted per tier (A8)
 
-Final targets: entry ≤ 250 KB, `vendor` ≤ 100 KB, entry + preloads ≤ 520 KB. Each tier sets
-the budget to its own measured output +5%; the last tier lands these. Budgets are a ratchet —
-failing means "justify or split", not "raise the number". Measure against a brotli origin, or
-compress with brotli locally; `vite preview` gzip figures will not match.
+~~Final targets: entry ≤ 250 KB, `vendor` ≤ 100 KB, entry + preloads ≤ 520 KB.~~ **Landed
+2026-07-29 at the measured output +~5%,** which beat two of the three targets and missed one:
+
+| | target | measured | budget |
+|---|---|---|---|
+| entry + preloads + CSS | ≤ 520 KB | **359,267 B** | 377,000 |
+| entry chunk | ≤ 250 KB | **67,169 B** | 71,000 |
+| catch-all `vendor` | ≤ 100 KB | **124,814 B** ✗ | 131,000 |
+| locale bundle (bg / en) | — | **168,371 / 152,852 B** | 177,000 / 161,000 |
+
+The `vendor` target was **not** met. T1.2 took that chunk from 246 KB to 125 KB by extracting
+CodeMirror, and what remains — lucide-react, tailwind-merge, react-ga4, `@babel/runtime` and the
+long tail of unsplit deps — has no single dominant member left to extract. Budgeted at the
+measured value rather than at the wish, so the ratchet is real rather than permanently red.
+
+Budgets are a ratchet — failing means "justify or split", not "raise the number". They are
+computed with brotli **quality 11**, pinned: that is not what a CDN compresses at on the fly
+(q5 measures +14.2%), so the numbers are a deterministic lower bound on wire bytes rather than
+the served size — which is what a ratchet needs, since q11 is monotone in content. `vite preview`
+and the build log report gzip, which runs ~27% higher; never compare the two.
 
 ### T5.4 — No module-scope translation calls
 

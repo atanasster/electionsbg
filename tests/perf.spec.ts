@@ -1,5 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs";
+import { brotliCompressSync, constants } from "node:zlib";
 import { fileURLToPath } from "node:url";
 
 // Note: `path` is deliberately NOT imported — the CLS loops below bind `path`
@@ -62,6 +63,29 @@ const HEAVY_VENDOR_CHUNKS = [
 // App-owned heavy chunks. Not named vendor-*, so the entry-static ratchet —
 // which matches on chunk-name prefixes — does not use them.
 const HEAVY_APP_CHUNKS = ["exportToPDF-"] as const;
+
+// The entry chunk's filename, from the built HTML. Throws rather than
+// returning undefined so a missing build fails at the lookup with an
+// actionable message instead of somewhere downstream.
+const entryChunk = (html: string): string => {
+  const match = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/);
+  if (!match) {
+    throw new Error(
+      `no entry chunk in ${DIST_DIR}/index.html — run \`npm run build\` first`,
+    );
+  }
+  return match[0].replace("assets/", "");
+};
+
+// The catch-all `vendor` chunk — the one with no second name segment, as
+// opposed to vendor-react / vendor-charts / vendor-geo and friends.
+const catchAllVendorChunk = (): string | undefined =>
+  fs
+    .readdirSync(`${DIST_DIR}/assets`)
+    .find(
+      (f) =>
+        /^vendor-[A-Za-z0-9_-]+\.js$/.test(f) && !/^vendor-[a-z]+-/.test(f),
+    );
 
 // Requests issued while loading a path. `networkidle` is a floor, not a
 // ceiling: it cannot resolve before the entry → route-chunk → locale-bundle
@@ -215,12 +239,7 @@ test.describe("performance", () => {
   // rename of the preload-helper module or a reordering of manualChunks.
   test("entry chunk does not statically import route-only vendor chunks", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
-    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
-    expect(
-      entry,
-      `entry chunk not found in ${DIST_DIR}/index.html — run \`npm run build\` first`,
-    ).toBeTruthy();
-    const imports = staticImportsOf(entry!.replace("assets/", ""));
+    const imports = staticImportsOf(entryChunk(html));
     // Ratchet only — never weaken. vendor-charts and vendor-leaflet joined the
     // list when the home dashboard stopped being an eager import (T2.1); they
     // were static imports of the entry before that, so a regression here means
@@ -241,9 +260,7 @@ test.describe("performance", () => {
   // a fixed list of vendor-* names.
   test("entry chunk does not statically import a translation bundle", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
-    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
-    expect(entry, "entry chunk not found — run `npm run build`").toBeTruthy();
-    const imports = staticImportsOf(entry!.replace("assets/", ""));
+    const imports = staticImportsOf(entryChunk(html));
     expect(
       imports.find((i) => i.startsWith("translation-")),
       `a translation bundle re-entered the entry chunk: ${imports.join(", ")}`,
@@ -280,10 +297,8 @@ test.describe("performance", () => {
   // re-broadening that filter would silently reintroduce the waterfall.
   test("home dashboard chunk preloads its map/chart deps in parallel", () => {
     const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
-    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
-    expect(entry, "entry chunk not found — run `npm run build`").toBeTruthy();
     const code = fs.readFileSync(
-      `${DIST_DIR}/${entry!.replace("assets/", "assets/")}`,
+      `${DIST_DIR}/assets/${entryChunk(html)}`,
       "utf8",
     );
     const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
@@ -327,12 +342,7 @@ test.describe("performance", () => {
   });
 
   test("catch-all vendor does not import a route-only chunk (cycle guard)", () => {
-    const file = fs
-      .readdirSync(`${DIST_DIR}/assets`)
-      .find(
-        (f) =>
-          /^vendor-[A-Za-z0-9_-]+\.js$/.test(f) && !/^vendor-[a-z]+-/.test(f),
-      );
+    const file = catchAllVendorChunk();
     expect(
       file,
       "catch-all vendor chunk not found — run `npm run build`",
@@ -418,6 +428,105 @@ test.describe("performance", () => {
       closure.find((f) => f.startsWith("vendor-charts")),
       `a geo-only chunk reaches vendor-charts (~115 KB brotli): ${closure.join(", ")}`,
     ).toBeUndefined();
+  });
+
+  // Byte budgets, in BROTLI. Firebase Hosting serves `content-encoding: br`
+  // (verified against production), so brotli is the right unit — gzip figures,
+  // which is what Vite's build log and `gzip -9` report, run ~27% higher and
+  // must never be compared against these numbers.
+  //
+  // Quality is pinned at 11. That is NOT what a CDN compresses at on the fly
+  // (measured: q5 is +14.2% over q11 on this asset set), so these figures are a
+  // deterministic LOWER BOUND on wire bytes rather than the served size. That
+  // is exactly what a ratchet needs: q11 is monotone in content, so a chunk
+  // that grows always trips it. Pinned rather than left to Node's default so a
+  // runtime upgrade cannot move every budget at once.
+  //
+  // A ratchet, not a ceiling to grow into: set to the measured output plus ~5%
+  // when the critical-path work landed. Failing means "justify or split", not
+  // "raise the number".
+  test("critical-path chunks stay within their brotli budgets", async () => {
+    // ~3-4 s of compression, and playwright.config sets no top-level timeout,
+    // so the 30 s default would be the only headroom.
+    test.setTimeout(60_000);
+    const sizes = new Map<string, number>();
+    const br = (file: string) => {
+      const cached = sizes.get(file);
+      if (cached !== undefined) return cached;
+      const n = brotliCompressSync(
+        fs.readFileSync(`${DIST_DIR}/assets/${file}`),
+        { params: { [constants.BROTLI_PARAM_QUALITY]: 11 } },
+      ).length;
+      sizes.set(file, n);
+      return n;
+    };
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    // Scoped to <link> tags, matching the other scrapes in this file. A bare
+    // href= scan would also catch anything a future inline script embeds — the
+    // locale hint already contains two /assets/translation-*.js hrefs, and it
+    // is only luck of codegen (`l.href=e?"…"`) that they do not match today.
+    const assets = [...html.matchAll(/<link[^>]+href="\/assets\/([^"]+)"/g)]
+      .map((m) => m[1])
+      .filter((f) => /\.(js|css)$/.test(f));
+    const entry = entryChunk(html);
+
+    // Anchor: the sum below is over a scraped set, so an empty or truncated
+    // scrape reports a huge "improvement" at the moment the shell got slower —
+    // the §0c/A1 shape again. Six modulepreloads plus one stylesheet today.
+    expect(
+      assets.length,
+      `expected the shell's preloaded assets, scraped ${assets.length}: ${assets.join(", ")}`,
+    ).toBeGreaterThanOrEqual(6);
+
+    // The entry plus everything the HTML tells the browser to fetch up front.
+    // Was 752,684 B br before this work, and a further 286,940 B arrived one
+    // hop later — that second wave is now empty, nothing heavy being a static
+    // import of the entry any more.
+    const critical = [entry, ...assets].reduce((sum, f) => sum + br(f), 0);
+    expect(
+      critical,
+      `entry + preloaded assets grew to ${critical} B brotli`,
+    ).toBeLessThanOrEqual(377_000);
+
+    expect(br(entry), "entry chunk").toBeLessThanOrEqual(71_000);
+
+    // The catch-all vendor chunk. The plan's aspirational 100 KB target was NOT
+    // met — CodeMirror leaving in T1.2 took it from 246 KB to 125 KB, and what
+    // remains (lucide-react, tailwind-merge, react-ga4, @babel/runtime and the
+    // long tail of unsplit deps) has no single dominant member left to extract.
+    // Budgeted at the measured value rather than at the wish.
+    const vendor = catchAllVendorChunk();
+    expect(vendor, "catch-all vendor chunk not found").toBeTruthy();
+    expect(br(vendor!), "catch-all vendor chunk").toBeLessThanOrEqual(131_000);
+
+    // Per-language, not one shared ceiling — a shared one sized for Bulgarian
+    // would leave English ~16% of slack, so the stated +5% policy would hold
+    // for one language only. Exactly one of these is ever fetched, in parallel
+    // with the entry.
+    const LOCALE_BUDGETS: Record<string, number> = {
+      bg: 177_000,
+      en: 161_000,
+    };
+    const locales = fs
+      .readdirSync(`${DIST_DIR}/assets`)
+      .filter((f) => /^translation-.*\.js$/.test(f));
+    // Anchor: without this the loop below asserts nothing whenever the corpora
+    // are not chunked — which is precisely the T4 re-inlining regression, and
+    // is the state a pre-T4 dist/ is in.
+    expect(
+      locales.length,
+      `expected one translation chunk per language, found ${locales.length}: ${locales.join(", ")}`,
+    ).toBe(Object.keys(LOCALE_BUDGETS).length);
+    // Identify each by content rather than by hash, which changes every build.
+    for (const f of locales) {
+      const isBg = fs
+        .readFileSync(`${DIST_DIR}/assets/${f}`, "utf8")
+        .includes("Избори");
+      const lang = isBg ? "bg" : "en";
+      expect(br(f), `${lang} locale bundle`).toBeLessThanOrEqual(
+        LOCALE_BUDGETS[lang],
+      );
+    }
   });
 
   test("vendor-react has no static imports (cycle guard)", () => {
