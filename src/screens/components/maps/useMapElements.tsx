@@ -1,3 +1,4 @@
+import type { GeoPermissibleObjects } from "d3-geo";
 import { ReactNode, useMemo } from "react";
 import { GeoJSONMap, GeoJSONProps } from "./mapTypes";
 import { ElectionResults, LocationInfo } from "@/data/dataTypes";
@@ -47,7 +48,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   scale: number;
 } {
   const { path, projection, bounds, scale } = useMemo(
-    () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
+    () => getDataProjection(mapGeo as GeoPermissibleObjects, size),
     [mapGeo, size],
   );
   const { withNames, withShiftArrows } = useOptions();

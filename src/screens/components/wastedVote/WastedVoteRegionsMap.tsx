@@ -1,3 +1,4 @@
+import type { GeoPermissibleObjects } from "d3-geo";
 import { FC, useMemo } from "react";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
 import regions from "@/data/json/regions.json";
@@ -46,10 +47,7 @@ export const WastedVoteRegionsMap: FC<{
         scale: 1,
       } as ReturnType<typeof getDataProjection> & { path: undefined };
     }
-    return getDataProjection(
-      mapGeo as unknown as d3.GeoPermissibleObjects,
-      size,
-    );
+    return getDataProjection(mapGeo as unknown as GeoPermissibleObjects, size);
   }, [mapGeo, size]);
 
   // NOTE: regions_map.json's `nuts3` property actually contains the oblast

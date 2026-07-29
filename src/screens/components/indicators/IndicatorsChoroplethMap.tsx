@@ -1,3 +1,4 @@
+import type { GeoPath, GeoPermissibleObjects } from "d3-geo";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
@@ -54,7 +55,7 @@ export const IndicatorsChoroplethMap: React.FC<{
 
   const { path, valuesByMuni, range, latestYear } = useMemo(() => {
     const empty = {
-      path: undefined as d3.GeoPath | undefined,
+      path: undefined as GeoPath | undefined,
       valuesByMuni: new Map<
         string,
         { value: number; fallback?: "sofia-city" }
@@ -63,7 +64,7 @@ export const IndicatorsChoroplethMap: React.FC<{
       latestYear: undefined as number | undefined,
     };
     if (!mapGeo || !payload) return empty;
-    const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+    const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
     const values = new Map<
       string,
       { value: number; fallback?: "sofia-city" }
@@ -103,7 +104,7 @@ export const IndicatorsChoroplethMap: React.FC<{
   const indicatorLabel = lang === "bg" ? meta.labelBg : meta.labelEn;
   const unitLabel = lang === "bg" ? meta.unitBg : meta.unitEn;
 
-  const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+  const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
 
   // The choropleth's darker end should always represent "worse" so the eye
   // immediately spots distressed regions. For "higher is better" indicators

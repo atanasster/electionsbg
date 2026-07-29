@@ -7,6 +7,7 @@
 // tooltip). Values from ranking.json's muni rows (level/change) or chain-map
 // (chain). NOT official CPI.
 
+import type { GeoPermissibleObjects } from "d3-geo";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
@@ -121,7 +122,7 @@ export const PriceChoropleth: React.FC<{
   if (!mapGeo) return null;
   if (metric === "chain" ? !chainView : !numeric?.range) return null;
 
-  const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+  const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
   const range = numeric?.range;
   const colorAt = (t01: number) => sequentialColor(t01);
   const fmtVal = (v: number): string =>

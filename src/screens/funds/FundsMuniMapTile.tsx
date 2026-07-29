@@ -8,7 +8,7 @@
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MapIcon } from "lucide-react";
-import * as d3 from "d3";
+import type { GeoPath, GeoPermissibleObjects } from "d3-geo";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
@@ -109,7 +109,7 @@ const FundsMuniMapInner: FC<{
 
   const { path, valuesByFeature, range } = useMemo(() => {
     const empty = {
-      path: undefined as d3.GeoPath | undefined,
+      path: undefined as GeoPath | undefined,
       valuesByFeature: new Map<
         string,
         {
@@ -121,7 +121,7 @@ const FundsMuniMapInner: FC<{
       range: undefined as [number, number] | undefined,
     };
     if (!mapGeo) return empty;
-    const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+    const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
     const values = new Map<
       string,
       {
@@ -161,7 +161,7 @@ const FundsMuniMapInner: FC<{
 
   if (!mapGeo || !path) return null;
 
-  const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+  const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
 
   // For disbursement rate, "higher is better" (paid out more of what was
   // contracted) — match the indicator convention by inverting the colour

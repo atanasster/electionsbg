@@ -1,3 +1,4 @@
+import type { GeoProjection } from "d3-geo";
 import { LocationInfo, Votes } from "@/data/dataTypes";
 import { totalActualVoters } from "@/data/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
@@ -29,7 +30,7 @@ export const MapMarker = ({
   maxVotes,
   votes,
 }: {
-  projection: d3.GeoProjection;
+  projection: GeoProjection;
   info?: LocationInfo;
   minVotes: number;
   maxVotes: number;

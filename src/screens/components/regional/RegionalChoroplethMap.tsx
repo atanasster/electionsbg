@@ -1,3 +1,4 @@
+import type { GeoPath, GeoPermissibleObjects } from "d3-geo";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
@@ -56,13 +57,13 @@ export const RegionalChoroplethMap: React.FC<{
 
   const { path, valuesByOblast, range, latestYear } = useMemo(() => {
     const empty = {
-      path: undefined as d3.GeoPath | undefined,
+      path: undefined as GeoPath | undefined,
       valuesByOblast: new Map<string, number>(),
       range: undefined as [number, number] | undefined,
       latestYear: undefined as number | undefined,
     };
     if (!mapGeo || !payload) return empty;
-    const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+    const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
     const values = buildLatestByOblast(payload, indicator);
     let min = Infinity;
     let max = -Infinity;
@@ -93,7 +94,7 @@ export const RegionalChoroplethMap: React.FC<{
   const indicatorLabel = lang === "bg" ? meta.titleBg : meta.titleEn;
   const unitLabel = lang === "bg" ? meta.unitLabelBg : meta.unitLabelEn;
 
-  const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+  const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
 
   const legendStops = [0, 0.25, 0.5, 0.75, 1];
   const legendValueAt = (t: number): number | undefined => {

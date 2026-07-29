@@ -7,6 +7,7 @@
 // tooltip straight from local data via `colorOf` / `tooltipOf` props — no
 // coupling to parliamentary party hooks.
 
+import type { GeoPermissibleObjects } from "d3-geo";
 import { ReactNode, useMemo } from "react";
 import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { SVGMapContainer } from "@/screens/components/maps/SVGMapContainer";
@@ -38,7 +39,7 @@ export function LocalChoropleth<DType extends GeoJSONProps>({
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const navigate = useNavigateParams();
   const { path, bounds, scale } = useMemo(
-    () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
+    () => getDataProjection(mapGeo as GeoPermissibleObjects, size),
     [mapGeo, size],
   );
   if (!mapGeo) return null;

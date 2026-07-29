@@ -316,11 +316,59 @@ Replace the umbrella import in the five files listed in A3 with per-module impor
 `d3-*` packages to `dependencies` and drop the `d3` meta-package if nothing else needs it
 (`d3-sankey` is already a direct dep and stays).
 
-This does not change the critical path after T2 — it shrinks `vendor-charts` for the map and
-chart routes that legitimately load it.
+~~This does not change the critical path after T2 — it shrinks `vendor-charts` for the map and
+chart routes that legitimately load it.~~ **Falsified on landing (2026-07-29):** `vendor-charts`
+did **not** shrink — 556.37 kB raw before, 556.36 kB after (gzip 152.84 → 153.57, i.e.
+marginally *worse*, within module-ordering noise; compare gzip figures from one tool only, vite
+and `gzip -9` disagree by ~1.5 kB on the same file). `d3` v7 is pure ESM (`export *`), so Rollup
+was already dropping every unimported module. C4's premise — that the umbrella carried dead
+weight into the bundle — was simply wrong.
 
-**Verify:** `vendor-charts` raw size drops; `/`, `/regions`, `/indicators/compare`, `/budget`
-(flow graphic), `/funds` (muni map), and one choropleth route render identically.
+What the tier **did** deliver is dependency correctness, which is worth having on its own:
+
+- three **phantom dependencies** declared — `d3-force` (imported by `ConnectionsScreen`,
+  `MpConnectionsMini`, `ConnectionsCanvas`), and `d3-delaunay` + `d3-geo` (imported by
+  `scripts/helpers/gen_city_rayon_data.ts`). None were in `package.json`; they resolved only
+  through npm's flat hoisting of the meta package's own deps, and would have broken on a
+  package-manager change or lockfile regeneration with a module-not-found on a screen nobody
+  touched;
+- `@types/d3`'s **ambient UMD global** removed from 13 files that referenced `d3.GeoPath` /
+  `d3.GeoProjection` / `d3.GeoPermissibleObjects` while importing nothing at all;
+- 27 packages dropped from the lockfile (installed, never shipped);
+- and per-module ids, which are the **precondition for T3.5** below.
+
+**Verify:** ~~`vendor-charts` raw size drops~~ `d3` is absent from `node_modules` (so both
+`from "d3"` and a bare `d3.X` type reference now fail at build — a stronger gate than any lint
+rule); `/`, `/regions`, `/indicators/compare`, `/budget` (flow graphic), `/funds` (muni map),
+and one choropleth route render identically.
+
+## T3.5 — Give d3-geo its own chunk (the saving T3 was actually reaching for)
+
+`vendor-charts` is **124 KB br** and is the only non-leaflet chunk containing d3-geo, so every
+geo-only route — the home regions map after T2.1, and every choropleth screen — downloads all of
+recharts + lodash + victory-vendor to get `geoMercator` / `geoPath` / `geoBounds`. Standalone
+`d3-geo` is 36 KB raw / 13 KB gz *un*-tree-shaken. Expected: **~115 KB br off every geo-only
+route**, roughly 15× the entire measured T3 delta.
+
+**`d3-array` MUST move with it.** `victory-vendor/es/d3-array.js` is literally
+`export * from "d3-array"`, resolving to the same top-level module `d3-geo` depends on. Leave it
+behind and the edge points `vendor-geo → vendor-charts`, so the map route downloads recharts
+anyway and the split costs a chunk while saving nothing. Move it and the edge is
+`vendor-charts → vendor-geo` — one-directional and safe. `d3-array → internmap` falls through to
+the catch-all, so `vendor-geo → vendor`, the same shape the config already accepts for
+`vendor-editor → vendor`.
+
+The rule must be **narrow** (`d3-geo` + `d3-array` only) and ordered **above** the broad
+`id.includes("/d3-")` matcher; sweeping in `d3-scale` / `d3-shape` / `d3-time` drags the recharts
+half back and recreates a two-way edge. Note this is **not** the cycle the `vendor-charts`
+comment records — that one had the *catch-all* on both ends.
+
+Land with it: the `vendor-geo` leaf-cycle assertion (the existing guards only cover the entry and
+the catch-all, so a `vendor-geo ⇄ vendor-charts` edge would pass all of them), a route-level gate
+that a geo-only route does not request `vendor-charts` at all, the `no-restricted-imports` ban on
+the `d3` umbrella (only worth adding once the umbrella is actively harmful), and the stale
+`vite.config.ts` references to the now-removed `d3` meta package — its matcher stays as a guard
+but must be relabelled as one.
 
 ## T4 — Ship one language (fixes C5)
 

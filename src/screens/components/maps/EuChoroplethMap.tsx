@@ -1,5 +1,10 @@
 import { FC, useMemo } from "react";
-import * as d3 from "d3";
+import {
+  geoMercator,
+  geoPath,
+  type GeoPath,
+  type GeoPermissibleObjects,
+} from "d3-geo";
 import { useTooltip } from "@/ux/useTooltip";
 import { useEuropeGeo } from "@/data/maps/useEuropeGeo";
 import { euGeoName } from "./euGeoNames";
@@ -76,7 +81,7 @@ export const EuChoroplethMap: FC<{
 
   const { path, range } = useMemo(() => {
     if (!geo)
-      return { path: undefined as d3.GeoPath | undefined, range: undefined };
+      return { path: undefined as GeoPath | undefined, range: undefined };
     // Web Mercator. The earlier conic/azimuthal (LAEA) fits looked "landscape"
     // only because they fan meridians around the central meridian — which
     // rotates every geo away from it (BG at ~25°E tilted ~12° clockwise).
@@ -85,7 +90,7 @@ export const EuChoroplethMap: FC<{
     // (conformal). We fit to the fixed VIEW window (not the geometry) so the
     // tall far north is cropped and the frame stays compact. A MultiPoint of the
     // four window corners avoids spherical-polygon winding ambiguity in fitSize.
-    const projection = d3.geoMercator().fitSize([width, height], {
+    const projection = geoMercator().fitSize([width, height], {
       type: "MultiPoint",
       coordinates: [
         [VIEW_W, VIEW_S],
@@ -93,8 +98,8 @@ export const EuChoroplethMap: FC<{
         [VIEW_E, VIEW_N],
         [VIEW_W, VIEW_N],
       ],
-    } as d3.GeoPermissibleObjects);
-    const p = d3.geoPath(projection);
+    } as GeoPermissibleObjects);
+    const p = geoPath(projection);
     let min = Infinity;
     let max = -Infinity;
     for (const [g, v] of Object.entries(valuesByGeo)) {
@@ -173,7 +178,7 @@ export const EuChoroplethMap: FC<{
             return (
               <path
                 key={g}
-                d={path(f as unknown as d3.GeoPermissibleObjects) ?? undefined}
+                d={path(f as unknown as GeoPermissibleObjects) ?? undefined}
                 fill={hasV ? colorAt(v as number) : "hsl(var(--muted))"}
                 // Match the house election maps: visible `--border` country
                 // outlines (FeatureMap idiom), with the highlighted country in a

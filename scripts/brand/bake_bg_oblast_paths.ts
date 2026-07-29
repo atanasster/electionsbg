@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { geoMercator, geoPath } from "d3";
+import { geoMercator, geoPath } from "d3-geo";
 import type {
   FeatureCollection,
   Feature,

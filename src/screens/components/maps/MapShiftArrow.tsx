@@ -1,3 +1,4 @@
+import type { GeoProjection } from "d3-geo";
 import { LocationInfo } from "@/data/dataTypes";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { RegionShift } from "./computeShifts";
@@ -10,7 +11,7 @@ export const MapShiftArrow = ({
   info,
   shift,
 }: {
-  projection: d3.GeoProjection;
+  projection: GeoProjection;
   info?: LocationInfo;
   shift?: RegionShift;
 }) => {

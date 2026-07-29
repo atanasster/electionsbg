@@ -1,3 +1,4 @@
+import type { GeoPath } from "d3-geo";
 import { NavigateParams, useNavigateParams } from "@/ux/useNavigateParams";
 import { FeatureMap } from "./FeatureMap";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
@@ -27,7 +28,7 @@ export function MapElement<DType extends GeoJSONProps>({
   opacity,
 }: {
   feature: GeoJSONFeature<DType>;
-  geoPath: d3.GeoPath;
+  geoPath: GeoPath;
   votes?: Votes[];
   info?: LocationInfo;
   shift?: RegionShift;

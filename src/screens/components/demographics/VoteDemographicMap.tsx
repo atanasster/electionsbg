@@ -1,3 +1,4 @@
+import type { GeoPermissibleObjects } from "d3-geo";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -235,7 +236,7 @@ export const VoteDemographicMap: React.FC = () => {
   const proj = useMemo(
     () =>
       mapGeo && size
-        ? getDataProjection(mapGeo as d3.GeoPermissibleObjects, size)
+        ? getDataProjection(mapGeo as GeoPermissibleObjects, size)
         : undefined,
     [mapGeo, size],
   );

@@ -1,3 +1,4 @@
+import type { GeoPath } from "d3-geo";
 import { GeoFeature } from "@/screens/components/maps/mapTypes";
 import { useTouch } from "@/ux/TouchProvider";
 import { useRef, useState } from "react";
@@ -5,7 +6,7 @@ import { useRef, useState } from "react";
 export const FeatureMap: React.FC<
   React.PropsWithChildren<
     React.ComponentProps<"path"> & {
-      geoPath: d3.GeoPath;
+      geoPath: GeoPath;
       fillColor?: string;
       feature: GeoFeature;
       onClick?: () => void;

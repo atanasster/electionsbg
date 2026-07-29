@@ -2,7 +2,7 @@ import { LocationInfo } from "@/data/dataTypes";
 import { GeoFeature } from "@/screens/components/maps/mapTypes";
 import { geoDataCenter } from "@/screens/components/maps/d3_utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { GeoProjection } from "d3";
+import type { GeoPermissibleObjects, GeoProjection } from "d3-geo";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -15,7 +15,7 @@ export const MapText: FC<{
   const isXSmall = useMediaQueryMatch("xs");
   const { ptLB, ptRT } = geoDataCenter(
     projection,
-    feature as unknown as d3.GeoPermissibleObjects,
+    feature as unknown as GeoPermissibleObjects,
   );
 
   return (

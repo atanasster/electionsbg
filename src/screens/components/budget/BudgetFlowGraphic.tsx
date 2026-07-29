@@ -24,7 +24,7 @@ import {
   SankeyLink,
   SankeyNode,
 } from "d3-sankey";
-import { easeCubicInOut } from "d3";
+import { easeCubicInOut } from "d3-ease";
 import { useTranslation } from "react-i18next";
 import { formatEur } from "@/lib/currency";
 import { useTooltip } from "@/ux/useTooltip";

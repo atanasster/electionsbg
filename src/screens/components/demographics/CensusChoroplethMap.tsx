@@ -1,3 +1,4 @@
+import type { GeoPath, GeoPermissibleObjects } from "d3-geo";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
@@ -36,12 +37,12 @@ export const CensusChoroplethMap: React.FC<{
 
   const { path, valuesByOblast, range } = useMemo(() => {
     const empty = {
-      path: undefined as d3.GeoPath | undefined,
+      path: undefined as GeoPath | undefined,
       valuesByOblast: new Map<string, number>(),
       range: undefined as [number, number] | undefined,
     };
     if (!mapGeo || !census) return empty;
-    const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+    const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
     const values = new Map<string, number>();
     for (const oblast of census.oblasts) {
       const v = censusMetricValue(oblast, metric);
@@ -70,7 +71,7 @@ export const CensusChoroplethMap: React.FC<{
   const metricLabel = t(METRIC_BY_KEY[metric].i18nKey);
   const lang = i18n.language;
 
-  const proj = getDataProjection(mapGeo as d3.GeoPermissibleObjects, size);
+  const proj = getDataProjection(mapGeo as GeoPermissibleObjects, size);
 
   // 5-stop legend gradient that mirrors the sequentialColor() ramp on the
   // map. Tick labels use the metric's natural formatting (count for

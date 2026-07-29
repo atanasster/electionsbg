@@ -14,7 +14,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import * as d3 from "d3";
+import { geoArea } from "d3-geo";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -218,7 +218,7 @@ const dropEmpty = (g: {
 // rounding can flip a marginal ring's winding, so this runs after rounding.
 const TWO_PI = 2 * Math.PI;
 const fixPoly = (rings: Ring[]): Ring[] => {
-  const area = d3.geoArea({ type: "Polygon", coordinates: [rings[0]] });
+  const area = geoArea({ type: "Polygon", coordinates: [rings[0]] });
   return area > TWO_PI ? rings.map((r) => r.slice().reverse()) : rings;
 };
 const fixWinding = (g: {

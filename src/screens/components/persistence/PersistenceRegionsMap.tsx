@@ -1,3 +1,4 @@
+import type { GeoPermissibleObjects } from "d3-geo";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
@@ -52,10 +53,7 @@ export const PersistenceRegionsMap: FC<{
         scale: 1,
       } as ReturnType<typeof getDataProjection> & { path: undefined };
     }
-    return getDataProjection(
-      mapGeo as unknown as d3.GeoPermissibleObjects,
-      size,
-    );
+    return getDataProjection(mapGeo as unknown as GeoPermissibleObjects, size);
   }, [mapGeo, size]);
 
   // The vote-flow summary keys oblasts by 2-digit MIR ("01"..."31"); the
