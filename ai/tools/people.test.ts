@@ -35,14 +35,15 @@ describe("mpAssetsTop run()", () => {
     }));
     const env = await mpAssetsTop({}, ctx);
     expect(env.tool).toBe("mpAssetsTop");
-    expect(env.rows).toHaveLength(2);
-    expect(env.rows[0].mp).toBe("Делян Славчев Пеевски");
+    const rows = env.rows ?? [];
+    expect(rows).toHaveLength(2);
+    expect(rows[0].mp).toBe("Делян Славчев Пеевски");
     // null group renders as an em dash, never "null".
-    expect(env.rows[1].group).toBe("—");
+    expect(rows[1].group).toBe("—");
     // String money is coerced + formatted (non-empty, not the literal string).
-    expect(typeof env.rows[0].assets).toBe("string");
-    expect(env.rows[0].assets).not.toBe("10972598");
-    expect(env.rows[0].assets.length).toBeGreaterThan(0);
+    expect(typeof rows[0].assets).toBe("string");
+    expect(rows[0].assets).not.toBe("10972598");
+    expect(String(rows[0].assets).length).toBeGreaterThan(0);
     // Grounded facts point at the richest MP, off person_wealth_year (the registry).
     expect(env.facts.richest).toBe("Делян Славчев Пеевски");
     expect(String(env.facts.richest_assets).length).toBeGreaterThan(0);
@@ -89,10 +90,11 @@ describe("mpAssetsByParty run()", () => {
     }));
     const env = await mpAssetsByParty({}, ctx);
     expect(env.tool).toBe("mpAssetsByParty");
+    const rows = env.rows ?? [];
     // Two party rows, sorted by average desc: ДПС (900k avg) over ГЕРБ (200k avg). No "—" row.
-    expect(env.rows.map((r) => r.party)).toEqual(["ДПС", "ГЕРБ – СДС"]);
-    expect(env.rows.every((r) => r.party !== "—")).toBe(true);
-    const gerb = env.rows.find((r) => r.party === "ГЕРБ – СДС");
+    expect(rows.map((r) => r.party)).toEqual(["ДПС", "ГЕРБ – СДС"]);
+    expect(rows.every((r) => r.party !== "—")).toBe(true);
+    const gerb = rows.find((r) => r.party === "ГЕРБ – СДС");
     expect(gerb?.mps).toBe(2);
     // richest_party names the top-average group.
     expect(String(env.facts.richest_party)).toContain("ДПС");
