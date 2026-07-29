@@ -354,21 +354,36 @@ route**, roughly 15× the entire measured T3 delta.
 `export * from "d3-array"`, resolving to the same top-level module `d3-geo` depends on. Leave it
 behind and the edge points `vendor-geo → vendor-charts`, so the map route downloads recharts
 anyway and the split costs a chunk while saving nothing. Move it and the edge is
-`vendor-charts → vendor-geo` — one-directional and safe. `d3-array → internmap` falls through to
-the catch-all, so `vendor-geo → vendor`, the same shape the config already accepts for
-`vendor-editor → vendor`.
+`vendor-charts → vendor-geo` — one-directional and safe. ~~`d3-array → internmap` falls through
+to the catch-all, so `vendor-geo → vendor`.~~ **Measured on landing:** `internmap` is tree-shaken
+out of `vendor-geo`'s reachable subgraph (only `d3-array`'s bisect/sort/ticks family is live), so
+`vendor-geo` comes out a **true leaf with zero static imports**. That is incidental, not
+load-bearing — the gate asserts the invariant that costs bytes ("no edge to `vendor-charts`")
+plus "no edge outside the vendor chunks", so a future `internmap` revival does not turn the gate
+red for a harmless edge.
 
 The rule must be **narrow** (`d3-geo` + `d3-array` only) and ordered **above** the broad
 `id.includes("/d3-")` matcher; sweeping in `d3-scale` / `d3-shape` / `d3-time` drags the recharts
 half back and recreates a two-way edge. Note this is **not** the cycle the `vendor-charts`
 comment records — that one had the *catch-all* on both ends.
 
-Land with it: the `vendor-geo` leaf-cycle assertion (the existing guards only cover the entry and
-the catch-all, so a `vendor-geo ⇄ vendor-charts` edge would pass all of them), a route-level gate
-that a geo-only route does not request `vendor-charts` at all, the `no-restricted-imports` ban on
-the `d3` umbrella (only worth adding once the umbrella is actively harmful), and the stale
-`vite.config.ts` references to the now-removed `d3` meta package — its matcher stays as a guard
-but must be relabelled as one.
+**Measured on landing (2026-07-29):** `vendor-geo` 26,959 B raw / 9,441 B br, a leaf;
+`vendor-charts` 556,368 → 529,321 B raw, 123,852 → 115,492 B br, importing `vendor-geo`
+one-directionally. A geo-only route now pays **9.4 KB br instead of ~124 KB br**. The home
+dashboard's dependency list lost `vendor-charts` entirely — `d3-geo` had been its only path into
+the recharts subgraph — which is the win arriving, though it first showed up as a **failing
+assertion** from T2.1 that hard-required `vendor-charts` to be in that list.
+
+Shipped with it: the `vendor-geo` cycle assertion (the pre-existing guards only cover the entry
+and the catch-all, so a `vendor-geo ⇄ vendor-charts` edge would have passed all of them); a
+route-level gate walking the transitive closure of the first-party `d3_utils` chunk, proving a
+geo-only chunk never reaches `vendor-charts`; the `no-restricted-imports` ban on the `d3`
+umbrella, in **both** the base and `ai/**` blocks (flat-config rule entries replace rather than
+merge, so a base-only rule is silently dropped wherever an override redefines the same rule);
+and the relabelling of the now-dead `d3` meta-package matcher in `vite.config.ts` as a guard.
+`staticImportsOf` in the test helper was also widened to match Rollup's side-effect import form
+(`import"./x.js"`), of which the build emits ~3,200 — without it a leaf assertion can pass
+vacuously.
 
 ## T4 — Ship one language (fixes C5)
 

@@ -6,10 +6,15 @@ import { fileURLToPath } from "node:url";
 // as a per-route variable and would shadow it.
 const DIST_DIR = fileURLToPath(new URL("../dist", import.meta.url));
 
-// Static imports of a built chunk, as emitted by Rollup (`from"./chunk.js"`).
+// Static imports of a built chunk, as emitted by Rollup. Matches BOTH the
+// binding form (`from"./chunk.js"`) and the side-effect form
+// (`import"./chunk.js"`) — Rollup emits the latter when a chunk's bindings are
+// all tree-shaken but it must still execute, and this build contains ~3,200 of
+// them. Missing those would let a real edge pass a leaf assertion vacuously,
+// which is the failure mode every gate in this file exists to prevent.
 const staticImportsOf = (file: string): string[] => {
   const code = fs.readFileSync(`${DIST_DIR}/assets/${file}`, "utf8");
-  return [...code.matchAll(/from"\.\/([A-Za-z0-9._-]+\.js)"/g)].map(
+  return [...code.matchAll(/(?:from|import)"\.\/([A-Za-z0-9._-]+\.js)"/g)].map(
     (m) => m[1],
   );
 };
@@ -138,7 +143,12 @@ test.describe("performance", () => {
     );
     expect(call, "dashboard dynamic import not found in entry").toBeTruthy();
     const deps = call![1].split(",").map((i) => table[Number(i)]);
-    for (const need of ["vendor-leaflet", "vendor-charts"]) {
+    // vendor-charts left this list in T3.5, and that is the win rather than a
+    // regression: d3-geo was the dashboard's only path into the recharts
+    // subgraph, so splitting vendor-geo out took ~115 KB brotli off the home
+    // route. vendor-geo is now the map-side dep whose absence would mean a
+    // real waterfall.
+    for (const need of ["vendor-leaflet", "vendor-geo"]) {
       expect(
         deps.find((d) => d?.includes(need)),
         `${need} dropped from the dashboard's mapDeps — home now waterfalls`,
@@ -185,6 +195,80 @@ test.describe("performance", () => {
     expect(
       staticImportsOf(file!).filter((i) => !i.startsWith("vendor-react")),
     ).toEqual([]);
+  });
+
+  // The whole point of splitting d3-geo out of vendor-charts is that a
+  // geo-only route (every map and choropleth) stops downloading recharts for
+  // three projection functions. Two assertions pin that down, and both have to
+  // hold or the split silently saves nothing:
+  //   1. vendor-geo is a LEAF. An edge to vendor-charts would mean the map
+  //      route pulls recharts anyway — and the existing cycle guards below
+  //      only cover the entry and the catch-all, so they would not see it.
+  //   2. vendor-charts imports vendor-geo. This is what proves d3-array moved
+  //      across with d3-geo: victory-vendor re-exports d3-array rather than
+  //      inlining it, so if d3-array had stayed behind the edge would point
+  //      the other way.
+  test("vendor-geo is a leaf and vendor-charts depends on it, not vice versa", () => {
+    const files = fs.readdirSync(`${DIST_DIR}/assets`);
+    const geo = files.find((f) => /^vendor-geo-.*\.js$/.test(f));
+    const charts = files.find((f) => /^vendor-charts-.*\.js$/.test(f));
+    expect(
+      geo,
+      "vendor-geo chunk missing — the split stopped matching",
+    ).toBeTruthy();
+    expect(charts, "vendor-charts chunk missing").toBeTruthy();
+    // Assert the invariant that costs bytes, not "imports nothing". vendor-geo
+    // happens to be a true leaf today only because internmap is tree-shaken out
+    // of d3-array's reachable subgraph; a d3-array upgrade that makes
+    // group/rollup live would add a vendor-geo -> vendor edge that is entirely
+    // harmless (vendor is always loaded, and vendor-editor has the same edge).
+    // An edge to vendor-charts is the one that would undo the whole saving.
+    expect(
+      staticImportsOf(geo!).filter((i) => !i.startsWith("vendor-")),
+      "vendor-geo gained an edge outside the vendor chunks",
+    ).toEqual([]);
+    expect(
+      staticImportsOf(geo!).find((i) => i.startsWith("vendor-charts")),
+      "vendor-geo imports vendor-charts — every map route downloads recharts again",
+    ).toBeUndefined();
+    expect(
+      staticImportsOf(charts!).find((i) => i.startsWith("vendor-geo")),
+      "vendor-charts no longer imports vendor-geo — d3-array probably drifted back out of vendor-geo",
+    ).toBeTruthy();
+  });
+
+  // The assertions above prove the SHAPE of the split. This proves the PAYOFF:
+  // the app's own geo helper chunk reaches vendor-geo without reaching
+  // vendor-charts anywhere in its transitive static closure. FINDING-001 of the
+  // T3.5 review is the argument for this layer — the change's one real
+  // consequence surfaced in the dependency lists, not in the chunk graph.
+  test("a geo-only chunk never reaches vendor-charts", () => {
+    const files = fs.readdirSync(`${DIST_DIR}/assets`);
+    const seed = files.find((f) => /^d3_utils-.*\.js$/.test(f));
+    expect(
+      seed,
+      "d3_utils chunk missing — the geo helpers stopped being split out",
+    ).toBeTruthy();
+
+    const seen = new Set<string>();
+    const stack = [seed!];
+    while (stack.length) {
+      for (const dep of staticImportsOf(stack.pop()!)) {
+        if (!seen.has(dep)) {
+          seen.add(dep);
+          stack.push(dep);
+        }
+      }
+    }
+    const closure = [...seen];
+    expect(
+      closure.find((f) => f.startsWith("vendor-geo")),
+      "d3_utils no longer reaches vendor-geo — the split stopped matching",
+    ).toBeTruthy();
+    expect(
+      closure.find((f) => f.startsWith("vendor-charts")),
+      `a geo-only chunk reaches vendor-charts (~115 KB brotli): ${closure.join(", ")}`,
+    ).toBeUndefined();
   });
 
   test("vendor-react has no static imports (cycle guard)", () => {

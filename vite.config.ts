@@ -276,16 +276,59 @@ export default defineConfig(({ mode }) => {
             ) {
               return "vendor-leaflet";
             }
+            // Geo projections, split out of the recharts subgraph below.
+            // MUST stay above the broad `/d3-/` matcher, and must stay NARROW.
+            //
+            // Every map and choropleth in the app needs exactly geoMercator /
+            // geoPath / geoBounds, but vendor-charts was the only non-leaflet
+            // chunk holding d3-geo — so a geo-only route downloaded all of
+            // recharts + lodash + victory-vendor (124 KB brotli) for three
+            // functions.
+            //
+            // d3-array moves WITH d3-geo, and that is the whole trick:
+            // victory-vendor/es/d3-array.js is `export * from "d3-array"`, not
+            // an inlined copy, so it resolves to the same top-level module
+            // d3-geo depends on. Left in vendor-charts the edge would point
+            // vendor-geo -> vendor-charts and the map route would download
+            // recharts anyway — a split that costs a chunk and saves nothing.
+            // Moved, the edge is vendor-charts -> vendor-geo: one-directional.
+            //
+            // Do NOT widen this to d3-scale / d3-shape / d3-time: those are
+            // the recharts half, and sweeping them in recreates a two-way
+            // edge. internmap (d3-array's own dep) is tree-shaken out of the
+            // reachable subgraph — only the bisect/sort/ticks family is live —
+            // so vendor-geo comes out a true leaf today. That is incidental:
+            // the invariant tests/perf.spec.ts guards is the one that costs
+            // bytes, "no edge to vendor-charts", not "no edges at all".
+            //
+            // NB this also captures d3-sankey's nested d3-array@2 pin
+            // (node_modules/d3-sankey/node_modules/d3-array/src/{max,min,sum}.js),
+            // so vendor-geo is not strictly geo-only. Harmless — three trivial
+            // functions, and vendor-charts -> vendor-geo already exists, so no
+            // new edge — but it is why "deliberately narrow" is about the
+            // package list, not about what npm nests underneath it.
+            if (
+              id.match(/[\\/]node_modules[\\/]d3-geo[\\/]/) ||
+              id.match(/[\\/]node_modules[\\/]d3-array[\\/]/)
+            ) {
+              return "vendor-geo";
+            }
             // Recharts pulls in a deep CJS subtree (lodash, react-smooth +
             // react-transition-group + dom-helpers, recharts-scale,
             // eventemitter3, tiny-invariant, fast-equals, decimal.js-light,
-            // and the d3 family — including the `d3` meta package that
-            // re-exports from every `d3-*`). If any of these leak into the
+            // and the rest of the d3 family). If any of these leak into the
             // catch-all chunk, Rollup's split creates a circular import
             // between vendor-charts and vendor that surfaces in production
             // as "Cannot access 'X' before initialization". Keep the whole
             // recharts subgraph self-contained here. All listed packages
             // are recharts-only deps in this repo.
+            //
+            // The `d3` meta-package matcher below is a GUARD, not a
+            // description: the package was removed in T3 (src imports
+            // d3-geo / d3-ease / d3-sankey per-module) and is no longer
+            // installed. If it ever returns it must land here rather than in
+            // the catch-all, or vendor <-> vendor-charts closes into the cycle
+            // described above.
             if (
               id.includes("/recharts") ||
               id.includes("/recharts-scale") ||

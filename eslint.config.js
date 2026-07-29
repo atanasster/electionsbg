@@ -5,6 +5,20 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import tseslint from "typescript-eslint";
 
+// Shared so both the base block and the `ai/**` override can list it. In flat
+// config a later block's rule entry REPLACES an earlier one rather than merging
+// with it, so a rule defined only in the base block is silently dropped
+// wherever an override redefines the same rule name.
+const D3_UMBRELLA_BAN = {
+  name: "d3",
+  message:
+    "Import the specific d3-* module (d3-geo, d3-ease, d3-sankey). The meta package re-exports every d3-*, which collapses the vendor-geo / vendor-charts chunk boundary and re-attaches all of recharts to every map route. It is also not installed, so this would only ever appear alongside an `npm i d3`.",
+};
+const D3_UMBRELLA_BAN_PATTERN = {
+  group: ["d3", "d3/*"],
+  message: D3_UMBRELLA_BAN.message,
+};
+
 export default tseslint.config(
   {
     ignores: [
@@ -41,6 +55,13 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [D3_UMBRELLA_BAN],
+          patterns: [D3_UMBRELLA_BAN_PATTERN],
+        },
+      ],
     },
   },
   {
@@ -58,6 +79,9 @@ export default tseslint.config(
         "error",
         {
           paths: [
+            // Repeated from the base block: flat-config rule entries replace,
+            // they do not merge, so omitting it here would drop the ban in ai/.
+            D3_UMBRELLA_BAN,
             {
               name: "i18next",
               message:
@@ -75,6 +99,7 @@ export default tseslint.config(
             },
           ],
           patterns: [
+            D3_UMBRELLA_BAN_PATTERN,
             {
               group: ["@/data", "@/data/*", "@/data/**"],
               message:
