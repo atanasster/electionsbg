@@ -35,6 +35,13 @@ export default defineConfig({
     // exits 1 with "Deploy target ai not configured for project elections-bg",
     // killing the emulator before any test runs. The suite only exercises the
     // main site, so serve just that target.
+    //
+    // NOTE: `--only hosting:main` does not stub the functions behind
+    // firebase.json's rewrites — the hosting emulator FORWARDS un-emulated
+    // function rewrites to the DEPLOYED function. So /api/db/** hits
+    // production unless a test stubs it (measured ~11 s on a cold start,
+    // against the default 30 s test timeout). Stub DB-backed routes with
+    // page.route unless a live call is genuinely what you are testing.
     command:
       "firebase emulators:start --only hosting:main --project elections-bg",
     url: `${BASE_URL}/`,

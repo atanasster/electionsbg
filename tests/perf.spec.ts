@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 import fs from "node:fs";
 import { fileURLToPath } from "node:url";
 
@@ -45,6 +45,36 @@ const HOME_HTML_MAX_BYTES = 18_000;
 // vendor-charts/vendor-leaflet.
 const HOME_MODULEPRELOAD_MAX = 7;
 
+// Every chunk that must never reach the critical path. ONE list, three gates:
+// the modulepreload hint, the actual request log, and the entry's static import
+// header. Keeping them in lockstep is the whole point — §0c/A1 was two gates
+// where only one was telling the truth, and before this was hoisted the three
+// copies had already drifted (vendor-flow was missing from the hint gate).
+const HEAVY_VENDOR_CHUNKS = [
+  "vendor-pdf",
+  "vendor-charts",
+  "vendor-leaflet",
+  "vendor-markdown",
+  "vendor-editor",
+  "vendor-flow",
+] as const;
+
+// App-owned heavy chunks. Not named vendor-*, so the entry-static ratchet —
+// which matches on chunk-name prefixes — does not use them.
+const HEAVY_APP_CHUNKS = ["exportToPDF-"] as const;
+
+// Requests issued while loading a path. `networkidle` is a floor, not a
+// ceiling: it cannot resolve before the entry → route-chunk → locale-bundle
+// chain (there is no idle gap in it), but a chunk imported from a timer or a
+// data-arrival effect lands after it and would not be seen. The entry-static
+// ratchet covers that side.
+const requestsFor = async (page: Page, path: string): Promise<string[]> => {
+  const requested: string[] = [];
+  page.on("request", (r) => requested.push(r.url()));
+  await page.goto(path, { waitUntil: "networkidle" });
+  return requested;
+};
+
 test.describe("performance", () => {
   test("home HTML is under size budget", async ({ request }) => {
     const res = await request.get("/");
@@ -77,19 +107,103 @@ test.describe("performance", () => {
       ),
     ).map((m) => m[1]);
     // Each of these adds 100KB+ gzip and is only used by lazy-loaded screens.
-    for (const banned of [
-      "vendor-pdf",
-      "vendor-charts",
-      "vendor-leaflet",
-      "vendor-markdown",
-      "vendor-editor",
-      "exportToPDF-",
-    ]) {
+    for (const banned of [...HEAVY_VENDOR_CHUNKS, ...HEAVY_APP_CHUNKS]) {
       expect(
         preloads.find((p) => p.includes(banned)),
         `unexpected modulepreload: ${banned}`,
       ).toBeUndefined();
     }
+  });
+
+  // The load-level counterpart to the hint-level test above, and the reason
+  // this file exists in its current shape: the preload-list assertion stayed
+  // green for months while vendor-pdf was a static import of the entry and was
+  // downloaded on every page load (docs/plans/bundle-critical-path-v1.md
+  // §0c/A1). Assert what the browser actually requests.
+  //
+  // /procurement/settlement/10135 is the right probe: it renders KPI cards and
+  // a table — no chart, no map, no editor, no PDF export — so every chunk below
+  // would be pure waste. Its own route payload is ~5 KB.
+  //
+  // The /api/db call is stubbed: the hosting emulator runs with
+  // `--only hosting:main`, and it does NOT 404 an un-emulated function rewrite,
+  // it proxies to the DEPLOYED function. Left live, a bundle gate would depend
+  // on production availability and an ~11 s cold start against a 30 s test
+  // timeout. Stubbing also makes the page take the populated render path this
+  // comment describes rather than the empty-state branch.
+  test("a chart-free, map-free route downloads none of the heavy chunks", async ({
+    page,
+  }) => {
+    await page.route("**/api/db/**", (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          name: "Варна",
+          province: "Варна",
+          obshtina: "Варна",
+          ekatte: "10135",
+          totalEur: 1_000_000,
+          contractCount: 10,
+          awarders: [
+            {
+              eik: "000093442",
+              name: "ОБЩИНА ВАРНА",
+              tier: "municipal",
+              totalEur: 1_000_000,
+              contractCount: 10,
+            },
+          ],
+          topContracts: [],
+          byYear: [],
+        }),
+      }),
+    );
+    const requested = await requestsFor(page, "/procurement/settlement/10135");
+    // Positive anchor. Every assertion below is "chunk X is absent", and an
+    // empty request log satisfies all of them — a route that 404s, throws
+    // before its lazy import, or never boots would otherwise turn this gate
+    // from "the route is lean" into "the route is dead", silently.
+    expect(
+      requested.find((u) => u.includes("ProcurementSettlementDetailScreen-")),
+      `the route chunk was never requested — the page did not render, so the ` +
+        `absence assertions below would pass vacuously:\n${requested.join("\n")}`,
+    ).toBeTruthy();
+    // vendor-geo is included here but NOT in the entry-static ratchet: it is a
+    // legitimate dashboard mapDeps entry, which the home-dashboard test asserts
+    // is present.
+    for (const banned of [
+      ...HEAVY_VENDOR_CHUNKS,
+      ...HEAVY_APP_CHUNKS,
+      "vendor-geo",
+    ]) {
+      expect(
+        requested.find((u) => u.includes(banned)),
+        `downloaded ${banned} on a route that renders neither a chart nor a map:\n${requested
+          .filter((u) => u.includes("/assets/"))
+          .join("\n")}`,
+      ).toBeUndefined();
+    }
+  });
+
+  // Exactly one locale bundle may be fetched. Two means the runtime hint and
+  // detectLanguage() disagree — the cohort bug T4's review caught, where a
+  // visitor downloads one language's corpus and then serially fetches the
+  // other. Zero means the corpus was re-inlined into the entry.
+  //
+  // Pairs with "the locale preload hint offers both translation chunks" below:
+  // that one proves the hint SHIPS, this one proves it AGREES with
+  // detectLanguage(). Deleting either leaves the serial-hop regression — one
+  // bundle, fetched after the entry executes — uncovered.
+  test("a page load fetches exactly one translation bundle", async ({
+    page,
+  }) => {
+    const requested = await requestsFor(page, "/");
+    const locales = requested.filter((u) => /\/assets\/translation-/.test(u));
+    expect(
+      new Set(locales).size,
+      `expected 1 translation bundle, got:\n${[...new Set(locales)].join("\n")}`,
+    ).toBe(1);
   });
 
   // The critical path is defined by the entry chunk's STATIC imports, not by
@@ -112,14 +226,7 @@ test.describe("performance", () => {
     // were static imports of the entry before that, so a regression here means
     // some module reachable from main.tsx without a lazy() boundary pulled the
     // map or chart stack back in.
-    for (const banned of [
-      "vendor-pdf",
-      "vendor-markdown",
-      "vendor-flow",
-      "vendor-editor",
-      "vendor-charts",
-      "vendor-leaflet",
-    ]) {
+    for (const banned of HEAVY_VENDOR_CHUNKS) {
       expect(
         imports.find((i) => i.startsWith(banned)),
         `${banned} is back on the critical path: ${imports.join(", ")}`,

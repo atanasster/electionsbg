@@ -2,8 +2,10 @@
 //
 // These sections all SELF-HIDE when their endpoint returns no data, so a broken fetch or a
 // thrown render is indistinguishable from "this person has nothing to show" — the exact
-// failure the component tests can't see end-to-end. The Firebase hosting emulator serves the
-// static build with no /api/db backend, so we mock the endpoints with page.route and assert
+// failure the component tests can't see end-to-end. The Firebase hosting emulator runs with
+// `--only hosting:main`, and it does NOT 404 an un-emulated function rewrite — it proxies
+// /api/db/** to the DEPLOYED function. So a test that does not stub is making live production
+// calls (~11 s on a cold start). We mock the endpoints with page.route and assert
 // the render path both ways: data present → the section renders; data absent → it self-hides
 // while the page still boots. Section presence is checked by DashboardSection's stable DOM
 // id, not localized copy.

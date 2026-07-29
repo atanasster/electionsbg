@@ -432,6 +432,10 @@ chunk is smaller than the standalone file's compressed size); critical path **~4
 
 ### T5.1 — Make `tests/perf.spec.ts` assert the load, not the hint
 
+**Implemented as an addition rather than a replacement.** The hint gate still guards the shipped
+HTML; the request gate guards what the browser actually fetches. Both are needed — a hint list
+that is correct while the load is wrong is exactly the §0c/A1 lesson, and so is the reverse.
+
 Replace the "not in the modulepreload list" test with one that counts **requests actually
 issued** before the route settles:
 
