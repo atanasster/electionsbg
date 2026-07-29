@@ -154,6 +154,12 @@ const CHILD_EXCLUDES: { path: string; isDir: boolean }[] = [
   { path: "parliament/assets-rankings-top.json", isDir: false },
   { path: "parliament/mp-cars.json", isDir: false },
   { path: "parliament/car-makes.json", isDir: false },
+  // isExcluded refuses `parliament/company-connections` as a direct argument, but that
+  // only guards the top-level path — without a child exclude, the natural scoped push
+  // `bucket:sync:paths -- parliament` (needed for photos/ + votes/) recursively uploaded
+  // all ~16.8k per-EIK shards to the bucket, where nothing reads them: /company/:eik is
+  // served from Cloud SQL.
+  { path: "parliament/company-connections", isDir: true },
 ];
 
 /** rsync -x alternatives (source-relative, anchored) for any CHILD_EXCLUDES strictly under

@@ -87,8 +87,20 @@ describe("isExcluded — parliament PG-served families (T2.1b/T2.3/T2.4)", () =>
     expect(hit("index.json")).toBe(true);
     expect(hit("declarations/5100.json")).toBe(true);
     expect(hit("mp-assets/5100.json")).toBe(true);
+    // company-connections/ was refused as a DIRECT argument but had no child
+    // exclude, so `bucket:sync:paths -- parliament` (the natural way to push
+    // photos/ + votes/) uploaded all ~16.8k per-EIK shards to a bucket nothing
+    // reads them from — /company/:eik is served from Cloud SQL.
+    expect(hit("company-connections/000014441.json")).toBe(true);
     // …but never the photos that stay on the bucket.
     expect(hit("photos/5100.webp")).toBe(false);
+  });
+
+  it("refuses company-connections as a direct argument too", () => {
+    expect(isExcluded("parliament/company-connections")).toBeTruthy();
+    expect(
+      isExcluded("parliament/company-connections/000014441.json"),
+    ).toBeTruthy();
   });
 });
 
