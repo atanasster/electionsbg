@@ -59,6 +59,10 @@ const TESTS: { file: string; what: string }[] = [
     what: "НАП income-tier body validation + tail ordering",
   },
   {
+    file: "__smoke_month_weighting.ts",
+    what: "month-weighted МОД aggregates: scalar identity + concavity guard",
+  },
+  {
     // Not a __smoke_* file, but it consumes the same engine and was the ONLY
     // budget script outside this suite — which is how it came to print
     // "+€0.0M / Infinity× / −€NaNM" for the МОД row, unnoticed, after the

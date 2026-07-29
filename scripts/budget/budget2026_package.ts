@@ -22,7 +22,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { MOD_SCHEDULE } from "../../src/lib/bgTax";
+import { MOD_SCHEDULE, capMonths } from "../../src/lib/bgTax";
 import {
   scoreRoadComponentUplift,
   scoreCollectionRealism,
@@ -142,6 +142,19 @@ interface Measure {
 
 const PRORATE = (full: number, months: number): number => (full * months) / 12;
 
+// The МОД's 2026 in-year yield. `capMonths(2026)` is
+// [{€2,111.64 × 7}, {€2,300 × 5}], so the raised cap was in force for five
+// months and the full-year figure is prorated by that — sourced from the
+// schedule rather than a hard-coded 5, so a re-dated step carries through.
+const atNewCapMonths = capMonths(2026)
+  .filter((seg) => seg.capEur >= capAfter)
+  .reduce((a, seg) => a + seg.months, 0);
+const modInYear2026 = (() => {
+  // Months the raised cap was ACTUALLY in force — read off MOD_SCHEDULE rather
+  // than hard-coding 5, so a re-dated step moves this with it.
+  return PRORATE(modDyn.full, atNewCapMonths);
+})();
+
 const measures: Measure[] = [
   // ---- Revenue measures ----------------------------------------------------
   {
@@ -151,8 +164,8 @@ const measures: Measure[] = [
     effMonths: 5,
     status: "modeled",
     ourFull: modDyn.full,
-    our2026: PRORATE(modDyn.full, 5),
-    note: `our full-yr ${M(modDyn.full)} [${M(modDyn.band[0])}..${M(modDyn.band[1])}]; gov €90.8M for 5mo ⇒ gov ≈ ${(90.8e6 / PRORATE(modDyn.full, 5)).toFixed(1)}× our run-rate. From-2025-cap view: full-yr ${M(modFrom2025Full)} (gov number consistent with bundling the routine Jan indexation €1,917→€2,112 into the "measure").`,
+    our2026: modInYear2026,
+    note: `our full-yr ${M(modDyn.full)} [${M(modDyn.band[0])}..${M(modDyn.band[1])}]; gov €90.8M for 5mo ⇒ gov ≈ ${(90.8e6 / modInYear2026).toFixed(1)}× our run-rate (our in-year window is read off MOD_SCHEDULE — ${atNewCapMonths} months at the raised cap — rather than hard-coded). From-2025-cap view: full-yr ${M(modFrom2025Full)} (gov number consistent with bundling the routine Jan indexation €1,917→€2,112 into the "measure").`,
   },
   {
     side: "rev",
@@ -332,7 +345,7 @@ console.log(
   `  – Non-recurring (one-off) revenue:       ${M(oneoffTotal)} (airport + fund draws — not structural)`,
 );
 console.log(
-  `  – МОД cap front-loading: gov books €90.8M/5mo vs our ${M(PRORATE(modDyn.full, 5))} for the same window`,
+  `  – МОД cap front-loading: gov books €90.8M/5mo vs our ${M(modInYear2026)} for the same window`,
 );
 console.log(
   `  – Self-pay SSC reform nets ≈€0 (compensated), not a 2026 deficit mover`,

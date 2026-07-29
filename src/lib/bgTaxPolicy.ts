@@ -21,6 +21,7 @@ import {
   DIVIDEND_TAX_RATE,
   VAT_STANDARD_RATE,
   SSC_EMPLOYEE_RATE,
+  type CapMonths,
 } from "./bgTax";
 import { BGN_PER_EUR } from "./currency";
 
@@ -260,29 +261,72 @@ export const pitMonthlyUnderBrackets = (
   return tax;
 };
 
-/** Annual employment-PIT revenue the band grid yields under a bracket
- *  schedule (employee profile: SSC on the capped base, no child relief). */
-export const pitRevenueOnBands = (
+/** Normalise a cap argument to (cap, months) segments. A scalar means "this
+ *  cap for all twelve months", which is what every caller meant before the
+ *  МОД became a dated schedule — so the scalar path is byte-identical. */
+const asSegments = (cap: number | CapMonths[]): CapMonths[] => {
+  if (typeof cap === "number") return [{ capEur: cap, months: 12 }];
+  // A partial window would silently scale the ANNUAL answer by months/12 and
+  // look like a smaller policy rather than a malformed input — e.g. passing
+  // only the 5-month Aug–Dec segment returns 41.67% of the year with no error.
+  const months = cap.reduce((a, s) => a + s.months, 0);
+  if (months !== 12)
+    throw new Error(
+      `CapMonths must cover a fiscal year: got ${months} month(s) across ` +
+        `${cap.length} segment(s). These functions return ANNUAL figures.`,
+    );
+  return cap;
+};
+
+/** Monthly insurable base over a band grid at one cap: Σ workers × min(gross,
+ *  cap). The capped-base sum appeared in three places with three shapes; it is
+ *  the quantity whose CONCAVITY in `cap` is the whole reason these functions
+ *  weight months rather than average caps, so it is worth naming once. */
+export const insurableBaseAtCap = (
   bands: EarningsBand[],
   capEur: number,
+): number =>
+  bands.reduce((sum, b) => sum + b.workers * Math.min(b.grossEur, capEur), 0);
+
+/** Annual employment-PIT revenue the band grid yields under a bracket
+ *  schedule (employee profile: SSC on the capped base, no child relief).
+ *
+ *  `cap` may be a scalar or the year's (cap, months) segments. The monthly
+ *  revenue is computed per segment and weighted by that segment's months —
+ *  weighting the OUTPUTS. Do not average the caps and pass a scalar: the
+ *  capped base is concave in the cap, so a blended cap overstates. */
+export const pitRevenueOnBands = (
+  bands: EarningsBand[],
+  cap: number | CapMonths[],
   brackets: PitBracket[],
 ): number => {
-  let total = 0;
-  for (const b of bands) {
-    const base = b.grossEur - SSC_EMPLOYEE_RATE * Math.min(b.grossEur, capEur);
-    total += b.workers * pitMonthlyUnderBrackets(Math.max(0, base), brackets);
+  let annual = 0;
+  for (const seg of asSegments(cap)) {
+    if (seg.months <= 0) continue;
+    let monthly = 0;
+    for (const b of bands) {
+      const base =
+        b.grossEur - SSC_EMPLOYEE_RATE * Math.min(b.grossEur, seg.capEur);
+      monthly +=
+        b.workers * pitMonthlyUnderBrackets(Math.max(0, base), brackets);
+    }
+    annual += monthly * seg.months;
   }
-  return total * 12;
+  return annual;
 };
 
 /** Score a bracket schedule for the EMPLOYMENT portion of ДДФЛ: Δ vs the
  *  current flat rate, computed on the same grid so discretization error
  *  cancels, scaled by κ (the grid's calibration to the НАП-anchored
  *  employment revenue). Non-employment income is scored separately by the
- *  caller (it scales with the schedule's base rate). */
+ *  caller (it scales with the schedule's base rate).
+ *
+ *  `cap` is passed straight through to pitRevenueOnBands, so it may be a
+ *  scalar or the year's (cap, months) segments. Both sides of the difference
+ *  use the same cap, so the discretization AND the month weighting cancel. */
 export const scorePitSchedule = (
   bands: EarningsBand[],
-  capEur: number,
+  cap: number | CapMonths[],
   brackets: PitBracket[],
   kappa: number,
   flatRate: number = PIT_RATE,
@@ -290,8 +334,8 @@ export const scorePitSchedule = (
   const flat: PitBracket[] = [{ fromEur: 0, rate: flatRate }];
   return (
     kappa *
-    (pitRevenueOnBands(bands, capEur, brackets) -
-      pitRevenueOnBands(bands, capEur, flat))
+    (pitRevenueOnBands(bands, cap, brackets) -
+      pitRevenueOnBands(bands, cap, flat))
   );
 };
 
@@ -338,17 +382,21 @@ export interface ModCapBandsResult {
  *  rate, for the deduction interaction. */
 export const scoreModCapBands = (
   bands: EarningsBand[],
-  fromCapEur: number,
+  fromCap: number | CapMonths[],
   toCapEur: number,
   pitBaseRate: number = PIT_RATE,
 ): ModCapBandsResult => {
+  // `fromCap` is what the law actually did (possibly a split year); `toCapEur`
+  // is the counterfactual the user is asking for, which applies for the whole
+  // year by construction. So the delta is summed per FROM-segment and weighted
+  // by that segment's months.
   let deltaBaseEur = 0;
-  for (const b of bands) {
+  const atTarget = insurableBaseAtCap(bands, toCapEur);
+  for (const seg of asSegments(fromCap)) {
+    if (seg.months <= 0) continue;
     deltaBaseEur +=
-      b.workers *
-      (Math.min(b.grossEur, toCapEur) - Math.min(b.grossEur, fromCapEur));
+      (atTarget - insurableBaseAtCap(bands, seg.capEur)) * seg.months;
   }
-  deltaBaseEur *= 12;
   const sscEur = deltaBaseEur * SSC_COMBINED_BUDGET_RATE;
   const pitOffsetEur = -deltaBaseEur * SSC_EMPLOYEE_RATE * pitBaseRate;
   return {
@@ -427,15 +475,34 @@ export interface ModCapResult {
 export const scoreModCap = (
   identity: ModIdentity,
   newCapEur: number,
-  fromCapEur: number = identity.capEur,
+  fromCap: number | CapMonths[] = identity.capEur,
 ): ModCapResult => {
   const covered = (alpha: number, cap: number): number =>
     cap === Infinity
       ? 1
       : 1 -
         Math.pow(identity.capEur / Math.max(cap, identity.capEur), alpha - 1);
+  // `aboveCapMassEur` is an ANNUAL mass, so a split baseline year weights each
+  // segment's increment by its share of the year.
+  //
+  // The floor at 0 is applied to the NET, not per segment. Clamping inside the
+  // fold keeps each segment's gain and silently discards its losses, so a
+  // from-cap whose segments STRADDLE the target (e.g. the 2026 schedule
+  // €2,111.64 / €2,300 against a €2,200 target) over-reports by several times:
+  // measured +€25.5M instead of +€6.8M, while the paired scoreModCapBands said
+  // +€9.6M. The clamp belongs where the documented precondition lives — the
+  // caller keeps C′ ≥ fromCap, and a mixed case must net out, not ratchet.
   const delta = (alpha: number): number =>
-    Math.max(0, covered(alpha, newCapEur) - covered(alpha, fromCapEur));
+    Math.max(
+      0,
+      asSegments(fromCap).reduce(
+        (acc, seg) =>
+          acc +
+          (seg.months / 12) *
+            (covered(alpha, newCapEur) - covered(alpha, seg.capEur)),
+        0,
+      ),
+    );
   const score = (alpha: number): number =>
     identity.aboveCapMassEur * delta(alpha) * SSC_COMBINED_BUDGET_RATE;
   // A heavier tail (lower α) parks more of the mass far above any finite

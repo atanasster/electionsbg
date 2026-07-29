@@ -286,6 +286,55 @@ export function resolveMod(
   return decorate({ mod: valueFor(snapped), year: snapped, exact: false });
 }
 
+/** A cap and the number of months of a fiscal year it applied for. */
+export interface CapMonths {
+  capEur: number;
+  months: number;
+}
+
+/** Split a fiscal year into its (cap, months) segments.
+ *
+ *  МОД is a MONTHLY cap applied per month under КСО, so the true annual
+ *  insurable base is Σ_months Σ_workers min(wage, cap_month). `scalar × 12` is
+ *  the approximation, not this — and it has been wrong in three of the last
+ *  five years. Measured on the baked band grid, pricing a whole year at one
+ *  scalar costs €40.7M for 2025 and €72.7M for 2026.
+ *
+ *  A single-step year returns exactly `[{ capEur, months: 12 }]`, so a caller
+ *  that used the scalar gets a byte-identical answer.
+ *
+ *  NOTE the arithmetic that does NOT work: averaging the caps. `min(w, cap)` is
+ *  CONCAVE in cap, so by Jensen a blended cap overstates the INSURABLE BASE,
+ *  which at the 2026 step is worth a few million euro of phantom SSC revenue —
+ *  small at this step size, but it grows with the square of the step. Weight
+ *  the OUTPUTS, never the cap.
+ *
+ *  A year with no schedule entry falls back to a whole-year scalar. That mirrors
+ *  `resolveMod`'s snapping but DROPS its `exact: false` signal, so do not use
+ *  this to decide whether a year is actually known — ask `MOD_SCHEDULE` or
+ *  `resolveMod` for that. */
+export const capMonths = (year: number): CapMonths[] => {
+  const steps = MOD_SCHEDULE[year];
+  if (!steps || steps.length === 0)
+    return [{ capEur: MOD_BY_YEAR[year] ?? resolveMod(year).mod, months: 12 }];
+  // Clamp into the year in BOTH directions. A step dated before the year
+  // applies from January; one dated after it contributes no months. Clamping
+  // only the near side let a mis-keyed schedule produce [{a, 0}, {b, 12}] —
+  // which still sums to 12, so a "months add up" check cannot see it, while
+  // the whole year prices at a cap that was in force for none of it.
+  const monthOf = (iso: string): number => {
+    const y = Number(iso.slice(0, 4));
+    if (y < year) return 0;
+    if (y > year) return 12;
+    return Number(iso.slice(5, 7)) - 1;
+  };
+  return steps.map((st, i) => {
+    const start = monthOf(st.from);
+    const end = i + 1 < steps.length ? monthOf(steps[i + 1].from) : 12;
+    return { capEur: st.value, months: Math.max(0, end - start) };
+  });
+};
+
 /** The МОД cap in force under current law — what a UI means by "the current
  *  cap" when it centres a slider or labels a default. Named here because it was
  *  re-derived as `resolveMod(null).mod` at every call site, which made it

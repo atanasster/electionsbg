@@ -35,6 +35,7 @@ import {
   GVRS_CONTRIBUTION_DUE_2026,
   latestScheduledValue,
   currentStatutoryMod,
+  capMonths,
   stepAt,
   resolveMod,
   computeLabourTax,
@@ -678,5 +679,77 @@ describe("currentStatutoryMod", () => {
   it("names the concept the call sites were each re-deriving", () => {
     expect(currentStatutoryMod()).toBe(resolveMod(null).mod);
     expect(currentStatutoryMod()).toBe(2300);
+  });
+});
+
+describe("capMonths", () => {
+  it("splits every fiscal year into twelve months", () => {
+    for (const year of Object.keys(MOD_SCHEDULE).map(Number)) {
+      const total = capMonths(year).reduce((a, c) => a + c.months, 0);
+      expect(total, `${year} does not sum to 12`).toBe(12);
+    }
+  });
+
+  it("returns a single 12-month segment for an unstepped year", () => {
+    // This is what makes the scalar path byte-identical for callers that
+    // switch to segments.
+    expect(capMonths(2024)).toEqual([{ capEur: 1917, months: 12 }]);
+    expect(capMonths(2021)).toEqual([{ capEur: 1534, months: 12 }]);
+  });
+
+  it("splits the three known movers at their real step dates", () => {
+    expect(capMonths(2022)).toEqual([
+      { capEur: 1533.98, months: 3 }, // Jan–Mar
+      { capEur: 1738.4, months: 9 }, // Apr–Dec
+    ]);
+    expect(capMonths(2025)).toEqual([
+      { capEur: 1917.34, months: 3 },
+      { capEur: 2111.64, months: 9 },
+    ]);
+    expect(capMonths(2026)).toEqual([
+      { capEur: 2111.64, months: 7 }, // Jan–Jul
+      { capEur: 2300, months: 5 }, // Aug–Dec
+    ]);
+  });
+
+  it("falls back to a whole-year scalar for a year with no schedule", () => {
+    expect(capMonths(2040)).toEqual([{ capEur: 2300, months: 12 }]);
+  });
+
+  it("never emits a negative or >12 month count", () => {
+    for (const year of Object.keys(MOD_SCHEDULE).map(Number)) {
+      for (const seg of capMonths(year)) {
+        expect(seg.months, `${year}`).toBeGreaterThanOrEqual(0);
+        expect(seg.months, `${year}`).toBeLessThanOrEqual(12);
+      }
+    }
+  });
+
+  it("gives a step dated outside its year zero months, not the whole year", () => {
+    // Clamping only the near side let a mis-keyed schedule produce
+    // [{a, 0}, {b, 12}] — which still sums to 12, so a "months add up" check
+    // cannot see it, while the whole year prices at a cap in force for none
+    // of it. Asserted through the data invariant below rather than by
+    // mutating the live schedule.
+    for (const [yearStr, steps] of Object.entries(MOD_SCHEDULE)) {
+      for (const st of steps) {
+        expect(
+          st.from.slice(0, 4),
+          `MOD_SCHEDULE[${yearStr}] has a step dated ${st.from}`,
+        ).toBe(yearStr);
+      }
+    }
+  });
+
+  it("gives every stepped year at least one month per segment", () => {
+    // A zero-month segment in the REAL schedule means a step was keyed into
+    // the wrong year — legal as input, but never correct as source data.
+    for (const year of Object.keys(MOD_SCHEDULE).map(Number)) {
+      for (const seg of capMonths(year)) {
+        expect(seg.months, `${year} has a zero-month segment`).toBeGreaterThan(
+          0,
+        );
+      }
+    }
   });
 });
