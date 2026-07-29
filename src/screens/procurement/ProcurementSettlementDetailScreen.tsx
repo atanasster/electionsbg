@@ -5,10 +5,11 @@
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, Banknote, Building2, MapPin } from "lucide-react";
+import { Banknote, Building2, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
+import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
 import type { ProcurementAwarderTier } from "@/data/dataTypes";
 
@@ -59,9 +60,17 @@ export const ProcurementSettlementDetailScreen: FC = () => {
   const q = useSettlementProcurement(ekatte ?? null);
   const data = q.data;
 
+  // Every state renders the same hierarchy crumb, one level under the
+  // "По място" list: Управление › Обществени поръчки › По място › <settlement>.
+  const bySettlement = {
+    labelKey: "procurement_by_settlement_nav",
+    to: "/procurement/by-settlement",
+  };
+
   if (q.isLoading) {
     return (
       <div>
+        <ProcurementBreadcrumb section={bySettlement} className="my-3" />
         <Title>{t("procurement_settlement_loading") || "Loading…"}</Title>
         <div className="h-64 animate-pulse rounded-xl bg-muted" />
       </div>
@@ -71,18 +80,17 @@ export const ProcurementSettlementDetailScreen: FC = () => {
   if (!data) {
     return (
       <div>
+        <ProcurementBreadcrumb
+          section={bySettlement}
+          current={ekatte}
+          className="my-3"
+        />
         <Title>
           {t("procurement_settlement_not_found_title") || "No procurement data"}
         </Title>
         <p className="text-muted-foreground">
           {t("procurement_settlement_not_found_body") ||
             "This settlement has no local-tier procurement on record. The dataset only covers contracts whose buyer headquarters resolve to a settlement in our catalog; small villages and inactive buyers may simply be missing."}
-        </p>
-        <p className="mt-4">
-          <Link to="/procurement/by-settlement" className="underline">
-            <ArrowLeft className="inline h-3.5 w-3.5 mr-1" />
-            {t("procurement_settlement_back") || "Back to settlement list"}
-          </Link>
         </p>
       </div>
     );
@@ -105,15 +113,11 @@ export const ProcurementSettlementDetailScreen: FC = () => {
 
   return (
     <div>
-      <div className="mb-1 text-sm">
-        <Link
-          to="/procurement/by-settlement"
-          className="text-muted-foreground hover:underline"
-        >
-          <ArrowLeft className="inline h-3.5 w-3.5 mr-1" />
-          {t("procurement_settlement_back") || "Back to settlement list"}
-        </Link>
-      </div>
+      <ProcurementBreadcrumb
+        section={bySettlement}
+        current={data.name}
+        className="my-3"
+      />
       <div className="mb-6 flex items-start gap-2">
         <div className="min-w-0">
           <Title>{title}</Title>
