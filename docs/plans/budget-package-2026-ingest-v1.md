@@ -15,8 +15,7 @@ Four things were not implementable as first drafted and are now folded in:
 | 3 | T5's "the DV HTML we already fetch and cache" is false; nothing fetches the fund laws, and `fetchLawHtml`'s cache key is the **fiscal year**, so the two idMats would overwrite each other | **T5.0** |
 | 4 | T2.5 listed 2 call sites; there are **8**, four in `scripts/` — including the generator that bakes `policy_baseline.json`. The `__smoke_*` gates that would catch a regression are outside `test:unit` | T2.1, T2.5 |
 
-Smaller corrections carried below: "744 cells" is not divisible by 9 (§0d); T5.1's floor
-assertion would throw on valid data (T5.1); §0c's parts sum *exactly*, so the ДОО total is
+Smaller corrections carried below: T5.1's floor assertion would throw on valid data (T5.1); §0c's parts sum *exactly*, so the ДОО total is
 gross, not consolidated (§0c, T4); `/pensions` holds a second, 2024-BGN copy of the very
 constants T3 sources (**T3.4**); and the three new artifacts need `/data`-map entries.
 
@@ -162,11 +161,22 @@ Measured from the promulgated text:
 | Прил. 1А (1 Aug – 31 Dec) | same shape, 744 cells | **66.9% above** the €620.20 floor, max €1,532.00 — a genuinely renegotiated schedule |
 | Прил. 2 / 2А | 87 economic-activity groups | ТЗПБ contribution rate ∈ {0.4, 0.5, 0.7, 0.9, 1.1}% |
 
-> **⚠ "744 cells" cannot be right as stated:** 744 ÷ 9 = 82.67. Either 744 is the *row*
-> (activity) count — in which case the cell count is 6,696 — or the 9-column claim is wrong.
-> T5.1 and the Risks table below turn this into a hard assertion, so **resolve which it is
-> against the promulgated text before writing the parser**, and record both numbers (rows and
-> rows × 9) so the assertion has two independent handles.
+> **RESOLVED by the T5 build — §0d was right and the audit's objection was wrong.**
+> Measured against idMat 244982: each МОД annex is **86 activity rows × 9 qualification
+> groups = 774 grid positions, of which 744 are POPULATED and 30 are blank** (an activity
+> with no workers in that group). So "744 cells" is the populated count; the audit note
+> that 744 ÷ 9 = 82.67 assumed every grid position carries a value; 30 do not.
+>
+> Every other §0d figure verifies exactly too: Прил. 1 has 2.2% of the 744 above €550.66
+> (max €901.41), Прил. 1А 66.9% above €620.20 (max €1,532.00), and Прил. 2/2А carry 87
+> activities each at rates {0.4, 0.5, 0.7, 0.9, 1.1}%.
+>
+> Two things §0d did *not* say, both now encoded: **Прил. 2 has a 2А twin** — the ТЗПБ rates
+> are split-year on the same dates as the МОД, not a single annual table — and one of the 86
+> rows („Централен кооперативен съюз") is a named ORGANISATION with no КИД code, pinned in
+> the smoke so a second code-less row reads as a parse fault rather than a second such body.
+> **No cell in either period falls below its floor**, so T5.1's count-don't-throw treatment
+> was the right call but is not currently load-bearing.
 
 ### 0e. The policy change (§ 6 ЗБДОО, § 5 ЗБДОО, § 20 ЗБНЗОК)
 
@@ -664,8 +674,10 @@ floor binding?" question stays answerable from the data.
 
 **T5.2** — parser for Прил. 2/2А: 87 activity groups → ТЗПБ rate. Assert the rate set is a
 subset of {0.4, 0.5, 0.7, 0.9, 1.1}.
-**T5.3** — `data/budget/noi/mod_schedule.json` + `tzpb_rates.json`. Register both in
-[`scripts/data_map/model.ts`](../../scripts/data_map/model.ts).
+**T5.3** — `data/budget/noi/mod_schedule.json` + `tzpb_rates.json` (~120 KB combined).
+Register both in [`scripts/data_map/model.ts`](../../scripts/data_map/model.ts). **No bespoke
+publish step**: `data/budget/**` is not in the `bucket:sync` exclusion set, so both ship on
+the standard `bucket:sync:paths -- budget` already owed for T1/T4.
 
 **T5.3a** — revise the two places that assert we parse nothing from fund-law HTML, because
 after T5.1 that is false: the comment block above `FUND_BUDGET_LAWS`
@@ -974,7 +986,7 @@ avoid; T3.4 must land with T3 or `/pensions` keeps rendering 2024 лв beside a 
 | The line-by-line ЗБНЗОК figures are hand-keyed from a 45k-char HTML render | **This already bit once — §0a dropped 1.1.3.6 and mis-levelled БМП, losing €146.1M.** Both are fixed in §0a′. T1.2's hard residual assertion + the T1 smoke's line-id-superset check are the standing mitigations; the generator's overshoot throw is NOT one, since it only catches over-keying |
 | A figure is keyed from a sub-line instead of its parent | The §0a БМП error was invisible because 2,307,171.5 is a real number in the law — just at the wrong level. §0a′ records the code for every line; T1.1 says parent-to-parent explicitly. Prefer sourcing by **code** (1.1.3.7) over by label |
 | A missing line silently inflates the reserve residual instead of failing | T1.2 asserts the residual equals 257,707.5k, so an under-keyed table throws rather than absorbing the shortfall into a bar labelled "Резерв, трансфери и капиталови разходи" |
-| Prил. 1/1А parse silently drops or mis-columns rows | Fixed 9-column check + an expected row count — **after** resolving the 744 rows-vs-cells ambiguity (§0d). The floor check is a counter, not an assertion (T5.1) |
+| Prил. 1/1А parse silently drops or mis-columns rows | Fixed 13-column check + an expected row count (86), asserted before the artifact is overwritten. The 744-vs-774 question is settled: 774 grid, 744 populated. The floor check is a counter, not an assertion |
 | Two fund laws overwrite each other in the HTML cache | T5.0: `fetchLawHtml`'s key is `law-${fiscalYear}`, so both idMats collide today. Re-key before T5.1 |
 | A `MOD_BY_YEAR` derivation silently reprices the fiscal baseline | T2.1 derives from the *first* step of the year, making the map byte-identical. The `__smoke_*` gates that would catch a regression are tsx scripts outside `test:unit` — re-run them by hand (T2.5) |
 | A shared `/budget/simulator` permalink changes meaning on 1 Aug | T2.2: no wall-clock default for `asOf`; the no-`asOf` path stays year-scalar and time-independent. Note A2.5: with the 2300 decision the shift happens once, at deploy, instead |

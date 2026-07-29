@@ -59,6 +59,10 @@ const TESTS: { file: string; what: string }[] = [
     what: "НАП income-tier body validation + tail ordering",
   },
   {
+    file: "noi/__smoke_annexes.ts",
+    what: "ЗБДОО annexes: 744-populated МОД grid + ТЗПБ rate set, both periods",
+  },
+  {
     file: "noi/__smoke_fund_plan.ts",
     what: "ЗБДОО per-fund plan: gross-sum basis + non-peer НОИ line",
   },

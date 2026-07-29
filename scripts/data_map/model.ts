@@ -1255,6 +1255,27 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "zbdoo_annexes",
+    label: {
+      bg: "МОД по дейности и ТЗПБ (ЗБДОО)",
+      en: "Per-industry МОД floors & ТЗПБ rates",
+    },
+    detail: {
+      bg: "744 клетки × 2 периода + 87 дейности",
+      en: "744 cells × 2 periods + 87 activities",
+    },
+    desc: {
+      bg: "Двете приложения на ЗБДОО, които определят стойности по икономическа дейност. Прил. 1/1А — минималният осигурителен доход по 86 дейности (КИД-2025) и 9 квалификационни групи професии, 744 попълнени клетки за всеки от двата периода на 2026 г. Прил. 2/2А — диференцираната вноска за фонд ТЗПБ по 87 дейности (0,4–1,1%). И двете са разделени на 1 януари – 31 юли и 1 август – 31 декември, защото бюджетът е приет през юли. Парсват се от обнародвания текст в ДВ, а не се въвеждат ръчно. Два файла: mod_schedule.json (МОД) и tzpb_rates.json (ТЗПБ).",
+      en: "The two ЗБДОО annexes that set values per economic activity. Прил. 1/1А — the minimum insurable income across 86 КИД-2025 activities × 9 occupational qualification groups, 744 populated cells in each of 2026's two periods. Прил. 2/2А — the differentiated work-injury (ТЗПБ) contribution across 87 activities (0.4–1.1%). Both split into 1 January – 31 July and 1 August – 31 December, because the budget passed in July. Parsed from the promulgated ДВ text, not hand-keyed. Two files: mod_schedule.json (МОД) and tzpb_rates.json (ТЗПБ).",
+    },
+    // Two artifacts, one node. DatasetDef takes a single path and the
+    // directory convention is unusable here (data/budget/noi/ also holds three
+    // unrelated datasets), so `path` names the larger file and the description
+    // names the sibling.
+    path: "data/budget/noi/mod_schedule.json",
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1840,6 +1861,8 @@ export const EDGES: [string, string][] = [
   // execution side (ds:pensions) is the one sourced from the ministries feed.
   ["src:dv", "ds:doo_fund_plan"],
   ["ds:doo_fund_plan", "f:pensions"],
+  ["src:dv", "ds:zbdoo_annexes"],
+  ["ds:zbdoo_annexes", "f:pensions"],
   ["ds:budget", "f:judiciary"],
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],

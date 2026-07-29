@@ -147,8 +147,11 @@ export const INTERIM_BUDGET_LAWS: InterimBudgetLaw[] = [
 // the ЗБНЗОК (Закон за бюджета на Националната здравноосигурителна каса).
 //
 // They are NOT State Budget Law entries: they appropriate their own funds, not
-// the first-level spending units, so nothing here is parsed for per-ministry
-// figures. They are catalogued for two reasons:
+// the first-level spending units, so nothing here is parsed for per-MINISTRY
+// figures. (The ЗБДОО's ANNEXES are parsed — Прил. 1/1А and 2/2А carry the
+// per-industry МОД floors and ТЗПБ rates; see scripts/budget/noi/__write_annexes.ts.
+// What is not parsed is an appropriation table, because these laws do not have
+// one.) They are catalogued for two reasons:
 //   1. provenance — the budget-journey timeline should show that the fiscal
 //      year's package landed, not just its ЗДБРБ third;
 //   2. the ЗБДОО is where the tax simulator's statutory constants come from
@@ -648,21 +651,70 @@ export const fetchEgovResource = async (
   return parsed as EgovResource;
 };
 
-// Fetch a State Budget Law's promulgated HTML from Държавен вестник. The page
-// is large (~6 MB) and rarely changes once promulgated, so it is gzip-cached
-// under raw_data/budget/ like the egov resources.
+// Fetch a promulgated law's HTML from Държавен вестник — the State Budget Law,
+// but also the ЗБДОО / ЗБНЗОК fund laws and the bridging laws, all of which are
+// read for different things (appropriations, annexes, statutory constants). The
+// page is large (1.5–6 MB) and rarely changes once promulgated, so it is
+// gzip-cached under raw_data/budget/ like the egov resources.
 export const fetchLawHtml = async (
   fiscalYear: number,
   idMat: string,
   opts: { refresh?: boolean } = {},
 ): Promise<string> => {
   fs.mkdirSync(CACHE_DIR, { recursive: true });
-  const cache = path.join(CACHE_DIR, `law-${fiscalYear}.html.gz`);
-  if (!opts.refresh && fs.existsSync(cache)) {
-    return zlib.gunzipSync(fs.readFileSync(cache)).toString("utf8");
+  // KEYED ON idMat, NOT on the fiscal year. A year does not identify a law:
+  // FY2026 alone has the ЗДБРБ (pending), the ЗБДОО (244982), the ЗБНЗОК
+  // (244981) and a bridging law with its own ЗИД. Under the old `law-${year}`
+  // key they all wrote to one file, so fetching two of them in a run silently
+  // served whichever landed first — and the parsers downstream would have been
+  // reading the wrong statute with no error anywhere.
+  const cache = path.join(CACHE_DIR, `law-${idMat}.html.gz`);
+  // The pre-idMat caches (law-2018…law-2025) are still valid for the ЗДБРБ they
+  // hold, so adopt rather than re-download them — but ONLY when this call is
+  // actually for that year's ЗДБРБ. The year key was only ever written by the
+  // State Budget Law path, so adopting it for a ЗБДОО/ЗБНЗОК/bridging idMat
+  // would hand back the wrong statute and then persist the mistake under the
+  // idMat key, where nothing would ever question it again.
+  const legacy =
+    LAW_DV_MATERIALS[fiscalYear] === idMat
+      ? path.join(CACHE_DIR, `law-${fiscalYear}.html.gz`)
+      : null;
+  // A cached blob gets the SAME sanity bar as a fetched one. Without it a
+  // truncated or error-page cache is served forever: `raw_data/budget/` really
+  // does contain a 4 KB `law-202168.html.gz` stub, and since
+  // LAW_DV_MATERIALS[2024] === "202168" that file is on the idMat path for
+  // FY2024 — it would have silently replaced the good 176 KB cache, and the
+  // parser's failure would have blamed ДВ's page structure.
+  const MIN_LAW_HTML = 10000;
+  if (!opts.refresh) {
+    for (const file of [cache, legacy]) {
+      if (!file || !fs.existsSync(file)) continue;
+      let html: string;
+      try {
+        html = zlib.gunzipSync(fs.readFileSync(file)).toString("utf8");
+      } catch {
+        continue; // corrupt gzip — fall through and re-fetch
+      }
+      if (html.length < MIN_LAW_HTML) {
+        console.warn(
+          `  ⚠ cached ${path.basename(file)} is only ${html.length} bytes ` +
+            `(< ${MIN_LAW_HTML}) — discarding and re-fetching`,
+        );
+        continue;
+      }
+      if (file === legacy) {
+        // Migrate on read so the ambiguous key stops being consulted.
+        try {
+          fs.writeFileSync(cache, zlib.gzipSync(html, { level: 9 }));
+        } catch {
+          /* best-effort */
+        }
+      }
+      return html;
+    }
   }
   const html = await fetchText(lawHtmlUrl(idMat));
-  if (!html || html.length < 10000) {
+  if (!html || html.length < MIN_LAW_HTML) {
     throw new Error(
       `budget law ${fiscalYear} (idMat=${idMat}): empty or too-small response`,
     );
@@ -671,7 +723,7 @@ export const fetchLawHtml = async (
     fs.writeFileSync(cache, zlib.gzipSync(html, { level: 9 }));
   } catch (e) {
     console.warn(
-      `  cache write failed for law-${fiscalYear}: ${(e as Error).message}`,
+      `  cache write failed for law-${idMat}: ${(e as Error).message}`,
     );
   }
   return html;

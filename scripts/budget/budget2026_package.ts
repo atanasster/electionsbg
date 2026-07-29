@@ -174,7 +174,7 @@ const measures: Measure[] = [
     effMonths: 5,
     status: "asserted",
     our2026: scoreCollectionRealism(50.9e6, 0.7),
-    note: `BOTTOM-UP BLOCKED AT SOURCE: the 2026 МОД-floor schedule IS the unadopted ЗБДОО-2026 proposal (floors frozen at old levels — mostly €550.66, below the €620.20 МРЗ, so non-binding — "until the budget is adopted"); the affected-worker distribution is non-public. The €50.9M is a НОИ-internal microsim of an unpublished table. Best we can do = realism 0.7 ⇒ bankable ${M(scoreCollectionRealism(50.9e6, 0.7))}.`,
+    note: `BOTTOM-UP STILL BLOCKED, BUT NARROWER: the МОД-floor schedule is now PUBLISHED — Прил. 1/1А ЗБДОО-2026 (ДВ бр. 68), parsed into data/budget/noi/mod_schedule.json. Jan–Jul only 2.2% of the 744 populated cells clear the €550.66 floor (max €901.41); from 1 Aug 66.9% clear €620.20 (max €1,532), so the schedule is genuinely renegotiated rather than frozen. What remains non-public is the AFFECTED-WORKER DISTRIBUTION — how many people sit at each floor — so the €50.9M is still a НОИ microsim we cannot reproduce, for a smaller reason than "the table is secret". Best we can do = realism 0.7 ⇒ bankable ${M(scoreCollectionRealism(50.9e6, 0.7))}.`,
   },
   {
     side: "rev",
@@ -390,8 +390,11 @@ console.log(
   " BOTTOM-UP INGESTION SCORECARD: tobacco = real (published calendar). Gambling €100M",
 );
 console.log(
-  " + МОД-floors €50.9M = blocked at source (affiliate base + 2026 ЗБДОО МОД annex are",
+  " + МОД-floors €50.9M = still blocked, but only on the WORKER DISTRIBUTION —",
 );
 console.log(
-  " non-public) → realism-haircut is the honest ceiling; see the notes above.",
+  " the ЗБДОО МОД annex itself is published and parsed now (Прил. 1/1А). The",
+);
+console.log(
+  " affiliate base stays non-public → realism-haircut remains the honest ceiling.",
 );

@@ -184,8 +184,11 @@ const buildInterimLawDocuments = (): BudgetDocument[] =>
 // One "fund-law" entry per social-fund budget law (ЗБДОО / ЗБНЗОК) and each of
 // its ЗИД amendments. These pass as one package with the State Budget Law but
 // appropriate their own funds, not the first-level spending units — so, like
-// amendments and interim laws, they are catalogued for provenance only and no
-// figures are parsed from the DV HTML. See FUND_BUDGET_LAWS.
+// amendments and interim laws, they are catalogued for provenance and no
+// per-spending-unit appropriations are parsed from the DV HTML. Other things
+// ARE read from it: the ЗБДОО annexes (Прил. 1/1А МОД floors, Прил. 2/2А ТЗПБ
+// rates) are parsed by scripts/budget/noi/__write_annexes.ts, and its чл. 1–8
+// per-fund plan is hand-keyed in noi/__write_fund_plan.ts. See FUND_BUDGET_LAWS.
 const buildFundLawDocuments = (): BudgetDocument[] =>
   FUND_BUDGET_LAWS.map((l) => ({
     id: `fund-law-${l.fund}-${l.fiscalYear}-${l.seq}`,
@@ -210,7 +213,7 @@ const buildFundLawDocuments = (): BudgetDocument[] =>
       (l.seq === 0 ? "" : " — ЗИД amendment") +
       ". Passes as one package with the State Budget Law but appropriates its " +
       "own fund, so no per-spending-unit tables are parsed; catalogued for " +
-      "provenance.",
+      "provenance. Its annexes and per-fund plan are ingested separately.",
   }));
 
 // One "execution-report" entry per curated ministry program-budget execution
