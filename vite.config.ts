@@ -185,24 +185,57 @@ export default defineConfig(({ mode }) => {
     build: {
       // Lift the warning threshold a bit since we still have some larger
       // domain-specific chunks (maps + jspdf) that are loaded on demand.
+      // "On demand" is enforced, not merely intended: the entry-static-import
+      // gate in tests/perf.spec.ts fails if one of them rejoins the critical
+      // path. It read as true here for months while jspdf was in fact a static
+      // import of the entry.
       chunkSizeWarningLimit: 800,
       modulePreload: {
         // Vite's default preloads every chunk reachable from the entry's
-        // import graph, including async deps. That pulls jspdf, leaflet,
-        // recharts, and react-markdown into the initial download — none of
-        // which are needed for the LCP element on most landing pages.
-        // Filter them out so the browser fetches them only when the route
-        // that actually needs them is loaded.
-        resolveDependencies: (_filename, deps) =>
-          deps.filter(
-            (d) =>
-              !/vendor-(pdf|leaflet|markdown|charts|flow)/.test(d) &&
-              !/exportToPDF-/.test(d),
-          ),
+        // import graph. Trim the heavy route-only chunks out of the <head>
+        // hint list so a landing page does not pay for them before its LCP.
+        //
+        // This filter is a HINT-level optimization only — it does not make a
+        // chunk lazy. A chunk the entry *statically imports* is downloaded
+        // whether or not it is preloaded; stripping its hint only costs a
+        // round-trip. That is exactly what happened to vendor-pdf (see the
+        // preload-helper rule below) and still applies to vendor-charts /
+        // vendor-leaflet until the eager DashboardScreen is split out.
+        //
+        // Scoped to hostType "html" deliberately: the hook is also called for
+        // each dynamic import's dependency list, and filtering there strips
+        // the chunks from __vite__mapDeps, so a route that genuinely needs
+        // jsPDF or recharts discovers it one serial round-trip late.
+        resolveDependencies: (_filename, deps, { hostType }) =>
+          hostType === "html"
+            ? deps.filter(
+                (d) =>
+                  !/vendor-(pdf|leaflet|markdown|charts|flow)/.test(d) &&
+                  !/exportToPDF-/.test(d),
+              )
+            : deps,
       },
       rollupOptions: {
         output: {
           manualChunks(id) {
+            // Vite's __vitePreload helper is a VIRTUAL module
+            // ("\0vite/preload-helper.js"), so it never matches the
+            // node_modules guard below and Rollup parks it in whichever chunk
+            // it happens to land in — historically vendor-pdf, which put jsPDF
+            // + canvg (122 KB brotli) on the critical path of EVERY page:
+            // every dynamic import in the app imports the helper, so the entry
+            // statically imported the chunk it lives in. Pin it to the
+            // foundational chunk that every other chunk already depends on.
+            // Must stay ABOVE the node_modules guard — that guard is exactly
+            // what let it drift.
+            // The \0 prefix is Rollup's virtual-module marker and cannot occur
+            // in a real filesystem path, so this cannot collide with a
+            // first-party file under this repo's own vite/ directory
+            // (vite/sql-browser.ts, vite/db-api.ts). Verified against Vite
+            // 6.4.3: the id is exactly "\0vite/preload-helper.js". `includes`
+            // rather than `===` so a suffix change does not break it.
+            if (id.includes("\0vite/preload-helper")) return "vendor-react";
+
             if (!id.includes("node_modules")) return undefined;
 
             // Foundational chunk. React + tiny utility packages (clsx,

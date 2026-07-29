@@ -1,4 +1,18 @@
 import { test, expect } from "@playwright/test";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+
+// Note: `path` is deliberately NOT imported — the CLS loops below bind `path`
+// as a per-route variable and would shadow it.
+const DIST_DIR = fileURLToPath(new URL("../dist", import.meta.url));
+
+// Static imports of a built chunk, as emitted by Rollup (`from"./chunk.js"`).
+const staticImportsOf = (file: string): string[] => {
+  const code = fs.readFileSync(`${DIST_DIR}/assets/${file}`, "utf8");
+  return [...code.matchAll(/from"\.\/([A-Za-z0-9._-]+\.js)"/g)].map(
+    (m) => m[1],
+  );
+};
 
 // Performance regression checks. These don't try to assert real-world Web
 // Vitals (localhost timings are too fast to be representative) — they assert
@@ -62,6 +76,47 @@ test.describe("performance", () => {
         `unexpected modulepreload: ${banned}`,
       ).toBeUndefined();
     }
+  });
+
+  // The critical path is defined by the entry chunk's STATIC imports, not by
+  // the modulepreload hints the test above asserts. Those two drifted apart:
+  // the hint list was filtered clean while vendor-pdf stayed a static import
+  // of the entry and was downloaded on every page load — green gate, 122 KB
+  // brotli regression (docs/plans/bundle-critical-path-v1.md §0c/A1). Assert
+  // the real invariant too, so the fix cannot be silently lost to a Vite
+  // rename of the preload-helper module or a reordering of manualChunks.
+  test("entry chunk does not statically import route-only vendor chunks", () => {
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
+    expect(
+      entry,
+      `entry chunk not found in ${DIST_DIR}/index.html — run \`npm run build\` first`,
+    ).toBeTruthy();
+    const imports = staticImportsOf(entry!.replace("assets/", ""));
+    // Ratchet: vendor-charts and vendor-leaflet are still static imports until
+    // T2 lands (the eager DashboardScreen pulls the map stack in). Add them to
+    // this list in that commit — do not weaken the assertion.
+    for (const banned of ["vendor-pdf", "vendor-markdown", "vendor-flow"]) {
+      expect(
+        imports.find((i) => i.startsWith(banned)),
+        `${banned} is back on the critical path: ${imports.join(", ")}`,
+      ).toBeUndefined();
+    }
+  });
+
+  test("vendor-react has no static imports (cycle guard)", () => {
+    const file = fs
+      .readdirSync(`${DIST_DIR}/assets`)
+      .find((f) => /^vendor-react-.*\.js$/.test(f));
+    expect(
+      file,
+      "vendor-react chunk not found — run `npm run build`",
+    ).toBeTruthy();
+    // vendor-react is the foundational chunk AND the home of Vite's
+    // __vitePreload helper, so every dynamic-importing chunk depends on it. It
+    // must import nothing, or the "Cannot access 'X' before initialization"
+    // cycle the manualChunks comments record becomes reachable app-wide.
+    expect(staticImportsOf(file!)).toEqual([]);
   });
 
   test("LCP fires within 4s on localhost (smoke)", async ({ page }) => {
