@@ -142,6 +142,9 @@ describe("dvLaws.fingerprint", () => {
       { year: 2026, missing: ["ЗДБРБ"] },
     ]);
     expect(fp.detail).toContain("непълен пакет 2026: липсва ЗДБРБ");
+    // The parsed year is stored on each match (only the legacy derivation path
+    // was covered before).
+    expect(matches.every((mm) => mm.year === 2026)).toBe(true);
   });
 
   it("keeps the fingerprint stable when the next issue carries no budget law", async () => {
@@ -314,6 +317,33 @@ describe("pendingPackages", () => {
       ]),
     ).toEqual([{ year: 2026, missing: ["ЗДБРБ", "ЗБНЗОК"] }]);
   });
+
+  it("does not pend an old year seen only through a ЗИД", () => {
+    // classifyAct files a ЗИД under the parent kind. A ЗИД of ЗДБРБ-2022 must
+    // NOT mint a permanent {2022, missing:[фонд laws]} that can never clear.
+    expect(
+      pendingPackages([
+        m(
+          "ЗДБРБ",
+          "Закон за изменение и допълнение на Закона за държавния бюджет на " +
+            "Република България за 2022 г.",
+        ),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("falls back to the promulgation-date year when the title has no year", () => {
+    expect(
+      pendingPackages([
+        {
+          date: "2027-01-15",
+          issue: 4,
+          kind: "ЗБДОО",
+          title: "Закон за бюджета на държавното обществено осигуряване",
+        },
+      ]),
+    ).toEqual([{ year: 2027, missing: ["ЗДБРБ", "ЗБНЗОК"] }]);
+  });
 });
 
 describe("dvLaws.describe — package completeness", () => {
@@ -331,8 +361,37 @@ describe("dvLaws.describe — package completeness", () => {
       },
     });
     expect(msg).toContain("непълен бюджетен пакет за 2026 г.");
-    expect(msg).toContain("липсва(т) ЗДБРБ");
-    expect(msg).toContain("LAW_DV_MATERIALS");
+    expect(msg).toContain("липсва ЗДБРБ"); // singular verb for one missing member
+    expect(msg).toContain("fetch_sources.ts");
+  });
+
+  it("names every missing member in the warning, not just ЗДБРБ", () => {
+    // FY2023 split the other way (ЗДБРБ first). The instruction must reference
+    // the ACTUAL missing member, never a hardcoded ЗДБРБ that would contradict.
+    const msg = dvLaws.describe?.(seedWith([]), {
+      value: "x",
+      detail: "d",
+      meta: {
+        matches: [],
+        gaps: [],
+        pending: [{ year: 2026, missing: ["ЗБНЗОК"] }],
+      },
+    });
+    expect(msg).toContain("липсва ЗБНЗОК");
+    expect(msg).not.toMatch(/докато ЗДБРБ/);
+  });
+
+  it("agrees the verb with a plural missing set", () => {
+    const msg = dvLaws.describe?.(seedWith([]), {
+      value: "x",
+      detail: "d",
+      meta: {
+        matches: [],
+        gaps: [],
+        pending: [{ year: 2026, missing: ["ЗДБРБ", "ЗБНЗОК"] }],
+      },
+    });
+    expect(msg).toContain("липсват ЗДБРБ, ЗБНЗОК");
   });
 
   it("announces completion when the last missing member lands", () => {

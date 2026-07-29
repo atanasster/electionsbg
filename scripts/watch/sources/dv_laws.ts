@@ -99,15 +99,41 @@ export interface DvLawMatch {
 // удължителен bridge and the real ЗДБРБ never comes).
 const PACKAGE_KINDS = ["ЗДБРБ", "ЗБДОО", "ЗБНЗОК"] as const;
 
+// The year this watcher began observing ДВ. Package members from earlier years
+// are either long done (promulgated before the watcher existed, so they will
+// never appear in the rolling feed) or reachable only as a ЗИД, which amends a
+// completed package rather than joining an open one. Either way they can never
+// clear, so a pre-observation year must not pend — an unclearable warning is one
+// operators learn to ignore, which reintroduces the very failure this tracks.
+const PACKAGE_FIRST_YEAR = 2026;
+
 const yearOf = (title: string): number | undefined => {
   const m = /за\s+(20\d\d)\s+г/i.exec(title);
   return m ? Number(m[1]) : undefined;
 };
 
+// A match's fiscal year: the title is the authoritative source, but budget laws
+// promulgate in or adjacent to the year they govern, so the promulgation-date
+// year is a safe fallback when an upstream title deviates from "за 20NN г." —
+// better than dropping the member and under-reporting completeness.
+const matchYear = (m: DvLawMatch): number | undefined =>
+  m.year ?? yearOf(m.title) ?? (Number(m.date.slice(0, 4)) || undefined);
+
 export interface PendingPackage {
   year: number;
   missing: string[]; // package kinds not yet seen for that fiscal year
 }
+
+// Stable comparison key for a pending entry — shared by the fingerprint input
+// and the describe() change-detection so the two can never drift apart.
+const pendingKey = (p: PendingPackage): string =>
+  `${p.year}:${p.missing.join(",")}`;
+
+// BG verb agreement for the "N law(s) missing" phrasing — one law "липсва",
+// several "липсват". Used by both operator-facing surfaces (detail + describe)
+// so they never disagree on the same fact.
+const missingVerb = (missing: string[]): string =>
+  missing.length > 1 ? "липсват" : "липсва";
 
 // Years that have ≥1 package law promulgated but are still missing others.
 // Derives the year from each match's title so it also works on state written
@@ -118,8 +144,8 @@ export const pendingPackages = (matches: DvLawMatch[]): PendingPackage[] => {
   const seen = new Map<number, Set<string>>();
   for (const m of matches) {
     if (!(PACKAGE_KINDS as readonly string[]).includes(m.kind)) continue;
-    const y = m.year ?? yearOf(m.title);
-    if (y == null) continue;
+    const y = matchYear(m);
+    if (y == null || y < PACKAGE_FIRST_YEAR) continue;
     let set = seen.get(y);
     if (!set) seen.set(y, (set = new Set()));
     set.add(m.kind);
@@ -265,12 +291,14 @@ export const dvLaws: WatchSource = {
 
     const pending = pendingPackages(matches);
 
+    // `pending` is a pure function of `matches`, so it is deliberately NOT in
+    // the hash: every real transition (a member lands, or the last missing one
+    // lands) already moves `matches` and flips the value. Folding `pending` in
+    // would add no discriminating power and would flip once on the first run
+    // after this rule shipped, with no new law — routing update-budget at
+    // nothing. The signal lives in `detail` + `meta`, where it does work.
     const value = sha256Short(
-      [
-        ...matches.map(key),
-        ...gaps.map((n) => `gap:${n}`),
-        ...pending.map((p) => `pending:${p.year}:${p.missing.join(",")}`),
-      ].join("\n"),
+      [...matches.map(key), ...gaps.map((n) => `gap:${n}`)].join("\n"),
     );
 
     const issueLabel = issue > 0 ? `бр. ${issue}` : "бр. ?";
@@ -286,7 +314,10 @@ export const dvLaws: WatchSource = {
     if (pending.length > 0) {
       detailParts.push(
         pending
-          .map((p) => `непълен пакет ${p.year}: липсва ${p.missing.join(", ")}`)
+          .map(
+            (p) =>
+              `непълен пакет ${p.year}: ${missingVerb(p.missing)} ${p.missing.join(", ")}`,
+          )
           .join("; "),
       );
     }
@@ -340,16 +371,24 @@ export const dvLaws: WatchSource = {
     // short others (or whose missing set changes) is called out explicitly, so
     // a two-of-three promulgation is never mistaken for a done budget.
     const prevPending = new Map(
-      (prevMeta.pending ?? []).map((p) => [p.year, p.missing.join(",")]),
+      (prevMeta.pending ?? []).map((p) => [p.year, pendingKey(p)] as const),
     );
     const currPending = currMeta.pending ?? [];
     const currYears = new Set(currPending.map((p) => p.year));
     for (const p of currPending) {
-      if (prevPending.get(p.year) === p.missing.join(",")) continue;
+      if (prevPending.get(p.year) === pendingKey(p)) continue;
+      // Name the ACTUAL missing set in both the diagnosis and the instruction —
+      // the order in which the three land is not fixed (FY2023 split the other
+      // way), so a hardcoded "докато ЗДБРБ …" contradicts itself when a fund law
+      // is what is missing. The catalogue differs by kind (ЗДБРБ →
+      // LAW_DV_MATERIALS, ЗБДОО/ЗБНЗОК → FUND_BUDGET_LAWS), so point at
+      // fetch_sources.ts generically.
+      const miss = p.missing.join(", ");
       lines.push(
-        `непълен бюджетен пакет за ${p.year} г.: липсва(т) ${p.missing.join(", ")} ` +
-          `— НЕ третирай бюджета за зареден, докато ЗДБРБ не се обнародва (обикновено ` +
-          `в следващ брой) и не се добави в LAW_DV_MATERIALS`,
+        `непълен бюджетен пакет за ${p.year} г.: ${missingVerb(p.missing)} ${miss} ` +
+          `— НЕ третирай бюджета за зареден, докато ${miss} не се обнародва(т) ` +
+          `(обикновено в следващ брой) и не се добави(ят) в съответния каталог в ` +
+          `scripts/budget/fetch_sources.ts`,
       );
     }
     for (const [year] of prevPending) {
