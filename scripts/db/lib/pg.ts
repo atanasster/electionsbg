@@ -125,6 +125,35 @@ export const allRows = async <T = Record<string, unknown>>(
 ): Promise<T[]> => (await getPool().query(sql, params)).rows as T[];
 
 /**
+ * Structural "is there a database at all" probe, for gates that must SKIP when
+ * no server is reachable but FAIL on a reachable-but-broken install.
+ *
+ * Deliberately NOT an error-message regex. `database "x" does not exist` and
+ * `relation "x" does not exist` differ by one noun, so any predicate loose
+ * enough to catch the first tends to swallow the second — which is exactly how
+ * the risk-parity gate came to print "skipped" against a fully loaded
+ * 407,693-row corpus after 042's `DROP … CASCADE` removed a view it read. A
+ * message match also stops working under a non-English `lc_messages`, and has to
+ * be extended for every driver phrasing (`SASL: … client password must be a
+ * string`, `no pg_hba.conf entry`, `EAI_AGAIN`, …).
+ *
+ * With this probe the boundary is positional instead of lexical: a throw HERE is
+ * "no database", and every failure after it is a broken install that must
+ * surface. That is what the `scripts/db/tests/*.data.test.ts` convention already
+ * does with its `to_regclass` + row-count probes.
+ *
+ * @returns `true` when a trivial query round-trips, `false` on any failure.
+ */
+export const dbReachable = async (): Promise<boolean> => {
+  try {
+    await allRows("SELECT 1");
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+/**
  * Run `fn` with one pooled connection. On success the connection is recycled; on
  * ANY throw it is passed to `release(err)`, which **destroys** it instead of
  * returning it to the pool.

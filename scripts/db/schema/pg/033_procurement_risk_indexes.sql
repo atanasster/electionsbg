@@ -287,12 +287,23 @@ SELECT jsonb_build_object(
   -- not just the hits; the bound was never sound. Cost of dropping it: ~2.3k →
   -- ~15.8k entries, +426KB on a session-cached payload. The whole slice goes
   -- away once the browser stops scoring and renders the server masks instead.
+  --
+  -- ⚠️ The contractor test must NOT filter on tag. It carried `ct.tag='contract'`
+  -- and that was the SAME bug in a second disguise: 112 joins company_founded for
+  -- every contract row, amendments included, so a contractor appearing ONLY on
+  -- `contractAmendment` rows was checkable server-side and unavailable in the
+  -- browser — denominator drift again, not a missing hit. Caught by
+  -- risk_parity.harness.ts the first time it was allowed to run. MEASURED
+  -- (2026-07-29): 16,772 → 16,774 entries over 404,206 `contract` + 3,487
+  -- `contractAmendment` rows — ~+50 bytes on a 421 kB payload, same index-only
+  -- plan (~51 ms). Small today, and it grows with the amendment corpus. Any
+  -- predicate narrower than "appears as a contractor at all" reintroduces it.
   'foundedByEik', (
     SELECT COALESCE(jsonb_object_agg(f.eik, f.founded_date::text), '{}'::jsonb)
     FROM company_founded f
     WHERE f.founded_date IS NOT NULL
       AND EXISTS (SELECT 1 FROM contracts ct
-                  WHERE ct.tag='contract' AND ct.contractor_eik = f.eik)
+                  WHERE ct.contractor_eik = f.eik)
   ),
   -- Split-purchase pair-years — keyed by buyer|supplier|cpvDiv|year in the
   -- scorer. "For review", not proof (see the split_src comment above).

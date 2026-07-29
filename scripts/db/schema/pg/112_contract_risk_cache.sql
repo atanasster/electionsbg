@@ -148,6 +148,12 @@ BEGIN
   -- upheld_ocids is created by 042 (a LATER loader than the one applying this
   -- file), so it is reached through a view that is re-pointed at reality here,
   -- at rebuild time, rather than referenced directly.
+  -- ⚠️ SECOND READER: scripts/procurement/risk_parity.harness.ts resolves
+  -- appealUpheld from `upheld_ocids` DIRECTLY and deliberately does NOT come
+  -- through this view — 042's DROP MATERIALIZED VIEW … CASCADE removes it and
+  -- silently disarmed the parity gate for months. Renaming the matview, or making
+  -- the empty stub below non-empty, must be mirrored there or the comparison
+  -- quietly changes meaning.
   IF to_regclass('public.upheld_ocids') IS NOT NULL THEN
     EXECUTE 'CREATE OR REPLACE VIEW risk_upheld_ocid AS SELECT ocid FROM upheld_ocids';
   ELSE

@@ -270,6 +270,53 @@ describe("weakCompetition — the omitted-threshold default", () => {
   });
 });
 
+describe("appealUpheld availability is a TRI-state", () => {
+  // Mirrors 112_contract_risk_cache.sql, which sets `true AS a_appeal`
+  // UNCONDITIONALLY and derives `f_appeal` from a possibly-empty view. So `false`
+  // means AVAILABLE-not-fired and only `undefined` means UNAVAILABLE.
+  //
+  // scripts/procurement/risk_parity.harness.ts depends on exactly this split: when
+  // upheld_ocids is absent it emits `false` (not NULL) so the two sides agree. A
+  // tidy-up of the availability expression to `!!contract.appealUpheld`, or a
+  // `?? undefined` slip in the harness, would flip availability across the whole
+  // corpus — moving every CRI denominator — while looking harmless.
+  it("false ⇒ available, not fired (matches SQL over an empty upheld set)", () => {
+    const r = computeProcurementRisk(
+      contract({ appealUpheld: false }),
+      baseArgs(),
+    );
+    expect(comp(r, "appealUpheld")).toMatchObject({
+      available: true,
+      fired: false,
+    });
+  });
+
+  it("true ⇒ available and fired", () => {
+    const r = computeProcurementRisk(
+      contract({ appealUpheld: true }),
+      baseArgs(),
+    );
+    expect(comp(r, "appealUpheld")).toMatchObject({
+      available: true,
+      fired: true,
+    });
+  });
+
+  it("undefined ⇒ UNAVAILABLE — excluded from the CRI denominator", () => {
+    const withField = computeProcurementRisk(
+      contract({ appealUpheld: false }),
+      baseArgs(),
+    );
+    const without = computeProcurementRisk(contract(), baseArgs());
+    expect(comp(without, "appealUpheld")).toMatchObject({
+      available: false,
+      fired: false,
+    });
+    // The denominator, not just the flag: an unavailable check must shrink it.
+    expect(without.availableCount).toBe(withField.availableCount - 1);
+  });
+});
+
 describe("score — the additive cap", () => {
   it("caps at 100 when the heaviest flags stack", () => {
     // debarred 80 + appeal 70 + mp 50 = 200 uncapped.
