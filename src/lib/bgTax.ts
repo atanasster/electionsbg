@@ -25,6 +25,11 @@
 // them are a labelled convenience, pinned by test to a value that was actually
 // law in that year.
 //
+// CIVIL_SERVANT_SSC_SCHEDULE below tracks the same package (§ 6 / § 5 ЗБДОО,
+// § 20 ЗБНЗОК) and must be re-verified on the same flip — its January-2027
+// phase is legislated but not yet in force, so it is the one table here that
+// describes the future rather than the present.
+//
 // Re-verified when the `dv_laws` watcher flips. `dv_laws` is the AUTHORITATIVE
 // promulgation signal — `budget_law` is a Wayback-lagged minfin proxy that only
 // ever sees the ЗДБРБ half and never reports a ЗБДОО/ЗБНЗОК. Check against the
@@ -54,7 +59,7 @@ export const stepAt = (
   return found;
 };
 
-export type TaxpayerProfile = "employee" | "self" | "company";
+export type TaxpayerProfile = "employee" | "self" | "company" | "civil-servant";
 
 // Flat 10% personal income tax on the post-contribution base.
 export const PIT_RATE = 0.1;
@@ -74,6 +79,130 @@ export const SSC_EMPLOYER_RATE = 0.1902;
 // self-declared base: pension 14.8% + universal pension fund 5% + health
 // 8% = 27.8%. The sickness/maternity fund (3.5%) is optional and excluded.
 export const SSC_SELF_INSURED_RATE = 0.278;
+
+// ---------------------------------------------------------------------------
+// The § 6 / § 20 / § 5 public-sector contribution shift
+// ---------------------------------------------------------------------------
+//
+// SCOPE, and it is the whole point: this affects КСО чл. 4 ал. 1 **т. 2**
+// (държавни служители), **т. 3** (съдии, прокурори, следователи) and **т. 10**
+// ONLY. It does NOT touch т. 1 — ordinary employment contracts — so
+// SSC_EMPLOYEE_RATE above stays 13.78% and the "employee" profile is untouched
+// by construction. Any copy implying a general contribution increase is
+// factually wrong. т. 4 (отбрана и сигурност) is explicitly RETAINED on the
+// old regime by § 6 and is not modelled here.
+//
+// Before 1 Aug 2026 these groups paid nothing personally — the budget paid both
+// shares under чл. 6 ал. 5 КСО. § 6 ЗБДОО narrows that provision to т. 4 alone
+// and phases the rest onto an employer/employee split:
+//
+//   фонд Пенсии (14.8% total, post-1959)  11.8 / 3.0  →  8.22 / 6.58 (01.01.2027)
+//   УПФ (5% total, § 5)                    4.0 / 1.0  →   2.8 / 2.2  (01.01.2027)
+//   здравна вноска (8% total, § 20 ЗБНЗОК) 6.4 / 1.6  →   unchanged
+//
+// § 5's 4/1 universal-pension split is written for Aug–Dec 2026 only, so it
+// reverts to the standard 2.8/2.2 in January. ОЗМ (3.5%) and безработица (1.0%)
+// are not named by § 6, so they take the standard split — flagged rather than
+// hidden, because it is the one part of this table not read off the statute.
+//
+// Net pay is protected through December: the employer absorbs the shift for
+// five months, which is why the January step is the one people will feel.
+export interface ContributionSplit {
+  /** Employee share of the insurable base. */
+  employee: number;
+  /** Employer share on top of gross. */
+  employer: number;
+}
+
+/** The five funds, and the total they must always sum to.
+ *
+ *  ТЗПБ (0.4–1.1%, чл. 14) is deliberately OUTSIDE this total: it is set per
+ *  economic activity, not per insured person, so a single figure would be
+ *  fictional. That also means these employer shares are NOT comparable with
+ *  SSC_EMPLOYER_RATE (19.02%), which folds a representative 0.5% ТЗПБ in. */
+export const CIVIL_SERVANT_FUND_TOTAL = 0.323; // 14.8 + 5 + 8 + 3.5 + 1.0
+
+/** фонд Пенсии (14.8%) + УПФ (5%) — the two pension funds, whose employer share
+ *  is whatever the window does not put on the employee. */
+export const CIVIL_SERVANT_PENSION_TOTAL = 0.198;
+
+export const CIVIL_SERVANT_SSC_SCHEDULE: {
+  from: string;
+  split: ContributionSplit;
+  note: string;
+  /** Per-fund employee shares, in percentage points. Every window carries one:
+   *  the pre-§ 6 row originally did not, and that is exactly how a wrong
+   *  employer share (27.82%, silently the self-insured rate) got in and made
+   *  the reform look like a 4.48pp tax rise. */
+  breakdown: {
+    pension: number;
+    upf: number;
+    health: number;
+    sickness: number;
+    unemployment: number;
+  };
+}[] = [
+  {
+    from: "0000-01-01",
+    // чл. 6 ал. 5 КСО as it stood: the budget paid both shares, so the whole
+    // 32.30% sat on the employer side and the insured person paid nothing.
+    split: { employee: 0, employer: 0.323 },
+    note: "budget pays both shares (pre-§ 6)",
+    breakdown: {
+      pension: 0,
+      upf: 0,
+      health: 0,
+      sickness: 0,
+      unemployment: 0,
+    },
+  },
+  {
+    from: "2026-08-01",
+    split: { employee: 0.074, employer: 0.249 },
+    note: "§ 6 phase 1 + § 5 УПФ 4/1 + § 20 health 80:20",
+    breakdown: {
+      pension: 3.0, // § 6: 11.8 / 3.0
+      upf: 1.0, // § 5: 4.0 / 1.0, Aug–Dec 2026 only
+      health: 1.6, // § 20 ЗБНЗОК: 80:20 of 8%
+      sickness: 1.4, // standard split — NOT named by § 6 (inferred)
+      unemployment: 0.4, // standard split — NOT named by § 6 (inferred)
+    },
+  },
+  {
+    from: "2027-01-01",
+    split: { employee: 0.1218, employer: 0.2012 },
+    note: "§ 6 phase 2; УПФ reverts to 2.8/2.2; health stays 80:20",
+    breakdown: {
+      pension: 6.58, // § 6: 8.22 / 6.58
+      upf: 2.2, // § 5 lapses; standard 2.8 / 2.2 returns
+      health: 1.6, // § 20 unchanged
+      sickness: 1.4, // inferred
+      unemployment: 0.4, // inferred
+    },
+  },
+];
+
+/** The contribution split in force for a чл. 4 ал. 1 т. 2/3/10 insured person.
+ *  `asOf` omitted ⇒ the latest step, matching the convention the statutory
+ *  scalars follow. */
+export const civilServantSplit = (asOf?: string): ContributionSplit => {
+  const window =
+    asOf == null
+      ? CIVIL_SERVANT_SSC_SCHEDULE[CIVIL_SERVANT_SSC_SCHEDULE.length - 1]
+      : (CIVIL_SERVANT_SSC_SCHEDULE.filter((w) => w.from <= asOf).pop() ??
+        CIVIL_SERVANT_SSC_SCHEDULE[0]);
+  // Copy: a caller must not be able to mutate the schedule through this.
+  return { ...window.split };
+};
+
+/** The window in force on `asOf`, for callers that need its note/breakdown. */
+export const civilServantWindow = (
+  asOf?: string,
+): (typeof CIVIL_SERVANT_SSC_SCHEDULE)[number] =>
+  asOf == null
+    ? CIVIL_SERVANT_SSC_SCHEDULE[CIVIL_SERVANT_SSC_SCHEDULE.length - 1]
+    : (CIVIL_SERVANT_SSC_SCHEDULE.filter((w) => w.from <= asOf).pop() ??
+      CIVIL_SERVANT_SSC_SCHEDULE[0]);
 
 export const CORP_TAX_RATE = 0.1;
 export const DIVIDEND_TAX_RATE = 0.05;
@@ -394,8 +523,11 @@ export const currentStatutoryMod = (): number => resolveMod(null).mod;
 export interface LabourTaxInput {
   monthlyGross: number;
   mod: number;
-  profile: "employee" | "self";
+  profile: "employee" | "self" | "civil-servant";
   children: number;
+  /** Resolves the civil-servant split's phase. Ignored for the other
+   *  profiles, whose rates do not step. */
+  asOf?: string;
 }
 
 export interface LabourTaxResult {
@@ -420,14 +552,22 @@ export function computeLabourTax({
   mod,
   profile,
   children,
+  asOf,
 }: LabourTaxInput): LabourTaxResult {
   const isSelf = profile === "self";
-  const sscRate = isSelf ? SSC_SELF_INSURED_RATE : SSC_EMPLOYEE_RATE;
+  const isCivilServant = profile === "civil-servant";
+  const csSplit = isCivilServant ? civilServantSplit(asOf) : null;
+  const csWindow = isCivilServant ? civilServantWindow(asOf) : null;
+  const sscRate = isSelf
+    ? SSC_SELF_INSURED_RATE
+    : (csSplit?.employee ?? SSC_EMPLOYEE_RATE);
   const insurableBase = isSelf
     ? Math.min(Math.max(monthlyGross, MIN_SELF_INSURED_INCOME), mod)
     : Math.min(monthlyGross, mod);
   const ssc = insurableBase * sscRate;
-  const employerSsc = isSelf ? 0 : insurableBase * SSC_EMPLOYER_RATE;
+  const employerSsc = isSelf
+    ? 0
+    : insurableBase * (csSplit?.employer ?? SSC_EMPLOYER_RATE);
   const pitBeforeRelief = Math.max(0, monthlyGross - ssc) * PIT_RATE;
   const reliefEntitlement =
     ((CHILD_RELIEF_BASE[children] ?? 0) * PIT_RATE) / 12;
@@ -451,9 +591,25 @@ export function computeLabourTax({
     marginalRate: isAboveCap ? PIT_RATE : sscRate + PIT_RATE * (1 - sscRate),
     taxWedge: labourCost > 0 ? (directTax + employerSsc) / labourCost : 0,
     isAboveCap,
+    // The pension slice must follow the SAME schedule as the headline SSC. It
+    // used to fall back to the ordinary-employee rates for every non-self
+    // profile, so a pre-§ 6 civil servant was shown paying €175.62 into the
+    // pension fund while the SSC row directly above said €0 — the two halves of
+    // one screen contradicting each other. фонд Пенсии + УПФ per window.
     pensionContribEmployee:
-      insurableBase * (isSelf ? PENSION_SELF_RATE : PENSION_EMPLOYEE_RATE),
-    pensionContribEmployer: isSelf ? 0 : insurableBase * PENSION_EMPLOYER_RATE,
+      insurableBase *
+      (isSelf
+        ? PENSION_SELF_RATE
+        : csWindow
+          ? (csWindow.breakdown.pension + csWindow.breakdown.upf) / 100
+          : PENSION_EMPLOYEE_RATE),
+    pensionContribEmployer: isSelf
+      ? 0
+      : insurableBase *
+        (csWindow
+          ? CIVIL_SERVANT_PENSION_TOTAL -
+            (csWindow.breakdown.pension + csWindow.breakdown.upf) / 100
+          : PENSION_EMPLOYER_RATE),
   };
 }
 

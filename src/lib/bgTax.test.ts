@@ -36,6 +36,9 @@ import {
   latestScheduledValue,
   currentStatutoryMod,
   capMonths,
+  civilServantSplit,
+  CIVIL_SERVANT_SSC_SCHEDULE,
+  CIVIL_SERVANT_FUND_TOTAL,
   MIN_WAGE,
   MIN_WAGE_SCHEDULE,
   scheduledValueAt,
@@ -800,5 +803,148 @@ describe("MIN_WAGE (МРЗ)", () => {
     expect(scheduledValueAt(MIN_PENSION_SCHEDULE, 2026, "2026-07-01")).toBe(
       347.51,
     );
+  });
+});
+
+describe("the § 6 / § 20 / § 5 public-sector contribution shift", () => {
+  it("leaves the ORDINARY employee rate untouched — the whole scope caveat", () => {
+    // § 6 narrows КСО чл. 6 ал. 5 to т. 4 and moves т. 2/3/10 onto a split. It
+    // does NOT touch т. 1, ordinary employment contracts. Modelling it as a
+    // separate profile is what makes that structural rather than a promise:
+    // this assertion fails the moment someone "updates" the general rate.
+    expect(SSC_EMPLOYEE_RATE).toBe(0.1378);
+    const before = computeLabourTax({
+      monthlyGross: 2000,
+      mod: 2300,
+      profile: "employee",
+      children: 0,
+    });
+    const withDate = computeLabourTax({
+      monthlyGross: 2000,
+      mod: 2300,
+      profile: "employee",
+      children: 0,
+      asOf: "2027-06-01",
+    });
+    // `asOf` must be inert for every profile but civil-servant.
+    expect(withDate.net).toBe(before.net);
+    expect(before.ssc).toBeCloseTo(2000 * 0.1378, 6);
+  });
+
+  it("phases the civil-servant employee share 0 → 7.4% → 12.18%", () => {
+    expect(civilServantSplit("2026-07-31").employee).toBe(0);
+    expect(civilServantSplit("2026-08-01").employee).toBe(0.074);
+    expect(civilServantSplit("2026-12-31").employee).toBe(0.074);
+    expect(civilServantSplit("2027-01-01").employee).toBe(0.1218);
+  });
+
+  it("pays nothing personally before 1 August 2026", () => {
+    // Until § 6 the budget paid both shares under чл. 6 ал. 5 КСО.
+    const r = computeLabourTax({
+      monthlyGross: 2000,
+      mod: 2300,
+      profile: "civil-servant",
+      children: 0,
+      asOf: "2026-07-31",
+    });
+    expect(r.ssc).toBe(0);
+    expect(r.net).toBe(2000 - r.pit);
+  });
+
+  it("keeps the TOTAL burden flat across every phase — it is a shift, not a rise", () => {
+    // THE invariant. § 6 reallocates who remits the contribution; it does not
+    // create one. Every window must therefore sum to the same 32.30% (14.8
+    // pension + 5 УПФ + 8 health + 3.5 ОЗМ + 1.0 unemployment).
+    //
+    // This assertion is here because its absence let a wrong pre-§ 6 employer
+    // share (27.82% — silently the SELF-INSURED rate) survive, which made the
+    // calculator assert the reform RAISED the burden by 4.48pp: precisely the
+    // misreading the whole task exists to prevent.
+    for (const w of CIVIL_SERVANT_SSC_SCHEDULE) {
+      expect(
+        w.split.employee + w.split.employer,
+        `${w.from} does not sum to the fund total`,
+      ).toBeCloseTo(CIVIL_SERVANT_FUND_TOTAL, 6);
+    }
+  });
+
+  it("moves burden from the employer to the employee at each step", () => {
+    const jul = civilServantSplit("2026-07-31");
+    const aug = civilServantSplit("2026-08-01");
+    const jan = civilServantSplit("2027-01-01");
+    expect(aug.employer).toBeLessThan(jul.employer);
+    expect(jan.employer).toBeLessThan(aug.employer);
+    expect(aug.employee).toBeGreaterThan(jul.employee);
+    expect(jan.employee).toBeGreaterThan(aug.employee);
+  });
+
+  it("reconciles each window's employee share with its own fund breakdown", () => {
+    // The breakdown is what makes the totals reviewable rather than magic —
+    // the pre-§ 6 row had none, which is how its wrong number got in.
+    for (const w of CIVIL_SERVANT_SSC_SCHEDULE) {
+      const summed =
+        (w.breakdown.pension +
+          w.breakdown.upf +
+          w.breakdown.health +
+          w.breakdown.sickness +
+          w.breakdown.unemployment) /
+        100;
+      expect(summed, `${w.from} breakdown != split`).toBeCloseTo(
+        w.split.employee,
+        6,
+      );
+    }
+  });
+
+  it("never lets a civil servant's employee share exceed an ordinary employee's", () => {
+    // § 6 converges them toward the standard split but health stays 80:20, so
+    // the civil servant ends BELOW 13.78%. A window above it would mean the
+    // phasing was mis-keyed.
+    for (const w of CIVIL_SERVANT_SSC_SCHEDULE)
+      expect(w.split.employee).toBeLessThanOrEqual(SSC_EMPLOYEE_RATE);
+  });
+
+  it("does not hand out a mutable reference to the schedule", () => {
+    const split = civilServantSplit("2027-01-01");
+    split.employee = 999;
+    expect(civilServantSplit("2027-01-01").employee).toBe(0.1218);
+  });
+
+  it("resolves the exact boundary dates", () => {
+    expect(civilServantSplit("2026-07-31").employee).toBe(0);
+    expect(civilServantSplit("2026-08-01").employee).toBe(0.074);
+    expect(civilServantSplit("2026-12-31").employee).toBe(0.074);
+    expect(civilServantSplit("2027-01-01").employee).toBe(0.1218);
+  });
+
+  it("leaves `asOf` inert for the self-employed profile too", () => {
+    const a = computeLabourTax({
+      monthlyGross: 2000,
+      mod: 2300,
+      profile: "self",
+      children: 0,
+    });
+    const b = computeLabourTax({
+      monthlyGross: 2000,
+      mod: 2300,
+      profile: "self",
+      children: 0,
+      asOf: "2027-06-01",
+    });
+    expect(b).toEqual(a);
+  });
+
+  it("defaults to the LATEST phase with no asOf, like the other scalars", () => {
+    expect(civilServantSplit()).toEqual(civilServantSplit("2027-01-01"));
+  });
+
+  it("keeps the schedule ascending and non-overlapping", () => {
+    const dates = CIVIL_SERVANT_SSC_SCHEDULE.map((s) => s.from);
+    expect(dates).toEqual([...dates].sort());
+    for (const step of CIVIL_SERVANT_SSC_SCHEDULE) {
+      expect(step.split.employee).toBeGreaterThanOrEqual(0);
+      expect(step.split.employer).toBeGreaterThan(0);
+      expect(step.note).toBeTruthy();
+    }
   });
 });

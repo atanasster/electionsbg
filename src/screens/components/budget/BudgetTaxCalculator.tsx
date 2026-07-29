@@ -28,6 +28,7 @@ import {
   PiggyBank,
   TrendingDown,
   Info,
+  Landmark,
 } from "lucide-react";
 import {
   Select,
@@ -56,6 +57,7 @@ import {
   computeVat,
   resolveMod,
   type TaxpayerProfile,
+  type LabourTaxInput,
   type LabourTaxResult,
   type CompanyTaxResult,
   type PensionResult,
@@ -91,11 +93,17 @@ const DEFAULT_SERVICE = 40;
 // rated goods. Default mirrors VAT_CONSUMPTION_SHARE from bgTax.
 const VAT_DEFAULT_PCT = Math.round(VAT_CONSUMPTION_SHARE * 100);
 
-const PROFILES: TaxpayerProfile[] = ["employee", "self", "company"];
+const PROFILES: TaxpayerProfile[] = [
+  "employee",
+  "self",
+  "company",
+  "civil-servant",
+];
 const PROFILE_ICON: Record<TaxpayerProfile, typeof Briefcase> = {
   employee: Briefcase,
   self: User,
   company: Building2,
+  "civil-servant": Landmark,
 };
 
 type Period = "month" | "year";
@@ -110,6 +118,8 @@ interface Snapshot {
   includeEmployer: boolean;
   vatSharePct: number;
   mod: number;
+  /** Resolves the civil-servant contribution phase; unused by other profiles. */
+  asOf?: string;
 }
 
 // Everything the results panes display, derived from one Snapshot.
@@ -132,15 +142,24 @@ const computeScenario = (s: Snapshot): Scenario => {
   const labour = computeLabourTax({
     monthlyGross: s.gross,
     mod: s.mod,
-    profile: s.profile === "self" ? "self" : "employee",
+    profile:
+      s.profile === "self"
+        ? "self"
+        : s.profile === "civil-servant"
+          ? "civil-servant"
+          : "employee",
     children: s.children,
+    asOf: s.asOf,
   });
   const company = computeCompanyTax(s.profit);
   const net = isLabour ? labour.net : company.net;
   const vat = computeVat(net, s.vatSharePct / 100);
   const directTax = isLabour ? labour.directTax : company.totalTax;
   const employerPart =
-    s.profile === "employee" && s.includeEmployer ? labour.employerSsc : 0;
+    (s.profile === "employee" || s.profile === "civil-servant") &&
+    s.includeEmployer
+      ? labour.employerSsc
+      : 0;
   return {
     isLabour,
     labour,
@@ -172,7 +191,17 @@ const clampIntParam = (
 };
 
 const parseProfileParam = (raw: string | null): TaxpayerProfile =>
-  raw === "self" || raw === "company" ? raw : "employee";
+  raw === "self" || raw === "company" || raw === "civil-servant"
+    ? raw
+    : "employee";
+
+/** The SSC label must state the rate ACTUALLY applied, not a literal. It used
+ *  to hard-code "13.78%", which is right for an employment contract and wrong
+ *  for a civil servant (7.40% in the Aug–Dec 2026 window, 12.18% from January)
+ *  — the arithmetic beside it was already correct, so the label contradicted
+ *  its own number. */
+const sscLabelKey = (profile: TaxpayerProfile): string =>
+  profile === "self" ? "budget_tax_bill_ssc_self" : "budget_tax_bill_ssc";
 
 const fmtPct = (v: number, locale: string, decimals = 1): string =>
   `${new Intl.NumberFormat(locale, {
@@ -449,6 +478,19 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
     }
   };
 
+  // ONE profile mapping, shared by the scenario and the curve. They used to
+  // map independently, and the curve's copy silently dropped the civil-servant
+  // case — plotting the 13.78% employee curve under a 7.40% headline.
+  const labourProfile: LabourTaxInput["profile"] =
+    profile === "self"
+      ? "self"
+      : profile === "civil-servant"
+        ? "civil-servant"
+        : "employee";
+  // Resolve the contribution window from the SAME step the МОД
+  // label names, so the cap and the rate can never describe different months.
+  const asOf = modStep?.from ?? `${modYear}-12-31`;
+
   const snapshot: Snapshot = {
     profile,
     gross,
@@ -458,6 +500,9 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
     includeEmployer,
     vatSharePct,
     mod,
+    // Resolved from the МОД step the label already names (see `asOf` above),
+    // not independently — time-independent for the same reason the cap is.
+    asOf,
   };
 
   // Mirror every editable input into the query string — replace (not push)
@@ -491,6 +536,11 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
 
   const scenario = computeScenario(snapshot);
   const { labour, company } = scenario;
+  // Derived from the RESULT rather than re-deriving the rate from the profile:
+  // whatever computeLabourTax actually applied is what the label must say, so
+  // the two cannot drift apart the way the hard-coded "13.78%" did.
+  const sscAppliedRate =
+    labour.insurableBase > 0 ? labour.ssc / labour.insurableBase : 0;
 
   // Period rescaling — the toggle scales the result money flows; rates,
   // shares and the (monthly) income inputs are left untouched.
@@ -515,13 +565,14 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
         rate: computeLabourTax({
           monthlyGross: g,
           mod,
-          profile: profile === "self" ? "self" : "employee",
+          profile: labourProfile,
           children,
+          asOf,
         }).effectiveRate,
       });
     }
     return pts;
-  }, [isLabour, mod, profile, children]);
+  }, [isLabour, mod, labourProfile, children, asOf]);
 
   const { slices, year, isFallback } = useMemo(() => {
     if (!cofog)
@@ -592,11 +643,9 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
     ? [
         {
           key: "ssc",
-          label: t(
-            profile === "self"
-              ? "budget_tax_bill_ssc_self"
-              : "budget_tax_bill_ssc",
-          ),
+          label: t(sscLabelKey(profile), {
+            pct: fmtPct(sscAppliedRate, locale, 2),
+          }),
           value: labour.ssc,
           color: "bg-indigo-400",
         },
@@ -660,7 +709,7 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
             <div className={labelClass}>
               {t("budget_tax_bill_profile_label")}
             </div>
-            <div className="mt-1.5 grid grid-cols-3 gap-1.5">
+            <div className="mt-1.5 grid grid-cols-2 gap-1.5">
               {PROFILES.map((p) => {
                 const Icon = PROFILE_ICON[p];
                 const active = profile === p;
@@ -683,6 +732,16 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                 );
               })}
             </div>
+            {profile === "civil-servant" ? (
+              // The scope caveat is rendered, not just commented. The whole
+              // reason this is a separate PROFILE rather than a rate change is
+              // that § 6 touches чл. 4 ал. 1 т. 2/3/10 and leaves ordinary
+              // employment contracts alone — a reader who lands here must not
+              // come away thinking contributions went up for everyone.
+              <p className="mt-2 rounded-md border border-amber-500/40 bg-amber-500/5 p-2 text-xs leading-snug text-foreground/80">
+                {t("budget_tax_bill_civil_servant_note")}
+              </p>
+            ) : null}
           </div>
 
           {/* Income */}
@@ -1034,11 +1093,9 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                 <>
                   <div className="rounded-md bg-muted/40 px-2 py-1.5">
                     <div className="text-muted-foreground flex items-center gap-1">
-                      {t(
-                        profile === "self"
-                          ? "budget_tax_bill_ssc_self"
-                          : "budget_tax_bill_ssc",
-                      )}
+                      {t(sscLabelKey(profile), {
+                        pct: fmtPct(sscAppliedRate, locale, 2),
+                      })}
                       <InfoTip text={t("budget_tax_bill_tip_ssc")} />
                     </div>
                     <div className="font-semibold tabular-nums">
