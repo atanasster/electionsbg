@@ -8,6 +8,10 @@ import {
   Gauge,
   Map,
 } from "lucide-react";
+import {
+  SkeletonCard,
+  SkeletonSection,
+} from "@/screens/dashboard/DashboardSkeleton";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
@@ -64,28 +68,6 @@ const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "financing",
   "polling",
 ];
-
-const SkeletonCard: FC<{ className?: string }> = ({
-  className = "h-[160px]",
-}) => (
-  <div
-    className={`rounded-xl border bg-card p-4 shadow-sm animate-pulse ${className}`}
-  >
-    <div className="h-3 w-24 bg-muted rounded mb-3" />
-    <div className="h-7 w-32 bg-muted rounded" />
-  </div>
-);
-
-const SkeletonSection: FC<{ rows?: number }> = ({ rows = 1 }) => (
-  <section className="mt-8 first:mt-2">
-    <div className="h-3 w-32 bg-muted rounded mb-4 animate-pulse" />
-    <div className="flex flex-col gap-4">
-      {Array.from({ length: rows }).map((_, i) => (
-        <SkeletonCard key={i} />
-      ))}
-    </div>
-  </section>
-);
 
 export const DashboardCards: FC = () => {
   const { t } = useTranslation();

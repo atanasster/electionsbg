@@ -143,10 +143,17 @@ A static-import trace from `src/main.tsx` (following only static imports, stoppi
 treated as lazy: **121 eager modules and no static path to any of** recharts, react-leaflet,
 leaflet, jspdf, d3, `@codemirror/*`. T2 alone is sufficient; no second eager path is hiding.
 
-Consequence to handle in the same commit: `HOME_MODULEPRELOAD_MAX = 7` in `perf.spec.ts`, and
-home's list is **exactly 6** today. Making the dashboard lazy adds its chunk to that list.
-Adjust the constant with a comment, in the same change, or the gate fails for the right reason
-with the wrong message.
+~~Consequence to handle in the same commit: `HOME_MODULEPRELOAD_MAX = 7` needs a bump, because
+making the dashboard lazy adds its chunk to home's hint list.~~ **Falsified when T2.1 landed:**
+Vite only emits `modulepreload` hints for the entry's **static** import graph, so a dynamically
+imported chunk is never a candidate and the count stayed at exactly 6. No bump was needed.
+
+The corollary is the part worth keeping: because every perf assertion is "chunk X is absent
+from list Y", and a newly-lazy chunk is absent by construction, **no existing gate could
+observe whether T2.1 cost home a serial round-trip**. It does not — the `hostType === "html"`
+narrowing (A2) leaves dynamic-import dep lists intact, so the dashboard's own `mapDeps` entry
+preloads `vendor-leaflet` + `vendor-charts` in parallel — and that is now asserted positively
+in `perf.spec.ts` rather than assumed.
 
 ### A5 — units: production serves **brotli**; the v1 numbers were gzip
 
@@ -273,7 +280,13 @@ other eager path to the map stack exists.
 dashboard chunk through `resolveDependencies` — preloaded in parallel rather than inlined into
 the entry — which keeps home flat while every other route stops paying for the map stack.
 
-Also bump `HOME_MODULEPRELOAD_MAX` in `tests/perf.spec.ts` in this commit (A4).
+Give the index route a non-empty Suspense fallback in the same commit. The shared
+`RouteFallback` is an empty `min-h-[40vh]` div, but the dashboard used to paint its skeleton
+grid straight from the entry chunk — leaving it empty trades bytes for a blank landing page and
+a layout shift on the highest-traffic route. The skeleton must live in its own module that does
+**not** import `DashboardCards`, or the map stack returns to the entry and the T5.2 gate fires.
+
+`HOME_MODULEPRELOAD_MAX` needs no bump — see the correction in A4.
 
 ### T2.2 — Narrow the preload filter to the HTML head (fixes the second half of C6)
 

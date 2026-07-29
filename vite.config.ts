@@ -199,8 +199,11 @@ export default defineConfig(({ mode }) => {
         // chunk lazy. A chunk the entry *statically imports* is downloaded
         // whether or not it is preloaded; stripping its hint only costs a
         // round-trip. That is exactly what happened to vendor-pdf (see the
-        // preload-helper rule below) and still applies to vendor-charts /
-        // vendor-leaflet until the eager DashboardScreen is split out.
+        // preload-helper rule below), and to vendor-charts / vendor-leaflet
+        // until the home dashboard stopped being an eager import. As of T2.1
+        // none of the chunks named here are reachable from the entry's static
+        // graph, so the filter is a no-op for them; the entry-static-import
+        // gate in tests/perf.spec.ts is the assertion that keeps it that way.
         //
         // vendor-editor is deliberately NOT in this pattern: it is not a static
         // import of the entry, so it never reaches the html dep list — and

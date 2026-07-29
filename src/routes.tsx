@@ -1,4 +1,11 @@
-import { FC, lazy, PropsWithChildren, Suspense, useEffect } from "react";
+import {
+  FC,
+  lazy,
+  PropsWithChildren,
+  ReactNode,
+  Suspense,
+  useEffect,
+} from "react";
 import {
   BrowserRouter,
   Navigate,
@@ -13,8 +20,23 @@ import { ROADS_AWARDER_PATH } from "./screens/components/procurement/sectorPacks
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
 
-// Eagerly load the home screen so the landing page has no Suspense flash.
-import { DashboardScreen } from "@/screens/DashboardScreen";
+// The home screen is lazy like every other route. It used to be eager, to
+// spare the landing page a Suspense flash — but it is the ONLY static path
+// from main.tsx to react-leaflet and d3 (via DashboardCards -> RegionsMapTile
+// -> RegionsMap -> LeafletMap / MapText), so eagerly loading it forced
+// vendor-leaflet + vendor-charts (165 KB brotli) into the entry's static
+// import graph and onto the critical path of all 258 routes, not just home.
+// LayoutScreen already wraps every route element in Suspense/RouteFallback.
+// See docs/plans/bundle-critical-path-v1.md (C3, T2.1).
+const DashboardScreen = lazy(() =>
+  import("@/screens/DashboardScreen").then((m) => ({
+    default: m.DashboardScreen,
+  })),
+);
+// Eager, and deliberately so: this is the index route's Suspense fallback, so
+// it has to paint from the entry chunk. It imports nothing heavy — see the
+// module's own comment.
+import { DashboardSkeleton } from "@/screens/dashboard/DashboardSkeleton";
 
 const GovernanceScreen = lazy(() =>
   import("@/screens/GovernanceScreen").then((m) => ({
@@ -1363,11 +1385,19 @@ const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
 );
 
-const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
+// `fallback` overrides the shared empty RouteFallback for routes where a blank
+// interval is a visible downgrade — currently just the index route, which
+// renders the dashboard skeleton so the landing page keeps painting placeholder
+// cards while the lazy screen chunk arrives. Any override must be renderable
+// from the entry chunk, i.e. import nothing that the route's own chunk owns.
+const LayoutScreen: FC<PropsWithChildren<{ fallback?: ReactNode }>> = ({
+  children,
+  fallback,
+}) => {
   return (
     <Layout>
       <HubBreadcrumb />
-      <Suspense fallback={<RouteFallback />}>{children}</Suspense>
+      <Suspense fallback={fallback ?? <RouteFallback />}>{children}</Suspense>
     </Layout>
   );
 };
@@ -1452,7 +1482,7 @@ export const AuthRoutes = () => {
           <Route
             index
             element={
-              <LayoutScreen>
+              <LayoutScreen fallback={<DashboardSkeleton />}>
                 <DashboardScreen />
               </LayoutScreen>
             }

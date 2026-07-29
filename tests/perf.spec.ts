@@ -26,10 +26,13 @@ const staticImportsOf = (file: string): string[] => {
 // runaway regression (e.g. a heavy chunk inlined into the shell) — re-tighten if the home
 // markup is ever trimmed back.
 const HOME_HTML_MAX_BYTES = 18_000;
-// We trimmed the eagerly-modulepreloaded chunk count from 9 → 6 by stripping
-// vendor-pdf, vendor-charts, vendor-leaflet, vendor-markdown. 7 leaves a
-// little headroom (e.g. for adding back vendor-charts intentionally) before
-// the test starts complaining.
+// Home's hint list is 6: vendor-react, vendor, vendor-i18n, vendor-query,
+// vendor-radix, vendor-search. Since T2.1 the heavy route chunks are not in the
+// entry's static graph at all, so they cannot appear here — the
+// entry-static-import ratchet below is what enforces that, not this count.
+// (Vite only hints the entry's static imports, so a lazy chunk never joins the
+// list either.) 7 is one slot of headroom for a genuinely foundational new
+// vendor chunk; it is NOT room to re-add vendor-charts/vendor-leaflet.
 const HOME_MODULEPRELOAD_MAX = 7;
 
 test.describe("performance", () => {
@@ -94,19 +97,52 @@ test.describe("performance", () => {
       `entry chunk not found in ${DIST_DIR}/index.html — run \`npm run build\` first`,
     ).toBeTruthy();
     const imports = staticImportsOf(entry!.replace("assets/", ""));
-    // Ratchet: vendor-charts and vendor-leaflet are still static imports until
-    // T2 lands (the eager DashboardScreen pulls the map stack in). Add them to
-    // this list in that commit — do not weaken the assertion.
+    // Ratchet only — never weaken. vendor-charts and vendor-leaflet joined the
+    // list when the home dashboard stopped being an eager import (T2.1); they
+    // were static imports of the entry before that, so a regression here means
+    // some module reachable from main.tsx without a lazy() boundary pulled the
+    // map or chart stack back in.
     for (const banned of [
       "vendor-pdf",
       "vendor-markdown",
       "vendor-flow",
       "vendor-editor",
+      "vendor-charts",
+      "vendor-leaflet",
     ]) {
       expect(
         imports.find((i) => i.startsWith(banned)),
         `${banned} is back on the critical path: ${imports.join(", ")}`,
       ).toBeUndefined();
+    }
+  });
+
+  // Every assertion around it is "chunk X is absent from list Y", and a
+  // newly-lazy chunk is absent by construction — so nothing above can see
+  // whether making the home dashboard lazy cost home a serial round-trip. It
+  // does not, because resolveDependencies is scoped to hostType "html" and so
+  // leaves dynamic-import dep lists intact: the dashboard's own mapDeps entry
+  // preloads the map/chart chunks in parallel. Assert that directly, since
+  // re-broadening that filter would silently reintroduce the waterfall.
+  test("home dashboard chunk preloads its map/chart deps in parallel", () => {
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
+    expect(entry, "entry chunk not found — run `npm run build`").toBeTruthy();
+    const code = fs.readFileSync(
+      `${DIST_DIR}/${entry!.replace("assets/", "assets/")}`,
+      "utf8",
+    );
+    const table = [...code.matchAll(/"(assets\/[^"]+)"/g)].map((m) => m[1]);
+    const call = code.match(
+      /DashboardScreen-[A-Za-z0-9_-]+\.js"\),__vite__mapDeps\(\[([0-9,]+)\]\)/,
+    );
+    expect(call, "dashboard dynamic import not found in entry").toBeTruthy();
+    const deps = call![1].split(",").map((i) => table[Number(i)]);
+    for (const need of ["vendor-leaflet", "vendor-charts"]) {
+      expect(
+        deps.find((d) => d?.includes(need)),
+        `${need} dropped from the dashboard's mapDeps — home now waterfalls`,
+      ).toBeTruthy();
     }
   });
 
