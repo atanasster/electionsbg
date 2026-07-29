@@ -262,6 +262,78 @@ family, so folding the CPV catalogue into `load_tenders_pg.ts` inherits the
 existing cloud and watch-skill wiring — no new npm script, no new watch entry
 (cf. `reference_migrated_family_watch_reload`).
 
+### 1.F Gap audit — what the first two passes missed
+
+**The AI chat is a fifth consumer of the 1.29 MB, and T2 would break it.**
+`procurementSingleBidSectors` ([ai/tools/fiscal.ts:1241](ai/tools/fiscal.ts:1241))
+calls `fetchDb("procurement-risk-indexes")` to read the `cpvCompetition` slice —
+4.9 kB of a 1,292 kB download, 0.4%. `fetchDb`'s default fetcher is
+`browserDbFetcher` ([ai/tools/dataClient.ts:82](ai/tools/dataClient.ts:82)), so
+this runs in the user's browser: asking the chat about single-bid sectors pulls
+the whole corpus payload. T2 currently says the route "can be narrowed to
+`debarred` or retired" — which would break this tool. Either the narrowed payload
+keeps `cpvCompetition`, or the tool gets its own small route.
+
+**A fourth surface already proves T1's approach, and is a free first call site.**
+`RiskiestContractsTile` ([src/screens/components/procurement/RiskiestContractsTile.tsx:42](src/screens/components/procurement/RiskiestContractsTile.tsx:42))
+renders grade + `riskFired`/`riskAvailable` entirely from server columns and
+fetches no payload at all. Its row type already declares `riskFiredMask`
+([useRiskiestContracts.tsx:26](src/data/procurement/useRiskiestContracts.tsx:26))
+and never decodes it — so the T1 decoder has an existing home there, and the tile
+gains chips for free.
+
+**No decommissioning list — client side.** Seven of the eight index hooks exist
+*only* to feed the scorer and become dead code after T1+T2:
+`useAwarderConcentration`, `useCpvCompetition`, `useMpConnectedContractors`,
+`usePepConnectedEikSet`, `useNgoForeignFundedByEik`, `useCompanyFoundedByEik`,
+`useSplitPurchase` — zero consumers under `src/screens/`. Only `useDebarred` has
+an independent one (`ProcurementFlagsScreen`). Without naming them they will
+linger as live-looking code that nothing calls.
+
+**No decommissioning list — server side.** `procurement_risk_indexes_cache` is
+REFRESHed from four independent writers —
+[load_pg.ts:510](scripts/db/load_pg.ts:510),
+[refresh_risk.ts:28](scripts/db/refresh_risk.ts:28),
+[load_tr_pg.ts:447](scripts/db/load_tr_pg.ts:447),
+[load_ngo_funding_pg.ts:374](scripts/ngo/load_ngo_funding_pg.ts:374) — plus the
+shared `refreshRiskIndexesIfPresent` helper, which exists *because* `foundedByEik`
+is embedded in the payload ("the new dates sit in the table but never reach the
+SPA"). Drop `foundedByEik` from the payload and most of that machinery becomes
+pointless without becoming obviously so.
+
+**T0's staleness tradeoff is unstated, and there is no purge.** Today's
+`no-cache, must-revalidate` means every `/api/db` response is always fresh. T0
+replaces it with `s-maxage=3600, stale-while-revalidate=86400`, and there is no
+CDN purge anywhere in the ingest or deploy flow (grep finds none; Firebase
+Hosting exposes no per-URL purge — a hosting deploy is the only lever, and
+ingests do not redeploy hosting). So after a daily ingest prod can serve up to
+**1 h stale**, and up to **~24 h stale while revalidating**. For a site whose
+proposition is fresh government data with a visible changelog, that is a
+deliberate decision, not a free win — and `stale-while-revalidate` is the knob.
+Recommend keeping `s-maxage=3600` and cutting `stale-while-revalidate` to
+something like 600 unless the operator wants the 24 h tail.
+
+**i18n is unaccounted for.** T1 introduces a per-row *unknown* state; the only
+related key today is `risk_na_generic`, which is per-check ("no source data for
+this check"), not per-row. New `bg` + `en` keys are needed in `src/locales/`.
+(`public/locales/` does not exist — translations are bundled, contrary to the
+`CLAUDE.md` note.)
+
+**No acceptance criteria.** No tier says what "done" measures. They should name
+numbers: risk column populated on first paint with no `—`-then-chips flip;
+`/company/:eik/contracts` first-load transfer; `content-encoding` and a second-call
+`x-cache: HIT` on the nine §1.A routes; `cpv-catalog` p95 under a second.
+
+**A stale comment that misdirects.** [useContractRiskFlags.tsx:3](src/data/procurement/useContractRiskFlags.tsx:3)
+says the scorer is shared with "the flow link-colouring, the My-Area alerts
+builder, and the AI tools". None of the three import `computeProcurementRisk` —
+the AI tools import the *payload*, not the scorer. It sent the first audit pass
+hunting consumers that do not exist; fix it alongside T1's other comment repairs.
+
+**Benefit attribution.** T0 lands first by design, so T1's saving measured
+afterwards is ~257 kB (the gzipped payload), not 1.29 MB. Both are real; do not
+count them twice when reporting the result.
+
 ---
 
 ## 2. Plan
@@ -303,6 +375,10 @@ That is a restored state, not a fix — step 1 is the fix.
    an unblocker, not the served value — set it to match
    [index.js:583](functions/index.js:583) and comment that the function owns the
    real value.
+   **Decide the staleness window first (§1.F).** There is no purge, so
+   `s-maxage`/`stale-while-revalidate` are the only controls over how long prod
+   can serve post-ingest data. Recommend `s-maxage=3600` with
+   `stale-while-revalidate=600` rather than the 86400 the code currently carries.
 3. Update the stale note at [officials_redirect.js:89](functions/officials_redirect.js:89)
    with the mechanism established in §1.A.
 
@@ -338,7 +414,13 @@ conditional request.
    non-empty *and* that `contracts_list.risk_fired_mask` is non-NULL across a
    sample, which is what actually catches a contracts reload that never ran the
    risk rebuild.
-5. Fix the screen header comments that assert risk is not a DB column.
+5. Wire `RiskiestContractsTile` to the decoder too (§1.F) — its row type already
+   carries `riskFiredMask`, so it gains chips at zero cost and exercises the
+   decoder on a surface that never touched the payload.
+6. Add the `bg`/`en` keys for the unknown state in `src/locales/` (§1.F).
+7. Fix the screen header comments that assert risk is not a DB column, and the
+   stale consumer list at
+   [useContractRiskFlags.tsx:3](src/data/procurement/useContractRiskFlags.tsx:3).
 
 ### T2 — per-flag tooltip detail, lazily
 
@@ -355,9 +437,21 @@ keys and return the same detail keyed by contract — still low kilobytes, since
 
 `newFirmMonths` must be in this route's response for `mergeContractRisk` (§1.E).
 
-After T1+T2 the only remaining reader of `procurement-risk-indexes` is
-`ProcurementFlagsScreen`'s `useDebarred` (a 467-byte slice), so the route can be
-narrowed to that or retired.
+After T1+T2 the SPA's only remaining reader of `procurement-risk-indexes` is
+`ProcurementFlagsScreen`'s `useDebarred` (a 467-byte slice) — **but the AI chat
+still reads `cpvCompetition` from it** (§1.F), so a narrowed payload must keep
+both slices, or `procurementSingleBidSectors` needs its own route. Verify against
+`ai/tools/` before changing the route's shape.
+
+Then decommission, in both directions (§1.F):
+
+- **Client:** delete the seven hooks that exist only to feed the scorer —
+  `useAwarderConcentration`, `useCpvCompetition`, `useMpConnectedContractors`,
+  `usePepConnectedEikSet`, `useNgoForeignFundedByEik`, `useCompanyFoundedByEik`,
+  `useSplitPurchase`. Keep `useDebarred`.
+- **Server:** if `foundedByEik` leaves the payload, revisit the four REFRESH call
+  sites and `refreshRiskIndexesIfPresent`, whose whole reason for existing is
+  that `foundedByEik` is embedded in this matview.
 
 ### T3 — fix `cpv-catalog`
 
@@ -369,10 +463,20 @@ look like a legitimately empty catalogue.
 
 ### T4 — audit the remaining oversized singletons
 
-`procurement-concentration` (855 kB), `procurement-rankings` (435 kB),
-`procurement-flow` (383 kB), `mp-roster` (890 kB) and the two
-`municipal-officials-*-index` blobs (913 kB / 1.06 MB) have not been checked for
-dead fields. Apply the method from
+Consumers, so this does not need re-discovering:
+
+| route | bytes | consumer |
+|---|---|---|
+| `municipal-officials-name-index` | 1.06 MB | `useMunicipalOfficialsByName` |
+| `municipal-officials-search-index` | 913 kB | `useSearchItems` |
+| `mp-roster` | 890 kB | `useMps` |
+| `procurement-concentration` | 855 kB | `ConcentrationSection` |
+| `procurement-rankings` | 435 kB | `useProcurementRankings`, `useProcurementIndex`, `TopMpsScreen`, `TopAwardersScreen` |
+| `procurement-flow` | 383 kB | `useProcurementFlow` → `ProcurementFlowTile` |
+| `dual-corpus-rankings` | 252 kB | `useDualCorpusRankings` |
+| `procurement-scanner` | 101 kB | `useWatchlistActivity`, `usePersonProcurementIndex` |
+
+None has been checked for dead fields. Apply the method from
 [procurement-settlement-browser-v1.md](docs/plans/procurement-settlement-browser-v1.md)
 §1.2, which found 34–50% of that page's payload was fetched and never drawn: diff
 payload keys against what the screen reads, drop the rest, paginate anything
@@ -390,6 +494,19 @@ trim a slice that feeds an availability decision until T1 has landed.
   populated on first paint — no `—`-then-chips flip.
 - A size ceiling over the parameterless `/api/db` routes, so the next corpus-wide
   payload is caught before it ships.
+
+### Acceptance criteria (§1.F)
+
+Each tier states what it measured, not that it shipped:
+
+| tier | done means |
+|---|---|
+| T-1 | harness runs (does not skip) on a loaded DB, in CI, and passes |
+| T0 | `content-encoding: gzip` + `x-cache: HIT` on a second call, across the nine §1.A routes; 5.28 MB → ~0.94 MB |
+| T1 | risk column populated on first paint — no `—`-then-chips flip; NULL masks render unknown, not `—` |
+| T2 | `/company/:eik/contracts` first-load transfer, before vs after; tooltip detail still complete |
+| T3 | `cpv-catalog` p95 < 1 s, zero 500s; empty catalogue surfaces as an error |
+| T4 | per-route dead-field share, as §1.2 of the settlement plan reports it |
 
 ---
 
