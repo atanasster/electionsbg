@@ -107,9 +107,12 @@ RETURNS smallint LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
     WHEN 'magistrate'    THEN 60
     WHEN 'regulator'     THEN 55
     WHEN 'local'         THEN CASE WHEN p_role = 'mayor' THEN 50 ELSE 45 END
+    -- historic_mp is an OFFICE and outranks the two registers below it, which are facts
+    -- ABOUT a person rather than posts they held. (Empty today — the source is planned —
+    -- but the ordering is what `held_office` reads, so it has to be right before it lands.)
+    WHEN 'historic_mp'   THEN 42
     WHEN 'ds'            THEN 40
     WHEN 'sanctions'     THEN 38
-    WHEN 'historic_mp'   THEN 35
     WHEN 'candidate'     THEN 30
     WHEN 'ngo'           THEN 20
     WHEN 'tr'            THEN 10
@@ -188,7 +191,16 @@ folds AS (
          bool_or(source = 'ngo')                                     AS is_ngo,
          bool_or(source = 'tr')                                      AS is_company,
          bool_or(source = 'candidate')                               AS is_candidate,
-         bool_or(source = 'donor')                                   AS is_donor
+         bool_or(source = 'donor')                                   AS is_donor,
+         -- Did this person ever actually HOLD a post? 52% of the corpus is candidate-only
+         -- — people who stood for office and did not take one — so the browser needs to be
+         -- able to set them aside without pretending they are not in the register.
+         --
+         -- A DENY-list of the four non-office sources, not an allow-list of offices: a new
+         -- officials category (the way president/mep/diplomat were added) should count as
+         -- office by DEFAULT. An allow-list would silently exclude it, which is the exact
+         -- failure officialSources.ts documents costing 227 people their place.
+         bool_or(source NOT IN ('candidate', 'tr', 'ngo', 'donor'))  AS held_office
   FROM roles GROUP BY person_id
 ),
 party_fold AS (
@@ -346,7 +358,7 @@ SELECT
   f.roles_n,
   f.sources_n,
   f.is_exec, f.is_muni, f.is_mp, f.is_magistrate,
-  f.is_ngo, f.is_company, f.is_candidate, f.is_donor,
+  f.is_ngo, f.is_company, f.is_candidate, f.is_donor, f.held_office,
   tp.party                                           AS party_primary,
   pf.parties_n,
   pf.party_codes,
@@ -360,7 +372,14 @@ SELECT
   pd.name_en                                         AS place_label_en,
   COALESCE(pd.oblast_code, jpd.oblast_code)          AS oblast_code,
   ob.oblast_codes,
-  COALESCE(pd.obshtina_code, jpd.obshtina_code)      AS obshtina_code,
+  -- NOT place_dim.obshtina_code: that column is a settlement's PARENT obshtina and is NULL
+  -- on the 295 obshtina rows themselves (where the code IS the obshtina) and on all 31 mir
+  -- rows. Reading it here made this column NULL for every person — a filter that silently
+  -- matched nobody. A мир spans several obshtini, so it correctly has none.
+  CASE
+    WHEN pl.place_kind = 'obshtina' THEN pl.place_code
+    WHEN pl.place_kind = 'judicial' THEN jb.place_code
+  END                                                AS obshtina_code,
   COALESCE(i.institution, di.institution)            AS institution,
   i.judicial_kind,
   i.judicial_tier,
@@ -435,6 +454,8 @@ CREATE INDEX idx_person_browse_role_codes_trgm
   ON person_browse_table USING gin (role_codes gin_trgm_ops);
 CREATE INDEX idx_person_browse_party_codes_trgm
   ON person_browse_table USING gin (party_codes gin_trgm_ops);
+CREATE INDEX idx_person_browse_facet_codes_trgm
+  ON person_browse_table USING gin (facet_codes gin_trgm_ops);
 CREATE INDEX idx_person_browse_oblast_codes_trgm
   ON person_browse_table USING gin (oblast_codes gin_trgm_ops);
 -- Equality filters + facet GROUP BYs.
@@ -455,3 +476,5 @@ CREATE INDEX idx_person_browse_decl
   ON person_browse_table (prominence DESC, name, slug) WHERE has_declaration;
 CREATE INDEX idx_person_browse_company
   ON person_browse_table (prominence DESC, name, slug) WHERE is_company;
+CREATE INDEX idx_person_browse_held
+  ON person_browse_table (prominence DESC, name, slug) WHERE held_office;

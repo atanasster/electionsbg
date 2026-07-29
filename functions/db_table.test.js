@@ -208,6 +208,49 @@ test("aggregate columns are declared and numeric", () => {
   }
 });
 
+test("persons declares no sum aggregate over public_money_eur", () => {
+  // The money on a /persons row is what the person's COMPANIES won, and two co-officers
+  // of one company each carry that company's full sum. A column total is therefore
+  // double-counted — large, plausible and wrong, with nothing to flag it. The matview
+  // header (120_person_browse.sql) and person_browse.data.test.ts carry the same warning
+  // from the data side; this is the one that fails if someone adds `agg: "sum"` here.
+  const r = REGISTRY.persons;
+  assert.ok(r, "the persons resource has gone missing");
+  for (const a of r.aggregates ?? [])
+    assert.notEqual(
+      a.col,
+      "public_money_eur",
+      "persons aggregates public_money_eur — co-officers of one company each carry its full sum, so the total double-counts",
+    );
+  assert.ok(
+    !r.columns.public_money_eur.agg,
+    "public_money_eur declares an `agg` — same double-counting problem",
+  );
+});
+
+test("persons filters the padded code sets, never the display scalar", () => {
+  // oblast_code is the REPRESENTATIVE seat; oblast_codes is every oblast the person holds
+  // a role in. Filtering the scalar drops 1,851 people from an oblast they genuinely
+  // serve, which renders as "no such people" rather than as a narrowed view.
+  const c = REGISTRY.persons.columns;
+  assert.ok(!c.oblast_code.filter, "oblast_code must stay display-only");
+  assert.equal(c.oblast_codes.filter, "text");
+  for (const set of ["role_codes", "facet_codes", "party_codes", "oblast_codes"])
+    assert.equal(c[set].filter, "text", `${set} must be a text (ILIKE) filter`);
+});
+
+test("persons searches the name FOLD, with the term folded too", () => {
+  // searchCol without searchFold matches a Cyrillic query against transliterated Latin
+  // text and returns nothing, forever — while looking like a working query.
+  const n = REGISTRY.persons.columns.name;
+  assert.equal(n.searchCol, "name_fold");
+  assert.equal(
+    n.searchFold,
+    true,
+    "name targets name_fold without folding the search term — every Cyrillic search returns 0 rows",
+  );
+});
+
 test("no resource carries unknown top-level registry keys", () => {
   // Guards against inert config that reads as a supported feature — `facets: [...]`
   // looked declarative but runDbFacets builds from req.columns and never read it.

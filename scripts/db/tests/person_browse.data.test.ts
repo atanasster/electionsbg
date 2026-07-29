@@ -569,6 +569,65 @@ test.skipIf(skip)("photos resolve on both join keys, MP first", async () => {
   );
 });
 
+// (8c) held_office is a DENY-list of the four non-office sources, so a person holding ANY
+// post is true regardless of what else they are. The complement is the candidate-only long
+// tail. Both populations must be substantial, or the flag has collapsed and the "held
+// office only" toggle either does nothing or empties the table.
+test.skipIf(skip)(
+  "held_office reflects any office role, not the primary one",
+  async () => {
+    const held = await count(
+      "SELECT count(*) n FROM person_browse_table WHERE held_office",
+    );
+    const notHeld = await count(
+      "SELECT count(*) n FROM person_browse_table WHERE NOT held_office",
+    );
+    assert.ok(
+      held > 20000,
+      `only ${held} people held office (expected ~31,971)`,
+    );
+    assert.ok(
+      notHeld > 10000,
+      `only ${notHeld} never held office (expected ~24,830)`,
+    );
+
+    // Anyone with an office-source role must be flagged, whichever role won the
+    // representative slot — the failure an allow-list of offices would produce.
+    const missed = await count(
+      `SELECT count(*) n
+       FROM person_browse_table b
+       JOIN person p ON p.slug = b.slug
+      WHERE NOT b.held_office
+        AND EXISTS (SELECT 1 FROM person_role r
+                     WHERE r.person_id = p.person_id
+                       AND r.confidence IN ('exact_id','high','manual')
+                       AND r.source NOT IN ('candidate','tr','ngo','donor'))`,
+    );
+    assert.equal(
+      missed,
+      0,
+      `${missed} person(s) hold an office-source role but are not flagged held_office`,
+    );
+
+    // And nobody is flagged on the strength of a candidacy / company / NGO / donation alone.
+    const overreach = await count(
+      `SELECT count(*) n
+       FROM person_browse_table b
+       JOIN person p ON p.slug = b.slug
+      WHERE b.held_office
+        AND NOT EXISTS (SELECT 1 FROM person_role r
+                         WHERE r.person_id = p.person_id
+                           AND r.confidence IN ('exact_id','high','manual')
+                           AND r.source NOT IN ('candidate','tr','ngo','donor'))`,
+    );
+    assert.equal(
+      overreach,
+      0,
+      `${overreach} person(s) are flagged held_office with no office role at all`,
+    );
+  },
+);
+
 // (9) THE MIX-BAR PARTITION. primary_facet is single-valued and total: the "Тип лице" bar
 // is a partition, so its segments must sum to the row count. The boolean flags overlap by
 // design and cannot serve this — which is why the column exists.

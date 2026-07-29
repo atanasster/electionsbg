@@ -625,6 +625,161 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // The global persons browser (/persons) — matview person_browse_table, migration 120.
+  // Plan: docs/plans/persons-browser-v1.md. Generalizes `officials_rankings` (one facet,
+  // ranked by wealth) to the whole 56.8k-person identity layer.
+  //
+  // ONE ROW PER PERSON. 120's header explains at length why the matview folds person_role
+  // rather than joining it; the consequence HERE is that every multi-valued dimension is
+  // filtered through a space-PADDED code set (`role_codes`, `facet_codes`, `party_codes`,
+  // `oblast_codes`) with filter:"text", not through the scalar beside it. The scalars are
+  // the representative seat, for DISPLAY. Filtering on `oblast_code` instead of
+  // `oblast_codes` would drop 1,851 people from an oblast they genuinely serve — it reads
+  // as "no such people", not as a narrowed view. The engine has no array containment
+  // (eq/in/text/prefix/range only), so this is the shipped idiom; `ngos.signal_codes`
+  // above does the same.
+  //
+  // ⚠ The padded sets must be matched as '% <code> %' with LIKE metacharacters ESCAPED —
+  // `_` is a single-character wildcard and these values are full of it (`p_16`,
+  // `SOFIA_CITY`, `chief_architect`). The client builds those values; the escaping lives
+  // there (src/data/persons/useUrlPersonFilters.ts).
+  //
+  // NO `sum` AGGREGATE, and public_money_eur is the reason. Two co-officers of one company
+  // each carry that company's FULL contract sum, so Σ down the table double-counts. A
+  // total would be large, plausible and wrong. `count` only — asserted in db_table.test.js.
+  persons: {
+    base: "person_browse_table",
+    scopeCols: [],
+    columns: {
+      slug: { type: "text", filter: "in" },
+      // Search targets the TRANSLITERATED fold, so the term must be folded too:
+      // searchCol WITHOUT searchFold matches a Cyrillic query against Latin text and
+      // returns nothing, forever, while looking like a working query. Both flags or
+      // neither. idx_person_browse_name_trgm backs it.
+      name: {
+        type: "text",
+        sort: true,
+        filter: "text",
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+      },
+      photo_url: { type: "text" },
+      namesake_risk: { type: "int" },
+      // Single-valued and total — the "Тип лице" mix bar is a PARTITION, so it groups on
+      // this, never on the boolean flags (which overlap by design: a person is routinely
+      // both is_muni and is_company, and a bool facet returns {true,false}, not a
+      // breakdown).
+      primary_facet: { type: "text", sort: true, filter: "in" },
+      primary_role: { type: "text", sort: true, filter: "in" },
+      prominence: { type: "int", sort: true },
+      // The padded code SETS — the filter targets for every multi-valued dimension. The
+      // UI's group filter uses the boolean flags below instead (exact counts, and the only
+      // way to reach the company/ngo/donor groups at all — see src/data/persons/
+      // personGroups.ts); facet_codes stays filterable for a caller that wants the raw
+      // facet vocabulary. Both are gin_trgm indexed, as the leading wildcard requires.
+      role_codes: { type: "text", filter: "text" },
+      facet_codes: { type: "text", filter: "text" },
+      roles_n: { type: "int", sort: true, filter: "range" },
+      sources_n: { type: "int", sort: true, filter: "range" },
+      // Membership flags, in lockstep with officials_rankings_table — 503 people hold both
+      // an executive and a municipal post, so no single representative column can answer
+      // "is this an executive official?".
+      is_exec: { type: "bool", filter: "eq" },
+      is_muni: { type: "bool", filter: "eq" },
+      is_mp: { type: "bool", filter: "eq" },
+      is_magistrate: { type: "bool", filter: "eq" },
+      is_ngo: { type: "bool", filter: "eq" },
+      is_company: { type: "bool", filter: "eq" },
+      is_candidate: { type: "bool", filter: "eq" },
+      is_donor: { type: "bool", filter: "eq" },
+      // Ever actually held a post (31,971 of 56,801). The complement is the candidate-only
+      // long tail — people who stood and did not take office — which the browser can set
+      // aside without pretending they are absent from the register.
+      held_office: { type: "bool", filter: "eq" },
+      party_primary: { type: "text", filter: "in" },
+      // sort:true is the party-switcher view in one click (4,723 people carry 2+).
+      parties_n: { type: "int", sort: true, filter: "range" },
+      party_codes: { type: "text", filter: "text" },
+      place_kind: { type: "text", filter: "in" },
+      place_code: { type: "text", filter: "in" },
+      place_label: { type: "text", sort: true },
+      place_label_en: { type: "text" },
+      // Display only — deliberately NOT filterable. `oblast_codes` below is the filter
+      // target; registering this one would silently narrow every place filter to the
+      // representative seat (see the header).
+      oblast_code: { type: "text" },
+      oblast_codes: { type: "text", filter: "text" },
+      obshtina_code: { type: "text", filter: "in" },
+      institution: { type: "text", filter: "text", search: true },
+      judicial_kind: { type: "text", filter: "in" },
+      judicial_tier: { type: "text", filter: "in" },
+      latest_declaration_year: { type: "int", sort: true, filter: "range" },
+      has_declaration: { type: "bool", filter: "eq" },
+      net_worth_eur: { type: "number", sort: true, filter: "range" },
+      // >0 means the totals are INCOMPLETE (090 could not total an implausible declared
+      // row). The UI shows an asterisk and suppresses the delta rather than publishing a
+      // fabricated collapse.
+      excluded_asset_rows: { type: "int", filter: "range" },
+      delta_pct: { type: "number", sort: true, filter: "range" },
+      companies_n: { type: "int", sort: true, filter: "range" },
+      // sort:true, NO agg — see the header.
+      public_money_eur: { type: "number", sort: true, filter: "range" },
+      tr_link_basis: { type: "text", filter: "in" },
+    },
+    select: [
+      "slug",
+      "name",
+      "photo_url",
+      "namesake_risk",
+      "primary_role",
+      "primary_facet",
+      "prominence",
+      "role_codes",
+      "facet_codes",
+      "roles_n",
+      "sources_n",
+      "is_exec",
+      "is_muni",
+      "is_mp",
+      "is_magistrate",
+      "is_ngo",
+      "is_company",
+      "is_candidate",
+      "is_donor",
+      "held_office",
+      "party_primary",
+      "parties_n",
+      "party_codes",
+      "place_kind",
+      "place_code",
+      "place_label",
+      "place_label_en",
+      "oblast_code",
+      "obshtina_code",
+      "institution",
+      "judicial_kind",
+      "judicial_tier",
+      "latest_declaration_year",
+      "has_declaration",
+      "net_worth_eur",
+      "excluded_asset_rows",
+      "delta_pct",
+      "companies_n",
+      "public_money_eur",
+      "tr_link_basis",
+    ],
+    // NOT net worth. Sorting the front page of every named person in Bulgaria by declared
+    // wealth is an editorial statement; wealth stays an opt-in sort, as on /officials/assets.
+    defaultSort: [
+      ["prominence", "desc"],
+      ["name", "asc"],
+    ],
+    aggregates: [{ fn: "count" }],
+    // Avatar rows are visually heavy; the screen pages at 25.
+    maxPageSize: 50,
+  },
+
   // Per-obshtina municipal roster (matview municipal_officials_table, migration 102) —
   // replaces the by_obshtina/<code>.json shards and municipal/search_index.json.
   //

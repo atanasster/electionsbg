@@ -31,6 +31,11 @@ const GovernanceDeclarationsScreen = lazy(() =>
     default: m.GovernanceDeclarationsScreen,
   })),
 );
+const PersonsBrowserScreen = lazy(() =>
+  import("@/screens/persons/PersonsBrowserScreen").then((m) => ({
+    default: m.PersonsBrowserScreen,
+  })),
+);
 const GovernanceSectorsScreen = lazy(() =>
   import("@/screens/governance/GovernanceSectorsScreen").then((m) => ({
     default: m.GovernanceSectorsScreen,
@@ -2781,6 +2786,17 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <OfficialsAssetsScreen />
+              </LayoutScreen>
+            }
+          />
+          {/* The global persons browser — the cross-cutting view of the identity layer
+              that /officials/assets and /mp-assets only slice. Top-level, as a sibling of
+              /procurement/contracts in kind: a corpus browser, not a governance report. */}
+          <Route
+            path="persons"
+            element={
+              <LayoutScreen>
+                <PersonsBrowserScreen />
               </LayoutScreen>
             }
           />

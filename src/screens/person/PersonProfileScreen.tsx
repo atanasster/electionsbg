@@ -28,6 +28,7 @@ import {
   type PersonConnectionsData,
 } from "./PersonConnections";
 import { PersonMagistrateHoldingsTile } from "@/screens/components/procurement/PersonMagistrateHoldingsTile";
+import { usePersonLabels } from "@/lib/personLabels";
 import { useTranslation } from "react-i18next";
 import {
   Coins,
@@ -153,12 +154,9 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     r.placeLabel ??
     null;
 
-  // Local office role → localized heading; unknown role codes pass through.
-  const roleLabel = (role: string): string => {
-    const k = `pp_role_${role}`;
-    const s = t(k);
-    return s === k ? role : s;
-  };
+  // Local office role → localized heading; unknown role codes pass through. Shared with
+  // the /persons browser so the two cannot label the same code differently.
+  const { roleLabel } = usePersonLabels();
 
   // Office heading. Local: the role (Кмет / Общински съветник). Magistrate: the SPECIFIC role
   // (Съдия / Прокурор / Следовател / ВСС) inferred from the institution when we can tell — the
