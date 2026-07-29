@@ -13,7 +13,8 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { SlidersHorizontal, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEurCompact, BGN_PER_EUR } from "@/lib/currency";
+import { formatEurCompact } from "@/lib/currency";
+import { MAX_PENSION, MIN_PENSION } from "@/lib/bgTax";
 import { usePolicyBaseline, useNoiPensions } from "@/data/budget/useBudget";
 import { useNoiFundYear } from "@/data/procurement/useNoi";
 import {
@@ -103,14 +104,25 @@ export const PensionReformTile: FC = () => {
         wageGrowthPct: p.wageGrowthPct,
       },
       floorBands: floor.bands,
-      currentMinEur: floor.minimumEur,
+      // The lever's baseline is the STATUTORY minimum, not the НОИ bulletin's
+      // observed one. `floor.minimumEur` is a statistic as of the bulletin date
+      // (2026-03-31, €322.37); чл. 10 ЗБДОО-2026 raised the minimum to €347.51
+      // on 1 Jul 2026. Priced from the stale figure, this slider offered as a
+      // "what if" a €245.4M raise the law had ALREADY made — lifting 813,567
+      // pensioners twice. The BANDS stay observed (they are the distribution
+      // being lifted); only the floor they are measured against is statutory.
+      currentMinEur: Math.max(floor.minimumEur, MIN_PENSION),
       insurableBaseEur: insurableBaseFromEarnings(
         pb.earnings.bands,
         pb.earnings.capEur,
       ),
       // Таван (чл.100 КСО) — read from the data so a statutory change flows
-      // through automatically; fall back to the 3400 лв in force today.
-      currentCapEur: levToEur(dist?.capBgn ?? null) ?? 3400 / BGN_PER_EUR,
+      // The STATUTORY таван (§ 4 ал. 2 ЗБДОО-2026) guards the observed one,
+      // symmetrically with currentMinEur above. `dist` is the НОИ yearbook,
+      // ~18 months lagged, so an observed-first read means the next таван rise
+      // prices from a stale baseline — the exact bug the floor lever just had.
+      // A numeric no-op today (€1,738.392 observed vs €1,738.40 statutory).
+      currentCapEur: Math.max(levToEur(dist?.capBgn ?? null) ?? 0, MAX_PENSION),
       distribution: (dist?.brackets ?? []).map((b) => ({
         loEur: levToEur(b.lo),
         hiEur: levToEur(b.hi),

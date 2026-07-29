@@ -751,6 +751,19 @@ sibling year-entry instead of replacing it.
 child-rearing €398.81, death grant €276.10 — in EUR with citations, replacing the stale 2024
 BGN hardcodes. A strip, not a project.
 
+> **Correction (T3.4 as built).** The replacement-rate curve does **not** move. An earlier
+> note here claimed the de-hardcoding shifted it (high 25.9% → 31.1%); that was computed
+> against an invented €2,000 wage anchor. Against the shipped НОИ vintage (`latestYear: 2024`,
+> avg wage €1,188) the published rates are **54.0 / 54.0 / 43.6 %** before and after, because
+> the old hardcodes *were* the 2024 statutory values.
+>
+> The load-bearing rule the build established: **resolve the statutory bounds at the wage
+> anchor's year, not at today's.** A replacement rate is a pension over a wage, so 2026 bounds
+> over a 2024 wage is a units error dressed as a policy result — it moved the rates up to
+> +8.7pp and squeezed the high earner to 1.7pp below the median, erasing the "high earners are
+> capped" shape the chart exists to show. `scheduledValueAt(schedule, year)` exists for that
+> pairing, and `pensionFormula.test.ts` pins the published curve.
+
 **T7.6 — a "2 of 3" completeness meter on `BudgetJourneyTile`.** FY2026's journey is
 genuinely unusual: bridging law (Dec 2025) → ЗИД (Mar 2026) → two fund laws (Jul 2026) →
 ЗДБРБ still absent. The data is already in `documents.json`; the meter is a rendering change

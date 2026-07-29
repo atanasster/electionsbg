@@ -22,7 +22,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatInt } from "@/lib/currency";
+import { formatEur, formatInt, BGN_PER_EUR } from "@/lib/currency";
 import type { NoiPensionDistributionYear } from "@/data/budget/types";
 
 interface HistBar {
@@ -35,12 +35,16 @@ interface HistBar {
   atFloor: boolean;
 }
 
-/** A compact лв range label: "493–581", "до 276", "над 3400". */
+/** A compact EUR range label: "252–297", "до 141", "над 1738". Source rows
+ *  are лв (НОИ yearbook); converted at the locked 1.95583 parity. */
 const rangeLabel = (
   lo: number | null,
   hi: number | null,
 ): { bg: string; en: string } => {
-  const r = (n: number) => Math.round(n);
+  // The НОИ band bounds arrive in лв; the site is euro-native, so convert at
+  // the locked parity. Dropping only the "лв" suffix would have left лв
+  // NUMBERS reading as euro.
+  const r = (n: number) => `€${Math.round(n / BGN_PER_EUR)}`;
   if (lo == null && hi != null) return { bg: `до ${r(hi)}`, en: `≤${r(hi)}` };
   if (hi == null && lo != null) return { bg: `над ${r(lo)}`, en: `>${r(lo)}` };
   if (lo != null && hi != null)
@@ -59,7 +63,7 @@ const PensionTooltip: FC<{
   return (
     <div className="rounded-md border bg-popover px-3 py-2 text-xs shadow-md">
       <div className="font-medium tabular-nums">
-        {bg ? d.labelBg : d.labelEn} лв
+        {bg ? d.labelBg : d.labelEn}
       </div>
       <div className="tabular-nums">
         {formatInt(d.count, lang)} {bg ? "пенсионери" : "pensioners"} ·{" "}
@@ -143,8 +147,8 @@ export const PensionDistributionTile: FC<{
             </span>{" "}
             <span className="text-muted-foreground">
               {bg
-                ? `получават минимална пенсия или по-малко${data.minPensionBgn != null ? ` (${data.minPensionBgn} лв)` : ""}`
-                : `get the minimum pension or less${data.minPensionBgn != null ? ` (${data.minPensionBgn} лв)` : ""}`}
+                ? `получават минимална пенсия или по-малко${data.minPensionBgn != null ? ` (${formatEur(data.minPensionBgn / BGN_PER_EUR, lang)})` : ""}`
+                : `get the minimum pension or less${data.minPensionBgn != null ? ` (${formatEur(data.minPensionBgn / BGN_PER_EUR, lang)})` : ""}`}
             </span>
           </div>
           {data.atCapCount != null && data.capBgn != null && (
@@ -154,8 +158,8 @@ export const PensionDistributionTile: FC<{
               </span>{" "}
               <span className="text-muted-foreground">
                 {bg
-                  ? `са точно на тавана (${data.capBgn} лв)`
-                  : `sit exactly at the cap (${data.capBgn} лв)`}
+                  ? `са точно на тавана (${formatEur(data.capBgn / BGN_PER_EUR, lang)})`
+                  : `sit exactly at the cap (${formatEur(data.capBgn / BGN_PER_EUR, lang)})`}
               </span>
             </div>
           )}
@@ -256,8 +260,8 @@ export const PensionDistributionTile: FC<{
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? `Средната пенсия описва малцина — разпределението е струпано при минимума и при тавана. Оцветените стълбове са под линията на бедност (${data.povertyLineBgn ?? "?"} лв/мес., Евростат). Източник: НОИ, статистически годишник (гл. 5).`
-            : `The average pension describes almost no one — the distribution piles up at the minimum and at the cap. Shaded bars are below the poverty line (${data.povertyLineBgn ?? "?"} лв/mo, Eurostat). Source: НОИ statistical yearbook (ch. 5).`}
+            ? `Средната пенсия описва малцина — разпределението е струпано при минимума и при тавана. Оцветените стълбове са под линията на бедност (${data.povertyLineBgn != null ? formatEur(data.povertyLineBgn / BGN_PER_EUR, lang) : "?"}/мес., Евростат). Източник: НОИ, статистически годишник (гл. 5).`
+            : `The average pension describes almost no one — the distribution piles up at the minimum and at the cap. Shaded bars are below the poverty line (${data.povertyLineBgn != null ? formatEur(data.povertyLineBgn / BGN_PER_EUR, lang) : "?"}/mo, Eurostat). Source: НОИ statistical yearbook (ch. 5).`}
         </p>
       </CardContent>
     </Card>

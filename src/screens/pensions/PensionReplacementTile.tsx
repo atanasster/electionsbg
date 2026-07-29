@@ -13,6 +13,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { PillToggle } from "@/components/ui/PillToggle";
 import { formatEurCompact, BGN_PER_EUR } from "@/lib/currency";
 import {
+  MIN_WAGE_SCHEDULE,
+  MIN_PENSION_SCHEDULE,
+  MAX_PENSION,
+  resolveMod,
+  scheduledValueAt,
+} from "@/lib/bgTax";
+import {
   earnerSignature,
   DEFAULT_ACCRUAL,
   CAREER_VARIANTS,
@@ -32,20 +39,31 @@ export const PensionReplacementTile: FC = () => {
     const nat =
       data.national.find((n) => n.year === data.latestYear) ??
       data.national[data.national.length - 1];
-    const dist =
-      data.distribution.find((d) => d.year === data.latestYear) ??
-      data.distribution[data.distribution.length - 1];
     if (!nat?.avgWageBgn) return null;
+    // The statutory bounds come from the shared schedules in bgTax rather than
+    // the 2024-лв copies this file used to carry — but resolved AT THE WAGE
+    // ANCHOR'S YEAR, not at today's. That pairing is the whole point: the
+    // replacement rate is a ratio of a pension to a wage, so a 2026 cap over a
+    // 2024 wage is not a policy result, it is a units error. Taking the
+    // in-force values against `nat.avgWageEur` (2024, €1,188) moved the curve
+    // up to +8.7pp with no policy change and squeezed the high earner to 1.7pp
+    // below the median, where the законов таван should leave a ~10pp gap — i.e.
+    // it erased the "high earners are capped" shape the chart exists to show.
+    //
+    // Resolving on `year` also means the curve follows the НОИ data forward on
+    // its own: when the 2026 yearbook lands, all five inputs advance together.
+    const year = data.latestYear;
     return {
       avgWageEur: nat.avgWageEur ?? nat.avgWageBgn / BGN_PER_EUR,
       accrualPerYear: DEFAULT_ACCRUAL,
-      minInsurableEur: 933 / BGN_PER_EUR, // minimum wage ~933 лв
-      // МОД maximum insurable income, 3750 лв (2024) — the ceiling the
-      // individual coefficient is capped at (= modIdentity.capEur €1917 in
-      // policy_baseline.json). NOT the pension таван below, a different cap.
-      maxInsurableEur: 3750 / BGN_PER_EUR,
-      minPensionEur: (dist?.minPensionBgn ?? 580) / BGN_PER_EUR,
-      pensionCapEur: 3400 / BGN_PER_EUR, // таван на пенсиите, 3400 лв (2024)
+      // Earnings floor = МРЗ (РМС), not the ЗБДОО self-insured floor — two
+      // different instruments that happen to coincide in 2026.
+      minInsurableEur: scheduledValueAt(MIN_WAGE_SCHEDULE, year),
+      // МОД cap — the ceiling the individual coefficient is capped at. NOT the
+      // pension таван below, which is a different cap on the PAYOUT.
+      maxInsurableEur: resolveMod(year).mod,
+      minPensionEur: scheduledValueAt(MIN_PENSION_SCHEDULE, year), // чл. 10 ЗБДОО
+      pensionCapEur: MAX_PENSION, // таван, § 4 ал. 2 — unmoved since 2024
     };
   }, [data]);
 

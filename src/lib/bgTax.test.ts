@@ -36,6 +36,9 @@ import {
   latestScheduledValue,
   currentStatutoryMod,
   capMonths,
+  MIN_WAGE,
+  MIN_WAGE_SCHEDULE,
+  scheduledValueAt,
   stepAt,
   resolveMod,
   computeLabourTax,
@@ -751,5 +754,51 @@ describe("capMonths", () => {
         );
       }
     }
+  });
+});
+
+describe("MIN_WAGE (МРЗ)", () => {
+  it("pins the 2026 МРЗ", () => {
+    expect(MIN_WAGE).toBe(620.2); // 1,213 лв, РМС 243/13.11.2025
+    expect(MIN_WAGE_SCHEDULE[2024][0].value).toBe(477.04); // 933 лв ÷ 1.95583
+  });
+
+  it("does not step mid-year — МРЗ is set effective 1 January", () => {
+    // Unlike the ЗБДОО parameters, the МРЗ is a Council of Ministers decree
+    // with a January effective date, so a multi-step year here would be a
+    // data-entry error rather than a late budget.
+    for (const [year, steps] of Object.entries(MIN_WAGE_SCHEDULE)) {
+      expect(steps, `${year} should have exactly one step`).toHaveLength(1);
+      expect(steps[0].from).toBe(`${year}-01-01`);
+    }
+  });
+
+  it("is a DIFFERENT instrument from the self-insured floor", () => {
+    // Both land on €620.20 in 2026 — a coincidence of this year, not an
+    // identity. Asserted as LITERALS: comparing the two moving scalars would
+    // pass today and fail in January 2027, when the МРЗ decree lands before
+    // ЗБДОО-2027, with a message reading "different instrument" on an equality
+    // check — i.e. exactly backwards from the invariant it names.
+    expect(MIN_WAGE_SCHEDULE[2026][0].value).toBe(620.2);
+    expect(MIN_SELF_INSURED_SCHEDULE[2026][1].value).toBe(620.2);
+    // 2025 is where they visibly diverge: the МРЗ was €550.66 from 1 January
+    // while the ЗБДОО floor only reached it on 1 April.
+    expect(MIN_WAGE_SCHEDULE[2025][0].value).toBe(550.66);
+    expect(MIN_SELF_INSURED_SCHEDULE[2025][0].value).toBe(477.03);
+  });
+
+  it("snaps a year outside the table instead of throwing", () => {
+    expect(scheduledValueAt(MIN_WAGE_SCHEDULE, 2020)).toBe(477.04); // → 2024
+    expect(scheduledValueAt(MIN_WAGE_SCHEDULE, 2030)).toBe(620.2); // → 2026
+    expect(scheduledValueAt(MIN_WAGE_SCHEDULE, 2025)).toBe(550.66); // exact
+  });
+
+  it("resolves a mid-year date within a snapped year", () => {
+    expect(scheduledValueAt(MIN_PENSION_SCHEDULE, 2026, "2026-06-30")).toBe(
+      322.37,
+    );
+    expect(scheduledValueAt(MIN_PENSION_SCHEDULE, 2026, "2026-07-01")).toBe(
+      347.51,
+    );
   });
 });

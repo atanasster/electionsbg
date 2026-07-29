@@ -99,6 +99,7 @@ export const PENSION_ACCRUAL_RATE = 0.0135;
 // Stepped 1 Jul 2026 — €346.87 is the DRAFT figure still in circulation; the
 // adopted value is €347.51.
 export const MIN_PENSION_SCHEDULE: Record<number, StatutoryStep[]> = {
+  2024: [{ from: "2024-01-01", value: 296.85 }], // 580.57 лв, чл. 10 ЗБДОО-2024
   2025: [{ from: "2025-01-01", value: 322.37 }], // 630.40 лв, чл. 10 ЗБДОО-2025
   2026: [
     { from: "2026-01-01", value: 322.37 },
@@ -116,6 +117,31 @@ export const latestScheduleYear = (
 export const latestScheduledValue = (
   schedule: Record<number, StatutoryStep[]>,
 ): number => stepAt(schedule[latestScheduleYear(schedule)]).value;
+
+/** The value a schedule held in `year`, snapping to the nearest known year the
+ *  way `resolveMod` does. Use this whenever a figure is combined with
+ *  year-stamped OBSERVED data: mixing 2026 statutory bounds into a 2024 wage
+ *  anchor silently rewrites the result — the /pensions replacement curve moved
+ *  up to +8.7pp with no policy change that way, and flattened the very gap
+ *  ("high earners are capped") the chart exists to show. Same vintage on both
+ *  sides, always. */
+export const scheduledValueAt = (
+  schedule: Record<number, StatutoryStep[]>,
+  year: number,
+  asOf?: string,
+): number => {
+  const years = Object.keys(schedule)
+    .map(Number)
+    .sort((a, b) => a - b);
+  if (years.length === 0) throw new Error("scheduledValueAt: empty schedule");
+  const snapped =
+    schedule[year] != null
+      ? year
+      : year < years[0]
+        ? years[0]
+        : years[years.length - 1];
+  return stepAt(schedule[snapped], asOf).value;
+};
 
 export const MIN_PENSION = latestScheduledValue(MIN_PENSION_SCHEDULE);
 
@@ -141,6 +167,26 @@ export const MIN_SELF_INSURED_SCHEDULE: Record<number, StatutoryStep[]> = {
 export const MIN_SELF_INSURED_INCOME = latestScheduledValue(
   MIN_SELF_INSURED_SCHEDULE,
 );
+
+// Минимална работна заплата (МРЗ). NOT a ЗБДОО figure — it is set by a
+// Council of Ministers decree, effective 1 January, which is why it does not
+// step mid-year the way the ЗБДОО parameters do. It therefore has no `dv_laws`
+// signal either: the decree lands in ДВ but not as a budget law, so a new year
+// must be added by hand — check each autumn (the 2026 rate was set 13.11.2025)
+// against the МТСП announcement, NOT by waiting for a watcher to flip. Held here because the
+// /pensions replacement-rate curve needs the earnings floor and was carrying
+// its own 2024 лв copy.
+//
+// Only the years we can cite are encoded; there is deliberately no pre-2024
+// history. €620.20 is also the ЗБДОО-2026 self-insured floor from 1 Aug — the
+// two instruments converge on one number in 2026, which is a coincidence of
+// this year, not an identity. Do not collapse them.
+export const MIN_WAGE_SCHEDULE: Record<number, StatutoryStep[]> = {
+  2024: [{ from: "2024-01-01", value: 477.04 }], // 933 лв ÷ 1.95583
+  2025: [{ from: "2025-01-01", value: 550.66 }], // 1,077 лв
+  2026: [{ from: "2026-01-01", value: 620.2 }], // 1,213 лв, РМС 243/13.11.2025
+};
+export const MIN_WAGE = latestScheduledValue(MIN_WAGE_SCHEDULE);
 
 // Обезщетения по ЗБДОО-2026, all whole-year (no mid-year step):
 /** Дневно обезщетение за безработица, чл. 11 — min/max. */

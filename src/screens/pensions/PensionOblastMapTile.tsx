@@ -2,7 +2,7 @@
 // publishes an average old-age pension per oblast, but nobody draws it. This
 // colours each of the 28 oblasti by its latest-year average and pairs the map
 // (the WHERE) with a compact sorted bar list (the exact rank + value). The
-// spread is wide — София-град ~1079 лв vs Кърджали ~710 лв, roughly 1.5× — and a
+// spread is wide — София-град ~€552 vs Кърджали ~€363, roughly 1.5× — and a
 // choropleth makes the north-east / Rhodope band of low pensions legible.
 //
 // The map machinery is the shared <OblastChoropleth> (navy ramp); this tile owns
@@ -12,7 +12,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Map as MapIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { formatEur, formatInt } from "@/lib/currency";
+import { formatEur, formatInt, BGN_PER_EUR } from "@/lib/currency";
 import { useNoiPensions } from "@/data/budget/useBudget";
 import { useNoiPensionsRegional } from "@/data/budget/useNoiPensionsRegional";
 import { OblastChoropleth } from "./OblastChoropleth";
@@ -108,7 +108,7 @@ export const PensionOblastMapTile: FC = () => {
                 ? "Карта на средната пенсия по област"
                 : "Average-pension map by oblast"
             }
-            legendFormat={(v) => `${formatInt(v, lang)} лв`}
+            legendFormat={(v) => formatEur(v / BGN_PER_EUR, lang)}
             noDataLabel={
               <span className="font-medium">
                 {bg ? "Няма данни" : "No data"}
@@ -119,7 +119,7 @@ export const PensionOblastMapTile: FC = () => {
                 <span className="font-medium">{row.nameBg}</span>
                 <span className="tabular-nums">
                   {formatEur(row.avgPensionEur, lang)} ·{" "}
-                  {formatInt(Math.round(row.avgPensionBgn), lang)} лв
+                  {formatEur(row.avgPensionBgn / BGN_PER_EUR, lang)}
                 </span>
                 {row.yoyPct != null && (
                   <span className="text-xs text-muted-foreground tabular-nums">
@@ -165,7 +165,7 @@ export const PensionOblastMapTile: FC = () => {
 
         <p className="mt-3 text-[11px] text-muted-foreground/80">
           {bg
-            ? `Средна пенсия по област (НОИ, ${year ?? ""}). Разликата е голяма — ${topRow.nameBg} ~${formatInt(Math.round(topRow.avgPensionBgn), lang)} лв срещу ${bottomRow.nameBg} ~${formatInt(Math.round(bottomRow.avgPensionBgn), lang)} лв${ratio ? `, около ${ratio.toFixed(1)}×` : ""}. Стойностите са в лева.`
+            ? `Средна пенсия по област (НОИ, ${year ?? ""}). Разликата е голяма — ${topRow.nameBg} ~${formatEur(topRow.avgPensionBgn / BGN_PER_EUR, lang)} срещу ${bottomRow.nameBg} ~${formatEur(bottomRow.avgPensionBgn / BGN_PER_EUR, lang)}${ratio ? `, около ${ratio.toFixed(1)}×` : ""}. Източните суми са в лева, преобразувани при фиксирания курс 1 EUR = 1,95583 лв.`
             : `Average pension by oblast (НОИ, ${year ?? ""}). The spread is wide — ${topRow.nameBg} ~${formatInt(Math.round(topRow.avgPensionBgn), lang)} лв against ${bottomRow.nameBg} ~${formatInt(Math.round(bottomRow.avgPensionBgn), lang)} лв${ratio ? `, about ${ratio.toFixed(1)}×` : ""}. Amounts are in leva.`}
         </p>
       </CardContent>

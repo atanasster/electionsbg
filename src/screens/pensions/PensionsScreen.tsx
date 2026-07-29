@@ -12,7 +12,8 @@ import { useTranslation } from "react-i18next";
 import { PiggyBank } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import { formatEurCompact, formatInt } from "@/lib/currency";
+import { formatEur, formatEurCompact, formatInt } from "@/lib/currency";
+import { MIN_PENSION } from "@/lib/bgTax";
 import { useNoiPensions } from "@/data/budget/useBudget";
 import { useNoiFundYear } from "@/data/procurement/useNoi";
 import { PensionFundingTile } from "./PensionFundingTile";
@@ -117,19 +118,21 @@ export const PensionsScreen = () => {
                 </span>
               </StatCard>
             )}
-            {latestDist?.minPensionBgn != null && (
-              <StatCard
-                label={bg ? "Минимална пенсия" : "Minimum pension"}
-                hint={`${data.latestYear}`}
-              >
-                <span className="text-2xl font-bold tabular-nums">
-                  {latestDist.minPensionBgn.toLocaleString(lang, {
-                    maximumFractionDigits: 0,
-                  })}{" "}
-                  лв
-                </span>
-              </StatCard>
-            )}
+            {/* The STATUTORY minimum in force (чл. 10 ЗБДОО-2026), not the НОИ
+                bulletin's observed figure for its latest data year. This card
+                sat beside three euro KPIs showing "581 лв" — the 2024 minimum,
+                in a currency the site retired on 2026-01-01, under a label that
+                reads as "the minimum pension" rather than "the 2024 one". */}
+            <StatCard
+              label={bg ? "Минимална пенсия" : "Minimum pension"}
+              hint={bg ? "в сила от 01.07.2026" : "in force from 01.07.2026"}
+            >
+              <span className="text-2xl font-bold tabular-nums">
+                {/* 2 decimals: the hint asserts an exact in-force date, so
+                    rounding €347.51 to "€348" would undercut it. */}
+                {formatEur(MIN_PENSION, lang, { decimals: 2 })}
+              </span>
+            </StatCard>
           </div>
 
           {/* Hero — who pays */}
