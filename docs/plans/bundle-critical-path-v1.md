@@ -493,13 +493,39 @@ comment justifying it ("maps + jspdf … loaded on demand") finally becomes true
 
 ## T6 — Data layer (small, independent)
 
-- `canonical_parties.json` (84 KB) and `governments.json` (10 KB) are fetched from
-  `storage.googleapis.com` — a **second origin** (extra DNS+TLS, 175 ms measured) served
-  **uncompressed**, per the known GCS behaviour (`gsutil cp -Z`; see
-  `reference_gcs_bucket_compression`). Re-uploading these two gzipped: 84 KB → ~20 KB, no code
-  change.
-- Optional: `canonical_parties.json` is fetched on **every** route, including procurement pages
-  that never render a party. Check whether its consumer can move behind the routes that need it.
+**Status: one operator action outstanding, one investigation closed as won't-fix.**
+
+### The re-upload — an OPERATOR action, deliberately not automated
+
+`canonical_parties.json` (84 KB) and `governments.json` (10 KB) are fetched from
+`storage.googleapis.com` — a **second origin** (extra DNS+TLS, 175 ms measured) served
+**uncompressed**, per the known GCS behaviour. Re-uploading them with content-encoding gzip
+takes 84 KB → ~20 KB at zero code cost:
+
+```bash
+gsutil -h "Content-Encoding:gzip" cp -Z canonical_parties.json governments.json gs://data-electionsbg-com/
+```
+
+Left for the operator rather than run from here: it mutates the production bucket, and nothing
+in this plan's scope required it. Note `gsutil -m` hangs on macOS (see
+`reference_gsutil_macos_multiprocessing`) — the command above is deliberately single-threaded.
+
+### The fetch-scope question — investigated, not worth doing
+
+`canonical_parties.json` is fetched on every route, and the obvious hypothesis was that a
+procurement page has no business loading party colours. It does not survive contact with the
+code: `useCanonicalParties()` has **two shell consumers**, `layout/header/ElectionsSelect.tsx`
+and `layout/header/CabinetAnchorPill.tsx`, and the first renders the party-coloured election
+picker in the header on every page. Deferring the fetch would mean the election selector paints
+without its colours and then re-colours — a visible flash on the highest-traffic control on the
+site, to save a request that is off the critical path (it is a data fetch, not a blocking
+module) and that the gzip re-upload above shrinks by 76% anyway.
+
+`CabinetAnchorPill` calls the hook unconditionally and then returns `null` when no cabinet is
+anchored, which looks like a free win — but React Query dedupes the two calls into one request,
+so gating it saves nothing while `ElectionsSelect` remains.
+
+**Closed as won't-fix.** The right fix is the re-upload, not a code change.
 
 ## Acceptance (A9)
 
