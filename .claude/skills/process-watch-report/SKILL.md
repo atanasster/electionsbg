@@ -597,11 +597,49 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
    | `db:load:ngo-board-links` (`cacbg_officials`/`cacbg_local` → officials leg)     | `npm run db:load:ngo-board-links:cloud`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
    | `update-funds` (EU funds — `isun_eu_funds*`)                                    | `npm run db:load:funds:pg:cloud`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
    | `update-schools` (МОН matura/НВО/context — `indicators_mon_dzi`)                | `npm run db:load:schools:pg:cloud` (loads `schools`/`school_scores`/`school_context` + the `directory` payload `/education` + `/school/:id` read AND the slim `risk` payload the МОН pack's SchoolRiskTile reads — one loader writes both). **ALSO GCS**: `data/schools/index.json` (My-Area tile) + `data/education/*.json` (textbook-market tile, incl. the per-year slices for the scope pill) stay GCS-served, so emit `npm run bucket:sync:paths -- schools education` too. If only the textbook market changed (АОП, no ДЗИ), the bucket sync alone suffices — no Cloud SQL load. |
-   | `update-persons` (person-identity layer — ANY people source, incl. `cik_results`/`ivss_declarations`/`cacbg_officials`/`cacbg_local`/`egov_commerce`/`erik_campaign_financing`/`parliament_mps`/`ofac_sanctions`/`comdos_ds`/`regulator_rosters`) | `npm run db:resolve:persons:cloud && npm run db:load:person-elections:pg:cloud`. The `person_*`/`candidate_person`/`person_election_stats` tables are **Postgres-only** (no serving JSON, no `bucket:sync`) — Cloud SQL is the ONLY publish target, so this MUST be emitted whenever the local re-derivation ran, or `/person` + the merged `/candidate` + `personProfile`/`personConnections`/`person_elections` go stale on prod. Reads the SAME PG upstreams (`magistrate`/`official_roster`/`tr_person_roles`/`contracts`) from the cloud proxy, so those must already be loaded there (they ride procurement/tr/magistrate cloud loads above). The resolve self-bootstraps a fresh Cloud SQL (085 before 082). Also needs a `npm run deploy` (functions) once so `db_routes.js` serves the `person-profile`/`candidate-person`/`person-elections` routes. |
+   | `update-persons` (person-identity layer — ANY people source, incl. `cik_results`/`ivss_declarations`/`cacbg_officials`/`cacbg_local`/`egov_commerce`/`erik_campaign_financing`/`parliament_mps`/`ofac_sanctions`/`comdos_ds`/`regulator_rosters`) | **The full ordered chain below — NOT just the resolve.** See "Person layer: the whole cloud chain" right after this table. The `person_*`/`candidate_person`/`person_election_stats` tables are **Postgres-only** (no serving JSON, no `bucket:sync`) — Cloud SQL is the ONLY publish target, so this MUST be emitted whenever the local re-derivation ran, or `/person` + the merged `/candidate` + `personProfile`/`personConnections`/`person_elections` go stale on prod. Reads the SAME PG upstreams (`magistrate`/`official_roster`/`tr_person_roles`/`contracts`) from the cloud proxy, so those must already be loaded there (they ride procurement/tr/magistrate cloud loads above). The resolve self-bootstraps a fresh Cloud SQL (085 before 082). Also needs a `npm run deploy` (functions) once so `db_routes.js` serves the `person-profile`/`candidate-person`/`person-elections` routes. |
    | `update-administration` (ИИСДА services register — `iisda_services`)            | `npm run db:load:admin-services:pg:cloud` (loads the `admin_services` table + the `services_overview.json` aggregate behind `/sector/administration`). The other administration artifacts (egov / digital-skills / service-quality / context) are static JSON under `data/administration/` → GCS via `bucket:sync data/administration/`, no Cloud SQL. |
    | `update-kzk-appeals` (`kzk_appeals`)                                            | `DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql` then the same-URL `npx tsx scripts/procurement/kzk_appeals.ts --year <YYYY> --apply`. There is no `db:load:kzk:pg:cloud` — the crawl **is** the loader, so publishing means re-crawling against the cloud URL. The DDL is idempotent; apply it every time.                                                                                                                                                                                                      |
 
    Each `db:load:*:cloud` wrapper points `DATABASE_URL` at the Cloud SQL proxy (`127.0.0.1:5434`, password read from `.pgpass`) and delegates to the base load — which reads the same fresh `data/` artifacts, `TRUNCATE`+reloads its table, AND rebuilds the dependent matviews / `awarder_risk_grade_scoped` **on cloud** — so the served data stays self-consistent. It reads the on-disk artifacts, not local Postgres, so it's correct regardless of local PG state.
+
+   ### Person layer: the whole cloud chain (emit ALL of it, in THIS order)
+
+   The `update-persons` row above is the one place where emitting "the loader for
+   the thing that changed" is not enough. `db:resolve:persons:cloud` READS three
+   dimension tables and DROPS one matview, so two loaders must run BEFORE it and
+   three AFTER — and every one of them fails **silently**, by publishing blanks
+   rather than erroring. Emit the whole block; do not reconstruct it from memory
+   or from CLAUDE.md piecemeal (that is exactly how `place-dim` got dropped from
+   the emitted chain on 2026-07-29):
+
+   ```bash
+   # BEFORE the resolve — it reads these; an empty table publishes blanks, not an error
+   npm run db:load:place-dim:pg:cloud          # 117 — mir/obshtina labels on ~76.5k roles
+   npm run db:load:judicial-bodies:pg:cloud    # 116 — the court on ~2,700 magistrate roles
+   npm run db:resolve:persons:cloud
+   # AFTER the resolve — 115 drops person_role.place, taking the municipal roster matview with it
+   npm run db:load:declarations:pg:cloud -- --resolve   # re-applies 102, rebuilds that matview
+   npm run db:load:official-candidate-links:pg:cloud    # re-decorates + REFRESHes it
+   npm run db:load:person-elections:pg:cloud
+   npm run db:load:persons-browse:pg:cloud              # LAST — folds all of the above + contracts
+   ```
+
+   What each omission costs, all of them green-locally / blank-on-prod:
+
+   | Omitted | Symptom on prod |
+   |---|---|
+   | `place-dim` | ~76.5k `mir`/`obshtina` roles publish `placeLabel: null`; the ~2.7k judicial roles keep theirs, so it reads as partial and is easy to miss |
+   | `judicial-bodies` | ~2,700 magistrate roles publish with no court |
+   | `declarations --resolve` | `declaration.person_id` all NULL → `has_declaration=false` for every person; the "с декларация" filter matches nobody and its KPI reads 0%, while net worth still renders. **Shipped to prod once.** |
+   | `official-candidate-links` | municipal roster matview left dropped → `/governance` + officials search degrade to an empty list without erroring |
+   | `persons-browse` | `/persons` serves the previous vintage; its money column silently disagrees with `/procurement/contracts` |
+
+   `place-dim` and `judicial-bodies` are cheap and idempotent, so emit them
+   unconditionally rather than trying to decide whether their inputs moved —
+   deciding wrong is invisible, re-running is ~seconds. **Verify before the
+   resolve, not after:** `select count(*) from place_dim` and
+   `from judicial_body_alias` must both be non-zero on the target.
 
    **Prereq:** the Cloud SQL proxy must be running on `127.0.0.1:5434` and `.pgpass` must hold the proxy line — if the proxy is down, just list the commands for the user to run once it's up. (See the memory note "db:dump local vs Cloud SQL" for the proxy/`.pgpass`/`host.docker.internal` mechanics.)
 

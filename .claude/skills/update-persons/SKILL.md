@@ -161,9 +161,20 @@ against the cloud proxy:
 # The resolver reads its PG sources (magistrate / official_roster / tr_person_roles /
 # contracts) from whatever DATABASE_URL points at, so those must ALREADY be loaded on
 # Cloud SQL (db:load:magistrates:pg:cloud, db:load:tr:pg:cloud, db:load:pg:cloud) first.
-# The judicial dimension FIRST: db:resolve:persons reads judicial_body_alias to give every
+# TWO dimensions FIRST — the resolver READS both, and an empty one publishes blanks
+# rather than failing, so neither omission surfaces until someone looks at prod.
+# The place dimension: 082_person_api.sql JOINs place_dim for the mir/obshtina label on
+# every role. Skipping it publishes ~76,500 roles with placeLabel: null — and because the
+# ~2,700 judicial roles resolve via judicial_body instead and KEEP their label, the damage
+# looks partial rather than total. Cheap and idempotent: run it unconditionally rather than
+# reasoning about whether settlements.json/municipalities.json moved.
+npm run db:load:place-dim:pg:cloud
+# The judicial dimension: db:resolve:persons reads judicial_body_alias to give every
 # magistrate their court. Skipping it publishes ~2,700 magistrates with no institution.
 npm run db:load:judicial-bodies:pg:cloud
+# Verify BOTH landed before resolving — after the resolve it is too late to tell:
+#   select count(*) from place_dim;            -- must be non-zero (~5,700)
+#   select count(*) from judicial_body_alias;  -- must be non-zero (~530)
 npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + rebuilds person_* on Cloud SQL
 # MANDATORY after the resolve: 115 drops person_role.place, which forces the municipal
 # roster matview to be dropped with it. Only this command re-applies 102 and rebuilds it.
