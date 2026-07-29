@@ -45,6 +45,22 @@ export const usePersonElections = (slug?: string) =>
     staleTime: Infinity,
   });
 
+// Is the electoral block still UNDECIDED — i.e. can it still turn out to render nothing?
+// True only while the person-elections fetch is in flight for someone we EXPECT results for
+// (they hold a candidacy role). The block reserves its ~1450px footprint with a skeleton
+// while this is true, so the dashboard below it must hold back for exactly as long: a
+// candidacy role whose person_election_stats row is missing (a roster-only candidacy, or a
+// cloud reload mid-flight) resolves to NO block, and a reserved 1450px collapsing under
+// already-painted sections is a 0.32 CLS — three times the budget the perf gate enforces.
+// One hook so the two conditions cannot drift apart.
+export const usePersonElectoralPending = (
+  slug: string | undefined,
+  hasCandidacies: boolean,
+): boolean => {
+  const { isLoading } = usePersonElections(slug);
+  return hasCandidacies && isLoading;
+};
+
 // The person's cycles that carry actual results, newest first — the single source of truth for
 // the header party badge (dataCycles[0]) and the electoral cycle selector (the full list). Both
 // read this so "what counts as a real candidacy" can't drift between them.

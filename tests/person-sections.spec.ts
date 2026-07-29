@@ -188,3 +188,94 @@ test.describe("/following (D3 smoke)", () => {
     expect(errs, errs.join("\n")).toEqual([]);
   });
 });
+
+// A candidacy ROLE does not guarantee an electoral RESULTS row: a roster-only candidacy has
+// none, and for a few minutes neither does anybody while person_election_stats is reloaded on
+// Cloud SQL. The electoral block reserves ~1450px with a skeleton whenever the person holds a
+// candidacy, so that case ends with the reservation collapsing — and every section already
+// painted below it jumps up by that much (0.32 measured on /candidate/… in CI, 3x the perf
+// budget; 0.26 in this fixture). The dashboard therefore holds the sections below unmounted
+// until the block is decided, so the reserved space collapses under nothing.
+test.describe("electoral block (CLS)", () => {
+  const CANDIDATE_PROFILE = {
+    ...PROFILE,
+    facets: ["candidate"],
+    roles: [
+      {
+        source: "candidate",
+        facet: "candidate",
+        sourceLabel: "ЦИК",
+        role: "candidate",
+        ref: "2024_10_27:c-4-testov-chovek",
+        placeKind: null,
+        placeCode: null,
+        placeLabel: null,
+        placeLabelEn: null,
+        judicialKind: null,
+        confidence: "high",
+      },
+    ],
+    // Rendered straight from the profile, i.e. ON SCREEN while the electoral fetch is still in
+    // flight — this is the section that jumped when the reservation collapsed.
+    companies: [
+      {
+        eik: "112028994",
+        name: "ТЕСТ КОМПАНИЯ",
+        legalForm: "ЕООД",
+        seat: "София",
+        status: "active",
+        roles: ["manager"],
+        procuredEur: 0,
+        contracts: 0,
+        fundsEur: 0,
+        fundsPaidEur: 0,
+        fundProjects: 0,
+        subsidiesEur: 0,
+      },
+    ],
+  };
+
+  test("a candidacy with no results does not collapse the page", async ({
+    page,
+  }) => {
+    await page.route("**/api/db/**", async (route) => {
+      const path = new URL(route.request().url()).pathname.replace(
+        "/api/db/",
+        "",
+      );
+      // Land well after first paint, so the reserved block is really on screen before it goes.
+      if (path === "person-elections")
+        await new Promise((r) => setTimeout(r, 700));
+      await route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify(
+          path === "person-profile" ? CANDIDATE_PROFILE : [],
+        ),
+      });
+    });
+    await page.goto("/person/e2e-person", { waitUntil: "commit" });
+
+    const cls = await page.evaluate(
+      () =>
+        new Promise<number>((resolve) => {
+          let total = 0;
+          new PerformanceObserver((list) => {
+            for (const e of list.getEntries()) {
+              const ls = e as PerformanceEntry & {
+                hadRecentInput?: boolean;
+                value?: number;
+              };
+              if (!ls.hadRecentInput && typeof ls.value === "number")
+                total += ls.value;
+            }
+          }).observe({ type: "layout-shift", buffered: true });
+          setTimeout(() => resolve(total), 2500);
+        }),
+    );
+
+    // The block itself is gone (no results) and the sections below it did arrive.
+    await expect(page.locator("#person-electoral")).toHaveCount(0);
+    await expect(page.locator("#person-business")).toBeVisible();
+    expect(cls, `CLS=${cls.toFixed(4)}`).toBeLessThan(0.1);
+  });
+});

@@ -13,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
+import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
@@ -136,6 +137,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const i = r.ref.indexOf(":");
     return { election: r.ref.slice(0, i), slug: r.ref.slice(i + 1) };
   });
+
+  // Same query PersonElectoralSection runs (deduped by React Query), so both agree on when
+  // that block is still undecided — see the gate around the sections below it.
+  const electoralPending = usePersonElectoralPending(
+    p.slug,
+    candidacies.length > 0,
+  );
 
   // Does the MP register carry declared assets for this person? Same query
   // PersonMpSections/MpAssetsSummary run, deduped by React Query, so it costs
@@ -375,168 +383,178 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         name={p.name}
         candidacies={candidacyCycles}
       />
+      {/* Everything below the electoral block waits for that block to be DECIDED. It reserves
+          ~1450px with a skeleton while person-elections is in flight, and a candidacy role
+          with no results row (roster-only, or a mid-flight cloud reload) resolves to no block
+          at all — so painting these sections under the skeleton and then letting it collapse
+          moves the whole page up by that much (CLS 0.32, 3x the budget). The cost is that
+          their own fetches start when this gate opens rather than beside person-elections —
+          one small query's latency on a page that is DB-driven end to end. */}
+      {!electoralPending && (
+        <>
+          {/* Declared-wealth trajectory (Court of Audit), across every tier the person filed in.
+            Self-hides below 2 asset-bearing years, so it shows only where there is a real
+            history to plot — regardless of whether the assets themselves come from the MP or
+            the officials block below. */}
+          <PersonWealthTrajectory slug={p.slug} />
 
-      {/* Declared-wealth trajectory (Court of Audit), across every tier the person filed in.
-          Self-hides below 2 asset-bearing years, so it shows only where there is a real
-          history to plot — regardless of whether the assets themselves come from the MP or
-          the officials block below. */}
-      <PersonWealthTrajectory slug={p.slug} />
+          {/* The accumulation gap (T3.2). Gated SERVER-side to the senior accountability
+            cohort (091) — this renders nothing for a councillor or a lower official, and
+            nothing below two asset-bearing filings. See
+            docs/methodology/accumulation-gap.md. */}
+          <PersonAccumulationGap slug={p.slug} />
 
-      {/* The accumulation gap (T3.2). Gated SERVER-side to the senior accountability
-          cohort (091) — this renders nothing for a councillor or a lower official, and
-          nothing below two asset-bearing filings. See
-          docs/methodology/accumulation-gap.md. */}
-      <PersonAccumulationGap slug={p.slug} />
+          {/* The new-filing watchlist feed moved to its own /following route (audit gap C1) —
+            it showed OTHER people's filings and duplicated this subject's own. The follow
+            button stays, in PersonHeader's action row. */}
 
-      {/* The new-filing watchlist feed moved to its own /following route (audit gap C1) —
-          it showed OTHER people's filings and duplicated this subject's own. The follow
-          button stays, in PersonHeader's action row. */}
+          {/* Declared wealth against peers in the SAME office and year (T3.9). Not the
+            accumulation gap: both sides are self-declared and no origin is implied. The
+            percentile is withheld server-side below 20 peers. Self-hides without a cohort. */}
+          <PersonCohortBenchmark slug={p.slug} />
 
-      {/* Declared wealth against peers in the SAME office and year (T3.9). Not the
-          accumulation gap: both sides are self-declared and no origin is implied. The
-          percentile is withheld server-side below 20 peers. Self-hides without a cohort. */}
-      <PersonCohortBenchmark slug={p.slug} />
+          {/* Declared company stakes that hold public contracts (T3.8). Every row passed all
+            three of 096's gates (unique TR trading-company name, the registry independently
+            placing this person at that EIK, and no namesake sharing their folded name),
+            because the declaration form carries no EIK and a wrong match would publish a
+            conflict of interest that does not exist. Self-hides for almost everyone. */}
+          <PersonStakeProcurement slug={p.slug} />
 
-      {/* Declared company stakes that hold public contracts (T3.8). Every row passed all
-          three of 096's gates (unique TR trading-company name, the registry independently
-          placing this person at that EIK, and no namesake sharing their folded name),
-          because the declaration form carries no EIK and a wrong match would publish a
-          conflict of interest that does not exist. Self-hides for almost everyone. */}
-      <PersonStakeProcurement slug={p.slug} />
+          {/* Disposals + third-party expenses (T3.4) — register facts that are NOT part of
+            the estate, which is exactly why they are interesting. Self-hides when empty. */}
+          <PersonDeclarationEvents slug={p.slug} />
 
-      {/* Disposals + third-party expenses (T3.4) — register facts that are NOT part of
-          the estate, which is exactly why they are interesting. Self-hides when empty. */}
-      <PersonDeclarationEvents slug={p.slug} />
+          {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
+          {mpId != null && (
+            <PersonMpSections
+              name={p.name}
+              mpId={mpId}
+              hasMoneyTimeline={p.procuredEur > 0}
+            />
+          )}
 
-      {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
-      {mpId != null && (
-        <PersonMpSections
-          name={p.name}
-          mpId={mpId}
-          hasMoneyTimeline={p.procuredEur > 0}
-        />
-      )}
+          {/* Declared assets (Court of Audit), the UNIFIED block (audit T3.3): one PG-backed
+            component spanning every tier the person filed in (executive / municipal /
+            magistrate), replacing the three divergent per-tier renderers and the D2 "empty
+            latest filing" bug. It reads person_declarations(slug) directly, so it needs no
+            per-slug shard list. Rendered as the non-MP counterpart: an MP's assets still come
+            from PersonMpSections above (voting-bundled), and someone who holds an mp id but
+            filed only as an official — a minister who never took a seat — falls through to
+            here whenever the MP side has nothing, so exactly one block renders. It self-hides
+            when the person has no asset-bearing filing. */}
+          {!mpAssetRollup && <PersonDeclarations slug={p.slug} />}
 
-      {/* Declared assets (Court of Audit), the UNIFIED block (audit T3.3): one PG-backed
-          component spanning every tier the person filed in (executive / municipal /
-          magistrate), replacing the three divergent per-tier renderers and the D2 "empty
-          latest filing" bug. It reads person_declarations(slug) directly, so it needs no
-          per-slug shard list. Rendered as the non-MP counterpart: an MP's assets still come
-          from PersonMpSections above (voting-bundled), and someone who holds an mp id but
-          filed only as an official — a minister who never took a seat — falls through to
-          here whenever the MP side has nothing, so exactly one block renders. It self-hides
-          when the person has no asset-bearing filing. */}
-      {!mpAssetRollup && <PersonDeclarations slug={p.slug} />}
+          {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
+            judiciary counterpart to the officials' assets block. Name-matched, so it self-hides
+            when nothing matches. */}
+          {p.roles.some((r) => r.source === "magistrate") && (
+            <PersonMagistrateHoldingsTile name={p.name} />
+          )}
 
-      {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
-          judiciary counterpart to the officials' assets block. Name-matched, so it self-hides
-          when nothing matches. */}
-      {p.roles.some((r) => r.source === "magistrate") && (
-        <PersonMagistrateHoldingsTile name={p.name} />
-      )}
-
-      {/* Offices held */}
-      {offices.length > 0 && (
-        <DashboardSection
-          id="person-offices"
-          title={t("pp_offices")}
-          icon={Landmark}
-        >
-          <Card>
-            <CardContent className="space-y-2 pt-6">
-              {offices.map((r) => (
-                <div
-                  key={`${r.source}:${r.ref}:${r.role}`}
-                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                >
-                  {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
-                      so no separate role code is appended. */}
-                  <span className="text-sm font-medium">
-                    {officeHeading(r)}
-                  </span>
-                  {placeText(r) &&
-                    (() => {
-                      const href = localOfficeHref(r);
-                      return href ? (
-                        <Link
-                          to={href}
-                          className="shrink-0 text-xs text-primary hover:underline"
-                        >
-                          {placeText(r)}
-                        </Link>
-                      ) : (
-                        <span className="shrink-0 text-xs text-muted-foreground">
-                          {placeText(r)}
-                        </span>
-                      );
-                    })()}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </DashboardSection>
-      )}
-
-      {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
-      <PersonCompanies companies={p.companies} name={p.name} mpId={mpId} />
-
-      {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
-      {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}
-
-      {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
-      {p.ngos.length > 0 && (
-        <DashboardSection
-          id="person-ngos"
-          title={t("pp_ngos")}
-          icon={HeartHandshake}
-        >
-          <Card>
-            <CardContent className="space-y-2 pt-6">
-              {p.ngos.map((n) => (
-                <div
-                  key={n.eik}
-                  className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                >
-                  <span className="text-sm">
-                    <Link
-                      to={`/company/${n.eik}`}
-                      className="font-medium text-primary hover:underline"
+          {/* Offices held */}
+          {offices.length > 0 && (
+            <DashboardSection
+              id="person-offices"
+              title={t("pp_offices")}
+              icon={Landmark}
+            >
+              <Card>
+                <CardContent className="space-y-2 pt-6">
+                  {offices.map((r) => (
+                    <div
+                      key={`${r.source}:${r.ref}:${r.role}`}
+                      className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
                     >
-                      {n.name ? decodeEntities(n.name) : n.eik}
-                    </Link>
-                    <span className="block text-xs text-muted-foreground">
-                      {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </DashboardSection>
-      )}
+                      {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
+                        so no separate role code is appended. */}
+                      <span className="text-sm font-medium">
+                        {officeHeading(r)}
+                      </span>
+                      {placeText(r) &&
+                        (() => {
+                          const href = localOfficeHref(r);
+                          return href ? (
+                            <Link
+                              to={href}
+                              className="shrink-0 text-xs text-primary hover:underline"
+                            >
+                              {placeText(r)}
+                            </Link>
+                          ) : (
+                            <span className="shrink-0 text-xs text-muted-foreground">
+                              {placeText(r)}
+                            </span>
+                          );
+                        })()}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </DashboardSection>
+          )}
 
-      {/* Connected people (§8) — the unified connections view (direct + indirect paths). */}
-      {conn && <PersonConnections data={conn} />}
+          {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
+          <PersonCompanies companies={p.companies} name={p.name} mpId={mpId} />
 
-      {/* Donations */}
-      {donations.length > 0 && (
-        <DashboardSection
-          id="person-donations"
-          title={t("pp_donations")}
-          icon={Coins}
-        >
-          <Card>
-            <CardContent className="space-y-1 pt-6">
-              {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
-                .sort((a, b) => b.localeCompare(a))
-                .map((election) => (
-                  <div key={election} className="text-sm">
-                    {t("pp_donated")} · {fmtElection(election)}
-                  </div>
-                ))}
-            </CardContent>
-          </Card>
-        </DashboardSection>
+          {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
+          {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}
+
+          {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
+          {p.ngos.length > 0 && (
+            <DashboardSection
+              id="person-ngos"
+              title={t("pp_ngos")}
+              icon={HeartHandshake}
+            >
+              <Card>
+                <CardContent className="space-y-2 pt-6">
+                  {p.ngos.map((n) => (
+                    <div
+                      key={n.eik}
+                      className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                    >
+                      <span className="text-sm">
+                        <Link
+                          to={`/company/${n.eik}`}
+                          className="font-medium text-primary hover:underline"
+                        >
+                          {n.name ? decodeEntities(n.name) : n.eik}
+                        </Link>
+                        <span className="block text-xs text-muted-foreground">
+                          {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                        </span>
+                      </span>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </DashboardSection>
+          )}
+
+          {/* Connected people (§8) — the unified connections view (direct + indirect paths). */}
+          {conn && <PersonConnections data={conn} />}
+
+          {/* Donations */}
+          {donations.length > 0 && (
+            <DashboardSection
+              id="person-donations"
+              title={t("pp_donations")}
+              icon={Coins}
+            >
+              <Card>
+                <CardContent className="space-y-1 pt-6">
+                  {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
+                    .sort((a, b) => b.localeCompare(a))
+                    .map((election) => (
+                      <div key={election} className="text-sm">
+                        {t("pp_donated")} · {fmtElection(election)}
+                      </div>
+                    ))}
+                </CardContent>
+              </Card>
+            </DashboardSection>
+          )}
+        </>
       )}
     </div>
   );

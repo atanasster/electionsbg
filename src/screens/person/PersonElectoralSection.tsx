@@ -11,7 +11,10 @@ import { Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useRegions } from "@/data/regions/useRegions";
-import { usePersonDataCycles } from "@/data/dashboard/usePersonElections";
+import {
+  usePersonDataCycles,
+  usePersonElectoralPending,
+} from "@/data/dashboard/usePersonElections";
 import { computeCandidateSummary } from "@/data/dashboard/computeCandidateSummary";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -87,7 +90,10 @@ export const PersonElectoralSection: FC<Props> = ({
   const { findRegion } = useRegions();
   // Only cycles the person ACTUALLY ran with results — a candidacy ROLE with no preference
   // data (e.g. a roster-only entry) shouldn't be a selectable year. Newest first.
-  const { rows, dataCycles, isLoading } = usePersonDataCycles(slug);
+  const { rows, dataCycles } = usePersonDataCycles(slug);
+  // Shared with PersonDashboard, which holds back everything below this block for as long as
+  // it is true — see usePersonElectoralPending.
+  const pending = usePersonElectoralPending(slug, candidacies.length > 0);
 
   // Selected cycle: ?pelect when it's a real (data-bearing) cycle, else the global election
   // when they ran it, else their LAST election with results.
@@ -140,9 +146,10 @@ export const PersonElectoralSection: FC<Props> = ({
   // AND the person has a real candidacy (so we expect results), reserve the block's footprint
   // instead of nothing — otherwise the data lands ~1450px ABOVE the sections below it and
   // shoves the whole page down (the candidate-page CLS regression). Only fall through to null
-  // once we KNOW there are no results.
+  // once we KNOW there are no results — and by then the dashboard has kept the sections below
+  // unmounted, so the reserved space collapses under nothing.
   if (dataCycles.length === 0 || !summary) {
-    if (isLoading && candidacies.length > 0) return <ElectoralSkeleton />;
+    if (pending) return <ElectoralSkeleton />;
     return null;
   }
 
