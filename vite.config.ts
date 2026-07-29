@@ -6,6 +6,7 @@ import type { Connect, Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
 import { sqlBrowser } from "./vite/sql-browser";
 import { dbApi } from "./vite/db-api";
+import { preloadLocale } from "./vite/preload-locale";
 
 // In production we serve large/changing JSON from a GCS bucket via the
 // `dataUrl` helper (see src/data/dataUrl.ts). The historical archives and
@@ -145,6 +146,9 @@ export default defineConfig(({ mode }) => {
       sqlBrowser(),
       // Dev-only DB API backing the person page (/__db/*).
       dbApi(),
+      // Hint the default locale's translation chunk so it downloads in
+      // parallel with the entry rather than one round-trip after it.
+      preloadLocale("bg"),
     ],
     server: {
       // Honor a PORT env var when one is set (e.g. a preview/dev harness that

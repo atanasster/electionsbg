@@ -44,7 +44,15 @@ export default defineConfig({
           // a generous timeout (node:test, the previous runner, had none).
           // ai/** carries the AI-chat tool tests (retriever recall, router
           // precedence, narration gates — plan §7d); hermetic, no DB.
-          include: ["scripts/**/*.test.ts", "ai/**/*.test.ts"],
+          // vite/** holds the build plugins (sql-browser, db-api,
+          // preload-locale). They are ordinary Node modules with real logic, and
+          // a test placed there would be collected by no project and pass
+          // vacuously by never running.
+          include: [
+            "scripts/**/*.test.ts",
+            "ai/**/*.test.ts",
+            "vite/**/*.test.ts",
+          ],
           testTimeout: 120_000,
           hookTimeout: 120_000,
         },

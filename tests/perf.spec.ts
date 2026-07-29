@@ -32,12 +32,17 @@ const staticImportsOf = (file: string): string[] => {
 // markup is ever trimmed back.
 const HOME_HTML_MAX_BYTES = 18_000;
 // Home's hint list is 6: vendor-react, vendor, vendor-i18n, vendor-query,
-// vendor-radix, vendor-search. Since T2.1 the heavy route chunks are not in the
-// entry's static graph at all, so they cannot appear here — the
-// entry-static-import ratchet below is what enforces that, not this count.
-// (Vite only hints the entry's static imports, so a lazy chunk never joins the
-// list either.) 7 is one slot of headroom for a genuinely foundational new
-// vendor chunk; it is NOT room to re-add vendor-charts/vendor-leaflet.
+// vendor-radix, vendor-search. The locale chunk is hinted too, but by an inline
+// script rather than a static <link> (the language is only knowable at
+// runtime), so it does not appear in this count — the
+// "locale preload hint" test below is what covers it.
+//
+// Since T2.1 the heavy route chunks are not in the entry's static graph at all,
+// so they cannot appear here — the entry-static-import ratchet below is what
+// enforces that, not this count. (Vite only hints the entry's static imports,
+// so a lazy chunk never joins the list on its own.) 7 is one slot of headroom
+// for a genuinely foundational new vendor chunk; it is NOT room to re-add
+// vendor-charts/vendor-leaflet.
 const HOME_MODULEPRELOAD_MAX = 7;
 
 test.describe("performance", () => {
@@ -120,6 +125,43 @@ test.describe("performance", () => {
         `${banned} is back on the critical path: ${imports.join(", ")}`,
       ).toBeUndefined();
     }
+  });
+
+  // One `import translation from "@/locales/bg/translation.json"` anywhere in
+  // the static graph re-inlines the corpus into the entry and reverts the whole
+  // T4 saving (1.37 MB raw / 272 KB brotli) — and every other gate here stays
+  // green, because the hint count is unchanged and the ratchet above only bans
+  // a fixed list of vendor-* names.
+  test("entry chunk does not statically import a translation bundle", () => {
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    const entry = html.match(/assets\/index-[A-Za-z0-9_-]+\.js/)?.[0];
+    expect(entry, "entry chunk not found — run `npm run build`").toBeTruthy();
+    const imports = staticImportsOf(entry!.replace("assets/", ""));
+    expect(
+      imports.find((i) => i.startsWith("translation-")),
+      `a translation bundle re-entered the entry chunk: ${imports.join(", ")}`,
+    ).toBeUndefined();
+  });
+
+  // The locale hint is injected as an inline script rather than a static link
+  // because the language is only knowable at runtime (the /en/* path OR
+  // localStorage). Assert it ships and offers both chunks — a static
+  // single-language hint would make one cohort download a bundle it never uses
+  // AND still pay the serial hop, which is worse than before the split.
+  test("the locale preload hint offers both translation chunks", () => {
+    const html = fs.readFileSync(`${DIST_DIR}/index.html`, "utf8");
+    const script = html.match(
+      /<script[^>]*data-locale-preload[^>]*>([\s\S]*?)<\/script>/,
+    );
+    expect(script, "no locale preload hint in dist/index.html").toBeTruthy();
+    const hrefs = [...script![1].matchAll(/"(\/assets\/translation-[^"]+)"/g)];
+    expect(
+      hrefs.length,
+      `expected both locale chunks in the hint, found ${hrefs.length}`,
+    ).toBe(2);
+    expect(hrefs[0][1], "the hint offers the same chunk twice").not.toBe(
+      hrefs[1][1],
+    );
   });
 
   // Every assertion around it is "chunk X is absent from list Y", and a

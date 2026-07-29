@@ -30,6 +30,7 @@ import {
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { changeLanguage as switchLanguage, type AppLanguage } from "@/i18n";
 import { cn } from "@/lib/utils";
 import { Link } from "@/ux/Link";
 import {
@@ -326,9 +327,16 @@ export const Header = () => {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-  const changeLanguage = (language: "en" | "bg") => {
-    i18n.changeLanguage(language);
-    localStorage.setItem("language", language);
+  // Only the language the visitor arrived in is bundled at boot, so the other
+  // one has to be fetched before switching — switchLanguage does that (and owns
+  // persisting the preference), and is a no-op on a bundle already in memory.
+  // Catch here rather than letting it reach the global unhandledrejection
+  // handler, which is written for stale-chunk recovery and would either reload
+  // the page mid-session or do nothing at all depending on a one-shot guard.
+  const changeLanguage = (language: AppLanguage) => {
+    void switchLanguage(language).catch((err) => {
+      console.error("language switch failed", err);
+    });
   };
   // The low-frequency controls (analysis link, language, theme) that used to
   // sit inline on desktop. They now live in the gear overflow on desktop and

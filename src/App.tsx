@@ -1,4 +1,6 @@
-import "./i18n.ts"; // imports + initializes i18n
+// i18n is initialized in main.tsx, which awaits initI18n() before rendering —
+// the active language's translation bundle is a dynamic import now, so a
+// side-effect import here would let the first render run without resources.
 import { useEffect } from "react";
 
 import "./App.css";

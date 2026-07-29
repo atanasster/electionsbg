@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "@/index.css";
 import { App } from "@/App.tsx";
+import { initI18n, initI18nFallback } from "@/i18n";
 
 import { ThemeContextProvider } from "@/theme/ThemeContext.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -38,20 +39,39 @@ window.addEventListener("unhandledrejection", (e) => {
   reloadOnStaleChunk(e.reason);
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <ThemeContextProvider>
-      <QueryProvider>
-        <TouchProvider>
-          <TooltipProvider>
-            <OptionsContextProvider>
-              <ConsolidatedProvider>
-                <App />
-              </ConsolidatedProvider>
-            </OptionsContextProvider>
-          </TooltipProvider>
-        </TouchProvider>
-      </QueryProvider>
-    </ThemeContextProvider>
-  </React.StrictMode>,
-);
+const render = () => {
+  ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <ThemeContextProvider>
+        <QueryProvider>
+          <TouchProvider>
+            <TooltipProvider>
+              <OptionsContextProvider>
+                <ConsolidatedProvider>
+                  <App />
+                </ConsolidatedProvider>
+              </OptionsContextProvider>
+            </TooltipProvider>
+          </TouchProvider>
+        </QueryProvider>
+      </ThemeContextProvider>
+    </React.StrictMode>,
+  );
+};
+
+// Await i18n before the first render. Only the active language's bundle is
+// fetched (see i18n.ts), and react-i18next runs with useSuspense: false, so
+// there is no boundary that would retry a render started without resources —
+// rendering early would paint raw translation keys and then reflow the page.
+//
+// The failure path matters because the locale chunk is now a hard prerequisite
+// for any UI at all: before this split the corpora shipped inside the entry, so
+// a locale fetch could not fail on its own. Without the catch below, a failed
+// fetch on a session that has already spent its one-shot stale-chunk reload
+// leaves a permanently blank page — the entry loaded fine, so nothing else
+// notices. Untranslated text is a navigable page; nothing is not.
+initI18n().then(render, (err) => {
+  console.error("i18n init failed — rendering without translations", err);
+  reloadOnStaleChunk(err);
+  void initI18nFallback().then(render, render);
+});
