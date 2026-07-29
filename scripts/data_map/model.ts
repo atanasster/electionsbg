@@ -1241,6 +1241,20 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "doo_fund_plan",
+    label: { bg: "ДОО по фондове (ЗБДОО)", en: "ДОО by fund (ЗБДОО)" },
+    detail: {
+      bg: "планови приходи и трансфери по фондове",
+      en: "planned revenue and transfers per fund",
+    },
+    desc: {
+      bg: "Плановите приходи и трансфери по фондове от чл. 1–8 на Закона за бюджета на държавното обществено осигуряване — „Пенсии“, пенсии по чл. 69, пенсии несвързани с трудова дейност, ТЗПБ, ОЗМ и „Безработица“, плюс бюджета на самия НОИ. Това е ЗАКОНОВИЯТ план; касовото изпълнение идва отделно от месечния отчет B1 на НОИ. Заглавната сума е сбор на фондовете, а не консолидиран бюджет — вътрешните трансфери не са елиминирани, затова двете страни не се изваждат една от друга.",
+      en: "Planned revenue and transfers per fund from art. 1–8 of the Social Security Budget Act — the Pensions fund, art. 69 (uniformed services) pensions, non-contributory pensions, work-injury, sickness & maternity and unemployment, plus НОИ's own budget. This is the LAW's plan; cash execution comes separately from НОИ's monthly B1 report. The headline is a sum of the fund lines, not a consolidated budget — inter-fund transfers are not eliminated, so the two sides are not netted against each other.",
+    },
+    path: "data/budget/noi/fund_plan.json",
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1822,6 +1836,10 @@ export const EDGES: [string, string][] = [
   ["ds:culture", "f:culture"],
   ["src:ministries", "ds:pensions"],
   ["ds:pensions", "f:pensions"],
+  // The ЗБДОО plan comes from the law in ДВ, not from НОИ's own reports — the
+  // execution side (ds:pensions) is the one sourced from the ministries feed.
+  ["src:dv", "ds:doo_fund_plan"],
+  ["ds:doo_fund_plan", "f:pensions"],
   ["ds:budget", "f:judiciary"],
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],

@@ -1049,6 +1049,45 @@ export interface NoiFundsFile {
 }
 
 // ---------------------------------------------------------------------------
+// ЗБДОО per-fund PLAN (data/budget/noi/fund_plan.json) — the law side, beside
+// funds.json's B1 cash-execution actual. Written by
+// scripts/budget/noi/__write_fund_plan.ts.
+// ---------------------------------------------------------------------------
+
+export interface NoiFundPlanLine {
+  id: string;
+  bg: string;
+  en: string;
+  /** False for the „НОИ“ line — administration + non-fund payments, 43% of the
+   *  sum and not a peer of „Пенсии“. Exclude it from per-fund comparisons and
+   *  from bar charts that read as "which fund is biggest". */
+  isPeerFund: boolean;
+  amount: Money;
+}
+
+export interface NoiFundPlanYear {
+  fiscalYear: number;
+  basis: "law";
+  law: string;
+  idMat: string;
+  dvIssue: string;
+  /** чл. 1 — the GROSS SUM of `lines`, NOT a consolidated total: the parts add
+   *  to it exactly, which means no inter-fund transfer was eliminated. Never
+   *  label it „консолидиран“, and never put it in variance against
+   *  NoiFundsFile's B1 actual, which IS consolidated — that comparison reads an
+   *  accounting-basis difference as execution. */
+  sumOfFunds: Money;
+  lines: NoiFundPlanLine[];
+}
+
+export interface NoiFundPlanFile {
+  generatedAt: string;
+  source: { publisher: string; law: string; url: string; description: string };
+  latestYear: number;
+  years: NoiFundPlanYear[];
+}
+
+// ---------------------------------------------------------------------------
 // НОИ pension statistics (the /pensions view) — mirror of the shapes written by
 // scripts/budget/noi/parse_yearbook_xlsx.ts. Served at /budget/noi/pensions.json.
 // ---------------------------------------------------------------------------

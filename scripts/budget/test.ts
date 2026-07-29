@@ -59,6 +59,10 @@ const TESTS: { file: string; what: string }[] = [
     what: "НАП income-tier body validation + tail ordering",
   },
   {
+    file: "noi/__smoke_fund_plan.ts",
+    what: "ЗБДОО per-fund plan: gross-sum basis + non-peer НОИ line",
+  },
+  {
     file: "__smoke_month_weighting.ts",
     what: "month-weighted МОД aggregates: scalar identity + concavity guard",
   },

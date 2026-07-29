@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-29T14:37:36.171Z",
+  "source": {
+    "publisher": "Народно събрание / Държавен вестник",
+    "law": "Закон за бюджета на държавното обществено осигуряване (ЗБДОО)",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=244982",
+    "description": "Планови приходи и трансфери по фондове от чл. 1–8 на ЗБДОО. Заглавната сума е СБОР на фондовете, а не консолидиран бюджет — вътрешните трансфери не са елиминирани, затова сборът съвпада точно с общата сума. Не се сравнява с касовото изпълнение по отчет B1 на НОИ, което е консолидирано."
+  },
+  "latestYear": 2026,
+  "years": [
+    {
+      "fiscalYear": 2026,
+      "basis": "law",
+      "law": "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+      "idMat": "244982",
+      "dvIssue": "ДВ бр. 68 от 28.07.2026",
+      "sumOfFunds": {
+        "amount": 15265782400,
+        "amountEur": 15265782400,
+        "currency": "EUR"
+      },
+      "lines": [
+        {
+          "id": "pensions",
+          "bg": "Фонд „Пенсии“",
+          "en": "Pensions fund",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 5572766500,
+            "amountEur": 5572766500,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "pensions_art69",
+          "bg": "Фонд „Пенсии за лицата по чл. 69“",
+          "en": "Pensions fund (art. 69 — uniformed services)",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 931980900,
+            "amountEur": 931980900,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "pensions_non_labour",
+          "bg": "Фонд „Пенсии, несвързани с трудова дейност“",
+          "en": "Non-contributory pensions fund",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 264736300,
+            "amountEur": 264736300,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "work_injury",
+          "bg": "Фонд „Трудова злополука и професионална болест“ (ТЗПБ)",
+          "en": "Work-injury & occupational-disease fund",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 239126200,
+            "amountEur": 239126200,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "sickness_maternity",
+          "bg": "Фонд „Общо заболяване и майчинство“ (ОЗМ)",
+          "en": "Sickness & maternity fund",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 1291204500,
+            "amountEur": 1291204500,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "unemployment",
+          "bg": "Фонд „Безработица“",
+          "en": "Unemployment fund",
+          "isPeerFund": true,
+          "amount": {
+            "amount": 355504700,
+            "amountEur": 355504700,
+            "currency": "EUR"
+          }
+        },
+        {
+          "id": "noi",
+          "bg": "Бюджет на НОИ",
+          "en": "НОИ budget",
+          "isPeerFund": false,
+          "amount": {
+            "amount": 6610463300,
+            "amountEur": 6610463300,
+            "currency": "EUR"
+          }
+        }
+      ]
+    }
+  ]
+}

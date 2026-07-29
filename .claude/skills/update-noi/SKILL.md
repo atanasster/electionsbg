@@ -33,6 +33,36 @@ Three funds at the EBK level — all aggregated to fund 5500 from sub-funds:
 | Watcher: `kfn_pensions` says "N new КФН statistics period(s)" | КФН ingest (§ КФН below) → `kfn/funds.json` |
 | Fresh clone, `data/budget/noi/pensions.json` or `data/budget/kfn/funds.json` missing | Run the yearbook / КФН ingests below (both auto-fetch cleanly) |
 
+## ЗБДОО per-fund plan (hand-keyed, no watcher)
+
+`data/budget/noi/fund_plan.json` is the LAW side beside the B1 execution — чл. 1–8
+of the annual Закон за бюджета на държавното обществено осигуряване. It has **no
+fetch and no watcher of its own**: the figures are a table in Държавен вестник,
+published once a year, so nothing will prompt you to add FY2027. The signal is the
+`dv_laws` watcher reporting a **`ЗБДОО`** promulgation — the same flip that triggers
+re-verifying the statutory constants in `src/lib/bgTax.ts`.
+
+To add a year: append a `YEARS` entry in `scripts/budget/noi/__write_fund_plan.ts`
+keyed from чл. 1–8, then:
+
+```bash
+npx tsx scripts/budget/noi/__write_fund_plan.ts
+npx tsx scripts/budget/noi/__smoke_fund_plan.ts
+npm run bucket:sync:paths -- budget
+```
+
+**The sync is not optional** — `data/budget` is bucket-served in production via
+`dataUrl()`, so a committed `fund_plan.json` reaches localhost only.
+
+**Two invariants the smoke enforces, and the reason they exist.** The чл. 1
+headline is a **gross sum** of the fund lines, not a consolidated total: the parts
+add to it *exactly*, which is only possible if no inter-fund transfer was
+eliminated. So (1) never label it „консолидиран", and (2) never put it in variance
+against `funds.json`, which IS consolidated — that comparison renders an
+accounting-basis difference as execution. The „НОИ" line (~43% of the sum;
+administration + non-fund payments) is marked `isPeerFund: false` so it is not
+drawn beside the real funds, where it would be the largest entry.
+
 ## Procedure
 
 ### 1. Fetch + rebuild (one command)

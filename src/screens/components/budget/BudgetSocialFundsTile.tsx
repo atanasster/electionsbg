@@ -6,15 +6,22 @@
 // Below: five horizontal bars (pensions / short-term benefits / other social
 // / personnel / operations) + a small per-fund line. Falls through silently
 // when no B1 data is available for the year (mirrors BudgetPersonnelTile).
+//
+// Beneath those, when the selected year has one, the ЗБДОО per-fund PLAN — a
+// plain list, deliberately NOT bars. The two sides are on different accounting
+// bases (the law's headline is a gross sum of its fund lines; the B1 figures
+// above are consolidated), so they are shown adjacent and never netted, and
+// the plan list gets no shared axis that would invite reading a variance.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { HeartHandshake } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import { useNoiFunds } from "@/data/budget/useBudget";
+import { useNoiFunds, useNoiFundPlan } from "@/data/budget/useBudget";
 import { latestCompleteNoiYear } from "@/data/budget/noiYear";
 import type { NoiExpenseLineId } from "@/data/budget/types";
+import { selectFundPlanYear, peerFundLines } from "./fundPlanView";
 
 const compactEur = (v: number): string => {
   if (v >= 1_000_000_000) return `€${(v / 1_000_000_000).toFixed(2)}B`;
@@ -36,6 +43,7 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const { data } = useNoiFunds();
+  const { data: planFile } = useNoiFundPlan();
 
   const yearEntry = useMemo(() => {
     if (!data) return null;
@@ -47,6 +55,24 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
     // view, not a fallback.
     return latestCompleteNoiYear(data.years);
   }, [data, fiscalYear]);
+
+  // The ЗБДОО per-fund PLAN, shown beside the execution — but never netted
+  // against it. The law's headline is a GROSS SUM of its fund lines (they add
+  // to it exactly, so no inter-fund transfer was eliminated) while the B1
+  // figures above are consolidated cash execution. Subtracting one from the
+  // other would render an accounting-basis difference as under/over-spend.
+  // Only the peer funds are drawn: the „НОИ" line is 43% of the sum and is
+  // administration plus non-fund payments, so a bar for it would dominate the
+  // chart and read as "the biggest fund".
+  //
+  // EXACT year only — no latest-year fallback. The plan is a per-year law, so
+  // falling back would render the 2026 ЗБДОО under a "2019" heading on every
+  // earlier budget year, which reads as a figure for that year rather than as
+  // an unavailable one. Absent ⇒ the block is simply not drawn.
+  const planYear = useMemo(
+    () => selectFundPlanYear(planFile, fiscalYear),
+    [planFile, fiscalYear],
+  );
 
   if (!yearEntry) return null;
 
@@ -170,6 +196,34 @@ export const BudgetSocialFundsTile: FC<{ fiscalYear: number }> = ({
             );
           })}
         </div>
+        {planYear ? (
+          <div className="border-t pt-2 space-y-1">
+            <div className="flex items-baseline justify-between gap-2 flex-wrap">
+              <span className="text-[11px] font-medium">
+                {t("noi_plan_heading", { year: planYear.fiscalYear })}
+              </span>
+              <span className="text-[10px] text-muted-foreground tabular-nums">
+                {t("noi_plan_sum", {
+                  eur: compactEur(planYear.sumOfFunds.amountEur),
+                })}
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-muted-foreground">
+              {peerFundLines(planYear).map((l) => (
+                <span key={l.id} className="whitespace-nowrap">
+                  {lang === "bg" ? l.bg : l.en}{" "}
+                  <span className="tabular-nums font-medium text-foreground">
+                    {compactEur(l.amount.amountEur)}
+                  </span>
+                </span>
+              ))}
+            </div>
+            <p className="text-[10px] text-muted-foreground">
+              {t("noi_plan_basis_note", { dv: planYear.dvIssue })}
+            </p>
+          </div>
+        ) : null}
+
         {/* Per-fund line — compact */}
         <div className="flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-muted-foreground border-t pt-2">
           {funds.map((f) => {

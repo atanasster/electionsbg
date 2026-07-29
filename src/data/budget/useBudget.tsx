@@ -86,6 +86,7 @@ import type {
   MunicipalExecutionFile,
   MunicipalExecutionIndexFile,
   PolicyBaselineFile,
+  NoiFundPlanFile,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -275,6 +276,18 @@ export const useNoiFunds = () =>
   useQuery({
     queryKey: ["budget", "noi", "funds"] as const,
     queryFn: () => fetchJson<NoiFundsFile>("/budget/noi/funds.json"),
+    staleTime: Infinity,
+  });
+
+// ЗБДОО per-fund PLAN — the law side beside useNoiFunds' B1 actual. ~2 KB.
+// Written by scripts/budget/noi/__write_fund_plan.ts.
+//
+// The two are NOT directly comparable: this is a gross sum of per-fund lines,
+// funds.json is consolidated cash execution. See NoiFundPlanYear.sumOfFunds.
+export const useNoiFundPlan = () =>
+  useQuery({
+    queryKey: ["budget", "noi", "fund-plan"] as const,
+    queryFn: () => fetchJson<NoiFundPlanFile>("/budget/noi/fund_plan.json"),
     staleTime: Infinity,
   });
 
