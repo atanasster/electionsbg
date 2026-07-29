@@ -684,13 +684,29 @@ const fetchResourceLabel = async (datasetUuid: string): Promise<string> => {
   return m ? m[1].replace(/\s+/g, " ").trim() : "";
 };
 
-export const discoverLegacyDatasets = async (): Promise<LegacyDataset[]> => {
+export const discoverLegacyDatasets = async (opts?: {
+  // Year tokens / dataset UUIDs already ingested but NOT pinned in
+  // LEGACY_DATASETS — read from the legacy manifest by the caller. Without
+  // these, discovery re-nominates every previously-discovered year on every
+  // run (2024-RL / 2025-RL did exactly that), re-downloading and re-merging
+  // rows that are already on disk. The merge is idempotent so it never
+  // double-counted, but it burned a network fetch per run and made a routine
+  // `--discover` look like it had found new data.
+  ingestedYears?: Iterable<string>;
+  ingestedUuids?: Iterable<string>;
+}): Promise<LegacyDataset[]> => {
   // Dedupe against the pinned list by BOTH year token and UUID: the year
   // guard skips a year already ingested (even if АОП republished it under a
   // fresh UUID — avoids double-counting); the UUID guard skips a pinned
   // dataset before the (network) detail-page check.
-  const knownYears = new Set(LEGACY_DATASETS.map((d) => d.year));
-  const knownUuids = new Set(LEGACY_DATASETS.map((d) => d.datasetUuid));
+  const knownYears = new Set([
+    ...LEGACY_DATASETS.map((d) => d.year),
+    ...(opts?.ingestedYears ?? []),
+  ]);
+  const knownUuids = new Set([
+    ...LEGACY_DATASETS.map((d) => d.datasetUuid),
+    ...(opts?.ingestedUuids ?? []),
+  ]);
   const found = new Map<string, LegacyDataset>();
   for (let page = 1; page <= 15; page++) {
     const url = `https://data.egov.bg/data?org%5B0%5D=${AOP_ORG_ID}&page=${page}`;

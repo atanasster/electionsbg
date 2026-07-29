@@ -28,7 +28,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 ## Step 1 — Incremental ingest
 
 ```bash
-npm run procurement:ingest-legacy -- --discover   # new annual-CSV years (usually a no-op)
+npm run procurement:ingest-legacy -- --discover   # new annual-CSV years (a no-op unless АОП posts a year we've never ingested)
 npm run procurement:ingest                        # new OCDS fortnights + rebuild rollups
 ```
 
@@ -341,7 +341,14 @@ The legacy ingester:
 - Writes Contract rows into the same `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` month-shards used by the OCDS ingest.
 - Does NOT rebuild rollups + cross-reference + by-id files itself — run `npm run procurement:ingest -- --since 2020-01-01` afterward to refresh derived state from the expanded corpus.
 
-`--discover` walks the listing and ingests any `Договори и изменения на договори - YYYY` dataset whose year isn't already in `LEGACY_DATASETS`, after confirming via the detail page that its resource is a `contracts*.csv` (the 2018 dataset is titled like an annual dump but actually carries the out-of-scope `excl2018.csv` — discovery rejects it). It's idempotent: a discovered year that hasn't been pinned into `LEGACY_DATASETS` is simply re-discovered and re-merged (no double-count) on the next run. Optionally pin a confirmed new year's UUID into `LEGACY_DATASETS` afterward.
+`--discover` walks the listing and ingests any `Договори и изменения на договори - YYYY` dataset whose year isn't already in `LEGACY_DATASETS`, after confirming via the detail page that its resource is a `contracts*.csv` (the 2018 dataset is titled like an annual dump but actually carries the out-of-scope `excl2018.csv` — discovery rejects it).
+
+**Already-ingested years are skipped via `data/procurement/legacy_ingested.json`.** That manifest is the legacy counterpart of `bundles.json`: every dataset a run actually ingests is recorded there (after the shards land, so a mid-write failure doesn't mark it done), and discovery dedupes against it as well as against `LEGACY_DATASETS`. Before this existed, a discovered-but-unpinned year was re-nominated, re-downloaded and re-merged on **every** run — harmless for the corpus (the month-shard merge keys on `Contract.key`, so nothing double-counted) but it burned a fetch per run and made a routine no-op run report "2 new dataset(s)", which reads as new data. 2024-RL and 2025-RL did this for weeks.
+
+- Pinning a confirmed year into `LEGACY_DATASETS` is still fine but no longer required to stop the re-pull.
+- `--year <token>` resolves against the manifest too, so a discovered-but-unpinned year (e.g. `--year 2024-RL`) stays addressable once discovery starts skipping it.
+- `--discover --rediscover` ignores the manifest and re-nominates everything — use it when АОП **restates** a dump and you deliberately want it re-pulled.
+- `--dry-run` never records, so a dry discovery run doesn't poison the guard.
 
 2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). For 2024 and 2025 АОП publishes **only a РОП (RL) annual CSV** — no ЦАИС ЕОП (CE) file and no OCDS bundle (OCDS fortnight bundles start 2026-01-01). Crucially these RL dumps are a **tiny old-register tail, not a full-year corpus**: `contracts2024_RL` ≈ 136 rows / €37.6M, `contracts2025_RL` ≈ 50 rows / €23.4M (mostly sectoral/utility buyers like АЕЦ Козлодуй still filing in РОП). The full ЦАИС-era 2024/2025 corpus is gap-filled from the ЦАИС ЕОП flat feed via the `--include-existing-buyers` one-off (below) — that fill is **vastly more complete**, so:
 

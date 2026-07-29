@@ -26,6 +26,7 @@ import {
   dropSyntheticLegacyTwins,
   validateContract,
 } from "./validate";
+import { readLegacyManifest, recordLegacyIngest } from "./legacy_manifest";
 import type { Contract } from "./types";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -112,16 +113,35 @@ const main = async (args: {
   refresh: boolean;
   dryRun: boolean;
   discover: boolean;
+  rediscover: boolean;
 }): Promise<void> => {
+  const manifest = readLegacyManifest();
   let targets: LegacyDataset[];
   if (args.discover) {
     console.log(
       "→ discovering annual-CSV datasets from the data.egov.bg АОП listing",
     );
-    targets = await discoverLegacyDatasets();
+    // Skip years already ingested but never pinned into LEGACY_DATASETS —
+    // without this guard discovery re-nominates them on every run.
+    // `--rediscover` bypasses the manifest when a year genuinely needs
+    // re-pulling (e.g. АОП restated the dump).
+    targets = await discoverLegacyDatasets(
+      args.rediscover
+        ? undefined
+        : {
+            ingestedYears: manifest.datasets.map((d) => d.year),
+            ingestedUuids: manifest.datasets.map((d) => d.datasetUuid),
+          },
+    );
     if (targets.length === 0) {
+      const seen = manifest.datasets.length;
       console.log(
-        "  no un-ingested annual-CSV years found — LEGACY_DATASETS is current",
+        "  no un-ingested annual-CSV years found — LEGACY_DATASETS is current" +
+          (seen > 0
+            ? ` (${seen} previously-discovered year(s) skipped via legacy_ingested.json: ${manifest.datasets
+                .map((d) => d.year)
+                .join(", ")})`
+            : ""),
       );
       return;
     }
@@ -131,12 +151,23 @@ const main = async (args: {
         .join(", ")}`,
     );
   } else {
-    targets = args.year
-      ? LEGACY_DATASETS.filter((d) => d.year === args.year)
-      : LEGACY_DATASETS;
+    // A year discovered earlier lives only in the manifest, never in
+    // LEGACY_DATASETS — so resolve --year against both, or it stays
+    // unaddressable once the discovery guard starts skipping it.
+    const known: LegacyDataset[] = [
+      ...LEGACY_DATASETS,
+      ...manifest.datasets
+        .filter((m) => !LEGACY_DATASETS.some((d) => d.year === m.year))
+        .map((m) => ({
+          year: m.year,
+          datasetUuid: m.datasetUuid,
+          system: m.system,
+        })),
+    ];
+    targets = args.year ? known.filter((d) => d.year === args.year) : known;
     if (targets.length === 0) {
       throw new Error(
-        `no legacy dataset known for year "${args.year}". Valid years: ${LEGACY_DATASETS.map((d) => d.year).join(", ")}`,
+        `no legacy dataset known for year "${args.year}". Valid years: ${known.map((d) => d.year).join(", ")}`,
       );
     }
   }
@@ -165,6 +196,17 @@ const main = async (args: {
       totalModifiedFiles += modifiedFiles;
       console.log(
         `    → wrote ${newFiles} new + ${modifiedFiles} modified month-shard(s)`,
+      );
+      // Record AFTER the shards land, so a run that throws mid-write does not
+      // mark the year ingested and silently skip it forever.
+      recordLegacyIngest(
+        {
+          year: ds.year,
+          datasetUuid: ds.datasetUuid,
+          system: ds.system,
+          rows: rows.length,
+        },
+        new Date().toISOString(),
       );
     }
   }
@@ -206,7 +248,14 @@ const cli = command({
       type: optional(boolean),
       long: "discover",
       description:
-        "Walk the АОП listing and ingest annual-CSV years not yet in LEGACY_DATASETS (ignores --year)",
+        "Walk the АОП listing and ingest annual-CSV years not in LEGACY_DATASETS nor already recorded in legacy_ingested.json (ignores --year)",
+      defaultValue: () => false,
+    }),
+    rediscover: flag({
+      type: optional(boolean),
+      long: "rediscover",
+      description:
+        "With --discover: ignore legacy_ingested.json and re-nominate already-ingested years (use when АОП restated a dump)",
       defaultValue: () => false,
     }),
   },
@@ -216,6 +265,7 @@ const cli = command({
       refresh: !!args.refresh,
       dryRun: !!args.dryRun,
       discover: !!args.discover,
+      rediscover: !!args.rediscover,
     }),
 });
 
