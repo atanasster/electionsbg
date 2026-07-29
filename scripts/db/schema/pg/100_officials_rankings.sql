@@ -138,8 +138,13 @@ latest AS (
 ),
 prev AS (
   -- The previous year PRESENT in the series, not latest-1.
+  -- excluded_asset_rows rides along so delta_pct can be guarded at BOTH ends, matching
+  -- 120_person_browse.sql: a partial LATEST over a whole base manufactures a collapse, a
+  -- whole latest over a partial BASE manufactures a surge. Zero rows are affected today;
+  -- the two files are kept in step so the same person cannot get a delta on one page and
+  -- none on the other.
   SELECT DISTINCT ON (w.person_id)
-         w.person_id, w.period_year, w.net_eur
+         w.person_id, w.period_year, w.net_eur, w.excluded_asset_rows
   FROM person_wealth_year w
   JOIN latest l ON l.person_id = w.person_id AND w.period_year < l.period_year
   ORDER BY w.person_id, w.period_year DESC
@@ -215,7 +220,10 @@ SELECT
   ROUND(l.net_eur - pv.net_eur, 2)                 AS delta_absolute_eur,
   -- Guard the ratio: a previous net worth of exactly 0 (or a negative one, which the
   -- corpus does contain) makes a percentage meaningless rather than infinite.
+  -- Both ends guarded for incompleteness, per the note on `prev` above.
   CASE WHEN pv.net_eur > 0
+        AND COALESCE(l.excluded_asset_rows, 0) = 0
+        AND COALESCE(pv.excluded_asset_rows, 0) = 0
        THEN ROUND(((l.net_eur - pv.net_eur) / pv.net_eur) * 100, 2)
   END                                              AS delta_pct
 FROM officials o

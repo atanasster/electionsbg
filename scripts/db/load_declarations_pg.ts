@@ -141,6 +141,17 @@ const MP_SERVING_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/105_mp_serving.sql",
 );
+// The /persons browser matview (persons-browser-v1 T0). Reads person_wealth_year, so it is
+// the FOURTH victim of 090's `DROP … CASCADE` — same reason 097/100/105 are applied here.
+// Without this line a standalone `--resolve` (a local officials refresh, or the documented
+// Cloud SQL publish step) drops the table and nothing recreates it: /persons 500s on a
+// missing relation, and person_browse.data.test.ts reads the absence as "Postgres down" and
+// SKIPS the eleven tests that would have caught it. The standalone
+// db:load:persons-browse:pg loader remains the entry point for a contracts-only refresh.
+const PERSON_BROWSE_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/120_person_browse.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -700,6 +711,9 @@ const resolve = async () => {
   // (empty) tables 105 selects from, rather than an aborted DDL.
   await exec(fs.readFileSync(MP_ROSTER_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(MP_SERVING_SCHEMA, "utf-8"));
+  // And the /persons browser, last of the four CASCADE victims — after 108 above, whose
+  // official_candidate_link it reads for the non-MP photos.
+  await exec(fs.readFileSync(PERSON_BROWSE_SCHEMA, "utf-8"));
   // Refresh planner stats on the freshly COPY'd declaration tables — a fresh load leaves
   // them stale until autoanalyze runs, and the feed / stake / cohort queries pick bad plans
   // in that window (declaration_new_filings ran at ~12s on a just-loaded prod DB). ANALYZE

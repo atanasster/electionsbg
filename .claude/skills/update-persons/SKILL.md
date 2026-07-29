@@ -170,12 +170,21 @@ npm run db:resolve:persons:cloud            # applies 081+115+116+085+082-084 + 
 npm run db:load:declarations:pg:cloud -- --resolve
 npm run db:load:official-candidate-links:pg:cloud  # re-decorates + REFRESHes that matview
 npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
+# LAST — it folds everything above (plus place_dim + contracts) into the /persons browser
+# matview (120). Run it after any of them changes; see the two-trigger note below.
+npm run db:load:persons-browse:pg:cloud
 ```
 
 ALL of these are required. The resolver rebuilds the identity/roles/connections layer;
 `person-elections` fills the electoral tables behind the merged `/candidate` block, and
 publishing without it leaves `/candidate/:id` and the header search's party badge
 stale/empty on prod.
+
+**`db:load:persons-browse:pg:cloud` has a SECOND trigger that has nothing to do with this
+skill.** `person_browse_table` computes `public_money_eur` from `contracts`, so a
+**procurement** reload (`db:load:pg:cloud`) also makes it stale — the money column on
+`/persons` then disagrees with `/procurement/contracts` and nothing fails. `update-procurement`
+carries the same note; re-run this one loader after either family is published.
 
 **Stopping after `db:resolve:persons:cloud` leaves Cloud SQL with NO municipal roster.**
 `db_routes.js` catches the missing relation and degrades to an empty list, so `/governance`

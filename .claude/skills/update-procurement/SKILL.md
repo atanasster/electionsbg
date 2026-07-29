@@ -251,7 +251,15 @@ Procurement is served from **Postgres**, so publishing means reloading the Cloud
 npm run db:load:pg:cloud            # contracts
 npm run db:load:tenders:pg:cloud    # tenders
 npm run db:load:awarder-seats:pg:cloud
+npm run db:load:persons-browse:pg:cloud   # /persons money column — see below
 ```
+
+The last one is not a procurement table and is easy to forget for exactly that reason:
+`person_browse_table` (migration 120, the `/persons` browser) computes `public_money_eur`
+from the contracts corpus you just replaced. Skip it and the money column on `/persons`
+keeps serving the previous corpus while `/procurement/contracts` shows the new one — two
+pages disagreeing about the same person, with nothing failing. `update-persons` carries the
+same note from the other side.
 
 The **only** procurement files that still belong on GCS are `roads.json` + `derived/mp_party.json` + `derived/hub_stats.json` + `derived/sector_stats.json` (frontend) — a normal `bucket:sync` already ships exactly those (its `-x` regex excludes the rest of `procurement/`). The AI-tool files `debarred.json`, `derived/kzk_appeals_summary.json`, `tenders/index.json` are bundled/PG-served, not fetched from GCS. **Do NOT** `gsutil rsync data/procurement/ → gs://…/procurement/` — that re-pushes the whole PG-served tree the sync deliberately excludes.
 

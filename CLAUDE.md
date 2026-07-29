@@ -160,6 +160,27 @@ dimension, `person_by_slug()` still compiles, and all ~76.5k `mir`/`obshtina` ro
 HTML. The ~2.7k judicial roles keep their label (they resolve via `judicial_body`), so the
 damage looks partial rather than total and is easy to miss.
 
+Last in the person chain, and the only loader with **two** independent triggers — the
+persons browser matview (migration 120) behind `/persons`:
+
+```bash
+npm run db:load:persons-browse:pg:cloud
+```
+
+It folds six upstream datasets, so it must run **after all of them**: `db:resolve:persons`,
+`db:load:declarations:pg:cloud -- --resolve` (net worth), `db:load:official-candidate-links:pg:cloud`
+(the non-MP photos), `db:load:judicial-bodies:pg:cloud` + `db:load:place-dim:pg:cloud` (every
+place label and the magistrates' oblast), and the contracts corpus. Re-run it:
+
+- whenever any of those is reloaded on the cloud side — the person half is the obvious case;
+- **after a contracts reload**, which is the non-obvious one: `public_money_eur` is computed
+  from `contracts`, so a procurement refresh without this one lets the money column drift
+  away from `/procurement/contracts` with nothing failing.
+
+Skipping it after a *place* loader blanks the same way `/person` does — the loader itself
+throws if any placed row lost its label, but only for the rows it can see at build time.
+`db:refresh` runs the local equivalent automatically; nothing runs it on the cloud side.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

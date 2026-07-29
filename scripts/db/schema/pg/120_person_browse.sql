@@ -1,0 +1,457 @@
+-- 120_person_browse.sql — the global persons browser (`/persons`), served from PG.
+--
+-- Backs the `persons` db_table.js REGISTRY resource. Plan: docs/plans/persons-browser-v1.md.
+-- Applied + REFRESHed by scripts/db/load_persons_browse_pg.ts
+-- (`npm run db:load:persons-browse:pg`).
+--
+-- ---------------------------------------------------------------------------
+-- ONE ROW PER PERSON. NOT ONE ROW PER ROLE. This is the single most likely
+-- regression in this file, so it is the first thing written down.
+--
+-- person_role holds 143,253 rows for 56,801 public persons — Пеевски alone appears
+-- seven times. Browsing that table directly would list him seven times AND inflate
+-- the `count` aggregate and every facet identically, with no error anywhere. It is
+-- the same fan-out 100_officials_rankings.sql documents at length and the
+-- `defaultScope` note on mp_assets_rankings guards against. Every multi-valued fact
+-- (roles, parties, oblasts, companies) is therefore FOLDED into this row — as a
+-- count, a space-padded code set, or a representative scalar — never as extra rows.
+--
+-- ---------------------------------------------------------------------------
+-- §6 PRIVACY GATE, APPLIED HERE. `status = 'active' AND is_public_figure`, and roles
+-- restricted to confidence IN ('exact_id','high','manual') — the same predicate every
+-- serving function in 082_person_api.sql uses. This is a serving surface wired straight
+-- into the public registry, so it applies the gate itself rather than trusting that
+-- today's data (all 58,084 persons active; 56,801 public) makes it a no-op. See the
+-- same argument, at length, in 100_officials_rankings.sql.
+--
+-- ---------------------------------------------------------------------------
+-- PROMINENCE — the ordering, and why it is SOURCE-based.
+--
+-- `role_prominence()` scores a role row; the representative role is the highest score,
+-- tie-broken by `start_date DESC NULLS LAST, ref` — the SAME tiebreak
+-- 100_officials_rankings.sql uses.
+--
+-- Among the six Court-of-Audit officials sources the score order is IDENTICAL to 100's
+-- CASE (official_exec > public_sector > president > mep > diplomat > official_muni), so
+-- restricted to those sources this file and 100 pick the SAME role. That is not a
+-- coincidence to be preserved by luck — person_browse.data.test.ts asserts it, because
+-- two disagreeing "primary post" rules would have /persons and /officials/assets label
+-- the same human differently. 100's header records what an arbitrary pick cost last
+-- time: 212 of 504 dual-post people bucketed as municipal.
+--
+-- THE GUARANTEE IS *WITHIN* THOSE SIX SOURCES, and `primary_role` is picked across ALL of
+-- them, so the two columns DO differ for 494 people — every one of them an MP, because
+-- `mp` deliberately outranks every officials source. Дeputy-minister-and-MP leads with the
+-- MP seat here and with the ministerial category on /officials/assets. That is the product
+-- decision, not a drift: the test pins it by asserting the divergence set is exactly the
+-- MPs (non-MP divergence must be 0), which is the assertion that would actually break if
+-- the ordering slipped.
+--
+-- Consequently the score does NOT vary by role WITHIN any of those six sources — a bump
+-- there would change which row wins a tie and break the equality. Role bumps are allowed
+-- only outside that set, and exactly one exists: `local` mayor above `local` councillor,
+-- which matters for 921 mayors and cannot affect the officials comparison.
+--
+-- ---------------------------------------------------------------------------
+-- "REPRESENTATIVE" IS PER-ATTRIBUTE, NOT ONE GLOBAL ROLE. A single winning role cannot
+-- supply everything: an `official_exec` role (a deputy minister) carries NEITHER a party
+-- NOR a place, so sourcing party and place strictly from the top role would blank both
+-- for most of the executive. Each scalar therefore comes from the highest-prominence
+-- role that HAS that attribute, under the identical ordering. The invariant that
+-- survives — and that the test asserts — is the useful one: when the top role itself
+-- carries the attribute, the scalar comes from it.
+--
+-- ---------------------------------------------------------------------------
+-- MONEY. public_money_eur is Σ contracts.amount_eur over the person's DISTINCT TR
+-- companies, on the established basis: tag='contract' AND consortium_role IS DISTINCT
+-- FROM 'member' — the post-annex SIGMA-matching basis (078) that person_by_slug uses for
+-- `procuredEur`. Do NOT invent a second basis: a browser figure disagreeing with the
+-- profile figure for the same person is the worst bug this table can carry, and
+-- person_browse.data.test.ts reconciles the two.
+--
+-- IT IS NOT ADDITIVE ACROSS ROWS. Two co-officers of one company each carry that
+-- company's full sum, so Σ public_money_eur down the table double-counts. The registry
+-- entry declares `count` only and says so; do not add `agg: "sum"` here or there.
+--
+-- tr_link_basis records HOW the TR link was established, because that is what the reader
+-- needs caveated — never `namesake_risk`, which counts a name's COMPANIES, not its
+-- PEOPLE, and which the resolver explicitly deprecated as a namesake proxy. Gating the
+-- money on it would blank 523 of the 1,070 money-carrying persons (€29bn) — precisely
+-- the multi-company footprints. See the plan §3 for the measurement.
+--
+-- IT HAS THREE VALUES, not two, and the third is the reason: a person can hold ONE curated
+-- company alongside SEVERAL name-matched ones (8 people do). Collapsing that to 'declared'
+-- on the strength of the curated one drops the namesake caveat from a figure that is partly
+-- name-derived — rounding toward the reassuring answer on exactly the rows that need the
+-- warning. So: 'declared' means EVERY contributing company is curated, 'mixed' means some
+-- are, 'name_match' means none are. The UI caveats anything that is not 'declared'.
+
+-- ---------------------------------------------------------------------------
+-- role_prominence — the one ordering, as a function so the matview and its test cannot
+-- drift. IMMUTABLE: it is a pure lookup, and the planner may fold it into the sort.
+-- ---------------------------------------------------------------------------
+-- PARALLEL SAFE is not decorative: IMMUTABLE alone leaves a function PARALLEL UNSAFE by
+-- default, which blocks a parallel plan for the very sorts this drives.
+CREATE OR REPLACE FUNCTION role_prominence(p_source text, p_role text)
+RETURNS smallint LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
+  SELECT CASE p_source
+    WHEN 'mp'            THEN 100  -- outside 100's set, so free to sit on top
+    -- ↓ the six sources 100_officials_rankings.sql ranks. Relative order is LOAD-BEARING.
+    WHEN 'official_exec' THEN 90
+    WHEN 'public_sector' THEN 85
+    WHEN 'president'     THEN 80
+    WHEN 'mep'           THEN 75
+    WHEN 'diplomat'      THEN 70
+    WHEN 'official_muni' THEN 65
+    -- ↑ end of the locked block.
+    WHEN 'magistrate'    THEN 60
+    WHEN 'regulator'     THEN 55
+    WHEN 'local'         THEN CASE WHEN p_role = 'mayor' THEN 50 ELSE 45 END
+    WHEN 'ds'            THEN 40
+    WHEN 'sanctions'     THEN 38
+    WHEN 'historic_mp'   THEN 35
+    WHEN 'candidate'     THEN 30
+    WHEN 'ngo'           THEN 20
+    WHEN 'tr'            THEN 10
+    WHEN 'donor'         THEN 5
+    ELSE 1                        -- an unranked future source sorts last, never errors
+  END::smallint;
+$$;
+
+-- CASCADE like its siblings (090, 100), so a future view built on top of this one does not
+-- turn a re-apply into a dependency error mid-publish. Note this matview is ITSELF a
+-- cascade victim: 090's `DROP MATERIALIZED VIEW person_wealth_year CASCADE` takes it down
+-- on every declarations `--resolve`, which is why load_declarations_pg.ts re-applies this
+-- file in the same run (alongside 097/100/105).
+DROP MATERIALIZED VIEW IF EXISTS person_browse_table CASCADE;
+CREATE MATERIALIZED VIEW person_browse_table AS
+WITH pub AS (
+  -- The gate, once. Everything below joins through this.
+  SELECT person_id, slug, display_name, name_fold, namesake_risk
+  FROM person
+  WHERE status = 'active' AND is_public_figure
+),
+roles AS (
+  -- Public-safe roles only, decorated with their facet + score. This is the ONLY place
+  -- the confidence predicate appears, so no fold below can accidentally widen it.
+  SELECT r.person_id, r.source, r.ref, r.role, r.party, r.start_date,
+         r.place_kind, r.place_code, r.place_raw,
+         s.facet,
+         role_prominence(r.source, r.role) AS prom
+  FROM person_role r
+  JOIN pub          ON pub.person_id = r.person_id
+  JOIN person_source s ON s.key = r.source
+  WHERE r.confidence IN ('exact_id', 'high', 'manual')
+),
+-- The representative ROLE: identity of the person's most prominent post.
+top_role AS (
+  SELECT DISTINCT ON (person_id) person_id, source, role, facet, prom
+  FROM roles
+  ORDER BY person_id, prom DESC, start_date DESC NULLS LAST, ref
+),
+-- The representative PARTY — highest-prominence role that HAS one (see the header:
+-- an executive role carries no party, so this cannot be the same DISTINCT ON).
+top_party AS (
+  SELECT DISTINCT ON (person_id) person_id, party
+  FROM roles WHERE party IS NOT NULL
+  ORDER BY person_id, prom DESC, start_date DESC NULLS LAST, ref
+),
+-- The representative PLACE, same shape. place_raw rides along for the label COALESCE:
+-- the CHECK on person_role guarantees raw and code are mutually exclusive, so a row
+-- reaching here with a code has raw NULL and vice versa.
+top_place AS (
+  SELECT DISTINCT ON (person_id) person_id, place_kind, place_code, place_raw
+  FROM roles WHERE place_code IS NOT NULL OR place_raw IS NOT NULL
+  ORDER BY person_id, prom DESC, start_date DESC NULLS LAST, ref
+),
+-- Folded multi-valued facts. Space-PADDED so an ILIKE '% mp %' cannot also match
+-- 'mp_something' and a '% ngo %' cannot match 'ngo_board' — the filter over-selects
+-- silently otherwise (plan F6).
+folds AS (
+  SELECT person_id,
+         ' ' || string_agg(DISTINCT role, ' ' ORDER BY role)   || ' ' AS role_codes,
+         ' ' || string_agg(DISTINCT facet, ' ' ORDER BY facet) || ' ' AS facet_codes,
+         count(*)::smallint                                          AS roles_n,
+         count(DISTINCT source)::smallint                            AS sources_n,
+         -- Membership tests, NOT the representative source: 503 people hold both an
+         -- executive and a municipal post, so `source` cannot answer either question.
+         -- is_exec/is_muni mirror 100_officials_rankings.sql exactly — and the source
+         -- list is the SQL mirror of OFFICIAL_DECLARATION_SOURCES (src/lib/officialSources.ts),
+         -- NOT a `source LIKE 'official%'` test: president/mep/diplomat do not start with
+         -- "official" and a prefix test drops 227 of them (Станишев, Бареков, every
+         -- ambassador). person_browse.data.test.ts asserts the lockstep.
+         bool_or(source IN ('official_exec', 'public_sector', 'president', 'mep',
+                            'diplomat'))                             AS is_exec,
+         bool_or(source = 'official_muni')                           AS is_muni,
+         bool_or(source = 'mp')                                      AS is_mp,
+         bool_or(source = 'magistrate')                              AS is_magistrate,
+         bool_or(source = 'ngo')                                     AS is_ngo,
+         bool_or(source = 'tr')                                      AS is_company,
+         bool_or(source = 'candidate')                               AS is_candidate,
+         bool_or(source = 'donor')                                   AS is_donor
+  FROM roles GROUP BY person_id
+),
+party_fold AS (
+  SELECT person_id,
+         count(DISTINCT party)::smallint AS parties_n,
+         ' ' || string_agg(DISTINCT party, ' ' ORDER BY party) || ' ' AS party_codes
+  FROM roles WHERE party IS NOT NULL GROUP BY person_id
+),
+-- Every oblast the person holds ANY role in — the FILTER target. Filtering on the
+-- representative scalar instead drops 1,851 people from an oblast they genuinely serve
+-- (a candidate in Варна who is also a councillor in Бургас), which reads as "no such
+-- people" rather than as a narrowed view. Plan F10.
+--
+-- The judicial arm is a TWO-HOP: a judicial place_code is a judicial_body.body_code, not
+-- a place, so a single join to place_dim leaves oblast NULL for all 2,676 magistrates.
+-- All 283 bodies carry their own place_code resolving to an obshtina with an oblast.
+role_oblast AS (
+  SELECT r.person_id,
+         COALESCE(pd.oblast_code, jpd.oblast_code) AS oblast_code
+  FROM roles r
+  LEFT JOIN place_dim pd
+    ON pd.kind = r.place_kind AND pd.code = r.place_code
+  LEFT JOIN judicial_body jb
+    ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
+  LEFT JOIN place_dim jpd
+    ON jpd.kind = 'obshtina' AND jpd.code = jb.place_code
+  WHERE COALESCE(pd.oblast_code, jpd.oblast_code) IS NOT NULL
+),
+oblast_fold AS (
+  SELECT person_id,
+         ' ' || string_agg(DISTINCT oblast_code, ' ' ORDER BY oblast_code) || ' '
+           AS oblast_codes
+  FROM role_oblast GROUP BY person_id
+),
+-- Photos: two sources, two DIFFERENT join keys, coalesced MP-first.
+--   mp_profile        keyed by mp_id      → person_role(source='mp').ref   (2,120 people)
+--   official_candidate_link keyed by official_slug → person_role(officials).ref (≤192)
+-- mp_roster, despite the name, carries no photo at all.
+photo AS (
+  SELECT DISTINCT ON (r.person_id) r.person_id, m.photo_url
+  FROM roles r
+  JOIN mp_profile m ON r.source = 'mp' AND m.mp_id::text = r.ref
+  WHERE m.photo_url IS NOT NULL
+  ORDER BY r.person_id, m.mp_id
+),
+photo_official AS (
+  SELECT DISTINCT ON (r.person_id) r.person_id, l.photo_url
+  FROM roles r
+  JOIN official_candidate_link l ON l.official_slug = r.ref
+  WHERE r.source IN ('official_exec', 'official_muni', 'public_sector',
+                     'president', 'mep', 'diplomat')
+    AND l.photo_url IS NOT NULL
+  ORDER BY r.person_id, l.official_slug
+),
+-- Wealth: newest year at ANY tier, and the previous year PRESENT in the series (not
+-- latest-1, which reports a bogus zero delta across a filing gap). Same rules as 100 —
+-- person_wealth_year (090) already decided which filing speaks for a year, and
+-- re-deciding it here would make /persons and /person disagree about a net worth.
+latest AS (
+  SELECT DISTINCT ON (w.person_id)
+         w.person_id, w.period_year, w.net_eur, w.excluded_asset_rows
+  FROM person_wealth_year w
+  JOIN pub ON pub.person_id = w.person_id
+  ORDER BY w.person_id, w.period_year DESC, w.declaration_id DESC
+),
+prev AS (
+  -- excluded_asset_rows rides along so the delta can be guarded at BOTH ends — see the
+  -- delta_pct CASE. Selecting only net_eur discards the information before the guard can
+  -- use it, which is the shape of the asymmetry 100_officials_rankings.sql still carries.
+  SELECT DISTINCT ON (w.person_id) w.person_id, w.net_eur, w.excluded_asset_rows
+  FROM person_wealth_year w
+  JOIN latest l ON l.person_id = w.person_id AND w.period_year < l.period_year
+  ORDER BY w.person_id, w.period_year DESC
+),
+filed AS (
+  -- Filed ANYTHING, any tier — deliberately against `declaration`, not the wealth
+  -- series, which only carries years with valued assets. Keying this off `latest` would
+  -- merely restate `net_worth_eur IS NULL` and erase the distinction the column exists
+  -- to make: "filed, declared nothing of value" vs "nothing on record".
+  SELECT DISTINCT person_id FROM declaration WHERE person_id IS NOT NULL
+),
+-- Institution: the magistrate's court, else the newest officials-tier declaration's.
+inst AS (
+  SELECT DISTINCT ON (r.person_id) r.person_id, jb.name AS institution,
+         jb.kind AS judicial_kind, jb.tier AS judicial_tier
+  FROM roles r
+  JOIN judicial_body jb ON r.place_kind = 'judicial' AND jb.body_code = r.place_code
+  ORDER BY r.person_id, r.prom DESC, jb.body_code
+),
+decl_inst AS (
+  SELECT DISTINCT ON (d.person_id) d.person_id, d.institution
+  FROM declaration d
+  WHERE d.tier IN ('exec', 'muni') AND d.person_id IS NOT NULL
+    AND d.institution IS NOT NULL
+  ORDER BY d.person_id, d.declaration_year DESC, d.declaration_id DESC
+),
+-- Bridge A: the (person, company) pair is reachable from a CURATED table — the declared
+-- links (company_politicians) and the ИВСС чл.175а magistrate holdings. Everything else
+-- a person holds in TR got there through Bridge B (name discovery, gated at resolve time
+-- on fold people-uniqueness + a 3-part name + a ≤5-company footprint), which is what the
+-- 'name_match' caveat on the page is about.
+bridge_a AS (
+  SELECT DISTINCT pr.person_id, cp.eik AS uic
+    FROM company_politicians cp
+    JOIN person_role pr
+      ON (cp.kind = 'mp' AND pr.source = 'mp'
+          AND pr.ref = replace(cp.ref, '/candidate/mp-', ''))
+      OR (cp.kind = 'official'
+          AND pr.source IN ('official_exec', 'official_muni', 'public_sector')
+          AND pr.ref = replace(cp.ref, '/officials/', ''))
+  UNION
+  SELECT DISTINCT pr.person_id, mc.eik
+    FROM magistrate_company mc
+    JOIN person_role pr ON pr.source = 'magistrate' AND pr.ref = mc.magistrate_name
+   WHERE mc.eik IS NOT NULL AND NOT mc.eik_ambiguous
+),
+companies AS (
+  SELECT person_id, ref AS uic FROM roles WHERE source = 'tr' GROUP BY 1, 2
+),
+company_money AS (
+  -- Per (person, company) first, so a person holding several companies sums each once.
+  SELECT c.person_id, c.uic,
+         (SELECT round(sum(ct.amount_eur)::numeric, 2)
+            FROM contracts ct
+           WHERE ct.contractor_eik = c.uic
+             AND ct.tag = 'contract'
+             AND ct.consortium_role IS DISTINCT FROM 'member') AS eur
+  FROM companies c
+),
+money AS (
+  SELECT m.person_id,
+         count(*)::smallint                       AS companies_n,
+         round(sum(m.eur)::numeric, 2)            AS public_money_eur,
+         -- bool_AND for 'declared', not bool_or: one curated company among several
+         -- name-matched ones is 'mixed', which still earns the caveat. See the header.
+         CASE WHEN bool_and(a.uic IS NOT NULL) THEN 'declared'
+              WHEN bool_or(a.uic IS NOT NULL)  THEN 'mixed'
+              ELSE 'name_match' END
+           AS tr_link_basis
+  FROM company_money m
+  LEFT JOIN bridge_a a ON a.person_id = m.person_id AND a.uic = m.uic
+  GROUP BY m.person_id
+)
+SELECT
+  pub.slug,
+  pub.display_name                                   AS name,
+  pub.name_fold,
+  COALESCE(ph.photo_url, pho.photo_url)              AS photo_url,
+  pub.namesake_risk,
+  tr.role                                            AS primary_role,
+  tr.facet                                           AS primary_facet,
+  tr.prom                                            AS prominence,
+  f.role_codes,
+  f.facet_codes,
+  f.roles_n,
+  f.sources_n,
+  f.is_exec, f.is_muni, f.is_mp, f.is_magistrate,
+  f.is_ngo, f.is_company, f.is_candidate, f.is_donor,
+  tp.party                                           AS party_primary,
+  pf.parties_n,
+  pf.party_codes,
+  pl.place_kind,
+  pl.place_code,
+  -- The label expression is COPIED VERBATIM from 082_person_api.sql (the /person role
+  -- tile). A different one here means the browser and the profile print different place
+  -- names for the same seat. `name_en` is pd-only ON PURPOSE — judicial_body carries no
+  -- English name — so mirror that asymmetry rather than inventing a fallback.
+  COALESCE(pd.name_bg, jb.name, pl.place_raw)        AS place_label,
+  pd.name_en                                         AS place_label_en,
+  COALESCE(pd.oblast_code, jpd.oblast_code)          AS oblast_code,
+  ob.oblast_codes,
+  COALESCE(pd.obshtina_code, jpd.obshtina_code)      AS obshtina_code,
+  COALESCE(i.institution, di.institution)            AS institution,
+  i.judicial_kind,
+  i.judicial_tier,
+  l.period_year                                      AS latest_declaration_year,
+  (fl.person_id IS NOT NULL)                         AS has_declaration,
+  round(l.net_eur, 2)                                AS net_worth_eur,
+  COALESCE(l.excluded_asset_rows, 0)                 AS excluded_asset_rows,
+  -- Guard the ratio: a previous net worth of 0 (or negative — the corpus has both) makes
+  -- a percentage meaningless rather than infinite. Suppressed when EITHER end is
+  -- INCOMPLETE, not just the latest one: a partial latest over a whole base manufactures a
+  -- collapse, and a whole latest over a partial base manufactures a SURGE — the more
+  -- newsworthy direction, and so the more damaging one to publish about a named person.
+  -- (Zero rows are affected today; the asymmetry is latent, which is why it is written
+  -- down rather than left to be rediscovered.) The UI shows an asterisk instead.
+  CASE WHEN pv.net_eur > 0
+        AND COALESCE(l.excluded_asset_rows, 0) = 0
+        AND COALESCE(pv.excluded_asset_rows, 0) = 0
+       THEN round(((l.net_eur - pv.net_eur) / pv.net_eur) * 100, 2)
+  END                                                AS delta_pct,
+  mo.companies_n,
+  mo.public_money_eur,
+  mo.tr_link_basis
+FROM pub
+-- INNER: a person with no public-safe role has nothing to show and nothing to filter on.
+JOIN top_role tr        ON tr.person_id  = pub.person_id
+JOIN folds f            ON f.person_id   = pub.person_id
+LEFT JOIN top_party tp  ON tp.person_id  = pub.person_id
+LEFT JOIN party_fold pf ON pf.person_id  = pub.person_id
+LEFT JOIN top_place pl  ON pl.person_id  = pub.person_id
+LEFT JOIN place_dim pd  ON pd.kind = pl.place_kind AND pd.code = pl.place_code
+LEFT JOIN judicial_body jb  ON pl.place_kind = 'judicial' AND jb.body_code = pl.place_code
+LEFT JOIN place_dim jpd ON jpd.kind = 'obshtina' AND jpd.code = jb.place_code
+LEFT JOIN oblast_fold ob ON ob.person_id = pub.person_id
+LEFT JOIN photo ph      ON ph.person_id  = pub.person_id
+LEFT JOIN photo_official pho ON pho.person_id = pub.person_id
+LEFT JOIN latest l      ON l.person_id   = pub.person_id
+LEFT JOIN prev pv       ON pv.person_id  = pub.person_id
+LEFT JOIN filed fl      ON fl.person_id  = pub.person_id
+LEFT JOIN inst i        ON i.person_id   = pub.person_id
+LEFT JOIN decl_inst di  ON di.person_id  = pub.person_id
+LEFT JOIN money mo      ON mo.person_id  = pub.person_id;
+
+-- Index BOTH sides of every join key and every sortable column the registry exposes
+-- (reference_pg_query_performance). `slug` is the paging tiebreak buildOrder appends, so
+-- it must be UNIQUE — both for deterministic pagination and for REFRESH CONCURRENTLY.
+CREATE UNIQUE INDEX idx_person_browse_slug ON person_browse_table (slug);
+-- The default sort. DESC on prominence, ASC on name — matching the registry exactly, or
+-- the planner sorts instead of scanning.
+CREATE INDEX idx_person_browse_prominence
+  ON person_browse_table (prominence DESC, name, slug);
+-- NULLS LAST is not cosmetic: both figures are NULL for most of the corpus (39,764 have
+-- no declared net worth, 55,731 no ЗОП money), so the browser sorts DESC NULLS LAST to
+-- keep them off the top — and a plain DESC index is NULLS FIRST, which the planner will
+-- not use for that ordering.
+CREATE INDEX idx_person_browse_net
+  ON person_browse_table (net_worth_eur DESC NULLS LAST, slug);
+CREATE INDEX idx_person_browse_money
+  ON person_browse_table (public_money_eur DESC NULLS LAST, slug);
+CREATE INDEX idx_person_browse_parties
+  ON person_browse_table (parties_n DESC NULLS LAST, slug);
+-- BOTH search:true columns need a trigram index, not just `name_fold`. buildWhere ORs
+-- every search column into ONE predicate, so an unindexed arm forces a seq scan over the
+-- whole OR — which does not merely slow `institution` down, it stops the name index being
+-- used at all. Adding a search:true column to the registry means adding its index here.
+CREATE INDEX idx_person_browse_name_trgm
+  ON person_browse_table USING gin (name_fold gin_trgm_ops);
+CREATE INDEX idx_person_browse_institution_trgm
+  ON person_browse_table USING gin (institution gin_trgm_ops);
+-- The space-padded code sets are matched with ILIKE '% code %' — a leading wildcard, so
+-- only a trigram index can serve them.
+CREATE INDEX idx_person_browse_role_codes_trgm
+  ON person_browse_table USING gin (role_codes gin_trgm_ops);
+CREATE INDEX idx_person_browse_party_codes_trgm
+  ON person_browse_table USING gin (party_codes gin_trgm_ops);
+CREATE INDEX idx_person_browse_oblast_codes_trgm
+  ON person_browse_table USING gin (oblast_codes gin_trgm_ops);
+-- Equality filters + facet GROUP BYs.
+CREATE INDEX idx_person_browse_facet ON person_browse_table (primary_facet);
+CREATE INDEX idx_person_browse_role ON person_browse_table (primary_role);
+CREATE INDEX idx_person_browse_party ON person_browse_table (party_primary);
+CREATE INDEX idx_person_browse_oblast ON person_browse_table (oblast_code);
+CREATE INDEX idx_person_browse_obshtina ON person_browse_table (obshtina_code);
+CREATE INDEX idx_person_browse_place ON person_browse_table (place_kind, place_code);
+CREATE INDEX idx_person_browse_year ON person_browse_table (latest_declaration_year);
+-- Partial indexes: the membership filters the UI issues, each paired with the DEFAULT
+-- sort so a facet-scoped first page is one index scan rather than a filter over 56.8k.
+CREATE INDEX idx_person_browse_exec
+  ON person_browse_table (prominence DESC, name, slug) WHERE is_exec;
+CREATE INDEX idx_person_browse_muni
+  ON person_browse_table (prominence DESC, name, slug) WHERE is_muni;
+CREATE INDEX idx_person_browse_decl
+  ON person_browse_table (prominence DESC, name, slug) WHERE has_declaration;
+CREATE INDEX idx_person_browse_company
+  ON person_browse_table (prominence DESC, name, slug) WHERE is_company;

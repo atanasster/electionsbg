@@ -9,10 +9,18 @@
 -- AFTER person_id is filled — an unresolved declaration has no person_id and so
 -- contributes to no person's series, which is correct.
 --
--- NOTE the DROP … CASCADE below re-runs on every --resolve. Nothing depends on
--- person_wealth_year today; if a later view/matview ever does, switch the DROP to
--- a guarded CREATE … IF NOT EXISTS + separate REFRESH so a re-apply does not
--- silently drop the dependent.
+-- NOTE the DROP … CASCADE below re-runs on every --resolve, and FOUR matviews now depend
+-- on person_wealth_year, so every one of them is dropped with it:
+--
+--   person_cohort_wealth       (097_cohort_benchmark.sql)
+--   officials_rankings_table   (100_officials_rankings.sql)
+--   mp_assets_rankings_table   (105_mp_serving.sql)
+--   person_browse_table        (120_person_browse.sql)
+--
+-- All four are re-applied by load_declarations_pg.ts immediately after this DROP, in the
+-- same run — that is the ONLY thing keeping a `--resolve` from leaving those serving
+-- surfaces missing. Adding a fifth dependent means adding it there too; the failure is
+-- silent in both directions (no error on the drop, and a matview that is simply absent).
 
 -- ---------------------------------------------------------------------------
 -- person_wealth_year — one row per (person_id, period_year).
