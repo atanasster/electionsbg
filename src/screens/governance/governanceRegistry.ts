@@ -76,6 +76,16 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         to: "/governance/declarations",
         accent: TILE_ACCENTS.rose,
       },
+      {
+        // The cross-cutting view of the person layer that /officials/assets and
+        // /mp-assets each slice. Sits in accountability rather than under Декларации
+        // because it spans nine registers, only one of which is the declarations one.
+        id: "persons",
+        titleKey: "persons_title",
+        descKey: "gov_hub_persons_desc",
+        to: "/persons",
+        accent: TILE_ACCENTS.indigo,
+      },
     ],
   },
   {

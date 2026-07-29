@@ -98,6 +98,7 @@ export const ENGLISH_STATIC_PAGES = [
   "mp-assets",
   "mp-cars",
   "officials/assets",
+  "persons",
   "procurement",
   "procurement/contracts",
   "procurement/appeals",
@@ -324,6 +325,13 @@ export const routeDefs = (year: string): RouteDefs => [
   // The per-official page is retired (T1.3): /officials/:id 301s to /person/:slug. The
   // prerendered person pages (the net-neutral ex-officials set) are enumerated as
   // /person/:slug instead, so no <loc> points at a URL that redirects.
+  // The persons browser — the person layer's cross-cutting entry point, filed here with
+  // /person/:id rather than among the procurement browsers. `file` is the freshness
+  // anchor, so it points at the screen (the matview behind it has no file).
+  {
+    path: "persons",
+    file: `src/screens/persons/PersonsBrowserScreen.tsx`,
+  },
   {
     // `:id`, not `:slug` — the sitemap generator splits every dynamic path on the literal
     // ":id" token (index.ts:660); a different param name silently never expands.

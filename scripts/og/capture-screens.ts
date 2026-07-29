@@ -310,6 +310,20 @@ const captures: Capture[] = [
     anchor: 'section[aria-label="procurement-sectors"]',
     settleMs: 1500,
   },
+  {
+    // The persons browser. Anchored on the section so the frame leads with the KPI strip
+    // and the "Основна принадлежност" bar above the table, the same composition the
+    // procurement captures use.
+    slug: "persons",
+    routePath: "persons",
+    waitFor: 'section[aria-label="persons"] tbody tr',
+    anchor: 'section[aria-label="persons"]',
+    // leftAlign, like the other full-width sections: the strip is wider than the 1200px
+    // clip, so a centred crop slices content off BOTH edges (it cut "Един" to "дин" and
+    // "Лица" to "ица" on the first capture).
+    leftAlign: true,
+    settleMs: 1800,
+  },
   // The remaining ProcurementNav sub-pages. All capture with ?pscope=all so the
   // frame shows the full corpus — the default `ns` scope is the *current*
   // parliament's contract window (only weeks old for NS 52), which would render

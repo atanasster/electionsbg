@@ -3752,6 +3752,37 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Source: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, fortnightly bundles).</p>`.trim(),
     },
   }),
+  // The person layer's cross-cutting browser. Prerendered like its sibling browsers
+  // (/procurement/contracts, /officials/assets) — the SPA's <meta> is invisible behind the
+  // Firebase rewrite, and this is one static shell, not a per-person page.
+  staticPage({
+    path: "persons",
+    title:
+      "Хора във властта — търсене по роля, партия и област | electionsbg.com",
+    description:
+      "Всички хора, които сайтът разпознава — народни представители, кметове, общински съветници, магистрати, държавна администрация, управители на фирми и дарители — в една сортируема и филтрируема таблица.",
+    breadcrumbName: "Хора",
+    ogImage: "/og/persons.png",
+    bodyHtml: `
+<h1>Хора във властта</h1>
+<p>Един човек, събран от девет регистъра: Народното събрание, местната власт, съдебната система, Търговския регистър, декларациите пред Сметната палата и предизборните дарения. Всяко лице има един профил, независимо колко длъжности е заемало и в колко списъка се появява.</p>
+<p>Таблицата се търси по име или институция и се филтрира по група (народни представители, изпълнителна власт, общинска администрация, магистрати, кандидати, ЮЛНЦ, бизнес, дарители), по конкретна роля, по партия — включително „някога свързан с“, което показва и сменилите партия — по област и по съд или институция.</p>
+<p>За хората с подадена декларация се показва нетното декларирано състояние и годината на последната декларация; за свързаните с фирми — броят фирми и стойността на спечелените от тях обществени поръчки. Тези суми са на фирмите, не личен доход, и носят уговорка, когато връзката е установена само по име.</p>
+<p>Виж и <a href="${SITE_URL}/officials/assets">класацията по декларирано имущество</a>, <a href="${SITE_URL}/connections">свързаните лица</a> и <a href="${SITE_URL}/governance/declarations">декларациите</a>.</p>`.trim(),
+    english: {
+      title:
+        "People in Public Life — search by role, party and province | electionsbg.com",
+      description:
+        "Everyone the site can identify — MPs, mayors, councillors, magistrates, state administration, company officers and campaign donors — in one sortable, filterable table.",
+      breadcrumbName: "People",
+      bodyHtml: `
+<h1>People in public life</h1>
+<p>One person, assembled from nine registers: parliament, local government, the courts, the commercial register, the declarations filed with the National Audit Office, and campaign donations. Each person has a single profile, however many posts they have held and however many lists they appear on.</p>
+<p>The table searches by name or institution and filters by group (MPs, executive branch, municipal administration, magistrates, candidates, NGOs, business, donors), by specific role, by party — including "ever affiliated with", which surfaces those who switched — by province, and by court or institution.</p>
+<p>For people who have filed a declaration it shows declared net worth and the year of the latest filing; for those linked to companies, the number of companies and the value of public contracts those companies won. Those sums belong to the companies, not to the person, and are qualified wherever the link was established by name alone.</p>
+<p>See also the <a href="${SITE_URL}/en/officials/assets">declared-asset ranking</a>, <a href="${SITE_URL}/en/connections">business connections</a> and <a href="${SITE_URL}/en/governance/declarations">declarations</a>.</p>`.trim(),
+    },
+  }),
   staticPage({
     path: "procurement/contracts",
     title: "Договори за обществени поръчки — търсене | electionsbg.com",

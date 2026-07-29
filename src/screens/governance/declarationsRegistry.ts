@@ -15,6 +15,16 @@ export interface DeclarationTile {
 
 export const DECLARATION_TILES: DeclarationTile[] = [
   {
+    // First: it is the parent of the four leaderboards below it. Those each rank ONE
+    // population by one measure; this browses every person the site can identify and
+    // lets a reader arrive at the same rows from any direction.
+    id: "persons",
+    titleKey: "persons_title",
+    descKey: "gov_hub_persons_desc",
+    to: "/persons",
+    accent: TILE_ACCENTS.indigo,
+  },
+  {
     id: "connections",
     titleKey: "connections_link_label",
     descKey: "decl_connections_desc",

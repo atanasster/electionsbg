@@ -15,10 +15,12 @@ import { TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { GOV_HUB_CLUSTERS } from "./governance/governanceRegistry";
 import { GOV_HUB_SCENES } from "./governance/governanceScenes";
 
-// Dev-time guard for the stringly-typed tile.id ↔ GOV_HUB_SCENES contract:
-// a tile whose id has no scene key would silently render an empty vignette
-// (GOV_HUB_SCENES[id] === undefined) rather than fail the build. Flag any such
-// gap loudly in dev; compiled out of production.
+// Dev-time guard for the stringly-typed tile.id ↔ GOV_HUB_SCENES contract. A tile whose
+// id has no scene key does NOT degrade to an empty vignette — InfographicTile renders
+// `<Scene />` unguarded, so `undefined` as a component type throws "Element type is
+// invalid" and white-screens the whole route. This flags it loudly in dev; the real gate
+// is hubRegistry.test.ts, which covers this hub AND the declarations sub-hub at commit
+// time. Compiled out of production.
 if (import.meta.env.DEV) {
   const missing = GOV_HUB_CLUSTERS.flatMap((cluster) => cluster.tiles)
     .map((tile) => tile.id)

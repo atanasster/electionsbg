@@ -7,6 +7,7 @@
    lookup table of scene components, not a fast-refresh boundary. */
 import { FC } from "react";
 import { SceneFrame, PAPER, Bars, TrendLine, Donut } from "@/ux/infographic";
+import { PersonsScene } from "./personsScene";
 
 // Бюджет — a coin over rising spend bars.
 const Budget: FC = () => (
@@ -494,6 +495,7 @@ const Demographics: FC = () => {
 };
 
 export const GOV_HUB_SCENES: Record<string, FC> = {
+  persons: PersonsScene,
   demographics: Demographics,
   budget: Budget,
   procurement: Procurement,

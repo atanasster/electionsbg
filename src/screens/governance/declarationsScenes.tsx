@@ -6,6 +6,7 @@
 /* eslint-disable react-refresh/only-export-components -- DECLARATION_SCENES is a
    lookup table of scene components, not a fast-refresh boundary. */
 import { FC } from "react";
+import { PersonsScene } from "./personsScene";
 import { SceneFrame, PAPER } from "@/ux/infographic";
 
 // Връзки — a person node linked to two companies.
@@ -87,6 +88,9 @@ const Officials: FC = () => (
 );
 
 export const DECLARATION_SCENES: Record<string, FC> = {
+  // The same vignette the /governance hub uses — one destination, one picture, imported
+  // as a COMPONENT rather than read out of that hub's lookup table (see personsScene.tsx).
+  persons: PersonsScene,
   connections: Connections,
   assets: Assets,
   cars: Cars,

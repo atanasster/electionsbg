@@ -498,7 +498,7 @@ export const PersonsBrowserScreen: FC = () => {
                 className="text-xs text-muted-foreground"
                 title={
                   t("persons_declared_nothing_tip") ||
-                  "Подадена декларация без деклариранo имущество със стойност."
+                  "Подадена декларация без декларирано имущество със стойност."
                 }
               >
                 {t("persons_declared_nothing", { defaultValue: "подадена" })}
