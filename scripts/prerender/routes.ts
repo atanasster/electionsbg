@@ -2692,6 +2692,37 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/mod",
+    title:
+      "Минимален осигурителен доход по професия (МОД) 2026 | electionsbg.com",
+    description:
+      "Какъв е законовият минимален осигурителен доход за вашата икономическа дейност и квалификационна група? Приложение 1 и 1А на ЗБДОО за 2026 г. — 86 дейности по КИД-2025 × 9 групи професии, за двата периода на годината, плюс вноската за трудова злополука.",
+    breadcrumbName: "Минимален осигурителен доход",
+    bodyHtml: `
+<h1>Минимален осигурителен доход по професия</h1>
+<p>Минималният осигурителен доход (МОД) е сумата, върху която работодателят е длъжен да ви осигурява, независимо от договорената заплата. Той не е един за цялата икономика — определя се по <strong>икономическа дейност</strong> (КИД-2025) и по <strong>квалификационна група професии</strong>, в Приложение № 1 и № 1А към чл. 9 от Закона за бюджета на държавното обществено осигуряване.</p>
+<h2>Защо за 2026 г. има две таблици</h2>
+<p>Бюджетът за 2026 г. беше приет чак през юли, затова годината е разделена на два периода. <strong>1 януари – 31 юли</strong> върви по замразената таблица от предходната година: едва 2,2% от 744-те попълнени клетки са над прага от 550,66 €, а най-високата е 901,41 €. <strong>От 1 август</strong> действа преработена таблица — 66,9% от клетките са над новия праг от 620,20 €, а най-високата стойност е 1532 €.</p>
+<h2>Вноската за трудова злополука (ТЗПБ)</h2>
+<p>Приложение № 2 и № 2А определят диференцираната вноска за фонд „Трудова злополука и професионална болест“ по същите икономически дейности — между 0,4% и 1,1%, за сметка на работодателя. И тя е разделена на същите два периода.</p>
+<p>Виж и <a href="${SITE_URL}/budget/tax-calculator">данъчния калкулатор</a>, <a href="${SITE_URL}/pensions">пенсиите</a> и <a href="${SITE_URL}/budget">държавния бюджет</a>.</p>`.trim(),
+    english: {
+      title:
+        "Minimum Insurable Income by Profession (МОД) 2026 | electionsbg.com",
+      description:
+        "What is the legal minimum your employer must insure you on? Annexes 1 and 1А of Bulgaria's 2026 Social Security Budget Act — 86 economic activities (КИД-2025) × 9 occupational groups, for both periods of the year, plus the work-injury contribution.",
+      breadcrumbName: "Minimum insurable income",
+      bodyHtml: `
+<h1>Minimum insurable income by profession</h1>
+<p>Bulgaria's minimum insurable income (МОД) is the amount an employer must insure you on regardless of the wage agreed. It is not one figure for the whole economy — it is set per <strong>economic activity</strong> (КИД-2025) and per <strong>occupational qualification group</strong>, in Annexes 1 and 1А to art. 9 of the Social Security Budget Act.</p>
+<h2>Why 2026 has two tables</h2>
+<p>The 2026 budget only passed in July, so the year splits in two. <strong>1 January – 31 July</strong> runs on the previous year's frozen table: just 2.2% of the 744 populated cells clear the €550.66 floor, and the highest is €901.41. <strong>From 1 August</strong> a renegotiated table applies — 66.9% of cells clear the new €620.20 floor, and the highest value is €1,532.</p>
+<h2>The work-injury contribution (ТЗПБ)</h2>
+<p>Annexes 2 and 2А set the differentiated work-injury and occupational-disease contribution across the same activities — between 0.4% and 1.1%, paid by the employer. It splits the year on the same dates.</p>
+<p>See also the <a href="${SITE_URL}/en/budget/tax-calculator">tax calculator</a>, <a href="${SITE_URL}/en/pensions">pensions</a> and the <a href="${SITE_URL}/en/budget">state budget</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/tax-calculator",
     title:
       "Данъчен калкулатор — какво купуват вашите данъци? | electionsbg.com",

@@ -14,6 +14,7 @@ import { Title } from "@/ux/Title";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEur, formatEurCompact, formatInt } from "@/lib/currency";
 import { MIN_PENSION } from "@/lib/bgTax";
+import { PensionStatutoryStrip } from "./PensionStatutoryStrip";
 import { useNoiPensions } from "@/data/budget/useBudget";
 import { useNoiFundYear } from "@/data/procurement/useNoi";
 import { PensionFundingTile } from "./PensionFundingTile";
@@ -144,6 +145,7 @@ export const PensionsScreen = () => {
           )}
 
           {/* The flagship — the reform sandbox */}
+          <PensionStatutoryStrip />
           <PensionReformTile />
 
           {/* The distribution — the shape the average hides */}

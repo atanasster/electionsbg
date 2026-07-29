@@ -124,6 +124,41 @@ const DocRow: FC<{ doc: BudgetDocument }> = ({ doc }) => {
   );
 };
 
+/** How much of a fiscal year's LAW PACKAGE has been promulgated.
+ *
+ *  A Bulgarian budget year is three laws, not one — the ЗДБРБ (state budget)
+ *  plus the ЗБДОО and ЗБНЗОК fund budgets — and they do not have to arrive
+ *  together. FY2026 is the case that makes this worth showing: the fund halves
+ *  were promulgated on 28 July 2026 while the state budget is still pending, so
+ *  the year is running its state side on a bridging law. Rendering the
+ *  documents as a flat list makes a two-thirds year look complete.
+ *
+ *  `fund-law` entries carry the fund in their id (`fund-law-doo-2026-0`), which
+ *  is how the two halves are told apart without a new field. */
+const packageProgress = (
+  docs: BudgetDocument[],
+): { have: number; total: number; missing: string[] } | null => {
+  const hasStateLaw = docs.some((d) => d.kind === "law");
+  const funds = ["doo", "nzok"] as const;
+  const haveFund = funds.filter((f) =>
+    docs.some((d) => d.kind === "fund-law" && d.id.includes(`-${f}-`)),
+  );
+  const have = (hasStateLaw ? 1 : 0) + haveFund.length;
+  // Only meaningful for a year we actually CATALOGUE fund laws for.
+  // FUND_BUDGET_LAWS starts at 2026, so every earlier year has zero fund-law
+  // documents — not because none was passed, but because none was recorded.
+  // Without this guard FY2018–2025 each rendered an amber "1 of 3 laws — still
+  // pending: ЗБДОО, ЗБНЗОК" for eight long-closed years: a completeness meter
+  // measuring our own catalogue and presenting it as the state's.
+  if (haveFund.length === 0) return null;
+  if (have === 0) return null;
+  const missing: string[] = [];
+  if (!hasStateLaw) missing.push("ЗДБРБ");
+  if (!haveFund.includes("doo")) missing.push("ЗБДОО");
+  if (!haveFund.includes("nzok")) missing.push("ЗБНЗОК");
+  return { have, total: 3, missing };
+};
+
 const YearGroup: FC<{
   year: number;
   docs: BudgetDocument[];
@@ -131,10 +166,35 @@ const YearGroup: FC<{
 }> = ({ year, docs, coverage }) => {
   const { t } = useTranslation();
   const months = coverage?.kfpPeriods.length ?? 0;
+  const pkg = packageProgress(docs);
   return (
     <div className="py-3 border-b border-border/50 last:border-b-0">
       <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-sm font-bold tabular-nums">{year}</h3>
+        <h3 className="text-sm font-bold tabular-nums">
+          {year}
+          {pkg ? (
+            <span
+              className={
+                "ml-2 rounded px-1.5 py-0.5 text-[10px] font-medium align-middle " +
+                (pkg.have === pkg.total
+                  ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+                  : "bg-amber-500/10 text-amber-700 dark:text-amber-300")
+              }
+              title={
+                pkg.missing.length
+                  ? t("budget_journey_package_missing", {
+                      laws: pkg.missing.join(", "),
+                    })
+                  : undefined
+              }
+            >
+              {t("budget_journey_package", {
+                have: pkg.have,
+                total: pkg.total,
+              })}
+            </span>
+          ) : null}
+        </h3>
         {months > 0 ? (
           <span className="text-[11px] text-muted-foreground">
             {months}{" "}

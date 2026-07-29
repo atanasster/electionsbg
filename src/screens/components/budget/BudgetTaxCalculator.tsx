@@ -14,7 +14,7 @@
 // result figures.
 
 import { FC, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Receipt,
@@ -400,6 +400,9 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
         day: "numeric",
         month: "long",
         year: "numeric",
+        // See StatutoryValue: without this the date renders a day early west
+        // of Greenwich, which misstates when the law took effect.
+        timeZone: "UTC",
       }).format(new Date(`${modStep.from}T00:00:00Z`))
     : undefined;
   const modPrevLabel = modPrevStep ? eur(modPrevStep.value) : undefined;
@@ -732,6 +735,11 @@ export const BudgetTaxCalculator: FC<{ fiscalYear?: number | null }> = ({
                 );
               })}
             </div>
+            <p className="mt-2 text-[11px] text-muted-foreground">
+              <Link to="/budget/mod" className="text-primary hover:underline">
+                {t("budget_tax_bill_mod_browser_link")}
+              </Link>
+            </p>
             {profile === "civil-servant" ? (
               // The scope caveat is rendered, not just commented. The whole
               // reason this is a separate PROFILE rather than a rate change is

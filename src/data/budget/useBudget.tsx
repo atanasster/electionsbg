@@ -87,6 +87,8 @@ import type {
   MunicipalExecutionIndexFile,
   PolicyBaselineFile,
   NoiFundPlanFile,
+  ModScheduleFile,
+  TzpbRatesFile,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -276,6 +278,23 @@ export const useNoiFunds = () =>
   useQuery({
     queryKey: ["budget", "noi", "funds"] as const,
     queryFn: () => fetchJson<NoiFundsFile>("/budget/noi/funds.json"),
+    staleTime: Infinity,
+  });
+
+// The ЗБДОО annexes — per-industry МОД floors (~88 KB) and ТЗПБ rates (~34 KB).
+// Parsed by scripts/budget/noi/__write_annexes.ts. Only /budget/mod reads them,
+// so they are deliberately NOT folded into a shared blob.
+export const useModSchedule = () =>
+  useQuery({
+    queryKey: ["budget", "noi", "mod-schedule"] as const,
+    queryFn: () => fetchJson<ModScheduleFile>("/budget/noi/mod_schedule.json"),
+    staleTime: Infinity,
+  });
+
+export const useTzpbRates = () =>
+  useQuery({
+    queryKey: ["budget", "noi", "tzpb-rates"] as const,
+    queryFn: () => fetchJson<TzpbRatesFile>("/budget/noi/tzpb_rates.json"),
     staleTime: Infinity,
   });
 

@@ -1088,6 +1088,66 @@ export interface NoiFundPlanFile {
 }
 
 // ---------------------------------------------------------------------------
+// ЗБДОО annexes — per-industry МОД floors + ТЗПБ rates. Parsed (not hand-keyed)
+// by scripts/budget/noi/__write_annexes.ts. Served at /budget/noi/*.json.
+// ---------------------------------------------------------------------------
+
+export interface ModAnnexRowView {
+  ordinal: number;
+  kidSection: string;
+  kidCode: string;
+  activityName: string;
+  /** Nine qualification groups in the law's column order; null where blank —
+   *  a blank is real data (that activity employs nobody in that group). */
+  byQualificationGroup: (number | null)[];
+}
+
+export interface ModAnnexPeriod {
+  annex: string;
+  periodFrom: string;
+  periodTo: string;
+  floorEur: number;
+  rows: ModAnnexRowView[];
+  stats: {
+    gridCells: number;
+    populatedCells: number;
+    blankCells: number;
+    aboveFloor: number;
+    belowFloor: number;
+    maxEur: number;
+  };
+}
+
+export interface AnnexSource {
+  publisher: string;
+  law: string;
+  idMat: string;
+  dvIssue: string;
+  url: string;
+  description: string;
+}
+
+export interface ModScheduleFile {
+  generatedAt: string;
+  source: AnnexSource;
+  fiscalYear: number;
+  qualificationGroups: string[];
+  periods: ModAnnexPeriod[];
+}
+
+export interface TzpbRatesFile {
+  generatedAt: string;
+  source: AnnexSource;
+  fiscalYear: number;
+  periods: {
+    annex: string;
+    periodFrom: string;
+    periodTo: string;
+    rows: { kidCode: string; activityName: string; ratePct: number }[];
+  }[];
+}
+
+// ---------------------------------------------------------------------------
 // НОИ pension statistics (the /pensions view) — mirror of the shapes written by
 // scripts/budget/noi/parse_yearbook_xlsx.ts. Served at /budget/noi/pensions.json.
 // ---------------------------------------------------------------------------
