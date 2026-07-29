@@ -13,7 +13,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withTx, end } from "./lib/pg";
+import { getPool, exec, execEach, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
@@ -179,7 +179,14 @@ export const loadTendersPg = async (): Promise<{
   // *_list views (042 above) now exist. The count/sum + facet queries in
   // functions/db_table.js aggregate over the BASE tables and these serve them
   // index-only.
-  await exec(readFileSync(BROWSER_IDX_FILE, "utf8"));
+  //
+  // execEach, NOT exec: this file is the only one that DDLs both hot tables, and
+  // as a single implicit transaction it held AccessExclusive on `contracts`
+  // (first DROP INDEX) across the whole contracts rebuild while reaching for
+  // `tenders` — which deadlocked (40P01) against live prod traffic holding
+  // `tenders` and waiting on `contracts` on 2026-07-29. Per statement, each lock
+  // is released immediately and CREATE INDEX's ShareLock never blocks readers.
+  await execEach(readFileSync(BROWSER_IDX_FILE, "utf8"));
 
   // Refresh planner statistics immediately — same reason as load_pg.ts: a
   // freshly TRUNCATE+INSERT'd table carries reltuples=0 and no column histograms

@@ -4,6 +4,7 @@
 // local === deployed. See docs/plans/postgres-migration-v1.md.
 
 import { Pool, type PoolClient } from "pg";
+import { splitSqlStatements } from "./split_sql";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -90,6 +91,31 @@ export const exec = async (sql: string): Promise<void> => {
   await withClient(async (c) => {
     await c.query("SELECT similarity('', '')");
     await c.query(sql);
+  });
+};
+
+/**
+ * Like `exec`, but runs each top-level statement as its OWN query.
+ *
+ * `exec` sends the file as one string, and the simple query protocol wraps a
+ * multi-statement string in a SINGLE implicit transaction — so every lock is
+ * held until the last statement commits. For DDL spanning two hot tables that
+ * is a deadlock generator against a live database: on 2026-07-29
+ * `db:load:tenders:pg:cloud` died with 40P01 because
+ * 113_procurement_browser_covering_indexes.sql held AccessExclusive on
+ * `contracts` (from its first DROP INDEX) across the whole contracts index
+ * rebuild while reaching for `tenders`, and a prod session holding `tenders`
+ * was waiting to read `contracts`.
+ *
+ * Statement-by-statement, each lock is taken and released on the spot. Use this
+ * for idempotent DDL (CREATE/DROP … IF [NOT] EXISTS) where per-file atomicity
+ * buys nothing; keep `exec` where the file must apply all-or-nothing.
+ */
+export const execEach = async (sql: string): Promise<void> => {
+  const statements = splitSqlStatements(sql);
+  await withClient(async (c) => {
+    await c.query("SELECT similarity('', '')");
+    for (const stmt of statements) await c.query(stmt);
   });
 };
 
