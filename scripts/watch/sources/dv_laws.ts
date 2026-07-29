@@ -28,6 +28,12 @@
 // number. An ordinary issue with no budget law leaves both sets untouched and
 // reports `unchanged`; a promulgation appends and flips exactly once.
 //
+// PACKAGE COMPLETENESS: the annual budget is three laws (ЗДБРБ + ЗБДОО +
+// ЗБНЗОК) that need not land in the same брой. Once any member for a year
+// promulgates, the still-missing members are tracked as `pending` and reported
+// every relevant run — so a partial promulgation (ДВ бр. 68 от 2026 carried the
+// two fund laws but NOT the ЗДБРБ) can never be mistaken for a complete budget.
+//
 // The feed carries no idMat (every <link> points at the same issue object), so
 // the operator still resolves the idMat on dv.parliament.bg and adds the row to
 // LAW_DV_MATERIALS / INTERIM_BUDGET_LAWS / AMENDMENT_DV_MATERIALS in
@@ -80,11 +86,56 @@ export interface DvLawMatch {
   issue: number; // ДВ брой; 0 when the issue list was unreachable
   kind: string; // ЗДБРБ | ЗБДОО | ЗБНЗОК | удължителен
   title: string;
+  year?: number; // fiscal year parsed from the title ("… за 2026 г.")
 }
+
+// The annual budget package is three separate laws that need not promulgate in
+// the same брой — ДВ бр. 68 от 2026 carried ЗБДОО + ЗБНЗОК but NOT the ЗДБРБ.
+// Positive-only tracking (report what landed) makes a partial promulgation read
+// as "the budget laws landed" and the missing ЗДБРБ goes silent — which is
+// exactly how a two-of-three package gets mistaken for a complete one. So once
+// ANY package member for a year is promulgated, the still-missing members are
+// surfaced as `pending` until they land (or forever, if the year runs on the
+// удължителен bridge and the real ЗДБРБ never comes).
+const PACKAGE_KINDS = ["ЗДБРБ", "ЗБДОО", "ЗБНЗОК"] as const;
+
+const yearOf = (title: string): number | undefined => {
+  const m = /за\s+(20\d\d)\s+г/i.exec(title);
+  return m ? Number(m[1]) : undefined;
+};
+
+export interface PendingPackage {
+  year: number;
+  missing: string[]; // package kinds not yet seen for that fiscal year
+}
+
+// Years that have ≥1 package law promulgated but are still missing others.
+// Derives the year from each match's title so it also works on state written
+// before `year` was stored. The удължителен law is NOT a package member (its
+// own title names all three, but classifyAct files it as "удължителен"), so it
+// never counts toward completeness — a year on the bridge stays pending.
+export const pendingPackages = (matches: DvLawMatch[]): PendingPackage[] => {
+  const seen = new Map<number, Set<string>>();
+  for (const m of matches) {
+    if (!(PACKAGE_KINDS as readonly string[]).includes(m.kind)) continue;
+    const y = m.year ?? yearOf(m.title);
+    if (y == null) continue;
+    let set = seen.get(y);
+    if (!set) seen.set(y, (set = new Set()));
+    set.add(m.kind);
+  }
+  const out: PendingPackage[] = [];
+  for (const [year, kinds] of seen) {
+    const missing = PACKAGE_KINDS.filter((k) => !kinds.has(k));
+    if (missing.length > 0) out.push({ year, missing: [...missing] });
+  }
+  return out.sort((a, b) => a.year - b.year);
+};
 
 interface DvLawsMeta {
   matches?: DvLawMatch[];
   gaps?: number[]; // issue numbers that published between runs, never inspected
+  pending?: PendingPackage[]; // years with a partially-promulgated package
   lastIssue?: number;
   lastDate?: string;
 }
@@ -196,7 +247,13 @@ export const dvLaws: WatchSource = {
     for (const act of acts) {
       const kind = classifyAct(act);
       if (!kind) continue;
-      const match: DvLawMatch = { date, issue, kind, title: act };
+      const match: DvLawMatch = {
+        date,
+        issue,
+        kind,
+        title: act,
+        year: yearOf(act),
+      };
       if (merged.has(key(match))) continue;
       merged.set(key(match), match);
       fresh.push(match);
@@ -206,8 +263,14 @@ export const dvLaws: WatchSource = {
       (a, b) => a.date.localeCompare(b.date) || a.kind.localeCompare(b.kind),
     );
 
+    const pending = pendingPackages(matches);
+
     const value = sha256Short(
-      [...matches.map(key), ...gaps.map((n) => `gap:${n}`)].join("\n"),
+      [
+        ...matches.map(key),
+        ...gaps.map((n) => `gap:${n}`),
+        ...pending.map((p) => `pending:${p.year}:${p.missing.join(",")}`),
+      ].join("\n"),
     );
 
     const issueLabel = issue > 0 ? `бр. ${issue}` : "бр. ?";
@@ -217,6 +280,15 @@ export const dvLaws: WatchSource = {
     ];
     if (fresh.length > 0) {
       detailParts.push(`нови: ${fresh.map((f) => f.kind).join(", ")}`);
+    }
+    // Persistent, so even an unchanged run shows the package is still short a
+    // law — the missing ЗДБРБ never quietly disappears from the source line.
+    if (pending.length > 0) {
+      detailParts.push(
+        pending
+          .map((p) => `непълен пакет ${p.year}: липсва ${p.missing.join(", ")}`)
+          .join("; "),
+      );
     }
     if (gaps.length > 0) {
       detailParts.push(`неинспектирани броеве: ${gaps.join(", ")}`);
@@ -228,6 +300,7 @@ export const dvLaws: WatchSource = {
       meta: {
         matches,
         gaps,
+        pending,
         lastIssue: issue || lastIssue,
         lastDate: date,
       } satisfies DvLawsMeta,
@@ -261,6 +334,30 @@ export const dvLaws: WatchSource = {
         `ДВ бр. ${newGaps.join(", ")} published between runs and is no longer ` +
           `in the rolling RSS window — open it manually on dv.parliament.bg`,
       );
+    }
+
+    // Package completeness. A year that gains its first member but is still
+    // short others (or whose missing set changes) is called out explicitly, so
+    // a two-of-three promulgation is never mistaken for a done budget.
+    const prevPending = new Map(
+      (prevMeta.pending ?? []).map((p) => [p.year, p.missing.join(",")]),
+    );
+    const currPending = currMeta.pending ?? [];
+    const currYears = new Set(currPending.map((p) => p.year));
+    for (const p of currPending) {
+      if (prevPending.get(p.year) === p.missing.join(",")) continue;
+      lines.push(
+        `непълен бюджетен пакет за ${p.year} г.: липсва(т) ${p.missing.join(", ")} ` +
+          `— НЕ третирай бюджета за зареден, докато ЗДБРБ не се обнародва (обикновено ` +
+          `в следващ брой) и не се добави в LAW_DV_MATERIALS`,
+      );
+    }
+    for (const [year] of prevPending) {
+      if (!currYears.has(year)) {
+        lines.push(
+          `бюджетният пакет за ${year} г. вече е пълен — ЗДБРБ + ЗБДОО + ЗБНЗОК обнародвани`,
+        );
+      }
     }
     return lines.length > 0 ? lines.join(" · ") : curr.detail;
   },

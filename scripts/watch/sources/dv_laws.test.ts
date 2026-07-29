@@ -13,7 +13,12 @@ vi.mock("../state", () => ({ readState: vi.fn() }));
 
 import { fetchText } from "../fingerprint";
 import { readState } from "../state";
-import { classifyAct, dvLaws, type DvLawMatch } from "./dv_laws";
+import {
+  classifyAct,
+  dvLaws,
+  pendingPackages,
+  type DvLawMatch,
+} from "./dv_laws";
 
 const mockedFetchText = vi.mocked(fetchText);
 const mockedReadState = vi.mocked(readState);
@@ -131,6 +136,12 @@ describe("dvLaws.fingerprint", () => {
     expect(matches[0]).toMatchObject({ issue: 68, date: "2026-07-28" });
     expect(fp.detail).toContain("бр. 68");
     expect(fp.detail).toContain("нови: ЗБДОО, ЗБНЗОК");
+    // The real ДВ бр. 68 shape: two fund laws in, ЗДБРБ still out. The missing
+    // member must surface so this cannot read as a complete budget.
+    expect((fp.meta as { pending: unknown }).pending).toEqual([
+      { year: 2026, missing: ["ЗДБРБ"] },
+    ]);
+    expect(fp.detail).toContain("непълен пакет 2026: липсва ЗДБРБ");
   });
 
   it("keeps the fingerprint stable when the next issue carries no budget law", async () => {
@@ -231,5 +242,108 @@ describe("dvLaws.fingerprint", () => {
   it("throws rather than silently zeroing when the feed is empty", async () => {
     mockUpstreams("2026-07-28", [], [[68, "28.7.2026"]]);
     await expect(dvLaws.fingerprint()).rejects.toThrow(/no items/);
+  });
+});
+
+describe("pendingPackages", () => {
+  const m = (kind: string, title: string): DvLawMatch => ({
+    date: "2026-07-28",
+    issue: 68,
+    kind,
+    title,
+  });
+
+  it("flags the missing ЗДБРБ when only the fund laws promulgated", () => {
+    expect(
+      pendingPackages([
+        m(
+          "ЗБДОО",
+          "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+        ),
+        m(
+          "ЗБНЗОК",
+          "Закон за бюджета на Националната здравноосигурителна каса за 2026 г.",
+        ),
+      ]),
+    ).toEqual([{ year: 2026, missing: ["ЗДБРБ"] }]);
+  });
+
+  it("reports nothing once all three package laws are seen", () => {
+    expect(
+      pendingPackages([
+        m(
+          "ЗДБРБ",
+          "Закон за държавния бюджет на Република България за 2026 г.",
+        ),
+        m(
+          "ЗБДОО",
+          "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+        ),
+        m(
+          "ЗБНЗОК",
+          "Закон за бюджета на Националната здравноосигурителна каса за 2026 г.",
+        ),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("does not treat the удължителен bridge as a package member", () => {
+    // Its title names all three laws, but it is classified удължителен, so the
+    // year stays fully pending rather than looking half-satisfied.
+    expect(
+      pendingPackages([
+        m(
+          "удължителен",
+          "Закон за събирането на приходи и извършването на разходи през 2026 г. до " +
+            "приемането на Закона за държавния бюджет на Република България за 2026 г.",
+        ),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("derives the year from the title when the field is absent (legacy state)", () => {
+    expect(
+      pendingPackages([
+        {
+          date: "2026-07-28",
+          issue: 68,
+          kind: "ЗБДОО",
+          title:
+            "Закон за бюджета на държавното обществено осигуряване за 2026 г.",
+        },
+      ]),
+    ).toEqual([{ year: 2026, missing: ["ЗДБРБ", "ЗБНЗОК"] }]);
+  });
+});
+
+describe("dvLaws.describe — package completeness", () => {
+  const seedWith = (pending: { year: number; missing: string[] }[]) =>
+    prevState({ matches: [], gaps: [], pending });
+
+  it("calls out a partially-promulgated package as an explicit warning", () => {
+    const msg = dvLaws.describe?.(seedWith([]), {
+      value: "x",
+      detail: "d",
+      meta: {
+        matches: [],
+        gaps: [],
+        pending: [{ year: 2026, missing: ["ЗДБРБ"] }],
+      },
+    });
+    expect(msg).toContain("непълен бюджетен пакет за 2026 г.");
+    expect(msg).toContain("липсва(т) ЗДБРБ");
+    expect(msg).toContain("LAW_DV_MATERIALS");
+  });
+
+  it("announces completion when the last missing member lands", () => {
+    const msg = dvLaws.describe?.(
+      seedWith([{ year: 2026, missing: ["ЗДБРБ"] }]),
+      {
+        value: "x",
+        detail: "d",
+        meta: { matches: [], gaps: [], pending: [] },
+      },
+    );
+    expect(msg).toContain("бюджетният пакет за 2026 г. вече е пълен");
   });
 });
