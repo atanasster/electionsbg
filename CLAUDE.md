@@ -181,6 +181,13 @@ Skipping it after a *place* loader blanks the same way `/person` does — the lo
 throws if any placed row lost its label, but only for the rows it can see at build time.
 `db:refresh` runs the local equivalent automatically; nothing runs it on the cloud side.
 
+**A COLUMN-TYPE change in 120 also needs this run on the cloud.** The file is DROP + CREATE,
+so Cloud SQL keeps the previous column types until the loader executes there — and a type
+change is the one edit whose staleness is invisible to a row count. `net_worth_eur` /
+`public_money_eur` / `delta_pct` are `double precision` for a reason: node-postgres
+serializes PG `numeric` as a STRING, so on a stale cloud matview the API response looks
+perfectly correct while every money cell on `/persons` renders BLANK.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

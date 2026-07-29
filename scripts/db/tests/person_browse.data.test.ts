@@ -396,9 +396,13 @@ test.skipIf(skip)(
     );
     assert.ok(rows.length > 0, "no money-carrying persons to reconcile");
     for (const r of rows) {
+      // Compared as NUMBERS, not text: the browser column is double precision
+      // ("…783.7") while the profile's is numeric ("…783.70"), so a string equality
+      // fails on formatting alone while the figures agree exactly. It is the VALUE
+      // that must never diverge.
       assert.equal(
-        r.browse,
-        r.profile,
+        Number(r.browse),
+        Number(r.profile),
         `${r.slug}: browser says ${r.browse}, the profile says ${r.profile} — two money bases have appeared`,
       );
     }
@@ -625,6 +629,35 @@ test.skipIf(skip)(
       0,
       `${overreach} person(s) are flagged held_office with no office role at all`,
     );
+  },
+);
+
+// (8d) MONEY COLUMNS ARE double precision, NOT numeric. node-postgres serializes PG
+// `numeric` as a STRING to preserve arbitrary precision, so a numeric column reaches the
+// browser as "211682.40" and every formatter downstream renders an empty cell (or NaN)
+// while the API response looks perfectly correct. `contracts.amount_eur` is double
+// precision for exactly this reason, which is why no other browser has hit it.
+test.skipIf(skip)(
+  "money and percent columns are float, not numeric",
+  async () => {
+    // pg_attribute, NOT information_schema.columns — a MATERIALIZED VIEW's columns are
+    // absent from information_schema entirely, so that query returns zero rows and the
+    // assertion passes vacuously.
+    const rows = await allRows<{ column_name: string; data_type: string }>(
+      `SELECT a.attname AS column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+       FROM pg_attribute a
+      WHERE a.attrelid = 'person_browse_table'::regclass
+        AND a.attnum > 0 AND NOT a.attisdropped
+        AND a.attname IN ('net_worth_eur', 'public_money_eur', 'delta_pct')
+      ORDER BY a.attname`,
+    );
+    assert.equal(rows.length, 3, "a money/percent column has gone missing");
+    for (const r of rows)
+      assert.equal(
+        r.data_type,
+        "double precision",
+        `${r.column_name} is ${r.data_type} — node-postgres will serialize it as a string and the cell renders blank`,
+      );
   },
 );
 

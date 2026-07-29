@@ -32,7 +32,14 @@ const CSV_COLUMNS: { key: keyof PersonBrowseRow; header: string }[] = [
   { key: "institution", header: "institution" },
   { key: "latestDeclarationYear", header: "latest_declaration_year" },
   { key: "hasDeclaration", header: "has_declaration" },
+  { key: "netWorthEur", header: "net_worth_eur" },
   { key: "companiesN", header: "companies_n" },
+  { key: "publicMoneyEur", header: "public_money_eur" },
+  // WITHOUT this column the money above is uninterpretable: it says whether the person↔
+  // company link was curated ('declared') or matched by name ('mixed' / 'name_match'), which
+  // is the caveat the table renders beside the figure. An export that drops it strips the
+  // qualification off the number and leaves a bare accusation in a spreadsheet.
+  { key: "trLinkBasis", header: "tr_link_basis" },
 ];
 
 /** RFC-4180 quoting: double every quote, wrap anything containing a delimiter, a quote or a

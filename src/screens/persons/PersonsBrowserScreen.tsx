@@ -49,6 +49,7 @@ import {
 } from "@/data/persons/personGroups";
 import { PersonFilterSelect } from "./PersonFilterSelect";
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
+import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
 import {
   fetchPersonsCsv,
@@ -518,6 +519,36 @@ export const PersonsBrowserScreen: FC = () => {
           </span>
         ),
       },
+      {
+        id: "net_worth_eur",
+        accessorFn: (r) => r.netWorthEur ?? null,
+        header: t("persons_col_net_worth", { defaultValue: "Нетно състояние" }),
+        meta: { align: "right" },
+        className: "hidden md:table-cell",
+        cell: ({ row }) => <PersonNetWorthCell row={row.original} />,
+      },
+      {
+        id: "companies_n",
+        accessorFn: (r) => r.companiesN ?? null,
+        header: t("persons_col_companies", { defaultValue: "Фирми" }),
+        meta: { align: "right" },
+        className: "hidden lg:table-cell",
+        cell: ({ row }) => (
+          <span className="block text-right text-sm tabular-nums">
+            {row.original.companiesN ?? "—"}
+          </span>
+        ),
+      },
+      {
+        id: "public_money_eur",
+        accessorFn: (r) => r.publicMoneyEur ?? null,
+        header: t("persons_col_public_money", {
+          defaultValue: "Публични пари",
+        }),
+        meta: { align: "right" },
+        className: "hidden lg:table-cell",
+        cell: ({ row }) => <PersonMoneyCell row={row.original} />,
+      },
     ],
     [t, roleLabel, colorFor, displayNameForId, isBg],
   );
@@ -565,6 +596,19 @@ export const PersonsBrowserScreen: FC = () => {
           searchPlaceholder={t("persons_search_placeholder", {
             defaultValue: "Търси име или институция…",
           })}
+          renderAggregates={(_agg, total, exact) => (
+            // COUNT ONLY. There is deliberately no Σ of the money column: two co-officers
+            // of one company each carry that company's full contract total, so a column
+            // total double-counts — it would be large, plausible and wrong. The registry
+            // declares no sum aggregate for the same reason (db_table.test.js guards it).
+            <span className="text-sm text-muted-foreground">
+              <span className="font-semibold tabular-nums text-foreground">
+                {exact ? "" : "≈"}
+                {new Intl.NumberFormat(isBg ? "bg-BG" : "en-GB").format(total)}
+              </span>{" "}
+              {t("persons_rows_word", { defaultValue: "лица" })}
+            </span>
+          )}
           toolbar={
             <>
               <PersonFilterSelect

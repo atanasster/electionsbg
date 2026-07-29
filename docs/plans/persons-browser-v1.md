@@ -282,9 +282,13 @@ tables (query in §5).
 ### The rule this plan adopts
 
 1. Ship `public_money_eur` for every person who has it.
-2. Carry `tr_link_basis text` — `'declared'` when any contributing EIK is Bridge-A-backed,
-   else `'name_match'`.
-3. `'name_match'` rows render the figure with the existing caveat affordance — the
+2. Carry `tr_link_basis text` — ~~`'declared'` when ANY contributing EIK is Bridge-A-backed,
+   else `'name_match'`~~. **Superseded during T0 review, and the correction matters:** "any"
+   makes ONE curated company clear the caveat off a footprint whose other companies were
+   matched by name (8 people are in that state). It has THREE values —  `'declared'` (every
+   contributing company curated), `'mixed'` (some), `'name_match'` (none) — and the UI
+   caveats anything that is not `'declared'`.
+3. `'name_match'` **and `'mixed'`** rows render the figure with the existing caveat affordance — the
    `person_namesake_disclosure` string is already in `src/locales/bg/translation.json:3143`
    and already used on the person page. Same words, same meaning, no new editorial claim.
 4. **The column is never footer-aggregated.** Two co-officers of the same company each carry

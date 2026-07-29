@@ -333,7 +333,7 @@ company_money AS (
 money AS (
   SELECT m.person_id,
          count(*)::smallint                       AS companies_n,
-         round(sum(m.eur)::numeric, 2)            AS public_money_eur,
+         round(sum(m.eur)::numeric, 2)::double precision AS public_money_eur,
          -- bool_AND for 'declared', not bool_or: one curated company among several
          -- name-matched ones is 'mixed', which still earns the caveat. See the header.
          CASE WHEN bool_and(a.uic IS NOT NULL) THEN 'declared'
@@ -385,7 +385,13 @@ SELECT
   i.judicial_tier,
   l.period_year                                      AS latest_declaration_year,
   (fl.person_id IS NOT NULL)                         AS has_declaration,
-  round(l.net_eur, 2)                                AS net_worth_eur,
+  -- ::double precision, NOT bare numeric. node-postgres serializes PG `numeric` as a
+  -- STRING to preserve arbitrary precision, so a numeric column arrives in the browser as
+  -- "211682.40" and every downstream `formatEurCompact` / arithmetic silently produces an
+  -- empty cell or NaN. `contracts.amount_eur` is double precision for exactly this reason,
+  -- which is why the contracts browser never hit it. Round FIRST (determinism at rest,
+  -- reference_pg_payload_determinism), then cast.
+  round(l.net_eur, 2)::double precision              AS net_worth_eur,
   COALESCE(l.excluded_asset_rows, 0)                 AS excluded_asset_rows,
   -- Guard the ratio: a previous net worth of 0 (or negative — the corpus has both) makes
   -- a percentage meaningless rather than infinite. Suppressed when EITHER end is
@@ -397,7 +403,7 @@ SELECT
   CASE WHEN pv.net_eur > 0
         AND COALESCE(l.excluded_asset_rows, 0) = 0
         AND COALESCE(pv.excluded_asset_rows, 0) = 0
-       THEN round(((l.net_eur - pv.net_eur) / pv.net_eur) * 100, 2)
+       THEN round(((l.net_eur - pv.net_eur) / pv.net_eur) * 100, 2)::double precision
   END                                                AS delta_pct,
   mo.companies_n,
   mo.public_money_eur,
