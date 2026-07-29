@@ -115,9 +115,31 @@ const NATO_DEFENSE_PCT_GDP = 2.06; // NATO 2025 estimate
 // are from the SOD 2024 edition (the 2025 one publishes averages only).
 // The lever shifts the STANDARD employee share (13.78%) onto the employees;
 // the elevated special-category pension rates stay budget-paid either way.
+// § 6 ЗБДОО-2026 SPLIT THIS POPULATION. It narrows КСО чл. 6 ал. 5 from
+// "т. 2, 3, 4 и 10" to "т. 4" alone, so the first group below moved onto an
+// employer/employee split from 1 Aug 2026 while the second was explicitly
+// RETAINED on the old budget-paid regime. The two rows already happened to
+// line up with the statutory boundary, so the split is a flag, not a re-count.
+//
+// This matters because the simulator's `ssp` lever offers moving these people
+// onto their own contribution as a WHAT-IF. For the enacted group that is no
+// longer hypothetical: pricing it again books €126.1M the budget has already
+// taken. Only the retained group is still a policy choice.
 const BUDGET_PAID_SSC_GROUPS = [
-  { count: 64_178, avgWageBgn: 2581.64 }, // administration + judiciary + EC members
-  { count: 68_684, avgWageBgn: 2438.86 }, // defense & security
+  {
+    count: 64_178,
+    avgWageBgn: 2581.64,
+    // административни + съдебна власт + членове на ЧИК
+    kso: "чл. 4 ал. 1 т. 2, 3, 10",
+    enactedFrom: "2026-08-01",
+  },
+  {
+    count: 68_684,
+    avgWageBgn: 2438.86,
+    // отбрана и сигурност — § 6 keeps these on чл. 6 ал. 5
+    kso: "чл. 4 ал. 1 т. 4",
+    enactedFrom: null,
+  },
 ];
 const BUDGET_PAID_SSC_COUNT = BUDGET_PAID_SSC_GROUPS.reduce(
   (s, g) => s + g.count,
@@ -772,6 +794,23 @@ const main = async (): Promise<void> => {
   const revenueYears = extractRevenue(kfp);
   if (!revenueYears.length) throw new Error("no closed КФП years");
   const baseline = revenueYears[revenueYears.length - 1];
+  // baselineYear IS DELIBERATELY THE LAST COMPLETE КФП YEAR, NOT 2026.
+  //
+  // The plan's T8 re-bases the simulator on FY2026, and that is done — but as
+  // data/budget/derived/fy2026_frame.json, a separate artifact. It is NOT this
+  // file's baselineYear, and that is a decision rather than an omission:
+  //
+  //   κ, the earnings bands and the VAT calibration factor are fitted against
+  //   a year's FULL execution. FY2026 is observed through May, so a 2026
+  //   baseline would fit them against a seasonally annualised ESTIMATE whose
+  //   own band is ±€0.8–1.7bn — and that band would then propagate silently
+  //   into every lever, invisible at the point of use. A one-year-stale
+  //   calibration is the lesser error, and it is a visible one.
+  //
+  // So: the frame carries the 2026 fiscal picture (revenue, expenditure, the
+  // derived balance, the per-line basis); this file carries the calibration.
+  // Flip baselineYear only once the FY2026 December snapshot lands, at which
+  // point the frame's `basis` for those lines becomes "carried" anyway.
   const baselineYear = baseline.fiscalYear;
   const excise = loadExcise(baselineYear);
 
@@ -1199,6 +1238,15 @@ const main = async (): Promise<void> => {
       sscSelfPaid: {
         count: BUDGET_PAID_SSC_COUNT,
         avgWageEur: Math.round(BUDGET_PAID_SSC_AVG_WAGE_EUR * 100) / 100,
+        // The lever may only price the RETAINED half — see the note on
+        // BUDGET_PAID_SSC_GROUPS. The enacted half is reported so the UI can
+        // say what already happened rather than silently dropping it.
+        groups: BUDGET_PAID_SSC_GROUPS.map((g) => ({
+          count: g.count,
+          avgWageEur: Math.round((g.avgWageBgn / BGN_PER_EUR) * 100) / 100,
+          kso: g.kso,
+          enactedFrom: g.enactedFrom,
+        })),
       },
       health: {
         // Employee insurable base scaled to the baseline year — a 1pp health

@@ -1276,6 +1276,20 @@ export const DATASETS: DatasetDef[] = [
     tags: ["fiscal"],
   },
   {
+    id: "fy2026_frame",
+    label: { bg: "Фискална рамка 2026", en: "FY2026 fiscal frame" },
+    detail: {
+      bg: "изпълнение до май, годишна оценка",
+      en: "execution to May, annualised",
+    },
+    desc: {
+      bg: "Смесената фискална рамка за 2026 г. — годината няма единен закон: ЗБДОО и ЗБНЗОК са обнародвани, а ЗДБРБ не е, така че държавната страна върви по удължителен закон. Всеки ред носи вида си: закон, удължителен закон, изпълнение (месечният отчет КФП, преизчислен на годишна база по сезонния профил на 2022–2025) или пренесена стойност от по-стара година. Балансът се ИЗВЕЖДА от приходите и разходите — сезонността му не оцелява при изваждането, затова не се екстраполира сам. План за 2026 г. няма и няма да има до приемането на ЗДБРБ.",
+      en: "The mixed fiscal frame for 2026 — the year has no single law: the ЗБДОО and ЗБНЗОК are promulgated, the ЗДБРБ is not, so the state side runs on a bridging law. Every line carries its kind: law, interim law, execution (monthly КФП annualised on the 2022–2025 seasonal profile) or a value carried from an older year. The balance is DERIVED from revenue and expenditure — its own seasonality does not survive the subtraction, so it is never extrapolated directly. There is no 2026 plan line and will not be one until the ЗДБРБ passes.",
+    },
+    path: "data/budget/derived/fy2026_frame.json",
+    tags: ["fiscal"],
+  },
+  {
     id: "budget",
     label: { bg: "Държавен бюджет", en: "State budget" },
     detail: {
@@ -1863,6 +1877,8 @@ export const EDGES: [string, string][] = [
   ["ds:doo_fund_plan", "f:pensions"],
   ["src:dv", "ds:zbdoo_annexes"],
   ["ds:zbdoo_annexes", "f:pensions"],
+  ["src:egov", "ds:fy2026_frame"],
+  ["ds:fy2026_frame", "f:budget"],
   ["ds:budget", "f:judiciary"],
   ["src:egov", "ds:budget"],
   ["src:egov", "ds:indicators"],

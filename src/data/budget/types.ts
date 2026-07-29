@@ -2637,12 +2637,17 @@ export interface PolicyBaselineFile {
       executionRate: number;
     };
     sscSelfPaid: {
-      /** Everyone whose contributions the budget pays in full (КСО чл. 6,
-       *  ал. 5): държавни служители + съдебна власт + отбрана и сигурност
-       *  (the two НОИ SOD categories, summed). */
       count: number;
-      /** Count-weighted average monthly insurable income across the groups. */
       avgWageEur: number;
+      /** Per-КСО-item split. § 6 ЗБДОО-2026 enacted the shift for т. 2/3/10
+       *  from 1 Aug 2026 and explicitly retained т. 4, so a lever that prices
+       *  the whole population double-counts what the law already did. */
+      groups?: {
+        count: number;
+        avgWageEur: number;
+        kso: string;
+        enactedFrom: string | null;
+      }[];
     };
     health: {
       /** Employee insurable base at the baseline year (1pp collects on this). */

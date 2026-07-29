@@ -79,7 +79,8 @@ import {
   scoreDefenseTarget,
   scoreHealthContribution,
   scoreMinWageFreeze,
-  scoreSscSelfPaid,
+  scoreSscSelfPaidRetained,
+  sspAffectedCount,
   scoreWageIndexation,
   scoreModCap,
   scoreModCapBands,
@@ -257,7 +258,7 @@ interface PresetApply {
   mat?: number;
   /** Civil servants pay their own contribution share (КСО art. 6(5)). */
   ssp?: boolean;
-  /** МОД cap, €/month (Бюджет-2026: €2,300). */
+  /** МОД cap, €/month (чл. 9 ЗБДОО-2026: €2,300 from 1 Aug). */
   mod?: number;
   /** Vignette / тол tariff uplift, integer %. */
   vign?: number;
@@ -272,9 +273,15 @@ interface PresetApply {
   subsidies?: number;
 }
 const PRESETS: { id: string; apply: PresetApply }[] = [
-  // The actual ЗДБРБ-2026 levers we can model — one click loads the government's
-  // budget so you can see it, then tweak. (МОД €2,300 + vignette +30% + SOE-subsidy
-  // ~90%-of-envelope cut + the accelerated ЗАДС cigarette rate ≈120 €/1000.)
+  // The 2026 package's levers we can model — one click loads them so you can
+  // see the government's own choices, then tweak. (МОД €2,300 + vignette +30%
+  // + SOE-subsidy ~90%-of-envelope cut + the accelerated ЗАДС cigarette rate
+  // ≈120 €/1000.)
+  //
+  // NOT "the ЗДБРБ-2026": the МОД cap is чл. 9 ЗБДОО, a different law, and the
+  // ЗДБРБ is not promulgated at all. The preset scores each lever FROM the
+  // baseline artifact's own cap, so it prices what the package changed rather
+  // than re-applying it on top of itself.
   {
     id: "budget2026",
     apply: { mod: 2300, vign: 30, soe: 90, cigarettes: 120 },
@@ -514,14 +521,17 @@ const computeStaticScenario = (baseline: Baseline, s: LeverState) => {
           s.kap,
         )
       : 0;
+  // § 6 ЗБДОО-2026 already moved КСО чл. 4 ал. 1 т. 2/3/10 onto an
+  // employer/employee split from 1 Aug 2026 and explicitly RETAINED т. 4. So
+  // this lever may only price the retained group — offering the enacted half
+  // again books ~€126M the budget has already taken. Falls back to the whole
+  // population only for a pre-split artifact, which has no `groups`.
+  // § 6 ЗБДОО-2026 already enacted this for КСО чл. 4 ал. 1 т. 2/3/10 and
+  // explicitly retained т. 4, so the lever may only price the retained half.
+  // Both the figure and the "affects N" label go through the same helpers —
+  // they were computed independently before, which is how they could disagree.
   const sspDelta =
-    exp && s.ssp
-      ? scoreSscSelfPaid(
-          exp.sscSelfPaid.count,
-          exp.sscSelfPaid.avgWageEur,
-          s.sspg,
-        )
-      : 0;
+    exp && s.ssp ? scoreSscSelfPaidRetained(exp.sscSelfPaid, s.sspg) : 0;
   const hpDelta =
     exp && s.hp !== 0 ? scoreHealthContribution(exp.health.baseEur, s.hp) : 0;
   // Pension floor: top-up to the new minimum for every pensioner below it.
@@ -3445,7 +3455,11 @@ export const BudgetPolicySimulator: FC = () => {
                     {ssp && baseline.expenditure
                       ? affectLine(
                           t("budget_policy_affect_ssp", {
-                            n: fmtCount(baseline.expenditure.sscSelfPaid.count),
+                            n: fmtCount(
+                              sspAffectedCount(
+                                baseline.expenditure.sscSelfPaid,
+                              ),
+                            ),
                           }),
                         )
                       : null}

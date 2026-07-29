@@ -757,6 +757,66 @@ export const scoreCapitalChange = (
  *  loses because contributions become deductible from those salaries
  *  (today their ЗДДФЛ base is the FULL gross — nothing is withheld for
  *  their account, so nothing is deductible; ЗДДФЛ чл. 25, ал. 1). */
+/** The budget-paid population a §6-aware lever may still act on.
+ *
+ *  § 6 ЗБДОО-2026 narrowed КСО чл. 6 ал. 5 from "т. 2, 3, 4 и 10" to "т. 4",
+ *  so the т. 2/3/10 group (64,178) moved onto an employer/employee split from
+ *  1 Aug 2026 and is no longer a policy choice; т. 4 (68,684) was explicitly
+ *  retained and still is. Pricing the whole population books ~€126M the budget
+ *  has already taken.
+ *
+ *  One definition, used by the simulator, the AI tool and the parity gate —
+ *  they scored this independently before, which is how the two could disagree
+ *  by 2× with nothing detecting it.
+ *
+ *  Returns `null` when the artifact predates the split, so callers fall back on
+ *  ABSENCE of the field rather than on emptiness: an empty retained set is the
+ *  legitimate "a later law enacted т. 4 too" case, where the answer is zero. */
+export interface SscSelfPaidGroup {
+  count: number;
+  avgWageEur: number;
+  kso: string;
+  enactedFrom: string | null;
+}
+
+export const sscSelfPaidRetained = (
+  sscSelfPaid: { groups?: SscSelfPaidGroup[] } | null | undefined,
+): SscSelfPaidGroup[] | null =>
+  sscSelfPaid?.groups
+    ? sscSelfPaid.groups.filter((g) => g.enactedFrom == null)
+    : null;
+
+/** Headcount the lever actually prices — what any "affects N people" label
+ *  must show, so the number and the sentence cannot drift apart. */
+export const sspAffectedCount = (
+  sscSelfPaid:
+    | { count: number; groups?: SscSelfPaidGroup[] }
+    | null
+    | undefined,
+): number => {
+  const retained = sscSelfPaidRetained(sscSelfPaid);
+  if (retained) return retained.reduce((a, g) => a + g.count, 0);
+  return sscSelfPaid?.count ?? 0;
+};
+
+/** Δ of moving the RETAINED groups onto their own contribution share. */
+export const scoreSscSelfPaidRetained = (
+  sscSelfPaid:
+    | { count: number; avgWageEur: number; groups?: SscSelfPaidGroup[] }
+    | null
+    | undefined,
+  grossUp: boolean,
+): number => {
+  if (!sscSelfPaid) return 0;
+  const retained = sscSelfPaidRetained(sscSelfPaid);
+  if (retained)
+    return retained.reduce(
+      (acc, g) => acc + scoreSscSelfPaid(g.count, g.avgWageEur, grossUp),
+      0,
+    );
+  return scoreSscSelfPaid(sscSelfPaid.count, sscSelfPaid.avgWageEur, grossUp);
+};
+
 export const scoreSscSelfPaid = (
   count: number,
   avgWageEur: number,

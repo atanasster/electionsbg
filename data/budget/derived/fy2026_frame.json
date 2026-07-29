@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-07-29T19:36:39.462Z",
+  "fiscalYear": 2026,
+  "throughMonth": 5,
+  "revenue": {
+    "series": "revenue",
+    "throughMonth": 5,
+    "ytdEur": 9904664542,
+    "shareMean": 0.3666492566275286,
+    "shareStdDev": 0.01140270807632665,
+    "annualisedEur": 27014004155.098953,
+    "lowEur": 26379084528.747574,
+    "highEur": 28300072294.082813,
+    "referenceYears": [
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "expenditure": {
+    "series": "expenditure",
+    "throughMonth": 5,
+    "ytdEur": 11894563000,
+    "shareMean": 0.36519002802598133,
+    "shareStdDev": 0.0161112360308795,
+    "annualisedEur": 32570886626.602425,
+    "lowEur": 30764317944.895134,
+    "highEur": 34216470133.39439,
+    "referenceYears": [
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "balanceEur": -5556882471.503471,
+  "hasPlan": false,
+  "statutory": {
+    "basis": "law",
+    "modCapEur": 2300,
+    "minPensionEur": 347.51,
+    "minSelfInsuredEur": 620.2,
+    "minWageEur": 620.2,
+    "dvIssue": "ДВ бр. 68 от 28.07.2026"
+  },
+  "vintages": [
+    {
+      "component": "statutory parameters (МОД, min/max pension, benefits)",
+      "basis": "law",
+      "vintage": "2026",
+      "note": "ЗБДОО-2026, обн. ДВ бр. 68 от 28.07.2026"
+    },
+    {
+      "component": "НЗОК expenditure envelope",
+      "basis": "law",
+      "vintage": "2026",
+      "note": "ЗБНЗОК-2026, чл. 1 ал. 2"
+    },
+    {
+      "component": "ДОО per-fund plan",
+      "basis": "law",
+      "vintage": "2026",
+      "note": "ЗБДОО-2026 чл. 1–8 — a GROSS sum, not consolidated"
+    },
+    {
+      "component": "state-side legal frame",
+      "basis": "interim",
+      "vintage": "2026",
+      "note": "ЗСПИР-2026 (idMat 240166) + its ЗИД (242170) — no ЗДБРБ"
+    },
+    {
+      "component": "state revenue / expenditure",
+      "basis": "execution",
+      "vintage": "2026 YTD",
+      "note": "КФП monthly execution, seasonally annualised — see the band"
+    },
+    {
+      "component": "earnings distribution (SES wave)",
+      "basis": "carried",
+      "vintage": "2022",
+      "note": "Eurostat earn_ses_hourly — the newest wave published"
+    },
+    {
+      "component": "VAT consumption structure",
+      "basis": "carried",
+      "vintage": "2022",
+      "note": "Eurostat COICOP household consumption"
+    },
+    {
+      "component": "income-tier distribution",
+      "basis": "carried",
+      "vintage": "2023",
+      "note": "НАП parliamentary answer, tax year 2023"
+    },
+    {
+      "component": "pension mass, administration payroll, COFOG social benefits",
+      "basis": "carried",
+      "vintage": "2024",
+      "note": "the newest complete year for each"
+    },
+    {
+      "component": "МОД identity (Pareto anchor)",
+      "basis": "carried",
+      "vintage": "2024",
+      "note": "a single-cap year, deliberately — 2025 and 2026 both stepped"
+    }
+  ],
+  "caveat": "FY2026 has no single legal frame: ЗБДОО и ЗБНЗОК са обнародвани, ЗДБРБ — не. Приходите и разходите са годишна оценка от месечното изпълнение, а не план — план за 2026 г. няма и няма да има до приемането на ЗДБРБ. Балансът е ИЗВЕДЕН от двете страни, не е екстраполиран сам."
+}

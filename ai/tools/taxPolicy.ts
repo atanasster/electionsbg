@@ -71,7 +71,7 @@ import {
   scorePensionFloorRaise,
   scorePensionIndexation,
   scorePitSchedule,
-  scoreSscSelfPaid,
+  scoreSscSelfPaidRetained,
   scoreTeachersPeg,
   scoreWageIndexation,
   scoreWineExcise,
@@ -1581,14 +1581,11 @@ export const scoreScenario = (
     exp && kap !== 0
       ? scoreCapitalChange(exp.capital.planEur, exp.capital.executionRate, kap)
       : 0;
+  // Same § 6 scoping as the screen, through the same helper — the two priced
+  // this independently and would otherwise disagree by 2× with the parity gate
+  // unable to see it, because the gate computed its golden the same wrong way.
   const sspDelta =
-    exp && ssp
-      ? scoreSscSelfPaid(
-          exp.sscSelfPaid.count,
-          exp.sscSelfPaid.avgWageEur,
-          sspg,
-        )
-      : 0;
+    exp && ssp ? scoreSscSelfPaidRetained(exp.sscSelfPaid, sspg) : 0;
   const hpDelta =
     exp && hp !== 0 ? scoreHealthContribution(exp.health.baseEur, hp) : 0;
   // June-2026 debate levers (Δ spending; negative = the budget saves). mp/tp

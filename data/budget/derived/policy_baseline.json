@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-13T10:07:01.277Z",
+  "generatedAt": "2026-07-29T20:09:32.577Z",
   "country": "BG",
   "baselineYear": 2025,
   "gdpEur": 116018300000,
@@ -841,7 +841,7 @@
       "massEur": 11130510081,
       "pensionerCount": 2050000,
       "supplementMassEur": 754666817,
-      "cpiPct": 3.1575,
+      "cpiPct": 3.8825,
       "wageGrowthPct": 12.05
     },
     "administration": {
@@ -880,7 +880,21 @@
     },
     "sscSelfPaid": {
       "count": 132862,
-      "avgWageEur": 1282.23
+      "avgWageEur": 1282.23,
+      "groups": [
+        {
+          "count": 64178,
+          "avgWageEur": 1319.97,
+          "kso": "чл. 4 ал. 1 т. 2, 3, 10",
+          "enactedFrom": "2026-08-01"
+        },
+        {
+          "count": 68684,
+          "avgWageEur": 1246.97,
+          "kso": "чл. 4 ал. 1 т. 4",
+          "enactedFrom": null
+        }
+      ]
     },
     "health": {
       "baseEur": 31491864833
@@ -954,5 +968,12 @@
     "alphaLow": 1.7728675817952686,
     "alphaCentral": 2.2728675817952686,
     "alphaHigh": 2.7728675817952686
-  }
+  },
+  "splitYearApproximations": [
+    {
+      "year": 2025,
+      "role": "baseline",
+      "scalarEur": 2112
+    }
+  ]
 }

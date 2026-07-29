@@ -31,7 +31,7 @@ import {
   scorePitSchedule,
   scoreRoadComponentUplift,
   scoreSoeSubsidyCut,
-  scoreSscSelfPaid,
+  scoreSscSelfPaidRetained,
   SOE_SUBSIDY_BASE_EUR,
   scoreSpendingChange,
   SOCIAL_BENEFITS_BASE_EUR,
@@ -211,11 +211,11 @@ const cases: {
   {
     q: "Държавните служители да си плащат осигуровките",
     kind: "sscSelfPaid",
-    golden: -scoreSscSelfPaid(
-      exp!.sscSelfPaid.count,
-      exp!.sscSelfPaid.avgWageEur,
-      false,
-    ),
+    // Through the shared helper, NOT the raw un-split fields. Computing the
+    // golden from `count`/`avgWageEur` made this gate structurally unable to
+    // detect the very divergence it exists to catch: both sides were wrong in
+    // the same way, so they agreed.
+    golden: -scoreSscSelfPaidRetained(exp!.sscSelfPaid, false),
   },
   {
     q: "заплатите в публичния сектор +5%",
