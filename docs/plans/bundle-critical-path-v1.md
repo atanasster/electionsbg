@@ -219,9 +219,19 @@ no longer lists `vendor-pdf`; `vendor-pdf` disappears from the network log on
 
 ### T1.2 — Split the CodeMirror family out of the catch-all (fixes C2)
 
-Add a rule alongside the existing leaflet/charts rules. Include the support deps so the new
-chunk does not reach back into `vendor` — the cycle hazard the `vendor-charts` comment
-documents from a real production failure:
+Add a rule alongside the existing leaflet/charts rules. Include the support deps for a **size**
+reason — they are CodeMirror-only in this tree, so leaving them out strands them in the
+always-preloaded catch-all and gives back part of the saving. They are leaf packages and could
+not have caused a cycle.
+
+The cycle hazard is real but points the other way. `vendor-editor` **does** statically import
+`vendor` (`@uiw/react-codemirror` compiles against two `@babel/runtime` helpers), so the
+invariant to preserve is one-directional: **`vendor` must never import `vendor-editor`** —
+nothing that falls through to the catch-all may re-export the CodeMirror family. The
+`codemirror` **meta package** must therefore be matched explicitly: it is installed (a
+dependency of `@uiw/react-codemirror`) and re-exports `@codemirror/*`, so the documented
+`import { basicSetup } from "codemirror"` would land it in the catch-all and close the loop —
+the same patch `vendor-charts` already carries for the `d3` meta package.
 
 ```js
 // The SQL browser's editor (/sql — a prod route, see A6). routes.tsx lazy-loads
@@ -230,9 +240,9 @@ documents from a real production failure:
 // defeats the lazy boundary entirely.
 if (
   id.includes("/@codemirror/") ||
+  id.match(/[\\/]node_modules[\\/]codemirror[\\/]/) || // meta pkg — see above
   id.includes("/@lezer/") ||
-  id.includes("/@uiw/react-codemirror") ||
-  id.includes("/@uiw/codemirror-") ||
+  id.includes("/@uiw/") ||
   id.match(/[\\/]node_modules[\\/]style-mod[\\/]/) ||
   id.match(/[\\/]node_modules[\\/]w3c-keyname[\\/]/) ||
   id.match(/[\\/]node_modules[\\/]crelt[\\/]/)
@@ -242,8 +252,8 @@ if (
 ```
 
 Installed members covered: `@codemirror/{autocomplete,commands,lang-sql,language,lint,search,state,theme-one-dark,view}`,
-`@lezer/{common,highlight,lr}`, `@uiw/react-codemirror`, `@uiw/codemirror-extensions-basic-setup`,
-`style-mod`, `w3c-keyname`, `crelt`.
+`codemirror` (the meta package), `@lezer/{common,highlight,lr}`, `@uiw/react-codemirror`,
+`@uiw/codemirror-extensions-basic-setup`, `style-mod`, `w3c-keyname`, `crelt`.
 
 **Verify:** `grep -l cm-editor dist/assets/*.js` names only `vendor-editor-*.js`; `/sql` loads
 and runs a query; no `Cannot access 'X' before initialization` on any route.
@@ -422,8 +432,10 @@ config edit and one `lazy()`.
 
 1. **Chunk cycles (T1.2).** The `vendor-charts` comment records a real production failure
    (`Cannot access 'X' before initialization`) from a split that left a chunk reaching back into
-   the catch-all. Mitigation: the `vendor-editor` rule lists the support deps, and verification
-   is a real `/sql` page load, not just a green build.
+   the catch-all. Mitigation: the invariant is "`vendor` never imports `vendor-editor`" — the
+   `codemirror` meta package is matched so it cannot fall through and close the loop — and it is
+   machine-checked by the catch-all cycle gate in `tests/perf.spec.ts` rather than by comment.
+   Verification is still a real `/sql` page load, not just a green build.
 2. **Home-page regression (T2).** `/` is the highest-traffic route and currently renders from
    the entry. Acceptance criterion 3 exists for this; the `resolveDependencies` mitigation is
    prepared in T2.1.

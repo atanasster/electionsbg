@@ -561,28 +561,12 @@ test.describe("prerender: cross-cutting", () => {
     );
   });
 
-  test("home page does NOT eagerly preload pdf/charts/leaflet/markdown vendors", async ({
-    request,
-  }) => {
-    const { body } = await fetchOk(request, "/");
-    const preloads = Array.from(
-      body.matchAll(
-        /<link[^>]+rel=["']modulepreload["'][^>]+href=["']([^"']+)["']/gi,
-      ),
-    ).map((m) => m[1]);
-    for (const banned of [
-      "vendor-pdf",
-      "vendor-charts",
-      "vendor-leaflet",
-      "vendor-markdown",
-      "exportToPDF-",
-    ]) {
-      expect(
-        preloads.some((p) => p.includes(banned)),
-        `${banned} should not be modulepreloaded — wastes ~1MB of JS on landing`,
-      ).toBe(false);
-    }
-  });
+  // The home modulepreload guard used to be duplicated here. Bundle shape is
+  // not an SEO invariant, and the copy drifted — it never gained vendor-flow
+  // or vendor-editor while the perf suite's list was ratcheted twice, so it
+  // read as coverage while asserting a strict subset. tests/perf.spec.ts owns
+  // it now, alongside the entry-static-import and chunk-cycle gates that
+  // explain why the preload list alone is not sufficient.
 
   test("trailing-slash redirect: /about → /about/", async ({ request }) => {
     // maxRedirects: 0 disables follow so we can see the 301 directly.

@@ -69,6 +69,7 @@ test.describe("performance", () => {
       "vendor-charts",
       "vendor-leaflet",
       "vendor-markdown",
+      "vendor-editor",
       "exportToPDF-",
     ]) {
       expect(
@@ -96,12 +97,58 @@ test.describe("performance", () => {
     // Ratchet: vendor-charts and vendor-leaflet are still static imports until
     // T2 lands (the eager DashboardScreen pulls the map stack in). Add them to
     // this list in that commit — do not weaken the assertion.
-    for (const banned of ["vendor-pdf", "vendor-markdown", "vendor-flow"]) {
+    for (const banned of [
+      "vendor-pdf",
+      "vendor-markdown",
+      "vendor-flow",
+      "vendor-editor",
+    ]) {
       expect(
         imports.find((i) => i.startsWith(banned)),
         `${banned} is back on the critical path: ${imports.join(", ")}`,
       ).toBeUndefined();
     }
+  });
+
+  // The banned-list assertions above are all of the form "chunk X is absent",
+  // so every one of them is satisfied by X simply ceasing to exist — a
+  // dependency upgrade that moves CodeMirror to an unmatched path would undo
+  // the split with a fully green gate. Anchor them with a positive assertion.
+  test("vendor-editor exists and owns the CodeMirror family", () => {
+    const files = fs.readdirSync(`${DIST_DIR}/assets`);
+    const editor = files.find((f) => /^vendor-editor-.*\.js$/.test(f));
+    expect(
+      editor,
+      "vendor-editor chunk missing — the manualChunks rule stopped matching",
+    ).toBeTruthy();
+    const owners = files.filter(
+      (f) =>
+        f.endsWith(".js") &&
+        fs
+          .readFileSync(`${DIST_DIR}/assets/${f}`, "utf8")
+          .includes("cm-editor"),
+    );
+    expect(owners).toEqual([editor]);
+  });
+
+  test("catch-all vendor does not import a route-only chunk (cycle guard)", () => {
+    const file = fs
+      .readdirSync(`${DIST_DIR}/assets`)
+      .find(
+        (f) =>
+          /^vendor-[A-Za-z0-9_-]+\.js$/.test(f) && !/^vendor-[a-z]+-/.test(f),
+      );
+    expect(
+      file,
+      "catch-all vendor chunk not found — run `npm run build`",
+    ).toBeTruthy();
+    // vendor-editor / -charts / -pdf all statically import `vendor`. If
+    // `vendor` imports one of them back, the split becomes a cycle and
+    // surfaces in production as "Cannot access 'X' before initialization".
+    // Only the foundational vendor-react may appear here.
+    expect(
+      staticImportsOf(file!).filter((i) => !i.startsWith("vendor-react")),
+    ).toEqual([]);
   });
 
   test("vendor-react has no static imports (cycle guard)", () => {

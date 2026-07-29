@@ -202,6 +202,12 @@ export default defineConfig(({ mode }) => {
         // preload-helper rule below) and still applies to vendor-charts /
         // vendor-leaflet until the eager DashboardScreen is split out.
         //
+        // vendor-editor is deliberately NOT in this pattern: it is not a static
+        // import of the entry, so it never reaches the html dep list — and
+        // keeping it out is what lets the perf.spec preload assertion for it
+        // actually fail. For every chunk listed here the filter strips it
+        // unconditionally, which makes the matching assertion tautological.
+        //
         // Scoped to hostType "html" deliberately: the hook is also called for
         // each dynamic import's dependency list, and filtering there strips
         // the chunks from __vite__mapDeps, so a route that genuinely needs
@@ -316,6 +322,47 @@ export default defineConfig(({ mode }) => {
               id.includes("/hast-")
             ) {
               return "vendor-markdown";
+            }
+            // The SQL browser's CodeMirror editor. /sql is a real production
+            // route (backed by the hardened `sql` Cloud Function), and
+            // routes.tsx lazy-loads the screen precisely so the editor stays
+            // out of the initial download — but without this rule the
+            // catch-all `vendor` return below swallows the whole family and
+            // re-attaches ~156 KB brotli to the chunk every page preloads,
+            // defeating that lazy boundary entirely.
+            //
+            // style-mod / w3c-keyname / crelt are listed for a SIZE reason,
+            // not a cycle reason: they are CodeMirror-only deps in this tree
+            // (`npm ls`), so leaving them out would strand them in the
+            // always-preloaded catch-all and give back part of the saving.
+            //
+            // Cycle status: vendor-editor DOES statically import `vendor` —
+            // @uiw/react-codemirror compiles against two @babel/runtime
+            // helpers, which fall through to the catch-all. That edge is safe
+            // only while it stays one-directional, so the invariant to
+            // preserve is "`vendor` never imports `vendor-editor`": nothing
+            // that falls through to the catch-all may re-export the CodeMirror
+            // family. The `codemirror` meta package is matched below for
+            // exactly that reason — it is installed (a dep of
+            // @uiw/react-codemirror) and re-exports @codemirror/*, so the
+            // documented `import { basicSetup } from "codemirror"` would
+            // otherwise land in the catch-all and close the loop. Same patch
+            // the vendor-charts rule above carries for the `d3` meta package;
+            // see its comment for what breaking this looked like in
+            // production. Enforced by the cycle gate in tests/perf.spec.ts.
+            if (
+              id.includes("/@codemirror/") ||
+              id.match(/[\\/]node_modules[\\/]codemirror[\\/]/) ||
+              id.includes("/@lezer/") ||
+              // @uiw exists in this tree solely as the CodeMirror React
+              // wrapper, so the namespace and the family are the same set —
+              // matching it whole survives a wrapper renaming its subpackages.
+              id.includes("/@uiw/") ||
+              id.match(/[\\/]node_modules[\\/]style-mod[\\/]/) ||
+              id.match(/[\\/]node_modules[\\/]w3c-keyname[\\/]/) ||
+              id.match(/[\\/]node_modules[\\/]crelt[\\/]/)
+            ) {
+              return "vendor-editor";
             }
 
             // Always-loaded but logically grouped deps.
