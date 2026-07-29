@@ -2,14 +2,17 @@
   "_comment": "Register person-GUID → the one declarant name that person's profile is published under. register.cacbg.bg re-spells declarants between folder years; scripts/officials/shared.ts canonicalDeclarantName() levels the mechanical drift (case, inner whitespace, hyphen spacing, a 'д-р' prefix), which folds 233 of the 270 forked people back together. What is left over is here: 36 register people whose spellings differ by more than that — a genuine typo ('Натгалия', 'Симееон', 'Маритн'), a swapped patronymic and surname, or a real name change (marriage, divorce, a legal rename). No textual rule can close those without also merging two same-named strangers, so they are resolved by the register's OWN per-person id instead. Keyed on the GUID because it is stable across every filing one declarant ever makes, including across institutions and across the exec/municipal tiers. Both ingests substitute `name` for the register's listing name before slugging AND in the index row, so one person shows one name.",
   "_whatBelongsHere": "ONLY a GUID proven to be ONE person under two or more spellings — which the GUID itself proves, since register.cacbg.bg issues it per declarant. The danger runs the other way from scripts/officials/_slug_collisions.json: listing a GUID here MERGES spellings, so an entry whose `name` collides with a DIFFERENT person's canonical name under the same institution publishes one official's property under another's name. Before adding, check that no second GUID already sits on the target slug — the corpus gate in scripts/officials/officials_slug.data.test.ts fails if one does. EDDF7B29… is the worked example of a case that does NOT belong here; see _notListed.",
   "_howToAdd": "Run the officials ingest, or `npx vitest run scripts/officials/officials_slug.data.test.ts`. The corpus gate pins how many register people are still forked WITHIN one institution; when it rises, a new spelling has landed. Find it by grouping data/officials/declarations by the person-GUID in each filing's sourceUrl (scripts/officials/slug_identity.ts personGuid()), take the spelling from the most recent declaration year as `name`, list the ones it replaces in `folds`, and say why in `reason`. Prefer the newest spelling: it is the person's current legal name, and a marriage rename should not leave the profile under the maiden name. Do NOT strip a trailing digit as though it were noise — see _notListed and the TITLE_PREFIX note in scripts/officials/shared.ts.",
-  "_notListed": {
-    "EDDF7B29-447A-4C2B-A359-78366EFBAF43": "Иван Георгиев Иванов / …Иванов1, Училища. Folding the digit suffix here would NOT just reunite one person: the bare-named slug ivan-georgiev-ivanov-b749dc already carries a SECOND register person (2E6D233C…), so the merge would pull a stranger's property into the profile. Resolving it means deciding which of the two GUIDs is the second person and listing it in ./_slug_collisions.json — a call that needs both declarations opened and compared, per that file's _howToAdd. Left forked until then."
-  },
+  "_notListed": {},
   "aliases": {
     "3BBBBC01-1BF9-4AC7-A145-6833073BD930": {
       "name": "Августина Кирилова Цветкова-Карабашева",
       "folds": ["Августина Кирилова Цветкова"],
       "reason": "name change — surname extended"
+    },
+    "EDDF7B29-447A-4C2B-A359-78366EFBAF43": {
+      "name": "Иван Георгиев Иванов",
+      "folds": ["Иван Георгиев Иванов1"],
+      "reason": "register digit-suffix noise, not a second person — the GUID is one man, ОУ 'Климент Охридски', forked across Училища/'Иван Георгиев Иванов' (2024) and Училища/'Иван Георгиев Иванов1' (2025). Safe to fold ONLY because 2E6D233C… (the директор of ОУ 'Д-р Петър Берон' who shared the digit-less slug) was split off to its own slug via _slug_collisions.json first; the digit-less name is kept as canonical because a '1' is the register's disambiguator, not a legal name (see the trailing-digit note in ./shared.ts), and it holds the already-published slug ivan-georgiev-ivanov-b85a89."
     },
     "75AB005B-9CED-48D9-9D69-18D4078F7E75": {
       "name": "Айсел Исмаил Руфад",

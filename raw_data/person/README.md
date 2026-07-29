@@ -33,6 +33,27 @@ makes the backfill a reviewable, diffable artifact instead of an archaeology ses
 `npm run person:slug-redirects -- raw_data/person/officials_reslug_2026_07_24.json`. It runs
 as part of `db:refresh`; on Cloud SQL it is a manual deploy step (`:cloud` variant).
 
+## `officials_reslug_2026_07_29.json`
+
+`{ "<old officials slug>": "<new officials slug>" }` — 1 entry.
+
+**What it is.** The redirect from the 2026-07-29 collision repair. Two same-named pairs had
+merged onto one slug each under a group label (`ivan-stoyanov-stoyanov-5d97ce` over an
+окръжен прокурор and a командир на дивизион; `ivan-georgiev-ivanov-b85a89` over two school
+directors), told apart by their `<Personal><Work>` employer. Listing the second GUID of each
+in `scripts/officials/_slug_collisions.json` and running
+`scripts/officials/split_collision_slugs.ts --apply` peeled the newcomer onto its own slug —
+no old slug retired there, those filings had never had one. What DID retire a slug was the
+follow-on fold: once `2E6D233C…` was split off `ivan-georgiev-ivanov-b85a89`, the alias table
+could finally reunite `EDDF7B29…`'s own two spellings, dropping `ivan-georgiev-ivanov1-94805e`.
+This map is that one drop, produced with `--redirects` at rename time per the note below.
+
+**Who reads it.** Same as above — `scripts/person/load_slug_redirects.ts`, wired into
+`db:refresh` right after the 2026-07-24 map. The loader upserts, so the two maps compose. On
+Cloud SQL it is the same manual step: `npm run person:slug-redirects:cloud --
+raw_data/person/officials_reslug_2026_07_29.json`.
+
 **Adding another.** A future officials re-slug needs its own dated map here, produced with
-`--redirects` at the time of the rename rather than reconstructed afterwards. The resolver
-warns when orphaned dead slugs appear, which is the signal that one is missing.
+`--redirects` at the time of the rename rather than reconstructed afterwards, and wired into
+`db:refresh` next to the existing ones. The resolver warns when orphaned dead slugs appear,
+which is the signal that one is missing.

@@ -84,12 +84,15 @@ Deploying the person layer to **Cloud SQL** needs one extra command after
 
 ```bash
 npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_24.json
+npm run person:slug-redirects:cloud -- raw_data/person/officials_reslug_2026_07_29.json
 ```
 
-It loads the officials re-slug map into `person_slug_retired`, so the ~20.8k `/person` URLs
-minted under pre-2026-07-24 officials slugs 301 instead of 404. `db:refresh` runs the local
-equivalent automatically; nothing runs it on the cloud side. See
-`raw_data/person/README.md` and `docs/plans/persons-pg-retirement-v1.md` (T1.0).
+They load the officials re-slug maps into `person_slug_retired`, so the ~20.8k `/person` URLs
+minted under pre-2026-07-24 officials slugs 301 instead of 404. The loader upserts, so each
+dated map composes; add a line here whenever a new one lands (2026-07-29 is the collision-fold
+drop — see `raw_data/person/README.md`). `db:refresh` runs the local equivalent automatically;
+nothing runs it on the cloud side. See `raw_data/person/README.md` and
+`docs/plans/persons-pg-retirement-v1.md` (T1.0).
 
 Likewise, after `db:load:declarations:pg:cloud -- --resolve` (which creates the municipal
 roster matview), run the candidateLink loader so the Cloud SQL municipal roster carries the

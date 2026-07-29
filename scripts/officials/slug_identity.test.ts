@@ -17,6 +17,7 @@ import {
   personGuid,
   personGuidFilings,
   personGuidsOf,
+  workOf,
 } from "./slug_identity";
 
 const URL_BASE = "https://register.cacbg.bg/register/declarations";
@@ -131,6 +132,59 @@ describe("personGuidFilings — the same-run collision test", () => {
     expect(
       [...competing.values()].every((f) => f.sourceUrl.startsWith(URL_BASE)),
     ).toBe(true);
+  });
+
+  // The employer, read from each filing's XML, is what a warning leads with —
+  // two different <Work>s under one group label prove two people without opening
+  // anything. Иван Стоянов Стоянов is the worked case: окръжна прокуратура vs
+  // военно формирование.
+  it("attaches the employer from each filing's XML when a reader is given", () => {
+    const xmlByUrl = new Map([
+      [
+        url("2025", "D1245F3F-A206-40F9-BB6C-A9F0BE3D1D09313300.xml"),
+        "<Personal><Work>ВОЕННО ФОРМИРОВАНИЕ 26720 - ЧЕРНОМОРЕЦ</Work></Personal>",
+      ],
+      [
+        url("2018", "A0555741-4ECE-4404-BB6C-2FB9B319E145100432.xml"),
+        "<Personal><Work>Окръжна прокуратура - Хасково</Work></Personal>",
+      ],
+    ]);
+    const competing = personGuidFilings(
+      [
+        filing("2025", "D1245F3F-A206-40F9-BB6C-A9F0BE3D1D09313300.xml", 2025),
+        filing("2018", "A0555741-4ECE-4404-BB6C-2FB9B319E145100432.xml", 2018),
+      ],
+      (url) => xmlByUrl.get(url) ?? null,
+    );
+    expect(competing.get("D1245F3F-A206-40F9-BB6C-A9F0BE3D1D09")?.work).toBe(
+      "ВОЕННО ФОРМИРОВАНИЕ 26720 - ЧЕРНОМОРЕЦ",
+    );
+    expect(competing.get("A0555741-4ECE-4404-BB6C-2FB9B319E145")?.work).toBe(
+      "Окръжна прокуратура - Хасково",
+    );
+  });
+
+  // No reader (the default) — the employer line is simply omitted, never a throw.
+  it("leaves work null when no XML reader is supplied", () => {
+    const competing = personGuidFilings([
+      filing("2025", "D1245F3F-A206-40F9-BB6C-A9F0BE3D1D09313300.xml", 2025),
+    ]);
+    expect(competing.get("D1245F3F-A206-40F9-BB6C-A9F0BE3D1D09")?.work).toBe(
+      null,
+    );
+  });
+});
+
+describe("workOf — the employer inside a declaration XML", () => {
+  it("pulls <Work> out and collapses its whitespace", () => {
+    expect(
+      workOf("<Personal><Name>Х</Name><Work>ОУ  \" Климент\nОхридски\"</Work></Personal>"),
+    ).toBe('ОУ " Климент Охридски"');
+  });
+
+  it("is null when the field is empty or absent", () => {
+    expect(workOf("<Personal><Work>  </Work></Personal>")).toBe(null);
+    expect(workOf("<Personal><Name>Х</Name></Personal>")).toBe(null);
   });
 });
 

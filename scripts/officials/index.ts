@@ -54,6 +54,7 @@ import { aliasedDeclarantName } from "./declarant_aliases";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
 import {
   ROOT,
+  RAW_DIR,
   REGISTER_BASE,
   sleep,
   canonicalDeclarantName,
@@ -63,6 +64,22 @@ import {
   fetchDeclaration,
   writeJson,
 } from "./shared";
+import { registerFolderSegment } from "../lib/cacbg_register";
+
+// A filing's XML as `fetchDeclaration` cached it, for the collision report's
+// employer line. Read from disk rather than kept in memory: the cross-year check
+// compares against filings from EARLIER runs, which this process never fetched.
+// Never throws — a missing cache entry just costs the operator that one line.
+const cachedDeclarationXml = (sourceUrl: string): string | null => {
+  const folder = registerFolderSegment(sourceUrl);
+  const xmlFile = sourceUrl.split("/").pop();
+  if (!folder || !xmlFile) return null;
+  try {
+    return fs.readFileSync(path.join(RAW_DIR, folder, xmlFile), "utf-8");
+  } catch {
+    return null;
+  }
+};
 
 // Register person-GUIDs that must not share a slug with a same-named peer —
 // see ./_slug_collisions.json for why the default slug is not always unique.
@@ -92,22 +109,27 @@ const SLUG_COLLISION_GUIDS: Set<string> = new Set(
 // управител of Област - Велико Търново, filed under FBEA081E… in 2014 and
 // 68B238E8… in 2016 with a byte-identical property list.
 //
-// The two are told apart by the declared HOLDINGS, not by the name or the
-// institution: the slug is officialSlug(name, institution), so a shared slug
-// already implies both are identical after canonicalisation and neither can
-// ever discriminate.
+// The two are told apart by the declared HOLDINGS and by the EMPLOYER, not by
+// the name or the institution: the slug is officialSlug(name, institution), so a
+// shared slug already implies both are identical after canonicalisation and
+// neither can ever discriminate. `<Personal><Work>` can — it names the actual
+// school/court/unit rather than the group label — so the report prints it and
+// the operator reads it first. See `workOf` in ./slug_identity.ts.
 const warnCollisions = (collisions: SlugCollisions): void => {
   console.warn(
     `  [warn] ${collisions.size} slug collision(s) — one slug, two register person-GUIDs. Their filings MERGE into one profile.`,
   );
   console.warn(
-    `         Open both URLs and compare the declared property/income first:`,
+    `         Read the "работи:" employer line below, then open both URLs and compare the declared property/income:`,
   );
   console.warn(
-    `           · same holdings → ONE person, the register re-issued the id. Change nothing; the merge is correct.`,
+    `           · same employer AND same holdings → ONE person, the register re-issued the id. Change nothing; the merge is correct.`,
   );
   console.warn(
-    `           · different holdings → two people. Add the second GUID to scripts/officials/_slug_collisions.json and re-run.`,
+    `           · different employers, or different holdings → two people. Add the second GUID to scripts/officials/_slug_collisions.json and re-run,`,
+  );
+  console.warn(
+    `             then split the already-merged shard: tsx scripts/officials/split_collision_slugs.ts --apply`,
   );
   for (const line of formatCollisions(collisions))
     console.warn(`         ${line}`);
@@ -392,7 +414,7 @@ const cmd = command({
     // is what made 56 of the corpus's 59 multi-guid shards look like collisions
     // when every one of them was a single person.
     for (const [slug, claims] of claimsBySlug.entries()) {
-      const competing = personGuidFilings(claims);
+      const competing = personGuidFilings(claims, cachedDeclarationXml);
       if (competing.size > 1) {
         recordCollision(slugCollisions, slug, ...competing.values());
       }
@@ -442,7 +464,10 @@ const cmd = command({
       if (foreign.length === 0) continue;
       // One filing per competing id — from this run and from the shard alike —
       // so the operator can open them side by side and compare the holdings.
-      const filings = personGuidFilings([...decls, ...existing]);
+      const filings = personGuidFilings(
+        [...decls, ...existing],
+        cachedDeclarationXml,
+      );
       recordCollision(crossYear, slug, ...filings.values());
     }
     if (crossYear.size > 0) {

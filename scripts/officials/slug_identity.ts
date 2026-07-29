@@ -67,18 +67,58 @@ export type CollisionFiling = {
   guid: string;
   year: number;
   sourceUrl: string;
+  /** `<Personal><Work>` — the declarant's actual EMPLOYER, which the group
+   *  labels the slug is built from ("Училища", "Процедури по ЗОП") throw away.
+   *  Null when the XML is not in the cache. See `workOf` below. */
+  work?: string | null;
 };
+
+/** The employer named inside a declaration XML.
+ *
+ *  The whole collision problem is that `institution` is a GROUP label — 978
+ *  declarants share "Процедури по ЗОП" — so it cannot separate two same-named
+ *  people. `<Work>` is not a group: it is the school, court or unit the
+ *  declarant actually serves, and in practice it settles the case outright.
+ *  Иван Стоянов Стоянов / Процедури по ЗОП was one profile over an окръжен
+ *  прокурор in Хасково and a командир на дивизион at военно формирование 26720;
+ *  Иван Георгиев Иванов / Училища over the directors of ОУ "Климент Охридски"
+ *  and ОУ "Д-р Петър Берон".
+ *
+ *  NOT promoted into the slug, deliberately. It is free text the declarant
+ *  types — the two examples above alone carry `ОУ' Д-Р ПЕТЪР БЕРОН"` with a
+ *  stray apostrophe and unbalanced quotes — so hashing it would fork one person
+ *  across their own re-spellings, which is the defect _declarant_guid_aliases
+ *  exists to undo. It is evidence for the operator, not an identity key.
+ *
+ *  Regex rather than a parse: this runs inside a warning path over a handful of
+ *  filings, and must not fail on a malformed XML the ingest already tolerated. */
+export const workOf = (xml: string): string | null => {
+  const m = /<Work>([\s\S]*?)<\/Work>/.exec(xml);
+  const work = m?.[1].trim();
+  return work ? work.replace(/\s+/g, " ") : null;
+};
+
+/** Reads a filing's XML from wherever the caller has it cached. Returning null
+ *  (the default) simply omits the employer line from the report. */
+export type XmlReader = (sourceUrl: string) => string | null;
 
 /** The person ids claiming one slug, each mapped to a filing the operator can
  *  open. More than one entry IS the collision. */
 export const personGuidFilings = (
   filings: Iterable<FilingLike>,
+  readXml: XmlReader = () => null,
 ): Map<string, CollisionFiling> => {
   const out = new Map<string, CollisionFiling>();
   for (const f of filings) {
     const guid = personGuidFromSourceUrl(f.sourceUrl);
     if (!guid || out.has(guid)) continue;
-    out.set(guid, { guid, year: f.declarationYear, sourceUrl: f.sourceUrl });
+    const xml = readXml(f.sourceUrl);
+    out.set(guid, {
+      guid,
+      year: f.declarationYear,
+      sourceUrl: f.sourceUrl,
+      work: xml ? workOf(xml) : null,
+    });
   }
   return out;
 };
@@ -125,6 +165,10 @@ export const formatCollisions = (collisions: SlugCollisions): string[] => {
       a[0].localeCompare(b[0]),
     )) {
       out.push(`    ${guid}  filed ${f.year}  ${f.sourceUrl}`);
+      // The employer, when the XML is cached. Two different employers under one
+      // group label is the cheapest proof that these are two people; the same
+      // employer means the holdings still have to be compared by hand.
+      if (f.work) out.push(`        работи: ${f.work}`);
     }
   }
   return out;
