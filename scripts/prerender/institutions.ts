@@ -103,19 +103,19 @@ export const INSTITUTION_PACKS: InstitutionPack[] = [
     titleEn:
       "НЗОК — Bulgaria's health fund: budget, hospital & drug payments | electionsbg.com",
     descriptionBg:
-      "Къде отиват над €5,5 млрд. на Националната здравноосигурителна каса (НЗОК): бюджет по пера, плащания към болниците по области и на човек, реимбурсация на лекарства по молекула (INN) и обществените поръчки на касата.",
+      "Къде отиват €5,26 млрд. на Националната здравноосигурителна каса (НЗОК): бюджет по пера, плащания към болниците по области и на човек, реимбурсация на лекарства по молекула (INN) и обществените поръчки на касата.",
     descriptionEn:
-      "Where the Bulgarian health fund (НЗОК) spends its ~€5.5bn: budget by line, hospital payments by region and per capita, drug reimbursement by active substance (INN), and the fund's public procurement.",
+      "Where the Bulgarian health fund (НЗОК) spends its €5.26bn: budget by line, hospital payments by region and per capita, drug reimbursement by active substance (INN), and the fund's public procurement.",
     bodyBg: [
       "<h1>Национална здравноосигурителна каса (НЗОК)</h1>",
-      "<p>НЗОК администрира публичното здравно осигуряване в България — над <strong>€5,5 млрд.</strong> годишно по Закона за бюджета на НЗОК. Обществените поръчки на касата (около €79 млн.) са едва ~1,5% от бюджета; почти всичко останало се плаща <strong>извън ЗОП</strong> по чл. 45 ЗЗО.</p>",
-      "<p>Най-големите пера са <strong>болничната медицинска помощ</strong> (~43%) и <strong>лекарствата, медицинските изделия и храните</strong> (~24%), следвани от специализираната и първичната извънболнична помощ и денталната помощ.</p>",
+      "<p>НЗОК администрира публичното здравно осигуряване в България — <strong>€5,26 млрд.</strong> за 2026 г. по Закона за бюджета на НЗОК (ДВ бр. 68 от 28.07.2026). Обществените поръчки на касата (около €79 млн.) са едва ~1,5% от бюджета; почти всичко останало се плаща <strong>извън ЗОП</strong> по чл. 45 ЗЗО.</p>",
+      "<p>Най-големите пера са <strong>болничната медицинска помощ</strong> (~45%) и <strong>лекарствата, медицинските изделия и храните</strong> (~25%), следвани от специализираната и първичната извънболнична помощ и денталната помощ.</p>",
       `<p>Страницата показва бюджета по пера с темпа на касовото изпълнение спрямо равномерен план, плащанията към болниците по лечебно заведение и по РЗОК (общо и на човек от населението), динамиката им на годишна база, реимбурсацията на лекарства по INN и ATC група с най-бързо растящите молекули, както и сравнение между две болници. Данните са от nhif.bg. Виж и <a href="${SITE}/budget">държавния бюджет</a>.</p>`,
     ].join(""),
     bodyEn: [
       "<h1>National Health Insurance Fund of Bulgaria (НЗОК)</h1>",
-      "<p>НЗОК runs Bulgaria's public health insurance — over <strong>€5.5bn</strong> a year under its budget law. The fund's public procurement (~€79M) is barely ~1.5% of that; almost everything else is paid <strong>outside public procurement</strong> (art. 45 ЗЗО).</p>",
-      "<p>The largest lines are <strong>hospital care</strong> (~43%) and <strong>medicines, devices and foods</strong> (~24%), followed by specialist and primary outpatient care and dental care.</p>",
+      "<p>НЗОК runs Bulgaria's public health insurance — <strong>€5.26bn</strong> in 2026 under its budget law (ДВ бр. 68 of 28.07.2026). The fund's public procurement (~€79M) is barely ~1.5% of that; almost everything else is paid <strong>outside public procurement</strong> (art. 45 ЗЗО).</p>",
+      "<p>The largest lines are <strong>hospital care</strong> (~45%) and <strong>medicines, devices and foods</strong> (~25%), followed by specialist and primary outpatient care and dental care.</p>",
       `<p>The page shows the budget by line with cash-execution pace against an even plan, payments to hospitals by facility and by regional fund (total and per resident), their year-over-year momentum, drug reimbursement by active substance (INN) and ATC group with the fastest-rising molecules, and a two-hospital comparison. Data from nhif.bg. See also the <a href="${SITE}/en/budget">state budget</a>.</p>`,
     ].join(""),
     ogAnchor: '[data-og="nzok-bridge"]',

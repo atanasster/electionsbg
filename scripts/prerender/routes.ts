@@ -540,7 +540,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
       breadcrumb: "Здравеопазване",
       h1: "Здравеопазване — обществените поръчки на НЗОК",
       intro:
-        "Националната здравноосигурителна каса администрира ~5,5 млрд. € годишно; обществените поръчки са ~1,5% от тях — останалото (болници, лекарства, лекари) се плаща извън ЗОП. Тази страница обобщава поръчките на касата.",
+        "Националната здравноосигурителна каса администрира ~5,26 млрд. € за 2026 г.; обществените поръчки са ~1,5% от тях — останалото (болници, лекарства, лекари) се плаща извън ЗОП. Тази страница обобщава поръчките на касата.",
     },
     en: {
       title: "Health — the NHIF's public procurement | electionsbg.com",
@@ -549,7 +549,7 @@ const SECTOR_PAGES: SectorPageContent[] = [
       breadcrumb: "Health",
       h1: "Health — the NHIF's public procurement",
       intro:
-        "The National Health Insurance Fund administers ~€5.5bn a year; public procurement is ~1.5% of it — the rest (hospitals, drugs, doctors) is paid outside the procurement law. This page summarises the fund's tenders.",
+        "The National Health Insurance Fund administers ~€5.26bn in 2026; public procurement is ~1.5% of it — the rest (hospitals, drugs, doctors) is paid outside the procurement law. This page summarises the fund's tenders.",
     },
   },
   {

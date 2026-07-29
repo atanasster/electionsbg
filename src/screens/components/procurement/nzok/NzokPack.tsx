@@ -5,7 +5,7 @@
 // money-flow, EU benchmarks, tenders, appeals) already sit on the awarder page
 // above it.
 //
-// The differentiator: this pack fuses НЗОК's contract ledger with the ~€5.5bn
+// The differentiator: this pack fuses НЗОК's contract ledger with the ~€5.3bn
 // budget it administers (useNzok loads the ЗБНЗОК budget-law breakdown), so the
 // reader sees that public procurement is ~1.5% of the fund — the other ~98.5%
 // (hospital reimbursements, drug reimbursement, GP/dental care) never touches
@@ -52,7 +52,7 @@ import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 import { NzokPublicPrivateBand } from "./NzokPublicPrivateBand";
 import { NzokHospitalMap } from "./NzokHospitalMap";
 
-// Sections stay in money-first order: the €5.5bn fund and the flows that
+// Sections stay in money-first order: the fund's whole budget and the flows that
 // actually spend it come first; ЗОП (~1.5%) closes the page. The banded layout
 // itself lives in the shared <PackSection> (../PackSection).
 
@@ -200,7 +200,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       </div>
 
       {/* ── Band 1 · Фондът накратко / The fund at a glance ─────────────
-          The €5.5bn anchor number and the story that ~98.5% of it flows
+          The whole-fund anchor number and the story that ~98.5% of it flows
           OUTSIDE procurement. Everything below is a share of this whole. */}
       <div id="nzok-fund" className="flex items-center gap-2 pt-2 scroll-mt-24">
         <HeartPulse className="h-5 w-5 text-muted-foreground" />
@@ -210,8 +210,8 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       </div>
       <p className="-mt-2 max-w-2xl text-sm leading-snug text-muted-foreground">
         {bg
-          ? "Фондът администрира ~€5,5 млрд. годишно. Обществените поръчки са ~1,5% от него — останалото (болници, лекарства, лекари) се плаща извън ЗОП."
-          : "The fund administers ~€5.5bn a year. Public procurement is ~1.5% of it — the rest (hospitals, medicines, doctors) is paid outside procurement."}
+          ? "Фондът администрира €5,26 млрд. за 2026 г. Обществените поръчки са ~1,5% от него — останалото (болници, лекарства, лекари) се плаща извън ЗОП."
+          : "The fund administers €5.26bn in 2026. Public procurement is ~1.5% of it — the rest (hospitals, medicines, doctors) is paid outside procurement."}
       </p>
 
       {/* НЗОК-specific KPI: procurement per year against the fund it runs. */}
@@ -248,7 +248,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <InsightChips items={insights} />
 
-      {/* Hero — the ~€5.5bn budget the procurement sits inside */}
+      {/* Hero — the whole fund budget the procurement sits inside */}
       {budgetYear && selectedYear != null && (
         <NzokBudgetBridgeTile
           year={budgetYear}

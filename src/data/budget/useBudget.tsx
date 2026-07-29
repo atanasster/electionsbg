@@ -299,7 +299,7 @@ export const useKfnFunds = () =>
   });
 
 // НЗОК budget-law breakdown — drives the health sector pack's "Къде отиват
-// €5,5 млрд." bridge tile. Single committed file (~4 KB across the ingested
+// НЗОК budget-bridge tile. Single committed file (~4 KB across the ingested
 // fiscal years). Written by scripts/budget/nzok/__write_budget.ts.
 export const useNzokBudget = () =>
   useQuery({

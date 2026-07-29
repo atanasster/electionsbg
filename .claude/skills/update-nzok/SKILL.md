@@ -26,7 +26,22 @@ Refreshes `data/budget/nzok/` — the data behind the **health sector pack** on 
 | User asks to refresh private-hospital revenue / ГФО / "публични срещу частни болници"; **or periodically** to fill new ГФО filings (annual, Sept season) | `npm run data:nzok -- --revenue` (opt-in, **heavy Gemini OCR**; needs `GEMINI_API_KEY` + local PG; resumable — only fills empty cells) |
 | Fresh clone, `data/budget/nzok/*.json` missing | `npm run data:nzok` |
 
-The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual ЗБНЗОК — it has no watcher source and is only re-run when a new fiscal year's law is added to `scripts/budget/nzok/__write_budget.ts`.
+The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual ЗБНЗОК — it has no watcher source of its own. Re-run it in **two** cases:
+
+1. a new fiscal year's law is added to `scripts/budget/nzok/__write_budget.ts`; **or**
+2. an existing year moves from **проект to обн. закон** — the `dv_laws` watcher's describe-line names `ЗБНЗОК` when the law is promulgated. This is a *user-visible number changing on a live page*, not a new row: FY2026 went €5,537,996,900 (Надзор draft) → €5,256,677,200 (ДВ бр. 68 от 28.07.2026), a €281.3M correction on the `/awarder/121858220` bridge tile. Flip `basis: "draft"` → `"law"` and re-key every line.
+
+**Key every line from its чл. 1 ал. 2 CODE, not its label,** and set `expectedResidualK` when the law states the residual's components separately. The generator's overshoot throw only catches *over*-keying; an under-keyed table reconciles perfectly and silently inflates the reserve bar. Both 2026 transcription errors (a dropped 1.1.3.6, and `hospital` taken from sub-line 1.1.3.7.1 instead of the parent 1.1.3.7) were invisible to Σ-equals-total and are caught only by that residual assertion. Verify with:
+
+```bash
+npx tsx scripts/budget/nzok/__smoke_budget.ts
+```
+
+**`data/budget` is bucket-served in production** (`useBudget` fetches through `dataUrl()`), so committing `budget.json` is not enough — the corrected number reaches the live site only after a sync. Include `data-changes.json`: it is bucket-served from the data root, so `-- budget` alone publishes the corrected figure while leaving the changelog entry that explains it invisible.
+
+```bash
+npm run bucket:sync:paths -- budget data-changes.json
+```
 
 **Derived analytics need no separate trigger.** The drug-savings leaderboard (060), the report-card + decile-fan and reporting-coverage fns (056/058) and the pathway tree (059's serving fn over the activities corpus) are read-only functions over the drug-prices / ЕЕОФ / activities corpora, applied by those same three loaders — so they refresh automatically whenever `nzok_drug_unit_prices`, `mh_eeof_quarterly` or `nzok_activities` flips and its loader re-runs. The only genuinely new source is the **pathway tariffs** (opt-in, BG egress — see the dedicated section below).
 

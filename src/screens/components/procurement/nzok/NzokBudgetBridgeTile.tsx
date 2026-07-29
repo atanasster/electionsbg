@@ -1,4 +1,4 @@
-// "Къде отиват €5,5 млрд." — the hero that sets НЗОК's public procurement inside
+// "Къде отиват парите на НЗОК" — the hero that sets the fund's public procurement inside
 // the fund it actually is. НЗОК's ~€79M of ЗОП contracts is ~1.5% of ONE year's
 // budget; the other ~98.5% (hospital reimbursements, drug reimbursement, GP /
 // dental / specialist care) flows OUTSIDE public procurement entirely (чл. 45
@@ -70,7 +70,7 @@ export const NzokBudgetBridgeTile: FC<{
   const bg = lang === "bg";
   const eur = (v: number) => formatEurCompact(v, lang);
   // BG-vs-EU public health spend (COFOG GF07, % of GDP) — the context for "is
-  // €5.5bn a lot?". Bulgaria consistently underspends on health vs the EU average.
+  // that a lot?". Bulgaria consistently underspends on health vs the EU average.
   const { data: cofog } = useCofog();
   const health = cofog?.peers?.GF07 ?? null;
 

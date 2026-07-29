@@ -3,7 +3,7 @@
 // (НЗОК ≈ 1.4k rows), is windowed CLIENT-SIDE to the host's [from, to) scope,
 // then fed to the pure buildNzokModel engine. The pack also loads НЗОК's annual
 // budget-law breakdown (useNzokBudget) so the ~€79M of procurement can be set
-// against the ~€5.5bn the fund actually spends — the ~98.5% that flows OUTSIDE
+// against the ~€5.3bn the fund actually spends — the ~98.5% that flows OUTSIDE
 // public procurement (hospital reimbursements, drug reimbursement, GP/dental).
 //
 // The budget breakdown is ANNUAL (its own fiscal-year axis) and deliberately

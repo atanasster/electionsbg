@@ -39,6 +39,11 @@ export interface NzokBudgetLine {
   bg: string;
   en: string;
   amount: Money;
+  /** The чл. 1 ал. 2 code this figure is taken from (law-basis years only).
+   *  Carried into the artifact so a reviewer diffing budget.json can see the
+   *  DEPTH a figure was keyed at — the 2026 draft→law pass mis-took a parent
+   *  for its sub-line and only the residual assertion caught it. */
+  lawCode?: string;
 }
 
 export interface NzokBudgetYear {

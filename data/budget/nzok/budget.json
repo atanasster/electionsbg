@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-07-07T11:03:11.383Z",
+  "generatedAt": "2026-07-29T11:34:53.273Z",
   "source": {
     "publisher": "Национална здравноосигурителна каса (НЗОК)",
     "law": "Закон за бюджета на НЗОК (ЗБНЗОК)",
     "url": "https://www.nhif.bg/bg/completion-reports",
-    "description": "Годишни разходни линии от Закона за бюджета на НЗОК. 2026 — проект (приет от Надзора 29.10.2025), суми в евро; 2025 — обн. закон, суми в лева, конвертирани при 1 EUR = 1.95583 BGN. Редът „Резерв, трансфери и капиталови разходи“ е остатък до общия разход."
+    "description": "Годишни разходни линии от Закона за бюджета на НЗОК. 2026 — обн. закон (ДВ бр. 68 от 28.07.2026), суми в евро; 2025 — обн. закон, суми в лева, конвертирани при 1 EUR = 1.95583 BGN. Редът „Резерв, трансфери и капиталови разходи“ е остатък до общия разход."
   },
   "latestYear": 2026,
   "years": [
     {
       "fiscalYear": 2026,
-      "basis": "draft",
+      "basis": "law",
       "currencyOfRecord": "EUR",
       "totalExpenditure": {
-        "amount": 5537996900,
-        "amountEur": 5537996900,
+        "amount": 5256677200,
+        "amountEur": 5256677200,
         "currency": "EUR"
       },
       "lines": [
@@ -24,10 +24,11 @@
           "bg": "Болнична медицинска помощ",
           "en": "Hospital care",
           "amount": {
-            "amount": 2359887300,
-            "amountEur": 2359887300,
+            "amount": 2341939300,
+            "amountEur": 2341939300,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.7"
         },
         {
           "id": "drugs",
@@ -35,10 +36,11 @@
           "bg": "Лекарства, медицински изделия и храни",
           "en": "Drugs, devices & foods",
           "amount": {
-            "amount": 1332089400,
-            "amountEur": 1332089400,
+            "amount": 1334348500,
+            "amountEur": 1334348500,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.5"
         },
         {
           "id": "specialist",
@@ -46,10 +48,11 @@
           "bg": "Специализирана извънболнична помощ (СИМП)",
           "en": "Specialist outpatient care",
           "amount": {
-            "amount": 352495700,
-            "amountEur": 352495700,
+            "amount": 351246000,
+            "amountEur": 351246000,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.2"
         },
         {
           "id": "gp",
@@ -57,10 +60,11 @@
           "bg": "Първична извънболнична помощ (ПИМП)",
           "en": "Primary care (GPs)",
           "amount": {
-            "amount": 349292100,
-            "amountEur": 349292100,
+            "amount": 345609800,
+            "amountEur": 345609800,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.1"
         },
         {
           "id": "dental",
@@ -68,10 +72,11 @@
           "bg": "Дентална помощ",
           "en": "Dental care",
           "amount": {
-            "amount": 233511100,
-            "amountEur": 233511100,
+            "amount": 231049400,
+            "amountEur": 231049400,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.3"
         },
         {
           "id": "diagnostics",
@@ -79,10 +84,11 @@
           "bg": "Медико-диагностична дейност",
           "en": "Medical diagnostics",
           "amount": {
-            "amount": 167490400,
-            "amountEur": 167490400,
+            "amount": 168254300,
+            "amountEur": 168254300,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.4"
         },
         {
           "id": "devices_hospital",
@@ -90,10 +96,11 @@
           "bg": "Медицински изделия в болничната помощ",
           "en": "Medical devices in hospital care",
           "amount": {
-            "amount": 114587800,
-            "amountEur": 114587800,
+            "amount": 111338200,
+            "amountEur": 111338200,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.6"
         },
         {
           "id": "other_care",
@@ -101,10 +108,11 @@
           "bg": "Други здравноосигурителни плащания",
           "en": "Other health payments",
           "amount": {
-            "amount": 42863500,
-            "amountEur": 42863500,
+            "amount": 49317300,
+            "amountEur": 49317300,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.3.8"
         },
         {
           "id": "personnel",
@@ -112,10 +120,11 @@
           "bg": "Персонал",
           "en": "Personnel",
           "amount": {
-            "amount": 51630300,
-            "amountEur": 51630300,
+            "amount": 48157800,
+            "amountEur": 48157800,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.1"
         },
         {
           "id": "operations",
@@ -123,10 +132,11 @@
           "bg": "Издръжка на администрацията",
           "en": "Administrative operations",
           "amount": {
-            "amount": 18002600,
-            "amountEur": 18002600,
+            "amount": 17709100,
+            "amountEur": 17709100,
             "currency": "EUR"
-          }
+          },
+          "lawCode": "1.1.2"
         },
         {
           "id": "reserve",
@@ -134,8 +144,8 @@
           "bg": "Резерв, трансфери и капиталови разходи",
           "en": "Reserve, transfers & capital",
           "amount": {
-            "amount": 516146700,
-            "amountEur": 516146700,
+            "amount": 257707500,
+            "amountEur": 257707500,
             "currency": "EUR"
           }
         }
