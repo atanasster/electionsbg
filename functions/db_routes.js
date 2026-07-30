@@ -2335,7 +2335,8 @@ const DB_ROUTES = {
          -- from build_municipal_search: a joined fold row is therefore always the single
          -- trusted person, and f is NULL for a no-match OR an ambiguous name — both kept,
          -- unlinked (person_slug NULL, is_candidate false), surviving the dedup filter.
-         SELECT m.official_slug, m.name, m.role, m.municipality, m.district,
+         -- m.role stays: it feeds the ORDER BY below, not the payload.
+         SELECT m.official_slug, m.name, m.role, m.municipality,
                 f.slug AS person_slug,
                 COALESCE(f.is_candidate, false) AS is_candidate
          FROM municipal_officials_table m

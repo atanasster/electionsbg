@@ -245,8 +245,8 @@ export const useSearchItems = () => {
 
       // Municipal officials — cacbg roster (mayors / chairs / deputy
       // mayors / councillors / chief architects). The slim search file
-      // carries the {slug, name, role, municipality} projection only;
-      // the parentName surfaces the município so two homonymous
+      // carries the {slug, name, municipality, personSlug} projection
+      // only; the parentName surfaces the município so two homonymous
       // councillors in different общини can be told apart in the
       // dropdown.
       if (municipalOfficials?.entries) {
