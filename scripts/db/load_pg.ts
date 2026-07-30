@@ -523,16 +523,20 @@ export const loadPg = async (): Promise<{
   // place_dim (117) and procurement_scopes (118), both loaded after this script. Refreshed
   // AGAIN here, guarded on existence, so a contracts-only reload cannot leave the
   // by-settlement page serving the previous corpus while every other view has moved on.
+  // Order matters for the last two: contractor_scope_kpis (122) reads contractor_rank,
+  // so the rank matview is refreshed first.
   for (const mv of [
     "procurement_settlement_rank",
     "procurement_geo_payloads",
+    "contractor_rank",
+    "contractor_scope_kpis",
   ]) {
     const [{ present }] = await allRows<{ present: boolean }>(
       `SELECT to_regclass($1) IS NOT NULL AS present`,
       [mv],
     );
     if (!present) continue;
-    // CONCURRENTLY: both are on the serving path, and a plain REFRESH would hold an
+    // CONCURRENTLY: all are on the serving path, and a plain REFRESH would hold an
     // AccessExclusiveLock for the whole recompute.
     await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
   }

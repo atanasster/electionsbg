@@ -39,11 +39,21 @@ const SCOPED = path.join(
   ROOT,
   "scripts/db/schema/pg/119_procurement_settlement_scoped.sql",
 );
+// The per-scope contractor leaderboard (122). Same shape as 119 — reads
+// procurement_scopes (118) + contracts, so applied here rather than in load_pg.
+const CONTRACTORS = path.join(
+  ROOT,
+  "scripts/db/schema/pg/122_contractor_rank.sql",
+);
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
 
 const SCOPED_MATVIEWS = [
   "procurement_settlement_rank",
   "procurement_geo_payloads",
+  // contractor_rank BEFORE contractor_scope_kpis: the KPI matview reads the rank
+  // matview, so it must see the freshly-refreshed rows.
+  "contractor_rank",
+  "contractor_scope_kpis",
 ] as const;
 
 /** REFRESH the scoped precomputes, CONCURRENTLY where possible.
@@ -111,6 +121,7 @@ const main = async (): Promise<void> => {
   // be two separate states — a new election otherwise leaves its own scope with no rows,
   // which reads as "this parliament awarded nothing" rather than as staleness.
   await exec(readFileSync(SCOPED, "utf8"));
+  await exec(readFileSync(CONTRACTORS, "utf8"));
   await refreshScopedSettlement();
 
   console.log(
