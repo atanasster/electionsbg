@@ -1,50 +1,43 @@
-// Unified header for the three "views" of a single place — the Governance
-// dashboard (/governance, /governance/region/:oblast, /governance/:id), the
-// parliamentary-elections results (/sections/:ekatte, /settlement/:obshtina),
-// and the local-elections results (/local/:cycle/...). Before this component
-// each screen rolled its
-// own header (a Card hero, a centered serif H1, a plain inline <h1>), so the
-// same place looked like three unrelated pages and nothing but the small
-// switcher told you which dashboard you were on.
+// Unified header for the "views" of a single place — the Governance dashboard
+// (/governance, /governance/region/:oblast, /governance/:id), the parliamentary-
+// elections results (/sections/:ekatte, /settlement/:obshtina), the local-
+// elections results (/local/:cycle/...), and Consumption. Before this component
+// each screen rolled its own header, so the same place looked like unrelated
+// pages and nothing but the small switcher told you which dashboard you were on.
 //
-// This is the one header for all of them. The skeleton — Card shell, eyebrow,
-// localized title, breadcrumb narrative, map thumbnail, and the embedded
-// PlaceViewNav switcher — is identical across the three. Only a small set of
-// per-view slots vary (the eyebrow's accent + label, an optional back-link,
-// a cycle-date suffix, a cross-link, or a switcher override).
+// This file is the JSON-BACKED WRAPPER: it resolves identity from the shared geo
+// hooks (settlements.json / municipalities.json / regions.json + GRAO) and hands
+// a fully-resolved identity to the presentational PlaceHeaderView. The narrative
+// is composed by the pure renderPlaceNarrative(). That split lets a PG-backed
+// page (the procurement settlement page) render the IDENTICAL hero without
+// shipping the 940 KB settlements.json — it builds the same inputs from Postgres.
 //
-// "Which dashboard am I on" is answered three redundant ways, all keyed to
-// one accent hue per view (PLACE_VIEW_META): the left border of the Card, the
-// eyebrow icon + label, and the active pill inside PlaceViewNav.
+// "Which dashboard am I on" is answered three redundant ways, all keyed to one
+// accent hue per view (PLACE_VIEW_META): the left border of the Card, the eyebrow
+// icon + label, and the active pill inside PlaceViewNav (all inside the View).
 //
-// Identity is resolved from the shared geographic codes (the same hooks the
-// screens already use), so the title is localized everywhere — fixing the
-// local pages that used to hard-render the Bulgarian município name even in
-// English. `fallbackName` covers the rare code that resolves to nothing.
+// Identity is resolved from the shared geographic codes, so the title is
+// localized everywhere. `fallbackName` covers the rare code that resolves to
+// nothing.
 
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { Link } from "@/ux/Link";
 import {
   PlaceLevel,
   PlaceRef,
   PlaceView,
   placeViewUrl,
   isSofiaRayonObshtina,
-  isSofiaCityObshtina,
   SOFIA_CITY_GOVERNANCE_ID,
 } from "@/data/local/placeViews";
-import { isSofiaMir } from "@/data/dataTypes";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
-import { PlaceViewNav } from "./PlaceViewNav";
-import { PLACE_VIEW_META } from "./placeViewMeta";
+import { PlaceHeaderView } from "./place/PlaceHeaderView";
+import { renderPlaceNarrative } from "./place/placeNarrative";
 
 type Props = {
   active: PlaceView;
@@ -76,11 +69,6 @@ type Props = {
   className?: string;
 };
 
-const formatNumber = (n: number | undefined, lang: "bg" | "en"): string => {
-  if (n == null || !Number.isFinite(n)) return "—";
-  return n.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB");
-};
-
 // Settlement/município centroids in our data files are stored as "lon,lat"
 // strings. Returns null if either coord can't be parsed.
 const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
@@ -91,91 +79,6 @@ const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
   const lon = Number(lonStr);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
   return { lat, lon };
-};
-
-// Single-tile OSM static thumbnail — no Leaflet on the hero path. Computes
-// the fractional tile coords for the centroid at a fixed zoom and lays down a
-// 3×3 tile mosaic so the centroid sits at the middle, then drops a CSS pin.
-const TILE_SIZE = 256;
-const ZOOM = 12; // ~5 km across — good for "where in the oblast is this".
-const THUMB_W = 144;
-const THUMB_H = 96;
-const SUBDOMAINS = ["a", "b", "c"];
-
-const StaticOsmThumbnail: FC<{ lat: number; lon: number; alt: string }> = ({
-  lat,
-  lon,
-  alt,
-}) => {
-  const n = Math.pow(2, ZOOM);
-  const fx = ((lon + 180) / 360) * n;
-  const latRad = (lat * Math.PI) / 180;
-  const fy =
-    ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n;
-  const tx = Math.floor(fx);
-  const ty = Math.floor(fy);
-  // 3×3 mosaic centred on the centroid's tile, each tile placed so the centroid
-  // lands at the thumbnail centre. A 3×3 grid (vs a 2×2) is what guarantees the
-  // thumbnail is fully covered no matter where the centroid sits within its
-  // tile — a 2×2 leaves a bare strip when the centroid is near the tile's top
-  // or left edge (e.g. Plovdiv: map "cut off at the top").
-  const tiles: Array<{
-    x: number;
-    y: number;
-    sub: string;
-    left: number;
-    top: number;
-  }> = [];
-  for (let dy = -1; dy <= 1; dy++) {
-    for (let dx = -1; dx <= 1; dx++) {
-      const x = tx + dx;
-      const y = ty + dy;
-      tiles.push({
-        x,
-        y,
-        sub: SUBDOMAINS[(((x + y) % 3) + 3) % 3],
-        left: THUMB_W / 2 + (x - fx) * TILE_SIZE,
-        top: THUMB_H / 2 + (y - fy) * TILE_SIZE,
-      });
-    }
-  }
-  return (
-    <div
-      className="relative rounded-md overflow-hidden border bg-muted"
-      style={{ width: THUMB_W, height: THUMB_H }}
-      aria-label={alt}
-      role="img"
-    >
-      {tiles.map((tile) => (
-        <img
-          key={`${tile.x}-${tile.y}`}
-          src={`https://${tile.sub}.tile.openstreetmap.org/${ZOOM}/${tile.x}/${tile.y}.png`}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          // max-w-none: Tailwind preflight's `img { max-width: 100% }` would
-          // otherwise clamp each tile to the 144px-wide thumbnail box (squishing
-          // 256→142px and breaking the mosaic alignment). The old 2×2 wrapper
-          // hid this by sizing the tiles' container to 512px.
-          className="absolute select-none pointer-events-none max-w-none"
-          style={{
-            left: tile.left,
-            top: tile.top,
-            width: TILE_SIZE,
-            height: TILE_SIZE,
-          }}
-        />
-      ))}
-      <span
-        className="absolute size-2.5 rounded-full bg-primary ring-2 ring-background shadow"
-        style={{
-          left: THUMB_W / 2,
-          top: THUMB_H / 2,
-          transform: "translate(-50%, -50%)",
-        }}
-      />
-    </div>
-  );
 };
 
 export const PlaceHeader: FC<Props> = ({
@@ -212,25 +115,17 @@ export const PlaceHeader: FC<Props> = ({
   // A Sofia район (e.g. Лозенец) arrives as a município-level place whose
   // obshtina is an S2xxx shard. It is an административен район of Столична
   // община — not a self-standing община — and S23/S24/S25 are МИР, not области.
-  // So its title reads "район {name}" and its breadcrumb roots it under
-  // Столична община + its МИР instead of the generic "Община {name}, област …".
   const isSofiaRayon =
     level === "municipality" && isSofiaRayonObshtina(obshtina);
   // A Пловдив/Варна sub-city район ("PDV22-04") also arrives as a município-
   // level place, but it isn't in municipalities.json — it's an административен
-  // район of Община Пловдив/Варна. Like a Sofia район it titles "район {name}"
-  // and roots its breadcrumb under the parent Община + its МИР, instead of the
-  // generic "Община {name}, област …".
+  // район of Община Пловдив/Варна.
   const cityRayon =
     level === "municipality" ? findCityRayon(obshtina) : undefined;
   const isCityRayon = !!cityRayon;
   // Settlement + section both anchor on a settlement EKATTE — a section drills
   // one level below its settlement, which we surface in its breadcrumb.
   const usesSettlement = isSettlement || isSection;
-  // For a Sofia район the caller passes the район's parliamentary EKATTE as
-  // `ekatte` (level "settlement") and the S2xxx code as `obshtina` (used only
-  // by the switcher). Resolving the settlement gives us its real parent
-  // município for the breadcrumb.
   const settlement = usesSettlement ? findSettlement(ekatte) : undefined;
   const obshtinaForName = usesSettlement
     ? (settlement?.obshtina ?? obshtina)
@@ -240,15 +135,9 @@ export const PlaceHeader: FC<Props> = ({
   const region = oblastCode ? findRegion(oblastCode) : undefined;
   // The abroad МИР (oblast "32", "Извън страната") isn't an oblast inside
   // Bulgaria: its "municipalities" are continents and its "settlements" are
-  // countries. Breadcrumbs drop the "община"/"област" qualifiers for it and
-  // label the continent tier "Континент". It also has no Governance, local or
-  // Consumption dimension — only the parliamentary vote is meaningful abroad —
-  // so the view switcher is suppressed entirely (see the nav slot below).
+  // countries.
   const isAbroad = oblastCode === "32";
-  // A settlement/section whose parent obshtina is a Sofia район (e.g. с. Долни
-  // Богров in район Кремиковци, S2422): its breadcrumb labels that parent
-  // "район", threads in Столична община, and shows the МИР without an "област"
-  // prefix (S23/S24/S25 are електорални МИР, not области).
+  // A settlement/section whose parent obshtina is a Sofia район.
   const parentIsSofiaRayon =
     usesSettlement && isSofiaRayonObshtina(obshtinaForName);
 
@@ -256,16 +145,9 @@ export const PlaceHeader: FC<Props> = ({
   const graoObshtina = isSettlement ? settlement?.obshtina : undefined;
   const { data: graoSlice } = useGraoMunicipalitySlice(graoObshtina);
 
-  const meta = PLACE_VIEW_META[active];
-  const Icon = meta.icon;
-
   const settlementType = usesSettlement ? settlement?.t_v_m : null;
   // The 21 central Sofia районы are stored as settlements with a composite
-  // "68134-NNNN" EKATTE and the type marker `t_v_m="общ."` (their own
-  // município-equivalent). Displaying that verbatim reads "общ. Лозенец" — as
-  // if Лозенец were an община. They are administrative районы / квартали, so
-  // show "кв." instead. This marker is exclusive to those 21 entries, so real
-  // villages (с.) and towns (гр.) inside the outer районы are untouched.
+  // "68134-NNNN" EKATTE and the type marker `t_v_m="общ."`. Show "кв." instead.
   const isSofiaRayonSettlement = settlementType === "общ.";
   const displaySettlementType = isSofiaRayonSettlement ? "кв." : settlementType;
   const settlementName = settlement
@@ -288,9 +170,7 @@ export const PlaceHeader: FC<Props> = ({
       : regionNameRaw.replace(/\s+region$/iu, "").trim()
     : null;
 
-  // The h1 text, per level. Settlement/município resolve to their localized
-  // name; region uses its full (unstripped) name; the country card is the
-  // nation; a section is "Section {code}".
+  // The h1 text, per level.
   const resolvedName = isSettlement
     ? settlementName
     : isCountry
@@ -319,11 +199,8 @@ export const PlaceHeader: FC<Props> = ({
       ? null
       : parseLoc(muni?.loc);
 
-  // Drilling up the hierarchy keeps the active view: a reader on the local page
-  // for гр. Айтос who clicks "община Айтос" should land on the município's local
-  // page, not its parliamentary default. Each parent link is a pure rewrite of
-  // the shared codes into the active view's URL (placeViewUrl), so the
-  // parliamentary view's links are byte-for-byte what they were before.
+  // Drilling up the hierarchy keeps the active view. Each parent link is a pure
+  // rewrite of the shared codes into the active view's URL (placeViewUrl).
   const linkFor = (p: PlaceRef): string | null =>
     placeViewUrl(active, p, activeCycle);
   const muniHref = settlement
@@ -339,412 +216,13 @@ export const PlaceHeader: FC<Props> = ({
   const settlementHref = settlement
     ? linkFor({ level: "settlement", ekatte: settlement.ekatte })
     : null;
-  // Столична община / България / a Пловдив-Варна район's parent city — the
-  // breadcrumb's other up-links. They used to be hardcoded to governance / the
-  // national parliamentary page regardless of view; route them through the
-  // active view too, falling back to the old target if a view can't resolve.
   const sofiaCityHref =
     linkFor({ level: "municipality", obshtina: SOFIA_CITY_GOVERNANCE_ID }) ??
     `/governance/${SOFIA_CITY_GOVERNANCE_ID}`;
   const countryHref = linkFor({ level: "country" }) ?? "/";
-
-  // Composed breadcrumb narrative — município and oblast are links so the
-  // reader can drill up the hierarchy.
-  const renderNarrative = () => {
-    // Country: the nation is the top of the hierarchy — no parent to link to.
-    if (isCountry) return null;
-
-    // Shared parent chain for a place INSIDE a Sofia район (settlement or
-    // section): "в район {Кремиковци}, {Столична община}, {София 24 МИР}" —
-    // район-labelled (not "община"), Столична община threaded in, and the МИР
-    // shown without an "област" prefix. The "в район {muni}" segment is always
-    // kept: a квартал (кв. Лозенец) sits inside its район (район Лозенец) even
-    // when they share a name — a район can hold several квартали, so this is a
-    // real level, not a repetition.
-    const sofiaRayonTail = () => {
-      const muniNode =
-        muniName && muniHref ? (
-          <Link to={muniHref} underline>
-            {muniName}
-          </Link>
-        ) : null;
-      const regionNode =
-        regionName && regionHref ? (
-          <Link to={regionHref} underline>
-            {regionName}
-          </Link>
-        ) : null;
-      const sofiaNode = (
-        <Link to={sofiaCityHref} underline>
-          {lang === "bg" ? "Столична община" : "Sofia (Stolichna) municipality"}
-        </Link>
-      );
-      return (
-        <>
-          {muniNode ? (
-            lang === "bg" ? (
-              <> в район {muniNode}, </>
-            ) : (
-              <> in {muniNode} district, </>
-            )
-          ) : (
-            ", "
-          )}
-          {sofiaNode}
-          {regionNode ? <>, {regionNode}</> : null}
-        </>
-      );
-    };
-    // Region: drill up to the national dashboard. Sofia's three МИР (S23/S24/
-    // S25) are NOT области — they are електорални многомандатни изборни райони
-    // that together cover Столична община — so they get a distinct narrative
-    // that roots them under the city instead of "Област в България".
-    if (isRegion) {
-      // The abroad МИР (32, "Извън страната") is not an oblast inside Bulgaria —
-      // its "municipalities" are world regions/continents — so the "Област в
-      // България" narrative is wrong. Show no breadcrumb, like the country page.
-      if (oblastCode === "32") return null;
-      if (isSofiaMir(oblastCode)) {
-        if (lang === "bg") {
-          return (
-            <>
-              Многомандатен изборен район в{" "}
-              <Link to={sofiaCityHref} underline>
-                Столична община
-              </Link>
-            </>
-          );
-        }
-        return (
-          <>
-            Multi-member electoral district in{" "}
-            <Link to={sofiaCityHref} underline>
-              Sofia (Stolichna) municipality
-            </Link>
-          </>
-        );
-      }
-      if (lang === "bg") {
-        return (
-          <>
-            Област в{" "}
-            <Link to={countryHref} underline>
-              България
-            </Link>
-          </>
-        );
-      }
-      return (
-        <>
-          Oblast in{" "}
-          <Link to={countryHref} underline>
-            Bulgaria
-          </Link>
-        </>
-      );
-    }
-    // Section: settlement (link) → município (link) → oblast (link).
-    if (isSection) {
-      const typedSettlement =
-        displaySettlementType && lang === "bg"
-          ? `${displaySettlementType} ${settlementName ?? ""}`.trim()
-          : (settlementName ?? "");
-      const settlementNode = settlementHref ? (
-        <Link to={settlementHref} underline>
-          {typedSettlement}
-        </Link>
-      ) : (
-        typedSettlement
-      );
-      if (parentIsSofiaRayon) {
-        return (
-          <>
-            {settlementNode}
-            {sofiaRayonTail()}
-          </>
-        );
-      }
-      if (isAbroad) {
-        // Abroad section: "{country} в {continent}, Извън страната" — drop the
-        // "община"/"област" qualifiers, mirroring the abroad settlement view.
-        return (
-          <>
-            {settlementNode}
-            {muniName && muniHref ? (
-              <>
-                {lang === "bg" ? " в " : " in "}
-                <Link to={muniHref} underline>
-                  {muniName}
-                </Link>
-              </>
-            ) : null}
-            {regionName && regionHref ? (
-              <>
-                ,{" "}
-                <Link to={regionHref} underline>
-                  {regionName}
-                </Link>
-              </>
-            ) : null}
-          </>
-        );
-      }
-      if (lang === "bg") {
-        return (
-          <>
-            {settlementNode}
-            {muniName && muniHref ? (
-              <>
-                {" "}
-                в община{" "}
-                <Link to={muniHref} underline>
-                  {muniName}
-                </Link>
-              </>
-            ) : null}
-            {regionName && regionHref ? (
-              <>
-                , област{" "}
-                <Link to={regionHref} underline>
-                  {regionName}
-                </Link>
-              </>
-            ) : null}
-          </>
-        );
-      }
-      return (
-        <>
-          {settlementNode}
-          {muniName && muniHref ? (
-            <>
-              {" in "}
-              <Link to={muniHref} underline>
-                {muniName}
-              </Link>{" "}
-              municipality
-            </>
-          ) : null}
-          {regionName && regionHref ? (
-            <>
-              ,{" "}
-              <Link to={regionHref} underline>
-                {regionName}
-              </Link>{" "}
-              oblast
-            </>
-          ) : null}
-        </>
-      );
-    }
-    // Sofia район: "Район на Столична община, {N} МИР" — the район belongs to
-    // Столична община (linked to the município governance dashboard, the
-    // canonical Столична-община page; /sofia is the oblast/МИР aggregate, not
-    // the município) and sits inside one of the three МИР (linked, and named
-    // "София N МИР" without an "област" prefix, since a МИР is not an област).
-    if (isSofiaRayon) {
-      const sofiaLink = (label: string) => (
-        <Link to={sofiaCityHref} underline>
-          {label}
-        </Link>
-      );
-      const mirLink =
-        regionHref && regionNameRaw ? (
-          <Link to={regionHref} underline>
-            {regionNameRaw}
-          </Link>
-        ) : null;
-      if (lang === "bg") {
-        return (
-          <>
-            Район на {sofiaLink("Столична община")}
-            {mirLink ? <>, {mirLink}</> : null}
-          </>
-        );
-      }
-      return (
-        <>
-          District of {sofiaLink("Sofia (Stolichna) municipality")}
-          {mirLink ? <>, {mirLink}</> : null}
-        </>
-      );
-    }
-    // Пловдив/Варна sub-city район: "Район на Община Пловдив, 16 МИР" — the
-    // район belongs to its parent Община (linked to the Община's governance
-    // dashboard, where the obshtina-grain data lives) and sits in one МИР
-    // (Пловдив-град = 16 МИР, Варна = 3 МИР). No "област" prefix: a град-level
-    // МИР is an изборен район, not an oblast — mirrors the Sofia район tail.
-    if (isCityRayon && cityRayon) {
-      const city = lang === "bg" ? cityRayon.cityBg : cityRayon.cityEn;
-      const cityRayonParentHref =
-        linkFor({ level: "municipality", obshtina: cityRayon.obshtina }) ??
-        `/governance/${cityRayon.obshtina}`;
-      const muniNode = (
-        <Link to={cityRayonParentHref} underline>
-          {lang === "bg" ? `Община ${city}` : `${city} municipality`}
-        </Link>
-      );
-      const mir = cityRayon.mir.replace(/^0+/, "");
-      if (lang === "bg") {
-        return (
-          <>
-            Район на {muniNode}, {mir} МИР
-          </>
-        );
-      }
-      return (
-        <>
-          District of {muniNode}, MIR {mir}
-        </>
-      );
-    }
-    // Sofia city aggregate (Столична община, keyed SOF00): the capital is a
-    // single município that spans all three МИР, so the generic "Община {name},
-    // област …" narrative doesn't fit. Its name ("София Град") already reads as
-    // the city, so show it on its own without the "Община" / "municipality"
-    // qualifier.
-    if (!isSettlement && isSofiaCityObshtina(obshtina)) {
-      return <>{name}</>;
-    }
-    if (!isSettlement && isAbroad) {
-      // Abroad "município" — a continent bucket. Label it "Континент {name}"
-      // and reference the diaspora district without the "област" qualifier:
-      // "Континент Северна Америка, Извън страната".
-      return (
-        <>
-          {lang === "bg" ? <>Континент {name}</> : <>{name} continent</>}
-          {regionName && regionHref ? (
-            <>
-              ,{" "}
-              <Link to={regionHref} underline>
-                {regionName}
-              </Link>
-            </>
-          ) : null}
-        </>
-      );
-    }
-    if (!isSettlement) {
-      // Município view: "Община {name}, област {region}".
-      if (lang === "bg") {
-        return (
-          <>
-            Община {name}
-            {regionName && regionHref ? (
-              <>
-                , област{" "}
-                <Link to={regionHref} underline>
-                  {regionName}
-                </Link>
-              </>
-            ) : null}
-          </>
-        );
-      }
-      return (
-        <>
-          {name} municipality
-          {regionName && regionHref ? (
-            <>
-              ,{" "}
-              <Link to={regionHref} underline>
-                {regionName}
-              </Link>{" "}
-              oblast
-            </>
-          ) : null}
-        </>
-      );
-    }
-    // Settlement view.
-    if (isAbroad) {
-      // A country inside a continent bucket. Reference the continent without
-      // the "община" qualifier and the diaspora district without "област":
-      // "САЩ в Северна Америка, Извън страната".
-      const typed = settlementType ? `${settlementType} ${name}` : name;
-      return (
-        <>
-          {typed}
-          {muniName && muniHref ? (
-            <>
-              {lang === "bg" ? " в " : " in "}
-              <Link to={muniHref} underline>
-                {muniName}
-              </Link>
-            </>
-          ) : null}
-          {regionName && regionHref ? (
-            <>
-              ,{" "}
-              <Link to={regionHref} underline>
-                {regionName}
-              </Link>
-            </>
-          ) : null}
-        </>
-      );
-    }
-    if (parentIsSofiaRayon) {
-      const typed =
-        lang === "bg" && displaySettlementType
-          ? `${displaySettlementType} ${name}`
-          : name;
-      return (
-        <>
-          {typed}
-          {sofiaRayonTail()}
-        </>
-      );
-    }
-    if (lang === "bg") {
-      const typed = settlementType ? `${settlementType} ${name}` : name;
-      return (
-        <>
-          {typed}
-          {muniName && muniHref ? (
-            <>
-              {" "}
-              в община{" "}
-              <Link to={muniHref} underline>
-                {muniName}
-              </Link>
-            </>
-          ) : null}
-          {regionName && regionHref ? (
-            <>
-              , област{" "}
-              <Link to={regionHref} underline>
-                {regionName}
-              </Link>
-            </>
-          ) : null}
-        </>
-      );
-    }
-    return (
-      <>
-        {name}
-        {muniName && muniHref ? (
-          <>
-            {" in "}
-            <Link to={muniHref} underline>
-              {muniName}
-            </Link>{" "}
-            municipality
-          </>
-        ) : null}
-        {regionName && regionHref ? (
-          <>
-            ,{" "}
-            <Link to={regionHref} underline>
-              {regionName}
-            </Link>{" "}
-            oblast
-          </>
-        ) : null}
-      </>
-    );
-  };
+  const cityRayonParentHref = cityRayon
+    ? linkFor({ level: "municipality", obshtina: cityRayon.obshtina })
+    : null;
 
   const titleText =
     (isSofiaRayon || isCityRayon) && lang === "bg"
@@ -754,130 +232,62 @@ export const PlaceHeader: FC<Props> = ({
         : name;
   // A section's thumbnail shows its settlement, so label the map with that.
   const thumbName = isSection ? (settlementName ?? name) : name;
-  const thumbAlt =
-    lang === "bg"
-      ? `Карта на района — ${thumbName}`
-      : `Area map — ${thumbName}`;
-  const narrative = renderNarrative();
 
-  const eyebrowInner = (
-    <>
-      <Icon className="size-3.5" aria-hidden />
-      <span>{t(meta.labelKey)}</span>
-    </>
-  );
+  const narrative = renderPlaceNarrative({
+    lang,
+    isCountry,
+    isRegion,
+    isSection,
+    isSettlement,
+    isSofiaRayon,
+    isCityRayon,
+    isAbroad,
+    parentIsSofiaRayon,
+    name,
+    muniName,
+    regionName,
+    regionNameRaw,
+    settlementName,
+    settlementType,
+    displaySettlementType,
+    sectionCode,
+    oblastCode,
+    obshtina,
+    cityRayon,
+    muniHref,
+    regionHref,
+    settlementHref,
+    sofiaCityHref,
+    countryHref,
+    cityRayonParentHref,
+  });
+
+  const grao = graoRow
+    ? {
+        current: graoRow.current,
+        permanent: graoRow.permanent,
+        asOf: graoAsOf,
+      }
+    : null;
 
   return (
-    <Card className={cn("p-4 md:p-5 border-l-4", meta.border, className)}>
-      <div className="flex flex-col gap-3">
-        {/* Eyebrow: the dashboard identity (accent colour + icon + label),
-            optionally linking back to a parent feed, with a context suffix. */}
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wide">
-          {eyebrowTo ? (
-            <Link
-              to={eyebrowTo}
-              underline
-              className={cn("inline-flex items-center gap-1.5", meta.text)}
-            >
-              {eyebrowInner}
-            </Link>
-          ) : (
-            <span className={cn("inline-flex items-center gap-1.5", meta.text)}>
-              {eyebrowInner}
-            </span>
-          )}
-          {eyebrowSuffix ? (
-            <span className="font-normal normal-case text-muted-foreground">
-              · {eyebrowSuffix}
-            </span>
-          ) : null}
-        </div>
-
-        <div className="flex items-start gap-3">
-          <div className="flex-1 min-w-0">
-            <h1 className="text-2xl md:text-3xl font-bold truncate">
-              {titleText}
-            </h1>
-            {narrative ? (
-              <p className="text-sm text-muted-foreground mt-1">{narrative}</p>
-            ) : null}
-            {graoRow ? (
-              <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xs">
-                <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
-                  {graoAsOf
-                    ? t("grao_tile_heading", { date: graoAsOf })
-                    : t("grao_population_label")}
-                </span>
-                <span className="flex items-baseline gap-1.5">
-                  <span className="text-muted-foreground">
-                    {t("grao_current_address")}
-                  </span>
-                  <span className="font-semibold tabular-nums">
-                    {formatNumber(graoRow.current, lang)}
-                  </span>
-                </span>
-                <span className="flex items-baseline gap-1.5">
-                  <span className="text-muted-foreground">
-                    {t("grao_permanent_address")}
-                  </span>
-                  <span className="font-semibold tabular-nums">
-                    {formatNumber(graoRow.permanent, lang)}
-                  </span>
-                </span>
-              </div>
-            ) : null}
-            {extra ? <div className="mt-2">{extra}</div> : null}
-          </div>
-          {/* Static OSM thumbnail. On the Governance place dashboard it jumps
-              to the projects map further down the page; elsewhere that anchor
-              doesn't exist, so we render it static. Hidden on small screens.
-              Abroad (МИР 32) continents/countries have no meaningful street-map
-              centroid — a zoom-12 ~5km tile of a continent's centre loads blank
-              (an empty box with a lone pin), so the thumbnail is dropped. */}
-          {loc && !isAbroad ? (
-            active === "governance" ? (
-              <a
-                href="#myarea-projects-map"
-                className="hidden sm:block shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-label={thumbAlt}
-              >
-                <StaticOsmThumbnail
-                  lat={loc.lat}
-                  lon={loc.lon}
-                  alt={thumbAlt}
-                />
-              </a>
-            ) : (
-              <div className="hidden sm:block shrink-0">
-                <StaticOsmThumbnail
-                  lat={loc.lat}
-                  lon={loc.lon}
-                  alt={thumbAlt}
-                />
-              </div>
-            )
-          ) : null}
-        </div>
-
-        {/* View switcher — pivot to this same place's other dashboards. A
-            navSlot override (e.g. SOF city's single → parliamentary pill) is
-            wrapped so it keeps its natural width rather than stretching to
-            fill the Card's flex column. Abroad places (oblast 32) have only the
-            parliamentary dimension, so the switcher is dropped altogether — no
-            pills at all. */}
-        {isAbroad ? null : navSlot !== undefined ? (
-          <div className="flex">{navSlot}</div>
-        ) : (
-          <PlaceViewNav
-            active={active}
-            level={level}
-            ekatte={ekatte}
-            obshtina={obshtina}
-            oblast={oblast}
-            align="start"
-          />
-        )}
-      </div>
-    </Card>
+    <PlaceHeaderView
+      active={active}
+      level={level}
+      ekatte={ekatte}
+      obshtina={obshtina}
+      oblast={oblast}
+      titleText={titleText}
+      narrative={narrative}
+      loc={loc}
+      isAbroad={isAbroad}
+      thumbName={thumbName}
+      grao={grao}
+      eyebrowTo={eyebrowTo}
+      eyebrowSuffix={eyebrowSuffix}
+      extra={extra}
+      navSlot={navSlot}
+      className={className}
+    />
   );
 };
