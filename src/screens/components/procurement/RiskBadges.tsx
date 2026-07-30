@@ -243,6 +243,17 @@ export const RiskBadges: FC<Props> = ({
   const [open, setOpen] = useState(false);
   const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
+  // A check can be FIRED while its detail is absent. The server masks
+  // (src/lib/contractRiskMask.ts) carry every check's fired bit, but the
+  // debarment dates / concentration share / split group only arrive with the
+  // per-contract detail fetch — and those three flags are object-valued, so
+  // keying their chips off `flags.*` made them VANISH rather than render
+  // detail-less. Measured: 5,628 contracts (3.8% of all flagged rows) fire only
+  // those three, and would have shown an empty cell while `hasFlag` was true.
+  // Key the chip off the fired bit; key the tooltip's contents off the detail.
+  const firedOf = (key: RiskComponentKey): boolean =>
+    result.components.some((c) => c.key === key && c.fired);
+
   // When the ONLY fired flag is weak competition and it's suppressed here (its
   // count has a dedicated column), there is nothing left to render — fall back to
   // the "—" placeholder instead of an empty cell.
@@ -261,7 +272,7 @@ export const RiskBadges: FC<Props> = ({
 
   const chips = (
     <div className="flex flex-wrap items-center gap-1">
-      {flags.debarred ? (
+      {firedOf("debarred") ? (
         <Tooltip
           content={
             <div className="space-y-1">
@@ -269,24 +280,28 @@ export const RiskBadges: FC<Props> = ({
                 {t("risk_flag_debarred_long") ||
                   "On АОП debarred-suppliers register"}
               </div>
-              <div className="text-xs text-muted-foreground">
-                {flags.debarred.name}
-              </div>
-              <div className="text-xs">
-                {t("risk_flag_debarred_until") || "Debarred until"}:{" "}
-                <span className="tabular-nums">
-                  {flags.debarred.debarredUntil || "—"}
-                </span>
-              </div>
-              {flags.debarred.detailsUrl ? (
-                <a
-                  href={flags.debarred.detailsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-xs text-primary hover:underline"
-                >
-                  {t("risk_flag_debarred_source") || "КЗК decision (PDF)"}
-                </a>
+              {flags.debarred ? (
+                <>
+                  <div className="text-xs text-muted-foreground">
+                    {flags.debarred.name}
+                  </div>
+                  <div className="text-xs">
+                    {t("risk_flag_debarred_until") || "Debarred until"}:{" "}
+                    <span className="tabular-nums">
+                      {flags.debarred.debarredUntil || "—"}
+                    </span>
+                  </div>
+                  {flags.debarred.detailsUrl ? (
+                    <a
+                      href={flags.debarred.detailsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-primary hover:underline"
+                    >
+                      {t("risk_flag_debarred_source") || "КЗК decision (PDF)"}
+                    </a>
+                  ) : null}
+                </>
               ) : null}
             </div>
           }
@@ -435,7 +450,7 @@ export const RiskBadges: FC<Props> = ({
         </Tooltip>
       ) : null}
 
-      {flags.awarderConcentration ? (
+      {firedOf("awarderConcentration") ? (
         <Tooltip
           content={
             <div className="space-y-1">
@@ -443,14 +458,19 @@ export const RiskBadges: FC<Props> = ({
                 {t("risk_flag_concentration_long") ||
                   "Awarder concentrated on this contractor"}
               </div>
-              <div className="text-xs tabular-nums">
-                {formatShare(flags.awarderConcentration.sharePct, lang)}{" "}
-                {t("risk_flag_concentration_of") || "of buyer's lifetime spend"}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {flags.awarderConcentration.contractCount}{" "}
-                {t("risk_flag_concentration_contracts") || "contracts"}
-              </div>
+              {flags.awarderConcentration ? (
+                <>
+                  <div className="text-xs tabular-nums">
+                    {formatShare(flags.awarderConcentration.sharePct, lang)}{" "}
+                    {t("risk_flag_concentration_of") ||
+                      "of buyer's lifetime spend"}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {flags.awarderConcentration.contractCount}{" "}
+                    {t("risk_flag_concentration_contracts") || "contracts"}
+                  </div>
+                </>
+              ) : null}
             </div>
           }
         >
@@ -458,7 +478,11 @@ export const RiskBadges: FC<Props> = ({
             tone="orange"
             icon={<AlertTriangle className="h-3 w-3" />}
           >
-            {formatShare(flags.awarderConcentration.sharePct, lang)}
+            {/* The share IS the label when known; without the detail slice the
+                chip still has to appear, so fall back to naming the check. */}
+            {flags.awarderConcentration
+              ? formatShare(flags.awarderConcentration.sharePct, lang)
+              : t("risk_flag_concentration") || "Концентрация"}
           </SignalPill>
         </Tooltip>
       ) : null}
@@ -537,7 +561,7 @@ export const RiskBadges: FC<Props> = ({
         </Tooltip>
       ) : null}
 
-      {flags.splitPurchase ? (
+      {firedOf("splitPurchase") ? (
         <Tooltip
           content={
             <div className="space-y-1">
@@ -549,13 +573,15 @@ export const RiskBadges: FC<Props> = ({
                 {t("risk_flag_split_hint") ||
                   "Several direct awards to this supplier in the same CPV class and year, each under the direct-award ceiling but together over it. чл. 20 ал. 4 permits separate recurring needs — this is a signal for review, not a proven breach."}
               </div>
-              <div className="text-xs tabular-nums">
-                {flags.splitPurchase.contractCount}{" "}
-                {t("risk_flag_split_contracts") || "direct awards"} ·{" "}
-                {formatEurCompact(flags.splitPurchase.totalEur, lang)} ·{" "}
-                {t("risk_flag_split_ceiling") || "ceiling"}{" "}
-                {formatEurCompact(flags.splitPurchase.ceilingEur, lang)}
-              </div>
+              {flags.splitPurchase ? (
+                <div className="text-xs tabular-nums">
+                  {flags.splitPurchase.contractCount}{" "}
+                  {t("risk_flag_split_contracts") || "direct awards"} ·{" "}
+                  {formatEurCompact(flags.splitPurchase.totalEur, lang)} ·{" "}
+                  {t("risk_flag_split_ceiling") || "ceiling"}{" "}
+                  {formatEurCompact(flags.splitPurchase.ceilingEur, lang)}
+                </div>
+              ) : null}
             </div>
           }
         >

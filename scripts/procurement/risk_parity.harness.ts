@@ -43,11 +43,21 @@ import {
 } from "@/data/procurement/computeProcurementRisk";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { pathToFileURL } from "node:url";
+import { RISK_MASK_BITS } from "@/lib/contractRiskMask";
 import { allRows, dbReachable, end } from "../db/lib/pg";
 
-// Bit order is the contract documented on contract_risk_cache (112). Keep in
-// step with it; appending is safe, renumbering is not.
-const CHECKS = [
+// Bit order is the contract documented on contract_risk_cache (112). IMPORTED
+// from the SPA decoder rather than copied: this harness is the only automated
+// gate that compares the bit order against the database, so a private copy here
+// would let src/lib/contractRiskMask.ts renumber with every test still green —
+// the decoder would then mis-label every chip and nothing would say so. One
+// import turns four hand-maintained copies (112's header table,
+// contract_risk_checks(), this file, the decoder) into three with a real gate.
+const CHECKS = RISK_MASK_BITS;
+
+/** The literal order, asserted against the import so a renumber in the decoder
+ *  fails HERE — the one place that also checks it against real rows. */
+const EXPECTED_CHECK_ORDER = [
   "debarred",
   "mpConnected",
   "pepConnected",
@@ -61,6 +71,17 @@ const CHECKS = [
   "directAward",
   "shortTenderPeriod",
 ] as const;
+
+if (
+  CHECKS.length !== EXPECTED_CHECK_ORDER.length ||
+  CHECKS.some((c, i) => c !== EXPECTED_CHECK_ORDER[i])
+) {
+  throw new Error(
+    `risk mask bit order changed: RISK_MASK_BITS is [${CHECKS.join(", ")}] but ` +
+      `112_contract_risk_cache.sql documents [${EXPECTED_CHECK_ORDER.join(", ")}]. ` +
+      `Renumbering re-maps every mask already stored — append, never reorder.`,
+  );
+}
 
 const LEGAL_SUFFIX_RE =
   /\s*[„"„“(]?(ЕООД|ООД|ЕАД|АД|ЕТ|СД|КД|КДА|ДЗЗД|АДСИЦ|ООД-К|ЕООД-К)\.?[)"”]?\s*$/iu;
