@@ -63,9 +63,18 @@ export const VoteFlowSankey = ({
   const isEn = i18n.language === "en";
 
   const graph = useMemo(() => {
+    // Defensive guard mirroring the generator (aggregate.ts keepNode): a real
+    // party that ran in only one cycle shows up on the opposite axis with 0
+    // votes and no incident flow — a bare label implying it existed then. The
+    // generator already drops these, but guard here too so a stale or
+    // other-pair matrix can't reintroduce the ghost. Pseudo lanes are kept.
+    const keep = (n: { id: string; votes: number }) =>
+      n.id.startsWith("__") || n.votes > 0;
     const nodes: NodeDatum[] = [
-      ...matrix.fromNodes.map((n) => ({ ...n, side: "from" as const })),
-      ...matrix.toNodes.map((n) => ({ ...n, side: "to" as const })),
+      ...matrix.fromNodes
+        .filter(keep)
+        .map((n) => ({ ...n, side: "from" as const })),
+      ...matrix.toNodes.filter(keep).map((n) => ({ ...n, side: "to" as const })),
     ];
     const idToIdx = new Map<string, number>();
     nodes.forEach((n, i) => idToIdx.set(`${n.side}:${n.id}`, i));

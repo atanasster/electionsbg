@@ -98,22 +98,33 @@ const buildMatrix = ({
   labels: ReconcileResult["labels"];
 }): VoteFlowMatrix => {
   const isPseudo = (id: string) => id.startsWith("__");
-  const fromNodes: VoteFlowNode[] = fromIds.map((id, i) => ({
-    id,
-    label: labels[id]?.bg ?? id,
-    labelEn: labels[id]?.en ?? id,
-    color: labels[id]?.color ?? "#888888",
-    votes: Math.round(fromTotals[i]),
-    pseudo: isPseudo(id) || undefined,
-  }));
-  const toNodes: VoteFlowNode[] = toIds.map((id, i) => ({
-    id,
-    label: labels[id]?.bg ?? id,
-    labelEn: labels[id]?.en ?? id,
-    color: labels[id]?.color ?? "#888888",
-    votes: Math.round(toTotals[i]),
-    pseudo: isPseudo(id) || undefined,
-  }));
+  // A real party that ran in only one of the two cycles (e.g. ПрБ / Сияние —
+  // new in the to-cycle) still appears in the shared `orderedBig` universe, so
+  // it lands on the opposite axis with 0 votes and no incident flow. Rendered,
+  // it's a bare label implying the party existed then. Drop those ghosts: no
+  // flow references them (verified), so removing them can't orphan an edge.
+  // Pseudo lanes (abstain/joined/exited/small) are kept even at 0.
+  const keepNode = (id: string, votes: number) => isPseudo(id) || votes > 0;
+  const fromNodes: VoteFlowNode[] = fromIds
+    .map((id, i) => ({
+      id,
+      label: labels[id]?.bg ?? id,
+      labelEn: labels[id]?.en ?? id,
+      color: labels[id]?.color ?? "#888888",
+      votes: Math.round(fromTotals[i]),
+      pseudo: isPseudo(id) || undefined,
+    }))
+    .filter((n) => keepNode(n.id, n.votes));
+  const toNodes: VoteFlowNode[] = toIds
+    .map((id, i) => ({
+      id,
+      label: labels[id]?.bg ?? id,
+      labelEn: labels[id]?.en ?? id,
+      color: labels[id]?.color ?? "#888888",
+      votes: Math.round(toTotals[i]),
+      pseudo: isPseudo(id) || undefined,
+    }))
+    .filter((n) => keepNode(n.id, n.votes));
   const edges: VoteFlowEdge[] = [];
   // Drop edges below an absolute threshold (≈0.005% of total mass) —
   // they clutter the chart without changing the picture. Threshold is

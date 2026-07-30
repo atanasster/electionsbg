@@ -5,13 +5,6 @@
   "matrix": {
     "fromNodes": [
       {
-        "id": "p_20",
-        "label": "ПрБ",
-        "labelEn": "PB",
-        "color": "#034a3f",
-        "votes": 0
-      },
-      {
         "id": "gerb",
         "label": "ГЕРБ-СДС",
         "labelEn": "GERB-SDS",
@@ -26,18 +19,18 @@
         "votes": 7129
       },
       {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 7434
+      },
+      {
         "id": "p_7",
         "label": "Възраждане",
         "labelEn": "Vazrazhdane",
         "color": "rgb(51, 51, 51)",
         "votes": 11207
-      },
-      {
-        "id": "p_29",
-        "label": "ДПС-НН",
-        "labelEn": "DPS–NB",
-        "color": "rgb(33, 125, 223)",
-        "votes": 7434
       },
       {
         "id": "bsp",
@@ -68,25 +61,11 @@
         "votes": 5481
       },
       {
-        "id": "p_16",
-        "label": "ДПС",
-        "labelEn": "DPS",
-        "color": "rgb(33, 125, 223)",
-        "votes": 0
-      },
-      {
         "id": "p_13",
         "label": "Величие",
         "labelEn": "Velichie",
         "color": "rgb(193, 51, 52)",
         "votes": 4289
-      },
-      {
-        "id": "p_19",
-        "label": "Сияние",
-        "labelEn": "Siyanie",
-        "color": "lightslategrey",
-        "votes": 0
       },
       {
         "id": "p_2",
@@ -143,18 +122,18 @@
         "votes": 7431
       },
       {
+        "id": "p_16",
+        "label": "ДПС",
+        "labelEn": "DPS",
+        "color": "rgb(33, 125, 223)",
+        "votes": 4053
+      },
+      {
         "id": "p_7",
         "label": "Възраждане",
         "labelEn": "Vazrazhdane",
         "color": "rgb(51, 51, 51)",
         "votes": 4457
-      },
-      {
-        "id": "p_29",
-        "label": "ДПС-НН",
-        "labelEn": "DPS–NB",
-        "color": "rgb(33, 125, 223)",
-        "votes": 0
       },
       {
         "id": "bsp",
@@ -183,13 +162,6 @@
         "labelEn": "ITN",
         "color": "rgb(75, 185, 222)",
         "votes": 597
-      },
-      {
-        "id": "p_16",
-        "label": "ДПС",
-        "labelEn": "DPS",
-        "color": "rgb(33, 125, 223)",
-        "votes": 4053
       },
       {
         "id": "p_13",
@@ -329,6 +301,41 @@
         "votes": 161
       },
       {
+        "from": "p_16",
+        "to": "p_20",
+        "votes": 235
+      },
+      {
+        "from": "p_16",
+        "to": "p_16",
+        "votes": 3230
+      },
+      {
+        "from": "p_16",
+        "to": "bsp",
+        "votes": 186
+      },
+      {
+        "from": "p_16",
+        "to": "p_10",
+        "votes": 186
+      },
+      {
+        "from": "p_16",
+        "to": "p_3",
+        "votes": 40
+      },
+      {
+        "from": "p_16",
+        "to": "__abstain__",
+        "votes": 3214
+      },
+      {
+        "from": "p_16",
+        "to": "__exited__",
+        "votes": 303
+      },
+      {
         "from": "p_7",
         "to": "p_20",
         "votes": 6103
@@ -377,41 +384,6 @@
         "from": "p_7",
         "to": "__exited__",
         "votes": 255
-      },
-      {
-        "from": "p_29",
-        "to": "p_20",
-        "votes": 235
-      },
-      {
-        "from": "p_29",
-        "to": "bsp",
-        "votes": 186
-      },
-      {
-        "from": "p_29",
-        "to": "p_10",
-        "votes": 186
-      },
-      {
-        "from": "p_29",
-        "to": "p_3",
-        "votes": 40
-      },
-      {
-        "from": "p_29",
-        "to": "p_16",
-        "votes": 3230
-      },
-      {
-        "from": "p_29",
-        "to": "__abstain__",
-        "votes": 3214
-      },
-      {
-        "from": "p_29",
-        "to": "__exited__",
-        "votes": 303
       },
       {
         "from": "bsp",
@@ -470,13 +442,13 @@
       },
       {
         "from": "p_10",
-        "to": "p_10",
-        "votes": 481
+        "to": "p_16",
+        "votes": 747
       },
       {
         "from": "p_10",
-        "to": "p_16",
-        "votes": 747
+        "to": "p_10",
+        "votes": 481
       },
       {
         "from": "p_10",
@@ -716,9 +688,9 @@
     ]
   },
   "persistence": {
-    "stayedVotes": 24629,
+    "stayedVotes": 27859,
     "votedBothNamed": 58834,
-    "stayRate": 0.4186106991275405,
+    "stayRate": 0.47351723215555713,
     "topDefection": {
       "fromId": "p_7",
       "toId": "p_20",

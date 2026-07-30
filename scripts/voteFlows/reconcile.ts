@@ -37,6 +37,20 @@ export const SMALL_ID_PREFIX = "__small_";
 // "small parties" lane. Keeps the matrix to ~10–14 columns per side.
 const SMALL_PARTY_THRESHOLD = 0.01; // 1%
 
+// Flow-only canonical aliases: fold one lineage into another *for the vote-flow
+// pipeline only*, without touching the global canonical index. Peevski's party
+// carries three canonical ids across the split — ДПС (p_16, the pre-split June
+// 2024 #28 and the 2026 #17) and ДПС-НН (p_29, the interim Oct 2024 "Ново
+// начало" #8). Canonical keeps p_29 separate because the nickName changed, but
+// for a transition matrix it is one continuous actor: leaving it split renders
+// p_29/p_16 as 0-vote ghost nodes on the opposite axis and, worse, counts every
+// ДПС-НН→ДПС continuer as a defection (fromId !== toId) instead of a stay.
+// Aliasing p_29→p_16 makes the node continuous on both adjacent pairs it
+// touches (2024_06 → 2024_10 and 2024_10 → 2026_04).
+const FLOW_CANONICAL_ALIASES: Record<string, string> = {
+  p_29: "p_16", // ДПС-Ново начало → ДПС (Peevski, same lineage)
+};
+
 export type ReconcileResult = {
   /** Canonical-id node list for the from cycle (parties + abstain + removed
    * + small-bucket if needed). Order is stable across the file. */
@@ -84,16 +98,17 @@ export const buildPartyNumToCanonical = (
   // → canonicalId map for the requested election. Falls back to nickName
   // lookup when the lineage history doesn't list this election (occasional
   // for tiny-vote parties skipped during canonical generation).
+  const alias = (id: string) => FLOW_CANONICAL_ALIASES[id] ?? id;
   const out = new Map<number, string>();
   for (const party of canonical.parties) {
     for (const h of party.history) {
-      if (h.election === election) out.set(h.partyNum, party.id);
+      if (h.election === election) out.set(h.partyNum, alias(party.id));
     }
   }
   for (const cik of cikParties) {
     if (out.has(cik.number)) continue;
     const id = canonical.byNickName[cik.nickName];
-    if (id) out.set(cik.number, id);
+    if (id) out.set(cik.number, alias(id));
   }
   return out;
 };
