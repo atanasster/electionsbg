@@ -1,9 +1,10 @@
 // Build the canonical place dimension (schema: 117_place_dim.sql).
 //
 // INPUTS — repo JSON only, nothing is fetched:
-//   data/settlements.json     the EKATTE settlements (name, name_en, oblast, obshtina)
-//   data/municipalities.json  the obshtini, read for the CONTAINMENT columns only
-//   scripts/person/places.ts  obshtinaLabels() / mirLabels() — the LABELS
+//   data/settlements.json     the EKATTE settlements (name, name_en, oblast, obshtina, loc, t_v_m)
+//   data/municipalities.json  the obshtini, read for the CONTAINMENT columns + loc centroid
+//   scripts/person/places.ts  obshtinaLabels() / mirLabels() — the obshtina/mir LABELS
+//   src/lib/regionalOblast    OBLAST_NAME — the kind='oblast' labels (place-header hero/seat)
 //
 // THE LABELS ARE NOT RE-DERIVED HERE, and that is the point. The obshtina and mir rows are
 // built from the very same obshtinaLabels()/mirLabels() producers that person_role's
@@ -73,8 +74,15 @@ type SettlementRow = {
   name_en?: string | null;
   oblast?: string | null;
   obshtina?: string | null;
+  // "lon,lat" centroid + the т.в.м. marker (с./гр./…) — for the place hero.
+  loc?: string | null;
+  t_v_m?: string | null;
 };
-type MunicipalityRow = { obshtina: string; oblast?: string | null };
+type MunicipalityRow = {
+  obshtina: string;
+  oblast?: string | null;
+  loc?: string | null;
+};
 
 /** The city-wide Sofia obshtina — synthetic, so it carries the alias crosswalk. */
 const SFO_CITY = "SFO_CITY";
@@ -89,6 +97,10 @@ const SEEDED_SETTLEMENTS: Array<{
   oblast: string | null;
   obshtina: string | null;
   mir: string | null;
+  // The EKATTE master carries neither, so seed the т.в.м. marker; the centroid is
+  // left NULL (the hero simply drops the thumbnail rather than inventing coords).
+  settlementType: string | null;
+  loc: string | null;
 }> = [
   // Sofia the city spans three constituencies (S23/S24/S25), so it has no single МИР.
   //
@@ -104,6 +116,8 @@ const SEEDED_SETTLEMENTS: Array<{
     oblast: "SOFIA_CITY",
     obshtina: SFO_CITY,
     mir: null,
+    settlementType: "гр.",
+    loc: null,
   },
   {
     ekatte: "63183",
@@ -112,6 +126,8 @@ const SEEDED_SETTLEMENTS: Array<{
     oblast: "BGS",
     obshtina: "BGS04",
     mir: "BGS",
+    settlementType: "с.",
+    loc: null,
   },
 ];
 
@@ -143,6 +159,8 @@ type Row = [
   string | null, // shard_code
   string | null, // governance_code
   string | null, // price_code
+  string | null, // loc  ("lon,lat")
+  string | null, // settlement_type (т.в.м.)
 ];
 
 export const buildPlaceDimRows = (
@@ -168,6 +186,12 @@ export const buildPlaceDimRows = (
       null,
       null,
       null,
+      // NULL the centroid for the out-of-country ISO "settlements" (2-char codes: AU, AT…):
+      // their source `loc` is the FOREIGN capital, which a Bulgarian place thumbnail must not
+      // render. Mirrors the canonOblast/MIR_SET guards — no consumer inherits a value it
+      // cannot honestly use. Real 5-digit and composite (Sofia-район) codes keep their loc.
+      r.ekatte.length === 2 ? null : r.loc || null,
+      r.t_v_m || null,
     ]);
   }
   for (const s of SEEDED_SETTLEMENTS) {
@@ -185,12 +209,17 @@ export const buildPlaceDimRows = (
       null,
       null,
       null,
+      s.loc,
+      s.settlementType,
     ]);
   }
 
   // ── obshtini ───────────────────────────────────────────────────────────────────────
   const muniOblast = new Map<string, string | null>(
     municipalities.map((r) => [r.obshtina, r.oblast ?? null]),
+  );
+  const muniLoc = new Map<string, string | null>(
+    municipalities.map((r) => [r.obshtina, r.loc ?? null]),
   );
   for (const [code, label] of obshtinaLabels()) {
     const raw = muniOblast.get(code) ?? null;
@@ -206,6 +235,9 @@ export const buildPlaceDimRows = (
       isSofiaCity ? "SOF" : null,
       isSofiaCity ? "SOF00" : null,
       isSofiaCity ? "SOF46" : null,
+      // No centroid for the synthetic city-wide obshtina (it spans three МИР).
+      muniLoc.get(code) ?? null,
+      null,
     ]);
   }
 
@@ -217,6 +249,30 @@ export const buildPlaceDimRows = (
       label.bg,
       label.en,
       oblastToCanon(code),
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+    ]);
+  }
+
+  // ── oblast ───────────────────────────────────────────────────────────────────────────
+  // The 28 statistical oblast names (27 областа + SOFIA_CITY), from the SAME OBLAST_NAME
+  // map every oblast_code above points into — so the label a self-join returns for an
+  // oblast_code is byte-identical to what the client folds today. An oblast is the top of
+  // this dimension's hierarchy, so it carries no containment codes and no centroid/type.
+  for (const [code, label] of Object.entries(OBLAST_NAME)) {
+    rows.push([
+      "oblast",
+      code,
+      label.bg,
+      label.en,
+      null,
+      null,
+      null,
       null,
       null,
       null,
@@ -263,6 +319,8 @@ const main = async (): Promise<void> => {
         "shard_code",
         "governance_code",
         "price_code",
+        "loc",
+        "settlement_type",
       ],
       rows,
     );

@@ -42,10 +42,12 @@
 -- place — notably the out-of-country pseudo-code "32" — are stored as NULL rather than
 -- verbatim, so no consumer inherits a bucket it cannot name.
 --
--- oblast_code IS A POINTER INTO OBLAST_NAME (src/lib/regionalOblast.ts), *NOT* into this
--- table: there is deliberately no kind='oblast', because the 28 statistical oblast names
--- have no consumer that needs them from SQL (the procurement choropleth folds and labels
--- them client-side). Adding that kind is the natural extension if one ever appears.
+-- oblast_code POINTS INTO OBLAST_NAME (src/lib/regionalOblast.ts) AND, since the place-header
+-- consolidation (place-header-consolidation-v1), ALSO into this table's own kind='oblast'
+-- rows — the 28 statistical oblast names, loaded from OBLAST_NAME. That kind was added when a
+-- consumer finally needed the name from SQL: the shared place hero / seat line resolves an
+-- oblast label as a self-join instead of shipping a client-side dictionary. The procurement
+-- choropleth still folds+labels oblasti client-side; it does not read these rows.
 --
 -- SOFIA ALIAS CROSSWALK (shard_code / governance_code / price_code). Sofia city-wide has
 -- five code tokens in circulation — SFO_CITY (officials/person), SOF (local-election
@@ -58,7 +60,7 @@
 
 CREATE TABLE IF NOT EXISTS place_dim (
   kind            text NOT NULL
-    CHECK (kind IN ('settlement', 'obshtina', 'mir')),
+    CHECK (kind IN ('settlement', 'obshtina', 'mir', 'oblast')),
   code            text NOT NULL,
   name_bg         text NOT NULL,
   name_en         text,
@@ -91,5 +93,55 @@ DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN
     GRANT SELECT ON place_dim TO app_readonly;
+  END IF;
+END $$;
+
+-- ── Header-completeness (place-header-consolidation-v1) ──────────────────────────────────
+-- Two columns the shared place hero / seat line need beyond a name:
+--   loc              "lon,lat" centroid string — the hero's static map thumbnail.
+--                    Settlements + obshtini carry one; mir/oblast/diaspora rows are NULL.
+--   settlement_type  the t_v_m marker (с./гр./…) shown before a settlement's name.
+-- Added as idempotent ALTERs rather than folded into the CREATE above BECAUSE 117 is
+-- CREATE TABLE IF NOT EXISTS and is already live on Cloud SQL (applied on every
+-- db:resolve:persons) — an amended CREATE would never touch the existing table. The loader
+-- (load_place_dim_pg.ts) self-applies THIS file before its TRUNCATE+COPY, so these columns
+-- (and the widened kind check below) land before the new column values / oblast rows do.
+ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS loc             text;
+ALTER TABLE place_dim ADD COLUMN IF NOT EXISTS settlement_type text;
+
+-- Widen the kind check to admit kind='oblast'. The inline CHECK above already lists it for a
+-- COLD bootstrap; this guarded swap is what migrates an EXISTING table (where CREATE TABLE IF
+-- NOT EXISTS was a no-op and the old 3-value check is still in force). Postgres has no
+-- ADD CONSTRAINT IF NOT EXISTS, so: drop whatever kind-only check exists (by definition, NOT
+-- the multi-column place_dim_sofia_aliases one, which also mentions `kind`), then add the
+-- named 4-value check if absent. Idempotent — re-applied on every db:resolve:persons.
+DO $$
+DECLARE cn text;
+BEGIN
+  FOR cn IN
+    SELECT c.conname
+      FROM pg_constraint c
+      JOIN pg_class t ON t.oid = c.conrelid
+     WHERE t.relname = 'place_dim' AND c.contype = 'c'
+       -- Target ONLY the kind-set check, in either the raw ('kind IN (…)') or the
+       -- catalog-normalised ('kind = ANY (ARRAY[…])') rendering — NOT any check that merely
+       -- mentions `kind` (place_dim_sofia_aliases carries `kind = 'obshtina'`, excluded both
+       -- by the pattern below and, belt-and-suspenders, by the shard_code guard).
+       AND (
+         pg_get_constraintdef(c.oid) LIKE '%kind IN %'
+         OR pg_get_constraintdef(c.oid) LIKE '%kind = ANY%'
+       )
+       AND pg_get_constraintdef(c.oid) NOT LIKE '%shard_code%'
+  LOOP
+    EXECUTE format('ALTER TABLE place_dim DROP CONSTRAINT %I', cn);
+  END LOOP;
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint c
+      JOIN pg_class t ON t.oid = c.conrelid
+     WHERE t.relname = 'place_dim' AND c.conname = 'place_dim_kind_check'
+  ) THEN
+    ALTER TABLE place_dim
+      ADD CONSTRAINT place_dim_kind_check
+      CHECK (kind IN ('settlement', 'obshtina', 'mir', 'oblast'));
   END IF;
 END $$;

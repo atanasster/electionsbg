@@ -20,10 +20,18 @@
 //
 //   npm run test:data
 
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, exec, end } from "../lib/pg";
 import { MIR_CODES } from "../../../src/data/parliament/nsFolders";
+
+const SCHEMA_117 = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../schema/pg/117_place_dim.sql",
+);
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -198,7 +206,99 @@ test.skipIf(!ok)("has the expected row count per namespace", async () => {
   );
   assert.deepEqual(
     Object.fromEntries(rows.map((r) => [r.kind, Number(r.n)])),
-    // 5,364 EKATTE settlements + the 2 seeds; 294 obshtini + synthetic SFO_CITY; 31 МИР.
-    { mir: 31, obshtina: 295, settlement: 5366 },
+    // 5,364 EKATTE settlements + the 2 seeds; 294 obshtini + synthetic SFO_CITY; 31 МИР;
+    // 28 statistical oblast names (place-header-consolidation-v1).
+    { mir: 31, oblast: 28, obshtina: 295, settlement: 5366 },
   );
 });
+
+test.skipIf(!ok)(
+  "the kind-check swap preserves the place_dim_sofia_aliases constraint",
+  async () => {
+    // The single largest risk in the header-completeness change: the DO-block that widens the
+    // kind check must NOT drop the multi-column sofia-aliases check (which also mentions
+    // `kind`). Assert BOTH checks are present after a load — the guard is engineered to keep
+    // sofia_aliases, and a future edit to the loop predicate must fail here, not silently
+    // degrade the Sofia crosswalk invariant.
+    const rows = await allRows<{ conname: string }>(
+      `SELECT c.conname FROM pg_constraint c
+         JOIN pg_class t ON t.oid = c.conrelid
+        WHERE t.relname = 'place_dim' AND c.contype = 'c'`,
+    );
+    const names = new Set(rows.map((r) => r.conname));
+    assert.ok(
+      names.has("place_dim_sofia_aliases"),
+      "the kind-check swap dropped place_dim_sofia_aliases",
+    );
+    assert.ok(
+      names.has("place_dim_kind_check"),
+      "the 4-value kind check is missing",
+    );
+  },
+);
+
+test.skipIf(!ok)(
+  "re-applying 117 is idempotent (loader + db:resolve:persons both apply it)",
+  async () => {
+    // The loader self-applies 117 before its COPY, and db:resolve:persons re-applies it on
+    // every run — so the ALTERs + constraint swap must be safe to run twice against an
+    // already-migrated table. Apply it two more times and assert nothing changed / errored.
+    const sql = readFileSync(SCHEMA_117, "utf8");
+    await exec(sql);
+    await exec(sql);
+    assert.equal(await count("kind = 'oblast'"), 28);
+    const rows = await allRows<{ conname: string }>(
+      `SELECT c.conname FROM pg_constraint c
+         JOIN pg_class t ON t.oid = c.conrelid
+        WHERE t.relname = 'place_dim' AND c.contype = 'c'`,
+    );
+    const names = new Set(rows.map((r) => r.conname));
+    assert.ok(names.has("place_dim_sofia_aliases"));
+    assert.ok(names.has("place_dim_kind_check"));
+  },
+);
+
+test.skipIf(!ok)(
+  "carries the 28 statistical oblast names for the place hero self-join",
+  async () => {
+    assert.equal(await count("kind = 'oblast'"), 28);
+    const [varna] = await allRows<{ name_bg: string; name_en: string }>(
+      "SELECT name_bg, name_en FROM place_dim WHERE kind='oblast' AND code='VAR'",
+    );
+    assert.ok(varna, "oblast VAR missing — the hero cannot label an oblast");
+    assert.equal(varna.name_bg, "Варна");
+    assert.equal(varna.name_en, "Varna");
+    // Oblast is the top of the hierarchy: no containment codes, no centroid.
+    assert.equal(await count("kind='oblast' AND oblast_code IS NOT NULL"), 0);
+    assert.equal(await count("kind='oblast' AND loc IS NOT NULL"), 0);
+  },
+);
+
+test.skipIf(!ok)(
+  "carries loc + settlement_type on real settlements for the hero thumbnail/title",
+  async () => {
+    const [varna] = await allRows<{
+      loc: string | null;
+      settlement_type: string | null;
+    }>(
+      "SELECT loc, settlement_type FROM place_dim WHERE kind='settlement' AND code='10135'",
+    );
+    assert.ok(varna, "Варна (10135) missing from the dimension");
+    assert.ok(
+      varna.loc,
+      "Варна has no centroid — the hero thumbnail would blank",
+    );
+    assert.equal(varna.settlement_type, "гр.");
+    // Catch a wiring regression (loc silently stops populating) without hard-coding an
+    // exact count: real 5-digit settlements should virtually all carry a centroid (a
+    // handful the EKATTE master omits + the 2 seeds are NULL by design). Assert ≥99%.
+    const total = await count("kind='settlement' AND length(code)=5");
+    const withLoc = await count(
+      "kind='settlement' AND length(code)=5 AND loc IS NOT NULL",
+    );
+    assert.ok(
+      withLoc / total >= 0.99,
+      `only ${withLoc}/${total} 5-digit settlements have a centroid`,
+    );
+  },
+);

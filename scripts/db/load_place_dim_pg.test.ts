@@ -17,6 +17,8 @@ const NAME_EN = 3;
 const OBLAST = 4;
 const OBSHTINA = 5;
 const MIR = 6;
+const LOC = 10;
+const SETTLEMENT_TYPE = 11;
 
 const settlementsOf = (rows: unknown[][]) =>
   rows.filter((r) => r[KIND] === "settlement");
@@ -106,7 +108,8 @@ describe("buildPlaceDimRows", () => {
     // SFO_CITY is absent from data/municipalities.json — it comes from
     // SYNTHETIC_OBSHTINA_LABELS, which is why an empty municipality list still yields it.
     expect(sofiaCity?.[NAME_BG]).toBe("Столична община");
-    expect(sofiaCity?.slice(7)).toEqual(["SOF", "SOF00", "SOF46"]);
+    // Indices 7–9 are the Sofia alias crosswalk; loc/settlement_type (10–11) follow.
+    expect(sofiaCity?.slice(7, 10)).toEqual(["SOF", "SOF00", "SOF46"]);
     expect(rows.filter((r) => r[7] !== null)).toHaveLength(1);
   });
 
@@ -118,5 +121,52 @@ describe("buildPlaceDimRows", () => {
     expect(find(rows, "mir", "S23")?.[NAME_BG]).toBe("София 23 МИР");
     // …while still exposing the statistical fold.
     expect(find(rows, "mir", "S23")?.[OBLAST]).toBe("SOFIA_CITY");
+  });
+
+  it("carries loc + settlement_type through to the settlement row", () => {
+    const rows = buildPlaceDimRows(
+      [
+        {
+          ekatte: "10135",
+          name: "Варна",
+          name_en: "Varna",
+          oblast: "VAR",
+          obshtina: "VAR06",
+          loc: "27.9,43.2",
+          t_v_m: "гр.",
+        },
+      ],
+      [],
+    );
+    const r = find(rows, "settlement", "10135");
+    expect(r?.[LOC]).toBe("27.9,43.2");
+    expect(r?.[SETTLEMENT_TYPE]).toBe("гр.");
+  });
+
+  it("NULLs loc for out-of-country ISO settlements (foreign capital coords)", () => {
+    // The 2-char diaspora "settlements" carry the foreign capital's loc in the source; a
+    // Bulgarian place thumbnail must not render it, so it is dropped like the containment
+    // codes are. Real 5-digit / composite codes keep their loc (asserted above).
+    const rows = buildPlaceDimRows(
+      [{ ekatte: "AU", name: "Австралия", oblast: "32", loc: "149.1,-35.3" }],
+      [],
+    );
+    expect(find(rows, "settlement", "AU")?.[LOC]).toBeNull();
+  });
+
+  it("emits the 28 statistical oblast rows from OBLAST_NAME", () => {
+    const rows = buildPlaceDimRows([], []).filter((r) => r[KIND] === "oblast");
+    expect(rows).toHaveLength(28);
+    const varna = find(rows, "oblast", "VAR");
+    expect(varna?.[NAME_BG]).toBe("Варна");
+    expect(varna?.[NAME_EN]).toBe("Varna");
+    // An oblast is the top of the hierarchy — no containment codes.
+    expect(varna?.[OBLAST]).toBeNull();
+    expect(varna?.[OBSHTINA]).toBeNull();
+    expect(varna?.[MIR]).toBeNull();
+    // SOFIA_CITY is one of the 28 (the capital's statistical oblast).
+    expect(find(rows, "oblast", "SOFIA_CITY")?.[NAME_BG]).toBe(
+      "София (столица)",
+    );
   });
 });
