@@ -74,7 +74,9 @@ export const VoteFlowSankey = ({
       ...matrix.fromNodes
         .filter(keep)
         .map((n) => ({ ...n, side: "from" as const })),
-      ...matrix.toNodes.filter(keep).map((n) => ({ ...n, side: "to" as const })),
+      ...matrix.toNodes
+        .filter(keep)
+        .map((n) => ({ ...n, side: "to" as const })),
     ];
     const idToIdx = new Map<string, number>();
     nodes.forEach((n, i) => idToIdx.set(`${n.side}:${n.id}`, i));
