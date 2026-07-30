@@ -6,11 +6,41 @@ the same filter row, the same reactive KPI strip, the same columns — scoped to
 "every buyer seated in this settlement" instead of one EIK, and time-bounded by
 the shared `?pscope` control instead of the company page's bespoke `?year`.
 
-Status: **plan only, nothing implemented.**
+Status: **plan only, nothing implemented.** Audited against the tree on
+2026-07-30 — §0 records what that audit changed.
 
 ---
 
-## 1. Baseline — measured, 2026-07-29
+## 0. Relationship to `db-payload-diet-v1` — read this first
+
+[db-payload-diet-v1.md](docs/plans/db-payload-diet-v1.md) is an active,
+partly-landed plan that overlaps this one on both ends, and three of its tiers
+shipped **while this plan was being written**. The two are coupled deliberately;
+neither should re-litigate the other's ground.
+
+| Overlap | Owner |
+|---|---|
+| `/api/db` compression + caching (was follow-up #1 here) | **its T0** — better data than this plan had (nine routes, 5.28 MB → 0.94 MB) |
+| Retiring the 1.29 MB client risk scorer (was §3.6 + follow-up #3 here) | **its T1/T2 — already landed**, see §1.3 and §3.6 |
+| `cpv_catalog` (migration 121) | **its T3 — already landed** (`c4a7e7ca00`) |
+| The dead-payload method in §1.2 below | this plan; **its T4 cites §1.2** and applies the same method to eight more routes |
+
+What the audit changed here:
+
+1. **§1.3 was measured before T1/T2 landed and is replaced.** The company
+   contracts page no longer ships 1.29 MB — it ships **170 KB**.
+2. **§3.6's "server grade only" decision is superseded.** T1/T2 delivered
+   something strictly better than the compromise this plan settled for: *full*
+   chips at zero bytes. The constraint behind that decision (do not import a
+   1.29 MB payload) is still honoured — the reason to accept degraded chips is
+   gone.
+3. **§3.1's `ProcurementSectionHeader` mount does not compile as written** — see
+   the correction there.
+4. Two line citations moved; the CPV filter changed component.
+
+---
+
+## 1. Baseline — measured 2026-07-29, re-verified 2026-07-30
 
 ### 1.1 What the page costs today
 
@@ -63,18 +93,29 @@ The same endpoint also backs `MyAreaProcurementTile` and
 `awarders.slice(0, 5)` — so a София resident's My-Area page downloads 87 KB to
 draw five rows.
 
-### 1.3 What the company contracts page costs
+### 1.3 What the company contracts page costs — **re-measured 2026-07-30**
 
-Measured on `/awarder/000093442/contracts` (Община Варна): **7 requests, 1.41 MB**.
+`/awarder/000093442/contracts` (Община Варна) now costs **7 requests, 170 KB**:
 
 | Request | Size | Local |
 |---|---|---|
-| `/api/db/procurement-risk-indexes` | **1262 KB** | 45 ms (**3.7 s on prod**) |
-| `/canonical_parties.json` | 83 KB | 3 ms |
-| `/api/db/table` (25 rows + aggregates) | 47 KB | 15 ms |
-| `/api/db/facets` ×2 | 1 KB each | 9 / 11 ms |
+| `/canonical_parties.json` | 83 KB | 1 ms |
+| `/api/db/table` (25 rows + aggregates) | 47 KB | 25 ms |
+| `/articles/index.json` | 21 KB | 2 ms |
+| `/governments.json` | 10 KB | 1 ms |
+| `/api/db/procurement-ngo-foreign` | 7 KB | 6 ms |
+| `/api/db/facets` ×2 | 1 KB each | 18 / 33 ms |
 
-Copying this page verbatim would import that 1.29 MB. §3.5 says what we do instead.
+The **1262 KB `procurement-risk-indexes` fetch is gone** — payload-diet T1/T2
+(`22cc6edc1e`) switched this screen to decoding the server's per-row masks, and
+the 7 KB `procurement-ngo-foreign` is the one input the masks do not carry.
+Measured at 1.41 MB on 2026-07-29, 170 KB on 2026-07-30; this plan's earlier
+figure described a tree that no longer exists.
+
+**The consequence for this plan is the good kind:** the page it is copying is no
+longer expensive, so there is nothing left to refuse to import. Note the
+settlement page (178 KB, §1.1) is now *heavier* than the contracts browser it is
+being rebuilt into.
 
 ### 1.4 What the target scope costs in Postgres
 
@@ -166,7 +207,7 @@ contracts table takes over what `topContracts` was for. Changes:
 - **Pass `from`/`to` from the client.** The SQL function and the
   `procurement-settlement` route already accept them
   (`procurement_settlement_detail(p_ekatte, p_from, p_to)`,
-  functions/db_routes.js:748) — the hook simply never sends them. Making the hook
+  functions/db_routes.js:785) — the hook simply never sends them. Making the hook
   scope-aware is a client change only: no migration, and it is *faster*
   (283 → 128 ms, §1.4).
 - **`useSettlementProcurement`'s React Query key must include the scope key.**
@@ -206,9 +247,22 @@ page needs.
 `?pscope=y:2024` already expresses everything the company page's `?year` Select
 does, so shipping both would put two overlapping time controls on one screen.
 
-- Mount `ProcurementSectionHeader` with `scopeMode="toggle"` — it renders the
-  shared `ScopeControl` under the title in the same position as every other
-  `/procurement*` page.
+- Render **`<ScopeControl mode="toggle" />`** directly under the existing
+  breadcrumb, in the slot every other `/procurement*` page puts it.
+
+  ⚠ **Not `ProcurementSectionHeader`**, which an earlier draft of this plan
+  specified. That wrapper takes `current?: string` and forwards it as
+  `ProcurementBreadcrumb currentKey={current}` — an **i18n key** for a
+  single-level leaf. This page needs the two-level crumb it already builds
+  (`По място › Варна`) with a *dynamic settlement name*, which the wrapper
+  cannot express. Keep the page's own `ProcurementBreadcrumb section={…}
+  current={data.name}` and drop `ScopeControl` (`src/screens/components/ScopeControl.tsx`)
+  in beneath it. Extending the wrapper to take a `section` + literal leaf is the
+  alternative, and worth doing if a second detail page needs the same shape.
+
+  `ScopeControl mode="toggle"` renders "this parliament" vs a **years picker** in
+  one control — which is why `?pscope` genuinely subsumes the company page's
+  `?year` Select rather than merely replacing it.
 - `useScopeWindow()` gives `{from, to, all}`; feed it to the table and to every
   facet as a `date` range filter (§2.1), and to the detail hook as `from`/`to`
   (§2.2).
@@ -227,7 +281,7 @@ does, so shipping both would put two overlapping time controls on one screen.
    under the scope label (`ScopeControl` provides it) so "€3.6 bn → €1.1 bn" reads
    as a narrower window rather than as lost data.
 2. **The prerendered HTML is corpus-scoped.**
-   `buildProcurementSettlementBody` (scripts/prerender/bodyBuilders.ts:1309)
+   `buildProcurementSettlementBody` (scripts/prerender/bodyBuilders.ts:1323)
    bakes `contractCount` / `totalEur` / `awarderCount` for the full corpus into
    the static body Google indexes. Keep it corpus-scoped — a static page cannot
    track a URL param — and make its copy say so explicitly ("за целия период"
@@ -244,7 +298,7 @@ shareable:
 |---|---|---|
 | Time scope | `?pscope` | `ScopeControl` (§3.1) |
 | Free-text (buyer / contractor / subject) | `?q` | `DbDataTable` search box |
-| CPV division | `?cpv` | `CpvFilterCombobox`, reactive counts |
+| CPV division | `?cpv` | `CpvFilterCombobox` + `useCpvCatalog` — see below |
 | Procedure bucket | `?proc` | `ProcedureBucketSelect` |
 | Risk grade A–F | `?grade` | `RiskGradeFilter` (server-side, migration 112) |
 | Single bidder | `?single` | `SingleBidderToggle` |
@@ -252,6 +306,16 @@ shareable:
 
 `useUrlProcurementFilters` is called **without** `withYear` (that flag exists for
 the company page's bespoke Select).
+
+**Take the CPV control from the global browser, not the company page.** The
+company page still renders a plain `Select` over `cpvOptions` from the facet;
+`ContractsBrowserDbScreen` uses `CpvFilterCombobox` backed by `useCpvCatalog`
+(the `cpv_catalog` table, migration 121, landed 2026-07-30 as payload-diet T3).
+The combobox is the better control on a page whose CPV spread is wide, which a
+whole settlement's is. **Deploy dependency:** per CLAUDE.md the route reading
+`cpv_catalog` no longer degrades a missing table to an empty array, so
+`db:load:tenders:pg:cloud` must have run on Cloud SQL before any `deploy:db`
+that ships this page.
 
 ### 3.3 KPIs — `ContractsAnalysisStrip`
 
@@ -273,7 +337,7 @@ beyond the two the company page already makes:
 ### 3.4 Layout
 
 1. Breadcrumb + title + `FollowStar`.
-2. `ProcurementSectionHeader` (`scopeMode="toggle"`) — the scope control.
+2. `<ScopeControl mode="toggle" />` under the breadcrumb (§3.1).
 3. KPI strip (§3.3) — replaces the three static cards.
 4. **Възложители** — the existing buyers table, kept: it is what makes this page
    different from a filtered global browser. Collapse to the top 10 with a
@@ -301,20 +365,42 @@ Both entity sides, since a settlement spans many buyers:
 | Обединение | — | `consortiumFullEur`, `hidden lg:` |
 | Оценка (A–F) | ✓ | `risk_grade` badge — see §3.6 |
 
-### 3.6 Risk — **decided: server grade only**
+### 3.6 Risk — **superseded: full chips, still zero bytes**
 
-Do **not** mount `useContractRiskScorer` here. The A–F badge and the `?grade`
-filter come from `risk_grade` / `risk_cri`, which the registry already projects
-on every row, so the page ships **0 extra bytes** instead of inheriting the
-1.29 MB / 3.7 s `procurement-risk-indexes` fetch.
+The decision recorded here was "server grade only, accept losing the per-signal
+chips, because the alternative costs 1.29 MB". **Payload-diet T1/T2 landed the
+decoder that made the trade-off unnecessary**, so this page takes the better
+outcome — the constraint (no 1.29 MB) is unchanged; only the price of full chips
+is.
 
-The per-signal chip breakdown is lost until someone writes a
-`risk_fired_mask` → components decoder (the masks are projected already). That
-decoder is worth its own ticket — it would also let the company and global
-browsers drop the 1.29 MB.
+Do **not** mount `useContractRiskScorer`. Instead, exactly as
+`CompanyContractsDbScreen` and `ContractsBrowserDbScreen` now do:
+
+- `contractRiskFromMasks(row)` (`src/lib/contractRiskMask.ts`) decodes the row's
+  `risk_fired_mask` / `risk_available_mask` — already projected by the registry —
+  into the same `ContractRiskResult` the browser scorer produced. Synchronous,
+  correct on first paint, and it agrees with the adjacent `?grade` filter **by
+  construction** rather than by two scorers staying in step.
+- `<RiskBadges result={…} contractKey={row.key} />` fetches per-flag tooltip
+  detail lazily via `useContractRiskDetail`, armed on pointer **dwell** so a
+  crossed row never fires (see the rate-limit note in §3.7).
+- Keep the 7 KB `procurement-ngo-foreign` fetch — the one input the masks do not
+  carry.
+- **A NULL mask means unknown, never zero.** T1's rule: render an explicit
+  unknown state, not a clean `—`. Needs the `bg`/`en` locale keys T1 added.
+
+The A–F badge and `?grade` filter still come from `risk_grade` server-side, so
+that half of the original decision stands.
 
 ### 3.7 Not forgotten
 
+- **`/api/db` is rate-limited to 120 requests per IP per minute**
+  (`DB_RATE_MAX`, functions/index.js:440), shared across every route. This page
+  fires one table query plus up to three facet queries per interaction, and
+  `RiskBadges` can add one detail fetch per hovered row. That budget is why the
+  detail fetch arms on dwell rather than `onMouseEnter` — **do not add an eager
+  per-row fetch anywhere on this page**, and re-check the count if the buyers
+  table ever gains its own server query.
 - **`ProcurementBySettlementFile` type** (`src/data/dataTypes`) changes with the
   payload; `ProcurementWatchlistScreen` reads `awarder.totalOther`.
 - **The two tiles must stay corpus-scoped.** `MyAreaProcurementTile` and
@@ -333,12 +419,12 @@ browsers drop the 1.29 MB.
 | 2 | `countDistinct` aggregate for the buyers KPI (§3.3) | `functions/db_table.js` |
 | 3 | Scope-aware `useSettlementProcurement` — pass `from`/`to`, put the scope key in the React Query key; explicit corpus scope at the two tile call sites | `useSettlementProcurement.tsx`, `MyAreaProcurementTile.tsx`, `SettlementProcurementTile.tsx` |
 | 4 | Carry `?pscope` through the by-settlement drill-down (`useScopedHref`) | `ProcurementBySettlementScreen.tsx:217` |
-| 5 | New `ProcurementSettlementContractsSection` — `DbDataTable` + filters + analysis strip, bounded by `useScopeWindow` | `src/screens/procurement/` |
-| 6 | Rewrite `ProcurementSettlementDetailScreen` around it: `ProcurementSectionHeader` scope control, collapsed buyers table | `ProcurementSettlementDetailScreen.tsx` |
+| 5 | New `ProcurementSettlementContractsSection` — `DbDataTable` + filters + analysis strip, bounded by `useScopeWindow`; risk via `contractRiskFromMasks` + `RiskBadges contractKey` (§3.6) | `src/screens/procurement/` |
+| 6 | Rewrite `ProcurementSettlementDetailScreen` around it: `ScopeControl` under the existing two-level breadcrumb (**not** `ProcurementSectionHeader`, §3.1), collapsed buyers table | `ProcurementSettlementDetailScreen.tsx` |
 | 7 | Slim the detail payload (§2.2 — route-level flag, **not** a new SQL signature); keep the three fields the prerender reads | `functions/db_routes.js`, `useSettlementProcurement.tsx` |
-| 8 | Prerender copy: state the static body is full-corpus (§3.1) | `scripts/prerender/bodyBuilders.ts:1309` |
+| 8 | Prerender copy: state the static body is full-corpus (§3.1) | `scripts/prerender/bodyBuilders.ts:1323` |
 | 9 | PG regression test: the semi-join + window returns the same count/Σ as `procurement_settlement_detail(ekatte, from, to)` across a sample of settlements and all three scope kinds | `scripts/db/tests/*.data.test.ts` |
-| 10 | Component test: scope + filter changes produce the expected request shape | co-located `*.test.tsx` |
+| 10 | Component test: scope + filter changes produce the expected request shape; risk cell populated on first paint (no `—`-then-chips flip — payload-diet T5's assertion, extended to this route) | co-located `*.test.tsx` |
 | 11 | Re-measure §1.1 and record the delta in this file | — |
 
 Steps 1–2 are backend-only and independently shippable. 3–4 make the page
@@ -350,15 +436,25 @@ payload/SEO cleanup; 9–11 the gates.
 
 ## 5. Follow-ups this surfaced (each its own ticket)
 
-1. **`/api/db/*` is served uncompressed and uncached** (§1.1). Site-wide; the
-   largest single beneficiary is the 1.29 MB risk-indexes payload.
+1. ~~`/api/db/*` is served uncompressed and uncached~~ — **owned by
+   payload-diet T0**, which measured it across nine routes (5.28 MB → 0.94 MB)
+   and pinned down the `firebase.json` `**` header rule that was clobbering the
+   `Cache-Control` the code already sets. Nothing to do here beyond re-measuring
+   §1.1 after it lands: the prod figures in this plan are all pre-T0.
 2. **CPV facet, 244 ms on `?pscope=all`** (§1.4). Only the corpus scope is
    affected — the windowed scopes plan at ~30 ms. `idx_contracts_cpvdiv_date` is
    `(tag, left(cpv,2), date) INCLUDE (contractor_eik, amount_eur)` with no
    `awarder_eik`, so an awarder-scoped CPV facet over the whole corpus heap-scans.
    Adding `awarder_eik` to the INCLUDE list would make it index-only; verify with
    `EXPLAIN` before touching an index on a 300k-row table.
-3. **`risk_fired_mask` decoder** (§3.6) — would let three browsers drop 1.29 MB.
+3. ~~`risk_fired_mask` decoder~~ — **shipped** as payload-diet T1/T2
+   (`src/lib/contractRiskMask.ts` + `useContractRiskDetail`). Four screens over
+   six routes stopped downloading the 1.29 MB. It is **not retired**: that plan's
+   2026-07-30 correction records that `TenderDetailScreen` scores *synthetic*
+   contracts assembled from tender award rows, which have no
+   `contract_risk_cache` entry and therefore no masks — so the payload survives
+   on `/procurement/tender/*` until a per-tender risk index exists. Nothing this
+   plan touches is on that path.
 4. **Cold-start 500 on `/api/db/procurement-settlement`** (§1.1) — reproduced
    once at 20.5 s; likely a statement timeout on a cold Cloud SQL connection.
 5. **Migration 030's window predicates are the non-sargable
