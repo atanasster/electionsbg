@@ -62,6 +62,10 @@ import { ProcurementBenchmarksTile } from "../components/procurement/Procurement
 import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
+  PlaceSeatLine,
+  type SeatPlace,
+} from "@/screens/components/place/PlaceSeatLine";
+import {
   CompanyRetailChainTile,
   type RetailChainInfo,
 } from "../components/procurement/CompanyRetailChainTile";
@@ -396,6 +400,7 @@ export const CompanyDbScreen: FC = () => {
   const [related, setRelated] = useState<RelatedCompany[] | null>(null);
   const [institution, setInstitution] = useState<Institution | null>(null);
   const [geography, setGeography] = useState<CompanyGeography | null>(null);
+  const [seatPlace, setSeatPlace] = useState<SeatPlace | null>(null);
   const [awarderProc, setAwarderProc] = useState<DbAwarderRollup | null>(null);
   const [ngoDetails, setNgoDetails] = useState<NgoDetails | null>(null);
   const [awarderKindex, setAwarderKindex] = useState<AwarderKindex | null>(
@@ -503,6 +508,7 @@ export const CompanyDbScreen: FC = () => {
               : null,
           );
           setGeography(j.geography ?? null);
+          setSeatPlace(j.seatPlace ?? null);
           setAwarderProc(j.awarderProcurement ?? null);
           setAwarderAllTime(j.awarderAllTime ?? null);
           // Latch on EITHER the scoped rollup or the all-time probe: the scoped one
@@ -731,10 +737,28 @@ export const CompanyDbScreen: FC = () => {
             )}
           </div>
         )}
-        {(company?.seat || institution?.locality) && (
-          <div className="mt-1 text-sm text-muted-foreground">
-            {company?.seat ?? institution?.locality}
-          </div>
+        {/* The registered seat as a composed, linkable place (settlement · obshtina ·
+            oblast) from place_dim — awarders resolve here. The raw free-text registered
+            office (often a full street address) rides along below when it adds detail. */}
+        {seatPlace ? (
+          <>
+            <PlaceSeatLine place={seatPlace} />
+            {/* The raw registered office rides along only when it adds detail beyond the
+                composed line's first segment (i.e. it's a street address, not just the
+                settlement name). */}
+            {company?.seat &&
+              company.seat.trim() !== (seatPlace.settlement ?? "").trim() && (
+                <div className="mt-0.5 text-xs text-muted-foreground/80">
+                  {company.seat}
+                </div>
+              )}
+          </>
+        ) : (
+          (company?.seat || institution?.locality) && (
+            <div className="mt-1 text-sm text-muted-foreground">
+              {company?.seat ?? institution?.locality}
+            </div>
+          )
         )}
         {!loading && !error && (
           <CompanyRiskChips

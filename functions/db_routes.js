@@ -237,6 +237,7 @@ const DB_ROUTES = {
       related,
       institution,
       geography,
+      seatPlace,
       awarderProcurement,
       awarderAllTime,
       fundProjects,
@@ -282,6 +283,10 @@ const DB_ROUTES = {
       dbRows("SELECT company_related($1) AS r", [eik]),
       dbRows("SELECT institution_identity($1) AS r", [eik]),
       dbRows("SELECT company_geography($1) AS r", [eik]),
+      // The registered seat as a composed, localizable place (settlement · obshtina ·
+      // oblast) resolved via place_dim (117) — feeds the shared PlaceSeatLine. NULL for a
+      // non-awarder (no awarder_seats row); the page then keeps the free-text seat.
+      dbRows("SELECT awarder_seat_place($1) AS r", [eik]),
       dbRows("SELECT awarder_procurement($1, $2, $3) AS r", [
         eik,
         orNull(q, "from"),
@@ -402,6 +407,7 @@ const DB_ROUTES = {
         related: related[0]?.r ?? null,
         institution: institution[0]?.r ?? null,
         geography: geography[0]?.r ?? null,
+        seatPlace: seatPlace[0]?.r ?? null,
         awarderProcurement: awarderProcurement[0]?.r ?? null,
         awarderAllTime: awarderAllTime[0] ?? null,
         fundProjects,
