@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-29T12:42:42.094Z",
+  "generatedAt": "2026-07-30T13:48:18.392Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -3462,6 +3462,16 @@
       "label": "Български ВиК холдинг ЕАД"
     },
     {
+      "id": "awarder:208403279",
+      "type": "awarder",
+      "label": "ВиК Елин Пелин ЕООД"
+    },
+    {
+      "id": "contractor:207071105",
+      "type": "contractor",
+      "label": "Ейч Ел Ес трейд ЕООД"
+    },
+    {
       "id": "awarder:811047831",
       "type": "awarder",
       "label": "Водоснабдяване и канализация ЕООД"
@@ -4757,11 +4767,6 @@
       "label": "Илия Иванов Благоев"
     },
     {
-      "id": "contractor:207071105",
-      "type": "contractor",
-      "label": "Ейч Ел Ес трейд ЕООД"
-    },
-    {
       "id": "official:hristo-atanasov-lazarov-502d87",
       "type": "official",
       "label": "Христо Атанасов Лазаров"
@@ -5292,6 +5297,11 @@
       "label": "Ертач Халил Салим"
     },
     {
+      "id": "official:tatyana-ivanova-evtimova-c6962f",
+      "type": "official",
+      "label": "Татяна Иванова Евтимова"
+    },
+    {
       "id": "official:gyunai-ibryamov-tefikov-70c90d",
       "type": "official",
       "label": "Гюнай Ибрямов Тефиков"
@@ -5340,11 +5350,6 @@
       "id": "official:atanas-ivanov-kundurdzhiev-3093b4",
       "type": "official",
       "label": "Атанас Иванов Кундурджиев"
-    },
-    {
-      "id": "official:tatyana-ivanova-evtimova-c6962f",
-      "type": "official",
-      "label": "Татяна Иванова Евтимова"
     },
     {
       "id": "official:vladimir-valeriev-hadzhiev-520cae",
@@ -10100,6 +10105,16 @@
     },
     {
       "source": "awarder:129011017",
+      "target": "contractor:000225011",
+      "valueEur": 5100
+    },
+    {
+      "source": "awarder:129011017",
+      "target": "contractor:824106518",
+      "valueEur": 2500
+    },
+    {
+      "source": "awarder:129011017",
       "target": "contractor:837068284",
       "valueEur": 2500
     },
@@ -10107,6 +10122,11 @@
       "source": "awarder:129011017",
       "target": "contractor:833066300",
       "valueEur": 1000
+    },
+    {
+      "source": "awarder:129011017",
+      "target": "contractor:126004284",
+      "valueEur": 700
     },
     {
       "source": "awarder:129011031",
@@ -10714,6 +10734,11 @@
       "valueEur": 0.07
     },
     {
+      "source": "awarder:208403279",
+      "target": "contractor:207071105",
+      "valueEur": 51000
+    },
+    {
       "source": "awarder:811047831",
       "target": "contractor:121396123",
       "valueEur": 112484.22
@@ -10936,7 +10961,7 @@
     {
       "source": "awarder:831385737",
       "target": "contractor:130175000",
-      "valueEur": 1409949.7
+      "valueEur": 2036176.58
     },
     {
       "source": "awarder:831462482",
@@ -11651,7 +11676,7 @@
     {
       "source": "contractor:130175000",
       "target": "official:atanas-georgiev-darelov-4fc909",
-      "valueEur": 33212790.11
+      "valueEur": 33839016.99
     },
     {
       "source": "contractor:115813904",
@@ -11941,7 +11966,7 @@
     {
       "source": "contractor:824106518",
       "target": "official:kliment-hristov-todorov-b9eb33",
-      "valueEur": 5768635.36
+      "valueEur": 5771135.36
     },
     {
       "source": "contractor:000694329",
@@ -12016,7 +12041,7 @@
     {
       "source": "contractor:207071105",
       "target": "official:hristo-atanasov-lazarov-502d87",
-      "valueEur": 3186167.8
+      "valueEur": 3237167.8
     },
     {
       "source": "contractor:834052321",
@@ -12101,12 +12126,12 @@
     {
       "source": "contractor:126004284",
       "target": "official:bozhidar-atanasov-zhelyazkov-384d26",
-      "valueEur": 1877688.92
+      "valueEur": 1878388.92
     },
     {
       "source": "contractor:126004284",
       "target": "official:nenko-kirkov-dervenkov-4aac39",
-      "valueEur": 1877688.92
+      "valueEur": 1878388.92
     },
     {
       "source": "contractor:203987346",
@@ -12216,7 +12241,7 @@
     {
       "source": "contractor:000225011",
       "target": "official:slavcho-dimov-slavkov-7341d6",
-      "valueEur": 1148058.15
+      "valueEur": 1153158.15
     },
     {
       "source": "contractor:110549443",
@@ -12489,6 +12514,11 @@
       "valueEur": 370686.62
     },
     {
+      "source": "contractor:207544241",
+      "target": "official:tatyana-ivanova-evtimova-c6962f",
+      "valueEur": 368742.5
+    },
+    {
       "source": "contractor:200192872",
       "target": "official:gyunai-ibryamov-tefikov-70c90d",
       "valueEur": 361156.08
@@ -12527,11 +12557,6 @@
       "source": "contractor:000715054",
       "target": "official:atanas-ivanov-kundurdzhiev-3093b4",
       "valueEur": 298078.05
-    },
-    {
-      "source": "contractor:207544241",
-      "target": "official:tatyana-ivanova-evtimova-c6962f",
-      "valueEur": 292440.5
     },
     {
       "source": "contractor:205082050",
@@ -13762,16 +13787,6 @@
       "source": "awarder:130175000",
       "target": "contractor:121683785",
       "valueEur": 260492.48
-    },
-    {
-      "source": "awarder:130823243",
-      "target": "contractor:207071105",
-      "valueEur": 2898534.13
-    },
-    {
-      "source": "awarder:000632256",
-      "target": "contractor:207071105",
-      "valueEur": 287633.67
     },
     {
       "source": "awarder:106513772",

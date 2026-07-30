@@ -1,6 +1,40 @@
 {
-  "updatedAt": "2026-07-29T20:22:08.995Z",
+  "updatedAt": "2026-07-30T14:44:59.015Z",
   "entries": [
+    {
+      "timestamp": "2026-07-30T14:44:59.015Z",
+      "date": "2026-07-30",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: попълнени 281 нови договора (ЦАИС ЕОП) + обновени процедури до 2026-07-29; текущи стойности по анекси",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-30T14:40:54.802Z",
+      "date": "2026-07-30",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 58 152 лица, 111 934 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-07-30T11:56:17.147Z",
+      "date": "2026-07-30",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-29 (+1 daily archive; 1,396,513 store rows, 241 settlements, 209 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-30T11:52:31.523Z",
+      "date": "2026-07-30",
+      "skill": "update-rollcall",
+      "summary": "Ново поименно гласуване от 2026-07-29 (52-ро НС): 22 гласувания",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-29T20:22:08.995Z",
       "date": "2026-07-29",
