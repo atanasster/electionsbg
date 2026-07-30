@@ -868,6 +868,20 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // The 3 headline KPIs for /procurement/contractors ("Топ изпълнители"): total
+  // awarded value, top-10 concentration, and the MP-tied share — a per-scope blob
+  // (122) the per-row contractor_rankings table can't compute. Keyed by scope_key
+  // (default 'all'); an unknown scope returns null (empty tiles, not an error).
+  "contractor-scope-kpis": async (dbRows, q) => {
+    const scope = orNull(q, "scope") ?? "all";
+    const rows = await dbRows(
+      `SELECT contractor_count, total_eur, top10_share,
+              mp_tied_eur, mp_tied_share, mp_tied_count
+         FROM contractor_scope_kpis WHERE scope_key = $1`,
+      [scope],
+    );
+    return { body: rows[0] ?? null };
+  },
   // Cross-corpus leaderboard — companies that appear in BOTH the procurement
   // (ЗОП) and EU-funds (ИСУН) corpora, ranked by combined public money. All-time
   // only (funds aren't date-windowed); no from/to. Served from the load-time

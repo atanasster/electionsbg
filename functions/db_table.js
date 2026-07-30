@@ -1137,6 +1137,80 @@ const REGISTRY = {
     // still smaller than the 196 KB blob this replaces, and MAX_OFFSET still caps paging.
     maxPageSize: 1000,
   },
+
+  // The per-scope contractor leaderboard behind /procurement/contractors (122).
+  // Fan-out matview keyed by scope_key, mirroring procurement_settlements above.
+  // CPV is a rollup DIMENSION, not an array: each contractor has per-division rows
+  // plus an 'ALL' rollup row, and the screen ALWAYS sends division (default 'ALL',
+  // since defaultScope covers only the ONE scope column). The engine has no array
+  // support, so this is the only shape that expresses "top contractors in sector X".
+  contractor_rankings: {
+    base: "contractor_rank",
+    scopeCols: ["scope_key"],
+    defaultScope: { col: "scope_key", val: "all" },
+    columns: {
+      // The scope column — declared (the engine requires every client-addressable
+      // column registered) but not projected: the caller knows its own scope.
+      scope_key: { type: "text" },
+      // eik is the paging tiebreak (select[0]) AND deep-link filterable. It is a total
+      // order within the always-filtered (scope_key, division) partition — same role
+      // ekatte plays for procurement_settlements. sort:true so the ["eik","asc"] tail of
+      // defaultSort is genuinely honored (index-served by the UNIQUE key) rather than
+      // relying implicitly on eik staying select[0].
+      eik: { type: "text", sort: true, filter: "eq" },
+      // The CPV-division rollup filter. Always sent by the screen ('ALL' by default,
+      // a 2-digit division when the CPV picker is set). filter:"eq" is single-valued
+      // by design — a multi-value set would return N rows per contractor and
+      // double-count the leaderboard.
+      division: { type: "text", filter: "eq" },
+      // Global search hits the transliterated fold (gin_trgm-indexed) so Latin
+      // "sofarma" matches "СОФАРМА"; the raw name column has no trigram index.
+      name: {
+        type: "text",
+        sort: true,
+        search: true,
+        searchCol: "name_fold",
+        searchFold: true,
+      },
+      // agg on total_eur backs both the footer sum and the in-cell magnitude bar's max.
+      total_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      contract_count: { type: "number", sort: true, filter: "range" },
+      award_count: { type: "number" },
+      is_mp_tied: { type: "bool", filter: "eq" },
+      // Display-only native-currency remainder (jsonb). Never sorted/filtered/faceted,
+      // so the type label is cosmetic — the projection passes the object through as-is.
+      total_other: { type: "text" },
+    },
+    select: [
+      "eik",
+      "name",
+      "total_eur",
+      "contract_count",
+      "award_count",
+      "is_mp_tied",
+      "total_other",
+    ],
+    // eik is the tiebreak, not decoration: total_eur alone is not a total order, and
+    // every composite sort index (122) trails with eik so the default sort stays
+    // index-served.
+    defaultSort: [
+      ["total_eur", "desc"],
+      ["eik", "asc"],
+    ],
+    aggregates: [
+      { fn: "count" },
+      { fn: "sum", col: "total_eur" },
+      { fn: "max", col: "total_eur" },
+    ],
+    // The SECOND fan-out margin, defaulted server-side: the screen sends `division`
+    // ('ALL' or a 2-digit code), but /api/db/table is a general endpoint — a deep link
+    // or AI-tool path that omits it would otherwise union the 'ALL' rollup with every
+    // per-division row and double-count. buildWhere applies this when division is absent.
+    defaultFilters: [{ col: "division", val: "ALL" }],
+    // Export ceiling, like procurement_settlements — the widest (scope,division) slice
+    // is the 'all'/'ALL' leaderboard (~29.5k rows); MAX_OFFSET still caps deep paging.
+    maxPageSize: 1000,
+  },
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
@@ -1225,6 +1299,22 @@ const buildWhere = (r, req) => {
     // can back two filter modes (e.g. tenders.cpv as exact `in` for topics AND
     // cpv_prefix as `prefix` for the normalcy "browse similar" deep link).
     add(buildFilter(def.col || f.id, def, f, params.length));
+  }
+
+  // A SECOND fan-out margin, defaulted like `defaultScope` above. `defaultScope`
+  // guards only ONE column, but a resource can fan out on two — contractor_rankings
+  // is (scope_key × division), each with a rollup bucket ('all' / 'ALL'). If a
+  // caller omits `division`, `scope_key = 'all'` alone unions the 'ALL' rollup row
+  // with every per-division row per contractor → a ~2× double-counted leaderboard,
+  // served 200 with nothing to flag it. So for any declared defaultFilter whose
+  // column the caller did NOT filter, apply `col = val`. Same double-count rationale
+  // as defaultScope, for the second dimension. Validated in db_table.test.js.
+  const sentIds = new Set((req.filters?.columns ?? []).map((f) => f.id));
+  for (const df of r.defaultFilters ?? []) {
+    if (sentIds.has(df.col)) continue;
+    const def = r.columns[df.col];
+    if (!def || !def.filter) throw new Error(`bad defaultFilter col: ${df.col}`);
+    add(buildFilter(df.col, def, { value: df.val }, params.length));
   }
 
   // Global search ORs every `search:true` column. A caller may narrow that to a

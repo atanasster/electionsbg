@@ -302,6 +302,7 @@ test("no resource carries unknown top-level registry keys", () => {
     "aggBase",
     "scopeCols",
     "defaultScope",
+    "defaultFilters",
     "columns",
     "select",
     "defaultSort",
@@ -335,7 +336,12 @@ test("defaultScope, where declared, names a real scope column", () => {
 // distinguishes a fan-out base from a normal one, and a new fan-out resource shipping
 // without a default is precisely the regression this pins.
 test("every fan-out resource declares a defaultScope", () => {
-  const FAN_OUT = ["mp_assets_rankings", "mp_cars", "procurement_settlements"];
+  const FAN_OUT = [
+    "mp_assets_rankings",
+    "mp_cars",
+    "procurement_settlements",
+    "contractor_rankings",
+  ];
   for (const name of FAN_OUT) {
     assert.ok(REGISTRY[name], `${name} is no longer a registry resource`);
     assert.ok(
@@ -356,6 +362,71 @@ test("buildWhere applies defaultScope when the caller sends none", () => {
     scope: { col: "ns", val: "52" },
   });
   assert.deepEqual(explicit.params, ["52"]);
+});
+
+// defaultFilters is the SECOND-margin analogue of defaultScope: contractor_rankings
+// fans out on (scope_key × division), each with a rollup bucket, but defaultScope
+// covers only scope_key. Without a default on `division`, an unscoped query unions the
+// 'ALL' rollup row with every per-division row per contractor → a ~2× leaderboard.
+test("every declared defaultFilter names a filterable column", () => {
+  for (const [name, r] of Object.entries(REGISTRY)) {
+    for (const df of r.defaultFilters ?? []) {
+      assert.ok(
+        df.col && "val" in df,
+        `${name}: defaultFilter must be { col, val }`,
+      );
+      assert.ok(
+        r.columns[df.col] && r.columns[df.col].filter,
+        `${name}: defaultFilter column '${df.col}' is not a filterable column — ` +
+          `buildWhere would throw on every request that omits it`,
+      );
+    }
+  }
+});
+
+test("buildWhere defaults the division margin when the caller omits it", () => {
+  // The regression that pins the [FINDING-001] double-count fix: a scope-only request
+  // must still constrain division to the 'ALL' rollup.
+  const { whereSql, params } = buildWhere(REGISTRY.contractor_rankings, {
+    scope: { col: "scope_key", val: "all" },
+  });
+  assert.match(whereSql, /scope_key = \$\d/);
+  assert.match(
+    whereSql,
+    /division = \$\d/,
+    "division margin not defaulted — the leaderboard double-counts",
+  );
+  assert.ok(params.includes("ALL"));
+
+  // An explicit division still wins — the default is only applied when absent.
+  const explicit = buildWhere(REGISTRY.contractor_rankings, {
+    scope: { col: "scope_key", val: "all" },
+    filters: { columns: [{ id: "division", value: "45" }] },
+  });
+  assert.ok(explicit.params.includes("45"));
+  assert.ok(
+    !explicit.params.includes("ALL"),
+    "explicit division should suppress the 'ALL' default",
+  );
+});
+
+test("contractor_rankings searches the name FOLD, with the term folded", () => {
+  const n = REGISTRY.contractor_rankings.columns.name;
+  assert.equal(n.searchCol, "name_fold");
+  assert.equal(n.searchFold, true);
+  const { whereSql } = buildWhere(REGISTRY.contractor_rankings, {
+    scope: { col: "scope_key", val: "all" },
+    filters: { global: "sofarma" },
+  });
+  assert.match(whereSql, /name_fold ILIKE '%' \|\| translit_bg_latin/);
+});
+
+test("contractor_rankings sum/max aggregate only the agg-marked total_eur", () => {
+  const c = REGISTRY.contractor_rankings.columns;
+  assert.equal(c.total_eur.agg, "sum");
+  for (const a of REGISTRY.contractor_rankings.aggregates)
+    if (a.col)
+      assert.equal(c[a.col].agg, "sum", `${a.fn} over a non-agg column ${a.col}`);
 });
 
 // ── runDbFacets: filter-scoped facets (the `filters` merge) ──────────────────
