@@ -437,21 +437,44 @@ keys and return the same detail keyed by contract — still low kilobytes, since
 
 `newFirmMonths` must be in this route's response for `mergeContractRisk` (§1.E).
 
-After T1+T2 the SPA's only remaining reader of `procurement-risk-indexes` is
-`ProcurementFlagsScreen`'s `useDebarred` (a 467-byte slice) — **but the AI chat
-still reads `cpvCompetition` from it** (§1.F), so a narrowed payload must keep
-both slices, or `procurementSingleBidSectors` needs its own route. Verify against
-`ai/tools/` before changing the route's shape.
+### ⚠️ The decommission described below CANNOT happen. Corrected 2026-07-30.
 
-Then decommission, in both directions (§1.F):
+This section assumed the tender screens were untouched by the contract work.
+They are not. **`TenderDetailScreen` calls `useContractRiskScorer()` on
+`awardToContract(tender, award, appealUpheld)`** — SYNTHETIC contracts assembled
+from tender award rows. Those are not `contracts` table rows, so they have no
+`contract_risk_cache` entry and no masks to decode. The client scorer, and
+therefore the whole 1.29 MB payload, is genuinely required on that route.
 
-- **Client:** delete the seven hooks that exist only to feed the scorer —
-  `useAwarderConcentration`, `useCpvCompetition`, `useMpConnectedContractors`,
-  `usePepConnectedEikSet`, `useNgoForeignFundedByEik`, `useCompanyFoundedByEik`,
-  `useSplitPurchase`. Keep `useDebarred`.
-- **Server:** if `foundedByEik` leaves the payload, revisit the four REFRESH call
-  sites and `refreshRiskIndexesIfPresent`, whose whole reason for existing is
-  that `foundedByEik` is embedded in this matview.
+Consequences, all measured against the code rather than assumed:
+
+- The seven "scorer-only" hooks **cannot** be deleted — the scorer still needs
+  every one of them for the tender path.
+- The payload **cannot** be narrowed to `debarred` + `cpvCompetition`.
+- What T2 *can* do, and did, is remove the payload from the screens whose rows
+  DO carry masks. T1.2 took the two contract browsers and the contract detail
+  page; **T2's own delta is `ProjectFileScreen`** (T1 step 2 held it back on
+  purpose). Four screens, six URL routes — `CompanyContractsDbScreen` serves
+  `/company/:eik/contracts`, `/company/:eik/annexes` and
+  `/awarder/:eik/contracts`. All are separate from `/procurement/tender/*`, so
+  each genuinely stops downloading it.
+
+`ProjectFileScreen` pays one price for the switch, recorded at the call site:
+`mergeContractRisk` keeps the most concerning magnitude across a group, and
+`newFirmMonths` is the one that is not row-derivable — the per-contract detail
+route cannot serve a merged group without one fetch per contract. The merged chip
+still fires; it just carries no firm-age number. A missing magnitude, not a wrong
+one.
+
+**Retiring the payload for real needs a per-tender risk index** — the tender
+equivalent of migration 112, which is a new migration and out of scope here. Until
+that exists, `procurement-risk-indexes` stays, and the honest description of T2 is
+"removed from four routes", not "retired".
+
+The one narrowing that IS safe today: the AI chat reads only `cpvCompetition`
+from it (`ai/tools/fiscal.ts`, §1.F) and `ProcurementFlagsScreen` only `debarred`
+(467 bytes) — but since the tender path needs the full payload anyway, splitting
+those out buys nothing until the tender index lands.
 
 ### T3 — fix `cpv-catalog`
 

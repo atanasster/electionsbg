@@ -63,10 +63,12 @@ import {
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 import {
-  useContractRiskScorer,
-  type ContractRiskResult,
-} from "@/data/procurement/useContractRiskFlags";
+  contractRiskFromMasks,
+  withNgoDisclosure,
+} from "@/lib/contractRiskMask";
+import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { mergeContractRisk } from "@/data/procurement/computeProcurementRisk";
 import {
   TileHubGrid,
@@ -617,21 +619,48 @@ export const ProjectFileScreen = () => {
   // union the flags per contractor, keyed exactly as foldByContractor groups
   // (contractorEik || contractorName). Skips consortium-member (€0) + amendment
   // rows to match the money fold. The scorer loads the risk indexes once.
-  const { scoreRow: scoreContractRisk } = useContractRiskScorer();
+  // Decoded from each contract's own server masks — no corpus payload on this
+  // route. The dossier contracts come from /api/db/table, so they carry
+  // riskFiredMask / riskAvailableMask like any other contracts row.
+  //
+  // ⚠️ FOUR deliberate losses, all the same shape: a merged row has no single
+  // contractKey, so useContractRiskDetail cannot backfill it. newFirmMonths (the
+  // magnitude mergeContractRisk would keep) plus the debarred / concentration /
+  // splitPurchase tooltip DETAILS are absent here. Every one is a missing datum,
+  // never a wrong one — the chips still fire, because they key off `components`
+  // rather than `flags.*`. bidCount and annexGrowthPct are row-derivable and
+  // survive.
+  //
+  // Unscored contracts (null masks) are skipped rather than counted as clean:
+  // folding a zeroed result into the union would silently lower the group's fired
+  // set.
+  const { byEik: ngoByEik } = useNgoForeignFundedByEik();
   const riskByContractor = useMemo(() => {
     const groups = new Map<string, ContractRiskResult[]>();
     for (const c of data?.contracts ?? []) {
       if ((c.tag ?? "contract") !== "contract") continue;
       if (c.consortiumRole === "member") continue;
       const key = c.contractorEik || c.contractorName || "?";
+      // Register the group BEFORE the scored check, so a contractor whose every
+      // contract is unscored still gets an entry — published as null, which
+      // RiskBadges renders as an explicit "?" rather than as nothing. Dropping the
+      // key entirely would put this screen back to showing unscored as clean.
       const list = groups.get(key) ?? [];
-      list.push(scoreContractRisk(c));
       groups.set(key, list);
+      // ngoForeignFunded has no mask bit (neutral, unscored), so it must be
+      // re-attached from its own small route exactly as the three contract
+      // screens do — otherwise the disclosure silently vanishes here.
+      const scored = withNgoDisclosure(
+        contractRiskFromMasks(c),
+        ngoByEik.get(c.contractorEik),
+      );
+      if (scored) list.push(scored);
     }
-    const out = new Map<string, ContractRiskResult>();
-    for (const [k, rs] of groups) out.set(k, mergeContractRisk(rs));
+    const out = new Map<string, ContractRiskResult | null>();
+    for (const [k, rs] of groups)
+      out.set(k, rs.length ? mergeContractRisk(rs) : null);
     return out;
-  }, [data, scoreContractRisk]);
+  }, [data, ngoByEik]);
   // Sortable contractors table. Default: by value desc (foldByContractor's order,
   // and the дял column is monotonic in eur so it shares that key).
   const [contractorSort, setContractorSort] = useState<{
@@ -1790,8 +1819,13 @@ export const ProjectFileScreen = () => {
                 <tbody>
                   {sortedContractors.map((r) => {
                     const risk = riskByContractor.get(r.eik ?? r.name);
+                    // `null` (present but unscored) still renders — RiskBadges
+                    // shows the "?" state. `undefined` (no contracts in the fold)
+                    // renders nothing, which is correct.
                     const showRisk =
-                      !!risk && (risk.hasFlag || !!risk.flags.ngoForeignFunded);
+                      risk === null ||
+                      (!!risk &&
+                        (risk.hasFlag || !!risk.flags.ngoForeignFunded));
                     return (
                       <tr
                         key={r.eik ?? r.name}
