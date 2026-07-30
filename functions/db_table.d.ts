@@ -26,12 +26,25 @@ export type DbRows = ((
 };
 
 /** One whitelisted column on a resource. `col` redirects a logical filter id to a
- *  different physical column; `search: true` enrols it in the global free-text OR. */
+ *  different physical column; `search: true` enrols it in the global free-text OR.
+ *
+ *  A `filter: "semijoin"` column is VIRTUAL — it names no column of the base table, so
+ *  it must never appear in `select`, `defaultSort`, or a facet request. It constrains
+ *  `semiJoinCol` through `semiJoinSql`, a REGISTRY-owned subquery template carrying
+ *  exactly one `?` into which the client's value is BOUND, never interpolated. */
 export interface DbTableColumn {
   type: "text" | "int" | "number" | "bool";
   col?: string;
   sort?: boolean;
   filter?: string;
+  /** Real base-table column a `semijoin` filter constrains. Must not be `viewOnly`:
+   *  the aggregate query runs against `aggBase`, which lacks the view's columns. */
+  semiJoinCol?: string;
+  /** Subquery template with exactly one `?`. REGISTRY-owned — never request-derived. */
+  semiJoinSql?: string;
+  /** This filter is the caller's identity SCOPE, not a refinement: an absent value
+   *  throws instead of widening the result to the whole corpus. */
+  required?: boolean;
   search?: boolean;
   searchCol?: string;
   searchFold?: boolean;

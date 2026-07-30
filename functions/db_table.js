@@ -35,6 +35,10 @@ const REGISTRY = {
     // ⚠ Hard dep on migration 042 (no base-table fallback here — the projection
     // selects has_appeal/appeal_upheld): apply 042 to Cloud SQL BEFORE functions:db,
     // else 42P01. `db:load:tenders:pg:cloud` applies it; so does apply_functions.ts.
+    // ⚠ This resource can also read `awarder_seats` (021), via the awarder_ekatte
+    // semi-join below — so that table must exist and be CURRENT on any database
+    // serving this resource. Reloading it no longer affects only the by-settlement
+    // rollup; it changes which contracts the browser shows for a place.
     base: "contracts_list",
     // The count+sum aggregate and the facet GROUP BYs reference only base columns,
     // so they run against `contracts` directly — the contracts_list view's LEFT
@@ -70,6 +74,33 @@ const REGISTRY = {
       // an array, so single-value callers are unaffected. See the water/judiciary
       // SECTOR_BROWSE_PACKS seam (docs/plans/water-view-v1.md §4.3).
       awarder_eik: { type: "text", filter: "in" },
+      // VIRTUAL column (filter:"semijoin") — the settlement scope behind
+      // /procurement/settlement/:ekatte. `contracts` has no place column; a buyer's
+      // seat lives in awarder_seats, so "procurement in Варна" is "every contract
+      // whose awarder is seated at this EKATTE".
+      //
+      // Deliberately NOT a denormalised contracts column and NOT a join in the
+      // contracts_list view: the first needs a backfill after every TRUNCATE+COPY
+      // reload (invisible when it goes stale), the second taxes every contracts
+      // query and would push aggregates off the migration-113 covering indexes.
+      // As a plain filter it also rides `fixedFilters`, which the table, facet and
+      // aggregate paths all thread already.
+      //
+      // is_local_hq mirrors procurement_by_settlement() (030): central ministries
+      // and national state companies are geo-resolved but procure nationally, so
+      // they belong to the "national" rollup rather than to their seat's page.
+      // MEASURED (София, 327 buyers / 64,609 contracts): page 1.9ms, count+sum
+      // 54ms, facets ~30ms. See docs/plans/procurement-settlement-browser-v1.md §1.4.
+      awarder_ekatte: {
+        type: "text",
+        filter: "semijoin",
+        // The scope, not a refinement: an absent value must throw, never widen to
+        // the national corpus. See the `required` note in buildFilter.
+        required: true,
+        semiJoinCol: "awarder_eik",
+        semiJoinSql:
+          "SELECT eik FROM awarder_seats WHERE source = 'geo' AND is_local_hq AND ekatte = ?",
+      },
       awarder_name: { type: "text", sort: true, filter: "text", search: true },
       // filter:"in" (not "eq") — mirrors awarder_eik: the project-file resolver
       // scopes a CONTRACTOR-anchored thread by passing a contractor-EIK set
@@ -1253,6 +1284,49 @@ const buildFilter = (col, def, f, p0) => {
       params,
     };
   }
+  if (t === "semijoin") {
+    // A VIRTUAL filter column: it names no column of the base table. The registry
+    // supplies both the real column to constrain (`semiJoinCol`) and a subquery
+    // template (`semiJoinSql`) carrying exactly one `?` placeholder, and the
+    // client's value is bound into it as an ordinary parameter.
+    //
+    // WHY a template rather than the equivalent `in` filter with the ids resolved
+    // client-side: contracts has no place column, so scoping to a settlement means
+    // "every buyer seated there". Resolving that set in the browser costs a
+    // round-trip AND put 327 EIKs (a 6,199-char URL) on the query string for София.
+    // The semi-join hands the whole question to the planner, which turns it into an
+    // index-only probe. See docs/plans/procurement-settlement-browser-v1.md §2.1.
+    //
+    // SECURITY: `semiJoinSql` and `semiJoinCol` come from the REGISTRY, never from
+    // the request — the client sends only the bound value, exactly as for every
+    // other filter mode. Nothing here interpolates client input into SQL.
+    //
+    // FAILS CLOSED, unlike every other mode. Elsewhere a filter whose value went
+    // missing just widens the result — it is a refinement, and dropping it is safe.
+    // A semijoin is the page's IDENTITY scope: dropped, the request answers with the
+    // entire national corpus, at a 200, with an exact count, under one settlement's
+    // heading. `required` says which kind this is; an absent value is a caller bug,
+    // so it throws rather than silently serving ~3M rows.
+    if (f.value == null || f.value === "") {
+      if (def.required)
+        throw new Error(`${col}: required filter received no value`);
+      return null;
+    }
+    // An array/object would be bound as a PG array literal ('{68134,56784}'), match
+    // nothing, and render "0 contracts" for a real settlement. Refuse it: a scope
+    // filter degrading to a silent empty set is worse than a loud error.
+    if (typeof f.value === "object")
+      throw new Error(`semijoin ${col}: expects a scalar value`);
+    const parts = String(def.semiJoinSql).split("?");
+    if (parts.length !== 2)
+      throw new Error(
+        `semijoin ${col}: template needs exactly one placeholder`,
+      );
+    return {
+      sql: `${def.semiJoinCol} IN (${parts[0]}${push(f.value)}${parts[1]})`,
+      params,
+    };
+  }
   if (t === "text")
     return { sql: `${col} ILIKE ${push(`%${String(f.value)}%`)}`, params };
   if (t === "range") {
@@ -1321,7 +1395,8 @@ const buildWhere = (r, req, opts = {}) => {
     if (sentIds.has(df.col)) continue;
     if (skipDefaults && skipDefaults.has(df.col)) continue;
     const def = r.columns[df.col];
-    if (!def || !def.filter) throw new Error(`bad defaultFilter col: ${df.col}`);
+    if (!def || !def.filter)
+      throw new Error(`bad defaultFilter col: ${df.col}`);
     add(buildFilter(df.col, def, { value: df.val }, params.length));
   }
 
@@ -1451,6 +1526,20 @@ const buildOrder = (r, req) => {
 // `whereIds`/`facetIds` are registry-sourced column ids (never raw SQL).
 const touchesViewOnly = (r, ids) =>
   ids.some((id) => id && r.columns[id]?.viewOnly);
+// A filter mode that names no real column of the base table, so it can be a WHERE
+// predicate but never a GROUP BY target or a projection.
+const isVirtualCol = (d) => d?.filter === "semijoin";
+
+// The column id a filter PHYSICALLY constrains. A semijoin's logical id is virtual —
+// the SQL it emits touches `semiJoinCol` — so anything reasoning about which relation
+// the query needs (viewOnly → aggBase) must resolve through here, or it will decide
+// using a descriptor that describes nothing. Other modes may redirect via `col`.
+const physicalColId = (r, id) => {
+  const d = r.columns?.[id];
+  if (!d) return id;
+  return d.semiJoinCol ?? d.col ?? id;
+};
+
 const aggBaseFor = (r, whereIds, facetIds = []) =>
   r.aggBase && !touchesViewOnly(r, whereIds) && !touchesViewOnly(r, facetIds)
     ? r.aggBase
@@ -1543,7 +1632,7 @@ const runDbTable = async (q, reqRaw) => {
       // columns, so the identical whereSql/params are valid against aggBase.
       const whereIds = [
         req.scope?.col,
-        ...(req.filters?.columns ?? []).map((f) => f.id),
+        ...(req.filters?.columns ?? []).map((f) => physicalColId(r, f.id)),
       ];
       const [a] = await qq(
         `SELECT ${buildAggSelect(r)} FROM ${aggBaseFor(r, whereIds)} ${whereSql}`,
@@ -1599,16 +1688,22 @@ const runDbFacets = async (q, reqRaw) => {
   // target: persons.oblast_code is the representative seat, so filtering it would drop
   // people from an oblast they genuinely serve, but it is still the only place the list of
   // oblasts lives. Facets are read-only aggregates, so opting one in adds no filter surface.
-  const cols = (req.columns ?? []).filter(
-    (c) => r.columns[c]?.filter || r.columns[c]?.facet,
-  );
+  //
+  // A VIRTUAL filter (isVirtualCol) is the one filterable kind that is NOT facetable:
+  // it has no expression of its own, so GROUP BY-ing it would emit an undefined-column
+  // 42703 rather than a vocabulary. Excluded here rather than left to fail in Postgres,
+  // since a facet request naming one is a caller bug.
+  const cols = (req.columns ?? []).filter((c) => {
+    const d = r.columns[c];
+    return (d?.filter && !isVirtualCol(d)) || d?.facet;
+  });
 
   // Column ids the shared WHERE touches (scope + fixed + active filters) — used
   // per-facet to decide whether it can aggregate over the base table.
   const whereIds = [
     req.scope?.col,
-    ...(req.fixedFilters ?? []).map((f) => f.id),
-    ...(req.filters ?? []).map((f) => f.id),
+    ...(req.fixedFilters ?? []).map((f) => physicalColId(r, f.id)),
+    ...(req.filters ?? []).map((f) => physicalColId(r, f.id)),
   ];
 
   // Each facet is an independent query — run them concurrently rather than

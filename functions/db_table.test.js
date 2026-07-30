@@ -9,6 +9,7 @@ const assert = require("node:assert/strict");
 const {
   buildWhere,
   REGISTRY,
+  runDbTable,
   runDbFacets,
   buildAggSelect,
 } = require("./db_table.js");
@@ -448,7 +449,11 @@ test("contractor_rankings sum/max aggregate only the agg-marked total_eur", () =
   assert.equal(c.total_eur.agg, "sum");
   for (const a of REGISTRY.contractor_rankings.aggregates)
     if (a.col)
-      assert.equal(c[a.col].agg, "sum", `${a.fn} over a non-agg column ${a.col}`);
+      assert.equal(
+        c[a.col].agg,
+        "sum",
+        `${a.fn} over a non-agg column ${a.col}`,
+      );
 });
 
 // ── runDbFacets: filter-scoped facets (the `filters` merge) ──────────────────
@@ -652,4 +657,240 @@ test("procurement_settlements projects the English name without sorting on it", 
   // the table for an English reader with no explanation.
   assert.ok(settlements.select.includes("name_en"), "name_en is projected");
   assert.ok(!settlements.columns.name_en.sort, "name_en is not sortable");
+});
+
+// --- awarder_ekatte: the settlement semi-join (procurement-settlement-browser-v1 §2.1) ---
+
+test("semijoin emits a parameterized subquery against the REAL column", () => {
+  const { whereSql, params } = buildWhere(contracts, {
+    filters: { columns: [{ id: "awarder_ekatte", value: "68134" }] },
+  });
+  // The virtual column's name never reaches the SQL — awarder_eik does.
+  assert.ok(
+    !whereSql.includes("awarder_ekatte"),
+    "the virtual column name must not appear in SQL",
+  );
+  assert.ok(
+    whereSql.includes("awarder_eik IN (SELECT eik FROM awarder_seats"),
+    "constrains the real column via the registry subquery",
+  );
+  // is_local_hq keeps national buyers out, matching procurement_by_settlement().
+  assert.ok(whereSql.includes("is_local_hq"), "local-tier predicate preserved");
+  // The value is BOUND, never interpolated.
+  assert.ok(whereSql.includes("ekatte = $1"), "placeholder, not a literal");
+  assert.deepEqual(params, ["68134"]);
+});
+
+test("semijoin binds a hostile value rather than interpolating it", () => {
+  const { whereSql, params } = buildWhere(contracts, {
+    filters: {
+      columns: [
+        { id: "awarder_ekatte", value: "68134'; DROP TABLE contracts--" },
+      ],
+    },
+  });
+  assert.ok(!whereSql.includes("DROP TABLE"), "no client text reaches the SQL");
+  assert.deepEqual(params, ["68134'; DROP TABLE contracts--"]);
+});
+
+test("a required semijoin THROWS on an absent value rather than serving the corpus", () => {
+  // The whole point of `required`: dropping this clause does not narrow anything,
+  // it widens to every contract in the country — served at a 200, with an exact
+  // count, under one settlement's heading. Fail closed instead.
+  for (const value of ["", null, undefined]) {
+    assert.throws(
+      () =>
+        buildWhere(contracts, {
+          filters: { columns: [{ id: "awarder_ekatte", value }] },
+        }),
+      /required filter received no value/,
+      `value ${JSON.stringify(value)} must be refused`,
+    );
+  }
+});
+
+test("a semijoin refuses a non-scalar value instead of matching nothing", () => {
+  // node-postgres would bind an array as '{68134,56784}', which equals no ekatte —
+  // rendering "0 contracts" for a settlement that has thousands.
+  assert.throws(
+    () =>
+      buildWhere(contracts, {
+        filters: {
+          columns: [{ id: "awarder_ekatte", value: ["68134", "56784"] }],
+        },
+      }),
+    /expects a scalar value/,
+  );
+});
+
+test("the semijoin composes with the scope window and tag, all bound", () => {
+  // The shape the settlement page actually sends: tag + pscope window + the place.
+  //
+  // The upper bound is the day BEFORE the next election (2026-04-18, not -19).
+  // src/data/scope/scopeRange.ts is explicit that the DB endpoints filter
+  // `date <= to` inclusively, so an ns window must stop a day short to stay
+  // half-open — a contract dated on election day belongs to the NEXT parliament.
+  // Pinned here because a browser that used the election date itself would show
+  // rows the by-settlement KPI excludes, and the two would reconcile nowhere.
+  const { whereSql, params } = buildWhere(contracts, {
+    filters: {
+      columns: [
+        { id: "tag", value: ["contract"] },
+        { id: "date", min: "2023-04-02", max: "2026-04-18" },
+        { id: "awarder_ekatte", value: "68134" },
+      ],
+    },
+  });
+  assert.ok(whereSql.includes("date >= $"), "window lower bound is sargable");
+  assert.ok(whereSql.includes("date <= $"), "window upper bound is sargable");
+  assert.ok(whereSql.includes("awarder_seats"), "semi-join present");
+  assert.deepEqual(params, ["contract", "2023-04-02", "2026-04-18", "68134"]);
+});
+
+test("awarder_ekatte is filter-only — not projected, sorted, searched or view-bound", () => {
+  const def = contracts.columns.awarder_ekatte;
+  // It names no real column, so projecting or sorting it would be a 42703.
+  assert.ok(!contracts.select.includes("awarder_ekatte"), "not projected");
+  assert.ok(!def.sort, "not sortable");
+  assert.ok(!def.search, "not searchable");
+  // NOT viewOnly: the semi-join constrains a BASE column, so aggregates must stay
+  // on aggBase (`contracts`) and keep the migration-113 covering indexes.
+  assert.ok(!def.viewOnly, "must not force the aggregate onto the view");
+});
+
+test("a semijoin column is refused as a facet", () => {
+  // GROUP BY on a virtual column is an undefined-column error, not a vocabulary.
+  const calls = [];
+  const dbRows = async (sql, params) => {
+    calls.push({ sql, params });
+    return [];
+  };
+  return runDbFacets(dbRows, {
+    resource: "contracts",
+    columns: ["awarder_ekatte"],
+    filters: [],
+  }).then((out) => {
+    assert.deepEqual(out.facets, {}, "no facet is produced");
+    assert.equal(calls.length, 0, "and no query is issued");
+  });
+});
+
+test("the semijoin keeps count+sum on the base table, not the view", async () => {
+  // The registry comment stakes a MEASURED claim (count+sum 54ms) that holds only
+  // while aggBaseFor returns `contracts`. Aggregating over contracts_list instead
+  // would drop to the seq-scan path the aggBase comment describes, with every other
+  // test still green.
+  const sqls = [];
+  const q = async (sql) => {
+    sqls.push(sql);
+    return [{ _count: "0" }];
+  };
+  await runDbTable(q, {
+    resource: "contracts",
+    filters: { columns: [{ id: "awarder_ekatte", value: "68134" }] },
+  });
+  const agg = sqls.find((s) => s.includes("count(*)::bigint"));
+  assert.ok(agg, "an aggregate query ran");
+  assert.match(agg, /FROM contracts /, "aggregate stayed on aggBase");
+  assert.ok(
+    agg.includes("awarder_seats"),
+    "and the semi-join reached the aggregate WHERE",
+  );
+});
+
+test("a semijoin fixedFilter scopes every facet without becoming one", async () => {
+  // The shape the settlement page sends: the place as a fixedFilter, real columns
+  // as the facets. Neither the table nor the facet tests above cover this path.
+  const sqls = [];
+  const q = async (sql) => {
+    sqls.push(sql);
+    return [];
+  };
+  await runDbFacets(q, {
+    resource: "contracts",
+    columns: ["procurement_method", "cpv"],
+    fixedFilters: [
+      { id: "tag", value: ["contract"] },
+      { id: "awarder_ekatte", value: "68134" },
+    ],
+  });
+  assert.equal(sqls.length, 2, "both real facets ran");
+  for (const s of sqls) {
+    assert.ok(
+      s.includes("awarder_eik IN (SELECT eik FROM awarder_seats"),
+      "facet is place-scoped",
+    );
+    assert.ok(
+      !s.includes("awarder_ekatte"),
+      "the virtual name never reaches SQL",
+    );
+    assert.match(s, /FROM contracts /, "facets stayed on aggBase");
+  }
+});
+
+test("every semijoin column in the registry is well-formed", () => {
+  // These descriptor keys are the first column-level registry keys with structural
+  // requirements, and every way of getting them wrong is a request-time 500 or a
+  // 42703 rather than a startup failure. Check them statically instead.
+  let checked = 0;
+  for (const [name, r] of Object.entries(REGISTRY))
+    for (const [id, d] of Object.entries(r.columns)) {
+      if (d.filter !== "semijoin") continue;
+      checked++;
+      assert.equal(
+        typeof d.semiJoinSql,
+        "string",
+        `${name}.${id}: no semiJoinSql (a misspelled key is a 500 at request time)`,
+      );
+      assert.equal(
+        d.semiJoinSql.split("?").length,
+        2,
+        `${name}.${id}: template needs exactly one ? placeholder`,
+      );
+      assert.ok(
+        r.columns[d.semiJoinCol],
+        `${name}.${id}: semiJoinCol '${d.semiJoinCol}' is not a declared column`,
+      );
+      // A viewOnly target would 42703 on the aggregate query alone: physicalColId
+      // now resolves through semiJoinCol, so aggBaseFor WOULD see it — this keeps
+      // that guarantee from regressing if the resolution is ever reverted.
+      assert.ok(
+        !r.columns[d.semiJoinCol].viewOnly,
+        `${name}.${id}: semiJoinCol '${d.semiJoinCol}' is viewOnly — the aggregate would 42703`,
+      );
+      // Virtual: it names no real column, so it must stay out of the projection,
+      // the sort whitelist and the global search.
+      assert.ok(
+        !(r.select ?? []).includes(id),
+        `${name}.${id}: virtual column must not be projected`,
+      );
+      assert.ok(
+        !d.sort && !d.search,
+        `${name}.${id}: virtual column must not be sortable or searchable`,
+      );
+    }
+  assert.ok(
+    checked > 0,
+    "the invariant actually ran against a semijoin column",
+  );
+});
+
+test("a malformed semijoin template is refused", () => {
+  // The only coverage the parts.length !== 2 branch has.
+  const bad = {
+    columns: {
+      x: {
+        type: "text",
+        filter: "semijoin",
+        semiJoinCol: "y",
+        semiJoinSql: "SELECT y FROM t WHERE a = ? AND b = ?",
+      },
+    },
+    scopeCols: [],
+    select: ["y"],
+  };
+  assert.throws(
+    () => buildWhere(bad, { filters: { columns: [{ id: "x", value: "1" }] } }),
+    /exactly one placeholder/,
+  );
 });
