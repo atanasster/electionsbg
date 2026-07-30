@@ -146,15 +146,19 @@ It is built from `data/settlements.json` + `data/municipalities.json` (labels vi
 the local equivalent automatically; the cloud side does not.
 
 Related, and the only loader whose trigger is a **calendar rollover** rather than a source
-change — the pscope windows (migration 118) **and the per-scope by-settlement precomputes
-they drive** (migration 119, `procurement_settlement_rank` + `procurement_geo_payloads`):
+change — the pscope windows (migration 118) **and the per-scope precomputes they drive**
+(migration 119, `procurement_settlement_rank` + `procurement_geo_payloads` behind
+`/procurement/by-settlement`; migration 122, `contractor_rank` + `contractor_scope_kpis`
+behind `/procurement/contractors`):
 
 ```bash
 npm run db:load:procurement-scopes:pg:cloud
 ```
 
-It writes the window rows, applies 119 and REFRESHes both matviews (~12 s) — so "the scopes
-changed" and "the precomputes match the scopes" can never be two separate states. Re-run it:
+It writes the window rows, applies 119 + 122 and REFRESHes all four matviews (~20 s;
+`contractor_rank` fans ~29.5k contractors × ~30 windows × CPV-division rollup ≈ 9 s) — so
+"the scopes changed" and "the precomputes match the scopes" can never be two separate states.
+`contractor_scope_kpis` reads `contractor_rank`, so it is refreshed after it. Re-run it:
 
 - whenever a new election lands in `src/data/json/elections.json` (a new `ns:` window);
 - **every January** — the year windows are enumerated `SCOPE_FIRST_YEAR..currentYear`, so on
@@ -171,8 +175,15 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
-`db:load:pg` also re-REFRESHes both (guarded on existence), so a contracts reload cannot
-leave `/procurement/by-settlement` serving the previous corpus. `db:refresh` runs the local
+`contractor_rank` (migration 122) is the same first-deploy shape as `cpv_catalog`: the
+`contractor_rankings` DbDataTable resource + the `/api/db/contractor-scope-kpis` route read
+it and do NOT degrade a missing matview to an empty result, so on the FIRST cloud deploy the
+loader must run **before** the `deploy:db` that ships them. `contractor_rank.data.test.ts`
+fails on an empty or stale matview.
+
+`db:load:pg` also re-REFRESHes all four (guarded on existence, `contractor_rank` before
+`contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement` or
+`/procurement/contractors` serving the previous corpus. `db:refresh` runs the local
 equivalent automatically; the cloud side does not.
 
 **Skipping it does not fail — it blanks.** `db:resolve:persons` applies 117 with
@@ -263,6 +274,7 @@ Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playw
 - `?q=<term>` — on `/procurement/contracts`, `/procurement/tenders` and `/persons`, seeds the DbDataTable free-text search (used by the combined-search "see all" deep links).
 - `?facet` / `?pfacet` / `?role` / `?party` / `?oblast` / `?obshtina` / `?court` / `?decl` / `?held` — the `/persons` browser filters, all owned by `useUrlPersonFilters` (`src/data/persons/`); `?q` seeds its search box. Two distinctions are load-bearing and easy to get backwards. **`?facet` is MEMBERSHIP, `?pfacet` is the PRIMARY facet** — the first asks "is this person also a …" and filters a boolean flag, the second asks "what is this person mainly" and filters the single-valued `primary_facet` the mix bar partitions. And **the multi-valued dimensions filter a space-padded CODE SET, never the display scalar beside it**: `?party=gerb` means "ever affiliated" (keeping the 4,723 switchers), `?oblast=VAR` means "holds any role there" — matching the representative column instead would drop 1,851 people from an oblast they genuinely serve, which reads as "no such people" rather than as a narrowed view. `?obshtina` is the ONE exception: it filters the representative seat, because there is no obshtina code-set column. `?court` carries an institution NAME (the picker facets and filters the same `institution` column, so its counts are exact and no code→name dictionary is needed). Every value is validated on read.
 - `?proc` / `?cpv` / `?single` / `?cancelled` / `?year` / `?grade` — the procurement browser filters, all owned by `useUrlProcurementFilters` (`src/data/procurement/`). `?proc` is a bucketed procedure, `?cpv` a division/prefix/comma-set, `?single|?cancelled` a boolean toggle (name differs per browser), `?year` the company/awarder page only. `?grade=D,E,F` is a validated A–F set filtering the **server-side** contract risk index (`risk_grade`, migration 112) — contracts browsers only, since tenders have no per-tender index. Every one is validated on read: unknown values are dropped rather than passed into a `DbColumnFilter`.
+- `?cpv` / `?mp` — the `/procurement/contractors` ("Топ изпълнители") filters, owned by `useUrlContractorFilters` (a small local hook, NOT the shared one above, since the leaderboard has no `?proc/?year/?grade` analogue). Here `?cpv` is **single-valued and normalised to a 2-digit CPV division ON WRITE** — `contractor_rank` (122) is a `(scope_key × division)` rollup with an `'ALL'` sentinel, so picking a finer catalogue code stores `?cpv=45` and the division filter is ALWAYS sent (default `'ALL'`); a multi-value set would return N rows per contractor and double-count. `?mp=1` is the MP-tied toggle (`is_mp_tied`). `?q` seeds the search box and `?pscope` the scope, as elsewhere.
 
 ### Local-elections routes
 
