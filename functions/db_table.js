@@ -1186,7 +1186,6 @@ const REGISTRY = {
       "name",
       "total_eur",
       "contract_count",
-      "award_count",
       "is_mp_tied",
       "total_other",
     ],
@@ -1267,7 +1266,14 @@ const buildFilter = (col, def, f, p0) => {
 
 // Turn a validated request into { whereSql, params }. Scope + column filters +
 // global search, all parameterized, all whitelisted.
-const buildWhere = (r, req) => {
+//
+// `opts.skipDefaultFilterCols` (a Set) suppresses `defaultFilters` for those columns.
+// The facet path uses it: a facet ENUMERATES a dimension's values, which is
+// fundamentally incompatible with defaulting that same dimension to one value — a
+// `division` facet under `defaultFilters:[{division:'ALL'}]` would otherwise return
+// only the 'ALL' bucket. Defaults for OTHER columns still apply, so a facet on a
+// non-defaulted column stays double-count-safe.
+const buildWhere = (r, req, opts = {}) => {
   const where = [];
   const params = [];
   const add = (built) => {
@@ -1310,8 +1316,10 @@ const buildWhere = (r, req) => {
   // column the caller did NOT filter, apply `col = val`. Same double-count rationale
   // as defaultScope, for the second dimension. Validated in db_table.test.js.
   const sentIds = new Set((req.filters?.columns ?? []).map((f) => f.id));
+  const skipDefaults = opts.skipDefaultFilterCols;
   for (const df of r.defaultFilters ?? []) {
     if (sentIds.has(df.col)) continue;
+    if (skipDefaults && skipDefaults.has(df.col)) continue;
     const def = r.columns[df.col];
     if (!def || !def.filter) throw new Error(`bad defaultFilter col: ${df.col}`);
     add(buildFilter(df.col, def, { value: df.val }, params.length));
@@ -1583,10 +1591,7 @@ const runDbFacets = async (q, reqRaw) => {
   // keep every option visible, the caller EXCLUDES a facet's own dimension from
   // its filter set (e.g. the procurement_method facet omits the method filter),
   // so selecting one bucket doesn't collapse the mix to that bucket alone.
-  const { whereSql, params } = buildWhere(r, {
-    scope: req.scope,
-    filters: { columns: [...(req.fixedFilters ?? []), ...(req.filters ?? [])] },
-  });
+  const facetFilters = [...(req.fixedFilters ?? []), ...(req.filters ?? [])];
   const limit = clampInt(req.limit, 100, 1, 500);
   // A column may be faceted because it is FILTERABLE (the common case — the dropdown and
   // the filter are the same column) or because it explicitly opts in with `facet: true`.
@@ -1612,6 +1617,18 @@ const runDbFacets = async (q, reqRaw) => {
   await Promise.all(
     cols.map(async (c) => {
       const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
+      // The WHERE is built PER-FACET, suppressing ONLY this column's defaultFilter —
+      // a facet enumerates its own column's values, so defaulting it (e.g. division to
+      // 'ALL') would collapse the facet to one bucket. Every OTHER column's default
+      // still applies, so co-requesting a facet on a non-defaulted column stays
+      // double-count-safe (it keeps the division='ALL' pin). Per-facet rather than one
+      // shared WHERE precisely because a shared skip-set would drop the default for all
+      // facets in the request. Cheap — these queries already run concurrently.
+      const { whereSql, params } = buildWhere(
+        r,
+        { scope: req.scope, filters: { columns: facetFilters } },
+        { skipDefaultFilterCols: new Set([c]) },
+      );
       // `<> ''` is an empty-STRING guard; on non-text columns comparing to ''
       // errors (bool: "invalid input syntax for type boolean", int/number:
       // "...for type integer/numeric"), so drop it for any non-text facet.

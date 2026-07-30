@@ -410,6 +410,28 @@ test("buildWhere defaults the division margin when the caller omits it", () => {
   );
 });
 
+test("a facet on a defaulted column suppresses that column's defaultFilter", () => {
+  // runDbFacets passes skipDefaultFilterCols = the faceted columns, so a `division`
+  // facet enumerates all divisions instead of being pinned to the 'ALL' default.
+  const withSkip = buildWhere(
+    REGISTRY.contractor_rankings,
+    { scope: { col: "scope_key", val: "all" } },
+    { skipDefaultFilterCols: new Set(["division"]) },
+  );
+  assert.doesNotMatch(
+    withSkip.whereSql,
+    /division = \$\d/,
+    "division default not suppressed — the facet would return only the 'ALL' bucket",
+  );
+  // A facet on a DIFFERENT column still gets the division default (double-count-safe).
+  const other = buildWhere(
+    REGISTRY.contractor_rankings,
+    { scope: { col: "scope_key", val: "all" } },
+    { skipDefaultFilterCols: new Set(["is_mp_tied"]) },
+  );
+  assert.match(other.whereSql, /division = \$\d/);
+});
+
 test("contractor_rankings searches the name FOLD, with the term folded", () => {
   const n = REGISTRY.contractor_rankings.columns.name;
   assert.equal(n.searchCol, "name_fold");
@@ -457,6 +479,36 @@ test("runDbFacets merges req.filters with fixedFilters into the WHERE", async ()
   assert.ok(
     params.includes("2024-01-01") && params.includes("2024-12-31"),
     "user filter (date range) merged into the WHERE",
+  );
+});
+
+test("runDbFacets suppresses a defaulted column's default ONLY in its own facet", async () => {
+  // Co-request the defaulted `division` and another column together. The division
+  // facet must enumerate all divisions (its default suppressed), while the is_mp_tied
+  // facet must KEEP division='ALL' — otherwise it unions the rollup with every
+  // per-division row and double-counts. This is why the WHERE is built per-facet.
+  const calls = [];
+  const q = async (sql, params) => {
+    calls.push({ sql, params });
+    return [];
+  };
+  await runDbFacets(q, {
+    resource: "contractor_rankings",
+    scope: { col: "scope_key", val: "all" },
+    columns: ["division", "is_mp_tied"],
+    limit: 50,
+  });
+  assert.equal(calls.length, 2, "one query per requested facet column");
+  const divisionCall = calls.find((c) => / division AS value/.test(c.sql));
+  const mpCall = calls.find((c) => /is_mp_tied AS value/.test(c.sql));
+  assert.ok(divisionCall && mpCall, "both facet queries present");
+  assert.ok(
+    !/division = \$/.test(divisionCall.sql),
+    "division facet still pinned to its own 'ALL' default — would return one bucket",
+  );
+  assert.ok(
+    /division = \$/.test(mpCall.sql) && mpCall.params.includes("ALL"),
+    "is_mp_tied facet lost the division default — buckets double-count",
   );
 });
 
