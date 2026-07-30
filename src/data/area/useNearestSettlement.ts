@@ -16,6 +16,7 @@
 import { useCallback } from "react";
 import type { SettlementInfo } from "../dataTypes";
 import { useSettlementsInfo } from "../settlements/useSettlements";
+import { parseLoc } from "@/lib/geo";
 
 export type NearestResult =
   | { kind: "single"; settlement: SettlementInfo; distanceKm: number }
@@ -43,18 +44,6 @@ export const haversineKm = (
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return EARTH_RADIUS_KM * c;
-};
-
-/** Parse the "lon,lat" string stored in SettlementInfo.loc. Returns null
- *  for malformed values (a handful of remote villages have empty loc). */
-const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
-  if (!loc) return null;
-  const [lonStr, latStr] = loc.split(",");
-  if (!lonStr || !latStr) return null;
-  const lon = Number(lonStr);
-  const lat = Number(latStr);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  return { lat, lon };
 };
 
 /** Bounding-box prefilter — for a sub-kilometre radius, a degree of latitude

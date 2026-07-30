@@ -1874,6 +1874,19 @@ export type ProcurementBySettlementFile = {
   name: string;
   province: string;
   obshtina: string;
+  // Place-identity fields from place_dim (117), for the shared PlaceHeaderView hero.
+  // Optional: only procurement_settlement_detail() populates them; the by-settlement
+  // ranking rows share the base shape without them. `name`/`province`/`obshtina` above
+  // stay the Bulgarian display strings the page has always shown.
+  nameEn?: string | null;
+  settlementType?: string | null;
+  loc?: string | null;
+  obshtinaCode?: string | null;
+  obshtinaName?: string | null;
+  obshtinaNameEn?: string | null;
+  oblastCode?: string | null;
+  oblastName?: string | null;
+  oblastNameEn?: string | null;
   generatedAt: string;
   contractCount: number;
   awardCount: number;

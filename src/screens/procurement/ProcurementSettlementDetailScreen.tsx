@@ -10,7 +10,10 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
+import { PlaceHeaderView } from "@/screens/components/place/PlaceHeaderView";
+import { SEO } from "@/ux/SEO";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import { settlementHero, settlementSeo } from "./settlementHero";
 import type { ProcurementAwarderTier } from "@/data/dataTypes";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
@@ -102,38 +105,39 @@ export const ProcurementSettlementDetailScreen: FC = () => {
   const contractsStr = countFmt.format(data.contractCount);
   const buyersStr = countFmt.format(data.awarders.length);
 
-  // BG euphony: "в" becomes "във" before words starting with в/ф (във Варна,
-  // във Видин, във Враца, във Велико Търново, във Филаретово). Everywhere
-  // else "в" stays "в" (в София, в Пловдив, в Стара Загора).
-  const bgPrep = /^[вфВФ]/.test(data.name) ? "във" : "в";
-  const title =
-    i18n.language === "bg"
-      ? `Обществени поръчки ${bgPrep} ${data.name}`
-      : `Public procurement in ${data.name}`;
+  const lang = i18n.language === "bg" ? "bg" : "en";
+  const hero = settlementHero(data, lang);
+  const seo = settlementSeo(data, hero.displayName, lang);
 
   return (
     <div>
+      <SEO title={seo.title} description={seo.description} />
       <ProcurementBreadcrumb
         section={bySettlement}
         current={data.name}
         className="my-3"
       />
-      <div className="mb-6 flex items-start gap-2">
-        <div className="min-w-0">
-          <Title>{title}</Title>
-          <p className="text-sm text-muted-foreground">
-            {data.province} · {data.obshtina} ·{" "}
-            <span className="font-mono">EKATTE {data.ekatte}</span>
-          </p>
-        </div>
-        <FollowStar
-          kind="place"
-          id={ekatte ?? data.ekatte}
-          label={data.name}
-          size="md"
-          className="ml-auto mt-1 shrink-0"
-        />
-      </div>
+      <PlaceHeaderView
+        active="governance"
+        level="settlement"
+        ekatte={data.ekatte}
+        obshtina={data.obshtinaCode ?? undefined}
+        oblast={data.oblastCode ?? undefined}
+        titleText={hero.titleText}
+        narrative={hero.narrative}
+        loc={hero.loc}
+        isAbroad={false}
+        thumbName={hero.displayName}
+        extra={
+          <FollowStar
+            kind="place"
+            id={ekatte ?? data.ekatte}
+            label={data.name}
+            size="md"
+          />
+        }
+        className="mb-6"
+      />
 
       {/* KPI strip */}
       <div className="mb-6 grid gap-3 sm:grid-cols-3">

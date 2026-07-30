@@ -42,6 +42,11 @@ type Props = {
   isAbroad: boolean;
   // Name used to label the thumbnail (a section borrows its settlement's name).
   thumbName: string;
+  // When set, the thumbnail becomes a jump-link to that anchor (the Governance place
+  // dashboard passes "#myarea-projects-map"); omitted → a plain static thumbnail. This is an
+  // EXPLICIT prop rather than inferred from `active` so a page framed under governance (e.g.
+  // the procurement settlement page) that has no such anchor doesn't get a link-to-nowhere.
+  thumbAnchorHref?: string;
   // Optional GRAO population row (settlement level only in the JSON wrapper).
   grao?: PlaceHeaderGrao | null;
   // Makes the colored eyebrow a link (local → its cycle's overview feed).
@@ -156,6 +161,7 @@ export const PlaceHeaderView: FC<Props> = ({
   loc,
   isAbroad,
   thumbName,
+  thumbAnchorHref,
   grao,
   eyebrowTo,
   eyebrowSuffix,
@@ -242,16 +248,16 @@ export const PlaceHeaderView: FC<Props> = ({
             ) : null}
             {extra ? <div className="mt-2">{extra}</div> : null}
           </div>
-          {/* Static OSM thumbnail. On the Governance place dashboard it jumps
-              to the projects map further down the page; elsewhere that anchor
-              doesn't exist, so we render it static. Hidden on small screens.
-              Abroad (МИР 32) continents/countries have no meaningful street-map
-              centroid — a zoom-12 ~5km tile of a continent's centre loads blank
-              (an empty box with a lone pin), so the thumbnail is dropped. */}
+          {/* Static OSM thumbnail. With thumbAnchorHref it becomes a jump-link to
+              that in-page anchor (the Governance place dashboard's projects map);
+              without it (e.g. the procurement page, which has no such anchor) it
+              renders static. Hidden on small screens. Abroad (МИР 32) continents/
+              countries have no meaningful street-map centroid — a zoom-12 ~5km tile
+              of a continent's centre loads blank — so the thumbnail is dropped. */}
           {loc && !isAbroad ? (
-            active === "governance" ? (
+            thumbAnchorHref ? (
               <a
-                href="#myarea-projects-map"
+                href={thumbAnchorHref}
                 className="hidden sm:block shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 aria-label={thumbAlt}
               >

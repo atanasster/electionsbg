@@ -127,12 +127,38 @@ topc AS (
            bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
     FROM c WHERE tag = 'contract' ORDER BY amount_eur DESC NULLS LAST LIMIT 20
   ) t
+),
+-- Place identity for the shared PlaceHeaderView hero (place-header-consolidation-v1):
+-- the canonical localized names, the т.в.м. marker and the centroid, plus the containment
+-- CODES the breadcrumb's drill-up links + the view switcher need — all from place_dim (117),
+-- so the page renders the same hero as the parliamentary settlement page without shipping
+-- settlements.json. LEFT JOINs, so a settlement the dimension has not loaded degrades to the
+-- Bulgarian awarder_seats strings below rather than erroring.
+pd AS (
+  SELECT s.name_bg, s.name_en, s.settlement_type, s.loc,
+         s.obshtina_code, ob.name_bg AS obshtina_bg, ob.name_en AS obshtina_en,
+         s.oblast_code,  obl.name_bg AS oblast_bg,  obl.name_en AS oblast_en
+  FROM place_dim s
+  LEFT JOIN place_dim ob  ON ob.kind  = 'obshtina' AND ob.code  = s.obshtina_code
+  LEFT JOIN place_dim obl ON obl.kind = 'oblast'   AND obl.code = s.oblast_code
+  WHERE s.kind = 'settlement' AND s.code = p_ekatte
 )
 SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM seats) THEN NULL ELSE jsonb_build_object(
   'ekatte', p_ekatte,
   'name', (SELECT MIN(settlement) FROM seats),
   'province', (SELECT MIN(oblast) FROM seats),
   'obshtina', (SELECT MIN(municipality) FROM seats),
+  -- Place-identity fields for the shared hero (COALESCE → the BG awarder_seats strings when
+  -- the dimension has no row). obshtina/oblast CODES drive the breadcrumb links + switcher.
+  'nameEn',         (SELECT name_en FROM pd),
+  'settlementType', (SELECT settlement_type FROM pd),
+  'loc',            (SELECT loc FROM pd),
+  'obshtinaCode',   (SELECT obshtina_code FROM pd),
+  'obshtinaName',   COALESCE((SELECT obshtina_bg FROM pd), (SELECT MIN(municipality) FROM seats)),
+  'obshtinaNameEn', (SELECT obshtina_en FROM pd),
+  'oblastCode',     (SELECT oblast_code FROM pd),
+  'oblastName',     COALESCE((SELECT oblast_bg FROM pd), (SELECT MIN(oblast) FROM seats)),
+  'oblastNameEn',   (SELECT oblast_en FROM pd),
   'generatedAt', '',
   'contractCount', (SELECT (COUNT(*) FILTER (WHERE tag = 'contract'))::int FROM c),
   'awardCount', (SELECT (COUNT(*) FILTER (WHERE tag = 'award'))::int FROM c),

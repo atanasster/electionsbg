@@ -319,7 +319,7 @@ describe("PlaceHeaderView", () => {
     expect(container.querySelector("nav")).toBeNull();
   });
 
-  it("non-abroad: thumbnail (governance anchor), GRAO row, eyebrow link, navSlot override", () => {
+  it("non-abroad: thumbnail (anchor via thumbAnchorHref), GRAO row, eyebrow link, navSlot override", () => {
     const { container, getByText } = render(
       <MemoryRouter>
         <PlaceHeaderView
@@ -330,13 +330,14 @@ describe("PlaceHeaderView", () => {
           loc={{ lat: 43.2, lon: 27.9 }}
           isAbroad={false}
           thumbName="Варна"
+          thumbAnchorHref="#myarea-projects-map"
           grao={{ current: 300000, permanent: 340000, asOf: "2025" }}
           eyebrowTo="/governance"
           navSlot={<div data-testid="nav-override">nav override</div>}
         />
       </MemoryRouter>,
     );
-    // Thumbnail present and wrapped in the governance jump-to-map anchor.
+    // Thumbnail present and wrapped in the jump-to-map anchor (explicit prop, not `active`).
     expect(
       container.querySelector('a[href="#myarea-projects-map"]'),
     ).not.toBeNull();
@@ -349,5 +350,29 @@ describe("PlaceHeaderView", () => {
     // navSlot override renders in place of the default PlaceViewNav (<nav>).
     expect(getByText("nav override")).toBeInTheDocument();
     expect(container.querySelector("nav")).toBeNull();
+  });
+
+  it("without thumbAnchorHref the thumbnail is static — no link-to-nowhere (procurement case)", () => {
+    // Regression guard: a page framed under governance (active="governance") that has no
+    // #myarea-projects-map anchor must NOT get a clickable thumbnail. The anchor is driven by
+    // the explicit thumbAnchorHref prop, not by `active`.
+    const { container } = render(
+      <MemoryRouter>
+        <PlaceHeaderView
+          active="governance"
+          level="settlement"
+          titleText="гр. Варна"
+          narrative={<span>n</span>}
+          loc={{ lat: 43.2, lon: 27.9 }}
+          isAbroad={false}
+          thumbName="Варна"
+          navSlot={<div>nav</div>}
+        />
+      </MemoryRouter>,
+    );
+    expect(container.querySelector("img")).not.toBeNull();
+    expect(
+      container.querySelector('a[href="#myarea-projects-map"]'),
+    ).toBeNull();
   });
 });

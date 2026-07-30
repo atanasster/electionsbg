@@ -36,6 +36,7 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import { useLatestLocalCycle } from "@/data/local/useLatestLocalCycle";
+import { parseLoc } from "@/lib/geo";
 import { PlaceHeaderView } from "./place/PlaceHeaderView";
 import { renderPlaceNarrative } from "./place/placeNarrative";
 
@@ -67,18 +68,6 @@ type Props = {
   // → parliamentary pill instead of the three-way control).
   navSlot?: ReactNode;
   className?: string;
-};
-
-// Settlement/município centroids in our data files are stored as "lon,lat"
-// strings. Returns null if either coord can't be parsed.
-const parseLoc = (loc?: string): { lat: number; lon: number } | null => {
-  if (!loc) return null;
-  const [lonStr, latStr] = loc.split(",");
-  if (!lonStr || !latStr) return null;
-  const lat = Number(latStr);
-  const lon = Number(lonStr);
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
-  return { lat, lon };
 };
 
 export const PlaceHeader: FC<Props> = ({
@@ -282,6 +271,11 @@ export const PlaceHeader: FC<Props> = ({
       loc={loc}
       isAbroad={isAbroad}
       thumbName={thumbName}
+      // The governance place dashboard has an in-page #myarea-projects-map the
+      // thumbnail jumps to; the other views (and PG pages) have no such anchor.
+      thumbAnchorHref={
+        active === "governance" ? "#myarea-projects-map" : undefined
+      }
       grao={grao}
       eyebrowTo={eyebrowTo}
       eyebrowSuffix={eyebrowSuffix}
