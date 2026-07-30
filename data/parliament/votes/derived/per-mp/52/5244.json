@@ -3,29 +3,109 @@
   "ns": "52",
   "partyShort": "ДБ",
   "loyalty": {
-    "votesCast": 604,
-    "withParty": 443,
-    "loyaltyPct": 0.7334437086092715,
+    "votesCast": 615,
+    "withParty": 446,
+    "loyaltyPct": 0.7252032520325203,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-24",
-    "totalVoteItems": 1023
+    "windowTo": "2026-07-29",
+    "totalVoteItems": 1044
   },
   "attendance": {
-    "totalItems": 1023,
-    "presentCount": 604,
-    "absentCount": 419,
-    "presentPct": 0.5904203323558163
+    "totalItems": 1044,
+    "presentCount": 615,
+    "absentCount": 429,
+    "presentPct": 0.5890804597701149
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 774.5,
-    "loyaltyPctMedian": 0.9690771643389504,
-    "presentPctMedian": 0.748900293255132
+    "votesCastMedian": 784,
+    "loyaltyPctMedian": 0.9695249574734082,
+    "presentPctMedian": 0.7495210727969348
   },
   "dissents": {
-    "totalCast": 604,
-    "dissentCount": 161,
+    "totalCast": 615,
+    "dissentCount": 169,
     "recent": [
+      {
+        "date": "2026-07-29",
+        "item": 16,
+        "slug": "16-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – второ гласуване - Заключителна разпоредба и параграф 2",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-07-29",
+        "item": 15,
+        "slug": "15-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – второ гласуване - параграф 1",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-07-29",
+        "item": 14,
+        "slug": "14-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – второ гласуване - параграф 1 - предложение от Стефан Белчев за редакция",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-07-29",
+        "item": 13,
+        "slug": "13-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – второ гласуване - наименование",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 18
+      },
+      {
+        "date": "2026-07-29",
+        "item": 12,
+        "slug": "12-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – първо гласуване - процедура от Стефан Белчев за второ гласуване",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-07-29",
+        "item": 10,
+        "slug": "10-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – първо гласуване - вносител Даниел Парушев и група н.п. - прегласуване",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
+      {
+        "date": "2026-07-29",
+        "item": 9,
+        "slug": "9-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – първо гласуване - вносител Даниел Парушев и група н.п",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 20
+      },
+      {
+        "date": "2026-07-29",
+        "item": 8,
+        "slug": "8-zid-na-zakona-za-administrativnoto-regulirane-na-ikonomiches",
+        "title": "ЗИД на Закона за административното регулиране на икономическите дейности, свързани с нефт и продукти от нефтен произход – първо гласуване - процедура от Петър Витанов за удължаване на заседанието до приключване на точка 6",
+        "topic": "zid",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 19
+      },
       {
         "date": "2026-07-24",
         "item": 233,
@@ -445,86 +525,6 @@
         "mpVote": "no",
         "majorityVote": "abstain",
         "groupSize": 21
-      },
-      {
-        "date": "2026-07-24",
-        "item": 112,
-        "slug": "112-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 110 и 111",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 21
-      },
-      {
-        "date": "2026-07-24",
-        "item": 109,
-        "slug": "109-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 107 - 109",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 20
-      },
-      {
-        "date": "2026-07-24",
-        "item": 108,
-        "slug": "108-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 107 - предложение от Асен Василев и група н.п",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 21
-      },
-      {
-        "date": "2026-07-24",
-        "item": 107,
-        "slug": "107-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 90 до член 106",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 21
-      },
-      {
-        "date": "2026-07-24",
-        "item": 106,
-        "slug": "106-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 90 - предложение от Коста Стоянов",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 20
-      },
-      {
-        "date": "2026-07-24",
-        "item": 105,
-        "slug": "105-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 77 до член 89",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 20
-      },
-      {
-        "date": "2026-07-24",
-        "item": 103,
-        "slug": "103-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 74 и член 75",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 19
-      },
-      {
-        "date": "2026-07-24",
-        "item": 102,
-        "slug": "102-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026",
-        "title": "Закон за държавния бюджет на Република България за 2026 г. - второ гласуване - член 74 - предложение от Петър Петров",
-        "topic": "budget",
-        "mpVote": "no",
-        "majorityVote": "abstain",
-        "groupSize": 19
       }
     ]
   },
@@ -532,205 +532,205 @@
     "topK": [
       {
         "mpId": 5256,
-        "score": 0.6902370445907506,
-        "overlap": 550
+        "score": 0.684243672547246,
+        "overlap": 561
       },
       {
         "mpId": 5229,
-        "score": 0.6822666174158759,
-        "overlap": 512
+        "score": 0.6774561968909392,
+        "overlap": 523
       },
       {
         "mpId": 5147,
-        "score": 0.6722129783693843,
-        "overlap": 544
+        "score": 0.6661220050873795,
+        "overlap": 555
       },
       {
         "mpId": 5123,
-        "score": 0.6705520702206034,
-        "overlap": 588
+        "score": 0.6642019711118242,
+        "overlap": 599
       },
       {
         "mpId": 5206,
-        "score": 0.670300411990243,
-        "overlap": 498
+        "score": 0.663835282981315,
+        "overlap": 505
       },
       {
         "mpId": 5121,
-        "score": 0.6691955263460406,
-        "overlap": 497
+        "score": 0.6634456501620568,
+        "overlap": 506
       },
       {
         "mpId": 5139,
-        "score": 0.6666778412964266,
-        "overlap": 565
+        "score": 0.6612412929741799,
+        "overlap": 576
       },
       {
         "mpId": 5202,
-        "score": 0.6617702421013417,
-        "overlap": 519
+        "score": 0.6573725484326107,
+        "overlap": 530
       },
       {
         "mpId": 5170,
-        "score": 0.660237375549584,
-        "overlap": 575
+        "score": 0.652817493057716,
+        "overlap": 585
       },
       {
         "mpId": 5245,
-        "score": 0.6491999500250555,
-        "overlap": 564
+        "score": 0.6440212056359128,
+        "overlap": 574
       },
       {
         "mpId": 5096,
-        "score": 0.6481931585319536,
-        "overlap": 538
+        "score": 0.6424404603867231,
+        "overlap": 548
       },
       {
         "mpId": 5255,
-        "score": 0.6481094385508435,
-        "overlap": 537
+        "score": 0.642295673621097,
+        "overlap": 547
       },
       {
         "mpId": 5266,
-        "score": 0.6446742930664429,
-        "overlap": 537
+        "score": 0.6377316424604227,
+        "overlap": 547
       },
       {
         "mpId": 5180,
-        "score": 0.6301845280181381,
-        "overlap": 541
+        "score": 0.624891862894252,
+        "overlap": 552
       },
       {
         "mpId": 5181,
-        "score": 0.6291918909412938,
-        "overlap": 494
+        "score": 0.6228270733985155,
+        "overlap": 504
       },
       {
         "mpId": 5230,
-        "score": 0.6129683099865867,
-        "overlap": 495
+        "score": 0.6080965671200813,
+        "overlap": 506
       },
       {
         "mpId": 5193,
-        "score": 0.5907524024278037,
-        "overlap": 373
+        "score": 0.586866926020911,
+        "overlap": 384
       },
       {
         "mpId": 5283,
-        "score": 0.5841643907449486,
+        "score": 0.5788907429681558,
         "overlap": 384
       },
       {
         "mpId": 5111,
-        "score": 0.5735542488101364,
-        "overlap": 383
+        "score": 0.5700615154715711,
+        "overlap": 389
       },
       {
         "mpId": 5300,
-        "score": 0.5444806801050508,
+        "score": 0.5395652840733258,
         "overlap": 451
       }
     ],
     "bottomK": [
       {
         "mpId": 5201,
-        "score": -0.022788250133343048,
-        "overlap": 479
+        "score": -0.03501604666927919,
+        "overlap": 490
       },
       {
         "mpId": 5168,
-        "score": -0.021538258469526277,
-        "overlap": 322
+        "score": -0.03437619363855792,
+        "overlap": 332
       },
       {
         "mpId": 5264,
-        "score": -0.017360699422664116,
-        "overlap": 528
+        "score": -0.02932350177974077,
+        "overlap": 539
       },
       {
         "mpId": 5270,
-        "score": -0.014477707128383312,
-        "overlap": 500
+        "score": -0.026850511309678613,
+        "overlap": 511
       },
       {
         "mpId": 5269,
-        "score": -0.013411949133052992,
-        "overlap": 480
+        "score": -0.026186614450609512,
+        "overlap": 491
       },
       {
         "mpId": 5213,
-        "score": -0.012532505505135566,
-        "overlap": 519
+        "score": -0.024515437711764072,
+        "overlap": 530
       },
       {
         "mpId": 5144,
-        "score": -0.01201225574989084,
-        "overlap": 556
-      },
-      {
-        "mpId": 5189,
-        "score": -0.009966791159587141,
-        "overlap": 500
+        "score": -0.023522494401109473,
+        "overlap": 567
       },
       {
         "mpId": 5141,
-        "score": -0.0017586184542664296,
-        "overlap": 483
+        "score": -0.015484502606537514,
+        "overlap": 494
       },
       {
         "mpId": 5322,
-        "score": -0.001565409181953552,
-        "overlap": 546
+        "score": -0.01378993371286729,
+        "overlap": 557
+      },
+      {
+        "mpId": 5189,
+        "score": -0.009876814182432664,
+        "overlap": 500
       },
       {
         "mpId": 5297,
-        "score": 0.0030552587372067236,
-        "overlap": 567
+        "score": -0.00897050413721204,
+        "overlap": 578
       },
       {
         "mpId": 5204,
-        "score": 0.0030812983450325265,
-        "overlap": 541
+        "score": -0.007537543787320774,
+        "overlap": 552
       },
       {
         "mpId": 5326,
-        "score": 0.004401434788607813,
-        "overlap": 576
-      },
-      {
-        "mpId": 5329,
-        "score": 0.004424388971857892,
-        "overlap": 574
-      },
-      {
-        "mpId": 5271,
-        "score": 0.005816147195485069,
-        "overlap": 595
-      },
-      {
-        "mpId": 5325,
-        "score": 0.005938124235353837,
-        "overlap": 574
-      },
-      {
-        "mpId": 4162,
-        "score": 0.005946004961098134,
-        "overlap": 570
+        "score": -0.007190858578216995,
+        "overlap": 587
       },
       {
         "mpId": 5205,
-        "score": 0.0073410685734221345,
-        "overlap": 488
-      },
-      {
-        "mpId": 5192,
-        "score": 0.007543520586056677,
-        "overlap": 567
+        "score": -0.007145774380937869,
+        "overlap": 499
       },
       {
         "mpId": 5085,
-        "score": 0.007595653345886549,
-        "overlap": 559
+        "score": -0.005943857930179101,
+        "overlap": 570
+      },
+      {
+        "mpId": 4162,
+        "score": -0.005823138118593296,
+        "overlap": 581
+      },
+      {
+        "mpId": 5325,
+        "score": -0.0058156000725613595,
+        "overlap": 585
+      },
+      {
+        "mpId": 5329,
+        "score": -0.0057820374962704755,
+        "overlap": 584
+      },
+      {
+        "mpId": 5271,
+        "score": -0.005698838374569841,
+        "overlap": 606
+      },
+      {
+        "mpId": 5332,
+        "score": -0.005115373930620642,
+        "overlap": 484
       }
     ]
   }
