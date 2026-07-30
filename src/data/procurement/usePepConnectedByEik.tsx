@@ -4,6 +4,7 @@
 // flag) comes from the shared risk-indexes payload instead of a manifest file.
 
 import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useRiskIndexes } from "./useRiskIndexes";
 import { useCompanyPoliticians } from "./useMpConnectedByEik";
 import type { NgoForeignFundedEntry } from "./computeProcurementRisk";
@@ -31,17 +32,37 @@ export const usePepConnectedEikSet = (): {
   return { set, isLoading, isLoaded: data != null };
 };
 
+type NgoForeignRow = NgoForeignFundedEntry & { eik: string };
+
+const fetchNgoForeign = async (): Promise<NgoForeignRow[]> => {
+  const r = await fetch("/api/db/procurement-ngo-foreign");
+  if (!r.ok) return [];
+  const j = (await r.json()) as { entries?: NgoForeignRow[] };
+  return j.entries ?? [];
+};
+
 /** Contractor EIK → foreign-funded-NGO disclosure. Backs the neutral
- *  `ngoForeignFunded` flag on the contract page (see NgoForeignFundedEntry). */
+ *  `ngoForeignFunded` flag on the contract screens (see NgoForeignFundedEntry).
+ *
+ *  Its OWN route (~35 rows / 6.3 kB) rather than a slice of the 1.29 MB
+ *  risk-indexes payload: this is the one chip input the contract_risk_cache masks
+ *  cannot carry — it is a neutral disclosure with no scored bit — so it would
+ *  otherwise be the last reason those screens still downloaded the whole corpus
+ *  index. */
 export const useNgoForeignFundedByEik = (): {
   byEik: Map<string, NgoForeignFundedEntry>;
   isLoading: boolean;
   isLoaded: boolean;
 } => {
-  const { data, isLoading } = useRiskIndexes();
+  const { data, isLoading } = useQuery({
+    queryKey: ["db", "procurement-ngo-foreign"] as const,
+    queryFn: fetchNgoForeign,
+    staleTime: Infinity,
+    retry: false,
+  });
   const byEik = useMemo(() => {
     const m = new Map<string, NgoForeignFundedEntry>();
-    for (const r of data?.ngoForeignFunded ?? [])
+    for (const r of data ?? [])
       m.set(r.eik, {
         kind: r.kind,
         ngoName: r.ngoName,

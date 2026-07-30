@@ -3357,6 +3357,8 @@
   "risk_explain_intro": "Automated risk indicators — descriptive, not a verdict. Each compares this contract against the market norm.",
   "risk_na": "not applicable",
   "risk_na_generic": "No source data to run this check.",
+  "risk_unscored": "Not scored",
+  "risk_unscored_hint": "This contract has not been through the risk checks yet — that is not the same as being clean.",
   "risk_na_pep_connected": "The connected-officials index isn't loaded for this view.",
   "risk_na_annex_growth": "No signed starting value to measure growth against.",
   "risk_na_new_firm": "The contractor's incorporation date or the award date is missing.",

@@ -22,9 +22,15 @@ import {
 import { useContract } from "@/data/procurement/useContract";
 import { useTenderLineage } from "@/data/procurement/useTenderLineage";
 import type { ProcurementContract } from "@/data/dataTypes";
-import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
+import {
+  contractRiskFromMasks,
+  withNgoDisclosure,
+} from "@/lib/contractRiskMask";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
-import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
+import {
+  usePepConnectedByEik,
+  useNgoForeignFundedByEik,
+} from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur, formatEur } from "@/lib/currency";
 import { realSignedDate } from "@/lib/signedDate";
 import { splitContractTitle } from "@/lib/contractTitle";
@@ -60,7 +66,15 @@ export const ContractDetailScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const { data: c, isLoading } = useContract(id);
-  const { result: riskResult } = useContractRiskFlags(c);
+  // Decoded from the row's own masks — no corpus payload, and correct on first
+  // paint. Null when the contract has no contract_risk_cache row (unscored),
+  // which RiskBadges renders as an explicit unknown rather than as "no flags".
+  // The NGO disclosure is neutral and unscored, so it has no mask bit — it comes
+  // from its own small route and is layered on top of the decoded result.
+  const { byEik: ngoByEik } = useNgoForeignFundedByEik();
+  const riskResult = c
+    ? withNgoDisclosure(contractRiskFromMasks(c), ngoByEik.get(c.contractorEik))
+    : null;
 
   if (isLoading) {
     return (
@@ -184,11 +198,13 @@ export const ContractDetailScreen: FC = () => {
           </div>
         )}
         <ContractValueBases contract={c} />
-        {riskResult ? (
-          <div className="pt-2">
-            <RiskBadges result={riskResult} variant="full" />
-          </div>
-        ) : null}
+        {/* Unconditional: RiskBadges renders the UNSCORED state itself, and
+            guarding on `riskResult` here would silently drop the whole block for
+            a contract with no risk row — showing nothing where the meter is, which
+            reads as "no signals" exactly like the bug this change removes. */}
+        <div className="pt-2">
+          <RiskBadges result={riskResult} variant="full" />
+        </div>
         {/* Member→file up-link (§10 Phase 3) — a curated dossier that includes this
             contract, if any. */}
         <ProjectFileUpLink id={c.key} />

@@ -3,8 +3,9 @@
 // /awarder/:eik/contracts (scoped to awarder_eik via side="awarder").
 // Server-side paginated/sorted/filtered/aggregated via DbDataTable →
 // /api/db/table (the `contracts` resource, tag fixed per route). Works for ANY
-// company. Risk chips are scored client-side per page row (from the shared
-// risk-indexes payload) — display only, since risk isn't a Postgres column.
+// company. Risk chips are DECODED from the per-row masks the server already
+// sends (contract_risk_cache, migration 112) — the same source the ?grade filter
+// on this page reads, so the chips and the filter cannot disagree.
 // See docs/plans/pg-query-performance.md.
 
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
@@ -24,7 +25,11 @@ import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
 import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
-import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
+import {
+  contractRiskFromMasks,
+  withNgoDisclosure,
+} from "@/lib/contractRiskMask";
+import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
 import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
 import { RiskGradeFilter } from "@/screens/components/procurement/RiskGradeFilter";
@@ -52,7 +57,6 @@ export const CompanyContractsDbScreen: FC<{
 }> = ({ tag, side = "contractor" }) => {
   const { eik = "" } = useParams();
   const { t, i18n } = useTranslation();
-  const { scoreRow } = useContractRiskScorer();
 
   // Filters are URL-backed (?year / ?proc / ?cpv / ?single) so a filtered view is
   // shareable — the app's URL-contract convention. This page adds the ?year
@@ -78,6 +82,10 @@ export const CompanyContractsDbScreen: FC<{
     withYear: true,
     withRisk: true,
   });
+
+  // Neutral foreign-funded-NGO disclosure — its own ~6 kB route, since it is the
+  // one chip input the server masks cannot carry (no scored bit).
+  const { byEik: ngoByEik } = useNgoForeignFundedByEik();
 
   const [companyName, setCompanyName] = useState("");
   // Reactive headline aggregates (Σ €, count) for the whole FILTERED set —
@@ -275,7 +283,10 @@ export const CompanyContractsDbScreen: FC<{
           const n = row.original.numberOfTenderers;
           if (n == null)
             return <span className="text-xs text-muted-foreground">—</span>;
-          const weak = scoreRow(row.original).flags.weakCompetition;
+          // Unscored (null) must not read as "competition was fine" — leave the
+          // count unhighlighted rather than asserting the negative.
+          const weak =
+            contractRiskFromMasks(row.original)?.flags.weakCompetition ?? false;
           return (
             <span
               className={`block text-right text-sm tabular-nums ${
@@ -331,14 +342,20 @@ export const CompanyContractsDbScreen: FC<{
         // Bid count moved to its own column, so drop the weak-competition chip
         // here to avoid showing the same signal twice.
         cell: ({ row }) => (
-          <RiskBadges result={scoreRow(row.original)} hideWeakCompetition />
+          <RiskBadges
+            result={withNgoDisclosure(
+              contractRiskFromMasks(row.original),
+              ngoByEik.get(row.original.contractorEik),
+            )}
+            hideWeakCompetition
+          />
         ),
       },
       // The source column was removed: "Детайли" duplicated the subject link
       // (both → /procurement/contract/:key) and the external ЕОП/egov link lives
       // on that detail screen (ContractDetailScreen).
     ],
-    [t, i18n.language, scoreRow, isAwarder],
+    [t, i18n.language, isAwarder, ngoByEik],
   );
 
   return (

@@ -169,7 +169,10 @@ const _catalogIsComplete: MissingFromCatalog extends never
 void _catalogIsComplete;
 
 type Props = {
-  result: ContractRiskResult;
+  /** `null` means UNSCORED — the contract has no row in contract_risk_cache, so
+   *  nothing is known about it. Rendered as an explicit unknown state, never as
+   *  the "—" a genuinely clean contract gets. */
+  result: ContractRiskResult | null;
   /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
   /** Suppress the weak-competition (bid-count) chip — used where the bid count
@@ -241,6 +244,42 @@ export const RiskBadges: FC<Props> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const [open, setOpen] = useState(false);
+
+  // UNSCORED — no contract_risk_cache row, so every check is unknown rather than
+  // passed. This must NOT collapse to the "—" a clean contract shows: that
+  // conflation is the bug this whole change removes, and it is reachable in the
+  // window between a contracts reload and the risk rebuild
+  // (rebuild_contracts_list emits NULL risk columns while the cache is absent).
+  if (!result) {
+    const label = t("risk_unscored") || "Not scored";
+    const hint =
+      t("risk_unscored_hint") ||
+      "This contract has not been through the risk checks yet — that is not the same as being clean.";
+    return (
+      <Tooltip
+        content={
+          <div className="max-w-[260px] space-y-1">
+            <div className="font-medium">{label}</div>
+            <div className="text-xs text-muted-foreground">{hint}</div>
+          </div>
+        }
+      >
+        {/* Focusable + labelled: the mark is the only carrier of this state, so a
+            keyboard or screen-reader user must be able to reach it — same
+            treatment as the signal marks in ContractNormalcyPanel. */}
+        <span
+          tabIndex={0}
+          role="note"
+          aria-label={`${label}. ${hint}`}
+          title={label}
+          className="cursor-help text-xs text-muted-foreground"
+        >
+          ?
+        </span>
+      </Tooltip>
+    );
+  }
+
   const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
   // A check can be FIRED while its detail is absent. The server masks

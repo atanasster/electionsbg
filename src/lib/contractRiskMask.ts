@@ -25,6 +25,7 @@ import {
   emptyContractRiskFlags,
   type ContractRiskFlags,
   type ContractRiskResult,
+  type NgoForeignFundedEntry,
   type RiskComponent,
   type RiskComponentKey,
 } from "@/data/procurement/computeProcurementRisk";
@@ -183,3 +184,22 @@ export const contractRiskFromMasks = (
     hasFlag: firedCount > 0,
   };
 };
+
+/**
+ * Attach the foreign-funded-NGO disclosure to a decoded result.
+ *
+ * Separate from the decoder because it is not one of the 12 scored checks and has
+ * no mask bit — it is a NEUTRAL disclosure that deliberately does not move
+ * `firedCount` or the CRI, and it arrives from its own small route
+ * (useNgoForeignFundedByEik). Without this the chip would silently disappear from
+ * every screen that decodes masks.
+ *
+ * Returns a new object; never mutates the decoded result.
+ */
+export const withNgoDisclosure = (
+  result: ContractRiskResult | null,
+  entry: NgoForeignFundedEntry | undefined,
+): ContractRiskResult | null =>
+  result && entry
+    ? { ...result, flags: { ...result.flags, ngoForeignFunded: entry } }
+    : result;

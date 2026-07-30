@@ -35,7 +35,14 @@ export const computeRiskFlags = computeProcurementRisk;
 
 /** Hook variant — for use inside a single contract detail row. Internally
  *  loads the index files; consumers in tables should use
- *  `useContractRiskScorer()` to amortise the lookups. */
+ *  `useContractRiskScorer()` to amortise the lookups.
+ *
+ *  ⚠️ NO CALLERS as of T1.2. The contract screens now decode the server's masks
+ *  (src/lib/contractRiskMask.ts) instead of scoring in the browser, so this and
+ *  `useContractRiskScorer` survive only for the two TENDER-side screens
+ *  (TenderDetailScreen, ProjectFileScreen) that have no per-row index to decode.
+ *  Kept rather than deleted because T2 revisits both; if that lands and they are
+ *  still unused, delete them along with the seven index hooks. */
 export const useContractRiskFlags = (
   contract: ProcurementContract | null | undefined,
 ): { result: ContractRiskResult | null; isLoading: boolean } => {

@@ -1735,6 +1735,19 @@ export type ProcurementContract = {
   consortiumFullEur?: number;
   bundleUuid: string;
   sourceUrl: string;
+  /** Per-contract risk index, computed in Postgres (contract_risk_cache,
+   *  migration 112) and served on every row by /api/db/table and /api/db/contract.
+   *  Decoded into chips by src/lib/contractRiskMask.ts.
+   *
+   *  NULL is meaningful and is NOT "no flags": contracts_list LEFT JOINs the
+   *  cache, so an unscored contract carries nulls here and must render as
+   *  UNKNOWN. See 000_search_fns.sql:147 for the same argument about sort order. */
+  riskCri?: number | null;
+  riskGrade?: string | null;
+  riskFired?: number | null;
+  riskAvailable?: number | null;
+  riskFiredMask?: number | null;
+  riskAvailableMask?: number | null;
 };
 
 /** Slim contract row embedded inside per-entity rollups. Mirrors

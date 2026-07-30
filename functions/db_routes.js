@@ -49,15 +49,30 @@ const TENDER_COLS = `
   t.estimated_value_eur AS "estimatedValueEur",
   t.source_url AS "tenderSourceUrl",
   t.source_day AS "tenderSourceDay"`;
+// The per-contract risk index (112), carried on contracts_list only. The detail
+// page decodes these masks into its chips (src/lib/contractRiskMask.ts) instead
+// of downloading a corpus-wide payload to re-derive them, so omitting them here
+// makes every contract render as UNSCORED.
+const CONTRACT_RISK_COLS = `
+  c.risk_cri AS "riskCri", c.risk_grade AS "riskGrade",
+  c.risk_fired AS "riskFired", c.risk_available AS "riskAvailable",
+  c.risk_fired_mask AS "riskFiredMask",
+  c.risk_available_mask AS "riskAvailableMask"`;
 const CONTRACT_SQL = `
-  SELECT ${CONTRACT_COLS}, ${TENDER_COLS},
+  SELECT ${CONTRACT_COLS}, ${TENDER_COLS}, ${CONTRACT_RISK_COLS},
          c.has_appeal AS "hasAppeal", c.appeal_upheld AS "appealUpheld"
   FROM contracts_list c LEFT JOIN tenders t ON c.unp = t.unp
   WHERE c.key = $1 LIMIT 1`;
 // Fallback for a DB predating migration 042 (contracts_list missing → 42P01):
 // serve the contract without the appeal fields rather than 500 the whole page.
+// NULL, not 0, for the risk masks: this branch is a DB with no contracts_list, so
+// the checks were never run. NULL decodes to "unscored" in the SPA; 0 would
+// decode to "all twelve checks passed", which is a claim this branch cannot make.
 const CONTRACT_SQL_BASE = `
-  SELECT ${CONTRACT_COLS}, ${TENDER_COLS}
+  SELECT ${CONTRACT_COLS}, ${TENDER_COLS},
+         NULL::int AS "riskCri", NULL::text AS "riskGrade",
+         NULL::int AS "riskFired", NULL::int AS "riskAvailable",
+         NULL::int AS "riskFiredMask", NULL::int AS "riskAvailableMask"
   FROM contracts c LEFT JOIN tenders t ON c.unp = t.unp
   WHERE c.key = $1 LIMIT 1`;
 
@@ -592,10 +607,19 @@ const DB_ROUTES = {
   contract: async (dbRows, q) => {
     const key = s(q, "key");
     if (!key) return { status: 400, body: { error: "missing key" } };
-    // 42P01 (contracts_list view absent = migration 042 not yet applied) →
-    // degrade to the base contracts table so /contract/:key still renders.
+    // Degrade to the base contracts table so /contract/:key still renders on a
+    // partially-migrated database. TWO codes, not one:
+    //   42P01 undefined_table  — contracts_list absent (042 not applied)
+    //   42703 undefined_column — contracts_list EXISTS but predates 112, so it
+    //                            has no risk_* columns. contracts_list is a
+    //                            `SELECT c.*` view whose column list freezes at
+    //                            creation, so this is the ordinary state of any
+    //                            DB where the function deployed before the
+    //                            migration ran — the exact ordering CLAUDE.md
+    //                            warns about. Without 42703 every /contract/:key
+    //                            500s until someone re-runs the rebuild.
     const rows = await dbRows(CONTRACT_SQL, [key]).catch((e) =>
-      e?.code === "42P01"
+      e?.code === "42P01" || e?.code === "42703"
         ? dbRows(CONTRACT_SQL_BASE, [key])
         : Promise.reject(e),
     );
@@ -884,6 +908,32 @@ const DB_ROUTES = {
       e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e),
     );
     return { body: rows[0]?.r ?? { requested: scope, scope, rows: [] } };
+  },
+  // The foreign-funded-NGO disclosure, on its own. NEUTRAL — it is not one of the
+  // 12 scored checks and deliberately does not move the CRI, which is exactly why
+  // it is not carried by contract_risk_cache's masks: nothing in Postgres has a
+  // bit for it. The contract screens decode their chips from those masks now, so
+  // without this slice the disclosure would silently vanish from them while
+  // ProjectFileScreen (still on the old scorer) kept showing it — the same
+  // contract disclosing on one page and not another.
+  //
+  // ~35 rows / 6.3 kB, versus the 1.29 MB corpus payload it was embedded in.
+  "procurement-ngo-foreign": async (dbRows) => {
+    const rows = await dbRows(
+      `SELECT eik, kind, ngo_name AS "ngoName", ngo_eik AS "ngoEik",
+              person, funder,
+              -- ::float8, NOT bare numeric. node-postgres serializes a PG numeric
+              -- as a STRING, so eur would arrive as "87584323" and
+              -- formatEurCompact would render nothing — the same numeric-as-string
+              -- trap that blanked the money columns on /persons. The jsonb payload
+              -- this route replaces was immune because jsonb numbers stay numbers.
+              CASE WHEN eur IS NULL THEN NULL
+                   ELSE ROUND(eur)::float8 END AS eur
+         FROM procurement_ngo_foreign_link
+        ORDER BY eur DESC NULLS LAST, eik`,
+      [],
+    ).catch(missingMigrationRows);
+    return { body: { entries: rows } };
   },
   // Consolidated client-side risk-scorer indexes (debarred register,
   // awarder→contractor concentration pairs, MP/official-connected EIK sets,

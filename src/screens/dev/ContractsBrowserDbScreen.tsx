@@ -3,7 +3,8 @@
 // corpus (no entity scope) — replaces the client-side contract_index/{year}.json
 // shards. Respects the section scope (?pscope): the selected parliament's window
 // bounds the rows, "all" spans the corpus. Risk chips are scored client-side per
-// page (risk isn't a Postgres column). See docs/plans/postgres-migration-v1.md.
+// page from the server-computed risk masks (contract_risk_cache, migration 112).
+// See docs/plans/postgres-migration-v1.md.
 //
 // The analysis strip (reactive KPI cards + the clickable "Вид процедура" mix bar)
 // mirrors CompanyContractsDbScreen, but scoped to the whole ?pscope window (+ any
@@ -35,7 +36,11 @@ import { ProcedureBucketSelect } from "@/screens/components/procurement/Procedur
 import { RiskGradeFilter } from "@/screens/components/procurement/RiskGradeFilter";
 import { SingleBidderToggle } from "@/screens/components/procurement/SingleBidderToggle";
 import { ContractsAggregatesFooter } from "@/screens/components/procurement/ContractsAggregatesFooter";
-import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
+import {
+  contractRiskFromMasks,
+  withNgoDisclosure,
+} from "@/lib/contractRiskMask";
+import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { resolveContractSource } from "@/screens/components/candidates/procurement/sourceUrl";
 import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
@@ -51,7 +56,6 @@ import type { ProcurementContract } from "@/data/dataTypes";
 
 export const ContractsBrowserDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
-  const { scoreRow } = useContractRiskScorer();
   const { from, to, all, year } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
   // ?cpv= deep link (from /procurement/sectors) seeds the CPV division filter
@@ -149,6 +153,10 @@ export const ContractsBrowserDbScreen: FC = () => {
   // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
   // — search by sector name or by any CPV code, beyond the 2-digit divisions.
   const { data: cpvCatalog } = useCpvCatalog();
+
+  // Neutral foreign-funded-NGO disclosure — its own ~6 kB route, since it is the
+  // one chip input the server masks cannot carry (no scored bit).
+  const { byEik: ngoByEik } = useNgoForeignFundedByEik();
 
   // Facet-driven analysis (procedure mix, integrity KPIs, CPV options), shared
   // with the company/awarder screens. Scope = the whole ?pscope window + awarder
@@ -292,7 +300,10 @@ export const ContractsBrowserDbScreen: FC = () => {
           const n = row.original.numberOfTenderers;
           if (n == null)
             return <span className="text-xs text-muted-foreground">—</span>;
-          const weak = scoreRow(row.original).flags.weakCompetition;
+          // Unscored (null) must not read as "competition was fine" — leave the
+          // count unhighlighted rather than asserting the negative.
+          const weak =
+            contractRiskFromMasks(row.original)?.flags.weakCompetition ?? false;
           return (
             <span
               className={`block text-right text-sm tabular-nums ${
@@ -348,7 +359,13 @@ export const ContractsBrowserDbScreen: FC = () => {
         // here to avoid showing the same signal twice.
         cell: ({ row }) => (
           <div className="flex flex-wrap items-center gap-1">
-            <RiskBadges result={scoreRow(row.original)} hideWeakCompetition />
+            <RiskBadges
+              result={withNgoDisclosure(
+                contractRiskFromMasks(row.original),
+                ngoByEik.get(row.original.contractorEik),
+              )}
+              hideWeakCompetition
+            />
             {row.original.hasAppeal && !row.original.appealUpheld ? (
               <AppealChip />
             ) : null}
@@ -375,7 +392,7 @@ export const ContractsBrowserDbScreen: FC = () => {
         },
       },
     ],
-    [t, scoreRow, i18n.language],
+    [t, i18n.language, ngoByEik],
   );
 
   return (
