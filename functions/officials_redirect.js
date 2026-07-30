@@ -85,11 +85,15 @@ const handleOfficialsRequest = async (req, res, resolve) => {
   const hit = officialsPath(req.path || "");
   if (!hit) return false;
 
-  // NOTE: the Cache-Control set here is currently DISCARDED in production — firebase.json's
-  // `**` header rule (`no-cache, max-age=0, must-revalidate`) wins over function-set
-  // headers. The hosting header rule that makes these effective lands with the
-  // `/officials/*` rewrite, so the two arrive together; the dev server (no hosting layer)
-  // already honours them.
+  // This Cache-Control DOES reach the client, and the mechanism is worth knowing before
+  // touching firebase.json. Hosting's blanket `**` header rule
+  // (`no-cache, max-age=0, must-revalidate`) overrides a function-set Cache-Control on any
+  // path with no more specific rule. A path-specific `headers` entry does not SUPPLY the
+  // value — it stops the `**` rule clobbering, and the FUNCTION's header is what ships.
+  // Confirmed on prod 2026-07-29: /officials/* serves exactly the string below, without the
+  // `stale-while-revalidate=86400` that firebase.json's own `/officials/**` entry carries.
+  // So the entry must exist, but this line is the one that matters. /api/db/** was given
+  // the same treatment in the same pass.
   res.set("Cache-Control", "public, max-age=300, s-maxage=3600");
 
   const notFound = () =>

@@ -22,6 +22,7 @@ const crypto = require("crypto");
 const { onRequest } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
 const { runDbTable, runDbFacets } = require("./db_table.js");
+const { sendJson } = require("./send_json.js");
 const { handleOfficialsRequest } = require("./officials_redirect.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
@@ -577,12 +578,30 @@ const makeDb = () => {
         // rewrite/CDN config ever normalizes or drops query params, different
         // ?eik=/?name=/?key= values would collide and serve each other's
         // (public, non-PII) payloads.
+        // ⚠️ This header only reaches the client because firebase.json carries an
+        // `/api/db/**` headers entry. Hosting's blanket `**` rule
+        // (`no-cache, max-age=0, must-revalidate`) overrides function-set
+        // Cache-Control on any path that has no more specific rule — which is why
+        // this block was dead until 2026-07-29, and why /officials/** needed the
+        // same treatment. The rule does not SUPPLY the value; it stops the `**`
+        // rule clobbering it, so THIS string is what ships. Keep the two in sync.
+        //
+        // On the two numbers: `s-maxage=3600` is the DOMINANT term — it is how
+        // long a shared cache serves without revalidating at all, and
+        // stale-while-revalidate only applies after it expires. So the worst-case
+        // post-ingest staleness is ~1 h + the SWR window, and 600 (down from
+        // 86400) takes that from ~25 h to ~70 min. Tune s-maxage, not SWR, if an
+        // hour is too long.
+        //
+        // Purging is possible but coarse: a hosting deploy clears the CDN, and an
+        // ingest does not redeploy hosting — so in the normal daily flow nothing
+        // invalidates these, which is what makes the window the operative bound.
         if (status === 200)
           res.set(
             "Cache-Control",
-            "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
+            "public, max-age=300, s-maxage=3600, stale-while-revalidate=600",
           );
-        return res.status(status).json(body);
+        return await sendJson(req, res, body, status);
       } catch (e) {
         console.error("db route error", e);
         return res.status(500).json({ error: "db error" });
@@ -656,7 +675,7 @@ const makeSql = () => {
         const pool = await getDbPool(DB_PASSWORD.value());
         if (req.method === "GET" && seg === "schema") {
           res.set("Cache-Control", "public, max-age=300");
-          return res.json(await sqlLib.readSchema(pool));
+          return await sendJson(req, res, await sqlLib.readSchema(pool));
         }
         if (req.method === "POST" && seg === "query") {
           const body = req.body || {};
@@ -666,7 +685,7 @@ const makeSql = () => {
             rowCapMax: 2000,
             statementTimeout: "8s",
           });
-          return res.json(out);
+          return await sendJson(req, res, out);
         }
         return res.status(404).json({ error: "unknown /api/sql endpoint" });
       } catch (e) {
