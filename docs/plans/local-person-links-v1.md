@@ -81,19 +81,32 @@ SELECT DISTINCT cp.candidate_slug, cp.person_slug
 ```
 
 No new SQL function and no schema migration — so the only cloud step is `npm run deploy:db` (the
-route lives in the `db` function). **Transport:** verify the `/api/db` dispatcher accepts a POST
-body; a 264-name GET query risks the URL length cap. If POST is not wired, fall back to **GET in
-chunks of ~100 names** (≈3 requests for the national list) — still cacheable and a huge win over 264.
+route lives in the `db` function).
+
+**Transport — GET-only, verified (`functions/index.js:516-544`).** The `/api/db` dispatcher rejects
+any non-GET with `405 "GET only"` (L529) and passes `req.query` to the route — nothing reads
+`req.body`. So the batch **must ride in the GET query string**, and two hard limits follow:
+- **URL length.** 264 URL-encoded Cyrillic names (~6 bytes/char) is ~30 KB — far over the ~8 KB
+  practical cap. The batch **must chunk**: send `names=` in **deterministic, sorted groups of ~40**
+  (≈7 requests for the 264-list, each chunk URL well under 8 KB). Sorting makes the chunk URLs
+  stable, so the CDN (`s-maxage=3600`, keyed on the full query string, L576/L602) serves them for an
+  hour. Send the `slugs=` list (`mp-{id}`, ASCII/short) as its own single chunk.
+- **Rate limit — 120 req/IP/min (`DB_RATE_MAX`, L440).** ~7 chunk requests plus the page's other
+  `/api/db` calls stay far under it. (This is also why **per-name** resolution on the 264-list is
+  categorically out — it would fire 264 GETs in seconds and trip the limit into 429s.)
+
+The `useCandidatePersons` hook owns the chunking + merge; call sites stay clean.
 
 ### B. Batch hook — `src/data/candidates/useCandidatePersons.ts` (new)
 
 `useCandidatePersons(inputs: {name: string; mpId?: number | null}[])`:
-- Dedup inputs; split into `slugs = mpId ? mp-${mpId}` and bare `names`.
-- One React Query, `staleTime: Infinity`, `queryKey: ["candidate-persons", <stable hash of the
-  sorted key set>]` — so the same page re-renders hit cache and distinct pages share overlapping
-  keys via the cache.
-- Returns `resolve(name, mpId) => string | null | undefined` (undefined while loading, null =
-  no public person). Prefer the `bySlug` hit when `mpId` is present, else `byName`.
+- Dedup inputs; split into `slugs = mpId ? mp-${mpId}` and bare `names`; **sort**, then chunk
+  `names` into deterministic ~40-name groups (per the GET URL-length limit above).
+- One React Query **per chunk** (`useQueries`), `staleTime: Infinity`,
+  `queryKey: ["candidate-persons", <sorted chunk>]` — deterministic keys → CDN + client cache hits,
+  and distinct pages share overlapping chunks. Merge the chunk results into one lookup.
+- Returns `resolve(name, mpId) => string | null | undefined` (undefined while any relevant chunk is
+  loading, null = no public person). Prefer the `bySlug` hit when `mpId` is present, else `byName`.
 
 ### C. Components — `src/screens/components/person/`
 
@@ -103,10 +116,15 @@ chunks of ~100 names** (≈3 requests for the national list) — still cacheable
   page, fed from the page-level `useCandidatePersons` resolver (exactly how `ChmiFeedScreen`
   computes a per-row href from a once-loaded index).
 - **`PersonNameLink`** (connected): `{ name, mpId?, className }`. Self-resolves via
-  `useCandidatePerson` and delegates to `PersonNameLinkView`. For **low-count / one-off** sites only
-  (the settlement page, single-mayor stat items) — a handful of cached requests, no page-level
-  wiring. Two components rather than one prop-toggled component keeps hook usage unconditional
-  (the `MpAvatar`/`MpAvatarView` precedent).
+  `useCandidatePerson` (one GET each) and delegates to `PersonNameLinkView`. **Only for pages that
+  render well under ~40 distinct names** (settlement, `/mayor`, district table, council-on-expand,
+  tiles) — one GET per name, no page wiring. Two components rather than one prop-toggled component
+  keeps hook usage unconditional (the `MpAvatar`/`MpAvatarView` precedent).
+
+  **The ~40-name ceiling is a hard rule, set by the 120-req/min rate limit** (a page's connected
+  links each cost one GET and share the budget with its other `/api/db` calls). Any page above it —
+  the 264-mayor national list, the ~130-name município overview, the 96-row kmetstva table — **must**
+  use the batched `useCandidatePersons` + `PersonNameLinkView`, never the connected variant.
 
 ### D. Resolver refactor — `src/data/candidates/useCandidatePerson.ts`
 
@@ -182,9 +200,10 @@ slug={resolve(name, mpId)} />` per row. **One request per page**, 264 names incl
    gone, Тунджа still clickable in the header; mayor names link to `/person/:slug`; a no-public
    name stays plain text (no dead link).
 2. Open `/local/2023_10_29_mi` (national list) and a large município overview (`…/SOF`): confirm the
-   Network tab shows **one** `candidate-persons` request (or ≤3 chunked), not per-name fan-out;
-   264 / 130 names resolve; scroll stays smooth.
-3. `EXPLAIN ANALYZE` both batch queries with the worst-case input (264 names / the full Sofia
+   Network tab shows a **handful of chunked** `candidate-persons` GETs (~7 for the 264-list, sorted
+   query strings), **no per-name fan-out, and no 429s**; 264 / 130 names resolve; scroll stays
+   smooth. Reload and confirm the chunk GETs are served from cache (deterministic query strings).
+3. `EXPLAIN ANALYZE` both batch queries with the worst-case input (a 40-name chunk / the full Sofia
    bundle) against Postgres — confirm index scans on `idx_candidate_person_name` /
    `idx_candidate_person_slug`, per the DB-perf playbook.
 4. `npm run lint` + typecheck via `npm run build` (plain `tsc --noEmit` checks nothing here) — also
@@ -206,3 +225,10 @@ prerenderable person links for SEO. Costs: extend coverage beyond elected holder
 cloud reload hook (else prod links go stale — the "migrated-family watch reload" class), larger
 JSON, and regenerate-and-redeploy on each person re-resolve. Revisit only if person links need to be
 in the static HTML for SEO or the one-request-per-page ever proves too chatty.
+
+The GET-only + URL-chunking friction confirmed above does raise C's appeal **specifically for the two
+huge pages** (national list, município overview): baking their slugs sidesteps chunking, the URL cap
+and the rate limit entirely. A reasonable escalation path is to ship the runtime batch first (it
+covers every page uniformly) and only move the two huge pages to baked slugs later if the chunked
+GETs prove unsatisfactory — the `PersonNameLinkView` call sites don't change, only where the slug
+comes from.
