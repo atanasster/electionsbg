@@ -19,9 +19,17 @@
 -- lock (the old slug per mention) in memory at the moment it computes the new one.
 --
 -- NOT TRUNCATED, like 099. A slug retired three runs ago must keep redirecting; forgetting
--- it is the same 404. But it IS recomputed in full every run, from the lock, so a chain
--- (A merges into B, later B merges into C) always resolves to the FINAL person rather than
--- to a middle link that is itself dead — no recursive lookup is needed at read time.
+-- it is the same 404.
+--
+-- ⚠️ CORRECTED. This used to claim the table "IS recomputed in full every run, from the
+-- lock, so a chain (A merges into B, later B merges into C) always resolves to the FINAL
+-- person". It does not, and person_slug_redirect()'s own header 25 lines below always said
+-- so: the resolver diffs a lock that is destructively overwritten each run, so it can only
+-- write the pairs it just computed and never revisits an older row whose target has since
+-- been retired. Chains DO accumulate here — a live one (…ivanov1-da0219 → …ivanov1-94805e →
+-- …ivanov-b85a89) is what made the "every redirect target is a live person" gate fail.
+-- scripts/person/collapse_slug_chains.ts is what actually makes the claim true: both writers
+-- call it after every write, and it flattens each chain onto its first SERVABLE end.
 --
 -- A slug is only recorded here when it is genuinely gone: a slug that still belongs to a
 -- live person is never a redirect, or a person would 301 to themselves.

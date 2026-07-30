@@ -40,6 +40,7 @@ import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, withTx, end, exec } from "../db/lib/pg";
+import { collapseSlugRedirectChainsVerbose } from "./collapse_slug_chains";
 import {
   isOfficialSource,
   personSourceForOfficial,
@@ -1322,8 +1323,13 @@ async function main(): Promise<void> {
   // person those mentions belong to today is where it should redirect.
   //
   // Recomputed in full from the whole lock every run, not just for mentions that moved this
-  // time: that is what keeps a chain (A merged into B, later B into C) pointing at C rather
-  // than at the dead middle link, without any recursive lookup when serving.
+  // time.
+  //
+  // ⚠️ That is NOT by itself enough to keep a chain (A merged into B, later B into C)
+  // pointing at C. The lock is destructively overwritten each run, so this diff only ever
+  // knows the pairs it just computed — an older row still saying A→B is never revisited, and
+  // becomes a 301 into a 404 the moment B is retired. collapseSlugRedirectChainsVerbose(),
+  // called after the person rebuild further down, is what flattens those.
   //
   // Only mentions still present in `built` are considered, so a slug whose members have ALL
   // left the person universe (an official dropped from the roster entirely) is not retired
@@ -1634,6 +1640,20 @@ async function main(): Promise<void> {
   await exec("ANALYZE person");
   await exec("ANALYZE person_role");
   await exec("ANALYZE person_alias");
+
+  // Collapse redirect chains — AFTER the rebuild above, never before it.
+  //
+  // A retirement this run produced can land on a slug an EARLIER run already
+  // pointed somebody at (A→B written then, B→C now), leaving that older row as a
+  // 301 into a 404. The lock diff cannot see it: it only knows the pairs it just
+  // computed. So the sweep has to run against the whole table.
+  //
+  // ⚠️ Placement is load-bearing. This reads `person` to decide what is live, and
+  // `person` is not rebuilt until the transaction above commits — the same trap
+  // this file documents for the orphaned-dead-slug warning. Called any earlier it
+  // sees the PREVIOUS run's people and reports "0 re-pointed" while the gate
+  // fails; measured exactly that way before it was moved here.
+  await collapseSlugRedirectChainsVerbose();
 
   // NB: do NOT refresh declaration_stake_company (096) or person_cohort_wealth (097) here.
   // This run's `DELETE FROM person` nulls declaration.person_id table-wide (ON DELETE SET

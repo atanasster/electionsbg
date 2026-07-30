@@ -94,6 +94,17 @@ drop — see `raw_data/person/README.md`). `db:refresh` runs the local equivalen
 nothing runs it on the cloud side. See `raw_data/person/README.md` and
 `docs/plans/persons-pg-retirement-v1.md` (T1.0).
 
+**"Composes" means rows accumulate — NOT that older targets stay valid.** When a later map
+retires a slug an earlier map already pointed somebody at, that earlier row becomes a 301 into
+a 404 (`…ivanov1-da0219 → …ivanov1-94805e → …ivanov-b85a89` is the one that got caught). Both
+writers — the loader and `db:resolve:persons` — now call `collapseSlugRedirectChains()` after
+their write, so flattening is automatic and `db:resolve:persons` carries "redirect chains are
+flat" as a post-condition. That matters for the cloud flows above that re-run the resolver
+**without** a following `person:slug-redirects:cloud` (the judicial-bodies rerun): they stay
+correct only because the resolver does it itself. The collapse only ever re-points at an
+`active` + public-figure person, so a chain with no servable end is left broken and reported
+rather than quietly made to look healthy — `person_slug_retired.data.test.ts` fails on it.
+
 Likewise, after `db:load:declarations:pg:cloud -- --resolve` (which creates the municipal
 roster matview), run the candidateLink loader so the Cloud SQL municipal roster carries the
 party colours / councillor avatars the /governance + My-Area tiles render:

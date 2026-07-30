@@ -75,6 +75,31 @@ test.skipIf(skip)("every redirect target is a live person", async () => {
   );
 });
 
+// EXISTENCE IS NOT ENOUGH, and the gate above cannot tell the difference. A person
+// row can exist while being unservable (status <> 'active', or not a public
+// figure): §6 refuses those, and person_slug_redirect() / officials_person_slug()
+// return NULL for them. So a redirect re-pointed at one passes the existence check
+// above while still 301ing into a 404 — the check turns green and the visitor's
+// experience does not change. That is precisely the shape collapse_slug_chains.ts
+// would have introduced had it judged liveness by existence, so pin the stronger
+// invariant here rather than trusting the writer to keep choosing correctly.
+test.skipIf(skip)("every redirect target is actually SERVABLE", async () => {
+  const unservable = await allRows<{ slug: string; target_slug: string }>(
+    `SELECT r.slug, r.target_slug FROM person_slug_retired r
+      WHERE NOT EXISTS (
+              SELECT 1 FROM person p
+               WHERE p.slug = r.target_slug
+                 AND p.status = 'active' AND p.is_public_figure)
+      LIMIT 5`,
+  );
+  assert.deepEqual(
+    unservable,
+    [],
+    "retired slugs point at people we refuse to serve — the 301 lands on a 404, " +
+      "which the existence check above cannot see",
+  );
+});
+
 // Only slugs. mp refs are numeric ids, candidate refs are '{election}:mp-{id}' and
 // magistrate refs are the declarant's Cyrillic name — none was ever a URL, and seeding them
 // put 3,113 names like "Мария Венциславова Милушева" into this table on the first attempt.

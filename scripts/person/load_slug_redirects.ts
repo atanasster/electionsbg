@@ -58,6 +58,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { allRows, exec, withTx, end } from "../db/lib/pg";
+import { collapseSlugRedirectChainsVerbose } from "./collapse_slug_chains";
 // One JS definition of officialSlug()'s mint format, shared with the Cloud Function's
 // /officials URL parser. (103 keeps its own copy for the SQL side — a different language,
 // and its backfill runs with no JS in the picture.)
@@ -167,6 +168,13 @@ const run = async (): Promise<void> => {
   console.log(
     `slug-redirects: ${renames.length} renames -> ${writable.length} redirect(s) written`,
   );
+
+  // Rows THIS map wrote resolve their target through person_role, so they are
+  // correct by construction. Rows an EARLIER map wrote are not: if this map retired
+  // a slug that was already somebody's target, that older row now points at a dead
+  // slug. Collapse after every load — the dated maps only truly compose with this.
+  // (After the header line above, since its output is indented under it.)
+  await collapseSlugRedirectChainsVerbose();
   if (live.length) {
     // NAMED, not just counted — this is the branch that signals a real problem. It means
     // the map wants to retire a slug a live person is currently served under, which is
