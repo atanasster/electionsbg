@@ -40,13 +40,15 @@ Where §0 conflicts with a later section, §0 wins. This section folds in the ga
   In-scope adopter of `PlaceSeatLine` for v1 = the awarder page; follow-on adopters (not v1) =
   `CompaniesHqTile`, `/farm/:eik`, funds contractor rows.
 
-- **D2 — Full hero (with view switcher) on the procurement settlement page.**
-  The Card hero (accent border + eyebrow + `PlaceViewNav` switcher + thumbnail) is designed for
-  top-level place dashboards; the procurement settlement page is a drill-down under its own
-  `ProcurementBreadcrumb` + KPI strip, so a compact block is defensible. **Recommendation (confirm):**
-  use the **full hero WITH the switcher**, keeping the existing `ProcurementBreadcrumb` section trail
-  ABOVE it. Rationale: consolidation is the goal — the procurement-Варна page should be pivotable to
-  parliamentary/governance/local/consumption Варна, folding procurement into the place-view family.
+- **D2 — RESOLVED (operator, 2026-07-30): COMPACT location display on the procurement page, not
+  the full hero.** The Card hero (accent border + eyebrow + `PlaceViewNav` switcher) is for the
+  top-level place dashboards where switching between views actually navigates. The procurement
+  settlement page merely SCOPES its own data to a place — there is no procurement "view" to switch
+  between — so the switcher would mislead. `PlaceHeaderView` gained a `variant="compact"` that
+  renders JUST the location display (title + composed breadcrumb + map thumbnail), no eyebrow / no
+  switcher / no accent Card, kept under the existing `ProcurementBreadcrumb`. The full hero stays
+  untouched on the governance / parliamentary / local / consumption pages.
+  *(Initial recommendation was the full hero WITH the switcher; reversed on operator review.)*
   (Grain note: screenshot 1 is Варна *município* `/settlement/VAR06`; screenshot 2 is Варна
   *settlement* `гр. Варна` EKATTE `10135` — both are legitimate `PlaceHeader` levels, `municipality`
   vs `settlement`, so this is consistent, not a mismatch.)

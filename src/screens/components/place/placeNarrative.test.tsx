@@ -352,6 +352,31 @@ describe("PlaceHeaderView", () => {
     expect(container.querySelector("nav")).toBeNull();
   });
 
+  it("compact variant: title + narrative + thumbnail, but NO eyebrow and NO switcher", () => {
+    const { container } = render(
+      <MemoryRouter>
+        <PlaceHeaderView
+          active="governance"
+          level="settlement"
+          variant="compact"
+          titleText="гр. Варна"
+          narrative={<span>в община Варна</span>}
+          loc={{ lat: 43.2, lon: 27.9 }}
+          isAbroad={false}
+          thumbName="Варна"
+        />
+      </MemoryRouter>,
+    );
+    // Location display present.
+    expect(container.querySelector("h1")).toHaveTextContent("гр. Варна");
+    expect(container.textContent).toContain("в община Варна");
+    expect(container.querySelector("img")).not.toBeNull();
+    // No view switcher and no eyebrow (the eyebrow renders t(meta.labelKey) = the
+    // "cross_to_governance" key under the mock; compact omits it).
+    expect(container.querySelector("nav")).toBeNull();
+    expect(container.textContent).not.toContain("cross_to_governance");
+  });
+
   it("without thumbAnchorHref the thumbnail is static — no link-to-nowhere (procurement case)", () => {
     // Regression guard: a page framed under governance (active="governance") that has no
     // #myarea-projects-map anchor must NOT get a clickable thumbnail. The anchor is driven by

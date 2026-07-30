@@ -117,12 +117,13 @@ export const ProcurementSettlementDetailScreen: FC = () => {
         current={data.name}
         className="my-3"
       />
+      {/* Compact: the location display only (title + breadcrumb + map). The full view
+          switcher belongs on the governance/parliamentary/local/consumption pages where
+          switching navigates — not here, where the page just scopes procurement to a place. */}
       <PlaceHeaderView
         active="governance"
         level="settlement"
-        ekatte={data.ekatte}
-        obshtina={data.obshtinaCode ?? undefined}
-        oblast={data.oblastCode ?? undefined}
+        variant="compact"
         titleText={hero.titleText}
         narrative={hero.narrative}
         loc={hero.loc}

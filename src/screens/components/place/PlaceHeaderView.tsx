@@ -57,6 +57,13 @@ type Props = {
   extra?: ReactNode;
   // Replaces the default PlaceViewNav switcher.
   navSlot?: ReactNode;
+  // "full" (default) = the dashboard hero: accent Card + eyebrow + view switcher — for pages
+  // that ARE one of the switchable views (governance / parliamentary / local / consumption),
+  // where the switcher actually navigates. "compact" = JUST the location display (title +
+  // breadcrumb + map thumbnail), no Card chrome / eyebrow / switcher — for a page that merely
+  // scopes ITS OWN data to a place (e.g. the procurement settlement page) and where a
+  // view-switcher would be misleading (there is no procurement "view" to switch between).
+  variant?: "full" | "compact";
   className?: string;
 };
 
@@ -167,6 +174,7 @@ export const PlaceHeaderView: FC<Props> = ({
   eyebrowSuffix,
   extra,
   navSlot,
+  variant = "full",
   className,
 }) => {
   const { t, i18n } = useTranslation();
@@ -179,6 +187,44 @@ export const PlaceHeaderView: FC<Props> = ({
     lang === "bg"
       ? `Карта на района — ${thumbName}`
       : `Area map — ${thumbName}`;
+
+  // The static OSM thumbnail (shared by both variants). With thumbAnchorHref it becomes a
+  // jump-link to that in-page anchor (the Governance dashboard's projects map); without it it
+  // renders static. Abroad (МИР 32) has no meaningful street-map centroid, so it's dropped.
+  const thumbnail =
+    loc && !isAbroad ? (
+      thumbAnchorHref ? (
+        <a
+          href={thumbAnchorHref}
+          className="hidden sm:block shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label={thumbAlt}
+        >
+          <StaticOsmThumbnail lat={loc.lat} lon={loc.lon} alt={thumbAlt} />
+        </a>
+      ) : (
+        <div className="hidden sm:block shrink-0">
+          <StaticOsmThumbnail lat={loc.lat} lon={loc.lon} alt={thumbAlt} />
+        </div>
+      )
+    ) : null;
+
+  // Compact: the location display alone — title + breadcrumb + map. No Card accent, no
+  // eyebrow, no view switcher (a page like /procurement/settlement scopes its own data to a
+  // place; it is not a switchable "view", so those cues would mislead). grao is not shown.
+  if (variant === "compact") {
+    return (
+      <div className={cn("flex items-start gap-3", className)}>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl md:text-3xl font-bold">{titleText}</h1>
+          {narrative ? (
+            <p className="text-sm text-muted-foreground mt-1">{narrative}</p>
+          ) : null}
+          {extra ? <div className="mt-2">{extra}</div> : null}
+        </div>
+        {thumbnail}
+      </div>
+    );
+  }
 
   const eyebrowInner = (
     <>
@@ -248,35 +294,7 @@ export const PlaceHeaderView: FC<Props> = ({
             ) : null}
             {extra ? <div className="mt-2">{extra}</div> : null}
           </div>
-          {/* Static OSM thumbnail. With thumbAnchorHref it becomes a jump-link to
-              that in-page anchor (the Governance place dashboard's projects map);
-              without it (e.g. the procurement page, which has no such anchor) it
-              renders static. Hidden on small screens. Abroad (МИР 32) continents/
-              countries have no meaningful street-map centroid — a zoom-12 ~5km tile
-              of a continent's centre loads blank — so the thumbnail is dropped. */}
-          {loc && !isAbroad ? (
-            thumbAnchorHref ? (
-              <a
-                href={thumbAnchorHref}
-                className="hidden sm:block shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-label={thumbAlt}
-              >
-                <StaticOsmThumbnail
-                  lat={loc.lat}
-                  lon={loc.lon}
-                  alt={thumbAlt}
-                />
-              </a>
-            ) : (
-              <div className="hidden sm:block shrink-0">
-                <StaticOsmThumbnail
-                  lat={loc.lat}
-                  lon={loc.lon}
-                  alt={thumbAlt}
-                />
-              </div>
-            )
-          ) : null}
+          {thumbnail}
         </div>
 
         {/* View switcher — pivot to this same place's other dashboards. A
