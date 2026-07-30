@@ -163,6 +163,14 @@ changed" and "the precomputes match the scopes" can never be two separate states
 - after a standalone `db:load:place-dim:pg:cloud`, which changes the English settlement
   names the ranking joins but has nothing of its own to refresh them.
 
+`cpv_catalog` (migration 121) is the same shape but rides the TENDERS loader: `db:load:tenders:pg`
+applies it and calls `rebuild_cpv_catalog()` right after the corpus commits, so on the cloud side
+`npm run db:load:tenders:pg:cloud` keeps it in step with no extra command. The only ordering that
+matters is the FIRST deploy — the loader must run **before** the `deploy:db` that ships the route
+reading it, because that route no longer degrades a missing table to an empty array (an empty CPV
+picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
+fails on an empty or stale table.
+
 `db:load:pg` also re-REFRESHes both (guarded on existence), so a contracts reload cannot
 leave `/procurement/by-settlement` serving the previous corpus. `db:refresh` runs the local
 equivalent automatically; the cloud side does not.

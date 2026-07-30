@@ -40,7 +40,12 @@ export const CpvFilterCombobox: FC<{
   onChange: (v: string) => void;
   divisions: DivisionOption[];
   catalog: CpvCatalogEntry[];
-}> = ({ value, onChange, divisions, catalog }) => {
+  /** The named-code catalogue failed to load. Distinguished from "no codes" so
+   *  the picker can say the search is degraded instead of silently offering only
+   *  the ~40 two-digit divisions — the failure mode that hid a 17-21 s route
+   *  timing out on prod. */
+  catalogError?: boolean;
+}> = ({ value, onChange, divisions, catalog, catalogError = false }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -122,6 +127,15 @@ export const CpvFilterCombobox: FC<{
             value={query}
             onValueChange={setQuery}
           />
+          {/* Say so when only the divisions are searchable. Silently offering a
+              shortened list is how a timing-out catalogue route went unnoticed. */}
+          {catalogError ? (
+            <div className="border-b px-3 py-2 text-[11px] text-amber-700 dark:text-amber-400">
+              {bg
+                ? "Списъкът с CPV кодове не се зареди — търсенето е само по раздели."
+                : "The CPV code list failed to load — search is limited to divisions."}
+            </div>
+          ) : null}
           <CommandList>
             <CommandEmpty>{t("no_results") || "Няма резултати"}</CommandEmpty>
             {items.map((it) => (

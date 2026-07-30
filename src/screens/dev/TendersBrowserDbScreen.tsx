@@ -142,7 +142,7 @@ export const TendersBrowserDbScreen: FC = () => {
     });
   // Named CPV-code catalogue powers the searchable CPV filter — search by sector
   // name or by any CPV code. Shared with the contracts browser.
-  const { data: cpvCatalog } = useCpvCatalog();
+  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // Reactive headline aggregates (Σ estimated €, count) for the whole FILTERED
   // set — DbDataTable computes them server-side and hands them back via onData.
@@ -435,6 +435,7 @@ export const TendersBrowserDbScreen: FC = () => {
                   onChange={setCpvSel}
                   divisions={cpvOptions}
                   catalog={cpvCatalog ?? []}
+                  catalogError={cpvCatalogError}
                 />
               ) : null}
               {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary

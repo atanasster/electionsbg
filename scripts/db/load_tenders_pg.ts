@@ -13,7 +13,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, execEach, withTx, end } from "./lib/pg";
+import { allRows, getPool, exec, execEach, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
@@ -52,6 +52,10 @@ const BROWSER_IDX_FILE = path.join(
 );
 // "How typical is this tender?" cohort payloads (fn + set-based cache matview).
 const TENDER_NORMALCY_FILE = path.join(SCHEMA_DIR, "067_tender_normalcy.sql");
+// The named CPV-code catalogue (121). Derived from `tenders`, so it is applied
+// and rebuilt here rather than recomputed per request — the route it replaces was
+// a full scan + external sort on every browser mount (17-21 s on prod, one 500).
+const CPV_CATALOG_FILE = path.join(SCHEMA_DIR, "121_cpv_catalog.sql");
 const TENDER_NORMALCY_BUILD_FILE = path.join(
   SCHEMA_DIR,
   "067b_tender_normalcy_build.sql",
@@ -186,6 +190,32 @@ export const loadTendersPg = async (): Promise<{
   // `tenders` — which deadlocked (40P01) against live prod traffic holding
   // `tenders` and waiting on `contracts` on 2026-07-29. Per statement, each lock
   // is released immediately and CREATE INDEX's ShareLock never blocks readers.
+  // CPV catalogue (121): apply + rebuild HERE, immediately after the corpus
+  // transaction commits and BEFORE the DDL below.
+  //
+  // Not inside withTx: the rebuild scans `tenders`, and folding it in would
+  // extend that transaction's AccessExclusive window by the very 17-21 s scan
+  // this table exists to remove. Not after the index file either — that step
+  // carries a documented 40P01 deadlock against live traffic (see its comment),
+  // and a deadlock there would leave a fresh corpus with a stale catalogue,
+  // which is the exact silent-staleness state the gate has to catch.
+  await exec(readFileSync(CPV_CATALOG_FILE, "utf8"));
+  const [cpvRow] = await allRows<{ n: string }>(
+    "SELECT rebuild_cpv_catalog()::text AS n",
+  );
+  const cpvCount = Number(cpvRow?.n ?? 0);
+  // THROW on zero. This loader is the only actor holding both the corpus row
+  // count and the catalogue count, so it is the only place that can tell "the
+  // corpus genuinely has no described CPV codes" from "the rebuild silently did
+  // nothing". Downstream, an empty catalogue is a 200 with an empty picker.
+  if (rows.length > 0 && cpvCount === 0) {
+    throw new Error(
+      `cpv_catalog rebuilt to 0 codes from ${rows.length} tenders — the CPV ` +
+        `filter would render empty. Check rebuild_cpv_catalog() and cpv_desc.`,
+    );
+  }
+  console.log(`  cpv_catalog: ${cpvCount} code(s)`);
+
   await execEach(readFileSync(BROWSER_IDX_FILE, "utf8"));
 
   // Refresh planner statistics immediately — same reason as load_pg.ts: a

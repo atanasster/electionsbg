@@ -8,7 +8,13 @@ export type CpvCatalogEntry = { cpv: string; desc: string };
 
 const fetchCpvCatalog = async (): Promise<CpvCatalogEntry[]> => {
   const r = await fetch("/api/db/cpv-catalog");
-  if (!r.ok) return [];
+  // THROW, do not return []. An empty array is a legitimate answer ("the
+  // catalogue has no codes"), so returning it on a failed request made a 500
+  // indistinguishable from an empty catalogue — and the CPV filter came up
+  // silently blank with nothing to retry. That is exactly what happened while
+  // this route was a full corpus scan timing out on prod: users saw an empty
+  // picker, not an error. React Query can retry a throw; it cannot retry a lie.
+  if (!r.ok) throw new Error(`cpv-catalog: ${r.status}`);
   return (await r.json()) as CpvCatalogEntry[];
 };
 

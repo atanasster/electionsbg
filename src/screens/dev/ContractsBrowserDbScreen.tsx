@@ -152,7 +152,7 @@ export const ContractsBrowserDbScreen: FC = () => {
 
   // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
   // — search by sector name or by any CPV code, beyond the 2-digit divisions.
-  const { data: cpvCatalog } = useCpvCatalog();
+  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // Neutral foreign-funded-NGO disclosure — its own ~6 kB route, since it is the
   // one chip input the server masks cannot carry (no scored bit).
@@ -454,6 +454,7 @@ export const ContractsBrowserDbScreen: FC = () => {
                   onChange={setCpvDiv}
                   divisions={cpvOptions}
                   catalog={cpvCatalog ?? []}
+                  catalogError={cpvCatalogError}
                 />
               ) : null}
               {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary
