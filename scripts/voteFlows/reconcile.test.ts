@@ -32,7 +32,7 @@ const canonical: CanonicalPartiesIndex = {
       history: [{ election: "2024_10_27", partyNum: 8, nickName: "ДПС-НН" }],
     },
   ],
-  byNickName: { "АПС": "p_10", "ДПС": "p_16", "ДПС-НН": "p_29" },
+  byNickName: { АПС: "p_10", ДПС: "p_16", "ДПС-НН": "p_29" },
   consolidationByNickName: {},
 };
 
