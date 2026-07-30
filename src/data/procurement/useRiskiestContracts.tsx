@@ -11,8 +11,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import type { RiskGradeLetter } from "@/lib/riskGrade";
+import type { RiskMaskRow } from "@/lib/contractRiskMask";
 
-export type RiskiestContract = {
+type RiskiestContractRow = {
   key: string;
   date?: string;
   awarderName?: string;
@@ -23,8 +24,24 @@ export type RiskiestContract = {
   riskAvailable?: number;
   riskCri?: number;
   riskGrade?: RiskGradeLetter;
-  riskFiredMask?: number;
 };
+
+/**
+ * A leaderboard row, INCLUDING every field the mask decoder reads.
+ *
+ * The intersection is the point. This type used to hand-list `riskFiredMask` and
+ * stop there — which type-checked perfectly while omitting `riskAvailableMask`
+ * (so `contractRiskFromMasks` would return null for every row) plus four
+ * magnitude inputs. It only worked at runtime because `fetchRiskiest` casts
+ * untyped JSON and the server's default projection happens to include them.
+ *
+ * Nor does that degrade gracefully: without `signingAmountEur` the annex-growth
+ * chip renders `+{formatShare(annexGrowthPct ?? 0)}` = "+0%" on a contract that
+ * grew 50%+ — a wrong number stated as fact next to a named company. Spelling the
+ * dependency as `RiskMaskRow & …` means a seventh decoder input propagates here
+ * automatically instead of failing silently.
+ */
+export type RiskiestContract = RiskiestContractRow & RiskMaskRow;
 
 const fetchRiskiest = async (limit: number): Promise<RiskiestContract[]> => {
   const req = {

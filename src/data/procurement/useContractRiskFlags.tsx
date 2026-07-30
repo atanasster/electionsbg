@@ -1,9 +1,19 @@
-// Per-contract red-flag evaluation hooks. The scoring logic lives in the pure,
-// React-free module computeProcurementRisk.ts (shared with the flow
-// link-colouring, the My-Area alerts builder, and the AI tools). These hooks
-// just load the index files (debarred suppliers, awarder→contractor
-// concentration, MP-connected contractors, CPV competition baseline) and feed
-// them to the scorer.
+// Per-contract red-flag evaluation hooks: they load the corpus-wide index files
+// (debarred suppliers, awarder→contractor concentration, MP-connected
+// contractors, CPV competition baseline) and feed them to the pure, React-free
+// scorer in computeProcurementRisk.ts.
+//
+// ⚠️ NOT the path the CONTRACT screens take any more. Since T1.2 they decode the
+// server's per-row masks (src/lib/contractRiskMask.ts) — same 12 checks, computed
+// once in Postgres, no 1.29 MB download. What still routes through here is the
+// TENDER side (TenderDetailScreen, ProjectFileScreen), which has no per-row index
+// to decode. See docs/plans/db-payload-diet-v1.md.
+//
+// The previous version of this header claimed the scorer was shared with "the
+// flow link-colouring, the My-Area alerts builder, and the AI tools". None of the
+// three imports it — the AI tools import the risk-indexes PAYLOAD
+// (ai/tools/fiscal.ts), not the scorer — and chasing those phantom consumers cost
+// an audit pass.
 
 import { useMemo } from "react";
 import type { ProcurementContract } from "@/data/dataTypes";

@@ -53,6 +53,15 @@ export const RiskiestContractsTile: FC = () => {
               >
                 {c.riskGrade}
               </span>
+              {/* NO per-check chips here, deliberately — the plan called this
+                  "free" and it is not. RiskBadges wraps every chip in a Tooltip,
+                  whose touch branch is a role="button" span that does not
+                  preventDefault: inside this row's <a>, tapping a chip would open
+                  the popover AND navigate away, and 8 rows x ~6 chips adds ~48
+                  focusable triggers to one tile. Every other RiskBadges call site
+                  puts it BESIDE a link, never inside one. The row already carries
+                  the grade and the denominator, and links to the contract page
+                  where the per-check ledger is authoritative. */}
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm">
                   {decodeEntities(c.contractorName ?? "—")}
