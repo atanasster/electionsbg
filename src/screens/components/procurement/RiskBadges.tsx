@@ -10,7 +10,7 @@
 //     header. When nothing fired it reads as "no red flags · N checks passed"
 //     rather than a bare dash.
 
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
+import { useContractRiskDetail } from "@/data/procurement/useContractRiskDetail";
 import { formatEurCompact } from "@/lib/currency";
 import { formatShare, criColor } from "@/lib/riskGrade";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
@@ -173,6 +174,12 @@ type Props = {
    *  nothing is known about it. Rendered as an explicit unknown state, never as
    *  the "—" a genuinely clean contract gets. */
   result: ContractRiskResult | null;
+  /** Contract key. When given, the per-flag tooltip DETAIL (which MP, what
+   *  concentration share, the debarment dates) is fetched on first hover — the
+   *  masks that drive the chips cannot carry it. Omit where the caller already
+   *  has fully-populated flags (the old client scorer) or where there is no
+   *  single contract to attribute the detail to. */
+  contractKey?: string | null;
   /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
   /** Suppress the weak-competition (bid-count) chip — used where the bid count
@@ -238,6 +245,7 @@ const NgoForeignFundedBody: FC<{
 
 export const RiskBadges: FC<Props> = ({
   result,
+  contractKey,
   variant = "chips",
   hideWeakCompetition = false,
 }) => {
@@ -245,12 +253,65 @@ export const RiskBadges: FC<Props> = ({
   const lang = i18n.language;
   const [open, setOpen] = useState(false);
 
+  // Detail is fetched on FIRST INTERACTION with this row's chips, not on render:
+  // a 100-row table would otherwise issue 100 requests to populate tooltips
+  // nobody opened. One hover fetches the whole row's detail, so every chip in it
+  // is populated together, and React Query caches it for the session.
+  const [wantDetail, setWantDetail] = useState(false);
+  const { data: detail } = useContractRiskDetail(contractKey, wantDetail);
+
+  // Armed on DWELL, not on transit. onMouseEnter fires for every row a pointer
+  // crosses, and /api/db is rate-limited to 120 req/IP/min shared with the
+  // table's own queries — so sweeping the Signals column of a 100-row table
+  // could 429 the page that is still loading. A short delay means only a row the
+  // pointer actually rests on fetches. Cleared on leave, so a crossed row never
+  // fires at all.
+  const dwell = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelArm = useCallback(() => {
+    if (dwell.current) clearTimeout(dwell.current);
+    dwell.current = null;
+  }, []);
+  const armDetail = useCallback(() => {
+    if (wantDetail || dwell.current) return;
+    dwell.current = setTimeout(() => setWantDetail(true), 180);
+  }, [wantDetail]);
+  // Touch and keyboard have no dwell — commit immediately. A tap or a focus IS
+  // the intent; waiting would just make the tooltip open empty.
+  const armNow = useCallback(() => {
+    cancelArm();
+    setWantDetail(true);
+  }, [cancelArm]);
+  useEffect(() => cancelArm, [cancelArm]);
+
+  // Layer the fetched detail over the decoded flags. Only ever FILLS IN what the
+  // masks could not carry — it never changes which checks fired, so the chip set,
+  // firedCount and the CRI are identical before and after the hover resolves.
+  // Server detail loses to a caller that already supplied its own (the client
+  // scorer still feeds the tender-side screens).
+  //
+  // Hoisted ABOVE the unscored early-return: a hook after a conditional return is
+  // called in a different order once `result` flips to null, which React forbids
+  // and which a table row CAN do (a contracts reload nulls the masks mid-session).
+  const flags = useMemo(() => {
+    const f = result?.flags ?? null;
+    if (!f) return null;
+    if (!detail) return f;
+    return {
+      ...f,
+      debarred: f.debarred ?? detail.debarred ?? null,
+      awarderConcentration:
+        f.awarderConcentration ?? detail.concentration ?? null,
+      splitPurchase: f.splitPurchase ?? detail.splitPurchase ?? null,
+      newFirmMonths: f.newFirmMonths ?? detail.founded?.newFirmMonths ?? null,
+    };
+  }, [result, detail]);
+
   // UNSCORED — no contract_risk_cache row, so every check is unknown rather than
   // passed. This must NOT collapse to the "—" a clean contract shows: that
   // conflation is the bug this whole change removes, and it is reachable in the
   // window between a contracts reload and the risk rebuild
   // (rebuild_contracts_list emits NULL risk columns while the cache is absent).
-  if (!result) {
+  if (!result || !flags) {
     const label = t("risk_unscored") || "Not scored";
     const hint =
       t("risk_unscored_hint") ||
@@ -280,7 +341,7 @@ export const RiskBadges: FC<Props> = ({
     );
   }
 
-  const { flags, cri, firedCount, availableCount, hasFlag } = result;
+  const { cri, firedCount, availableCount, hasFlag } = result ?? {};
 
   // A check can be FIRED while its detail is absent. The server masks
   // (src/lib/contractRiskMask.ts) carry every check's fired bit, but the
@@ -310,7 +371,16 @@ export const RiskBadges: FC<Props> = ({
   }
 
   const chips = (
-    <div className="flex flex-wrap items-center gap-1">
+    // Arming on the CONTAINER, not per chip: one hover anywhere in the row fetches
+    // the whole row's detail, so moving between chips does not re-trigger and the
+    // handlers stay off the Tooltip triggers themselves. onFocus covers keyboard.
+    <div
+      className="flex flex-wrap items-center gap-1"
+      onMouseEnter={armDetail}
+      onMouseLeave={cancelArm}
+      onFocus={armNow}
+      onPointerDown={armNow}
+    >
       {firedOf("debarred") ? (
         <Tooltip
           content={
@@ -363,6 +433,14 @@ export const RiskBadges: FC<Props> = ({
                 {t("risk_flag_mp_connected_hint") ||
                   "An MP appears as a declared officer or owner of this company."}
               </div>
+              {/* WHICH MP — the flag alone says a connection exists but not to
+                  whom, and that is the first thing a reader asks. Arrives with
+                  the on-hover detail fetch; absent until it resolves. */}
+              {detail?.mpConnected?.length ? (
+                <div className="text-xs">
+                  {detail.mpConnected.map((m) => m.mpName).join(" · ")}
+                </div>
+              ) : null}
             </div>
           }
         >
@@ -730,7 +808,17 @@ export const RiskBadges: FC<Props> = ({
     .sort((a, b) => cellRank(a) - cellRank(b));
 
   return (
-    <div className="space-y-2">
+    // The full variant does NOT render `chips`, so it cannot inherit that
+    // container's arming — without these the contract detail page passes a
+    // contractKey that never fetches, and its КЗК link, concentration share,
+    // firm age and split size stay permanently blank.
+    <div
+      className="space-y-2"
+      onMouseEnter={armDetail}
+      onMouseLeave={cancelArm}
+      onFocus={armNow}
+      onPointerDown={armNow}
+    >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}

@@ -909,6 +909,104 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? { requested: scope, scope, rows: [] } };
   },
+  // Per-flag SUPPORTING DETAIL for ONE contract — the tooltip contents the masks
+  // cannot carry.
+  //
+  // contract_risk_cache (112) says WHICH checks fired, in two ints already on
+  // every row. What it cannot say is which MP, what concentration share, or the
+  // debarment dates, because a bit has no room for them. Those used to arrive via
+  // the 1.29 MB corpus-wide risk-indexes payload — every visitor downloading every
+  // supplier's debarment record to render a handful of tooltips on one page.
+  //
+  // Scoped to a single contract and fetched on demand (hover), so a page render
+  // costs nothing: 63.5% of the corpus fires zero checks and 30.0% fires exactly
+  // one (112's measured distribution), which means most hovers return almost
+  // nothing.
+  //
+  // ⚠️ The five blocks are ONE statement, so they are NOT independently guarded: a
+  // 42P01 on any single relation nulls all five tooltips, and the catch cannot
+  // tell a missing migration from a typo'd relation name. That is the accepted
+  // trade for one round trip — the failure mode is "tooltips are empty", never a
+  // broken page.
+  "contract-risk-detail": async (dbRows, q) => {
+    const key = s(q, "key");
+    if (!key) return { status: 400, body: { error: "missing key" } };
+    const [row] = await dbRows(
+      `SELECT c.awarder_eik, c.contractor_eik, c.contractor_name,
+              COALESCE(NULLIF(c.date_signed, ''), NULLIF(c.date, '')) AS award_date,
+              left(c.cpv, 2) AS cpv_div, substr(c.date, 1, 4) AS yr
+         FROM contracts c WHERE c.key = $1 LIMIT 1`,
+      [key],
+    );
+    if (!row) return { body: { detail: null } };
+
+    // Validate the award date HERE, not in SQL. The `^\d{4}-\d\d-\d\d` shape
+    // guard the scorer uses accepts 0000-00-00, 2024-02-31 and 9999-99-99, and
+    // every one of those throws on ::date — taking the whole tooltip with it.
+    // Date.parse round-tripped is the cheap way to require a REAL calendar date.
+    const raw = String(row.award_date || "");
+    const awardDate =
+      /^\d{4}-\d\d-\d\d$/.test(raw) &&
+      new Date(raw).toISOString().slice(0, 10) === raw
+        ? raw
+        : null;
+
+    // fold_contractor_name (112) is the SQL mirror of the SPA's
+    // normalizeContractorName — matching on the raw name misses every row whose
+    // registry spelling carries a quote or a legal-form suffix.
+    const [detail] = await dbRows(
+      `SELECT
+         (SELECT jsonb_build_object(
+                   'name', d.name, 'publishedAt', d.published_at,
+                   'debarredUntil', d.debarred_until, 'detailsUrl', d.details_url)
+            FROM debarred d
+           WHERE fold_contractor_name(d.name) = fold_contractor_name($3)
+           ORDER BY d.published_at DESC NULLS LAST LIMIT 1)          AS debarred,
+         (SELECT jsonb_agg(jsonb_build_object('mpId', mp_id, 'mpName', politician)
+                           ORDER BY mp_id)
+            FROM (SELECT DISTINCT
+                    NULLIF(regexp_replace(ref, '^/candidate/mp-', ''), '')::int AS mp_id,
+                    politician
+                    FROM company_politicians
+                   WHERE eik = $2 AND kind = 'mp' AND ref LIKE '/candidate/mp-%') m)
+                                                                     AS "mpConnected",
+         (SELECT jsonb_build_object(
+                   'sharePct', ROUND((p.pair_total / NULLIF(p.awarder_total, 0))::numeric, 4),
+                   'awarderTotalEur', ROUND(p.awarder_total)::float8,
+                   'pairTotalEur', ROUND(p.pair_total)::float8,
+                   'contractCount', p.n,
+                   'awarderName', p.awarder_name, 'contractorName', p.contractor_name)
+            FROM risk_pair_concentration p
+           WHERE p.awarder_eik = $1 AND p.contractor_eik = $2)       AS concentration,
+         (SELECT jsonb_build_object(
+                   'foundedDate', cf.founded_date,
+                   -- 2629800000 ms = 30.4375 d, the same MS_PER_MONTH the TS scorer
+                   -- uses, so the month count is identical rather than merely close.
+                   'newFirmMonths',
+                   CASE WHEN $4::date >= cf.founded_date
+                        THEN floor(($4::date - cf.founded_date) * 86400000.0 / 2629800000.0)
+                        END)
+            FROM company_founded cf
+           WHERE cf.eik = $2 AND cf.founded_date IS NOT NULL)        AS founded,
+         (SELECT jsonb_build_object(
+                   'contractCount', g.n,
+                   'totalEur', ROUND(g.total)::float8,
+                   'ceilingEur', g.ceiling::float8,
+                   'cpvDiv', g.cpv_div, 'year', g.yr)
+            FROM risk_split_group g
+           WHERE g.awarder_eik = $1 AND g.contractor_eik = $2
+             AND g.cpv_div = $5 AND g.yr = $6)                       AS "splitPurchase"`,
+      [
+        row.awarder_eik,
+        row.contractor_eik,
+        row.contractor_name,
+        awardDate,
+        row.cpv_div,
+        row.yr,
+      ],
+    ).catch(missingMigrationRows);
+    return { body: { detail: detail ?? null } };
+  },
   // The foreign-funded-NGO disclosure, on its own. NEUTRAL — it is not one of the
   // 12 scored checks and deliberately does not move the CRI, which is exactly why
   // it is not carried by contract_risk_cache's masks: nothing in Postgres has a

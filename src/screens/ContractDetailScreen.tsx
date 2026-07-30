@@ -203,7 +203,7 @@ export const ContractDetailScreen: FC = () => {
             a contract with no risk row — showing nothing where the meter is, which
             reads as "no signals" exactly like the bug this change removes. */}
         <div className="pt-2">
-          <RiskBadges result={riskResult} variant="full" />
+          <RiskBadges result={riskResult} contractKey={id} variant="full" />
         </div>
         {/* Member→file up-link (§10 Phase 3) — a curated dossier that includes this
             contract, if any. */}

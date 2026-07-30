@@ -347,6 +347,7 @@ export const CompanyContractsDbScreen: FC<{
               contractRiskFromMasks(row.original),
               ngoByEik.get(row.original.contractorEik),
             )}
+            contractKey={row.original.key}
             hideWeakCompetition
           />
         ),
