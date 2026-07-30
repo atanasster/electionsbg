@@ -63,5 +63,13 @@ test.skipIf(skip)(
     // explicitly so a change to the derivation itself cannot pass unnoticed.
     assert.equal(r.criDiff, 0, "cri disagrees");
     assert.equal(r.scoreDiff, 0, "score disagrees");
+    // The SPA decodes these masks rather than running the scorer, so "TS agrees
+    // with SQL" no longer implies "the page agrees with SQL".
+    assert.equal(
+      r.decoderDiff,
+      0,
+      "the SPA mask decoder (src/lib/contractRiskMask.ts) disagrees — every chip " +
+        "on the contract screens is derived from it",
+    );
   },
 );

@@ -43,7 +43,7 @@ import {
 } from "@/data/procurement/computeProcurementRisk";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { pathToFileURL } from "node:url";
-import { RISK_MASK_BITS } from "@/lib/contractRiskMask";
+import { RISK_MASK_BITS, contractRiskFromMasks } from "@/lib/contractRiskMask";
 import { allRows, dbReachable, end } from "../db/lib/pg";
 
 // Bit order is the contract documented on contract_risk_cache (112). IMPORTED
@@ -150,6 +150,8 @@ export type ParityResult = {
   mismatches: Map<string, number>;
   criDiff: number;
   scoreDiff: number;
+  /** Rows where the SPA's mask DECODER disagrees with the TS scorer / SQL. */
+  decoderDiff: number;
   examples: string[];
   /** True when contract_risk_cache is empty — nothing to compare, not a failure. */
   skipped: boolean;
@@ -167,6 +169,7 @@ export const runParity = async ({
     mismatches: new Map(),
     criDiff: 0,
     scoreDiff: 0,
+    decoderDiff: 0,
     examples: [],
     skipped,
   });
@@ -275,6 +278,7 @@ export const runParity = async ({
   const mismatches = new Map<string, number>();
   let criDiff = 0;
   let scoreDiff = 0;
+  let decoderDiff = 0;
   const examples: string[] = [];
 
   for (const row of rows) {
@@ -316,6 +320,53 @@ export const runParity = async ({
     }
     if (ts.cri !== row.sql_cri) criDiff++;
     if (ts.score !== row.sql_score) scoreDiff++;
+
+    // THIRD side of the comparison: the SPA decoder. The browser no longer runs
+    // computeProcurementRisk for contracts — it decodes these two masks
+    // (src/lib/contractRiskMask.ts), so "TS agrees with SQL" no longer implies
+    // "the page agrees with SQL".
+    //
+    // What this specifically covers is the decoder's own arithmetic — the shift
+    // in bit(), the availableCount/firedCount tallies, the cri rounding. It does
+    // NOT cover a renumbered or dropped check: the decoder and CHECKS read the
+    // same RISK_MASK_BITS array, so they would move together and agree while both
+    // being wrong. EXPECTED_CHECK_ORDER at the top of this file is the only guard
+    // against that — do not remove it on the strength of this comparison.
+    const dec = contractRiskFromMasks({
+      riskFiredMask: row.sql_fired_mask,
+      riskAvailableMask: row.sql_available_mask,
+    });
+    if (!dec) {
+      decoderDiff++;
+      if (examples.length < 8)
+        examples.push(
+          `    ${row.key} decoder: returned null for non-null masks`,
+        );
+    } else {
+      const decByKey = new Map(dec.components.map((c) => [c.key as string, c]));
+      for (const name of CHECKS) {
+        const d = decByKey.get(name);
+        const c = byKey.get(name);
+        if (
+          d?.available !== (c?.available ?? false) ||
+          d?.fired !== (c?.fired ?? false)
+        ) {
+          decoderDiff++;
+          if (examples.length < 8)
+            examples.push(
+              `    ${row.key} ${name}: decoder a=${d?.available} f=${d?.fired} · ts a=${c?.available} f=${c?.fired}`,
+            );
+          break;
+        }
+      }
+      if (dec.cri !== row.sql_cri) {
+        decoderDiff++;
+        if (examples.length < 8)
+          examples.push(
+            `    ${row.key} cri: decoder=${dec.cri} · sql=${row.sql_cri}`,
+          );
+      }
+    }
   }
 
   return {
@@ -323,6 +374,7 @@ export const runParity = async ({
     mismatches,
     criDiff,
     scoreDiff,
+    decoderDiff,
     examples,
     skipped: false,
   };
@@ -351,12 +403,19 @@ const main = async () => {
   console.log(
     `  ${r.criDiff === 0 ? "✓" : "✗"} cri differs on ${r.criDiff} · score differs on ${r.scoreDiff}`,
   );
+  console.log(
+    `  ${r.decoderDiff === 0 ? "✓" : "✗"} SPA mask decoder differs on ${r.decoderDiff}`,
+  );
   if (r.examples.length) {
     console.log("  examples:");
     for (const e of r.examples) console.log(e);
   }
 
-  const failed = r.mismatches.size > 0 || r.criDiff > 0 || r.scoreDiff > 0;
+  const failed =
+    r.mismatches.size > 0 ||
+    r.criDiff > 0 ||
+    r.scoreDiff > 0 ||
+    r.decoderDiff > 0;
   if (failed) {
     const worst = [...r.mismatches.entries()].sort((a, b) => b[1] - a[1])[0];
     if (worst) console.error(`  worst: ${worst[0]} (${worst[1]} mismatches)`);
