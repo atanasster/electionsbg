@@ -91,12 +91,17 @@ scope-keyed fan-out matview + KPI companion, riding migration 119's loader.
 > **single-division `filter:"eq"`** on `division`; the screen ALWAYS sends
 > `division` (default `'ALL'` — the engine's `defaultScope` covers only the ONE
 > scope column, so a "no CPV filter" default must be sent explicitly as an
-> `extraFilter`). Consequence: the CPV UI is a **single-select** division picker,
-> not the multi-select `CpvFilterCombobox` (a comma-set would return N rows per
-> contractor and double-count the leaderboard). The `'ALL'` row totals **all**
-> contracts including those with null/malformed CPV, so it is the true total, not
-> the sum of division rows. `mp_ids` is **dropped** — the screen renders only the
-> `is_mp_tied` boolean badge, never the ids (finding C).
+> `extraFilter`). **UI is unchanged from the other browsers:** `CpvFilterCombobox`
+> is already single-select (verified — `value: string` / `onChange(v)`), so it is
+> reused as-is; there is no multi-select comma-set on any procurement page and
+> thus no double-count risk. The one adaptation is grain — the combobox can return
+> a finer CPV code (`cpv LIKE '<code>%'` on the row-level browsers), but the
+> contractor rollup is division-grained, so the screen maps the chosen value to
+> its 2-digit division (`left(value, 2)`) before sending the `division` filter.
+> The `'ALL'` row totals **all** contracts including those with null/malformed
+> CPV, so it is the true total, not the sum of division rows. `mp_ids` is
+> **dropped** — the screen renders only the `is_mp_tied` boolean badge, never the
+> ids (finding C).
 
 > **AUDIT FIX (finding E) — no per-scope `LIMIT`.** Unlike the 031 function
 > (capped `LIMIT 1000`), the matview keeps **every** contractor per scope — the
@@ -260,12 +265,11 @@ column but is not shown in v1.
 
 Keep everything in the documented `?pscope` + procurement-filter URL contract:
 
-- **Single-division CPV picker** (`?cpv`) → the screen sends `{ id: "division",
-  value: cpvSel ?? "ALL" }` as an `extraFilter`. **NOT** the multi-select
-  `CpvFilterCombobox** — the `'ALL'`-rollup design (finding A) requires a single
-  division so the leaderboard isn't double-counted. Use a single Radix `Select`
-  (label each division via `121_cpv_catalog`), or a single-select variant of the
-  combobox. Validate `?cpv` on read against the known divisions; unknown → `ALL`.
+- **CPV picker** (`?cpv`) — **reuse `CpvFilterCombobox` as-is** (it's already
+  single-select; contracts/tenders use the same component). The screen maps the
+  chosen value to its 2-digit division and sends `{ id: "division", value:
+  cpvSel === CPV_ALL ? "ALL" : left(cpvSel, 2) }` as an `extraFilter`. Validate
+  `?cpv` on read; anything that doesn't resolve to a real division → `ALL`.
 - **MpTiedToggle** (`?mp`) — new small toggle (clone `SingleBidderToggle`) →
   `{ id: "is_mp_tied", value: true }` (verified: `filter:"eq"` on a bool works).
 - **`?q`** — free-text name search, seeds `initialSearch` (combined-search
@@ -278,15 +282,15 @@ small local `useUrlContractorFilters` hook (same validate-on-read + stable-empty
 pagination). Add `?mp` + this page's single-division `?cpv` + `?q` to the
 CLAUDE.md URL-contract section. `?pscope` is already shared/documented.
 
-### Two regressions the migration must not silently cause
+### Regression to note
 
-- **Export (finding G).** The current client `DataTable` ships CSV/JSON/PDF
-  export (`src/ux/data_table/DataTable.tsx`, `exportToCsv`/`exportToJSON`/
-  `exportToPDF`). `DbDataTable` ships **no** exporter. Its props were designed to
-  allow one (`initialSearch` + `pageSize` let an external button re-issue the
-  same query at a larger page), but nothing renders it. Decide: (a) add a
-  "download" affordance that re-issues at `maxPageSize` (1000), or (b) accept the
-  loss. Recommend (a) — export is a real operator affordance on the current page.
+- **Export (finding G) — DECIDED: no export in v1.** The current client
+  `DataTable` ships CSV/JSON/PDF export (`src/ux/data_table/DataTable.tsx`); the
+  server-side `DbDataTable` ships none, and we're **accepting that loss** for now
+  (consistent with the other DbDataTable-backed procurement browsers, which also
+  have no export). If it's wanted later, the component's `initialSearch` +
+  `pageSize` props already allow an external "download" button to re-issue the
+  same query at a larger page — a clean v2 add, no engine change.
 - **Rank `#` column (finding H).** Preservable: `DbDataTable` exposes
   `pagination` in the table state, so a cell can compute `pageIndex*pageSize +
   row.index + 1` exactly like the current screen. Note it's a within-page ordinal
@@ -357,8 +361,9 @@ picker label, and the MP-tied toggle label.
   join-key + money-type + `total_other` projection round-trip, per the
   persons-browse lesson).
 - **T3 — frontend swap:** `DbDataTable resource="contractor_rankings"`, 3-KPI
-  strip, single-division CPV picker + MP-tied toggle, rank column, export
-  affordance, `?q`/`?mp`/`?cpv` via `useUrlContractorFilters`, aggregates footer.
+  strip, reused `CpvFilterCombobox` (mapped to division) + MP-tied toggle, rank
+  column, `?q`/`?mp`/`?cpv` via `useUrlContractorFilters`, aggregates footer.
+  No export in v1.
 - **T4 — docs/memory:** CLAUDE.md scopes paragraph + URL contract; watch-skill
   reload list; new memory pointer.
 
@@ -367,12 +372,13 @@ picker label, and the MP-tied toggle label.
 1. **Scope of the swap** — DECIDED: full T2+T3 (full 29k set, server-side). T1
    (breadcrumb + scope on the existing capped blob) remains the fallback if we
    need chrome shipped before the backend lands.
-2. **CPV filter** — RESOLVED by audit finding A: the engine can't do array
-   overlap, so it's a single-division `filter:"eq"` on a `(scope_key, division)`
-   rollup matview with an `'ALL'` sentinel. Confirm we're OK with **single**
-   division select in v1 (multi-select would double-count) — else drop CPV to v2.
-3. **Export (finding G)** — add a download affordance to the DbDataTable page
-   (re-issue at `maxPageSize`) or accept losing CSV/JSON/PDF? Recommend add.
+2. **CPV filter** — RESOLVED. Engine can't do array overlap, so it's a
+   `(scope_key, division)` rollup with an `'ALL'` sentinel + `filter:"eq"`. The
+   UI is the existing `CpvFilterCombobox` (already single-select, verified —
+   confirmed against contracts/tenders), with the screen bucketing the choice to
+   its 2-digit division. No new picker, no double-count risk.
+3. **Export (finding G)** — RESOLVED: no export in v1 (matches the other
+   DbDataTable browsers). Re-addable in v2 via the component's existing props.
 4. **Risk at contractor level** (worst/avg `risk_grade` column + filter) —
    defer to v2 or fold into 122 now?
 5. **KPI count** — the 3 chosen are locked; `single_bid_share` sits in the KPI
@@ -382,12 +388,13 @@ picker label, and the MP-tied toggle label.
 
 Full engine/migration audit run against the codebase before implementation.
 Corrections applied above, keyed by finding: **A** (CPV can't be a `text[]`
-overlap → `(scope_key, division)` rollup with `'ALL'` sentinel + single-select),
+overlap → `(scope_key, division)` rollup with `'ALL'` sentinel; UI reuses the
+already-single-select `CpvFilterCombobox`, bucketing the choice to its division),
 **B** (`searchFold` is boolean; needs `searchCol:"name_fold"`), **C** (`mp_ids`
 dropped; `total_other` display-only + tested), **D** (`WITH NO DATA` + UNIQUE
 index for CONCURRENTLY + `0A000` fallback + `SCOPED_MATVIEWS`), **E** (no
 per-scope LIMIT), **F** (KPIs built `FROM contractor_rank`, refreshed after it),
-**G** (export regression), **H** (rank column preservable), **I** (new i18n
-keys), **J** (window-fixed KPIs need a scope caption). Only findings #2 (bool
-`filter:"eq"`) and #5 (client `scope` overrides `defaultScope`) confirmed the
-original plan as-written.
+**G** (export regression — accepted, no export in v1), **H** (rank column
+preservable), **I** (new i18n keys), **J** (window-fixed KPIs need a scope
+caption). Only findings #2 (bool `filter:"eq"`) and #5 (client `scope` overrides
+`defaultScope`) confirmed the original plan as-written.
