@@ -2282,14 +2282,17 @@ const DB_ROUTES = {
       // ORDER BY puts role priority ahead of the slug tiebreak so the client's first-wins
       // byName map resolves a namesake collision to the mayor (then chair/deputy), matching
       // the retired role-sorted search_index.json.
+      // role and district are NOT in the payload: nothing reads them. The only
+      // consumer is ChmiFeedScreen, via findOfficialByName, and it uses .slug —
+      // name and municipality are the map keys. role still drives the ORDER BY
+      // below (server-side, unaffected); district was populated on 64 of 6,391
+      // rows.
       `SELECT COALESCE(
                 jsonb_agg(
                   jsonb_build_object(
                     'slug', official_slug,
                     'name', name,
-                    'role', role,
-                    'municipality', COALESCE(municipality, ''),
-                    'district', district
+                    'municipality', COALESCE(municipality, '')
                   ) ORDER BY name,
                            CASE role
                              WHEN 'mayor' THEN 0
@@ -2341,12 +2344,14 @@ const DB_ROUTES = {
        )
        SELECT COALESCE(
                 jsonb_agg(
+                  -- No role / district: useSearchItems maps each entry to a
+                  -- search item using slug, name, municipality and personSlug, and
+                  -- reads neither. role still orders the rows below (server-side,
+                  -- unaffected); district was populated on 45 of 4,955 rows.
                   jsonb_strip_nulls(jsonb_build_object(
                     'slug', official_slug,
                     'name', name,
-                    'role', role,
                     'municipality', COALESCE(municipality, ''),
-                    'district', district,
                     'personSlug', person_slug
                   )) ORDER BY
                     CASE role

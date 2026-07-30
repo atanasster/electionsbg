@@ -21,7 +21,6 @@ describe("buildNameMaps", () => {
         {
           slug: "s",
           name: "Иван Иванов",
-          role: "councillor",
           municipality: null,
         },
       ]),
@@ -30,7 +29,7 @@ describe("buildNameMaps", () => {
 
   it("still resolves a null-municipality entry by name", () => {
     const { byName } = buildNameMaps([
-      { slug: "s", name: "Иван Иванов", role: "mayor", municipality: null },
+      { slug: "s", name: "Иван Иванов", municipality: null },
     ]);
     expect(byName.get(norm("Иван Иванов"))?.slug).toBe("s");
   });
@@ -42,13 +41,11 @@ describe("buildNameMaps", () => {
       {
         slug: "mayor-slug",
         name: "Петър Петров",
-        role: "mayor",
         municipality: "Аксаково",
       },
       {
         slug: "councillor-slug",
         name: "Петър Петров",
-        role: "councillor",
         municipality: "Варна",
       },
     ]);
@@ -60,13 +57,11 @@ describe("buildNameMaps", () => {
       {
         slug: "a",
         name: "Мария Иванова",
-        role: "councillor",
         municipality: "Русе",
       },
       {
         slug: "b",
         name: "Мария Иванова",
-        role: "councillor",
         municipality: "Плевен",
       },
     ]);

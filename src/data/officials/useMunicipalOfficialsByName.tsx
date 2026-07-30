@@ -13,12 +13,15 @@ import { useQuery } from "@tanstack/react-query";
 // leaves NULL for a listing with no declaration (many councillors never file). The route
 // COALESCEs it to '', but the type is honest about the nullable source and `norm` absorbs it
 // either way — a stray null here previously crashed the whole map build (and ChmiFeedScreen).
+// Only what the route now sends. `role` and `district` were dropped: the sole
+// consumer (ChmiFeedScreen, via findOfficialByName) reads `.slug`, and
+// `name`/`municipality` are the map keys. Role priority still decides which
+// namesake wins a collision — the route's ORDER BY does it, so the client relies
+// on the ordering rather than on the field.
 type MunicipalOfficialEntry = {
   slug: string;
   name: string;
-  role: string;
   municipality: string | null;
-  district?: string | null;
 };
 
 type MunicipalSearchFile = {

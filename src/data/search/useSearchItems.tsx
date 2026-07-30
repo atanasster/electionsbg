@@ -24,9 +24,7 @@ type MunicipalSearchFile = {
   entries: Array<{
     slug: string;
     name: string;
-    role: string;
     municipality: string;
-    district?: string;
     // Set by the route when the official resolves to exactly one public person in the
     // unified person layer; the row then links to /person/<personSlug>. Candidate-
     // duplicate rows are dropped server-side, so a person never appears twice.
