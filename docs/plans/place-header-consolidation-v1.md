@@ -1,6 +1,15 @@
 # Place-header consolidation — implementation plan v1
 
-Status: DRAFT (2026-07-30). Owner: TBD. Scope selected by the operator: **hybrid staged (option C)**
+Status: IMPLEMENTED (2026-07-30) via /implement-plan — Phases 1, 2, 4a, 4b, 5 landed as five
+commits on main (Phase 3 deferred by design). Local verification only; the Cloud SQL + hosting
+deploy is a HELD operator action — see the sequence in Phase 5 below. **Follow-up surfaced by
+the Phase 5 parity gate:** Sofia PROVINCE is named inconsistently across the two label
+dictionaries — `OBLAST_NAME["SFO"]="Софийска област"` (place_dim → procurement) vs
+`regions.json["SFO"]="София област"` (parliamentary). Pre-existing (not introduced here),
+pinned by `place_header_consolidation.data.test.ts`; reconciling to one canonical name is a
+data-owner decision (it changes a visible label on one side).
+
+Owner: TBD. Scope selected by the operator: **hybrid staged (option C)**
 — consolidate the place-identity headers onto shared components, PG-backed where it pays off, WITHOUT
 retiring the 940 KB `data/settlements.json` across its ~30 map/table/search consumers (that is a
 separate effort — see [db-payload-diet-v1.md](db-payload-diet-v1.md) and §"Out of scope").
