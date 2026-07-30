@@ -144,6 +144,36 @@ Two things worth reading off this table:
 Sparse settlements are safe: EKATTE 00045 (one contract) plans seats-first and
 runs in **1.0 ms**.
 
+**The table above is the DEFAULT sort only.** Every sortable column and the
+search box were measured separately, end-to-end through `/api/db/table` with the
+София scope, because a 1.9 ms headline that only holds until the user clicks a
+header is not a performance budget:
+
+| Interaction | End-to-end |
+|---|---|
+| default (`date` desc) | **26 ms** |
+| sort `amount_eur` desc | **16 ms** |
+| sort `risk_cri` desc | **169 ms** |
+| sort `contractor_name` asc | **254 ms** |
+| free-text search ("ремонт") | **289 ms** |
+
+So the honest envelope is **~290 ms worst-case interaction**, not 1.9 ms — still
+an order of magnitude better than the 6.6 s single blob it replaces, and no
+interaction regresses.
+
+Two asymmetries worth knowing before someone "optimises" the wrong one:
+
+- **`risk_cri` is the one column the window makes WORSE** (242 ms corpus →
+  266 ms windowed at the SQL layer). It is `viewOnly` — a LEFT JOIN to
+  `contract_risk_cache` — so the sort cannot ride a base-table index and the
+  extra date predicate only adds work. Sorting `risk_grade` instead does not
+  help; both come through the same join.
+- **Do not apply the `OFFSET 0` search fence here.** The known trap
+  (search + ORDER BY + LIMIT seq-scans, fixed by an OFFSET-0 subquery) is a
+  *global-browser* shape. Under the settlement semi-join the naive form plans at
+  **7.6 ms** and the fenced form at **249 ms** — the fence is 33× worse. The
+  engine already emits the fast shape; measure before importing that workaround.
+
 The existing detail function benefits from the window too —
 `procurement_settlement_detail('68134')` runs **283 ms** unwindowed vs **128 ms**
 for the ns window.
@@ -230,6 +260,53 @@ The `from`/`to` params already exist and need no signature change at all.
 
 Projected result: header + buyers payload drops from **87 KB → ~40 KB** for
 София (and less again under a non-`all` scope), and the tiles drop to **~3 KB**.
+
+### 2.3 Reuse — what to share rather than copy
+
+This page is the **third** contracts browser. `CompanyContractsDbScreen` (487
+lines) and `ContractsBrowserDbScreen` (498 lines) already share fifteen imports —
+every *component* is shared (`ContractsAnalysisStrip`, `ContractsAggregatesFooter`,
+`ProcedureBucketSelect`, `RiskGradeFilter`, `SingleBidderToggle`, `RiskBadges`,
+`ContractAmount`, `DbDataTable`, `useContractsAnalytics`,
+`useUrlProcurementFilters`, `contractRiskMask`). What is duplicated is the
+**wiring**, and the biggest block is the column array:
+
+| Column ids | Company | Global | Settlement needs |
+|---|---|---|---|
+| `date`, `title`, `amount_eur`, `procedure`, `number_of_tenderers`, `consortium_full_eur`, `risk_cri` | ✓ | ✓ | ✓ |
+| `awarder_name` / `contractor_name` | one, swapped by `side` | both | **both** |
+| `source` | — | ✓ | — |
+
+The global browser's set is a strict superset of the company one. **Extract a
+shared `contractColumns({ show, lang, t })` factory** and have all three screens
+call it, rather than writing the array a third time — otherwise the next change
+to the consortium column or the risk cell has to be made in three places, which
+is exactly the drift `AwarderListSection`'s header documents for awarder lists.
+Do the extraction as part of step 5; it is a refactor of two working screens, so
+it wants its own commit ahead of the new one.
+
+**Route every `/awarder/:eik` link through `AwarderLink`.** The buyers table
+currently hand-rolls `<Link to={`/awarder/${a.eik}`}>`
+(ProcurementSettlementDetailScreen.tsx:216). `AwarderLink` exists specifically
+because such links dropped the scope carry and "rendered an empty page" — its
+header says so. Today that is only a convention violation; **once §3.1 makes this
+page scope-aware it becomes a live bug**, since every buyer link would silently
+reset the reader's window.
+
+**The same applies in the other direction, and it is wider than this page.** Five
+call sites hand-roll `/procurement/settlement/:ekatte`:
+`ProcurementWatchlistScreen.tsx:60`, `SettlementProcurementTile.tsx:33,106`,
+`PlaceSeatLine.tsx:76`, `MyAreaProcurementTile.tsx:43` — plus the by-settlement
+list (§3.1). Once the destination honours `?pscope`, each one enters at the
+default scope and drops whatever the reader had. Add a `useSettlementHref` /
+`SettlementLink` sibling to `useAwarderHref` / `AwarderLink` and convert all six,
+rather than patching the one link this plan happens to touch.
+
+**`AwarderListSection` is NOT the component for the buyers table.** It looks like
+a fit and is not: its `roster` variant carries name + badge + note + EIK and has
+no numeric columns, while the buyers table is a *ranked* table (€1.3 bn, 5 084
+contracts, sorted by spend). Keep the bespoke table; take only `AwarderLink` from
+that neighbourhood.
 
 ---
 
@@ -325,12 +402,18 @@ beyond the two the company page already makes:
 
 - **Обща стойност** (Σ amount_eur over the filtered set)
 - **Договори** (count)
-- **Възложители** — the settlement-specific card. `DbDataTable` aggregates only
-  do `count`/`sum`, so either take it from the detail payload or add a
-  `countDistinct` aggregate to the registry. Measured at 25–45 ms; **recommend
-  adding it** — otherwise the buyers count is the only card that ignores both the
-  filters and the scope, which is precisely the mismatch this page is being
-  rebuilt to remove.
+- **Възложители** — the settlement-specific card. **Take it from the detail
+  payload; do not add a `countDistinct` aggregate.** The earlier draft
+  recommended the opposite, before checking: the engine has *no* distinct
+  aggregate anywhere in the registry, and the one place that needed a distinct
+  count (`mp_cars`, "a distinct-MP count over these rows, never `count`",
+  db_table.js:945) routed the question to a different tile rather than add one.
+  Since §2.2 makes the detail payload window-scoped, its `awarders.length` is
+  **scope-reactive for free** — which was the actual complaint. It remains
+  filter-inert (it ignores CPV/procedure/grade). Accept that, label the card so
+  it reads as "buyers in this settlement" rather than "buyers matching your
+  filters", and add the engine surface only if the filter-reactive version is
+  genuinely wanted (measured at 25–45 ms if so).
 - **1 оферта %** and **Пряко възлагане %** (facet-derived)
 - **Вид процедура** clickable mix bar (`ProcedureMixBar`)
 
@@ -341,7 +424,8 @@ beyond the two the company page already makes:
 3. KPI strip (§3.3) — replaces the three static cards.
 4. **Възложители** — the existing buyers table, kept: it is what makes this page
    different from a filtered global browser. Collapse to the top 10 with a
-   "покажи всички (327)" toggle so София stops rendering 327 rows on mount.
+   "покажи всички (327)" toggle so София stops rendering 327 rows on mount, and
+   route its rows through `AwarderLink` (§2.3).
 5. *(optional)* By-year bar from `byYear` — already fetched, never drawn. Under a
    `y:<year>` scope it degenerates to one bar; hide it there.
 6. **`DbDataTable`** over `contracts`, `fixedFilters: [{tag: contract},
@@ -353,17 +437,25 @@ beyond the two the company page already makes:
 
 Both entity sides, since a settlement spans many buyers:
 
+From the shared factory of §2.3 — `show: [date, awarder_name, contractor_name,
+title, amount_eur, procedure, number_of_tenderers, consortium_full_eur,
+risk_cri]`, i.e. the global browser's set without `source`:
+
 | Column | Sortable | Notes |
 |---|---|---|
 | Подписан | via `date` | `dateSigned ?? date` |
-| Възложител | ✓ | → `/awarder/:eik` |
-| Изпълнител | ✓ | → `/company/:eik` |
+| Възложител | ✓ (254 ms) | `AwarderLink`, **not** a raw `<Link>` (§2.3) |
+| Изпълнител | ✓ (254 ms) | → `/company/:eik` |
 | Предмет | — | → `/procurement/contract/:key`, 2-line clamp |
 | Стойност | ✓ | `ContractAmount` |
 | Процедура | — | bucketed chip |
 | Оферти | ✓ | `number_of_tenderers` |
 | Обединение | — | `consortiumFullEur`, `hidden lg:` |
-| Оценка (A–F) | ✓ | `risk_grade` badge — see §3.6 |
+| Оценка (A–F) | ✓ (169 ms) | `risk_grade` badge + mask chips — see §3.6 |
+
+Sort timings are the measured worst case (§1.4). All three are `viewOnly` or
+unindexed under this scope; none regresses against today, and none is worth an
+index until someone shows the header actually gets clicked.
 
 ### 3.6 Risk — **superseded: full chips, still zero bytes**
 
@@ -416,21 +508,29 @@ that half of the original decision stands.
 | # | Step | Files |
 |---|---|---|
 | 1 | `semijoin` filter mode + `contracts.awarder_ekatte` registry entry + `db_table.test.js` coverage | `functions/db_table.js`, `functions/db_table.test.js` |
-| 2 | `countDistinct` aggregate for the buyers KPI (§3.3) | `functions/db_table.js` |
+| 2 | ~~`countDistinct` aggregate~~ — **dropped by the reuse audit** (§3.3): the buyers KPI comes from the window-scoped detail payload, no new engine surface | — |
+| 2a | Extract the shared `contractColumns({show, lang, t})` factory; switch `CompanyContractsDbScreen` + `ContractsBrowserDbScreen` onto it (§2.3). Own commit, ahead of the new screen | `src/screens/components/procurement/`, both existing screens |
+| 2b | Add `useSettlementHref` / `SettlementLink` beside `useAwarderHref` / `AwarderLink`; convert the six hand-rolled `/procurement/settlement/:ekatte` call sites (§2.3) — this is what keeps `?pscope` alive on entry from the watchlist, My-Area, place pages and the tiles | `ProcurementWatchlistScreen.tsx:60`, `SettlementProcurementTile.tsx:33,106`, `PlaceSeatLine.tsx:76`, `MyAreaProcurementTile.tsx:43`, `ProcurementBySettlementScreen.tsx:217` |
 | 3 | Scope-aware `useSettlementProcurement` — pass `from`/`to`, put the scope key in the React Query key; explicit corpus scope at the two tile call sites | `useSettlementProcurement.tsx`, `MyAreaProcurementTile.tsx`, `SettlementProcurementTile.tsx` |
-| 4 | Carry `?pscope` through the by-settlement drill-down (`useScopedHref`) | `ProcurementBySettlementScreen.tsx:217` |
-| 5 | New `ProcurementSettlementContractsSection` — `DbDataTable` + filters + analysis strip, bounded by `useScopeWindow`; risk via `contractRiskFromMasks` + `RiskBadges contractKey` (§3.6) | `src/screens/procurement/` |
-| 6 | Rewrite `ProcurementSettlementDetailScreen` around it: `ScopeControl` under the existing two-level breadcrumb (**not** `ProcurementSectionHeader`, §3.1), collapsed buyers table | `ProcurementSettlementDetailScreen.tsx` |
+| 4 | ~~Carry `?pscope` through the by-settlement drill-down~~ — **folded into 2b**, which fixes all six entry points rather than one |
+| 5 | New `ProcurementSettlementContractsSection` — `DbDataTable` + the 2a factory + filters + analysis strip, bounded by `useScopeWindow`; risk via `contractRiskFromMasks` + `RiskBadges contractKey` (§3.6) | `src/screens/procurement/` |
+| 6 | Rewrite `ProcurementSettlementDetailScreen` around it: `ScopeControl` under the existing two-level breadcrumb (**not** `ProcurementSectionHeader`, §3.1), buyers table collapsed to 10 and on `AwarderLink` | `ProcurementSettlementDetailScreen.tsx` |
 | 7 | Slim the detail payload (§2.2 — route-level flag, **not** a new SQL signature); keep the three fields the prerender reads | `functions/db_routes.js`, `useSettlementProcurement.tsx` |
 | 8 | Prerender copy: state the static body is full-corpus (§3.1) | `scripts/prerender/bodyBuilders.ts:1323` |
 | 9 | PG regression test: the semi-join + window returns the same count/Σ as `procurement_settlement_detail(ekatte, from, to)` across a sample of settlements and all three scope kinds | `scripts/db/tests/*.data.test.ts` |
 | 10 | Component test: scope + filter changes produce the expected request shape; risk cell populated on first paint (no `—`-then-chips flip — payload-diet T5's assertion, extended to this route) | co-located `*.test.tsx` |
 | 11 | Re-measure §1.1 and record the delta in this file | — |
 
-Steps 1–2 are backend-only and independently shippable. 3–4 make the page
-scope-aware and can land before the table exists (they are a visible fix on their
-own — the drill-down stops dropping the scope). 5–6 are the main change; 7–8 the
-payload/SEO cleanup; 9–11 the gates.
+Step 1 is backend-only and independently shippable. 2a and 2b are pure refactors
+of working code and should land first, each in its own commit — 2b is a visible
+fix on its own (six entry points stop dropping the reader's scope), and doing it
+before step 3 means the scope-aware page never ships with links that defeat it.
+5–6 are the main change; 7–8 the payload/SEO cleanup; 9–11 the gates.
+
+**Performance acceptance:** re-measure the §1.4 interaction envelope after step 6
+— default sort, `amount_eur`, `contractor_name`, `risk_cri`, and a free-text
+search — not just first paint. The budget is "no interaction regresses against
+the 6.6 s blob", and the number to watch is the ~290 ms search.
 
 ---
 
