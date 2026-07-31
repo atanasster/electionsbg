@@ -519,14 +519,15 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
-  // The PER-SCOPE precomputes (119, 122, 123). They are created by
+  // The PER-SCOPE precomputes (119, 122, 123, 124). They are created by
   // db:load:procurement-scopes:pg, which runs later in db:refresh because they read
   // place_dim (117) and procurement_scopes (118), both loaded after this script. Refreshed
   // here too, so a STANDALONE contracts reload cannot leave /procurement/by-settlement,
-  // /procurement/contractors or the settlement pages serving the previous corpus while
-  // every other view has moved on. Inside db:refresh this build is redundant — the scopes
-  // loader rebuilds all of them a few steps later, after the seats/place loaders — and that
-  // is the accepted price of the standalone case being correct.
+  // /procurement/contractors, the settlement pages or the six /procurement dashboard routes
+  // (124) serving the previous corpus while every other view has moved on. Inside db:refresh
+  // this build is redundant — the scopes loader rebuilds all of them a few steps later, after
+  // the seats/place loaders — and that is the accepted price of the standalone case being
+  // correct.
   //
   // The list, its order and the refresh semantics live in lib/scopedMatviews, not here: a
   // second copy is how a future migration ends up in one list and not the other.

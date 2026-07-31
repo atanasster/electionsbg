@@ -34,7 +34,12 @@ import type { LucideIcon } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
 import { useContractRiskDetail } from "@/data/procurement/useContractRiskDetail";
 import { formatEurCompact } from "@/lib/currency";
-import { formatShare, criColor } from "@/lib/riskGrade";
+import {
+  formatShare,
+  criColor,
+  GRADE_TONE,
+  type RiskGradeLetter,
+} from "@/lib/riskGrade";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 import type {
@@ -182,6 +187,13 @@ type Props = {
   contractKey?: string | null;
   /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
+  /** The server's A–F contract grade (`risk_grade`, migration 112) — the SAME
+   *  letter the riskiest-contracts board and the `?grade=` browser filter use.
+   *  Passed in rather than derived: the masks carry the fired COUNT the grade is
+   *  banded on, but re-banding it here would be a second implementation of
+   *  `contract_risk_grade_letter()` that could drift from the column the filter
+   *  queries. `full` variant only; omit (or null on an unscored row) to hide. */
+  grade?: string | null;
   /** Suppress the weak-competition (bid-count) chip — used where the bid count
    *  has its own dedicated table column, so the signals cell isn't redundant. */
   hideWeakCompetition?: boolean;
@@ -247,6 +259,7 @@ export const RiskBadges: FC<Props> = ({
   result,
   contractKey,
   variant = "chips",
+  grade,
   hideWeakCompetition = false,
 }) => {
   const { t, i18n } = useTranslation();
@@ -807,6 +820,22 @@ export const RiskBadges: FC<Props> = ({
     .filter((c) => c.available)
     .sort((a, b) => cellRank(a) - cellRank(b));
 
+  // Validate rather than cast: `grade` is a free text column server-side, and an
+  // unrecognised letter would index GRADE_TONE to undefined and throw on .chip.
+  const gradeLetter: RiskGradeLetter | null =
+    grade && grade in GRADE_TONE ? (grade as RiskGradeLetter) : null;
+  // Names the band so the letter is self-explanatory next to the count it is
+  // banded on ("F — 5 or more of the applicable checks fired").
+  const gradeHint = gradeLetter
+    ? t("risk_cri_grade_hint", {
+        grade: gradeLetter,
+        fired: firedCount,
+        available: availableCount,
+        defaultValue:
+          "Risk grade {{grade}} — {{fired}} of {{available}} applicable checks fired. The grade bands the number of fired checks: A none, B 1, C 2, D 3, E 4, F 5 or more.",
+      })
+    : "";
+
   return (
     // The full variant does NOT render `chips`, so it cannot inherit that
     // container's arming — without these the contract detail page passes a
@@ -829,6 +858,21 @@ export const RiskBadges: FC<Props> = ({
           className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
           aria-hidden
         />
+        {/* The A–F grade, same letter and palette as the riskiest-contracts
+            board that links here and the `?grade=` filter on the browsers — the
+            detail page was the one surface that dropped it, so a contract listed
+            as F showed only "6 of 10" once opened. A plain title/aria-label, not
+            a <Tooltip>: this sits inside the ledger's toggle button, and the
+            tooltip's touch branch renders its own role="button". */}
+        {gradeLetter ? (
+          <span
+            title={gradeHint}
+            aria-label={gradeHint}
+            className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded text-sm font-bold ${GRADE_TONE[gradeLetter].chip}`}
+          >
+            {gradeLetter}
+          </span>
+        ) : null}
         {hasFlag ? (
           <>
             <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">

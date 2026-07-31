@@ -52,6 +52,14 @@ const SETTLEMENT_PAYLOADS = path.join(
   ROOT,
   "scripts/db/schema/pg/123_procurement_settlement_payloads.sql",
 );
+// The per-scope DASHBOARD payloads (124) — the six /api/db/procurement-* aggregates. Same
+// shape again: reads procurement_scopes (118) + contracts + awarder_seats. Applied LAST of
+// the four because it is the only one whose functions the OTHER files do not touch, so its
+// position is free and last keeps the three above undisturbed.
+const DASHBOARD_PAYLOADS = path.join(
+  ROOT,
+  "scripts/db/schema/pg/124_procurement_payloads.sql",
+);
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
 
 export const readScopeWindows = (nowYear: number): ScopeWindow[] => {
@@ -95,6 +103,7 @@ const main = async (): Promise<void> => {
   await exec(readFileSync(SCOPED, "utf8"));
   await exec(readFileSync(CONTRACTORS, "utf8"));
   await exec(readFileSync(SETTLEMENT_PAYLOADS, "utf8"));
+  await exec(readFileSync(DASHBOARD_PAYLOADS, "utf8"));
   // Every one of those files DROPs and recreates its matviews WITH NO DATA, so on THIS
   // path the refresh always takes the plain form and says so — that is the normal state
   // here, unlike at the other call sites (see lib/scopedMatviews).

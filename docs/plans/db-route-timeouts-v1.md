@@ -453,9 +453,17 @@ adding 124 would have aborted `db:load:pg` on any database that had it. Those fo
 same situation. Note the fix is *not* to drop 124 in those files: `load_pg` applies them but
 not 124, so that would wipe the precompute on every contracts load.
 
-Expect the scopes loader to go from ~40 s to ~53 s locally. **Cloud SQL is unmeasured and
-will be materially slower** — 123's 9.3 s local build took 75 s on Cloud SQL, a factor of 8.
-Budget for minutes, and record the real number on the first run.
+Measured after wiring: the scopes loader goes from ~40 s to **46.3 s** locally, refreshing 6/6.
+**Cloud SQL is unmeasured and will be materially slower** — 123's 9.3 s local build took 75 s
+on Cloud SQL, a factor of 8. Budget for minutes, and record the real number on the first run.
+
+`refreshScopedPrecomputes` selection, verified against the wired list:
+
+| Input reloaded | Matviews refreshed |
+|---|---|
+| `contracts` | all six, incl. `procurement_payloads` |
+| `awarder_seats` | the three settlement-keyed **+ `procurement_payloads`** (the `concentration` `oblast`) |
+| `place_dim` | the three settlement-keyed only — 124 correctly excluded |
 
 ---
 

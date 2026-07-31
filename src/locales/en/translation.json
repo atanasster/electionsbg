@@ -3360,6 +3360,7 @@
   "risk_cri_of": "of",
   "risk_cri_clear": "No flags fired",
   "risk_cri_checks_passed": "automated checks, none fired",
+  "risk_cri_grade_hint": "Risk grade {{grade}} — {{fired}} of {{available}} applicable checks fired. The grade bands the number of fired checks: A none, B 1, C 2, D 3, E 4, F 5 or more.",
   "risk_flag_debarred_hint": "The contractor appears on the АОП register of parties barred from public procurement by a standing decision.",
   "risk_flag_concentration_hint": "A single contractor takes an unusually large share of the buyer's total spend — a signal of dependence or preference.",
   "risk_explain_intro": "Automated risk indicators — descriptive, not a verdict. Each compares this contract against the market norm.",

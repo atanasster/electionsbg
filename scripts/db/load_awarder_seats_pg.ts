@@ -101,8 +101,12 @@ export const loadAwarderSeatsPg = async (): Promise<{ rows: number }> => {
   // silently re-opens exactly that gap.
   //
   // Only the awarder_seats-derived matviews: 122 has no settlement dimension and cannot be
-  // moved by this table. Redundant inside db:refresh (the scopes loader rebuilds everything
-  // a few steps later); the standalone reload is the case this exists for.
+  // moved by this table. 124 IS in that set, and for a reason that is easy to miss — it has no
+  // settlement dimension either, but one of the six aggregates it stores
+  // (procurement_concentration) resolves its `oblast` from this table, so a standalone reload
+  // would otherwise leave /procurement/concentration on the previous attribution. Redundant
+  // inside db:refresh (the scopes loader rebuilds everything a few steps later); the
+  // standalone reload is the case this exists for.
   try {
     await refreshScopedPrecomputes(["awarder_seats"]);
   } catch (err) {
