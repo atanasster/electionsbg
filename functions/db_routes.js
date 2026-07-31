@@ -132,6 +132,85 @@ const missingMigration = (sentinel) => (e) =>
     ? [{ r: sentinel }]
     : Promise.reject(e);
 
+// ── The per-scope procurement dashboard payloads (migration 124) ──────────────
+//
+// Six routes — procurement-{overview,flow,rankings,concentration,sectors,benchmarks} — used
+// to run a live whole-corpus GROUP BY per request. Three of them exceeded the 10 s
+// statement_timeout and returned 500 on prod (10.010 s on a windowed overview, 10.006 s on
+// flow); the other three touch as many or more pages and had simply not been unlucky yet.
+// 124 stores all 6 kinds x 30 scopes = 180 rows, so this is a point lookup instead.
+//
+// THE (from,to) → scope_key MAPPING MUST BE NULL-SAFE. Two of the thirty scopes carry a NULL
+// bound and they are the two that matter: `all` (both NULL — what the AI tools send, and what
+// /api/db/procurement-flow 500'd on) and the NEWEST parliament (open-ended upper bound, the
+// page default). The client omits the parameter entirely when a bound is null, so both arrive
+// here as NULL — and `date_from = NULL` is never true. With `=` this whole change would serve
+// precomputed rows only for the 16 `y:` windows and the 12 CLOSED `ns:` ones, leaving exactly
+// the two requests that time out on the live path, while a spot check of any single year
+// passed. Same hazard, same fix, as the settlement route above.
+//
+// Simpler than that route's probe in one respect, deliberately: every (kind, scope) pair has a
+// non-NULL payload by construction — verified 180/180 — so a present row with a NULL payload
+// is unambiguously "not built" and there is no legitimate-empty case to tell it apart from.
+// 123 needed the extra `built` EXISTS because most of its (scope, ekatte) pairs are legitimately
+// absent.
+const scopedPayload = async (dbRows, kind, from, to) => {
+  try {
+    // ORDER BY + LIMIT 1 for determinism only — scope windows are unique.
+    const hit = await dbRows(
+      `SELECT sc.scope_key, p.payload AS r
+         FROM procurement_scopes sc
+         LEFT JOIN procurement_payloads p
+           ON p.kind = $1 AND p.scope_key = sc.scope_key
+        WHERE sc.date_from IS NOT DISTINCT FROM $2
+          AND sc.date_to   IS NOT DISTINCT FROM $3
+        ORDER BY sc.sort_ord
+        LIMIT 1`,
+      [kind, from, to],
+    );
+    if (!hit.length) {
+      // Keyed on the KIND, never on the window: from/to are raw query parameters and keying
+      // on them would let any caller grow loggedMisses and this log without bound. The first
+      // such window is named in the message, which is all the diagnosis needs.
+      logMissOnce(
+        `pp:no-scope:${kind}`,
+        `${kind}: [${from} , ${to}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
+      );
+    } else if (!hit[0].r) {
+      logMissOnce(
+        `pp:not-built:${kind}:${hit[0].scope_key}`,
+        `${kind}: procurement_payloads holds no payload for scope ${hit[0].scope_key} — serving live. Run db:load:procurement-scopes:pg.`,
+      );
+    }
+    return hit[0]?.r ?? null;
+  } catch (e) {
+    // NARROW, like the settlement route. Degrade only where the live path is genuinely the
+    // better answer: the matview absent (42P01, a database that has not run the loader),
+    // NOT POPULATED (55000), unreadable (42501, default privileges never applied), or locked
+    // by a plain REFRESH (55P03 lock_not_available / 57014 query_canceled). A pool or
+    // connection error is NOT one of these — retrying it as a second, much heavier query just
+    // doubles the load on a saturated pool, so it rethrows.
+    //
+    // 55000 IS THE ONE THIS ROUTE MOST NEEDS and the easiest to omit. Reading a matview created
+    // WITH NO DATA does not return zero rows — it ERRORS with
+    // `object_not_in_prerequisite_state`. That is the state of any database where the DDL was
+    // applied and the REFRESH never ran: precisely the first-deploy case, and the one the
+    // "ships in any order" property is about. Without 55000 here that case is a 500, not a
+    // fallback — which is the opposite of the design.
+    //
+    // Deliberately UNLIKE cpv_catalog, where degrading yields a WRONG answer (an empty picker)
+    // rather than a slow one, and so must fail loudly instead. Here it yields the RIGHT answer
+    // at today's speed, which is why these six routes can ship in any order, to any database.
+    if (!["42P01", "55000", "42501", "55P03", "57014"].includes(e?.code))
+        throw e;
+    logMissOnce(
+      `pp:read-failed:${kind}:${e.code}`,
+      `${kind}: precompute read failed (${e.code}) — serving live.`,
+    );
+    return null;
+  }
+};
+
 // Resolve the person slug the mp_assets()/mp_declarations() fns key on. The person screens
 // have a slug; the candidate screens (persons-pg-retirement-v1 T2.1b) have only the mp id, so
 // accept `?id=` and map it to the slug via person_role (source='mp', ref=<mp id>). A ?slug=
@@ -886,14 +965,17 @@ const DB_ROUTES = {
     } catch (e) {
       // NARROW, like missingMigrationRows above. Degrade only for the states where the live
       // path is genuinely the better answer: the matview absent (42P01, a database that has
-      // not run the loader), unreadable (42501, default privileges never applied), or locked
+      // not run the loader), NOT POPULATED (55000, DDL applied but never REFRESHed — reading a
+      // matview created WITH NO DATA raises object_not_in_prerequisite_state, it does NOT
+      // return zero rows), unreadable (42501, default privileges never applied), or locked
       // by a plain REFRESH (55P03 lock_not_available / 57014 query_canceled). A pool or
       // connection error is NOT one of these — retrying it as a second, heavier query just
       // doubles the load on a saturated pool, so it rethrows.
       //
       // Deliberately UNLIKE cpv_catalog, where degrading yields a WRONG answer (an empty
       // picker) rather than a slow one, and so must fail loudly instead.
-      if (!["42P01", "42501", "55P03", "57014"].includes(e?.code)) throw e;
+      if (!["42P01", "55000", "42501", "55P03", "57014"].includes(e?.code))
+        throw e;
       logMissOnce(
         `psp:read-failed:${e.code}`,
         `procurement-settlement: precompute read failed (${e.code}) — serving live.`,
@@ -931,28 +1013,51 @@ const DB_ROUTES = {
     return { body: { ...body, awarders: awarders.slice(0, limit) } };
   },
   // Money-flow Sankey (awarder → politician-tied contractor → mp|official).
+  // Served from the per-scope precompute (124) — see scopedPayload. This is the route that
+  // 500'd with NO window at all: procurement_flow(NULL,NULL) touches ~393,851 buffers (3.2 GB)
+  // against a db-g1-small's 1.7 GB of RAM, so it can never be cache-resident there.
   "procurement-flow": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const hit = await scopedPayload(dbRows, "flow", from, to);
+    if (hit) return { body: hit };
     const rows = await dbRows("SELECT procurement_flow($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
   // Single-supplier concentration cases (buyer→supplier ≥30%, buyer ≥€100k).
+  // Served from the per-scope precompute (124). Heaviest of the six live (411,245 buffers on
+  // the full corpus) and it had NO cache at all before — it simply had not been unlucky yet.
   "procurement-concentration": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const hit = await scopedPayload(dbRows, "concentration", from, to);
+    if (hit) return { body: hit };
     const rows = await dbRows("SELECT procurement_concentration($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
   // Procurement dashboard overview — totals + treemaps + connected-people lists,
   // scoped to a parliament window [from, to) or the full corpus (both NULL).
+  //
+  // Served from the per-scope precompute (124), which covers ALL thirty scopes. The windowed
+  // case is what returned 500 on prod (10.010 s on ?from=2023-04-02&to=2024-06-09, which is
+  // exactly the ns:2023_04_02 scope): only `all` had a cache, and every parliament window fell
+  // through to the live aggregate.
+  //
+  // The `all`-only cache matview (025) is still read below, as a SECOND fallback ahead of the
+  // live function. It is redundant once 124 is populated, and retiring it is deliberately a
+  // separate, later step: dropping this read before 124 is loaded on Cloud SQL would put the
+  // 198,735-buffer full-corpus aggregate back on the live path for the length of a deploy.
   "procurement-overview": async (dbRows, q) => {
     const from = orNull(q, "from");
     const to = orNull(q, "to");
-    // Full-corpus (all-years) scope → the load-time cache matview (025); the
-    // live aggregate is ~334ms. Windowed scopes fall through to the function.
+    const hit = await scopedPayload(dbRows, "overview", from, to);
+    if (hit) return { body: hit };
     if (!from && !to) {
       try {
         const c = await dbRows("SELECT r FROM procurement_overview_cache", []);
@@ -968,31 +1073,43 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? null };
   },
   // National CPV-division totals ("what does the state buy"), window-scoped
-  // [from, to) or full corpus.
+  // [from, to) or full corpus. Served from the per-scope precompute (124); no cache before.
   "procurement-sectors": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const hit = await scopedPayload(dbRows, "sectors", from, to);
+    if (hit) return { body: hit };
     const rows = await dbRows("SELECT procurement_sectors($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
   // EU Single Market Scoreboard competition indicators (single-bidder share,
-  // no-call-for-bids share), window-scoped [from, to) or full corpus.
+  // no-call-for-bids share), window-scoped [from, to) or full corpus. Served from the
+  // per-scope precompute (124); no cache before.
   "procurement-benchmarks": async (dbRows, q) => {
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const hit = await scopedPayload(dbRows, "benchmarks", from, to);
+    if (hit) return { body: hit };
     const rows = await dbRows("SELECT procurement_benchmarks($1, $2) AS r", [
-      orNull(q, "from"),
-      orNull(q, "to"),
+      from,
+      to,
     ]);
     return { body: rows[0]?.r ?? null };
   },
   // Full "see all" rankings (top contractors / awarders / MPs / officials),
   // window-scoped [from, to) or full corpus — the big-list sibling of
   // procurement-overview.
+  // Served from the per-scope precompute (124). Same two-fallback shape as
+  // procurement-overview: the `all`-only cache (031) stays as a second fallback until it is
+  // retired in its own step, for the same deploy-window reason.
   "procurement-rankings": async (dbRows, q) => {
     const from = orNull(q, "from");
     const to = orNull(q, "to");
-    // Full-corpus scope (all-years + the AI fiscal tools) → cache matview (031);
-    // the live aggregate is ~530ms.
+    const hit = await scopedPayload(dbRows, "rankings", from, to);
+    if (hit) return { body: hit };
     if (!from && !to) {
       try {
         const c = await dbRows("SELECT r FROM procurement_rankings_cache", []);

@@ -35,8 +35,25 @@ describe("sigma entity URLs", () => {
     expect(sigmaCompanyUrl("101611650")).toBe(
       "https://sigma.midt.bg/companies/101611650",
     );
+  });
+
+  // A contract link is a FILTERED LIST, never `/contracts/<id>` — that path 404s
+  // for every contract, because SIGMA keys its contract pages by a composite slug
+  // carrying its own row id (see the note on sigmaContractUrl).
+  it("links a contract through the ?q= filter, not a path segment", () => {
     expect(sigmaContractUrl("T78923")).toBe(
-      "https://sigma.midt.bg/contracts/T78923",
+      "https://sigma.midt.bg/contracts?q=T78923",
+    );
+  });
+
+  it("carries a УНП through the query string, escaped", () => {
+    expect(sigmaContractUrl("00042-2025-0016")).toBe(
+      "https://sigma.midt.bg/contracts?q=00042-2025-0016",
+    );
+    // The id is escaped, so a value with a query/path separator can neither
+    // truncate the parameter nor open a second one.
+    expect(sigmaContractUrl("a&sort=b")).toBe(
+      "https://sigma.midt.bg/contracts?q=a%26sort%3Db",
     );
   });
 });

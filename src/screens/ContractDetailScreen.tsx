@@ -476,7 +476,10 @@ export const ContractDetailScreen: FC = () => {
                       rel="noreferrer"
                       className="text-primary hover:underline inline-flex items-center gap-0.5"
                     >
-                      Виж в SIGMA <ExternalLink className="h-3 w-3" />
+                      {/* "Търси", not "Виж": SIGMA has no per-contract path we
+                          can build, so this opens their contracts list filtered
+                          to this УНП/T-id — one row usually, all lots for a УНП. */}
+                      Търси в SIGMA <ExternalLink className="h-3 w-3" />
                     </a>
                   </p>
                 );
