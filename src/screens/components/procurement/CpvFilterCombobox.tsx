@@ -61,11 +61,20 @@ export const CpvFilterCombobox: FC<{
   // in behind the "loading" note below.
   const [armed, setArmed] = useState(false);
   // The one case the closed control cannot render without the catalogue: a
-  // deep-linked FINE code (`?cpv=45231300`), whose name lives only there. Facet
-  // divisions are always exactly 2 digits, so this never fires for them — and on
-  // /procurement/contractors, where ?cpv is normalised to a division on write, it
-  // never fires at all.
-  const needsCodeName = !!value && value !== CPV_ALL && value.length > 2;
+  // deep-linked FULL code (`?cpv=45231300`), whose name lives only there.
+  //
+  // EXACTLY 8 digits, because that is exactly the set of values the catalogue can
+  // name — all 3,606 of its keys are 8-digit codes (measured). `?cpv` also carries
+  // comma-sets (`45,50`) and shorter prefixes (`451`, and anything a reader picks
+  // via the "Филтрирай по CPV код <q>" row below), and `catalogByCode.get()` misses
+  // on every one of them: the trigger falls through to a bare `CPV <value>` whether
+  // or not the catalogue arrived. Any looser test here pays the eager fetch this
+  // gate exists to avoid and gets nothing back. Divisions are 2 digits and CPV_ALL
+  // is `__all__`, so both fail this test without needing their own guard.
+  //
+  // If a future corpus ever yields a key shorter than 8, its trigger reads the bare
+  // `CPV <code>` until the picker is opened — visible, and not a wrong label.
+  const needsCodeName = /^\d{8}$/.test(value);
 
   const { data, isError: catalogError } = useCpvCatalog(armed || needsCodeName);
   const catalog = useMemo(() => data ?? [], [data]);
@@ -161,19 +170,27 @@ export const CpvFilterCombobox: FC<{
               and now that the fetch starts on open rather than on mount, the same
               shortened list is also the normal first ~200 ms. The two states get
               different words so "still arriving" never reads as "broken". */}
-          {catalogError ? (
-            <div className="border-b px-3 py-2 text-[11px] text-amber-700 dark:text-amber-400">
-              {bg
-                ? "Списъкът с CPV кодове не се зареди — търсенето е само по раздели."
-                : "The CPV code list failed to load — search is limited to divisions."}
-            </div>
-          ) : catalogPending ? (
-            <div className="border-b px-3 py-2 text-[11px] text-muted-foreground">
-              {bg
-                ? "Зарежда се списъкът с CPV кодове…"
-                : "Loading the CPV code list…"}
-            </div>
-          ) : null}
+          {/* A polite live region, so the transition out of "loading" — into a
+              full list or into the error — is SPOKEN. Both notes are otherwise
+              visual-only, and to a screen-reader user the two failure shapes are
+              identical to a healthy one: the list is simply short. The wrapper is
+              always mounted (an aria-live element inserted already-populated is
+              not reliably announced; it has to be there when the text changes). */}
+          <div aria-live="polite">
+            {catalogError ? (
+              <div className="border-b px-3 py-2 text-[11px] text-amber-700 dark:text-amber-400">
+                {bg
+                  ? "Списъкът с CPV кодове не се зареди — търсенето е само по раздели."
+                  : "The CPV code list failed to load — search is limited to divisions."}
+              </div>
+            ) : catalogPending ? (
+              <div className="border-b px-3 py-2 text-[11px] text-muted-foreground">
+                {bg
+                  ? "Зарежда се списъкът с CPV кодове…"
+                  : "Loading the CPV code list…"}
+              </div>
+            ) : null}
+          </div>
           <CommandList>
             <CommandEmpty>{t("no_results") || "Няма резултати"}</CommandEmpty>
             {items.map((it) => (

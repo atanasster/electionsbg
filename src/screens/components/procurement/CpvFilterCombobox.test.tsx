@@ -14,15 +14,19 @@
 // arms looks identical until somebody searches. Hence a test on the REQUEST, not
 // on the rendering.
 //
-// The three properties, and why each one is here:
+// The four properties, and why each one is here:
 //
 //   1. CLOSED ⇒ NO FETCH. The whole point.
 //   2. OPENED ⇒ FETCHED. A gate that never opens is a broken filter, not a fast
 //      one — searching would silently fall back to the ~40 divisions.
-//   3. A DEEP-LINKED FINE CODE ⇒ FETCHED ON MOUNT. `?cpv=38115100` renders its
-//      name on the closed trigger, and that name exists nowhere else. Without
-//      this exemption the button reads a bare "CPV 38115100" — a filter the
-//      reader cannot identify, on a page they arrived at from a shared link.
+//   3. HOVER ⇒ FETCHED, STILL CLOSED. The arming that makes the lazy version feel
+//      identical to the eager one for a mouse user.
+//   4. A DEEP-LINKED FULL CODE ⇒ FETCHED ON MOUNT, and ONLY a full code.
+//      `?cpv=38115100` renders its name on the closed trigger and that name exists
+//      nowhere else, so it is worth an eager fetch. The same `?cpv` also carries
+//      divisions, prefixes and comma-sets, which the catalogue cannot name at all —
+//      they must NOT trigger it, or the exemption quietly restores the eager fetch
+//      for the shared-link case this component was written for.
 //
 // Fetch is stubbed (vitest.setup.ts makes an unstubbed fetch throw).
 
@@ -114,5 +118,37 @@ describe("CpvFilterCombobox", () => {
     renderCombobox("45");
     await screen.findByRole("combobox");
     expect(catalogCalls()).toHaveLength(0);
+  });
+
+  // `?cpv` is a division / prefix / comma-set, not only a full code — and the
+  // catalogue can name NONE of the latter two: every one of its 3,606 keys is an
+  // 8-digit code, so `catalogByCode.get("45,50")` misses and the trigger reads a
+  // bare "CPV 45,50" whether or not the fetch happened. An exemption looser than
+  // /^\d{8}$/ therefore pays the eager fetch and buys nothing — silently undoing
+  // this component's whole point for the shared-link case it was written for.
+  it.each([
+    ["a comma-joined set", "45,50"],
+    ["a short prefix", "451"],
+  ])(
+    "does not fetch on mount for %s, which it could not name anyway",
+    async (_label, value) => {
+      renderCombobox(value);
+      await screen.findByRole("combobox");
+      expect(catalogCalls()).toHaveLength(0);
+    },
+  );
+
+  it("arms the fetch on hover, before the picker is ever opened", async () => {
+    // The headline UX of the lazy change: the request overlaps a mouse user's
+    // reach, so the list is already there on click. It is one prop, trivially
+    // dropped in a refactor, and losing it degrades every mouse user to the
+    // touch/keyboard "loading note" path with nothing failing.
+    renderCombobox();
+    await userEvent.hover(await screen.findByRole("combobox"));
+    await waitFor(() => expect(catalogCalls()).toHaveLength(1));
+    // …and the popover genuinely never opened. Asserted through the DOM rather
+    // than the input's placeholder: i18n is not initialised in this environment,
+    // so which language that string is in is not something to depend on.
+    expect(document.querySelector("[cmdk-input]")).toBeNull();
   });
 });
