@@ -12,34 +12,67 @@
 // non-verdict footnote as the meters. This is an indicator for review, not a
 // finding of wrongdoing.
 
-import { FC } from "react";
-import { Link } from "react-router-dom";
+import { FC, useMemo } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { realSignedDate } from "@/lib/signedDate";
 import { GRADE_TONE } from "@/lib/riskGrade";
-import { useRiskiestContracts } from "@/data/procurement/useRiskiestContracts";
+import {
+  RISKIEST_GRADES,
+  useRiskiestContracts,
+} from "@/data/procurement/useRiskiestContracts";
 
 export const RISKIEST_CONTRACTS_PREVIEW = 8;
 
 export const RiskiestContractsTile: FC = () => {
   const { t, i18n } = useTranslation();
   const { data } = useRiskiestContracts(RISKIEST_CONTRACTS_PREVIEW);
+  // "See all" opens the contracts browser pre-filtered to the SAME set the tile
+  // previews: ?grade=D,E,F (server-side, migration 112) on top of the current
+  // search string, which carries ?pscope so the destination keeps this window.
+  // The browser sorts by amount rather than by fired count — the risk column is
+  // sortable there — but the row set is identical.
+  const [params] = useSearchParams();
+  const seeAllHref = useMemo(() => {
+    const p = new URLSearchParams(params);
+    p.set("grade", RISKIEST_GRADES.join(","));
+    return { pathname: "/procurement/contracts", search: `?${p.toString()}` };
+  }, [params]);
   if (!data || data.length === 0) return null;
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-sm">
-          <ShieldAlert className="h-4 w-4 text-rose-600" />
-          {t("risk_board_contracts_title") || "Най-рискови договори"}
+        <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-sm">
+          <span className="flex min-w-0 items-center gap-2">
+            <ShieldAlert className="h-4 w-4 text-rose-600" />
+            {t("risk_board_contracts_title") || "Най-рискови договори"}
+          </span>
+          <Link
+            to={seeAllHref}
+            className="shrink-0 text-[10px] font-normal normal-case text-primary hover:underline"
+          >
+            {t("procurement_tile_see_all") || "Виж всички"} →
+          </Link>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
         {data.map((c) => {
           const tone = c.riskGrade ? GRADE_TONE[c.riskGrade] : undefined;
+          // THE DATE ON THE ROW IS `date`, THE COLUMN THE SCOPE FILTERS ON —
+          // deliberately, even though the contract page headlines the signature.
+          // The two differ on 98% of these rows and land in DIFFERENT YEARS on
+          // 13% of them (measured over the 3,199 D/E/F contracts), so a signed
+          // date here would put "2022-07-25" in a board captioned 2024 — a
+          // weaker replay of the very mismatch the scope fix closes. The
+          // signature is not lost: it rides the tooltip when it is genuinely
+          // distinct (realSignedDate — `date_signed` falls back to `date` at
+          // load, see @/lib/signedDate) and the contract page leads with it.
+          const signedTip = realSignedDate(c);
           return (
             <Link
               key={c.key}
@@ -62,12 +95,35 @@ export const RiskiestContractsTile: FC = () => {
                   puts it BESIDE a link, never inside one. The row already carries
                   the grade and the denominator, and links to the contract page
                   where the per-check ledger is authoritative. */}
+              {/* Subject first, then when/who/whom on the sub-line: a flagged
+                  contract is read as "what was bought", and the date says which
+                  window it falls in — the tile is scope-bounded, so a row dated
+                  outside the selected period would be a contradiction, not a
+                  detail. Both lines truncate; the full title is the title attr. */}
               <span className="min-w-0 flex-1">
-                <span className="block truncate text-sm">
-                  {decodeEntities(c.contractorName ?? "—")}
+                <span
+                  className="block truncate text-sm"
+                  title={decodeEntities(c.title ?? "") || undefined}
+                >
+                  {decodeEntities(c.title || c.contractorName || c.key)}
                 </span>
                 <span className="block truncate text-[11px] text-muted-foreground">
+                  {c.date ? (
+                    <span
+                      className="tabular-nums"
+                      title={
+                        signedTip
+                          ? `${t("contract_signed") || "Signed"} ${signedTip}`
+                          : undefined
+                      }
+                    >
+                      {c.date} ·{" "}
+                    </span>
+                  ) : null}
                   {decodeEntities(c.awarderName ?? "")}
+                  {c.contractorName
+                    ? ` → ${decodeEntities(c.contractorName)}`
+                    : ""}
                 </span>
               </span>
               {/* The denominator travels with the grade — a letter alone would

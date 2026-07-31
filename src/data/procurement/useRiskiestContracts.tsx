@@ -1,21 +1,36 @@
 // Top contracts by number of fired risk checks — the contract-grain sibling of
 // useAwarderRiskTop (which ranks BUYERS). Reads the generic /api/db/table
 // engine against the server-side index (contract_risk_cache, migration 112), so
-// the ranking is over the WHOLE corpus rather than a loaded page.
+// the ranking is over the whole SCOPE rather than a loaded page.
 //
 // ⚠️ Orders by `risk_fired`, not `risk_cri`. The CRI divides by a denominator
 // that varies 7..11, so it is only almost monotone in the fired count — a
 // 4-of-11 contract scores 36 and a 3-of-8 scores 38. For a "most-flagged"
 // board that inversion would be visible and wrong, so the count leads and the
 // CRI is only the tiebreak.
+//
+// ⚠️ Bounded by the ?pscope window like every other tile on the dashboard. It
+// used to rank the whole corpus regardless: under the default "this parliament"
+// scope the board showed contracts signed years outside the window it was sitting
+// under, which reads as "these are the riskiest contracts of this parliament".
+// The window is applied on `date`, the same column the contracts browser bounds,
+// so the "see all" destination returns the same set.
 
 import { useQuery } from "@tanstack/react-query";
 import type { RiskGradeLetter } from "@/lib/riskGrade";
 import type { RiskMaskRow } from "@/lib/contractRiskMask";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
+import { fetchTablePage } from "./fetchTablePage";
+
+/** The grades this board ranks — the elevated tail (3+ fired checks, ~0.84% of
+ *  the corpus). Exported so the "see all" link filters the contracts browser to
+ *  exactly the set the tile previews. */
+export const RISKIEST_GRADES: RiskGradeLetter[] = ["D", "E", "F"];
 
 type RiskiestContractRow = {
   key: string;
   date?: string;
+  dateSigned?: string;
   awarderName?: string;
   contractorName?: string;
   title?: string;
@@ -43,31 +58,47 @@ type RiskiestContractRow = {
  */
 export type RiskiestContract = RiskiestContractRow & RiskMaskRow;
 
-const fetchRiskiest = async (limit: number): Promise<RiskiestContract[]> => {
-  const req = {
+// ⚠️ `tag` belongs in filters.columns, NOT in a top-level `fixedFilters` —
+// runDbTable's buildWhere reads req.filters.columns only (fixedFilters is the
+// FACETS endpoint's shape; DbDataTable merges the two client-side before it
+// sends). Sent as fixedFilters it was silently ignored, and 235 contractAmendment
+// rows ranked alongside the contracts.
+const fetchRiskiest = (
+  limit: number,
+  window: { from: string | null; to: string | null; all: boolean },
+): Promise<RiskiestContract[]> =>
+  fetchTablePage<RiskiestContract>({
     resource: "contracts",
-    fixedFilters: [{ id: "tag", value: ["contract"] }],
-    // Only the elevated tail is worth a leaderboard: D and worse is 3+ fired
-    // checks, ~0.84% of the corpus.
-    filters: { columns: [{ id: "risk_grade", value: ["D", "E", "F"] }] },
-    sort: [
-      ["risk_fired", "desc"],
-      ["risk_cri", "desc"],
-    ],
+    page: 0,
     pageSize: limit,
-  };
-  const res = await fetch(
-    `/api/db/table?q=${encodeURIComponent(JSON.stringify(req))}`,
-  );
-  if (!res.ok) throw new Error(`riskiest contracts: ${res.status}`);
-  const json = (await res.json()) as { rows?: RiskiestContract[] };
-  return json.rows ?? [];
-};
+    sort: [
+      { id: "risk_fired", desc: true },
+      { id: "risk_cri", desc: true },
+    ],
+    filters: {
+      columns: [
+        { id: "tag", value: ["contract"] },
+        // Only the elevated tail is worth a leaderboard: D and worse is 3+ fired
+        // checks, ~0.84% of the corpus.
+        { id: "risk_grade", value: RISKIEST_GRADES },
+        ...(!window.all && window.from
+          ? [{ id: "date", min: window.from, max: window.to ?? undefined }]
+          : []),
+      ],
+    },
+  });
 
-export const useRiskiestContracts = (limit = 8) =>
-  useQuery({
-    queryKey: ["riskiest-contracts", limit],
-    queryFn: () => fetchRiskiest(limit),
+export const useRiskiestContracts = (limit = 8) => {
+  const { from, to, all } = useScopeWindow();
+  return useQuery({
+    queryKey: [
+      "riskiest-contracts",
+      limit,
+      all ? "all" : from,
+      all ? "all" : to,
+    ],
+    queryFn: () => fetchRiskiest(limit, { from, to, all }),
     staleTime: Infinity,
     retry: false,
   });
+};
