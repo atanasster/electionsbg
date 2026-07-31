@@ -5,33 +5,33 @@
   "rowSum": {
     "capital": {
       "amount": 255000000,
-      "amountEur": 130379430,
-      "currency": "BGN"
+      "amountEur": 255000000,
+      "currency": "EUR"
     },
     "delegated": {
       "amount": 4351706000,
-      "amountEur": 2224991947,
-      "currency": "BGN"
+      "amountEur": 4351706000,
+      "currency": "EUR"
     },
     "equalization": {
       "amount": 255658000,
-      "amountEur": 130715860,
-      "currency": "BGN"
+      "amountEur": 255658000,
+      "currency": "EUR"
     },
     "otherTargeted": {
       "amount": 40500000,
-      "amountEur": 20707321,
-      "currency": "BGN"
+      "amountEur": 40500000,
+      "currency": "EUR"
     },
     "total": {
       "amount": 4887464000,
-      "amountEur": 2498920663,
-      "currency": "BGN"
+      "amountEur": 4887464000,
+      "currency": "EUR"
     },
     "winter": {
       "amount": 25100000,
-      "amountEur": 12833426,
-      "currency": "BGN"
+      "amountEur": 25100000,
+      "currency": "EUR"
     }
   },
   "source": {
@@ -39,10 +39,30 @@
     "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041"
   },
   "totals": {
-    "capital": null,
-    "delegated": null,
-    "equalization": null,
-    "otherTargeted": null,
-    "winter": null
+    "capital": {
+      "amount": 255000000,
+      "amountEur": 255000000,
+      "currency": "EUR"
+    },
+    "delegated": {
+      "amount": 4351706000,
+      "amountEur": 4351706000,
+      "currency": "EUR"
+    },
+    "equalization": {
+      "amount": 255658000,
+      "amountEur": 255658000,
+      "currency": "EUR"
+    },
+    "otherTargeted": {
+      "amount": 40500000,
+      "amountEur": 40500000,
+      "currency": "EUR"
+    },
+    "winter": {
+      "amount": 25100000,
+      "amountEur": 25100000,
+      "currency": "EUR"
+    }
   }
 }

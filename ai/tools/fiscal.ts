@@ -2221,10 +2221,16 @@ export const fundsProjects = async (
 
 // ---- state -> municipality transfers (Art. 53 of the State Budget Law) ------
 
-type TransferCat = { amountEur: number };
+// A category is null when the law's lead paragraph does not declare it — real
+// for `otherTargeted` in the 2018–2022 laws, which name only the other four.
+type TransferCat = { amountEur: number } | null;
 type TransferTotals = {
   fiscalYear: number;
   totals: Record<string, TransferCat>;
+  // Column sums over the per-municipality table. The declared totals and these
+  // agree, so it is the fallback when a category is undeclared rather than a
+  // different measure.
+  rowSum?: Record<string, TransferCat>;
 };
 type TransfersIndex = {
   years: {
@@ -2265,8 +2271,9 @@ export const municipalTransfers = async (
   const rows0 = Object.entries(t.totals)
     .map(([k, v]) => ({
       label: (TRANSFER_LABEL[k] ?? { bg: k, en: k })[ctx.lang],
-      v: v.amountEur,
+      v: v?.amountEur ?? t.rowSum?.[k]?.amountEur ?? null,
     }))
+    .filter((r): r is { label: string; v: number } => r.v !== null)
     .sort((a, b) => b.v - a.v);
   return {
     tool: "municipalTransfers",

@@ -18,12 +18,18 @@
 // ("СТОЛИЧНА ОБЩИНА") appears as a regular data row between the Smolyan and
 // Sofia-region headers — handled by the municipality_lookup helper.
 //
-// Amounts in the source are хил. лв. (thousands of leva); we convert to Money
-// the same way law_html.ts does — multiply by 1000 and translate to EUR via
-// the locked currency peg.
+// Amounts in the source are in THOUSANDS, and which currency depends on the
+// year: laws through FY2025 are хил. лв., and from the FY2026 law (promulgated
+// after Bulgaria adopted the euro on 2026-01-01) the very same tables are
+// хил. евро. Article 53 carries no unit of its own — it inherits the document's
+// denomination — so we detect it exactly the way law_html.ts does, off the
+// "(хил. лв.)" / "(хил. евро)" markers, and build Money the same way: multiply
+// by 1000, and translate to EUR via the locked peg only when the source is
+// leva. Getting this wrong is silent and halves every figure in the year.
 
 import { load } from "cheerio";
 import { toEur } from "../../src/lib/currency";
+import { detectLawCurrency } from "./law_html";
 import type { Money } from "./types";
 import {
   oblastHeaderToCode,
@@ -95,9 +101,16 @@ const parseBulgarianAmount = (raw: string | undefined): number | null => {
   return Number.isFinite(n) ? n : null;
 };
 
-const makeMoney = (thousandsBgn: number | null): Money | null => {
-  if (thousandsBgn === null) return null;
-  const amount = Math.round(thousandsBgn * 1000);
+// The document's own denomination — see detectLawCurrency in law_html.ts.
+type LawCurrency = "BGN" | "EUR";
+
+const makeMoney = (
+  thousands: number | null,
+  currency: LawCurrency,
+): Money | null => {
+  if (thousands === null) return null;
+  const amount = Math.round(thousands * 1000);
+  if (currency === "EUR") return { amount, currency, amountEur: amount };
   const eur = toEur(amount, "BGN");
   return {
     amount,
@@ -108,6 +121,12 @@ const makeMoney = (thousandsBgn: number | null): Money | null => {
 
 const cellText = (s: string | undefined): string =>
   (s ?? "").replace(/\s+/g, " ").trim();
+
+// The unit suffix each inline amount is written with — "хил. лв." through
+// FY2025, "хил. евро" from FY2026. Matching either keeps one regex per named
+// phrase; the amount's actual denomination comes from detectLawCurrency, not
+// from which branch matched here.
+const UNIT_RE = String.raw`\s*хил\.\s*(?:лв|евро)`;
 
 // Pull the lead-paragraph totals out of Article 53's introductory prose. The
 // law writes the named amounts inline; we match by named phrase rather than
@@ -128,16 +147,25 @@ const parseLeadParagraph = (
   };
   return {
     delegated: extractAfter(
-      /делегираните от държавата дейности\s+([\d\s,]+?)\s*хил\.\s*лв/i,
+      new RegExp(
+        `делегираните от държавата дейности\\s+([\\d\\s,]+?)${UNIT_RE}`,
+        "i",
+      ),
     ),
     equalization: extractAfter(
-      /обща изравнителна субсидия\s+([\d\s,]+?)\s*хил\.\s*лв/i,
+      new RegExp(`обща изравнителна субсидия\\s+([\\d\\s,]+?)${UNIT_RE}`, "i"),
     ),
     winter: extractAfter(
-      /зимно поддържане и снегопочистване(?: на общински пътища)?\s+([\d\s,]+?)\s*хил\.\s*лв/i,
+      new RegExp(
+        `зимно поддържане и снегопочистване(?: на общински пътища)?\\s+([\\d\\s,]+?)${UNIT_RE}`,
+        "i",
+      ),
     ),
     capital: extractAfter(
-      /целева субсидия за капиталови разходи\s+([\d\s,]+?)\s*хил\.\s*лв/i,
+      new RegExp(
+        `целева субсидия за капиталови разходи\\s+([\\d\\s,]+?)${UNIT_RE}`,
+        "i",
+      ),
     ),
   };
 };
@@ -145,7 +173,10 @@ const parseLeadParagraph = (
 const parseOtherTargetedTotal = (paragraphText: string): number | null => {
   const text = paragraphText.replace(/\u00A0/g, " ");
   const m = text.match(
-    /трансфери за други целеви разходи за местни дейности\s+([\d\s,]+?)\s*хил\.\s*лв/i,
+    new RegExp(
+      `трансфери за други целеви разходи за местни дейности\\s+([\\d\\s,]+?)${UNIT_RE}`,
+      "i",
+    ),
   );
   return m ? parseBulgarianAmount(m[1]) : null;
 };
@@ -272,9 +303,13 @@ const parseMunicipalityRow = (
   otherTargeted: parseBulgarianAmount(cells[6]),
 });
 
-const sumMoney = (values: Array<Money | null>): Money => {
+const sumMoney = (
+  values: Array<Money | null>,
+  currency: LawCurrency,
+): Money => {
   let amount = 0;
   for (const v of values) if (v) amount += v.amount;
+  if (currency === "EUR") return { amount, currency, amountEur: amount };
   const eur = toEur(amount, "BGN");
   return {
     amount,
@@ -289,6 +324,15 @@ export const parseMunicipalTransfers = (
 ): ParsedMunicipalTransfers => {
   const $ = load(html);
   const root = $.root()[0] as unknown as DomNode;
+  const { currency, leva, euro } = detectLawCurrency(html);
+  // An unmarked document would silently default to BGN and halve every figure
+  // in a euro-denominated law, so require the marker rather than assume.
+  if (leva === 0 && euro === 0) {
+    throw new Error(
+      `Municipal-transfers (${fiscalYear}): no "(хил. лв.)" / "(хил. евро)" ` +
+        `unit marker found — cannot determine the law's denomination.`,
+    );
+  }
   const { leadText, table } = walkAnchorTable(root);
 
   if (!table) {
@@ -301,6 +345,24 @@ export const parseMunicipalTransfers = (
 
   const leadAmounts = parseLeadParagraph(leadText);
   const otherTargeted = parseOtherTargetedTotal(leadText);
+
+  // The four core lead-paragraph totals are declared in every law 2018→. Their
+  // only consumer is the reconciliation canary in buildTotalsFile, which skips
+  // whichever field is null — so a lead paragraph that stops matching produces
+  // no deltas and reads as a clean parse. That is how the FY2026 unit change
+  // shipped a silently halved year: the table parsed, the prose did not, and
+  // nothing anywhere was red. Fail here instead. (otherTargeted is NOT in the
+  // list — it is genuinely absent from the 2018–2022 laws.)
+  const missingLead = (
+    ["delegated", "equalization", "winter", "capital"] as const
+  ).filter((k) => leadAmounts[k] === null);
+  if (missingLead.length > 0) {
+    throw new Error(
+      `Municipal-transfers (${fiscalYear}): lead paragraph yielded no total ` +
+        `for ${missingLead.join(", ")} — the wording or the unit suffix ` +
+        `("хил. лв." / "хил. евро") likely changed.`,
+    );
+  }
 
   const rows = tableRows(table, $);
   const municipalities: ParsedMunicipalRow[] = [];
@@ -343,12 +405,12 @@ export const parseMunicipalTransfers = (
       nuts3: muni.nuts3,
       nameBg: muni.nameBg,
       nameEn: muni.nameEn,
-      total: makeMoney(amounts.total),
-      delegated: makeMoney(amounts.delegated),
-      equalization: makeMoney(amounts.equalization),
-      winter: makeMoney(amounts.winter),
-      capital: makeMoney(amounts.capital),
-      otherTargeted: makeMoney(amounts.otherTargeted),
+      total: makeMoney(amounts.total, currency),
+      delegated: makeMoney(amounts.delegated, currency),
+      equalization: makeMoney(amounts.equalization, currency),
+      winter: makeMoney(amounts.winter, currency),
+      capital: makeMoney(amounts.capital, currency),
+      otherTargeted: makeMoney(amounts.otherTargeted, currency),
     });
   }
 
@@ -362,19 +424,37 @@ export const parseMunicipalTransfers = (
   return {
     fiscalYear,
     totals: {
-      delegated: makeMoney(leadAmounts.delegated),
-      equalization: makeMoney(leadAmounts.equalization),
-      winter: makeMoney(leadAmounts.winter),
-      capital: makeMoney(leadAmounts.capital),
-      otherTargeted: makeMoney(otherTargeted),
+      delegated: makeMoney(leadAmounts.delegated, currency),
+      equalization: makeMoney(leadAmounts.equalization, currency),
+      winter: makeMoney(leadAmounts.winter, currency),
+      capital: makeMoney(leadAmounts.capital, currency),
+      otherTargeted: makeMoney(otherTargeted, currency),
     },
     rowSum: {
-      total: sumMoney(municipalities.map((m) => m.total)),
-      delegated: sumMoney(municipalities.map((m) => m.delegated)),
-      equalization: sumMoney(municipalities.map((m) => m.equalization)),
-      winter: sumMoney(municipalities.map((m) => m.winter)),
-      capital: sumMoney(municipalities.map((m) => m.capital)),
-      otherTargeted: sumMoney(municipalities.map((m) => m.otherTargeted)),
+      total: sumMoney(
+        municipalities.map((m) => m.total),
+        currency,
+      ),
+      delegated: sumMoney(
+        municipalities.map((m) => m.delegated),
+        currency,
+      ),
+      equalization: sumMoney(
+        municipalities.map((m) => m.equalization),
+        currency,
+      ),
+      winter: sumMoney(
+        municipalities.map((m) => m.winter),
+        currency,
+      ),
+      capital: sumMoney(
+        municipalities.map((m) => m.capital),
+        currency,
+      ),
+      otherTargeted: sumMoney(
+        municipalities.map((m) => m.otherTargeted),
+        currency,
+      ),
     },
     municipalities,
     unresolvedNames,
@@ -510,11 +590,15 @@ const OBLAST_NAMES: Record<string, { bg: string; en: string }> = {
 
 const emptyMoney = (): Money => ({ amount: 0, currency: "BGN", amountEur: 0 });
 
+// Rolls municipality rows up to an oblast. `currency` follows the addends
+// rather than being pinned to BGN: from FY2026 the rows are euro-denominated,
+// and labelling a euro `amount` as BGN invites a second conversion downstream.
+// The zero seed keeps whatever the first real addend brings.
 const addMoney = (a: Money, b: Money | null): Money => {
   if (!b) return a;
   return {
     amount: a.amount + b.amount,
-    currency: "BGN",
+    currency: a.amount === 0 ? b.currency : a.currency,
     amountEur: a.amountEur + b.amountEur,
   };
 };
