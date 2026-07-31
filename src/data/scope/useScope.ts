@@ -10,9 +10,18 @@
 // Two consumers:
 //   useScope()       — read the active scope + flip it (segmented control)
 //   useScopedHref()  — build intra-section links that carry the current search
-//                      params (pscope + elections) forward, so a non-default
-//                      scope/election isn't dropped when a nav pill navigates
-//                      with a bare pathname.
+//                      params forward, so a non-default scope/election isn't
+//                      dropped when a nav pill navigates with a bare pathname.
+//
+//                      ⚠ It forwards the WHOLE query string, not just pscope +
+//                      elections. That is invisible on a nav pill (those pages
+//                      carry little else), but a link rendered inside a FILTERED
+//                      browser hands its filters to the destination: an AwarderLink
+//                      in a /procurement/contracts row carries ?grade / ?single /
+//                      ?proc / ?cpv / ?q onto /awarder/:eik, where
+//                      useUrlProcurementFilters reads them and pre-filters the page.
+//                      Arguably useful, definitely not what the name says — narrow
+//                      it to an allowlist if that ever surprises someone.
 
 import { useCallback } from "react";
 import { To, useSearchParams } from "react-router-dom";

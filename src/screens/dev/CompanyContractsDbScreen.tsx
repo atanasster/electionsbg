@@ -11,24 +11,14 @@
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  cpvDivisionName,
-  procedureBucket,
-  procedureLabel,
-} from "@/lib/cpvSectors";
+import { cpvDivisionName } from "@/lib/cpvSectors";
 import {
   FILTER_ALL,
   useUrlProcurementFilters,
 } from "@/data/procurement/useUrlProcurementFilters";
 import { SEO } from "@/ux/SEO";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
-import type { DataTableColumnDef } from "@/ux/data_table/utils";
-import { ContractAmount } from "@/screens/components/procurement/ContractAmount";
-import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
-import {
-  contractRiskFromMasks,
-  withNgoDisclosure,
-} from "@/lib/contractRiskMask";
+import { useContractColumns } from "@/screens/components/procurement/contractColumns";
 import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { ContractsAnalysisStrip } from "@/screens/components/procurement/ContractsAnalysisStrip";
 import { ProcedureBucketSelect } from "@/screens/components/procurement/ProcedureBucketSelect";
@@ -182,182 +172,28 @@ export const CompanyContractsDbScreen: FC<{
     [yearF, singleF, methodF, cpvF, gradeF],
   );
 
-  const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
-    () => [
-      {
-        // One canonical date = the signing date (always populated; falls back to
-        // `date` at load). Sorting stays on the indexed `date` column via
-        // defaultSort — date_signed is unindexed — so the header isn't resortable.
-        id: "date",
-        accessorFn: (r) => r.dateSigned ?? r.date,
-        header: t("company_contract_signed") || "Signed",
-        enableSorting: false,
-        cell: ({ row }) => (
-          <div className="tabular-nums whitespace-nowrap">
-            {row.original.dateSigned ?? row.original.date}
-          </div>
-        ),
-      },
-      isAwarder
-        ? {
-            id: "contractor_name",
-            accessorFn: (r: ProcurementContract) => r.contractorName,
-            header: t("procurement_col_contractor") || "Contractor",
-            cell: ({ row }) => (
-              <Link
-                to={`/company/${row.original.contractorEik}`}
-                className="text-sm hover:underline"
-              >
-                {row.original.contractorName}
-              </Link>
-            ),
-          }
-        : {
-            id: "awarder_name",
-            accessorFn: (r: ProcurementContract) => r.awarderName,
-            header: t("company_contract_awarder") || "Awarder",
-            cell: ({ row }) => (
-              <Link
-                to={`/awarder/${row.original.awarderEik}`}
-                className="text-sm hover:underline"
-              >
-                {row.original.awarderName}
-              </Link>
-            ),
-          },
-      {
-        id: "title",
-        accessorFn: (r) => r.title,
-        header: t("company_contract_subject") || "Subject",
-        enableSorting: false,
-        cell: ({ row }) => (
-          <Link
-            to={`/procurement/contract/${row.original.key}`}
-            className="text-sm line-clamp-2 max-w-md inline-block hover:text-primary hover:underline"
-            title={row.original.title || undefined}
-          >
-            {row.original.title || "—"}
-          </Link>
-        ),
-      },
-      {
-        id: "amount_eur",
-        accessorFn: (r) => r.amountEur,
-        header: t("company_contract_amount") || "Amount",
-        meta: { align: "right" },
-        cell: ({ row }) => (
-          <ContractAmount
-            amountEur={row.original.amountEur}
-            amount={row.original.amount}
-            currency={row.original.currency}
-          />
-        ),
-      },
-      {
-        // Procedure type, bucketed + translated (same vocabulary as the mix bar +
-        // filter). Not sortable — the bucket order ≠ the raw-string order the DB
-        // would sort by; discovery is via the chart/filter instead.
-        id: "procedure",
-        header: t("company_contract_procedure") || "Procedure",
-        enableSorting: false,
-        className: "hidden md:table-cell",
-        cell: ({ row }) => (
-          <span className="inline-block whitespace-nowrap rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-            {procedureLabel(
-              procedureBucket(row.original.procurementMethod),
-              i18n.language,
-            )}
-          </span>
-        ),
-      },
-      {
-        // Bid count — sortable competition signal. Coloured rose when the shared
-        // scorer flags weak competition (single bidder / materially fewer than the
-        // sector norm), the same signal the СИГНАЛИ pill used to carry (now hidden
-        // there via hideWeakCompetition, so it isn't shown twice).
-        id: "number_of_tenderers",
-        accessorFn: (r) => r.numberOfTenderers ?? null,
-        header: t("company_contracts_bids") || "Bids",
-        className: "hidden sm:table-cell",
-        cell: ({ row }) => {
-          const n = row.original.numberOfTenderers;
-          if (n == null)
-            return <span className="text-xs text-muted-foreground">—</span>;
-          // Unscored (null) must not read as "competition was fine" — leave the
-          // count unhighlighted rather than asserting the negative.
-          const weak =
-            contractRiskFromMasks(row.original)?.flags.weakCompetition ?? false;
-          return (
-            <span
-              className={`block text-right text-sm tabular-nums ${
-                weak ? "font-medium text-rose-600 dark:text-rose-400" : ""
-              }`}
-            >
-              {n}
-            </span>
-          );
-        },
-      },
-      {
-        // Reference-only column (migration 087): for a consortium MEMBER row the
-        // amount is €0 (its real share isn't public), so the full joint-contract
-        // value is shown HERE, in its own column, to avoid distorting a sort on the
-        // real amount. Empty for ordinary rows.
-        id: "consortium_full_eur",
-        accessorFn: (r) => r.consortiumFullEur ?? null,
-        header: t("company_contract_consortium_full", {
-          defaultValue: "Обединение",
-        }),
-        meta: { align: "right" },
-        className: "hidden lg:table-cell",
-        enableSorting: false,
-        cell: ({ row }) =>
-          row.original.consortiumRole === "member" ? (
-            <span
-              className="whitespace-nowrap text-xs text-muted-foreground"
-              title={t("company_contract_consortium_full_tip", {
-                defaultValue:
-                  "Пълна стойност на договора на обединението — тази фирма е участник; реалният ѝ дял не е публичен.",
-              })}
-            >
-              {row.original.consortiumEik ? (
-                <Link
-                  to={`/company/${row.original.consortiumEik}`}
-                  className="text-primary hover:underline"
-                >
-                  <ContractAmount amountEur={row.original.consortiumFullEur} />
-                </Link>
-              ) : (
-                <ContractAmount amountEur={row.original.consortiumFullEur} />
-              )}
-            </span>
-          ) : null,
-      },
-      {
-        // id MUST match the registry column, not a display name: buildOrder
-        // silently drops an ORDER BY for an id it does not recognise, so a
-        // column called "risk" would look sortable and quietly do nothing.
-        id: "risk_cri",
-        header: t("company_contract_risk") || "Flags",
-        // Bid count moved to its own column, so drop the weak-competition chip
-        // here to avoid showing the same signal twice.
-        cell: ({ row }) => (
-          <RiskBadges
-            result={withNgoDisclosure(
-              contractRiskFromMasks(row.original),
-              ngoByEik.get(row.original.contractorEik),
-            )}
-            contractKey={row.original.key}
-            hideWeakCompetition
-          />
-        ),
-      },
-      // The source column was removed: "Детайли" duplicated the subject link
-      // (both → /procurement/contract/:key) and the external ЕОП/egov link lives
-      // on that detail screen (ContractDetailScreen).
+  // Shared definitions (contractColumns.tsx). This screen shows the OTHER party —
+  // an awarder page lists contractors and vice versa — and the signing date rather
+  // than the publication date. No `source` column: "Детайли" duplicated the subject
+  // link (both → /procurement/contract/:key) and the external ЕОП/egov link lives on
+  // that detail screen (ContractDetailScreen).
+  const columns = useContractColumns({
+    show: [
+      "date",
+      isAwarder ? "contractor_name" : "awarder_name",
+      "title",
+      "amount_eur",
+      "procedure",
+      "number_of_tenderers",
+      "consortium_full_eur",
+      "risk_cri",
     ],
-    [t, i18n.language, isAwarder, ngoByEik],
-  );
+    dateMode: "signed",
+    ngoByEik,
+    // One entity's contracts is a small set, so a name sort is cheap here — unlike
+    // the global browser, which spans the whole corpus.
+    sortableNames: true,
+  });
 
   return (
     <>
