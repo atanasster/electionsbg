@@ -46,8 +46,8 @@ register has no EIK, so the `/company/:eik` link on every top-producer row comes
 where it matches exactly one Commerce-Registry company (unique match); ambiguous names
 ("Клас", "АРС") and no-matches are left unlinked rather than guessed (plan §6). `ingest.ts`
 calls it **before** it writes `overview.json`, so a refresh can never leave the file
-EIK-less — which it did on 2026-07-31, when the linking was a separate script and all 9
-producer links went dead with nothing failing.
+EIK-less — which it did on 2026-07-31, when the linking was a separate script and every
+producer link went dead with nothing failing.
 
 That linking needs **local Postgres** (`tr_companies`), so bring it up before the ingest:
 
@@ -89,9 +89,11 @@ refuses to write a partial artifact on failure.
    producers · top-10 22%` for the 2014–2025 baseline, after de-duping the 5
    identical rows the register ships).
 2. Check the EIK line (`18/25 top producers linked to a unique EIK` — never a
-   `⚠ … SKIPPED`) and confirm the git diff drops NO `eik` field:
+   `⚠ … SKIPPED`) and confirm the link count did not fall. Compare COUNTS, not the
+   diff: `topProducers` is sorted by `eur`, so any rank change rewrites those blocks
+   and a `grep '^-.*"eik"'` over the diff reports losses that did not happen.
    ```bash
-   git diff -U0 data/culture/overview.json | grep '^-.*"eik"'   # expect: no output
+   echo "was $(git show HEAD:data/culture/overview.json | grep -c '"eik"') → now $(grep -c '"eik"' data/culture/overview.json)"
    ```
 3. Commit `data/culture/*.json` and `bucket:sync data/culture/`
    (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS).

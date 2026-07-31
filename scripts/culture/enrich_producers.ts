@@ -27,8 +27,13 @@ const main = async () => {
     fs.readFileSync(OVERVIEW, "utf8"),
   ) as CultureOverviewFile;
 
-  const { linked, total } = await linkProducerEiks(overview.topProducers);
-  if (total === 0) {
+  const { linked, total, matchable } = await linkProducerEiks(
+    overview.topProducers,
+  );
+  // Guard on the number of usable NAMES, as the pre-refactor script did — not on
+  // the producer count. With producers present but every name normalising to "",
+  // linkProducerEiks returns without mutating, so the write would be a no-op.
+  if (matchable === 0) {
     console.log("no producers to enrich");
     await end();
     return;

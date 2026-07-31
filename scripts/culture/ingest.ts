@@ -28,7 +28,7 @@ import * as XLSX from "xlsx";
 import { BGN_PER_EUR } from "../../src/lib/currency";
 import { foldProducer } from "../../src/lib/foldProducer";
 import { end as endPool } from "../db/lib/pg";
-import { linkProducerEiks } from "./producer_eik";
+import { TrCorpusUnavailable, linkProducerEiks } from "./producer_eik";
 import { NFC_REGISTER_PAGE, NFC_YEARS, fetchNfcYear } from "./sources";
 import type {
   CultureFilmsFile,
@@ -263,6 +263,12 @@ const attachProducerEiks = async (
     const { linked, total } = await linkProducerEiks(overview.topProducers);
     console.log(`  ${linked}/${total} top producers linked to a unique EIK`);
   } catch (e) {
+    // ONLY the corpus-unavailable case degrades. A renamed column, a revoked
+    // grant or a statement timeout must stop the pipeline: degrading those would
+    // carry a stale link set forward indefinitely behind a warning that says
+    // "Postgres is down", with `git diff` showing no change and the gate passing.
+    if (!(e instanceof TrCorpusUnavailable)) throw e;
+
     const prev = previousProducerEiks();
     let carried = 0;
     for (const p of overview.topProducers) {
@@ -272,9 +278,15 @@ const attachProducerEiks = async (
         carried += 1;
       }
     }
+    // Report against what the PREVIOUS file held, not against the number of top
+    // producers: the fold key moves when the register respells a legal form, and
+    // carried-vs-25 cannot tell "all 18 kept" from "2 lost to name churn".
+    const lost = prev.size - carried;
     console.warn(
       `\n  ⚠ producer→EIK linking SKIPPED: ${(e as Error).message}` +
-        `\n    carried ${carried}/${overview.topProducers.length} eik(s) forward from the previous overview.json.` +
+        `\n    carried ${carried}/${prev.size} eik(s) forward from the previous overview.json` +
+        (lost > 0 ? ` — ${lost} LOST to producer-name churn` : "") +
+        ` (${overview.topProducers.length} top producers).` +
         `\n    Re-run \`npx tsx scripts/culture/enrich_producers.ts\` once Postgres is up.\n`,
     );
   } finally {
