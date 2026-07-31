@@ -565,3 +565,61 @@ on **DB time and the absence of the 10 s ceiling**, which is what this work cont
 - **The live path during a contracts reload.** `lock_timeout: 2000` turns a mid-`REFRESH`
   read into a fast miss, but while a contracts reload holds its own `AccessExclusiveLock` the
   *live* fallback is cut off too. The route still fails then — in 2 s rather than 10.
+
+---
+
+## 9. Production, measured after deploy (2026-07-31)
+
+Deployed in this order, which is **not** the order §5 originally gave — see the note below:
+
+1. `deploy:db` (the route reads 124, which was already applied and populated on Cloud SQL);
+2. `apply_functions.ts` for the six function files (2m10s) — brings the `ORDER BY` in 027 and
+   the `DROP FUNCTION` removals to prod;
+3. `REFRESH MATERIALIZED VIEW CONCURRENTLY procurement_payloads` — **31 minutes** on the
+   `db-g1-small`, versus ~10 s locally. Readers were unaffected throughout: the old 180 rows
+   stayed visible, 0 blocked queries, and the routes kept answering 200 the whole time. The
+   backend waited almost entirely on `IO / DataFileRead`.
+4. Step 10: `apply_functions.ts 025 031` (3 s) to shed the retired caches, then `deploy:db`.
+
+**Deploy order was inverted deliberately.** §5 said loader-then-function; doing it the other
+way round is strictly better here *because 124 was already populated*: the function immediately
+reads the precompute, so the window in which 025/031's caches are dropped and rebuilt costs
+nothing. The reverse would have put a 199k-buffer aggregate on the live path for that window.
+
+### Server-side latency (Cloud Run `httpRequest.latency`)
+
+| Route | Before | After |
+|---|---|---|
+| `procurement-overview?from=2023-04-02&to=2024-06-09` | **10.010 s → 500** | **0.014 s → 200** |
+| `procurement-flow` (no window) | **10.006 s → 500** | **0.021–0.036 s → 200** |
+| `person-profile?slug=ОБЩИНА КИРКОВО` | **10.034 s / 10.051 s → 500** | **200** |
+| `procurement-concentration` (`all`) | not yet 500'd; 411k buffers | 0.047–0.054 s |
+| `procurement-rankings` (`all`) | `all`-only cache | 0.032–0.072 s |
+| `procurement-sectors` / `-benchmarks` | no cache at all | 0.006 s |
+
+Every `/api/db/procurement-*` request since the deploy is a 200 in **0.006–0.072 s**.
+
+Acceptance met: no 500 and no `httpRequest.latency` near the 10 s ceiling on any of these
+routes, and — the criterion latency cannot prove — **no `pp:not-built` and no `pp:read-failed`
+in the logs**, so the route is genuinely reading the precompute rather than quietly falling
+back. `procurement_payloads` on Cloud SQL: 180 rows, 0 NULL payloads, stored == live across all
+six kinds.
+
+**End-to-end wall clock is 0.7–3.7 s and is now entirely §8's transport cost** — TLS setup plus
+up to 857 kB of uncompressed JSON (`concentration`, `all`). The database side is a point lookup
+and effectively free. That belongs to db-payload-diet-v1 and this plan does not touch it.
+
+### 9.1 Two unrelated defects the acceptance query surfaced
+
+Neither is caused by this work — both predate it — but both are the same *class* and are worth
+recording rather than leaving in a log nobody reads again:
+
+- **`/api/db/person-connections` reaches 8.2–10.1 s** (200s, but one at 10.073 s is over the
+  ceiling). Daily since at least 2026-07-30. This is the next `person_by_name`-shaped problem:
+  a per-entity function with no precompute, one bad day from being the next 500.
+- **`/api/db/price-history` and `/api/db/price-product` return 500 at ~2.0–2.1 s**, which is
+  exactly the pool's `lock_timeout`. 4 on 07-27, 97 on 07-28, 21 on 07-29, 64 on 07-30, 14 on
+  07-31 — i.e. a recurring writer holding a lock the readers queue behind, most likely the
+  daily prices loader's TRUNCATE+COPY. `lock_timeout` is converting a stall into a fast 500,
+  which is the guard working; the fix is on the loader side (the staging-swap pattern in
+  `reference_contracts_reload_lock`).
