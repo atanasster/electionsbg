@@ -43,11 +43,7 @@ const thousandsToEur = (raw: string, currency: "BGN" | "EUR"): number => {
 
 // Ordered amounts (operating first, capital second) for a recipient, from the flattened
 // law text. Digit-bounded lazy gaps absorb the dash/quote/spacing variants across years.
-const grab = (
-  text: string,
-  re: RegExp,
-  currency: "BGN" | "EUR",
-): number[] => {
+const grab = (text: string, re: RegExp, currency: "BGN" | "EUR"): number[] => {
   const out: number[] = [];
   let m: RegExpExecArray | null;
   const g = new RegExp(re.source, "g");
