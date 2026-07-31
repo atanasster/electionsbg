@@ -119,15 +119,6 @@ byyr AS (
     FROM c WHERE tag = 'contract' GROUP BY left(date, 4)
   ) y
 ),
-topc AS (
-  SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
-    SELECT key, ocid, date, tag, amount, currency, amount_eur AS "amountEur",
-           contractor_eik AS "partyEik", contractor_name AS "partyName",
-           title, awarder_eik AS "awarderEik", awarder_name AS "awarderName",
-           bundle_uuid AS "bundleUuid", source_url AS "sourceUrl"
-    FROM c WHERE tag = 'contract' ORDER BY amount_eur DESC NULLS LAST LIMIT 20
-  ) t
-),
 -- Place identity for the shared PlaceHeaderView hero (place-header-consolidation-v1):
 -- the canonical localized names, the т.в.м. marker and the centroid, plus the containment
 -- CODES the breadcrumb's drill-up links + the view switcher need — all from place_dim (117),
@@ -171,7 +162,6 @@ SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM seats) THEN NULL ELSE jsonb_build_obj
      'eik', eik, 'name', name, 'tier', tier, 'totalEur', ROUND(total_eur),
      'totalOther', '{}'::jsonb, 'contractCount', contract_count,
      'awardCount', award_count) ORDER BY ROUND(total_eur) DESC, eik) FROM aw), '[]'::jsonb),
-  'topContracts', (SELECT arr FROM topc),
   'byYear', (SELECT arr FROM byyr)
 ) END;
 $$;

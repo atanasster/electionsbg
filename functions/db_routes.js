@@ -701,7 +701,10 @@ const DB_ROUTES = {
     // before this route ships — apply 121 and run db:load:tenders:pg BEFORE
     // deploy:db, the migration-before-writer order CLAUDE.md already requires —
     // and if it does not, a 500 is the honest answer.
-    const rows = await dbRows(`SELECT cpv, "desc" FROM cpv_catalog ORDER BY cpv`, []);
+    const rows = await dbRows(
+      `SELECT cpv, "desc" FROM cpv_catalog ORDER BY cpv`,
+      [],
+    );
     return { body: rows };
   },
   // Risk-signals feed — top concentration + top MP-tied + headline counts +
@@ -782,6 +785,20 @@ const DB_ROUTES = {
     return { body: rows[0].payload };
   },
   // Per-settlement detail (awarders + top contracts + by-year).
+  // Per-settlement procurement detail. Two shapes, trimmed HERE rather than by a SQL
+  // parameter — NOT because the function is hard to change (it is not: all three of 030's
+  // dependent matviews hang off procurement_by_settlement, the LIST function, and 030
+  // already DROPs this one outright on every load). The reason is rollout: the route
+  // trims on whatever database it is pointed at, so the saving lands the moment the
+  // function deploys, without waiting for a Cloud SQL reload to reshape the SQL.
+  //
+  //   default    — totals + every buyer, for /procurement/settlement/:ekatte.
+  //   ?slim=1    — totals + the top few buyers, for the My-Area and settlement TILES,
+  //                which render five rows and were paying for all 327 of София's.
+  //
+  // `topContracts` is dropped from BOTH: the page that used it now has a sortable
+  // contracts table (sort by value), and no other consumer reads it. It was ~13 KB of
+  // the payload — the single largest dead item measured in the plan's §1.2.
   "procurement-settlement": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");
     if (!ekatte) return { status: 400, body: { error: "missing ekatte" } };
@@ -789,7 +806,29 @@ const DB_ROUTES = {
       "SELECT procurement_settlement_detail($1, $2, $3) AS r",
       [ekatte, orNull(q, "from"), orNull(q, "to")],
     );
-    return { body: rows[0]?.r ?? null };
+    const r = rows[0]?.r ?? null;
+    if (!r) return { body: null };
+
+    // Still destructured away even though the SQL no longer builds it: a database that
+    // has not yet re-run db:load:pg still returns the old shape, and this makes the two
+    // indistinguishable to the client.
+    const { topContracts: _dropped, ...rest } = r;
+    const awarders = Array.isArray(rest.awarders) ? rest.awarders : [];
+    rest.awarders = awarders;
+    // ALWAYS present, in both shapes. The tiles show it as their "Възложители" KPI and
+    // used to read `awarders.length` — which a truncated list would silently turn into
+    // "5 buyers" for every settlement in the country.
+    const body = { ...rest, awarderCount: awarders.length };
+    // Parsed as a real boolean: `s()` returns a trimmed string, so a bare `?slim` (empty
+    // value) would read as OFF while `?slim=0` and `?slim=false` would read as ON —
+    // inverted for both spellings a caller would reach for first.
+    const slimRaw = s(q, "slim").toLowerCase();
+    const slim =
+      "slim" in q && slimRaw !== "0" && slimRaw !== "false" && slimRaw !== "no";
+    if (!slim) return { body };
+
+    const limit = clampInt(q.limit, 5, 1, 50);
+    return { body: { ...body, awarders: awarders.slice(0, limit) } };
   },
   // Money-flow Sankey (awarder → politician-tied contractor → mp|official).
   "procurement-flow": async (dbRows, q) => {

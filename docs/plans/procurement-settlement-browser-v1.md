@@ -251,15 +251,22 @@ contracts table takes over what `topContracts` was for. Changes:
 - Add a slim mode (top-N awarders + totals only) for `MyAreaProcurementTile` /
   `SettlementProcurementTile`.
 
-⚠ `procurement_settlement_detail` has three dependent matviews and the file's own
-comment warns that changing the **signature or return type** requires dropping
-`procurement_by_settlement_cache`, `procurement_settlement_rank` and
-`procurement_geo_payloads` in the same statement. Adding a parameter is a new
-signature — so pass the slim flag through `db_routes.js`, not the SQL signature.
-The `from`/`to` params already exist and need no signature change at all.
+⚠ **CORRECTED after implementation.** This plan claimed `procurement_settlement_detail`
+has three dependent matviews. It does not — `pg_depend` shows all three
+(`procurement_by_settlement_cache`, `procurement_settlement_rank`,
+`procurement_geo_payloads`) hang off `procurement_by_settlement`, the *list* function, and
+030 already `DROP FUNCTION`s the detail one outright on every load. The detail function is
+freely changeable; it is the LIST function that is fragile.
 
-Projected result: header + buyers payload drops from **87 KB → ~40 KB** for
-София (and less again under a non-`all` scope), and the tiles drop to **~3 KB**.
+The slim flag still went through `db_routes.js`, for a different and better reason:
+**rollout**. A route-level trim applies to whatever database it is pointed at, so the
+saving lands when the function deploys rather than waiting for a Cloud SQL reload. The
+dead `topContracts` CTE was removed from the SQL as well, since nothing prevented it.
+
+Projected **87 KB → ~40 KB**; **measured 87 KB → 69 KB** for София, and 44 KB → 24 KB for
+Варна. The projection was too optimistic: `topContracts` was only ~13 KB, and the
+remaining bulk is the 327-row `awarders` array the page actually renders. The tiles land
+at **2.9 KB** (София) / **2.7 KB** (Варна) — a 30× cut, which is where the real saving is.
 
 ### 2.3 Reuse — what to share rather than copy
 

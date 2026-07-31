@@ -21,7 +21,7 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
   ekatte,
 }) => {
   const { t } = useTranslation();
-  const q = useSettlementProcurement(ekatte, CORPUS_WINDOW);
+  const q = useSettlementProcurement(ekatte, CORPUS_WINDOW, { slim: true });
   if (q.isLoading || !q.data || q.data.awarders.length === 0) return null;
   const data = q.data;
 
@@ -62,7 +62,7 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
               {t("procurement_settlement_kpi_buyers") || "Buyers"}
             </div>
             <div className="text-lg font-semibold tabular-nums">
-              {countFmt.format(data.awarders.length)}
+              {countFmt.format(data.awarderCount ?? data.awarders.length)}
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
             </tbody>
           </table>
         </div>
-        {data.awarders.length > 5 && (
+        {(data.awarderCount ?? data.awarders.length) > 5 && (
           <div className="mt-2 text-xs text-muted-foreground">
             {t("procurement_settlement_more_buyers") ||
               "More buyers on the detail page"}

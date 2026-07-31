@@ -54,6 +54,9 @@ export const CORPUS_WINDOW: SettlementWindow = Object.freeze({
 export const useSettlementProcurement = (
   ekatte: string | null | undefined,
   win: SettlementWindow,
+  /** Ask for the tile shape: totals + the top few buyers instead of all of them.
+   *  Read `awarderCount` (never `awarders.length`) for the buyer KPI under this. */
+  opts: { slim?: boolean } = {},
 ) =>
   useQuery({
     // The window is part of the key: without it, flipping the scope control re-renders
@@ -64,11 +67,13 @@ export const useSettlementProcurement = (
       ekatte,
       win.from,
       win.to,
+      opts.slim ? "slim" : "full",
     ] as const,
     queryFn: async (): Promise<ProcurementBySettlementFile | null> => {
       const params = new URLSearchParams({ ekatte: ekatte as string });
       if (win.from) params.set("from", win.from);
       if (win.to) params.set("to", win.to);
+      if (opts.slim) params.set("slim", "1");
       const r = await fetch(`/api/db/procurement-settlement?${params}`);
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as ProcurementBySettlementFile | null;

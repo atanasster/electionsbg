@@ -32,11 +32,14 @@ export const MyAreaProcurementTile: FC<{
   const { data, isLoading } = useSettlementProcurement(
     targetEkatte,
     CORPUS_WINDOW,
+    { slim: true },
   );
 
   if (isLoading) return null;
   if (!data || data.awarders.length === 0) return null;
 
+  // The slim payload already carries only the top few; the slice stays as a floor
+  // in case the shape ever widens again.
   const topAwarders = data.awarders.slice(0, 5);
 
   return (
@@ -66,7 +69,7 @@ export const MyAreaProcurementTile: FC<{
         />
         <Kpi
           label={t("my_area_procurement_buyers") || "Buyers"}
-          value={numFmt.format(data.awarders.length)}
+          value={numFmt.format(data.awarderCount ?? data.awarders.length)}
         />
       </div>
 

@@ -57,6 +57,9 @@ const tryFundPayload = async <T>(
 type SettlementProc = {
   totalEur: number;
   contractCount: number;
+  /** Distinct buyers. Read this rather than `awarders.length` — the ?slim shape
+   *  truncates the array. */
+  awarderCount?: number;
   awarders: { name: string; totalEur: number }[];
 };
 
@@ -128,7 +131,9 @@ export const procurementBySettlement = async (
       place: place.name,
       total: fmtEurCompact(data.totalEur, ctx.lang),
       contracts: fmtInt(data.contractCount, ctx.lang),
-      buyers: fmtInt(data.awarders.length, ctx.lang),
+      // awarderCount, not the array length: the payload has a ?slim shape that
+      // truncates the list, and this tool would then report "5 buyers" for anywhere.
+      buyers: fmtInt(data.awarderCount ?? data.awarders.length, ctx.lang),
       // Average contract value — the metric the by-settlement table now
       // surfaces as a column (total ÷ contracts). Guarded against div-by-zero.
       avg_contract:
@@ -333,8 +338,11 @@ export const governanceProfile = async (
       fetchLocalMuni(cycle, place.obshtina).catch(() => null),
       tryFetch<LisiData>("/municipal_transparency/index.json"),
       tryFetch<IndData>("/indicators.json"),
+      // slim: this call reads only totalEur, and the full shape is ~69 KB of buyer
+      // rows for София.
       fetchDb<SettlementProc>("procurement-settlement", {
         ekatte: place.ekatte,
+        slim: "1",
       }).catch(() => null),
       tryFetch<AirData>("/air/index.json"),
       tryFetch<GraoData>("/grao_population.json"),

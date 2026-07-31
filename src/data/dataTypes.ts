@@ -1905,6 +1905,11 @@ export type ProcurementBySettlementFile = {
   awardCount: number;
   totalEur: number;
   totalOther: Record<string, number>;
+  /** Distinct buyers in this settlement and window. Separate from `awarders.length`
+   *  because the ?slim shape truncates that list — reading the length there would
+   *  report "5 buyers" for every settlement. Optional: the by-settlement ranking rows
+   *  share this base shape without it. */
+  awarderCount?: number;
   awarders: Array<{
     eik: string;
     name: string;
@@ -1914,7 +1919,6 @@ export type ProcurementBySettlementFile = {
     contractCount: number;
     awardCount: number;
   }>;
-  topContracts: ProcurementRollupContractRow[];
   byYear: ProcurementByYear[];
 };
 

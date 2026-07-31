@@ -32,7 +32,6 @@ const varna = (over: Partial<ProcurementBySettlementFile> = {}) =>
     totalEur: 3621757104,
     totalOther: {},
     awarders: [],
-    topContracts: [],
     byYear: [],
     ...over,
   }) as ProcurementBySettlementFile;
