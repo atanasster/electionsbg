@@ -30,12 +30,27 @@ interface GridRow {
   cheapest_store: string | null;
 }
 
-export const loadGridsFromPg = async (): Promise<DailyGrid[]> => {
+/**
+ * `days` restricts the series to an explicit set of dates. The daily ingest
+ * never passes it — build_payloads always builds over the whole corpus. It
+ * exists for prices_payload_parity.data.test.ts, which has to rebuild over the
+ * exact day span the frozen _cache tree covers to compare like with like: that
+ * tree stopped growing when parse.ts was retired, so a full-corpus build on
+ * this side has more days than the cache can ever have.
+ */
+export const loadGridsFromPg = async (
+  opts: { days?: string[] } = {},
+): Promise<DailyGrid[]> => {
+  // `day = ANY($1::date[])` when a window is asked for, TRUE otherwise — one
+  // query shape, so the windowed path can never drift from the corpus path.
+  const window = opts.days ? "day = ANY($1::date[])" : "TRUE";
+  const params = opts.days ? [opts.days] : [];
   const [cells, chainCells, chainNames, chainDays] = await Promise.all([
     allRows<GridRow>(
       `SELECT day::text AS day, ekatte, pid, min_eur, avg_eur, max_eur, median_eur,
               promo_min_eur, stores, chains, cheapest_eik, cheapest_store
-         FROM price_grid_days ORDER BY day, ekatte, pid`,
+         FROM price_grid_days WHERE ${window} ORDER BY day, ekatte, pid`,
+      params,
     ),
     allRows<{
       day: string;
@@ -45,14 +60,16 @@ export const loadGridsFromPg = async (): Promise<DailyGrid[]> => {
       min_eur: number;
     }>(
       `SELECT day::text AS day, ekatte, eik, pid, min_eur
-         FROM price_chain_grid_days ORDER BY day, ekatte, eik, pid`,
+         FROM price_chain_grid_days WHERE ${window} ORDER BY day, ekatte, eik, pid`,
+      params,
     ),
     allRows<{ eik: string; name: string }>(
       "SELECT eik, name FROM price_chains",
     ),
     allRows<{ day: string; chains: string; rows: string }>(
       `SELECT day::text AS day, count(*) AS chains, sum(rows) AS rows
-         FROM price_chain_days GROUP BY day`,
+         FROM price_chain_days WHERE ${window} GROUP BY day`,
+      params,
     ),
   ]);
 

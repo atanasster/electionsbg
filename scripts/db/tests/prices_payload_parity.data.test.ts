@@ -1,5 +1,5 @@
-// Phase-3 gate: the payloads served from Postgres must reproduce what
-// build_index.ts produces from the legacy _cache grids.
+// Phase-3 gate: the grids in Postgres must reproduce what build_index.ts
+// produces from the legacy _cache grids.
 //
 // The chain this closes:
 //   price_grid_days  reproduces DailyGrid   (prices_grid_parity.data.test.ts)
@@ -9,6 +9,29 @@
 // Comparing against a live cache build rather than the JSON on disk is
 // deliberate: the on-disk tree was generated before two determinism fixes (see
 // below) and is frozen at whatever order its ZIPs happened to have.
+//
+// WHY THIS COMPARES TWO BUILDS AND NOT THE LIVE `price_payloads` TABLE
+//
+// It used to read the table directly, and that could only work while the two
+// sides covered the same days. They no longer can. `parse.ts` — the only writer
+// of data/prices/_cache/daily/ — was retired by the Postgres migration, so the
+// tree is FROZEN (189 days, ending 2026-07-09) while the corpus grows daily
+// (210 days as of 2026-07-30). A build over more days legitimately yields more
+// settlement/município shards and different index series, so `count(*)` on the
+// table diverges from the cache build a little further every morning.
+//
+// Two smaller things made the direct read wrong quite apart from the day span:
+// `price_payloads` carries seven kinds build_index never emits (deals,
+// deals-muni, verdict, hub-stats, chain-products, chain-map, unit-prices —
+// build_payloads.ts computes those straight from SQL), and each of those has no
+// cache twin to compare against at all.
+//
+// So both sides are now built HERE, over the exact day span the cache holds,
+// through the same buildPriceIndex() the daily job calls — which is the property
+// that was ever really under test: the grids Postgres hands build_index are the
+// grids the _cache tree used to. Whether the live table was actually rebuilt
+// from today's grids is a different question, gated separately below by
+// `price_payloads is built from the latest loaded day`.
 //
 // TWO DOCUMENTED, INTENTIONAL DIFFERENCES
 //
@@ -24,14 +47,20 @@
 //    mean can land on the other side of a 2-decimal rounding boundary. Bounded
 //    at one cent, and `avg` feeds display only — the index uses min and median.
 //
-// Requires DB_VERIFY=1, a fully backfilled local Postgres, and the _cache tree.
-// Delete this test when data/prices/_cache/ is deleted.
+// Requires DB_VERIFY=1 and a fully backfilled local Postgres. Only the first
+// test needs the _cache tree, and it skips without it — so when
+// data/prices/_cache/ is finally deleted (docs/plans/consumption-pg-v1.md §11,
+// which also retires prices_grid_parity.data.test.ts's single-day fixture),
+// delete that test and keep the rest of this file: the determinism and
+// staleness gates below are about `price_payloads` itself and outlive the
+// migration they were written alongside.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { allRows, end } from "../lib/pg";
 import { buildPriceIndex, type Emit } from "../../prices/build_index";
+import { loadGridsFromPg } from "../../prices/lib/grids_pg";
 
 // Close the singleton pool so the db:verify runner doesn't hang (FINDING-008).
 afterAll(async () => {
@@ -90,34 +119,90 @@ const avgWithinTolerance = (a: unknown, b: unknown): boolean => {
   return true;
 };
 
-test.skipIf(!RUN || !HAVE_CACHE)(
-  "price_payloads reproduces the cache-built artifacts",
-  async () => {
-    const cache = new Map<string, unknown>();
-    const emit: Emit = (kind, key, obj) => cache.set(`${kind}|${key}`, obj);
-    buildPriceIndex({ emit }); // source: the legacy _cache grids
+/** The days the frozen cache tree holds — the window both sides can cover. */
+const cacheDays = (): string[] =>
+  fs
+    .readdirSync(CACHE)
+    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .map((f) => f.slice(0, 10))
+    .sort();
 
-    const rows = await allRows<{ kind: string; key: string; payload: unknown }>(
-      "SELECT kind, key, payload FROM price_payloads",
+test.skipIf(!RUN || !HAVE_CACHE)(
+  "price_grid_days rebuilds the cache-built artifacts over the shared day span",
+  { timeout: 600_000 },
+  async () => {
+    const days = cacheDays();
+    assert.ok(days.length > 0, "cache tree has no daily grids — vacuous");
+
+    const cache = new Map<string, unknown>();
+    buildPriceIndex({
+      emit: (kind, key, obj) => cache.set(`${kind}|${key}`, obj),
+    }); // source: the legacy _cache grids
+
+    const grids = await loadGridsFromPg({ days });
+    // A day on disk that Postgres does not hold is a real gap in the corpus,
+    // not a windowing artefact — fail loudly rather than silently compare a
+    // shorter series against a longer one, which is the failure mode that made
+    // the old table-vs-cache count assert unreadable.
+    assert.deepEqual(
+      grids.map((g) => g.date),
+      days,
+      "price_grid_days is missing a day the _cache tree holds",
     );
-    assert.ok(rows.length > 0, "no payloads — run `npm run prices` first");
-    assert.equal(rows.length, cache.size, "payload count");
+
+    const pg = new Map<string, unknown>();
+    const emit: Emit = (kind, key, obj) => pg.set(`${kind}|${key}`, obj);
+    buildPriceIndex({ grids, emit }); // source: price_grid_days, same window
+
+    assert.deepEqual(
+      [...pg.keys()].sort(),
+      [...cache.keys()].sort(),
+      "artifact key set",
+    );
 
     const unexplained: string[] = [];
-    for (const r of rows) {
-      const c = cache.get(`${r.kind}|${r.key}`);
-      assert.ok(
-        c !== undefined,
-        `payload ${r.kind}/${r.key} has no cache twin`,
-      );
-      if (JSON.stringify(sortKeys(c)) === JSON.stringify(sortKeys(r.payload)))
+    for (const [k, built] of pg) {
+      const c = cache.get(k);
+      if (JSON.stringify(sortKeys(c)) === JSON.stringify(sortKeys(built)))
         continue;
       const structurallyEqual =
-        JSON.stringify(stripKnown(c)) === JSON.stringify(stripKnown(r.payload));
-      if (!structurallyEqual || !avgWithinTolerance(c, r.payload))
-        unexplained.push(`${r.kind}/${r.key}`);
+        JSON.stringify(stripKnown(c)) === JSON.stringify(stripKnown(built));
+      if (!structurallyEqual || !avgWithinTolerance(c, built))
+        unexplained.push(k.replace("|", "/"));
     }
     assert.deepEqual(unexplained.slice(0, 10), [], "unexplained payload diffs");
+  },
+);
+
+// What the old `count(*) === cache.size` assert was reaching for, stated
+// directly: the served table must have been rebuilt from the grids currently
+// loaded. Staleness is the real risk here and it is otherwise silent — every
+// route keeps serving a previous vintage at a 200. Independent of the _cache
+// tree, so this one survives its deletion.
+test.skipIf(!RUN)(
+  "price_payloads is built from the latest loaded day",
+  async () => {
+    const [{ latest }] = await allRows<{ latest: string | null }>(
+      "SELECT max(day)::text AS latest FROM price_grid_days",
+    );
+    assert.ok(latest, "price_grid_days is empty — run the ingest first");
+    const rows = await allRows<{
+      kind: string;
+      key: string;
+      latest: string | null;
+    }>(
+      `SELECT kind, key, payload->>'latestDate' AS latest
+         FROM price_payloads WHERE payload ? 'latestDate'`,
+    );
+    assert.ok(rows.length > 0, "no payload carries latestDate — vacuous");
+    const stale = rows
+      .filter((r) => r.latest !== latest)
+      .map((r) => `${r.kind}/${r.key}=${r.latest}`);
+    assert.deepEqual(
+      stale.slice(0, 10),
+      [],
+      `payloads stale — price_grid_days is at ${latest}; run \`npm run prices\``,
+    );
   },
 );
 
@@ -132,6 +217,26 @@ test.skipIf(!RUN)(
     assert.deepEqual(codes, [...codes].sort(), "places must be code-sorted");
   },
 );
+
+// Both deal boards must be re-sortable from the fields they ship. This is
+// NOT the same as "the SQL is deterministic" — it caught an ORDER BY on the raw
+// `disc` under a payload that ships only `round(disc*100)`: every violation sat
+// inside a tied discPct bucket (deals-muni/BGS04 had five), so the array encoded
+// a distinction no reader of the payload could see, and the per-município top-24
+// cut split those ties on a key it never published.
+const assertDealOrder = (
+  label: string,
+  deals: { discPct: number; slug: string }[],
+) => {
+  const sorted = [...deals].sort(
+    (a, b) => b.discPct - a.discPct || (a.slug < b.slug ? -1 : 1),
+  );
+  assert.deepEqual(
+    deals.map((d) => d.slug),
+    sorted.map((d) => d.slug),
+    `${label} not deterministically ordered`,
+  );
+};
 
 test.skipIf(!RUN)(
   "deals-muni payloads are discount-ordered and carry latestDate (determinism)",
@@ -151,16 +256,21 @@ test.skipIf(!RUN)(
         `deals-muni/${r.key} missing latestDate`,
       );
       assert.ok(r.payload.deals.length <= 24, `deals-muni/${r.key} over cap`);
-      // Sorted by discPct desc, slug asc as a tiebreak — the build's ORDER BY.
-      const sorted = [...r.payload.deals].sort(
-        (a, b) => b.discPct - a.discPct || (a.slug < b.slug ? -1 : 1),
-      );
-      assert.deepEqual(
-        r.payload.deals.map((d) => d.slug),
-        sorted.map((d) => d.slug),
-        `deals-muni/${r.key} not deterministically ordered`,
-      );
+      assertDealOrder(`deals-muni/${r.key}`, r.payload.deals);
     }
+  },
+);
+
+test.skipIf(!RUN)(
+  "the national deals board is discount-ordered (determinism)",
+  async () => {
+    const [r] = await allRows<{
+      payload: { deals: { discPct: number; slug: string }[] };
+    }>("SELECT payload FROM price_payloads WHERE kind = 'deals'");
+    assert.ok(r, "no national deals payload — run `npm run prices` first");
+    assert.ok(r.payload.deals.length > 0, "deals board is empty — vacuous");
+    assert.ok(r.payload.deals.length <= 48, "deals board over cap");
+    assertDealOrder("deals", r.payload.deals);
   },
 );
 

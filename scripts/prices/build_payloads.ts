@@ -154,21 +154,32 @@ export const buildPayloads = async (): Promise<void> => {
     eik: string;
     chain: string;
   }>(
+    // Ordered by the ROUNDED discPct — the only discount field the payload
+    // ships — with a slug tiebreak, never by the raw `disc`. Sorting on a key
+    // finer than the one emitted makes the board unreproducible from its own
+    // contents: two promos at 0.434 and 0.428 both ship "43%" and the array
+    // order then encodes a difference the reader cannot see. Same rule as
+    // reference_pg_payload_determinism, and the same reason `best` tiebreaks on
+    // eik — without it, two chains tied at the deepest discount for one product
+    // hand the row an arbitrary chain name.
     `WITH ${promoQualityCte(false)},
      best AS (
        SELECT DISTINCT ON (slug) slug, title, promo_eur, base_reg, disc, eik
          FROM promos
         WHERE disc >= ${MIN_DISC} AND disc <= ${MAX_DISC}
-        ORDER BY slug, disc DESC
+        ORDER BY slug, disc DESC, eik
+     ),
+     pct AS (
+       SELECT b.*, round((b.disc * 100)::numeric, 0)::int AS disc_pct FROM best b
      )
-     SELECT b.slug, b.title,
-            round(b.promo_eur::numeric, 2)::float8 AS promo,
-            round(b.base_reg::numeric, 2)::float8 AS reg,
-            round((b.disc * 100)::numeric, 0)::int AS "discPct",
-            b.eik, COALESCE(ch.name, '') AS chain
-       FROM best b
-       LEFT JOIN price_chains ch ON ch.eik = b.eik
-      ORDER BY b.disc DESC
+     SELECT p.slug, p.title,
+            round(p.promo_eur::numeric, 2)::float8 AS promo,
+            round(p.base_reg::numeric, 2)::float8 AS reg,
+            p.disc_pct AS "discPct",
+            p.eik, COALESCE(ch.name, '') AS chain
+       FROM pct p
+       LEFT JOIN price_chains ch ON ch.eik = p.eik
+      ORDER BY p.disc_pct DESC, p.slug
       LIMIT 48`,
   );
   const [{ latest }] = await allRows<{ latest: string | null }>(
@@ -214,21 +225,25 @@ export const buildPayloads = async (): Promise<void> => {
         ORDER BY obshtina, slug, disc DESC, eik
      ),
      ranked AS (
-       SELECT b.*,
+       -- Both the top-24 CUT and the emitted order run on the rounded discPct
+       -- (see the national board above), so the shipped array is reproducible
+       -- from the fields it ships and the cut can't split a tie arbitrarily.
+       SELECT b.*, round((b.disc * 100)::numeric, 0)::int AS disc_pct,
               row_number() OVER (
-                PARTITION BY obshtina ORDER BY disc DESC, slug
+                PARTITION BY obshtina
+                ORDER BY round((b.disc * 100)::numeric, 0) DESC, slug
               ) AS rn
          FROM best b
      )
      SELECT r.obshtina, r.slug, r.title,
             round(r.promo_eur::numeric, 2)::float8 AS promo,
             round(r.base_reg::numeric, 2)::float8 AS reg,
-            round((r.disc * 100)::numeric, 0)::int AS "discPct",
+            r.disc_pct AS "discPct",
             r.eik, COALESCE(ch.name, '') AS chain
        FROM ranked r
        LEFT JOIN price_chains ch ON ch.eik = r.eik
       WHERE r.rn <= 24
-      ORDER BY r.obshtina, r.disc DESC, r.slug`,
+      ORDER BY r.obshtina, r.disc_pct DESC, r.slug`,
   );
   const dealsByMuni = new Map<
     string,
