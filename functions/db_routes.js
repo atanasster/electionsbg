@@ -32,6 +32,18 @@ const orNull = (q, k) => s(q, k) || null;
 // defeating the exact bound this helper exists to provide. Every key below is a constant or
 // a value that came out of the database.
 const loggedMisses = new Set();
+// Raw query params are interpolated into some of these messages (the "this window is not a
+// precomputed scope" ones), so cap the length and strip anything outside printable ASCII.
+// Two reasons, and the second is the one that matters: a newline would split one warning into
+// several Cloud Logging entries, and — because logMissOnce fires ONCE per process — a crawler
+// or stale bookmark carrying a junk window would otherwise permanently occupy the single line
+// that exists to reveal a REAL new election window the scopes loader has not been re-run for.
+const logSafe = (v) =>
+  v === null || v === undefined
+    ? "null"
+    : String(v)
+        .replace(/[^\x20-\x7E]/g, "·")
+        .slice(0, 32);
 const logMissOnce = (key, message) => {
   if (loggedMisses.has(key)) return;
   loggedMisses.add(key);
@@ -174,7 +186,7 @@ const scopedPayload = async (dbRows, kind, from, to) => {
       // such window is named in the message, which is all the diagnosis needs.
       logMissOnce(
         `pp:no-scope:${kind}`,
-        `${kind}: [${from} , ${to}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
+        `${kind}: [${logSafe(from)} , ${logSafe(to)}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
       );
     } else if (!hit[0].r) {
       logMissOnce(
@@ -187,9 +199,17 @@ const scopedPayload = async (dbRows, kind, from, to) => {
     // NARROW, like the settlement route. Degrade only where the live path is genuinely the
     // better answer: the matview absent (42P01, a database that has not run the loader),
     // NOT POPULATED (55000), unreadable (42501, default privileges never applied), or locked
-    // by a plain REFRESH (55P03 lock_not_available / 57014 query_canceled). A pool or
-    // connection error is NOT one of these — retrying it as a second, much heavier query just
-    // doubles the load on a saturated pool, so it rethrows.
+    // by a plain REFRESH (55P03 lock_not_available). A pool or connection error is NOT one of
+    // these — retrying it as a second, much heavier query just doubles the load on a saturated
+    // pool, so it rethrows.
+    //
+    // 57014 (query_canceled) is DELIBERATELY ABSENT, unlike the first draft of this list. The
+    // lock case it looks like it covers is 55P03 — lock_timeout raises that, not this. What
+    // actually raises 57014 here is the pool's own statement_timeout, i.e. the probe already
+    // burned the full 10 s budget. Falling back then issues a query 25-70x heavier (199k-411k
+    // buffers, see 124's header) which cannot finish in its own fresh budget either, so the
+    // request 500s anyway — after ~20 s of a held connection, under exactly the saturation that
+    // caused the first timeout. Degrading is only correct when it is cheaper than failing.
     //
     // 55000 IS THE ONE THIS ROUTE MOST NEEDS and the easiest to omit. Reading a matview created
     // WITH NO DATA does not return zero rows — it ERRORS with
@@ -201,8 +221,7 @@ const scopedPayload = async (dbRows, kind, from, to) => {
     // Deliberately UNLIKE cpv_catalog, where degrading yields a WRONG answer (an empty picker)
     // rather than a slow one, and so must fail loudly instead. Here it yields the RIGHT answer
     // at today's speed, which is why these six routes can ship in any order, to any database.
-    if (!["42P01", "55000", "42501", "55P03", "57014"].includes(e?.code))
-        throw e;
+    if (!["42P01", "55000", "42501", "55P03"].includes(e?.code)) throw e;
     logMissOnce(
       `pp:read-failed:${kind}:${e.code}`,
       `${kind}: precompute read failed (${e.code}) — serving live.`,
@@ -953,7 +972,7 @@ const DB_ROUTES = {
         // first such window is named in the message, which is all the diagnosis needs.
         logMissOnce(
           "psp:no-scope",
-          `procurement-settlement: [${from} , ${to}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
+          `procurement-settlement: [${logSafe(from)} , ${logSafe(to)}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
         );
       } else if (!hit[0].r && !hit[0].built) {
         logMissOnce(
@@ -968,14 +987,14 @@ const DB_ROUTES = {
       // not run the loader), NOT POPULATED (55000, DDL applied but never REFRESHed — reading a
       // matview created WITH NO DATA raises object_not_in_prerequisite_state, it does NOT
       // return zero rows), unreadable (42501, default privileges never applied), or locked
-      // by a plain REFRESH (55P03 lock_not_available / 57014 query_canceled). A pool or
-      // connection error is NOT one of these — retrying it as a second, heavier query just
-      // doubles the load on a saturated pool, so it rethrows.
+      // by a plain REFRESH (55P03 lock_not_available). A pool or connection error is NOT one of
+      // these — retrying it as a second, heavier query just doubles the load on a saturated
+      // pool, so it rethrows. 57014 (statement_timeout) is deliberately absent for the same
+      // reason — see the note on scopedPayload's catch above.
       //
       // Deliberately UNLIKE cpv_catalog, where degrading yields a WRONG answer (an empty
       // picker) rather than a slow one, and so must fail loudly instead.
-      if (!["42P01", "55000", "42501", "55P03", "57014"].includes(e?.code))
-        throw e;
+      if (!["42P01", "55000", "42501", "55P03"].includes(e?.code)) throw e;
       logMissOnce(
         `psp:read-failed:${e.code}`,
         `procurement-settlement: precompute read failed (${e.code}) — serving live.`,

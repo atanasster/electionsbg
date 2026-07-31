@@ -280,8 +280,16 @@ test("the probe projects the columns the handler reads", async () => {
   const { sql } = db2.calls[0];
 
   assert.match(sql, /p\.payload AS r\b/, "the payload must arrive as `r`");
-  assert.match(sql, /\bAS built\b/, "the built flag decides whether a miss warns");
-  assert.match(sql, /sc\.scope_key/, "the scope key names the scope in the warning");
+  assert.match(
+    sql,
+    /\bAS built\b/,
+    "the built flag decides whether a miss warns",
+  );
+  assert.match(
+    sql,
+    /sc\.scope_key/,
+    "the scope key names the scope in the warning",
+  );
 });
 
 test("an open-ended parliament window reads the precompute", async () => {
@@ -297,7 +305,11 @@ test("an open-ended parliament window reads the precompute", async () => {
 
   assert.deepEqual(db2.paths(), ["probe"]);
   assert.deepEqual(db2.calls[0].params, ["68134", "2026-04-19", null]);
-  assert.equal(body.awarderCount, 9, "the stored payload, not a live recompute");
+  assert.equal(
+    body.awarderCount,
+    9,
+    "the stored payload, not a live recompute",
+  );
 });
 
 test("an ordinary year scope hits too — the case a broken lookup still passes", async () => {
@@ -334,7 +346,12 @@ test("an absent matview falls back instead of erroring", async () => {
   // The route must be shippable to a database that has never run the loader — that is what
   // makes the deploy orderless, and the deliberate difference from cpv_catalog, where
   // degrading would serve a WRONG answer rather than a slow one.
-  for (const code of ["42P01", "42501", "55P03", "57014"]) {
+  //
+  // 55000 is the state that MATTERS most and is easiest to leave out: reading a matview
+  // created WITH NO DATA does not return zero rows, it raises
+  // object_not_in_prerequisite_state. That is exactly a database where the DDL was applied
+  // and the REFRESH never ran — the first-deploy case this property is about.
+  for (const code of ["42P01", "55000", "42501", "55P03"]) {
     __resetMissLog();
     const db2 = stubDb({
       probe: () => Promise.reject(pgError(code)),
@@ -345,7 +362,11 @@ test("an absent matview falls back instead of erroring", async () => {
       ({ body } = await handler(db2, { ekatte: "68134" }));
     });
 
-    assert.deepEqual(db2.paths(), ["probe", "live"], `${code} degrades to live`);
+    assert.deepEqual(
+      db2.paths(),
+      ["probe", "live"],
+      `${code} degrades to live`,
+    );
     assert.equal(body.awarderCount, 2, `${code} still serves the right answer`);
     assert.equal(lines.length, 1, `${code} is reported, not swallowed`);
     assert.match(lines[0], new RegExp(code));
@@ -355,9 +376,21 @@ test("an absent matview falls back instead of erroring", async () => {
 test("an error that is NOT a degradable state rethrows rather than double-querying", async () => {
   // A pool or connection failure is not a reason to retry as a second, heavier query — that
   // just doubles the load on a pool that is already saturated (max: 4).
-  const db2 = stubDb({ probe: () => Promise.reject(pgError("53300")) });
-  await assert.rejects(() => handler(db2, { ekatte: "68134" }), /53300/);
-  assert.deepEqual(db2.paths(), ["probe"], "no live retry");
+  //
+  // 57014 is in this list, NOT the degradable one above, and the distinction is easy to get
+  // backwards: it looks like the "locked by a REFRESH" code but that is 55P03. What raises
+  // 57014 here is the pool's own statement_timeout — the probe has already burned the full
+  // 10 s budget, so falling back to a query 25-70x heavier cannot finish either. It would turn
+  // a 10 s failure into a ~20 s failure holding a pooled connection, under exactly the
+  // saturation that caused the timeout. Degrading is only correct when it beats failing.
+  for (const code of ["53300", "57014"]) {
+    const db2 = stubDb({ probe: () => Promise.reject(pgError(code)) });
+    await assert.rejects(
+      () => handler(db2, { ekatte: "68134" }),
+      new RegExp(code),
+    );
+    assert.deepEqual(db2.paths(), ["probe"], `${code}: no live retry`);
+  }
 });
 
 test("?slim still trims a payload served from the precompute", async () => {

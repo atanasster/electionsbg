@@ -150,16 +150,18 @@ change — the pscope windows (migration 118) **and the per-scope precomputes th
 (migration 119, `procurement_settlement_rank` + `procurement_geo_payloads` behind
 `/procurement/by-settlement`; migration 122, `contractor_rank` + `contractor_scope_kpis`
 behind `/procurement/contractors`; migration 123, `procurement_settlement_payloads` behind
-every `/procurement/settlement/:ekatte` page and My-Area procurement tile):
+every `/procurement/settlement/:ekatte` page and My-Area procurement tile; migration 124,
+`procurement_payloads` behind the six `/api/db/procurement-*` dashboard routes):
 
 ```bash
 npm run db:load:procurement-scopes:pg:cloud
 ```
 
-It writes the window rows, applies 119 + 122 + 123 and REFRESHes all five matviews (~40 s
-local, measured end to end; `contractor_rank` fans ~29.5k contractors × ~30 windows ×
-CPV-division rollup ≈ 9 s, and 123 fans 869 settlements × 30 windows ≈ 10 s) — so "the
-scopes changed" and "the precomputes match the scopes" can never be two separate states.
+It writes the window rows, applies 119 + 122 + 123 + 124 and REFRESHes all six matviews
+(**46 s** local, measured end to end; `contractor_rank` fans ~29.5k contractors × ~30 windows ×
+CPV-division rollup ≈ 9 s, 123 fans 869 settlements × 30 windows ≈ 10 s, and 124 fans 6 kinds ×
+30 windows ≈ 10 s) — so "the scopes changed" and "the precomputes match the scopes" can never
+be two separate states.
 `contractor_scope_kpis` reads `contractor_rank`, so it is refreshed after it. **Cloud SQL is
 unmeasured and will be materially slower** — the whole reason 123 exists is that the same
 per-settlement call is 401 ms locally and had not finished at the 10 s `statement_timeout`
@@ -223,10 +225,10 @@ reason the fast path was skipped is otherwise silent, which is why the route log
 signal that the cloud loader never ran.** `procurement_settlement_payloads.data.test.ts` fails
 on a stale, partial or place-blank matview.
 
-`db:load:pg` also re-REFRESHes all five (guarded on existence, `contractor_rank` before
+`db:load:pg` also re-REFRESHes all six (guarded on existence, `contractor_rank` before
 `contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement`,
-`/procurement/contractors` or the settlement pages serving the previous corpus. `db:refresh`
-runs the local equivalent automatically; the cloud side does not.
+`/procurement/contractors`, the settlement pages or the `/procurement` dashboard serving the
+previous corpus. `db:refresh` runs the local equivalent automatically; the cloud side does not.
 
 **Skipping it does not fail — it blanks.** `db:resolve:persons` applies 117 with
 `CREATE TABLE IF NOT EXISTS`, so a cloud database that never ran this loader gets an EMPTY
