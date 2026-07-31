@@ -149,23 +149,53 @@ Related, and the only loader whose trigger is a **calendar rollover** rather tha
 change — the pscope windows (migration 118) **and the per-scope precomputes they drive**
 (migration 119, `procurement_settlement_rank` + `procurement_geo_payloads` behind
 `/procurement/by-settlement`; migration 122, `contractor_rank` + `contractor_scope_kpis`
-behind `/procurement/contractors`):
+behind `/procurement/contractors`; migration 123, `procurement_settlement_payloads` behind
+every `/procurement/settlement/:ekatte` page and My-Area procurement tile):
 
 ```bash
 npm run db:load:procurement-scopes:pg:cloud
 ```
 
-It writes the window rows, applies 119 + 122 and REFRESHes all four matviews (~20 s;
-`contractor_rank` fans ~29.5k contractors × ~30 windows × CPV-division rollup ≈ 9 s) — so
-"the scopes changed" and "the precomputes match the scopes" can never be two separate states.
-`contractor_scope_kpis` reads `contractor_rank`, so it is refreshed after it. Re-run it:
+It writes the window rows, applies 119 + 122 + 123 and REFRESHes all five matviews (~40 s
+local, measured end to end; `contractor_rank` fans ~29.5k contractors × ~30 windows ×
+CPV-division rollup ≈ 9 s, and 123 fans 869 settlements × 30 windows ≈ 10 s) — so "the
+scopes changed" and "the precomputes match the scopes" can never be two separate states.
+`contractor_scope_kpis` reads `contractor_rank`, so it is refreshed after it. **Cloud SQL is
+unmeasured and will be materially slower** — the whole reason 123 exists is that the same
+per-settlement call is 401 ms locally and had not finished at the 10 s `statement_timeout`
+that aborted it on a cold `db-g1-small` — so expect minutes, not seconds. Re-run it:
 
 - whenever a new election lands in `src/data/json/elections.json` (a new `ns:` window);
 - **every January** — the year windows are enumerated `SCOPE_FIRST_YEAR..currentYear`, so on
   1 January the `?pscope=y:<new year>` option appears in the UI while the table still stops
   at the old year, and that scope serves an empty page;
-- after a standalone `db:load:place-dim:pg:cloud`, which changes the English settlement
-  names the ranking joins but has nothing of its own to refresh them.
+- after a standalone `db:load:place-dim:pg:cloud` **only when it reports that it skipped its
+  own refresh** — it changes the English settlement names the ranking joins, and it now
+  refreshes them itself whenever the dimension actually moved (see the two side loaders
+  below). Re-running this loader after it already did that is a needless multi-minute cloud
+  rebuild.
+
+The refresh list, its ORDER and the not-populated fallback live in ONE place —
+`scripts/db/lib/scopedMatviews.ts`. A migration that adds a per-scope matview must join
+`SCOPED_MATVIEWS` there or no loader will ever refresh it;
+`procurement_settlement_payloads.data.test.ts` fails on any matview that reads
+`procurement_scopes` and is missing from the list.
+
+**Two loaders outside this one also refresh the settlement-keyed subset**, because they
+change what those matviews are built FROM, and skipping them is invisible:
+
+```bash
+npm run db:load:awarder-seats:pg:cloud   # decides WHICH buyers are seated in a settlement
+npm run db:load:place-dim:pg:cloud       # supplies the place hero 123 STORES in its payload
+```
+
+Both now do it themselves (119 + 123 only — 122 has no settlement dimension and neither
+input can move it). `place-dim` fingerprints the table either side of its rewrite and skips
+the refresh when the rows are byte-identical, which is the usual case, so it stays cheap to
+run blind — it says which of the two it did. Without these, a standalone reload moves a
+buyer between settlements, or blanks a place hero, everywhere on the site **except
+`/procurement/by-settlement` and the `/procurement/settlement/:ekatte` pages**, which keep
+serving the old attribution at a 200.
 
 `cpv_catalog` (migration 121) is the same shape but rides the TENDERS loader: `db:load:tenders:pg`
 applies it and calls `rebuild_cpv_catalog()` right after the corpus commits, so on the cloud side
@@ -181,10 +211,22 @@ it and do NOT degrade a missing matview to an empty result, so on the FIRST clou
 loader must run **before** the `deploy:db` that ships them. `contractor_rank.data.test.ts`
 fails on an empty or stale matview.
 
-`db:load:pg` also re-REFRESHes all four (guarded on existence, `contractor_rank` before
-`contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement` or
-`/procurement/contractors` serving the previous corpus. `db:refresh` runs the local
-equivalent automatically; the cloud side does not.
+`procurement_settlement_payloads` (migration 123) is the deliberate OPPOSITE of those two on
+first deploy. `/api/db/procurement-settlement` maps the requested window to a scope and reads
+the matview, but **falls back to the live `procurement_settlement_detail()` when the
+precompute cannot answer** — no stored row, or a narrow set of four SQLSTATEs meaning the
+matview is absent, unreadable or locked (a pool error still throws). Degrading is correct here in a
+way it is not for `cpv_catalog`: it yields the RIGHT answer slowly (today's behaviour) rather
+than a wrong one, so the route ships in any order, to any database. The cost is that every
+reason the fast path was skipped is otherwise silent, which is why the route logs a
+`psp:not-built` / `psp:read-failed` warning once per process — **that log, not latency, is the
+signal that the cloud loader never ran.** `procurement_settlement_payloads.data.test.ts` fails
+on a stale, partial or place-blank matview.
+
+`db:load:pg` also re-REFRESHes all five (guarded on existence, `contractor_rank` before
+`contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement`,
+`/procurement/contractors` or the settlement pages serving the previous corpus. `db:refresh`
+runs the local equivalent automatically; the cloud side does not.
 
 **Skipping it does not fail — it blanks.** `db:resolve:persons` applies 117 with
 `CREATE TABLE IF NOT EXISTS`, so a cloud database that never ran this loader gets an EMPTY

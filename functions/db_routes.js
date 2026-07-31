@@ -35,7 +35,12 @@ const loggedMisses = new Set();
 const logMissOnce = (key, message) => {
   if (loggedMisses.has(key)) return;
   loggedMisses.add(key);
-  console.warn(message);
+  // The KEY is printed, not just used for dedupe. It is the stable token an operator greps
+  // Cloud Logging for ("psp:not-built") to answer "did the loader ever run on this
+  // database?" — the question latency cannot answer, because the fallback keeps the numbers
+  // right. A key that only existed in memory would make that grep silently return nothing
+  // during exactly the failure it was meant to surface.
+  console.warn(`${key} — ${message}`);
 };
 // Test-only: the Set outlives a single test, so without this the second test to provoke a
 // given miss reason silently observes nothing and the assertions become order-dependent.
