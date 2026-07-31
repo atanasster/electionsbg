@@ -637,9 +637,14 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 
    `place-dim` and `judicial-bodies` are cheap and idempotent, so emit them
    unconditionally rather than trying to decide whether their inputs moved —
-   deciding wrong is invisible, re-running is ~seconds. **Verify before the
-   resolve, not after:** `select count(*) from place_dim` and
-   `from judicial_body_alias` must both be non-zero on the target.
+   deciding wrong is invisible, re-running is ~seconds. `place-dim` stays cheap
+   on a no-op run only because it fingerprints the table either side of the
+   rewrite and skips its downstream refresh when nothing changed; when the
+   dimension GENUINELY moves it also rebuilds the per-scope precomputes that
+   store place labels (119 + 123), which is minutes on Cloud SQL, not seconds.
+   It says which of the two it did. **Verify before the resolve, not after:**
+   `select count(*) from place_dim` and `from judicial_body_alias` must both be
+   non-zero on the target.
 
    **Prereq:** the Cloud SQL proxy must be running on `127.0.0.1:5434` and `.pgpass` must hold the proxy line — if the proxy is down, just list the commands for the user to run once it's up. (See the memory note "db:dump local vs Cloud SQL" for the proxy/`.pgpass`/`host.docker.internal` mechanics.)
 

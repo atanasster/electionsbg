@@ -13,6 +13,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
 import { exec, getPool, withClient, end } from "./lib/pg";
+import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 import { computeAwarderSeats } from "../procurement/enrich_awarder_seats";
 
 const SCHEMA_FILE = path.join(
@@ -90,6 +91,32 @@ export const loadAwarderSeatsPg = async (): Promise<{ rows: number }> => {
     await c.query("COMMIT");
   });
 
+  // INSIDE the exported loader, not in the CLI block below. This table decides WHICH buyers
+  // are seated in a settlement, so every settlement-keyed precompute is stale the moment it
+  // changes — 119's ranking, and 123's payloads, which additionally BAKE the seat's identity
+  // into a stored blob. Without it a reload moves a buyer between settlements everywhere on
+  // the site EXCEPT the by-settlement pages, on a 200, with nothing red anywhere. Putting it
+  // in the CLI block would mean any future caller that imports this function (the
+  // parallel-deploy orchestrator in docs/plans/cloud-deploy-speed-v1.md is the likely one)
+  // silently re-opens exactly that gap.
+  //
+  // Only the awarder_seats-derived matviews: 122 has no settlement dimension and cannot be
+  // moved by this table. Redundant inside db:refresh (the scopes loader rebuilds everything
+  // a few steps later); the standalone reload is the case this exists for.
+  try {
+    await refreshScopedPrecomputes(["awarder_seats"]);
+  } catch (err) {
+    // The table is loaded and COMMITTED — only the precompute refresh failed. Say so, or the
+    // operator reads the stack trace under a success line and re-runs a loader that already
+    // did its work (68 min on the cloud path). Rethrown: a silently-skipped refresh is the
+    // failure class this call exists to prevent.
+    console.error(
+      "awarder_seats loaded OK, but the scoped precompute refresh failed. " +
+        "Re-run `npm run db:load:procurement-scopes:pg` to rebuild them.",
+    );
+    throw err;
+  }
+
   return { rows: rows.length };
 };
 
@@ -97,8 +124,10 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const t0 = Date.now();
   loadAwarderSeatsPg()
     .then(async ({ rows }) => {
+      // Covers the refresh too, now that it runs inside the loader — the number
+      // cloud-deploy-speed-v1 profiles this command against has to be the whole command.
       console.log(
-        `loaded ${rows} awarder seats → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+        `loaded ${rows} awarder seats + refreshed precomputes in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
       );
       await end();
     })

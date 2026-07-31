@@ -266,13 +266,13 @@ and `db:load:place-dim:pg` likewise has nothing of its own to refresh. Today bot
 covered only by the operator remembering to run the scopes loader afterwards, which is the
 arrangement CLAUDE.md already documents for 119's English names.
 
-`refreshScopedSettlement()` is exported from `load_procurement_scopes_pg.ts`. Calling it at
-the end of `load_awarder_seats_pg.ts` costs ~10 s on a loader that already takes minutes,
-and closes the same latent staleness for **119 and 122** — `procurement_by_settlement`
-reads `awarder_seats` too, so a standalone seats reload has always been able to move a
-buyer between settlements everywhere except the by-settlement precomputes. Do the same in
-the place-dim loader, or leave the table's command column honest about needing a second
-command.
+Both loaders now call the shared `refreshScopedPrecomputes()`
+(`scripts/db/lib/scopedMatviews.ts`), which closes the same latent staleness for **119** —
+`procurement_by_settlement` reads `awarder_seats` too, so a standalone seats reload has
+always been able to move a buyer between settlements everywhere except the by-settlement
+precomputes. **Not 122**: the contractor leaderboard has no settlement dimension and
+neither input can move it, so each caller names the input it changed and gets only the
+matviews built from it.
 
 In `db:refresh` the order is already correct — `db:load:awarder-seats:pg` and
 `db:load:place-dim:pg` both run before `db:load:procurement-scopes:pg`. It is the

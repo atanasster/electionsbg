@@ -37,16 +37,17 @@
 -- The place JOINs inside 030 are LEFT and degrade to the Bulgarian awarder_seats strings,
 -- which is correct live but is BAKED IN here: a refresh that runs while place_dim is empty
 -- stores 26,070 rows with no English name, no centroid and a breadcrumb that cannot link
--- up, and they stay that way until the next refresh. This is why the refresh belongs in
--- load_awarder_seats_pg and load_place_dim_pg and not only in the scopes loader — see
--- docs/plans/procurement-settlement-precompute-v1.md §4 (step 2b). Until that lands, a
--- STANDALONE reload of either input leaves this matview stale with nothing red anywhere.
+-- up, and they stay that way until the next refresh. This is why load_awarder_seats_pg and
+-- load_place_dim_pg refresh the scoped precomputes themselves and not only the scopes
+-- loader does: a STANDALONE reload of either input would otherwise leave this matview stale
+-- with nothing red anywhere.
 --
--- REFRESHED CONCURRENTLY (the UNIQUE index below is what makes that legal) — but ONLY on
--- the path that refreshes without re-applying this file, i.e. db:load:pg's guarded block.
--- The scopes loader applies this file first, and the DROP + CREATE … WITH NO DATA below
--- means its refresh always meets a freshly-created, unpopulated matview: it raises 0A000
--- and takes the PLAIN form, every run, not just the first (refreshScopedSettlement handles
+-- REFRESHED CONCURRENTLY (the UNIQUE index below is what makes that legal) — on every path
+-- that refreshes WITHOUT re-applying this file: the contracts reload and the awarder_seats /
+-- place_dim reloads. The one exception is the scopes loader, which applies this file first,
+-- and the DROP + CREATE … WITH NO DATA below means its refresh always meets a
+-- freshly-created, unpopulated matview: it raises 0A000 and takes the PLAIN form, every run,
+-- not just the first (refreshScopedPrecomputes, scripts/db/lib/scopedMatviews.ts, handles
 -- the fallback). Inherited from 119/122, which have the same shape.
 --
 -- That is tolerable here in a way it would not be elsewhere, because the route degrades to

@@ -39,8 +39,10 @@
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import type { PoolClient } from "pg";
 import { exec, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 import { obshtinaLabels, mirLabels } from "../person/places";
 import { OBLAST_NAME, oblastToCanon } from "../../src/lib/regionalOblast";
 import { MIR_CODES } from "../../src/data/parliament/nsFolders";
@@ -297,6 +299,24 @@ const main = async (): Promise<void> => {
   );
   const rows = buildPlaceDimRows(settlements, municipalities);
 
+  // Fingerprint the table either side of the rewrite, so the (usual) no-op reload can skip
+  // the downstream refresh. This dimension is built entirely from two git-tracked JSON files
+  // plus static label producers, so every unconditional run — the person deploy chain, every
+  // db:refresh — rewrites a byte-identical row set. Without this the loader would spend ~20 s
+  // local / minutes on Cloud SQL rebuilding precomputes that provably cannot have changed,
+  // and it is documented elsewhere (and relied upon) as cheap enough to run blind.
+  // `t::text` is the WHOLE ROW, not a column: `FROM place_dim t(r)` would rename only the
+  // first column, so hashing `t.r` compares nothing but `kind` and reports every real edit
+  // as "unchanged" — a skip that silently keeps a stale precompute, which is the exact
+  // failure this call site exists to prevent. Verified both ways against the live table.
+  const fingerprint = async (c: PoolClient): Promise<string | null> =>
+    (
+      await c.query<{ h: string | null }>(
+        `SELECT md5(string_agg(t::text, '|' ORDER BY t::text)) AS h FROM place_dim t`,
+      )
+    ).rows[0].h;
+
+  let changed = true;
   await withTx(async (c) => {
     // TRUNCATE holds an AccessExclusiveLock for the whole COPY, and this table now sits on
     // the /person serving path — so the lock blocks readers, not just writers. It stays
@@ -304,6 +324,7 @@ const main = async (): Promise<void> => {
     // loader is operator-run, not part of a request. If it grows, gains a bigger namespace,
     // or starts running on a schedule, switch to the staging-swap the contracts reload uses
     // (COPY into place_dim_new, then DROP + RENAME in one transaction).
+    const before = await fingerprint(c);
     await c.query("TRUNCATE place_dim");
     await copyRows(
       c,
@@ -324,6 +345,7 @@ const main = async (): Promise<void> => {
       ],
       rows,
     );
+    changed = (await fingerprint(c)) !== before;
   });
 
   const byKind = new Map<string, number>();
@@ -333,6 +355,33 @@ const main = async (): Promise<void> => {
       [...byKind].map(([k, n]) => `${k} ${n}`).join(", ") +
       ")",
   );
+
+  // This dimension is an INPUT to two per-scope precomputes, and it fails quietly in both:
+  // 119 joins it for the English settlement name its table is sorted and searched by, and
+  // 123 stores the whole place hero — nameEn, centroid, the obshtina/oblast codes the
+  // breadcrumb links with — inside its payload. Those JOINs are LEFT and degrade to the
+  // Bulgarian awarder_seats strings, which is right for a live call and BAKED IN for a
+  // stored one: a settlement page then renders with no English name, no map centroid and a
+  // breadcrumb that cannot link up, on a 200, against a dimension sitting there fully
+  // loaded. Only the place_dim-derived matviews — 122 has no place dimension at all.
+  //
+  // The skip is ANNOUNCED, so "nothing changed" is never indistinguishable from "the step
+  // was forgotten".
+  if (!changed) {
+    console.log("place_dim: unchanged — scoped precomputes left as they are.");
+    return;
+  }
+  try {
+    await refreshScopedPrecomputes(["place_dim"]);
+  } catch (err) {
+    // Same reasoning as load_awarder_seats_pg: the table is committed and fine, and only
+    // the downstream refresh failed. Rethrown, but self-describing.
+    console.error(
+      "place_dim loaded OK, but the scoped precompute refresh failed. " +
+        "Re-run `npm run db:load:procurement-scopes:pg` to rebuild them.",
+    );
+    throw err;
+  }
 };
 
 // Guarded so a test can import buildPlaceDimRows() without firing the loader: main()
