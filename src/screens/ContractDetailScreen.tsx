@@ -213,17 +213,6 @@ export const ContractDetailScreen: FC = () => {
         {/* Member→file up-link (§10 Phase 3) — a curated dossier that includes this
             contract, if any. */}
         <ProjectFileUpLink id={c.key} />
-        {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from this
-            contract (title + this row force-included, plus its procedure). */}
-        <TrackAsProjectFileLink
-          to={projectHref(
-            projectFromContract({
-              key: c.key,
-              unp: c.unp,
-              titleSeed: splitContractTitle(c.title).main || c.title || "",
-            }),
-          )}
-        />
       </header>
 
       <ContractNormalcyPanel contractKey={id} />
@@ -357,6 +346,24 @@ export const ContractDetailScreen: FC = () => {
               value={<span className="font-mono text-xs">{c.ocid}</span>}
             />
           ) : null}
+          {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from
+              this contract (title + this row force-included, plus its
+              procedure). It sits at the foot of the identity block rather than
+              in the header: it is an action ON this record, so it belongs with
+              the record's own fields and the source links beside them, not
+              between the risk meter and the analysis panels the reader is
+              working through. Ruled off so it does not read as another KvRow. */}
+          <div className="border-t pt-2">
+            <TrackAsProjectFileLink
+              to={projectHref(
+                projectFromContract({
+                  key: c.key,
+                  unp: c.unp,
+                  titleSeed: splitContractTitle(c.title).main || c.title || "",
+                }),
+              )}
+            />
+          </div>
         </section>
 
         <div className="space-y-4">
