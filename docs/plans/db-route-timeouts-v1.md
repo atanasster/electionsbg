@@ -617,6 +617,10 @@ recording rather than leaving in a log nobody reads again:
 - **`/api/db/person-connections` reaches 8.2–10.1 s** (200s, but one at 10.073 s is over the
   ceiling). Daily since at least 2026-07-30. This is the next `person_by_name`-shaped problem:
   a per-entity function with no precompute, one bad day from being the next 500.
+  → **FIXED** by [person-connections-scan-v1](docs/plans/person-connections-scan-v1.md), live
+  2026-07-31: **8.2–10.1 s → 0.008–0.747 s** (median 0.189 s). It turned out to be outcome 1, a
+  query rewrite — a whole-corpus `GROUP BY` recomputed per request and independent of the
+  subject, not a missing precompute. No new object, no loader.
 - **`/api/db/price-history` and `/api/db/price-product` return 500 at ~2.0–2.1 s**, which is
   exactly the pool's `lock_timeout`. 4 on 07-27, 97 on 07-28, 21 on 07-29, 64 on 07-30, 14 on
   07-31 — i.e. a recurring writer holding a lock the readers queue behind, most likely the

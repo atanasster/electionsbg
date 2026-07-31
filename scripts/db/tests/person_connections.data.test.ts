@@ -72,8 +72,11 @@ afterAll(async () => {
 
 // Every fixture below self-selects from the live corpus with a deterministic ORDER BY, so
 // nothing here hardcodes a slug that could later leave the data.
-const pickSlug = (sql: string): Promise<string | null> =>
-  allRows<{ slug: string }>(sql).then((r) => r[0]?.slug ?? null);
+// Takes params — person_role.ref is unconstrained text written by the TR/NGO bridge from
+// registry payloads, so interpolating one would break this file the day a ref carries an
+// apostrophe, and the syntax error would point at person_connections rather than at the test.
+const pickSlug = (sql: string, params?: unknown[]): Promise<string | null> =>
+  allRows<{ slug: string }>(sql, params).then((r) => r[0]?.slug ?? null);
 
 // ── Behaviour ────────────────────────────────────────────────────────────────
 
@@ -118,7 +121,7 @@ test.skipIf(skip)(
 
 test.skipIf(skip)(
   "the association-noise guard excludes mass-membership orgs",
-  async () => {
+  async (ctx) => {
     // A company with > 6 public officers is a board / professional association, not a business
     // tie. Pick the biggest one and assert it never appears as a bridge for its own members.
     const [big] = await allRows<{ ref: string; n: string }>(`
@@ -127,18 +130,17 @@ test.skipIf(skip)(
      WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'
      GROUP BY r.ref ORDER BY count(DISTINCT r.person_id) DESC, r.ref LIMIT 1`);
     if (!big || Number(big.n) <= 6) {
-      // Stated, not silent: with no >6-officer company the guard has nothing to exclude here.
-      assert.ok(
-        true,
-        "no company exceeds 6 public officers — guard not exercisable",
-      );
+      // Stated, not silent: assert.ok(true) would report as a plain pass and print nothing.
+      ctx.skip("no company exceeds 6 public officers — guard not exercisable");
       return;
     }
-    const slug = await pickSlug(`
-    SELECT p.slug FROM person p JOIN person_role r USING (person_id)
-     WHERE r.ref = '${big.ref}' AND r.source IN ('tr','ngo')
-       AND p.is_public_figure AND p.status = 'active'
-     ORDER BY p.slug LIMIT 1`);
+    const slug = await pickSlug(
+      `SELECT p.slug FROM person p JOIN person_role r USING (person_id)
+        WHERE r.ref = $1 AND r.source IN ('tr','ngo')
+          AND p.is_public_figure AND p.status = 'active'
+        ORDER BY p.slug LIMIT 1`,
+      [big.ref],
+    );
     assert.ok(
       slug,
       "the mass-membership org has no public member to test with",
@@ -267,7 +269,8 @@ test.skipIf(skip)(
     const slug = await pickSlug(
       `SELECT slug FROM person WHERE status = 'active' AND is_public_figure ORDER BY slug LIMIT 1`,
     );
-    const r = await connections(slug!);
+    assert.ok(slug, "no active public figure in the corpus");
+    const r = await connections(slug);
     assert.ok(
       r?.disclaimer?.length,
       "the identity disclaimer is missing from the payload",
@@ -279,13 +282,23 @@ test.skipIf(skip)(
 //
 // The whole point of the fix. The old body materialized a `co` CTE — one GROUP BY over every
 // tr/ngo person_role row joined to every person — on EVERY request, independent of the
-// subject. Measured on a warmed connection: old ~7,294 buffers for a subject with NO companies
-// at all, new ~560. The ceiling sits ~2× above the new cost and ~5× below the old.
+// subject.
 //
 // The subject deliberately has no companies: that is the crawler's common case (prod traffic
 // is a bot walking /person/{slug} alphabetically) and the one where the old body's cost was
-// PURELY waste — 7,294 buffers to return an empty graph.
-const BUFFER_CEILING = 1200;
+// PURELY waste.
+//
+// CALIBRATED WITH bufferCost BELOW, not with the plan doc's numbers. Those (560 new / 7,294
+// old) are `force_generic_plan` measurements of the function BODY; this reads the shipped path
+// through the pool and gets **38 new / 6,760 old**. Mixing the two methods is how this ceiling
+// was first set to 1200 — 31× above what it measures, which still passes a TOTAL regression
+// back to the whole-corpus scan but sails past a PARTIAL one. That is the likelier failure:
+// lose just the `person_pkey` seek inside public_officer_count and the cost lands near
+// 900-3,000, silently green at 1200 while the route has regressed ~24×.
+//
+// 200 sits ~5× above the measured cost and ~34× below the control. Matches the ceiling the
+// sibling person_by_name.data.test.ts:220 chose by the same reasoning.
+const BUFFER_CEILING = 200;
 
 const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
   // Warm this backend's catalog/syscache first — the first call on a fresh connection carries
@@ -334,7 +347,13 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
       `scripts/db/schema/pg/084_person_connections.sql and docs/plans/db-route-timeouts-v1.md §9.1.`,
   );
 
-  // Control: restore the pre-fix body and confirm this assertion would have caught it.
+  // Control: restore the expensive half of the pre-fix body and confirm this assertion would
+  // have caught it.
+  //
+  // NOT the whole old body — it keeps `co` and its subj_co consumer and drops rel/agg/p_c1/
+  // p_co/indirect and the payload builder, so it reads ~6,760 buffers against the real old
+  // body's ~7,294. That is deliberate and conservative: it is a LOWER BOUND on what the ceiling
+  // must reject, so calibrate against 6,760, not against the plan doc's 7,294.
   //
   // Holds an ExclusiveLock on the person_connections object for the duration. Concurrent
   // CALLERS are unaffected — they read the committed body without blocking — but a concurrent
@@ -377,5 +396,43 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
     regressed >= BUFFER_CEILING,
     `the ceiling no longer discriminates: the pre-fix body read only ${regressed} buffers, ` +
       `under the ${BUFFER_CEILING} ceiling. This test has stopped measuring anything.`,
+  );
+});
+
+// The ceiling above cannot see this property: its subject has ZERO roles of any kind, so it
+// never exercises qual ordering at all.
+//
+// public_officer_count is only cheap because the planner evaluates `source IN ('tr','ngo')`
+// FIRST and never calls it for a non-TR role. That ordering is not written anywhere in the
+// query — order_qual_clauses() derives it from the function's COST, which 084 sets to 500 for
+// exactly this reason. Drop that COST (or reimplement the function in C, where the default is
+// 1) and every non-TR role on every subject buys a per-eik lookup, with nothing failing.
+//
+// Measured with bufferCost on the corpus's worst case for this — the person with the most
+// non-tr/ngo roles (24, of which 0 are tr/ngo): 38 buffers, identical to a person with no
+// roles at all, i.e. the function is never called. The ceiling is generous because the point
+// is to catch one lookup PER ROLE (~24× this) rather than to pin an exact number.
+const NON_TR_CEILING = 100;
+
+test.skipIf(skip)("does not pay per non-TR role", async () => {
+  const slug = await pickSlug(`
+    SELECT p.slug FROM person p JOIN person_role r USING (person_id)
+     WHERE p.status = 'active' AND p.is_public_figure
+     GROUP BY p.slug
+    HAVING count(*) FILTER (WHERE r.source IN ('tr','ngo')) = 0
+     ORDER BY count(*) DESC, p.slug LIMIT 1`);
+  assert.ok(slug, "no public person with roles but none of them tr/ngo");
+
+  const [n] = await allRows<{ roles: string }>(
+    `SELECT count(*) AS roles FROM person_role r JOIN person p USING (person_id)
+      WHERE p.slug = $1`,
+    [slug],
+  );
+  const cost = await withClient((c) => bufferCost(c, slug));
+  assert.ok(
+    cost < NON_TR_CEILING,
+    `person_connections read ${cost} buffers for ${slug}, who has ${n.roles} roles and NONE ` +
+      `of them tr/ngo (ceiling ${NON_TR_CEILING}). public_officer_count is being evaluated ` +
+      `before the source filter — check that 084 still declares COST 500 on it.`,
   );
 });

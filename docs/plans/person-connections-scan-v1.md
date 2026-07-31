@@ -118,6 +118,25 @@ $$;
 `co` is deleted; its two consumers become `AND public_officer_count(r.ref) <= 6`. Nothing else
 in the function changes.
 
+### 2.2 The markers are not decoration
+
+`STABLE STRICT PARALLEL SAFE COST 500` — two of those four are load-bearing:
+
+- **`STRICT`** closes the second of the two INNER-JOIN divergences in §3 *structurally*. A NULL
+  `ref` never matched `co.eik = r.ref`; a non-strict scalar count would return 0 for it and
+  `0 <= 6` would keep the row. `STRICT` makes the call return NULL, `NULL <= 6` is NULL, and the
+  row is filtered — reproducing the old INNER JOIN exactly, without depending on
+  `person_role.ref` staying `NOT NULL`.
+- **`COST 500`** is the *only* thing keeping `source IN ('tr','ngo')` ahead of the call.
+  `order_qual_clauses()` sorts a scan's quals by per-tuple cost; the `LANGUAGE sql` default of
+  100 happens to be enough today, but nothing recorded that the performance claim depended on
+  it. Lower it — the plausible "the planner over-costs my cheap index lookup" tweak — and a
+  person with many non-TR roles pays one lookup *per role*, with nothing failing. Declared
+  explicitly so it is visible to whoever considers changing it, and asserted by the gate (§4).
+
+`PARALLEL SAFE` is accurate (two plain tables, no temp/sequence/volatile state) and matches the
+convention in eleven other schema files.
+
 A single per-eik lookup is **56 buffers / 0.44 ms**, fully index-driven. Per-company fan-out is
 bounded by the data: max 55 roles on any one company, mean 1.77.
 
@@ -128,6 +147,11 @@ Measured, same `force_generic_plan` conditions as §1:
 | no companies (the crawler's common case) | 7,294 buffers, 66 ms | **560** buffers, 1.6 ms |
 | — the same, with the function body inlined | | **19 buffers**, no seq scan left |
 | heaviest real subject in the corpus | 8,242 buffers, 66 ms | **2,160** buffers, **3.7 ms** |
+
+**Three methods, three numbers — do not mix them.** The table above is `force_generic_plan` on
+the function *body*. The gate reads the shipped path through the pool and gets **38 new /
+6,760 old** for the no-company subject; the inlined 19 is a third. Calibrating the gate's
+ceiling against this table is exactly how it was first set 31× too loose (§4).
 
 **The `source` filter is applied before the function**, so a person with many non-TR roles does
 not pay per role — verified on the person with the most non-tr/ngo roles in the corpus (24 of
@@ -179,20 +203,28 @@ on both sides, not 16,103 empty payloads compared against each other.
 
 ## 4. The gate — `scripts/db/tests/person_connections.data.test.ts`
 
-Six tests. Five are behavioural: direct edges resolve and `sharedCount` agrees with the bridge
+Seven tests. Five are behavioural: direct edges resolve and `sharedCount` agrees with the bridge
 list; the association-noise guard excludes the corpus's largest mass-membership org; indirect
 edges are second-degree only (never direct, never self, never the same company twice); the §6
 privacy gate holds on both endpoints and a `review`-status subject is unservable; an unknown
 slug returns null and the disclaimer is never droppable.
 
-**The sixth is the one that earns its place**, and it is the reason this file exists rather
-than an extra case in an existing one. All five behavioural tests **pass against the old body
-too** — the one that was 60 ms of waste per request and reached the timeout on prod.
-Correct-but-quadratic is exactly what a behavioural suite cannot see. So the last test asserts
-a buffer ceiling for a subject with no companies, and then **proves the ceiling still
-discriminates** by restoring the pre-fix body inside a rolled-back transaction and asserting it
-would have failed. A ceiling raised to silence a flaky measurement makes *that* assertion fail
-instead.
+**The last two are the ones that earn their place**, and they are the reason this file exists
+rather than an extra case in an existing one. All five behavioural tests **pass against the old
+body too** — the one that was 60 ms of waste per request and reached the timeout on prod.
+Correct-but-quadratic is exactly what a behavioural suite cannot see. So:
+
+- **The buffer ceiling** (no-company subject, ≤ 200) then **proves it still discriminates** by
+  restoring the expensive half of the pre-fix body inside a rolled-back transaction and
+  asserting it would have failed. A ceiling raised to silence a flaky measurement makes *that*
+  assertion fail instead. The control is deliberately a lower bound — it keeps `co` and drops
+  the rest of the payload builder, reading ~6,760 where the real old body read ~7,294.
+- **The qual-ordering case** (≤ 100 for the person with the most non-TR roles). The ceiling
+  above cannot see this property at all: its subject has *zero* roles of any kind, so it never
+  exercises qual ordering. `public_officer_count` is only cheap because the planner evaluates
+  `source IN ('tr','ngo')` first and never calls it for a non-TR role — an ordering that lives
+  nowhere in the query text, only in `order_qual_clauses()`'s reading of the function's `COST`.
+  §2.2 explains why that is now declared explicitly; this test is what makes it load-bearing.
 
 **It skips on the SOURCE, never on the target.** `reachable()` probes `person` / `person_role`
 and the function's existence — the inputs. It deliberately does not skip on "the graph came

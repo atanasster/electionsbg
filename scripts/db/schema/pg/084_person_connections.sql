@@ -10,12 +10,17 @@
 --     professional association (the judges'/prosecutors' associations, Национално
 --     движение Русофили, …), not a business tie — co-membership there is not a
 --     meaningful connection and would over-link the graph. We drop any company with more
---     than MAX_CO_OFFICERS (6) public officers. Measured: keeps 308 real ties, excludes 7
---     mass-membership orgs.
+--     than MAX_CO_OFFICERS (6) public officers. Measured 2026-07-31: keeps 1,882 real ties,
+--     excludes 73 mass-membership orgs.
 --   • The identity disclaimer is baked into the payload so a consumer (page or narration)
 --     can never drop it.
 
 -- The association-noise guard's input, as a PER-COMPANY lookup.
+--
+-- NAME: it counts PUBLIC FIGURES, not officers. "Officer" elsewhere in this database
+-- (tr_officers, company_officers(), search_officers()) means an actual TR-filed company
+-- officer; this counts only those who are ALSO in the identity layer as
+-- is_public_figure + status='active' — a small subset. Do not reuse it as an officer count.
 --
 -- This used to be a `co` CTE inside person_connections: one GROUP BY over every tr/ngo
 -- person_role row joined to every person, building the officer count for all 18,278
@@ -31,22 +36,41 @@
 -- plan_cache_mode = force_generic_plan, which is how a SQL function's parameter actually
 -- plans (a literal lets the planner constant-fold what a parameter cannot):
 --
---   no companies (the crawler's common case)  7,294 -> 19 buffers   (inlined; no seq scan left)
+--   no companies (the crawler's common case)  7,294 -> 560 buffers, 66 ms -> 1.6 ms
 --   heaviest real subject in the corpus       8,242 -> 2,160 buffers, 66 ms -> 3.7 ms
+--
+-- (Hand-inlining the body drops the first case to 19 buffers on a pure index path — measured,
+-- and the proof no seq scan survives, but NOT what ships: the function is deliberately kept
+-- separate, see below. The gate measures the shipped path a third way, through the pool, and
+-- reads 38 — three methods, three numbers, all of the same change.)
 --
 -- Kept as ONE function, not inlined at its two call sites, so MAX_CO_OFFICERS (6) and the
 -- public-figure/active gate stay single-sourced exactly as the `co` CTE kept them.
 --
--- ONE SUBTLETY, since it looks like a behaviour change and is not. The old `co` was joined
--- with an INNER JOIN, so an eik absent from the map — a company with NO public+active officer
--- — was DROPPED; here such an eik counts 0, and 0 <= 6 keeps it. The two agree because
--- neither call site can reach that eik: both start from a person who is themselves
--- public+active (`subj` enforces it for subj_co, `rel`/`agg` for p_co), and that person's own
--- role contributes to the count, so every candidate eik has a count >= 1 by construction.
+-- TWO SUBTLETIES, since both look like behaviour changes and neither is. The old `co` was
+-- joined with an INNER JOIN, so an eik absent from the map was DROPPED. A scalar count keeps
+-- such an eik instead, and there are two ways to be absent:
+--
+--   1. A company with NO public+active officer counts 0, and 0 <= 6 would keep it. Neither
+--      call site can reach that eik: both start from a person who is themselves public+active
+--      (`subj` enforces it for subj_co, `rel`/`agg` for p_co), and that person's own role
+--      contributes to the count, so every candidate eik has a count >= 1 by construction.
+--   2. A NULL ref never matched `co.eik = r.ref`. STRICT is what closes this one — it makes
+--      the call return NULL, `NULL <= 6` is NULL, and the row is filtered out, reproducing the
+--      INNER JOIN exactly. person_role.ref is NOT NULL today, so this is belt-and-braces; the
+--      point is that it holds STRUCTURALLY rather than by relying on that constraint.
+--
 -- Verified rather than argued: 16,103 subjects compared old vs new, 0 mismatches (§3 of
 -- docs/plans/person-connections-scan-v1.md).
+--
+-- COST 500 IS LOAD-BEARING, NOT COSMETIC. order_qual_clauses() sorts a scan's quals by
+-- per-tuple cost, and that is the ONLY thing keeping `source IN ('tr','ngo')` ahead of this
+-- call at both sites. Lowering it (the plausible "the planner over-costs my cheap index
+-- lookup" tweak) lets a person with many non-TR roles pay one lookup PER ROLE. It is set
+-- explicitly rather than left at the LANGUAGE sql default of 100 so the dependency is visible
+-- to whoever considers changing it; `person_connections.data.test.ts` asserts the ordering.
 CREATE OR REPLACE FUNCTION public_officer_count(p_eik text)
-RETURNS bigint LANGUAGE sql STABLE AS $$
+RETURNS bigint LANGUAGE sql STABLE STRICT PARALLEL SAFE COST 500 AS $$
   SELECT count(DISTINCT r.person_id)
     FROM person_role r JOIN person p USING (person_id)
    WHERE r.source IN ('tr','ngo') AND r.ref = p_eik
@@ -62,8 +86,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   ),
   -- the subject's own companies that are small enough to be a real tie (<= 6 officers).
   -- The `source IN (...)` filter is cheap and selective, so the planner applies it before
-  -- public_officer_count — verified on the person with the most NON-tr roles in the corpus
-  -- (24 of them, 0 tr/ngo): 560 buffers, 1.6 ms, the function never called.
+  -- public_officer_count (see the COST note above) — verified on the person with the most
+  -- NON-tr roles in the corpus (24 of them, 0 tr/ngo): the function is never called, and the
+  -- query costs the same 38 buffers as a person with no roles at all. The same ordering holds
+  -- at p_co below, where the identical filter sits in a JOIN ... ON rather than a WHERE; the
+  -- planner treats the two alike.
   subj_co AS (
     SELECT DISTINCT r.ref AS eik
       FROM person_role r
