@@ -414,6 +414,258 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   return canvas.toBuffer("image/png");
 };
 
+export type TableCell = {
+  /** Primary text, e.g. "10,6%". */
+  value: string;
+  /** Secondary muted line under the value, e.g. the winning party. */
+  note?: string;
+  /**
+   * 0..1 shading intensity for the cell pill. Lets a grid read as a heat map
+   * without a legend — the eye sees the pattern before it reads the numbers.
+   * Omit for an unshaded cell.
+   */
+  heat?: number;
+};
+
+export type TableCardSpec = {
+  kicker?: string; // small label above the headline
+  title: string; // the claim, 1-2 lines (auto-wrapped)
+  /** Header labels. `columns[0]` heads the row-label column. */
+  columns: string[];
+  rows: { label: string; sub?: string; cells: TableCell[] }[];
+  /** Caption under the grid explaining what the shading encodes. */
+  heatLabel?: string;
+  footnote?: string; // methodology caveat, above the footer
+  source: string;
+  cta?: string;
+  theme?: Theme;
+};
+
+/**
+ * 1080×1080 small-multiples table. For claims that ARE a grid — a handful of
+ * entities across a handful of periods — where a bar chart would have to throw
+ * away either the entity or the time axis. Cells carry an optional `heat` so
+ * the pattern reads before the numbers do.
+ *
+ * Deliberately narrow: ≤6 rows and ≤7 columns. Past that the cells fall below
+ * readable size at thumbnail scale, so it throws rather than emitting a card
+ * nobody can read on a phone.
+ */
+export const renderTableCard = (spec: TableCardSpec): Buffer => {
+  const S = 1080;
+  const pal = THEME[spec.theme ?? "dark"];
+  const canvas = createCanvas(S, S);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, S);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+
+  drawWordmark(ctx, 80, 120, 52, pal);
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  const dataCols = spec.columns.length - 1;
+  if (spec.rows.length > 6 || dataCols > 6 || dataCols < 1)
+    throw new Error(
+      `renderTableCard: ${spec.rows.length} rows × ${dataCols} data columns is out of range (max 6 × 6) — split the card`,
+    );
+  for (const r of spec.rows)
+    if (r.cells.length !== dataCols)
+      throw new Error(
+        `renderTableCard: row "${r.label}" has ${r.cells.length} cells, expected ${dataCols}`,
+      );
+
+  let y = 210;
+  if (spec.kicker) {
+    ctx.fillStyle = pal.accent;
+    ctx.font = `700 30px ${FONT}`;
+    ctx.fillText(spec.kicker.toUpperCase(), 80, y);
+    y += 58;
+  }
+
+  let tSize = 60;
+  let tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  while (tLines.length > 2 && tSize > 40) {
+    tSize -= 4;
+    tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  }
+  ctx.fillStyle = pal.text;
+  for (const line of tLines) {
+    ctx.font = `800 ${tSize}px ${FONT}`;
+    ctx.fillText(line, 80, y);
+    y += tSize * 1.2;
+  }
+
+  // Footer laid out bottom-up, as in renderBarCard: the source line is
+  // anchored and everything above it stacks upward, so a wrapping footnote
+  // pushes the grid up instead of overrunning the source.
+  const SOURCE_Y = 1030;
+  const FOOT_LINE_H = 34;
+  const footLines = spec.footnote
+    ? wrapText(ctx, spec.footnote, 500, 26, S - 160)
+    : [];
+  const footBottom = SOURCE_Y - 44;
+  const footTop = footBottom - (footLines.length - 1) * FOOT_LINE_H;
+  const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
+
+  // ---- geometry: row-label column sized to its widest entry, rest split evenly
+  const PAD = 80;
+  const GRID_W = S - PAD * 2;
+  ctx.font = `700 32px ${FONT}`;
+  const labelW = Math.min(
+    340,
+    Math.max(
+      170,
+      ...spec.rows.map((r) => ctx.measureText(r.label).width + 20),
+      ctx.measureText(spec.columns[0]).width + 20,
+    ),
+  );
+  const colW = (GRID_W - labelW) / dataCols;
+
+  const heatCap = spec.heatLabel ? 40 : 0;
+  const gridTop = y + 34;
+  const gridBottom = ruleY - 24 - heatCap;
+  const HEAD_H = 52;
+  const avail = gridBottom - gridTop - HEAD_H;
+  const rowH = avail / spec.rows.length;
+  if (rowH < 76)
+    throw new Error(
+      `renderTableCard: rows do not fit (${rowH.toFixed(1)}px, need >= 76) — shorten the title/footnote or drop a row`,
+    );
+
+  // header
+  ctx.fillStyle = pal.muted;
+  ctx.font = `700 28px ${FONT}`;
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "left";
+  ctx.fillText(spec.columns[0], PAD, gridTop + HEAD_H / 2);
+  ctx.textAlign = "center";
+  for (let c = 0; c < dataCols; c += 1)
+    ctx.fillText(
+      spec.columns[c + 1],
+      PAD + labelW + colW * (c + 0.5),
+      gridTop + HEAD_H / 2,
+    );
+
+  // rows
+  const accentRGB = hexToRgb(pal.accent);
+  for (const [i, row] of spec.rows.entries()) {
+    const top = gridTop + HEAD_H + rowH * i;
+    const mid = top + rowH / 2;
+
+    ctx.strokeStyle = pal.rule;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(PAD, top);
+    ctx.lineTo(S - PAD, top);
+    ctx.stroke();
+
+    ctx.textAlign = "left";
+    ctx.fillStyle = pal.text;
+    ctx.font = `700 32px ${FONT}`;
+    ctx.fillText(row.label, PAD, row.sub ? mid - 16 : mid);
+    if (row.sub) {
+      ctx.fillStyle = pal.muted;
+      ctx.font = `500 24px ${FONT}`;
+      ctx.fillText(row.sub, PAD, mid + 20);
+    }
+
+    ctx.textAlign = "center";
+    for (const [c, cell] of row.cells.entries()) {
+      const cx = PAD + labelW + colW * (c + 0.5);
+      if (cell.heat != null) {
+        const a = 0.1 + Math.max(0, Math.min(1, cell.heat)) * 0.75;
+        ctx.fillStyle = `rgba(${accentRGB}, ${a})`;
+        const pillW = Math.min(colW - 14, 116);
+        const pillH = cell.note ? 46 : 52;
+        roundRect(
+          ctx,
+          cx - pillW / 2,
+          (cell.note ? mid - 18 : mid) - pillH / 2,
+          pillW,
+          pillH,
+          12,
+        );
+        ctx.fill();
+      }
+      ctx.fillStyle = pal.text;
+      ctx.font = `700 30px ${FONT}`;
+      ctx.fillText(cell.value, cx, cell.note ? mid - 18 : mid);
+      if (cell.note) {
+        ctx.fillStyle = pal.muted;
+        ctx.font = `600 23px ${FONT}`;
+        ctx.fillText(cell.note, cx, mid + 22);
+      }
+    }
+  }
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  if (spec.heatLabel) {
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 25px ${FONT}`;
+    ctx.fillText(
+      spec.heatLabel,
+      PAD,
+      gridTop + HEAD_H + rowH * spec.rows.length + 34,
+    );
+  }
+
+  if (footLines.length) {
+    ctx.strokeStyle = pal.rule;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(80, ruleY);
+    ctx.lineTo(S - 80, ruleY);
+    ctx.stroke();
+
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 26px ${FONT}`;
+    let fy = footTop;
+    for (const line of footLines) {
+      ctx.fillText(line, 80, fy);
+      fy += FOOT_LINE_H;
+    }
+  }
+
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 28px ${FONT}`;
+  ctx.fillText(spec.source, 80, SOURCE_Y);
+
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `600 28px ${FONT}`;
+  ctx.fillText(spec.cta ?? "виж разбивката", S - 108, 1030);
+  ctx.beginPath();
+  ctx.moveTo(S - 94, 1014);
+  ctx.lineTo(S - 74, 1027);
+  ctx.lineTo(S - 94, 1040);
+  ctx.closePath();
+  ctx.fill();
+
+  return canvas.toBuffer("image/png");
+};
+
+/** "#df6b43" -> "223, 107, 67", for rgba() heat fills. */
+const hexToRgb = (hex: string): string => {
+  const h = hex.replace("#", "");
+  const n = parseInt(
+    h.length === 3
+      ? h
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : h,
+    16,
+  );
+  return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+};
+
 export type AnnounceCardSpec = {
   eyebrow?: string; // e.g. "НОВА ФУНКЦИЯ" / "НОВИ ДАННИ"
   title: string; // the feature / dataset name

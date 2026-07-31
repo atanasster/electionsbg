@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { resolve } from "node:path";
-import { loadBulgariaGeo, renderMapCard, type GeoFeature } from "./cardKit";
+import {
+  loadBulgariaGeo,
+  renderMapCard,
+  renderTableCard,
+  type GeoFeature,
+  type TableCardSpec,
+} from "./cardKit";
 
 const ROOT = resolve(__dirname, "../..");
 
@@ -49,6 +55,75 @@ describe("renderMapCard", () => {
         footnote: "Дълга методологическа бележка ".repeat(20),
       }),
     ).toThrow(/map area/);
+  });
+});
+
+const tableBase: TableCardSpec = {
+  title: "В четири от тях ДПС не печели от 2017 г.",
+  columns: ["Община", "2017", "2021", "2026"],
+  rows: [
+    {
+      label: "Хитрино",
+      sub: "85% турци",
+      cells: [
+        { value: "27,7%", note: "ГЕРБ", heat: 0.82 },
+        { value: "33,8%", note: "ПП", heat: 1 },
+        { value: "13,0%", note: "ПП-ДБ", heat: 0.38 },
+      ],
+    },
+    {
+      label: "Доспат",
+      sub: "88% мюсюлмани",
+      cells: [
+        { value: "10,6%", note: "ГЕРБ" },
+        { value: "9,1%", note: "ГЕРБ-СДС" },
+        { value: "6,1%", note: "ГЕРБ-СДС" },
+      ],
+    },
+  ],
+  source: "Източник: ЦИК, НСИ",
+};
+
+describe("renderTableCard", () => {
+  it("renders a 1080×1080 PNG", () => {
+    const buf = renderTableCard(tableBase);
+    expect(buf.subarray(1, 4).toString()).toBe("PNG");
+    expect(buf.readUInt32BE(16)).toBe(1080);
+    expect(buf.readUInt32BE(20)).toBe(1080);
+  });
+
+  it("refuses to publish when the rows are squeezed below readable height", () => {
+    expect(() =>
+      renderTableCard({
+        ...tableBase,
+        title: "Дълго заглавие ".repeat(20),
+        footnote: "Дълга методологическа бележка ".repeat(20),
+      }),
+    ).toThrow(/do not fit/);
+  });
+
+  it("rejects a row whose cell count does not match the header", () => {
+    // A short row would otherwise render as a silently truncated series —
+    // the reader sees a complete-looking grid missing an election.
+    expect(() =>
+      renderTableCard({
+        ...tableBase,
+        rows: [{ label: "Хитрино", cells: [{ value: "27,7%" }] }],
+      }),
+    ).toThrow(/expected 3/);
+  });
+
+  it("rejects a grid too large to stay legible at thumbnail size", () => {
+    expect(() =>
+      renderTableCard({
+        ...tableBase,
+        columns: ["Община", "1", "2", "3", "4", "5", "6", "7"],
+        rows: tableBase.rows.map((r) => ({
+          ...r,
+          cells: Array.from({ length: 7 }, () => ({ value: "1%" })),
+        })),
+      }),
+    ).toThrow(/out of range/);
   });
 });
 

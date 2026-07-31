@@ -185,6 +185,18 @@ the shape deliberately per the rule above.
   magnitude/distribution chart (shares, money, counts — anything that isn't a
   signed change) also set `signed: false` so values render as plain magnitudes
   (`30,1%`) instead of gaining a misleading `+` prefix.
+- **Table card — `rows` + `columns`:** for a claim that IS a grid — a few
+  entities tracked across a few periods, where a bar chart would have to throw
+  away either the entity or the time axis (e.g. "in these 4 municipalities party
+  X has not won any of these elections"). `columns` (header labels; `columns[0]`
+  heads the row-label column), `rows` (`{ label, sub?, cells }` where each cell
+  is `{ value, note?, heat? }` — `value` is pre-formatted text, `note` a muted
+  second line, `heat` a 0..1 shading intensity so the pattern reads before the
+  numbers), plus `heatLabel` (caption explaining the shading), `kicker`,
+  `footnote`, `source`, `cta`, `theme`. Capped at **6 rows × 6 data columns** and
+  it throws past that, or when a row's cell count doesn't match the header —
+  a silently short row would read as a complete grid missing a period. When the
+  real series is longer than fits, show a sample and SAY SO in the footnote.
 - **Single-number stat card (only when there's nothing to compare):** `value`
   (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
   separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default

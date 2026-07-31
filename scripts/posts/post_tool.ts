@@ -28,11 +28,13 @@ import {
   renderAnnounceCard,
   renderBarCard,
   renderMapCard,
+  renderTableCard,
   loadBulgariaGeo,
   type StatCardSpec,
   type AnnounceCardSpec,
   type BarCardSpec,
   type MapCardSpec,
+  type TableCardSpec,
 } from "./cardKit";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -72,7 +74,12 @@ type PostSpec = Omit<
   image?: string | null; // reference an existing image (e.g. ai/assets/og.png) or null for link auto-preview
   bg: string; // BG post body
   en?: string; // optional EN body
-  card?: StatCardSpec | AnnounceCardSpec | BarCardSpec | MapCardSpec; // omit to rely on the link's og:image preview
+  card?:
+    | StatCardSpec
+    | AnnounceCardSpec
+    | BarCardSpec
+    | MapCardSpec
+    | TableCardSpec; // omit to rely on the link's og:image preview
 };
 
 const loadRegistry = (): PostEntry[] => {
@@ -180,21 +187,23 @@ const cmdSave = (specPath: string, force: boolean): void => {
     image = spec.image; // existing path or explicit null
   } else if (spec.card) {
     image = `brand/posts/${spec.slug}.png`;
-    // A card carrying `bars` (chart) or `points` (dot map) is an infographic
-    // regardless of kind; the remaining split is stat-card for data vs
-    // announce-card for launches. The base map is loaded here rather than
+    // A card carrying `bars` (chart), `points` (dot map) or `rows` (grid) is an
+    // infographic regardless of kind; the remaining split is stat-card for data
+    // vs announce-card for launches. The base map is loaded here rather than
     // carried in the spec JSON — the polygons are ~2.8MB.
     const buf =
       "bars" in spec.card
         ? renderBarCard(spec.card as BarCardSpec)
-        : "points" in spec.card
-          ? renderMapCard({
-              ...(spec.card as MapCardSpec),
-              geo: loadBulgariaGeo(ROOT),
-            })
-          : kind === "data"
-            ? renderStatCard(spec.card as StatCardSpec)
-            : renderAnnounceCard(spec.card as AnnounceCardSpec);
+        : "rows" in spec.card
+          ? renderTableCard(spec.card as TableCardSpec)
+          : "points" in spec.card
+            ? renderMapCard({
+                ...(spec.card as MapCardSpec),
+                geo: loadBulgariaGeo(ROOT),
+              })
+            : kind === "data"
+              ? renderStatCard(spec.card as StatCardSpec)
+              : renderAnnounceCard(spec.card as AnnounceCardSpec);
     writeFileSync(resolve(ROOT, image), buf);
   } else {
     image = null;
