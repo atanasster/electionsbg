@@ -513,11 +513,12 @@ export const loadPg = async (): Promise<{
   // both read the same 033 views, and the browser column would otherwise serve
   // a CRI derived from a different snapshot than the contract page's chips.
   await exec("SELECT rebuild_contract_risk_cache()");
-  // Full-corpus (all-years) caches for the overview / rankings / by-settlement
-  // payloads — too slow (~330-530ms) to compute per request; the routes serve
-  // these when from/to are both absent (025/031/030).
-  await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
-  await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
+  // Full-corpus (all-years) cache for the by-settlement payload (030) — too slow to compute
+  // per request; the route serves it when from/to are both absent.
+  //
+  // The overview (025) and rankings (031) caches that used to be refreshed here are RETIRED:
+  // each answered exactly ONE of the thirty pscope windows, and procurement_payloads (124)
+  // answers all thirty. Their matviews are dropped by their own migrations.
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
   // The PER-SCOPE precomputes (119, 122, 123, 124). They are created by
   // db:load:procurement-scopes:pg, which runs later in db:refresh because they read

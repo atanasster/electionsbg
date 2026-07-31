@@ -13,8 +13,12 @@
 
 SET check_function_bodies = off;
 
--- Drop the dependent cache matview first (re-apply path); it's recreated at the file tail.
--- Mirrors 033. This one is safe to drop here because THIS file owns it and recreates it.
+-- RETIRED (migration 124). procurement_overview_cache answered exactly ONE of the thirty
+-- pscope windows — the full corpus — while every parliament window fell through to the live
+-- aggregate and returned 500 on prod at the 10 s statement_timeout. procurement_payloads (124)
+-- answers all thirty, and its `all` row was verified jsonb-equal to this cache before removal.
+-- The DROP stays as a tombstone so any database that applies this file sheds the stale matview;
+-- nothing recreates it.
 DROP MATERIALIZED VIEW IF EXISTS procurement_overview_cache;
 -- The FUNCTION is NOT dropped before the CREATE, deliberately — same rule as 030. It now has
 -- a second dependent, procurement_payloads (124), which this file does NOT own and must not
@@ -156,10 +160,5 @@ SELECT jsonb_build_object(
 ) FROM hd;
 $$;
 
--- Full-corpus (all-years) overview cache. The windowed call is fast (small
--- slice), but the NULL/NULL full-corpus aggregate is ~334ms — too slow per
--- request on Cloud SQL. The route serves this matview when from/to are both
--- absent; load_pg refreshes it after each load. Same pattern as
--- procurement_risk_indexes_cache (033).
-CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_overview_cache AS
-  SELECT procurement_overview(NULL, NULL) AS r;
+-- (The full-corpus cache matview that used to live here is retired — see the DROP near the
+-- top of this file and migration 124.)

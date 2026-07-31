@@ -13,8 +13,8 @@
 
 SET check_function_bodies = off;
 
--- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033. Safe
--- to drop here because THIS file owns it and recreates it.
+-- RETIRED (migration 124), for the same reason as 025's — it answered only the full-corpus
+-- window. Tombstone DROP: applying this file sheds the stale matview, nothing recreates it.
 DROP MATERIALIZED VIEW IF EXISTS procurement_rankings_cache;
 -- The FUNCTION is NOT dropped before the CREATE — same rule as 030 and 025. procurement_payloads
 -- (124) also depends on it, this file does not own that matview, and load_pg applies THIS file
@@ -133,8 +133,5 @@ SELECT jsonb_build_object(
 );
 $$;
 
--- Full-corpus rankings cache (all-years scope + the AI fiscal tools). The
--- NULL/NULL aggregate is ~530ms live; served from this matview, refreshed by
--- load_pg. Windowed calls fall through to the live function.
-CREATE MATERIALIZED VIEW IF NOT EXISTS procurement_rankings_cache AS
-  SELECT procurement_rankings(NULL, NULL) AS r;
+-- (The full-corpus cache matview that used to live here is retired — see the DROP near the
+-- top of this file and migration 124.)

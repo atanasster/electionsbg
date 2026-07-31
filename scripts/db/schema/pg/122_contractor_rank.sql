@@ -2,7 +2,7 @@
 -- /procurement/contractors ("Топ изпълнители").
 --
 -- WHY. The page used to ship the top-1,000 contractors from the full-corpus
--- procurement_rankings_cache (031) into a client DataTable — no ?pscope scope, no
+-- procurement_rankings_cache (031, since RETIRED by 124) into a client DataTable — no ?pscope scope, no
 -- filters, and ~28,500 of the ~29,500 contractors unreachable. This matview is the
 -- server-side, scope-keyed leaderboard behind a DbDataTable browser instead: one
 -- row per (scope, contractor, CPV-division), paginated over an indexed relation.

@@ -34,12 +34,6 @@ const KINDS = {
   "procurement-sectors": "sectors",
   "procurement-benchmarks": "benchmarks",
 };
-// The two that keep an all-only cache matview (025/031) as a SECOND fallback until it is
-// retired, so their expected path chain is three long rather than two.
-const WITH_LEGACY_CACHE = new Map([
-  ["procurement-overview", "procurement_overview_cache"],
-  ["procurement-rankings", "procurement_rankings_cache"],
-]);
 // The live aggregate each route must fall back to. Asserted BY NAME, because the stub
 // classifies queries into buckets and "some live query ran" is not the property that matters:
 // procurement-sectors falling back to procurement_overview() lands in the same bucket, passes
@@ -55,9 +49,10 @@ const LIVE_FN = {
   "procurement-benchmarks": "procurement_benchmarks",
 };
 
-// A stub that tells the handler's queries apart — the precompute probe, the legacy all-only
-// cache read, and the live aggregate — and records which ran, in order. The tests are almost
-// entirely about WHICH path served.
+// A stub that tells the handler's queries apart — the precompute probe, the live aggregate,
+// and a `cache` bucket that NOTHING should land in any more (025/031 are retired; it is kept
+// solely so a reinstated cache read is detected rather than silently classed as "live").
+// The tests are almost entirely about WHICH path served.
 const stubDb = ({ probe = [], cache = [], live = [] } = {}) => {
   const calls = [];
   const fn = async (sql, params) => {
@@ -138,7 +133,6 @@ const captureWarnings = async (fn) => {
 // something did.
 const STORED = (scope) => ({ from: "precompute", scope });
 const LIVE = { from: "live" };
-const CACHED = { from: "cache" };
 
 // ── The NULL-safety property, from both directions ───────────────────────────
 
@@ -150,7 +144,6 @@ test("a request with no window at all reads the precompute (all six routes)", as
   for (const [route, kind] of Object.entries(KINDS)) {
     const db = stubDb({
       probe: scopesProbe(SCOPES, { all: STORED("all") }),
-      cache: [{ r: CACHED }],
       live: [{ r: LIVE }],
     });
     const lines = await captureWarnings(async () => {
@@ -200,26 +193,6 @@ test("each route falls back to ITS OWN live aggregate, by name", async () => {
       liveCall.sql,
       new RegExp(`\\b${fn}\\(`),
       `${route} must fall back to ${fn}(), not to another dashboard's aggregate`,
-    );
-  }
-});
-
-test("each legacy-cache route reads ITS OWN cache matview, by name", async () => {
-  // Same hazard one layer down: procurement-overview reading procurement_rankings_cache is the
-  // same stub bucket and the same silent wrong-payload-under-the-right-heading.
-  for (const [route, rel] of WITH_LEGACY_CACHE) {
-    const db = stubDb({
-      probe: scopesProbe(SCOPES, {}),
-      cache: [{ r: CACHED }],
-      live: [{ r: LIVE }],
-    });
-    await captureWarnings(() => DB_ROUTES[route](db, {}));
-    const cacheCall = db.calls.find((c) => c.path === "cache");
-    assert.ok(cacheCall, `${route}: the cache must be consulted`);
-    assert.match(
-      cacheCall.sql,
-      new RegExp(`\\b${rel}\\b`),
-      `${route} → ${rel}`,
     );
   }
 });
@@ -392,60 +365,37 @@ test("a non-degradable error rethrows rather than double-querying", async () => 
   }
 });
 
-// ── The three-path chain on the two routes that still have a legacy cache ────
+// ── The retired all-only caches ──────────────────────────────────────────────
 
-test("overview and rankings fall through precompute → all-only cache → live", async () => {
-  // The 025/031 caches answer only the full-corpus scope and are retired in a later step. Until
-  // then they must sit BETWEEN the precompute and the live aggregate: dropping them before 124
-  // is loaded on Cloud SQL would put a 199k-buffer aggregate back on the live path for the
-  // length of a deploy.
-  for (const route of WITH_LEGACY_CACHE.keys()) {
-    const db = stubDb({
-      probe: scopesProbe(SCOPES, {}), // scope known, payload not built
-      cache: [{ r: CACHED }],
-      live: [{ r: LIVE }],
-    });
-    let body;
-    await captureWarnings(async () => {
-      ({ body } = await DB_ROUTES[route](db, {}));
-    });
-    assert.deepEqual(body, CACHED, `${route}: the cache answers before live`);
-    assert.deepEqual(db.paths(), ["probe", "cache"], `${route}: chain order`);
-  }
-});
-
-test("a built precompute wins over the legacy cache", async () => {
-  // The other direction of the same chain: once 124 is populated the stale all-only cache must
-  // never be consulted, or retiring it later would silently change what /procurement serves.
-  for (const route of WITH_LEGACY_CACHE.keys()) {
-    const db = stubDb({
-      probe: scopesProbe(SCOPES, { all: STORED("all") }),
-      cache: [{ r: CACHED }],
-      live: [{ r: LIVE }],
-    });
-    let body;
-    const lines = await captureWarnings(async () => {
-      ({ body } = await DB_ROUTES[route](db, {}));
-    });
-    assert.deepEqual(body, STORED("all"), `${route}: precompute wins`);
-    assert.deepEqual(db.paths(), ["probe"], `${route}: cache not consulted`);
-    assert.deepEqual(lines, [], `${route}: a hit must not warn`);
-  }
-});
-
-test("the legacy cache is never consulted for a WINDOWED scope", async () => {
-  // It only ever held the full-corpus answer. Reading it for a window would serve the whole
-  // corpus under a parliament's heading — a wrong number rendered confidently.
-  for (const route of WITH_LEGACY_CACHE.keys()) {
-    const db = stubDb({
-      probe: scopesProbe(SCOPES, {}),
-      cache: [{ r: CACHED }],
-      live: [{ r: LIVE }],
-    });
-    await captureWarnings(() =>
-      DB_ROUTES[route](db, { from: "2023-04-02", to: "2024-06-09" }),
-    );
-    assert.deepEqual(db.paths(), ["probe", "live"], `${route}: no cache read`);
+test("no DASHBOARD route reads a retired *_cache matview, on any scope shape", async () => {
+  // 025's procurement_overview_cache and 031's procurement_rankings_cache each answered exactly
+  // ONE of the thirty scopes; 124 answers all thirty, verified jsonb-equal on prod before they
+  // were dropped. This asserts the READ is gone, not merely unused: those relations no longer
+  // exist, so a lingering read raises 42P01 inside a bare try/catch and degrades SILENTLY back
+  // to the live aggregate — the exact 10 s path this whole change removed, with nothing red.
+  //
+  // BOTH query shapes, and that is the point. The three tests this replaced included one for a
+  // WINDOWED scope specifically; driving only `{}` here would pass against a reinstated
+  // `if (from || to)` cache read (mutation-checked). Scoped to the six dashboard routes by
+  // name — four other routes (030, 033, 044, 077) read *_cache matviews entirely legitimately.
+  for (const q of [{}, { from: "2023-04-02", to: "2024-06-09" }]) {
+    const label = Object.keys(q).length ? "windowed" : "no window";
+    for (const route of Object.keys(KINDS)) {
+      const db = stubDb({
+        probe: scopesProbe(SCOPES, {}),
+        live: [{ r: LIVE }],
+      });
+      await captureWarnings(() => DB_ROUTES[route](db, q));
+      assert.deepEqual(
+        db.paths(),
+        ["probe", "live"],
+        `${route} (${label}): must go precompute → live, with nothing in between`,
+      );
+      assert.ok(
+        !db.calls.some((c) => /_cache\b/.test(c.sql)),
+        `${route} (${label}): still reads a retired cache matview`,
+      );
+    }
   }
 });
 

@@ -278,6 +278,31 @@ stored `oblast` has drifted from `awarder_seats`, and — uniquely in this repo 
 deliberately does NOT skip when the matview is absent or unpopulated: those are the two states
 it exists to catch, so they are assertions, not a green skip.
 
+**124 RETIRED two older cache matviews**, `procurement_overview_cache` (025) and
+`procurement_rankings_cache` (031). Each answered exactly ONE of the thirty windows — the full
+corpus — which is why every parliament window fell through to the live aggregate and 500'd.
+Their migrations now carry a tombstone `DROP` and no `CREATE`; `load_pg` no longer refreshes
+them; the routes no longer read them.
+
+**The tombstone only fires when the file is APPLIED, so the cloud side needs one command** —
+`deploy:db` ships function code only, and the only other cloud path that applies 025/031 is a
+~68-minute full contracts reload. Without this, prod keeps two orphan matviews for ever:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 025_procurement_overview.sql 031_procurement_rankings.sql
+```
+
+Safe to run at any time and idempotent: both files `CREATE OR REPLACE` their function (they do
+NOT `DROP` it — 124 depends on it), and the `DROP … IF EXISTS` is a no-op once the matview is
+gone. **Do not add `122_contractor_rank.sql` to that command** — 122 DROPs and recreates
+`contractor_rank` WITH NO DATA, and `/procurement/contractors` reads it WITHOUT degrading, so
+applying it would blank that page until a multi-minute refresh finished.
+
+Of the full-corpus cache matviews on this pattern, `procurement_by_settlement_cache` (030) is
+the only procurement one left — its route serves a different shape from 119/123, so it still
+has a job. (`procurement_risk_indexes_cache` (033), `dual_corpus_rankings_cache` (077) and the
+044 cache are unrelated and unaffected.)
+
 `db:load:pg` also re-REFRESHes all six (guarded on existence, `contractor_rank` before
 `contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement`,
 `/procurement/contractors`, the settlement pages or the `/procurement` dashboard serving the

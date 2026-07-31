@@ -1068,23 +1068,15 @@ const DB_ROUTES = {
   // exactly the ns:2023_04_02 scope): only `all` had a cache, and every parliament window fell
   // through to the live aggregate.
   //
-  // The `all`-only cache matview (025) is still read below, as a SECOND fallback ahead of the
-  // live function. It is redundant once 124 is populated, and retiring it is deliberately a
-  // separate, later step: dropping this read before 124 is loaded on Cloud SQL would put the
-  // 198,735-buffer full-corpus aggregate back on the live path for the length of a deploy.
+  // 025's `all`-only cache matview used to sit between the precompute and the live function.
+  // RETIRED once 124 was populated on Cloud SQL and verified: it answered exactly one of the
+  // thirty scopes, and 124 answers that one identically (checked jsonb-equal before removal).
+  // Two caches for one question is the drift this codebase keeps paying for.
   "procurement-overview": async (dbRows, q) => {
     const from = orNull(q, "from");
     const to = orNull(q, "to");
     const hit = await scopedPayload(dbRows, "overview", from, to);
     if (hit) return { body: hit };
-    if (!from && !to) {
-      try {
-        const c = await dbRows("SELECT r FROM procurement_overview_cache", []);
-        if (c[0]?.r) return { body: c[0].r };
-      } catch {
-        // matview absent — fall through to the live computation
-      }
-    }
     const rows = await dbRows("SELECT procurement_overview($1, $2) AS r", [
       from,
       to,
@@ -1121,22 +1113,13 @@ const DB_ROUTES = {
   // Full "see all" rankings (top contractors / awarders / MPs / officials),
   // window-scoped [from, to) or full corpus — the big-list sibling of
   // procurement-overview.
-  // Served from the per-scope precompute (124). Same two-fallback shape as
-  // procurement-overview: the `all`-only cache (031) stays as a second fallback until it is
-  // retired in its own step, for the same deploy-window reason.
+  // Served from the per-scope precompute (124). 031's `all`-only cache matview is RETIRED for
+  // the same reason as 025's — see procurement-overview above.
   "procurement-rankings": async (dbRows, q) => {
     const from = orNull(q, "from");
     const to = orNull(q, "to");
     const hit = await scopedPayload(dbRows, "rankings", from, to);
     if (hit) return { body: hit };
-    if (!from && !to) {
-      try {
-        const c = await dbRows("SELECT r FROM procurement_rankings_cache", []);
-        if (c[0]?.r) return { body: c[0].r };
-      } catch {
-        // matview absent — fall through to the live computation
-      }
-    }
     const rows = await dbRows("SELECT procurement_rankings($1, $2) AS r", [
       from,
       to,
