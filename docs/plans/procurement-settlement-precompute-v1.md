@@ -4,7 +4,9 @@ Stop `/api/db/procurement-settlement` from 500-ing on the largest settlements, b
 serving it from a per-scope matview instead of an ~10 s live aggregate.
 
 Status: **plan only, nothing implemented.** Every number below is measured, on local
-Postgres and against production, on 2026-07-31.
+Postgres and against production, on 2026-07-31. The §2 fan-out figures and the §3.2
+scope-lookup were re-measured in an audit the same day; where the audit and the first
+pass disagree, the audit's number is the one written here.
 
 ---
 
@@ -60,12 +62,22 @@ The fan-out is far cheaper than it looks, which removes the usual reasons to hed
 | …2k–10k | 23 |
 | …under 2k (already 8–25 ms) | **843** |
 | Scopes in `procurement_scopes` (118) | **30** |
-| Payload, all 869 settlements, corpus scope | **1.3 MB** (avg 1.5 kB, max 59 kB) |
-| Time to compute all 869 for one scope | **1.79 s** |
+| Payload, all 869 settlements, corpus scope | **1.3 MB** (1,303 kB; avg 1.5 kB, max 59 kB) |
+| Time to compute all 869 for the *corpus* scope | **2.5 s** |
+| **Build of the whole matview, all 30 scopes** | **9.3 s** |
+| **`REFRESH … CONCURRENTLY` of the same** | **9.9 s** |
+| **On-disk, `pg_total_relation_size`** | **22 MB** |
 
-So a complete `(scope × settlement)` precompute is **26,070 rows**, **≤40 MB** (an upper
-bound — narrower windows hold fewer buyers), and **~54 s per full refresh**. That is in
-line with the two precomputes already on this path: 119 costs ~12 s and 122 ~20 s.
+So a complete `(scope × settlement)` precompute is **26,070 rows**, **22 MB** and **~10 s
+per refresh** — *cheaper* than the two precomputes already on this path (119 ~12 s, 122
+~20 s), not merely in line with them.
+
+The per-scope figure does not extrapolate and should not be used to: 2.5 s is the
+**corpus** scope, the widest one there is. The other 29 windows hold fewer contracts and
+cost proportionally less, which is why the whole 30-scope build is 9.3 s rather than the
+~75 s a multiplication would predict. (An earlier draft of this plan quoted ~54 s from
+exactly that multiplication. The build was then measured end-to-end; 9.3 s is the
+measurement.)
 
 Since the full fan-out is this cheap, **do not special-case the three big settlements**.
 Two code paths that answer the same question is the drift this codebase keeps paying for.
@@ -76,7 +88,7 @@ Two code paths that answer the same question is the drift this codebase keeps pa
 |---|---|
 | Add an index | The cost is a GROUP BY over 64k rows, not a lookup. Nothing to index. |
 | Raise `statement_timeout` | Converts a 500 into a 10-second page. The reader is no better off, and it weakens a guard that protects every other route. |
-| Precompute only the 3 large settlements | Saves ~37 MB and costs a second code path that only executes for the settlements nobody tests. |
+| Precompute only the 3 large settlements | Saves ~22 MB and costs a second code path that only executes for the settlements nobody tests. |
 | Cache in the function | Per-instance, cold on every deploy and every scale-out, and invisible when stale. |
 
 ---
@@ -99,9 +111,16 @@ CROSS JOIN (SELECT DISTINCT ekatte FROM awarder_seats
 WITH NO DATA;
 
 CREATE UNIQUE INDEX uq_psp ON procurement_settlement_payloads (scope_key, ekatte);
+
+GRANT SELECT ON procurement_settlement_payloads TO app_readonly;
 ```
 
-Three conventions inherited from 119, each for a stated reason:
+That is the WHOLE index list. Unlike 119 — which carries a sort index per column the
+table orders by and a trigram index for its search — this matview is only ever read by
+one query shape, a `(scope_key, ekatte)` point lookup, so the unique key the
+`CONCURRENTLY` refresh already requires is also the only index there is anything to add.
+
+Four conventions inherited from 119, each for a stated reason:
 
 - **It unnests the existing function rather than re-implementing the aggregation.** A
   change to the methodology — which buyers count as local-tier, how a tier is labelled —
@@ -112,7 +131,17 @@ Three conventions inherited from 119, each for a stated reason:
   the loader's REFRESH straight after — paying twice, half of it under the lock that
   `CONCURRENTLY` exists to avoid.
 - **`REFRESH … CONCURRENTLY`**, which the UNIQUE index above is required for. This is on
-  the serving path; a plain REFRESH would stall every settlement page for ~54 s.
+  the serving path; a plain REFRESH would stall every settlement page for the whole ~10 s
+  rebuild. The loader's `refreshScopedSettlement()` already catches `0A000` and falls back
+  to the plain form for the first refresh after a `WITH NO DATA` create, so 123 needs no
+  new handling — only its name in the list.
+- **The explicit `GRANT`.** `roles_readonly.sql`'s `ALTER DEFAULT PRIVILEGES` does in fact
+  cover matviews (verified: a matview created without a grant is readable by
+  `app_readonly`), so this line is belt-and-braces — but it is belt-and-braces 119, 121
+  and 122 all wear, and for a reason §3.3 makes sharper here than anywhere else: the route
+  catches its own errors, so a database where the default privileges were never applied
+  would not fail loudly. It would serve the live path forever, correctly, at today's
+  speed.
 
 ### 3.2 Route change — none required at the client
 
@@ -126,16 +155,44 @@ ns:2026_04_19 = [2026-04-19, null)
 ```
 
 That is precisely what the hook already sends as `?from`/`?to`. So the route maps
-`(from, to) → scope_key` with an equality lookup and seeks the matview — **no client
-change, and every existing caller benefits**, including the AI tools (which send no
-window and therefore map to `all`).
+`(from, to) → scope_key` and seeks the matview — **no client change, and every existing
+caller benefits**, including the AI tools (which send no window and therefore map to
+`all`).
 
 ```
 /api/db/procurement-settlement?ekatte=…&from=…&to=…
-  → look up scope_key for (from, to)
+  → look up scope_key for (from, to)     -- NULL-SAFE; see below
   → HIT:  SELECT payload FROM procurement_settlement_payloads WHERE scope_key=$1 AND ekatte=$2
   → MISS: run procurement_settlement_detail(…) live, as today
 ```
+
+#### The lookup MUST be NULL-safe, or it fixes nothing
+
+`=` is the wrong operator here and would produce a working, tested, deployed change that
+never once serves a precomputed row on the pages that 500. Two of the thirty scopes carry
+a NULL bound, and they are the two that matter:
+
+```
+all            date_from NULL, date_to NULL
+ns:2026_04_19  date_from 2026-04-19, date_to NULL   ← the newest parliament = the page DEFAULT
+```
+
+The client omits the parameter entirely when the bound is null
+(`useSettlementProcurement.tsx` — `if (win.from) params.set(...)`), and the AI tools send
+neither bound at all (`ai/tools/profile.ts`). Both arrive at the route as `null`, and
+`date_from = $1` is NULL for a NULL argument, never true. So:
+
+- **the default settlement page** (newest parliament, open-ended window) misses on every
+  request — София keeps timing out at 10.009 s, which is the entire defect this plan exists
+  to fix;
+- **every AI tool call** maps to `all`, the widest and most expensive window, and misses;
+- the other 28 scopes — all 16 `y:` windows and the 12 *closed* `ns:` windows — hit
+  perfectly, so a spot check of "does the matview work" passes.
+
+Use `IS NOT DISTINCT FROM` on both bounds, or resolve the mapping in JS against a
+`procurement_scopes` snapshot where `null === null` behaves. Whichever, §6 Step 4 carries a
+route test for the no-window request specifically — see the note there on why the other
+four tests cannot catch this.
 
 The existing `?slim=1` / `?limit` trimming is unchanged: it operates on the returned
 payload and does not care where it came from.
@@ -154,6 +211,23 @@ So the fallback is kept, and it buys something real: **the route can ship before
 loader has ever run**, on any database, with no first-deploy ordering hazard. That is the
 opposite of the `cpv_catalog` / `contractor_rank` constraint.
 
+#### But name what it costs, because it is not free
+
+A fallback that returns the right answer is also a fallback that hides every reason the
+fast path was not taken. Each of these is a permanent, silent no-op — 200s, correct
+numbers, today's latency, nothing red anywhere:
+
+- the NULL-unsafe lookup of §3.2 (misses on the default scope, forever);
+- a database whose `app_readonly` cannot read the matview (§3.1's `GRANT`);
+- a loader that was never run on the cloud side (§4);
+- a matview whose refresh has been failing since some earlier deploy.
+
+So the miss path is not silent: **it logs, at most once per process per scope_key**, that
+it fell through to the live computation and why (`no scope for (from,to)` /
+`matview read failed: <sqlstate>`). One line in Cloud Run logging is the difference
+between "the precompute is not being read" being observable and being invisible, and it
+costs nothing on the hit path. §7's acceptance leans on it.
+
 What the fallback does **not** protect against is staleness — see §5.
 
 ---
@@ -168,10 +242,29 @@ scopes" can never be two separate states.
 |---|---|---|
 | Scopes change (new election, January rollover) | `db:load:procurement-scopes:pg` | A new `ns:` or `y:` window needs its rows |
 | Contracts reload | `db:load:pg` | Already re-REFRESHes the other four; 123 joins that guarded block |
-| `awarder_seats` reload | `db:load:awarder-seats:pg` | It decides WHICH buyers belong to a settlement — see §5 |
+| `awarder_seats` reload | `db:load:awarder-seats:pg` | It decides WHICH buyers belong to a settlement — see §5.1 |
+| `place_dim` reload | `db:load:place-dim:pg` | The payload's whole place hero comes from it — see §5.2 |
 | Cloud | `db:load:procurement-scopes:pg:cloud` | Nothing on the cloud side is automatic |
 
 CLAUDE.md's "the cloud side does not run this" section gains 123 alongside 119/122.
+
+**Rows 3 and 4 need code, not just a line in this table.** As it stands
+`load_awarder_seats_pg.ts` contains no REFRESH at all, so running it refreshes nothing —
+and `db:load:place-dim:pg` likewise has nothing of its own to refresh. Today both are
+covered only by the operator remembering to run the scopes loader afterwards, which is the
+arrangement CLAUDE.md already documents for 119's English names.
+
+`refreshScopedSettlement()` is exported from `load_procurement_scopes_pg.ts`. Calling it at
+the end of `load_awarder_seats_pg.ts` costs ~10 s on a loader that already takes minutes,
+and closes the same latent staleness for **119 and 122** — `procurement_by_settlement`
+reads `awarder_seats` too, so a standalone seats reload has always been able to move a
+buyer between settlements everywhere except the by-settlement precomputes. Do the same in
+the place-dim loader, or leave the table's command column honest about needing a second
+command.
+
+In `db:refresh` the order is already correct — `db:load:awarder-seats:pg` and
+`db:load:place-dim:pg` both run before `db:load:procurement-scopes:pg`. It is the
+standalone reload, which is how both are usually run, that is exposed.
 
 ---
 
@@ -179,23 +272,62 @@ CLAUDE.md's "the cloud side does not run this" section gains 123 alongside 119/1
 
 A precompute trades a slow query for a **staleness** risk, and here it is quiet: a stale
 matview serves last week's totals at a 200, and the page looks perfectly healthy. Two
-guards:
+inputs make it stale that the other precomputes on this path do not share, and one test
+catches all of it.
 
-1. **`awarder_seats` is the sneaky trigger.** The other precomputes on this path depend on
-   `contracts` and the scope table. This one also depends on `awarder_seats`, because that
-   table decides which buyers are seated in a settlement. Reloading it without refreshing
-   123 moves a buyer between settlements everywhere on the site *except* here. This is the
-   same shape as CLAUDE.md's note that `contracts` now reads `awarder_seats` through the
-   `awarder_ekatte` semi-join.
-2. **A data test** — `procurement_settlement_payloads.data.test.ts`, alongside
-   `contractor_rank.data.test.ts` and `cpv_catalog.data.test.ts`:
-   - the matview is non-empty and carries a row for every `(scope × settlement)` pair;
-   - for a sample of settlements across the size range **and all three scope kinds**, the
-     stored payload equals `procurement_settlement_detail(...)` computed live — the
-     staleness check that a row count cannot make;
-   - the sample includes a settlement with **zero** contracts in a narrow window, which
-     returns `contractCount: 0` rather than a NULL payload (verified), so the page shows
-     "nothing in this period" instead of its not-found branch.
+### 5.1 `awarder_seats` is the sneaky trigger
+
+The other precomputes on this path depend on `contracts` and the scope table. This one
+also depends on `awarder_seats`, because that table decides which buyers are seated in a
+settlement. Reloading it without refreshing 123 moves a buyer between settlements
+everywhere on the site *except* here. This is the same shape as CLAUDE.md's note that
+`contracts` now reads `awarder_seats` through the `awarder_ekatte` semi-join.
+
+### 5.2 `place_dim` is the second one, and it fails worse
+
+`procurement_settlement_detail` LEFT JOINs `place_dim` (117) for `nameEn`,
+`settlementType`, `loc`, `obshtinaCode`, `oblastCode` and the localized obshtina/oblast
+names — the entire PlaceHeaderView hero, the breadcrumb's drill-up links and the view
+switcher. So the place dimension is an input to this payload, not just to 119's English
+column.
+
+The ordering hazard is the one worth stating: those JOINs are LEFT and degrade to the
+Bulgarian `awarder_seats` strings, which is correct behaviour live — but a 123 refresh
+that runs while `place_dim` is empty or mid-reload **bakes the degraded hero into 26,070
+stored rows**, where it stays until the next refresh. The page then renders a settlement
+with no English name, no map centroid and a breadcrumb that cannot link up, on a 200,
+against a place dimension that is sitting there fully loaded. `db:refresh` orders
+place-dim first; a standalone reload is where this bites.
+
+### 5.3 The guard: a data test
+
+`procurement_settlement_payloads.data.test.ts`, alongside
+`contractor_rank.data.test.ts` and `cpv_catalog.data.test.ts`:
+
+- the matview is non-empty and carries a row for every `(scope × settlement)` pair —
+  26,070 of them, and **no NULL payloads**: measured across all thirty scopes, every pair
+  yields a real object, because the function only returns NULL when the settlement has no
+  seated buyer at all, which is a property of `awarder_seats` and not of the window;
+- for a sample of settlements across the size range **and all three scope kinds**, the
+  stored payload equals `procurement_settlement_detail(...)` computed live — the
+  staleness check that a row count cannot make;
+- the sample includes a settlement with **zero** contracts in a narrow window, which
+  returns `contractCount: 0` rather than a NULL payload (verified above), so the page shows
+  "nothing in this period" instead of its not-found branch;
+- a placed settlement's stored `nameEn` / `loc` / `obshtinaCode` are non-null — the
+  §5.2 check, which the payload-equality assertion above cannot make (a matview built
+  against an empty `place_dim` still equals a live call made against the same empty
+  `place_dim` only until the dimension is loaded, and the test would then be comparing two
+  freshly-degraded values on the day it matters least).
+
+**Why exact jsonb equality is safe.** `contracts.amount_eur` is `double precision`, so a
+parallel `SUM` is order-dependent and two runs can differ in the last bits. Every money
+field in this payload is `ROUND`ed to whole euro before it is emitted, and every array is
+ordered by the ROUNDED key with an `eik`/`year` tiebreak — the determinism convention
+119 and the risk indexes already follow. At ~1e9-scale totals against float64's ~1e-6
+resolution, the rounded value is stable. This is why the assertion can be `=` and not a
+tolerance; it is worth knowing rather than assuming, because the day it starts flaking the
+cause will not be this test.
 
 ---
 
@@ -203,15 +335,26 @@ guards:
 
 | # | Step | Files |
 |---|---|---|
-| 1 | Migration 123 — matview + unique index + the two supporting indexes | `scripts/db/schema/pg/123_procurement_settlement_payloads.sql` |
+| 1 | Migration 123 — matview + the one unique index + `GRANT SELECT` (§3.1) | `scripts/db/schema/pg/123_procurement_settlement_payloads.sql` |
 | 2 | Wire into the scopes loader (apply + REFRESH CONCURRENTLY) and into `db:load:pg`'s guarded refresh block | `scripts/db/load_procurement_scopes_pg.ts`, `scripts/db/load_pg.ts` |
-| 3 | Route: map `(from,to) → scope_key`, seek the matview, fall back to live on a miss | `functions/db_routes.js` |
-| 4 | Route tests: hit, miss-falls-back, matview-absent-falls-back, `?slim` unaffected | `functions/db_routes.settlement.test.js` |
-| 5 | Data test (§5.2) | `scripts/db/tests/procurement_settlement_payloads.data.test.ts` |
-| 6 | CLAUDE.md: add 123 to the cloud-loader list and the `awarder_seats` trigger | `CLAUDE.md` |
+| 2b | Call `refreshScopedSettlement()` from the `awarder_seats` and `place_dim` loaders (§4) — fixes 119/122 staleness too | `scripts/db/load_awarder_seats_pg.ts`, `scripts/db/load_place_dim_pg.ts` |
+| 3 | Route: map `(from,to) → scope_key` **NULL-safely** (§3.2), seek the matview, fall back to live on a miss + log it once per scope (§3.3) | `functions/db_routes.js` |
+| 4 | Route tests: **no-window request HITS**, hit, miss-falls-back, matview-absent-falls-back, `?slim` unaffected | `functions/db_routes.settlement.test.js` |
+| 5 | Data test (§5.3) | `scripts/db/tests/procurement_settlement_payloads.data.test.ts` |
+| 6 | CLAUDE.md: add 123 to the cloud-loader list and the `awarder_seats` + `place_dim` triggers | `CLAUDE.md` |
 | 7 | Re-measure prod: София cold, and confirm no 500 at the 10 s ceiling | — |
 
-Steps 1–2 are shippable alone (the matview is inert until the route reads it). Step 3 is
+**Step 4's first test is the one that earns its place.** A request carrying neither
+`?from` nor `?to` is what the AI tools send and what `all` resolves to, and — with the
+newest parliament's window open-ended — it is the same NULL that the default settlement
+page hits from the other direction. The other four tests all pass against a NULL-unsafe
+lookup: a `y:` scope hits, a bogus window misses and falls back as designed, an absent
+matview falls back, and `?slim` trims whatever it was handed. Only an assertion that the
+**no-window request reads the matview** distinguishes "the fallback is working" from "the
+fallback is all that is working". §5's data test cannot cover it either — it tests the
+matview's contents, not the route's mapping into it.
+
+Steps 1–2b are shippable alone (the matview is inert until the route reads it). Step 3 is
 the visible change. Because of §3.3 there is **no required ordering** between the loader
 and the deploy — the route is correct either way, only slower without the matview.
 
@@ -219,9 +362,19 @@ and the deploy — the route is correct either way, only slower without the matv
 
 ## 7. Acceptance
 
-- `/api/db/procurement-settlement?ekatte=68134` returns **200 in well under 1 s on a cold
-  production instance**, versus the current 10 s → 500.
+- `/api/db/procurement-settlement?ekatte=68134` returns **200**, versus the current
+  10 s → 500, on a cold production instance and **on the default (open-ended `ns:`) window
+  as well as with no window at all** — not only on a `y:` scope, which would pass while
+  §3.2's hazard is live.
 - No `httpRequest.latency` near `10.009s` for this route in Cloud Run logs over 24 h.
+- **No matview-miss log lines** (§3.3) for this route after the loader has run. This is the
+  criterion that fails loudly if the lookup, the GRANT or the cloud-side loader is wrong;
+  the latency criteria above can all be met by a fallback doing the work.
+- End-to-end, expect **~0.5 s**, not "well under 1 s": the database side becomes a point
+  lookup of a ≤60 kB row and effectively free, but §8's ~344 ms of connection setup and
+  ~180 ms/24 kB of uncompressed transport are untouched by this plan and now dominate. Hold
+  the acceptance on **DB time and the absence of the 10 s ceiling**, which is what this work
+  controls.
 - The data test proves the stored payload equals the live function across all three scope
   kinds.
 - The settlement page's two halves still reconcile — the existing
