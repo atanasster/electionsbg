@@ -10,13 +10,34 @@
 //                   published full-corpus (no per-NS slice yet). Keeps the slot
 //                   consistent and is honest about the scope instead of leaving
 //                   the reader to guess.
+//
+// THE CONTROL NEVER INVENTS A SCOPE. It shows the one that is active, including
+// a year outside its own `years` list — `?pscope` is shared across every
+// public-money section and rides along on ordinary in-app links, so a scope
+// minted where it is valid (y:2019 on /procurement) reaches pages whose picker
+// has no such option. Radix renders a controlled Select value with no matching
+// item as EMPTY — not even the placeholder — which left the whole widget reading
+// as the page default while the page answered for something else entirely, so
+// the year is rendered explicitly rather than left to item lookup.
+//
+// A page that CANNOT serve such a year must resolve it itself (useScope(support)
+// → resolveScope) and hand the control the resolved scope via `value`; then the
+// pill and the numbers agree because they are the same value. A page that serves
+// an explicit "no data for this year" state instead (see /subsidies) passes
+// nothing and the reader keeps seeing the year they asked for.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { CalendarRange } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useElectionContext } from "@/data/ElectionContext";
-import { Scope, SCOPE_FIRST_YEAR, useScope } from "@/data/scope/useScope";
+import {
+  Scope,
+  defaultScopeYears,
+  resolveScope,
+  scopeYear,
+  useScope,
+} from "@/data/scope/useScope";
 import {
   Select,
   SelectContent,
@@ -49,11 +70,7 @@ interface Props {
   allowAll?: boolean;
 }
 
-const LAST_YEAR = new Date().getFullYear();
-const YEARS: number[] = Array.from(
-  { length: LAST_YEAR - SCOPE_FIRST_YEAR + 1 },
-  (_, i) => LAST_YEAR - i,
-);
+const YEARS: number[] = defaultScopeYears();
 
 export const ScopeControl: FC<Props> = ({
   mode = "toggle",
@@ -66,10 +83,14 @@ export const ScopeControl: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
+  const yearList = years ?? YEARS;
   const url = useScope();
   // Controlled (caller-owned state) when both props are given; otherwise the
-  // URL-backed `?pscope` hook drives the control.
-  const scope = value ?? url.scope;
+  // URL-backed `?pscope` hook drives the control. "all" is resolved away when
+  // the caller has switched that option off — there is no item and no label for
+  // a mode the control was told this page does not have — but a `y:<year>`
+  // outside `yearList` is shown as itself (see the header note).
+  const scope = resolveScope(value ?? url.scope, { allowAll });
   const setScope = onChange ?? url.setScope;
   const electionLabel = selected?.replace(/_/g, "-");
 
@@ -88,11 +109,18 @@ export const ScopeControl: FC<Props> = ({
   }
 
   const nsActive = scope === "ns";
-  const yearList = years ?? YEARS;
   const nsLabel =
     nsLabelOverride ??
     (t("procurement_scope_this_ns") || "This parliament") +
       (electionLabel ? ` · ${electionLabel}` : "");
+  // The trigger's own label, rather than whichever <SelectItem> happens to match
+  // — the whole point of the header note. `undefined` for "ns" so Radix falls
+  // through to the placeholder.
+  const activeLabel = nsActive
+    ? undefined
+    : scope === "all"
+      ? t("procurement_scope_all_years") || "All years"
+      : String(scopeYear(scope));
 
   return (
     <div
@@ -128,9 +156,9 @@ export const ScopeControl: FC<Props> = ({
                 : "bg-primary text-primary-foreground [&>svg]:opacity-80",
             )}
           >
-            <SelectValue
-              placeholder={t("procurement_scope_years") || "Years"}
-            />
+            <SelectValue placeholder={t("procurement_scope_years") || "Years"}>
+              {activeLabel}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent align="end">
             {allowAll && (
@@ -138,6 +166,9 @@ export const ScopeControl: FC<Props> = ({
                 {t("procurement_scope_all_years") || "All years"}
               </SelectItem>
             )}
+            {/* Only the years the caller actually covers are offered. An active
+                year outside them is still SHOWN (activeLabel above) — visible
+                and switchable-away-from, without pretending it has data. */}
             {yearList.map((y) => (
               <SelectItem key={y} value={`y:${y}`}>
                 {y}

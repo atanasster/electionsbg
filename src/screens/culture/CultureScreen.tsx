@@ -40,24 +40,38 @@ export const CultureScreen = () => {
   // overview-driven tiles, so the awards tile renders once it lands.
   const { data: filmsFile } = useCultureFilms();
 
+  // The picker offers exactly the register's own span — the same bounds
+  // scopeCultureOverview aggregates within. Anchoring the floor on the
+  // CULTURE_FIRST_YEAR constant instead would offer a year the aggregation
+  // silently declines to scope to, which is the mismatch this page is guarding
+  // against; the constant is only the pre-load fallback now.
+  const firstYear = data?.firstYear ?? CULTURE_FIRST_YEAR;
+  const lastYear = data?.lastYear ?? new Date().getFullYear();
+  const cultureYears = useMemo(
+    () =>
+      Array.from({ length: lastYear - firstYear + 1 }, (_, i) => lastYear - i),
+    [firstYear, lastYear],
+  );
+
   // Year scope (shared `?pscope` param). Default (ns) = all years; a "y:<year>"
   // pins one year and the film KPIs / discipline split / concentration / awards
   // re-aggregate to it (client-side). The time-spine stays full-history.
-  const { scope } = useScope();
+  //
+  // Resolved against the register's own span, and the SAME resolved scope drives
+  // the picker below: `?pscope` rides in from any other public-money section, so
+  // a year the НФЦ register does not cover (a 2019 procurement scope, say) must
+  // fall back to all-years everywhere at once — otherwise the KPIs quietly
+  // reverted to all-years while the awards tile filtered to an empty year, under
+  // a pill that showed neither.
+  const { scope, setScope } = useScope({
+    years: cultureYears,
+    allowAll: false,
+  });
   const year = scopeYear(scope);
   const scoped = useMemo(
     () =>
       data ? scopeCultureOverview(data, filmsFile?.films, year) : undefined,
     [data, filmsFile, year],
-  );
-  const lastYear = data?.lastYear ?? new Date().getFullYear();
-  const cultureYears = useMemo(
-    () =>
-      Array.from(
-        { length: lastYear - CULTURE_FIRST_YEAR + 1 },
-        (_, i) => lastYear - i,
-      ),
-    [lastYear],
   );
 
   const eur = (v: number) => formatEurCompact(v, lang);
@@ -76,8 +90,13 @@ export const CultureScreen = () => {
       <Title description={description}>{title}</Title>
       <SectorBreadcrumb currentKey="culture_nav" />
 
+      {/* Driven by the RESOLVED scope, not by `?pscope` directly: an inbound
+          year the register does not cover falls back to all-years above, and the
+          pill has to say so. */}
       <ScopeControl
         className="mt-3"
+        value={scope}
+        onChange={setScope}
         years={cultureYears}
         nsLabelOverride={bg ? "Всички години" : "All years"}
         allowAll={false}

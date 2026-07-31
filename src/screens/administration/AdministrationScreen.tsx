@@ -649,9 +649,6 @@ export const AdministrationScreen: FC = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
 
-  const { scope } = useScope();
-  const year = scopeYear(scope);
-
   // ONE ~8 KB precomputed blob replaces personnel.json + macro.json + cofog.json
   // (~324 KB) on this page — see scripts/administration/build_context.ts.
   const { data: ctx } = useAdminContext();
@@ -669,6 +666,14 @@ export const AdministrationScreen: FC = () => {
         : [],
     [ctx],
   );
+  // Resolved against the report years this page actually holds. `?pscope` is
+  // shared with /procurement, whose picker runs to the current year while the
+  // Доклад за състоянието на администрацията lags by one or two — and an
+  // unresolved year read straight through to `selYear`, so every KPI hint said
+  // "2026" over the latest report's numbers while the picker showed nothing at
+  // all. The control below is handed the same resolved scope.
+  const { scope, setScope } = useScope({ years, allowAll: false });
+  const year = scopeYear(scope);
   const selYear = year ?? years[0] ?? new Date().getFullYear();
   const nat = useMemo(() => {
     if (!ctx) return undefined;
@@ -789,6 +794,8 @@ export const AdministrationScreen: FC = () => {
       <div className="mb-3">
         <ScopeControl
           mode="toggle"
+          value={scope}
+          onChange={setScope}
           years={years}
           nsLabelOverride={bg ? "Най-нова година" : "Latest year"}
           allowAll={false}

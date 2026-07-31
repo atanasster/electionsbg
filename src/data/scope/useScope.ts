@@ -29,13 +29,16 @@
 
 import { useCallback } from "react";
 import { To, useSearchParams } from "react-router-dom";
+// Re-exported from the UI-free constants module (shared with the Node loader).
+// Imported rather than re-exported straight through because defaultScopeYears
+// below needs the local binding (`export … from` creates none).
+import { SCOPE_FIRST_YEAR } from "./constants";
+
+export { SCOPE_FIRST_YEAR };
 
 export type Scope = "ns" | "all" | `y:${number}`;
 
 const PARAM = "pscope";
-
-// Re-exported from the UI-free constants module (shared with the Node loader).
-export { SCOPE_FIRST_YEAR } from "./constants";
 
 const parseScope = (raw: string | null): Scope => {
   if (raw === "all") return "all";
@@ -47,12 +50,63 @@ const parseScope = (raw: string | null): Scope => {
 export const scopeYear = (scope: Scope): number | null =>
   scope.startsWith("y:") ? Number(scope.slice(2)) : null;
 
-export const useScope = (): {
+/** What a page can actually serve. Omit a field to accept the shared default:
+ *  every calendar year the corpus covers, plus the full-corpus scope. */
+export type ScopeSupport = {
+  /** The calendar years this page has data for. */
+  years?: number[];
+  /** Whether "all" (the full corpus) is a scope this page can render. */
+  allowAll?: boolean;
+};
+
+/** Every year the shared picker offers by default, newest first — the corpus
+ *  floor through the current year, exactly the set the per-scope precomputes
+ *  cover (see allScopeWindows in ./windows). */
+export const defaultScopeYears = (
+  nowYear: number = new Date().getFullYear(),
+): number[] =>
+  Array.from({ length: nowYear - SCOPE_FIRST_YEAR + 1 }, (_, i) => nowYear - i);
+
+const DEFAULT_YEARS = defaultScopeYears();
+
+/** Clamp a scope to what the page can actually render, falling back to "ns".
+ *
+ *  WHY. `?pscope` is shared across every public-money section and now rides
+ *  along on ordinary in-app links (it is in the usePreserveParams allowlist), so
+ *  a scope minted where it IS valid — `y:2019` on /procurement — arrives on a
+ *  page whose picker has no such option: the НФЦ film register on /culture ends
+ *  a year or two back, /administration's Доклад lags further, the CAP corpus
+ *  behind /subsidies skips 2014/2018/2019/2020 outright.
+ *
+ *  Left unresolved that state is not merely useless, it is DISHONEST: a Radix
+ *  Select whose controlled value matches no item renders EMPTY — not even the
+ *  placeholder — so the whole widget read as the page default ("Всички години"
+ *  on /culture) while the page underneath answered for some other window. A page
+ *  that resolves here and hands the SAME value to its <ScopeControl> cannot get
+ *  into that state, because the pill and the numbers are one value.
+ *
+ *  Falling back is not the only honest answer: a page that would rather NAME the
+ *  gap ("no subsidy data for 2019", /subsidies) keeps the raw scope and says so.
+ *  What no page may do is show one window and count another. */
+export const resolveScope = (scope: Scope, support?: ScopeSupport): Scope => {
+  if (scope === "all") return support?.allowAll === false ? "ns" : "all";
+  const year = scopeYear(scope);
+  if (year == null) return "ns";
+  return (support?.years ?? DEFAULT_YEARS).includes(year) ? scope : "ns";
+};
+
+/** The active scope, already resolved against what the caller can serve.
+ *  A page with narrower coverage than the corpus passes its own support and MUST
+ *  pass the same to its <ScopeControl>, so the picker and the aggregation can
+ *  never disagree about which window is on screen. */
+export const useScope = (
+  support?: ScopeSupport,
+): {
   scope: Scope;
   setScope: (next: Scope) => void;
 } => {
   const [params, setParams] = useSearchParams();
-  const scope = parseScope(params.get(PARAM));
+  const scope = resolveScope(parseScope(params.get(PARAM)), support);
   const setScope = useCallback(
     (next: Scope) => {
       setParams(
