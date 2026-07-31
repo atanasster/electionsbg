@@ -55,5 +55,10 @@ describe("sigma entity URLs", () => {
     expect(sigmaContractUrl("a&sort=b")).toBe(
       "https://sigma.midt.bg/contracts?q=a%26sort%3Db",
     );
+    // The legacy shape from this function's own JSDoc — Cyrillic plus a slash,
+    // where the encoded output is least obvious by eye.
+    expect(sigmaContractUrl("РД-33-5/27.08.2020")).toBe(
+      "https://sigma.midt.bg/contracts?q=%D0%A0%D0%94-33-5%2F27.08.2020",
+    );
   });
 });

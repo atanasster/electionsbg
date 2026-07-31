@@ -185,7 +185,9 @@ type Props = {
    *  has fully-populated flags (the old client scorer) or where there is no
    *  single contract to attribute the detail to. */
   contractKey?: string | null;
-  /** "full" adds the explainable flags-fired meter; used on the detail header. */
+  /** "full" is the contract detail header: the A–F grade badge, the flags-fired
+   *  meter and the always-open check ledger. It fetches the per-flag detail on
+   *  mount rather than on dwell (see `contractKey`). */
   variant?: "chips" | "full";
   /** The server's A–F contract grade (`risk_grade`, migration 112) — the SAME
    *  letter the riskiest-contracts board and the `?grade=` browser filter use.
@@ -277,7 +279,13 @@ export const RiskBadges: FC<Props> = ({
   // and then pop the numbers in. The cost that motivated the dwell does not
   // apply: `full` renders once per contract page, never in a list.
   const [wantDetail, setWantDetail] = useState(variant === "full");
-  const { data: detail } = useContractRiskDetail(contractKey, wantDetail);
+  // `&& !!result` because this hook sits ABOVE the unscored early return below:
+  // an unscored contract renders the `?` mark and none of the detail, so eagerly
+  // fetching it there is a request whose response nothing can display.
+  const { data: detail } = useContractRiskDetail(
+    contractKey,
+    wantDetail && !!result,
+  );
 
   // Armed on DWELL, not on transit. onMouseEnter fires for every row a pointer
   // crosses, and /api/db is rate-limited to 120 req/IP/min shared with the
@@ -791,9 +799,9 @@ export const RiskBadges: FC<Props> = ({
     }
   };
 
-  // Explained, collapsed-by-default check ledger for the detail header. The
-  // summary line ("N of M applicable checks") IS the toggle; rows are sorted
-  // fired → passed → not-applicable, catalogue order (severity) breaking ties.
+  // Explained check ledger for the detail header — always rendered, never gated
+  // behind a toggle. Rows are sorted fired → passed → not-applicable, catalogue
+  // order (severity) breaking ties.
   const byKey = new Map(result.components.map((c) => [c.key, c]));
   const stateRank = (key: RiskComponentKey) => {
     const c = byKey.get(key);
@@ -831,8 +839,12 @@ export const RiskBadges: FC<Props> = ({
 
   // Validate rather than cast: `grade` is a free text column server-side, and an
   // unrecognised letter would index GRADE_TONE to undefined and throw on .chip.
+  // hasOwnProperty, not `in` — `in` walks the prototype chain, so "constructor"
+  // and "toString" would pass the guard and render as the badge.
   const gradeLetter: RiskGradeLetter | null =
-    grade && grade in GRADE_TONE ? (grade as RiskGradeLetter) : null;
+    grade && Object.prototype.hasOwnProperty.call(GRADE_TONE, grade)
+      ? (grade as RiskGradeLetter)
+      : null;
   // Names the band so the letter is self-explanatory next to the count it is
   // banded on ("F — 5 or more of the applicable checks fired").
   const gradeHint = gradeLetter
@@ -856,11 +868,20 @@ export const RiskBadges: FC<Props> = ({
         {/* The A–F grade, same letter and palette as the riskiest-contracts
             board that links here and the `?grade=` filter on the browsers — the
             detail page was the one surface that dropped it, so a contract listed
-            as F showed only "6 of 10" once opened. A plain title/aria-label
-            rather than a <Tooltip>: the letter is fully restated by the ledger
-            below it, so it needs no second interactive surface. */}
+            as F showed only "6 of 10" once opened. A plain labelled span rather
+            than a <Tooltip>: the letter is fully restated by the ledger below
+            it, so it needs no second interactive surface.
+
+            `role` is load-bearing, not decoration. A <span> with no role maps to
+            ARIA `generic`, which is name-PROHIBITED — browsers drop the
+            aria-label, and `title` is mouse-only, so without it the band
+            explanation reaches nobody on keyboard, touch or a screen reader and
+            the letter is a bare coloured mark. Same treatment as the unscored
+            `?` above. */}
         {gradeLetter ? (
           <span
+            role="note"
+            tabIndex={0}
             title={gradeHint}
             aria-label={gradeHint}
             className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded text-sm font-bold ${GRADE_TONE[gradeLetter].chip}`}
