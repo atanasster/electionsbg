@@ -841,11 +841,37 @@ async function collect(): Promise<Raw[]> {
     }
   }
 
+  // A mayoral-contest candidate row as it appears in a município bundle (the shape shared by
+  // the headline mayor race, kmetstvo village-mayor races and район-mayor races).
+  type LocalMayorMention = {
+    candidateName?: string;
+    primaryCanonicalId?: string | null;
+    isElected?: boolean;
+    votes?: number;
+  };
+  // Resolve the winner of a kmetstvo/район contest. CIK marks BOTH runoff finalists
+  // `isElected` in round 1 and these bundles carry no resolved `elected` field, so a naive
+  // `candidates.find(isElected)` can return the runoff LOSER. Prefer the round-2 table when
+  // present (its higher-vote finalist won), else the highest-vote elected round-1 candidate.
+  const pickLocalWinner = (
+    candidates?: LocalMayorMention[],
+    round2?: LocalMayorMention[],
+  ): LocalMayorMention | undefined => {
+    const pool = round2?.length ? round2 : (candidates ?? []);
+    const named = pool.filter((c) => c.candidateName);
+    const elected = named.filter((c) => c.isElected);
+    return (elected.length ? elected : named)
+      .slice()
+      .sort((a, b) => (b.votes ?? 0) - (a.votes ?? 0))[0];
+  };
   // Local mayors & councillors (data/<cycle>/municipalities/<code>.json → the ELECTED
-  // office holders: `mayor.elected` + each council party's `candidates[isElected]`). The
-  // canonical party (`primaryCanonicalId`) + obshtina are corroborants — so a councillor
-  // re-elected across cycles merges, and a councillor who later became an MP links by name.
-  // Regular (mi) and partial (chmi) cycles share this structure.
+  // office holders: `mayor.elected`, each council party's `candidates[isElected]`, each
+  // `kmetstva[]`'s elected village mayor (кмет на кметство) and each `districts[]`'s elected
+  // район mayor). The canonical party (`primaryCanonicalId`) + obshtina are corroborants — so
+  // a councillor re-elected across cycles merges, and a councillor who later became an MP
+  // links by name. Only ELECTED winners are materialized (losing candidates get no page).
+  // Regular (mi) and partial (chmi) cycles share this structure. `source='local'` is
+  // public_default=true (081_person_identity.sql), so these people are servable /person pages.
   for (const file of globSync(
     path.join(REPO_ROOT, "data/*mi*/municipalities/*.json"),
   )) {
@@ -863,6 +889,21 @@ async function collect(): Promise<Raw[]> {
         localPartyNum: number;
         primaryCanonicalId: string | null;
         candidates?: { listPos: number; name: string; isElected?: boolean }[];
+      }[];
+      // Village-mayor (кмет на кметство) and район-mayor contests. `elected` is the
+      // resolved winner (CIK marks both runoff finalists elected in round 1, so prefer it);
+      // fall back to the round-1 outright winner. `ekatte`/`districtCode` can be empty.
+      kmetstva?: {
+        kmetstvoName?: string;
+        ekatte?: string;
+        candidates?: LocalMayorMention[];
+        round2?: LocalMayorMention[];
+      }[];
+      districts?: {
+        districtName?: string;
+        districtCode?: string;
+        candidates?: LocalMayorMention[];
+        round2?: LocalMayorMention[];
       }[];
     };
     const place = d.obshtinaName ?? d.obshtinaCode;
@@ -904,6 +945,54 @@ async function collect(): Promise<Raw[]> {
               cPlace: place,
             },
           );
+    // Elected village mayors (кмет на кметство). `ekatte` is empty on every bundle row today
+    // and `kmetstvoName` is NOT unique within a município (older cycles repeat it), so key the
+    // mention/lock on the array index — unique within a frozen bundle and recomputed
+    // identically by the Phase 2 personSlug decorate walk (same file, same order). Prefer
+    // `ekatte` once a future ingest backfills it.
+    (d.kmetstva ?? []).forEach((k, i) => {
+      const el = pickLocalWinner(k.candidates, k.round2);
+      if (!el?.candidateName) return;
+      const key = k.ekatte || String(i);
+      add(
+        el.candidateName,
+        {
+          id: `local:${d.cycle}:${d.obshtinaCode}:kmetstvo:${key}`,
+          source: "local",
+          ref: `${d.cycle}:${d.obshtinaCode}:kmetstvo:${key}`,
+          role: "village_mayor",
+        },
+        {
+          ...obshtinaPlaceFor(d.obshtinaCode),
+          cParty: el.primaryCanonicalId ?? null,
+          cPlace: place,
+        },
+      );
+    });
+    // Directly-elected район mayors. SKIP the Sofia parent bundle (`SOF`): its 24 районни are
+    // already materialized as role 'mayor' from the per-район `S2***` shards' `mayor.elected`,
+    // so re-reading them here would double-count. Plovdiv/Varna районни have no per-район
+    // shards, so they legitimately come from this bundle's districts[].
+    if (d.obshtinaCode !== "SOF")
+      (d.districts ?? []).forEach((dist, i) => {
+        const el = pickLocalWinner(dist.candidates, dist.round2);
+        if (!el?.candidateName) return;
+        const key = dist.districtCode || String(i);
+        add(
+          el.candidateName,
+          {
+            id: `local:${d.cycle}:${d.obshtinaCode}:district:${key}`,
+            source: "local",
+            ref: `${d.cycle}:${d.obshtinaCode}:district:${key}`,
+            role: "rayon_mayor",
+          },
+          {
+            ...obshtinaPlaceFor(d.obshtinaCode),
+            cParty: el.primaryCanonicalId ?? null,
+            cPlace: place,
+          },
+        );
+      });
   }
 
   // TR-officer BRIDGE (Bridge A, plan §3 "share a company"). For every EIK a person is
