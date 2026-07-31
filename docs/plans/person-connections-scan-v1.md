@@ -260,7 +260,21 @@ server-side latency rather than inferred from local timing.
   identical logical content. The rewrite makes the route fast regardless, but the bloat still
   taxes every other query against `person` / `person_role`. A separate maintenance concern.
 - **Transport.** Unchanged and untouched here.
-- **The other defect §9.1 recorded.** `/api/db/price-history` and `/api/db/price-product`
-  return 500 at ~2.0–2.1 s — the pool's `lock_timeout`, i.e. a writer holding a lock readers
-  queue behind (most likely the daily prices loader's TRUNCATE+COPY). That is a loader-side
-  fix (the staging-swap pattern in `reference_contracts_reload_lock`) and is not addressed here.
+- **The ~2 s `lock_timeout` 500s — and `person-connections` is one of them.** Separate defect,
+  unaffected by this work in either direction. Requests fail at exactly 2.0–2.3 s
+  (`lock_timeout: 2000`, `functions/index.js:435`), each slug retried twice, and they occur
+  **both before and after** this fix (2026-07-31 19:08–19:09Z and 20:58–20:59Z). §9.1 recorded
+  this for the price routes; it is broader than that. 500s over three days, by route:
+
+  ```
+  85 price-history       62 person-profile          56 table
+  42 person-connections  31 procurement-settlement  31 person-elections
+  26 person              24 candidate-person        16 cpv-catalog   15 price-product
+  ```
+
+  Two writer families: the daily prices loader's TRUNCATE+COPY, and a person-layer writer on
+  Cloud SQL (`db:resolve:persons:cloud` rewrites `person` / `person_role`, which every
+  `person-*` route reads). The guard is working — it turns a stall into a fast failure — so the
+  fix is loader-side, via the staging-swap pattern in `reference_contracts_reload_lock`. Not
+  addressed here, and it is **not** a latency problem: this plan's route is a 46-buffer point
+  lookup that would answer instantly if it could take the lock.
