@@ -579,8 +579,14 @@ export const renderTableCard = (spec: TableCardSpec): Buffer => {
       const cx = PAD + labelW + colW * (c + 0.5);
       if (cell.heat != null) {
         const a = 0.1 + Math.max(0, Math.min(1, cell.heat)) * 0.75;
+        // Sized to its own text, not a fixed guess — a two-part label like
+        // "ГЕРБ-СДС 69%" overflows any constant that still looks right for "6%".
+        ctx.font = `700 30px ${FONT}`;
+        const pillW = Math.min(
+          colW - 10,
+          Math.max(96, ctx.measureText(cell.value).width + 28),
+        );
         ctx.fillStyle = `rgba(${accentRGB}, ${a})`;
-        const pillW = Math.min(colW - 14, 116);
         const pillH = cell.note ? 46 : 52;
         roundRect(
           ctx,

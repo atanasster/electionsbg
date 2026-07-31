@@ -197,6 +197,10 @@ the shape deliberately per the rule above.
   it throws past that, or when a row's cell count doesn't match the header —
   a silently short row would read as a complete grid missing a period. When the
   real series is longer than fits, show a sample and SAY SO in the footnote.
+  **Every number in a cell must name what it measures** — "27,7%" over "ГЕРБ"
+  reads as ГЕРБ's 27,7%, when in fact it was ДПС's. Write "ДПС 28%" / "ГЕРБ 35%"
+  so neither line can be read onto the other party. That costs width, so budget
+  ~4 data columns for two-part labels rather than the 6 the renderer allows.
 - **Single-number stat card (only when there's nothing to compare):** `value`
   (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
   separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default
