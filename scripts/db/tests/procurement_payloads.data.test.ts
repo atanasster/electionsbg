@@ -263,10 +263,10 @@ test.skipIf(skip)(
     // for the undeclared table simply never refreshes this matview, and the page it feeds
     // serves the previous attribution at a 200.
     //
-    // 124 was first written as inputs: ["contracts"], which is wrong three times over —
-    // procurement_concentration reads awarder_seats for its `oblast`, and four of the six read
-    // tr_companies / company_politicians. Read the bodies out of the catalogue rather than the
-    // files, so this tracks what is actually installed on the database being served.
+    // 124's first COMMITTED draft declared inputs: ["contracts", "awarder_seats"] and missed
+    // both TR tables, which four of its six aggregates read — the `oblast` dependency had been
+    // caught by then, the politician↔company one had not. Read the bodies out of the catalogue
+    // rather than the files, so this tracks what is actually installed on the database served.
     const declared = new Set<string>(
       SCOPED_MATVIEWS.find((m) => m.name === "procurement_payloads")?.inputs ??
         [],

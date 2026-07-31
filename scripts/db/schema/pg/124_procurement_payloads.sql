@@ -2,7 +2,7 @@
 -- Behind six /api/db routes: procurement-overview, -flow, -rankings, -concentration,
 -- -sectors and -benchmarks.
 --
--- WHY. Each of those routes ran a live whole-corpus aggregate on every cache miss. Three of
+-- WHY. Each of those routes ran a live whole-corpus aggregate on every cache miss. TWO of
 -- them exceeded the 10 s statement_timeout the /api/db pool sets (functions/index.js) and
 -- returned 500 in production, measured in Cloud Run logs:
 --
@@ -69,22 +69,28 @@
 -- already exist, so a methodology change lands in 025/026/027/031/036/037 alone and this
 -- follows. Duplicating their SQL here is the drift those files' headers forbid.
 --
--- TWO INPUTS: contracts AND awarder_seats. Declared as
--- inputs: ["contracts", "awarder_seats"] in scripts/db/lib/scopedMatviews.ts.
+-- FOUR INPUTS. Declared in scripts/db/lib/scopedMatviews.ts as
+-- inputs: ["contracts", "awarder_seats", "company_politicians", "tr_companies"].
+-- Traced out of pg_get_functiondef rather than assumed:
 --
--- The second one is easy to get wrong and expensive to get wrong, so it is written out here.
--- Five of the six functions read only contracts (+ company_politicians / tr_companies, which
--- have no ScopedInput). procurement_concentration is the exception: it resolves each row's
--- `oblast` from awarder_seats — 026 line 62, and 026's own header declares the dependency —
--- and 87% of the 2,755 rows in the `all` scope carry one. Declaring contracts alone would
--- mean a standalone `db:load:awarder-seats:pg` never refreshes this matview, and
--- /procurement/concentration would serve the PREVIOUS seat attribution at a 200: an oblast
--- that has since moved, or a null where a seat was newly resolved, with nothing red anywhere.
+--   contracts            all six
+--   company_politicians  overview, flow, rankings — the MP/official-tied money
+--   tr_companies         those three + concentration — contractor display names
+--   awarder_seats        concentration ALONE, for each row's `oblast` (026 line 62, and 026's
+--                        own header declares it; 86.6% of the 2,755 rows in `all` carry one)
 --
--- NO EXISTING GATE CATCHES A MIS-DECLARED `inputs`. The exhaustiveness assertion in
--- procurement_settlement_payloads.data.test.ts checks only that a per-scope matview is PRESENT
--- in SCOPED_MATVIEWS — it cannot tell whether the declared inputs match what the matview
--- actually reads. procurement_payloads.data.test.ts adds that check.
+-- THREE of those four are easy to miss, and this file got them wrong twice before landing:
+-- the first committed draft declared ["contracts", "awarder_seats"] and omitted the two TR
+-- tables, which four of the six aggregates read. The consequence is not a failure but a
+-- silence — the loader for an undeclared table simply skips this matview, so
+-- /procurement/concentration keeps the PREVIOUS seat attribution, or the whole dashboard keeps
+-- the previous politician↔company link set, at a 200 with nothing red anywhere.
+--
+-- ONE GATE CATCHES A MIS-DECLARED `inputs`, and only for this matview. The exhaustiveness
+-- assertion in procurement_settlement_payloads.data.test.ts checks that a per-scope matview is
+-- PRESENT in SCOPED_MATVIEWS — it cannot tell whether the declared inputs match what the
+-- matview reads. procurement_payloads.data.test.ts adds that check for THIS entry; the other
+-- five entries are still unguarded.
 --
 -- place_dim is genuinely absent from all six, so unlike 123 this matview is NOT rebuilt by a
 -- place reload — that would be work on an input it cannot see.

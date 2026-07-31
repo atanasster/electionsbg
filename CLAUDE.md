@@ -173,31 +173,51 @@ that aborted it on a cold `db-g1-small` — so expect minutes, not seconds. Re-r
   at the old year, and that scope serves an empty page;
 - after a standalone `db:load:place-dim:pg:cloud` **only when it reports that it skipped its
   own refresh** — it changes the English settlement names the ranking joins, and it now
-  refreshes them itself whenever the dimension actually moved (see the two side loaders
+  refreshes them itself whenever the dimension actually moved (see the side loaders
   below). Re-running this loader after it already did that is a needless multi-minute cloud
   rebuild.
 
-The refresh list, its ORDER and the not-populated fallback live in ONE place —
-`scripts/db/lib/scopedMatviews.ts`. A migration that adds a per-scope matview must join
-`SCOPED_MATVIEWS` there or no loader will ever refresh it;
+The refresh list, its ORDER, **what each matview is built FROM** and the not-populated
+fallback live in ONE place — `scripts/db/lib/scopedMatviews.ts`. A migration that adds a
+per-scope matview must join `SCOPED_MATVIEWS` there or no loader will ever refresh it;
 `procurement_settlement_payloads.data.test.ts` fails on any matview that reads
 `procurement_scopes` and is missing from the list.
 
-**Two loaders outside this one also refresh the settlement-keyed subset**, because they
-change what those matviews are built FROM, and skipping them is invisible:
+**The `inputs` array on each entry is as load-bearing as the name, and it fails differently.**
+A missing NAME means nothing ever refreshes that matview; a wrong `inputs` means the loader for
+the undeclared table skips it, so one page keeps the previous attribution while the rest of the
+site has moved on. That is invisible to a row count and to the exhaustiveness gate above, which
+only checks presence. `procurement_payloads.data.test.ts` closes it for 124: it reads that matview's six
+function bodies out of `pg_get_functiondef` and fails if it reads a table it does not declare.
+(For 124 only — no gate does this for the other entries yet.) It is not a hypothetical: 124's
+first committed draft declared `["contracts", "awarder_seats"]` and missed `company_politicians`
+and `tr_companies`, which four of its six aggregates read.
+
+**Three loaders outside this one also refresh part of the list**, because they change what
+those matviews are built FROM, and skipping them is invisible:
 
 ```bash
-npm run db:load:awarder-seats:pg:cloud   # decides WHICH buyers are seated in a settlement
-npm run db:load:place-dim:pg:cloud       # supplies the place hero 123 STORES in its payload
+npm run db:load:awarder-seats:pg:cloud   # WHICH buyers are seated in a settlement (119+123+124)
+npm run db:load:place-dim:pg:cloud       # the place hero 123 STORES in its payload (119+123)
+npm run db:load:tr:pg:cloud              # company_politicians / tr_companies (122+124)
 ```
 
-Both now do it themselves (119 + 123 only — 122 has no settlement dimension and neither
-input can move it). `place-dim` fingerprints the table either side of its rewrite and skips
-the refresh when the rows are byte-identical, which is the usual case, so it stays cheap to
-run blind — it says which of the two it did. Without these, a standalone reload moves a
-buyer between settlements, or blanks a place hero, everywhere on the site **except
-`/procurement/by-settlement` and the `/procurement/settlement/:ekatte` pages**, which keep
-serving the old attribution at a 200.
+All three now do it themselves, and each gets only the matviews its input can actually move.
+`place-dim` fingerprints the table either side of its rewrite and skips the refresh when the
+rows are byte-identical, which is the usual case, so it stays cheap to run blind — it says
+which it did. Without these, a standalone reload moves a buyer between settlements, blanks a
+place hero, or leaves every MP-tied figure on the previous link set, everywhere on the site
+**except the precomputed pages**, which keep serving the old attribution at a 200.
+
+Two of those pairings are worth stating because they look wrong:
+
+- **`awarder-seats` refreshes 124**, which has no settlement dimension — because one of its six
+  aggregates, `procurement_concentration`, resolves each row's `oblast` from `awarder_seats`
+  (86.6% of the `all` scope's 2,755 rows carry one).
+- **`tr:pg` refreshes 122 and 124** but neither settlement matview. It TRUNCATEs and reloads
+  `company_politicians`, the politician↔company link set every MP-tied figure derives from —
+  so before this it was already leaving `/procurement/contractors`' MP-tied KPIs on the
+  previous vintage, with nothing red anywhere.
 
 `cpv_catalog` (migration 121) is the same shape but rides the TENDERS loader: `db:load:tenders:pg`
 applies it and calls `rebuild_cpv_catalog()` right after the corpus commits, so on the cloud side
@@ -216,7 +236,7 @@ fails on an empty or stale matview.
 `procurement_settlement_payloads` (migration 123) is the deliberate OPPOSITE of those two on
 first deploy. `/api/db/procurement-settlement` maps the requested window to a scope and reads
 the matview, but **falls back to the live `procurement_settlement_detail()` when the
-precompute cannot answer** — no stored row, or a narrow set of four SQLSTATEs meaning the
+precompute cannot answer** — no stored row, or a narrow set of SQLSTATEs meaning the
 matview is absent, unreadable or locked (a pool error still throws). Degrading is correct here in a
 way it is not for `cpv_catalog`: it yields the RIGHT answer slowly (today's behaviour) rather
 than a wrong one, so the route ships in any order, to any database. The cost is that every
@@ -224,6 +244,39 @@ reason the fast path was skipped is otherwise silent, which is why the route log
 `psp:not-built` / `psp:read-failed` warning once per process — **that log, not latency, is the
 signal that the cloud loader never ran.** `procurement_settlement_payloads.data.test.ts` fails
 on a stale, partial or place-blank matview.
+
+`procurement_payloads` (migration 124) is the same degrade-don't-fail shape as 123, applied to
+the six `/api/db/procurement-*` dashboard routes — `overview`, `flow`, `rankings`,
+`concentration`, `sectors`, `benchmarks` — via one shared `scopedPayload()` helper in
+`functions/db_routes.js`. It exists because TWO of them exceeded the 10 s `statement_timeout`
+and returned 500 on prod — `procurement-overview` on a windowed scope at 10.010 s and
+`procurement-flow` with no window at 10.006 s. The other FOUR were the same shape and had
+simply not been unlucky; `procurement_concentration` touches more pages than either
+(411,245 vs 393,851 on the full corpus) and had no cache at all. (The third 500 in that Cloud
+Run window was `/api/db/person-profile`, a different defect entirely — a point lookup that
+full-scanned `person` — fixed by rewriting `person_by_name` in 082, not by a precompute.) Same log contract, different prefix: `pp:not-built` / `pp:read-failed`,
+once per process per (kind, scope) — so an unbuilt `flow/all` and an unbuilt `overview/all` are
+two separate lines, and a second request for either is silent. `pp:no-scope` is EXEMPT — a caller may legitimately ask for a window
+that is not one of the thirty, and serving that live is designed behaviour, not a defect.
+
+**Two SQLSTATE details on that fallback are easy to get backwards, and 123 had both wrong
+until 124 was built:**
+
+- **`55000` must be in the degrade set.** Reading a matview created `WITH NO DATA` does not
+  return zero rows — it raises `object_not_in_prerequisite_state`. That is exactly a database
+  where the DDL was applied and the REFRESH never ran, i.e. the first cloud deploy, which is
+  the case the orderless-deploy property is about. Without it that case is a 500.
+- **`57014` must NOT be.** It looks like the "locked by a REFRESH" code; that is `55P03`.
+  `57014` is the pool's own `statement_timeout`, so the probe has already burned the full 10 s
+  budget and falling back to an aggregate touching 199k–411k buffers cannot finish either — it
+  turns a 10 s failure into a ~20 s one holding a pooled connection, under exactly the
+  saturation that caused the timeout. Degrading is only correct when it beats failing.
+
+`procurement_payloads.data.test.ts` fails on a stale matview, on a `concentration` payload whose
+stored `oblast` has drifted from `awarder_seats`, and — uniquely in this repo — on a
+`SCOPED_MATVIEWS` entry whose declared `inputs` do not cover what the matview reads. It
+deliberately does NOT skip when the matview is absent or unpopulated: those are the two states
+it exists to catch, so they are assertions, not a green skip.
 
 `db:load:pg` also re-REFRESHes all six (guarded on existence, `contractor_rank` before
 `contractor_scope_kpis`), so a contracts reload cannot leave `/procurement/by-settlement`,

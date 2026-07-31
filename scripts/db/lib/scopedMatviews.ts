@@ -84,7 +84,7 @@ export const SCOPED_MATVIEWS = [
   //   contracts            all six
   //   company_politicians  overview, flow, rankings — the MP/official-tied money
   //   tr_companies         overview, flow, rankings, concentration — contractor display names
-  //   awarder_seats        concentration ALONE, for each row's `oblast` (026 line 62; 87% of
+  //   awarder_seats        concentration ALONE, for each row's `oblast` (026 line 62; 86.6% of
   //                        the `all` scope's 2,755 rows carry one)
   // Declaring contracts alone would let a standalone seats or TR reload leave
   // /procurement/concentration on the previous attribution, and the MP-tied figures on the

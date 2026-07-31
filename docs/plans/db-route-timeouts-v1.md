@@ -88,9 +88,10 @@ way to stop paying it per request is to stop computing it per request.
 
 ### 1.3 Four *more* routes share this defect — measured, not assumed
 
-The three that 500'd in the last 24 h are not the whole set. The rest of the
-procurement-dashboard function family is the same shape, and two of them are **worse** than
-`procurement_flow`:
+Only **two** of the three 500s belong to this family (`procurement-overview` and
+`procurement-flow`; the third, `person-profile`, is §1.1's separate defect). But the rest of
+the procurement-dashboard function family is the same shape as those two, and two of them are
+**worse** than `procurement_flow`:
 
 | Function | `all` | Buffers (`all`) | `ns` window | Buffers (window) | Cache today |
 |---|---|---|---|---|---|
@@ -299,7 +300,7 @@ here and one line in §3.3's `KIND` map, with no type migration.
 (plus `company_politicians` / `tr_companies`, which have no `ScopedInput`).
 **`procurement_concentration` is the exception** — it resolves each row's `oblast` from
 `awarder_seats` ([026 line 62](scripts/db/schema/pg/026_procurement_concentration.sql:62)),
-and 87% of the 2,755 rows in the `all` scope carry one. Declaring `contracts` alone would mean
+and 86.6% of the 2,755 rows in the `all` scope carry one. Declaring `contracts` alone would mean
 a standalone `db:load:awarder-seats:pg` never refreshes this matview and
 `/procurement/concentration` serves the previous seat attribution at a 200.
 
