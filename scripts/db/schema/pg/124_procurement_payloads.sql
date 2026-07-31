@@ -89,17 +89,29 @@
 -- place_dim is genuinely absent from all six, so unlike 123 this matview is NOT rebuilt by a
 -- place reload — that would be work on an input it cannot see.
 --
--- DETERMINISM IS PLAN-DEPENDENT FOR TWO OF THE SIX, which the data gate must account for.
--- At a fixed plan all 180 payloads are byte-stable and stored == live. Under a parallel /
--- non-hashagg plan, `rankings` and `concentration` still move: SUM() over double precision is
--- order-dependent, and at these magnitudes that flips a ROUND()ed EUR scalar by 1. The
--- ordering is not the problem — those two already carry the rounded sort keys and eik
--- tiebreaks the house convention prescribes — the differing bytes are a VALUE. (`flow` used to
--- move for the other reason, no ORDER BY on its nodes/links aggregates at all; 027 now has
--- one, added with this migration, so it and overview/sectors/benchmarks are plan-stable.)
--- So a stored-vs-live gate must either pin the plan or compare with a +/-1 tolerance;
--- exact jsonb equality would make it fail on a planner change rather than on staleness, which
--- is what it is for. Cloud SQL choosing a parallel plan is the plausible trigger.
+-- DETERMINISM IS PLAN-DEPENDENT, and the detail matters because the intuitive version of it
+-- is wrong in two ways. At the server's configured settings all 180 payloads are byte-stable
+-- and stored == live. What moves them is a change of GROUPING STRATEGY: SUM() over double
+-- precision is order-dependent, and at these magnitudes that flips a ROUND()ed EUR scalar by
+-- 1. Measured against the stored rows:
+--
+--   parallelism 4, hashagg on   ->  0/18 differ    PARALLELISM ALONE IS NOT THE TRIGGER
+--   enable_hashagg = off        ->  7/18 differ
+--   work_mem = '64kB'           ->  6/18 differ    (spills GroupAggregate differently)
+--
+-- The ordering is not the problem — the aggregates carry the rounded sort keys and eik
+-- tiebreaks the house convention prescribes — the differing bytes are a VALUE.
+--
+-- `flow` IS AMONG THE SEVEN. 027 gained an ORDER BY on its nodes/links aggregates with this
+-- migration, and that was worth doing on its own account — they had NO defined order at all,
+-- so the stored graph's shape was whatever the plan emitted — but it does NOT make the payload
+-- plan-independent, because the float sums inside it still move. An earlier draft of this
+-- header claimed otherwise.
+--
+-- So a stored-vs-live gate cannot pin its way out of this (`SET enable_hashagg = on` is a
+-- no-op — it is the default): procurement_payloads.data.test.ts compares at whatever the
+-- server is configured with, and a memory-settings change can turn it red for a reason that is
+-- not staleness. Re-REFRESH before believing the numbers moved.
 --
 -- THE ROUTE DEGRADES TO THE LIVE FUNCTION when this matview cannot answer, so it ships in any
 -- order, to any database — the opposite of cpv_catalog (121) and contractor_rank (122), which

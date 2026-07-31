@@ -22,12 +22,19 @@ import { exec, allRows, withClient } from "./pg";
  *  `company_politicians` and `tr_companies` are reloaded by the SAME loader (load_tr_pg) and
  *  could have been one name. They are two because they are two tables, and a future loader
  *  that touches only one of them should not be forced to rebuild for the other. */
-export type ScopedInput =
-  | "contracts"
-  | "awarder_seats"
-  | "place_dim"
-  | "company_politicians"
-  | "tr_companies";
+export const SCOPED_INPUTS = [
+  "contracts",
+  "awarder_seats",
+  "place_dim",
+  "company_politicians",
+  "tr_companies",
+] as const;
+
+/** Derived from the array above rather than declared beside it, so the runtime list a data
+ *  gate iterates and the compile-time union can never drift: adding a member in one place
+ *  adds it in both. procurement_payloads.data.test.ts checks each matview's declared `inputs`
+ *  against what it actually reads, and it can only check the inputs it knows about. */
+export type ScopedInput = (typeof SCOPED_INPUTS)[number];
 
 /** Every per-scope precompute, in refresh order, with what it reads.
  *
