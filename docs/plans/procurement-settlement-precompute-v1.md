@@ -401,6 +401,62 @@ and the deploy — the route is correct either way, only slower without the matv
   `procurement_settlement_scope.data.test.ts` keeps passing, since the contracts table is
   untouched by this work.
 
+### 7.1 Measured after implementation (local, 2026-07-31)
+
+**Both halves measured on the same database on the same day**, median of five warm calls
+through the route handler. This is the only honest comparison available locally, and it is
+NOT the §1 table: those "before" figures are production, cold, on a `db-g1-small`, and the
+401 ms local figure in §1 predates `94e2a0dce7`, which removed the `topc` CTE from 030 and
+made the live path roughly twice as fast. Quoting it as the baseline would have overstated
+this work by about 2×.
+
+| Request | Live path, today | Precomputed | Ratio |
+|---|---|---|---|
+| София 68134, no window (`all`) | 207.9 ms | **1.1 ms** | 182× |
+| София 68134, newest `ns:` (open-ended) | 77.3 ms | **1.5 ms** | 51× |
+| Варна 10135, no window | 39.0 ms | **0.8 ms** | 50× |
+| Бургас 07079, no window | 25.1 ms | **0.8 ms** | 30× |
+
+The number that actually matters is not in this table. Local warm buffers were never the
+problem — §1's whole point is that the same София call costs 401 ms local and had not
+finished at the 10 s `statement_timeout` on a cold Cloud SQL buffer cache. What the
+precompute removes is the *aggregate*, so the remaining work is one index seek on a
+26,070-row relation whose cost does not scale with the settlement. The prod figure is still
+unmeasured (below).
+
+Counts reconcile with §1 exactly: 64,676 contracts / 327 buyers for София.
+
+Two claims this plan makes were exercised rather than argued:
+
+- **Orderless deploy (§3.3).** With the matview renamed out of existence, the route returned
+  the correct 64,676 via the live path (222 ms) and logged `psp:read-failed:42P01`. So the
+  route is safe to ship to a database the loader has never touched — the property that makes
+  this migration unlike `cpv_catalog`.
+- **The staleness gate (§5.3) fails when it should.** Deleting one София contract inside a
+  rolled-back transaction moved live to 64,675 against a stored 64,676, and the gate
+  reported the mismatch.
+
+Of §7's criteria, everything testable locally is met: the data gate passes (20/20 data
+tests, including the payload equality across all three scope kinds), the route tests pass
+(138/138), and `procurement_settlement_scope.data.test.ts` is still green — the contracts
+table is untouched by this work.
+
+**Still outstanding, and an operator action:** the production re-measure — a cold-instance
+timing of `?ekatte=68134` and 24 h of Cloud Run logs with no `10.009s` latency and no
+`psp:not-built` / `psp:read-failed` lines.
+
+```bash
+npm run db:load:place-dim:pg:cloud            # PRECONDITION, see below
+npm run db:load:procurement-scopes:pg:cloud   # applies 119+122+123, refreshes all five
+npm run deploy:db
+```
+
+Deploy order does not matter (§3.3) — the route is correct without the matview, only slower.
+**`place_dim` is a different matter and is a genuine precondition.** Nothing runs it on the
+cloud side, and per §5.2 a 123 refresh against a stale or empty dimension does not fail: it
+bakes a degraded place hero into all 26,070 stored rows, where it stays until the next
+refresh, served at a 200. Verify it before refreshing, not after.
+
 ---
 
 ## 8. Out of scope
