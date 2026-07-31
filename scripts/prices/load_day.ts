@@ -10,7 +10,7 @@
 //   36% phantom over-count. So absence CANNOT be inferred from the fact table.
 //   It is only knowable at the moment of observation, which is here. That is
 //   why this loader also writes:
-//     price_current          — today's truth (TRUNCATE + reload)
+//     price_current          — today's truth (merged from today's observations)
 //     price_grid_days        — the settlement×product aggregate for this day
 //     price_chain_grid_days  — each chain's minimum for this day
 //     price_chain_days       — which chains reported at all
@@ -44,7 +44,8 @@ export interface DayStats {
 
 /** A day is rejected if its rows OR chains fall this far below the previous
  *  loaded day — a guard against a parse regression quietly wiping price_current
- *  (TRUNCATE+reload) with a fraction of the day. Overridable via --no-floor. */
+ *  (fully replaced by each day's observations) with a fraction of the day.
+ *  Overridable via --no-floor. */
 const SANITY_DROP = 0.2;
 
 interface StageRow extends PriceRow {
@@ -200,9 +201,10 @@ export const loadDay = async (
     );
   }
 
-  // Sanity floor (FINDING-001): price_current is TRUNCATE+reload, so a day that
-  // parsed far fewer rows/chains than the last loaded day would silently replace
-  // "today's truth" with a fraction. Refuse it. `--force`/backfill can override
+  // Sanity floor (FINDING-001): price_current is fully replaced by each day's
+  // observations (upsert-all + delete-absent), so a day that parsed far fewer
+  // rows/chains than the last loaded day would silently replace "today's truth"
+  // with a fraction. Refuse it. `--force`/backfill can override
   // via skipFloor. Compare against the previous loaded day (price_chain_days).
   if (!opts.skipFloor) {
     const prev = await allRows<{ rows: string; chains: string }>(
@@ -318,12 +320,46 @@ export const loadDay = async (
       // rather than a copy that could drift.
       const { inserted, closed } = await applyPriceFactsDelta(c, day, "obs");
 
-      // ── (3) today's truth. TRUNCATE resets the heap: no bloat. ─────────
-      await c.query("TRUNCATE price_current");
+      // ── (3) today's truth, MERGED from obs — never TRUNCATE + INSERT ───
+      // This used to be `TRUNCATE price_current; INSERT … FROM obs`, inside this
+      // same transaction. TRUNCATE's AccessExclusiveLock was therefore held from
+      // here until the COMMIT below (the grids, the changelog scan) — and
+      // /api/db/price-product reads price_current. Readers hit the serving pool's
+      // 2 s lock_timeout and 500'd in bursts on every ingest (measured on prod:
+      // 2026-07-27 23:36, 07-29 00:55, 07-30 16:28). The upsert and the anti-join
+      // delete take RowExclusiveLock instead, which readers do not conflict with;
+      // obs already carries a unique (store_id, sku_id) and an index on it.
+      //
+      // The cost of losing TRUNCATE is dead tuples rather than a reset heap, so
+      // the upsert is guarded by IS DISTINCT FROM: on a normal day most of the
+      // ~1.4M store-facts are unchanged and are not rewritten at all.
       await c.query(
         `INSERT INTO price_current (store_id, sku_id, price_eur, promo_eur)
-         SELECT store_id, sku_id, price_eur, promo_eur FROM obs`,
+         SELECT store_id, sku_id, price_eur, promo_eur FROM obs
+         ON CONFLICT (store_id, sku_id) DO UPDATE
+            SET price_eur = excluded.price_eur, promo_eur = excluded.promo_eur
+          WHERE (price_current.price_eur, price_current.promo_eur)
+            IS DISTINCT FROM (excluded.price_eur, excluded.promo_eur)`,
       );
+      // Delisted since yesterday: absence is only knowable at observation time,
+      // so what today's feed omits must go (048's header rule).
+      await c.query(
+        `DELETE FROM price_current pc
+          WHERE NOT EXISTS (SELECT 1 FROM obs o
+                             WHERE o.store_id = pc.store_id AND o.sku_id = pc.sku_id)`,
+      );
+      // Parity guard: after upsert-all + delete-absent, price_current must equal
+      // today's observations exactly. A mismatch is a merge bug — fail rather
+      // than serve a corrupted "today's truth" (the old TRUNCATE made this
+      // structurally impossible, so replacing it means asserting it).
+      const parity = await c.query<{ live: string; obs: string }>(
+        `SELECT (SELECT count(*) FROM price_current) AS live,
+                (SELECT count(*) FROM obs) AS obs`,
+      );
+      if (parity.rows[0].live !== parity.rows[0].obs)
+        throw new Error(
+          `price_current merge parity check failed: live=${parity.rows[0].live} obs=${parity.rows[0].obs}`,
+        );
 
       // ── (4) daily aggregates, from the day's OWN observations ──────────
       // Built from price_stage (RAW rows), not obs. parse.ts computes

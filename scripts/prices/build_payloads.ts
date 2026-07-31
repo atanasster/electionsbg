@@ -15,8 +15,23 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { PoolClient } from "pg";
-import { withClient, allRows } from "../db/lib/pg";
+import { withClient, withTx, allRows, exec } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+  type StageMergeSpec,
+} from "../db/lib/stage_merge";
+
+// Non-blocking reload (see scripts/db/lib/stage_merge.ts): every
+// /api/db/price-payload route reads this table, so it is merged, never TRUNCATEd.
+const PAYLOADS_MERGE: StageMergeSpec = {
+  table: "price_payloads",
+  source: "price_payloads_stage",
+  keys: ["kind", "key"],
+  cols: ["kind", "key", "payload"],
+};
 import { buildPriceIndex, type Emit } from "./build_index";
 import { loadGridsFromPg } from "./lib/grids_pg";
 
@@ -570,19 +585,22 @@ export const buildPayloads = async (): Promise<void> => {
     categories: unitCategories,
   });
 
+  // A full rebuild every run: the payloads are derived, small, and must never
+  // contain a stale place shard for a settlement that dropped out. But it is
+  // staged and merged, never TRUNCATE + COPY — the TRUNCATE held an
+  // AccessExclusiveLock on price_payloads for the whole COPY, and every
+  // /api/db/price-payload reader queued behind it (measured on prod 2026-07-26,
+  // before the pool grew its lock_timeout: a wave of 60 s 504s on kind=dict /
+  // ranking / chains-muni). See scripts/db/lib/stage_merge.ts.
   await withClient(async (c: PoolClient) => {
-    await c.query("BEGIN");
-    try {
-      // A full rebuild every run: the payloads are derived, small, and must
-      // never contain a stale place shard for a settlement that dropped out.
-      await c.query("TRUNCATE price_payloads");
-      await copyRows(c, "price_payloads", ["kind", "key", "payload"], rows);
-      await c.query("COMMIT");
-    } catch (e) {
-      await c.query("ROLLBACK");
-      throw e;
-    }
+    await createStageTable(c, PAYLOADS_MERGE);
+    await copyRows(c, PAYLOADS_MERGE.source, ["kind", "key", "payload"], rows);
+    await addStagePrimaryKey(c, PAYLOADS_MERGE);
   });
+  await withTx(async (c) => {
+    await mergeFromStage(c, PAYLOADS_MERGE);
+  });
+  await exec(`DROP TABLE IF EXISTS ${PAYLOADS_MERGE.source}`);
 
   const [{ n, bytes }] = await allRows<{ n: string; bytes: string }>(
     "SELECT count(*) AS n, pg_size_pretty(sum(pg_column_size(payload))::bigint) AS bytes FROM price_payloads",

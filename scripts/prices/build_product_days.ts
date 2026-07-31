@@ -30,8 +30,24 @@
 // (a genuine €0.99 banana promo above the €0.95 floor survives).
 
 import type { PoolClient } from "pg";
-import { withClient, allRows } from "../db/lib/pg";
+import { withClient, withTx, allRows, exec } from "../db/lib/pg";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+  type StageMergeSpec,
+} from "../db/lib/stage_merge";
 import { PRERENDER_HEAD } from "./limits";
+
+// Non-blocking reload (see scripts/db/lib/stage_merge.ts): build into the stage
+// twin, then merge. price-history reads this table on its fast path, so it must
+// never be TRUNCATEd out from under a serving read.
+const PRODUCT_DAYS_MERGE: StageMergeSpec = {
+  table: "price_product_days",
+  source: "price_product_days_stage",
+  keys: ["product_id", "day"],
+  cols: ["product_id", "day", "min_eur", "min_promo_eur", "chains"],
+};
 
 export const buildProductDays = async (
   limit = PRERENDER_HEAD,
@@ -108,13 +124,20 @@ export const buildProductDays = async (
     `[product-days] ${weighted.length.toLocaleString()} head products in ${batches.length} weight-balanced batches`,
   );
 
+  // Build into an UNLOGGED stage twin, NOT into the live table. `TRUNCATE
+  // price_product_days` + the batched INSERTs used to run in ONE transaction, so
+  // the AccessExclusiveLock TRUNCATE takes was held for the entire multi-minute
+  // rebuild — and /api/db/price-history reads this table. Every reader that
+  // arrived meanwhile hit the serving pool's 2 s lock_timeout and 500'd, in
+  // clusters ~26 minutes long (measured on prod, 2026-07-28 and 07-30). Nothing
+  // reads the stage, so this phase locks nothing; the live table keeps serving
+  // yesterday's vintage until the merge below flips it. Same fix, same reason, as
+  // the contracts corpus (reference_contracts_reload_lock).
   await withClient(async (c: PoolClient) => {
-    await c.query("BEGIN");
-    try {
-      await c.query("TRUNCATE price_product_days");
-      for (const chunk of batches) {
-        await c.query(
-          `WITH head AS (SELECT unnest($1::bigint[]) AS product_id),
+    await createStageTable(c, PRODUCT_DAYS_MERGE);
+    for (const chunk of batches) {
+      await c.query(
+        `WITH head AS (SELECT unnest($1::bigint[]) AS product_id),
          span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days),
          -- Every masked store-fact for the head, per day. store_id lives on the
          -- fact, so this is the full cross-store panel the median is taken over.
@@ -138,7 +161,7 @@ export const buildProductDays = async (
                   percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
              FROM pd GROUP BY product_id, day
          )
-         INSERT INTO price_product_days (product_id, day, min_eur, min_promo_eur, chains)
+         INSERT INTO price_product_days_stage (product_id, day, min_eur, min_promo_eur, chains)
          SELECT pd.product_id, pd.day,
                 MIN(pd.price_eur),
                 -- effective min = min over LEAST(regular, promo); dips below
@@ -151,15 +174,24 @@ export const buildProductDays = async (
           -- cross-store median; packaged goods keep the raw min (see header).
           WHERE NOT pd.unit_priced OR pd.price_eur >= 0.5 * med.m
           GROUP BY pd.product_id, pd.day`,
-          [chunk],
-        );
-      }
-      await c.query("COMMIT");
-    } catch (e) {
-      await c.query("ROLLBACK");
-      throw e;
+        [chunk],
+      );
     }
+    // Fails loudly if the batching ever produced a product/day twice — the
+    // guarantee that made splitting the head by product safe in the first place.
+    await addStagePrimaryKey(c, PRODUCT_DAYS_MERGE);
   });
+
+  // Flip. Upsert-changed + delete-absent take RowExclusiveLock only, which does
+  // not conflict with the AccessShare a SELECT needs, so price-history readers
+  // never block — and the transaction means they see the old vintage or the new
+  // one, never a partial rebuild. Almost every row is identical to yesterday's
+  // (only the newest day moves), and the upsert's IS DISTINCT FROM guard skips
+  // those, so the merge writes little and holds its locks briefly.
+  await withTx(async (c) => {
+    await mergeFromStage(c, PRODUCT_DAYS_MERGE);
+  });
+  await exec(`DROP TABLE IF EXISTS ${PRODUCT_DAYS_MERGE.source}`);
 
   const [{ n, p }] = await allRows<{ n: string; p: string }>(
     "SELECT count(*) AS n, count(DISTINCT product_id) AS p FROM price_product_days",
