@@ -1,209 +1,184 @@
-# Shared person-name links across local-elections screens + settlement-page cleanup
+# Local person-name links via a baked `personSlug` (village mayors included)
 
 ## Context
 
-Starting point is the local-elections **settlement** page (`/local/:cycle/settlement/:ekatte`, e.g.
-`/local/2023_10_29_mi/settlement/03229`), which needs two fixes:
+On the local-elections **settlement** page (`/local/:cycle/settlement/:ekatte`) and ~15 sibling
+local screens, person names (mayors, councillors, village mayors) render as plain text and should
+link to their `/person/:slug` profile. Plus a small cleanup: remove the redundant "← Тунджа"
+back-link (the parent município is already a link in the `PlaceHeader` location labels).
 
-1. **A redundant "← Тунджа" municipality back-link** under the place header — the parent município
-   is already a link in the `PlaceHeader` location labels.
-2. **Person names render as plain text.** They should link to a person profile — **only when one
-   exists**.
+> **This plan went through three audits.** Performance killed per-name resolution for the 264-mayor
+> list; correctness showed `candidate_person` is parliamentary-only (wrong table for local
+> officials); the third scoped the two operator decisions below. Those decisions **change the shape
+> of the solution** from a frontend tweak into a data-pipeline change.
 
-The same "plain-text person name beside an `MpAvatar`" pattern repeats on ~15 local screens, so the
-deliverable is a **shared person-name link**, applied first to the settlement page and rolled out to
-the rest.
+**Operator decisions taken:**
+1. **Village *kmetство* mayors must be linkable.** Today they have no `/person` page at all —
+   `resolve_persons` never materializes them.
+2. **The ~804 KB runtime officials index is not acceptable** for the national list.
 
-> **This plan was rewritten after two audits.** The first (performance) killed the naive per-name
-> approach for the 264-mayor national list. The second (correctness) found the resolver itself was
-> **wrong**: it targeted `candidate_person`, which is **parliamentary/EP-only** and returns NULL for
-> local officials. The correct, already-in-use resolver is the **municipal-officials name index**
-> plus the on-record `mpId` — the exact pattern `ChmiFeedScreen` and `MyAreaKmetstvoTile` use today.
-> That choice also **eliminates all the runtime machinery** (no batch endpoint, no GET chunking, no
-> rate-limit exposure): `mpId` is already on each record, and the officials lookup is one cached
-> bulk fetch.
+Both point to one answer: **bake a resolved `personSlug` into the local-election JSON at build time**
+and have the frontend link `/person/${personSlug}` directly — zero runtime lookups, no 804 KB fetch,
+and village mayors become linkable. Because the runtime index is rejected, **the bake is a
+prerequisite for essentially all linking** (only the already-stamped `mpId` MP subset could link
+without it). Net cost: a person-layer extension, a new stamp step, threading the field through ~4
+builders and ~6 types, and ops wiring — materially larger than a frontend-only change.
 
-## Audit findings that define the design
+## Why baking, confirmed by audit
 
-**Resolver correctness.** `candidate_person` is loaded only from `data/2*/candidates/by-slug`
-(`load_person_elections_pg.ts:133`) — 10 national/European-Parliament cycles, **zero** `_mi`/`_chmi`
-dirs. So `candidate_person_by_name('<a local mayor who never ran for parliament>')` → **NULL**. The
-municipal-officials index resolves those people instead:
+- **`is_public_figure` is a pure `person_source.public_default` OR across roles**
+  (`resolve_persons.ts:1292`), and **`local` is `public_default=true`** (`081_person_identity.sql:38`).
+  So a person whose only role is a local candidacy is already public and servable
+  (`person_by_slug`, `082_person_api.sql:17`). Village mayors are unlinkable **only** because the
+  walk never reads `kmetstva[]` — not for any privacy reason.
+- **`person_slug_lock` (mention_id → slug)** is persisted, never truncated, redirect-aware — the
+  clean read-side for a stamp step, so `resolve_persons` stays read-only on `data/`.
+- Every downstream artifact already carries `mpId` copied from the bundle; `personSlug` mirrors it
+  one-for-one — except `PlaceMayorWinner`, which carries neither and needs the field added.
+- `/person` pages are **Cloud-SQL-served** (update the instant `db:resolve:persons` runs); only the
+  **bucket-served** local JSON that links out needs a re-sync.
 
-| Person | `candidate_person_by_name` | `findOfficialByName` (chosen) |
-|---|---|---|
-| Current obshtina mayor / councillor, never in parliament | NULL | **hit** (296 mayors, 4,822 councillors, + deputies/chairs/architects) |
-| Current local official who also ran for parliament | hit | hit |
-| Former local official no longer serving, once a parliamentary candidate | hit | NULL (roster is current-only) |
-| **Village *kmetство* mayor** | NULL | **NULL — absent from the roster** |
+## Phase 1 — Person layer: materialize elected village (and district) mayors
 
-**Village kmetство mayors have no profile at all** in the common case: they're absent from the
-officials roster *and* `candidate_person`, and `resolve_persons` mints no person_id for them
-(it walks only `mayor.elected` + elected councillors, not `kmetstva`). So on the settlement page —
-whose **headline is the village-mayor race** — those names correctly stay plain text (the page does
-not exist). They link only in the sub-cases where the person also holds a tracked role (mayor/
-councillor → officials roster) or was an MP (`mpId`). `MyAreaKmetstvoTile` already documents and
-relies on this.
+**File:** `scripts/person/resolve_persons.ts`, the local walk (L844-907).
 
-**Officials → person.** `/officials/{slug}` **301s to `/person/{slug}`** server-side
-(`officials_redirect.js`, via `officials_person_slug()` / SQL 106) and client-side
-(`OfficialProfileRedirect`), query string preserved. So linking via officials reaches the unified
-profile; the resolver handles the ~10% of official slugs that differ from the person slug.
-
-**Two officials lookups already exist — pick by page scope, no new backend:**
-- **Scoped roster** — `useMunicipalOfficials(obshtina)` (`src/data/officials/useMunicipalOfficials.tsx`):
-  ≤96 rows for one município (a few KB), rows carry `officialSlug` (and `personSlug`). For
-  single-obshtina pages (settlement, município dashboard). Match on `canonicalName(name)`.
-- **Global name index** — `useMunicipalOfficialsByName()`
-  (`src/data/officials/useMunicipalOfficialsByName.tsx`): one **~804 KB** fetch, 6,391 rows,
-  `staleTime: Infinity`, exposes `findOfficialByName(name, municipality)` (name+muni, name-only
-  fallback). For cross-obshtina pages (the 264-mayor national list). One fetch amortized across the
-  session and every local page.
-
-**`mpId` is free.** Every local candidate record already carries a stamped `mpId`
-(`decorate_local_mp_links.ts`), so an MP links to `/candidate/mp-{id}` (the merged person dashboard)
-with **no lookup and no MP-index download** — lighter than ChmiFeedScreen, which additionally calls
-`findMpByName` off the ~970 KB roster.
-
-**Render counts (why the global index, not per-name, on big pages)** — measured, no page paginates:
-national list **264** mayors; município overview ~130 (kmetstva 96 + districts 24 + …); `/mayor` ~24;
-`/council` 8 eager + up to 61 on expand; settlement **~5–15**. With this design none of these issue
-per-name requests — `mpId` is on-record and officials is one bulk lookup — so the counts only matter
-for the officials-index amortization, not for request fan-out.
-
-## The shared building blocks
-
-### 1. Resolver helper — `src/screens/components/person/personHref.ts` (new)
-
-Pure function, generalizing the ChmiFeedScreen precedence:
+Add a `kmetstva[]` loop mirroring the `mayor.elected` block (and the same for `districts[]` for
+Sofia/Plovdiv/Varna), **elected winner only** (not losing candidates — keeps scope to office holders,
+as mayors/councillors already are, and avoids materializing thousands of losers):
 
 ```ts
-type OfficialResolver = (name: string, municipality?: string | null)
-  => { slug: string } | undefined;
+for (const k of d.kmetstva) {
+  const el = k.elected ?? k.candidates?.find(c => c.isElected);
+  if (el?.candidateName)
+    add(el.candidateName,
+      { id: `local:${d.cycle}:${d.obshtinaCode}:kmetstvo:${k.ekatte || k.kmetstvoName}`,
+        source: "local", ref: `${d.cycle}:${d.obshtinaCode}:kmetstvo:${k.ekatte || k.kmetstvoName}`,
+        role: "village_mayor" },
+      { ...obshtinaPlaceFor(d.obshtinaCode), cParty: el.primaryCanonicalId ?? null, cPlace: place });
+}
+```
 
-export const localPersonHref = (
-  rec: { name: string; mpId?: number | null },
-  obshtina: string | undefined,
-  resolveOfficial: OfficialResolver,
-): To | undefined => {
-  if (rec.mpId != null) return `/candidate/mp-${rec.mpId}`;
-  const hit = resolveOfficial(rec.name, /* municipality if the page has it */ undefined);
-  return hit ? { pathname: `/officials/${encodeURIComponent(hit.slug)}`,
-                 search: obshtina ? `from=${obshtina}` : undefined } : undefined;
+Notes: `ekatte` can be empty in the bundle → fall back to `kmetstvoName` for a stable ref. Identity
+is name-fold based with party+place corroborants (same recipe as mayors/councillors). Check whether
+`person_role.role` has a CHECK/enum; if so, add `village_mayor` (or reuse `mayor` — `place_kind`/ref
+disambiguates). No other schema change. `person_slug_lock` picks up the new mention ids automatically.
+
+## Phase 2 — Bake `personSlug` into the local JSON
+
+### 2a. New stamp step — `scripts/parsers_local/decorate_local_person_links.ts` (new)
+
+Mirror `decorate_local_mp_links.ts` (same four slots: `mayor.round1/round2/elected`,
+`council[].candidates`, `kmetstva[].candidates`, `districts[].candidates`), but **PG-backed**: read
+`person_slug_lock` (join `person_slug_retired` for redirects) for `mention_id LIKE 'local:%'`, build a
+`ref → personSlug` map, and stamp `personSlug` onto each bundle record by recomputing the **same
+mention ref** used in Phase 1 (`local:${cycle}:${code}:mayor`, `:${partyNum}:${listPos}`,
+`:kmetstvo:${ekatte||name}`). Idempotent, `--dry-run`, writes bundles in place. **Runs AFTER
+`db:resolve:persons`.** (Recommended over stamping inside `resolve_persons`, which must stay
+read-only on the data tree.)
+
+### 2b. Types — add `personSlug?: string`
+
+`scripts/parsers_local/types.ts` **and** its frontend mirror `src/data/local/types.ts`:
+`LocalMayorResult`, `LocalCouncilCandidate`; plus `RegionMunicipalityRow.electedMayor`,
+`LocalCandidateRef` (`build_region_json.ts`); `MuniMayorTimelineEntry` **and** `PlaceMayorWinner`
+(`src/data/local/placeTrendsTypes.ts`); `ChmiHistoryEvent` (`build_chmi_history.ts`). Place it right
+beside the existing `mpId?` field everywhere.
+
+### 2c. Builders — copy `personSlug` from the stamped bundle
+
+Each is a bundle-only additive pass; add the copy where `mpId` is copied today, and **run them AFTER
+the stamp** (same ordering hazard as `mpId` — the rollups run during ingest, before the standalone
+decorate, so they must be regenerated after):
+- `build_region_json.ts` — `electedMayor` (`:442`), independent list (`:485`), `LocalCandidateRef`
+  (`:366`). Feeds `national_municipalities.json` + region rollups + leader tiles.
+- `build_local_place_trends.ts` — `mayorTimeline` (`:316`) **and** `resolveMayorWinner` (`:117-145`),
+  which today reads neither `mpId` nor slug: look up `personSlug` on the matched candidate and set it
+  on the emitted `PlaceMayorWinner` (the settlement/район mayor strip).
+- `build_chmi_history.ts` — copy `personSlug: m.personSlug` beside `mpId` on each event.
+
+Run order after a re-resolve: **stamp → `--local-rollups` → `--local-place-trends` → chmi-history.**
+
+## Phase 3 — Frontend
+
+**Change 1 — remove "← Тунджа".** `src/screens/LocalSettlementDashboardScreen.tsx`: delete the
+`extra={…}` prop (48-57) and its now-dead deps (`muni`/`muniName` 31-34, `findMunicipality` +
+`useMunicipalities` import 12/21, `Link` import 9).
+
+**Shared component — `src/screens/components/person/PersonNameLink.tsx` (new).** Presentational, no
+hooks, no fetch:
+
+```tsx
+export const PersonNameLink: FC<{ name: string; personSlug?: string | null;
+  mpId?: number | null; className?: string }> = ({ name, personSlug, mpId, className }) => {
+  const to = personSlug ? `/person/${personSlug}` : mpId != null ? `/candidate/mp-${mpId}` : undefined;
+  return to
+    ? <Link to={to} className={cn("hover:underline", className)}>{titleCaseName(name)}</Link>
+    : <span className={className}>{titleCaseName(name)}</span>;
 };
 ```
 
-### 2. Component — `src/screens/components/person/PersonNameLink.tsx` (new)
+`personSlug` (baked) is preferred; `mpId` is the fallback for records the bake missed; else plain
+text. Swap every render site to pass `record.personSlug` + `record.mpId`:
+- **Settlement page:** `LocalPlaceTrendsTile.tsx:68-72` (mayor strip), `LocalSettlementDashboardCards`
+  `MayorCandidateRows` :84, `KmetstvoMayorCard` :218, `ParentMunicipalityCard` :302.
+- **National list:** `LocalMunicipalityListScreen.tsx` :100-103, :294-300 — now reads the baked
+  `electedMayor.personSlug`, **no 804 KB index**.
+- **Município overview + `/mayor` + `/council`:** `LocalElectionScreen.tsx` :166, :272-279, :376-377
+  (`c.personSlug`), :548-555, :661-668, :771-776, :1644.
+- **Tiles:** `TopMayorsTile` :82-90, `LocalMunicipalityExtras` (`TopCouncillorsTile`) :147-155,
+  `LocalMayorTimelineTile` :96-102, `LocalMidtermComparisonTile` :168.
 
-Presentational: `{ name, to, className }`. Renders `<Link to={to} className={cn("hover:underline",
-className)}>{titleCaseName(name)}</Link>` when `to` is set, else `<span>{titleCaseName(name)}</span>`.
-No hooks, no requests — the page computes `to` via `localPersonHref` and the scope-appropriate
-resolver. (Mirrors `MpAvatar`/`MpAvatarView`: the page owns the data hook, the leaf is presentational.)
+**Consolidate the two existing implementations.** `ChmiFeedScreen.tsx:184-201` and
+`MyAreaKmetstvoTile.tsx:84-120` hand-roll officials-index resolution — switch both to
+`PersonNameLink` reading the baked `personSlug`, dropping their `useMunicipalOfficialsByName` /
+roster dependency (and its 804 KB fetch) entirely.
 
-The page wiring per screen: call `useMunicipalOfficials(obshtina)` (single-obshtina) **or**
-`useMunicipalOfficialsByName()` (cross-obshtina) once, wrap it as an `OfficialResolver`, then per row
-`<PersonNameLink name={r.candidateName} to={localPersonHref(r, obshtina, resolve)} />`.
+**Leave alone:** already-linked `TopCandidatesStrip`/`PartyTopCandidatesTile`/`CandidateLink`; and
+`LocalLeaderTiles`/`LocalExtraordinaryTile` where the name is already inside a município `<Link>`
+(don't nest anchors).
 
-## Change 1 — remove the "← Тунджа" back-link
+## Phase 4 — Ops wiring (do not skip — this is where prod goes stale)
 
-**File:** `src/screens/LocalSettlementDashboardScreen.tsx`. Delete the `extra={…}` prop on
-`<PlaceHeader>` (48-57) and its now-dead deps: `muni`/`muniName` (31-34), `findMunicipality` +
-`useMunicipalities` import (12, 21), `Link` import (9). The obshtina stays reachable via
-`PlaceHeader`'s existing `muniHref`.
+The `data/<cycle>/municipalities/` and `data/local_place_trends/` trees are **gitignored, served only
+from `gs://data-electionsbg-com` via `npm run bucket:sync`**. A slug change in `db:resolve:persons`
+makes every baked link stale until re-stamped and re-synced. Wire the new step in:
+- **`db:refresh`** — after `db:resolve:persons`, run the decorate + the three builder rebuilds
+  (locally).
+- **`update-local-elections` skill (Step 5)** — add `decorate_local_person_links` right after
+  `decorate_local_mp_links`, then the builder rebuilds, then `bucket:sync`.
+- **`update-persons` skill** — after a re-resolve, run the decorate + rebuilds + `bucket:sync` so the
+  linking JSON tracks the new slugs.
+- **`process-watch-report`** — map `cik_results` / persons re-resolve to re-trigger the above.
 
-## Change 2 — settlement page (the original request)
+No Cloud SQL migration, no `deploy:db`. `/person` pages update on `db:resolve:persons:cloud`; only the
+bucket-served local JSON needs the extra sync.
 
-Single obshtina → use the **scoped roster** `useMunicipalOfficials(obshtina)`; build a resolver over
-its `entries` (match `canonicalName(name)`, return `{ slug }`). Swap the four plain-text sites to
-`<PersonNameLink name to={localPersonHref(...)} />`, name text only:
+## Decisions & risks to confirm
 
-1. Mayor-per-cycle strip — `dashboard/local/LocalPlaceTrendsTile.tsx:68-72` (keep the party-name
-   fallback; `PlaceMayorWinner` has no `mpId`, so name-only resolution).
-2. Kmetstvo candidate rows — `LocalSettlementDashboardCards.tsx:84` (`MayorCandidateRows`).
-3. "Предишни избори" winners — `LocalSettlementDashboardCards.tsx:218` (`KmetstvoMayorCard`).
-4. Parent-município mayor ("СЪВЕТИ → Община → КМЕТ") — `LocalSettlementDashboardCards.tsx:302`.
-
-**Expected coverage on this page (state it in the PR, it's not a bug):** the parent-município mayor
-(#4) and the *current* município mayors in the strip (#1) link; the **headline kmetство village-mayor
-candidates (#2, #3) mostly stay plain text** because those people have no profile — they link only
-when the person is also an MP (`mpId`) or holds a tracked municipal role. This is the honest "if they
-exist" behavior, matching `MyAreaKmetstvoTile`.
-
-`LocalPlaceTrendsTile` is shared with the район settlement page — the same treatment applies there.
-
-## Change 3 — roll out to the other local screens
-
-Same wiring; pick the resolver by page scope.
-
-**Cross-obshtina → `useMunicipalOfficialsByName()` (one 804 KB fetch):**
-- `src/screens/LocalMunicipalityListScreen.tsx` — the **264-mayor** national list; swap L100-103
-  (`MayorCell`) and L294-300. Pass each row's município name to `findOfficialByName` for namesake
-  disambiguation.
-
-**Single-obshtina → `useMunicipalOfficials(obshtina)` (the page already fetches its bundle):**
-- `src/screens/LocalElectionScreen.tsx` (município overview + `/mayor` + `/council`): swap L166 &
-  L1644 (mayor stat items), L272-279 (`MayorTable`), L376-377 (`CouncilPartyRow` elected list, field
-  `c.name`), L548-555 (`KmetstvoMayorsTable`), L661-668 (район mayors), L771-776 (embedded
-  by-elections). Councillors/mayors resolve via the roster; kmetство winners mostly stay plain text
-  (as above).
-- Dashboard tiles fed by the same bundle: `dashboard/local/TopMayorsTile.tsx` L82-90,
-  `LocalMunicipalityExtras.tsx` L147-155 (`TopCouncillorsTile`, field `c.name`),
-  `LocalMayorTimelineTile.tsx` L96-102, `LocalMidtermComparisonTile.tsx` L168. Low-value:
-  `LocalMayorRunoffBar` L39/L52 (keep L62 `aria-label` plain), map hovers.
-
-## Change 4 — consolidate the two existing implementations (DRY)
-
-`ChmiFeedScreen.tsx:184-201` and `MyAreaKmetstvoTile.tsx:84-120` already hand-roll this exact
-resolution. Refactor both to use `localPersonHref` + `PersonNameLink` so there is one implementation.
-(ChmiFeedScreen additionally does `findMpByName` off the full MP index; keep that as an extra branch
-there if its coverage matters, or drop it — the on-record `mpId` covers the common case.)
-
-## Sites to leave alone
-
-- **Already `/candidate/` or `/person/` links (EXCLUDE):** `TopCandidatesStrip`,
-  `PartyTopCandidatesTile`, `PreferencesTable`/`CandidateLink` (all `candidateUrlFor`).
-- **Nested in a município `<Link>`:** `LocalLeaderTiles.tsx:77-81`, `LocalExtraordinaryTile.tsx:73-77`
-  — decide per tile which link wins; do not nest anchors.
-
-## Decisions to confirm
-
-1. **Village kmetство mayors** are unlinkable with today's data (no person_id). Accept plain text
-   (recommended — matches `MyAreaKmetstvoTile`), **or** commit to a larger follow-up: extend
-   `resolve_persons` to mint person_ids for village mayors + a new `person-by-name` route over
-   `person_role source='local'`. Out of scope for v1.
-2. **Ex-official-with-a-parliamentary-past** (the one case only `candidate_person` catches): a rare
-   edge. Recommend **skip** — adding `candidate_person_by_name` as a secondary fallback reintroduces
-   per-name requests (rate-limit exposure on big pages) for marginal coverage.
+1. **SEO sprawl.** Materializing elected village mayors adds ~3,000 new `/person` pages. In-app links
+   work regardless (Cloud-SQL-served). Confirm whether these should also enter the sitemap /
+   prerender set (`project_sitemap_validity_audit`, `project_firebase_deploy_ceiling`) or stay
+   in-app-only. **Recommend in-app-only for v1.**
+2. **Scope = elected only.** Losing kmetstvo/mayor candidates get no page and stay plain text on the
+   settlement page's headline race — correct "if they exist" behavior.
+3. **Ops coupling.** The bake couples local JSON freshness to person slugs; the wiring above is
+   mandatory or links rot. `person_slug_retired` 301s cover residual drift between syncs.
 
 ## Tests
 
-- Unit-test `localPersonHref` (mpId → `/candidate/mp-{id}`; official hit → `/officials/{slug}?from=…`;
-  no match → undefined) and `PersonNameLink` (renders `<Link>` vs plain text). Reuse the existing
-  `norm`/`canonicalName` helpers; follow `useMunicipalOfficialsByName.test.ts`.
+- `resolve_persons` data test: an elected village mayor materializes as an active public person with a
+  servable slug.
+- `decorate_local_person_links`: stamps `personSlug` from `person_slug_lock`; `--dry-run` counts;
+  idempotent; leaves losers unstamped.
+- `PersonNameLink` unit test: `/person` (slug) vs `/candidate/mp-{id}` (fallback) vs plain text.
+- Regression: `mpId` path unchanged; builders still emit `mpId`.
 
 ## Verification
 
-1. `npm run dev`, `/local/2023_10_29_mi/settlement/03229?elections=2026_04_19`: "← Тунджа" gone,
-   Тунджа still clickable in the header; the parent-município mayor links to a profile; a village
-   mayor with no profile stays plain text (no dead link). Network tab shows **no per-name requests** —
-   only the one roster fetch.
-2. `/local/2023_10_29_mi` national list: one ~804 KB `municipal-officials-name-index` fetch (cached
-   on reload), 264 mayors resolve where a roster/`mpId` match exists, no fan-out, no 429s.
-3. Click through several links → confirm the `/officials/{slug}` → `/person` 301 lands on the right
-   profile.
-4. `npm run lint` + typecheck via `npm run build` (plain `tsc --noEmit` checks nothing here) — also
-   catches the Change-1 import cleanup.
-
-## Ops
-
-- **No backend change, no migration, no `deploy:db`, no data regeneration.** Reuses existing
-  `/api/db` routes and client hooks. Ships as a hosting-only deploy.
-
-## Deferred — ingest-time `personSlug` stamp (SEO / zero-fetch)
-
-If person links ever need to be in the prerendered HTML for SEO, or the 804 KB index proves too heavy
-on the national list, a PG-backed decorate step after `db:resolve:persons` could bake the resolved
-person/official slug into the local JSON (template: `decorate_local_mp_links.ts`, querying the
-officials/person tables). Costs: a new pipeline + cloud reload hook (else prod links go stale — the
-"migrated-family watch reload" class) and regenerate-and-redeploy on each re-resolve. Not needed for
-v1; the `PersonNameLink` call sites wouldn't change, only where `to` comes from.
+1. `db:refresh` (or the manual chain), then `/local/2023_10_29_mi/settlement/03229`: "← Тунджа" gone;
+   the **elected village mayor now links** to a real `/person` page; a losing candidate stays plain
+   text; the parent-município mayor links. **No `municipal-officials-name-index` (804 KB) fetch** in
+   the Network tab — links come from baked data.
+2. `/local/2023_10_29_mi` national list: 264 mayors link from baked `electedMayor.personSlug`, no
+   per-name requests, no big index fetch.
+3. Confirm a baked slug survives a re-resolve (lock-stable), and a retired one 301s to the survivor.
