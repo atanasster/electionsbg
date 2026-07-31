@@ -20,8 +20,12 @@
 //                      in a /procurement/contracts row carries ?grade / ?single /
 //                      ?proc / ?cpv / ?q onto /awarder/:eik, where
 //                      useUrlProcurementFilters reads them and pre-filters the page.
-//                      Arguably useful, definitely not what the name says — narrow
-//                      it to an allowlist if that ever surprises someone.
+//
+//                      KEPT DELIBERATELY (decided 2026-07-30, when the contracts
+//                      browser became the first caller with a filter set rich enough
+//                      to notice): carrying the filters through a drill-down is the
+//                      wanted behaviour. Do not "fix" it to an allowlist — the name
+//                      undersells it, this comment is the correction.
 
 import { useCallback } from "react";
 import { To, useSearchParams } from "react-router-dom";

@@ -19,6 +19,7 @@
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { SettlementProcurementLink } from "@/screens/components/procurement/SettlementProcurementLink";
 import {
   Building2,
   MapPin,
@@ -213,12 +214,12 @@ export const ProcurementBySettlementScreen: FC = () => {
             s.awarderCount === 1 && s.totalEur >= SINGLE_BUYER_FLAG_EUR;
           return (
             <span className="inline-flex flex-wrap items-center gap-1.5">
-              <Link
-                to={`/procurement/settlement/${s.ekatte}`}
+              <SettlementProcurementLink
+                ekatte={s.ekatte}
                 className="font-medium hover:underline"
               >
                 {nameOf(s)}
-              </Link>
+              </SettlementProcurementLink>
               {singleBuyer && (
                 <span
                   className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-700 dark:text-amber-400"

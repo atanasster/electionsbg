@@ -9,6 +9,7 @@ import { Banknote, Building2, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { PlaceHeaderView } from "@/screens/components/place/PlaceHeaderView";
 import { SEO } from "@/ux/SEO";
@@ -218,12 +219,12 @@ export const ProcurementSettlementDetailScreen: FC = () => {
                       {idx + 1}
                     </td>
                     <td className="px-3 py-2">
-                      <Link
-                        to={`/awarder/${a.eik}`}
+                      <AwarderLink
+                        eik={a.eik}
                         className="font-medium hover:underline"
                       >
                         {a.name}
-                      </Link>
+                      </AwarderLink>
                     </td>
                     <td className="px-3 py-2 text-muted-foreground hidden sm:table-cell">
                       {tierLabel[a.tier]}

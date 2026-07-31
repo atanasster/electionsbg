@@ -6,12 +6,13 @@
 // index. Reuses the existing per-settlement procurement shard; no new data.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Receipt, ArrowRight } from "lucide-react";
 import { Card } from "@/ux/Card";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import { SettlementProcurementLink } from "@/screens/components/procurement/SettlementProcurementLink";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -39,13 +40,13 @@ export const MyAreaProcurementTile: FC<{
         <h2 className="text-sm font-semibold flex-1">
           {t("my_area_procurement_title") || "Public procurement here"}
         </h2>
-        <Link
-          to={`/procurement/settlement/${data.ekatte}`}
+        <SettlementProcurementLink
+          ekatte={data.ekatte}
           className="text-xs text-primary hover:underline inline-flex items-center gap-1"
         >
           {t("my_area_procurement_all") || "All"}
           <ArrowRight className="size-3" />
-        </Link>
+        </SettlementProcurementLink>
       </div>
 
       <div className="grid grid-cols-3 gap-2 mb-3">
@@ -75,15 +76,15 @@ export const MyAreaProcurementTile: FC<{
       <ul className="flex flex-col">
         {topAwarders.map((aw) => (
           <li key={aw.eik} className="border-b last:border-b-0">
-            <Link
-              to={`/awarder/${aw.eik}`}
+            <AwarderLink
+              eik={aw.eik}
               className="group flex items-center gap-2 py-1.5 hover:bg-accent/30 rounded-sm -mx-1 px-1"
             >
               <span className="min-w-0 flex-1 text-xs truncate">{aw.name}</span>
               <span className="text-xs tabular-nums font-medium shrink-0">
                 {formatEur(aw.totalEur)}
               </span>
-            </Link>
+            </AwarderLink>
           </li>
         ))}
       </ul>

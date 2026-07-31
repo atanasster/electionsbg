@@ -5,11 +5,11 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import { SettlementProcurementLink } from "./SettlementProcurementLink";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
@@ -29,12 +29,12 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
           <Building2 className="h-4 w-4" />
           {t("settlement_procurement_tile_title") || "Local procurement"}
         </CardTitle>
-        <Link
-          to={`/procurement/settlement/${ekatte}`}
+        <SettlementProcurementLink
+          ekatte={ekatte}
           className="text-[10px] normal-case text-primary hover:underline shrink-0"
         >
           {t("view_details") || "Details"} →
-        </Link>
+        </SettlementProcurementLink>
       </CardHeader>
       <CardContent>
         <div className="mb-3 grid grid-cols-3 gap-3 text-sm">
@@ -102,12 +102,9 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
             {t("procurement_settlement_more_buyers") ||
               "More buyers on the detail page"}
             {" — "}
-            <Link
-              to={`/procurement/settlement/${ekatte}`}
-              className="underline"
-            >
+            <SettlementProcurementLink ekatte={ekatte} className="underline">
               {t("view_all") || "view all"}
-            </Link>
+            </SettlementProcurementLink>
           </div>
         )}
       </CardContent>

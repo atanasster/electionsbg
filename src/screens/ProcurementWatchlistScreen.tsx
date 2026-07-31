@@ -7,7 +7,9 @@
 // lives across the section.
 
 import { FC, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, type To } from "react-router-dom";
+import { useAwarderHref } from "@/screens/components/procurement/useAwarderHref";
+import { useSettlementProcurementHref } from "@/screens/components/procurement/useSettlementProcurementHref";
 import { useTranslation } from "react-i18next";
 import {
   Star,
@@ -48,19 +50,28 @@ import {
   type WatchActivity,
 } from "@/data/procurement/useWatchlistActivity";
 
-const hrefFor = (i: WatchItem): string => {
-  switch (i.kind) {
-    case "company":
-      return `/company/${i.id}`;
-    case "awarder":
-      return `/awarder/${i.id}`;
-    case "person":
-      return `/candidate/mp-${i.id}/procurement`;
-    case "place":
-      return `/procurement/settlement/${i.id}`;
-    case "contract":
-      return `/procurement/contract/${i.id}`;
-  }
+// A hook, not a plain function, because two of the five destinations read ?pscope and
+// must be built through their scope-carrying helpers — /awarder/:eik (useAwarderHref)
+// and /procurement/settlement/:ekatte (useSettlementProcurementHref). The watchlist itself is
+// scope-free, so in practice there is usually nothing to carry; building them by hand
+// anyway is how a link silently resets a scope the moment someone arrives here with one.
+const useHrefFor = (): ((i: WatchItem) => To) => {
+  const awarderHref = useAwarderHref();
+  const settlementHref = useSettlementProcurementHref();
+  return (i: WatchItem): To => {
+    switch (i.kind) {
+      case "company":
+        return `/company/${i.id}`;
+      case "awarder":
+        return awarderHref(i.id);
+      case "person":
+        return `/candidate/mp-${i.id}/procurement`;
+      case "place":
+        return settlementHref(i.id);
+      case "contract":
+        return `/procurement/contract/${i.id}`;
+    }
+  };
 };
 
 const ICON: Record<WatchKind, typeof Building2> = {
@@ -84,6 +95,7 @@ export const ProcurementWatchlistScreen: FC = () => {
   const items = useWatchlist();
   const { activities, newCount } = useWatchlistActivity();
   const [sort, setSort] = useState<SortKey>("activity");
+  const hrefFor = useHrefFor();
 
   const sorted = useMemo<WatchActivity[]>(() => {
     const arr = [...activities];
@@ -239,6 +251,8 @@ export const ProcurementWatchlistScreen: FC = () => {
 
 const WatchCard: FC<{ a: WatchActivity }> = ({ a }) => {
   const { t, i18n } = useTranslation();
+  const hrefFor = useHrefFor();
+  const awarderHref = useAwarderHref();
   const Icon = ICON[a.item.kind];
   const total =
     a.totalEur != null
@@ -309,7 +323,11 @@ const WatchCard: FC<{ a: WatchActivity }> = ({ a }) => {
               <div className="truncate">
                 {t("watchlist_top_counterparty") || "Top counterparty"}:{" "}
                 <Link
-                  to={`/${a.topKind === "awarder" ? "awarder" : "company"}/${a.topEik}`}
+                  to={
+                    a.topKind === "awarder"
+                      ? awarderHref(a.topEik)
+                      : `/company/${a.topEik}`
+                  }
                   className="hover:underline text-foreground/80"
                 >
                   {a.topName}

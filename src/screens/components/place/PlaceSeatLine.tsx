@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { placeViewUrl } from "@/data/local/placeViews";
+import { SettlementProcurementLink } from "@/screens/components/procurement/SettlementProcurementLink";
 
 export type SeatPlace = {
   ekatte: string | null;
@@ -73,9 +74,12 @@ export const PlaceSeatLine: FC<{ place: SeatPlace; className?: string }> = ({
   if (settlementLabel) {
     segments.push(
       place.ekatte ? (
-        <Link to={`/procurement/settlement/${place.ekatte}`} underline>
+        <SettlementProcurementLink
+          ekatte={place.ekatte}
+          className="link text-foreground hover:underline hover:cursor-pointer"
+        >
           {settlementLabel}
-        </Link>
+        </SettlementProcurementLink>
       ) : (
         settlementLabel
       ),
