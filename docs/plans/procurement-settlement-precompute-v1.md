@@ -170,13 +170,19 @@ caller benefits**, including the AI tools (which send no window and therefore ma
   → MISS: run procurement_settlement_detail(…) live, as today
 ```
 
-**Probe the matview under a short `lock_timeout`.** The scopes loader re-applies 123's DDL
+**Bound how long any read may wait for a lock.** The scopes loader re-applies 123's DDL
 before refreshing, so its refresh always meets an unpopulated matview and takes the PLAIN
 form — an `AccessExclusiveLock` for the whole ~10 s rebuild (this is inherited from 119 and
 122, not new here). A settlement page landing in that window would queue on the lock,
 spend the entire 10 s `statement_timeout` waiting, and reach the fallback with no budget
-left — a 500, from the one code path added to prevent 500s. A short `lock_timeout` on the
-probe turns that wait into an immediate miss, which the fallback already handles.
+left — a 500, from the one code path added to prevent 500s. `lock_timeout=2s` on the
+`/api/db` pool turns that wait into a fast miss, which the fallback already handles.
+
+Pool-wide rather than per-probe, for two reasons: a pooled query cannot `SET LOCAL` without
+a transaction, and no read-only endpoint should ever spend its whole statement budget
+queued behind a writer — the ~40 other routes gain the same protection. Be honest about
+what it does not fix: while a contracts reload holds its own exclusive lock the *live*
+fallback is cut off too, so the route still fails, just in 2 s rather than 10.
 
 #### The lookup MUST be NULL-safe, or it fixes nothing
 
@@ -379,9 +385,11 @@ and the deploy — the route is correct either way, only slower without the matv
   as well as with no window at all** — not only on a `y:` scope, which would pass while
   §3.2's hazard is live.
 - No `httpRequest.latency` near `10.009s` for this route in Cloud Run logs over 24 h.
-- **No matview-miss log lines** (§3.3) for this route after the loader has run. This is the
-  criterion that fails loudly if the lookup, the GRANT or the cloud-side loader is wrong;
-  the latency criteria above can all be met by a fallback doing the work.
+- **No `psp:not-built` or `psp:read-failed` log lines** (§3.3) for this route after the
+  loader has run. This is the criterion that fails loudly if the lookup, the GRANT or the
+  cloud-side loader is wrong; the latency criteria above can all be met by a fallback doing
+  the work. `psp:no-scope` is exempt — a caller may legitimately ask for a window that is
+  not one of the thirty, and serving that live is the designed behaviour, not a defect.
 - End-to-end, expect **~0.5 s**, not "well under 1 s": the database side becomes a point
   lookup of a ≤60 kB row and effectively free, but §8's ~344 ms of connection setup and
   ~180 ms/24 kB of uncompressed transport are untouched by this plan and now dominate. Hold

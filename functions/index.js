@@ -425,6 +425,14 @@ const getDbPool = async (password) => {
     // Server-side kill switch: no /api/db query may hold a connection longer
     // than this (the /api/sql console has its own 8s cap in sql_lib.js).
     statement_timeout: 10000,
+    // And no query may spend that budget WAITING for a lock. A loader taking an
+    // AccessExclusiveLock — the plain REFRESH a matview gets when it is rebuilt
+    // from scratch — otherwise queues every reader behind it, each burning the
+    // full 10s above before failing. That turns a routine reload into a wave of
+    // 500s, and on the settlement route it would defeat the precompute's own
+    // fallback: the fallback only helps if the failed probe returns FAST enough
+    // to leave budget for the live query behind it.
+    lock_timeout: 2000,
   });
   return dbPool;
 };

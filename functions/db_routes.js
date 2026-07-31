@@ -18,6 +18,29 @@ const clampInt = (v, def, lo, hi) => {
 const s = (q, k) => String(q[k] || "").trim();
 const orNull = (q, k) => s(q, k) || null;
 
+// One-shot logging for precompute misses. A route that degrades to a live computation
+// returns the RIGHT answer slowly, which means every reason the fast path was skipped — a
+// window that maps to no scope, a matview never built on this database, a refresh that has
+// been failing since some earlier deploy, a role that cannot read the relation — is
+// otherwise completely invisible: 200s, correct numbers, nothing red anywhere. Logged once
+// per process per distinct reason so a warm instance serving thousands of requests emits one
+// line, not thousands.
+//
+// KEYS MUST NOT COME FROM THE CLIENT. This Set is module-level and never pruned, in a
+// container that runs with minInstances=1 and lives for days, so a key derived from a query
+// parameter is an unbounded, attacker-controlled allocation AND an unbounded log stream —
+// defeating the exact bound this helper exists to provide. Every key below is a constant or
+// a value that came out of the database.
+const loggedMisses = new Set();
+const logMissOnce = (key, message) => {
+  if (loggedMisses.has(key)) return;
+  loggedMisses.add(key);
+  console.warn(message);
+};
+// Test-only: the Set outlives a single test, so without this the second test to provoke a
+// given miss reason silently observes nothing and the assertions become order-dependent.
+const __resetMissLog = () => loggedMisses.clear();
+
 // Single contract by key → ProcurementContract shape (camelCased). The columns
 // common to both the enriched (contracts_list) and base (contracts) queries.
 // Every column is qualified `c.` because both queries LEFT JOIN tenders `t`
@@ -802,11 +825,83 @@ const DB_ROUTES = {
   "procurement-settlement": async (dbRows, q) => {
     const ekatte = s(q, "ekatte");
     if (!ekatte) return { status: 400, body: { error: "missing ekatte" } };
-    const rows = await dbRows(
-      "SELECT procurement_settlement_detail($1, $2, $3) AS r",
-      [ekatte, orNull(q, "from"), orNull(q, "to")],
-    );
-    const r = rows[0]?.r ?? null;
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+
+    // Served from the per-scope precompute (123) when the requested window IS one of the
+    // scopes, because the live function is a GROUP BY over the settlement's whole contract
+    // set: 401 ms locally for София and 10.009 s on a cold Cloud SQL buffer cache, which is
+    // the 10 s statement_timeout exactly — it returned 500.
+    //
+    // IS NOT DISTINCT FROM, not `=`. Two of the thirty scopes carry a NULL bound and they
+    // are the two that matter: `all` (both NULL, what the AI tools send) and the NEWEST
+    // parliament (open-ended upper bound, the page DEFAULT). The client omits the parameter
+    // entirely when a bound is null, so both arrive here as NULL — and `date_from = NULL` is
+    // never true. With `=` this whole change would serve precomputed rows only for the `y:`
+    // scopes, leaving София timing out on exactly the request that motivated it, while a
+    // spot check of any single year passed.
+    //
+    // LEFT JOIN so the miss reasons stay distinguishable, and `built` to separate the two
+    // that look identical from the payload alone. Only 869 of the ~5,400 settlements have a
+    // seated buyer, and every settlement tile asks for the corpus window whatever place the
+    // reader picked — so "this scope holds no row for THIS ekatte" is the ordinary case and
+    // must not warn, while "this scope holds no rows AT ALL" means the matview was never
+    // built for it and must. `built` is an index-only EXISTS on idx_psp_scope_ekatte.
+    // ORDER BY + LIMIT 1 for determinism only — scope windows are unique.
+    let r = null;
+    try {
+      const hit = await dbRows(
+        `SELECT sc.scope_key, p.payload AS r,
+                EXISTS (SELECT 1 FROM procurement_settlement_payloads x
+                         WHERE x.scope_key = sc.scope_key) AS built
+           FROM procurement_scopes sc
+           LEFT JOIN procurement_settlement_payloads p
+             ON p.scope_key = sc.scope_key AND p.ekatte = $1
+          WHERE sc.date_from IS NOT DISTINCT FROM $2
+            AND sc.date_to   IS NOT DISTINCT FROM $3
+          ORDER BY sc.sort_ord
+          LIMIT 1`,
+        [ekatte, from, to],
+      );
+      if (!hit.length) {
+        // Keyed on a CONSTANT, not on the window: `from`/`to` are raw query parameters, and
+        // keying on them would let any caller grow this Set and this log without bound. The
+        // first such window is named in the message, which is all the diagnosis needs.
+        logMissOnce(
+          "psp:no-scope",
+          `procurement-settlement: [${from} , ${to}) is not a precomputed scope — serving live. (Logged once; later unmatched windows are silent.)`,
+        );
+      } else if (!hit[0].r && !hit[0].built) {
+        logMissOnce(
+          `psp:not-built:${hit[0].scope_key}`,
+          `procurement-settlement: procurement_settlement_payloads holds no rows for scope ${hit[0].scope_key} — serving live. Run db:load:procurement-scopes:pg.`,
+        );
+      }
+      r = hit[0]?.r ?? null;
+    } catch (e) {
+      // NARROW, like missingMigrationRows above. Degrade only for the states where the live
+      // path is genuinely the better answer: the matview absent (42P01, a database that has
+      // not run the loader), unreadable (42501, default privileges never applied), or locked
+      // by a plain REFRESH (55P03 lock_not_available / 57014 query_canceled). A pool or
+      // connection error is NOT one of these — retrying it as a second, heavier query just
+      // doubles the load on a saturated pool, so it rethrows.
+      //
+      // Deliberately UNLIKE cpv_catalog, where degrading yields a WRONG answer (an empty
+      // picker) rather than a slow one, and so must fail loudly instead.
+      if (!["42P01", "42501", "55P03", "57014"].includes(e?.code)) throw e;
+      logMissOnce(
+        `psp:read-failed:${e.code}`,
+        `procurement-settlement: precompute read failed (${e.code}) — serving live.`,
+      );
+    }
+
+    if (!r) {
+      const rows = await dbRows(
+        "SELECT procurement_settlement_detail($1, $2, $3) AS r",
+        [ekatte, from, to],
+      );
+      r = rows[0]?.r ?? null;
+    }
     if (!r) return { body: null };
 
     // Still destructured away even though the SQL no longer builds it: a database that
@@ -2953,4 +3048,4 @@ const DB_ROUTES = {
   },
 };
 
-module.exports = { DB_ROUTES };
+module.exports = { DB_ROUTES, __resetMissLog };

@@ -54,8 +54,12 @@
 -- the live function rather than erroring — but only if it degrades FAST. A plain REFRESH
 -- holds an AccessExclusiveLock, so a settlement page landing mid-rebuild would otherwise
 -- queue behind it, burn the 10 s statement_timeout waiting, and reach the live path with no
--- budget left. The route therefore probes this matview under a short lock_timeout and
--- treats the lock error as a miss (functions/db_routes.js).
+-- budget left. The /api/db pool therefore sets lock_timeout=2s (functions/index.js) and the
+-- route treats the resulting lock error as a miss. The timeout is POOL-WIDE, not scoped to
+-- this probe: a pooled query cannot SET LOCAL, and no read-only endpoint has any business
+-- waiting seconds on a lock. Note what it does NOT buy — while a contracts reload holds its
+-- own AccessExclusiveLock the live fallback is cut off too, so the route still fails; it
+-- just fails in 2 s instead of 10.
 --
 -- See docs/plans/procurement-settlement-precompute-v1.md.
 
