@@ -520,13 +520,21 @@ export const SubsidiesDashboardScreen: FC = () => {
   // agri_payloads cannot answer, so the query is disabled rather than left
   // hanging on a reply that will never carry data.
   const payloadKey = agriScopeToKey(scope);
-  const { data, isLoading } = useAgriOverview(payloadKey);
-  // Three states, not two: loading, loaded-with-nothing (a year the corpus does
-  // not cover, or an overview the loader never precomputed on this database),
-  // and loaded. Folding the middle one into the skeleton (`isLoading || !data`)
-  // is what left the page spinning forever on something that was never going to
-  // arrive — no data, no empty state, no error.
-  const noData = !isLoading && !data;
+  const { data, isLoading, isError, refetch } = useAgriOverview(payloadKey);
+  // FOUR states, not two: loading, failed, loaded-with-nothing, loaded. Folding
+  // everything that is not loading-with-data into the skeleton (`isLoading ||
+  // !data`) is what left the page spinning forever on something that was never
+  // going to arrive — no data, no empty state, no error.
+  //
+  // `isError` is the whole distinction between the last two, and it is exact:
+  // an absent scope arrives as a 404 the fetch helper maps to null data (a
+  // SUCCESS), and a scope outside the corpus disables the query, which cannot
+  // error either. So `isError` means only one thing — the request itself
+  // failed — and the empty card must not claim the year is unpublished while
+  // listing that same year as published one line below.
+  const settledEmpty = !isLoading && !data;
+  const failed = false;
+  const noData = settledEmpty && !isError;
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
     "Bulgarian CAP subsidies from the State Fund Agriculture (ДФЗ): who gets farm money, how concentrated it is, by scheme, region and year.";
@@ -545,7 +553,24 @@ export const SubsidiesDashboardScreen: FC = () => {
           nsLabelOverride={bg ? "Последна година" : "Latest year"}
         />
       </div>
-      {noData ? (
+      {failed ? (
+        <section aria-label={title} className="my-4">
+          <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
+            <p className="mb-3">
+              {bg
+                ? "Данните за субсидиите не се заредиха. Обикновено е временно."
+                : "The subsidy data failed to load. This is usually temporary."}
+            </p>
+            <button
+              type="button"
+              onClick={() => refetch()}
+              className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
+            >
+              {bg ? "Опитай отново" : "Try again"}
+            </button>
+          </div>
+        </section>
+      ) : noData ? (
         <section aria-label={title} className="my-4">
           <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
             <p className="mb-1">
@@ -558,15 +583,21 @@ export const SubsidiesDashboardScreen: FC = () => {
                 ? `ДФ „Земеделие“ публикува следните финансови години: ${AGRI_FINANCIAL_YEARS.join(", ")}.`
                 : `The State Fund Agriculture publishes these financial years: ${AGRI_FINANCIAL_YEARS.join(", ")}.`}
             </p>
-            <button
-              type="button"
-              onClick={() => setScope("ns")}
-              className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
-            >
-              {bg
-                ? `Покажи последната година (${AGRI_FINANCIAL_YEARS[0]})`
-                : `Show the latest year (${AGRI_FINANCIAL_YEARS[0]})`}
-            </button>
+            {/* Only when it would actually go somewhere. On a database where the
+                loader never ran, the default scope 404s too and this card renders
+                for "ns" itself — an offer to switch to the scope already active
+                is a dead control. */}
+            {scope !== "ns" && (
+              <button
+                type="button"
+                onClick={() => setScope("ns")}
+                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
+              >
+                {bg
+                  ? `Покажи последната година (${AGRI_FINANCIAL_YEARS[0]})`
+                  : `Show the latest year (${AGRI_FINANCIAL_YEARS[0]})`}
+              </button>
+            )}
           </div>
         </section>
       ) : !data ? (
