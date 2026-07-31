@@ -6,7 +6,7 @@
 // `dbRows(sql, params)` is the caller's query fn (Cloud SQL pool or dev pool).
 // All values are bound parameters; identifiers never come from the client.
 
-const { runDbTable, runDbFacets } = require("./db_table.js");
+const { runDbTable, runDbFacets, DbRequestError } = require("./db_table.js");
 
 const clampInt = (v, def, lo, hi) => {
   // trunc so a fractional query param (?limit=12.5) becomes a valid int rather
@@ -17,6 +17,28 @@ const clampInt = (v, def, lo, hi) => {
 
 const s = (q, k) => String(q[k] || "").trim();
 const orNull = (q, k) => s(q, k) || null;
+
+// The table engine's REQUEST-validation failures answered 500 until 2026-07-31,
+// because index.js has one catch-all and a bare Error is indistinguishable there
+// from a dead pool. That made "a UI fired before its route param resolved" the
+// third-largest source of 500s on the `db` service (70 over 2026-07-28…07-31,
+// each rejected in <10 ms before a query ran) — sitting in the same bucket as the
+// statement_timeout and lock_timeout families it takes real work to tell apart.
+//
+// Mapped HERE rather than in index.js's catch so the contract is unit-testable
+// without a pool (db_routes.table.test.js) — and so it stays scoped to the two
+// routes that actually run the engine.
+//
+// RETHROWS anything else, deliberately: only DbRequestError carries caller blame.
+// A registry/config fault or a dead pool must keep its 500, or this helper becomes
+// the thing that hides the outages the 500 bucket exists to surface.
+const badRequest = (e, seg) => {
+  if (!(e instanceof DbRequestError)) throw e;
+  // Not console.error: a malformed request is not an incident. Logged all the
+  // same — 70 of these was itself the signal that a client was misfiring.
+  console.warn(`db route ${seg}: bad request — ${e.message}`);
+  return { status: 400, body: { error: e.message } };
+};
 
 // One-shot logging for precompute misses. A route that degrades to a live computation
 // returns the RIGHT answer slowly, which means every reason the fast path was skipped — a
@@ -572,7 +594,11 @@ const DB_ROUTES = {
     } catch {
       return { status: 400, body: { error: "bad q" } };
     }
-    return { body: await runDbTable(dbRows, req) };
+    try {
+      return { body: await runDbTable(dbRows, req) };
+    } catch (e) {
+      return badRequest(e, "table");
+    }
   },
   async facets(dbRows, q) {
     let req;
@@ -581,7 +607,11 @@ const DB_ROUTES = {
     } catch {
       return { status: 400, body: { error: "bad q" } };
     }
-    return { body: await runDbFacets(dbRows, req) };
+    try {
+      return { body: await runDbFacets(dbRows, req) };
+    } catch (e) {
+      return badRequest(e, "facets");
+    }
   },
   // Registry-scale stat cards for the /procurement/ngos header. One round-trip,
   // ~14ms: entity_class counts hit the index, the register total is the pg_class
@@ -945,13 +975,18 @@ const DB_ROUTES = {
     // spot check of any single year passed.
     //
     // LEFT JOIN so the miss reasons stay distinguishable, and `built` to separate the two
-    // that look identical from the payload alone. Only 869 of the ~5,400 settlements have a
-    // seated buyer, and every settlement tile asks for the corpus window whatever place the
-    // reader picked — so "this scope holds no row for THIS ekatte" is the ordinary case and
-    // must not warn, while "this scope holds no rows AT ALL" means the matview was never
-    // built for it and must. `built` is an index-only EXISTS on idx_psp_scope_ekatte.
+    // that look identical from the payload alone. "This scope holds no rows AT ALL" means
+    // the matview was never built for it and warns immediately; "no row for THIS ekatte"
+    // cannot be judged from the probe, because only 869 of the ~5,400 settlements have a
+    // seated buyer and every settlement tile asks for the corpus window whatever place the
+    // reader picked — so it is deferred to the live call, which separates the benign case
+    // from a partial matview for free (see `builtButMissing` below). `built` is an
+    // index-only EXISTS on idx_psp_scope_ekatte.
     // ORDER BY + LIMIT 1 for determinism only — scope windows are unique.
     let r = null;
+    // The scope whose stored row was absent even though the matview holds rows for it —
+    // null unless the probe landed in exactly that state. Resolved after the live call.
+    let builtButMissing = null;
     try {
       const hit = await dbRows(
         `SELECT sc.scope_key, p.payload AS r,
@@ -979,6 +1014,13 @@ const DB_ROUTES = {
           `psp:not-built:${hit[0].scope_key}`,
           `procurement-settlement: procurement_settlement_payloads holds no rows for scope ${hit[0].scope_key} — serving live. Run db:load:procurement-scopes:pg.`,
         );
+      } else if (!hit[0].r) {
+        // Scope matched, matview BUILT, no row for this ekatte. Cannot be judged here —
+        // it is the ordinary case for the ~4,500 settlements with no seated buyer, and
+        // the defect for a seated one the build skipped. Remember it and decide AFTER the
+        // live call, which separates the two for free: see the `builtButMissing` check
+        // below. Warning here would emit a line per unseated settlement a crawler walks.
+        builtButMissing = hit[0].scope_key;
       }
       r = hit[0]?.r ?? null;
     } catch (e) {
@@ -1007,6 +1049,36 @@ const DB_ROUTES = {
         [ekatte, from, to],
       );
       r = rows[0]?.r ?? null;
+      // THE ONE MISS THE PROBE CANNOT CLASSIFY ON ITS OWN, resolved by what the live call
+      // returned. 123 fans over exactly `awarder_seats WHERE source='geo' AND is_local_hq`,
+      // and procurement_settlement_detail() returns NULL for precisely the settlements
+      // outside that set — so the two outcomes mean opposite things:
+      //
+      //   live → NULL      no seated buyer. The ordinary case, ~4,500 settlements, and
+      //                    CHEAP (the function exits before the GROUP BY). Silent.
+      //   live → a payload the settlement IS seated, so 123 should hold a row for it and
+      //                    does not. That is a PARTIAL matview — an interrupted refresh, a
+      //                    fan-out that skipped rows — and it is the expensive path: this
+      //                    is the shape that produced the 10.009 s statement_timeout 500s
+      //                    on София this migration exists to end.
+      //
+      // Without this the second case is indistinguishable from the first: `built` is true so
+      // psp:not-built cannot fire, the scope matched so psp:no-scope cannot, and the read
+      // did not throw so psp:read-failed cannot. The page keeps serving correct numbers
+      // slowly until it stops serving them at all — with nothing in the logs, which is
+      // exactly the state CLAUDE.md says every skipped fast path must not be in.
+      //
+      // Keyed on the SCOPE, not the ekatte, for the reason psp:no-scope is keyed on a
+      // constant: `ekatte` is a caller-supplied parameter. It is validated as five digits
+      // by the client but NOT here, so keying on it would let a crawler grow this Set
+      // without bound. Thirty scopes is a bounded key space; the first offending ekatte is
+      // named in the message, which is what the diagnosis needs.
+      if (r && builtButMissing) {
+        logMissOnce(
+          `psp:row-missing:${builtButMissing}`,
+          `procurement-settlement: scope ${builtButMissing} is built but holds no row for a SEATED settlement (ekatte ${logSafe(ekatte)}) — served live. procurement_settlement_payloads is partial; re-run db:load:procurement-scopes:pg.`,
+        );
+      }
     }
     if (!r) return { body: null };
 

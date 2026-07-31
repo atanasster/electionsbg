@@ -82,6 +82,72 @@ test.skipIf(skip)(
 );
 
 test.skipIf(skip)(
+  "the settlements the live path CANNOT serve are present in every scope",
+  async () => {
+    // A REFINEMENT of the count above, not a duplicate, and the two fail on different
+    // things. The count is a global equality: it proves the totals reconcile, but it says
+    // nothing about WHICH pairs are present, and it treats all 869 settlements as equally
+    // important. They are not — the consequence of a missing row is not uniform:
+    //
+    //   a small settlement  the live fallback answers in milliseconds. Slower, still a 200.
+    //   София / Пловдив /   the live fallback is a GROUP BY over 64k contracts, MEASURED at
+    //   Варна …             10.009 s on a cold Cloud SQL buffer cache against a 10 s
+    //                       statement_timeout. It is a 500, not a slow 200.
+    //
+    // So the heavy tail is the only part of this matview whose absence is an OUTAGE, and it
+    // is the part a global count is least able to isolate: 30 missing rows out of 26,070 is
+    // a 0.1% shortfall reported as one arithmetic mismatch, with nothing naming the city.
+    //
+    // Ranked FROM THE SOURCE (contracts × awarder_seats), never from the matview: ranking
+    // the matview by its own stored contractCount cannot see a settlement that is missing
+    // from every scope, which is precisely the state being tested.
+    const gaps = await allRows<{ ekatte: string; missing: string }>(
+      `WITH heaviest AS (
+         SELECT a.ekatte, count(*) AS n
+           FROM contracts c
+           JOIN awarder_seats a ON a.eik = c.awarder_eik
+          WHERE a.source = 'geo' AND a.is_local_hq AND a.ekatte IS NOT NULL
+          GROUP BY a.ekatte
+          -- ORDER BY n DESC, ekatte: the tiebreak keeps the sample deterministic across
+          -- runs, so a failure names the same places twice in a row.
+          ORDER BY n DESC, a.ekatte
+          LIMIT 10
+       )
+       SELECT h.ekatte,
+              string_agg(sc.scope_key, ', ' ORDER BY sc.sort_ord) AS missing
+         FROM heaviest h
+         CROSS JOIN procurement_scopes sc
+         WHERE NOT EXISTS (
+                 SELECT 1 FROM procurement_settlement_payloads p
+                  WHERE p.scope_key = sc.scope_key AND p.ekatte = h.ekatte)
+         GROUP BY h.ekatte`,
+    );
+
+    assert.deepEqual(
+      gaps.map((g) => `${g.ekatte}: ${g.missing}`),
+      [],
+      "the busiest settlements are missing precomputed rows. The route degrades to " +
+        "procurement_settlement_detail() for these, which is the ~10 s aggregate that " +
+        "exceeds the /api/db statement_timeout and returns 500 — the exact failure 123 " +
+        "exists to end. Run `npm run db:load:procurement-scopes:pg`",
+    );
+
+    // The join above is inner on `contracts`, so a corpus that has not loaded, an
+    // awarder_eik re-key or a re-seating collapses `heaviest` to nothing — and an empty
+    // gap list is green. Same reason the equality test asserts its cardinality first.
+    const [{ n }] = await allRows<{ n: string }>(
+      `SELECT count(*) AS n
+         FROM (SELECT a.ekatte
+                 FROM contracts c
+                 JOIN awarder_seats a ON a.eik = c.awarder_eik
+                WHERE a.source = 'geo' AND a.is_local_hq AND a.ekatte IS NOT NULL
+                GROUP BY a.ekatte LIMIT 10) s`,
+    );
+    assert.equal(n, "10", "the heaviest-settlement sample no longer resolves");
+  },
+);
+
+test.skipIf(skip)(
   "the stored payload equals a live call, across all three scope kinds",
   async () => {
     // THE staleness check, and the one a row count cannot make: a matview refreshed before

@@ -433,6 +433,56 @@ test("a settlement with no seated buyer is silent; an unbuilt scope is not", asy
   assert.match(loud[0], /db:load:procurement-scopes:pg/, "says how to fix it");
 });
 
+test("a built scope missing a SEATED settlement is reported", async () => {
+  // The gap that let the София 500s run for three days with an empty log. All three
+  // existing warnings are structurally unable to fire here: the scope matched (no
+  // psp:no-scope), `built` is true (no psp:not-built), the read did not throw (no
+  // psp:read-failed) — so a PARTIAL matview degrades to the live aggregate in total
+  // silence, on exactly the settlements the live aggregate cannot serve inside the 10 s
+  // statement_timeout.
+  //
+  // The probe alone cannot tell this from the benign case above; the two are identical
+  // until the live call answers. 123 fans over the seated set and
+  // procurement_settlement_detail() returns NULL for precisely the settlements outside it,
+  // so a NON-NULL live result proves the settlement was seated and the row should have
+  // existed. That is why the check lives after the fallback and not beside the probe.
+  __resetMissLog();
+  const lines = await captureWarnings(async () => {
+    const db2 = stubDb({
+      probe: [scopeRow({ scope_key: "ns:2026_04_19", r: null, built: true })],
+      live: [{ r: payload(327) }],
+    });
+    const { body } = await handler(db2, { ekatte: "68134", from: "2026-04-19" });
+    assert.deepEqual(db2.paths(), ["probe", "live"], "it did serve live");
+    assert.equal(body.awarderCount, 327, "and the reader still gets an answer");
+  });
+
+  assert.equal(lines.length, 1, "the silent miss now speaks");
+  assert.match(lines[0], /^psp:row-missing:ns:2026_04_19\b/, "greppable key");
+  assert.match(lines[0], /68134/, "names the settlement that was skipped");
+  assert.match(lines[0], /db:load:procurement-scopes:pg/, "says how to fix it");
+});
+
+test("psp:row-missing is keyed on the scope, never on the ekatte", async () => {
+  // Same bound as psp:no-scope, and for the same reason: `ekatte` is a caller-supplied
+  // query parameter the handler does not validate. Keying the module-level Set on it would
+  // let a crawler walking /procurement/settlement/* grow both the Set and the log stream
+  // without bound — in a container that runs for days. Thirty scopes is the whole key space.
+  __resetMissLog();
+  const lines = await captureWarnings(async () => {
+    for (const ekatte of ["68134", "10135", "56784", "not-a-code"]) {
+      await handler(
+        stubDb({
+          probe: [scopeRow({ scope_key: "all", r: null, built: true })],
+          live: [{ r: payload(1) }],
+        }),
+        { ekatte },
+      );
+    }
+  });
+  assert.equal(lines.length, 1, "four settlements in one scope, ONE line");
+});
+
 test("an unmatched window is logged once, and not keyed on client input", async () => {
   // The Set is module-level and never pruned, in a container that runs minInstances=1 for
   // days. Keying it on `from`/`to` — raw query parameters — would make it an unbounded
