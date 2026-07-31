@@ -110,10 +110,14 @@ CROSS JOIN (SELECT DISTINCT ekatte FROM awarder_seats
             WHERE source = 'geo' AND is_local_hq AND ekatte IS NOT NULL) x
 WITH NO DATA;
 
-CREATE UNIQUE INDEX uq_psp ON procurement_settlement_payloads (scope_key, ekatte);
+CREATE UNIQUE INDEX idx_psp_scope_ekatte
+  ON procurement_settlement_payloads (scope_key, ekatte);
 
 GRANT SELECT ON procurement_settlement_payloads TO app_readonly;
 ```
+
+(Illustrative — the shipped file also carries the `DROP … IF EXISTS` preamble. The index
+name follows 119's `idx_<abbrev>_<cols>`, not a `uq_` prefix.)
 
 That is the WHOLE index list. Unlike 119 — which carries a sort index per column the
 table orders by and a trigram index for its search — this matview is only ever read by
@@ -165,6 +169,14 @@ caller benefits**, including the AI tools (which send no window and therefore ma
   → HIT:  SELECT payload FROM procurement_settlement_payloads WHERE scope_key=$1 AND ekatte=$2
   → MISS: run procurement_settlement_detail(…) live, as today
 ```
+
+**Probe the matview under a short `lock_timeout`.** The scopes loader re-applies 123's DDL
+before refreshing, so its refresh always meets an unpopulated matview and takes the PLAIN
+form — an `AccessExclusiveLock` for the whole ~10 s rebuild (this is inherited from 119 and
+122, not new here). A settlement page landing in that window would queue on the lock,
+spend the entire 10 s `statement_timeout` waiting, and reach the fallback with no budget
+left — a 500, from the one code path added to prevent 500s. A short `lock_timeout` on the
+probe turns that wait into an immediate miss, which the fallback already handles.
 
 #### The lookup MUST be NULL-safe, or it fixes nothing
 

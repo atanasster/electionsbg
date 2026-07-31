@@ -85,7 +85,18 @@ $$;
 
 -- Per-settlement detail (SettlementProcurementFile): the local-tier awarders
 -- seated in this EKATTE, their spend, top contracts + by-year.
-DROP FUNCTION IF EXISTS procurement_settlement_detail(text, text, text);
+--
+-- NOT dropped before the CREATE, for the same reason as procurement_by_settlement above:
+-- procurement_settlement_payloads (123) is a matview OVER this function, so DROP FUNCTION
+-- fails outright ("cannot drop function … because other objects depend on it") and aborts
+-- the transaction — and with it every statement after this point in the file, on every
+-- db:load:pg run. CREATE OR REPLACE is sufficient while the SIGNATURE and RETURN TYPE are
+-- unchanged, and it leaves the dependent pointing at the new body. If either ever does
+-- change, drop the dependent in the same statement here and let 123 recreate it.
+--
+-- Do NOT fix it the other way, by dropping the matview here first: load_pg applies THIS
+-- file but not 123, so every contracts load would destroy the matview and leave it gone
+-- until someone remembered to run the scopes loader.
 CREATE OR REPLACE FUNCTION procurement_settlement_detail(
   p_ekatte text, p_from text DEFAULT NULL, p_to text DEFAULT NULL
 )
