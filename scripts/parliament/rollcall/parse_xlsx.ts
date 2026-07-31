@@ -10,6 +10,10 @@
 //         missing data.
 //   Row 2+: ["<MP NAME>", null, <mp_id>, "<PARTY>", <vote_1>, <vote_2>, ...]
 //
+// From 2026-07-31 the convocation number gets its own column after PARTY, so
+// the header leads with 5 empty cells and rows read
+//   ["<MP NAME>", null, <mp_id>, "<PARTY>", "<ns>", <vote_1>, ...]
+//
 // We read the header row to learn which column corresponds to which item
 // number (ignoring null cells), then walk the data rows producing the same
 // RawCsvRow records the CSV parser produces.
@@ -19,6 +23,12 @@ import type { RawCsvRow } from "./parse";
 
 // Modern layout (46th NA onward, plus most 44th-NA in-person days):
 //   col 0 = NAME, col 1 = blank, col 2 = mp_id, col 3 = PARTY, col 4+ = votes
+// Modern +NS layout (from 2026-07-31): identical, but with the convocation
+// number ("52") inserted as its own column between PARTY and the first vote,
+// so votes start at col 5. The same day parliament.bg also switched the
+// "Поименно гласуване" CSV from the tidy one-row-per-(MP,item) shape to this
+// same wide/matrix shape, which the tidy CSV parser rejects — so these
+// sessions arrive here via the XLSX fallback.
 // COVID-era "+online" layout (Oct 2020 – Apr 2021, 44th NA):
 //   col 0 = NAME, col 1 = PARTY, col 2+ = votes  (no mp_id column)
 // Layout is auto-detected from the header row: count leading non-numeric
@@ -28,6 +38,12 @@ const MODERN_LAYOUT = {
   mpId: 2,
   party: 3,
   firstVote: 4,
+} as const;
+const MODERN_NS_LAYOUT = {
+  name: 0,
+  mpId: 2,
+  party: 3,
+  firstVote: 5,
 } as const;
 const ONLINE_LAYOUT = {
   name: 0,
@@ -101,7 +117,9 @@ export const parseXlsx = (
       ? ONLINE_LAYOUT
       : firstVoteCol === MODERN_LAYOUT.firstVote
         ? MODERN_LAYOUT
-        : null;
+        : firstVoteCol === MODERN_NS_LAYOUT.firstVote
+          ? MODERN_NS_LAYOUT
+          : null;
   if (!layout) {
     throw new Error(
       `XLSX layout unrecognized: first vote column is ${firstVoteCol}`,

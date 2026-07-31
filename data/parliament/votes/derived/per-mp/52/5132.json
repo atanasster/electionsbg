@@ -3,29 +3,159 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 994,
-    "withParty": 864,
-    "loyaltyPct": 0.869215291750503,
+    "votesCast": 1144,
+    "withParty": 1001,
+    "loyaltyPct": 0.875,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-29",
-    "totalVoteItems": 1044
+    "windowTo": "2026-07-31",
+    "totalVoteItems": 1198
   },
   "attendance": {
-    "totalItems": 1044,
-    "presentCount": 994,
-    "absentCount": 50,
-    "presentPct": 0.9521072796934866
+    "totalItems": 1198,
+    "presentCount": 1144,
+    "absentCount": 54,
+    "presentPct": 0.9549248747913188
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 784,
-    "loyaltyPctMedian": 0.9695249574734082,
-    "presentPctMedian": 0.7495210727969348
+    "votesCastMedian": 913.5,
+    "loyaltyPctMedian": 0.9710668131638152,
+    "presentPctMedian": 0.7625208681135225
   },
   "dissents": {
-    "totalCast": 994,
-    "dissentCount": 130,
+    "totalCast": 1144,
+    "dissentCount": 143,
     "recent": [
+      {
+        "date": "2026-07-30",
+        "item": 83,
+        "slug": "83-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-44-predlozh",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 44 - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-07-30",
+        "item": 74,
+        "slug": "74-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-41-predlozh",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 41 - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-07-30",
+        "item": 66,
+        "slug": "66-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-37-stava-pa",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 37 (става параграф 27) - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-07-30",
+        "item": 61,
+        "slug": "61-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-36-predlozh",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 36 - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-07-30",
+        "item": 59,
+        "slug": "59-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-35-stava-pa",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 35 (става параграф 25) - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 119
+      },
+      {
+        "date": "2026-07-30",
+        "item": 57,
+        "slug": "57-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-34-predlozh",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 34 - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
+      {
+        "date": "2026-07-30",
+        "item": 56,
+        "slug": "56-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф ...- нов - предложение от Халил Летифов и група н.п. чл.213",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-07-30",
+        "item": 48,
+        "slug": "48-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-30-predlozh",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 30 - предложение от Халил Летифов и група н.п",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-07-30",
+        "item": 44,
+        "slug": "44-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-23-do-parag",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 23 до параграф 26",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-07-30",
+        "item": 42,
+        "slug": "42-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-19",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 19",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-07-30",
+        "item": 41,
+        "slug": "41-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-nov-predloz",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф ... нов - предложение от Халил Летифов и група н.п. чл.114",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 117
+      },
+      {
+        "date": "2026-07-30",
+        "item": 32,
+        "slug": "32-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-12-stava-pa",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 12 (става параграф 13) - предложение от Велислав Величков за редакция в т.3",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
+      {
+        "date": "2026-07-30",
+        "item": 31,
+        "slug": "31-zid-na-izborniya-kodeks-vtoro-glasuvane-paragraf-12-stava-pa",
+        "title": "ЗИД на Изборния кодекс – второ гласуване - параграф 12 (става параграф 13) - предложение от Велислав Величков за редакция в т.1 - прегласуване",
+        "topic": "zid",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 120
+      },
       {
         "date": "2026-07-29",
         "item": 3,
@@ -385,136 +515,6 @@
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 125
-      },
-      {
-        "date": "2026-06-25",
-        "item": 12,
-        "slug": "12-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-4-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 4 (става параграф 3) - предложение от Надежда Йорданова и група н.п. по вариант 1, буква \"в\"",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 124
-      },
-      {
-        "date": "2026-06-25",
-        "item": 9,
-        "slug": "9-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-3-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 3 - предложение от Надежда Йорданова и група н.п",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 125
-      },
-      {
-        "date": "2026-06-25",
-        "item": 8,
-        "slug": "8-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-3-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 3 - предложение от Велислав Величков и Стою Стоев",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 124
-      },
-      {
-        "date": "2026-06-25",
-        "item": 6,
-        "slug": "6-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-2-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 2 -- предложение от Надежда Йорданова и група н.п",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 125
-      },
-      {
-        "date": "2026-06-25",
-        "item": 4,
-        "slug": "4-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-1-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 1 -- предложение от Надежда Йорданова и група н.п",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 121
-      },
-      {
-        "date": "2026-06-25",
-        "item": 3,
-        "slug": "3-zid-na-zakona-za-sadebnata-vlast-vtoro-glasuvane-paragraf-1-",
-        "title": "ЗИД на Закона за съдебната власт - второ гласуване - параграф 1 - предложение от Велислав Величков и Стою Стоев",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 124
-      },
-      {
-        "date": "2026-06-18",
-        "item": 12,
-        "slug": "12-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 39а - 39в - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 117
-      },
-      {
-        "date": "2026-06-18",
-        "item": 9,
-        "slug": "9-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 38 - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 111
-      },
-      {
-        "date": "2026-06-17",
-        "item": 45,
-        "slug": "45-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 18а - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 120
-      },
-      {
-        "date": "2026-06-17",
-        "item": 42,
-        "slug": "42-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 15 - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 121
-      },
-      {
-        "date": "2026-06-17",
-        "item": 40,
-        "slug": "40-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 14 - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 120
-      },
-      {
-        "date": "2026-06-17",
-        "item": 38,
-        "slug": "38-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 3а - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 121
-      },
-      {
-        "date": "2026-06-17",
-        "item": 36,
-        "slug": "36-zid-na-nakazatelno-protsesualniya-kodeks-vtoro-glasuvane-par",
-        "title": "ЗИД на Наказателно-процесуалния кодекс – второ гласуване - параграф 2а - предложение от Божидар Божанов и Надежда Йорданова",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
       }
     ]
   },
@@ -522,205 +522,205 @@
     "topK": [
       {
         "mpId": 5219,
-        "score": 0.9213345715530444,
-        "overlap": 984
+        "score": 0.9227009453721844,
+        "overlap": 1130
       },
       {
         "mpId": 5327,
-        "score": 0.913695234555022,
-        "overlap": 960
+        "score": 0.9180957312882597,
+        "overlap": 1108
       },
       {
         "mpId": 5097,
-        "score": 0.9105720805456861,
-        "overlap": 976
+        "score": 0.9135614422271147,
+        "overlap": 1121
       },
       {
         "mpId": 5251,
-        "score": 0.9056347010862431,
-        "overlap": 962
+        "score": 0.911482258480735,
+        "overlap": 1111
       },
       {
         "mpId": 5174,
-        "score": 0.9027383298061344,
-        "overlap": 963
+        "score": 0.9077820113420311,
+        "overlap": 1110
       },
       {
         "mpId": 5287,
-        "score": 0.900012491564906,
-        "overlap": 973
+        "score": 0.9052215025790686,
+        "overlap": 1118
       },
       {
         "mpId": 5253,
-        "score": 0.8975123061772009,
-        "overlap": 973
-      },
-      {
-        "mpId": 5135,
-        "score": 0.8968897388762095,
-        "overlap": 983
+        "score": 0.9026522538712821,
+        "overlap": 1121
       },
       {
         "mpId": 5084,
-        "score": 0.8937878656517031,
-        "overlap": 989
+        "score": 0.9024323693415335,
+        "overlap": 1139
+      },
+      {
+        "mpId": 5135,
+        "score": 0.9022192929737642,
+        "overlap": 1132
       },
       {
         "mpId": 5161,
-        "score": 0.8935872550142175,
-        "overlap": 949
-      },
-      {
-        "mpId": 5209,
-        "score": 0.8920333037501406,
-        "overlap": 985
-      },
-      {
-        "mpId": 5094,
-        "score": 0.8919369876059666,
-        "overlap": 969
-      },
-      {
-        "mpId": 5238,
-        "score": 0.8919267023075588,
-        "overlap": 961
+        "score": 0.9013230895693812,
+        "overlap": 1097
       },
       {
         "mpId": 5210,
-        "score": 0.8918154150163318,
-        "overlap": 987
+        "score": 0.9003357433347965,
+        "overlap": 1137
       },
       {
-        "mpId": 5162,
-        "score": 0.8901564375337743,
-        "overlap": 971
+        "mpId": 5209,
+        "score": 0.8998666962889823,
+        "overlap": 1134
+      },
+      {
+        "mpId": 5238,
+        "score": 0.8998437560975489,
+        "overlap": 1110
       },
       {
         "mpId": 5265,
-        "score": 0.8900576373082081,
-        "overlap": 971
-      },
-      {
-        "mpId": 5177,
-        "score": 0.8895418104249222,
-        "overlap": 964
-      },
-      {
-        "mpId": 5178,
-        "score": 0.88928635762794,
-        "overlap": 979
+        "score": 0.899348726571651,
+        "overlap": 1121
       },
       {
         "mpId": 5109,
-        "score": 0.8886232783635157,
-        "overlap": 976
+        "score": 0.8981126921166859,
+        "overlap": 1126
+      },
+      {
+        "mpId": 5094,
+        "score": 0.8977184548735807,
+        "overlap": 1114
+      },
+      {
+        "mpId": 5178,
+        "score": 0.8974175677179185,
+        "overlap": 1127
+      },
+      {
+        "mpId": 5162,
+        "score": 0.8970281868788791,
+        "overlap": 1118
       },
       {
         "mpId": 5328,
-        "score": 0.8884468182315964,
-        "overlap": 957
+        "score": 0.8968462006668944,
+        "overlap": 1106
+      },
+      {
+        "mpId": 5078,
+        "score": 0.8957476529465617,
+        "overlap": 1115
       }
     ],
     "bottomK": [
       {
         "mpId": 5194,
-        "score": -0.15372031087395213,
+        "score": -0.14089096649976923,
         "overlap": 684
       },
       {
-        "mpId": 5335,
-        "score": -0.1262885199803711,
-        "overlap": 183
-      },
-      {
-        "mpId": 5060,
-        "score": -0.11404785832148097,
-        "overlap": 779
-      },
-      {
         "mpId": 5258,
-        "score": -0.10697942220843,
-        "overlap": 481
+        "score": -0.11611418073935557,
+        "overlap": 496
+      },
+      {
+        "mpId": 5335,
+        "score": -0.09081142427091915,
+        "overlap": 203
       },
       {
         "mpId": 5171,
-        "score": -0.10078221118914775,
-        "overlap": 824
+        "score": -0.08015499834257278,
+        "overlap": 971
       },
       {
-        "mpId": 5101,
-        "score": -0.08895958555496175,
-        "overlap": 844
+        "mpId": 5060,
+        "score": -0.0781808130205986,
+        "overlap": 913
       },
       {
         "mpId": 5185,
-        "score": -0.08374499282430013,
+        "score": -0.0767557189511982,
         "overlap": 818
       },
       {
-        "mpId": 5234,
-        "score": -0.08326428894994692,
-        "overlap": 828
+        "mpId": 5101,
+        "score": -0.07030337664287516,
+        "overlap": 991
       },
       {
         "mpId": 5247,
-        "score": -0.07616271202970246,
+        "score": -0.06980624777624415,
         "overlap": 773
       },
       {
+        "mpId": 5234,
+        "score": -0.06363848480965521,
+        "overlap": 964
+      },
+      {
         "mpId": 5159,
-        "score": -0.06057749715448224,
-        "overlap": 774
+        "score": -0.0470234597686698,
+        "overlap": 921
       },
       {
         "mpId": 5074,
-        "score": -0.05956683606172471,
-        "overlap": 642
+        "score": -0.041101769771672764,
+        "overlap": 752
       },
       {
         "mpId": 5148,
-        "score": -0.04206248290656606,
-        "overlap": 681
-      },
-      {
-        "mpId": 5184,
-        "score": -0.0358125487073237,
-        "overlap": 452
-      },
-      {
-        "mpId": 5124,
-        "score": -0.02263429439733877,
-        "overlap": 288
+        "score": -0.032399615455272195,
+        "overlap": 829
       },
       {
         "mpId": 5273,
-        "score": -0.01617809077204728,
-        "overlap": 869
+        "score": -0.009123460060502419,
+        "overlap": 1013
       },
       {
-        "mpId": 5334,
-        "score": -0.003980905598996766,
-        "overlap": 429
+        "mpId": 5124,
+        "score": 0.012735093938697449,
+        "overlap": 335
       },
       {
         "mpId": 5125,
-        "score": 0.03755578830943398,
-        "overlap": 152
+        "score": 0.02590617335789385,
+        "overlap": 177
+      },
+      {
+        "mpId": 5334,
+        "score": 0.029672766369960572,
+        "overlap": 511
+      },
+      {
+        "mpId": 5184,
+        "score": 0.03471801935109696,
+        "overlap": 576
       },
       {
         "mpId": 5244,
-        "score": 0.03947067189589671,
-        "overlap": 612
+        "score": 0.0388957923041614,
+        "overlap": 614
+      },
+      {
+        "mpId": 5281,
+        "score": 0.0722662394106513,
+        "overlap": 401
       },
       {
         "mpId": 5172,
-        "score": 0.07563553019158709,
-        "overlap": 469
-      },
-      {
-        "mpId": 5166,
-        "score": 0.07854144745004231,
-        "overlap": 534
+        "score": 0.07968670139456721,
+        "overlap": 546
       }
     ]
   }
