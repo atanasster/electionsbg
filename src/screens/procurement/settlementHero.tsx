@@ -94,13 +94,19 @@ export const settlementSeo = (
   const bgPrep = /^[вфВФ]/.test(data.name) ? "във" : "в";
   const eur = `€${eurFmt.format(Math.round(data.totalEur))}`;
   const count = countFmt.format(data.contractCount);
+  // The figures follow the reader's ?pscope, so the description must not imply they are
+  // the settlement's all-time totals — the same qualifier the PRERENDERED body carries for
+  // the opposite reason (that one is always full-corpus; this one is always scoped).
+  // Without it the two describe the same URL with different numbers and neither says why.
+  // "най-големи договори" also went: the card that ranked them is gone, replaced by a
+  // sortable table, so the description promised a section the page no longer has.
   return lang === "bg"
     ? {
         title: `Обществени поръчки ${bgPrep} ${data.name}`,
-        description: `Обществени поръчки, възложители и най-големи договори ${bgPrep} ${data.name} — ${eur} в ${count} договора.`,
+        description: `Обществени поръчки и възложители ${bgPrep} ${data.name} — ${eur} в ${count} договора за избрания период.`,
       }
     : {
         title: `Public procurement in ${displayName}`,
-        description: `Public procurement, buyers and biggest contracts in ${displayName} — ${eur} across ${count} contracts.`,
+        description: `Public procurement and buyers in ${displayName} — ${eur} across ${count} contracts in the selected period.`,
       };
 };

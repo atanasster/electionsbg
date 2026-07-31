@@ -1312,6 +1312,15 @@ export const buildDiasporaBody = (
 // the buyer's HQ address.
 // ------------------------------------------------------------------
 
+// The EXACT label ScopeControl renders (locale key `procurement_scope_all_years`). The
+// prerendered body tells the reader to pick it, and a static string that drifts from the
+// button's wording is worse than saying nothing — so the two are pinned together by
+// settlementBody.test.ts rather than left to be noticed.
+export const SCOPE_ALL_YEARS_LABEL = {
+  bg: "Всички години",
+  en: "All years",
+} as const;
+
 export type ProcurementSettlementInput = {
   name: string;
   province?: string;
@@ -1335,10 +1344,17 @@ export const buildProcurementSettlementBody = (
       ? `<h1>Public procurement — ${escapeHtml(place)}</h1>`
       : `<h1>Обществени поръчки — ${escapeHtml(place)}</h1>`,
   );
+  // "За целия период" / "all years on record" is load-bearing, not filler. These figures
+  // come from procurement_by_settlement(NULL, NULL) — the whole corpus — while the page
+  // itself now DEFAULTS to the selected parliament's window (?pscope). Without the
+  // qualifier the indexed text states a total that no default view of the page shows, and
+  // a reader arriving from search would read the smaller on-screen number as a
+  // contradiction. A static page cannot track a URL parameter, so it names its own scope
+  // instead. See docs/plans/procurement-settlement-browser-v1.md §3.1.
   parts.push(
     en
-      ? `<p>${fmtIntEn(contractCount)} public-procurement contracts worth ${eur}, awarded by ${fmtIntEn(awarderCount)} contracting authorities based in ${escapeHtml(place)} — municipalities, schools, hospitals, universities, regional offices and utilities. Sourced from the АОП register (data.egov.bg).</p>`
-      : `<p>${fmtInt(contractCount)} обществени поръчки на стойност ${eur}, възложени от ${fmtInt(awarderCount)} възложители със седалище в ${escapeHtml(place)} — общини, училища, болници, университети, регионални структури и комунални дружества. По данни от регистъра на АОП (data.egov.bg).</p>`,
+      ? `<p>${fmtIntEn(contractCount)} public-procurement contracts worth ${eur}, awarded by ${fmtIntEn(awarderCount)} contracting authorities based in ${escapeHtml(place)} — municipalities, schools, hospitals, universities, regional offices and utilities — across all years on record. The page opens on the current parliament's term by default; pick “${SCOPE_ALL_YEARS_LABEL.en}” there to see these same figures. Sourced from the АОП register (data.egov.bg).</p>`
+      : `<p>${fmtInt(contractCount)} обществени поръчки на стойност ${eur}, възложени от ${fmtInt(awarderCount)} възложители със седалище в ${escapeHtml(place)} — общини, училища, болници, университети, регионални структури и комунални дружества — за целия период с налични данни. По подразбиране страницата показва само мандата на текущия парламент; изберете „${SCOPE_ALL_YEARS_LABEL.bg}“, за да видите същите числа. По данни от регистъра на АОП (data.egov.bg).</p>`,
   );
   parts.push(
     en
