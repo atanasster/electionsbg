@@ -1,12 +1,12 @@
 // The per-scope procurement precomputes — the ONE list, and the ONE way to refresh them.
 //
-// WHY A lib/ MODULE. Four loaders need this: the scopes loader that creates them
-// (load_procurement_scopes_pg), the contracts reload (load_pg), and the awarder_seats /
-// place_dim loaders that change what they contain. Hanging it off one of those CLI entry
-// points would make three scripts depend on a fourth script's module body staying
-// side-effect-free forever, and the list itself is exactly the kind of thing that goes
-// stale in a second copy: a future migration joins one list and not the other, and the
-// page it feeds serves the previous corpus with nothing red anywhere.
+// WHY A lib/ MODULE. Five loaders need this: the scopes loader that creates them
+// (load_procurement_scopes_pg), the contracts reload (load_pg), the awarder_seats / place_dim
+// loaders, and the TR reload (load_tr_pg) — every one of them changes what these contain.
+// Hanging it off one of those CLI entry points would make four scripts depend on a fifth
+// script's module body staying side-effect-free forever, and the list itself is exactly the
+// kind of thing that goes stale in a second copy: a future migration joins one list and not
+// the other, and the page it feeds serves the previous corpus with nothing red anywhere.
 //
 // Everything that must not drift lives here together: the names, their ORDER, the
 // existence guard and the not-populated fallback.
@@ -16,9 +16,18 @@ import { exec, allRows, withClient } from "./pg";
 /** The tables a precompute is built FROM. A loader that reloads one of these names its
  *  input and gets exactly the matviews that input can affect — see refreshScopedPrecomputes.
  *
- *  `procurement_scopes` is deliberately absent: a scope change re-applies all three DDL
- *  files, so that path refreshes everything by definition and has no need to filter. */
-export type ScopedInput = "contracts" | "awarder_seats" | "place_dim";
+ *  `procurement_scopes` is deliberately absent: a scope change re-applies all the DDL files,
+ *  so that path refreshes everything by definition and has no need to filter.
+ *
+ *  `company_politicians` and `tr_companies` are reloaded by the SAME loader (load_tr_pg) and
+ *  could have been one name. They are two because they are two tables, and a future loader
+ *  that touches only one of them should not be forced to rebuild for the other. */
+export type ScopedInput =
+  | "contracts"
+  | "awarder_seats"
+  | "place_dim"
+  | "company_politicians"
+  | "tr_companies";
 
 /** Every per-scope precompute, in refresh order, with what it reads.
  *
@@ -44,8 +53,14 @@ export const SCOPED_MATVIEWS = [
   //
   // contractor_rank BEFORE contractor_scope_kpis: the KPI matview reads the rank matview, so
   // it must see the freshly-refreshed rows.
-  { name: "contractor_rank", inputs: ["contracts"] },
-  { name: "contractor_scope_kpis", inputs: ["contracts"] },
+  {
+    name: "contractor_rank",
+    inputs: ["contracts", "company_politicians", "tr_companies"],
+  },
+  {
+    name: "contractor_scope_kpis",
+    inputs: ["contracts", "company_politicians", "tr_companies"],
+  },
   // 123 — the per-settlement payloads. Independent of the four above (it unnests
   // procurement_settlement_detail, not procurement_by_settlement), so its position is free;
   // last keeps the pairwise ordering above undisturbed. It stores the place hero, so
@@ -58,15 +73,24 @@ export const SCOPED_MATVIEWS = [
   // rankings,concentration,sectors,benchmarks}. Independent of everything above (it unnests
   // 025/026/027/031/036/037, none of which any other entry reads), so its position is free.
   //
-  // awarder_seats IS an input, and only because of ONE of the six: procurement_concentration
-  // resolves each row's `oblast` from it (026 line 62; 87% of the `all` scope's 2,755 rows
-  // carry one). The other five read contracts plus company_politicians / tr_companies, which
-  // have no ScopedInput. Declaring contracts alone would let a standalone seats reload leave
-  // /procurement/concentration serving the previous attribution at a 200 — the exact failure
-  // this module's header describes. place_dim is genuinely absent from all six.
+  // Four inputs, and only ONE of them is obvious. Traced from pg_get_functiondef, not assumed:
+  //   contracts            all six
+  //   company_politicians  overview, flow, rankings — the MP/official-tied money
+  //   tr_companies         overview, flow, rankings, concentration — contractor display names
+  //   awarder_seats        concentration ALONE, for each row's `oblast` (026 line 62; 87% of
+  //                        the `all` scope's 2,755 rows carry one)
+  // Declaring contracts alone would let a standalone seats or TR reload leave
+  // /procurement/concentration on the previous attribution, and the MP-tied figures on the
+  // whole dashboard on the previous link set, at a 200 — the exact failure this module's
+  // header describes. place_dim is genuinely absent from all six.
   {
     name: "procurement_payloads",
-    inputs: ["contracts", "awarder_seats"],
+    inputs: [
+      "contracts",
+      "awarder_seats",
+      "company_politicians",
+      "tr_companies",
+    ],
   },
 ] as const satisfies readonly {
   name: string;
@@ -82,7 +106,7 @@ const PLAIN_REFRESH_LOCK_TIMEOUT = "5s";
  *
  *  CONCURRENTLY because all of these sit on a serving path and a plain REFRESH holds an
  *  AccessExclusiveLock for the whole recompute — it would stall the page rather than merely
- *  delay its data. It requires a populated matview and a unique index (119, 122 and 123
+ *  delay its data. It requires a populated matview and a unique index (119, 122, 123 and 124
  *  each create their own), so the first refresh after a CREATE falls back to the plain form.
  *  Cannot run inside a transaction, hence exec()/withClient() rather than withTx().
  *
@@ -98,8 +122,10 @@ const PLAIN_REFRESH_LOCK_TIMEOUT = "5s";
  *
  *  @param changed the inputs the caller just reloaded. Omit to refresh everything (the
  *    contracts reload and the scopes loader, which can move all of them). Naming an input
- *    refreshes only the matviews built from it — a seats or place reload skips 122, which
- *    has no settlement dimension and is the expensive half of the list. */
+ *    refreshes only the matviews built from it — a PLACE reload skips 122 and 124, which have
+ *    no settlement dimension and are the expensive half of the list; a TR reload skips 119 and
+ *    123, which read neither company_politicians nor tr_companies. (A SEATS reload no longer
+ *    skips 124 — one of its six aggregates, procurement_concentration, reads awarder_seats.) */
 export const refreshScopedPrecomputes = async (
   changed?: readonly ScopedInput[],
 ): Promise<void> => {

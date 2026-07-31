@@ -16,6 +16,7 @@ import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
+import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 
 const TR_DB = fileURLToPath(
   new URL("../../raw_data/tr/state.sqlite", import.meta.url),
@@ -399,6 +400,18 @@ export const loadTrPg = async (): Promise<{
     // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
     // the per-scope serving table so the leaderboard doesn't go stale (F-007).
     await withClient((c) => rebuildRiskGradeScoped(c));
+    // The per-scope precomputes built from the two tables this loader just replaced.
+    // company_politicians is TRUNCATE+reloaded above, and it is the politician↔company link
+    // set the MP-tied money on the whole procurement dashboard is computed from; tr_companies
+    // supplies contractor display names. Without this a TR reload moves every MP-tied figure
+    // everywhere on the site EXCEPT /procurement/contractors and the six /procurement
+    // dashboard routes, which keep serving the previous link set at a 200 — the same silent
+    // staleness lib/scopedMatviews exists to prevent, and the reason 122's and 124's `inputs`
+    // name these tables. Only those two matviews: 119 and 123 read neither.
+    //
+    // Guarded because a TR-only database may predate the migrations; refreshScopedPrecomputes
+    // already skips a matview that does not exist, so this only has to survive the call.
+    await refreshScopedPrecomputes(["company_politicians", "tr_companies"]);
     // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
     // only when both are present too — a TR-only DB (before an ИСУН / funding
     // load) skips it cleanly. load_ngo_funding_pg.ts re-refreshes after funding.

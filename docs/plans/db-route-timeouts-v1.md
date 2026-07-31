@@ -422,14 +422,28 @@ gains one entry:
 
 ```ts
 // 124 — the per-scope dashboard payloads behind /api/db/procurement-{overview,flow,
-// rankings,concentration,sectors,benchmarks}. contracts ONLY: none of the six functions
-// reads awarder_seats or place_dim, so a seats or place reload must not rebuild it.
-{ name: "procurement_payloads", inputs: ["contracts"] },
+// rankings,concentration,sectors,benchmarks}. FOUR inputs, traced from pg_get_functiondef:
+// contracts (all six), company_politicians (overview/flow/rankings — the MP-tied money),
+// tr_companies (those three + concentration), awarder_seats (concentration alone, for its
+// `oblast`). place_dim is genuinely absent from all six.
+{
+  name: "procurement_payloads",
+  inputs: ["contracts", "awarder_seats", "company_politicians", "tr_companies"],
+},
 ```
 
-Position: after `contractor_scope_kpis`, before `procurement_settlement_payloads`. It has no
-dependency on any other entry, so the placement is free; this keeps the two existing pairwise
-orderings (`contractor_rank` → `contractor_scope_kpis`) undisturbed.
+Position: last. No file among 119/122/123/124 creates, replaces or drops a function another
+one reads (verified via `pg_depend`), so the placement is free; last keeps the existing
+pairwise ordering (`contractor_rank` → `contractor_scope_kpis`) undisturbed.
+
+**`company_politicians` and `tr_companies` are new `ScopedInput` members, and adding them
+fixes a pre-existing gap in 122.** `load_tr_pg` TRUNCATEs and reloads `company_politicians` —
+the politician↔company link set every MP-tied figure is computed from — and refreshed six
+other caches but no scoped precompute. So a TR reload already left
+`/procurement/contractors`' MP-tied KPIs on the previous link set, and 124 would have extended
+that to the whole dashboard. `load_tr_pg` now calls
+`refreshScopedPrecomputes(["company_politicians", "tr_companies"])`; 119 and 123 read neither
+table and are correctly excluded.
 
 `procurement_settlement_payloads.data.test.ts` already fails on any matview that reads
 `procurement_scopes` and is missing from `SCOPED_MATVIEWS`, so forgetting this line is caught
@@ -542,10 +556,11 @@ on **DB time and the absence of the 10 s ceiling**, which is what this work cont
 
 - **Transport.** See above; 446 kB uncompressed for the flow graph is the next bottleneck on
   that route and this plan makes it the *dominant* one.
-- **Staleness.** A precompute trades a slow query for a quiet staleness risk. Here the risk
-  is narrower than 123's — the only input is `contracts`, and both paths that reload it
-  (`db:load:pg`, `db:load:procurement-scopes:pg`) refresh 124 — but step 7's stored-vs-live
-  assertion is what actually catches it.
+- **Staleness.** A precompute trades a slow query for a quiet staleness risk. 124 has **four**
+  inputs (§4), and every loader that writes one of them now refreshes it: `db:load:pg` and
+  `db:load:procurement-scopes:pg` for `contracts`, `db:load:awarder-seats:pg` for the
+  `concentration` `oblast`, and `db:load:tr:pg` for `company_politicians` / `tr_companies`.
+  Step 7's stored-vs-live assertion is what actually catches a path that was missed.
 - **The live path during a contracts reload.** `lock_timeout: 2000` turns a mid-`REFRESH`
   read into a fast miss, but while a contracts reload holds its own `AccessExclusiveLock` the
   *live* fallback is cut off too. The route still fails then — in 2 s rather than 10.
