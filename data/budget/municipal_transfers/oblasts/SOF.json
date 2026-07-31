@@ -582,6 +582,80 @@
         "documentId": "law-2025",
         "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
       }
+    },
+    {
+      "asOf": "2026-01-01",
+      "fiscalYear": 2026,
+      "municipalities": [
+        {
+          "capital": {
+            "amount": 14246200,
+            "amountEur": 7283966,
+            "currency": "BGN"
+          },
+          "delegated": {
+            "amount": 699239800,
+            "amountEur": 357515633,
+            "currency": "BGN"
+          },
+          "ekatte": "68134",
+          "equalization": null,
+          "nameBg": "Столична",
+          "nameEn": "Sofia (capital)",
+          "obshtinaCode": "SOF",
+          "otherTargeted": {
+            "amount": 4246700,
+            "amountEur": 2171303,
+            "currency": "BGN"
+          },
+          "total": {
+            "amount": 714014500,
+            "amountEur": 365069817,
+            "currency": "BGN"
+          },
+          "winter": {
+            "amount": 528500,
+            "amountEur": 270218,
+            "currency": "BGN"
+          }
+        }
+      ],
+      "oblastTotals": {
+        "capital": {
+          "amount": 14246200,
+          "amountEur": 7283966,
+          "currency": "BGN"
+        },
+        "delegated": {
+          "amount": 699239800,
+          "amountEur": 357515633,
+          "currency": "BGN"
+        },
+        "equalization": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "otherTargeted": {
+          "amount": 4246700,
+          "amountEur": 2171303,
+          "currency": "BGN"
+        },
+        "total": {
+          "amount": 714014500,
+          "amountEur": 365069817,
+          "currency": "BGN"
+        },
+        "winter": {
+          "amount": 528500,
+          "amountEur": 270218,
+          "currency": "BGN"
+        }
+      },
+      "source": {
+        "documentId": "law-2026",
+        "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041"
+      }
     }
   ]
 }

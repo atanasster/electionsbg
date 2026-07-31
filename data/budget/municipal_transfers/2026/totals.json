@@ -1,0 +1,48 @@
+{
+  "asOf": "2026-01-01",
+  "fiscalYear": 2026,
+  "reconciliationDeltasEur": {},
+  "rowSum": {
+    "capital": {
+      "amount": 255000000,
+      "amountEur": 130379430,
+      "currency": "BGN"
+    },
+    "delegated": {
+      "amount": 4351706000,
+      "amountEur": 2224991947,
+      "currency": "BGN"
+    },
+    "equalization": {
+      "amount": 255658000,
+      "amountEur": 130715860,
+      "currency": "BGN"
+    },
+    "otherTargeted": {
+      "amount": 40500000,
+      "amountEur": 20707321,
+      "currency": "BGN"
+    },
+    "total": {
+      "amount": 4887464000,
+      "amountEur": 2498920663,
+      "currency": "BGN"
+    },
+    "winter": {
+      "amount": 25100000,
+      "amountEur": 12833426,
+      "currency": "BGN"
+    }
+  },
+  "source": {
+    "documentId": "law-2026",
+    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=245041"
+  },
+  "totals": {
+    "capital": null,
+    "delegated": null,
+    "equalization": null,
+    "otherTargeted": null,
+    "winter": null
+  }
+}

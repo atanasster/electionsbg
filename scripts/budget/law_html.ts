@@ -99,15 +99,40 @@ const SECTION_KIND: Record<string, FactKind | null> = {
   IV: "balance",
 };
 
-// "1 221 324,9" (thousands of leva) → Money. Space/NBSP thousands separators,
-// comma decimal. Empty / non-numeric → null.
-const cellToMoney = (cell: string | undefined): Money | null => {
+// Which currency a law's tables are denominated in. Laws through FY2025 are
+// "(хил. лв.)"; from the FY2026 law (promulgated after Bulgaria adopted the euro
+// on 2026-01-01) the same tables are "(хил. евро)". The tables themselves are
+// identical in shape and the "Сума" header carries no unit, so the unit marker
+// beside/above each table is the only signal — see detectLawCurrency.
+type LawCurrency = "BGN" | "EUR";
+
+// A law is uniformly one currency, so detect once per document by majority of
+// the "(хил. лв.)" / "(хил. евро)" markers. Defaults to BGN: every pre-euro law
+// is leva, and an unmarked document is far more likely an old layout than a new
+// one. Getting this wrong is silent and halves (or doubles) every figure, so the
+// caller asserts a marker was actually found.
+export const detectLawCurrency = (
+  html: string,
+): { currency: LawCurrency; leva: number; euro: number } => {
+  const leva = (html.match(/\(хил\.\s?лв\.\)/gi) ?? []).length;
+  const euro = (html.match(/\(хил\.\s?евро\)/gi) ?? []).length;
+  return { currency: euro > leva ? "EUR" : "BGN", leva, euro };
+};
+
+// "1 221 324,9" (thousands) → Money. Space/NBSP thousands separators, comma
+// decimal. Empty / non-numeric → null. `currency` is the document's own
+// denomination; an EUR-denominated law needs no conversion.
+const cellToMoney = (
+  cell: string | undefined,
+  currency: LawCurrency,
+): Money | null => {
   if (!cell) return null;
   const cleaned = cell.replace(/\s/g, "").replace(",", ".");
   if (cleaned === "" || cleaned === "-") return null;
   const thousands = Number(cleaned);
   if (!Number.isFinite(thousands)) return null;
   const amount = Math.round(thousands * 1000);
+  if (currency === "EUR") return { amount, currency, amountEur: amount };
   const eur = toEur(amount, "BGN");
   return {
     amount,
@@ -158,7 +183,10 @@ const isProgramTable = (rows: string[][]): boolean =>
   );
 
 // Parse a program-budget table's rows into [code, name, amount] entries.
-const parseProgramTable = (rows: string[][]): ParsedLawProgram[] => {
+const parseProgramTable = (
+  rows: string[][],
+  currency: LawCurrency,
+): ParsedLawProgram[] => {
   const programs: ParsedLawProgram[] = [];
   for (const row of rows) {
     const code = (row[0] ?? "").trim();
@@ -167,20 +195,23 @@ const parseProgramTable = (rows: string[][]): ParsedLawProgram[] => {
     programs.push({
       code: code.replace(/\.$/, ""),
       nameBg: name,
-      amount: cellToMoney(row[row.length - 1]),
+      amount: cellToMoney(row[row.length - 1], currency),
     });
   }
   return programs;
 };
 
 // Parse one unit table's rows into the I…IV section structure.
-const parseUnitTable = (rows: string[][]): ParsedLawSection[] => {
+const parseUnitTable = (
+  rows: string[][],
+  currency: LawCurrency,
+): ParsedLawSection[] => {
   const sections: ParsedLawSection[] = [];
   let current: ParsedLawSection | null = null;
   for (const row of rows) {
     const code = (row[0] ?? "").replace(/І/g, "I").trim(); // normalise Cyrillic І→I
     const label = cellText(row[1]);
-    const amount = cellToMoney(row[row.length - 1]);
+    const amount = cellToMoney(row[row.length - 1], currency);
     if (SECTION_RE.test(code)) {
       const roman = code.replace(".", "");
       current = {
@@ -270,9 +301,10 @@ const buildFramework = (
   fiscalYear: number,
   revenueRows: string[][],
   spendingRows: string[][],
+  currency: LawCurrency,
 ): ParsedLawFramework | null => {
-  const revenueSections = parseUnitTable(revenueRows);
-  const spendingSections = parseUnitTable(spendingRows);
+  const revenueSections = parseUnitTable(revenueRows, currency);
+  const spendingSections = parseUnitTable(spendingRows, currency);
   const revenue = revenueSections.find((s) => s.code === "I");
   const expenditure = spendingSections.find((s) => s.code === "II");
   const transfers = spendingSections.find((s) => s.code === "III");
@@ -299,6 +331,15 @@ export const parseLawHtml = (
 ): { units: ParsedLawUnit[]; framework: ParsedLawFramework | null } => {
   const $ = load(html);
   const root = $.root()[0] as unknown as DomNode;
+  const { currency, leva, euro } = detectLawCurrency(html);
+  // An unmarked document would silently default to BGN and halve every figure
+  // in a euro-denominated law, so require the marker rather than assume.
+  if (leva === 0 && euro === 0) {
+    throw new Error(
+      `budget law ${fiscalYear}: no "(хил. лв.)" / "(хил. евро)" unit marker ` +
+        `found — cannot determine the law's denomination`,
+    );
+  }
   const { markers, frameworkMarkers, tables } = walkInOrder(root);
   // Pair each framework marker with the first unused table after it. Both
   // halves needed to build the framework — fall through with null if either
@@ -326,6 +367,7 @@ export const parseLawHtml = (
           fiscalYear,
           frameworkRows.revenue,
           frameworkRows.spending,
+          currency,
         )
       : null;
   // Only markers for the year we expect — guards against stray references.
@@ -370,8 +412,8 @@ export const parseLawHtml = (
       // budget × funds × officials × procurement.
       unitName: stripDefiniteArticle(marker.unit),
       fiscalYear,
-      sections: parseUnitTable(mainRows),
-      programs: programRows ? parseProgramTable(programRows) : [],
+      sections: parseUnitTable(mainRows, currency),
+      programs: programRows ? parseProgramTable(programRows, currency) : [],
     });
   }
 

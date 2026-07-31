@@ -1,7 +1,7 @@
 {
   "constituentBudget": "state",
   "country": "BG",
-  "generatedAt": "2026-07-05T10:46:03.313Z",
+  "generatedAt": "2026-07-31T16:15:42.446Z",
   "observations": [
     {
       "asOf": "2021-06-30",
@@ -6687,6 +6687,101 @@
         "rowLabel": "I. Приходи, Помощи и дарения",
         "sheet": "578e8af7-3acd-4090-8d25-b57f2cb25920"
       }
+    },
+    {
+      "asOf": "2026-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -1914405872,
+        "amountEur": -1914405872,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-06",
+      "planned": null,
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. Бюджетно салдо (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
+      }
+    },
+    {
+      "asOf": "2026-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 560263445,
+        "amountEur": 560263445,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-06",
+      "planned": null,
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. Вноска в общия бюджет на ЕС",
+        "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
+      }
+    },
+    {
+      "asOf": "2026-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 14150474073,
+        "amountEur": 14150474073,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-06",
+      "planned": null,
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II. Разходи и трансфери",
+        "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
+      }
+    },
+    {
+      "asOf": "2026-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1914405874,
+        "amountEur": 1914405874,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-06",
+      "planned": null,
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. Финансиране",
+        "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
+      }
+    },
+    {
+      "asOf": "2026-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 12796331646,
+        "amountEur": 12796331646,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-06",
+      "planned": null,
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. Приходи, Помощи и дарения",
+        "sheet": "81d1e37e-0e68-4733-b1d1-35d8a2b86c04"
+      }
     }
   ],
   "snapshots": [
@@ -11049,17 +11144,17 @@
       ]
     },
     {
-      "asOf": "2026-05-31",
+      "asOf": "2026-06-30",
       "constituentBudget": "state",
       "currency": "EUR",
       "fiscalYear": 2026,
-      "period": "2026-05",
+      "period": "2026-06",
       "sections": [
         {
           "code": "I",
           "executed": {
-            "amount": 9904664542,
-            "amountEur": 9904664542,
+            "amount": 12796331646,
+            "amountEur": 12796331646,
             "currency": "EUR"
           },
           "kind": "revenue",
@@ -11069,8 +11164,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 8995360564,
-                "amountEur": 8995360564,
+                "amount": 11429348565,
+                "amountEur": 11429348565,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11083,8 +11178,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 685677120,
-                "amountEur": 685677120,
+                "amount": 1491939365,
+                "amountEur": 1491939365,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11097,8 +11192,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 43951116,
-                "amountEur": 43951116,
+                "amount": 44257023,
+                "amountEur": 44257023,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11111,8 +11206,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 1891421178,
-                "amountEur": 1891421178,
+                "amount": 2249600553,
+                "amountEur": 2249600553,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11125,8 +11220,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 4838508072,
-                "amountEur": 4838508072,
+                "amount": 5720993848,
+                "amountEur": 5720993848,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11139,8 +11234,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 1364623483,
-                "amountEur": 1364623483,
+                "amount": 1691179838,
+                "amountEur": 1691179838,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11153,8 +11248,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 20377375,
-                "amountEur": 20377375,
+                "amount": 20527419,
+                "amountEur": 20527419,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11167,8 +11262,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 105446320,
-                "amountEur": 105446320,
+                "amount": 126023753,
+                "amountEur": 126023753,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11181,8 +11276,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 45355900,
-                "amountEur": 45355900,
+                "amount": 84826766,
+                "amountEur": 84826766,
                 "currency": "EUR"
               },
               "groupLabelBg": "Данъчни приходи",
@@ -11195,8 +11290,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 875560936,
-                "amountEur": 875560936,
+                "amount": 1331974318,
+                "amountEur": 1331974318,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11209,8 +11304,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 125073404,
-                "amountEur": 125073404,
+                "amount": 172268009,
+                "amountEur": 172268009,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11223,8 +11318,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 0,
-                "amountEur": 0,
+                "amount": 281000000,
+                "amountEur": 281000000,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11237,8 +11332,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 553599121,
-                "amountEur": 553599121,
+                "amount": 663619645,
+                "amountEur": 663619645,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11251,8 +11346,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 92273100,
-                "amountEur": 92273100,
+                "amount": 116964910,
+                "amountEur": 116964910,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11265,8 +11360,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 104615311,
-                "amountEur": 104615311,
+                "amount": 98121754,
+                "amountEur": 98121754,
                 "currency": "EUR"
               },
               "groupLabelBg": "Неданъчни приходи",
@@ -11279,8 +11374,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 33743042,
-                "amountEur": 33743042,
+                "amount": 35008763,
+                "amountEur": 35008763,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11297,8 +11392,8 @@
         {
           "code": "II",
           "executed": {
-            "amount": 11894563000,
-            "amountEur": 11894563000,
+            "amount": 14150474073,
+            "amountEur": 14150474073,
             "currency": "EUR"
           },
           "kind": "expenditure",
@@ -11308,8 +11403,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 5121336199,
-                "amountEur": 5121336199,
+                "amount": 5984288918,
+                "amountEur": 5984288918,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11322,8 +11417,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 2743240421,
-                "amountEur": 2743240421,
+                "amount": 3272676294,
+                "amountEur": 3272676294,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11336,8 +11431,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 718353642,
-                "amountEur": 718353642,
+                "amount": 827630807,
+                "amountEur": 827630807,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11350,8 +11445,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 498550251,
-                "amountEur": 498550251,
+                "amount": 502344333,
+                "amountEur": 502344333,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11364,8 +11459,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 451571346,
-                "amountEur": 451571346,
+                "amount": 451914547,
+                "amountEur": 451914547,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11378,8 +11473,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 46978905,
-                "amountEur": 46978905,
+                "amount": 50429786,
+                "amountEur": 50429786,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11392,8 +11487,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 428709538,
-                "amountEur": 428709538,
+                "amount": 517373467,
+                "amountEur": 517373467,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11406,8 +11501,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 365619582,
-                "amountEur": 365619582,
+                "amount": 462241125,
+                "amountEur": 462241125,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11420,8 +11515,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 1539677,
-                "amountEur": 1539677,
+                "amount": 1836645,
+                "amountEur": 1836645,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11434,8 +11529,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 335212889,
-                "amountEur": 335212889,
+                "amount": 369683774,
+                "amountEur": 369683774,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11448,8 +11543,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 30110199,
-                "amountEur": 30110199,
+                "amount": 30502473,
+                "amountEur": 30502473,
                 "currency": "EUR"
               },
               "groupLabelBg": "Разходи",
@@ -11472,8 +11567,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 6773226801,
-                "amountEur": 6773226801,
+                "amount": 8166185155,
+                "amountEur": 8166185155,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11486,8 +11581,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 6823910018,
-                "amountEur": 6823910018,
+                "amount": 8227915286,
+                "amountEur": 8227915286,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11500,8 +11595,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 273712006,
-                "amountEur": 273712006,
+                "amount": 327058695,
+                "amountEur": 327058695,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11514,8 +11609,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 2746345968,
-                "amountEur": 2746345968,
+                "amount": 3266740514,
+                "amountEur": 3266740514,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11528,8 +11623,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 3408833345,
-                "amountEur": 3408833345,
+                "amount": 4134409574,
+                "amountEur": 4134409574,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11542,8 +11637,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 36360816,
-                "amountEur": 36360816,
+                "amount": 40092591,
+                "amountEur": 40092591,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11556,8 +11651,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 358657883,
-                "amountEur": 358657883,
+                "amount": 459613912,
+                "amountEur": 459613912,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11570,8 +11665,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 50683217,
-                "amountEur": 50683217,
+                "amount": 61730131,
+                "amountEur": 61730131,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11584,8 +11679,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 5009327,
-                "amountEur": 5009327,
+                "amount": 6673968,
+                "amountEur": 6673968,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11598,8 +11693,8 @@
             {
               "depth": 2,
               "executed": {
-                "amount": 45673890,
-                "amountEur": 45673890,
+                "amount": 55056163,
+                "amountEur": 55056163,
                 "currency": "EUR"
               },
               "groupLabelBg": "Трансфери (нето)",
@@ -11616,8 +11711,8 @@
         {
           "code": "III",
           "executed": {
-            "amount": 445524862,
-            "amountEur": 445524862,
+            "amount": 560263445,
+            "amountEur": 560263445,
             "currency": "EUR"
           },
           "kind": "expenditure",
@@ -11630,8 +11725,8 @@
         {
           "code": "IV",
           "executed": {
-            "amount": -2435423320,
-            "amountEur": -2435423320,
+            "amount": -1914405872,
+            "amountEur": -1914405872,
             "currency": "EUR"
           },
           "kind": "balance",
@@ -11644,8 +11739,8 @@
         {
           "code": "V",
           "executed": {
-            "amount": 2435423318,
-            "amountEur": 2435423318,
+            "amount": 1914405874,
+            "amountEur": 1914405874,
             "currency": "EUR"
           },
           "kind": "financing",
@@ -11655,8 +11750,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": -65687005,
-                "amountEur": -65687005,
+                "amount": 329673159,
+                "amountEur": 329673159,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11669,8 +11764,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": -62728191,
-                "amountEur": -62728191,
+                "amount": 333826208,
+                "amountEur": 333826208,
                 "currency": "EUR"
               },
               "groupLabelBg": "Външно финансиране  (нето)",
@@ -11683,8 +11778,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": -2958814,
-                "amountEur": -2958814,
+                "amount": -4153049,
+                "amountEur": -4153049,
                 "currency": "EUR"
               },
               "groupLabelBg": "Външно финансиране  (нето)",
@@ -11697,8 +11792,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": 2532819242,
-                "amountEur": 2532819242,
+                "amount": 1609396267,
+                "amountEur": 1609396267,
                 "currency": "EUR"
               },
               "groupLabelBg": null,
@@ -11725,8 +11820,8 @@
             {
               "depth": 1,
               "executed": {
-                "amount": 2532819242,
-                "amountEur": 2532819242,
+                "amount": 1609396267,
+                "amountEur": 1609396267,
                 "currency": "EUR"
               },
               "groupLabelBg": "Вътрешно финансиране  (нето)",
@@ -11749,8 +11844,8 @@
             {
               "depth": 0,
               "executed": {
-                "amount": -31708919,
-                "amountEur": -31708919,
+                "amount": -24663552,
+                "amountEur": -24663552,
                 "currency": "EUR"
               },
               "groupLabelBg": null,

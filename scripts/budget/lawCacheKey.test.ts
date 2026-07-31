@@ -57,9 +57,12 @@ describe("law cache key", () => {
   });
 
   it("has no legacy path for a year with no catalogued ЗДБРБ", () => {
-    // 2026 is deliberately absent from LAW_DV_MATERIALS — no ЗДБРБ yet.
-    expect(LAW_DV_MATERIALS[2026]).toBeUndefined();
-    expect(cacheFiles(2026, "whatever").legacy).toBeNull();
+    // 2027's ЗДБРБ is not promulgated yet, so it stands in for the general
+    // "year we have no law for" case. (2026 filled this role until its ЗДБРБ
+    // was finally promulgated on 2026-07-31 as idMat 245041 — seven months
+    // late, after the withdrawn Dec-2025 draft.)
+    expect(LAW_DV_MATERIALS[2027]).toBeUndefined();
+    expect(cacheFiles(2027, "whatever").legacy).toBeNull();
   });
 
   it("applies the same size floor to cached blobs as to fetched ones", () => {

@@ -36,10 +36,10 @@ export const BULNAO_AUDIT_URL =
 // `idMat` is the DV material id; the law text + per-spending-unit appropriation
 // tables are served as HTML at showMaterialDV.jsp?idMat=<id>. Hand-curated —
 // add a new year when its budget law is promulgated (resolve the idMat from
-// dv.parliament.bg). The 2026 ЗДБ is intentionally absent — it was not adopted
-// on time: the Dec-2025 draft was withdrawn after mass protests, so FY2026 runs
-// on an interim bridging law instead (see INTERIM_BUDGET_LAWS below). Add the
-// 2026 row here when the real State Budget Law is finally promulgated.
+// dv.parliament.bg). FY2026 opened WITHOUT a budget — the Dec-2025 draft was
+// withdrawn after mass protests and the year ran on the interim bridging law in
+// INTERIM_BUDGET_LAWS until the real ЗДБРБ was promulgated on 2026-07-31. Both
+// are catalogued: the bridging law is what was in force Jan–Jul.
 export const LAW_DV_MATERIALS: Record<number, string> = {
   2018: "120521", // ДВ бр.99 от 2017-12-12
   2019: "132563", // ДВ бр.103 от 2018-12-13
@@ -49,8 +49,7 @@ export const LAW_DV_MATERIALS: Record<number, string> = {
   2023: "198020", // ДВ бр.66 от 2023-08-01 (delayed adoption due to political instability)
   2024: "202168", // ДВ бр.108 от 2023-12-30
   2025: "233694", // ДВ бр.26 от 2025-03-27
-  // 2026 intentionally absent — ЗДБ not yet adopted; interim law in force (see
-  // INTERIM_BUDGET_LAWS). Add `2026: "<idMat>"` here once it is promulgated.
+  2026: "245041", // ДВ бр.69 от 2026-07-31 (adopted 2026-07-24 by the 52nd NS, УКАЗ № 271 — seven months late, after the withdrawn Dec-2025 draft; the interim bridging law in INTERIM_BUDGET_LAWS covered the gap)
 };
 
 // Mid-year amendments to a State Budget Law ("Закон за изменение [и допълнение]

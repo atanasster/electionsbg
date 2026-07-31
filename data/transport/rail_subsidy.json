@@ -1,20 +1,21 @@
 {
   "source": {
     "name": "Държавен бюджет (ЗДБРБ)",
-    "note": "Субсидии и капиталови трансфери за железопътния транспорт от Закона за държавния бюджет (приложение „Субсидии и други текущи трансфери“ + „Капиталови трансфери“), административна единица МТС. хил. лв, конвертирани в EUR по 1,95583.",
+    "note": "Субсидии и капиталови трансфери за железопътния транспорт от Закона за държавния бюджет (приложение „Субсидии и други текущи трансфери“ + „Капиталови трансфери“), административна единица МТС. До 2025 г. сумите са в хил. лв, конвертирани в EUR по 1,95583; от 2026 г. законът е в хил. евро.",
     "unit": "EUR",
     "files": [
-      "raw_data/budget/law-2018.html.gz",
-      "raw_data/budget/law-2019.html.gz",
-      "raw_data/budget/law-2020.html.gz",
-      "raw_data/budget/law-2021.html.gz",
-      "raw_data/budget/law-2022.html.gz",
-      "raw_data/budget/law-2023.html.gz",
-      "raw_data/budget/law-2024.html.gz",
-      "raw_data/budget/law-2025.html.gz"
+      "raw_data/budget/law-120521.html.gz",
+      "raw_data/budget/law-132563.html.gz",
+      "raw_data/budget/law-143562.html.gz",
+      "raw_data/budget/law-154110.html.gz",
+      "raw_data/budget/law-170229.html.gz",
+      "raw_data/budget/law-198020.html.gz",
+      "raw_data/budget/law-202168.html.gz",
+      "raw_data/budget/law-233694.html.gz",
+      "raw_data/budget/law-245041.html.gz"
     ]
   },
-  "fetchedAt": "2026-07-16T00:47:36.516Z",
+  "fetchedAt": "2026-07-31T16:25:55.508Z",
   "years": [
     {
       "fiscalYear": 2018,
@@ -71,13 +72,20 @@
       "nkzhiOperatingEur": 180593405,
       "bdzCapitalEur": 36777378,
       "nkzhiCapitalEur": 109247174
+    },
+    {
+      "fiscalYear": 2026,
+      "bdzPassengerPsoEur": 110692400,
+      "nkzhiOperatingEur": 171563800,
+      "bdzCapitalEur": 41650700,
+      "nkzhiCapitalEur": 123322500
     }
   ],
   "latest": {
-    "fiscalYear": 2025,
-    "bdzPassengerPsoEur": 116518307,
-    "nkzhiOperatingEur": 180593405,
-    "bdzCapitalEur": 36777378,
-    "nkzhiCapitalEur": 109247174
+    "fiscalYear": 2026,
+    "bdzPassengerPsoEur": 110692400,
+    "nkzhiOperatingEur": 171563800,
+    "bdzCapitalEur": 41650700,
+    "nkzhiCapitalEur": 123322500
   }
 }

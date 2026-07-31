@@ -7,17 +7,20 @@
 //   2.2.1   – за НКЖИ                                   (capital transfer)
 // The operating line always precedes the capital line in document order (section 1.2.1
 // before 2.2), so we take [0] = operating, [1] = capital per recipient. Amounts are in
-// хил. лв (thousand BGN); Bulgaria displays EUR since 2026, so we convert at the fixed
-// rate (хил.лв × 1000 ÷ 1.95583). Writes data/transport/rail_subsidy.json.
+// thousands: хил. лв through the FY2025 law (converted at the fixed 1.95583 peg), and
+// хил. евро from the FY2026 law on, which needs no conversion — the denomination is
+// detected per document. Writes data/transport/rail_subsidy.json.
 //
 // See docs/plans/transport-view-v1.md "Phase 3 scope". Fold the trigger into
 // update-budget (budget_law watcher) — re-run when a new ЗДБ lands. Run:
 //   npx tsx scripts/transport/parse_rail_subsidy.ts
 
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { LAW_DV_MATERIALS } from "../budget/fetch_sources";
+import { detectLawCurrency } from "../budget/law_html";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -30,19 +33,25 @@ const OUT_FILE = path.join(OUT_DIR, "rail_subsidy.json");
 
 const BGN_PER_EUR = 1.95583; // fixed euro-adoption rate (see feedback_bg_uses_eur)
 
-// хил. лв (thousand BGN) string like "227 890,0" → EUR.
-const thousandBgnToEur = (raw: string): number => {
-  const bgn = Number(raw.replace(/\s/g, "").replace(",", ".")) * 1000;
-  return Math.round(bgn / BGN_PER_EUR);
+// Thousands string like "227 890,0" → EUR. Laws through FY2025 are denominated
+// in хил. лв and need the peg; the FY2026 law onward is already хил. евро, so
+// dividing again would halve every figure. Currency is detected per document.
+const thousandsToEur = (raw: string, currency: "BGN" | "EUR"): number => {
+  const units = Number(raw.replace(/\s/g, "").replace(",", ".")) * 1000;
+  return Math.round(currency === "EUR" ? units : units / BGN_PER_EUR);
 };
 
 // Ordered amounts (operating first, capital second) for a recipient, from the flattened
 // law text. Digit-bounded lazy gaps absorb the dash/quote/spacing variants across years.
-const grab = (text: string, re: RegExp): number[] => {
+const grab = (
+  text: string,
+  re: RegExp,
+  currency: "BGN" | "EUR",
+): number[] => {
   const out: number[] = [];
   let m: RegExpExecArray | null;
   const g = new RegExp(re.source, "g");
-  while ((m = g.exec(text)) !== null) out.push(thousandBgnToEur(m[1]));
+  while ((m = g.exec(text)) !== null) out.push(thousandsToEur(m[1], currency));
   return out;
 };
 
@@ -63,10 +72,21 @@ interface YearRow {
 }
 
 const main = (): void => {
-  const files = readdirSync(LAW_DIR)
-    .map((f) => f.match(/^law-(\d{4})\.html\.gz$/))
-    .filter((m): m is RegExpMatchArray => !!m)
-    .map((m) => ({ year: Number(m[1]), file: `law-${m[1]}.html.gz` }))
+  // Resolve each catalogued ЗДБРБ through LAW_DV_MATERIALS rather than globbing
+  // `law-<year>.html.gz`. Those year-keyed blobs are the LEGACY cache naming:
+  // the budget fetcher now writes `law-<idMat>.html.gz`, so a glob would silently
+  // stop at 2025 and every newly-promulgated law would be missing from the tile
+  // with nothing failing. Prefer the idMat cache, fall back to the legacy name.
+  const files = Object.entries(LAW_DV_MATERIALS)
+    .map(([y, idMat]) => {
+      const year = Number(y);
+      for (const file of [`law-${idMat}.html.gz`, `law-${year}.html.gz`]) {
+        if (existsSync(path.join(LAW_DIR, file))) return { year, file };
+      }
+      console.warn(`  ${year}: no cached law HTML — skipped`);
+      return null;
+    })
+    .filter((f): f is { year: number; file: string } => f !== null)
     .sort((a, b) => a.year - b.year);
 
   const years: YearRow[] = [];
@@ -78,8 +98,9 @@ const main = (): void => {
       .replace(/<[^>]+>/g, " ")
       .replace(/&[a-z]+;|&#\d+;/gi, " ")
       .replace(/\s+/g, " ");
-    const bdz = grab(text, BDZ_RE);
-    const nkzhi = grab(text, NKZHI_RE);
+    const { currency } = detectLawCurrency(html);
+    const bdz = grab(text, BDZ_RE, currency);
+    const nkzhi = grab(text, NKZHI_RE, currency);
     if (bdz.length === 0 && nkzhi.length === 0) {
       console.warn(`  ${year}: no rail subsidy lines found — skipped`);
       continue;
@@ -108,7 +129,7 @@ const main = (): void => {
   const payload = {
     source: {
       name: "Държавен бюджет (ЗДБРБ)",
-      note: "Субсидии и капиталови трансфери за железопътния транспорт от Закона за държавния бюджет (приложение „Субсидии и други текущи трансфери“ + „Капиталови трансфери“), административна единица МТС. хил. лв, конвертирани в EUR по 1,95583.",
+      note: "Субсидии и капиталови трансфери за железопътния транспорт от Закона за държавния бюджет (приложение „Субсидии и други текущи трансфери“ + „Капиталови трансфери“), административна единица МТС. До 2025 г. сумите са в хил. лв, конвертирани в EUR по 1,95583; от 2026 г. законът е в хил. евро.",
       unit: "EUR",
       files: files.map((f) => `raw_data/budget/${f.file}`),
     },
