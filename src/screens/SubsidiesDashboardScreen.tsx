@@ -533,7 +533,7 @@ export const SubsidiesDashboardScreen: FC = () => {
   // failed — and the empty card must not claim the year is unpublished while
   // listing that same year as published one line below.
   const settledEmpty = !isLoading && !data;
-  const failed = false;
+  const failed = settledEmpty && isError;
   const noData = settledEmpty && !isError;
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
