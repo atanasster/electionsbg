@@ -50,8 +50,15 @@ Two things are wrong there, and they compound:
    58,152 person rows** — 3,912 buffers, ~31 MB.
 2. **The fold is re-evaluated per row.** In the generic plan the filter reads
    `name_fold = translit_bg_latin($1)`, not a constant. `translit_bg_latin` is `IMMUTABLE`
-   and cheap (~0.2 µs), but 58,152 calls is ~290 ms of the 318 ms. Planned with a *literal*
-   the same query is 12 ms — which is why this never showed up in a `psql` spot check.
+   and individually cheap (~4.2 µs — measured 43 ms / 10k distinct inputs), but 58,152 calls
+   is ~245 ms of the 318 ms. Planned with a *literal* the same query is 12 ms — which is why
+   this never showed up in a `psql` spot check. Isolated by adding `MATERIALIZED` to the
+   **old** body: 331 ms → 69 ms.
+
+   This one needs no separate fix: it is a *per-scanned-row* cost, so removing the scan
+   removes it. `AS MATERIALIZED` in §3.1 is insurance against a future edit reintroducing it,
+   not the fix — measured at 0 ms today, because Postgres only inlines a CTE referenced
+   exactly once and the rewritten `f` is referenced twice.
 
 The 31 MB is the part that matters on prod. Local warm those 3,912 buffers are already in
 cache; on a `db-g1-small` with a cold buffer cache they are 31 MB of random reads on the
@@ -180,17 +187,18 @@ it is computed one time rather than per row:
 ```sql
 CREATE OR REPLACE FUNCTION person_by_name(p_name text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  -- MATERIALIZED, deliberately: without it the fold inlines into each branch's index
-  -- condition as translit_bg_latin($1) and a SQL function's generic plan re-evaluates it
-  -- once per candidate row. That was ~290 ms of the 318 ms this function used to cost.
+  -- MATERIALIZED is INSURANCE, not the fix (0 ms today): Postgres only inlines a CTE
+  -- referenced exactly once, and `f` is referenced twice below. It is kept so a future edit
+  -- collapsing that back to one reference cannot silently reintroduce the per-row fold.
   WITH f AS MATERIALIZED (SELECT translit_bg_latin(p_name) AS fold),
   m AS (
-    -- UNION, not OR. `name_fold = fold OR EXISTS(alias …)` cannot use either btree index,
-    -- so it read all 58,152 person rows (3,912 buffers) to answer a point lookup. Split
-    -- into two branches, each rides its own index: idx_person_name_fold /
-    -- idx_person_alias_fold. UNION (not UNION ALL) preserves the DISTINCT the OR form had.
+    -- UNION, not OR — THIS is the fix. `name_fold = fold OR EXISTS(alias …)` cannot use
+    -- either btree index, so it read all 58,152 person rows (3,912 buffers) to answer a
+    -- point lookup. Split into two branches, each rides its own index:
+    -- idx_person_name_fold / idx_person_alias_fold. UNION (not UNION ALL) preserves the
+    -- DISTINCT the OR form had.
     SELECT u.slug FROM (
-      SELECT p.slug FROM person p, f
+      SELECT p.slug FROM person p CROSS JOIN f
        WHERE p.name_fold = f.fold
          AND p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
       UNION
@@ -209,7 +217,7 @@ Measured, same `force_generic_plan` conditions as §1.1:
 
 | | Before | After |
 |---|---|---|
-| Execution | 318.6 ms | **1.9 ms** (167×) |
+| Execution | 318.6 ms | **1.9–2.4 ms** (~140×) |
 | Buffers | 3,912 (31 MB) | **18** (144 kB, 217×) |
 | Plan | full scan of `person`, 58,152 rows filtered | two nested loops on `idx_person_name_fold` / `idx_person_alias_fold` |
 
@@ -223,8 +231,20 @@ names — 400 active public figures, 50 `review`-status persons, 150 aliases, pl
 compared 553 | mismatches 0 | resolved_old 494 | resolved_new 494
 ```
 
-`LIMIT 2` moves from inside the `DISTINCT` scan to after the `UNION`. It costs nothing: an
-exact fold match returns 1–2 rows, so there is no early-exit to lose.
+Re-verified independently at review over a wider 808-name sample that adds the two cases the
+first pass did not isolate — 100 aliases owned by a **non-public** person (the gate's alias
+branch: 0 resolved) and 50 deliberately **ambiguous** folds (all NULL): 0 mismatches, 535
+resolved both ways.
+
+`LIMIT 2` moves from inside the `DISTINCT` scan to after the `UNION`. It costs nothing: the
+`UNION` dedups into a `HashAggregate` before the limit and the widest fold group in the
+corpus is 36 persons / 38 alias rows. It is not an early-exit optimisation — it bounds the
+`count(*)` wrapper.
+
+**Local data cannot exercise the whole gate**, which step 2's test must handle explicitly
+rather than pass vacuously: all 58,193 local person rows are `status = 'active'`, so the
+`status <> 'active'` half has no natural fixture. The test creates one in a rolled-back
+transaction, or skips with a stated reason.
 
 This ships **independently of everything else in this plan** — one function body, no
 migration, no loader, no route change. `apply_functions.ts 082_person_api.sql` on each

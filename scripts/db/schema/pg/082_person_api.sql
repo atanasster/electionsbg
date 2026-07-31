@@ -216,27 +216,81 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   FROM pick;
 $$;
 
--- Resolve a bare NAME to its profile — but only when the folded name maps to exactly ONE
--- active person (no namesake ambiguity). Lets the legacy /person/{name} links (magistrate
--- holdings, associates, connection checks) land on the unified profile; a 0- or >1-match
--- name returns NULL so the caller falls back to the legacy portfolio / a chooser.
 -- A fuzzy index over the alternate name forms so name-resolution + search can match a
 -- variant spelling (marriage / transliteration) that only appears in person_alias.
 CREATE INDEX IF NOT EXISTS idx_person_alias_fold_trgm
   ON person_alias USING gin (alias_fold gin_trgm_ops);
 
+-- Resolve a bare NAME to its profile — but only when the folded name maps to exactly ONE
+-- active person (no namesake ambiguity). Lets the legacy /person/{name} links (magistrate
+-- holdings, associates, connection checks) land on the unified profile; a 0- or >1-match
+-- name returns NULL so the caller falls back to the legacy portfolio / a chooser.
+--
+-- THIS IS A POINT LOOKUP AND MUST PLAN AS ONE. It used to cost 318 ms and read 3,912
+-- buffers (~31 MB), because of two defects that compounded — see
+-- docs/plans/db-route-timeouts-v1.md §1.1.
+--
+-- It matters more than the shape suggests: /api/db/person-profile calls person_by_slug
+-- FIRST and only lands here when that misses. A real /person/{slug} link therefore never
+-- reaches this function — every crawler hit, stale link and hand-typed URL does. Prod
+-- measured 10.034 s and 10.051 s on `?slug=ОБЩИНА КИРКОВО` (an institution name, so both
+-- lookups miss), which is the 10 s statement_timeout at functions/index.js, and returned 500.
+--
+--   1. UNION, NOT OR — this is the fix. `name_fold = fold OR EXISTS (alias …)` cannot use an
+--      index on either side, so Postgres read ALL 58,152 person rows and filtered them. Split
+--      into two branches and each rides its own btree: idx_person_name_fold /
+--      idx_person_alias_fold. Both indexes already existed — the OR was the only thing
+--      stopping them being used, which is why no amount of indexing would have fixed this.
+--   2. The per-row fold, which the UNION fixes as a side effect. A SQL function's parameter
+--      plans GENERICALLY, so in the old body the filter read
+--      `name_fold = translit_bg_latin($1)` rather than a constant and the fold was evaluated
+--      ONCE PER SCANNED ROW — 261 ms of the 331 ms (measured by adding MATERIALIZED to the
+--      OLD body: 331 ms → 69 ms). It is invisible to a psql spot check, because planned with
+--      a LITERAL the old body was 12 ms: a literal lets the planner constant-fold what a
+--      parameter cannot. Once the scan is gone there are ~1 rows to fold, so this cost
+--      disappears with defect 1 rather than needing its own fix.
+--
+-- `AS MATERIALIZED` is therefore INSURANCE, NOT THE FIX — measured at 0 ms today (2.11 ms
+-- without it, 2.36 ms with, identical plan), because Postgres only inlines a CTE referenced
+-- exactly once and `f` is now referenced twice, once per UNION branch. It is kept so that a
+-- future edit collapsing this back to a single reference cannot silently reintroduce a
+-- per-row fold. Do not remove it as dead weight; do not cite it as load-bearing either.
+--
+-- Measured after (force_generic_plan, i.e. how it actually runs here): 2.4 ms, 18 buffers.
+--
+-- SEMANTICS ARE UNCHANGED. UNION (not UNION ALL) keeps the DISTINCT the old form got from
+-- SELECT DISTINCT; the §6 privacy gate is repeated on BOTH branches, since an alias hit must
+-- not leak a review-status or non-public person; and the count(*) = 1 wrapper still returns
+-- NULL for a 0- or >1-match name. Verified against the old body over 553 + 808 real names
+-- (active, review-status, aliases, aliases owned by non-public persons, ambiguous folds, plus
+-- the failing input): 0 mismatches. The standing gate is person_search.data.test.ts.
+--
+-- REACHES PROD ONLY VIA `apply_functions.ts 082_person_api.sql` or `db:resolve:persons:cloud`
+-- (which re-applies this file). Nothing on the cloud side is automatic, and — unlike
+-- migration 123's psp:not-built warning — a stale copy on Cloud SQL logs nothing and fails
+-- nothing. It just keeps returning 500. See docs/plans/db-route-timeouts-v1.md §6.
+--
+-- LIMIT 2 moves from inside the scan to after the UNION and costs nothing: the UNION dedups
+-- into a HashAggregate before the limit, and the widest fold group in the corpus is 36
+-- persons / 38 alias rows — a hash of tens of rows. It is NOT an early-exit optimisation; it
+-- exists to bound the count(*) wrapper.
 DROP FUNCTION IF EXISTS person_by_name(text);
 CREATE OR REPLACE FUNCTION person_by_name(p_name text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH f AS (SELECT translit_bg_latin(p_name) AS fold),
+  WITH f AS MATERIALIZED (SELECT translit_bg_latin(p_name) AS fold),
   m AS (
     -- Match the display name OR any alias fold, so a person known under a variant spelling
-    -- still resolves (idx_person_alias_fold is exact-keyed → fast).
-    SELECT DISTINCT p.slug FROM person p, f
-     WHERE p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
-       AND (p.name_fold = f.fold
-            OR EXISTS (SELECT 1 FROM person_alias a
-                        WHERE a.person_id = p.person_id AND a.alias_fold = f.fold))
+    -- still resolves. Two index-driven branches, never an OR — see the header.
+    SELECT u.slug FROM (
+      SELECT p.slug FROM person p CROSS JOIN f
+       WHERE p.name_fold = f.fold
+         AND p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
+      UNION
+      SELECT p.slug FROM f
+       JOIN person_alias a ON a.alias_fold = f.fold
+       JOIN person p ON p.person_id = a.person_id
+       WHERE p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
+    ) u
      LIMIT 2
   )
   SELECT CASE WHEN (SELECT count(*) FROM m) = 1
