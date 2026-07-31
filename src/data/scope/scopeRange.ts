@@ -10,6 +10,7 @@
 
 import allElections from "@/data/json/elections.json";
 import { scopeYear, type Scope } from "./useScope";
+import { newestFirst } from "./windows";
 
 const elections = allElections as Array<{ name: string }>;
 const dash = (d: string): string => d.replace(/_/g, "-");
@@ -33,11 +34,18 @@ export const scopeRange = (
   if (scope === "all") return [null, null];
   const year = scopeYear(scope);
   if (year != null) return [`${year}-01-01`, `${year}-12-31`];
-  // "ns": elections.json is newest-first, so the next election sits one index
-  // earlier; the last (most recent) parliament is open-ended (to = null).
-  const idx = elections.findIndex((e) => e.name === selected);
+  // "ns": the next election sits one index earlier once the list is newest-first, and
+  // the last (most recent) parliament is open-ended (to = null).
+  //
+  // SORTED, not assumed. windows.ts sorts explicitly and says why — "rather than trusting
+  // the file's order" — and the settlement page reconciles the two helpers: its KPI cards
+  // take their window from windows.ts and its contracts table from here. If elections.json
+  // ever lands out of order, an unsorted read here would give the two halves DIFFERENT ns
+  // windows, and the page would show one period's total above another period's rows.
+  const sorted = newestFirst(elections);
+  const idx = sorted.findIndex((e) => e.name === selected);
   return [
     dash(selected),
-    idx > 0 ? dayBefore(dash(elections[idx - 1].name)) : null,
+    idx > 0 ? dayBefore(dash(sorted[idx - 1].name)) : null,
   ];
 };
