@@ -441,9 +441,35 @@ tests, including the payload equality across all three scope kinds), the route t
 (138/138), and `procurement_settlement_scope.data.test.ts` is still green — the contracts
 table is untouched by this work.
 
-**Still outstanding, and an operator action:** the production re-measure — a cold-instance
-timing of `?ekatte=68134` and 24 h of Cloud Run logs with no `10.009s` latency and no
-`psp:not-built` / `psp:read-failed` lines.
+### 7.2 Production, measured after deploy (2026-07-31)
+
+Deployed: migration 123 applied to Cloud SQL via `apply_functions.ts`, populated with a
+plain `REFRESH` (**75 s**, 26,070 rows, 0 NULLs, 51 MB), then `npm run deploy:db`.
+
+Cloud Run `httpRequest.latency` for `/api/db/procurement-settlement`, server-side:
+
+| | Before | After |
+|---|---|---|
+| София 68134 | **10.009 s → HTTP 500** | **0.012 s → 200** |
+| Варна 10135 | 10.009 s → HTTP 500 (cold) | 0.009 s → 200 |
+| София `?slim=1` | 10.011 s → HTTP 500 | 0.013 s → 200 |
+
+Every settlement request since the deploy is a 200 in 0.009–0.06 s. End-to-end wall clock
+from a browser is 0.7–1.4 s, and **all of the remainder is §8's transport cost** — TLS setup
+plus 69 kB of uncompressed JSON — which this plan does not touch.
+
+Acceptance met: no `psp:not-built` and no `psp:read-failed` in the logs, so the route is
+genuinely reading the precompute rather than falling back; and the payloads verified against
+Cloud SQL before the deploy (26,070 rows, stored == live across all three scope kinds on the
+three heavy settlements, no blank place heroes, `app_readonly` can read it).
+
+**The migration was applied on its own, NOT via `db:load:procurement-scopes:pg:cloud`.** That
+loader DROPs and recreates 119's and 122's matviews before refreshing them, and the routes
+reading those do not degrade — it would have meant a multi-minute 500 window on
+`/procurement/by-settlement` and `/procurement/contractors` to rebuild data already correct
+on cloud. 123 was new and unread, so applying and refreshing it alone was zero-impact. Use
+the loader when the SCOPES change, which is what it is for; use `apply_functions.ts` plus a
+single `REFRESH` to introduce one new per-scope matview to a live database.
 
 ```bash
 npm run db:load:place-dim:pg:cloud            # PRECONDITION, see below
