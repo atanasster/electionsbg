@@ -8,7 +8,10 @@ import { useTranslation } from "react-i18next";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import {
+  CORPUS_WINDOW,
+  useSettlementProcurement,
+} from "@/data/procurement/useSettlementProcurement";
 import { SettlementProcurementLink } from "./SettlementProcurementLink";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
@@ -18,7 +21,7 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
   ekatte,
 }) => {
   const { t } = useTranslation();
-  const q = useSettlementProcurement(ekatte);
+  const q = useSettlementProcurement(ekatte, CORPUS_WINDOW);
   if (q.isLoading || !q.data || q.data.awarders.length === 0) return null;
   const data = q.data;
 

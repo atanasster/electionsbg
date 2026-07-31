@@ -13,7 +13,10 @@ import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { PlaceHeaderView } from "@/screens/components/place/PlaceHeaderView";
 import { SEO } from "@/ux/SEO";
-import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import {
+  CORPUS_WINDOW,
+  useSettlementProcurement,
+} from "@/data/procurement/useSettlementProcurement";
 import { settlementHero, settlementSeo } from "./settlementHero";
 import type { ProcurementAwarderTier } from "@/data/dataTypes";
 
@@ -61,7 +64,7 @@ const TIER_LABEL_EN: Record<ProcurementAwarderTier, string> = {
 export const ProcurementSettlementDetailScreen: FC = () => {
   const { ekatte } = useParams<{ ekatte: string }>();
   const { t, i18n } = useTranslation();
-  const q = useSettlementProcurement(ekatte ?? null);
+  const q = useSettlementProcurement(ekatte ?? null, CORPUS_WINDOW);
   const data = q.data;
 
   // Every state renders the same hierarchy crumb, one level under the

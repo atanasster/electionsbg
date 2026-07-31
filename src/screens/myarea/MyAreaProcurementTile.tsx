@@ -10,7 +10,10 @@ import { useTranslation } from "react-i18next";
 import { Receipt, ArrowRight } from "lucide-react";
 import { Card } from "@/ux/Card";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import {
+  CORPUS_WINDOW,
+  useSettlementProcurement,
+} from "@/data/procurement/useSettlementProcurement";
 import { SettlementProcurementLink } from "@/screens/components/procurement/SettlementProcurementLink";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { formatEur, formatEurCompact } from "@/lib/currency";
@@ -26,7 +29,10 @@ export const MyAreaProcurementTile: FC<{
   // Settlement view → its own ekatte; município view → the centre's ekatte
   // (where "Община X" + the centre's schools/hospitals are pinned).
   const targetEkatte = ekatte ?? findMunicipality(obshtina)?.ekatte;
-  const { data, isLoading } = useSettlementProcurement(targetEkatte);
+  const { data, isLoading } = useSettlementProcurement(
+    targetEkatte,
+    CORPUS_WINDOW,
+  );
 
   if (isLoading) return null;
   if (!data || data.awarders.length === 0) return null;
