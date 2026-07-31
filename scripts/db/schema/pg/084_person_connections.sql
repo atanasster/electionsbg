@@ -14,6 +14,45 @@
 --     mass-membership orgs.
 --   • The identity disclaimer is baked into the payload so a consumer (page or narration)
 --     can never drop it.
+
+-- The association-noise guard's input, as a PER-COMPANY lookup.
+--
+-- This used to be a `co` CTE inside person_connections: one GROUP BY over every tr/ngo
+-- person_role row joined to every person, building the officer count for all 18,278
+-- companies — on every request, and entirely INDEPENDENT of the subject. It was 6,737 of
+-- the function's 6,984 buffers (96.5%) and 60 ms of its 66 ms, and because a CTE referenced
+-- twice is materialized, a person with NO companies at all paid the whole thing: 7,294
+-- buffers to return an empty graph. That is the shape the traffic actually has — the load is
+-- a crawler walking /person/{slug} alphabetically, so the common case was the expensive one,
+-- and the route reached 8.2-10.1 s on prod (one request over the 10 s statement_timeout).
+--
+-- Only ~19-38 companies are ever consulted per request, so the count is computed per eik
+-- instead, riding idx_person_role_source_ref (source, ref) + person_pkey. Measured with
+-- plan_cache_mode = force_generic_plan, which is how a SQL function's parameter actually
+-- plans (a literal lets the planner constant-fold what a parameter cannot):
+--
+--   no companies (the crawler's common case)  7,294 -> 19 buffers   (inlined; no seq scan left)
+--   heaviest real subject in the corpus       8,242 -> 2,160 buffers, 66 ms -> 3.7 ms
+--
+-- Kept as ONE function, not inlined at its two call sites, so MAX_CO_OFFICERS (6) and the
+-- public-figure/active gate stay single-sourced exactly as the `co` CTE kept them.
+--
+-- ONE SUBTLETY, since it looks like a behaviour change and is not. The old `co` was joined
+-- with an INNER JOIN, so an eik absent from the map — a company with NO public+active officer
+-- — was DROPPED; here such an eik counts 0, and 0 <= 6 keeps it. The two agree because
+-- neither call site can reach that eik: both start from a person who is themselves
+-- public+active (`subj` enforces it for subj_co, `rel`/`agg` for p_co), and that person's own
+-- role contributes to the count, so every candidate eik has a count >= 1 by construction.
+-- Verified rather than argued: 16,103 subjects compared old vs new, 0 mismatches (§3 of
+-- docs/plans/person-connections-scan-v1.md).
+CREATE OR REPLACE FUNCTION public_officer_count(p_eik text)
+RETURNS bigint LANGUAGE sql STABLE AS $$
+  SELECT count(DISTINCT r.person_id)
+    FROM person_role r JOIN person p USING (person_id)
+   WHERE r.source IN ('tr','ngo') AND r.ref = p_eik
+     AND p.is_public_figure AND p.status = 'active';
+$$;
+
 CREATE OR REPLACE FUNCTION person_connections(p_slug text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH subj AS (
@@ -21,21 +60,16 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
      WHERE slug = p_slug AND status = 'active' AND is_public_figure
      LIMIT 1
   ),
-  -- distinct-public-officer count per company (the association-noise guard input); over
-  -- the ~9k bridged tr person_role rows only, so it is cheap.
-  co AS (
-    SELECT r.ref AS eik, count(DISTINCT r.person_id) AS officers
-      FROM person_role r JOIN person p USING (person_id)
-     WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'
-     GROUP BY r.ref
-  ),
-  -- the subject's own companies that are small enough to be a real tie (<= 6 officers)
+  -- the subject's own companies that are small enough to be a real tie (<= 6 officers).
+  -- The `source IN (...)` filter is cheap and selective, so the planner applies it before
+  -- public_officer_count — verified on the person with the most NON-tr roles in the corpus
+  -- (24 of them, 0 tr/ngo): 560 buffers, 1.6 ms, the function never called.
   subj_co AS (
     SELECT DISTINCT r.ref AS eik
       FROM person_role r
       JOIN subj ON subj.person_id = r.person_id
-      JOIN co ON co.eik = r.ref AND co.officers <= 6
      WHERE r.source IN ('tr','ngo')
+       AND public_officer_count(r.ref) <= 6
   ),
   -- every OTHER public person on one of those companies
   rel AS (
@@ -64,8 +98,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     SELECT DISTINCT a.person_id AS p_id, r.ref AS eik
       FROM agg a
       JOIN person_role r ON r.person_id = a.person_id AND r.source IN ('tr','ngo')
-      JOIN co ON co.eik = r.ref AND co.officers <= 6
      WHERE r.ref NOT IN (SELECT eik FROM subj_co)
+       AND public_officer_count(r.ref) <= 6
   ),
   -- B on C2, excluding the subject, the direct connections, and P itself. One path per B.
   indirect AS (
