@@ -13,7 +13,7 @@
 // finding of wrongdoing.
 
 import { FC, useMemo } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -21,12 +21,17 @@ import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { realSignedDate } from "@/lib/signedDate";
 import { GRADE_TONE } from "@/lib/riskGrade";
+import { useScopedHref } from "@/data/scope/useScope";
 import {
   RISKIEST_GRADES,
   useRiskiestContracts,
 } from "@/data/procurement/useRiskiestContracts";
 
 export const RISKIEST_CONTRACTS_PREVIEW = 8;
+
+/** The "see all" destination — the contracts browser, which filters the same
+ *  server-side risk index this board ranks. */
+const SEE_ALL_PATH = "/procurement/contracts";
 
 export const RiskiestContractsTile: FC = () => {
   const { t, i18n } = useTranslation();
@@ -36,12 +41,22 @@ export const RiskiestContractsTile: FC = () => {
   // search string, which carries ?pscope so the destination keeps this window.
   // The browser sorts by amount rather than by fired count — the risk column is
   // sortable there — but the row set is identical.
-  const [params] = useSearchParams();
+  //
+  // Built THROUGH useScopedHref rather than from useSearchParams directly. The two
+  // are equivalent today, but that helper carries a dated decision about what a
+  // section link forwards ("the WHOLE query string … KEPT DELIBERATELY", see
+  // useScope.ts) — a second implementation here would silently opt out of any
+  // future revision to it, leaving this one link handing the destination filters
+  // the previewed rows were never subject to.
+  const buildHref = useScopedHref();
   const seeAllHref = useMemo(() => {
-    const p = new URLSearchParams(params);
+    const to = buildHref(SEE_ALL_PATH);
+    const p = new URLSearchParams(
+      typeof to === "string" ? "" : (to.search ?? ""),
+    );
     p.set("grade", RISKIEST_GRADES.join(","));
-    return { pathname: "/procurement/contracts", search: `?${p.toString()}` };
-  }, [params]);
+    return { pathname: SEE_ALL_PATH, search: `?${p.toString()}` };
+  }, [buildHref]);
   if (!data || data.length === 0) return null;
 
   return (

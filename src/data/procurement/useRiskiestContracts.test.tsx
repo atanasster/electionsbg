@@ -100,6 +100,20 @@ describe("useRiskiestContracts", () => {
     });
   });
 
+  // The DEFAULT scope — the latest parliament — is open-ended, and it is the only
+  // case that produces `max: undefined`. JSON.stringify DROPS an undefined value,
+  // so what reaches the server is a lower bound with no upper one; asserting the
+  // round-tripped object (not the pre-serialisation one) is what pins that.
+  it("sends an open-ended window for the latest parliament", async () => {
+    window_.value = { from: "2026-04-19", to: null, all: false };
+    const { result } = renderHook(() => useRiskiestContracts(8), { wrapper });
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(colOf(requests[0], "date")).toEqual({
+      id: "date",
+      min: "2026-04-19",
+    });
+  });
+
   it("drops the window for the full-corpus scope", async () => {
     window_.value = { from: null, to: null, all: true };
     const { result } = renderHook(() => useRiskiestContracts(8), { wrapper });

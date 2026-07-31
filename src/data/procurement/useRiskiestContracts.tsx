@@ -91,12 +91,11 @@ const fetchRiskiest = (
 export const useRiskiestContracts = (limit = 8) => {
   const { from, to, all } = useScopeWindow();
   return useQuery({
-    queryKey: [
-      "riskiest-contracts",
-      limit,
-      all ? "all" : from,
-      all ? "all" : to,
-    ],
+    // [from, to] alone identifies the window — `from` is null ONLY for the
+    // corpus scope (scopeWindowFor gives every ns/y scope a lower bound), so an
+    // `all ? …` arm in the key could never distinguish anything. Same shape as
+    // the sibling useLatestContracts, deliberately.
+    queryKey: ["riskiest-contracts", limit, from, to],
     queryFn: () => fetchRiskiest(limit, { from, to, all }),
     staleTime: Infinity,
     retry: false,
