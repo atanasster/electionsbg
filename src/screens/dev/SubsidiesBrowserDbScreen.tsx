@@ -47,6 +47,11 @@ export const SubsidiesBrowserDbScreen: FC = () => {
   // Time scope: same `?pscope` param the procurement pages use (ns | all |
   // y:YYYY), carried in from the dashboard's By-scheme/oblast links. Subsidies
   // has no per-parliament slice, so ns → the latest financial year.
+  //
+  // Read UNRESOLVED, like the dashboard: a year the ДФЗ corpus does not cover (a
+  // 2019 procurement scope riding in on the URL) filters the table to that year
+  // and the table's own empty state says so, under a pill showing the same year.
+  // Clamping to the latest year instead would answer a question nobody asked.
   const { scope } = useScope();
   const scopeYear = agriScopeToYear(scope); // number (a year) | null (all)
 

@@ -32,7 +32,7 @@ import { AgriOblastMap } from "./components/subsidies/AgriOblastMap";
 import type { AgriIndexFile, AgriConcentration } from "@/data/agri/types";
 import { AGRI_FINANCIAL_YEARS, agriScopeToKey } from "@/data/agri/constants";
 import { formatEur, formatEurCompact } from "@/lib/currency";
-import { useScope } from "@/data/scope/useScope";
+import { useScope, scopeYear } from "@/data/scope/useScope";
 import { ScopeControl } from "./components/ScopeControl";
 import { SectorBreadcrumb } from "./components/procurement/SectorBreadcrumb";
 
@@ -507,8 +507,26 @@ export const SubsidiesDashboardScreen: FC = () => {
   // (ns | all | y:YYYY), carried between the section and its sub-pages by
   // useScopedHref. Subsidies has no per-parliament slice, so "ns" resolves
   // to the latest financial year (the pill is relabelled accordingly).
-  const { scope } = useScope();
-  const { data, isLoading } = useAgriOverview(agriScopeToKey(scope));
+  //
+  // Read UNRESOLVED (no ScopeSupport), which is the second of the two contracts
+  // in ScopeControl's header: this page answers a year it cannot serve with an
+  // explicit "no data for this year", so the reader keeps seeing the year they
+  // asked for in the pill instead of being silently moved to another one.
+  const { scope, setScope } = useScope();
+  // `?pscope` is shared with the procurement pages, whose picker runs
+  // SCOPE_FIRST_YEAR..this year, and it rides along on ordinary in-app links —
+  // so a year outside the CAP corpus (2019, say) arrives here routinely, not
+  // just by hand-editing the URL. `null` = no such payload: don't build a key
+  // agri_payloads cannot answer, so the query is disabled rather than left
+  // hanging on a reply that will never carry data.
+  const payloadKey = agriScopeToKey(scope);
+  const { data, isLoading } = useAgriOverview(payloadKey);
+  // Three states, not two: loading, loaded-with-nothing (a year the corpus does
+  // not cover, or an overview the loader never precomputed on this database),
+  // and loaded. Folding the middle one into the skeleton (`isLoading || !data`)
+  // is what left the page spinning forever on something that was never going to
+  // arrive — no data, no empty state, no error.
+  const noData = !isLoading && !data;
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
     "Bulgarian CAP subsidies from the State Fund Agriculture (ДФЗ): who gets farm money, how concentrated it is, by scheme, region and year.";
@@ -527,7 +545,31 @@ export const SubsidiesDashboardScreen: FC = () => {
           nsLabelOverride={bg ? "Последна година" : "Latest year"}
         />
       </div>
-      {isLoading || !data ? (
+      {noData ? (
+        <section aria-label={title} className="my-4">
+          <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
+            <p className="mb-1">
+              {bg
+                ? `Няма данни за субсидии за ${scopeYear(scope) ?? "избрания период"}.`
+                : `No subsidy data for ${scopeYear(scope) ?? "the selected period"}.`}
+            </p>
+            <p className="mb-3">
+              {bg
+                ? `ДФ „Земеделие“ публикува следните финансови години: ${AGRI_FINANCIAL_YEARS.join(", ")}.`
+                : `The State Fund Agriculture publishes these financial years: ${AGRI_FINANCIAL_YEARS.join(", ")}.`}
+            </p>
+            <button
+              type="button"
+              onClick={() => setScope("ns")}
+              className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
+            >
+              {bg
+                ? `Покажи последната година (${AGRI_FINANCIAL_YEARS[0]})`
+                : `Show the latest year (${AGRI_FINANCIAL_YEARS[0]})`}
+            </button>
+          </div>
+        </section>
+      ) : !data ? (
         <section aria-label={title} className="my-4">
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
             <SkeletonCard />

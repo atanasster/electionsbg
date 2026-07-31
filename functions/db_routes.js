@@ -1655,18 +1655,37 @@ const DB_ROUTES = {
 
   // ── ДФ „Земеделие" subsidies serving (agri_payloads, migration 046) ──────────
   // Every precomputed /subsidies page payload is stored verbatim keyed by
-  // (kind, key): 'overview' (key '') = the national dashboard; 'recipient'
-  // (key = eik) = a per-legal-entity rollup. One PK seek → the jsonb (or null
-  // when the entity has no subsidies), so the hooks render an empty state.
+  // (kind, key): 'overview' (key '' | 'all' | '<financial year>') = the national
+  // dashboard for one scope; 'recipient' (key = eik) = a per-legal-entity
+  // rollup. One PK seek → the jsonb.
+  //
+  // A missing row means two different things, so it gets two different statuses:
+  //
+  //   'recipient' → 200 with null. "This EIK received no subsidies" is a
+  //     CORRECT, permanent answer about a real entity; /farm/:eik and the
+  //     /company/:eik tile render it as an empty state. Same contract as
+  //     fund-beneficiary above.
+  //   'overview'  → 404. The key is a SCOPE, not an entity: a scope either was
+  //     precomputed or does not exist. Serving null there let the client sit on
+  //     a success-with-no-data forever (the /subsidies skeleton never resolved),
+  //     and — as with procurement-geo — /api/db responses are CDN-cached for an
+  //     hour with 24 h stale-while-revalidate, so a null served while the loader
+  //     had not yet run would be pinned at the edge long after the data landed.
+  //
+  // The client maps this 404 back to `null` (fetchAgriPayload) and renders the
+  // no-data state; anything else still throws.
   "agri-payload": async (dbRows, q) => {
     const kind = s(q, "kind");
     if (!kind) return { status: 400, body: { error: "missing kind" } };
-    const key = s(q, "key"); // '' for the overview singleton
+    const key = s(q, "key"); // '' for the default-scope overview
     const rows = await dbRows(
       "SELECT payload FROM agri_payloads WHERE kind = $1 AND key = $2",
       [kind, key],
     ).catch(missingMigrationEmpty);
-    return { body: rows[0]?.payload ?? null };
+    const payload = rows[0]?.payload ?? null;
+    if (payload === null && kind === "overview")
+      return { status: 404, body: { error: "unknown or unbuilt scope" } };
+    return { body: payload };
   },
   // ── Schools / education serving (school_payloads, migration 055) ─────────────
   // The 'directory' blob (key '') is the whole /education dataset with the SES +

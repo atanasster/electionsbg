@@ -12,13 +12,27 @@ export const AGRI_FINANCIAL_YEARS = [
 // Kept in sync with PAYER_EIKS in scripts/agri/ingest.ts.
 export const AGRI_PAYER_EIK = "121100421";
 
+/** Is `year` a CAP financial year the ДФЗ corpus actually covers? */
+export const isAgriFinancialYear = (year: number): boolean =>
+  AGRI_FINANCIAL_YEARS.includes(year);
+
 // Map a procurement scope (ns | all | y:YYYY) to a farm-subsidy overview payload
 // key. "ns" (this parliament / default) has no per-parliament subsidy slice, so
 // it resolves to the latest available financial year; "all" is the all-years
 // aggregate; "y:YYYY" is that financial year.
-export const agriScopeToKey = (scope: string): string => {
+//
+// `null` = "this scope has no overview payload and never will". The `?pscope`
+// param is SHARED with the procurement pages, whose year picker spans every
+// calendar year since SCOPE_FIRST_YEAR (2011) — so /subsidies is routinely
+// entered carrying a year the CAP corpus has no row for (useScopedHref forwards
+// the whole query string from the sectors hub and the procurement nav). Building
+// a key for such a year asked agri_payloads for a row that does not exist; the
+// caller must render an explicit "no data for this year" state instead.
+export const agriScopeToKey = (scope: string): string | null => {
   if (scope === "all") return "all";
-  if (scope.startsWith("y:")) return scope.slice(2);
+  const year = /^y:(\d{4})$/.exec(scope); // strict: " 2024" must not coerce
+  if (year) return isAgriFinancialYear(Number(year[1])) ? year[1] : null;
+  if (scope.startsWith("y:")) return null;
   return ""; // ns → '' → the latest financial year
 };
 
