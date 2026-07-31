@@ -98,4 +98,27 @@ describe("ScopeControl", () => {
     expect(nsPill()).toHaveAttribute("aria-pressed", "true");
     expect(picker()).not.toHaveTextContent(/\d{4}/);
   });
+
+  it("shows a covered year outside the corpus band rather than clamping it", () => {
+    // The other boundary. A caller's coverage need not sit inside the procurement
+    // corpus (2011→now) — budget and pension series predate it — and a value that
+    // already survived the PAGE's own resolve must not be second-guessed against a
+    // different year set here. Clamping it would put the pill back on the default
+    // while the page counted 2008: the exact mismatch this control exists to end.
+    render(
+      <ScopeControl
+        value={"y:2008" as Scope}
+        onChange={() => {}}
+        years={[2010, 2009, 2008]}
+        nsLabelOverride="Latest"
+        allowAll={false}
+      />,
+      { wrapper: at("/some-page?pscope=y:2008") },
+    );
+    expect(picker()).toHaveTextContent("2008");
+    expect(screen.getByRole("button", { name: "Latest" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+  });
 });

@@ -34,7 +34,6 @@ import { useElectionContext } from "@/data/ElectionContext";
 import {
   Scope,
   defaultScopeYears,
-  resolveScope,
   scopeYear,
   useScope,
 } from "@/data/scope/useScope";
@@ -86,11 +85,19 @@ export const ScopeControl: FC<Props> = ({
   const yearList = years ?? YEARS;
   const url = useScope();
   // Controlled (caller-owned state) when both props are given; otherwise the
-  // URL-backed `?pscope` hook drives the control. "all" is resolved away when
-  // the caller has switched that option off — there is no item and no label for
-  // a mode the control was told this page does not have — but a `y:<year>`
-  // outside `yearList` is shown as itself (see the header note).
-  const scope = resolveScope(value ?? url.scope, { allowAll });
+  // URL-backed `?pscope` hook drives the control.
+  //
+  // The active scope is taken AS GIVEN. A controlled `value` has already been
+  // resolved by the page against its own coverage, and `url.scope` by useScope
+  // against the corpus — running either through a second, differently-bounded
+  // resolve here is how the mismatch creeps back: a caller whose coverage sits
+  // outside the corpus band (budget and pension series predate 2011) would have
+  // its own year clamped to "ns" while the page counted that year.
+  //
+  // The single exception is "all" with the option switched off: there is no item
+  // and no label for a mode the control was told this page does not have.
+  const active = value ?? url.scope;
+  const scope: Scope = active === "all" && !allowAll ? "ns" : active;
   const setScope = onChange ?? url.setScope;
   const electionLabel = selected?.replace(/_/g, "-");
 
