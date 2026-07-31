@@ -6,8 +6,9 @@ the same filter row, the same reactive KPI strip, the same columns — scoped to
 "every buyer seated in this settlement" instead of one EIK, and time-bounded by
 the shared `?pscope` control instead of the company page's bespoke `?year`.
 
-Status: **plan only, nothing implemented.** Audited against the tree on
-2026-07-30 — §0 records what that audit changed.
+Status: **IMPLEMENTED** 2026-07-30/31, in eight commits (steps 1 → 8; steps 9 and 10
+landed early, inside steps 3 and 5). §6 records the measured result, including one
+regression the work introduced. §0 records what the pre-implementation audit changed.
 
 ---
 
@@ -238,7 +239,7 @@ contracts table takes over what `topContracts` was for. Changes:
   `procurement-settlement` route already accept them
   (`procurement_settlement_detail(p_ekatte, p_from, p_to)`,
   `functions/db_routes.js:785`) — the hook simply never sends them. Making the hook
-  scope-aware is a client change only: no migration, and it is *faster*
+  scope-aware is a client change only: no migration, and it is _faster_
   (283 → 128 ms, §1.4).
 - **`useSettlementProcurement`'s React Query key must include the scope key.**
   Today it is `["procurement","settlement_detail",ekatte]`; without the scope in
@@ -254,7 +255,7 @@ contracts table takes over what `topContracts` was for. Changes:
 ⚠ **CORRECTED after implementation.** This plan claimed `procurement_settlement_detail`
 has three dependent matviews. It does not — `pg_depend` shows all three
 (`procurement_by_settlement_cache`, `procurement_settlement_rank`,
-`procurement_geo_payloads`) hang off `procurement_by_settlement`, the *list* function, and
+`procurement_geo_payloads`) hang off `procurement_by_settlement`, the _list_ function, and
 030 already `DROP FUNCTION`s the detail one outright on every load. The detail function is
 freely changeable; it is the LIST function that is fragile.
 
@@ -566,7 +567,72 @@ the 6.6 s blob", and the number to watch is the ~290 ms search.
 
 ---
 
-## 5. Follow-ups this surfaced (each its own ticket)
+## 6. Measured after implementation (2026-07-31)
+
+Re-measured on the same page (София, EKATTE 68134) with the same method as §1.1.
+Local dev server, warm.
+
+### 6.1 First load
+
+|                             | Before               | After                                         |
+| --------------------------- | -------------------- | --------------------------------------------- |
+| Requests (data)             | 4                    | 9                                             |
+| **Page-specific payload**   | **87 KB** (one blob) | **31 KB** settlement + 45 KB first table page |
+| Settlement endpoint         | 87 KB / 248 ms       | **31 KB** / 241 ms                            |
+| Tiles (My-Area, settlement) | 87 KB                | **2.9 KB** (`?slim=1`)                        |
+| Total transferred           | 178 KB               | **534 KB** ⚠                                 |
+
+**The total went UP, and the cause is worth naming rather than burying.**
+`/api/db/cpv-catalog` is **355 KB** — two thirds of the new page weight, and more than
+the entire page cost before. It arrived with `CpvFilterCombobox`, which §3.2 chose over
+the company page's plain `<Select>` because a settlement's CPV spread is wide. That was
+the right control and the wrong bill: the company contracts page does not pay it (170 KB
+total), so this page is now the most expensive of the three contracts browsers on first
+load despite carrying the least page-specific data.
+
+Everything this plan set out to shrink did shrink — the settlement blob by 64%, the
+tiles by 30×. The regression is one shared component's eager fetch, and it is a
+payload-diet problem, not a settlement one: the catalogue is needed only when the CPV
+filter is OPENED. Logged as a follow-up (§7.6) rather than fixed here, because
+`CpvFilterCombobox` is shared with the global contracts and tenders browsers and making
+it lazy is their change too.
+
+### 6.2 Interaction envelope
+
+The acceptance criterion from §4 was "no interaction regresses against the 6.6 s blob".
+Met with room to spare — and the default scope, which is what a reader actually lands on,
+is the fast one:
+
+| Interaction (София)         | `?pscope=ns` (default) | `?pscope=all` (opt-in) |
+| --------------------------- | ---------------------- | ---------------------- |
+| First page, `date` desc     | **33 ms**              | 26 ms                  |
+| Sort `amount_eur`           | —                      | **21 ms**              |
+| Sort `contractor_name`      | **36 ms**              | 201 ms                 |
+| Sort `risk_cri`             | —                      | 191 ms                 |
+| Free-text search ("ремонт") | **127 ms**             | **475 ms** ⚠          |
+
+The corpus-wide search is the one number above the §1.4 projection (289 ms measured
+pre-implementation against an EIK-set filter; 475 ms now against the semi-join, on a
+corpus that has also been reloaded since). Still 14× better than the 6.6 s it replaces,
+and 127 ms on the scope readers get by default.
+
+### 6.3 What reconciles
+
+The point of the whole exercise: the KPI/buyers half and the contracts table now count
+the same contracts, verified live rather than argued.
+
+| Scope    | Buyers card | Table footer     | Endpoint                |
+| -------- | ----------- | ---------------- | ----------------------- |
+| `ns`     | 56 buyers   | 608 contracts    | 608 / €104,721,397      |
+| `y:2024` | 76 buyers   | 1 614 contracts  | 1 614 / €309,302,877    |
+| `all`    | 112 buyers  | 15 079 contracts | 15 079 / €3,622,680,723 |
+
+Under `y:2024` the newest row in the table is dated **2024-12-31** — the live proof that
+the inclusive table bound stops exactly where the half-open endpoint does (§3.1a).
+
+---
+
+## 7. Follow-ups this surfaced (each its own ticket)
 
 1. ~~`/api/db/*` is served uncompressed and uncached~~ — **owned by
    payload-diet T0**, which measured it across nine routes (5.28 MB → 0.94 MB)
@@ -587,9 +653,13 @@ the 6.6 s blob", and the number to watch is the ~290 ms search.
    `contract_risk_cache` entry and therefore no masks — so the payload survives
    on `/procurement/tender/*` until a per-tender risk index exists. Nothing this
    plan touches is on that path.
-4. **Cold-start 500 on `/api/db/procurement-settlement`** (§1.1) — reproduced
+4. **`cpv-catalog` is 355 KB, fetched eagerly** (§6.1) — the single largest item on this
+   page and on `/procurement/contracts`. `CpvFilterCombobox` needs it only when the
+   dropdown is opened; making the fetch lazy would cut this page's first load by roughly
+   two thirds. Shared with the tenders browser, so it is that plan's shape, not this one's.
+5. **Cold-start 500 on `/api/db/procurement-settlement`** (§1.1) — reproduced
    once at 20.5 s; likely a statement timeout on a cold Cloud SQL connection.
-5. **Migration 030's window predicates are the non-sargable
+6. **Migration 030's window predicates are the non-sargable
    `(p_from IS NULL OR date >= p_from)` shape.** It measures fine today
    (128 ms windowed), but now that windowed calls become the default path rather
    than dead code, it is worth a COALESCE-bounds pass per the PG playbook.
