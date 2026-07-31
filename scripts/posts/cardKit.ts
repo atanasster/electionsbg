@@ -6,8 +6,14 @@
  * Used by the `naiasno-post` skill via scripts/posts/post_tool.ts.
  */
 import { createCanvas, type SKRSContext2D } from "@napi-rs/canvas";
+import { readdirSync, readFileSync } from "node:fs";
+import { resolve as pathResolve } from "node:path";
+import { geoMercator, geoPath } from "d3-geo";
 
 type Ctx = SKRSContext2D;
+
+/** d3-geo's own GeoJSON typings, kept local so cardKit needn't import them. */
+type GeoJSONFeatureLike = Parameters<ReturnType<typeof geoPath>>[0];
 
 export const FONT =
   '"Inter", system-ui, -apple-system, "Helvetica Neue", "Segoe UI", "Roboto", "DejaVu Sans", sans-serif';
@@ -473,6 +479,239 @@ export const renderAnnounceCard = (spec: AnnounceCardSpec): Buffer => {
   ctx.moveTo(S - 104, 970);
   ctx.lineTo(S - 80, 985);
   ctx.lineTo(S - 104, 1000);
+  ctx.closePath();
+  ctx.fill();
+
+  return canvas.toBuffer("image/png");
+};
+
+export type MapPoint = {
+  lon: number;
+  lat: number;
+  /** Drawn beside the dot. Only honoured for a `highlight` point. */
+  label?: string;
+  /** Larger, ringed and labelled — the one place the post is about. */
+  highlight?: boolean;
+};
+
+export type MapCardSpec = {
+  kicker?: string;
+  title: string; // the claim, 1-2 lines (auto-wrapped)
+  points: MapPoint[];
+  /**
+   * Base-map polygons. Callers pass `loadBulgariaGeo()`; kept a parameter so
+   * the renderer stays pure and testable with a stub outline.
+   */
+  geo?: GeoFeature[];
+  legend?: string; // one muted line under the map, e.g. "всяка точка = едно селище"
+  footnote?: string;
+  source: string;
+  cta?: string;
+  theme?: Theme;
+};
+
+/** The slice of GeoJSON the base map needs — polygons only, no properties. */
+export type GeoFeature = {
+  type: "Feature";
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: number[][][] | number[][][][];
+  };
+};
+
+/**
+ * Municipality polygons for the 31 real oblasts, from `data/maps/regions/`.
+ * `32.json` is the admin synthetic holding the abroad "continents" — excluded,
+ * or the projection would fit Bulgaria plus Oceania into the frame.
+ */
+export const loadBulgariaGeo = (rootDir: string): GeoFeature[] => {
+  const dir = pathResolve(rootDir, "data/maps/regions");
+  const out: GeoFeature[] = [];
+  for (const file of readdirSync(dir)) {
+    if (!file.endsWith(".json") || file === "32.json") continue;
+    const fc = JSON.parse(readFileSync(pathResolve(dir, file), "utf8")) as {
+      features: GeoFeature[];
+    };
+    out.push(...fc.features);
+  }
+  return out;
+};
+
+/**
+ * 1080×1080 dot-map infographic: a muted Bulgaria built from municipality
+ * polygons, with one dot per place and an optional highlighted, labelled one.
+ * Use when the STORY is the geography (how few places, how they cluster) —
+ * a bar chart of the same rows would lose exactly that.
+ */
+export const renderMapCard = (spec: MapCardSpec): Buffer => {
+  const S = 1080;
+  const pal = THEME[spec.theme ?? "dark"];
+  const canvas = createCanvas(S, S);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, S);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+
+  drawWordmark(ctx, 80, 120, 52, pal);
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+
+  let y = 210;
+  if (spec.kicker) {
+    ctx.fillStyle = pal.accent;
+    ctx.font = `700 30px ${FONT}`;
+    ctx.fillText(spec.kicker.toUpperCase(), 80, y);
+    y += 58;
+  }
+
+  let tSize = 60;
+  let tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  while (tLines.length > 2 && tSize > 40) {
+    tSize -= 4;
+    tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  }
+  ctx.fillStyle = pal.text;
+  for (const line of tLines) {
+    ctx.font = `800 ${tSize}px ${FONT}`;
+    ctx.fillText(line, 80, y);
+    y += tSize * 1.2;
+  }
+
+  // Footer laid out bottom-up, as in renderBarCard: the source line is
+  // anchored and the footnote/legend stack above it, so a wrapping footnote
+  // shrinks the map instead of overrunning the source.
+  const SOURCE_Y = 1030;
+  const FOOT_LINE_H = 34;
+  const footLines = spec.footnote
+    ? wrapText(ctx, spec.footnote, 500, 26, S - 160)
+    : [];
+  const footBottom = SOURCE_Y - 44;
+  const footTop = footBottom - (footLines.length - 1) * FOOT_LINE_H;
+  const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
+  const legendY = spec.legend ? ruleY - 26 : ruleY;
+
+  // ---- base map ----
+  const mapTop = y + 24;
+  const mapBottom = legendY - 40;
+  const avail = mapBottom - mapTop;
+  if (avail < 260)
+    throw new Error(
+      `renderMapCard: map area ${avail.toFixed(0)}px is too short (need >= 260) — shorten the title or footnote`,
+    );
+
+  const features = spec.geo ?? [];
+  const collection = {
+    type: "FeatureCollection" as const,
+    features: features as unknown as GeoJSONFeatureLike[],
+  };
+  const projection = geoMercator().fitExtent(
+    [
+      [80, mapTop],
+      [S - 80, mapTop + avail],
+    ],
+    collection as never,
+  );
+  const path = geoPath(projection, ctx as never);
+
+  // Municipality fills read as one landmass with hairline internal borders —
+  // enough shape to recognise Bulgaria without competing with the dots.
+  //
+  // Borders are skipped on polygons too small to hold one: Sofia-city's 24
+  // rayons project to a few px each, and at 1px stroke they collapse into a
+  // scribble in the middle of the country that reads as a rendering defect.
+  // They still get filled, so the landmass stays whole with no hole punched
+  // where the capital is.
+  const MIN_STROKE_AREA = 400; // px², i.e. roughly 20×20
+  ctx.fillStyle = pal.rule;
+  ctx.strokeStyle = pal.bg2;
+  ctx.lineWidth = 1;
+  for (const f of features) {
+    const [[x0, y0], [x1, y1]] = path.bounds(f as never);
+    ctx.beginPath();
+    path(f as never);
+    ctx.fill();
+    if ((x1 - x0) * (y1 - y0) >= MIN_STROKE_AREA) ctx.stroke();
+  }
+
+  // ---- dots ----
+  const plain = spec.points.filter((p) => !p.highlight);
+  const marked = spec.points.filter((p) => p.highlight);
+
+  ctx.fillStyle = pal.text;
+  for (const p of plain) {
+    const xy = projection([p.lon, p.lat]);
+    if (!xy) continue;
+    ctx.beginPath();
+    ctx.arc(xy[0], xy[1], 7, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  for (const p of marked) {
+    const xy = projection([p.lon, p.lat]);
+    if (!xy) continue;
+    const [px, py] = xy;
+    ctx.strokeStyle = pal.accent;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(px, py, 26, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = pal.accent;
+    ctx.beginPath();
+    ctx.arc(px, py, 12, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (!p.label) continue;
+    // Label flips to the left near the right edge so it never runs off-card.
+    ctx.font = `700 34px ${FONT}`;
+    const lw = ctx.measureText(p.label).width;
+    const right = px + 44 + lw <= S - 80;
+    ctx.textAlign = right ? "left" : "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(p.label, right ? px + 44 : px - 44, py);
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+  }
+
+  if (spec.legend) {
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 27px ${FONT}`;
+    ctx.fillText(spec.legend, 80, legendY);
+  }
+
+  if (footLines.length) {
+    ctx.strokeStyle = pal.rule;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(80, ruleY);
+    ctx.lineTo(S - 80, ruleY);
+    ctx.stroke();
+
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 26px ${FONT}`;
+    let fy = footTop;
+    for (const line of footLines) {
+      ctx.fillText(line, 80, fy);
+      fy += FOOT_LINE_H;
+    }
+  }
+
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 28px ${FONT}`;
+  ctx.textAlign = "left";
+  ctx.fillText(spec.source, 80, SOURCE_Y);
+
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `600 28px ${FONT}`;
+  ctx.fillText(spec.cta ?? "виж разбивката", S - 108, 1030);
+  ctx.beginPath();
+  ctx.moveTo(S - 94, 1014);
+  ctx.lineTo(S - 74, 1027);
+  ctx.lineTo(S - 94, 1040);
   ctx.closePath();
   ctx.fill();
 
