@@ -135,8 +135,12 @@ Measured end to end, local warm, on the exact `UNION ALL` shape §3.1 ships:
 |---|---|---|---|
 | `overview` only, 30 scopes | 30 | 837 kB | 3.7 s |
 | `flow` only, 30 scopes | 30 | 3.46 MB (max row 446 kB) | 3.5 s |
-| **All six kinds × 30 scopes** | **180** | **26 MB** (max row 988 kB) | **13.1 s** |
+| **All six kinds × 30 scopes** | **180** | **26 MB** jsonb → **7.6 MB on disk** | **13.1 s** (plain `REFRESH` 10.9 s) |
 | **NULL payloads** | | | **0 of 180** |
+
+(The two size figures are different measures, not a discrepancy: 26 MB is `pg_column_size` of
+the payloads, 7.6 MB is `pg_total_relation_size` after TOAST compression. The second is the
+operationally meaningful one.)
 
 For comparison, the precomputes already on this path: 119 ~12 s, 122 ~20 s, 123 ~9.3 s /
 22 MB. The whole six-kind family costs **13.1 s and 26 MB** — in line with a single one of
@@ -152,11 +156,11 @@ settlement has no seated buyer" from "this scope was never built".
 | | Two (`overview`, `flow`) | Six (the family) |
 |---|---|---|
 | Build | ~7.2 s | 13.1 s |
-| Size | 4.3 MB | 26 MB |
+| Size on disk | ~1.3 MB | 7.6 MB |
 | Code paths | one shared helper | **the same one shared helper** |
 | Routes still able to 500 | 4 | 0 |
 
-The marginal cost of the four extra kinds is ~6 s of loader time and 22 MB. The marginal
+The marginal cost of the four extra kinds is ~6 s of loader time and ~6 MB. The marginal
 code is four more strings in a `UNION ALL` and four one-line route changes, because §3.2's
 helper is shared. Recommended: **six.** Shipping two leaves
 `procurement_concentration` — the heaviest of the set — uncached, which is the state that
@@ -291,10 +295,21 @@ Conventions inherited from 119/122/123, each for the reason those files state:
 `kind` is `text` rather than an enum so that adding a seventh function is a one-line change
 here and one line in §3.3's `KIND` map, with no type migration.
 
-**Inputs: `contracts` only.** None of the six functions reads `awarder_seats` or `place_dim`,
-so in `SCOPED_MATVIEWS` terms this is `inputs: ["contracts"]` — the same narrow declaration
-`contractor_rank` carries, and for the same reason. A seats or place reload must **not**
-rebuild it; that is 22 MB of pointless work on an input it cannot see.
+**Inputs: `contracts` and `awarder_seats`.** Five of the six functions read only `contracts`
+(plus `company_politicians` / `tr_companies`, which have no `ScopedInput`).
+**`procurement_concentration` is the exception** — it resolves each row's `oblast` from
+`awarder_seats` ([026 line 62](scripts/db/schema/pg/026_procurement_concentration.sql:62)),
+and 87% of the 2,755 rows in the `all` scope carry one. Declaring `contracts` alone would mean
+a standalone `db:load:awarder-seats:pg` never refreshes this matview and
+`/procurement/concentration` serves the previous seat attribution at a 200.
+
+`place_dim` is genuinely absent from all six, so unlike 123 a place reload must **not** rebuild
+it.
+
+**No existing gate catches a mis-declared `inputs`** — the exhaustiveness assertion in
+`procurement_settlement_payloads.data.test.ts` checks only that a matview is *present* in
+`SCOPED_MATVIEWS`. Step 7 adds the check that the declared inputs match what the matview
+actually reads.
 
 ### 3.3 Route change — one shared helper, NULL-safe
 
@@ -424,8 +439,19 @@ by an existing gate rather than by a stale page.
 |---|---|---|
 | Scopes change (new election, January rollover) | `db:load:procurement-scopes:pg` | A new `ns:`/`y:` window needs its six rows |
 | Contracts reload | `db:load:pg` | Already re-REFRESHes the five; 124 joins that guarded block |
+| `awarder_seats` reload | `db:load:awarder-seats:pg` | It supplies `concentration`'s `oblast` — see §3.2 |
 | Cloud | `db:load:procurement-scopes:pg:cloud` | Nothing on the cloud side is automatic |
-| `awarder_seats` / `place_dim` reload | — | **Deliberately not a trigger.** Neither is an input. |
+| `place_dim` reload | — | **Deliberately not a trigger.** Not an input to any of the six. |
+
+**One more consequence of 124 existing, and it blocks every contracts load if missed.** A
+matview over a function makes `DROP FUNCTION` fail outright (`cannot drop function … because
+other objects depend on it`), and `load_pg` re-applies all six function files on every
+contracts reload. Four of them (025, 026, 027, 031) opened with `DROP FUNCTION IF EXISTS`, so
+adding 124 would have aborted `db:load:pg` on any database that had it. Those four now use
+`CREATE OR REPLACE` alone, with the reasoning
+[030](scripts/db/schema/pg/030_procurement_by_settlement.sql:16) already established for the
+same situation. Note the fix is *not* to drop 124 in those files: `load_pg` applies them but
+not 124, so that would wipe the precompute on every contracts load.
 
 Expect the scopes loader to go from ~40 s to ~53 s locally. **Cloud SQL is unmeasured and
 will be materially slower** — 123's 9.3 s local build took 75 s on Cloud SQL, a factor of 8.
@@ -443,7 +469,7 @@ Budget for minutes, and record the real number on the first run.
 | 4 | Wire into `SCOPED_MATVIEWS`, the scopes loader's apply list, and `load_pg`'s guarded refresh block | `scripts/db/lib/scopedMatviews.ts`, `scripts/db/load_procurement_scopes_pg.ts`, `scripts/db/load_pg.ts` |
 | 5 | Route: the shared `scopedPayload` helper + the six call sites (§3.3) | `functions/db_routes.js` |
 | 6 | Route tests — **no-window request HITS**, `ns:` window hits, non-scope window falls back, matview-absent falls back | `functions/db_routes.procurement.test.js` |
-| 7 | Data test: 180 rows, 0 NULL payloads, stored == live across all three scope kinds, `SCOPED_MATVIEWS` exhaustive | `scripts/db/tests/procurement_payloads.data.test.ts` |
+| 7 | Data test: 180 rows, 0 NULL payloads, stored == live across all three scope kinds (**plan-pinned or ±1-tolerant — see §3.2**), the `concentration` payload's stored `oblast` still matches `awarder_seats`, and the declared `inputs` cover what the matview actually reads | `scripts/db/tests/procurement_payloads.data.test.ts` |
 | 8 | CLAUDE.md: 124 in the cloud-loader list, alongside 119/122/123 | `CLAUDE.md` |
 | 9 | Deploy: `db:load:procurement-scopes:pg:cloud` → `deploy:db`; re-measure prod | — |
 | 10 | **After acceptance only** — retire 025/031's caches (§3.4): drop the route reads, the matviews, and their `load_pg` REFRESHes | `functions/db_routes.js`, `scripts/db/schema/pg/025_*.sql`, `031_*.sql`, `scripts/db/load_pg.ts` |

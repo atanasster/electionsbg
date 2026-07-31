@@ -13,10 +13,18 @@
 
 SET check_function_bodies = off;
 
--- Drop the dependent cache matview first so the function DROP doesn't fail on the
--- dependency (re-apply path); it's recreated at the file tail. Mirrors 033.
+-- Drop the dependent cache matview first (re-apply path); it's recreated at the file tail.
+-- Mirrors 033. This one is safe to drop here because THIS file owns it and recreates it.
 DROP MATERIALIZED VIEW IF EXISTS procurement_overview_cache;
-DROP FUNCTION IF EXISTS procurement_overview(text, text);
+-- The FUNCTION is NOT dropped before the CREATE, deliberately — same rule as 030. It now has
+-- a second dependent, procurement_payloads (124), which this file does NOT own and must not
+-- destroy: load_pg applies THIS file but not 124, so dropping it here would wipe the
+-- precompute on every contracts load and leave it gone until someone ran the scopes loader.
+-- And DROP FUNCTION fails outright once anything depends on it ("cannot drop function …
+-- because other objects depend on it"), aborting the transaction and every statement after
+-- this point — on every db:load:pg run. CREATE OR REPLACE is sufficient while the SIGNATURE
+-- and RETURN TYPE are unchanged, and leaves 124 pointing at the new body. If either ever
+-- changes, drop 124 in the same statement here and let its own migration recreate it.
 CREATE OR REPLACE FUNCTION procurement_overview(
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL

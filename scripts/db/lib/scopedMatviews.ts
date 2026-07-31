@@ -54,6 +54,20 @@ export const SCOPED_MATVIEWS = [
     name: "procurement_settlement_payloads",
     inputs: ["contracts", "awarder_seats", "place_dim"],
   },
+  // 124 — the six procurement DASHBOARD payloads behind /api/db/procurement-{overview,flow,
+  // rankings,concentration,sectors,benchmarks}. Independent of everything above (it unnests
+  // 025/026/027/031/036/037, none of which any other entry reads), so its position is free.
+  //
+  // awarder_seats IS an input, and only because of ONE of the six: procurement_concentration
+  // resolves each row's `oblast` from it (026 line 62; 87% of the `all` scope's 2,755 rows
+  // carry one). The other five read contracts plus company_politicians / tr_companies, which
+  // have no ScopedInput. Declaring contracts alone would let a standalone seats reload leave
+  // /procurement/concentration serving the previous attribution at a 200 — the exact failure
+  // this module's header describes. place_dim is genuinely absent from all six.
+  {
+    name: "procurement_payloads",
+    inputs: ["contracts", "awarder_seats"],
+  },
 ] as const satisfies readonly {
   name: string;
   inputs: readonly ScopedInput[];

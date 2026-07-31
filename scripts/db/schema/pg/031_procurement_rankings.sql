@@ -13,9 +13,12 @@
 
 SET check_function_bodies = off;
 
--- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033.
+-- Drop the dependent cache matview first (re-apply path); recreated at tail. See 033. Safe
+-- to drop here because THIS file owns it and recreates it.
 DROP MATERIALIZED VIEW IF EXISTS procurement_rankings_cache;
-DROP FUNCTION IF EXISTS procurement_rankings(text, text);
+-- The FUNCTION is NOT dropped before the CREATE — same rule as 030 and 025. procurement_payloads
+-- (124) also depends on it, this file does not own that matview, and load_pg applies THIS file
+-- but not 124. See 025's note for the full reasoning.
 CREATE OR REPLACE FUNCTION procurement_rankings(
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL

@@ -9,7 +9,12 @@
 
 SET check_function_bodies = off;
 
-DROP FUNCTION IF EXISTS procurement_concentration(text, text);
+-- NOT dropped before the CREATE — same rule as 030 and 025. procurement_payloads (124) is a
+-- matview OVER this function, so DROP FUNCTION fails outright ("cannot drop function … because
+-- other objects depend on it") and aborts the transaction, on every db:load:pg run. Nor may
+-- this file drop 124 instead: load_pg applies THIS file but not 124, so that would wipe the
+-- precompute on every contracts load. CREATE OR REPLACE is sufficient while the SIGNATURE and
+-- RETURN TYPE are unchanged; if either changes, drop 124 here and let its migration recreate it.
 CREATE OR REPLACE FUNCTION procurement_concentration(
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL

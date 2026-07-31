@@ -11,7 +11,10 @@
 
 SET check_function_bodies = off;
 
-DROP FUNCTION IF EXISTS procurement_flow(text, text);
+-- NOT dropped before the CREATE — same rule as 030 and 025. procurement_payloads (124) is a
+-- matview OVER this function, so DROP FUNCTION fails outright and aborts the transaction on
+-- every db:load:pg run; and this file must not drop 124 instead, because load_pg applies THIS
+-- file but not 124. See 026's note for the full reasoning.
 CREATE OR REPLACE FUNCTION procurement_flow(
   p_from text DEFAULT NULL,
   p_to text DEFAULT NULL
@@ -70,9 +73,18 @@ n_pol AS (
 )
 SELECT jsonb_build_object(
   'generatedAt', '',
+  -- ORDER BY on both aggregates: without it the graph's shape is whatever order the plan
+  -- happened to emit, so the SAME data serialises differently under a parallel or
+  -- non-hashagg plan. That was tolerable while this ran live per request; it is not now that
+  -- 124 STORES the result, because a stored payload that cannot be compared to a freshly
+  -- computed one gives its data gate nothing to assert. The keys chosen are unique, so the
+  -- order is total: `id` is DISTINCT/GROUP BY'd in all three node CTEs, and (source, target)
+  -- is unique per link — the two branches cannot collide, their sources carry different
+  -- prefixes. Same determinism convention as 119/122/123: a rounded sort key with a
+  -- tiebreak that cannot tie.
   'nodes', (
     SELECT COALESCE(jsonb_agg(jsonb_build_object(
-      'id', id, 'type', type, 'label', label)), '[]'::jsonb)
+      'id', id, 'type', type, 'label', label) ORDER BY type, id), '[]'::jsonb)
     FROM (
       SELECT id, type, label FROM n_aw
       UNION ALL SELECT id, type, label FROM n_ct
@@ -80,17 +92,20 @@ SELECT jsonb_build_object(
     ) nodes
   ),
   'links', (
-    SELECT COALESCE(jsonb_agg(l), '[]'::jsonb) FROM (
+    SELECT COALESCE(jsonb_agg(l ORDER BY v DESC, src, tgt), '[]'::jsonb) FROM (
       SELECT jsonb_build_object(
         'source', 'awarder:' || awarder_eik,
         'target', 'contractor:' || contractor_eik,
-        'valueEur', ROUND(eur)) AS l
+        'valueEur', ROUND(eur)) AS l,
+        ROUND(eur) AS v, 'awarder:' || awarder_eik AS src,
+        'contractor:' || contractor_eik AS tgt
       FROM ac
       UNION ALL
       SELECT jsonb_build_object(
         'source', 'contractor:' || contractor_eik,
         'target', pid,
-        'valueEur', ROUND(eur)) AS l
+        'valueEur', ROUND(eur)) AS l,
+        ROUND(eur) AS v, 'contractor:' || contractor_eik AS src, pid AS tgt
       FROM cp
     ) links
   )
