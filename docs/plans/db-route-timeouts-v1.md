@@ -623,3 +623,86 @@ recording rather than leaving in a log nobody reads again:
   daily prices loader's TRUNCATE+COPY. `lock_timeout` is converting a stall into a fast 500,
   which is the guard working; the fix is on the loader side (the staging-swap pattern in
   `reference_contracts_reload_lock`).
+
+### 9.2 The latency in §9.1 was misread — corrected 2026-07-31
+
+The **conclusion** in §9.1 was right (a writer's lock, fix it loader-side) but the **evidence**
+was not, in a way that matters for attributing any future wave of 500s.
+
+`lock_timeout: 2000` did not exist until **2026-07-31 08:44** (commit `3b4e804f06`, shipped
+with migration 123). So no 500 before that timestamp can have been a `lock_timeout`, and the
+price-route 500s on 07-27…07-30 were **not** at ~2.0 s. Re-read from the same log source, every
+one of them is at ~10.0 s — the `statement_timeout`. The lock wait was real; it was simply
+being paid at the 10 s ceiling instead of the 2 s one.
+
+That flips the reading of the whole 3-day window, because the two symptoms are **one defect
+observed either side of a config change**:
+
+| symptom | when | what it means |
+| --- | --- | --- |
+| 500 at ~10.0 s | before 07-31 08:44 | reader waited out the full statement budget |
+| 500 at ~2.0 s | after 07-31 08:44 | same wait, now cut short by `lock_timeout` |
+
+Two consequences for reading these logs:
+
+- **A count of "~2 s 500s" is a count of hours since 07-31 08:44, not a measure of severity.**
+  Comparing it against a pre-07-31 day understates the older damage roughly 5×.
+- **A ~10 s 500 is ambiguous** — a lock wait and a genuinely slow query look identical. Cluster
+  shape separates them: lock waits arrive in tight bursts around a loader run (price-history's
+  are inside two ~30-minute windows), slow queries are spread across the day.
+
+Measured over 2026-07-28…07-31 (499 × 500), the window contains **four unrelated defects**, not
+one:
+
+| n | class | cause | state |
+| --- | --- | --- | --- |
+| 256 | `statement_timeout` ~10 s | mostly this plan's own targets + lock waits paid at 10 s | **fixed** — none after 07-30T23:14 |
+| 115 | `lock_timeout` ~2 s | writer-side TRUNCATE+COPY (below) | person half fixed 07-31; rest tracked |
+| 70 | instant, <10 ms | `table?resource=contracts` with `awarder_ekatte` present but empty → `required filter received no value` thrown as a 500 | **open** — a 400, not a 500; unrelated to locks |
+| 30 | `statement_timeout` ~10 s | `procurement-settlement` falling through 123's precompute to the live `procurement_settlement_detail()` for the largest settlements (68134 Sofia, 10135) | **open** — and no `psp:not-built` was logged, so the matview is present and the miss is per-ekatte, not an unbuilt cloud loader |
+
+### 9.3 The person-layer writer — found and fixed
+
+Not `db:resolve:persons` as first supposed: that rebuild uses `DELETE`, which takes only
+RowExclusiveLock and never blocks a reader. The culprit was
+**`load_person_elections_pg.ts`**, which did `TRUNCATE candidate_person, person_election_stats`
+inside the transaction that then COPY-loaded 67k + 67k rows and ran a translit pass over one of
+them — an AccessExclusiveLock held for the whole ~36 s rebuild.
+
+It 500'd **four** routes at once because `person_election_stats` is read by `person_by_slug`
+(082) *and* by `person_connections` (084), not just by the obvious `person-elections`:
+26 person-elections + 24 person-connections + 16 candidate-person at ~2.0 s, in two clusters
+(19:08 and 20:58–21:01 UTC), each slug retried twice.
+
+Fixed with the stage merge (`scripts/db/lib/stage_merge.ts`). Both tables have natural composite
+PKs, so the merge keys are the tables' own identity. Verified against local Postgres:
+
+- same corpus — 67,065 / 66,999 rows, translit fold applied, both stage twins dropped;
+- **1,246 concurrent reads during a full loader run, 0 failures**, against a probe set to the
+  serving pool's own `lock_timeout=2s` / `statement_timeout=10s`;
+- the probe **discriminates**: replaying the old pattern (a held `TRUNCATE` on the two tables)
+  under the same probe produces 7 failures with the exact production error,
+  `canceling statement due to lock timeout`.
+
+`scripts/db/tests/person_reload_locks.data.test.ts` locks this in. It derives the person serving
+surface from the SQL function bodies rather than a hardcoded list, so a route that *starts*
+reading a TRUNCATEd table trips it too.
+
+**Writing that gate found six more instances** that a hand-audit had missed — `judicial_body`,
+`cabinets`, `place_dim`, `fund_projects`, `mp_car`, and (via an extractor bug where
+`RESTART IDENTITY CASCADE` swallowed the last table name) `declaration_event`. Three are
+reasoned exemptions on tiny tables (18 / 283 / 5.7k rows, all sub-second, all operator-run) and
+now say so at the call site; the gate fails an "accepted" entry whose loader does not explain
+itself, so the exemption cannot quietly become the norm.
+
+Still on the old pattern, tracked in that test's `ALLOWED` map as `debt`:
+
+- `load_declarations_pg.ts` — `declaration` + 4 children. **The big one, and it needs a design
+  change first**: `declaration.declaration_id` is a `bigserial` reassigned on every load and all
+  four children key on it, so there is no stable merge key until the family is re-keyed on the
+  filing's `source_url` (which `recordIngestBatch` already treats as the stable identity). This
+  is what 500'd person-wealth / person-accumulation-gap / person-declaration-events /
+  person-declarations at ~2.0 s on 07-31.
+- `load_mp_roster_pg.ts` — `mp_profile`, `mp_car`.
+- `load_funds_pg.ts` — `fund_beneficiaries`, `fund_projects`.
+- `scripts/agri/ingest.ts` — `agri_subsidies`.

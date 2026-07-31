@@ -18,10 +18,55 @@
 import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, allRows, withClient, end } from "./lib/pg";
+import { exec, allRows, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import {
+  createStageTable,
+  addStagePrimaryKey,
+  mergeFromStage,
+  type StageMergeSpec,
+} from "./lib/stage_merge";
 import { candidacyRegions, type RegionRow } from "../person/candidateRegions";
 import { recordIngestBatch } from "./lib/ingest_changelog";
+
+// Non-blocking reload (scripts/db/lib/stage_merge.ts). BOTH of these tables sit on
+// the serving path — person_election_stats is read by person_by_slug (082) AND by
+// person_connections (084), so a TRUNCATE here blocked /api/db/person-profile,
+// person-elections, person-connections and candidate-person all at once. Measured
+// on prod 2026-07-31 (19:08 and 20:58-21:01 UTC): 66 x 500 at ~2.0 s across those
+// four routes, each slug retried twice. Natural composite PKs both, so the merge
+// keys are the table's own identity — no surrogate to reconcile.
+const CANDIDATE_PERSON_MERGE: StageMergeSpec = {
+  table: "candidate_person",
+  source: "candidate_person_stage",
+  keys: ["election_date", "candidate_slug"],
+  cols: [
+    "election_date",
+    "candidate_slug",
+    "candidate_name_fold",
+    "party_num",
+    "person_id",
+    "person_slug",
+  ],
+};
+
+const ELECTION_STATS_MERGE: StageMergeSpec = {
+  table: "person_election_stats",
+  source: "person_election_stats_stage",
+  keys: ["person_id", "election_date"],
+  cols: [
+    "person_id",
+    "election_date",
+    "party_num",
+    "party_nick",
+    "party_color",
+    "total_votes",
+    "regions",
+    "stats",
+    "top_settlements",
+    "top_sections",
+  ],
+};
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -203,45 +248,45 @@ const run = async (): Promise<void> => {
 
   const statsRows = [...statsByPersonElection.values()].map((v) => v.row);
 
+  // Build into UNLOGGED stage twins. Nothing reads them, so this phase — the COPY
+  // of every candidacy plus the translit pass, i.e. all of the wall clock — locks
+  // nothing on the serving path and the live tables keep answering the previous
+  // vintage throughout.
   await withClient(async (client) => {
-    await client.query("BEGIN");
-    await client.query("TRUNCATE candidate_person, person_election_stats");
+    await createStageTable(client, CANDIDATE_PERSON_MERGE);
+    await createStageTable(client, ELECTION_STATS_MERGE);
     await copyRows(
       client,
-      "candidate_person",
-      [
-        "election_date",
-        "candidate_slug",
-        "candidate_name_fold",
-        "party_num",
-        "person_id",
-        "person_slug",
-      ],
+      CANDIDATE_PERSON_MERGE.source,
+      CANDIDATE_PERSON_MERGE.cols,
       candidatePersonRows,
     );
     // Fold the raw display name in-place with the ONE normalizer, so the name-path lookup
     // (candidate_person_by_name → translit_bg_latin(query)) matches. Idempotent: translit of
-    // an already-latin string is a no-op.
+    // an already-latin string is a no-op. On the stage, so the live table never sees the
+    // pre-fold state even transiently.
     await client.query(
-      `UPDATE candidate_person SET candidate_name_fold = translit_bg_latin(candidate_name_fold)`,
+      `UPDATE ${CANDIDATE_PERSON_MERGE.source} SET candidate_name_fold = translit_bg_latin(candidate_name_fold)`,
     );
     await copyRows(
       client,
-      "person_election_stats",
-      [
-        "person_id",
-        "election_date",
-        "party_num",
-        "party_nick",
-        "party_color",
-        "total_votes",
-        "regions",
-        "stats",
-        "top_settlements",
-        "top_sections",
-      ],
+      ELECTION_STATS_MERGE.source,
+      ELECTION_STATS_MERGE.cols,
       statsRows,
     );
+    // Fails loudly on a duplicate candidacy/person-election key before anything
+    // touches the live tables — TRUNCATE+COPY used to get this from the live PK.
+    await addStagePrimaryKey(client, CANDIDATE_PERSON_MERGE);
+    await addStagePrimaryKey(client, ELECTION_STATS_MERGE);
+  });
+
+  // Flip. Upsert-changed + delete-absent take RowExclusiveLock, which does not
+  // conflict with the AccessShare a SELECT needs, so readers never block — and one
+  // transaction over both tables means candidate_person can never disagree with
+  // person_election_stats about which candidacies exist.
+  await withTx(async (client) => {
+    await mergeFromStage(client, CANDIDATE_PERSON_MERGE);
+    await mergeFromStage(client, ELECTION_STATS_MERGE);
     await recordIngestBatch(client, {
       source: "person_elections",
       table: "person_election_stats",
@@ -251,8 +296,9 @@ const run = async (): Promise<void> => {
       amountExpr: "NULL::double precision",
       rowsTotal: statsRows.length,
     });
-    await client.query("COMMIT");
   });
+  await exec(`DROP TABLE IF EXISTS ${CANDIDATE_PERSON_MERGE.source}`);
+  await exec(`DROP TABLE IF EXISTS ${ELECTION_STATS_MERGE.source}`);
 
   console.log(
     `person_elections: ${candidatePersonRows.length} candidate_person rows, ` +

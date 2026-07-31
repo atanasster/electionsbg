@@ -453,6 +453,12 @@ export const loadPg = async (): Promise<{
       }
     ).governments;
     await withTx(async (c) => {
+      // TRUNCATE takes an AccessExclusiveLock held to COMMIT, and `cabinets` is on
+      // the /person serving path (082 joins it for a role's cabinet). Acceptable
+      // ONLY because the table is ~18 rows — the whole reload is far under the
+      // serving pool's 2 s lock_timeout — and this loader is operator-run, never
+      // in a request. If cabinets ever grows or this starts running on a schedule,
+      // switch to a stage merge (scripts/db/lib/stage_merge.ts).
       await c.query("TRUNCATE cabinets");
       for (const g of govs)
         await c.query(
