@@ -12,7 +12,7 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, allRows, withClient, withTx, end } from "./lib/pg";
+import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
 import { shipTable, targetIsCloud } from "./lib/shipTable";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
@@ -26,6 +26,7 @@ import {
   INGEST_SUMMARY_THRESHOLD,
   upsertChangelogDay,
 } from "./lib/ingest_changelog";
+import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 import type { Contract } from "../procurement/types";
 
 const SCHEMA_DIR = path.join(
@@ -518,28 +519,18 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
-  // The PER-SCOPE by-settlement precomputes (119). They are created and refreshed by
-  // db:load:procurement-scopes:pg — which runs later in db:refresh, because they read
+  // The PER-SCOPE precomputes (119, 122, 123). They are created by
+  // db:load:procurement-scopes:pg, which runs later in db:refresh because they read
   // place_dim (117) and procurement_scopes (118), both loaded after this script. Refreshed
-  // AGAIN here, guarded on existence, so a contracts-only reload cannot leave the
-  // by-settlement page serving the previous corpus while every other view has moved on.
-  // Order matters for the last two: contractor_scope_kpis (122) reads contractor_rank,
-  // so the rank matview is refreshed first.
-  for (const mv of [
-    "procurement_settlement_rank",
-    "procurement_geo_payloads",
-    "contractor_rank",
-    "contractor_scope_kpis",
-  ]) {
-    const [{ present }] = await allRows<{ present: boolean }>(
-      `SELECT to_regclass($1) IS NOT NULL AS present`,
-      [mv],
-    );
-    if (!present) continue;
-    // CONCURRENTLY: all are on the serving path, and a plain REFRESH would hold an
-    // AccessExclusiveLock for the whole recompute.
-    await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
-  }
+  // here too, so a STANDALONE contracts reload cannot leave /procurement/by-settlement,
+  // /procurement/contractors or the settlement pages serving the previous corpus while
+  // every other view has moved on. Inside db:refresh this build is redundant — the scopes
+  // loader rebuilds all of them a few steps later, after the seats/place loaders — and that
+  // is the accepted price of the standalone case being correct.
+  //
+  // The list, its order and the refresh semantics live in lib/scopedMatviews, not here: a
+  // second copy is how a future migration ends up in one list and not the other.
+  await refreshScopedPrecomputes();
   // Cross-corpus leaderboard cache (077). Both source relations exist (015/016
   // applied above), so this refresh always succeeds; the intersection is empty
   // until funds are loaded, at which point load_funds_pg re-refreshes it. Must

@@ -17,6 +17,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { exec, withTx, end } from "./lib/pg";
+import { refreshScopedPrecomputes } from "./lib/scopedMatviews";
 import {
   allScopeWindows,
   type ElectionRef,
@@ -45,42 +46,13 @@ const CONTRACTORS = path.join(
   ROOT,
   "scripts/db/schema/pg/122_contractor_rank.sql",
 );
+// The per-scope per-settlement PAYLOADS (123). Same shape again — reads procurement_scopes
+// (118), awarder_seats and place_dim (117), all of which land before this loader runs.
+const SETTLEMENT_PAYLOADS = path.join(
+  ROOT,
+  "scripts/db/schema/pg/123_procurement_settlement_payloads.sql",
+);
 const ELECTIONS = path.join(ROOT, "src/data/json/elections.json");
-
-const SCOPED_MATVIEWS = [
-  "procurement_settlement_rank",
-  "procurement_geo_payloads",
-  // contractor_rank BEFORE contractor_scope_kpis: the KPI matview reads the rank
-  // matview, so it must see the freshly-refreshed rows.
-  "contractor_rank",
-  "contractor_scope_kpis",
-] as const;
-
-/** REFRESH the scoped precomputes, CONCURRENTLY where possible.
- *
- *  CONCURRENTLY because both sit on the /procurement/by-settlement serving path and a plain
- *  REFRESH holds an AccessExclusiveLock for the whole ~12 s recompute — it would stall the
- *  page rather than merely delay its data. It requires a populated matview and a unique
- *  index (119 creates both), so the first refresh after a CREATE falls back to the plain
- *  form. Cannot run inside a transaction, hence exec() rather than withTx(). */
-export const refreshScopedSettlement = async (): Promise<void> => {
-  for (const mv of SCOPED_MATVIEWS) {
-    try {
-      await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
-    } catch (err) {
-      // ONLY 0A000 (feature_not_supported) — Postgres raises it for "CONCURRENTLY cannot be
-      // used when the materialized view is not populated". 119 creates both WITH NO DATA,
-      // so the first refresh after an apply always lands here and must fall back to the
-      // plain form. (0A000, not the more intuitive 55000: verified against the server.)
-      //
-      // Narrow on purpose: a bare catch would swallow a lock timeout, a permissions error
-      // or a unique violation and then silently take the very AccessExclusiveLock the
-      // CONCURRENTLY form exists to avoid — turning a loud failure into a stalled page.
-      if ((err as { code?: string })?.code !== "0A000") throw err;
-      await exec(`REFRESH MATERIALIZED VIEW ${mv}`);
-    }
-  }
-};
 
 export const readScopeWindows = (nowYear: number): ScopeWindow[] => {
   const elections = JSON.parse(
@@ -122,7 +94,11 @@ const main = async (): Promise<void> => {
   // which reads as "this parliament awarded nothing" rather than as staleness.
   await exec(readFileSync(SCOPED, "utf8"));
   await exec(readFileSync(CONTRACTORS, "utf8"));
-  await refreshScopedSettlement();
+  await exec(readFileSync(SETTLEMENT_PAYLOADS, "utf8"));
+  // Every one of those files DROPs and recreates its matviews WITH NO DATA, so on THIS
+  // path the refresh always takes the plain form and says so — that is the normal state
+  // here, unlike at the other call sites (see lib/scopedMatviews).
+  await refreshScopedPrecomputes();
 
   console.log(
     `procurement_scopes: ${windows.length} window(s) ` +
