@@ -65,6 +65,13 @@ const NCF_RESULTS: ResultDef[] = [
 //   Мобилност                — .../Results_Mob_2025.pdf
 //   Превод/Адаптация         — .../Results_Translation_2025.pdf
 //   Любителско изкуство      — .../rezultati/final-LI-2025.pdf
+// Also NOT INCLUDED, for a stronger reason — "Целева подкрепа Творческа Европа"
+// 2026 (session 1, news post 714, .../results-2026/…session 1.pdf): that PDF is a
+// technical-committee ELIGIBILITY opinion (Входящ номер | Кандидат | Име на
+// проекта | становище) and carries no funding-amount column at all, so there is
+// no applied-vs-funded ratio to compute. It is not a класиране in this parser's
+// sense and should stay out even once a per-format parser exists for the five
+// above.
 
 const DISCIPLINE: Record<string, { bg: string; en: string }> = {
   music: { bg: "Музика", en: "Music" },

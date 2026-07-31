@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-30T14:40:54.797Z",
+  "lastSuccessfulIngest": "2026-07-31T16:34:03.346Z",
   "skill": "update-persons",
-  "summary": "db:resolve:persons: 58152 persons, 111934 roles (+31757 tr bridge-B), 21598 mention(s) keyed by the register person id (775 aliased to an MP id); 69228 aliases (75 dup folds collapsed); 3284 review group(s) over 12273 person(s); 0 slug(s) retired to a redirect; 0 dead slug(s) with no redirect; 0 human override(s) applied (0 merge, 0 fold-split, 0 ref-split). person-elections load runs separately."
+  "summary": "re-derived inside db:refresh after TR+contracts: 58,193 persons, 143,864 roles, 67,065 candidate links, 56,910 browse rows"
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T13:47:59.815Z",
+  "generatedAt": "2026-07-31T15:51:56.349Z",
   "total": 454,
   "officialCount": 445,
   "entries": [
@@ -10923,68 +10923,11 @@
       "name": "Таня Тодорова Митева-Каракаш",
       "tier": "executive",
       "role": "security_service",
-      "contractorEik": "030211525",
-      "contractorName": "Фродексим ООД - София",
-      "totalEur": 7832951.78,
-      "totalOther": {},
-      "contractCount": 6,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "stake",
-          "confidence": "high",
-          "shareSize": "50%",
-          "valueEur": 1278.23
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2011",
-          "contractCount": 3,
-          "totalEur": 790022.64,
-          "totalOther": {}
-        },
-        {
-          "year": "2012",
-          "contractCount": 3,
-          "totalEur": 7042929.14,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "104518621",
-          "name": "Енерго - Про Мрежи\" АД /старо наименование \"Е.ОН България мрежи\" АД /Старо наименование: Електроразпределение - Горна Оряховица АД/",
-          "contractCount": 1,
-          "totalEur": 7020037.53,
-          "totalOther": {}
-        },
-        {
-          "eik": "115552190",
-          "name": "ЕВН България Електроразпределение ЕАД /старо наименование-ЕВН България Електроразпределение АД - Пловдив /Старо наименование: Електроразпределение Пловдив АД/",
-          "contractCount": 4,
-          "totalEur": 797575.49,
-          "totalOther": {}
-        },
-        {
-          "eik": "130277958",
-          "name": "ЧЕЗ Разпределение България АД - /Старо наименование Електроразпределение - Столично АД/",
-          "contractCount": 1,
-          "totalEur": 15338.76,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "tanya-todorova-miteva-karakash-6e824b",
-      "name": "Таня Тодорова Митева-Каракаш",
-      "tier": "executive",
-      "role": "security_service",
       "contractorEik": "202084198",
       "contractorName": "Фродексим трейд ООД",
-      "totalEur": 7797155.82,
+      "totalEur": 7989755.82,
       "totalOther": {},
-      "contractCount": 47,
+      "contractCount": 49,
       "awardCount": 0,
       "relations": [
         {
@@ -11069,8 +11012,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 1,
-          "totalEur": 150115.3,
+          "contractCount": 3,
+          "totalEur": 342715.3,
           "totalOther": {}
         }
       ],
@@ -11078,15 +11021,15 @@
         {
           "eik": "115552190",
           "name": "Електроразпределение Юг ЕАД",
-          "contractCount": 18,
-          "totalEur": 2598528.25,
+          "contractCount": 19,
+          "totalEur": 2641128.25,
           "totalOther": {}
         },
         {
           "eik": "130277958",
           "name": "Електроразпределителни мрежи Запад ЕАД",
-          "contractCount": 11,
-          "totalEur": 2323294.83,
+          "contractCount": 12,
+          "totalEur": 2473294.83,
           "totalOther": {}
         },
         {
@@ -11108,6 +11051,63 @@
           "name": "ЕЛЕКТРОЕНЕРГИЕН СИСТЕМЕН ОПЕРАТОР ЕАД",
           "contractCount": 4,
           "totalEur": 563556.14,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "slug": "tanya-todorova-miteva-karakash-6e824b",
+      "name": "Таня Тодорова Митева-Каракаш",
+      "tier": "executive",
+      "role": "security_service",
+      "contractorEik": "030211525",
+      "contractorName": "Фродексим ООД - София",
+      "totalEur": 7832951.78,
+      "totalOther": {},
+      "contractCount": 6,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "50%",
+          "valueEur": 1278.23
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 3,
+          "totalEur": 790022.64,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 3,
+          "totalEur": 7042929.14,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "104518621",
+          "name": "Енерго - Про Мрежи\" АД /старо наименование \"Е.ОН България мрежи\" АД /Старо наименование: Електроразпределение - Горна Оряховица АД/",
+          "contractCount": 1,
+          "totalEur": 7020037.53,
+          "totalOther": {}
+        },
+        {
+          "eik": "115552190",
+          "name": "ЕВН България Електроразпределение ЕАД /старо наименование-ЕВН България Електроразпределение АД - Пловдив /Старо наименование: Електроразпределение Пловдив АД/",
+          "contractCount": 4,
+          "totalEur": 797575.49,
+          "totalOther": {}
+        },
+        {
+          "eik": "130277958",
+          "name": "ЧЕЗ Разпределение България АД - /Старо наименование Електроразпределение - Столично АД/",
+          "contractCount": 1,
+          "totalEur": 15338.76,
           "totalOther": {}
         }
       ]
@@ -17703,9 +17703,9 @@
       "role": "state_enterprise",
       "contractorEik": "000225011",
       "contractorName": "в и К ООД",
-      "totalEur": 1153158.15,
+      "totalEur": 1154358.15,
       "totalOther": {},
-      "contractCount": 49,
+      "contractCount": 50,
       "awardCount": 0,
       "relations": [
         {
@@ -17782,8 +17782,8 @@
         },
         {
           "year": "2026",
-          "contractCount": 4,
-          "totalEur": 401118,
+          "contractCount": 5,
+          "totalEur": 402318,
           "totalOther": {}
         }
       ],
@@ -18814,7 +18814,7 @@
       "role": "secretary_general",
       "contractorEik": "201883701",
       "contractorName": "Ен Екип ЕООД",
-      "totalEur": 877626.24,
+      "totalEur": 876560.37,
       "totalOther": {},
       "contractCount": 52,
       "awardCount": 0,
@@ -18860,7 +18860,7 @@
         {
           "year": "2025",
           "contractCount": 27,
-          "totalEur": 348541.52,
+          "totalEur": 347475.65,
           "totalOther": {}
         },
         {

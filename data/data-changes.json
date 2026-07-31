@@ -1,6 +1,61 @@
 {
-  "updatedAt": "2026-07-30T17:40:43.195Z",
+  "updatedAt": "2026-07-31T16:33:25.280Z",
   "entries": [
+    {
+      "timestamp": "2026-07-31T16:33:25.280Z",
+      "date": "2026-07-31",
+      "skill": "update-culture",
+      "summary": "Филмовият регистър на НФЦ и класиранията на НФК обновени — 944 филма, €94.9 млн., 2014–2025 г.",
+      "source": "НФЦ Единен публичен регистър / НФК"
+    },
+    {
+      "timestamp": "2026-07-31T16:29:48.100Z",
+      "date": "2026-07-31",
+      "skill": "update-budget",
+      "summary": "Законът за държавния бюджет за 2026 г. е обнародван (ДВ бр. 69) и е включен — 85 бюджетни показателя в евро; железопътната субсидия за 2026 г.",
+      "source": "Държавен вестник (ЗДБРБ 2026)"
+    },
+    {
+      "timestamp": "2026-07-31T16:12:58.036Z",
+      "date": "2026-07-31",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-30 (+1 daily archive; 1,403,331 store rows, 244 settlements, 208 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-31T16:09:00.227Z",
+      "date": "2026-07-31",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill through 2026-07-30: 158 new contracts across 61 buyers; tenders + geo + annex current-value refreshed",
+      "source": "ЦАИС ЕОП open data (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-31T16:02:29.870Z",
+      "date": "2026-07-31",
+      "skill": "update-persons",
+      "summary": "Профилите на публичните лица преизчислени — 58 193 лица, 111 940 длъжности",
+      "source": "Регистър на лицата (обединена самоличност)"
+    },
+    {
+      "timestamp": "2026-07-31T15:47:57.274Z",
+      "date": "2026-07-31",
+      "skill": "tr-daily-refresh",
+      "summary": "Commerce Registry daily refresh: 233 new companies, 16,907 per-EIK connections rebuilt, 12,363 founding dates",
+      "source": "data.egov.bg Търговски регистър (ТРРЮЛНЦ)"
+    },
+    {
+      "timestamp": "2026-07-31T15:37:54.857Z",
+      "date": "2026-07-31",
+      "skill": "update-rollcall",
+      "summary": "2 new sessions through 2026-07-31 (ids 11158-11159); added XLSX +NS column layout",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-30T17:40:43.195Z",
       "date": "2026-07-30",
