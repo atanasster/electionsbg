@@ -16,6 +16,37 @@
 const snakeToCamel = (s) =>
   s.replace(/_([a-z0-9])/g, (_, c) => c.toUpperCase());
 
+/**
+ * A malformed REQUEST — the caller named a resource/column that does not exist,
+ * or left a `required` filter empty. NOT a server fault, so the route maps it to
+ * 400 (see db_routes.js `table`/`facets`).
+ *
+ * WHY a distinct class rather than a bare Error: everything thrown out of this
+ * module lands in the Cloud Function's catch-all, which answers 500. That put 70
+ * requests over 2026-07-28…07-31 — every one an `awarder_ekatte` sent empty,
+ * rejected in <10 ms before a single query ran — into the same bucket as a
+ * statement_timeout, making it the third-largest source of 500s on the `db`
+ * service. A 500 has to keep meaning "the server broke", or the bucket stops
+ * being a signal. See docs/plans/db-route-timeouts-v1.md §9.2.
+ *
+ * The split is by BLAME, not by call site: a bad `semiJoinSql` template or a
+ * `defaultFilter` naming a missing column is a REGISTRY bug reached through the
+ * same functions, and those keep throwing a plain Error so they keep 500-ing —
+ * they are a deploy defect no caller can avoid, and demoting them to 400 would
+ * hide them behind whatever request happened to trip them.
+ *
+ * `expose` marks the message safe to return verbatim: every one is built from
+ * registry identifiers plus the caller's own ids, never from row data.
+ */
+class DbRequestError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "DbRequestError";
+    this.status = 400;
+    this.expose = true;
+  }
+}
+
 // ---- resource registry -------------------------------------------------------
 // Per dataset: base table, allowed scope columns, and a column whitelist. Each
 // column flags what the client may do with it: sort, filter (+ how), search
@@ -1309,14 +1340,15 @@ const buildFilter = (col, def, f, p0) => {
     // so it throws rather than silently serving ~3M rows.
     if (f.value == null || f.value === "") {
       if (def.required)
-        throw new Error(`${col}: required filter received no value`);
+        throw new DbRequestError(`${col}: required filter received no value`);
       return null;
     }
     // An array/object would be bound as a PG array literal ('{68134,56784}'), match
     // nothing, and render "0 contracts" for a real settlement. Refuse it: a scope
     // filter degrading to a silent empty set is worse than a loud error.
     if (typeof f.value === "object")
-      throw new Error(`semijoin ${col}: expects a scalar value`);
+      throw new DbRequestError(`semijoin ${col}: expects a scalar value`);
+    // REGISTRY blame, not caller blame — a 500, deliberately. See DbRequestError.
     const parts = String(def.semiJoinSql).split("?");
     if (parts.length !== 2)
       throw new Error(
@@ -1335,6 +1367,9 @@ const buildFilter = (col, def, f, p0) => {
     if (f.max != null && f.max !== "") parts.push(`${col} <= ${push(f.max)}`);
     return parts.length ? { sql: parts.join(" AND "), params } : null;
   }
+  // Unreachable from a request: buildWhere already rejected a column with no
+  // `filter`, so getting here means the registry declared a filter MODE this
+  // switch does not implement. Registry blame — stays a 500.
   throw new Error(`column ${col} is not filterable`);
 };
 
@@ -1366,14 +1401,22 @@ const buildWhere = (r, req, opts = {}) => {
   const scope = req.scope && req.scope.col ? req.scope : r.defaultScope;
   if (scope && scope.col) {
     if (!r.scopeCols.includes(scope.col))
-      throw new Error(`bad scope column: ${scope.col}`);
+      throw new DbRequestError(`bad scope column: ${scope.col}`);
     params.push(scope.val);
     where.push(`${scope.col} = $${params.length}`);
   }
 
-  for (const f of req.filters?.columns ?? []) {
+  // `for…of` over a non-array (an object, a string) throws a TypeError, which is
+  // the same caller mistake as a bad column id but would reach the route as an
+  // opaque 500. Name it instead.
+  const reqCols = req.filters?.columns ?? [];
+  if (!Array.isArray(reqCols))
+    throw new DbRequestError("filters.columns must be an array");
+
+  for (const f of reqCols) {
     const def = r.columns[f.id];
-    if (!def || !def.filter) throw new Error(`column not filterable: ${f.id}`);
+    if (!def || !def.filter)
+      throw new DbRequestError(`column not filterable: ${f.id}`);
     // A def may map a logical filter id to a different PHYSICAL column via `col`
     // (registry-sourced, whitelisted — never user input), so one physical column
     // can back two filter modes (e.g. tenders.cpv as exact `in` for topics AND
@@ -1389,12 +1432,14 @@ const buildWhere = (r, req, opts = {}) => {
   // served 200 with nothing to flag it. So for any declared defaultFilter whose
   // column the caller did NOT filter, apply `col = val`. Same double-count rationale
   // as defaultScope, for the second dimension. Validated in db_table.test.js.
-  const sentIds = new Set((req.filters?.columns ?? []).map((f) => f.id));
+  const sentIds = new Set(reqCols.map((f) => f.id));
   const skipDefaults = opts.skipDefaultFilterCols;
   for (const df of r.defaultFilters ?? []) {
     if (sentIds.has(df.col)) continue;
     if (skipDefaults && skipDefaults.has(df.col)) continue;
     const def = r.columns[df.col];
+    // Registry blame — a resource declaring a default on a column it does not
+    // expose. Stays a 500: no request can avoid it.
     if (!def || !def.filter)
       throw new Error(`bad defaultFilter col: ${df.col}`);
     add(buildFilter(df.col, def, { value: df.val }, params.length));
@@ -1416,7 +1461,8 @@ const buildWhere = (r, req, opts = {}) => {
   if (Array.isArray(globalCols) && globalCols.length) {
     const searchable = new Set(searchAll.map(([id]) => id));
     for (const id of globalCols)
-      if (!searchable.has(id)) throw new Error(`column not searchable: ${id}`);
+      if (!searchable.has(id))
+        throw new DbRequestError(`column not searchable: ${id}`);
     const allow = new Set(globalCols);
     restrictedDefs = searchAll.filter(([id]) => allow.has(id));
   }
@@ -1584,7 +1630,7 @@ const buildAggSelect = (r) => {
 const runDbTable = async (q, reqRaw) => {
   const req = reqRaw || {};
   const r = REGISTRY[req.resource];
-  if (!r) throw new Error(`unknown resource: ${req.resource}`);
+  if (!r) throw new DbRequestError(`unknown resource: ${req.resource}`);
 
   const { whereSql, params, filtered } = buildWhere(r, req);
   const scoped = !!(req.scope && req.scope.col);
@@ -1672,7 +1718,7 @@ const runDbTable = async (q, reqRaw) => {
 const runDbFacets = async (q, reqRaw) => {
   const req = reqRaw || {};
   const r = REGISTRY[req.resource];
-  if (!r) throw new Error(`unknown resource: ${req.resource}`);
+  if (!r) throw new DbRequestError(`unknown resource: ${req.resource}`);
 
   // `filters` are the caller's ACTIVE facet filters (year / CPV / method / …),
   // merged with the non-editable `fixedFilters` (e.g. tag=contract). Passing them
@@ -1680,6 +1726,13 @@ const runDbFacets = async (q, reqRaw) => {
   // keep every option visible, the caller EXCLUDES a facet's own dimension from
   // its filter set (e.g. the procurement_method facet omits the method filter),
   // so selecting one bucket doesn't collapse the mix to that bucket alone.
+  // Shape first: spreading or `.filter`-ing a non-array throws a TypeError, which
+  // is the same caller mistake as a bad column id but reaches the route as an
+  // opaque 500. Same rule as buildWhere's `filters.columns` guard.
+  for (const k of ["columns", "fixedFilters", "filters"])
+    if (req[k] != null && !Array.isArray(req[k]))
+      throw new DbRequestError(`${k} must be an array`);
+
   const facetFilters = [...(req.fixedFilters ?? []), ...(req.filters ?? [])];
   const limit = clampInt(req.limit, 100, 1, 500);
   // A column may be faceted because it is FILTERABLE (the common case — the dropdown and
@@ -1751,4 +1804,5 @@ module.exports = {
   REGISTRY,
   buildWhere,
   buildAggSelect,
+  DbRequestError,
 };

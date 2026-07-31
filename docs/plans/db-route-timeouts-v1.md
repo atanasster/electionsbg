@@ -662,7 +662,7 @@ one:
 | --- | --- | --- | --- |
 | 256 | `statement_timeout` ~10 s | mostly this plan's own targets + lock waits paid at 10 s | **fixed** — none after 07-30T23:14 |
 | 115 | `lock_timeout` ~2 s | writer-side TRUNCATE+COPY (below) | person half fixed 07-31; rest tracked |
-| 70 | instant, <10 ms | `table?resource=contracts` with `awarder_ekatte` present but empty → `required filter received no value` thrown as a 500 | **open** — a 400, not a 500; unrelated to locks |
+| 70 | instant, <10 ms | `table?resource=contracts` with `awarder_ekatte` present but empty → `required filter received no value` thrown as a 500 | **fixed** — now a 400 (§9.5); unrelated to locks |
 | 30 | `statement_timeout` ~10 s | `procurement-settlement` falling through 123's precompute to the live `procurement_settlement_detail()` for the largest settlements (68134 Sofia, 10135) | **open** — and no `psp:not-built` was logged, so the matview is present and the miss is per-ekatte, not an unbuilt cloud loader |
 
 ### 9.3 The person-layer writer — found and fixed
@@ -710,3 +710,53 @@ Still on the old pattern, tracked in that test's `ALLOWED` map as `debt`:
 - `load_mp_roster_pg.ts` — `mp_profile`, `mp_car`.
 - `load_funds_pg.ts` — `fund_beneficiaries`, `fund_projects`.
 - `scripts/agri/ingest.ts` — `agri_subsidies`.
+
+### 9.5 The third family — 400s that were 500s
+
+The 70 instant failures in §9.2's table were `/api/db/table?…awarder_ekatte=""` — the
+settlement contracts browser's identity scope, sent empty. Rejecting it is correct: a
+`required` filter that goes missing would otherwise widen the page to the national corpus
+under one settlement's heading, at a 200. What was wrong is the STATUS. `buildFilter` threw a
+bare `Error`, `functions/index.js` has one catch-all, and so a malformed request — rejected in
+under 10 ms, before a pool connection was taken or a query planned — landed in the same bucket
+as a `statement_timeout`.
+
+That is the whole cost: not the requests, which are free, but the bucket. §9.2 above exists
+because separating a lock wait from a slow query took real work; a client-side misfire sitting
+in with them is noise in the one signal that is supposed to mean the server broke.
+
+Fixed by splitting the throws **by blame**, not by call site (`functions/db_table.js`):
+
+- `DbRequestError` (`status: 400`, `expose: true`) — unknown resource, non-filterable column,
+  a scope column outside `scopeCols`, a `globalCols` entry that is not searchable, a semijoin
+  handed an array, a `required` filter with no value, and a `columns`/`filters` list sent as
+  something other than an array (that last one used to surface as a bare `TypeError`).
+- a plain `Error`, still a 500 — a `semiJoinSql` template with the wrong placeholder count, a
+  `defaultFilter` naming a column the resource does not expose, an unimplemented filter mode.
+  These are **deploy defects no caller can avoid**, and demoting them would hide them behind
+  whatever request happened to trip them.
+
+`db_routes.js` maps the first kind at the two routes that run the engine (`table`, `facets`)
+rather than in `index.js`, so the contract is unit-testable without a pool, and rethrows
+everything else. A rejected request still logs — one `console.warn`, not a `console.error`:
+70 of them was itself the signal that a client was misfiring.
+
+`functions/db_routes.table.test.js` covers it. The assertion that earns its place is **"no
+query ran"** on every 400: a status check alone passes against a handler that resolves the
+semi-join, hits Postgres, and only then objects — which is the expensive failure, not the
+visible one. Two more keep it honest in both directions: a VALID ekatte must still serve
+(otherwise a handler that 400s unconditionally passes everything), and a dead pool must still
+propagate (otherwise the mapping becomes the thing that silences the 500 bucket).
+
+**The client half.** No in-app caller can send `awarder_ekatte: ""` through `/api/db/table` —
+`ProcurementSettlementDetailScreen` renders the section only for a truthy `:ekatte`, and the
+section early-returns on `!/^\d{5}$/`. Its FACET half had no such protection and could not:
+`useContractsAnalytics` is a hook, so it runs before the early return, and its CPV query had
+no `enabled` gate at all (`enabled: false` is deliberately reserved for "block hidden, filters
+still live"). Closed with a separate `active` flag that stands every query down, CPV included
+— the caller saying "my identity scope is not resolved yet", which is a different statement
+from "this block is hidden".
+
+That leaves the `table` occurrences with no in-app producer in the current tree. `/api/db/*`
+is a public GET, so a crafted or replayed `q` reaches it regardless — which is exactly why the
+status, not the caller, is the fix that matters here.

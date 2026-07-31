@@ -75,7 +75,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-const renderAt = (url: string) =>
+const renderAt = (url: string, ekatte = "10135") =>
   render(
     <QueryClientProvider
       client={
@@ -86,7 +86,7 @@ const renderAt = (url: string) =>
     >
       <MemoryRouter initialEntries={[url]}>
         <TooltipProvider>
-          <ProcurementSettlementContractsSection ekatte="10135" />
+          <ProcurementSettlementContractsSection ekatte={ekatte} />
         </TooltipProvider>
       </MemoryRouter>
     </QueryClientProvider>,
@@ -192,5 +192,25 @@ describe("ProcurementSettlementContractsSection", () => {
     await waitFor(() => expect(tableRequests.length).toBeGreaterThan(0));
     const last = tableRequests.length - 1;
     expect(filterFor("awarder_ekatte", last)?.value).toBe("10135");
+  });
+
+  it("asks for NOTHING until the ekatte resolves — facets included", async () => {
+    // `awarder_ekatte` is a `required` filter, so an empty one is rejected server-side
+    // (400) rather than widened to the national corpus. That makes every request this
+    // section could fire before its route param resolves pure waste.
+    //
+    // The TABLE half was already refused by the section's early return. The FACET half
+    // was not, and could not be: useContractsAnalytics is a hook, so it runs before the
+    // return — and its CPV query had no `enabled` gate at all (`enabled: false` is
+    // deliberately reserved for "block hidden, filters still live"). So this asserts the
+    // facets, which is the half that was actually leaking; the table assertion only
+    // guards against a future refactor moving the early return.
+    renderAt("/procurement/settlement/?pscope=all", "");
+    // Nothing to wait FOR — assert on a flushed microtask queue instead, which is where
+    // a fired-and-forgotten query would already have shown up.
+    await new Promise((r) => setTimeout(r, 0));
+
+    expect(facetRequests).toEqual([]);
+    expect(tableRequests).toEqual([]);
   });
 });

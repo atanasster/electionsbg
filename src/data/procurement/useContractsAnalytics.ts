@@ -21,6 +21,8 @@
 //                    (company: yes) or stays static (global/tenders: keep it stable)
 //   • enabled      — stand the analysis facets down when the block is hidden
 //                    (the ?sector pages); the CPV facet still runs (it powers a filter).
+//   • active       — stand EVERYTHING down, CPV included: the caller's identity scope
+//                    is not resolved yet, so no request it could make is well-formed.
 //
 // Cost control: while no procedure/single filter is active the proc-mix and
 // bid-count facets share one filter set, so they're fetched in ONE request; once
@@ -63,6 +65,18 @@ export interface ContractsAnalyticsArgs {
   /** When false the analysis facets (proc-mix + bid-count + share) stand down —
    *  KPIs go null and the mix empties. The CPV facet always runs. */
   enabled?: boolean;
+  /** When false NOTHING fires — the CPV facet included. This is the caller saying
+   *  "my identity scope is not resolved yet", which is a different statement from
+   *  `enabled: false` ("this block is hidden, but its filters still work").
+   *
+   *  The distinction is load-bearing on /procurement/settlement/:ekatte. Its
+   *  `fixedFilters` carry `awarder_ekatte`, a `required` filter: sent empty, the
+   *  server rejects the whole request rather than widening to the national corpus
+   *  (functions/db_table.js). The section already refuses to render its table
+   *  until the EKATTE parses — but a hook cannot sit behind that early return, so
+   *  the facets went out anyway, and the CPV one had no gate to stand down on.
+   *  Those requests are pure waste even now that they come back 400. */
+  active?: boolean;
   /** When true the CPV facet applies the active method/single filters; when false
    *  it's scope-only, so the division list doesn't shift as you pick a procedure. */
   reactiveCpv?: boolean;
@@ -96,6 +110,7 @@ export const useContractsAnalytics = ({
   bidColumn = "number_of_tenderers",
   shareFacet,
   enabled = true,
+  active = true,
   reactiveCpv = false,
   limit = 100,
   onBucketInvalid,
@@ -145,7 +160,7 @@ export const useContractsAnalytics = ({
       commonFilters,
       cpvFilter,
     ],
-    enabled: enabled && bothUnfiltered,
+    enabled: active && enabled && bothUnfiltered,
     queryFn: () =>
       fetchFacets(
         [
@@ -170,7 +185,7 @@ export const useContractsAnalytics = ({
       singleFilter,
       cpvFilter,
     ],
-    enabled: enabled && !bothUnfiltered,
+    enabled: active && enabled && !bothUnfiltered,
     queryFn: () =>
       fetchFacets(
         [methodColumn],
@@ -231,7 +246,7 @@ export const useContractsAnalytics = ({
       methodF,
       cpvFilter,
     ],
-    enabled: enabled && !bothUnfiltered && hasBid,
+    enabled: active && enabled && !bothUnfiltered && hasBid,
     queryFn: () =>
       fetchFacets(
         [bidColumn as string],
@@ -257,6 +272,10 @@ export const useContractsAnalytics = ({
       reactiveCpv ? singleFilter : null,
       reactiveCpv ? methodF : null,
     ],
+    // The ONLY gate this query has ever had: `enabled` deliberately does not cover
+    // it (a hidden analysis block still needs its CPV filter to work), which left it
+    // firing unconditionally — including from a caller whose scope had not resolved.
+    enabled: active,
     queryFn: () =>
       fetchFacets(
         ["cpv"],
@@ -285,7 +304,7 @@ export const useContractsAnalytics = ({
       methodF,
       cpvFilter,
     ],
-    enabled: enabled && !!shareColumn && !bothUnfiltered,
+    enabled: active && enabled && !!shareColumn && !bothUnfiltered,
     queryFn: () =>
       fetchFacets(
         [shareColumn as string],

@@ -55,6 +55,11 @@ export const ProcurementSettlementContractsSection: FC<{ ekatte: string }> = ({
   // malformed value 400s the table — but the facet requests behind the KPI strip would
   // return an empty vocabulary at a 200, leaving a strip of zeros above an error. Refuse
   // both halves together instead of half-failing.
+  //
+  // The table half is refused by the early return below; the facet half CANNOT be, because
+  // useContractsAnalytics is a hook and hooks run before it. So the refusal is passed in as
+  // `active` — otherwise the analytics facets (the CPV one unconditionally) fire with an
+  // empty `awarder_ekatte` and are rejected server-side, having resolved nothing.
   const validEkatte = /^\d{5}$/.test(ekatte);
   const { scope } = useScope();
   const { selected } = useElectionContext();
@@ -132,6 +137,8 @@ export const ProcurementSettlementContractsSection: FC<{ ekatte: string }> = ({
       // A settlement's CPV spread is narrow enough that a shifting list is more
       // helpful than confusing — the same call the per-entity screens make.
       reactiveCpv: true,
+      // No request is well-formed until the EKATTE parses — see the guard above.
+      active: validEkatte,
       onBucketInvalid: () => setProcBucket(null),
     });
 

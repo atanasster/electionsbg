@@ -70,10 +70,21 @@ export interface DbTableResource {
  *  the live schema — db_table.test.js can only validate the registry against itself. */
 export declare const REGISTRY: Record<string, DbTableResource>;
 
+/** Thrown when the REQUEST is malformed (unknown resource, non-filterable column,
+ *  a `required` filter sent empty). Carries `status: 400` + `expose: true` so the
+ *  route answers 400 with the message instead of falling into the 500 catch-all.
+ *  A registry/config fault throws a plain Error and still 500s — see the class
+ *  comment in db_table.js. */
+export declare class DbRequestError extends Error {
+  status: 400;
+  expose: true;
+}
+
 declare const dbTable: {
   runDbTable: (q: DbRows, req: unknown) => Promise<DbTableResult>;
   runDbFacets: (q: DbRows, req: unknown) => Promise<DbFacetsResult>;
   REGISTRY: Record<string, DbTableResource>;
+  DbRequestError: typeof DbRequestError;
 };
 
 export default dbTable;
