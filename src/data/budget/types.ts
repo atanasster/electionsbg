@@ -846,28 +846,15 @@ export interface MunicipalTransferTypeTotals {
   otherTargeted: Money | null;
 }
 
-export interface MunicipalTransferRow {
-  ekatte: string;
-  obshtinaCode: string;
-  oblastCode: string;
-  nuts3: string;
-  nameBg: string;
-  nameEn: string;
-  total: Money | null;
-  delegated: Money | null;
-  equalization: Money | null;
-  winter: Money | null;
-  capital: Money | null;
-  otherTargeted: Money | null;
-}
-
 export interface MunicipalTransfersTotalsFile {
   fiscalYear: number;
   asOf: string;
   source: { documentId: string; url: string };
   totals: MunicipalTransferTypeTotals;
   rowSum: {
+    // All five categories — column 2 + column 7. `basic` is column 2 alone.
     total: Money;
+    basic: Money;
     delegated: Money;
     equalization: Money;
     winter: Money;
@@ -875,13 +862,6 @@ export interface MunicipalTransfersTotalsFile {
     otherTargeted: Money;
   };
   reconciliationDeltasEur: Partial<Record<MunicipalTransferType, number>>;
-}
-
-export interface MunicipalTransfersByMunicipalityFile {
-  fiscalYear: number;
-  asOf: string;
-  source: { documentId: string; url: string };
-  municipalities: MunicipalTransferRow[];
 }
 
 export interface MunicipalTransfersOblastRow {
@@ -923,6 +903,14 @@ export interface MunicipalTransfersOblastShardMuniYear {
   obshtinaCode: string;
   nameBg: string;
   nameEn: string;
+  // The WHOLE Article 53 envelope — column 2 ("Основни бюджетни
+  // взаимоотношения", itself 3+4+5+6) PLUS column 7 ("други целеви"), i.e. all
+  // five transfer types below. This is the denominator to divide a category by:
+  // the five shares then sum to 100%. Against column 2 alone they overshoot, by
+  // up to 8.6% where the "други целеви" share is large (Приморско, Несебър) —
+  // which is what every tile rendered until the envelope fix. Column 2 on its
+  // own is not served per-municipality; it exists nationally as
+  // `MunicipalTransfersTotalsFile.rowSum.basic`.
   total: Money | null;
   delegated: Money | null;
   equalization: Money | null;

@@ -47,6 +47,7 @@ import {
   buildTotalsFile,
   buildByOblastFile,
   buildOblastShards,
+  MunicipalTransfersIntegrityError,
   type ParsedMunicipalTransfers,
   type MunicipalTransfersIndexFile,
 } from "./municipal_transfers";
@@ -375,6 +376,10 @@ const main = async (args: {
   const unitsByYear = new Map<number, ParsedLawUnit[]>();
   const frameworkByYear = new Map<number, ParsedLawFramework>();
   const municipalTransfersByYear = new Map<number, ParsedMunicipalTransfers>();
+  // Integrity failures across all years — reported together after the artifact
+  // pass so one bad year cannot hide another, and so the ingest fails loudly
+  // rather than quietly shipping a year short.
+  const municipalTransfersFailures: string[] = [];
   for (const [yearStr, idMat] of Object.entries(LAW_DV_MATERIALS)) {
     const year = parseInt(yearStr, 10);
     const html = await fetchLawHtml(year, idMat, {
@@ -399,6 +404,21 @@ const main = async (args: {
             : ""),
       );
     } catch (e) {
+      // "The table is corrupt" is not "the table is absent". Collect integrity
+      // failures and fail the ingest at the end (see below) — swallowing one
+      // here drops the year from index.json AND the oblast shards while its
+      // stale per-year artifacts stay on disk, so the corpus disagrees with
+      // itself behind a green exit code. Collecting rather than throwing on the
+      // spot reports EVERY broken year instead of only the first.
+      if (e instanceof MunicipalTransfersIntegrityError) {
+        municipalTransfersFailures.push(`${year}: ${e.message}`);
+        console.log(
+          `  • ${year}: ${units.length} spending unit(s)` +
+            (framework ? `, framework parsed` : `, framework MISSING`) +
+            `, municipal transfers CORRUPT — ${e.message}`,
+        );
+        continue;
+      }
       console.log(
         `  • ${year}: ${units.length} spending unit(s)` +
           (framework ? `, framework parsed` : `, framework MISSING`) +
@@ -941,27 +961,37 @@ const main = async (args: {
     // future pass can plumb the real promulgation date through.
     const asOf = `${year}-01-01`;
     const dir = path.join(MUNICIPAL_TRANSFERS_DIR, String(year));
-    if (
-      writeIfChanged(
-        path.join(dir, "totals.json"),
-        canonicalJson(buildTotalsFile(parsed, asOf, source)),
-      )
-    ) {
-      touched++;
+    // buildTotalsFile runs the whole-envelope canary, so it can throw. Same
+    // policy as the parse above: collect, keep going, fail at the end. An
+    // uncaught throw here would abort the entire budget ingest — every
+    // unrelated ministry rollup and index included — over one bad year.
+    try {
+      if (
+        writeIfChanged(
+          path.join(dir, "totals.json"),
+          canonicalJson(buildTotalsFile(parsed, asOf, source)),
+        )
+      ) {
+        touched++;
+      }
+      if (
+        writeIfChanged(
+          path.join(dir, "by_oblast.json"),
+          canonicalJson(buildByOblastFile(parsed, asOf, source)),
+        )
+      ) {
+        touched++;
+      }
+      mtIndexYears.push({
+        fiscalYear: year,
+        municipalityCount: parsed.municipalities.length,
+        grandTotalEur: parsed.rowSum.total.amountEur,
+      });
+    } catch (e) {
+      if (!(e instanceof MunicipalTransfersIntegrityError)) throw e;
+      municipalTransfersFailures.push(`${year}: ${e.message}`);
+      console.log(`  • ${year}: municipal transfers CORRUPT — ${e.message}`);
     }
-    if (
-      writeIfChanged(
-        path.join(dir, "by_oblast.json"),
-        canonicalJson(buildByOblastFile(parsed, asOf, source)),
-      )
-    ) {
-      touched++;
-    }
-    mtIndexYears.push({
-      fiscalYear: year,
-      municipalityCount: parsed.municipalities.length,
-      grandTotalEur: parsed.rowSum.total.amountEur,
-    });
   }
   if (mtIndexYears.length > 0) {
     const indexFile: MunicipalTransfersIndexFile = {
@@ -1001,6 +1031,36 @@ const main = async (args: {
       );
       if (writeIfChanged(file, canonicalJson(shard))) touched++;
     }
+  }
+  // Coverage regression: a year with committed artifacts on disk that is NOT in
+  // the freshly built index has silently disappeared from the corpus. That is
+  // exactly what a swallowed parse failure used to look like — index.json and
+  // the oblast shards lose the year, its own totals.json/by_oblast.json stay
+  // behind at their previous contents, and the UI's "latest year in the index"
+  // fallback rolls the whole site back a year with a label that reads as
+  // deliberate. checkDiffSize cannot see this: it only trips on too MANY files
+  // written, and a vanishing year writes fewer.
+  const mtIndexedYears = new Set(mtIndexYears.map((y) => y.fiscalYear));
+  const mtOrphanedYears = fs.existsSync(MUNICIPAL_TRANSFERS_DIR)
+    ? fs
+        .readdirSync(MUNICIPAL_TRANSFERS_DIR)
+        .filter((n) => /^\d{4}$/.test(n))
+        .map(Number)
+        .filter((y) => !mtIndexedYears.has(y))
+        .sort((a, b) => a - b)
+    : [];
+  if (mtOrphanedYears.length > 0) {
+    municipalTransfersFailures.push(
+      `${mtOrphanedYears.join(", ")}: artifacts exist on disk but the year is ` +
+        `missing from the rebuilt index — the corpus would serve a stale ` +
+        `per-year file that nothing enumerates`,
+    );
+  }
+  if (municipalTransfersFailures.length > 0) {
+    throw new Error(
+      `Municipal transfers failed for ${municipalTransfersFailures.length} ` +
+        `year(s):\n  ${municipalTransfersFailures.join("\n  ")}`,
+    );
   }
   // Aggregated admin-grain spending flow — input for the admin view of the
   // budget-flow графика. Read from the just-written ministry rollup files so

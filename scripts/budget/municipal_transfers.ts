@@ -3,15 +3,23 @@
 //
 // The article structures the data as:
 //   1. A lead paragraph naming five named transfer-type totals (the budget
-//      envelope) embedded in prose, in thousands of leva.
+//      envelope) embedded in prose, in thousands — leva through FY2025, euro
+//      from FY2026 (see the denomination note below).
 //   2. A 7-column table grouped by oblast header rows. Each municipality row
 //      carries the municipality name + the breakdown across:
-//        col 2: Основни бюджетни взаимоотношения           — total (= 3+4+5+6)
+//        col 2: Основни бюджетни взаимоотношения        — `basic` (= 3+4+5+6)
 //        col 3: Обща субсидия за делегираните от държавата дейности
 //        col 4: обща изравнителна субсидия
 //        col 5: за зимно поддържане и снегопочистване на общински пътища
 //        col 6: Целева субсидия за капиталови разходи
 //        col 7: Трансфери за други целеви разходи за местни дейности
+//
+// `total` is the ENVELOPE — col 2 + col 7, i.e. all five transfer types.
+// Column 2 alone is `basic`; it is NOT the municipality's total, because
+// column 7 is declared in its own sub-paragraph and sits OUTSIDE column 2.
+// Every consumer divides the five categories by `total`, so the two must span
+// the same set — when `total` was column 2 alone the five shares summed to
+// 100.3-108.6% on 1,056 municipality-years.
 //
 // Oblast headers are detected by their styling (single non-empty cell, all
 // other cells empty) AND their text starting with "ОБЛАСТ ". Sofia city
@@ -37,12 +45,45 @@ import {
   type MunicipalityRecord,
 } from "./lib/municipality_lookup";
 
-export type TransferType =
-  | "delegated"
-  | "equalization"
-  | "winter"
-  | "capital"
-  | "otherTargeted";
+// Raised when the article IS present and we parsed it wrong — a misaligned
+// column, an unmatched lead paragraph, a missing unit marker, an envelope that
+// disagrees with the prose. Distinct from an ordinary Error, which here means
+// "this law carries no Article 53 table at all" (older layouts) and is a
+// legitimate skip.
+//
+// The distinction is load-bearing, not decorative. ingest.ts wraps the parse in
+// a try/catch written for the absent case, so without a type to re-throw, every
+// integrity check in this file is inert in the only pipeline that runs it: the
+// year is dropped from index.json and the oblast shards, its stale per-year
+// artifacts stay on disk, and the ingest exits green. That is strictly worse
+// than the corruption the checks exist to catch.
+export class MunicipalTransfersIntegrityError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "MunicipalTransfersIntegrityError";
+  }
+}
+
+// The five transfer types Article 53 declares. `otherTargeted` (column 7) is
+// named in its own sub-paragraph and sits OUTSIDE column 2, but it is part of
+// the same envelope — the four subsidies alone are not the total.
+export const TRANSFER_TYPES = [
+  "delegated",
+  "equalization",
+  "winter",
+  "capital",
+  "otherTargeted",
+] as const;
+
+export type TransferType = (typeof TRANSFER_TYPES)[number];
+
+// Every money cell a municipality row can carry: column 2 plus the five types.
+const AMOUNT_FIELDS = ["basic", ...TRANSFER_TYPES] as const;
+
+// Slack on the envelope canary, in EUR. Both sides convert from leva, the lead
+// paragraph in five roundings and the row sum in one, so a few euro of drift is
+// arithmetic; anything larger is a structural disagreement.
+const ENVELOPE_TOLERANCE_EUR = 10;
 
 export interface MunicipalTransferTypeTotals {
   delegated: Money | null;
@@ -59,7 +100,14 @@ export interface ParsedMunicipalRow {
   nuts3: string;
   nameBg: string;
   nameEn: string;
+  // The WHOLE Article 53 envelope for this municipality: column 2 + column 7,
+  // i.e. all five transfer types. NOT column 2 alone — see `basic`.
   total: Money | null;
+  // Column 2 alone, "Основни бюджетни взаимоотношения". The law declares it as
+  // 3+4+5+6, so it is the four named subsidies WITHOUT the separately-declared
+  // "други целеви" (column 7). Kept because it is a real legal quantity and
+  // because the declared identity is checked on every row.
+  basic: Money | null;
   delegated: Money | null;
   equalization: Money | null;
   winter: Money | null;
@@ -73,11 +121,14 @@ export interface ParsedMunicipalTransfers {
   // (otherTargeted) is declared in a separate sub-paragraph but belongs to the
   // same envelope semantically.
   totals: MunicipalTransferTypeTotals;
-  // Whole-country grand-total computed by summing column 2 ("Основни …") plus
-  // column 7 ("Други целеви") across every municipality row. Reconciled
-  // against `sumOfTotals(totals)` by the caller as a parser-correctness canary.
+  // Whole-country sums over the municipality rows. `total` is column 2 plus
+  // column 7 — the same five-category envelope the lead paragraph declares —
+  // and buildTotalsFile reconciles it against the sum of `totals` as a
+  // parser-correctness canary. `basic` is column 2 alone and is not reconciled
+  // against anything national; the per-row 2(3+4+5+6) check covers it.
   rowSum: {
     total: Money;
+    basic: Money;
     delegated: Money;
     equalization: Money;
     winter: Money;
@@ -100,6 +151,27 @@ const parseBulgarianAmount = (raw: string | undefined): number | null => {
   const n = Number(cleaned);
   return Number.isFinite(n) ? n : null;
 };
+
+// Add two raw cell values, in thousands. Null means the law printed no cell —
+// several municipalities legitimately have none for a given transfer type — so
+// it contributes nothing, but two nulls stay null rather than becoming a zero
+// the source never stated.
+const addThousands = (a: number | null, b: number | null): number | null =>
+  a === null && b === null ? null : (a ?? 0) + (b ?? 0);
+
+// Slack on the "2(3+4+5+6)" identity, counted in the source's own last-place
+// units (it prints one decimal, so 1 = 0,1 хил.). Comparing scaled integers
+// rather than the raw floats matters: 800,1 + 100 + 30 + 70 lands on
+// 1000.1000000000000227, so a plain `> 0.1` check on the difference turns a
+// legitimate rounding into a hard failure.
+//
+// Four independently-rounded components against a fifth rounded value can
+// legitimately drift 0,25 хил. = 2.5 units. Every law 2018-2026 in fact prints
+// column 2 as the sum of the ROUNDED parts (0 of 2,385 rows drift at all), so
+// this is headroom for a drafting-style change rather than for observed noise.
+// A column SHIFT is off by orders of magnitude more, so the headroom costs no
+// detection power.
+const COLUMN_SUM_TOLERANCE_UNITS = 3;
 
 // The document's own denomination — see detectLawCurrency in law_html.ts.
 type LawCurrency = "BGN" | "EUR";
@@ -285,17 +357,19 @@ const isHeaderOrEmptyRow = (cells: string[]): boolean => {
   return false;
 };
 
+// Column 2 as the table prints it. The envelope (`total`) adds column 7 to
+// this; see addThousands at the call site.
 const parseMunicipalityRow = (
   cells: string[],
 ): {
-  total: number | null;
+  basic: number | null;
   delegated: number | null;
   equalization: number | null;
   winter: number | null;
   capital: number | null;
   otherTargeted: number | null;
 } => ({
-  total: parseBulgarianAmount(cells[1]),
+  basic: parseBulgarianAmount(cells[1]),
   delegated: parseBulgarianAmount(cells[2]),
   equalization: parseBulgarianAmount(cells[3]),
   winter: parseBulgarianAmount(cells[4]),
@@ -328,13 +402,17 @@ export const parseMunicipalTransfers = (
   // An unmarked document would silently default to BGN and halve every figure
   // in a euro-denominated law, so require the marker rather than assume.
   if (leva === 0 && euro === 0) {
-    throw new Error(
+    throw new MunicipalTransfersIntegrityError(
       `Municipal-transfers (${fiscalYear}): no "(хил. лв.)" / "(хил. евро)" ` +
         `unit marker found — cannot determine the law's denomination.`,
     );
   }
   const { leadText, table } = walkAnchorTable(root);
 
+  // The ONE genuinely-absent case, and so the one throw that stays an ordinary
+  // Error: no anchor phrase means this law carries no Article 53 table, which
+  // ingest.ts is entitled to skip. Every other failure below is an integrity
+  // error, because reaching them means the table IS here.
   if (!table) {
     throw new Error(
       `Municipal-transfers (${fiscalYear}): no <table> found after the ` +
@@ -357,7 +435,7 @@ export const parseMunicipalTransfers = (
     ["delegated", "equalization", "winter", "capital"] as const
   ).filter((k) => leadAmounts[k] === null);
   if (missingLead.length > 0) {
-    throw new Error(
+    throw new MunicipalTransfersIntegrityError(
       `Municipal-transfers (${fiscalYear}): lead paragraph yielded no total ` +
         `for ${missingLead.join(", ")} — the wording or the unit suffix ` +
         `("хил. лв." / "хил. евро") likely changed.`,
@@ -367,6 +445,7 @@ export const parseMunicipalTransfers = (
   const rows = tableRows(table, $);
   const municipalities: ParsedMunicipalRow[] = [];
   const unresolvedNames: string[] = [];
+  const columnSumMismatches: string[] = [];
   let runningOblast: string | null = null;
 
   for (const cells of rows) {
@@ -382,13 +461,10 @@ export const parseMunicipalTransfers = (
     // Header-rowspan rows leak through as data rows when cheerio walks <tr>
     // sequentially — they have a label in cells[0] but no numbers. Filter
     // these so the unresolved-names list stays clean.
-    const anyAmount =
-      amounts.total !== null ||
-      amounts.delegated !== null ||
-      amounts.equalization !== null ||
-      amounts.winter !== null ||
-      amounts.capital !== null ||
-      amounts.otherTargeted !== null;
+    // Keyed off the amount fields explicitly rather than Object.values, so that
+    // adding a non-amount field to parseMunicipalityRow's return can never
+    // silently make a label count as "this row carries numbers".
+    const anyAmount = AMOUNT_FIELDS.some((k) => amounts[k] !== null);
     if (!anyAmount) continue;
     const muni: MunicipalityRecord | null = resolveMunicipality(
       name,
@@ -398,6 +474,33 @@ export const parseMunicipalTransfers = (
       unresolvedNames.push(name);
       continue;
     }
+    // The table's own header declares column 2 as "2(3+4+5+6)", so the identity
+    // is a free per-row integrity check on the column alignment — and it holds
+    // for every one of the 2,385 municipality-years currently parsed. It is
+    // worth asserting because the realistic corruption is a SHIFT, not a wrong
+    // number: several municipalities legitimately leave a cell blank (Банско
+    // has no equalization subsidy, Несебър and Поморие no winter line), and a
+    // blank that stops being rendered as an empty <td> slides every later
+    // column one to the left. That produces entirely plausible figures.
+    const declaredParts =
+      (amounts.delegated ?? 0) +
+      (amounts.equalization ?? 0) +
+      (amounts.winter ?? 0) +
+      (amounts.capital ?? 0);
+    if (
+      amounts.basic !== null &&
+      Math.abs(Math.round((amounts.basic - declaredParts) * 10)) >
+        COLUMN_SUM_TOLERANCE_UNITS
+    ) {
+      // Name alone is not unique — Бяла exists in both RSE and VAR — so the
+      // oblast has to be here for the operator to find the row. toFixed(1)
+      // matches the source's own precision and keeps float noise
+      // (1000.1000000000000227) out of the message.
+      columnSumMismatches.push(
+        `${name} (${muni.oblastCode}): column 2 = ${amounts.basic.toFixed(1)} ` +
+          `but 3+4+5+6 = ${declaredParts.toFixed(1)}`,
+      );
+    }
     municipalities.push({
       ekatte: muni.ekatte,
       obshtinaCode: muni.obshtinaCode,
@@ -405,7 +508,14 @@ export const parseMunicipalTransfers = (
       nuts3: muni.nuts3,
       nameBg: muni.nameBg,
       nameEn: muni.nameEn,
-      total: makeMoney(amounts.total, currency),
+      // The envelope — column 2 plus the separately-declared column 7. Every
+      // consumer presents this as the municipality's total transfers and
+      // divides the five category amounts by it, so it must span all five.
+      total: makeMoney(
+        addThousands(amounts.basic, amounts.otherTargeted),
+        currency,
+      ),
+      basic: makeMoney(amounts.basic, currency),
       delegated: makeMoney(amounts.delegated, currency),
       equalization: makeMoney(amounts.equalization, currency),
       winter: makeMoney(amounts.winter, currency),
@@ -414,10 +524,40 @@ export const parseMunicipalTransfers = (
     });
   }
 
+  if (columnSumMismatches.length > 0) {
+    throw new MunicipalTransfersIntegrityError(
+      `Municipal-transfers (${fiscalYear}): ${columnSumMismatches.length} row(s) ` +
+        `violate the table's declared "2(3+4+5+6)" identity — the columns are ` +
+        `likely misaligned. First: ${columnSumMismatches.slice(0, 3).join("; ")}`,
+    );
+  }
+
   if (municipalities.length === 0) {
-    throw new Error(
+    throw new MunicipalTransfersIntegrityError(
       `Municipal-transfers (${fiscalYear}): parsed 0 municipality rows from ` +
         `the table — the column layout likely changed.`,
+    );
+  }
+
+  // `otherTargeted` is deliberately outside the missingLead check because the
+  // 2018-2022 laws genuinely declare no such transfer. But the envelope now
+  // folds the lead value in with `?? 0`, so nothing else distinguishes "this
+  // law has none" from "parseOtherTargetedTotal stopped matching" — and in the
+  // second case the envelope canary fires and blames the table, which is fine,
+  // for a defect that is entirely in the prose. The rows are the ground truth
+  // for whether the category exists in this law, so assert the pairing and
+  // report the real cause. Safe on the legacy years: 2018-2022 carry no column
+  // 7 either, so the row sum is 0 and this cannot false-positive.
+  const otherTargetedRowSum = municipalities.reduce(
+    (s, m) => s + (m.otherTargeted?.amountEur ?? 0),
+    0,
+  );
+  if (otherTargeted === null && otherTargetedRowSum > 0) {
+    throw new MunicipalTransfersIntegrityError(
+      `Municipal-transfers (${fiscalYear}): the table carries column 7 ` +
+        `(€${otherTargetedRowSum.toLocaleString("en")}) but the lead paragraph ` +
+        `yielded no "трансфери за други целеви разходи" total — that sentence's ` +
+        `wording or unit suffix likely changed.`,
     );
   }
 
@@ -433,6 +573,10 @@ export const parseMunicipalTransfers = (
     rowSum: {
       total: sumMoney(
         municipalities.map((m) => m.total),
+        currency,
+      ),
+      basic: sumMoney(
+        municipalities.map((m) => m.basic),
         currency,
       ),
       delegated: sumMoney(
@@ -471,7 +615,9 @@ export interface MunicipalTransfersTotalsFile {
   source: { documentId: string; url: string };
   totals: MunicipalTransferTypeTotals;
   rowSum: {
+    // All five categories — column 2 + column 7. `basic` is column 2 alone.
     total: Money;
+    basic: Money;
     delegated: Money;
     equalization: Money;
     winter: Money;
@@ -594,6 +740,14 @@ const emptyMoney = (): Money => ({ amount: 0, currency: "BGN", amountEur: 0 });
 // rather than being pinned to BGN: from FY2026 the rows are euro-denominated,
 // and labelling a euro `amount` as BGN invites a second conversion downstream.
 // The zero seed keeps whatever the first real addend brings.
+//
+// Precision note: this sums each municipality's ALREADY-ROUNDED `amountEur`, so
+// for leva-denominated years an oblast's `total` and the sum of its five
+// categories differ by the accumulated BGN→EUR rounding — 53 of 252
+// oblast-years drift, by 1-8 EUR (FY2026 drifts by 0, needing no conversion).
+// Immaterial at 3 parts in 10^8, and every rendered percentage is unaffected at
+// one decimal, but the parsed ROWS hold the identity exactly and the rollups do
+// not — worth knowing before asserting the stronger claim on an aggregate.
 const addMoney = (a: Money, b: Money | null): Money => {
   if (!b) return a;
   return {
@@ -609,18 +763,35 @@ export const buildTotalsFile = (
   source: { documentId: string; url: string },
 ): MunicipalTransfersTotalsFile => {
   const deltas: Partial<Record<TransferType, number>> = {};
-  for (const k of [
-    "delegated",
-    "equalization",
-    "winter",
-    "capital",
-    "otherTargeted",
-  ] as const) {
+  for (const k of TRANSFER_TYPES) {
     const lead = parsed.totals[k]?.amountEur ?? null;
     const sum = parsed.rowSum[k]?.amountEur ?? 0;
     if (lead === null) continue;
     const diff = sum - lead;
     if (Math.abs(diff) > 0) deltas[k] = diff;
+  }
+  // Whole-envelope canary. The per-category deltas above compare like with
+  // like, so they cannot see a `total` that spans the wrong set of columns —
+  // each of the five agreed to the lev for years while `rowSum.total` quietly
+  // omitted column 7. Comparing the envelope against the sum of the five lead
+  // totals is the check that closes it: both sides are "all five categories",
+  // derived from different halves of the article.
+  const leadEnvelope = TRANSFER_TYPES.reduce(
+    (s, k) => s + (parsed.totals[k]?.amountEur ?? 0),
+    0,
+  );
+  const envelopeDelta = parsed.rowSum.total.amountEur - leadEnvelope;
+  // Per-category rounding is already reported above; this guards the SHAPE of
+  // the total, so it only fires beyond what those roundings can explain.
+  if (Math.abs(envelopeDelta) > ENVELOPE_TOLERANCE_EUR) {
+    throw new MunicipalTransfersIntegrityError(
+      `Municipal-transfers (${parsed.fiscalYear}): the summed envelope ` +
+        `(€${parsed.rowSum.total.amountEur.toLocaleString("en")}) differs from ` +
+        `the lead paragraph's five totals ` +
+        `(€${leadEnvelope.toLocaleString("en")}) by ` +
+        `€${envelopeDelta.toLocaleString("en")} — \`total\` is spanning the ` +
+        `wrong set of columns, or a transfer type is missing from the table.`,
+    );
   }
   return {
     fiscalYear: parsed.fiscalYear,
@@ -673,11 +844,7 @@ export const buildByOblastFile = (
     const row = ensure(m.oblastCode);
     row.municipalityCount += 1;
     row.total = addMoney(row.total, m.total);
-    row.delegated = addMoney(row.delegated, m.delegated);
-    row.equalization = addMoney(row.equalization, m.equalization);
-    row.winter = addMoney(row.winter, m.winter);
-    row.capital = addMoney(row.capital, m.capital);
-    row.otherTargeted = addMoney(row.otherTargeted, m.otherTargeted);
+    for (const k of TRANSFER_TYPES) row[k] = addMoney(row[k], m[k]);
   }
   return {
     fiscalYear: parsed.fiscalYear,
@@ -726,11 +893,7 @@ export const buildOblastShards = (
       };
       for (const m of munis) {
         totals.total = addMoney(totals.total, m.total);
-        totals.delegated = addMoney(totals.delegated, m.delegated);
-        totals.equalization = addMoney(totals.equalization, m.equalization);
-        totals.winter = addMoney(totals.winter, m.winter);
-        totals.capital = addMoney(totals.capital, m.capital);
-        totals.otherTargeted = addMoney(totals.otherTargeted, m.otherTargeted);
+        for (const k of TRANSFER_TYPES) totals[k] = addMoney(totals[k], m[k]);
       }
       years.push({
         fiscalYear: year,

@@ -11,6 +11,7 @@ import {
   buildTotalsFile,
   buildByOblastFile,
   buildByMunicipalityFile,
+  TRANSFER_TYPES,
 } from "./municipal_transfers";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -59,13 +60,7 @@ const main = (): void => {
 
   console.log(`\nReconciliation deltas (rows − paragraph), EUR:`);
   const deltas: Record<string, number> = {};
-  for (const k of [
-    "delegated",
-    "equalization",
-    "winter",
-    "capital",
-    "otherTargeted",
-  ] as const) {
+  for (const k of TRANSFER_TYPES) {
     const lead = parsed.totals[k]?.amountEur ?? 0;
     const sum = parsed.rowSum[k]?.amountEur ?? 0;
     deltas[k] = sum - lead;

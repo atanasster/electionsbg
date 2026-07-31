@@ -24,17 +24,25 @@ const LEAD = (unit: string): string =>
   `50,0 ${unit} и по общини, както следва: 2. трансфери за други целеви ` +
   `разходи за местни дейности 20,0 ${unit} и по общини, както следва:`;
 
-const TABLE =
+const tableRow = (otherTargeted: string): string =>
+  `<tr><td>Банско</td><td>1 160,0</td><td>1 000,0</td><td>100,0</td>` +
+  `<td>10,0</td><td>50,0</td><td>${otherTargeted}</td></tr>`;
+
+const table = (otherTargeted: string): string =>
   `<table>` +
   `<tr><td>ОБЛАСТ БЛАГОЕВГРАД</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>` +
-  `<tr><td>Банско</td><td>1 160,0</td><td>1 000,0</td><td>100,0</td><td>10,0</td><td>50,0</td><td>20,0</td></tr>` +
+  tableRow(otherTargeted) +
   `</table>`;
 
 /** A minimal law document in one denomination. */
-const law = (opts: { lead: string; marker: string | null }): string =>
+const law = (opts: {
+  lead: string;
+  marker: string | null;
+  otherTargeted?: string;
+}): string =>
   `<html><body><p>${opts.lead}</p>` +
   (opts.marker ? `<p>${opts.marker}</p>` : "") +
-  TABLE +
+  table(opts.otherTargeted ?? "20,0") +
   `</body></html>`;
 
 const LEVA = law({ lead: LEAD("хил. лв."), marker: "(хил. лв.)" });
@@ -62,15 +70,15 @@ describe("the law's denomination decides whether the peg is applied", () => {
       amountEur: 1_000_000,
     });
     expect(p.municipalities[0].total).toEqual({
-      amount: 1_160_000,
+      amount: 1_180_000, // column 2 (1 160,0) + column 7 (20,0)
       currency: "EUR",
-      amountEur: 1_160_000,
+      amountEur: 1_180_000,
     });
   });
 
   it("does not halve the euro law — the exact failure that shipped", () => {
     const eur = parseMunicipalTransfers(EURO, 2026).rowSum.total.amountEur;
-    expect(eur).toBe(1_160_000);
+    expect(eur).toBe(1_180_000);
     expect(eur).not.toBe(
       parseMunicipalTransfers(LEVA, 2025).rowSum.total.amountEur,
     );
@@ -127,13 +135,15 @@ describe("the lead-paragraph totals are a required canary", () => {
 
   it("still accepts a law that declares no otherTargeted", () => {
     // Genuinely absent from the 2018–2022 laws — it must stay null-able while
-    // the other four are required.
+    // the other four are required. Those laws have no column 7 in the table
+    // EITHER, which is what makes the null safe; a null lead total against a
+    // populated column 7 is a parser regression and is rejected separately.
     const noOther = LEAD("хил. лв.").replace(
       /2\. трансфери за други целеви разходи.*$/,
       "",
     );
     const p = parseMunicipalTransfers(
-      law({ lead: noOther, marker: "(хил. лв.)" }),
+      law({ lead: noOther, marker: "(хил. лв.)", otherTargeted: "" }),
       2022,
     );
     expect(p.totals.otherTargeted).toBeNull();
