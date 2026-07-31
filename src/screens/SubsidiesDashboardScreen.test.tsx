@@ -16,9 +16,14 @@ import type { ReactNode } from "react";
 import type { AgriIndexFile } from "@/data/agri/types";
 
 const hook = vi.hoisted(() => ({
-  // "empty" = the payload is missing for a scope that IS in the corpus — a
-  // database where the loader never ran, which 404s even the default scope.
-  mode: "ok" as "ok" | "loading" | "error" | "empty",
+  // "empty"  = the payload is missing for a scope that IS in the corpus — a
+  //            database where the loader never ran, which 404s even the default.
+  // "paused" = React Query holding a query it cannot run — an offline browser or
+  //            a hidden document (a backgrounded tab whose fetch failed). No
+  //            data, no error, not loading: the state that reads as
+  //            "unpublished" if the screen infers absence from the lack of an
+  //            error.
+  mode: "ok" as "ok" | "loading" | "error" | "empty" | "paused",
   refetch: vi.fn(),
 }));
 
@@ -83,15 +88,25 @@ const PAYLOAD: AgriIndexFile = {
 // corpus does cover.
 vi.mock("@/data/agri/useAgriOverview", () => ({
   useAgriOverview: (key?: string | null) => {
-    const base = { isError: false, refetch: hook.refetch };
-    if (key === null) return { ...base, data: undefined, isLoading: false };
+    // The five shapes React Query actually produces here, spelled out rather
+    // than simplified — the offline/paused one is only distinguishable from the
+    // 404 one by fetchStatus + isSuccess.
+    const base = {
+      data: undefined,
+      isLoading: false,
+      isError: false,
+      isSuccess: false,
+      fetchStatus: "idle" as const,
+      refetch: hook.refetch,
+    };
+    if (key === null) return base; // disabled: pending-but-idle
     if (hook.mode === "loading")
-      return { ...base, data: undefined, isLoading: true };
-    if (hook.mode === "error")
-      return { ...base, data: undefined, isLoading: false, isError: true };
-    if (hook.mode === "empty")
-      return { ...base, data: null, isLoading: false };
-    return { ...base, data: PAYLOAD, isLoading: false };
+      return { ...base, isLoading: true, fetchStatus: "fetching" as const };
+    if (hook.mode === "error") return { ...base, isError: true };
+    if (hook.mode === "paused")
+      return { ...base, fetchStatus: "paused" as const };
+    if (hook.mode === "empty") return { ...base, data: null, isSuccess: true };
+    return { ...base, data: PAYLOAD, isSuccess: true };
   },
 }));
 
@@ -107,9 +122,7 @@ vi.mock("@/ux/Title", () => ({
   Title: ({ children }: { children: ReactNode }) => <h1>{children}</h1>,
 }));
 
-const { SubsidiesDashboardScreen } = await import(
-  "./SubsidiesDashboardScreen"
-);
+const { SubsidiesDashboardScreen } = await import("./SubsidiesDashboardScreen");
 
 // The KPI cards carry Radix tooltips; main.tsx mounts the provider app-wide.
 const at = (url: string) =>
@@ -121,8 +134,7 @@ const at = (url: string) =>
     ),
   });
 
-const skeletons = () =>
-  document.querySelectorAll(".animate-pulse").length;
+const skeletons = () => document.querySelectorAll(".animate-pulse").length;
 
 beforeEach(() => {
   hook.mode = "ok";
@@ -167,8 +179,26 @@ describe("SubsidiesDashboardScreen", () => {
     expect(skeletons()).toBe(0);
 
     const { userEvent } = await import("@testing-library/user-event");
-    await userEvent.setup().click(screen.getByRole("button", { name: "Try again" }));
+    await userEvent
+      .setup()
+      .click(screen.getByRole("button", { name: "Try again" }));
     expect(hook.refetch).toHaveBeenCalled();
+  });
+
+  // Seen live: a paused query carries no error at all, so "empty and not
+  // isError" would call it an unpublished year.
+  it("treats a paused query as a load in waiting, not an unpublished year", () => {
+    hook.mode = "paused";
+    at("/subsidies?pscope=y:2016");
+    expect(screen.getByText(/waiting for the connection/)).toBeInTheDocument();
+    expect(screen.queryByText(/No subsidy data/)).not.toBeInTheDocument();
+    expect(skeletons()).toBe(0);
+    // …and offers no retry: React Query will not run one while paused, and
+    // resumes by itself when the connection returns.
+    expect(
+      screen.queryByRole("button", { name: "Try again" }),
+    ).not.toBeInTheDocument();
+    expect(hook.refetch).not.toHaveBeenCalled();
   });
 
   // On a database where the loader never ran, the default scope is empty too, so

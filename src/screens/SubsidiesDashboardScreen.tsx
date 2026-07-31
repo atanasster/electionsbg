@@ -520,21 +520,28 @@ export const SubsidiesDashboardScreen: FC = () => {
   // agri_payloads cannot answer, so the query is disabled rather than left
   // hanging on a reply that will never carry data.
   const payloadKey = agriScopeToKey(scope);
-  const { data, isLoading, isError, refetch } = useAgriOverview(payloadKey);
+  const { data, isError, isSuccess, fetchStatus, refetch } =
+    useAgriOverview(payloadKey);
   // FOUR states, not two: loading, failed, loaded-with-nothing, loaded. Folding
   // everything that is not loading-with-data into the skeleton (`isLoading ||
   // !data`) is what left the page spinning forever on something that was never
   // going to arrive — no data, no empty state, no error.
   //
-  // `isError` is the whole distinction between the last two, and it is exact:
-  // an absent scope arrives as a 404 the fetch helper maps to null data (a
-  // SUCCESS), and a scope outside the corpus disables the query, which cannot
-  // error either. So `isError` means only one thing — the request itself
-  // failed — and the empty card must not claim the year is unpublished while
-  // listing that same year as published one line below.
-  const settledEmpty = !isLoading && !data;
-  const failed = settledEmpty && isError;
-  const noData = settledEmpty && !isError;
+  // "No data for this year" is claimed only where absence is KNOWN: the scope is
+  // outside the corpus (no key, so no query), or the fetch came back and carried
+  // nothing (a 404 the helper maps to null — a SUCCESS, not an error). Anything
+  // else empty is a load that did not complete, and says so instead.
+  //
+  // Deriving it the other way round — "empty and not isError" — reads as
+  // equivalent and is not: React Query PAUSES a query it cannot run, with no
+  // data, no error and isLoading false, so the page told a reader 2016 was
+  // unpublished and then listed 2016 among the published years. Seen live, not
+  // hypothesised — the pause is why `fetchStatus` is read here at all. It has
+  // two causes, an offline browser and a HIDDEN document (a backgrounded tab
+  // whose fetch failed), which is why the copy names neither.
+  const noData = payloadKey === null || (isSuccess && !data);
+  const paused = fetchStatus === "paused";
+  const failed = !noData && !data && (isError || paused);
   const title = bg ? "Земеделски субсидии" : "Farm subsidies";
   const description =
     "Bulgarian CAP subsidies from the State Fund Agriculture (ДФЗ): who gets farm money, how concentrated it is, by scheme, region and year.";
@@ -556,18 +563,28 @@ export const SubsidiesDashboardScreen: FC = () => {
       {failed ? (
         <section aria-label={title} className="my-4">
           <div className="rounded-xl border bg-card p-6 shadow-sm text-sm text-muted-foreground">
-            <p className="mb-3">
-              {bg
-                ? "Данните за субсидиите не се заредиха. Обикновено е временно."
-                : "The subsidy data failed to load. This is usually temporary."}
+            <p className={paused ? "" : "mb-3"}>
+              {paused
+                ? bg
+                  ? "Данните за субсидиите още не са заредени — изчакваме връзката. Ще опитаме отново автоматично."
+                  : "The subsidy data hasn't loaded yet — waiting for the connection. It will retry automatically."
+                : bg
+                  ? "Данните за субсидиите не се заредиха. Обикновено е временно."
+                  : "The subsidy data failed to load. This is usually temporary."}
             </p>
-            <button
-              type="button"
-              onClick={() => refetch()}
-              className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
-            >
-              {bg ? "Опитай отново" : "Try again"}
-            </button>
+            {/* No retry offered while the query is paused: React Query refuses to
+                run one in that state and resumes by itself on reconnect or when
+                the tab comes back to the foreground, so the button would do
+                nothing but look like it might. */}
+            {!paused && (
+              <button
+                type="button"
+                onClick={() => refetch()}
+                className="rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary hover:bg-primary/20"
+              >
+                {bg ? "Опитай отново" : "Try again"}
+              </button>
+            )}
           </div>
         </section>
       ) : noData ? (
