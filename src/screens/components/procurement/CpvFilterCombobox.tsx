@@ -3,6 +3,10 @@
 // CPV-code catalogue (tenders' cpv_desc, ~3.6k codes) — searchable by name OR by
 // code — and lets a user type any CPV code/prefix to filter on it directly.
 // Selecting sends a prefix filter (cpv LIKE '<code>%'), same as the old select.
+//
+// The catalogue is fetched HERE rather than by the four screens that mount this,
+// because only this component knows when it is needed: the closed control renders
+// entirely from `divisions`, which arrive free with the facet. See `armed` below.
 
 import { FC, useMemo, useState } from "react";
 import { Command as CommandPrimitive } from "cmdk";
@@ -22,7 +26,7 @@ import {
 import { cn } from "@/lib/utils";
 import { cpvDivisionName } from "@/lib/cpvSectors";
 import { skeletonMatches } from "@/lib/translitSearch";
-import type { CpvCatalogEntry } from "@/data/procurement/useCpvCatalog";
+import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 
 export const CPV_ALL = "__all__";
 
@@ -39,18 +43,35 @@ export const CpvFilterCombobox: FC<{
   value: string;
   onChange: (v: string) => void;
   divisions: DivisionOption[];
-  catalog: CpvCatalogEntry[];
-  /** The named-code catalogue failed to load. Distinguished from "no codes" so
-   *  the picker can say the search is degraded instead of silently offering only
-   *  the ~40 two-digit divisions — the failure mode that hid a 17-21 s route
-   *  timing out on prod. */
-  catalogError?: boolean;
-}> = ({ value, onChange, divisions, catalog, catalogError = false }) => {
+}> = ({ value, onChange, divisions }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  // A LATCH, not `open` — once armed the catalogue stays enabled for the life of
+  // the control. Flipping `enabled` back to false on close would abandon a fetch
+  // still in flight (the request has no abort signal, so the bytes arrive and are
+  // thrown away), and re-open would start over.
+  //
+  // Armed by the trigger's pointer/focus as well as by opening, so for a mouse
+  // user the ~200 ms fetch overlaps the reach-and-click and the list is already
+  // there. Touch and keyboard fall back to arming on open, where the list fills
+  // in behind the "loading" note below.
+  const [armed, setArmed] = useState(false);
+  // The one case the closed control cannot render without the catalogue: a
+  // deep-linked FINE code (`?cpv=45231300`), whose name lives only there. Facet
+  // divisions are always exactly 2 digits, so this never fires for them — and on
+  // /procurement/contractors, where ?cpv is normalised to a division on write, it
+  // never fires at all.
+  const needsCodeName = !!value && value !== CPV_ALL && value.length > 2;
+
+  const { data, isError: catalogError } = useCpvCatalog(armed || needsCodeName);
+  const catalog = useMemo(() => data ?? [], [data]);
+  // "Not fetched yet" is not "empty": the note below must not claim a degraded
+  // search while the request is simply still on the wire.
+  const catalogPending = (armed || needsCodeName) && !data && !catalogError;
 
   const catalogByCode = useMemo(() => {
     const m = new Map<string, string>();
@@ -104,12 +125,20 @@ export const CpvFilterCombobox: FC<{
   }, [query, divisions, catalog, catalogByCode, lang, bg]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover
+      open={open}
+      onOpenChange={(o) => {
+        setOpen(o);
+        if (o) setArmed(true);
+      }}
+    >
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          onPointerEnter={() => setArmed(true)}
+          onFocus={() => setArmed(true)}
           className="h-9 w-auto max-w-[240px] justify-between font-normal"
         >
           <span className="truncate">{triggerLabel}</span>
@@ -128,12 +157,21 @@ export const CpvFilterCombobox: FC<{
             onValueChange={setQuery}
           />
           {/* Say so when only the divisions are searchable. Silently offering a
-              shortened list is how a timing-out catalogue route went unnoticed. */}
+              shortened list is how a timing-out catalogue route went unnoticed —
+              and now that the fetch starts on open rather than on mount, the same
+              shortened list is also the normal first ~200 ms. The two states get
+              different words so "still arriving" never reads as "broken". */}
           {catalogError ? (
             <div className="border-b px-3 py-2 text-[11px] text-amber-700 dark:text-amber-400">
               {bg
                 ? "Списъкът с CPV кодове не се зареди — търсенето е само по раздели."
                 : "The CPV code list failed to load — search is limited to divisions."}
+            </div>
+          ) : catalogPending ? (
+            <div className="border-b px-3 py-2 text-[11px] text-muted-foreground">
+              {bg
+                ? "Зарежда се списъкът с CPV кодове…"
+                : "Loading the CPV code list…"}
             </div>
           ) : null}
           <CommandList>

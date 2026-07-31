@@ -18,7 +18,6 @@ import { CpvFilterCombobox } from "@/screens/components/procurement/CpvFilterCom
 import { MpTiedToggle } from "@/screens/components/procurement/MpTiedToggle";
 import { ContractorsKpiStrip } from "@/screens/components/procurement/ContractorsKpiStrip";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
-import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 import { useUrlContractorFilters } from "@/data/procurement/useUrlContractorFilters";
 import { useContractorScopeKpis } from "@/data/procurement/useContractorScopeKpis";
 import { useContractorDivisions } from "@/data/procurement/useContractorDivisions";
@@ -49,7 +48,6 @@ export const TopContractorsScreen: FC = () => {
   } = useUrlContractorFilters();
   const { data: kpis } = useContractorScopeKpis();
   const { data: divisions } = useContractorDivisions();
-  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // Memoized so its identity only changes when scopeKey does. DbDataTable's
   // pagination-reset effect keys on the scope prop by identity, so a fresh inline
@@ -181,8 +179,6 @@ export const TopContractorsScreen: FC = () => {
                   value={cpvSel}
                   onChange={setCpvSel}
                   divisions={divisions}
-                  catalog={cpvCatalog ?? []}
-                  catalogError={cpvCatalogError}
                 />
               ) : null}
               <MpTiedToggle checked={mpTied} onChange={setMpTied} />

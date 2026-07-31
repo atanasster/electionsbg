@@ -1,6 +1,15 @@
 // The named CPV-code catalogue (from the tenders feed's cpv_desc) — the only
 // source of code→name beyond the 2-digit division titles in cpvSectors. Powers
 // the searchable CPV filter on the contracts browser. ~3.6k codes, fetched once.
+//
+// ⚠️ FETCH ON DEMAND, not on mount. This is the largest single payload on every
+// page that carries a CPV filter — 363 KB decoded (56 KB gzipped on the wire) —
+// and until 2026-07-31 it was fetched EAGERLY by four screens, so every reader
+// paid for it whether or not they ever opened the dropdown. On
+// /procurement/settlement/:ekatte that was two thirds of the whole page. The
+// closed control needs none of it: the 2-digit divisions it shows arrive free
+// with the facet. Only `CpvFilterCombobox` calls this hook, and only once the
+// picker is armed — pass `enabled` accordingly rather than calling it bare.
 
 import { useQuery } from "@tanstack/react-query";
 
@@ -18,9 +27,11 @@ const fetchCpvCatalog = async (): Promise<CpvCatalogEntry[]> => {
   return (await r.json()) as CpvCatalogEntry[];
 };
 
-export const useCpvCatalog = () =>
+/** @param enabled fetch only when the picker needs the names — see the header. */
+export const useCpvCatalog = (enabled: boolean) =>
   useQuery({
     queryKey: ["cpv-catalog"] as const,
     queryFn: fetchCpvCatalog,
     staleTime: Infinity,
+    enabled,
   });

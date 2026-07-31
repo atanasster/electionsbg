@@ -597,6 +597,18 @@ filter is OPENED. Logged as a follow-up (§7.6) rather than fixed here, because
 `CpvFilterCombobox` is shared with the global contracts and tenders browsers and making
 it lazy is their change too.
 
+> **Correction (2026-07-31), and it cuts the number by 6.5×.** The 355 KB above is
+> the **dev-server** figure. `npm run dev` proxies `/api/db` to prod and hands the
+> response to the browser DECOMPRESSED, so `transferSize` reports the decoded body.
+> On prod the route is gzipped by `functions/send_json.js` (payload-diet T0):
+> `curl -H 'Accept-Encoding: gzip'` returns **55,835 B**, not 363,305. Every "KB
+> transferred" number in this section is measured the same way and carries the same
+> caveat — it is a decoded-bytes ranking, correct in ORDER but not in wire cost.
+>
+> The regression was still real (it was the largest item on the page by either
+> measure, and 363 KB is genuinely parsed and held in memory), and it is now fixed —
+> see §7's item 4.
+
 ### 6.2 Interaction envelope
 
 The acceptance criterion from §4 was "no interaction regresses against the 6.6 s blob".
@@ -653,10 +665,35 @@ the inclusive table bound stops exactly where the half-open endpoint does (§3.1
    `contract_risk_cache` entry and therefore no masks — so the payload survives
    on `/procurement/tender/*` until a per-tender risk index exists. Nothing this
    plan touches is on that path.
-4. **`cpv-catalog` is 355 KB, fetched eagerly** (§6.1) — the single largest item on this
-   page and on `/procurement/contracts`. `CpvFilterCombobox` needs it only when the
-   dropdown is opened; making the fetch lazy would cut this page's first load by roughly
-   two thirds. Shared with the tenders browser, so it is that plan's shape, not this one's.
+4. ~~**`cpv-catalog` is 355 KB, fetched eagerly**~~ (§6.1) — **FIXED 2026-07-31.**
+   `CpvFilterCombobox` now fetches the catalogue itself, gated on the picker being
+   armed, and the four screens that mounted it stopped calling `useCpvCatalog` at
+   all. Measured first-load data transfer (dev, decoded — see the §6.1 correction;
+   divide by ~6.5 for prod wire bytes):
+
+   | page                              | before  | after   |
+   | --------------------------------- | ------- | ------- |
+   | `/procurement/settlement/68134`   | 548 KB  | 184 KB  |
+   | `/procurement/contracts`          | 515 KB  | 152 KB  |
+   | `/procurement/tenders`            | 487 KB  | 123 KB  |
+   | `/procurement/contractors`        | 465 KB  | 101 KB  |
+
+   The settlement page is no longer the most expensive of the contracts browsers;
+   it is now the cheapest per-request and the ordering follows page-specific data,
+   which is what §6.1 expected all along. Two behaviours are preserved and pinned
+   by `CpvFilterCombobox.test.tsx`: the trigger still names a deep-linked FINE code
+   (`?cpv=38115100`), which forces the fetch on mount because that name exists
+   nowhere else, and arming happens on the trigger's pointer/focus as well as on
+   open, so for a mouse user the fetch overlaps the reach and the list is already
+   there.
+
+   **The payload itself was checked and left alone**, with numbers: 71% of its raw
+   bytes are description text, all 3,604 strings distinct, already compressing
+   6.5× (363 KB → 56 KB). The only structural saving available is dropping the
+   repeated `{"cpv":…,"desc":…}` keys for parallel arrays — 363→309 KB raw but just
+   **56→52 KB on the wire**. That is 4 KB, on a fetch that now happens only when a
+   reader opens the dropdown, in exchange for an opaque wire format. Not worth the
+   contract change; re-open it only if the catalogue grows by an order of magnitude.
 5. **Cold-start 500 on `/api/db/procurement-settlement`** (§1.1) — reproduced
    once at 20.5 s; likely a statement timeout on a cold Cloud SQL connection.
 6. **Migration 030's window predicates are the non-sargable

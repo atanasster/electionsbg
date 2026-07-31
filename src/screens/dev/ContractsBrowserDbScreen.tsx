@@ -35,7 +35,6 @@ import { ContractsAggregatesFooter } from "@/screens/components/procurement/Cont
 import { useContractColumns } from "@/screens/components/procurement/contractColumns";
 import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
-import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 import {
   CpvFilterCombobox,
   CPV_ALL,
@@ -139,10 +138,6 @@ export const ContractsBrowserDbScreen: FC = () => {
     () => (grades.length ? [{ id: "risk_grade", value: grades }] : []),
     [grades],
   );
-
-  // Named CPV-code catalogue (tenders' cpv_desc) powers the searchable CPV filter
-  // — search by sector name or by any CPV code, beyond the 2-digit divisions.
-  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // Neutral foreign-funded-NGO disclosure — its own ~6 kB route, since it is the
   // one chip input the server masks cannot carry (no scored bit).
@@ -269,8 +264,6 @@ export const ContractsBrowserDbScreen: FC = () => {
                   value={cpvDiv}
                   onChange={setCpvDiv}
                   divisions={cpvOptions}
-                  catalog={cpvCatalog ?? []}
-                  catalogError={cpvCatalogError}
                 />
               ) : null}
               {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary

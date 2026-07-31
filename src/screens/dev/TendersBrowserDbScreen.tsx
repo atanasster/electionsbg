@@ -42,7 +42,6 @@ import {
   CpvFilterCombobox,
   CPV_ALL,
 } from "@/screens/components/procurement/CpvFilterCombobox";
-import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 
 interface TenderRow {
   unp: string;
@@ -140,9 +139,6 @@ export const TendersBrowserDbScreen: FC = () => {
       reactiveCpv: false,
       onBucketInvalid: () => setProcBucket(null),
     });
-  // Named CPV-code catalogue powers the searchable CPV filter — search by sector
-  // name or by any CPV code. Shared with the contracts browser.
-  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // Reactive headline aggregates (Σ estimated €, count) for the whole FILTERED
   // set — DbDataTable computes them server-side and hands them back via onData.
@@ -434,8 +430,6 @@ export const TendersBrowserDbScreen: FC = () => {
                   value={cpvSel}
                   onChange={setCpvSel}
                   divisions={cpvOptions}
-                  catalog={cpvCatalog ?? []}
-                  catalogError={cpvCatalogError}
                 />
               ) : null}
               {/* Bucketed procedure dropdown — mirrors the mix bar's vocabulary

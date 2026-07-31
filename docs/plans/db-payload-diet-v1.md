@@ -486,6 +486,25 @@ look like a legitimately empty catalogue.
 
 ### T4 — audit the remaining oversized singletons
 
+**Landed within T4 (2026-07-31): `cpv-catalog` is no longer fetched on mount.**
+The T3 table made it fast; it was still 363 KB decoded / 56 KB gzipped downloaded
+by every reader of four screens, whether or not they touched the CPV filter — two
+thirds of `/procurement/settlement/:ekatte`'s first load. `CpvFilterCombobox` now
+owns the fetch and gates it on the picker being armed (`useCpvCatalog(enabled)`),
+since only it knows when the names are needed: the closed control renders from the
+2-digit divisions that arrive free with the facet. Four pages, decoded bytes,
+before → after: settlement 548→184 KB, contracts 515→152 KB, tenders 487→123 KB,
+contractors 465→101 KB. Pinned by `CpvFilterCombobox.test.tsx`, which fails in
+both directions — on an eager fetch and on a gate that never opens.
+
+Note this is a **different lever from the dead-field audit below**, and worth
+keeping distinct when reading the table: nothing was trimmed from the payload. It
+was checked — 71% of its raw bytes are distinct description text already
+compressing 6.5×, and restructuring to parallel arrays saves 4 KB on the wire —
+and the win came entirely from not sending it to people who never asked for it.
+Before dieting any route in the table, ask that question first: which of its
+consumers needs it on mount at all?
+
 Consumers, so this does not need re-discovering:
 
 | route | bytes | consumer |

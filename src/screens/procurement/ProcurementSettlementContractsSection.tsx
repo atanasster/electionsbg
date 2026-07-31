@@ -41,7 +41,6 @@ import { useContractColumns } from "@/screens/components/procurement/contractCol
 import { useContractsAnalytics } from "@/data/procurement/useContractsAnalytics";
 import { useUrlProcurementFilters } from "@/data/procurement/useUrlProcurementFilters";
 import { useNgoForeignFundedByEik } from "@/data/procurement/usePepConnectedByEik";
-import { useCpvCatalog } from "@/data/procurement/useCpvCatalog";
 import { useScope } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -78,7 +77,6 @@ export const ProcurementSettlementContractsSection: FC<{ ekatte: string }> = ({
   } = useUrlProcurementFilters({ toggleParam: "single", withRisk: true });
 
   const { byEik: ngoByEik } = useNgoForeignFundedByEik();
-  const { data: cpvCatalog, isError: cpvCatalogError } = useCpvCatalog();
 
   // The place + the window: applied to the table AND to every facet, so the KPI strip
   // describes exactly the rows below it.
@@ -220,8 +218,6 @@ export const ProcurementSettlementContractsSection: FC<{ ekatte: string }> = ({
                 value={cpvDiv}
                 onChange={setCpvDiv}
                 divisions={cpvOptions}
-                catalog={cpvCatalog ?? []}
-                catalogError={cpvCatalogError}
               />
             ) : null}
             <ProcedureBucketSelect
