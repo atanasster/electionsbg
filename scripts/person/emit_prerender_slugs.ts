@@ -113,13 +113,23 @@ const FLOOR_PREDICATE = `(
 // the determinism gate below called emitPersonSlugs() during test:data, so BOTH paths
 // minted the committed manifest from the stale side.
 //
-// That is not a cosmetic mismatch. person_slug_lock accumulates PER DATABASE and is never
-// truncated, so two databases re-resolved a different number of times assign different
-// slugs to the same people (measured 2026-07-31: 1,436 mention→slug locks disagreed, 642
-// person slugs existed only locally — mostly `-2` collision suffixes — and all 642 were in
-// this manifest). The prerenderer would then build, and the sitemap would advertise, 642
-// /person URLs whose profile fetch returns `null` on prod, while the 641 slugs prod can
-// actually serve got no page and no <loc>.
+// person_slug_lock accumulates PER DATABASE and is never truncated, so two databases
+// re-resolved a different number of times assign different slugs to the same people
+// (measured 2026-07-31: 1,436 mention→slug locks disagreed and 640 person slugs existed
+// only locally, mostly `-2` collision suffixes). Every one of those 640 was in this
+// manifest, naming a person prod cannot serve.
+//
+// SCOPE, HONESTLY: today that is LATENT, not live. Both consumers — buildPersonRoutes and
+// the sitemap's enumeratePersons — filter on `prerender`, and that ~5,000-entry
+// ex-officials set was byte-identical between the local- and cloud-minted manifests (0
+// churn, measured). Nothing reads `indexable` at runtime. So no wrong page was built and no
+// wrong <loc> shipped. The divergence sat entirely in the non-prerendered remainder.
+//
+// It stops being latent the moment the prerender set widens — which the header above
+// explicitly plans ("TO SHIP THE FULL G6 SET LATER", all 38,353 indexable). Then those 640
+// become built pages and <loc>s whose profile fetch returns `null` on prod, while the 640
+// slugs prod can actually serve get neither. A manifest minted from a database that does
+// not serve production is wrong whether or not anything currently reads the wrong part.
 //
 // So writing is gated on the connection being the SERVING database. The local docker
 // Postgres is the one URL we know is not it; everything else (the Cloud SQL proxy) is

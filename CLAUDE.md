@@ -105,6 +105,24 @@ correct only because the resolver does it itself. The collapse only ever re-poin
 `active` + public-figure person, so a chain with no servable end is left broken and reported
 rather than quietly made to look healthy — `person_slug_retired.data.test.ts` fails on it.
 
+**A re-slug also invalidates `declaration.subject_ref`, and `--resolve` alone CANNOT repair
+it.** `subject_ref` is the officials slug, minted by declarations **phase 1**; phase 2
+(`--resolve`) only joins `person_role.ref = subject_ref` and fills `person_id`. So on the
+cloud side a roster re-slug needs BOTH phases, phase 1 first:
+
+```bash
+npm run db:load:declarations:pg:cloud            # phase 1 — rewrites subject_ref
+npm run db:load:declarations:pg:cloud -- --resolve
+```
+
+`db:refresh` never shows this because it runs phase 1 before the resolver every time. Skipping
+phase 1 on the cloud leaves the stale ref joining to nothing: the filing keeps a NULL
+`person_id`, so that person's declaration silently vanishes from `/person` and from the "с
+декларация" facet while every row count still reconciles. Caught 2026-07-31 — after the
+2026-07-29 collision fold, exactly one of 47,983 filings (`ivan-georgiev-ivanov1-94805e`)
+stayed unresolved on Cloud SQL until phase 1 was re-run. Re-run
+`db:load:persons-browse:pg:cloud` afterwards, since `has_declaration` reads `person_id`.
+
 Likewise, after `db:load:declarations:pg:cloud -- --resolve` (which creates the municipal
 roster matview), run the candidateLink loader so the Cloud SQL municipal roster carries the
 party colours / councillor avatars the /governance + My-Area tiles render:
@@ -363,11 +381,15 @@ It must run **after** `db:resolve:persons:cloud`, the declarations `--resolve` a
 the one manifest that MUST be minted from the SERVING database — not from local Postgres.
 `person_slug_lock` accumulates per database and is never truncated, so two databases
 re-resolved a different number of times hand the same people different slugs; measured
-2026-07-31, before the cloud caught up: 1,436 mention→slug locks disagreed and 642 person
-slugs existed only locally (mostly `-2` collision suffixes). Every one of those 642 was in
-the committed manifest, so the prerenderer would have built and the sitemap advertised 642
-`/person` URLs whose profile fetch returns `null` on prod, while the 641 slugs prod could
-actually serve got no page and no `<loc>`.
+2026-07-31: 1,436 mention→slug locks disagreed and 640 person slugs existed only locally
+(mostly `-2` collision suffixes). Every one of those 640 was in the committed manifest,
+naming a person prod cannot serve.
+
+**That is LATENT, not live** — worth stating so nobody re-derives a panic from it. Both
+consumers (`buildPersonRoutes`, the sitemap's `enumeratePersons`) filter on `prerender`, and
+that ~5,000-entry ex-officials set was identical between the local- and cloud-minted
+manifests (0 churn); nothing reads `indexable` at runtime. It goes live the moment the
+prerender set widens to the full G6 set, which `emit_prerender_slugs.ts` explicitly plans.
 
 `emit_prerender_slugs.ts` now REFUSES to write when connected to the local docker Postgres
 (`npm run person:slugs -- --local` overrides), so `db:refresh`'s `person:slugs` step and the
