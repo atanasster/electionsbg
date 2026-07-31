@@ -5,10 +5,10 @@
 // Two layouts:
 //   - variant="chips" (default): compact strip for a table cell — short
 //     localised abbreviations, falls back to a dash when no flag fires.
-//   - variant="full": an explainable Corruption Risk Index meter ("N of M risk
-//     checks failed" + a colour bar) above the chips, for the contract detail
-//     header. When nothing fired it reads as "no red flags · N checks passed"
-//     rather than a bare dash.
+//   - variant="full": the contract detail header — the A–F grade, the "N of M
+//     applicable checks" meter, and the ALWAYS-OPEN ledger explaining every
+//     check (fired → passed → not applicable). When nothing fired it reads as
+//     "no red flags · N checks passed" rather than a bare dash.
 
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,7 +16,6 @@ import {
   AlertTriangle,
   Ban,
   Check,
-  ChevronDown,
   Gavel,
   Globe,
   Landmark,
@@ -179,9 +178,10 @@ type Props = {
    *  nothing is known about it. Rendered as an explicit unknown state, never as
    *  the "—" a genuinely clean contract gets. */
   result: ContractRiskResult | null;
-  /** Contract key. When given, the per-flag tooltip DETAIL (which MP, what
-   *  concentration share, the debarment dates) is fetched on first hover — the
-   *  masks that drive the chips cannot carry it. Omit where the caller already
+  /** Contract key. When given, the per-flag DETAIL (which MP, what concentration
+   *  share, the debarment dates) is fetched — on first hover for `chips`, on
+   *  mount for `full`, whose ledger renders it rather than hiding it in a
+   *  tooltip. The masks that drive the chips cannot carry it. Omit where the caller already
    *  has fully-populated flags (the old client scorer) or where there is no
    *  single contract to attribute the detail to. */
   contractKey?: string | null;
@@ -264,13 +264,19 @@ export const RiskBadges: FC<Props> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const [open, setOpen] = useState(false);
 
   // Detail is fetched on FIRST INTERACTION with this row's chips, not on render:
   // a 100-row table would otherwise issue 100 requests to populate tooltips
   // nobody opened. One hover fetches the whole row's detail, so every chip in it
   // is populated together, and React Query caches it for the session.
-  const [wantDetail, setWantDetail] = useState(false);
+  //
+  // The `full` variant is the exception and fetches ON MOUNT: its ledger is open
+  // from the first paint, so the concentration share, firm age, split size and
+  // КЗК link are ON SCREEN rather than inside a tooltip nobody has asked for
+  // yet — deferring them to a hover would render those rows visibly incomplete
+  // and then pop the numbers in. The cost that motivated the dwell does not
+  // apply: `full` renders once per contract page, never in a list.
+  const [wantDetail, setWantDetail] = useState(variant === "full");
   const { data: detail } = useContractRiskDetail(contractKey, wantDetail);
 
   // Armed on DWELL, not on transit. onMouseEnter fires for every row a pointer
@@ -811,7 +817,10 @@ export const RiskBadges: FC<Props> = ({
 
   // One cell per applicable check (the "M" denominator), fired-first: red for
   // the authoritative flags (debarred / КЗК-upheld), amber for review signals,
-  // emerald for a passed check. Previews the ledger without opening it.
+  // emerald for a passed check. A meter for the count beside it — it used to
+  // preview a collapsed ledger, and now just makes the denominator scannable at
+  // a glance; the ledger below is the authoritative reading, and it shares this
+  // ordering so the two read as one strip.
   const isAuthoritative = (key: RiskComponentKey) =>
     key === "debarred" || key === "appealUpheld";
   const cellRank = (c: (typeof result.components)[number]) =>
@@ -837,33 +846,19 @@ export const RiskBadges: FC<Props> = ({
     : "";
 
   return (
-    // The full variant does NOT render `chips`, so it cannot inherit that
-    // container's arming — without these the contract detail page passes a
-    // contractKey that never fetches, and its КЗК link, concentration share,
-    // firm age and split size stay permanently blank.
-    <div
-      className="space-y-2"
-      onMouseEnter={armDetail}
-      onMouseLeave={cancelArm}
-      onFocus={armNow}
-      onPointerDown={armNow}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="group flex w-full flex-wrap items-center gap-2 text-left"
-      >
-        <ChevronDown
-          className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
-          aria-hidden
-        />
+    // The ledger is NOT collapsible. It was a closed-by-default disclosure, which
+    // put the one thing the page exists to explain — WHICH checks fired and why —
+    // behind a click, under a header that only said "6 of 10". The checks are the
+    // content here, so they are always rendered; nothing above the fold is worth
+    // the fold.
+    <div className="space-y-2">
+      <div className="flex w-full flex-wrap items-center gap-2">
         {/* The A–F grade, same letter and palette as the riskiest-contracts
             board that links here and the `?grade=` filter on the browsers — the
             detail page was the one surface that dropped it, so a contract listed
-            as F showed only "6 of 10" once opened. A plain title/aria-label, not
-            a <Tooltip>: this sits inside the ledger's toggle button, and the
-            tooltip's touch branch renders its own role="button". */}
+            as F showed only "6 of 10" once opened. A plain title/aria-label
+            rather than a <Tooltip>: the letter is fully restated by the ledger
+            below it, so it needs no second interactive surface. */}
         {gradeLetter ? (
           <span
             title={gradeHint}
@@ -917,152 +912,150 @@ export const RiskBadges: FC<Props> = ({
             />
           ))}
         </span>
-      </button>
+      </div>
 
-      {open ? (
-        <div className="rounded-lg border border-border bg-muted/30 p-3">
-          <p className="mb-2 text-xs leading-relaxed text-muted-foreground">
-            {t("risk_explain_intro") ||
-              "Automated risk indicators — descriptive, not a verdict. Each compares this contract against the market norm."}
-          </p>
-          {rows.map((item) => {
-            const comp = byKey.get(item.key);
-            const state: "fired" | "pass" | "na" = !comp?.available
-              ? "na"
-              : comp.fired
-                ? "fired"
-                : "pass";
-            const authoritative =
-              item.key === "debarred" || item.key === "appealUpheld";
-            const Icon =
-              state === "fired" ? item.icon : state === "pass" ? Check : Minus;
-            const iconCls =
-              state === "fired"
-                ? authoritative
-                  ? "text-red-600 dark:text-red-400"
-                  : "text-amber-600 dark:text-amber-400"
-                : state === "pass"
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-muted-foreground/60";
-            const value = state === "fired" ? firedValue(item.key) : null;
-            return (
-              <div
-                key={item.key}
-                className="flex items-start gap-2 border-t border-border/60 py-2 first:border-t-0"
-              >
-                <Icon
-                  className={`mt-0.5 h-4 w-4 shrink-0 ${iconCls}`}
-                  aria-hidden
-                />
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-1.5">
-                    <span
-                      className={`text-sm ${state === "na" ? "text-muted-foreground" : "text-foreground"}`}
-                    >
-                      {t(item.labelKey)}
-                    </span>
-                    {value ? (
-                      <span
-                        className={`rounded-full px-1.5 py-0.5 text-[11px] font-medium tabular-nums ${
-                          authoritative
-                            ? "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300"
-                            : "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
-                        }`}
-                      >
-                        {value}
-                      </span>
-                    ) : null}
-                    {state === "na" ? (
-                      <span className="rounded-full border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
-                        {t("risk_na") || "not applicable"}
-                      </span>
-                    ) : null}
-                  </div>
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                    {t(item.whyKey)}
-                    {item.ref ? (
-                      <span className="text-muted-foreground/70">
-                        {" · "}
-                        {item.ref}
-                      </span>
-                    ) : null}
-                  </p>
-                  {state === "na" ? (
-                    <p className="mt-0.5 text-xs text-muted-foreground/70">
-                      {t(item.naReasonKey)}
-                    </p>
-                  ) : null}
-                  {item.key === "debarred" &&
-                  state === "fired" &&
-                  flags.debarred?.detailsUrl ? (
-                    <a
-                      href={flags.debarred.detailsUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-0.5 inline-block text-xs text-primary hover:underline"
-                    >
-                      {t("risk_flag_debarred_source") || "КЗК decision (PDF)"}
-                    </a>
-                  ) : null}
-                </div>
-              </div>
-            );
-          })}
-          {flags.ngoForeignFunded ? (
-            <div className="flex items-start gap-2 border-t border-border/60 py-2">
-              <Globe
-                className="mt-0.5 h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400"
+      <div className="rounded-lg border border-border bg-muted/30 p-3">
+        <p className="mb-2 text-xs leading-relaxed text-muted-foreground">
+          {t("risk_explain_intro") ||
+            "Automated risk indicators — descriptive, not a verdict. Each compares this contract against the market norm."}
+        </p>
+        {rows.map((item) => {
+          const comp = byKey.get(item.key);
+          const state: "fired" | "pass" | "na" = !comp?.available
+            ? "na"
+            : comp.fired
+              ? "fired"
+              : "pass";
+          const authoritative =
+            item.key === "debarred" || item.key === "appealUpheld";
+          const Icon =
+            state === "fired" ? item.icon : state === "pass" ? Check : Minus;
+          const iconCls =
+            state === "fired"
+              ? authoritative
+                ? "text-red-600 dark:text-red-400"
+                : "text-amber-600 dark:text-amber-400"
+              : state === "pass"
+                ? "text-emerald-600 dark:text-emerald-400"
+                : "text-muted-foreground/60";
+          const value = state === "fired" ? firedValue(item.key) : null;
+          return (
+            <div
+              key={item.key}
+              className="flex items-start gap-2 border-t border-border/60 py-2 first:border-t-0"
+            >
+              <Icon
+                className={`mt-0.5 h-4 w-4 shrink-0 ${iconCls}`}
                 aria-hidden
               />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="text-sm text-foreground">
-                    {flags.ngoForeignFunded.kind === "connected"
-                      ? t("risk_disc_ngo_foreign_connected_long") ||
-                        "Contractor is tied to a foreign-funded NGO"
-                      : t("risk_disc_ngo_foreign_long") ||
-                        "Contractor is an NGO with foreign funding"}
+                  <span
+                    className={`text-sm ${state === "na" ? "text-muted-foreground" : "text-foreground"}`}
+                  >
+                    {t(item.labelKey)}
                   </span>
-                  <span className="rounded-full border border-slate-300 px-1.5 py-0.5 text-[11px] text-slate-600 dark:border-slate-700 dark:text-slate-300">
-                    {t("risk_disc_label") || "disclosure"}
-                  </span>
+                  {value ? (
+                    <span
+                      className={`rounded-full px-1.5 py-0.5 text-[11px] font-medium tabular-nums ${
+                        authoritative
+                          ? "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300"
+                          : "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
+                      }`}
+                    >
+                      {value}
+                    </span>
+                  ) : null}
+                  {state === "na" ? (
+                    <span className="rounded-full border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
+                      {t("risk_na") || "not applicable"}
+                    </span>
+                  ) : null}
                 </div>
                 <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                  {flags.ngoForeignFunded.kind === "connected" &&
-                  flags.ngoForeignFunded.person ? (
-                    <>
-                      {flags.ngoForeignFunded.person}
+                  {t(item.whyKey)}
+                  {item.ref ? (
+                    <span className="text-muted-foreground/70">
                       {" · "}
-                      {t("risk_disc_ngo_foreign_board_of") ||
-                        "on the board of"}{" "}
-                    </>
+                      {item.ref}
+                    </span>
                   ) : null}
-                  <Link
-                    to={`/company/${flags.ngoForeignFunded.ngoEik}`}
-                    className="text-primary hover:underline"
+                </p>
+                {state === "na" ? (
+                  <p className="mt-0.5 text-xs text-muted-foreground/70">
+                    {t(item.naReasonKey)}
+                  </p>
+                ) : null}
+                {item.key === "debarred" &&
+                state === "fired" &&
+                flags.debarred?.detailsUrl ? (
+                  <a
+                    href={flags.debarred.detailsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-0.5 inline-block text-xs text-primary hover:underline"
                   >
-                    {flags.ngoForeignFunded.ngoName}
-                  </Link>
-                  {" · "}
-                  {flags.ngoForeignFunded.funder ??
-                    (t("risk_disc_ngo_foreign_funder_generic") ||
-                      "Foreign funding")}
-                  {flags.ngoForeignFunded.eur != null ? (
-                    <>
-                      {" · "}
-                      {formatEurCompact(flags.ngoForeignFunded.eur, lang)}
-                    </>
-                  ) : null}
-                </p>
-                <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground/70">
-                  {t("risk_disc_ngo_foreign_note") ||
-                    "Lawful disclosure, not a risk flag — foreign funding is not evidence of wrongdoing."}
-                </p>
+                    {t("risk_flag_debarred_source") || "КЗК decision (PDF)"}
+                  </a>
+                ) : null}
               </div>
             </div>
-          ) : null}
-        </div>
-      ) : null}
+          );
+        })}
+        {flags.ngoForeignFunded ? (
+          <div className="flex items-start gap-2 border-t border-border/60 py-2">
+            <Globe
+              className="mt-0.5 h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400"
+              aria-hidden
+            />
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-sm text-foreground">
+                  {flags.ngoForeignFunded.kind === "connected"
+                    ? t("risk_disc_ngo_foreign_connected_long") ||
+                      "Contractor is tied to a foreign-funded NGO"
+                    : t("risk_disc_ngo_foreign_long") ||
+                      "Contractor is an NGO with foreign funding"}
+                </span>
+                <span className="rounded-full border border-slate-300 px-1.5 py-0.5 text-[11px] text-slate-600 dark:border-slate-700 dark:text-slate-300">
+                  {t("risk_disc_label") || "disclosure"}
+                </span>
+              </div>
+              <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                {flags.ngoForeignFunded.kind === "connected" &&
+                flags.ngoForeignFunded.person ? (
+                  <>
+                    {flags.ngoForeignFunded.person}
+                    {" · "}
+                    {t("risk_disc_ngo_foreign_board_of") ||
+                      "on the board of"}{" "}
+                  </>
+                ) : null}
+                <Link
+                  to={`/company/${flags.ngoForeignFunded.ngoEik}`}
+                  className="text-primary hover:underline"
+                >
+                  {flags.ngoForeignFunded.ngoName}
+                </Link>
+                {" · "}
+                {flags.ngoForeignFunded.funder ??
+                  (t("risk_disc_ngo_foreign_funder_generic") ||
+                    "Foreign funding")}
+                {flags.ngoForeignFunded.eur != null ? (
+                  <>
+                    {" · "}
+                    {formatEurCompact(flags.ngoForeignFunded.eur, lang)}
+                  </>
+                ) : null}
+              </p>
+              <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground/70">
+                {t("risk_disc_ngo_foreign_note") ||
+                  "Lawful disclosure, not a risk flag — foreign funding is not evidence of wrongdoing."}
+              </p>
+            </div>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

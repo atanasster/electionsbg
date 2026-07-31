@@ -1,10 +1,11 @@
-// The A–F grade badge on the contract detail header.
+// The contract detail header — the A–F grade badge, and the check ledger being
+// ALWAYS OPEN.
 //
 // The grade is the letter every OTHER procurement surface leads with — the
 // riskiest-contracts board links here with an "F" chip, and `?grade=D,E,F`
 // filters the browsers on the same column — and the detail page was the one
 // place that dropped it, so an F contract read as a bare "6 of 10" once opened.
-// Two properties, both silent when broken:
+// Three properties, all silent when broken:
 //
 //   1. THE LETTER IS THE SERVER'S. It comes from `risk_grade` (migration 112),
 //      not from re-banding the fired count here; a second implementation of
@@ -12,9 +13,13 @@
 //   2. AN UNRECOGNISED LETTER MUST NOT THROW. `risk_grade` is a text column, and
 //      indexing GRADE_TONE with anything outside A–F yields undefined — reading
 //      `.chip` off it takes the whole contract page down.
+//   3. THE LEDGER NEEDS NO CLICK. It was a closed-by-default disclosure, which
+//      hid the only thing on the page that says WHICH checks fired behind a
+//      header reading "6 of 10". Re-collapsing it would look like a styling
+//      change and lose the whole explanation.
 //
-// Fetch is stubbed (vitest.setup.ts makes an unstubbed fetch throw); the header
-// arms its detail fetch on hover only, so no request is issued by these renders.
+// Fetch is stubbed (vitest.setup.ts makes an unstubbed fetch throw); these
+// renders pass no contractKey, so the detail query stays disabled either way.
 
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -96,5 +101,27 @@ describe("RiskBadges grade badge", () => {
     // undefined and `.chip` would throw, taking the page with it.
     expect(() => renderHeader("Z")).not.toThrow();
     expect(screen.queryByText("Z")).toBeNull();
+  });
+});
+
+describe("RiskBadges check ledger", () => {
+  it("explains every check on first paint, with no interaction", () => {
+    renderHeader("D");
+    expect(screen.getByText(/Automated risk indicators/)).toBeTruthy();
+    // A fired check (bit 1) and a passed one — both stated, not just counted.
+    expect(screen.getByText("Contractor is connected to an MP")).toBeTruthy();
+    expect(
+      screen.getByText("Awarder concentrated on this contractor"),
+    ).toBeTruthy();
+    // And a check that could not run (bit 10 absent from the available mask) —
+    // "not checked" is the distinction the ledger exists to draw.
+    expect(screen.getByText("Direct / no-notice award")).toBeTruthy();
+    expect(screen.getAllByText("not applicable").length).toBeGreaterThan(0);
+  });
+
+  it("has no expand/collapse control", () => {
+    const { container } = renderHeader("D");
+    // The header was a <button aria-expanded>. Nothing may gate the ledger again.
+    expect(container.querySelector("[aria-expanded]")).toBeNull();
   });
 });
