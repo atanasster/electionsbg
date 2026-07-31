@@ -671,12 +671,12 @@ the inclusive table bound stops exactly where the half-open endpoint does (§3.1
    all. Measured first-load data transfer (dev, decoded — see the §6.1 correction;
    divide by ~6.5 for prod wire bytes):
 
-   | page                              | before  | after   |
-   | --------------------------------- | ------- | ------- |
-   | `/procurement/settlement/68134`   | 548 KB  | 184 KB  |
-   | `/procurement/contracts`          | 515 KB  | 152 KB  |
-   | `/procurement/tenders`            | 487 KB  | 123 KB  |
-   | `/procurement/contractors`        | 465 KB  | 101 KB  |
+   | page                            | before | after  |
+   | ------------------------------- | ------ | ------ |
+   | `/procurement/settlement/68134` | 548 KB | 184 KB |
+   | `/procurement/contracts`        | 515 KB | 152 KB |
+   | `/procurement/tenders`          | 487 KB | 123 KB |
+   | `/procurement/contractors`      | 465 KB | 101 KB |
 
    The settlement page is no longer the most expensive of the contracts browsers;
    it is now the cheapest per-request and the ordering follows page-specific data,
@@ -694,8 +694,34 @@ the inclusive table bound stops exactly where the half-open endpoint does (§3.1
    **56→52 KB on the wire**. That is 4 KB, on a fetch that now happens only when a
    reader opens the dropdown, in exchange for an opaque wire format. Not worth the
    contract change; re-open it only if the catalogue grows by an order of magnitude.
-5. **Cold-start 500 on `/api/db/procurement-settlement`** (§1.1) — reproduced
-   once at 20.5 s; likely a statement timeout on a cold Cloud SQL connection.
+
+5. **`/api/db/procurement-settlement` intermittently 500s on the largest settlements.**
+   DIAGNOSED 2026-07-31 (the §1.1 note guessed "cold start"; that was wrong).
+
+   It is not cold start: the `db` service runs `minScale=1` with `containerConcurrency=80`,
+   so an instance is always warm and collisions are implausible. It is
+   `procurement_settlement_detail` exceeding the **10 s `statement_timeout`** set at
+   `functions/index.js:427`. Cloud Run logs show the ceiling exactly — two requests at
+   `10.009960s` and `10.009310s`, the first a **500**:
+
+   | EKATTE         | first touch        | repeat          |
+   | -------------- | ------------------ | --------------- |
+   | 68134 София    | **10.009 s → 500** | 9.76 s → 0.74 s |
+   | 10135 Варна    | 4.85 s             | 0.58 s          |
+   | 07079 Бургас   | 1.57 s             | —               |
+   | small villages | 8–25 ms            | —               |
+
+   The cost scales with the settlement's contract count and collapses on repeat, so the
+   driver is Cloud SQL buffer cache on a `db-g1-small`: the same call is **801 ms** locally
+   with warm buffers. Every other `/api/db` route in the same window stayed under 0.82 s.
+
+   **This work did not fix it and did not cause it.** `?slim=1` trims in the route, AFTER
+   the query, so the tiles' 30× payload cut buys no database time; removing the dead
+   `topc` CTE is worth ~1 ms (measured). The fix has to make the AGGREGATE cheaper —
+   precompute it per scope the way `procurement_settlement_rank` (119) already does for
+   the ranking, or index for it — and until then the largest settlements can 500 on a
+   cold first hit.
+
 6. **Migration 030's window predicates are the non-sargable
    `(p_from IS NULL OR date >= p_from)` shape.** It measures fine today
    (128 ms windowed), but now that windowed calls become the default path rather
