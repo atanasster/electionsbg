@@ -59,8 +59,10 @@ export interface ProducerBucket {
   /** Share of total НФЦ subsidy across the whole corpus. */
   share: number;
   /** Resolved company EIK — ONLY when the name matches exactly one TR company
-   *  (unique match; ambiguous names are left unlinked, per plan §6). Added by
-   *  scripts/culture/enrich_producers.ts, absent on the raw ingest. */
+   *  (unique match; ambiguous names are left unlinked, per plan §6). Resolved by
+   *  scripts/culture/producer_eik.ts, which scripts/culture/ingest.ts calls
+   *  before it writes this file (and scripts/culture/enrich_producers.ts re-runs
+   *  standalone), so a film refresh never lands without the links. */
   eik?: string;
 }
 

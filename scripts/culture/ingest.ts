@@ -1,6 +1,9 @@
 // Култура ingest — parse the НФЦ Единен публичен регистър .xls files into
 // data/culture/films.json (per-film corpus) + data/culture/overview.json
-// (precomputed dashboard blob). JSON-only, no Postgres (plan §4).
+// (precomputed dashboard blob). JSON-only for the parse (plan §4); the one
+// Postgres touch is the producer→EIK linking below, which runs BEFORE the write
+// so a refresh can never leave overview.json without the EIKs (and degrades to
+// carrying the previous ones forward when Postgres is down).
 //
 //   npx tsx scripts/culture/ingest.ts            # cache-first
 //   npx tsx scripts/culture/ingest.ts --force    # re-download every year
@@ -24,6 +27,8 @@ import { fileURLToPath } from "url";
 import * as XLSX from "xlsx";
 import { BGN_PER_EUR } from "../../src/lib/currency";
 import { foldProducer } from "../../src/lib/foldProducer";
+import { end as endPool } from "../db/lib/pg";
+import { linkProducerEiks } from "./producer_eik";
 import { NFC_REGISTER_PAGE, NFC_YEARS, fetchNfcYear } from "./sources";
 import type {
   CultureFilmsFile,
@@ -223,6 +228,60 @@ const buildOverview = (films: FilmAward[]): CultureOverviewFile => {
 
 // ---------------------------------------------------------------- main ------
 
+/** topProducers' `producerFold` → `eik` from the overview.json about to be
+ *  overwritten. The fallback when the EIK linking cannot run. */
+const previousProducerEiks = (): Map<string, string> => {
+  const file = path.join(OUT_DIR, "overview.json");
+  const map = new Map<string, string>();
+  if (!fs.existsSync(file)) return map;
+  try {
+    const prev = JSON.parse(
+      fs.readFileSync(file, "utf8"),
+    ) as CultureOverviewFile;
+    for (const p of prev.topProducers ?? [])
+      if (p.eik) map.set(p.producerFold, p.eik);
+  } catch {
+    // Unparseable previous artifact — nothing to carry forward.
+  }
+  return map;
+};
+
+/**
+ * Attach the /company/:eik link to every top producer, in place.
+ *
+ * The invariant is "overview.json is never left without EIKs". The register has
+ * no EIK column, so this is the only place they come from — and it used to be a
+ * separate script the operator had to remember, which is how a routine refresh
+ * silently stripped all 9 links on 2026-07-31. When Postgres is unavailable the
+ * ingest does NOT fail (the parse is sound and films.json is unaffected): it
+ * carries the previous file's EIKs forward and says so loudly.
+ */
+const attachProducerEiks = async (
+  overview: CultureOverviewFile,
+): Promise<void> => {
+  try {
+    const { linked, total } = await linkProducerEiks(overview.topProducers);
+    console.log(`  ${linked}/${total} top producers linked to a unique EIK`);
+  } catch (e) {
+    const prev = previousProducerEiks();
+    let carried = 0;
+    for (const p of overview.topProducers) {
+      const eik = prev.get(p.producerFold);
+      if (eik) {
+        p.eik = eik;
+        carried += 1;
+      }
+    }
+    console.warn(
+      `\n  ⚠ producer→EIK linking SKIPPED: ${(e as Error).message}` +
+        `\n    carried ${carried}/${overview.topProducers.length} eik(s) forward from the previous overview.json.` +
+        `\n    Re-run \`npx tsx scripts/culture/enrich_producers.ts\` once Postgres is up.\n`,
+    );
+  } finally {
+    await endPool();
+  }
+};
+
 const main = async () => {
   const force = process.argv.includes("--force");
   const all: FilmAward[] = [];
@@ -261,6 +320,9 @@ const main = async () => {
     throw new Error(
       `Σ mismatch: overview ${overview.totalEur} ≠ flat ${flatEur}`,
     );
+
+  // BEFORE the write: overview.json must never land without the producer EIKs.
+  await attachProducerEiks(overview);
 
   const films: CultureFilmsFile = {
     generatedAt: new Date().toISOString(),

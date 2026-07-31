@@ -30,20 +30,36 @@ Discipline is classified from the **reg-number letter** (И=игрално, Д=�
 ## Run
 
 ```bash
-npx tsx scripts/culture/ingest.ts          # НФЦ films → films.json + overview.json
+npx tsx scripts/culture/ingest.ts          # НФЦ films → films.json + overview.json (start local Postgres FIRST: npm run db:pg:up)
 npx tsx scripts/culture/ingest.ts --force  # re-download every year's .xls
 npx tsx scripts/culture/ncf_grants.ts      # НФК grant results → grants.json (needs pdftotext)
 npx tsx scripts/culture/build_oblast.ts    # state institutes by oblast (needs Postgres)
-npx tsx scripts/culture/enrich_producers.ts # link top producers → EIK (needs Postgres; run AFTER ingest.ts)
 npx tsx scripts/culture/write_commissions.ts # НФЦ artistic-commission compositions → commissions.json
 npx tsx scripts/culture/sofia_program.ts   # Sofia Програма „Култура" + читалища → municipal.json (needs pdftotext)
+
+npx tsx scripts/culture/enrich_producers.ts # REPAIR ONLY — re-link top producers → EIK (needs Postgres)
 ```
 
-`enrich_producers.ts` resolves the top producers' names to a company EIK — but ONLY
-where a name matches exactly one Commerce-Registry company (unique match). Ambiguous
-names ("Клас", "АРС") and no-matches are left unlinked rather than guessed (plan §6).
-It rewrites `data/culture/overview.json` in place, so run it AFTER `ingest.ts` (which
-overwrites overview.json and drops the eik).
+**The producer→EIK links are part of the ingest, not a step you can forget.** The НФЦ
+register has no EIK, so the `/company/:eik` link on every top-producer row comes from
+`scripts/culture/producer_eik.ts`, which resolves a producer name to a company EIK ONLY
+where it matches exactly one Commerce-Registry company (unique match); ambiguous names
+("Клас", "АРС") and no-matches are left unlinked rather than guessed (plan §6). `ingest.ts`
+calls it **before** it writes `overview.json`, so a refresh can never leave the file
+EIK-less — which it did on 2026-07-31, when the linking was a separate script and all 9
+producer links went dead with nothing failing.
+
+That linking needs **local Postgres** (`tr_companies`), so bring it up before the ingest:
+
+```bash
+npm run db:pg:up
+```
+
+Without it the ingest still succeeds (the parse is Postgres-free) but prints a loud
+`⚠ producer→EIK linking SKIPPED` and carries the previous `overview.json`'s EIKs forward.
+`enrich_producers.ts` is then the repair: start Postgres and run it to re-link in place.
+Its other use is after a TR reload, when the company corpus has moved but the films
+have not.
 
 The **НФК grants** ingest (`ncf_grants.ts`) parses the класиране PDFs listed in the
 curated `NCF_RESULTS` map into `data/culture/grants.json` — the applied-vs-funded
@@ -72,9 +88,14 @@ refuses to write a partial artifact on failure.
 1. Eyeball the printed per-year counts + the Σ line (`~944 films · €94.9M · 324
    producers · top-10 22%` for the 2014–2025 baseline, after de-duping the 5
    identical rows the register ships).
-2. Commit `data/culture/*.json` and `bucket:sync data/culture/`
+2. Check the EIK line (`18/25 top producers linked to a unique EIK` — never a
+   `⚠ … SKIPPED`) and confirm the git diff drops NO `eik` field:
+   ```bash
+   git diff -U0 data/culture/overview.json | grep '^-.*"eik"'   # expect: no output
+   ```
+3. Commit `data/culture/*.json` and `bucket:sync data/culture/`
    (`cp -Z` — GCS serves identity; avoid `gsutil -m` on macOS).
-3. Stamp the ingest state:
+4. Stamp the ingest state:
    ```bash
    npx tsx scripts/stamp-ingest.ts update-culture --summary "НФЦ film register: <N> films, €<X>M, <P> producers, <first>–<last>"
    ```
