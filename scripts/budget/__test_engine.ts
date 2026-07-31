@@ -491,13 +491,13 @@ eq("scoreMaternityMonths(12) no change", scoreMaternityMonths(12), 0);
 // MP pay freeze: −€18.9M × growth%/100.
 eq("scoreMpPayFreeze(5%)", scoreMpPayFreeze(5), -945_000, 1);
 eq("scoreMpPayFreeze(0%) = 0", scoreMpPayFreeze(0), 0);
-// Party subsidy: (rate − €3.00) × 2.861M votes.
-eq("scorePartySubsidy(0) abolish", scorePartySubsidy(0), -8_583_000, 1);
+// Party subsidy: (rate − €3.00) × 3.103M votes (the ≥1% base after 19.04.2026).
+eq("scorePartySubsidy(0) abolish", scorePartySubsidy(0), -9_309_909, 1);
 eq("scorePartySubsidy(3.0) no-op", scorePartySubsidy(3.0), 0);
 eq(
   "scorePartySubsidy(4.09) restore old",
   scorePartySubsidy(4.09),
-  1.09 * 2_861_000,
+  1.09 * 3_103_303,
   1,
 );
 

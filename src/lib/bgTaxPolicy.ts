@@ -941,10 +941,22 @@ export const MP_PAY_MASS_EUR = 18_900_000;
 export const scoreMpPayFreeze = (wageGrowthPct: number): number =>
   -MP_PAY_MASS_EUR * (wageGrowthPct / 100);
 
-/** Party subsidies: ~2.86M subsidized votes (€11.7M envelope ÷ €4.09/vote,
- *  7 qualifying formations after April 2026); current law is €3.00/vote
- *  since 30.04.2026 (adopted 2026-06-03, cut from €4.09 = 8 лв). */
-export const PARTY_SUBSIDY_VOTES = 2_861_000;
+/** Party subsidies: the subsidized-vote base is counted from the LAST
+ *  parliamentary election, not from a budget envelope. ЗПП pays per действителен
+ *  глас to every party/coalition above 1% of the party-list valid vote; after
+ *  19.04.2026 that is 10 formations with 3,103,303 of 3,240,156 valid votes
+ *  (АПС is the last in at 1.57%; the next, ИТН, is 0.74% — the cut is not
+ *  close). Current law is €3.00/vote since 30.04.2026 (ЗДБРБ-2026 чл. 63 т. 2,
+ *  adopted 2026-06-03, cut from €4.09 = 8 лв) ⇒ ≈€9.31M in a full year.
+ *
+ *  Do NOT re-derive this from the ЗДБРБ-2026 party-subsidy envelope (чл. 13
+ *  ал. 4: "до 8 964,3 хил. евро"). That envelope is a 2026-ONLY transitional
+ *  figure — чл. 63 sets two rates inside the one year (€4.09 to 29.04, €3.00
+ *  from 30.04) and the vote base itself changed at the 19.04 election, so it
+ *  blends two rates over two bases. 8,964,300 ÷ 3.00 = 2,988,100 is a vote
+ *  count that exists in no election; feeding it to an annualized lever would
+ *  bake the transition into a steady-state constant. */
+export const PARTY_SUBSIDY_VOTES = 3_103_303;
 export const PARTY_SUBSIDY_RATE_EUR = 3.0;
 
 /** Δ spending of setting the per-vote subsidy (positive = costs more than
