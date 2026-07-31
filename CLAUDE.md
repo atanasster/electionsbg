@@ -351,6 +351,57 @@ change is the one edit whose staleness is invisible to a row count. `net_worth_e
 serializes PG `numeric` as a STRING, so on a stale cloud matview the API response looks
 perfectly correct while every money cell on `/persons` renders BLANK.
 
+Last of all, and the only step here whose output is a COMMITTED FILE rather than a table —
+the `/person` prerender + sitemap manifest (`data/person/prerender_slugs.json`):
+
+```bash
+npm run person:slugs:cloud
+```
+
+It must run **after** `db:resolve:persons:cloud`, the declarations `--resolve` and
+`db:load:official-candidate-links:pg:cloud` (it reads `officials_rankings_table`), and it is
+the one manifest that MUST be minted from the SERVING database — not from local Postgres.
+`person_slug_lock` accumulates per database and is never truncated, so two databases
+re-resolved a different number of times hand the same people different slugs; measured
+2026-07-31, before the cloud caught up: 1,436 mention→slug locks disagreed and 642 person
+slugs existed only locally (mostly `-2` collision suffixes). Every one of those 642 was in
+the committed manifest, so the prerenderer would have built and the sitemap advertised 642
+`/person` URLs whose profile fetch returns `null` on prod, while the 641 slugs prod could
+actually serve got no page and no `<loc>`.
+
+`emit_prerender_slugs.ts` now REFUSES to write when connected to the local docker Postgres
+(`npm run person:slugs -- --local` overrides), so `db:refresh`'s `person:slugs` step and the
+`person_prerender_set.data.test.ts` determinism gate — both of which used to mint the file
+from the stale side — warn and skip instead. Nothing else regenerates it: this command is
+the only way the manifest moves.
+
+### Person SQL functions — applied, never loaded
+
+The person serving functions (082/083/084/085/106 …) carry no data, so no `db:load:*` ships
+them. The only cloud path that applies them is `db:resolve:persons:cloud`, which is a
+multi-hour rebuild — far too heavy for a one-function fix, and it re-resolves the whole
+identity layer as a side effect. Ship a function-body change on its own:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 084_person_connections.sql
+```
+
+Safe at any time and idempotent — every one of these files is `CREATE OR REPLACE`. **A
+function-only change is invisible to every row count and every loader**: local is green, prod
+keeps running the previous body indefinitely, and nothing reports a difference. `deploy:db`
+does NOT carry it — that ships function *code* in `functions/`, which is a different thing
+from a Postgres function.
+
+`084_person_connections.sql` is the worked example: `/api/db/person-connections` reached
+8.2–10.1 s on prod (one request over the 10 s `statement_timeout`) because
+`person_connections` rebuilt a whole-corpus company→officer-count map on every request,
+independent of the subject — 96.5% of its buffers, and paid in full even by a person with no
+companies at all, which is the common case since the traffic is a crawler walking
+`/person/{slug}`. Fixed by a query rewrite (per-eik lookups riding
+`idx_person_role_source_ref`), no new object and no loader.
+`person_connections.data.test.ts` holds the buffer ceiling and proves it still discriminates
+by restoring the old body in a rolled-back transaction.
+
 ## Testing
 
 Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).

@@ -27,7 +27,8 @@ import {
   OFFICIALS_STATIC_PAGE_LIMIT,
 } from "@/lib/officialCategoryLabels";
 import {
-  emitPersonSlugs,
+  computePersonSlugs,
+  isServingDatabase,
   type PersonSlugEntry,
 } from "../../person/emit_prerender_slugs";
 
@@ -71,7 +72,13 @@ const prerenderSlugs = (): Set<string> => {
 
 // (1) Continuity — the invariant the plan actually requires ("no indexed URL loses its
 // SEO body"). Every person the retired officials top-N maps to is prerendered.
-test.skipIf(skip)(
+//
+// SERVING DATABASE ONLY: this maps officials slugs through the connected DB's
+// officials_person_slug() and looks the results up in a manifest minted from Cloud SQL.
+// person_slug_lock is per-database, so against local Postgres the two name different people
+// and every divergent slug reads as a dropped continuity target. See "WHICH DATABASE MAY
+// WRITE THIS FILE" in emit_prerender_slugs.ts.
+test.skipIf(skip || !isServingDatabase())(
   "the prerender set covers every person the retired officials top-N mapped to",
   async () => {
     if (!fs.existsSync(OLD_RANKINGS)) return; // continuity source retired (post-T1.5)
@@ -144,13 +151,22 @@ test.skipIf(skip)(
   },
 );
 
-// (2) Determinism: two consecutive emits produce the identical prerender set. Catches a
-// dropped ORDER BY / tiebreak, which churns the manifest silently.
+// (2) Determinism: two consecutive computations produce the identical prerender set.
+// Catches a dropped ORDER BY / tiebreak, which churns the manifest silently.
+//
+// computePersonSlugs, NOT emitPersonSlugs: this gate runs under test:data against the LOCAL
+// Postgres, and emitting would WRITE data/person/prerender_slugs.json from a database that
+// does not serve prod. That is how 642 local-only slugs got into the committed manifest —
+// see "WHICH DATABASE MAY WRITE THIS FILE" in emit_prerender_slugs.ts. A test must not
+// mutate the artifact it is checking.
 test.skipIf(skip)("two emits produce an identical prerender set", async () => {
-  await emitPersonSlugs();
-  const first = [...prerenderSlugs()].sort();
-  await emitPersonSlugs();
-  const second = [...prerenderSlugs()].sort();
+  const set = (p: PersonSlugEntry[] | null): string[] =>
+    (p ?? [])
+      .filter((e) => e.prerender)
+      .map((e) => e.slug)
+      .sort();
+  const first = set(await computePersonSlugs());
+  const second = set(await computePersonSlugs());
   assert.deepEqual(
     second,
     first,

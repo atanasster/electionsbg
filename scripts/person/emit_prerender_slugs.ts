@@ -50,12 +50,14 @@
 //
 // Runs AFTER db:resolve:persons (needs the resolved person + person_role), the declarations
 // load (the floor consults `declaration`) AND the officials_rankings_table refresh (the
-// `prerender` set reads it). Wired into db:refresh after those.
+// `prerender` set reads it) — on the SERVING database: `npm run person:slugs:cloud`, after
+// the cloud twins of those three. db:refresh still calls the local `person:slugs`, which
+// now warns and skips rather than writing (see "WHICH DATABASE MAY WRITE THIS FILE" below).
 
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, end } from "../db/lib/pg";
+import { allRows, end, DATABASE_URL, LOCAL_DATABASE_URL } from "../db/lib/pg";
 import {
   OFFICIALS_STATIC_PAGE_LIMIT,
   officialsForStaticPages,
@@ -102,7 +104,40 @@ const FLOOR_PREDICATE = `(
               WHERE r.person_id = p.person_id AND r.source <> 'candidate')
 )`;
 
-export const emitPersonSlugs = async (): Promise<void> => {
+// ---------------------------------------------------------------------------
+// WHICH DATABASE MAY WRITE THIS FILE.
+//
+// The header above says scripts/prerender/ and scripts/sitemap/ stay DB-free because "the
+// maintainer's local PG is stale vs Cloud SQL" — but the wiring did the opposite of what
+// that sentence implies: `person:slugs` sat in db:refresh reading the LOCAL Postgres, and
+// the determinism gate below called emitPersonSlugs() during test:data, so BOTH paths
+// minted the committed manifest from the stale side.
+//
+// That is not a cosmetic mismatch. person_slug_lock accumulates PER DATABASE and is never
+// truncated, so two databases re-resolved a different number of times assign different
+// slugs to the same people (measured 2026-07-31: 1,436 mention→slug locks disagreed, 642
+// person slugs existed only locally — mostly `-2` collision suffixes — and all 642 were in
+// this manifest). The prerenderer would then build, and the sitemap would advertise, 642
+// /person URLs whose profile fetch returns `null` on prod, while the 641 slugs prod can
+// actually serve got no page and no <loc>.
+//
+// So writing is gated on the connection being the SERVING database. The local docker
+// Postgres is the one URL we know is not it; everything else (the Cloud SQL proxy) is
+// taken at face value, matching how every :cloud script here targets prod.
+//
+// Exported because the same signal gates the manifest↔DB assertions in the two data tests:
+// a manifest minted from the serving database CANNOT be checked against local Postgres —
+// the slug sets legitimately differ, so the comparison would fail on provenance, not on a
+// real defect. DB-only invariants (the content floor, emitter determinism) run anywhere.
+export const isServingDatabase = (): boolean =>
+  DATABASE_URL !== LOCAL_DATABASE_URL;
+
+/** Read the manifest payload from whatever database is connected, WITHOUT writing it.
+ *  Returns null when the person layer is unresolved (nothing meaningful to emit).
+ *  The determinism gate uses this so a test run cannot mutate the committed artifact. */
+export const computePersonSlugs = async (): Promise<
+  PersonSlugEntry[] | null
+> => {
   const [{ n }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person WHERE is_public_figure",
   );
@@ -110,7 +145,7 @@ export const emitPersonSlugs = async (): Promise<void> => {
     console.log(
       "[person-slugs] person table empty — skipping (resolver not run?)",
     );
-    return;
+    return null;
   }
 
   const rows = await allRows<{ slug: string; indexable: boolean }>(
@@ -246,6 +281,30 @@ export const emitPersonSlugs = async (): Promise<void> => {
     }
     return entry;
   });
+  return payload;
+};
+
+/** Compute AND write the manifest. Refuses to overwrite the committed file from the local
+ *  docker Postgres (see isServingDatabase) — pass `allowLocal` only when you genuinely want
+ *  the local view on disk. Skipping is the safe degradation: the committed manifest already
+ *  describes the serving database, so leaving it untouched keeps prerender + sitemap honest. */
+export const emitPersonSlugs = async (opts?: {
+  allowLocal?: boolean;
+}): Promise<void> => {
+  const payload = await computePersonSlugs();
+  if (!payload) return;
+
+  if (!isServingDatabase() && !opts?.allowLocal) {
+    console.warn(
+      `[person-slugs] connected to the LOCAL Postgres — refusing to overwrite ` +
+        `${path.relative(ROOT, OUT)}, which the production prerender + sitemap read. ` +
+        `Mint it from the serving database instead:\n` +
+        `  npm run person:slugs:cloud\n` +
+        `(override with \`npm run person:slugs -- --local\` if you really want the local view)`,
+    );
+    return;
+  }
+
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(payload) + "\n");
 
@@ -263,7 +322,7 @@ if (
   process.argv[1] &&
   fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
 ) {
-  emitPersonSlugs()
+  emitPersonSlugs({ allowLocal: process.argv.includes("--local") })
     .then(() => end())
     .catch((e) => {
       console.error(e);

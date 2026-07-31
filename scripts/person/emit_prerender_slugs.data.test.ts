@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../db/lib/pg";
+import { isServingDatabase } from "./emit_prerender_slugs";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -89,33 +90,42 @@ test.skipIf(skip)("every declaration filer is indexable", async () => {
 
 // If the committed manifest exists, it must agree with the live floor — same slug set,
 // same indexable flag — so the sitemap and the prerender cannot disagree about thinness.
-test.skipIf(skip)("the committed manifest matches the live floor", async () => {
-  const file = path.join(ROOT, "data/person/prerender_slugs.json");
-  if (!fs.existsSync(file)) return; // not emitted in this checkout — nothing to compare
-  const manifest = JSON.parse(fs.readFileSync(file, "utf-8")) as {
-    slug: string;
-    indexable: boolean;
-  }[];
-  const byslug = new Map(manifest.map((r) => [r.slug, r.indexable]));
+//
+// SERVING DATABASE ONLY. The manifest is minted from Cloud SQL (person:slugs:cloud), and
+// person_slug_lock accumulates per database, so local Postgres legitimately assigns a few
+// hundred people different slugs. Run against local, this would report every one of them as
+// a floor mismatch — a provenance difference dressed up as a defect. See "WHICH DATABASE
+// MAY WRITE THIS FILE" in emit_prerender_slugs.ts.
+test.skipIf(skip || !isServingDatabase())(
+  "the committed manifest matches the live floor",
+  async () => {
+    const file = path.join(ROOT, "data/person/prerender_slugs.json");
+    if (!fs.existsSync(file)) return; // not emitted in this checkout — nothing to compare
+    const manifest = JSON.parse(fs.readFileSync(file, "utf-8")) as {
+      slug: string;
+      indexable: boolean;
+    }[];
+    const byslug = new Map(manifest.map((r) => [r.slug, r.indexable]));
 
-  const live = await allRows<{ slug: string; indexable: boolean }>(
-    `SELECT p.slug,
+    const live = await allRows<{ slug: string; indexable: boolean }>(
+      `SELECT p.slug,
             (EXISTS (SELECT 1 FROM declaration d WHERE d.person_id = p.person_id)
              OR EXISTS (SELECT 1 FROM person_role r
                          WHERE r.person_id = p.person_id
                            AND r.source <> 'candidate')) AS indexable
        FROM person p
       WHERE p.is_public_figure AND p.slug IS NOT NULL`,
-  );
-  assert.equal(
-    manifest.length,
-    live.length,
-    `manifest has ${manifest.length} slugs, live floor has ${live.length} — re-run npm run person:slugs`,
-  );
-  const mismatches = live.filter((r) => byslug.get(r.slug) !== r.indexable);
-  assert.equal(
-    mismatches.length,
-    0,
-    `${mismatches.length} slug(s) disagree with the live floor — re-run npm run person:slugs`,
-  );
-});
+    );
+    assert.equal(
+      manifest.length,
+      live.length,
+      `manifest has ${manifest.length} slugs, live floor has ${live.length} — re-run npm run person:slugs:cloud`,
+    );
+    const mismatches = live.filter((r) => byslug.get(r.slug) !== r.indexable);
+    assert.equal(
+      mismatches.length,
+      0,
+      `${mismatches.length} slug(s) disagree with the live floor — re-run npm run person:slugs:cloud`,
+    );
+  },
+);

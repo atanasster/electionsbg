@@ -91,6 +91,7 @@
     "db:load:declarations:pg": "tsx scripts/db/load_declarations_pg.ts",
     "db:load:declarations:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg tsx scripts/db/load_declarations_pg.ts",
     "person:slugs": "tsx scripts/person/emit_prerender_slugs.ts",
+    "person:slugs:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run person:slugs",
     "person:slug-redirects": "tsx scripts/person/load_slug_redirects.ts",
     "person:slug-redirects:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run person:slug-redirects --",
     "db:resolve:persons:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:resolve:persons -- --no-stamp",
