@@ -3225,11 +3225,8 @@
   "procurement_settlement_not_found_body": "This settlement has no local-tier procurement on record. The dataset only covers contracts whose buyer headquarters resolve to a settlement in our catalog; small villages and inactive buyers may simply be missing.",
   "procurement_settlement_detail_title": "Procurement in",
   "procurement_settlement_buyers_header": "Buyers in this settlement",
-  "procurement_settlement_top_contracts_header": "Biggest contracts",
   "procurement_settlement_col_buyer": "Buyer",
   "procurement_settlement_col_tier": "Type",
-  "procurement_settlement_col_date": "Date",
-  "procurement_settlement_col_contractor": "Contractor",
   "procurement_settlement_detail_footnote": "Buyer HQ is the location proxy. Central ministries and national state companies based in Sofia procure nationally — they are not shown on this page; see the \"national procurement\" rollup on the landing page.",
   "procurement_settlement_more_buyers": "More buyers on the detail page",
   "settlement_procurement_tile_title": "Local procurement",
@@ -5416,5 +5413,7 @@
   "contract_annexes_title": "Contract annexes",
   "contract_annexes_one": "A single annex moved this contract's value.",
   "contract_annexes_several": "{{count}} annexes moved this contract's value.",
-  "contract_annexes_note": "Grounds are quoted as declared by the buyer — for review, not proof of wrongdoing."
+  "contract_annexes_note": "Grounds are quoted as declared by the buyer — for review, not proof of wrongdoing.",
+  "procurement_settlement_show_all_buyers": "Show all buyers",
+  "procurement_settlement_show_fewer_buyers": "Show fewer"
 }

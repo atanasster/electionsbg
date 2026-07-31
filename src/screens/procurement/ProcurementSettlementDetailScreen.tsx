@@ -1,38 +1,48 @@
-// /procurement/settlement/:ekatte — per-settlement procurement detail.
-// Shows the buyer breakdown (municipality, schools, hospitals, etc.),
-// top contracts, and annual trend for one settlement.
+// /procurement/settlement/:ekatte — public procurement in one settlement.
+//
+// A contracts BROWSER scoped to a place, not a static summary: the buyers seated at this
+// EKATTE, then every contract they awarded, with the same filters, KPI strip and columns
+// as /procurement/contracts and /company/:eik/contracts.
+//
+// TWO DATA PATHS, ONE WINDOW. The buyers card reads procurement_settlement_detail (the
+// place's own aggregate); the table below reads the `contracts` resource through the
+// awarder_ekatte semi-join. Both are bounded by the SAME ?pscope — but through different
+// helpers, because the endpoints take opposite bound conventions: useScopeWindow here
+// (half-open, `date < to`) and scopeRange inside the section (inclusive, `date <= max`).
+// Passing either helper's pair to the other path silently shifts one side by a day. See
+// docs/plans/procurement-settlement-browser-v1.md §3.1a.
 
-import { FC } from "react";
-import { useParams, Link } from "react-router-dom";
+import { FC, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Banknote, Building2, MapPin } from "lucide-react";
-import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { Title } from "@/ux/Title";
+import { SEO } from "@/ux/SEO";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import { PlaceHeaderView } from "@/screens/components/place/PlaceHeaderView";
-import { SEO } from "@/ux/SEO";
-import {
-  CORPUS_WINDOW,
-  useSettlementProcurement,
-} from "@/data/procurement/useSettlementProcurement";
+import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
+import { ProcurementSettlementContractsSection } from "./ProcurementSettlementContractsSection";
 import { settlementHero, settlementSeo } from "./settlementHero";
 import type { ProcurementAwarderTier } from "@/data/dataTypes";
 
 const eurFmt = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 const countFmt = new Intl.NumberFormat("bg-BG");
 
-// KPI cards sit in a 1/3-width column at sm: and up, so a long euro total
-// (e.g. "€3 937 163 034") overflows a fixed text-2xl. Step the size down by
-// the rendered string length so big numbers always stay inside their card.
-const kpiSizeClass = (formatted: string): string => {
-  const n = formatted.length;
-  if (n <= 9) return "text-2xl";
-  if (n <= 12) return "text-xl";
-  if (n <= 15) return "text-lg";
-  return "text-base";
-};
+// NOTE on the `t(key) || "fallback"` idiom used elsewhere in this file and across the
+// codebase: it is DEAD CODE. i18n.ts sets `fallbackLng: lng` with no missing-key handler,
+// so i18next returns the KEY itself for a missing string — which is truthy, so the `||`
+// arm never runs and the reader sees `procurement_settlement_show_all_buyers` on screen.
+// (That is exactly what happened while building this page.) New keys here are added to
+// BOTH bundles and called as a bare `t(key)`; do not "restore" a fallback.
+
+// София has 327 buyers, Пловдив 153. Rendering every row on mount is a long scroll past
+// the thing most readers came for (the contracts), so the list opens at the head of the
+// ranking and expands on request.
+const BUYERS_COLLAPSED = 10;
 
 const TIER_LABEL_BG: Record<ProcurementAwarderTier, string> = {
   municipal: "Община",
@@ -64,8 +74,11 @@ const TIER_LABEL_EN: Record<ProcurementAwarderTier, string> = {
 export const ProcurementSettlementDetailScreen: FC = () => {
   const { ekatte } = useParams<{ ekatte: string }>();
   const { t, i18n } = useTranslation();
-  const q = useSettlementProcurement(ekatte ?? null, CORPUS_WINDOW);
+  // Half-open [from, to) — the shape procurement_settlement_detail filters on.
+  const { from, to } = useScopeWindow();
+  const q = useSettlementProcurement(ekatte ?? null, { from, to });
   const data = q.data;
+  const [showAllBuyers, setShowAllBuyers] = useState(false);
 
   // Every state renders the same hierarchy crumb, one level under the
   // "По място" list: Управление › Обществени поръчки › По място › <settlement>.
@@ -78,6 +91,11 @@ export const ProcurementSettlementDetailScreen: FC = () => {
     return (
       <div>
         <ProcurementBreadcrumb section={bySettlement} className="my-3" />
+        {/* The control stays mounted while loading: a scope switch is the most common
+            way into this branch, and hiding the pill mid-toggle is the one moment the
+            reader needs it. (placeholderData usually skips this branch entirely on a
+            toggle — this is for the genuine first load.) */}
+        <ScopeControl mode="toggle" className="mb-3" />
         <Title>{t("procurement_settlement_loading") || "Loading…"}</Title>
         <div className="h-64 animate-pulse rounded-xl bg-muted" />
       </div>
@@ -92,9 +110,13 @@ export const ProcurementSettlementDetailScreen: FC = () => {
           current={ekatte}
           className="my-3"
         />
+        <ScopeControl mode="toggle" className="mb-3" />
         <Title>
           {t("procurement_settlement_not_found_title") || "No procurement data"}
         </Title>
+        {/* The scope control stays mounted here on purpose: under a narrow ?pscope this
+            branch also means "nothing in THIS period", and without a visible way back to
+            "all years" the page reads as "this settlement has no procurement at all". */}
         <p className="text-muted-foreground">
           {t("procurement_settlement_not_found_body") ||
             "This settlement has no local-tier procurement on record. The dataset only covers contracts whose buyer headquarters resolve to a settlement in our catalog; small villages and inactive buyers may simply be missing."}
@@ -104,14 +126,13 @@ export const ProcurementSettlementDetailScreen: FC = () => {
   }
 
   const tierLabel = i18n.language === "bg" ? TIER_LABEL_BG : TIER_LABEL_EN;
-
-  const totalStr = `€${eurFmt.format(Math.round(data.totalEur))}`;
-  const contractsStr = countFmt.format(data.contractCount);
-  const buyersStr = countFmt.format(data.awarders.length);
-
   const lang = i18n.language === "bg" ? "bg" : "en";
   const hero = settlementHero(data, lang);
   const seo = settlementSeo(data, hero.displayName, lang);
+
+  const buyers = showAllBuyers
+    ? data.awarders
+    : data.awarders.slice(0, BUYERS_COLLAPSED);
 
   return (
     <div>
@@ -121,6 +142,11 @@ export const ProcurementSettlementDetailScreen: FC = () => {
         current={data.name}
         className="my-3"
       />
+      {/* The shared scope control, in the same slot every /procurement* page puts it.
+          NOT ProcurementSectionHeader: that wrapper takes an i18n KEY for a single-level
+          breadcrumb leaf, and this page's crumb is two levels deep with a dynamic
+          settlement name. */}
+      <ScopeControl mode="toggle" className="mb-3" />
       {/* Compact: the location display only (title + breadcrumb + map). The full view
           switcher belongs on the governance/parliamentary/local/consumption pages where
           switching navigates — not here, where the page just scopes procurement to a place. */}
@@ -144,55 +170,19 @@ export const ProcurementSettlementDetailScreen: FC = () => {
         className="mb-6"
       />
 
-      {/* KPI strip */}
-      <div className="mb-6 grid gap-3 sm:grid-cols-3">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
-              <Banknote className="h-3.5 w-3.5" />
-              {t("procurement_settlement_kpi_local_eur") || "Total"}
-            </div>
-            <div
-              className={`mt-1 ${kpiSizeClass(totalStr)} font-semibold tabular-nums whitespace-nowrap`}
-            >
-              {totalStr}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
-              <Building2 className="h-3.5 w-3.5" />
-              {t("procurement_settlement_kpi_contracts") || "Contracts"}
-            </div>
-            <div
-              className={`mt-1 ${kpiSizeClass(contractsStr)} font-semibold tabular-nums whitespace-nowrap`}
-            >
-              {contractsStr}
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5" />
-              {t("procurement_settlement_kpi_buyers") || "Buyers"}
-            </div>
-            <div
-              className={`mt-1 ${kpiSizeClass(buyersStr)} font-semibold tabular-nums whitespace-nowrap`}
-            >
-              {buyersStr}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Buyer (awarder) breakdown */}
+      {/* Buyers. The count lives in the header rather than in a KPI card of its own: it
+          is the length of THIS list, and it is the one figure the contracts strip below
+          cannot produce (the table aggregates rows, not distinct buyers). Unlike that
+          strip it reacts to the scope but NOT to the filters — which is why it is worded
+          as "buyers in this settlement" rather than as a count of what is shown below. */}
       <Card className="mb-6">
         <CardHeader>
           <CardTitle>
             {t("procurement_settlement_buyers_header") ||
-              "Buyers in this settlement"}
+              "Buyers in this settlement"}{" "}
+            <span className="text-muted-foreground tabular-nums font-normal">
+              ({countFmt.format(data.awarders.length)})
+            </span>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -216,7 +206,7 @@ export const ProcurementSettlementDetailScreen: FC = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {data.awarders.map((a, idx) => (
+                {buyers.map((a, idx) => (
                   <tr key={a.eik}>
                     <td className="px-3 py-2 text-muted-foreground tabular-nums">
                       {idx + 1}
@@ -243,60 +233,32 @@ export const ProcurementSettlementDetailScreen: FC = () => {
               </tbody>
             </table>
           </div>
+          {data.awarders.length > BUYERS_COLLAPSED && (
+            <div className="border-t px-3 py-2">
+              <button
+                type="button"
+                onClick={() => setShowAllBuyers((v) => !v)}
+                className="text-xs text-primary underline underline-offset-2 hover:no-underline"
+              >
+                {showAllBuyers
+                  ? t("procurement_settlement_show_fewer_buyers")
+                  : `${t("procurement_settlement_show_all_buyers")} (${countFmt.format(
+                      data.awarders.length,
+                    )})`}
+              </button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
-      {/* Top contracts */}
-      {data.topContracts.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              {t("procurement_settlement_top_contracts_header") ||
-                "Biggest contracts"}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
-                  <tr>
-                    <th className="text-left px-3 py-2 w-24">
-                      {t("procurement_settlement_col_date") || "Date"}
-                    </th>
-                    <th className="text-left px-3 py-2">
-                      {t("procurement_settlement_col_contractor") ||
-                        "Contractor"}
-                    </th>
-                    <th className="text-right px-3 py-2 tabular-nums">
-                      {t("procurement_settlement_col_eur") || "EUR"}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {data.topContracts.slice(0, 25).map((c) => (
-                    <tr key={c.key}>
-                      <td className="px-3 py-2 text-muted-foreground tabular-nums">
-                        {c.date}
-                      </td>
-                      <td className="px-3 py-2">
-                        <Link
-                          to={`/company/${c.partyEik}`}
-                          className="hover:underline"
-                        >
-                          {c.partyName}
-                        </Link>
-                      </td>
-                      <td className="px-3 py-2 text-right tabular-nums">
-                        €{eurFmt.format(Math.round(c.amountEur ?? 0))}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* The contracts browser. Brings its own KPI strip — Σ€, count, single-bid and
+          direct-award shares — all reactive to the filters, which is why the page no
+          longer carries static total/contract cards of its own: two sets of the same
+          numbers, one of them ignoring the filters, is the disagreement this page was
+          rebuilt to remove. */}
+      {ekatte ? (
+        <ProcurementSettlementContractsSection ekatte={ekatte} />
+      ) : null}
 
       <p className="mt-6 text-xs text-muted-foreground">
         {t("procurement_settlement_detail_footnote") ||

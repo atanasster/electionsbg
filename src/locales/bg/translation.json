@@ -3225,11 +3225,8 @@
   "procurement_settlement_not_found_body": "Това населено място няма локални поръчки в нашия набор от данни. Покриваме само договори, чиито възложители имат седалище, отговарящо на населено място в каталога ни; малки села и неактивни възложители може просто да липсват.",
   "procurement_settlement_detail_title": "Поръчки в",
   "procurement_settlement_buyers_header": "Възложители в това населено място",
-  "procurement_settlement_top_contracts_header": "Най-големи договори",
   "procurement_settlement_col_buyer": "Възложител",
   "procurement_settlement_col_tier": "Тип",
-  "procurement_settlement_col_date": "Дата",
-  "procurement_settlement_col_contractor": "Изпълнител",
   "procurement_settlement_detail_footnote": "Седалището на възложителя се ползва като приближение за местоположението. Министерства и национални държавни компании със седалище в София възлагат поръчки за цялата страна — те не са показани тук; виж рубриката \"Национални поръчки\" на началната страница.",
   "procurement_settlement_more_buyers": "Още възложители на детайлната страница",
   "settlement_procurement_tile_title": "Местни поръчки",
@@ -5416,5 +5413,7 @@
   "contract_annexes_title": "Анекси към договора",
   "contract_annexes_one": "Един анекс промени стойността на договора.",
   "contract_annexes_several": "{{count}} анекса промениха стойността на договора.",
-  "contract_annexes_note": "Основанията са цитирани както са обявени от възложителя — за преглед, не доказателство за нарушение."
+  "contract_annexes_note": "Основанията са цитирани както са обявени от възложителя — за преглед, не доказателство за нарушение.",
+  "procurement_settlement_show_all_buyers": "Покажи всички възложители",
+  "procurement_settlement_show_fewer_buyers": "Покажи по-малко"
 }

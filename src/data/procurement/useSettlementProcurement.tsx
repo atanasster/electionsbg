@@ -13,7 +13,7 @@
 // page passes the reader's scope; the tiles, which sit on pages with no scope control,
 // pass CORPUS_WINDOW. See the note on the hook for the half-open bound convention.
 
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import type { ProcurementBySettlementFile } from "@/data/dataTypes";
 
 /** A [from, to) date window for the detail endpoint, or the full corpus. */
@@ -75,4 +75,9 @@ export const useSettlementProcurement = (
     },
     enabled: !!ekatte && /^\d{5}$/.test(ekatte),
     staleTime: Infinity,
+    // Keep the prior window's payload on screen while a scope switch refetches. Without
+    // it every toggle routes the page through its loading branch, which unmounts the
+    // scope pill at the moment it is being used — and takes the contracts table's page,
+    // sort and search state with it. Same reason useCounterparties does this.
+    placeholderData: keepPreviousData,
   });

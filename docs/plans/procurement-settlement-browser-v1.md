@@ -237,8 +237,8 @@ contracts table takes over what `topContracts` was for. Changes:
 - **Pass `from`/`to` from the client.** The SQL function and the
   `procurement-settlement` route already accept them
   (`procurement_settlement_detail(p_ekatte, p_from, p_to)`,
-  functions/db_routes.js:785) — the hook simply never sends them. Making the hook
-  scope-aware is a client change only: no migration, and it is _faster_
+  `functions/db_routes.js:785`) — the hook simply never sends them. Making the hook
+  scope-aware is a client change only: no migration, and it is *faster*
   (283 → 128 ms, §1.4).
 - **`useSettlementProcurement`'s React Query key must include the scope key.**
   Today it is `["procurement","settlement_detail",ekatte]`; without the scope in
@@ -439,11 +439,12 @@ beyond the two the company page already makes:
 
 1. Breadcrumb + title + `FollowStar`.
 2. `<ScopeControl mode="toggle" />` under the breadcrumb (§3.1).
-3. KPI strip (§3.3) — replaces the three static cards. **Rendered by the contracts
-   section, not the page**: it is fed by the table's own aggregates and facets, so
-   splitting it from the table would mean either a second copy of those queries or a
-   prop-drilled one. The buyer count, which comes from the detail payload rather than the
-   table, stays with the page header.
+3. ~~KPI strip~~ — **the three static cards are GONE**, not relocated. The contracts
+   section brings a reactive strip (Σ€, count, single-bid %, direct %), and a second set
+   of the same figures that ignored the filters is exactly the disagreement this page was
+   rebuilt to remove. The one number the strip cannot produce — the buyer count, which is
+   distinct buyers rather than rows — moved into the buyers card's own header, where it
+   reads as the length of that list.
 4. **Възложители** — the existing buyers table, kept: it is what makes this page
    different from a filtered global browser. Collapse to the top 10 with a
    "покажи всички (327)" toggle so София stops rendering 327 rows on mount, and

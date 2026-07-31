@@ -47,13 +47,9 @@ import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
 import type { ProcurementContract } from "@/data/dataTypes";
 
-export const ProcurementSettlementContractsSection: FC<{
-  ekatte: string;
-  /** Reported upward so the page can show a filter-reactive count beside its own
-   *  buyer count, which comes from the detail payload and is scope- but not
-   *  filter-reactive. */
-  onAggregates?: (agg: { sumAmountEur?: number; count?: number }) => void;
-}> = ({ ekatte, onAggregates }) => {
+export const ProcurementSettlementContractsSection: FC<{ ekatte: string }> = ({
+  ekatte,
+}) => {
   const { t } = useTranslation();
   const [params] = useSearchParams();
   // Same guard as useSettlementProcurement. `awarder_ekatte` is declared `required`, so a
@@ -155,12 +151,10 @@ export const ProcurementSettlementContractsSection: FC<{
   // Not memoized: DbDataTable invokes onData through a ref, so an inline arrow is fine
   // and a useCallback here would imply a constraint that does not exist.
   const handleData = (resp: DbTableResponse<ProcurementContract>) => {
-    const next = {
+    setAgg({
       sumAmountEur: resp.aggregates?.sumAmountEur,
       count: resp.aggregates?.count ?? resp.total,
-    };
-    setAgg(next);
-    onAggregates?.(next);
+    });
   };
 
   // Both parties: a settlement spans many buyers, so neither side is implied by the
