@@ -5,7 +5,7 @@ return HTTP 500 in production. They are **two different defects**, and only one 
 the shape [procurement-settlement-precompute-v1](docs/plans/procurement-settlement-precompute-v1.md)
 already solved.
 
-Status: **plan only, nothing implemented.** Every local number below is measured on
+Status: **IMPLEMENTED AND LIVE** (see §9 for the production measurements). Every local number below is measured on
 2026-07-31 against the local Docker Postgres (`:5433`), warm buffers. The production 500s
 are from Cloud Run logs (`elections-bg`, service `db`, `europe-west3`, last 24 h).
 
