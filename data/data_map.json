@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-30T14:45:27.954Z",
+  "generatedAt": "2026-07-31T11:07:16.206Z",
   "nodes": [
     {
       "id": "src:water",
@@ -106,7 +106,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-30T06:09:15.550Z",
+      "freshness": "2026-07-31T06:09:21.601Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -117,7 +117,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-07-30T06:09:15.550Z"
+          "freshness": "2026-07-31T06:09:21.601Z"
         },
         {
           "id": "parliament_mps",
@@ -153,7 +153,7 @@
       "url": "https://dv.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-28T18:45:00.104Z",
+      "freshness": "2026-07-31T06:09:21.601Z",
       "skills": [
         "update-budget"
       ],
@@ -177,7 +177,7 @@
           "label": "ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК)",
           "url": "https://dv.parliament.bg/DVWeb/rss_newspaper.jsp",
           "cadence": "daily",
-          "freshness": "2026-07-28T18:45:00.104Z"
+          "freshness": "2026-07-31T06:09:21.601Z"
         }
       ],
       "x": 28,
@@ -410,7 +410,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-29T11:54:26.454Z",
+      "freshness": "2026-07-31T06:09:21.601Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -432,7 +432,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-29T11:54:26.454Z"
+          "freshness": "2026-07-31T06:09:21.601Z"
         },
         {
           "id": "egov_budget_execution",
@@ -508,7 +508,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-30T06:09:15.550Z",
+      "freshness": "2026-07-31T06:09:21.601Z",
       "skills": [
         "update-procurement"
       ],
@@ -518,7 +518,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-30T06:09:15.550Z"
+          "freshness": "2026-07-31T06:09:21.601Z"
         }
       ],
       "x": 28,
@@ -1468,7 +1468,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-30T06:09:15.550Z",
+      "freshness": "2026-07-31T06:09:21.601Z",
       "skills": [
         "update-prices"
       ],
@@ -1478,7 +1478,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-30T06:09:15.550Z"
+          "freshness": "2026-07-31T06:09:21.601Z"
         }
       ],
       "x": 28,
