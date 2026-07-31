@@ -106,8 +106,10 @@ correct only because the resolver does it itself. The collapse only ever re-poin
 rather than quietly made to look healthy — `person_slug_retired.data.test.ts` fails on it.
 
 **A re-slug also invalidates `declaration.subject_ref`, and `--resolve` alone CANNOT repair
-it.** `subject_ref` is the officials slug, minted by declarations **phase 1**; phase 2
-(`--resolve`) only joins `person_role.ref = subject_ref` and fills `person_id`. So on the
+it.** For the `exec` and `muni` tiers `subject_ref` IS the officials slug, read out of the
+per-person shard JSON by declarations **phase 1** (the `mp` tier keys on `mpId` and
+`magistrate` on `declarantName`, so neither is affected). Phase 2 (`--resolve`) only joins
+`person_role.ref = subject_ref` and fills `person_id` — it never rewrites the ref. So on the
 cloud side a roster re-slug needs BOTH phases, phase 1 first:
 
 ```bash
@@ -117,8 +119,10 @@ npm run db:load:declarations:pg:cloud -- --resolve
 
 `db:refresh` never shows this because it runs phase 1 before the resolver every time. Skipping
 phase 1 on the cloud leaves the stale ref joining to nothing: the filing keeps a NULL
-`person_id`, so that person's declaration silently vanishes from `/person` and from the "с
-декларация" facet while every row count still reconciles. Caught 2026-07-31 — after the
+`person_id`, so that person's declaration drops off `/person` and out of the "с декларация"
+facet while every row count still reconciles. `--resolve` does print an
+`N/total still NULL` line, so it is not literally silent — but a single-digit N against
+47,983 reads as ordinary residue, which is exactly how this one was missed. Caught 2026-07-31 — after the
 2026-07-29 collision fold, exactly one of 47,983 filings (`ivan-georgiev-ivanov1-94805e`)
 stayed unresolved on Cloud SQL until phase 1 was re-run. Re-run
 `db:load:persons-browse:pg:cloud` afterwards, since `has_declaration` reads `person_id`.
@@ -376,9 +380,13 @@ the `/person` prerender + sitemap manifest (`data/person/prerender_slugs.json`):
 npm run person:slugs:cloud
 ```
 
-It must run **after** `db:resolve:persons:cloud`, the declarations `--resolve` and
-`db:load:official-candidate-links:pg:cloud` (it reads `officials_rankings_table`), and it is
-the one manifest that MUST be minted from the SERVING database — not from local Postgres.
+It must run **after** `db:resolve:persons:cloud`, after `db:load:declarations:pg:cloud --
+--resolve` (which is what REFRESHes `officials_rankings_table` — the `prerender` set and
+every `card` come from it), and after **`person:slug-redirects:cloud`**: the continuity half
+of the selection calls `officials_person_slug()`, which falls through to `person_slug_retired`
+(`106_officials_redirect.sql`), so with the redirect maps unloaded a re-slugged official
+resolves to nothing and silently drops out of the prerender set. It is the one manifest that
+MUST be minted from the SERVING database — not from local Postgres.
 `person_slug_lock` accumulates per database and is never truncated, so two databases
 re-resolved a different number of times hand the same people different slugs; measured
 2026-07-31: 1,436 mention→slug locks disagreed and 640 person slugs existed only locally
@@ -390,6 +398,12 @@ consumers (`buildPersonRoutes`, the sitemap's `enumeratePersons`) filter on `pre
 that ~5,000-entry ex-officials set was identical between the local- and cloud-minted
 manifests (0 churn); nothing reads `indexable` at runtime. It goes live the moment the
 prerender set widens to the full G6 set, which `emit_prerender_slugs.ts` explicitly plans.
+
+Do NOT read that as "the two manifests differ only in slug identity". The same measurement
+found 185 entries that kept their slug and flipped `indexable` (161 false→true, 24 true→false)
+— slug-lock drift cannot cause that, since the floor reads `declaration` and `person_role`,
+so the two databases disagreed on content too. Whether that was purely temporal (the
+committed manifest predated the cloud catch-up) is not established.
 
 `emit_prerender_slugs.ts` now REFUSES to write when connected to the local docker Postgres
 (`npm run person:slugs -- --local` overrides), so `db:refresh`'s `person:slugs` step and the

@@ -21,14 +21,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, end, isServingDatabase } from "../lib/pg";
 import {
   officialsForStaticPages,
   OFFICIALS_STATIC_PAGE_LIMIT,
 } from "@/lib/officialCategoryLabels";
 import {
   computePersonSlugs,
-  isServingDatabase,
   type PersonSlugEntry,
 } from "../../person/emit_prerender_slugs";
 
@@ -58,6 +57,16 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / officials_rankings empty";
+
+// skipIf prints a bare `↓` with no reason, so a gate that can never run here reads exactly
+// like a passing one. Name it. The continuity + cap invariants are ALSO enforced as
+// post-conditions inside computePersonSlugs, which is what actually runs on every mint.
+if (haveDb && !isServingDatabase())
+  console.warn(
+    "[person_prerender_set.data.test] not the serving database — skipping the continuity " +
+      "check (it resolves officials slugs against this DB and looks them up in a manifest " +
+      "minted from Cloud SQL). The emitter enforces continuity itself at write time.",
+  );
 
 afterAll(async () => {
   await end();
@@ -156,7 +165,7 @@ test.skipIf(skip)(
 //
 // computePersonSlugs, NOT emitPersonSlugs: this gate runs under test:data against the LOCAL
 // Postgres, and emitting would WRITE data/person/prerender_slugs.json from a database that
-// does not serve prod. That is how 642 local-only slugs got into the committed manifest —
+// does not serve prod. That is how 640 local-only slugs got into the committed manifest —
 // see "WHICH DATABASE MAY WRITE THIS FILE" in emit_prerender_slugs.ts. A test must not
 // mutate the artifact it is checking.
 test.skipIf(skip)("two emits produce an identical prerender set", async () => {

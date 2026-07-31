@@ -46,6 +46,33 @@ export const pinLocalDatabase = (): void => {
   urlOverride = LOCAL_DATABASE_URL;
 };
 
+/** The URL getPool() will actually dial — `urlOverride` included. Anything deciding
+ *  behaviour from "which database am I on" must read THIS, not DATABASE_URL: a process
+ *  that called pinLocalDatabase() with a cloud DATABASE_URL in its shell reads local while
+ *  DATABASE_URL still says cloud, and the two disagree for the whole run. */
+export const connectionUrl = (): string => urlOverride ?? DATABASE_URL;
+
+// The Cloud SQL proxy every `:cloud` script targets (see the package.json twins). Kept here
+// so "is this the database that serves production" has one definition.
+const CLOUD_SQL_PROXY_HOST = "127.0.0.1";
+const CLOUD_SQL_PROXY_PORT = "5434";
+
+/** True only when the live connection is the Cloud SQL proxy — i.e. the database that
+ *  SERVES production. An ALLOWLIST on purpose: its callers gate writes to committed
+ *  artifacts, so every unrecognised target (a second local instance, a staging proxy, a
+ *  malformed URL) must read as "not serving" and block the write. A denylist of the local
+ *  URL would pass all three. */
+export const isServingDatabase = (): boolean => {
+  try {
+    const u = new URL(connectionUrl());
+    return (
+      u.hostname === CLOUD_SQL_PROXY_HOST && u.port === CLOUD_SQL_PROXY_PORT
+    );
+  } catch {
+    return false;
+  }
+};
+
 let pool: Pool | null = null;
 
 export const getPool = (): Pool => {

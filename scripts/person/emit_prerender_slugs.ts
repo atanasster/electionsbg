@@ -57,7 +57,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, end, DATABASE_URL, LOCAL_DATABASE_URL } from "../db/lib/pg";
+import { allRows, end, isServingDatabase } from "../db/lib/pg";
 import {
   OFFICIALS_STATIC_PAGE_LIMIT,
   officialsForStaticPages,
@@ -119,6 +119,13 @@ const FLOOR_PREDICATE = `(
 // only locally, mostly `-2` collision suffixes). Every one of those 640 was in this
 // manifest, naming a person prod cannot serve.
 //
+// The slug set is not the whole of it: the same measurement found 185 entries that kept
+// their slug and FLIPPED `indexable` (161 false→true, 24 true→false). Slug-lock drift
+// cannot produce a flag flip — the floor reads `declaration` and `person_role`, so the two
+// databases disagreed on content as well as on identity. Whether that was purely temporal
+// (the committed manifest predated the cloud catch-up) or a standing split is NOT
+// established; treat "they differ only in slug identity" as known-false either way.
+//
 // SCOPE, HONESTLY: today that is LATENT, not live. Both consumers — buildPersonRoutes and
 // the sitemap's enumeratePersons — filter on `prerender`, and that ~5,000-entry
 // ex-officials set was byte-identical between the local- and cloud-minted manifests (0
@@ -131,16 +138,11 @@ const FLOOR_PREDICATE = `(
 // slugs prod can actually serve get neither. A manifest minted from a database that does
 // not serve production is wrong whether or not anything currently reads the wrong part.
 //
-// So writing is gated on the connection being the SERVING database. The local docker
-// Postgres is the one URL we know is not it; everything else (the Cloud SQL proxy) is
-// taken at face value, matching how every :cloud script here targets prod.
-//
-// Exported because the same signal gates the manifest↔DB assertions in the two data tests:
-// a manifest minted from the serving database CANNOT be checked against local Postgres —
-// the slug sets legitimately differ, so the comparison would fail on provenance, not on a
-// real defect. DB-only invariants (the content floor, emitter determinism) run anywhere.
-export const isServingDatabase = (): boolean =>
-  DATABASE_URL !== LOCAL_DATABASE_URL;
+// So writing is gated on isServingDatabase() (scripts/db/lib/pg.ts), an ALLOWLIST on the
+// Cloud SQL proxy that reads the connection getPool() will actually dial. It has to be both:
+// a denylist of the local URL would pass a staging proxy and a second local instance, and
+// reading DATABASE_URL would miss a pinLocalDatabase() override entirely — which is the
+// case that silently writes local data while reporting "serving".
 
 /** Read the manifest payload from whatever database is connected, WITHOUT writing it.
  *  Returns null when the person layer is unresolved (nothing meaningful to emit).
@@ -184,6 +186,10 @@ export const computePersonSlugs = async (): Promise<
   // resolver pipeline.
   const cardBySlug = new Map<string, PersonPrerenderCard>();
   const prerenderSet = new Set<string>();
+  // The subset of prerenderSet that exists for CONTINUITY (a retired /officials URL 301s
+  // here). Tracked separately so the post-condition below can prove the cap never evicted
+  // one — that eviction is the silent soft-404 the whole selection is built to avoid.
+  const continuityTargets = new Set<string>();
   try {
     // ORDER BY is not cosmetic: it makes the top-N boundary reproducible across matview
     // refreshes (idx_officials_rankings_exec is btree (net_worth_eur DESC NULLS LAST, slug)
@@ -256,6 +262,7 @@ export const computePersonSlugs = async (): Promise<
           // no longer an indexable exec official.
           if (m.person_slug && cardBySlug.has(m.person_slug)) {
             prerenderSet.add(m.person_slug);
+            continuityTargets.add(m.person_slug);
           }
         }
       } catch (e) {
@@ -291,6 +298,47 @@ export const computePersonSlugs = async (): Promise<
     }
     return entry;
   });
+
+  // POST-CONDITIONS — checked here, on the payload, rather than only in a data test.
+  //
+  // The two gates that pin these (person_prerender_set.data.test.ts) can only run against
+  // the SERVING database, and nothing in db:refresh, test:data or CI connects there: they
+  // skip in every wired workflow. So the invariants live with the code that establishes
+  // them, where they run exactly when the manifest is minted and a violation aborts BEFORE
+  // anything is written. The tests stay as the regression pin.
+  const prerendered = payload.filter((e) => e.prerender);
+  const problems: string[] = [];
+  const evicted = [...continuityTargets].filter(
+    (s) => !prerendered.some((e) => e.slug === s),
+  );
+  if (evicted.length)
+    problems.push(
+      `${evicted.length} continuity person(s) are not in the prerender set ` +
+        `(e.g. ${evicted.slice(0, 3).join(", ")}) — their retired /officials URL would ` +
+        `301 to a page with no SEO body (soft-404)`,
+    );
+  if (prerendered.length > OFFICIALS_STATIC_PAGE_LIMIT)
+    problems.push(
+      `${prerendered.length} prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} cap — ` +
+        `the deploy file ceiling is no longer held flat`,
+    );
+  const cardless = prerendered.filter((e) => !e.card);
+  if (cardless.length)
+    problems.push(
+      `${cardless.length} prerender entry/entries have no card ` +
+        `(e.g. ${cardless
+          .slice(0, 3)
+          .map((e) => e.slug)
+          .join(
+            ", ",
+          )}) — the prerenderer skips them, so the sitemap would advertise a ` +
+        `page that was never built`,
+    );
+  if (problems.length)
+    throw new Error(
+      `[person-slugs] refusing to emit:\n  - ${problems.join("\n  - ")}`,
+    );
+
   return payload;
 };
 

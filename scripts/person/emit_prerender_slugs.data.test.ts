@@ -13,8 +13,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../db/lib/pg";
-import { isServingDatabase } from "./emit_prerender_slugs";
+import { allRows, end, isServingDatabase } from "../db/lib/pg";
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -39,6 +38,16 @@ const reachable = async (): Promise<boolean> => {
 
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / person table empty";
+
+// vitest's skipIf prints a bare `↓` with no reason, so a permanently-skipped gate reads
+// exactly like a passing one. Say it out loud instead — see emit_prerender_slugs.ts for why
+// the manifest↔DB comparison is only meaningful against the serving database.
+if (haveDb && !isServingDatabase())
+  console.warn(
+    "[emit_prerender_slugs.data.test] not the serving database — skipping the " +
+      "manifest↔floor comparison (the manifest is minted from Cloud SQL; local slugs " +
+      "legitimately differ). The emitter enforces this itself at write time.",
+  );
 
 afterAll(async () => {
   await end();
