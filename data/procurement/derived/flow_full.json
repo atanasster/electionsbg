@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T15:52:05.306Z",
+  "generatedAt": "2026-08-01T12:34:09.200Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -1414,7 +1414,7 @@
     {
       "id": "awarder:000695406",
       "type": "awarder",
-      "label": "Министерство на финансите"
+      "label": "Министерство на финансите - централен орган за покупки"
     },
     {
       "id": "awarder:000696327",
@@ -6387,6 +6387,16 @@
       "label": "Деян Иванов Белемезов"
     },
     {
+      "id": "contractor:204591875",
+      "type": "contractor",
+      "label": "Бриапроджект ООД"
+    },
+    {
+      "id": "official:yulian-miroslavov-pavlov-1c0aec",
+      "type": "official",
+      "label": "Юлиан Мирославов Павлов"
+    },
+    {
       "id": "official:milka-doncheva-hristova-845d7e",
       "type": "official",
       "label": "Милка Дончева Христова"
@@ -6580,16 +6590,6 @@
       "id": "official:svetlozar-nachev-nikolov-3613ae",
       "type": "official",
       "label": "Светлозар Начев Николов"
-    },
-    {
-      "id": "contractor:204591875",
-      "type": "contractor",
-      "label": "БРИАПРОДЖЕКТ ООД"
-    },
-    {
-      "id": "official:yulian-miroslavov-pavlov-1c0aec",
-      "type": "official",
-      "label": "Юлиан Мирославов Павлов"
     },
     {
       "id": "contractor:114578969",
@@ -7167,6 +7167,11 @@
       "label": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ ДЪРЖАВНО ГОРСКО СТОПАНСТВО \"ДУПНИЦА"
     },
     {
+      "id": "awarder:000133933",
+      "type": "awarder",
+      "label": "Община Полски тръмбеш"
+    },
+    {
       "id": "awarder:000970432",
       "type": "awarder",
       "label": "Община Стралджа"
@@ -7185,11 +7190,6 @@
       "id": "awarder:000351750",
       "type": "awarder",
       "label": "Община Пещера"
-    },
-    {
-      "id": "awarder:000133933",
-      "type": "awarder",
-      "label": "ОБЩИНА ПОЛСКИ ТРЪМБЕШ"
     },
     {
       "id": "awarder:000413885",
@@ -13294,6 +13294,11 @@
       "valueEur": 20294.35
     },
     {
+      "source": "contractor:204591875",
+      "target": "official:yulian-miroslavov-pavlov-1c0aec",
+      "valueEur": 19096.01
+    },
+    {
       "source": "contractor:104688050",
       "target": "official:milka-doncheva-hristova-845d7e",
       "valueEur": 18601.36
@@ -13422,11 +13427,6 @@
       "source": "contractor:121449914",
       "target": "official:svetlozar-nachev-nikolov-3613ae",
       "valueEur": 10225.84
-    },
-    {
-      "source": "contractor:204591875",
-      "target": "official:yulian-miroslavov-pavlov-1c0aec",
-      "valueEur": 10043.21
     },
     {
       "source": "contractor:114578969",
@@ -14409,6 +14409,16 @@
       "valueEur": 251.71
     },
     {
+      "source": "awarder:000133933",
+      "target": "contractor:204591875",
+      "valueEur": 15951.56
+    },
+    {
+      "source": "awarder:000215889",
+      "target": "contractor:204591875",
+      "valueEur": 3144.45
+    },
+    {
       "source": "awarder:000818022",
       "target": "contractor:833172830",
       "valueEur": 18397.3
@@ -14492,16 +14502,6 @@
       "source": "awarder:176789478",
       "target": "contractor:121449914",
       "valueEur": 10225.84
-    },
-    {
-      "source": "awarder:000133933",
-      "target": "contractor:204591875",
-      "valueEur": 6898.76
-    },
-    {
-      "source": "awarder:000215889",
-      "target": "contractor:204591875",
-      "valueEur": 3144.45
     },
     {
       "source": "awarder:000413885",

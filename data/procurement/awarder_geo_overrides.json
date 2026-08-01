@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-07-31T15:49:28.911Z",
-  "count": 2150,
+  "generatedAt": "2026-08-01T12:32:59.242Z",
+  "count": 2152,
   "sources": {
-    "ri": 1288,
+    "ri": 1289,
     "tr": 107,
     "school": 1,
-    "ocds": 306,
-    "mon": 40,
+    "ocds": 308,
+    "mon": 39,
     "monOblast": 61,
     "name": 272,
     "nameOblast": 75,
-    "unresolved": 607
+    "unresolved": 606
   },
   "awarders": {
     "101005300": {
@@ -1627,6 +1627,11 @@
       "ekatte": "68134",
       "source": "name",
       "confidence": "name_only"
+    },
+    "129010552": {
+      "ekatte": "68850",
+      "source": "ri",
+      "confidence": "exact"
     },
     "129010602": {
       "ekatte": "36498",
@@ -3885,7 +3890,7 @@
     },
     "000049022": {
       "ekatte": "07079",
-      "source": "mon",
+      "source": "ocds",
       "confidence": "name+province"
     },
     "000049244": {
@@ -8974,6 +8979,11 @@
       "confidence": "exact"
     },
     "000689638": {
+      "ekatte": "68134",
+      "source": "ocds",
+      "confidence": "name+province"
+    },
+    "000690735": {
       "ekatte": "68134",
       "source": "ocds",
       "confidence": "name+province"

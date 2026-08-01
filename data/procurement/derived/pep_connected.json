@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T15:51:56.349Z",
+  "generatedAt": "2026-08-01T12:34:01.106Z",
   "total": 454,
   "officialCount": 445,
   "entries": [
@@ -30268,6 +30268,68 @@
       ]
     },
     {
+      "slug": "yulian-miroslavov-pavlov-1c0aec",
+      "name": "Юлиан Мирославов Павлов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "contractorEik": "204591875",
+      "contractorName": "Бриапроджект ООД",
+      "totalEur": 19096.01,
+      "totalOther": {},
+      "contractCount": 3,
+      "awardCount": 0,
+      "relations": [
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "8",
+          "valueEur": 40.9
+        },
+        {
+          "role": "stake",
+          "confidence": "high",
+          "shareSize": "1",
+          "valueEur": 5.11
+        }
+      ],
+      "byYear": [
+        {
+          "year": "2021",
+          "contractCount": 1,
+          "totalEur": 3144.45,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 6898.76,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 9052.8,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000133933",
+          "name": "Община Полски тръмбеш",
+          "contractCount": 2,
+          "totalEur": 15951.56,
+          "totalOther": {}
+        },
+        {
+          "eik": "000215889",
+          "name": "Община Севлиево",
+          "contractCount": 1,
+          "totalEur": 3144.45,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
       "slug": "milka-doncheva-hristova-845d7e",
       "name": "Милка Дончева Христова",
       "tier": "municipal",
@@ -31406,62 +31468,6 @@
           "name": "Министерство на туризма",
           "contractCount": 1,
           "totalEur": 10225.84,
-          "totalOther": {}
-        }
-      ]
-    },
-    {
-      "slug": "yulian-miroslavov-pavlov-1c0aec",
-      "name": "Юлиан Мирославов Павлов",
-      "tier": "municipal",
-      "role": "chief_architect",
-      "contractorEik": "204591875",
-      "contractorName": "БРИАПРОДЖЕКТ ООД",
-      "totalEur": 10043.21,
-      "totalOther": {},
-      "contractCount": 2,
-      "awardCount": 0,
-      "relations": [
-        {
-          "role": "stake",
-          "confidence": "high",
-          "shareSize": "8",
-          "valueEur": 40.9
-        },
-        {
-          "role": "stake",
-          "confidence": "high",
-          "shareSize": "1",
-          "valueEur": 5.11
-        }
-      ],
-      "byYear": [
-        {
-          "year": "2021",
-          "contractCount": 1,
-          "totalEur": 3144.45,
-          "totalOther": {}
-        },
-        {
-          "year": "2023",
-          "contractCount": 1,
-          "totalEur": 6898.76,
-          "totalOther": {}
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000133933",
-          "name": "ОБЩИНА ПОЛСКИ ТРЪМБЕШ",
-          "contractCount": 1,
-          "totalEur": 6898.76,
-          "totalOther": {}
-        },
-        {
-          "eik": "000215889",
-          "name": "Община Севлиево",
-          "contractCount": 1,
-          "totalEur": 3144.45,
           "totalOther": {}
         }
       ]
