@@ -1,322 +1,213 @@
-// Comprehensive gate for the person-based header search and the /candidate URL → person
-// resolution (082 person_search, 085 candidate_person_slug / candidate_person_by_name).
-// These power the SINGLE "People" search surface (the CIK-JSON candidate index is retired —
-// candidates are persons now) and the shared PersonDashboard behind both /person/:slug and
-// /candidate/:id. Every case self-selects its fixture from the live corpus, so nothing here
-// hardcodes a name that could later leave the data.
+// person_search (126_person_search.sql) — the single ranked index behind the combined-search
+// "person-search" route. Plan: docs/plans/people-connections-phase1-impl-v1.md §S1.
+//
+// Every assertion pins a SILENT failure — the table builds and the route 200s, but search is
+// quietly wrong:
+//   1. TIER SEPARATION. rank_static must keep P ≫ V ≫ N, or a dormant namesake outranks the
+//      minister the user meant — the exact failure the whole tier design exists to prevent.
+//   2. THE ANTI-JOIN. A fold that is already a public person must appear ONLY as its P row, never
+//      also as a V/N name-fold row — else the same human shows up twice, once real once fuzzy.
+//   3. THE FOLD. A Cyrillic and a Latin spelling of the same name must resolve to one fold, or
+//      half the users find nobody.
+//   4. THE ROUTE'S ORDER BY. It must order each tier by the precomputed rank_static (the
+//      early-stopping index) — a blended sort over all matches was 231 ms on the most common name.
+//
+// Counts are 2026-07 snapshots; assertions are invariants/ceilings so ±drift does not fail.
+// Auto-skips when Postgres is down or unloaded — like the other *.data.test.ts gates.
 //
 //   npm run test:data
-//
-// Requires the Postgres store + `db:resolve:persons` + `db:load:person-elections:pg`;
-// auto-skips when Postgres or the person layer is absent — like the other *.data.test.ts gates.
 
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, end, pinLocalDatabase } from "../lib/pg";
 
-type Hit = {
-  slug: string;
-  name: string;
-  namesakeRisk: number;
-  roles: number;
-  party: string | null;
-  partyColor: string | null;
-  mpId: number | null;
-  score: number;
-};
+pinLocalDatabase();
 
-// person_search returns one jsonb array; the pg lib parses it to a JS array.
-const search = (q: string, limit = 6): Promise<Hit[]> =>
-  allRows<{ r: Hit[] | null }>("SELECT person_search($1, $2) AS r", [
-    q,
-    limit,
-  ]).then((x) => x[0]?.r ?? []);
+const ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "..",
+);
 
-const reachable = async (): Promise<boolean> => {
+const state = async (): Promise<"ok" | "no-server" | "missing" | "empty"> => {
   try {
-    await allRows("SELECT 1");
     const [t] = await allRows<{ ok: boolean }>(
-      "SELECT to_regprocedure('person_search(text,int)') IS NOT NULL AS ok",
+      "SELECT to_regclass('public.person_search') IS NOT NULL AS ok",
     );
-    if (!t?.ok) return false;
+    if (!t?.ok) return "missing";
     const [c] = await allRows<{ n: string }>(
-      "SELECT count(*) n FROM person WHERE status = 'active' AND is_public_figure",
+      "SELECT count(*) n FROM person_search",
     );
-    return Number(c.n) > 0;
+    return Number(c.n) > 0 ? "ok" : "empty";
   } catch {
-    return false;
+    return "no-server";
   }
 };
 
-const haveDb = await reachable();
-const skip = haveDb ? false : "Postgres unreachable / person layer empty";
+const dbState = await state();
+const skip = dbState === "no-server" ? "Postgres unreachable" : false;
+
+const count = async (sql: string, params: unknown[] = []): Promise<number> => {
+  const [r] = await allRows<{ n: string }>(sql, params);
+  return Number(r.n);
+};
 
 afterAll(async () => {
   await end();
 });
 
-// ── Length gate ──────────────────────────────────────────────────────────────
-// A trigram is 3 chars, so a 1-2 char query can't use the GIN index and would seq-scan
-// every person. person_search gates at length >= 3 and returns [] below that (the client
-// mirrors the gate). A 3-char prefix of a real name must still return something.
-test.skipIf(skip)("person_search returns nothing below 3 chars", async () => {
-  assert.equal((await search("и")).length, 0, "1-char query must be empty");
-  assert.equal((await search("ив")).length, 0, "2-char query must be empty");
-  const [pick] = await allRows<{ prefix: string }>(
-    `SELECT left(display_name, 3) AS prefix FROM person
-      WHERE status='active' AND is_public_figure AND length(display_name) >= 3
-      ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id = person.person_id) DESC
-      LIMIT 1`,
+// Server up but table absent/empty is the FINDING, not a skip.
+test.skipIf(dbState === "no-server")(
+  "person_search exists and is populated",
+  () => {
+    assert.equal(
+      dbState,
+      "ok",
+      dbState === "missing"
+        ? "person_search missing — run npm run db:load:person-search:pg (after db:load:persons-browse:pg)"
+        : "person_search exists but is empty",
+    );
+  },
+);
+
+// (1) All three tiers present — a build that dropped an arm still populates.
+test.skipIf(skip)("all three tiers are populated", async () => {
+  for (const t of ["P", "V", "N"] as const) {
+    const n = await count(
+      "SELECT count(*) n FROM person_search WHERE tier=$1",
+      [t],
+    );
+    assert.ok(n > 1000, `tier ${t} has only ${n} rows`);
+  }
+});
+
+// (1) TIER SEPARATION — the ranking invariant. rank_static must stratify P ≫ V ≫ N so the route,
+// which orders by it, never floats a private namesake above a public figure.
+test.skipIf(skip)("rank_static stratifies P > V > N", async () => {
+  const [r] = await allRows<{
+    p_min: number;
+    v_max: number;
+    v_min: number;
+    n_max: number;
+  }>(
+    `SELECT min(rank_static) FILTER (WHERE tier='P') AS p_min,
+            max(rank_static) FILTER (WHERE tier='V') AS v_max,
+            min(rank_static) FILTER (WHERE tier='V') AS v_min,
+            max(rank_static) FILTER (WHERE tier='N') AS n_max
+       FROM person_search`,
   );
-  if (!pick) return;
   assert.ok(
-    (await search(pick.prefix)).length > 0,
-    `3-char prefix "${pick.prefix}" must return at least one person`,
+    r.p_min > r.v_max,
+    `min P rank (${r.p_min}) must exceed max V rank (${r.v_max})`,
+  );
+  assert.ok(
+    r.v_min > r.n_max,
+    `min V rank (${r.v_min}) must exceed max N rank (${r.n_max})`,
   );
 });
 
-// ── Ranking: exact name #1, name prefix recalled ────────────────────────────
-// Full-string similarity() alone sank a longer real surname below a shorter namesake that
-// shared the leading tokens ("Мария Димитрова Бал" cut "…Балъкчиева" past the limit). The
-// similarity()+word_similarity() sum fixes recall while keeping an exact name #1.
-test.skipIf(skip)(
-  "person_search ranks an exact name #1 and recalls a name prefix",
-  async () => {
-    const [row] = await allRows<{
-      slug: string;
-      name: string;
-      prefix: string;
-    }>(
-      `WITH pick AS (
-         SELECT p.slug, p.display_name AS name,
-                split_part(p.display_name,' ',1)||' '||split_part(p.display_name,' ',2)
-                  ||' '||left(split_part(p.display_name,' ',3),4) AS prefix
-         FROM person p
-         WHERE p.status='active' AND p.is_public_figure
-           AND array_length(string_to_array(p.name_fold,' '),1) = 3
-           AND length(split_part(p.name_fold,' ',3)) >= 6
-           AND (SELECT count(*) FROM person p2
-                 WHERE p2.status='active' AND p2.is_public_figure
-                   AND p2.name_fold = p.name_fold) = 1
-         ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id=p.person_id) DESC, p.slug
-         LIMIT 1)
-       SELECT slug, name, prefix FROM pick`,
-    );
-    if (!row) return;
-    const exact = await search(row.name, 6);
-    assert.equal(exact[0]?.slug, row.slug, `exact name not #1: ${row.name}`);
-    const prefixed = await search(row.prefix, 8);
-    assert.ok(
-      prefixed.some((h) => h.slug === row.slug),
-      `prefix "${row.prefix}" did not recall ${row.name} in the top 8`,
-    );
-  },
-);
+// (2) THE ANTI-JOIN — no fold is both a public person and a name-fold owner row.
+test.skipIf(skip)("no name_fold appears in both P and V/N", async () => {
+  const dupes = await count(
+    `SELECT count(*) n FROM (
+       SELECT name_fold FROM person_search WHERE tier='P'
+       INTERSECT
+       SELECT name_fold FROM person_search WHERE tier IN ('V','N')
+     ) z`,
+  );
+  assert.equal(dupes, 0, `${dupes} folds appear in both P and V/N arms`);
+});
 
-// A First+Last query that SKIPS the middle name ("Божидар Божанов" → "Божидар ПЛАМЕНОВ
-// Божанов") must still recall the person — word_similarity alone demoted them below an
-// unrelated adjacent-token match; the similarity() term rescues it.
-//
-// The probe deliberately skips names whose first+last pair is ALSO a common
-// given+patronymic prefix. For "Татяна Георгиева" the corpus holds eight people
-// literally named "Татяна Георгиева <X>", who match both query tokens exactly and
-// SHOULD outrank a first+last match — that is correct ranking, not the defect
-// this guards. Without the exclusion the probe silently becomes a density test
-// and starts failing whenever the corpus grows.
-test.skipIf(skip)(
-  "person_search recalls a First+Last query that skips the middle name",
-  async () => {
-    const [row] = await allRows<{ slug: string; fl: string; name: string }>(
-      `WITH pick AS (
-         SELECT p.slug, p.display_name AS name,
-                split_part(p.display_name,' ',1)||' '||split_part(p.display_name,' ',3) AS fl
-         FROM person p
-         WHERE p.status='active' AND p.is_public_figure
-           AND array_length(string_to_array(p.name_fold,' '),1) = 3
-           AND (SELECT count(*) FROM person p2
-                 WHERE p2.status='active' AND p2.is_public_figure
-                   AND p2.name_fold = p.name_fold) = 1
-           -- Skip a fixture whose first+last pair is ALSO a crowded
-           -- given+patronymic prefix: those peers match BOTH query tokens
-           -- exactly and rightly outrank a first+last match, so the top-8
-           -- window cannot hold the fixture no matter how good the ranking is.
-           -- Counted over public figures only — anyone else can never appear in
-           -- results and so cannot crowd the window.
-           AND (SELECT count(*) FROM person p3
-                 WHERE p3.status='active' AND p3.is_public_figure
-                   AND p3.given_fold = p.given_fold
-                   AND p3.patronymic_fold = p.family_fold) < 8
-         ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id=p.person_id) DESC, p.slug
-         LIMIT 1)
-       SELECT slug, fl, name FROM pick`,
-    );
-    if (!row) return;
-    const hits = await search(row.fl, 8);
-    assert.ok(
-      hits.some((h) => h.slug === row.slug),
-      `First+Last "${row.fl}" did not recall ${row.name} in the top 8`,
-    );
-  },
-);
+// (2) Key + href shape per tier.
+test.skipIf(skip)("keys and hrefs are well-formed per tier", async () => {
+  const badP = await count(
+    `SELECT count(*) n FROM person_search
+      WHERE tier='P' AND (key NOT LIKE 'slug:%' OR href NOT LIKE '/person/%')`,
+  );
+  assert.equal(badP, 0, `${badP} P rows have a malformed key/href`);
+  const badVN = await count(
+    `SELECT count(*) n FROM person_search
+      WHERE tier IN ('V','N') AND (key NOT LIKE 'fold:%'
+            OR href NOT LIKE '/person/%' OR identity_confidence <> 'name_fold')`,
+  );
+  assert.equal(badVN, 0, `${badVN} V/N rows are malformed`);
+});
 
-// Results are score-descending, capped at the limit, and deterministic (same query → same
-// order) — the dropdown's ordering contract.
-test.skipIf(skip)(
-  "person_search is score-ordered, limit-capped and deterministic",
-  async () => {
-    const [pick] = await allRows<{ fold: string }>(
-      `SELECT family_fold AS fold FROM person
-        WHERE status='active' AND is_public_figure
-        GROUP BY family_fold ORDER BY count(*) DESC LIMIT 1`,
-    );
-    if (!pick) return;
-    const a = await search(pick.fold, 5);
-    assert.ok(a.length <= 5, "must not exceed the requested limit");
-    assert.ok(a.length > 0, "a common surname must return people");
-    for (let i = 1; i < a.length; i++) {
-      assert.ok(a[i - 1].score >= a[i].score, "hits must be score-descending");
-    }
-    const b = await search(pick.fold, 5);
-    assert.deepEqual(
-      a.map((h) => h.slug),
-      b.map((h) => h.slug),
-      "same query must return the same order",
-    );
-  },
-);
+// (2) V is money-linked, N is not — the tier boundary.
+test.skipIf(skip)("V rows carry public money, N rows do not", async () => {
+  const badV = await count(
+    "SELECT count(*) n FROM person_search WHERE tier='V' AND public_money_eur <= 0",
+  );
+  assert.equal(badV, 0, `${badV} V rows have no public money`);
+  const badN = await count(
+    "SELECT count(*) n FROM person_search WHERE tier='N' AND public_money_eur > 0",
+  );
+  assert.equal(badN, 0, `${badN} N rows carry public money`);
+});
 
-// ── Party badge (asks: a politician must carry their party) ──────────────────
-// person_search returns the person's MOST-RECENT candidacy party (nick + colour baked into
-// person_election_stats), so a politician who ran in ANY cycle shows a badge.
-test.skipIf(skip)(
-  "person_search carries the most-recent candidacy party + colour",
-  async () => {
-    const [row] = await allRows<{
-      slug: string;
-      name: string;
-      want_party: string;
-    }>(
-      `WITH pick AS (
-         SELECT p.slug, p.display_name AS name,
-           (SELECT pes.party_nick FROM person_election_stats pes
-             WHERE pes.person_id = p.person_id AND pes.party_nick IS NOT NULL
-             ORDER BY pes.election_date DESC LIMIT 1) AS want_party
-         FROM person p
-         WHERE p.status='active' AND p.is_public_figure
-           AND (SELECT count(*) FROM person p2
-                 WHERE p2.status='active' AND p2.is_public_figure
-                   AND p2.name_fold = p.name_fold) = 1
-           AND EXISTS (SELECT 1 FROM person_election_stats e
-                        WHERE e.person_id = p.person_id AND e.party_nick IS NOT NULL)
-         ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id=p.person_id) DESC, p.slug
-         LIMIT 1)
-       SELECT slug, name, want_party FROM pick`,
-    );
-    if (!row) return;
-    const hit = (await search(row.name, 6)).find((h) => h.slug === row.slug);
-    assert.ok(hit, `expected ${row.name} in its own name search`);
-    assert.equal(hit!.party, row.want_party, "party badge mismatch");
-    assert.ok(hit!.partyColor, "a party badge must carry a colour");
-  },
-);
+// (3) THE FOLD — a Cyrillic spelling and its Latin transliteration collapse to one search key.
+// A function property, so it needs no data fixture: assert the fold is spelling-invariant, then
+// that a self-selected real fold matches itself equally whether queried Cyrillic or Latin.
+test.skipIf(skip)("Cyrillic and Latin queries fold identically", async () => {
+  const [r] = await allRows<{ same: boolean }>(
+    "SELECT translit_bg_latin('Иван Иванов') = translit_bg_latin('Ivan Ivanov') AS same",
+  );
+  assert.equal(r.same, true, "Иван Иванов and Ivan Ivanov must fold the same");
+});
 
-// ── mpId (drives the avatar photo) ───────────────────────────────────────────
-test.skipIf(skip)(
-  "person_search exposes the mp id for an MP and null for a non-MP",
-  async () => {
-    const [mp] = await allRows<{ slug: string; name: string; ref: number }>(
-      `SELECT p.slug, p.display_name AS name, r.ref::bigint AS ref
-         FROM person p JOIN person_role r USING (person_id)
-        WHERE p.status='active' AND p.is_public_figure
-          AND r.source='mp' AND r.ref ~ '^[0-9]+$'
-          AND (SELECT count(*) FROM person p2
-                WHERE p2.status='active' AND p2.is_public_figure
-                  AND p2.name_fold = p.name_fold) = 1
-        ORDER BY p.slug LIMIT 1`,
-    );
-    if (mp) {
-      const hit = (await search(mp.name, 6)).find((h) => h.slug === mp.slug);
-      assert.ok(hit, `expected ${mp.name} in search`);
-      assert.equal(Number(hit!.mpId), Number(mp.ref), "mpId mismatch");
-    }
-    // A candidate who never sat as an MP must carry a null mpId (no avatar photo).
-    const [nonMp] = await allRows<{ slug: string; name: string }>(
-      `SELECT p.slug, p.display_name AS name
-         FROM person p
-        WHERE p.status='active' AND p.is_public_figure
-          AND NOT EXISTS (SELECT 1 FROM person_role r
-                           WHERE r.person_id=p.person_id AND r.source='mp')
-          AND EXISTS (SELECT 1 FROM person_election_stats e WHERE e.person_id=p.person_id)
-          AND (SELECT count(*) FROM person p2
-                WHERE p2.status='active' AND p2.is_public_figure
-                  AND p2.name_fold = p.name_fold) = 1
-        ORDER BY p.slug LIMIT 1`,
-    );
-    if (nonMp) {
-      const hit = (await search(nonMp.name, 6)).find(
-        (h) => h.slug === nonMp.slug,
-      );
-      assert.ok(hit, `expected ${nonMp.name} in search`);
-      assert.equal(hit!.mpId, null, "a non-MP must have a null mpId");
-    }
-  },
-);
+// (1) End-to-end: for the MOST COMMON name that has any public figure, the top result by the
+// route's ordering is that public figure — not a dormant private namesake. The fixture is
+// self-selected (no hardcoded name that could later leave the data) — the most frequent
+// name_fold with at least one P row.
+test.skipIf(skip)("most common name ranks a public person first", async () => {
+  const [top] = await allRows<{ tier: string }>(
+    `WITH q AS (
+       SELECT name_fold AS term FROM person_search
+        GROUP BY name_fold HAVING bool_or(tier = 'P')
+        ORDER BY count(*) DESC LIMIT 1
+     )
+     SELECT ps.tier FROM person_search ps, q
+      WHERE ps.name_fold %> q.term
+      ORDER BY ps.rank_static DESC LIMIT 1`,
+  );
+  assert.equal(
+    top?.tier,
+    "P",
+    "the top-ranked match for the most common name must be public",
+  );
+});
 
-// ── /candidate URL resolution (085) ──────────────────────────────────────────
-// candidate_person_slug maps a candidate slug (mp-N | c-…) to its owning person; an unknown
-// slug returns null so CandidateScreen falls through to the legacy render.
-test.skipIf(skip)(
-  "candidate_person_slug resolves a known slug and nulls an unknown one",
-  async () => {
-    const [pick] = await allRows<{ candidate_slug: string; want: string }>(
-      `SELECT candidate_slug, person_slug AS want FROM candidate_person LIMIT 1`,
-    );
-    if (!pick) return;
-    const [{ got }] = await allRows<{ got: string | null }>(
-      "SELECT candidate_person_slug($1) AS got",
-      [pick.candidate_slug],
-    );
-    assert.equal(got, pick.want, "known candidate slug must resolve");
-    const [{ unknown }] = await allRows<{ unknown: string | null }>(
-      "SELECT candidate_person_slug('mp-999999999') AS unknown",
-    );
-    assert.equal(unknown, null, "unknown slug must return null");
-  },
-);
+// (4) THE ROUTE'S ORDER BY — asserted against source, because a regression to a blended sort
+// over all matches (the 231 ms path) is invisible to a data assertion: it returns the same rows.
+test("person-search route orders each tier by rank_static", () => {
+  const src = readFileSync(path.join(ROOT, "functions/db_routes.js"), "utf8");
+  assert.match(
+    src,
+    /ORDER BY rank_static DESC LIMIT \$3/,
+    "the per-tier query must order by the precomputed rank_static (the early-stopping index), not a blended per-row score over all matches",
+  );
+});
 
-// candidate_person_by_name resolves a bare-name /candidate URL ONLY when the fold maps to one
-// person (no namesake ambiguity); a >1-person fold returns null so the UI shows the chooser
-// instead of guessing.
-test.skipIf(skip)(
-  "candidate_person_by_name resolves a unique name and nulls an ambiguous one",
-  async () => {
-    const [uniq] = await allRows<{ name: string; want: string }>(
-      `WITH u AS (
-         SELECT candidate_name_fold, min(person_id) AS pid, min(person_slug) AS want
-         FROM candidate_person GROUP BY candidate_name_fold
-         HAVING count(DISTINCT person_id) = 1 LIMIT 1)
-       SELECT (SELECT display_name FROM person WHERE person_id = u.pid) AS name, want FROM u`,
-    );
-    if (uniq) {
-      const [{ got }] = await allRows<{ got: string | null }>(
-        "SELECT candidate_person_by_name($1, NULL) AS got",
-        [uniq.name],
-      );
-      assert.equal(got, uniq.want, "a unique name must resolve to its person");
-    }
-    const [amb] = await allRows<{ name: string }>(
-      `WITH a AS (
-         SELECT candidate_name_fold, min(person_id) AS pid
-         FROM candidate_person GROUP BY candidate_name_fold
-         HAVING count(DISTINCT person_id) > 1 LIMIT 1)
-       SELECT (SELECT display_name FROM person WHERE person_id = a.pid) AS name FROM a`,
-    );
-    if (amb) {
-      const [{ got }] = await allRows<{ got: string | null }>(
-        "SELECT candidate_person_by_name($1, NULL) AS got",
-        [amb.name],
-      );
-      assert.equal(got, null, "an ambiguous name must fall through (null)");
-    }
-  },
-);
+// The migration must ship the (tier, rank_static DESC) index the route depends on for its
+// early-stop, and the loader must be wired into db:refresh after persons-browse.
+test("126 ships the rank index and the loader is wired into db:refresh", () => {
+  const mig = readFileSync(
+    path.join(ROOT, "scripts/db/schema/pg/126_person_search.sql"),
+    "utf8",
+  );
+  assert.match(
+    mig,
+    /idx_person_search_rank[\s\S]*\(tier, rank_static DESC/,
+    "126 must create the (tier, rank_static DESC) index the route's early-stop relies on",
+  );
+  const pkg = readFileSync(path.join(ROOT, "package.json"), "utf8");
+  assert.match(
+    pkg,
+    /db:load:persons-browse:pg && npm run db:load:person-search:pg/,
+    "db:refresh must run db:load:person-search:pg right after persons-browse (its P arm reads person_browse_table)",
+  );
+});

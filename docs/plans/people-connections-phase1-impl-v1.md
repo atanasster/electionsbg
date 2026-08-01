@@ -115,24 +115,30 @@ honest S4 mint ceiling. So: S3 частен-сектор browse ≈ **66,542** n
     (S4 promotes the verified subset), `href='/person/'||name`, `rank_static = tier_weight
     (V=500,N=100) + log(1 + broad_money)`. **Match-quality is applied at query time** (below),
     not baked into `rank_static`.
-  - `ANALYZE person_search` after. Pure function `rankStatic(...)` exported for unit test.
-- **package.json**: `db:load:person-search:pg` + `:cloud`; wire into `db:refresh` **after**
-  `db:load:persons-browse:pg` (reads the matview) and register in the [reference_two_changelogs]
-  + [reference_migrated_family_watch_reload] entries.
-- **`functions/db_routes.js`**: **replace** the `person-search` route (currently the `tr_officers`
-  scan, ~lines 391-410) with a ranked query over `person_search`. Order by a **query-dependent
-  match score blended with `rank_static`**, not `rank_static` alone:
-  `ORDER BY (name_fold = translit_bg_latin($1))::int * 1e9        -- exact-name override`
-  `+ (name_fold LIKE translit_bg_latin($1)||'%')::int * 1e6       -- prefix boost`
-  `+ word_similarity(name_fold, translit_bg_latin($1)) * 1e4      -- fuzzy`
-  `+ rank_static DESC`, inside the **OFFSET-0 fence** (`… FROM (SELECT * FROM person_search WHERE
-  name_fold %> translit_bg_latin($1) OFFSET 0) s ORDER BY … LIMIT …`).
-  **Return top-K PER TIER, not one global LIMIT** — a single `LIMIT` would return all-P and no V
-  for a common name. Use `row_number() OVER (PARTITION BY tier ORDER BY <score>)` and keep e.g.
-  ≤6 P, ≤4 V, plus a **total N count** (grouped display: Хора във властта / Свързани с обществени
-  пари / +N други собственици). Response carries the disambiguation card fields (name, tier,
-  position_type/role/party/place, firms_count, public_money_eur, href, identity_confidence).
-  Keep the `{people:[…]}` key for back-compat where the old caller expects it.
+  - `ANALYZE person_search` after. (`rank_static` is computed in SQL; the data test asserts the
+    ranking end-to-end rather than a separate TS unit — simpler, no formula drift.)
+  - **Built:** 533,159 rows (P 63,910 / V 61,761 / N 407,488), ~19 s. Money clamped `greatest(0,…)`
+    before `ln` (contracts/subsidy sums can be negative — refunds — and `ln(≤0)` errors).
+- **package.json**: `db:load:person-search:pg` + `:cloud`; wired into `db:refresh` **after**
+  `db:load:persons-browse:pg` (its P arm reads that matview). It is a derived search index like
+  `contractor_search`, NOT a user-facing dataset, so no `recent_updates`/changelog entry.
+- **`functions/db_routes.js`**: **replaced** the `person-search` route (the old `tr_officers` scan)
+  with a **per-tier ranked query**. The drafted single blended `ORDER BY (exact·1e9 + prefix·1e6 +
+  word_similarity·1e4 + rank_static)` over all `%>` matches measured **231 ms** on the most common
+  name ("Иван Иванов" ≈ 45k matches) — the cost is the bitmap heap scan of the whole match set,
+  not the ranking (rank_static-only was still 213 ms). Final design instead runs **one small query
+  per tier** — `WHERE tier=$1 AND name_fold %> q ORDER BY rank_static DESC LIMIT k` — which uses
+  `idx_person_search_rank (tier, rank_static DESC)` and **early-stops** (P 1.5 ms, V 2.7 ms, N 4 ms;
+  ~10 ms total worst-case), plus a cheap **exact-fold prepend** (`name_fold = q`, 0.3 ms) floated to
+  the front of its tier — **PER TIER** (a single cross-tier exact query is starved by high-rank P
+  rows on common names, so the V/N float would never fire). **No total N count** — an exact count
+  over 45k matches is the slow part (163 ms), and the "виж всички" → `/persons?q` link carries the
+  user to where pagination lives. Response: `{power:P[], money:V[], others:N[], people:[…]}`;
+  `people` spans **all tiers** (P+V+N, `{name,companies}`) so a public figure absent from the client
+  roster is never dropped pre-S2. Each read `.catch(missingMigrationRows)` → an **absent**
+  `person_search` degrades to empty tiers (never a first-deploy 500); a **stale** table still 200s,
+  so the cloud reload triggers are documented in the loader header + CLAUDE.md. V/N money excludes
+  consortium members (120's basis).
 
 **Tests:** `scripts/db/schema/pg/person_search.data.test.ts` (auto-skips if PG down) —
 (a) all three tiers present; (b) a known colliding name returns the P person above any V/N

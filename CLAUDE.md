@@ -355,6 +355,22 @@ place label and the magistrates' oblast), and the contracts corpus. Re-run it:
   from `contracts`, so a procurement refresh without this one lets the money column drift
   away from `/procurement/contracts` with nothing failing.
 
+Riding just behind it — `person_search` (migration 126, `db:load:person-search:pg`), the one ranked
+index behind the combined-search route. It is a derived search index like `contractor_search`, but
+UNLIKE `contractor_search` (rebuilt inside `db:load:pg`) it is a **standalone** loader with nothing
+running it on the cloud side, so run:
+
+```bash
+npm run db:load:person-search:pg:cloud
+```
+
+after **each** of `db:load:persons-browse:pg:cloud` (its public arm), `db:load:tr:pg:cloud`, and any
+contracts/agri/funds reload (its money arm). `db:refresh` sequences the local equivalent right after
+persons-browse; nothing runs it on the cloud side. The `/api/db/person-search` route **degrades a
+MISSING table to empty tiers** (so it never 500s on a first deploy before this loader runs), but a
+**STALE** table still serves the previous vintage at a 200 — so this is the same "green locally,
+stale on prod" trap as the loaders above. `person_search.data.test.ts` fails on an absent/empty table.
+
 **`--resolve` is not optional, and skipping it is invisible to a row count.** Phase 2 is what
 fills `declaration.person_id`; without it that column is NULL on every row, the table is still
 present and full, and `person_browse_table` publishes `has_declaration = false` for all 56,801

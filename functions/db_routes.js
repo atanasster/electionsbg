@@ -387,26 +387,63 @@ const DB_ROUTES = {
       },
     };
   },
-  // Distinct officer names matching (fuzzy), most-connected first.
+  // Ranked, grouped, foldable people search over person_search (S1). Three tiers:
+  //   power  — public/resolved people (P)          → Хора във властта
+  //   money  — money-linked private owners (V)      → Свързани с обществени пари
+  //   others — long-tail private owners (N)         → Други собственици
+  // Each tier is its own top-K ordered by the precomputed rank_static, which uses
+  // idx_person_search_rank (tier, rank_static DESC) and EARLY-STOPS — ~10 ms even for the most
+  // common name in the corpus (a single blended ORDER BY over all matches was 231 ms because a
+  // name like "Иван Иванов" matches ~45k rows). Exact-fold hits are fetched separately (cheap)
+  // and floated to the front of their tier. No total N count — the "виж всички" link carries the
+  // user to /persons?q, where pagination lives. See docs/plans/people-connections-phase1-impl-v1.md §S1.
+  // NB: `person_search` here is the TABLE (126). A same-named FUNCTION person_search(text,int)
+  // (082) still backs the `person-lookup` route below — legal in PostgreSQL (separate catalogs:
+  // `FROM person_search` = table, `person_search($1,$2)` = function), kept distinct on purpose.
   "person-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (!term) return { status: 400, body: { error: "missing q" } };
-    // Bounded server-side so a caller filters a small candidate set, not the
-    // whole fuzzy match list, client-side. Default 20; the combined-search box
-    // dedups by folded name and shows a handful.
+    // Back-compat: the pre-S2 combined-search box reads {people:[{name,companies}]}. Retained
+    // until S2 rewires it to the grouped shape.
     const lim = clampInt(q.limit, 20, 1, 50);
-    const people = await dbRows(
-      `SELECT o.name, count(DISTINCT o.uic) AS companies
-       FROM tr_officers o
-       WHERE o.name_fold %> translit_bg_latin($1)
-         AND (SELECT bool_and(tok <% o.name_fold)
-              FROM unnest(string_to_array(translit_bg_latin($1),' ')) tok WHERE tok<>'')
-       GROUP BY o.name
-       ORDER BY companies DESC, length(o.name)
-       LIMIT $2`,
-      [term, lim],
-    );
-    return { body: { people } };
+    const COLS =
+      "key, name, tier, position_type, primary_role, party, place_label, " +
+      "top_eik, firms_count, public_money_eur, has_photo, identity_confidence, href";
+    // Each read degrades to [] if person_search has not been built on this DB (first cloud deploy,
+    // before db:load:person-search:pg:cloud) — an empty result, never a 500.
+    const exactQ = (tier) =>
+      dbRows(
+        `SELECT ${COLS} FROM person_search
+          WHERE tier = $1 AND name_fold = translit_bg_latin($2)
+          ORDER BY rank_static DESC LIMIT 3`,
+        [tier, term],
+      ).catch(missingMigrationRows);
+    const fuzzyQ = (tier, k) =>
+      dbRows(
+        `SELECT ${COLS} FROM person_search
+          WHERE tier = $1 AND name_fold %> translit_bg_latin($2)
+          ORDER BY rank_static DESC LIMIT $3`,
+        [tier, term, k],
+      ).catch(missingMigrationRows);
+    // Per-tier: exact-fold hits (cheap eq lookup) float ahead of the fuzzy rank-ordered top-K.
+    // The exact fetch is PER TIER — a single cross-tier exact query is dominated by high-rank P
+    // rows on common names, so the V/N float would never fire.
+    const tierRows = async (tier, k) => {
+      const [ex, fz] = await Promise.all([exactQ(tier), fuzzyQ(tier, k)]);
+      const seen = new Set(ex.map((r) => r.key));
+      return [...ex, ...fz.filter((r) => !seen.has(r.key))];
+    };
+    const [power, money, others] = await Promise.all([
+      tierRows("P", 6),
+      tierRows("V", 4),
+      tierRows("N", 4),
+    ]);
+    // people (back-compat) spans ALL tiers so a public figure absent from the client's own roster
+    // is never dropped from the pre-S2 combined search (S2 replaces this with the grouped shape).
+    const people = [...power, ...money, ...others]
+      .slice(0, lim)
+      .map((r) => ({ name: r.name, companies: r.firms_count }));
+    return { body: { power, money, others, people } };
   },
   async company(dbRows, q) {
     const eik = s(q, "eik");
