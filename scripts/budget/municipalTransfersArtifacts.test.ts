@@ -98,7 +98,8 @@ describe("the committed municipal-transfer artifacts", () => {
           );
           expect({
             where,
-            ok: Math.abs(sumEur - (m.total?.amountEur ?? 0)) <= ROW_TOLERANCE_EUR,
+            ok:
+              Math.abs(sumEur - (m.total?.amountEur ?? 0)) <= ROW_TOLERANCE_EUR,
           }).toEqual({ where, ok: true });
           checked++;
         }
