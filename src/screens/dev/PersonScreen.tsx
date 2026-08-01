@@ -26,6 +26,7 @@ import {
   Info,
   Landmark,
   Link2,
+  MapPin,
   PieChart,
   Search,
   Users,
@@ -58,6 +59,10 @@ import {
   type Associate,
 } from "../components/procurement/PersonAssociatesTile";
 import { PersonTimelineTile } from "../components/procurement/PersonTimelineTile";
+import {
+  PersonProcurementBreakdownTile,
+  type PersonBreakdownRow,
+} from "../components/procurement/PersonProcurementBreakdownTile";
 import { PersonMagistrateHoldingsTile } from "../components/procurement/PersonMagistrateHoldingsTile";
 import { PersonMagistratePoliticianLinks } from "../components/procurement/PersonMagistratePoliticianLinks";
 import type {
@@ -92,6 +97,21 @@ interface ConnRow {
   status: string | null;
   a_roles: string | null;
   b_roles: string | null;
+}
+// Portfolio breakdown rows (migration 125) — reconcile with the procurement headline.
+interface CompanyCut {
+  eik: string;
+  name: string | null;
+  totalEur: number;
+  contractCount: number;
+  awarderCount: number;
+}
+interface SettlementCut {
+  ekatte: string | null;
+  settlement: string | null;
+  totalEur: number;
+  contractCount: number;
+  awarderCount: number;
 }
 
 // Portfolio rollup from person_procurement() — the same jsonb the company page's
@@ -161,6 +181,8 @@ export const PersonScreen: FC = () => {
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
   const [cabinets, setCabinets] = useState<CabinetRow[]>([]);
   const [associates, setAssociates] = useState<Associate[]>([]);
+  const [byCompany, setByCompany] = useState<CompanyCut[]>([]);
+  const [bySettlement, setBySettlement] = useState<SettlementCut[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [period, setPeriod] = useState<string>(PERIOD_ALL);
@@ -185,6 +207,8 @@ export const PersonScreen: FC = () => {
           setProcurement(j.procurement ?? null);
           setCabinets(j.cabinets ?? []);
           setAssociates(j.associates ?? []);
+          setByCompany(j.byCompany ?? []);
+          setBySettlement(j.bySettlement ?? []);
         }
       })
       .catch((e) => live && setError(String(e)))
@@ -556,6 +580,40 @@ export const PersonScreen: FC = () => {
                     showBars
                   />
                 )}
+              </div>
+
+              {/* The two portfolio cuts — по фирма / по населено място (migration 125). Both
+                  reconcile with the headline above. */}
+              <div className="grid gap-4 xl:grid-cols-2">
+                <PersonProcurementBreakdownTile
+                  title={t("pp_by_company") || "По фирма"}
+                  icon={Building2}
+                  rows={byCompany.map<PersonBreakdownRow>((c) => ({
+                    id: c.eik,
+                    // TR names can carry HTML entities (like every company name in this file).
+                    label: decodeEntities(c.name) || c.eik,
+                    href: `/company/${c.eik}`,
+                    totalEur: c.totalEur,
+                    contractCount: c.contractCount,
+                  }))}
+                />
+                <PersonProcurementBreakdownTile
+                  title={t("pp_by_settlement") || "По населено място"}
+                  icon={MapPin}
+                  rows={bySettlement.map<PersonBreakdownRow>((sx) => ({
+                    id: sx.ekatte ?? "national",
+                    // Settlement names are canonical place-dim strings — no entity decode needed
+                    // (unlike the TR company names above).
+                    label:
+                      sx.settlement ??
+                      (t("pp_national_buyers") || "Национални възложители"),
+                    href: sx.ekatte
+                      ? `/procurement/settlement/${sx.ekatte}`
+                      : null,
+                    totalEur: sx.totalEur,
+                    contractCount: sx.contractCount,
+                  }))}
+                />
               </div>
 
               {breakdown && (

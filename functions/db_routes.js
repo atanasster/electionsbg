@@ -343,14 +343,37 @@ const DB_ROUTES = {
     if (!name) return { status: 400, body: { error: "missing name" } };
     const from = orNull(q, "from");
     const to = orNull(q, "to");
-    const [roles, politicians, procurement, cabinets, associates] =
-      await Promise.all([
-        dbRows("SELECT * FROM person_roles($1)", [name]),
-        dbRows("SELECT * FROM person_politicians($1)", [name]),
-        dbRows("SELECT person_procurement($1, $2, $3) AS r", [name, from, to]),
-        dbRows("SELECT * FROM person_by_cabinet($1)", [name]),
-        dbRows("SELECT * FROM person_associates($1) LIMIT 500", [name]),
-      ]);
+    const [
+      roles,
+      politicians,
+      procurement,
+      cabinets,
+      associates,
+      byCompany,
+      bySettlement,
+    ] = await Promise.all([
+      dbRows("SELECT * FROM person_roles($1)", [name]),
+      dbRows("SELECT * FROM person_politicians($1)", [name]),
+      dbRows("SELECT person_procurement($1, $2, $3) AS r", [name, from, to]),
+      dbRows("SELECT * FROM person_by_cabinet($1)", [name]),
+      dbRows("SELECT * FROM person_associates($1) LIMIT 500", [name]),
+      // The two portfolio cuts (migration 125). Same name + window as person_procurement, so
+      // they reconcile with its headline (person_procurement_breakdowns.data.test.ts).
+      // DEGRADE to [] if 125 has not reached this DB yet (42883) — the route ships via
+      // deploy:db but the functions apply on a separate, slower cloud path, so between the two
+      // this must serve the page WITHOUT the tiles rather than 500 the whole crawler-walked
+      // /person/{slug} (roles, politicians, procurement, everything).
+      dbRows("SELECT person_procurement_by_company($1, $2, $3) AS r", [
+        name,
+        from,
+        to,
+      ]).catch(missingMigrationEmpty),
+      dbRows("SELECT person_procurement_by_settlement($1, $2, $3) AS r", [
+        name,
+        from,
+        to,
+      ]).catch(missingMigrationEmpty),
+    ]);
     return {
       body: {
         name,
@@ -359,6 +382,8 @@ const DB_ROUTES = {
         procurement: procurement[0]?.r ?? null,
         cabinets,
         associates,
+        byCompany: byCompany[0]?.r ?? [],
+        bySettlement: bySettlement[0]?.r ?? [],
       },
     };
   },
