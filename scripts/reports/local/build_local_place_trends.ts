@@ -139,6 +139,7 @@ const resolveMayorWinner = (
     canonicalId,
     localPartyName,
     candidateName: cand?.candidateName ?? "",
+    personSlug: cand?.personSlug,
     pct: round2((bestVotes / agg.valid) * 100),
     votes: bestVotes,
   };
@@ -314,6 +315,7 @@ export const generateLocalPlaceTrends = ({
             year,
             candidateName: el.candidateName,
             mpId: el.mpId,
+            personSlug: el.personSlug,
             primaryCanonicalId: el.primaryCanonicalId,
             localPartyName: el.localPartyName,
             isIndependent: el.isIndependent,

@@ -142,6 +142,7 @@ export const buildChmiHistory = (opts: {
           pctOfValid: m.pctOfValid,
           votes: m.votes,
           mpId: m.mpId,
+          personSlug: m.personSlug,
           ...(hasTurnout
             ? {
                 registeredVoters: p.numRegisteredVoters,
@@ -206,6 +207,7 @@ export const buildChmiHistory = (opts: {
           pctOfValid: elected.pctOfValid,
           votes: elected.votes,
           mpId: elected.mpId,
+          personSlug: elected.personSlug,
           ...(hasTurnout
             ? {
                 registeredVoters: reg,
@@ -236,6 +238,7 @@ export const buildChmiHistory = (opts: {
             pctOfValid: elected.pctOfValid,
             votes: elected.votes,
             mpId: elected.mpId,
+            personSlug: elected.personSlug,
           });
         }
       }

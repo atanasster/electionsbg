@@ -367,6 +367,7 @@ export const buildRegionRollups = (opts: {
     return {
       candidateName: c.candidateName,
       mpId: c.mpId,
+      personSlug: c.personSlug,
       party: {
         canonicalId: id,
         displayName: meta.displayName,
@@ -443,6 +444,7 @@ export const buildRegionRollups = (opts: {
             color: meta.color,
             localPartyName: elected.localPartyName,
             mpId: elected.mpId,
+            personSlug: elected.personSlug,
             isIndependent: elected.isIndependent,
             pctOfValid: elected.pctOfValid,
           };
@@ -486,6 +488,7 @@ export const buildRegionRollups = (opts: {
               oblast,
               candidateName: elected.candidateName,
               mpId: elected.mpId,
+              personSlug: elected.personSlug,
               pctOfValid: elected.pctOfValid,
             });
           }

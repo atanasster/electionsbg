@@ -130,15 +130,17 @@ export const stampBundle = (
           );
 
   // Village mayors — the winner of each kmetstvo contest, keyed by array index (see
-  // localPersonRefs). Stamp the winning row(s) in both the round-1 and round-2 tables.
+  // localPersonRefs). Stamp the winning row(s) in the round-1 and round-2 tables AND the
+  // separate resolved `elected` object (a distinct object after JSON round-trip, which
+  // build_chmi_history reads off directly).
   (b.kmetstva ?? []).forEach((k, i) => {
     const w = pickLocalWinner(k.candidates, k.round2);
     if (!w?.candidateName) return;
     const slug = slugByRef.get(
       kmetstvoRef(b.cycle, b.obshtinaCode, k.ekatte, i),
     );
-    for (const row of [...(k.candidates ?? []), ...(k.round2 ?? [])])
-      if (sameContestant(row, w)) stamp(row, slug);
+    for (const row of [k.elected, ...(k.candidates ?? []), ...(k.round2 ?? [])])
+      if (row && sameContestant(row, w)) stamp(row, slug);
   });
 
   // Район mayors — skip the Sofia parent (its районни are stamped via the S2*** shards' mayor).
@@ -149,8 +151,12 @@ export const stampBundle = (
       const slug = slugByRef.get(
         districtRef(b.cycle, b.obshtinaCode, dist.districtCode, i),
       );
-      for (const row of [...(dist.candidates ?? []), ...(dist.round2 ?? [])])
-        if (sameContestant(row, w)) stamp(row, slug);
+      for (const row of [
+        dist.elected,
+        ...(dist.candidates ?? []),
+        ...(dist.round2 ?? []),
+      ])
+        if (row && sameContestant(row, w)) stamp(row, slug);
     });
 
   return changed;

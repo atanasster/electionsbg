@@ -85,6 +85,31 @@ describe("stampBundle village mayors", () => {
     expect((b_ as { personSlug?: string }).personSlug).toBe("b-vil-99");
     expect((a as { personSlug?: string }).personSlug).toBeUndefined();
   });
+
+  it("stamps a DISTINCT `elected` object (severed from candidates by JSON round-trip)", () => {
+    // build_chmi_history reads k.elected.personSlug off the persisted (re-parsed) bundle, where
+    // `elected` is no longer the same object as its candidates row — so the bake must stamp it too.
+    const winnerCand = mayor("B", 2, true, 55);
+    const electedCopy = mayor("B", 2, true, 55); // separate object, same contestant
+    const b = bundle({
+      kmetstva: [
+        {
+          kmetstvoName: "Село",
+          ekatte: "",
+          candidates: [mayor("A", 1, true, 45), winnerCand],
+          elected: electedCopy,
+        },
+      ] as unknown as LocalMunicipalityBundle["kmetstva"],
+    });
+    stampBundle(
+      b,
+      new Map([["2023_10_29_mi:BGS01:kmetstvo:0", "b-vil-99"]]),
+      noStats(),
+    );
+    expect((electedCopy as { personSlug?: string }).personSlug).toBe(
+      "b-vil-99",
+    );
+  });
 });
 
 describe("stampBundle Sofia guards", () => {
