@@ -1,11 +1,13 @@
 # Person procurement browser — v1
 
 Bring the `/company/:eik` and `/procurement/settlement/:ekatte` procurement experience to the
-person page: a shared filter bar + KPI strip on the in-page portfolio, two new breakdown tiles
-(**by company** / **by settlement**), and a standalone **"all contracts"** browser reached from
-_Топ договори_. Everything is factored into shared components so **both** person screens use it.
+person page: a shared filter bar + KPI strip on the standalone contracts browser, two new
+breakdown tiles (**by company** / **by settlement**), and a standalone **"all contracts"** browser
+reached from _Топ договори_. Everything is factored into shared components so **both** person
+screens use it.
 
-Status: PLAN ONLY — nothing coded yet.
+Status: PLAN ONLY — nothing coded yet. Rev 2 folds in the design audit (§9 records what the audit
+confirmed; the fixes are inline in §2–§8, tagged **[audit]**).
 
 ---
 
@@ -30,6 +32,15 @@ way, or the rows will disagree with the KPIs above them (the exact hazard docume
 `ProcurementSettlementContractsSection.tsx`). The new slug screen resolves firms differently —
 `person_role.ref WHERE source='tr' AND confidence IN ('exact_id','high','manual')`
 (`082_person_api.sql:91-97`) — so its browser/breakdowns must key off **that** set.
+
+> **[audit] Count basis is part of the reconciliation key, not just the EIK set.**
+> `person_procurement.contractCount` **excludes** €0 consortium-`member` rows
+> (`consortium_role IS DISTINCT FROM 'member'`, `024:47-48`). A plain `tag='contract'` scope
+> **includes** them, so the browser footer and the breakdown sums would legitimately exceed the KPI.
+> **Decision: the browser and both breakdowns adopt the KPI's basis** — every person-scoped
+> contracts query carries `consortium_role IS DISTINCT FROM 'member'` in addition to
+> `tag='contract'`. See §3.1 (the semi-join is not enough on its own — this predicate rides
+> `fixedFilters`).
 
 ### Data-load measurement — current portfolio (`/api/db/person`)
 
@@ -62,6 +73,10 @@ standalone browser, which is why it must be **server-side paginated** (never a f
   `idx_contracts_contractor_tag_amt`).
 - **No new index required** — `idx_tr_officers_fold_eq`, `idx_contracts_contractor_tag_amt`,
   `idx_contracts_order` already cover it.
+- **[audit] The two breakdown aggregates were NOT measured.** `byCompany` (a `GROUP BY
+  contractor_eik` over the same `base`) and `bySettlement` (a join to `awarder_seats`, PK on
+  `eik`) are both small-set aggregates over the already-cheap `base`; expected trivial, but this
+  is an estimate, not a measurement — measure before shipping Tier 1.
 
 Two consequences for the design:
 1. The sentinel (and other mega-nominee folds) **must be excluded** from any person scope, or a
@@ -69,7 +84,8 @@ Two consequences for the design:
    `person_associates` already excludes mega-hubs (`officer_name_counts`, `008`); reuse that guard.
 2. The sentinel's 1,966 firms **exceed `MAX_IN_VALUES = 1000`** (`db_table.js:1247`). Passing the
    EIK set as a client-side `contractor_eik IN (...)` array would silently truncate. → use a
-   **server-resolved semi-join** instead (§3.1).
+   **server-resolved semi-join** instead (§3.1). (Confirmed: the semi-join subquery is not subject
+   to `MAX_IN_VALUES` — that cap only applies to `filter:"in"` value arrays, `db_table.js:1299`.)
 
 ---
 
@@ -77,19 +93,33 @@ Two consequences for the design:
 
 1. **Standalone contracts page** for a person — same filters, KPI strip and columns as
    `/company/:eik/contracts` and `/procurement/settlement/:ekatte`. _Топ договори_ "see all" → here.
-2. **In-page portfolio upgrade** — add the shared filter bar (`?proc/?cpv/?grade/?single`) + the
-   `ContractsAnalysisStrip` KPI strip to the portfolio section.
+   **This is the only surface that carries the per-column filter bar** (`?proc/?cpv/?grade/?single`).
+2. **In-page portfolio upgrade** — add the `ContractsAnalysisStrip` KPI strip (single-bid % /
+   direct % / procedure mix, facet-driven) above _Топ договори_.
+   **[audit] NO per-column filter bar on the in-page portfolio.** `person_procurement` takes only a
+   date window (`name, from, to`) — it cannot honor `?proc/?cpv/?grade/?single`, and the
+   `/company/:eik` dashboard sets the precedent by having none either (scope pill only). Per-column
+   filtering is a property of the standalone browser, not the rollup.
 3. **Two breakdown tiles** on the person page:
    - **by company** — the person's own firms ranked by procurement € / contract count;
    - **by settlement** — the awarder settlements paying the person's firms, ranked (via
      `awarder_seats.ekatte`).
 4. **DRY** — extract the ~90%-duplicated browser body (settlement/company/global) into one shared
    component; wire it into **both** person screens.
-5. Keep the in-page KPIs and the standalone browser on **one scope** so they cannot drift.
+5. Keep the in-page KPIs, the breakdown tiles and the standalone browser on **one scope** so they
+   cannot drift — **[audit] defaulting to `all` (whole portfolio), not the parliament window**
+   (see §4.4).
 
 ---
 
 ## 3. Backend changes
+
+**[audit] All new SQL goes in a NEW migration file — do not edit the applied `024`/`082`.** Add
+`scripts/db/schema/pg/125_person_procurement_breakdowns.sql` with `CREATE OR REPLACE FUNCTION`
+bodies (the person functions carry no data, so they are *applied*, never *loaded* — CLAUDE.md
+"Person SQL functions — applied, never loaded"). Deploy = `apply_functions.ts
+125_person_procurement_breakdowns.sql` against the target DB **before** `deploy:db` ships the route
+reading the new arrays. `db_table.js` (the semi-join columns) ships with `deploy:db`.
 
 ### 3.1 New semi-join columns on the `contracts` resource (`functions/db_table.js`)
 
@@ -101,7 +131,10 @@ person screen, so each browser's rows match its screen's KPI source exactly:
 contractor_of_person_name: {
   type: "text", filter: "semijoin", required: true,
   semiJoinCol: "contractor_eik",
-  semiJoinSql: "SELECT DISTINCT uic FROM tr_officers WHERE name_fold = translit_bg_latin(?)",
+  // Excludes the redaction sentinel / mega-nominee folds — reuse the person_associates guard.
+  semiJoinSql:
+    "SELECT DISTINCT uic FROM tr_officers WHERE name_fold = translit_bg_latin(?) " +
+    "AND name_fold <> 'zalicheno obstoyatelstvo.'",  // + any officer_name_counts mega-hub guard
 },
 // New slug page — matches person_by_slug / person_money (082).
 contractor_of_person_slug: {
@@ -113,48 +146,74 @@ contractor_of_person_slug: {
 },
 ```
 
+**[audit] Template validity confirmed against `buildFilter` (`db_table.js:1352-1356`):** the engine
+splits `semiJoinSql` on `?` and requires exactly two parts (one placeholder). Both strings above
+carry exactly one `?` — the literal `IN ('exact_id',…)` in the slug variant contains none. Valid.
+
 Why semi-join, not a client EIK array (both were viable — this is the deciding call):
-- **Reconciliation** — the browser derives the EIK set from the *same* SQL as the KPI rollup;
-  they cannot disagree.
+- **Reconciliation** — the browser derives the EIK set from the *same* SQL as the KPI rollup.
 - **No `MAX_IN_VALUES` cap** — the 1,966-firm sentinel and any real hub pass through.
 - **Clean URL** — no giant `contractor_eik=…` array in the shareable link.
 - **`required: true`** — an absent value throws (fails closed) instead of widening to the whole
   corpus, exactly like `awarder_ekatte`.
 
-`translit_bg_latin` is already an installed function (used by `person_procurement`); the semi-join
-folds the name server-side, so the client passes the raw display name.
+**The semi-join scopes the EIK set; it does NOT set the count basis.** The browser and both
+breakdowns additionally pass `tag='contract'` **and** the member-row exclusion as `fixedFilters`
+(see the §1 audit note):
+
+```js
+fixedFilters: [
+  { id: "tag", value: ["contract"] },
+  { id: "consortium_role", value: /* NOT 'member' */ … },  // exclude €0 consortium members
+  scope,  // {id:"contractor_of_person_name"|"…_slug", value: name|slug}
+]
+```
+
+`consortium_role` is already a `filter:"in"` column (`db_table.js:147`). An `in` filter cannot
+express "≠ member"; either (a) enumerate the allowed values (`['carrier', null]` — but NULL in an
+`IN` list won't match, so this needs care), or (b) add a small dedicated `filter:"neq"` mode, or
+(c) declare a `not_consortium_member` boolean view column on `contracts_list`. **Recommend (c)** —
+a generated/view column `is_consortium_member boolean` filtered `eq false`, so the exclusion is one
+clean predicate the browser, both breakdowns, and the reconciliation test all share. Confirm the
+mechanism in Tier 1.
 
 ### 3.2 Redaction-sentinel / mega-hub guard
 
-Add a `WHERE name_fold NOT IN (<sentinels>)` (or `AND NOT EXISTS` against `officer_name_counts`
-above a threshold) to `contractor_of_person_name`'s semi-join and to the breakdown function, so a
-redaction placeholder never resolves to a 777-firm "portfolio". Confirm the exact sentinel list
-with the existing `person_associates` mega-hub exclusion (`024_person_api.sql:251-281`) and reuse it.
+Bake the guard into `contractor_of_person_name`'s semi-join (above) and the breakdown function.
+Confirm the exact sentinel/mega-hub list against the existing `person_associates` exclusion
+(`024_person_api.sql:251-281`, `officer_name_counts`, `008`) and reuse it rather than hard-coding a
+single string. (The slug variant needs no such guard — `person_role` is identity-resolved, so a
+redaction placeholder never resolves to a `person_id`.)
 
 ### 3.3 Breakdown aggregates — `byCompany` + `bySettlement`
 
-Extend `person_procurement` (024) to emit two more arrays (kept bounded, e.g. LIMIT 25/12), OR add
-a sibling `person_procurement_breakdowns(name, from, to)` if we want to keep the hot portfolio
-payload lean:
+New `125_person_procurement_breakdowns.sql`, two functions (keeping the hot `person_procurement`
+payload lean rather than fattening it):
 
-- **`byCompany[]`** — `GROUP BY contractor_eik` over the same `base` CTE:
-  `{ eik, name, totalEur, contractCount, awarderCount }`, ordered by `totalEur DESC`.
-  (The `Участия` tables already show a per-firm value bar, but that is ownership-vs-management
-  framing; this is a clean procurement ranking.)
-- **`bySettlement[]`** — join `base.awarder_eik → awarder_seats (source='geo', is_local_hq) →
-  ekatte, settlement`, `GROUP BY ekatte`:
-  `{ ekatte, settlement, totalEur, contractCount, awarderCount }`, ordered by `totalEur DESC`.
-  National buyers (`is_local_hq = false`) roll into a "национални" bucket, mirroring
-  `procurement_by_settlement` (030).
+- **`person_procurement_by_company(p_name, p_from, p_to)`** — `GROUP BY contractor_eik` over the
+  same guarded `base` CTE as `person_procurement`:
+  `[{ eik, name, totalEur, contractCount, awarderCount }]`, ordered `totalEur DESC`, bounded (~25).
+- **`person_procurement_by_settlement(p_name, p_from, p_to)`** — join
+  `base.awarder_eik → awarder_seats (source='geo', is_local_hq) → ekatte, settlement`,
+  `GROUP BY ekatte`: `[{ ekatte, settlement, totalEur, contractCount, awarderCount }]`, ordered
+  `totalEur DESC`, bounded (~12). Buyers with no geo seat (`is_local_hq=false` / no row) roll into
+  a "национални" bucket, mirroring `procurement_by_settlement` (030). **[audit] `awarder_seats.eik`
+  is a PRIMARY KEY, so this join is 1:1 — no `DISTINCT`, no double-count.** (`company_geography()`,
+  `021`, is a working precedent for the `awarder_seats` join, though it rolls up by oblast.)
 
-For the **slug** screen, add the same two arrays to a slug-keyed path (extend `person_money` /
-`person_by_slug`, or a `person_procurement_breakdowns_slug(slug)` reading `person_role.ref`).
+Both use the **identical** guarded `base` (same EIK set, same `tag`/member basis, same date window)
+as `person_procurement`, so `Σ byCompany.totalEur == Σ bySettlement.totalEur == portfolio total`.
+
+For the **slug** screen: add `_by_company_slug(slug,…)` / `_by_settlement_slug(slug,…)` reading
+`person_role.ref` (the `082` EIK set), same shape.
 
 ### 3.4 Route wiring
 
-No new route needed for the browser — it flows through the generic `/api/db/table` + `/api/db/facets`
-using the new semi-join column. The breakdown arrays ride the existing `/api/db/person`
-(and, for the slug screen, `/api/db/person-profile` or a new `/api/db/person-breakdowns`).
+No new route for the browser — it flows through generic `/api/db/table` + `/api/db/facets` using the
+new semi-join column. The breakdown arrays: add to `/api/db/person` (legacy) and a slug path
+(extend `/api/db/person-profile`, or a new `/api/db/person-breakdowns?slug=`). **[audit] facets +
+semi-join is already proven** — the settlement page passes `awarder_ekatte` through
+`useContractsAnalytics` → `/api/db/facets` today, so the strip works over the person scope too.
 
 ---
 
@@ -172,119 +231,167 @@ Create **`src/screens/components/procurement/ContractsBrowserSection.tsx`**:
 
 ```ts
 type ContractsBrowserSectionProps = {
-  scope: DbColumnFilter;              // {id:"contractor_of_person_name", value:name} | awarder_ekatte | …
-  window?: [string|null, string|null];// scopeRange(scope, selected) — INCLUSIVE bounds
-  columns: ContractColumnId[];        // which of the 10 shared columns to show
+  scope: DbColumnFilter;               // contractor_of_person_name|_slug | awarder_ekatte | …
+  fixedExtra?: DbColumnFilter[];       // tag + member-exclusion, passed by each caller
+  window?: [string|null, string|null]; // scopeRange(scope, selected) — INCLUSIVE bounds
+  columns: ContractColumnId[];
   filters?: { withYear?; withRisk?; toggleParam? };
   reactiveCpv?: boolean;
   countLabel?: string;
-  // …passes through initialSearch, titleClamp, sortableNames, showAppealChip
+  // …initialSearch, titleClamp, sortableNames, showAppealChip, disclosure banner slot
 };
 ```
 
 It owns the strip + toolbar (`CpvFilterCombobox`, `ProcedureBucketSelect`, `RiskGradeFilter`,
 `SingleBidderToggle`, clear button) + `DbDataTable` + footer — i.e. exactly the body of
 `ProcurementSettlementContractsSection`. Then:
-- `ProcurementSettlementContractsSection` becomes a thin wrapper passing the `awarder_ekatte` scope.
-- The person browser passes the `contractor_of_person_*` scope.
-- (Optional follow-up) `CompanyContractsDbScreen` / `ContractsBrowserDbScreen` re-expressed on top of
-  it — out of scope for v1 but the extraction makes it a one-liner later.
-
-This is the "extract shared code, DRY" deliverable.
+- `ProcurementSettlementContractsSection` becomes a thin wrapper passing the `awarder_ekatte` scope
+  (**its existing tests must still pass** — that is the extraction's fidelity check).
+- The person browser passes the `contractor_of_person_*` scope + the member-exclusion `fixedExtra`.
+- (Follow-up, out of v1 scope) `CompanyContractsDbScreen` / `ContractsBrowserDbScreen` re-expressed
+  on it.
 
 ### 4.2 Standalone page `/person/:name/contracts`
 
-New screen **`src/screens/person/PersonContractsScreen.tsx`** — the shell (SEO, breadcrumb back to
-`/person/:name`, `ScopeControl`, title) wrapping `<ContractsBrowserSection>` with the person scope.
-Columns: `date, awarder_name, contractor_name, title, amount_eur, procedure, number_of_tenderers,
-consortium_full_eur, risk_cri` (both parties shown — like the settlement browser, since the person
-spans many buyers and firms). `titleClamp="sm"`, `showAppealChip`, `sortableNames` (a person's row
-set is small).
+New screen **`src/screens/person/PersonContractsScreen.tsx`** — shell (SEO, breadcrumb back to
+`/person/:name`, `ScopeControl`, title, **namesake disclosure banner** — §8) wrapping
+`<ContractsBrowserSection>`. Columns: `date, awarder_name, contractor_name, title, amount_eur,
+procedure, number_of_tenderers, consortium_full_eur, risk_cri` (both parties, like the settlement
+browser). `titleClamp="sm"`, `showAppealChip`, `sortableNames` (a person's row set is small).
 
-Register in `src/routes.tsx` under the person route group, `path="person/:name/contracts"` — same
-shape as `/company/:eik/contracts`.
+**[audit] The screen must resolve name-vs-slug before choosing the scope column.** `:name` is a
+**slug** for public figures but a **raw TR name** for the fallback persons. Call
+`usePersonProfile(name)`:
+- profile hit (has `slug`) → scope = `{ id:"contractor_of_person_slug", value: profile.slug }`;
+- profile miss (`null`) → scope = `{ id:"contractor_of_person_name", value: decodeURIComponent(name) }`.
+
+This mirrors how `PersonProfileScreen` itself decides between `PersonDashboard` and the legacy
+`PersonScreen`, so the contracts page and the profile page always agree on which EIK set they mean.
+
+Register in `src/routes.tsx`, `path="person/:name/contracts"` — same shape as
+`/company/:eik/contracts`.
 
 ### 4.3 Two breakdown tiles
 
-New **`src/screens/components/procurement/PersonByCompanyTile.tsx`** and
-**`PersonBySettlementTile.tsx`** (or reuse/generalize `CompanyTopAwardersTile`'s bar-row layout —
-it already renders a ranked `{name, totalEur, share}` list with bars and a `seeAllHref`). Feed them
-`byCompany` / `bySettlement`. The settlement tile's rows link to `/procurement/settlement/:ekatte`
-(via `SettlementProcurementLink`); the company tile's rows link to `/company/:eik`. Each tile's
-"see all" points at the standalone browser pre-filtered where sensible.
+New **`PersonByCompanyTile.tsx`** and **`PersonBySettlementTile.tsx`** (reuse
+`CompanyTopAwardersTile`'s ranked bar-row layout — it already renders `{name, totalEur, share}`
+rows with bars + a `seeAllHref`). Feed them `byCompany` / `bySettlement`. Settlement rows link to
+`/procurement/settlement/:ekatte` (via `SettlementProcurementLink`); company rows to
+`/company/:eik`. **[audit] Both tiles self-hide when their array is empty** (the guard
+`CompanyTopContractsTile` already has) — most people have no procurement.
 
 ### 4.4 In-page portfolio upgrade + scope unification
 
 In the portfolio section (legacy `PersonScreen` first, then `PersonDashboard`):
-- Replace the bespoke **Период** `<Select>` (`PERIOD_ALL/PERIOD_LAST4/year`, `PersonScreen.tsx:125-136,
-  467-485`) with the shared **`ScopeControl` + `useScope`** (`?pscope`) so the portfolio KPIs, the
-  breakdown tiles and the standalone browser all read **one** scope value — the drift guarantee the
-  settlement page documents. (Note the scope vocabularies differ: `pscope` has `all` / `y:<year>` /
-  `ns:<election>`, not "last 4 years"; confirm we're OK dropping "last 4 г." or add it as a scope.)
-- Add `<ContractsAnalysisStrip>` above _Топ договори_ (single-bid % / direct % / procedure mix),
-  fed by `useContractsAnalytics({ resource:"contracts", fixedFilters:[scope, window] })`.
-- Add the shared filter bar so the portfolio itself is filterable, matching company/settlement.
+- Replace the bespoke **Период** `<Select>` (`PersonScreen.tsx:125-136, 467-485`) with shared
+  **`ScopeControl` + `useScope`** so the portfolio KPIs, the breakdown tiles and the standalone
+  browser read **one** scope.
+  **[audit] Default the person scope to `all`, not `ns`.** `useScope`'s default is the selected
+  parliament window (`ns`); adopting it blind would silently narrow the portfolio from all-time
+  ("Всички години") to one parliament — a regression. Use `useScope({ allowAll })` and default to
+  `all`. Note the vocabulary change: `pscope` offers `all` / `y:<year>` / `ns:<election>` but **not**
+  "last 4 years" — confirm dropping that option (§8).
+- **[audit] Date convention (the settlement-page hazard):** `person_procurement` is **inclusive**
+  (`date <= p_to`, `024:39-40`); `useScopeWindow` is half-open (`date < to`). The `/api/db/person`
+  call must receive `scopeRange`'s **inclusive** bounds (upper = `to − 1 day`), NOT
+  `useScopeWindow`'s exclusive `to` — otherwise the KPI admits one extra day vs the browser.
+- Add `<ContractsAnalysisStrip>` above _Топ договори_, fed by
+  `useContractsAnalytics({ resource:"contracts", fixedFilters:[scope, memberExclusion, tag, window] })`.
+  Σ€/count still come from the `person_procurement` rollup; single-bid%/direct%/mix come from facets
+  over the identical scope, so they describe the same rows. **No per-column filter bar here** (§2).
 
 ### 4.5 Wire "Топ договори" → standalone page
 
-`CompanyTopContractsTile` already accepts `seeAllHref` (`CompanyTopContractsTile.tsx:29`). The
-person screen currently passes `seeAllHref={null}` (`PersonScreen.tsx:548`). Change to
+`CompanyTopContractsTile` already accepts `seeAllHref` (`CompanyTopContractsTile.tsx:29`); the
+person screen passes `seeAllHref={null}` today (`PersonScreen.tsx:548`). Change to
 `` seeAllHref={`/person/${encodeURIComponent(name)}/contracts`} `` (carry `?pscope`).
 
 ### 4.6 Both screens
 
 Because the browser section, tiles and (post-refactor) portfolio are shared components taking a
-`scope` prop, wiring them into `PersonDashboard` (slug) is: pass `contractor_of_person_slug` +
-the slug breakdown arrays. Sequence: land on the legacy screen (where the portfolio exists), then
-mount the same components on `PersonDashboard` with the slug scope.
+`scope` prop, wiring them into `PersonDashboard` (slug) is: pass `contractor_of_person_slug` + the
+slug breakdown arrays. **[audit] `/candidate/:id` also renders `PersonDashboard`** — so it inherits
+the portfolio + tiles automatically once they mount there. Decision: candidates **do** get them
+(a candidate resolves to a person slug via `useCandidatePerson`); the standalone-page link from a
+candidate uses that resolved slug. Confirm the candidate → slug resolution is present before Tier 5.
 
 ---
 
 ## 5. Suggested sequencing
 
-- **Tier 1 — backend seam.** Add the two semi-join columns + sentinel guard; add `byCompany` /
-  `bySettlement` to `person_procurement`. PG data tests (§6). No UI yet.
+- **Tier 1 — backend seam.** `125_…breakdowns.sql` (both breakdown fns + the member-exclusion
+  mechanism, §3.1c); the two semi-join columns + sentinel guard in `db_table.js`. **Measure the two
+  breakdown aggregates** (§1 audit). PG data tests (§6). No UI yet.
 - **Tier 2 — DRY extraction.** Extract `ContractsBrowserSection`; re-express
-  `ProcurementSettlementContractsSection` on it (proves the extraction is faithful — its existing
-  tests must still pass).
-- **Tier 3 — standalone page.** `PersonContractsScreen` + route + `seeAllHref` wiring.
-- **Tier 4 — in-page upgrade.** Scope unification + `ContractsAnalysisStrip` + filter bar +
-  the two breakdown tiles, on the legacy `PersonScreen`.
+  `ProcurementSettlementContractsSection` on it (its existing tests must stay green).
+- **Tier 3 — standalone page.** `PersonContractsScreen` (with the name/slug resolution, §4.2) +
+  route + `seeAllHref` wiring + namesake banner.
+- **Tier 4 — in-page upgrade.** Scope unification (default `all`, inclusive bounds) +
+  `ContractsAnalysisStrip` + the two breakdown tiles, on the legacy `PersonScreen`.
 - **Tier 5 — slug screen.** Slug semi-join + slug breakdowns; mount the shared components on
-  `PersonDashboard`.
+  `PersonDashboard` (and thereby `/candidate/:id`).
 
 ---
 
 ## 6. Testing
 
 - **PG data test** (`scripts/db/tests/*.data.test.ts`, auto-skips when PG is down): for a known
-  person, assert the `contractor_of_person_name` semi-join row set == `person_procurement`'s
-  `contractCount` / `totalEur` (reconciliation), and that the redaction sentinel resolves to **zero**
-  rows. Assert `byCompany`/`bySettlement` sums == the portfolio total.
-- **Component tests** for the two tiles (empty state self-hides) and `ContractsBrowserSection`
-  (renders strip + table, applies scope).
+  person, assert the `contractor_of_person_name` semi-join row set **under the same
+  tag+member-exclusion basis** == `person_procurement`'s `contractCount` / `totalEur`
+  (reconciliation — this is why the basis fix in §1/§3.1 is load-bearing); assert the redaction
+  sentinel resolves to **zero** rows; assert `Σ byCompany == Σ bySettlement == portfolio total`.
+- **Component tests** for the two tiles (empty-state self-hide), `ContractsBrowserSection` (renders
+  strip + table, applies scope), and `PersonContractsScreen`'s name-vs-slug branch (slug hit →
+  slug column; miss → name column).
 - Keep `ProcurementSettlementContractsSection.test.tsx` green after the extraction.
 
 ## 7. Deploy / ops
 
-- `db_table.js` (semi-join columns) + `024_person_api.sql` (breakdowns) ship with `deploy:db` +
-  the migration to Cloud SQL. `024` is `CREATE OR REPLACE FUNCTION` → re-run
-  `apply_functions.ts 024_person_api.sql` (or the person-resolve path that applies it) on the target
-  DB **before** `deploy:db` ships the route reading the new arrays. No new matview, no new loader.
-- Semi-join reads `awarder_seats` (already current on prod for `awarder_ekatte`) and `tr_officers`
-  / `person_role` (already loaded).
+- Order: apply `125_person_procurement_breakdowns.sql` (via `apply_functions.ts`) to the target DB
+  **first**, then `deploy:db` (ships `db_table.js` semi-join columns + the route reading the new
+  arrays), then `deploy` (hosting: the new screen + route). Hosting-last so a linked
+  `/person/:name/contracts` never points at a route the function can't serve.
+- No new matview, no new loader. The semi-join reads `awarder_seats` (already current on prod for
+  `awarder_ekatte`), `tr_officers` and `person_role` (already loaded).
 
 ## 8. Open decisions / risks
 
-- **Scope vocabulary.** Moving the portfolio from the free "Период" (any year / last-4) to shared
-  `?pscope` drops "last 4 years" and swaps arbitrary-year for `y:<year>`. Confirm acceptable, or add
-  a scope option. The upside is one scope across KPIs + tiles + browser (no drift).
-- **Namesake caveat.** The legacy name-keyed portfolio already collapses namesakes (`tr_officers`
-  has no person id). The standalone browser inherits this — keep the existing disclosure banner.
-- **`byCompany` vs `Участия`.** The Участия owns/manages tables already show per-firm value; make
-  sure the new by-company tile reads as a procurement ranking, not a duplicate of Участия (different
-  framing, ordered by € won).
+- **[audit] Scope vocabulary.** Moving the portfolio to `?pscope` (default `all`) drops "last 4
+  years" and swaps arbitrary-year for `y:<year>`. Confirm acceptable, or add a scope option. The
+  upside is one scope across KPIs + tiles + browser (no drift).
+- **[audit] SEO / sitemap.** `/person/:name/contracts` is a server-side browser, not indexable
+  content: confirm it is covered by the Firebase SPA rewrite but **excluded** from the sitemap /
+  `prerender_slugs` set (per the sitemap-validity constraint — every `<loc>` needs a real
+  prerendered `index.html`). Add a `noindex` canonical to the profile page if crawlers reach it.
+- **[audit] i18n.** New tiles / page / labels need EN + BG `t()` keys (`src/locales` +
+  `public/locales`). Reuse existing procurement keys (`company_contracts`,
+  `procurement_contracts_word`, …) where they fit.
+- **[audit] Namesake collapse is worse at browser scale.** The legacy name-keyed set collapses
+  namesakes (`tr_officers` has no person id); a common name can span multiple real people across
+  hundreds of rows. Keep the `person_namesake_disclosure` banner on the standalone browser page and
+  the tiles, not only on the profile. The slug path is identity-resolved and does not have this
+  issue.
+- **[audit] `byCompany` vs `Участия`.** The `Участия` owns/manages tables already show a per-firm
+  value bar; frame the new by-company tile explicitly as a **procurement ranking** (ordered by €
+  won), not a duplicate of Участия.
 - **Two semi-join columns** is mild duplication; acceptable because each guarantees reconciliation
-  with a different KPI source. A single column can't take both a name and a slug (one placeholder).
+  with a different KPI source (a single column can't take both a name and a slug — one placeholder).
+
+---
+
+## 9. Audit ledger — assumptions confirmed against the code
+
+Recorded so the fixes above aren't re-litigated:
+
+- Semi-join template mechanics valid: `translit_bg_latin(?)` and the slug SQL each carry exactly one
+  `?` (`buildFilter` requires 2 split-parts, `db_table.js:1352-1356`). ✓
+- `awarder_seats.eik` is `PRIMARY KEY` → `bySettlement` GROUP BY is 1:1, no double-count
+  (verified: max rows per eik under `source='geo' AND is_local_hq` = 1, 0 dupes). ✓
+- `translit_bg_latin` exists and is callable under `app_readonly`. ✓
+- `MAX_IN_VALUES` (1000) applies only to `filter:"in"` value arrays, **not** the semi-join subquery
+  (`db_table.js:1299` vs `1352-1360`). ✓
+- facets + semi-join already work in production (the settlement page threads `awarder_ekatte`
+  through `useContractsAnalytics`). ✓
+- `company_geography(eik)` (`021`) already joins `awarder_seats` for contractor-side geography — a
+  concrete precedent for `person_procurement_by_settlement`. ✓
 </content>
-</invoke>
