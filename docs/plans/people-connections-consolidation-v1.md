@@ -107,6 +107,70 @@ The dist file count is a hard constraint. Policy:
 
 ---
 
+## Findability & search UX — the core of "easily find a person"
+
+**The tiers created a findability hazard the first draft waved away.** "Search spans all
+tiers" is only a win if results are *ranked and disambiguated*. Over 543k people with heavy
+Bulgarian-name collision, an unranked scan makes findability **worse**: a search for a common
+surname returns dozens of dormant Tier-N owners burying the one MP/mayor the user meant. And
+today "search" is **four disjoint paths** returning different things:
+
+| Entry point | Covers | Ranking | Gap |
+|---|---|---|---|
+| Global nav "търсене" (`useSearchItems`) | curated MPs, parties, places | static | **finds almost no people** — not the 543k |
+| Procurement search (`/api/db/person-search` over `tr_officers`) | TR persons + companies + contracts | none | thin metadata ("8 фирми"); no tier/prominence rank |
+| `/persons` browser `?q` | P + V browse | ILIKE | the `searchFold` combination bug (persons-browser §0a F1) |
+| client rosters (`useCorpusPersonIndex`, magistrate roster) | MPs / officials / magistrates | partial | fragments the same query across 3 sources |
+
+### Fix 1 — one shared `person_search` index (fold into Phase 1)
+A precomputed serving table (pattern: the existing `contractor_search`) — **one row per findable
+identity across P + V + N** — that *every* search box reads, so results are identical everywhere:
+`name, name_fold, tier, position_type, primary_role, party, place, top_eik, firms_count,
+public_money_eur, has_photo, identity_confidence, slug | name_key, rank_static`.
+Indexes: `gin trgm(name_fold)` (fuzzy), `btree(name_fold)` (exact + prefix typeahead), and a
+precomputed `rank_static` so the ranked-`LIMIT` query uses the OFFSET-0 fence
+([reference_dbtable_search_orderby_fence]) instead of a seq-scan. Replaces the ad-hoc
+`tr_officers` scan **and** the client rosters.
+
+### Fix 2 — relevance ranking (surface the accountable, sink the noise)
+`score = match_quality (exact ≫ prefix ≫ trigram) × tier_weight (P ≫ V ≫ N) × prominence`,
+where prominence = `role_prominence()` for P, `log(public_money_eur)` for V/N, plus a small
+`has_photo` boost and an **exact-name override** (typing a sitting minister's full name always
+returns the minister first, never a private namesake). The dormant-namesake tail always ranks last.
+
+### Fix 3 — grouped, disambiguating typeahead
+Results group by tier so the user reads intent at a glance:
+**Хора във властта** (P) · **Свързани с обществени пари** (V) · **Други собственици** (N,
+collapsed to "+312 собственици на фирми", expandable) · **Фирми** · **Договори**. Per-tier result
+card carries the *distinguishing* signal: avatar + role + party + place for P; top company +
+firms count + public money for V/N; the `name_fold` badge where identity is unproven. "виж
+всички" deep-links `/persons?q=…` where the full filter rail narrows by place/party/facet.
+
+### Fix 4 — namesake disambiguation, never a silent merge
+When a folded name maps to >1 distinct owner-cluster, do **not** serve a silently-merged
+portfolio — show a **namesake chooser** (reuse the candidate page's existing one) plus the
+`name_fold` badge. `verified` singletons route straight to the profile.
+
+### Fix 5 — bilingual + fuzzy robustness (get the primitives right)
+Cyrillic **and** Latin via `translit_bg_latin`; hyphen/whitespace folding
+([reference_person_fold_and_bridgeb]); trigram tuned to avoid the "-иране" seed junk
+([reference_dossier_trigram_seed_pollution]); the `searchFold` combination fixed (persons-browser
+§0a F1); prefix index for typeahead latency; OFFSET-0 fence for the ranked `LIMIT`.
+
+### Fix 6 — browse-side findability (attributes, not just names)
+For the "I don't know the name but know the attributes" case, surface `position_type`, place,
+party, and public money as **prominent filter chips**; add sort-by-money and sort-by-companies;
+and keep a **persistent "включи частен сектор" chip** in the browse so a money-linked private
+owner the user is hunting is never hidden behind the public default without a one-click reveal.
+
+### Canonical entry point
+Elevate the top-nav **"търсене"** box to *the* people-and-money search (today it finds almost no
+people). One box, one `person_search` index, ranked + grouped + disambiguated — the single
+highest-leverage findability change, and the thing that finally makes "find a person" work the
+same everywhere.
+
+---
+
 ## Connections engine (Phase 3–4 detail)
 
 **Model (new PG schema, follow the `direct-db-ingest` pattern):**
@@ -142,16 +206,28 @@ The dist file count is a hard constraint. Policy:
 - Remaining: measure prerender page-count deltas for candidate €-thresholds against current dist;
   EXPLAIN a P+V browse matview + search on worst-case (a common surname) per [feedback_db_query_perf].
 
-### Phase 1 — person layer: materialize Tier V (data model)
+### Phase 1 — person layer: materialize Tier V + the search index (data model)
 - Money-linked EIK set + Tier-V resolver pass; `position_type` + `identity_confidence` columns on
   `person` / `person_browse_table` (120 is DROP+CREATE — **column-type cloud-reload rule**).
-- Preflight: public counts unchanged; Tier-V counts by confidence; join-key population.
+- Build the shared **`person_search`** index (Findability Fix 1): one row per findable identity
+  across P+V+N, with `rank_static` + trgm/prefix indexes. This is the backbone Phase 2b consumes.
+- Preflight: public counts unchanged; Tier-V counts by confidence; join-key population;
+  `person_search` covers all three tiers and worst-case surname query stays sub-100ms (EXPLAIN).
 
 ### Phase 2 — `/persons` browser: dimension + public default
 - `PersonsAnalysisStrip`: `position_type` partition, частен-сектор hue. Default mix stays public.
 - `useUrlPersonFilters`: `?sector=public|private|all` (default `public`), `?position=…`; validate
   on read (drop unknowns) per the URL-contract convention. Search box spans all tiers.
 - Title/subtitle: default "Хора във властта"; частен-сектор slice relabels. `name_fold` badge.
+- Browse-side findability (Fix 6): position_type / place / party / money filter chips; sort by
+  money and by companies; persistent "включи частен сектор" reveal chip.
+
+### Phase 2b — unified search (the findability payoff)
+- Repoint the top-nav "търсене", the procurement search, and the `/persons` `?q` box **all at
+  `person_search`** (Fix 1) — one ranked, grouped, disambiguated result set everywhere.
+- Ranking (Fix 2) + grouped typeahead cards (Fix 3) + namesake chooser (Fix 4) + bilingual/fuzzy
+  primitives (Fix 5). "виж всички" → `/persons?q=`. Retire the client rosters and the ad-hoc
+  `tr_officers` scan.
 
 ### Phase 3 — unify the two connection lineages (PG engine)
 - Build `graph_*` schema + loader; wire `/api/db`; register in `recent_updates` + both changelogs
@@ -188,7 +264,9 @@ The dist file count is a hard constraint. Policy:
 | Surface | Disposition |
 |---|---|
 | `/persons` (Хора) | **Grows** — position-type dimension, public default, Tier-V slice (P1–2) |
-| `/procurement` "ЛИЦА (ТР)" search | **Reroute** — unified profile (P/V) / `noindex` portfolio (N) (P5) |
+| Global nav "търсене" search | **Adopt** `person_search` — becomes the canonical ranked people search (P2b) |
+| `/procurement` "ЛИЦА (ТР)" search | **Reroute** onto `person_search`; unified profile (P/V) / `noindex` portfolio (N) (P2b, P5) |
+| client rosters (`useCorpusPersonIndex`, magistrate roster) | **Retire** — folded into `person_search` (P2b) |
 | `/connections` (Връзки) | **Rebuild** on PG engine, all functions + money (P3–4) |
 | `PersonConnections` (/person tile) | **Re-source** from unified engine (P3) |
 | `MpConnectionsMini/Tile`, officials connections | **Re-source** or retire with `connections.json` (P5) |
@@ -211,10 +289,16 @@ The dist file count is a hard constraint. Policy:
    watch-reload entry.
 6. **Browse/search perf at ~125k.** EXPLAIN worst-case surname in Phase 0; index both sides of
    every join key ([reference_pg_query_performance]).
+7. **Search buries the accountable person.** The headline findability risk: "search spans all"
+   without ranking sinks the MP under dormant namesakes. Mitigated by `person_search` +
+   tier/prominence ranking + exact-name override + grouped/collapsed N tail (Findability §).
 
 ---
 
 ## Success criteria
+- **One ranked search index** (`person_search`) behind every box; typing a common surname returns
+  the accountable person (P, then money-linked V) above the dormant tail, with namesakes
+  disambiguated — the same result set in the nav bar, procurement, and `/persons`.
 - One browser slices public⇄private by `position_type`, public by default, search spans all.
 - One connection lineage serves `/connections` and `/person`; every company node carries the
   public money it touched.
