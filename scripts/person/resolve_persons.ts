@@ -56,6 +56,19 @@ import { candidacyRegions, pickPrimaryMir } from "./candidateRegions";
 import { mirToOblast } from "../../src/data/parliament/nsFolders";
 import { canonicalObshtina } from "../../src/lib/obshtinaPlace";
 import { foldJudicialName } from "../judiciary/judicialBodies";
+import {
+  type LocalMayorMention,
+  pickLocalWinner,
+  mayorRef,
+  councillorRef,
+  kmetstvoRef,
+  districtRef,
+  districtsAreShardedElsewhere,
+  councilShardReplicatesSofia,
+} from "../parsers_local/localPersonRefs";
+
+// Re-exported for resolve_persons_sofia_council.test.ts, which imports it from here.
+export { councilShardReplicatesSofia };
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -114,16 +127,8 @@ const hash6 = (s: string): string => {
 const kebab = (s: string): string =>
   s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-// Sofia's 24 район shards (obshtinaCode S2***) each REPLICATE the city-wide
-// Столичен общински съвет slate for display purposes — the council is elected
-// city-wide and only the parent `SOF` shard is authoritative for it. So the
-// council block on a район shard is NOT that район's own body and must not
-// contribute councillor roles: doing so mints 25 councillor identities per
-// seat (SOF + 24 районa), which surfaced as one councillor holding "Общински
-// съветник — Изгрев / Лозенец / Триадица / …" across every район. The район
-// shard's own office is its кмет на район (`mayor`), which we still take.
-export const councilShardReplicatesSofia = (obshtinaCode: string): boolean =>
-  /^S2\d{3}$/.test(obshtinaCode);
+// `councilShardReplicatesSofia` moved to ../parsers_local/localPersonRefs (shared with the
+// personSlug bake) and is re-exported below so its existing unit test keeps its import path.
 
 // A TR role that is board membership of a ЮЛНЦ (association / foundation / читалище) is
 // the `ngo` facet, not a company (`tr`) officership — the two carry different meaning on a
@@ -841,29 +846,9 @@ async function collect(): Promise<Raw[]> {
     }
   }
 
-  // A mayoral-contest candidate row as it appears in a município bundle (the shape shared by
-  // the headline mayor race, kmetstvo village-mayor races and район-mayor races).
-  type LocalMayorMention = {
-    candidateName?: string;
-    primaryCanonicalId?: string | null;
-    isElected?: boolean;
-    votes?: number;
-  };
-  // Resolve the winner of a kmetstvo/район contest. CIK marks BOTH runoff finalists
-  // `isElected` in round 1 and these bundles carry no resolved `elected` field, so a naive
-  // `candidates.find(isElected)` can return the runoff LOSER. Prefer the round-2 table when
-  // present (its higher-vote finalist won), else the highest-vote elected round-1 candidate.
-  const pickLocalWinner = (
-    candidates?: LocalMayorMention[],
-    round2?: LocalMayorMention[],
-  ): LocalMayorMention | undefined => {
-    const pool = round2?.length ? round2 : (candidates ?? []);
-    const named = pool.filter((c) => c.candidateName);
-    const elected = named.filter((c) => c.isElected);
-    return (elected.length ? elected : named)
-      .slice()
-      .sort((a, b) => (b.votes ?? 0) - (a.votes ?? 0))[0];
-  };
+  // Winner resolution + the `ref` keys shared with the personSlug bake live in
+  // ../parsers_local/localPersonRefs so the two walks cannot drift. See LocalMayorMention,
+  // pickLocalWinner, mayorRef/councillorRef/kmetstvoRef/districtRef above the imports.
   // Local mayors & councillors (data/<cycle>/municipalities/<code>.json → the ELECTED
   // office holders: `mayor.elected`, each council party's `candidates[isElected]`, each
   // `kmetstva[]`'s elected village mayor (кмет на кметство) and each `districts[]`'s elected
@@ -911,40 +896,39 @@ async function collect(): Promise<Raw[]> {
     // skip it (see councilShardReplicatesSofia). The район's own кмет stands.
     const councilIsReplica = councilShardReplicatesSofia(d.obshtinaCode);
     const mayor = d.mayor?.elected;
-    if (mayor?.candidateName)
+    if (mayor?.candidateName) {
+      const ref = mayorRef(d.cycle, d.obshtinaCode);
       add(
         mayor.candidateName,
-        {
-          id: `local:${d.cycle}:${d.obshtinaCode}:mayor`,
-          source: "local",
-          ref: `${d.cycle}:${d.obshtinaCode}:mayor`,
-          role: "mayor",
-        },
+        { id: `local:${ref}`, source: "local", ref, role: "mayor" },
         {
           ...obshtinaPlaceFor(d.obshtinaCode),
           cParty: mayor.primaryCanonicalId ?? null,
           cPlace: place,
         },
       );
+    }
     for (const party of councilIsReplica || !Array.isArray(d.council)
       ? []
       : d.council)
       for (const c of party.candidates ?? [])
-        if (c.isElected && c.name)
+        if (c.isElected && c.name) {
+          const ref = councillorRef(
+            d.cycle,
+            d.obshtinaCode,
+            party.localPartyNum,
+            c.listPos,
+          );
           add(
             c.name,
-            {
-              id: `local:${d.cycle}:${d.obshtinaCode}:${party.localPartyNum}:${c.listPos}`,
-              source: "local",
-              ref: `${d.cycle}:${d.obshtinaCode}:${party.localPartyNum}:${c.listPos}`,
-              role: "councillor",
-            },
+            { id: `local:${ref}`, source: "local", ref, role: "councillor" },
             {
               ...obshtinaPlaceFor(d.obshtinaCode),
               cParty: party.primaryCanonicalId ?? null,
               cPlace: place,
             },
           );
+        }
     // Elected village mayors (кмет на кметство). `ekatte` is empty on every bundle row today
     // and `kmetstvoName` is NOT unique within a município (older cycles repeat it), so key the
     // mention/lock on the array index — unique within a frozen bundle and recomputed
@@ -953,15 +937,10 @@ async function collect(): Promise<Raw[]> {
     (d.kmetstva ?? []).forEach((k, i) => {
       const el = pickLocalWinner(k.candidates, k.round2);
       if (!el?.candidateName) return;
-      const key = k.ekatte || String(i);
+      const ref = kmetstvoRef(d.cycle, d.obshtinaCode, k.ekatte, i);
       add(
         el.candidateName,
-        {
-          id: `local:${d.cycle}:${d.obshtinaCode}:kmetstvo:${key}`,
-          source: "local",
-          ref: `${d.cycle}:${d.obshtinaCode}:kmetstvo:${key}`,
-          role: "village_mayor",
-        },
+        { id: `local:${ref}`, source: "local", ref, role: "village_mayor" },
         {
           ...obshtinaPlaceFor(d.obshtinaCode),
           cParty: el.primaryCanonicalId ?? null,
@@ -973,19 +952,14 @@ async function collect(): Promise<Raw[]> {
     // already materialized as role 'mayor' from the per-район `S2***` shards' `mayor.elected`,
     // so re-reading them here would double-count. Plovdiv/Varna районни have no per-район
     // shards, so they legitimately come from this bundle's districts[].
-    if (d.obshtinaCode !== "SOF")
+    if (!districtsAreShardedElsewhere(d.obshtinaCode))
       (d.districts ?? []).forEach((dist, i) => {
         const el = pickLocalWinner(dist.candidates, dist.round2);
         if (!el?.candidateName) return;
-        const key = dist.districtCode || String(i);
+        const ref = districtRef(d.cycle, d.obshtinaCode, dist.districtCode, i);
         add(
           el.candidateName,
-          {
-            id: `local:${d.cycle}:${d.obshtinaCode}:district:${key}`,
-            source: "local",
-            ref: `${d.cycle}:${d.obshtinaCode}:district:${key}`,
-            role: "rayon_mayor",
-          },
+          { id: `local:${ref}`, source: "local", ref, role: "rayon_mayor" },
           {
             ...obshtinaPlaceFor(d.obshtinaCode),
             cParty: el.primaryCanonicalId ?? null,

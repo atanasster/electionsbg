@@ -144,6 +144,7 @@
     "db:snapshot": "npm run db:manifest && npm run db:goldens",
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 vitest run scripts/db/tests",
     "data": "tsx ./scripts/main.ts",
+    "data:decorate-local-persons": "tsx ./scripts/parsers_local/decorate_local_person_links.ts",
     "data:nzok": "tsx ./scripts/nzok/ingest.ts",
     "data:tourism": "tsx ./scripts/tourism/fetch_eurostat_tourism.ts",
     "prices": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/prices/ingest.ts",
