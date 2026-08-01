@@ -48,6 +48,13 @@ const OFFICERS_SQL = fileURLToPath(
 const PERSON_API_SQL = fileURLToPath(
   new URL("./schema/pg/024_person_api.sql", import.meta.url),
 );
+// The two portfolio-breakdown cuts that extend person_procurement (024). Applied right after
+// it — same deps (tr_officers / tr_companies / contracts, all loaded here). The _slug variants
+// reference person_role (created later by resolve_persons), but the file SETs
+// check_function_bodies = off, so create-time succeeds and they resolve at call time.
+const PERSON_BREAKDOWNS_SQL = fileURLToPath(
+  new URL("./schema/pg/125_person_procurement_breakdowns.sql", import.meta.url),
+);
 const MP_JSON = fileURLToPath(
   new URL("../../data/procurement/derived/mp_connected.json", import.meta.url),
 );
@@ -315,6 +322,10 @@ export const loadTrPg = async (): Promise<{
   // Person-page portfolio rollups (procurement / by-cabinet / inner circle) —
   // depend on tr_officers + contracts + cabinets + officer_name_counts (above).
   await exec(readFileSync(PERSON_API_SQL, "utf8"));
+  // The by-company / by-settlement cuts (migration 125) extend the above; applied here so a
+  // rebuild creates them and person_procurement_breakdowns.data.test.ts passes without a
+  // manual apply.
+  await exec(readFileSync(PERSON_BREAKDOWNS_SQL, "utf8"));
 
   // Curated company↔politician links (from mp_connected / pep_connected) → PG,
   // so the person page's political connections come straight from the DB.
