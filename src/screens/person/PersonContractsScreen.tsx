@@ -15,21 +15,16 @@
 // as person_procurement (excludes €0 consortium-member rows, 024:47-48) — otherwise the footer
 // count would exceed the portfolio headline.
 //
-// SCOPE. A person's portfolio is lifetime, so this page defaults to ALL years (not the
-// parliament window) and offers a year picker — no `ns`, unlike the section pages.
+// SCOPE. The SAME shared control as every other procurement page: <ScopeControl mode="toggle">
+// (this-parliament pill + all-years / year picker), URL-backed by ?pscope via useScope, resolved
+// to an INCLUSIVE window by scopeRange (the sibling of useScopeWindow the entity browsers use).
 
 import { FC, useMemo } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, Info, Receipt } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { ScopeControl } from "@/screens/components/ScopeControl";
 import type { DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import {
   ContractsBrowserSection,
@@ -37,7 +32,7 @@ import {
 } from "@/screens/components/procurement/ContractsBrowserSection";
 import { usePersonProfile } from "./usePersonProfile";
 import { scopeRange } from "@/data/scope/scopeRange";
-import { defaultScopeYears, useScope, type Scope } from "@/data/scope/useScope";
+import { useScope } from "@/data/scope/useScope";
 import { useElectionContext } from "@/data/ElectionContext";
 
 // Both parties shown — a person spans many buyers and firms, so neither side is implied by the
@@ -54,9 +49,6 @@ const PERSON_COLUMNS: ContractsBrowserSectionProps["columns"] = [
   "risk_cri",
 ];
 
-const YEARS = defaultScopeYears();
-const SCOPE_ALL = "all";
-
 export const PersonContractsScreen: FC = () => {
   const { name = "" } = useParams();
   const { t } = useTranslation();
@@ -65,16 +57,9 @@ export const PersonContractsScreen: FC = () => {
   const [params] = useSearchParams();
   const { selected } = useElectionContext();
 
-  // Reuse the shared parse+resolve+CLAMP stack: useScope validates ?pscope against the years
-  // this page actually offers (resolveScope), so an off-range or absent value resolves to `ns`
-  // — which this lifetime-portfolio page treats as ALL years (it has no parliament window). The
-  // clamp is what keeps the picker value and the numbers ONE value: a `?pscope=y:2005` can never
-  // blank the Select. `setScope` (the shared setter) writes/clears the param canonically.
-  const { scope: urlScope, setScope } = useScope({
-    years: YEARS,
-    allowAll: true,
-  });
-  const scope: Scope = urlScope === "ns" ? SCOPE_ALL : urlScope;
+  // The shared URL-backed scope (?pscope), exactly like the settlement / entity browsers —
+  // <ScopeControl> below reads and writes the same value. INCLUSIVE bounds via scopeRange.
+  const { scope } = useScope();
   const dateWindow = useMemo(
     () => scopeRange(scope, selected),
     [scope, selected],
@@ -125,28 +110,8 @@ export const PersonContractsScreen: FC = () => {
             "Всички договори на фирмите, в които лицето е (или е било) вписано."}
         </p>
 
-        <div className="mt-3 flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">
-            {t("procurement_period") || "Период"}
-          </span>
-          <Select value={scope} onValueChange={setScope}>
-            <SelectTrigger
-              className="h-9 w-auto"
-              aria-label={t("procurement_period") || "Период"}
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={SCOPE_ALL}>
-                {t("procurement_scope_all_years") || "Всички години"}
-              </SelectItem>
-              {YEARS.map((y) => (
-                <SelectItem key={y} value={`y:${y}`}>
-                  {y}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="mt-3">
+          <ScopeControl mode="toggle" />
         </div>
 
         {showNamesake && (

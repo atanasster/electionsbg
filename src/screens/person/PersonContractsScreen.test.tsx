@@ -114,11 +114,13 @@ describe("PersonContractsScreen", () => {
     expect(filterFor("not_consortium_member")?.value).toBe("member");
   });
 
-  it("defaults to ALL years — no date filter", async () => {
+  it("defaults to the current parliament (ns) — sends a date lower bound", async () => {
+    // Same default as every procurement page now that it uses the shared ScopeControl:
+    // the this-parliament window, i.e. a `date` filter with an election-day lower bound.
     profileResponse = null;
     renderAt("/person/%D0%98%D0%92%D0%90%D0%9D/contracts");
     await waitFor(() => expect(tableRequests.length).toBeGreaterThan(0));
-    expect(filterFor("date")).toBeUndefined();
+    expect(filterFor("date")?.min).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   it("narrows to a calendar year via ?pscope=y:2024 (inclusive bounds)", async () => {
@@ -128,6 +130,13 @@ describe("PersonContractsScreen", () => {
     const date = filterFor("date", tableRequests.length - 1);
     expect(date?.min).toBe("2024-01-01");
     expect(date?.max).toBe("2024-12-31");
+  });
+
+  it("shows ALL years (no date filter) on ?pscope=all", async () => {
+    profileResponse = null;
+    renderAt("/person/%D0%98%D0%92%D0%90%D0%9D/contracts?pscope=all");
+    await waitFor(() => expect(tableRequests.length).toBeGreaterThan(0));
+    expect(filterFor("date", tableRequests.length - 1)).toBeUndefined();
   });
 
   it("scopes the FACETS by the same person + basis as the rows", async () => {
@@ -186,13 +195,15 @@ describe("PersonContractsScreen", () => {
     expect(filterFor("contractor_of_person_name")).toBeUndefined();
   });
 
-  it("clamps an off-range ?pscope year to ALL (picker never blanks)", async () => {
-    // y:2005 is before SCOPE_FIRST_YEAR — the shared resolveScope clamps it, so the page
-    // falls back to all-years (no date filter) rather than a blank Radix Select over a
-    // window nothing else agrees with.
+  it("resolves an off-range ?pscope year to the parliament window (picker never blanks)", async () => {
+    // y:2005 is before SCOPE_FIRST_YEAR — the shared resolveScope (inside useScope) clamps it
+    // to `ns`, so the page shows the parliament window (an election-day lower bound), NOT a
+    // 2005 window and NOT a blank Radix Select.
     profileResponse = null;
     renderAt("/person/%D0%98%D0%92%D0%90%D0%9D/contracts?pscope=y:2005");
     await waitFor(() => expect(tableRequests.length).toBeGreaterThan(0));
-    expect(filterFor("date", tableRequests.length - 1)).toBeUndefined();
+    const date = filterFor("date", tableRequests.length - 1);
+    expect(date?.min).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(date?.min).not.toBe("2005-01-01");
   });
 });

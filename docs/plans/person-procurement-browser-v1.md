@@ -283,14 +283,12 @@ rows with bars + a `seeAllHref`). Feed them `byCompany` / `bySettlement`. Settle
 ### 4.4 In-page portfolio upgrade + scope unification
 
 In the portfolio section (legacy `PersonScreen` first, then `PersonDashboard`):
-- Replace the bespoke **Период** `<Select>` (`PersonScreen.tsx:125-136, 467-485`) with shared
-  **`ScopeControl` + `useScope`** so the portfolio KPIs, the breakdown tiles and the standalone
-  browser read **one** scope.
-  **[audit] Default the person scope to `all`, not `ns`.** `useScope`'s default is the selected
-  parliament window (`ns`); adopting it blind would silently narrow the portfolio from all-time
-  ("Всички години") to one parliament — a regression. Use `useScope({ allowAll })` and default to
-  `all`. Note the vocabulary change: `pscope` offers `all` / `y:<year>` / `ns:<election>` but **not**
-  "last 4 years" — confirm dropping that option (§8).
+- Replace the bespoke **Период** `<Select>` with shared **`ScopeControl mode="toggle"` +
+  `useScope`** so the portfolio KPIs, the breakdown tiles and the standalone browser read **one**
+  scope. **[DONE 2026-08-01]** Default is the parliament window (`ns`), like every other
+  procurement page — the earlier "default to all" idea was dropped in favour of full consistency
+  with the shared control (the user asked for the same control + UI). "All years" and per-year
+  stay in the picker; "last 4 years" is gone.
 - **[audit] Date convention (the settlement-page hazard):** `person_procurement` is **inclusive**
   (`date <= p_to`, `024:39-40`); `useScopeWindow` is half-open (`date < to`). The `/api/db/person`
   call must receive `scopeRange`'s **inclusive** bounds (upper = `to − 1 day`), NOT
@@ -347,18 +345,28 @@ candidate uses that resolved slug. Confirm the candidate → slug resolution is 
 
 ## 7. Deploy / ops
 
-- Order: apply `125_person_procurement_breakdowns.sql` (via `apply_functions.ts`) to the target DB
-  **first**, then `deploy:db` (ships `db_table.js` semi-join columns + the route reading the new
-  arrays), then `deploy` (hosting: the new screen + route). Hosting-last so a linked
-  `/person/:name/contracts` never points at a route the function can't serve.
-- No new matview, no new loader. The semi-join reads `awarder_seats` (already current on prod for
+- **`125` is applied by `db:load:tr:pg`** (`load_tr_pg.ts`, right after `024`), so `db:refresh`
+  creates it locally and the data-test gate passes on a rebuild — it is NOT an orphaned file. On
+  the **cloud** side it rides `db:load:tr:pg:cloud`; for a fast first deploy that does not want the
+  full tr reload, `apply_functions.ts 125_person_procurement_breakdowns.sql` applies just the
+  functions. Either way, apply **before** the `deploy:db` that ships the routes reading them —
+  though the routes degrade to `[]` on `42883`, so an out-of-order deploy blanks the tiles rather
+  than 500ing.
+- Order: apply `125` → `deploy:db` (ships `db_table.js` semi-join columns + the routes) →
+  `deploy` (hosting: the new screen + route). Hosting-last so a linked `/person/:name/contracts`
+  never points at a route the function can't serve.
+- No new matview. The semi-join reads `awarder_seats` (already current on prod for
   `awarder_ekatte`), `tr_officers` and `person_role` (already loaded).
 
 ## 8. Open decisions / risks
 
-- **[audit] Scope vocabulary.** Moving the portfolio to `?pscope` (default `all`) drops "last 4
-  years" and swaps arbitrary-year for `y:<year>`. Confirm acceptable, or add a scope option. The
-  upside is one scope across KPIs + tiles + browser (no drift).
+- **[RESOLVED] Scope control.** Both person pages (legacy portfolio + standalone browser) use the
+  **shared `<ScopeControl mode="toggle">`** — the same "this parliament / all years / year"
+  `?pscope` control as every other procurement page (user request, 2026-08-01). Default is the
+  parliament window (`ns`), like the rest of the app; "all years" and per-year remain in the
+  picker. This dropped the earlier bespoke "Период" Select (and its "last 4 years" option) and the
+  hand-rolled clamp — `useScope`/`resolveScope` handle year validation. One scope now drives the
+  KPIs, the two breakdown tiles, and the standalone browser (no drift).
 - **[audit] SEO / sitemap.** `/person/:name/contracts` is a server-side browser, not indexable
   content: confirm it is covered by the Firebase SPA rewrite but **excluded** from the sitemap /
   `prerender_slugs` set (per the sitemap-validity constraint — every `<loc>` needs a real

@@ -34,13 +34,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { ScopeControl } from "@/screens/components/ScopeControl";
+import { useScope } from "@/data/scope/useScope";
+import { scopeRange } from "@/data/scope/scopeRange";
+import { useElectionContext } from "@/data/ElectionContext";
 import { formatEur, formatEurCompact } from "@/lib/currency";
 import { trRoleLabel } from "@/lib/trRole";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -142,19 +139,6 @@ type DbRollup = Pick<
 // Ownership roles (vs management) — the split that makes Участия meaningful.
 const OWNS = new Set(["sole_owner", "partner", "actual_owner"]);
 
-const PERIOD_ALL = "all";
-const PERIOD_LAST4 = "last4";
-const NOW_YEAR = new Date().getFullYear();
-const PERIOD_YEARS: string[] = Array.from(
-  { length: NOW_YEAR - 2007 + 1 },
-  (_, i) => String(NOW_YEAR - i),
-);
-const periodRange = (p: string): [string | null, string | null] => {
-  if (p === PERIOD_ALL) return [null, null];
-  if (p === PERIOD_LAST4) return [`${NOW_YEAR - 3}-01-01`, null];
-  return [`${p}-01-01`, `${p}-12-31`];
-};
-
 const num = new Intl.NumberFormat("bg-BG");
 const day = (s: string | null): string => (s ? String(s).slice(0, 10) : "—");
 const pct = (s: string | number | null): string =>
@@ -185,13 +169,20 @@ export const PersonScreen: FC = () => {
   const [bySettlement, setBySettlement] = useState<SettlementCut[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<string>(PERIOD_ALL);
+  // The shared URL-backed scope (?pscope), same control as every procurement page. INCLUSIVE
+  // [from,to] via scopeRange — person_procurement (and the two breakdown cuts) filter
+  // `date >= from AND date <= to`, so the inclusive sibling of useScopeWindow is the right one.
+  const { scope } = useScope();
+  const { selected } = useElectionContext();
+  const [from, to] = useMemo(
+    () => scopeRange(scope, selected),
+    [scope, selected],
+  );
 
   useEffect(() => {
     let live = true;
     setLoading(true);
     setError(null);
-    const [from, to] = periodRange(period);
     const qs =
       `/api/db/person?name=${encodeURIComponent(person)}` +
       (from ? `&from=${from}` : "") +
@@ -216,7 +207,7 @@ export const PersonScreen: FC = () => {
     return () => {
       live = false;
     };
-  }, [person, period]);
+  }, [person, from, to]);
 
   // Companies count + active-role count come from the participations (roles);
   // money + contract count are driven by the procurement rollup so the headline
@@ -488,25 +479,7 @@ export const PersonScreen: FC = () => {
                 <h2 className="text-lg font-semibold">
                   Обществени поръчки (портфейл)
                 </h2>
-                <span className="ml-2 flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">Период</span>
-                  <Select value={period} onValueChange={setPeriod}>
-                    <SelectTrigger className="w-auto h-9">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value={PERIOD_ALL}>Всички години</SelectItem>
-                      <SelectItem value={PERIOD_LAST4}>
-                        Последните 4 г.
-                      </SelectItem>
-                      {PERIOD_YEARS.map((y) => (
-                        <SelectItem key={y} value={y}>
-                          {y}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </span>
+                <ScopeControl mode="toggle" className="ml-2" />
               </div>
               <p className="text-xs text-muted-foreground -mt-4">
                 Сумарно за всички фирми, в които лицето е (или е било) вписано.
