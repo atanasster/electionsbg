@@ -1,0 +1,311 @@
+# Phase 1 (+2b/2) implementation spec — people/connections consolidation
+
+Status: **DRAFT (2026-07-30), implementation-ready.** Decomposes the strategy plan
+[people-connections-consolidation-v1.md](people-connections-consolidation-v1.md) Phases 1/2/2b
+into concrete, independently-committable steps for `/implement-plan` to drive under the
+review→repair→commit gate. Ordered **safest → riskiest** so findability (the user's priority)
+lands first, fully isolated from the resolver rewrite.
+
+Grounded in the current tree (2026-07-30): highest migration = **125**, next free = **126**.
+Templates: `contractor_search` (006) + `contractor_rank`/`contractor_rankings` registry (122);
+`person_browse_table` (120) + `load_persons_browse_pg.ts`; `resolve_persons.ts` (1793 lines).
+
+## Key architectural finding (drives the ordering)
+
+Both the search index (S1) **and** the private browse slice (S3) read **only existing tables** —
+`person` (Tier P, resolved) + `tr_officers` + money tables (Tiers V/N, name-fold-keyed). Neither
+needs the Tier-V resolver pass. So **S1–S3 deliver the full "private owners are searchable AND
+browseable" experience with zero risk to the identity layer**, and the resolver rewrite (S4) is
+deferred, isolated, and demoted to a **quality upgrade**: it mints real `/person` profiles for
+the *verified* subset. Because both the search V/N arm and the browse name-fold arm **anti-join
+against the set of folds that are already a person**, S4's newly-minted verified persons drop out
+of the name-fold arms automatically and reappear as real-slug rows — search and browse stay
+stable and self-consistent across the resolver change (this is exactly the symmetry the "verified
++ name-fold view" decision asked for).
+
+## Money basis (LOCKED: broad)
+
+The **money-link** determination (tier V vs N) and the money figure shown on `person_search`
+cards + name-fold browse rows use the **broad basis** — `contracts ∪ agri_subsidies ∪
+fund_beneficiaries` (the ~73k-owner money-linked set, S0). So an owner reachable only through a farm subsidy
+or EU fund still counts as money-linked, and a "linked to public money" card never shows €0.
+
+This deliberately **diverges by row type**: `person_browse.public_money_eur` for **public (P)
+persons** stays **contracts-only** (`tag='contract' AND consortium_role IS DISTINCT FROM
+'member'`, migration 078 basis) — an existing, separately-labelled procurement-exposure metric,
+unchanged so its tests/behaviour hold. The **name-fold V** browse rows and all `person_search`
+rows carry **broad** public money. These are two different questions (a public figure's
+procurement exposure vs. a private owner's total public money), labelled distinctly in the UI, so
+the divergence is honest rather than a mismatch. A shared SQL helper
+`money_linked_eik()` / `broad_public_money(eik)` (defined once in migration 126) is reused by both
+`person_search` (S1) and the name-fold browse arm (S3).
+
+---
+
+## Step 0 — measurement (DONE 2026-07-30)
+
+Probe: [`scripts/db/probes/person_tier_v_sizing.sql`](../../scripts/db/probes/person_tier_v_sizing.sql).
+Measured against local PG (2.6s):
+
+| metric | count | meaning |
+|---|---|---|
+| money-linked folds (broad) | 72,993 | all money-linked folds (incl. those already a person) |
+| **name-fold browse V** (money-linked, anti-joined) | **66,542** | **the S3 частен-сектор browse arm** |
+| verified candidates (exactly 3 tokens, ≤5 firms) | 59,809 | before anti-join |
+| **verified after anti-join** | **54,816** | **the count S4 mints as real `/person` profiles** |
+
+`verified` uses `parts = 3` (not `>= 3`) to mirror Bridge B's `name_parts = 3`, so 54,816 is an
+honest S4 mint ceiling. So: S3 частен-сектор browse ≈ **66,542** name-fold rows; S4 promotes
+**54,816** to real profiles, the remaining **11,726** stay name-fold. Browse total (P+V) ≈
+56,869 + 66,542 = **~123k**, matching the locked ~125k figure.
+
+**Deferred to their natural steps** (both need artifacts that don't exist yet):
+- Worst-case surname EXPLAIN → an assertion in S1's `person_search.data.test.ts` (needs the table).
+- Prerender €-threshold page counts → read off `person_search.public_money_eur` in S5 (needs the
+  index); the S4 mint ceiling is 54,816, so S5's threshold must keep prerendered P+V under the
+  [project_firebase_deploy_ceiling] 453k-file dist.
+
+**Gate/commit:** probe script + this results block only.
+
+---
+
+## Step 1 — `person_search` index + ranked serving route (findability backbone)
+
+**Goal:** one ranked, foldable index across P+V+N behind a single route, replacing the ad-hoc
+`tr_officers` scan. No resolver, no browser change. Delivers ranked/grouped search immediately.
+
+**Files:**
+- **New** `scripts/db/schema/pg/126_person_search.sql` — plain TABLE (contractor_search shape):
+  ```sql
+  CREATE TABLE IF NOT EXISTS person_search (
+    key            text PRIMARY KEY,          -- 'slug:<slug>' (P) | 'fold:<name_fold>' (V/N)
+    name           text NOT NULL,
+    name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED,
+    tier           char(1) NOT NULL,          -- 'P' | 'V' | 'N'
+    position_type  text,                      -- CODE: politician/executive/public_sector/magistrate/regulator (P) | private_sector (V/N); UI maps code→BG label
+    primary_role   text,                      -- P only
+    party          text,                      -- P only
+    place_label    text,                      -- P only
+    top_eik        text,                      -- V/N: highest-money company
+    firms_count    int  NOT NULL DEFAULT 0,
+    public_money_eur double precision NOT NULL DEFAULT 0,
+    has_photo      boolean NOT NULL DEFAULT false,
+    identity_confidence text NOT NULL,        -- 'resolved' (P) | 'verified' | 'name_fold'
+    href           text NOT NULL,             -- '/person/<slug>' (P) | '/person/<name>' (V/N)
+    rank_static    double precision NOT NULL  -- precomputed relevance (see loader)
+  );
+  CREATE INDEX idx_person_search_fold  ON person_search USING gin (name_fold gin_trgm_ops);
+  CREATE INDEX idx_person_search_prefix ON person_search (name_fold text_pattern_ops);
+  CREATE INDEX idx_person_search_rank  ON person_search (rank_static DESC, key);
+  ```
+- **New** `scripts/db/load_person_search_pg.ts` — `TRUNCATE person_search` then two INSERT arms.
+  Define the P-arm fold set once (`p_folds` = folds present in the P arm) and anti-join the V/N
+  arm against THAT set, not the whole `person` table (a fold matching a non-public existing
+  person must not vanish from both arms):
+  - **P arm** from `person_browse_table` (name/slug/primary_role/party/place/photo/prominence +
+    `primary_facet`): `tier='P'`, `identity_confidence='resolved'`, `href='/person/'||slug`,
+    `position_type` derived **inline** from `primary_facet` via a `CASE` (politician/executive/
+    public_sector/magistrate/regulator; company→private_sector) — no cross-migration function
+    dependency on S3. `public_money_eur` = the P person's existing contracts-only figure.
+    `rank_static = 1000 + prominence + log(1 + public_money_eur)`.
+  - **V/N arm** from `tr_officers` grouped by `name_fold`, LEFT JOIN `broad_public_money` (126
+    helper: contracts ∪ agri_subsidies ∪ fund_beneficiaries) for `public_money_eur` (broad) /
+    `top_eik` / `firms_count`, **anti-joined against `p_folds`**. `tier = CASE WHEN broad_money>0
+    THEN 'V' ELSE 'N'`, `position_type='private_sector'`, `identity_confidence='name_fold'`
+    (S4 promotes the verified subset), `href='/person/'||name`, `rank_static = tier_weight
+    (V=500,N=100) + log(1 + broad_money)`. **Match-quality is applied at query time** (below),
+    not baked into `rank_static`.
+  - `ANALYZE person_search` after. Pure function `rankStatic(...)` exported for unit test.
+- **package.json**: `db:load:person-search:pg` + `:cloud`; wire into `db:refresh` **after**
+  `db:load:persons-browse:pg` (reads the matview) and register in the [reference_two_changelogs]
+  + [reference_migrated_family_watch_reload] entries.
+- **`functions/db_routes.js`**: **replace** the `person-search` route (currently the `tr_officers`
+  scan, ~lines 391-410) with a ranked query over `person_search`. Order by a **query-dependent
+  match score blended with `rank_static`**, not `rank_static` alone:
+  `ORDER BY (name_fold = translit_bg_latin($1))::int * 1e9        -- exact-name override`
+  `+ (name_fold LIKE translit_bg_latin($1)||'%')::int * 1e6       -- prefix boost`
+  `+ word_similarity(name_fold, translit_bg_latin($1)) * 1e4      -- fuzzy`
+  `+ rank_static DESC`, inside the **OFFSET-0 fence** (`… FROM (SELECT * FROM person_search WHERE
+  name_fold %> translit_bg_latin($1) OFFSET 0) s ORDER BY … LIMIT …`).
+  **Return top-K PER TIER, not one global LIMIT** — a single `LIMIT` would return all-P and no V
+  for a common name. Use `row_number() OVER (PARTITION BY tier ORDER BY <score>)` and keep e.g.
+  ≤6 P, ≤4 V, plus a **total N count** (grouped display: Хора във властта / Свързани с обществени
+  пари / +N други собственици). Response carries the disambiguation card fields (name, tier,
+  position_type/role/party/place, firms_count, public_money_eur, href, identity_confidence).
+  Keep the `{people:[…]}` key for back-compat where the old caller expects it.
+
+**Tests:** `scripts/db/schema/pg/person_search.data.test.ts` (auto-skips if PG down) —
+(a) all three tiers present; (b) a known colliding name returns the P person above any V/N
+namesake (ranking); (c) Cyrillic and Latin queries return the same top row (fold); (d) no
+`person.name_fold` appears as a V/N row (anti-join); (e) EXPLAIN uses the trgm index + fence.
+Plus a unit test on the exported `rankStatic`.
+
+**Gate/commit:** `tier1 step 1: person_search index + ranked person-search route`. Local-only;
+the `:cloud` loader + `deploy:db` are operator actions noted for later, not run here.
+**Risk:** low — new table + one route swap; existing `/person` profiles untouched.
+
+---
+
+## Step 2 — grouped typeahead + unify the entry points (Phase 2b UI)
+
+**Goal:** every search box reads the S1 route; results are grouped, disambiguated, ranked.
+
+**Files:**
+- The nav-bar search (`src/layout/search/Search.tsx` / `src/data/search/useSearchItems.tsx`),
+  the procurement search (`src/screens/components/procurement/ProcurementSearchTile.tsx` +
+  `src/ux/search/EntitySearchTile.tsx`), and the `/persons` `?q` box all consume the new route.
+- **Retire** the client rosters (`useCorpusPersonIndex`, `useMagistrateSearchRoster`) from the
+  procurement search — `person_search` now covers MPs/officials/magistrates + TR owners in one.
+- Grouped result UI: **Хора във властта** (P) / **Свързани с обществени пари** (V) / **Други
+  собственици** (N, collapsed "+N", expandable) / Фирми / Договори. Per-tier card per the
+  mockup: avatar+role+party+place (P); top company+firms+money (V/N); `name_fold` badge.
+  **Only the person groups change** — the Фирми/Договори/Тръжни процедури/Фондове groups keep
+  coming from the existing `procurement-search` route unchanged; S2 swaps the person source and
+  adds the tiered grouping around it.
+- "виж всички" → `/persons?q=` (existing seed).
+
+**Tests:** component tests for the grouped renderer (tier grouping, N-collapse, badge); a test
+that the procurement search no longer imports the client rosters.
+
+**Gate/commit:** `tier1 step 2: grouped ranked typeahead across nav/procurement/persons`.
+**Risk:** low-medium — pure UI + data-source swap; the routes already return ranked data.
+
+---
+
+## Step 3 — `position_type` dimension + name-fold private browse arm (Phase 2)
+
+**Goal:** the browser slices by position_type, default view is public, and — per the locked
+"verified + name-fold view" decision — the частен-сектор slice is **populated here, resolver-
+free**, by a name-fold union arm. All ~67k money-linked owners become browseable **and** the six
+governance position_types partition the public default.
+
+**`person_browse_table` (120) becomes a `UNION ALL` of two arms:**
+- **Person arm** (the existing per-person query, unchanged output for P; later also the verified V
+  persons from S4): add `key = 'slug:'||slug`, `identity_confidence` (`'resolved'` for now), and
+  `primary_position_type` derived via a new IMMUTABLE helper `position_type(p_source, p_facet)`
+  (mirrors `role_prominence()` shape; codes `politician/executive/public_sector/magistrate/
+  regulator`, `company`→`private_sector`; note `official_muni`→`politician` per the catalog).
+- **Name-fold V arm** (NEW): money-linked `tr_officers` folds (broad basis, 126 helper),
+  **anti-joined against the person arm's fold set** (a fold already a person is served by the
+  person arm, never duplicated): `key = 'fold:'||name_fold`, `slug = NULL`, `name`,
+  `position_type = 'private_sector'`, `identity_confidence = 'name_fold'`,
+  `public_money_eur` = broad, `companies_n`/`top_eik`; every governance-only column
+  (`party_*`/`place_*`/`net_worth_eur`/`has_declaration`/`role_codes`/…) is `NULL`. GIN trigram on
+  `name_fold` already required for `search:true` covers this arm too.
+
+**Serving + client:**
+- `functions/db_table.js` `persons` resource: key the resource on the new **`key`** column
+  (name-fold rows have NULL slug); add `position_type` (`type:"text", sort:true, filter:"in"`) +
+  `identity_confidence` + `key` to `columns` and `select`. The `?sector=public` **default**
+  filters `position_type <> 'private_sector'`, so the union's name-fold rows are hidden until the
+  user opts in — the public default is preserved.
+- `src/data/persons/personBrowseTypes.ts`: add `key`, `positionType`, `identityConfidence`
+  (lockstep with `select`); most existing fields are already nullable, which the name-fold rows
+  rely on.
+- `src/data/persons/useUrlPersonFilters.ts`: add `?sector` (default `public`) + `?position` to
+  `PARAMS` + reader/writer/`hasActiveFilters`, validated via `readCode`. `all` drops the sector
+  filter; `private` keeps only `private_sector`.
+- Row rendering: href = `slug ? '/person/'+slug : '/person/'+name`; name-fold rows show the
+  `name_fold` "непроверена самоличност" badge and only name/money/firms columns.
+- `src/screens/persons/PersonsAnalysisStrip.tsx`: add `position_type` as a mix-bar partition
+  (default stays the public facet partition); частен-сектор hue. Title stays "Хора във властта";
+  the private slice relabels.
+
+**Tests:** extend `person_browse.data.test.ts` — `primary_position_type` correctness (the six
+mappings); the name-fold arm is present and **anti-joined** (no fold appears in both arms);
+`?sector=public` excludes every `private_sector` row; a money-linked private owner is browseable
+under `?sector=private`. `useUrlPersonFilters.test` for `?sector` default-public + validation.
+
+**Gate/commit:** `tier1 step 3: position_type dimension + name-fold private browse arm`.
+**Risk:** medium-high — 120 is a matview DROP+CREATE re-applied by the declarations loader
+([column-type cloud-reload rule]); the union ~doubles the matview (57k→~125k) so **EXPLAIN the
+build + the worst-case filtered page** (S0) and confirm the loader's blank-label validation still
+holds for the NULL-heavy name-fold rows; `:cloud` reload is an operator step.
+
+---
+
+## Step 4 — Tier-V resolver pass (promote verified privates to real persons) — HEAVY
+
+**Goal (a quality UPGRADE, not the thing that makes privates appear).** After S3 every
+money-linked owner is already browseable + searchable as a name-fold row. S4 promotes the
+*verified* subset (unique 3-part name, ≤5 firms) to real `person` rows so they get a durable
+`/person/:slug` profile with a stable identity. The anti-join in both name-fold arms (S1 search,
+S3 browse) means a promoted fold **automatically leaves** the name-fold arm and reappears as a
+real-slug row — no double-count, no gap. **This is the risky, operator-run step** — it needs the
+multi-hour `db:resolve:persons` rebuild + data-quality validation the automated build/test gate
+cannot perform, which is why it is deferred to last and does not block the findability value.
+
+**Files:**
+- `scripts/db/schema/pg/081_person_identity.sql`: add `identity_confidence text NOT NULL
+  DEFAULT 'resolved'` to `person`.
+- `scripts/person/resolve_persons.ts`: a **new additive Tier-V pass**, inserted **after Bridge B
+  (after line ~1691) and after the `setval`** (agent-confirmed insertion point), that:
+  1. materializes the money-linked EIK set fresh (`contracts ∪ agri_subsidies ∪
+     fund_beneficiaries` — none referenced today);
+  2. joins `tr_person_roles ON uic` to enumerate candidate owners;
+  3. keeps only **verified** identities: 3-part `name_fold`, unique in the TR corpus,
+     ≤`FOOTPRINT_CAP` (=5) firms, **and** `NOT EXISTS` any existing `person.name_fold`
+     (reusing Bridge B's guard, extended to skip a fold matching ANY person — prevents minting a
+     private duplicate of a public figure and prevents merging a namesake);
+  4. `INSERT INTO person(... is_public_figure=false, status='active',
+     identity_confidence='verified')` letting the sequence assign ids (placed after setval), with
+     `person_role(source='tr', ref=uic, confidence='verified')`, slug via the name-hash pattern +
+     `person_slug_lock`.
+  - **Must-preserve properties:** public `personRows`/COPY byte-identical (do NOT touch the
+    drop-filter at 1304-1309 or `built[]`); Tier-V purely additive; separate tally in the
+    reconciliation summary.
+- Widen the gates to include Tier-V (`is_public_figure=false` + `identity_confidence='verified'`):
+  the `person_browse_table` **person-arm** `pub` CTE gate (so verified privates join the person
+  arm and drop out of the name-fold arm via its anti-join), and the `person_by_slug`/
+  `person_by_name` functions (082) so a verified private renders on `/person` with a private
+  badge. **082 is applied-not-loaded** — ship via `apply_functions.ts`, not a loader.
+- Set `identity_confidence='verified'` on the promoted rows in 120's person arm and in
+  `person_search` (their `href` becomes the real slug automatically via the LEFT JOIN).
+
+**Tests:** a resolver `.data.test.ts` asserting (a) public person count unchanged vs a baseline;
+(b) every Tier-V row has `is_public_figure=false` + `identity_confidence='verified'` + exactly
+one `tr` role; (c) no Tier-V `name_fold` collides with a public person; (d) ≤5 firms per Tier-V
+person.
+
+**Gate/commit + operator note:** `/implement-plan` builds the code + unit tests and commits, but
+**cannot validate the data effect** — an operator must run `db:resolve:persons` locally
+(~hours), then `db:load:persons-browse:pg` + `db:load:person-search:pg`, then eyeball the
+частен-сектор slice and a sample of verified profiles before any `:cloud` push. Flag this at the
+step; do not mark "done" as if the data were live. **Risk:** high (identity layer, ~55k verified
+mint, multi-hour rebuild).
+
+---
+
+## Step 5 — prerender/sitemap + namesake chooser (SEO + disambiguation polish)
+
+**Goal:** verified private profiles above the S0 €-threshold get prerendered + indexed; the rest
+`noindex`; name-fold hits get a chooser instead of a silent merge.
+
+**Files:** the person prerender manifest (`emit_prerender_slugs.ts` / `person:slugs`) + sitemap
+`enumeratePersons` gated to `is_public_figure OR (identity_confidence='verified' AND
+public_money_eur >= threshold)`; the `/person/:name` dispatcher (`PersonProfileScreen.tsx`) shows
+a **namesake chooser** (reuse the candidate page's) when a fold maps to >1 owner-cluster.
+
+**Gate/commit:** `tier1 step 5: verified-private prerender gate + namesake chooser`.
+**Risk:** medium — touches SEO ([feedback_static_seo], [project_sitemap_validity_audit]); the
+manifest is minted from the SERVING DB (operator/cloud step per CLAUDE.md).
+
+---
+
+## Summary — what `/implement-plan` drives vs. what needs an operator
+
+| Step | Auto-drivable (code + unit/data tests + commit) | Needs operator / cloud |
+|---|---|---|
+| S0 measurement | probe script | run + record numbers |
+| S1 person_search | ✅ full (local PG test) | `:cloud` loader + `deploy:db` |
+| S2 grouped typeahead | ✅ full (component tests) | — |
+| S3 position_type + name-fold browse arm | ✅ code; local matview reload to verify | `:cloud` reload |
+| **S4 Tier-V resolver** | code + unit tests only | **multi-hour resolver rebuild + data validation** (blocks "done") |
+| S5 prerender/chooser | ✅ code | manifest mint from serving DB |
+
+**Recommended drive scope now:** S0–S3 are fully auto-drivable and, together, deliver the WHOLE
+user-visible goal — private owners are **searchable** (S1–S2, ranked/grouped/disambiguated) **and
+browseable** (S3, name-fold arm) with the public-first default, all with zero identity-layer risk.
+**S4 is a deferred quality upgrade** (real profiles for the verified subset) that **pauses for the
+operator** at its data-validation gate rather than committing an unvalidated identity-layer
+rebuild — surface it, don't fake-green it. S5 follows S4.
