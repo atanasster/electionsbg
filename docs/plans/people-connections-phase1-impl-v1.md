@@ -170,11 +170,29 @@ the `:cloud` loader + `deploy:db` are operator actions noted for later, not run 
   adds the tiered grouping around it.
 - "виж всички" → `/persons?q=` (existing seed).
 
-**Tests:** component tests for the grouped renderer (tier grouping, N-collapse, badge); a test
-that the procurement search no longer imports the client rosters.
+**SHIPPED (2026-08-01):** the **combined procurement search** (`ProcurementSearchTile`) — the
+primary entry point — now consumes the grouped `{power,money,others}` route, retires both client
+rosters (`useCorpusPersonIndex`, `useMagistrateSearchRoster`), and renders the three tiers with the
+`name_fold` "съвпадение по име" label inline in the secondary line (no `EntitySearchTile` shell
+change), position_type→label mapping, broad money, and a "Виж всички хора" → `/persons?q&sector=all`
+link. Verified in the dev browser end-to-end (P public figures with money on top, V/N owners below,
+no console errors). `party_primary` is a raw canonicalId so it is NOT displayed (position + place
+only) — party-name mapping is a later polish.
 
-**Gate/commit:** `tier1 step 2: grouped ranked typeahead across nav/procurement/persons`.
-**Risk:** low-medium — pure UI + data-source swap; the routes already return ranked data.
+**DEFERRED (follow-up within Phase 2b):** wiring the **nav-bar** search
+(`Search.tsx`/`useSearchItems`) and a dedicated `/persons ?q` grouped view onto `person_search` —
+a separate curated-search integration; `/persons?q` already seeds the browse today. Tracked as the
+remaining S2 tail.
+
+**Tests:** the person-group building is extracted to a pure `buildPersonGroups` helper
+(`personSearchGroups.ts`) with `personSearchGroups.test.ts` (6 cases: encoding split, name-match
+label, position label fallback, empty-tier guard, tier order); `ProcurementSearchTile.test.tsx`
+(the `fundSearchGroup` helper) still passes; the route's JS grouping is covered by
+`functions/db_routes.person_search.test.js` (S1). The retired rosters left `usePersonProcurementIndex.ts`
+and the `useMagistrateSearchRoster`/`MagistrateSearchRow` export orphaned — both removed.
+
+**Gate/commit:** `tier1 step 2: grouped ranked typeahead in the combined procurement search`.
+**Risk:** low-medium — pure UI + data-source swap; the route already returns ranked data.
 
 ---
 

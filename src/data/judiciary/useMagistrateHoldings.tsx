@@ -86,30 +86,6 @@ export const useCompanyMagistrates = (
   return { magistrates: data?.magistrates ?? [], year: data?.year ?? null };
 };
 
-// Slim roster for the procurement combined search (name + court + company count).
-export interface MagistrateSearchRow {
-  name: string;
-  court: string | null;
-  companies: number;
-}
-
-/** The magistrate search roster. `enabled` defers the fetch until the search box is
- *  first touched, so the page does not pay for it up front. */
-export const useMagistrateSearchRoster = (
-  enabled: boolean,
-): MagistrateSearchRow[] => {
-  const { data } = useQuery({
-    queryKey: ["judiciary", "magistrate_search"] as const,
-    queryFn: () =>
-      fetchJson<{ year: number; roster: MagistrateSearchRow[] }>(
-        "/api/db/magistrate-search",
-      ),
-    staleTime: Infinity,
-    enabled,
-  });
-  return data?.roster ?? [];
-};
-
 /** The magistrate record for a person NAME, if that person is a magistrate who
  *  declared a company. Null for everyone else. Name-matched (a common name could
  *  collide), so the UI must frame it as a lead. */
