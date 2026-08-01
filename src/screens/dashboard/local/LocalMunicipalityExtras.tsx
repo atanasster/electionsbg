@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { GitFork, Users } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { titleCaseName } from "@/lib/utils";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import type { LocalMunicipalityBundle } from "@/data/local/types";
@@ -115,6 +115,7 @@ export const TopCouncillorsTile: FC<{ bundle: LocalMunicipalityBundle }> = ({
         .map((c) => ({
           name: c.name,
           mpId: c.mpId,
+          personSlug: c.personSlug,
           prefVotes: c.prefVotes,
           prefPct: c.prefPct,
           partyName: p.localPartyName,
@@ -151,9 +152,12 @@ export const TopCouncillorsTile: FC<{ bundle: LocalMunicipalityBundle }> = ({
               className="h-10 w-10"
             />
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-semibold truncate">
-                {titleCaseName(c.name)}
-              </span>
+              <PersonNameLink
+                name={c.name}
+                personSlug={c.personSlug}
+                mpId={c.mpId}
+                className="text-sm font-semibold truncate"
+              />
               <span className="text-[11px] text-muted-foreground flex items-center gap-1.5 min-w-0">
                 <Dot color={c.color} />
                 <span className="truncate">{c.partyName}</span>

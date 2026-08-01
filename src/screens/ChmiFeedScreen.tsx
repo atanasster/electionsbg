@@ -13,8 +13,7 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { useChmiHistoryAll } from "@/data/local/useChmiHistory";
 import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { ChmiPartyBadge } from "@/screens/local/ChmiPartyBadge";
-import { useMps } from "@/data/parliament/useMps";
-import { useMunicipalOfficialsByName } from "@/data/officials/useMunicipalOfficialsByName";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 
 type KindFilter = "all" | ChmiHistoryEvent["kind"];
@@ -47,8 +46,6 @@ const KindBadge: FC<{ kind: ChmiHistoryEvent["kind"] }> = ({ kind }) => {
 export const ChmiFeedScreen: FC = () => {
   const { t } = useTranslation();
   const { data: history } = useChmiHistoryAll();
-  const { findMpByName, findMpById } = useMps();
-  const { findOfficialByName } = useMunicipalOfficialsByName();
   const { settlements } = useSettlementsInfo();
   const settlementEkatteByMuniName = useMemo(() => {
     const map = new Map<string, string>();
@@ -181,24 +178,9 @@ export const ChmiFeedScreen: FC = () => {
           </thead>
           <tbody>
             {(filtered as ChmiHistoryEvent[]).map((e, i) => {
-              const resolvedMp =
-                e.kind === "council"
-                  ? undefined
-                  : (findMpById(e.mpId) ?? findMpByName(e.candidateName));
-              const resolvedOfficial =
-                resolvedMp || e.kind === "council"
-                  ? undefined
-                  : findOfficialByName(e.candidateName, e.obshtinaName);
-              const candidateHref:
-                | Parameters<typeof Link>[0]["to"]
-                | undefined = resolvedMp
-                ? `/candidate/mp-${resolvedMp.id}`
-                : resolvedOfficial
-                  ? {
-                      pathname: `/officials/${encodeURIComponent(resolvedOfficial.slug)}`,
-                      search: { from: e.obshtinaCode },
-                    }
-                  : undefined;
+              // Council re-elections have no single person; every other event links its
+              // winner to their unified profile via the baked personSlug/mpId (no runtime
+              // MP-index or officials-roster lookup — PersonNameLink reads the record).
               const candidateInner =
                 e.kind === "council" ? (
                   <span className="text-muted-foreground">
@@ -214,7 +196,11 @@ export const ChmiFeedScreen: FC = () => {
                       mpId={e.mpId}
                       showPartyRing={false}
                     />
-                    <span>{e.candidateName}</span>
+                    <PersonNameLink
+                      name={e.candidateName}
+                      personSlug={e.personSlug}
+                      mpId={e.mpId}
+                    />
                   </div>
                 );
               return (
@@ -251,19 +237,7 @@ export const ChmiFeedScreen: FC = () => {
                       );
                     })()}
                   </td>
-                  <td className="py-2 px-3">
-                    {candidateHref ? (
-                      <Link
-                        to={candidateHref}
-                        underline={false}
-                        className="hover:underline"
-                      >
-                        {candidateInner}
-                      </Link>
-                    ) : (
-                      candidateInner
-                    )}
-                  </td>
+                  <td className="py-2 px-3">{candidateInner}</td>
                   <td className="py-2 px-3 text-muted-foreground align-top">
                     <ChmiPartyBadge
                       primaryCanonicalId={e.primaryCanonicalId}

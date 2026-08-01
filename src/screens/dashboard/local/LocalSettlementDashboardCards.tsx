@@ -19,6 +19,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalSettlement } from "@/data/local/useLocalSettlement";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
@@ -29,7 +30,6 @@ import type { ChmiHistoryEvent } from "@/data/local/useChmiHistory";
 import { friendlyIsoDate } from "@/data/local/cycleDate";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
-import { titleCaseName } from "@/lib/utils";
 import type {
   LocalKmetstvoResult,
   LocalMayorResult,
@@ -48,6 +48,7 @@ type ContestWinner = {
   localPartyName: string;
   primaryCanonicalId: string | null;
   mpId?: number;
+  personSlug?: string;
 };
 
 type PreviousContest = {
@@ -81,7 +82,13 @@ const MayorCandidateRows: FC<{
               showPartyRing={false}
             />
             <div className="min-w-0 flex-1">
-              <div className="truncate">{titleCaseName(c.candidateName)}</div>
+              <div className="truncate">
+                <PersonNameLink
+                  name={c.candidateName}
+                  personSlug={c.personSlug}
+                  mpId={c.mpId}
+                />
+              </div>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
                 {color ? (
                   <span
@@ -215,7 +222,11 @@ const KmetstvoMayorCard: FC<{
                       />
                       <div className="min-w-0 flex-1">
                         <div className="truncate">
-                          {titleCaseName(p.winner.candidateName)}
+                          <PersonNameLink
+                            name={p.winner.candidateName}
+                            personSlug={p.winner.personSlug}
+                            mpId={p.winner.mpId}
+                          />
                         </div>
                         <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
                           {color ? (
@@ -298,9 +309,12 @@ const ParentMunicipalityCard: FC<{
                 mpId={mayor.mpId}
                 showPartyRing={false}
               />
-              <span className="font-medium truncate">
-                {titleCaseName(mayor.candidateName)}
-              </span>
+              <PersonNameLink
+                name={mayor.candidateName}
+                personSlug={mayor.personSlug}
+                mpId={mayor.mpId}
+                className="font-medium truncate"
+              />
               <span className="text-xs text-muted-foreground truncate">
                 {mayor.localPartyName}
               </span>
@@ -414,6 +428,7 @@ export const LocalSettlementDashboardCards: FC<{
           localPartyName: e.localPartyName,
           primaryCanonicalId: e.primaryCanonicalId,
           mpId: e.mpId,
+          personSlug: e.personSlug,
         },
       }));
     const regularWinner =

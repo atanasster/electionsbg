@@ -9,6 +9,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { History } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalPlaceTrend } from "@/data/local/useLocalPlaceTrends";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import {
@@ -98,9 +99,12 @@ export const LocalMayorTimelineTile: FC<Props> = ({
                     mpId={m.mpId}
                     showPartyRing={false}
                   />
-                  <span className="text-sm font-medium break-words min-w-0">
-                    {m.candidateName}
-                  </span>
+                  <PersonNameLink
+                    name={m.candidateName}
+                    personSlug={m.personSlug}
+                    mpId={m.mpId}
+                    className="text-sm font-medium break-words min-w-0"
+                  />
                   {isFlip ? (
                     <span className="ml-0.5 inline-flex items-center rounded-md border border-amber-500/40 bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-amber-700 shrink-0">
                       {t("local_election_party_flipped")}

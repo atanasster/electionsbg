@@ -26,6 +26,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
 import {
   districtRayonGovernanceId,
@@ -144,7 +145,12 @@ const StatsGrid: FC<{
   isRayon: boolean;
   // Current officeholder when a later partial mayoral by-election has been held
   // (overrides the regular-cycle winner on the Кмет card).
-  currentMayor?: { name: string; date: string } | null;
+  currentMayor?: {
+    name: string;
+    date: string;
+    personSlug?: string;
+    mpId?: number;
+  } | null;
   // The mayor and council are two separate ballots (and, after a by-election,
   // two separate elections) — each gets its own card.
   mayorBallot: BallotStat;
@@ -155,15 +161,28 @@ const StatsGrid: FC<{
   const partiesWithSeats = bundle.council.filter(
     (p) => p.mandatesWon > 0,
   ).length;
-  const mayorName = currentMayor?.name ?? bundle.mayor.elected?.candidateName;
+  const mayorPerson =
+    currentMayor ??
+    (bundle.mayor.elected
+      ? {
+          name: bundle.mayor.elected.candidateName,
+          personSlug: bundle.mayor.elected.personSlug,
+          mpId: bundle.mayor.elected.mpId,
+        }
+      : null);
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
       <StatItem
         label={t("local_election_stat_mayor")}
         value={
-          mayorName ? (
+          mayorPerson ? (
             <span className="flex items-center gap-1.5">
-              <span className="truncate">{mayorName}</span>
+              <PersonNameLink
+                name={mayorPerson.name}
+                personSlug={mayorPerson.personSlug}
+                mpId={mayorPerson.mpId}
+                className="truncate"
+              />
             </span>
           ) : (
             <span className="text-sm text-muted-foreground">
@@ -274,9 +293,12 @@ const MayorTable: FC<{
                       mpId={c.mpId}
                       showPartyRing={false}
                     />
-                    <span className="font-medium break-words min-w-0">
-                      {c.candidateName}
-                    </span>
+                    <PersonNameLink
+                      name={c.candidateName}
+                      personSlug={c.personSlug}
+                      mpId={c.mpId}
+                      className="font-medium break-words min-w-0"
+                    />
                     {c.isElected ? (
                       <span className="ml-1 inline-flex items-center rounded-md border border-primary/40 bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary shrink-0">
                         {t("local_election_winner_badge")}
@@ -374,7 +396,12 @@ const CouncilPartyRow: FC<{ party: LocalCouncilParty }> = ({ party }) => {
                 className="flex items-center gap-2 py-1 text-sm"
               >
                 <MpAvatar name={c.name} mpId={c.mpId} showPartyRing={false} />
-                <span className="font-medium">{c.name}</span>
+                <PersonNameLink
+                  name={c.name}
+                  personSlug={c.personSlug}
+                  mpId={c.mpId}
+                  className="font-medium"
+                />
                 <span className="text-xs text-muted-foreground tabular-nums">
                   · {formatThousands(c.prefVotes)} пр.
                 </span>
@@ -457,6 +484,7 @@ type SeatHolder = {
   localPartyName: string;
   primaryCanonicalId: string | null;
   mpId?: number;
+  personSlug?: string;
   votes: number;
   pctOfValid: number;
   byElectionDate: string | null;
@@ -473,6 +501,7 @@ const resolveSeatHolder = (
     localPartyName: src.localPartyName,
     primaryCanonicalId: src.primaryCanonicalId,
     mpId: src.mpId,
+    personSlug: src.personSlug,
     votes: src.votes,
     pctOfValid: src.pctOfValid,
     byElectionDate: holder?.date ?? null,
@@ -551,9 +580,12 @@ const KmetstvaSection: FC<{
                         showPartyRing={false}
                       />
                       <div className="min-w-0">
-                        <span className="break-words">
-                          {r.winner.candidateName}
-                        </span>
+                        <PersonNameLink
+                          name={r.winner.candidateName}
+                          personSlug={r.winner.personSlug}
+                          mpId={r.winner.mpId}
+                          className="break-words"
+                        />
                         {r.winner.byElectionDate ? (
                           <span className="ml-2 inline-flex items-center whitespace-nowrap rounded border border-primary/30 bg-primary/5 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
                             {t("local_election_byelection_chip", {
@@ -664,9 +696,12 @@ const DistrictsSection: FC<{
                           showPartyRing={false}
                         />
                         <div className="min-w-0">
-                          <span className="break-words">
-                            {winner.candidateName}
-                          </span>
+                          <PersonNameLink
+                            name={winner.candidateName}
+                            personSlug={winner.personSlug}
+                            mpId={winner.mpId}
+                            className="break-words"
+                          />
                           {winner.byElectionDate ? (
                             <span className="ml-2 inline-flex items-center whitespace-nowrap rounded border border-primary/30 bg-primary/5 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-primary">
                               {t("local_election_byelection_chip", {
@@ -773,7 +808,12 @@ const ChmiHistorySection: FC<{ events: ChmiHistoryEvent[] }> = ({ events }) => {
                             mpId={e.mpId}
                             showPartyRing={false}
                           />
-                          <span className="font-medium">{e.candidateName}</span>
+                          <PersonNameLink
+                            name={e.candidateName}
+                            personSlug={e.personSlug}
+                            mpId={e.mpId}
+                            className="font-medium"
+                          />
                         </div>
                       </>
                     )}
@@ -922,7 +962,12 @@ const MunicipalityResults: FC<{
   const partialDate = partialCycle ? friendlyCycleDate(partialCycle) : "";
   const currentMayor =
     showPartial && partialBundle?.mayor.elected
-      ? { name: partialBundle.mayor.elected.candidateName, date: partialDate }
+      ? {
+          name: partialBundle.mayor.elected.candidateName,
+          date: partialDate,
+          personSlug: partialBundle.mayor.elected.personSlug,
+          mpId: partialBundle.mayor.elected.mpId,
+        }
       : null;
 
   // Per-ballot stats for the two office cards. A район has no protocol of its
@@ -1641,9 +1686,12 @@ const RayonLocalResults: FC<{ cycle: string; rayon: CityRayon }> = ({
             label={t("local_election_stat_mayor")}
             value={
               district.elected ? (
-                <span className="truncate">
-                  {district.elected.candidateName}
-                </span>
+                <PersonNameLink
+                  name={district.elected.candidateName}
+                  personSlug={district.elected.personSlug}
+                  mpId={district.elected.mpId}
+                  className="truncate"
+                />
               ) : (
                 <span className="text-sm text-muted-foreground">
                   {t("local_election_no_winner")}

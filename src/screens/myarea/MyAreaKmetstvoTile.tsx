@@ -15,14 +15,12 @@
 // ~95% of cases where the village and the kметство share a name.
 
 import { FC, useMemo } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Crown } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useLocalMunicipality } from "@/data/local/useLocalMunicipality";
-import { useMunicipalOfficials } from "@/data/officials/useMunicipalOfficials";
 import type { LocalKmetstvoResult } from "@/data/local/types";
-import { titleCaseName } from "@/lib/utils";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 
 type Props = {
   /** EKATTE of the resolved settlement. */
@@ -45,13 +43,6 @@ export const MyAreaKmetstvoTile: FC<Props> = ({ settlementName, obshtina }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { municipality, isLoading } = useLocalMunicipality(obshtina);
-  // Look up the obshtina's municipal-tier roster so we can link the elected
-  // village mayor to their /officials profile when they also hold a tracked
-  // municipal role (e.g. doubling as a councillor). Pure cross-reference —
-  // cacbg.bg doesn't carry declarations for sub-municipal kмет-на-кметство
-  // posts on their own, so most village mayors will fall through to plain
-  // text; the link only appears when a name match exists.
-  const { roster } = useMunicipalOfficials(obshtina);
 
   // Name-match the kметство. We compare normalized names: lower-cased,
   // whitespace-collapsed. ~3,000 villages countrywide so the inner search
@@ -76,18 +67,6 @@ export const MyAreaKmetstvoTile: FC<Props> = ({ settlementName, obshtina }) => {
   const elected = match.candidates.find((c) => c.isElected);
   if (!elected) return null;
 
-  // Cross-reference into the municipal officials roster by normalized name.
-  // CIK and roster diverge on case (CIK is all-caps, roster.normalizedName is
-  // already upper-cased), so collapse to lowercase + single-spaced on both
-  // sides before comparing.
-  const electedNorm = normalize(elected.candidateName);
-  const rosterMatch =
-    roster?.entries.find(
-      (e) =>
-        e.normalizedName.replace(/\s+/g, " ").trim().toLowerCase() ===
-        electedNorm,
-    ) ?? null;
-
   const partyLabel =
     elected.localPartyName ||
     (elected.isIndependent
@@ -105,19 +84,14 @@ export const MyAreaKmetstvoTile: FC<Props> = ({ settlementName, obshtina }) => {
       <div className="flex items-baseline gap-3">
         <div className="flex-1 min-w-0">
           <div className="font-semibold text-base truncate">
-            {/* CIK source carries candidate names in ALL CAPS. Title-case
-                them to match the MP-row convention so we don't read like
-                a ransom note. */}
-            {rosterMatch ? (
-              <Link
-                to={`/officials/${rosterMatch.slug}?from=${obshtina}`}
-                className="hover:underline"
-              >
-                {titleCaseName(elected.candidateName)}
-              </Link>
-            ) : (
-              titleCaseName(elected.candidateName)
-            )}
+            {/* Links to the elected village mayor's unified /person profile via the
+                personSlug baked onto the bundle (decorate_local_person_links); most
+                village mayors have no profile and fall through to plain text. */}
+            <PersonNameLink
+              name={elected.candidateName}
+              personSlug={elected.personSlug}
+              mpId={elected.mpId}
+            />
           </div>
           <div className="text-xs text-muted-foreground truncate">
             {partyLabel}

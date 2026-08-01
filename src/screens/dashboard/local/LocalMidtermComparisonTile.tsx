@@ -12,6 +12,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeftRight, ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "../StatCard";
 import type { LocalMayorResult } from "@/data/local/types";
@@ -164,9 +165,12 @@ export const LocalMidtermComparisonTile: FC<{
         </div>
         {partial.elected ? (
           <div className="mt-3 border-t pt-2 text-xs text-muted-foreground">
-            <span className="font-medium text-foreground">
-              {partial.elected.candidateName}
-            </span>{" "}
+            <PersonNameLink
+              name={partial.elected.candidateName}
+              personSlug={partial.elected.personSlug}
+              mpId={partial.elected.mpId}
+              className="font-medium text-foreground"
+            />{" "}
             ·{" "}
             {m.sameWinner
               ? t("local_election_mayor_reelected")

@@ -11,6 +11,7 @@ import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Crown } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { UNRESOLVED_PARTY_COLOR } from "@/data/local/cycleDate";
 import {
@@ -23,7 +24,6 @@ import type {
   PlaceTrendFile,
 } from "@/data/local/placeTrendsTypes";
 import { formatThousands } from "@/data/utils";
-import { titleCaseName } from "@/lib/utils";
 import { LocalCrossCycleChart } from "./LocalCrossCycleChart";
 import { StatCard } from "../StatCard";
 
@@ -66,9 +66,14 @@ const MayorWinnerStrip: FC<{
               <MpAvatar name={w.candidateName} showPartyRing={false} />
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-medium truncate">
-                  {w.candidateName
-                    ? titleCaseName(w.candidateName)
-                    : w.localPartyName}
+                  {w.candidateName ? (
+                    <PersonNameLink
+                      name={w.candidateName}
+                      personSlug={w.personSlug}
+                    />
+                  ) : (
+                    w.localPartyName
+                  )}
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground min-w-0">
                   <span

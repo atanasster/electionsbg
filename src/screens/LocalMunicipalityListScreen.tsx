@@ -25,7 +25,7 @@ import { useLocalRegion } from "@/data/local/useLocalRegion";
 import { useRegions } from "@/data/regions/useRegions";
 import { friendlyCycleDate } from "@/data/local/cycleDate";
 import { formatThousands } from "@/data/utils";
-import { titleCaseName } from "@/lib/utils";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import type { LocalRegionMunicipalityRow } from "@/data/local/types";
 
 export type LocalMunicipalityListKind =
@@ -100,7 +100,11 @@ const MayorCell: FC<{ row: Row }> = ({ row }) => {
       <MpAvatar name={m.candidateName} mpId={m.mpId} showPartyRing={false} />
       <div className="min-w-0">
         <div className="font-medium break-words">
-          {titleCaseName(m.candidateName)}
+          <PersonNameLink
+            name={m.candidateName}
+            personSlug={m.personSlug}
+            mpId={m.mpId}
+          />
         </div>
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
           <Dot color={m.color} />
@@ -296,9 +300,12 @@ const IndependentsTable: FC<{
                       mpId={m.mpId}
                       showPartyRing={false}
                     />
-                    <span className="font-medium break-words min-w-0">
-                      {titleCaseName(m.candidateName)}
-                    </span>
+                    <PersonNameLink
+                      name={m.candidateName}
+                      personSlug={m.personSlug}
+                      mpId={m.mpId}
+                      className="font-medium break-words min-w-0"
+                    />
                   </div>
                 ) : (
                   <span className="text-muted-foreground">—</span>

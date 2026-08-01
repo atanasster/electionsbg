@@ -8,6 +8,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Trophy } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { PersonNameLink } from "@/screens/components/person/PersonNameLink";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
@@ -83,12 +84,12 @@ export const TopMayorsTile: FC<{
                 mpId={candidate.mpId}
                 showPartyRing={false}
               />
-              <span
+              <PersonNameLink
+                name={candidate.candidateName}
+                personSlug={candidate.personSlug}
+                mpId={candidate.mpId}
                 className="truncate font-medium"
-                title={candidate.candidateName}
-              >
-                {candidate.candidateName}
-              </span>
+              />
               {isWinner ? (
                 <span className="inline-flex shrink-0 items-center rounded-md border border-primary/40 bg-primary/10 px-1 py-0.5 text-[9px] font-medium uppercase tracking-wide text-primary">
                   {t("local_election_winner_badge")}
