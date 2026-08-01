@@ -187,16 +187,19 @@ const cmdSave = (specPath: string, force: boolean): void => {
     image = spec.image; // existing path or explicit null
   } else if (spec.card) {
     image = `brand/posts/${spec.slug}.png`;
-    // A card carrying `bars` (chart), `points` (dot map) or `rows` (grid) is an
-    // infographic regardless of kind; the remaining split is stat-card for data
-    // vs announce-card for launches. The base map is loaded here rather than
-    // carried in the spec JSON — the polygons are ~2.8MB.
+    // A card carrying `bars` (chart), `rows` (grid), or `points`/`regionTones`
+    // (map) is an infographic regardless of kind; the remaining split is
+    // stat-card for data vs announce-card for launches. A map card may carry
+    // either or both — dots alone, a choropleth alone, or dots over one — so
+    // both keys route here. The base map is loaded here rather than carried in
+    // the spec JSON — the polygons are ~2.8MB.
+    const isMap = "points" in spec.card || "regionTones" in spec.card;
     const buf =
       "bars" in spec.card
         ? renderBarCard(spec.card as BarCardSpec)
         : "rows" in spec.card
           ? renderTableCard(spec.card as TableCardSpec)
-          : "points" in spec.card
+          : isMap
             ? renderMapCard({
                 ...(spec.card as MapCardSpec),
                 geo: loadBulgariaGeo(ROOT),

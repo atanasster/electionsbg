@@ -752,15 +752,27 @@ export type MapPoint = {
   highlight?: boolean;
 };
 
+/** Fill tones a choropleth region may take, resolved against the theme. */
+export type MapTone = "accent" | "cool" | "muted";
+
 export type MapCardSpec = {
   kicker?: string;
   title: string; // the claim, 1-2 lines (auto-wrapped)
-  points: MapPoint[];
+  points?: MapPoint[];
   /**
    * Base-map polygons. Callers pass `loadBulgariaGeo()`; kept a parameter so
    * the renderer stays pure and testable with a stub outline.
    */
   geo?: GeoFeature[];
+  /**
+   * Choropleth: polygon `nuts4` code → fill tone. Codes absent from the map
+   * keep the flat landmass fill, so a partial map degrades to "uncoloured"
+   * rather than to a hole. Callers own any rollup (e.g. painting Sofia-city's
+   * 24 rayon codes with one município's tone) — this stays geography-agnostic.
+   */
+  regionTones?: Record<string, MapTone>;
+  /** Legend swatches for `regionTones`, drawn as a row under the map. */
+  swatches?: { label: string; tone: MapTone }[];
   legend?: string; // one muted line under the map, e.g. "всяка точка = едно селище"
   footnote?: string;
   source: string;
@@ -768,9 +780,10 @@ export type MapCardSpec = {
   theme?: Theme;
 };
 
-/** The slice of GeoJSON the base map needs — polygons only, no properties. */
+/** The slice of GeoJSON the base map needs: polygons, plus the choropleth key. */
 export type GeoFeature = {
   type: "Feature";
+  properties?: { nuts4?: string };
   geometry: {
     type: "Polygon" | "MultiPolygon";
     coordinates: number[][][] | number[][][][];
@@ -851,10 +864,13 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
   const footTop = footBottom - (footLines.length - 1) * FOOT_LINE_H;
   const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
   const legendY = spec.legend ? ruleY - 26 : ruleY;
+  const swatchY = spec.swatches?.length
+    ? legendY - (spec.legend ? 44 : 18)
+    : legendY;
 
   // ---- base map ----
   const mapTop = y + 24;
-  const mapBottom = legendY - 40;
+  const mapBottom = swatchY - 40;
   const avail = mapBottom - mapTop;
   if (avail < 260)
     throw new Error(
@@ -884,11 +900,17 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
   // They still get filled, so the landmass stays whole with no hole punched
   // where the capital is.
   const MIN_STROKE_AREA = 400; // px², i.e. roughly 20×20
-  ctx.fillStyle = pal.rule;
+  const toneFill: Record<MapTone, string> = {
+    accent: pal.accent,
+    cool: pal.cool,
+    muted: pal.muted,
+  };
   ctx.strokeStyle = pal.bg2;
   ctx.lineWidth = 1;
   for (const f of features) {
     const [[x0, y0], [x1, y1]] = path.bounds(f as never);
+    const tone = spec.regionTones?.[f.properties?.nuts4 ?? ""];
+    ctx.fillStyle = tone ? toneFill[tone] : pal.rule;
     ctx.beginPath();
     path(f as never);
     ctx.fill();
@@ -896,8 +918,9 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
   }
 
   // ---- dots ----
-  const plain = spec.points.filter((p) => !p.highlight);
-  const marked = spec.points.filter((p) => p.highlight);
+  const points = spec.points ?? [];
+  const plain = points.filter((p) => !p.highlight);
+  const marked = points.filter((p) => p.highlight);
 
   ctx.fillStyle = pal.text;
   for (const p of plain) {
@@ -932,6 +955,20 @@ export const renderMapCard = (spec: MapCardSpec): Buffer => {
     ctx.fillText(p.label, right ? px + 44 : px - 44, py);
     ctx.textAlign = "left";
     ctx.textBaseline = "alphabetic";
+  }
+
+  if (spec.swatches?.length) {
+    ctx.font = `600 27px ${FONT}`;
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    let sx = 80;
+    for (const sw of spec.swatches) {
+      ctx.fillStyle = toneFill[sw.tone];
+      ctx.fillRect(sx, swatchY - 20, 24, 24);
+      ctx.fillStyle = pal.muted;
+      ctx.fillText(sw.label, sx + 36, swatchY);
+      sx += 36 + ctx.measureText(sw.label).width + 52;
+    }
   }
 
   if (spec.legend) {

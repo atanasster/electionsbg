@@ -14,6 +14,7 @@ const ROOT = resolve(__dirname, "../..");
 const stubGeo: GeoFeature[] = [
   {
     type: "Feature",
+    properties: { nuts4: "JAM03" },
     geometry: {
       type: "Polygon",
       coordinates: [
@@ -124,6 +125,39 @@ describe("renderTableCard", () => {
         })),
       }),
     ).toThrow(/out of range/);
+  });
+});
+
+describe("renderMapCard choropleth", () => {
+  it("renders with regionTones and no points at all", () => {
+    // The dot map and the choropleth are independent — a card may carry only
+    // one. `points` used to be required, which crashed this shape.
+    const buf = renderMapCard({
+      title: "236 от 265 общини смениха победителя си",
+      regionTones: { JAM03: "cool" },
+      swatches: [
+        { label: "смени победителя", tone: "accent" },
+        { label: "запази го", tone: "cool" },
+      ],
+      source: "Източник: ЦИК",
+      geo: stubGeo,
+    });
+    expect(buf.readUInt32BE(16)).toBe(1080);
+  });
+
+  it("paints a toned region differently from an untoned one", () => {
+    const render = (regionTones?: Record<string, "accent" | "cool">) =>
+      renderMapCard({
+        title: "Общини",
+        regionTones,
+        source: "Източник: ЦИК",
+        geo: stubGeo,
+      });
+    // A tone that never reaches the canvas is the silent failure mode here:
+    // an unmatched key leaves the flat landmass fill and still renders fine.
+    expect(render({ JAM03: "accent" }).equals(render())).toBe(false);
+    // An unknown code must be inert, not throw and not repaint the map.
+    expect(render({ NOPE99: "accent" } as never).equals(render())).toBe(true);
   });
 });
 
