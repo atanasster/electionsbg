@@ -136,20 +136,24 @@ test.skipIf(skip || !isServingDatabase())(
   },
 );
 
-// (1b) …and still net-neutral: the set never exceeds the cap it replaces.
+// (1b) The EXEC prerender set stays within the officials cap (that is what holds the deploy
+// ceiling flat). Local officials (card.kind === 'local') are a deliberate, staging-measured
+// addition on top (docs/plans/local-person-links-v1.md Phase 4), so they are excluded here.
 test.skipIf(skip)(
-  "the prerender set stays within the officials cap",
+  "the exec prerender set stays within the officials cap",
   async () => {
-    const prer = prerenderSlugs();
-    assert.ok(
-      prer.size <= OFFICIALS_STATIC_PAGE_LIMIT,
-      `${prer.size} prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} cap — the deploy ` +
-        `file ceiling (§0.5) is not being held flat`,
-    );
-    // Every prerender entry must carry a card, or buildPersonRoutes emits nothing for it.
     const manifest = JSON.parse(
       fs.readFileSync(MANIFEST, "utf-8"),
     ) as PersonSlugEntry[];
+    const execPrer = manifest.filter(
+      (e) => e.prerender && e.card?.kind !== "local",
+    );
+    assert.ok(
+      execPrer.length <= OFFICIALS_STATIC_PAGE_LIMIT,
+      `${execPrer.length} exec prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} cap — the ` +
+        `deploy file ceiling (§0.5) is not being held flat`,
+    );
+    // Every prerender entry must carry a card, or buildPersonRoutes emits nothing for it.
     const cardless = manifest.filter((e) => e.prerender && !e.card);
     assert.deepEqual(
       cardless.map((e) => e.slug).slice(0, 5),

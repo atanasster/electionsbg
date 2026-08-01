@@ -1,7 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
-import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
+import type {
+  PersonSlugEntry,
+  PersonLocalCard,
+} from "../person/emit_prerender_slugs";
 import {
   CandidatesInfo,
   ElectionInfo,
@@ -3129,6 +3132,86 @@ const OFFICIAL_CATEGORY_EN: Record<string, string> = Object.fromEntries(
 const formatEurForPrerender = (n: number): string =>
   `€${Math.round(n).toLocaleString("en-GB").replace(/,/g, " ")}`;
 
+// Local-office role labels (person_role.role) for the village/район-mayor + councillor
+// prerender bodies. Static (this is a Node build step, no i18n runtime).
+const LOCAL_ROLE_BG: Record<string, string> = {
+  mayor: "Кмет на община",
+  village_mayor: "Кмет на кметство",
+  rayon_mayor: "Районен кмет",
+  councillor: "Общински съветник",
+  council_chair: "Председател на общински съвет",
+  deputy_mayor: "Заместник-кмет",
+  chief_architect: "Главен архитект",
+};
+const LOCAL_ROLE_EN: Record<string, string> = {
+  mayor: "Municipal mayor",
+  village_mayor: "Village mayor",
+  rayon_mayor: "District mayor",
+  councillor: "Municipal councillor",
+  council_chair: "Municipal council chair",
+  deputy_mayor: "Deputy mayor",
+  chief_architect: "Chief architect",
+};
+
+// SEO body for a local-elected person (mayor / councillor / village / район mayor) — no
+// declaration/net worth, so the page is described by office + place instead.
+const localPersonRoute = (
+  c: PersonLocalCard,
+  path_: string,
+  url: string,
+  enUrl: string,
+): PrerenderRoute => {
+  const name = escapeHtmlMinimal(c.name);
+  const roleBg = LOCAL_ROLE_BG[c.role] ?? "Местен вот";
+  const roleEn = LOCAL_ROLE_EN[c.role] ?? "Local office";
+  const placeRaw = c.placeLabel;
+  const place = placeRaw ? escapeHtmlMinimal(placeRaw) : null;
+  const inBg = placeRaw ? ` в ${placeRaw}` : "";
+  const inBgSafe = place ? ` в ${place}` : "";
+  const title = `${c.name} — ${roleBg}${inBg} | electionsbg.com`;
+  const titleEn = `${c.name} — ${roleEn}${place ? ` in ${placeRaw}` : ""} | electionsbg.com`;
+  const description = `Профил на ${c.name}, ${roleBg}${inBg}: резултати от местните избори, свързани лица и обществени поръчки. Източник: ЦИК.`;
+  const descriptionEn = `Profile of ${c.name}, ${roleEn}${place ? ` in ${placeRaw}` : ""}: local-election results, connections and public procurement. Source: Bulgarian CEC.`;
+  return {
+    path: path_,
+    title,
+    description,
+    bodyHtml: `
+<h1>${name}</h1>
+<p>${roleBg}${inBgSafe}.</p>
+<p>Виж <a href="${SITE_URL}/local">местните избори</a> и профила за декларации, връзки и обществени поръчки.</p>`.trim(),
+    jsonLd: [
+      buildWebPageLd({ title, description, url }),
+      buildBreadcrumbLd([
+        { name: "Начало", url: `${SITE_URL}/` },
+        { name: "Местни избори", url: `${SITE_URL}/local` },
+        { name: c.name, url },
+      ]),
+    ],
+    english: {
+      title: titleEn,
+      description: descriptionEn,
+      bodyHtml: `
+<h1>${name}</h1>
+<p>${roleEn}${place ? ` in ${place}` : ""}.</p>
+<p>See the <a href="${SITE_URL}/en/local">local elections</a> and the profile for declarations, connections and public procurement.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({
+          title: titleEn,
+          description: descriptionEn,
+          url: enUrl,
+          inLanguage: "en",
+        }),
+        buildBreadcrumbLd([
+          { name: "Home", url: `${SITE_URL}/en/` },
+          { name: "Local elections", url: `${SITE_URL}/en/local` },
+          { name: c.name, url: enUrl },
+        ]),
+      ],
+    },
+  };
+};
+
 // The /person prerender group (T1.4). Reads data/person/prerender_slugs.json — the
 // manifest scripts/person/emit_prerender_slugs.ts writes from Postgres — and emits a
 // static SEO body for every entry flagged `prerender`. That flag is the NET-NEUTRAL
@@ -3158,6 +3241,10 @@ export const buildPersonRoutes = (projectRoot: string): PrerenderRoute[] => {
     const path_ = `person/${entry.slug}`;
     const url = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
+    if (c.kind === "local") {
+      out.push(localPersonRoute(c, path_, url, enUrl));
+      continue;
+    }
     const name = escapeHtmlMinimal(c.name);
     const institution = c.institution ? escapeHtmlMinimal(c.institution) : null;
     const position = c.positionTitle

@@ -72,8 +72,11 @@ const ROOT = path.resolve(
 const OUT = path.join(ROOT, "data/person/prerender_slugs.json");
 
 /** The SEO-body fields a prerendered /person page needs, carried in the manifest so the
- *  prerenderer + sitemap stay DB-free. Present only on `prerender` entries. */
-export type PersonPrerenderCard = {
+ *  prerenderer + sitemap stay DB-free. Present only on `prerender` entries. A discriminated
+ *  union: `official` is the declarant/net-worth body; `local` is a mayor/councillor from the
+ *  local-elections layer (no declaration), rendered from their office + place instead. */
+export type PersonOfficialCard = {
+  kind: "official";
   name: string;
   category: OfficialCategoryKind;
   institution: string | null;
@@ -82,6 +85,17 @@ export type PersonPrerenderCard = {
   /** null when the person filed but declared nothing of value. */
   netWorthEur: number | null;
 };
+
+export type PersonLocalCard = {
+  kind: "local";
+  name: string;
+  /** person_role.role — 'mayor' | 'village_mayor' | 'rayon_mayor' | 'councillor'. */
+  role: string;
+  /** Obshtina/place label (person_role.place_raw), null when the source carried none. */
+  placeLabel: string | null;
+};
+
+export type PersonPrerenderCard = PersonOfficialCard | PersonLocalCard;
 
 export type PersonSlugEntry = {
   slug: string;
@@ -214,6 +228,7 @@ export const computePersonSlugs = async (): Promise<
     // top-N, so cards can't be built only for the selected slice.
     for (const o of officials) {
       cardBySlug.set(o.slug, {
+        kind: "official",
         name: o.name,
         category: o.category,
         institution: o.institution,
@@ -287,6 +302,63 @@ export const computePersonSlugs = async (): Promise<
     );
   }
 
+  // Local officials (municipal mayors/councillors + village/район mayors) — added ON TOP of the
+  // capped exec set (the operator decision to prerender them for SEO). They clear the content
+  // floor (source <> 'candidate'); village mayors have no declaration, so they get an office +
+  // place card here rather than a net-worth one. Exec officials who are ALSO local keep their
+  // richer net-worth card. `localSlugs` is excluded from the exec cap check below.
+  const localSlugs = new Set<string>();
+  try {
+    const locals = await allRows<{
+      slug: string;
+      name: string;
+      role: string;
+      place_label: string | null;
+    }>(
+      // place lives in place_code (resolved via place_dim), NOT place_raw, for these sources —
+      // 082_person_api.sql resolves the /person label the same way. A stable tiebreak on
+      // (place_code, ref) keeps the DISTINCT ON pick deterministic across runs.
+      `SELECT DISTINCT ON (p.slug)
+              p.slug, p.display_name AS name, r.role, pd.name_bg AS place_label
+         FROM person p
+         JOIN person_role r ON r.person_id = p.person_id
+         LEFT JOIN place_dim pd
+           ON pd.kind = r.place_kind AND pd.code = r.place_code
+        WHERE r.source IN ('local', 'official_muni')
+          AND p.status = 'active' AND p.is_public_figure AND p.slug IS NOT NULL
+        ORDER BY p.slug,
+                 CASE r.role
+                   WHEN 'mayor' THEN 0
+                   WHEN 'village_mayor' THEN 1
+                   WHEN 'rayon_mayor' THEN 2
+                   WHEN 'council_chair' THEN 3
+                   WHEN 'deputy_mayor' THEN 4
+                   WHEN 'councillor' THEN 5
+                   ELSE 6
+                 END,
+                 r.place_code NULLS LAST,
+                 r.ref`,
+    );
+    for (const o of locals) {
+      localSlugs.add(o.slug);
+      prerenderSet.add(o.slug);
+      if (!cardBySlug.has(o.slug))
+        cardBySlug.set(o.slug, {
+          kind: "local",
+          name: o.name,
+          role: o.role,
+          placeLabel: o.place_label,
+        });
+    }
+    console.log(
+      `[person-slugs] +${localSlugs.size} local official(s) added to the prerender set`,
+    );
+  } catch (e) {
+    console.warn(
+      `[person-slugs] local-officials query failed — none added (${(e as Error).message})`,
+    );
+  }
+
   const payload: PersonSlugEntry[] = rows.map((r) => {
     const entry: PersonSlugEntry = { slug: r.slug, indexable: r.indexable };
     // A prerendered page must clear the content floor too — but every officials-role
@@ -317,11 +389,17 @@ export const computePersonSlugs = async (): Promise<
         `(e.g. ${evicted.slice(0, 3).join(", ")}) — their retired /officials URL would ` +
         `301 to a page with no SEO body (soft-404)`,
     );
-  if (prerendered.length > OFFICIALS_STATIC_PAGE_LIMIT)
+  // The exec set stays capped (that is what holds the deploy ceiling); local officials are a
+  // deliberate, measured addition on top, so they are excluded from this check.
+  const execPrerendered = prerendered.filter((e) => !localSlugs.has(e.slug));
+  if (execPrerendered.length > OFFICIALS_STATIC_PAGE_LIMIT)
     problems.push(
-      `${prerendered.length} prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} cap — ` +
-        `the deploy file ceiling is no longer held flat`,
+      `${execPrerendered.length} exec prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} ` +
+        `cap — the deploy file ceiling is no longer held flat`,
     );
+  console.log(
+    `[person-slugs] prerender set: ${execPrerendered.length} exec + ${localSlugs.size} local = ${prerendered.length} total (× 2 languages on deploy)`,
+  );
   const cardless = prerendered.filter((e) => !e.card);
   if (cardless.length)
     problems.push(
