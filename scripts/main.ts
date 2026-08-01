@@ -37,6 +37,7 @@ import { ingestByElectionTurnout } from "./parsers_local/ingest_byelection_turno
 import { shutdownCikFetch } from "./parsers_local/cik_fetch";
 import { resolveCanonicalsForAllLocalCycles } from "./parsers_local/resolve_canonicals";
 import { buildLocalRollups } from "./parsers_local/build_region_json";
+import { buildChmiHistory } from "./parsers_local/build_chmi_history";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -223,6 +224,15 @@ const app = command({
       long: "local-rollups",
       defaultValue: () => false,
     }),
+    // Rebuild data/local_chmi_history.json + data/chmi_history/<code>.json from the (stamped)
+    // per-município bundles — the standalone trigger for build_chmi_history, which otherwise
+    // only runs at the tail of a chmi ingest. Used after the personSlug decorate re-stamps the
+    // bundles so the chmi feed carries the fresh /person links.
+    localChmiHistory: flag({
+      type: optional(boolean),
+      long: "local-chmi-history",
+      defaultValue: () => false,
+    }),
     // Estimated council vote-flow ("where did the votes go") between every
     // consecutive pair of regular local cycles. Reads the already-ingested
     // per-município section shards; writes data/transitions_local/. Council
@@ -300,6 +310,7 @@ const app = command({
     localByElectionTurnout,
     resolveLocalCanonicals,
     localRollups,
+    localChmiHistory,
     localFlows,
     localCoords,
     localProblemSections,
@@ -494,6 +505,9 @@ const app = command({
     }
     if (localRollups) {
       buildLocalRollups({ publicFolder, cycle: localDate, stringify });
+    }
+    if (localChmiHistory) {
+      buildChmiHistory({ stringify });
     }
     if (localFlows) {
       generateLocalVoteFlows({ publicFolder, stringify });

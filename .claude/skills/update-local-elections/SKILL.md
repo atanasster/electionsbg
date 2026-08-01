@@ -214,6 +214,23 @@ per cycle. National baseline is ~11% — most village councillors never sat
 in parliament. A sudden drop usually means the parliament index lost its
 `normalizedName` field; rerun `parliament-scrape` first.
 
+**personSlug (the /person links).** After a `db:resolve:persons` run has (re)assigned
+person slugs, re-stamp the bundles + rebuild the derived artifacts so the local
+dashboards link mayors/councillors/village mayors to their unified profile, then
+`bucket:sync` to publish (the bundles + trends are gitignored → bucket-only):
+
+```bash
+npm run data:local-person-refresh   # decorate personSlug + rebuild rollups/place-trends/chmi
+npm run bucket:sync                  # publish the regenerated data/ trees
+```
+
+This reads `person_role (source='local')` from Postgres, so it must run AFTER
+`db:resolve:persons` (see update-persons SKILL.md). **For a prod publish use
+`data:local-person-refresh:cloud`** — it stamps from Cloud SQL (the serving DB), since local
+and cloud slugs diverge and `bucket:sync` serves prod. Skipping it leaves prod links
+stale after a re-resolve — the plan (docs/plans/local-person-links-v1.md, Phase 5)
+treats this as the mandatory publish step.
+
 ## Step 5.5 — Section coordinates (powers the per-município section map)
 
 The local section shards carry no GPS of their own — stamp coordinates +

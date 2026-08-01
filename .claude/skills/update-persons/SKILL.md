@@ -150,6 +150,34 @@ layer. To add / refresh a member:
    независими органи" tile + the `Регулатор` facet chip (e.g. `/person/pavlina-panova-…`).
    Seat labels live under the `pp_reg_seat_<seat>` i18n keys — add a new seat there.
 
+## Local-election /person links (bundles + prerender)
+
+`db:resolve:persons` (re)assigns person slugs, which invalidates the `personSlug` baked onto
+the local-election bundles. After ANY re-resolve, re-stamp + rebuild + publish, or the local
+dashboards (settlement / município / national list / chmi feed) keep linking to stale slugs:
+
+```bash
+npm run data:local-person-refresh   # decorate personSlug from LOCAL person_role + rebuild rollups/trends/chmi
+npm run bucket:sync                  # the bundles + trends are gitignored → bucket-only
+```
+
+**For a PROD publish, stamp from the SERVING database, not local Postgres.** Local and Cloud SQL
+person slugs diverge (CLAUDE.md: ~640 local-only slugs), and `bucket:sync` serves prod — so a
+bundle stamped from local would bake slugs prod cannot serve. Use the cloud variant (same 5434
+proxy the `:cloud` resolves use), exactly as `person:slugs:cloud` mints the prerender manifest
+from Cloud SQL:
+
+```bash
+npm run data:local-person-refresh:cloud   # decorate from Cloud SQL, then rebuild the local artifacts
+npm run bucket:sync
+```
+
+`emit_prerender_slugs` (the `person:slugs` step below) also now folds municipal officials +
+village/район mayors into the /person prerender + sitemap set — a deliberate, staging-measured
+addition on top of the exec cap (docs/plans/local-person-links-v1.md, Phase 4/5). **Measure the
+`dist/` file count on a `npm run staging` deploy before shipping to prod** — the local-officials
+set adds ~30k files.
+
 ## Publishing to production (Cloud SQL)
 
 The `person_*` tables are Postgres-only, so `db:resolve:persons` above updates only LOCAL
