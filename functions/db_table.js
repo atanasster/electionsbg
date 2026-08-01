@@ -138,6 +138,56 @@ const REGISTRY = {
       // (contractor_eik IN (...)); the builder wraps a scalar in an array, so
       // single-value callers are unaffected.
       contractor_eik: { type: "text", filter: "in" },
+      // VIRTUAL semijoin columns (filter:"semijoin") — the PERSON scope behind
+      // /person/:name/contracts + the person portfolio browser. `contracts` has no person
+      // column; a person's firms live in the TR graph, so "contracts of Иван Петров" is
+      // "every contract whose contractor is one of the companies the person is an officer of".
+      // Two variants, one per person screen, each deriving the EIK set the SAME way its KPI
+      // source does (docs/plans/person-procurement-browser-v1.md §3.1), so the browser rows
+      // reconcile with the headline totals:
+      //   • _name → tr_officers.name_fold, matches person_procurement (024). Excludes the TR
+      //     redaction sentinel 'заличено обстоятелство' so a placeholder never scopes to 777
+      //     unrelated firms (a no-op for any real person). The subquery is not subject to
+      //     MAX_IN_VALUES, so a hub name's ~2k firms pass through where a client `in`-array
+      //     would truncate.
+      //   • _slug → person_role.ref (high-confidence TR roles), matches person_by_slug (082).
+      // required:true — an absent value throws (fails closed), exactly like awarder_ekatte;
+      // dropped, this would widen to the national corpus under one person's heading.
+      //
+      // ⚠ PAIR WITH not_consortium_member. To reconcile with the person_procurement headline
+      // the caller MUST also send { id:"not_consortium_member", value:"member" } — the headline
+      // count excludes €0 consortium-member rows (024:47-48). This is NOT a defaultFilter,
+      // because the SAME contracts resource backs the settlement/awarder browsers, which must
+      // KEEP member rows. Forgetting the pairing over-counts silently at a 200. The person
+      // contracts browser (Tier 3) is the only caller of these columns; its route test asserts
+      // the pairing.
+      contractor_of_person_name: {
+        type: "text",
+        filter: "semijoin",
+        required: true,
+        semiJoinCol: "contractor_eik",
+        semiJoinSql:
+          "SELECT DISTINCT uic FROM tr_officers WHERE name_fold = translit_bg_latin(?) " +
+          "AND name_fold <> 'zalicheno obstoyatelstvo.'",
+      },
+      contractor_of_person_slug: {
+        type: "text",
+        filter: "semijoin",
+        required: true,
+        semiJoinCol: "contractor_eik",
+        semiJoinSql:
+          "SELECT r.ref FROM person_role r JOIN person p ON p.person_id = r.person_id " +
+          "WHERE p.slug = ? AND p.status = 'active' AND p.is_public_figure " +
+          "AND r.source = 'tr' AND r.confidence IN ('exact_id','high','manual')",
+      },
+      // Logical filter over the physical `consortium_role`: exclude €0 consortium-member
+      // rows so the person browser's count/Σ match person_procurement's basis (024:47-48).
+      // filter:"isdistinct" (NULL-safe) — `!= 'member'` would drop the ~99% NULL rows.
+      not_consortium_member: {
+        type: "text",
+        filter: "isdistinct",
+        col: "consortium_role",
+      },
       contractor_name: {
         type: "text",
         sort: true,
@@ -1292,6 +1342,17 @@ const buildFilter = (col, def, f, p0) => {
   };
   const t = def.filter;
   if (t === "eq") return { sql: `${col} = ${push(f.value)}`, params };
+  // NULL-safe inequality — `col != x` drops NULL rows, which is wrong when NULL is the
+  // common case: excluding €0 consortium-MEMBER rows (consortium_role IS DISTINCT FROM
+  // 'member') must KEEP the ~99% of contracts whose consortium_role is NULL. Used by the
+  // person contracts browser to match person_procurement's count basis (024:47-48).
+  if (t === "isdistinct") {
+    // Empty value → no predicate (drop the filter), like prefix/semijoin. The mode exists
+    // for NULL correctness, so a stray `IS DISTINCT FROM NULL` (which would drop every NULL
+    // row — the opposite of the intent) must never be emitted.
+    if (f.value == null || f.value === "") return null;
+    return { sql: `${col} IS DISTINCT FROM ${push(f.value)}`, params };
+  }
   if (t === "in") {
     // Cap the array so a pathological client can't blow past Postgres's 65,535
     // bind-parameter limit (or seq-scan a giant IN) and 500 the route.

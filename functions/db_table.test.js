@@ -894,3 +894,28 @@ test("a malformed semijoin template is refused", () => {
     /exactly one placeholder/,
   );
 });
+
+// ── isdistinct filter mode (person contracts browser, migration 125) ──────────────────────
+// The mode exists for NULL-safety: excluding €0 consortium-MEMBER rows must KEEP the ~99% of
+// contracts whose consortium_role is NULL, which `!=` would drop. `not_consortium_member`
+// remaps the physical `consortium_role` column via `col`.
+test("isdistinct emits a NULL-safe parameterized inequality (member exclusion)", () => {
+  const { whereSql, params } = buildWhere(contracts, {
+    filters: { columns: [{ id: "not_consortium_member", value: "member" }] },
+  });
+  assert.match(whereSql, /consortium_role IS DISTINCT FROM \$\d+/);
+  assert.deepEqual(params, ["member"]);
+});
+
+test("isdistinct with an empty value drops the predicate (never IS DISTINCT FROM NULL)", () => {
+  for (const value of [null, undefined, ""]) {
+    const { whereSql, params } = buildWhere(contracts, {
+      filters: { columns: [{ id: "not_consortium_member", value }] },
+    });
+    assert.ok(
+      !/IS DISTINCT FROM/.test(whereSql),
+      `empty value ${JSON.stringify(value)} must emit no predicate`,
+    );
+    assert.deepEqual(params, []);
+  }
+});
