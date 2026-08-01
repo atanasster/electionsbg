@@ -161,6 +161,48 @@ test("a non-migration DB error propagates on every route", async () => {
   );
 });
 
+// ─── person-breakdowns (person-procurement-browser T5) ───────────────────────────────────
+// The slug-keyed by-company / by-settlement cuts. Two independently-degrading queries behind
+// one route, so it needs the same null-guard + dual-degradation + real-error coverage as its
+// sibling above.
+test("person-breakdowns returns empty cuts without a slug and skips the DB", async () => {
+  const db = mockDb([{ r: [{ eik: "1" }] }]);
+  const res = await DB_ROUTES["person-breakdowns"](db, {});
+  assert.deepEqual(res.body, { byCompany: [], bySettlement: [] });
+  // The guard must short-circuit before touching the DB.
+  assert.equal(db.calls.length, 0, "no slug → no query");
+});
+
+test("person-breakdowns degrades BOTH cuts to [] for either missing-migration code", async () => {
+  for (const code of MIGRATION_CODES) {
+    const res = await DB_ROUTES["person-breakdowns"](
+      mockDb(migrationMissing(code)),
+      { slug: "x" },
+    );
+    assert.deepEqual(
+      res.body,
+      { byCompany: [], bySettlement: [] },
+      `both cuts degrade for ${code}`,
+    );
+  }
+});
+
+test("person-breakdowns passes each cut's rows through", async () => {
+  const rows = [{ eik: "1", totalEur: 5, contractCount: 1 }];
+  const res = await DB_ROUTES["person-breakdowns"](mockDb([{ r: rows }]), {
+    slug: "x",
+  });
+  assert.deepEqual(res.body, { byCompany: rows, bySettlement: rows });
+});
+
+test("person-breakdowns must not swallow a real error", async () => {
+  const realError = Object.assign(new Error("syntax error"), { code: "42601" });
+  await assert.rejects(
+    () => DB_ROUTES["person-breakdowns"](mockDb(realError), { slug: "x" }),
+    /syntax error/,
+  );
+});
+
 // ─── mp-entry / mp-declarations / mp-assets (persons-pg-retirement T0.3) ─────────────────
 // Two of the three are OBJECT-shaped, and missingMigrationEmpty degrades to the array
 // sentinel `[{ r: [] }]` — so they need the `Array.isArray(r) ? null : r` guard or they

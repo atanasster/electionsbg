@@ -69,6 +69,7 @@ type Props = {
     | "person-connections"
     | "person-donations"
     | "person-money"
+    | "person-procurement"
     | "person-wealth"
     | "person-gap"
     | "person-events"

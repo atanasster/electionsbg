@@ -3008,6 +3008,28 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? [] };
   },
+  // The two portfolio cuts for a RESOLVED person (slug), off PersonDashboard's hot path like
+  // person-money — the slug siblings of the name-keyed pair on /api/db/person. EIK set from
+  // person_role (082 basis), so they reconcile with person_by_slug's procuredEur. Degrade to []
+  // if migration 125 has not reached this DB yet (42883), same as person-money.
+  "person-breakdowns": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: { byCompany: [], bySettlement: [] } };
+    const [byCompany, bySettlement] = await Promise.all([
+      dbRows("SELECT person_procurement_by_company_slug($1) AS r", [slug]).catch(
+        missingMigrationEmpty,
+      ),
+      dbRows("SELECT person_procurement_by_settlement_slug($1) AS r", [
+        slug,
+      ]).catch(missingMigrationEmpty),
+    ]);
+    return {
+      body: {
+        byCompany: byCompany[0]?.r ?? [],
+        bySettlement: bySettlement[0]?.r ?? [],
+      },
+    };
+  },
   // One MP's roster entry (migration 105) → replaces the by-id/<id>.json shard. Keyed
   // EITHER by parliament.bg's mp id (`id`) or by person slug (`slug`): the id is what a
   // caller holding a photo URL has, the slug is what PersonDashboard has, and neither

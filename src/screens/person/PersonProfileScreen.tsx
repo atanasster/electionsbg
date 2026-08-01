@@ -17,6 +17,7 @@ import { usePersonElectoralPending } from "@/data/dashboard/usePersonElections";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
+import { PersonProcurementSection } from "./PersonProcurementSection";
 import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
 import { PersonAccumulationGap } from "./PersonAccumulationGap";
 import { PersonDeclarationEvents } from "./PersonDeclarationEvents";
@@ -498,6 +499,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
 
           {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
           {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}
+
+          {/* Procurement portfolio cuts (by company / by settlement) + the full-contracts
+              browser link. Self-hides when the person has no procurement. */}
+          {p.procuredEur > 0 && <PersonProcurementSection slug={p.slug} />}
 
           {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
           {p.ngos.length > 0 && (
