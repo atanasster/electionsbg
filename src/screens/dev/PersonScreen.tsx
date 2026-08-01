@@ -545,7 +545,7 @@ export const PersonScreen: FC = () => {
                   rollup={rollup}
                   partyHref={(e) => `/company/${e}`}
                   contractorHref={(e) => `/company/${e}`}
-                  seeAllHref={null}
+                  seeAllHref={`/person/${encodeURIComponent(person)}/contracts`}
                 />
                 {rollup.byAwarder.length > 0 && (
                   <CompanyTopAwardersTile

@@ -120,6 +120,13 @@ const FollowingScreen = lazy(() =>
     default: m.FollowingScreen,
   })),
 );
+// Standalone person contracts browser (/person/:name/contracts) — the _Топ договори_
+// "see all" target. Server-side DbDataTable scoped to the person's firms.
+const PersonContractsScreen = lazy(() =>
+  import("@/screens/person/PersonContractsScreen").then((m) => ({
+    default: m.PersonContractsScreen,
+  })),
+);
 
 // DB-backed company page (/db/company/:eik) — works for any TR company, incl. the
 // ~1M with no procurement JSON shard. Same /api/db serving path.
@@ -3825,6 +3832,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <PersonScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="person/:name/contracts"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <PersonContractsScreen />
                 </Suspense>
               </LayoutScreen>
             }
