@@ -36,6 +36,8 @@ export type PlaceMayorWinner = {
   canonicalId: string | null;
   localPartyName: string;
   candidateName: string;
+  /** Stamped by decorate_local_person_links.ts → the /person/:slug link on the mayor strip. */
+  personSlug?: string;
   /** Winner's % of the place's valid mayoral vote. */
   pct: number;
   votes: number;
@@ -58,6 +60,7 @@ export type MuniMayorTimelineEntry = {
   year: string;
   candidateName: string;
   mpId?: number;
+  personSlug?: string;
   primaryCanonicalId: string | null;
   localPartyName: string;
   isIndependent: boolean;

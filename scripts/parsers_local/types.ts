@@ -90,6 +90,9 @@ export type LocalMayorResult = {
   pctOfValid: number;
   isElected: boolean;
   mpId?: number;
+  // Stamped by decorate_local_person_links.ts when this elected winner resolved to a
+  // unified person — drives the /person/:slug link on the local dashboards.
+  personSlug?: string;
 };
 
 // Council result — one entry per party that ran in this município, scraped
@@ -116,6 +119,9 @@ export type LocalCouncilCandidate = {
   // Stamped by decorate_local_mp_links.ts when this councillor also served
   // as an MP — drives photo reuse via `MpAvatar`.
   mpId?: number;
+  // Stamped by decorate_local_person_links.ts when an elected councillor resolved to a
+  // unified person — drives the /person/:slug link.
+  personSlug?: string;
 };
 
 // Kmetstvo mayor result — one block per village seat. Often unanimous /

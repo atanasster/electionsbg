@@ -89,6 +89,7 @@ type RegionMunicipalityRow = {
         candidateName: string;
         localPartyName: string;
         mpId?: number;
+        personSlug?: string;
         isIndependent: boolean;
         // Vote share in the decisive round — surfaced by the standalone
         // município-list pages (independent-mayors table).
@@ -222,6 +223,7 @@ export type NationalMunicipalities = {
 type CandidateRef = {
   candidateName: string;
   mpId?: number;
+  personSlug?: string;
   party: PartyRef & { localPartyName: string };
   pctOfValid: number;
   votes: number;
@@ -259,6 +261,7 @@ type IndependentMayorRow = {
   oblast: string;
   candidateName: string;
   mpId?: number;
+  personSlug?: string;
   pctOfValid: number;
 };
 

@@ -48,6 +48,8 @@ export type ChmiHistoryEvent = {
   /** Carried over from the per-município bundle when the winner also served
    * as an MP — drives `MpAvatar` photo reuse in the chmi feed. */
   mpId?: number;
+  /** Carried over from the stamped bundle → the /person/:slug link in the chmi feed. */
+  personSlug?: string;
   /** Council events only: seats the leading party won, and the council size.
    * For a council re-election the "winner" is the party with the most seats,
    * so `candidateName` is empty and `localPartyName` holds that party. */

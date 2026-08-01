@@ -21,6 +21,9 @@ export type LocalMayorResult = {
   // when this candidate also served as an MP. Consumed by `MpAvatar` to
   // reuse the parliament.bg portrait.
   mpId?: number;
+  // Stamped by decorate_local_person_links.ts when an elected winner resolved to a unified
+  // person — the /person/:slug link target on the local dashboards.
+  personSlug?: string;
 };
 
 export type LocalCouncilCandidate = {
@@ -30,6 +33,7 @@ export type LocalCouncilCandidate = {
   prefPct: number;
   isElected: boolean;
   mpId?: number;
+  personSlug?: string;
 };
 
 export type LocalCouncilParty = {
@@ -286,6 +290,7 @@ export type LocalRegionMunicipalityRow = {
     color: string;
     localPartyName: string;
     mpId?: number;
+    personSlug?: string;
     isIndependent: boolean;
     // Vote share in the decisive round (independent-mayors list page).
     pctOfValid: number;
@@ -372,6 +377,7 @@ export type LocalPartyRef = {
 export type LocalCandidateRef = {
   candidateName: string;
   mpId?: number;
+  personSlug?: string;
   party: LocalPartyRef & { localPartyName: string };
   pctOfValid: number;
   votes: number;
@@ -409,6 +415,7 @@ export type LocalIndependentMayorRow = {
   oblast: string;
   candidateName: string;
   mpId?: number;
+  personSlug?: string;
   pctOfValid: number;
 };
 

@@ -38,6 +38,8 @@ export type ChmiHistoryEvent = {
   pctOfValid: number;
   votes: number;
   mpId?: number;
+  // Stamped by decorate_local_person_links.ts → the /person/:slug link in the chmi feed.
+  personSlug?: string;
   // Council re-election events only: leading party's seats + council size.
   councilSeatsWon?: number;
   councilTotalSeats?: number;
