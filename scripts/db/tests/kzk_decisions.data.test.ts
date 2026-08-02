@@ -180,31 +180,40 @@ test.skipIf(anchorSkip)(
   },
 );
 
-test.skipIf(anchorSkip)(
-  "Gate A discriminates — removing the newest act fails it",
+test.skipIf(skip)(
+  "Gate A discriminates — removing an act makes its probe report absent",
   async () => {
-    // Prove the gate can fail. A freshness gate that has never been seen to fire
-    // is indistinguishable from one asserting nothing — which is what the
+    // Prove the gate CAN fail. A freshness gate never seen to fire is
+    // indistinguishable from one asserting nothing — which is what the
     // `count(outcome) >= 2098` floor turned out to be.
-    const newestAct = readWatchState()?.meta?.newestAct;
-    if (!newestAct) return; // the assertion above already covers this
+    //
+    // ⚠️ Deletes the CORPUS's own newest act, not the REGISTER's. Using the
+    // register's would couple this control to Gate A passing: the moment the arm
+    // is genuinely stale that act is by definition absent, the DELETE matches 0
+    // rows, and this control fails too — stacking a confusing second failure on
+    // top of a correct first one. Asked that way it is also a weaker question:
+    // what is under test is the probe, not the corpus's currency.
+    const [top] = await allRows<{ act_no: string }>(
+      "SELECT act_no FROM kzk_decisions ORDER BY decision_date DESC, act_no DESC LIMIT 1",
+    );
+    if (!top) return; // empty table — the first test above owns that
 
     await withClient(async (c) => {
       await c.query("BEGIN");
       try {
         const del = await c.query(
           "DELETE FROM kzk_decisions WHERE act_no = $1",
-          [newestAct],
+          [top.act_no],
         );
         assert.equal(
           del.rowCount,
           1,
-          "expected to remove exactly the newest act for this control",
+          `expected to remove ${top.act_no} for this control`,
         );
         const [{ present }] = (
           await c.query<{ present: boolean }>(
             "SELECT EXISTS (SELECT 1 FROM kzk_decisions WHERE act_no = $1) AS present",
-            [newestAct],
+            [top.act_no],
           )
         ).rows;
         assert.equal(
