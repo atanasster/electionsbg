@@ -53,47 +53,26 @@ export const ACT_NO_RE = /^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/;
 export const REJECT_RATE_CEILING = 0.15;
 
 /**
- * Record boundary in the rendered list: a line starting `Акт № <no>`, optionally
- * preceded by the GridView's row ordinal.
+ * Record boundary in the rendered list.
  *
- * ⚠️ The gaps are `[^\S\n]` (any whitespace EXCEPT newline), not `\s`: the register
- * separates the ordinal with NON-BREAKING spaces (U+00A0), and `\s` would also
- * match the newline and let a record swallow the previous line.
+ * ⚠️ VERIFIED AGAINST THE LIVE REGISTER 2026-08-02, and it is NOT what the first
+ * draft assumed. The header is the ACT TYPE, not the word "Акт":
  *
- * Exported because the parser, the page-turn detector and the in-page
- * `waitForFunction` all need the same boundary — three copies is how they drift.
+ *     1
+ *     Решение № АКТ-734-23.07.2026        (ot=2, решения)
+ *     Определение № АКТ-741-23.07.2026    (ot=6, определения)
+ *
+ * Two consequences. The alternation must cover both types — a `Акт №` boundary
+ * parses ZERO records off either register. And the GridView's row ordinal sits on
+ * its OWN LINE above the header, not inline as in the sibling complaints register,
+ * so the boundary anchors on the header alone and the stray ordinal simply trails
+ * the previous record (harmless — the act number is the header line's first token).
+ *
+ * The gaps stay `[^\S\n]` (any whitespace EXCEPT newline) rather than `\s`, so a
+ * non-breaking space is matched but a record cannot swallow the line above.
  */
 export const DECISION_RECORD_RE =
-  /^[^\S\n]*(?:\d+[^\S\n]+)?Акт[^\S\n]*№[^\S\n]*/gm;
-
-/**
- * Read the register's authoritative "Намерени са общо N" completeness target.
- *
- * ⚠️ The digit-group class must NOT include `\n`. The register groups thousands
- * with a space — plain in some renderings, NON-BREAKING in others — so the class
- * has to allow one; but `[\d\s]+` also crosses a line break and would splice the
- * next line's leading digits onto the total ("4407\n1 акта" → 44071), silently
- * raising the completeness target so every crawl fails its own assertion.
- *
- * Lives here, not in the crawler, because the WATCH SOURCE needs the identical
- * reading — a second copy already drifted once (it omitted the end-of-line
- * alternative and returned null on exactly the input this guards).
- */
-export const parseRegisterTotal = (text: string): number | null => {
-  const m =
-    /Намерени\s+са\s+общо\s+([\d\u0020\u00a0]+?)\s*(?:жалб|акт|решен|определен|броя?|<|$)/im.exec(
-      text,
-    );
-  if (!m) return null;
-  // A digitless header ("\u041d\u0430\u043c\u0435\u0440\u0435\u043d\u0438 \u0441\u0430 \u043e\u0431\u0449\u043e  \u0430\u043a\u0442\u0430") must read as UNKNOWN, not as
-  // zero: `Number("")` is 0, and a spurious 0 would satisfy the crawler's
-  // completeness assertion (`collected 0 === expected 0`) on a page that simply
-  // failed to render, turning a broken read into a successful empty year.
-  const digits = m[1].replace(/[\u0020\u00a0\s]/g, "");
-  if (!/^\d+$/.test(digits)) return null;
-  const n = Number(digits);
-  return Number.isFinite(n) && n >= 0 ? n : null;
-};
+  /^[^\S\n]*(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*/gm;
 
 /** The first act number rendered in `text`, or null when the page has no records. */
 export const firstActNo = (text: string): string | null => {
@@ -101,6 +80,55 @@ export const firstActNo = (text: string): string | null => {
   const no = parts[1]?.split(/[\n\r]/)[0]?.trim();
   return no ? no : null;
 };
+
+/**
+ * The register variants, verified by enumerating `ot` on 2026-08-02.
+ *
+ * `ot=6` is the определения register plan §3c predicted and nothing had ever
+ * crawled — 249 acts for 2026 against решения' 401 — and it is the ONLY
+ * authoritative source for `kzk_appeals.suspension`: its `Произнасяне` carries
+ * rulings like "оставя без уважение искане за налагане на временна мярка".
+ * ot=1/3/4/5 render no result header and no records.
+ */
+export const REGISTER_VARIANTS = [
+  { ot: 2, kind: "решения" as const },
+  { ot: 6, kind: "определения" as const },
+];
+
+/**
+ * Read the register's authoritative "Намерени са общо N …" completeness target.
+ *
+ * VERIFIED live: "Намерени са общо 401 решения по ЗОП за 2026 година." and
+ * "Намерени са общо 249 определения по ЗОП за 2026 година." — hence both
+ * `решен` and `определен` in the alternation.
+ *
+ * ⚠️ The digit-group class must NOT include `\n`. The register groups thousands
+ * with a space — plain in some renderings, NON-BREAKING in others — so the class
+ * has to allow one; but `[\d\s]+` also crosses a line break and would splice the
+ * next line's leading digits onto the total ("4407\n1 акта" → 44071), silently
+ * raising the target so every crawl fails its own completeness assertion.
+ *
+ * Lives here, not in the crawler, because the WATCH SOURCE needs the identical
+ * reading — a second copy already drifted once.
+ */
+export const parseRegisterTotal = (text: string): number | null => {
+  const m =
+    /Намерени\s+са\s+общо\s+([\d\u0020\u00a0]+?)\s*(?:жалб|акт|решен|определен|броя?|<|$)/im.exec(
+      text,
+    );
+  if (!m) return null;
+  // A digitless header must read as UNKNOWN, not as zero: `Number("")` is 0, and
+  // a spurious 0 satisfies the crawler's completeness assertion on a page that
+  // simply failed to render, turning a broken read into a successful empty year.
+  const digits = m[1].replace(/[\u0020\u00a0\s]/g, "");
+  if (!/^\d+$/.test(digits)) return null;
+  const n = Number(digits);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+};
+
+/** URL for one register variant. */
+export const registerUrl = (ot: number): string =>
+  DECISIONS_LIST_URL.replace(/([?&]ot=)\d+/, `$1${ot}`);
 
 /** Same shape, capturing the act's own date so it can be checked against `ddate`. */
 const ACT_NO_PARTS_RE = /^АКТ-\d+-(\d{2})\.(\d{2})\.(\d{4})$/;

@@ -86,14 +86,48 @@ const afterLabel = (chunk: string, label: RegExp): string | null => {
   return line ? line : null;
 };
 
-// Label variants, in the order they are tried. The register's exact wording is
-// unverified from a non-BG machine, so each field accepts the spellings the
-// sibling register and the corpus suggest; --probe reports which actually appear.
-const L_DATE = /Дата(?:\s+на\s+(?:акта|решението|определението))?:\s*/;
-const L_PRON = /Произнасян[ел]:\s*/;
-const L_CASE = /(?:Преписка|Дело|№\s*на\s*преписка(?:та)?|Пр\.\s*№):\s*/;
-const L_INIT = /(?:Жалбоподател(?:\(и\)|и)?|Инициатор(?:\(и\))?|Страни):\s*/;
+/**
+ * Like afterLabel, but falls through to the NEXT non-empty line when the label's
+ * own line ends after the colon.
+ *
+ * The КЗК case number is rendered that way — `Номер на производството пред КЗК:`
+ * then `КЗК/587/2026` on the following line — so a same-line reader returns null
+ * and the field silently comes back empty on every record.
+ */
+const afterLabelOrNextLine = (chunk: string, label: RegExp): string | null => {
+  const m = label.exec(chunk);
+  if (!m) return null;
+  for (const line of chunk.slice(m.index + m[0].length).split("\n")) {
+    const v = line.trim();
+    if (v) return v;
+  }
+  return null;
+};
+
+// ⚠️ LABELS VERIFIED AGAINST THE LIVE REGISTER 2026-08-02. Three of the five the
+// first draft guessed were wrong, and each miss is silent — afterLabel returns
+// null and the field simply comes back empty:
+//
+//   Решение № АКТ-734-23.07.2026          ← record header (see DECISION_RECORD_RE)
+//   Дата на решение: 23.07.2026 г.        ← NOT "Дата на акта"
+//   Произнасяне: оставя жалбата без …     ← the one guess that was right
+//   Номер на производството пред КЗК:
+//   КЗК/587/2026                          ← VALUE ON THE NEXT LINE, not the same one
+//   Инициатор(и): "АКВА КОНСТРУКТ ГРУП" ЕООД
+//   Ответник(ници): ОБЩИНА СТАРА ЗАГОРА
+//
+// The определения register (ot=6) prints "Дата на определение:" and otherwise the
+// same shape, so the date alternation covers both.
+const L_DATE = /Дата\s+на\s+(?:решение|определение|акт)[а-я]*:\s*/;
+const L_PRON = /Произнасяне:\s*/;
+const L_CASE = /Номер\s+на\s+производството\s+пред\s+КЗК:\s*/;
+const L_INIT = /Инициатор(?:\(и\)|и)?:\s*/;
 const L_RESP = /Ответник(?:\(ници\)|ци)?:\s*/;
+
+// "Дата на публикуване:" must never satisfy L_DATE — it would stamp the act with
+// its publication date, which differs (23.07 vs 27.07 on every sampled record).
+// The `[а-я]*` above cannot reach it because "публикуване" does not start with
+// решение/определение/акт, but the risk is worth naming.
 
 /**
  * Pure parser — split the rendered list text into decision records.
@@ -125,7 +159,7 @@ export const parseDecisionsText = (
       // is the tripwire for the column shift that damaged the hand-made corpus.
       ddate: bgDate(afterLabel(part, L_DATE) ?? no),
       pron: afterLabel(part, L_PRON),
-      kzk: afterLabel(part, L_CASE),
+      kzk: afterLabelOrNextLine(part, L_CASE),
       init: afterLabel(part, L_INIT),
       resp: afterLabel(part, L_RESP),
       sourceUrl,
