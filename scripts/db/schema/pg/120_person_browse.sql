@@ -343,8 +343,64 @@ money AS (
   FROM company_money m
   LEFT JOIN bridge_a a ON a.person_id = m.person_id AND a.uic = m.uic
   GROUP BY m.person_id
+),
+-- ── NAME-FOLD PRIVATE ARM (S3) ──────────────────────────────────────────────
+-- Money-linked TR officers/owners who are NOT already a public person, browseable as частен
+-- сектор WITHOUT the resolver (identity is name-fold only).
+-- NOTE — DUAL MONEY BASIS: public_money_eur is contracts-ONLY on the person arm (it must equal the
+-- profile's procuredEur, see the MONEY header) but BROAD here (contracts ∪ subsidies ∪ funds — an
+-- owner reachable only through a subsidy still counts, matching person_search's tier boundary). So
+-- under ?sector=all the money column mixes two bases; the S3b UI caveats it per row (name_fold →
+-- broad). This is the same intentional split person_search carries. Anti-joined
+-- against the public folds so a fold already a public person is served by the person arm alone.
+-- Money-linked ONLY (tier V): the long-tail non-money owners (N) are search-only, never browsed.
+nf_money_eik AS (
+  SELECT eik, sum(eur) AS eur FROM (
+    SELECT contractor_eik AS eik, amount_eur AS eur
+      FROM contracts
+     WHERE contractor_eik <> '' AND tag = 'contract'
+       AND consortium_role IS DISTINCT FROM 'member'   -- same basis as the person arm
+    UNION ALL SELECT eik, total_eur FROM agri_subsidies     WHERE eik IS NOT NULL
+    UNION ALL SELECT eik, paid_eur  FROM fund_beneficiaries WHERE eik IS NOT NULL
+  ) x WHERE eur IS NOT NULL GROUP BY eik
+),
+nf_company AS (
+  -- Per (fold, company): the company's money once, so a multi-company owner sums each once.
+  SELECT o.name_fold, o.uic, min(o.name) AS name, max(coalesce(m.eur, 0)) AS eur
+  FROM tr_officers o
+  LEFT JOIN nf_money_eik m ON m.eik = o.uic
+  GROUP BY o.name_fold, o.uic
+),
+nf_owner AS (
+  SELECT name_fold,
+         min(name)                                          AS name,
+         count(*)::smallint                                 AS companies_n,
+         round(sum(eur)::numeric, 2)::double precision      AS public_money_eur
+  FROM nf_company
+  -- Anti-join against ALL persons, not just `pub`: a fold already a PUBLIC person is served by
+  -- the person arm, AND a fold matching a GATED person (inactive / is_public_figure=false) must
+  -- NOT surface here either — that person is deliberately withheld, so the §6 gate extends to the
+  -- name-fold arm this way. (Name-fold identity is a NAME match, so this cannot be perfect — a
+  -- genuine namesake of a gated person is also dropped — but it never LEAKS a gated person.)
+  WHERE name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
+    -- Person-shape gate: EXACTLY 3 folded tokens (a Bulgarian first-patronymic-family name). This
+    -- is what keeps the money-sorted browse clean — it drops the 2-token TR redaction placeholder
+    -- "Заличено обстоятелство." (2,986 companies, €2.85bn of noise leading the sort) and the
+    -- many-token "…ЕООД, представлявано в УС от …" officer strings. Mirrors the Tier-V verified
+    -- rule minus the uniqueness/≤5-firm cap (these are the BROWSE aggregates, badged name_fold).
+    -- (Search — person_search N/V — deliberately stays broader; browse is where a junk row leads.)
+    AND array_length(regexp_split_to_array(btrim(name_fold), '\s+'), 1) = 3
+  GROUP BY name_fold
+  HAVING sum(eur) > 0
 )
 SELECT
+  'slug:' || pub.slug                                AS key,
+  'P'::char(1)                                        AS tier,
+  -- position_type CODE: the six governance buckets keep their facet; company/concession collapse
+  -- to private_sector; every other facet keeps its own code (all 'public' for the ?sector toggle).
+  CASE WHEN tr.facet IN ('company', 'concession') THEN 'private_sector'
+       ELSE tr.facet END                             AS position_type,
+  'resolved'::text                                   AS identity_confidence,
   pub.slug,
   pub.display_name                                   AS name,
   pub.name_fold,
@@ -426,26 +482,63 @@ LEFT JOIN prev pv       ON pv.person_id  = pub.person_id
 LEFT JOIN filed fl      ON fl.person_id  = pub.person_id
 LEFT JOIN inst i        ON i.person_id   = pub.person_id
 LEFT JOIN decl_inst di  ON di.person_id  = pub.person_id
-LEFT JOIN money mo      ON mo.person_id  = pub.person_id;
+LEFT JOIN money mo      ON mo.person_id  = pub.person_id
+UNION ALL
+-- The name-fold private arm. Same 46 columns; governance-only fields are NULL (their columns are
+-- nullable, and the untyped NULLs adopt the person arm's types). These rows carry NO slug — they
+-- route by name (href built client-side from `name`) — so `key` is the unique paging identity.
+SELECT
+  'fold:' || nf.name_fold,                           -- key
+  'V'::char(1),                                      -- tier
+  'private_sector',                                  -- position_type
+  'name_fold',                                       -- identity_confidence
+  NULL,                                              -- slug
+  nf.name,                                           -- name
+  nf.name_fold,                                      -- name_fold
+  NULL,                                              -- photo_url
+  NULL,                                              -- namesake_risk
+  NULL,                                              -- primary_role
+  'company',                                         -- primary_facet
+  10::smallint,                                      -- prominence (below every public post)
+  NULL,                                              -- role_codes
+  ' company ',                                       -- facet_codes
+  NULL, NULL,                                        -- roles_n, sources_n
+  false, false, false, false,                        -- is_exec, is_muni, is_mp, is_magistrate
+  false, true, false, false, false,                  -- is_ngo, is_company, is_candidate, is_donor, held_office
+  NULL, NULL, NULL,                                  -- party_primary, parties_n, party_codes
+  NULL, NULL, NULL, NULL,                            -- place_kind, place_code, place_label, place_label_en
+  NULL, NULL, NULL,                                  -- oblast_code, oblast_codes, obshtina_code
+  NULL, NULL, NULL,                                  -- institution, judicial_kind, judicial_tier
+  NULL,                                              -- latest_declaration_year
+  false,                                             -- has_declaration
+  NULL,                                              -- net_worth_eur
+  0,                                                 -- excluded_asset_rows
+  NULL,                                              -- delta_pct
+  nf.companies_n,                                    -- companies_n
+  nf.public_money_eur,                               -- public_money_eur
+  'name_match'                                       -- tr_link_basis
+FROM nf_owner nf;
 
 -- Index BOTH sides of every join key and every sortable column the registry exposes
--- (reference_pg_query_performance). `slug` is the paging tiebreak buildOrder appends, so
--- it must be UNIQUE — both for deterministic pagination and for REFRESH CONCURRENTLY.
-CREATE UNIQUE INDEX idx_person_browse_slug ON person_browse_table (slug);
+-- (reference_pg_query_performance). `key` is the paging tiebreak buildOrder appends (it replaced
+-- slug when the name-fold arm — which has NO slug — landed), so it must be UNIQUE. `slug` stays a
+-- plain index for /person lookups; it is UNIQUE among the public rows and NULL on name-fold rows.
+CREATE UNIQUE INDEX idx_person_browse_key ON person_browse_table (key);
+CREATE INDEX idx_person_browse_slug ON person_browse_table (slug);
 -- The default sort. DESC on prominence, ASC on name — matching the registry exactly, or
 -- the planner sorts instead of scanning.
 CREATE INDEX idx_person_browse_prominence
-  ON person_browse_table (prominence DESC, name, slug);
+  ON person_browse_table (prominence DESC, name, key);
 -- NULLS LAST is not cosmetic: both figures are NULL for most of the corpus (39,764 have
 -- no declared net worth, 55,731 no ЗОП money), so the browser sorts DESC NULLS LAST to
 -- keep them off the top — and a plain DESC index is NULLS FIRST, which the planner will
 -- not use for that ordering.
 CREATE INDEX idx_person_browse_net
-  ON person_browse_table (net_worth_eur DESC NULLS LAST, slug);
+  ON person_browse_table (net_worth_eur DESC NULLS LAST, key);
 CREATE INDEX idx_person_browse_money
-  ON person_browse_table (public_money_eur DESC NULLS LAST, slug);
+  ON person_browse_table (public_money_eur DESC NULLS LAST, key);
 CREATE INDEX idx_person_browse_parties
-  ON person_browse_table (parties_n DESC NULLS LAST, slug);
+  ON person_browse_table (parties_n DESC NULLS LAST, key);
 -- BOTH search:true columns need a trigram index, not just `name_fold`. buildWhere ORs
 -- every search column into ONE predicate, so an unindexed arm forces a seq scan over the
 -- whole OR — which does not merely slow `institution` down, it stops the name index being
@@ -466,6 +559,20 @@ CREATE INDEX idx_person_browse_oblast_codes_trgm
   ON person_browse_table USING gin (oblast_codes gin_trgm_ops);
 -- Equality filters + facet GROUP BYs.
 CREATE INDEX idx_person_browse_facet ON person_browse_table (primary_facet);
+-- position_type (the ?position filter + mix-bar partition).
+CREATE INDEX idx_person_browse_position ON person_browse_table (position_type);
+-- The ?sector control filters `tier` (public→P, private→V, all→P,V), and P is the default floor,
+-- so the default page is `tier='P'` + the default sort. Lead with tier so that page is a single
+-- index scan over the public arm, not a scan-and-filter over all 118k. (NB: `tier`, not
+-- `position_type <> 'private_sector'` — those are DIFFERENT sets: a public figure whose top role
+-- is a company is tier='P' yet position_type='private_sector', and must stay on the public page.)
+CREATE INDEX idx_person_browse_tier_default
+  ON person_browse_table (tier, prominence DESC, name, key);
+-- Money sort on the default (public) population: the name-fold V arm's broad-basis figures are the
+-- largest and would otherwise dominate the head of the un-tiered money index, so a public
+-- money-sorted page scans past them. Partial on the default floor keeps it an index scan.
+CREATE INDEX idx_person_browse_money_public
+  ON person_browse_table (public_money_eur DESC NULLS LAST, key) WHERE tier = 'P';
 CREATE INDEX idx_person_browse_role ON person_browse_table (primary_role);
 CREATE INDEX idx_person_browse_party ON person_browse_table (party_primary);
 CREATE INDEX idx_person_browse_oblast ON person_browse_table (oblast_code);
@@ -475,12 +582,12 @@ CREATE INDEX idx_person_browse_year ON person_browse_table (latest_declaration_y
 -- Partial indexes: the membership filters the UI issues, each paired with the DEFAULT
 -- sort so a facet-scoped first page is one index scan rather than a filter over 56.8k.
 CREATE INDEX idx_person_browse_exec
-  ON person_browse_table (prominence DESC, name, slug) WHERE is_exec;
+  ON person_browse_table (prominence DESC, name, key) WHERE is_exec;
 CREATE INDEX idx_person_browse_muni
-  ON person_browse_table (prominence DESC, name, slug) WHERE is_muni;
+  ON person_browse_table (prominence DESC, name, key) WHERE is_muni;
 CREATE INDEX idx_person_browse_decl
-  ON person_browse_table (prominence DESC, name, slug) WHERE has_declaration;
+  ON person_browse_table (prominence DESC, name, key) WHERE has_declaration;
 CREATE INDEX idx_person_browse_company
-  ON person_browse_table (prominence DESC, name, slug) WHERE is_company;
+  ON person_browse_table (prominence DESC, name, key) WHERE is_company;
 CREATE INDEX idx_person_browse_held
-  ON person_browse_table (prominence DESC, name, slug) WHERE held_office;
+  ON person_browse_table (prominence DESC, name, key) WHERE held_office;

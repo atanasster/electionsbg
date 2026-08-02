@@ -771,7 +771,19 @@ const REGISTRY = {
     base: "person_browse_table",
     scopeCols: [],
     columns: {
+      // The stable paging identity: buildOrder uses `key` as the tiebreak when it exists
+      // (else select[0]=slug). The name-fold private arm (120, S3) has NULL slug, so `key`
+      // ('slug:<slug>' | 'fold:<name_fold>') is what keeps paging deterministic across both arms.
+      key: { type: "text", filter: "in" },
       slug: { type: "text", filter: "in" },
+      // P = public/resolved person, V = name-fold private owner (частен сектор). The ?sector
+      // control filters this (public→P, private→V, all→P,V); defaultFilters below makes P the
+      // floor so any caller that omits it still gets the public population.
+      tier: { type: "text", filter: "in" },
+      // position_type CODE (politician/executive/…/private_sector) — the ?position filter and the
+      // mix-bar partition. sort:true/filter:"in" mirror primary_facet.
+      position_type: { type: "text", sort: true, filter: "in" },
+      identity_confidence: { type: "text", filter: "in" },
       // Search targets the TRANSLITERATED fold, so the term must be folded too:
       // searchCol WITHOUT searchFold matches a Cyrillic query against Latin text and
       // returns nothing, forever, while looking like a working query. Both flags or
@@ -855,7 +867,11 @@ const REGISTRY = {
       tr_link_basis: { type: "text", filter: "in" },
     },
     select: [
+      "key",
       "slug",
+      "tier",
+      "position_type",
+      "identity_confidence",
       "name",
       "photo_url",
       "namesake_risk",
@@ -902,6 +918,10 @@ const REGISTRY = {
       ["prominence", "desc"],
       ["name", "asc"],
     ],
+    // Public (tier P) is the floor: a caller that sends no `tier` filter (the pre-S3 client, a raw
+    // API hit) gets the public population, never the 61.7k name-fold private owners by surprise.
+    // The ?sector control overrides it (public→P, private→V, all→P,V).
+    defaultFilters: [{ col: "tier", val: "P" }],
     aggregates: [{ fn: "count" }],
     // Avatar rows are visually heavy; the screen pages at 25.
     maxPageSize: 50,
@@ -1447,9 +1467,10 @@ const buildWhere = (r, req, opts = {}) => {
   const where = [];
   const params = [];
   const add = (built) => {
-    if (!built) return;
+    if (!built) return false;
     where.push(`(${built.sql})`);
     params.push(...built.params);
+    return true;
   };
 
   // A resource may declare a `defaultScope` applied when the caller sends none. Only
@@ -1474,6 +1495,11 @@ const buildWhere = (r, req, opts = {}) => {
   if (!Array.isArray(reqCols))
     throw new DbRequestError("filters.columns must be an array");
 
+  // Track which columns actually PRODUCED a predicate, not merely which were SENT. A filter that
+  // built nothing (an empty `in` array, an empty text term) must NOT suppress a defaultFilter
+  // below — otherwise `tier:[]` would silently defeat the persons public floor, and `division:[]`
+  // would un-guard the contractor_rankings rollup double-count. Presence ≠ effect.
+  const effectiveIds = new Set();
   for (const f of reqCols) {
     const def = r.columns[f.id];
     if (!def || !def.filter)
@@ -1482,7 +1508,8 @@ const buildWhere = (r, req, opts = {}) => {
     // (registry-sourced, whitelisted — never user input), so one physical column
     // can back two filter modes (e.g. tenders.cpv as exact `in` for topics AND
     // cpv_prefix as `prefix` for the normalcy "browse similar" deep link).
-    add(buildFilter(def.col || f.id, def, f, params.length));
+    if (add(buildFilter(def.col || f.id, def, f, params.length)))
+      effectiveIds.add(f.id);
   }
 
   // A SECOND fan-out margin, defaulted like `defaultScope` above. `defaultScope`
@@ -1493,10 +1520,9 @@ const buildWhere = (r, req, opts = {}) => {
   // served 200 with nothing to flag it. So for any declared defaultFilter whose
   // column the caller did NOT filter, apply `col = val`. Same double-count rationale
   // as defaultScope, for the second dimension. Validated in db_table.test.js.
-  const sentIds = new Set(reqCols.map((f) => f.id));
   const skipDefaults = opts.skipDefaultFilterCols;
   for (const df of r.defaultFilters ?? []) {
-    if (sentIds.has(df.col)) continue;
+    if (effectiveIds.has(df.col)) continue;
     if (skipDefaults && skipDefaults.has(df.col)) continue;
     const def = r.columns[df.col];
     // Registry blame — a resource declaring a default on a column it does not

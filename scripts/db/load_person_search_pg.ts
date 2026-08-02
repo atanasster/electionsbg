@@ -74,7 +74,11 @@ const main = async (): Promise<void> => {
               'resolved',
               '/person/' || slug,
               1000 + prominence + ln(1 + greatest(0, coalesce(public_money_eur, 0)))
-         FROM person_browse_table`,
+         FROM person_browse_table
+        -- tier='P' ONLY: since S3, person_browse_table UNIONs a name-fold private arm (tier V).
+        -- Those are person_search's OWN V/N territory (built below from tr_officers) — reading
+        -- them here would double them into the P tier AND steal their folds from the V/N arm.
+        WHERE tier = 'P'`,
     );
 
     // V/N arm — TR owners by folded name, with BROAD public money, anti-joined against P folds.

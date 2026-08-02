@@ -111,11 +111,20 @@ afterAll(async () => {
 // ceiling: a fan-out shows up as MORE rows, and "more rows" is precisely what a ceiling
 // written generously would tolerate.
 test.skipIf(skip)("one row per public person, no role fan-out", async () => {
-  const rows = await count("SELECT count(*) n FROM person_browse_table");
-  const slugs = await count(
-    "SELECT count(DISTINCT slug) n FROM person_browse_table",
+  // Scope the fan-out invariant to the PUBLIC arm (tier='P'). The name-fold private arm (tier V,
+  // S3) adds ~54.6k rows with NULL slug that are name-fold aggregates, not resolved persons — so
+  // the per-person guarantee is a property of the person arm alone.
+  const rows = await count(
+    "SELECT count(*) n FROM person_browse_table WHERE tier = 'P'",
   );
-  assert.equal(rows, slugs, "slug is not unique — the matview has fanned out");
+  const slugs = await count(
+    "SELECT count(DISTINCT slug) n FROM person_browse_table WHERE tier = 'P'",
+  );
+  assert.equal(
+    rows,
+    slugs,
+    "slug is not unique in the public arm — the matview has fanned out",
+  );
 
   // Every gated person WITH a public-safe role, and only those.
   const eligible = await count(
@@ -128,7 +137,19 @@ test.skipIf(skip)("one row per public person, no role fan-out", async () => {
   assert.equal(
     rows,
     eligible,
-    `matview has ${rows} rows for ${eligible} eligible persons — it is fanning out over person_role or dropping people`,
+    `public arm has ${rows} rows for ${eligible} eligible persons — it is fanning out over person_role or dropping people`,
+  );
+
+  // `key` is the paging identity (buildOrder tiebreak) and MUST be unique across BOTH arms, or
+  // pagination is non-deterministic — slug cannot serve, being NULL on every name-fold row.
+  const total = await count("SELECT count(*) n FROM person_browse_table");
+  const keys = await count(
+    "SELECT count(DISTINCT key) n FROM person_browse_table",
+  );
+  assert.equal(
+    total,
+    keys,
+    "key is not unique across the two arms — paging would be non-deterministic",
   );
 });
 
@@ -222,12 +243,24 @@ test.skipIf(skip)("code sets contain their scalar and are padded", async () => {
   // impossible — which is exactly the kind of assumption worth pinning.
   const nullSets = await count(
     `SELECT count(*) n FROM person_browse_table
-      WHERE role_codes IS NULL OR facet_codes IS NULL`,
+      WHERE tier = 'P' AND (role_codes IS NULL OR facet_codes IS NULL)`,
   );
   assert.equal(
     nullSets,
     0,
-    `${nullSets} row(s) have a NULL role_codes/facet_codes — those people vanish from the code-set filters`,
+    `${nullSets} public row(s) have a NULL role_codes/facet_codes — those people vanish from the code-set filters`,
+  );
+
+  // position_type = CASE … ELSE tr.facet END is NULL if facet is ever NULL — which would drop the
+  // person from the ?position filter and add a phantom bucket to the mix-bar partition, the same
+  // silent-vanish as a NULL code set. Pin it non-NULL on the public arm (V rows are 'private_sector').
+  const nullPos = await count(
+    "SELECT count(*) n FROM person_browse_table WHERE tier = 'P' AND position_type IS NULL",
+  );
+  assert.equal(
+    nullPos,
+    0,
+    `${nullPos} public row(s) have a NULL position_type — a phantom mix-bar bucket and a ?position drop`,
   );
 
   const unpadded = await count(
@@ -384,7 +417,7 @@ test.skipIf(skip)(
       `WITH sample AS (
        SELECT slug, public_money_eur
          FROM person_browse_table
-        WHERE public_money_eur IS NOT NULL
+        WHERE tier = 'P' AND public_money_eur IS NOT NULL
         ORDER BY public_money_eur DESC LIMIT 25
      )
      SELECT s.slug,
@@ -413,11 +446,12 @@ test.skipIf(skip)(
     // `public_money_eur` must not carry `agg: "sum"`. Noted here because this is where the
     // reason lives, not because the guard exists yet.
     const carriers = await count(
-      `SELECT count(*) n FROM person_browse_table WHERE public_money_eur IS NOT NULL`,
+      `SELECT count(*) n FROM person_browse_table
+        WHERE tier = 'P' AND public_money_eur IS NOT NULL`,
     );
     assert.ok(
       carriers > 500 && carriers < 5000,
-      `${carriers} people carry ЗОП money (expected ~1,070) — the TR bridge or the contract basis has shifted`,
+      `${carriers} public people carry ЗОП money (expected ~1,070) — the TR bridge or the contract basis has shifted`,
     );
   },
 );
@@ -734,3 +768,73 @@ test.skipIf(skip)(
     );
   },
 );
+
+// (12) THE NAME-FOLD PRIVATE ARM (S3). Money-linked TR officers/owners, browseable as частен
+// сектор WITHOUT the resolver — name-fold identity only, so every guarantee here is about the arm
+// being cleanly separated from the public one, honestly flagged, and public-by-default.
+test.skipIf(skip)("name-fold private arm is clean and separated", async () => {
+  const v = await count(
+    "SELECT count(*) n FROM person_browse_table WHERE tier = 'V'",
+  );
+  assert.ok(v > 30000, `only ${v} name-fold private rows (expected ~54.6k)`);
+
+  // Shape: every V row is a private_sector, name_fold, money-linked, SLUG-LESS, 'fold:'-keyed row.
+  const bad = await count(
+    `SELECT count(*) n FROM person_browse_table
+      WHERE tier = 'V' AND (position_type <> 'private_sector'
+         OR identity_confidence <> 'name_fold'
+         OR slug IS NOT NULL
+         OR public_money_eur IS NULL OR public_money_eur <= 0
+         OR NOT is_company
+         OR key NOT LIKE 'fold:%')`,
+  );
+  assert.equal(
+    bad,
+    0,
+    `${bad} name-fold row(s) violate the arm's shape contract`,
+  );
+
+  // Person-shape gate: EXACTLY 3 folded tokens — drops the "Заличено обстоятелство." redaction
+  // placeholder (2,986 companies, €2.85bn) and the "…ЕООД, представлявано в УС от…" officer
+  // strings that would otherwise lead the money-sorted browse.
+  const notThree = await count(
+    `SELECT count(*) n FROM person_browse_table
+      WHERE tier = 'V'
+        AND array_length(regexp_split_to_array(btrim(name_fold), '\\s+'), 1) <> 3`,
+  );
+  assert.equal(
+    notThree,
+    0,
+    `${notThree} name-fold row(s) are not 3-token personal names — the person-shape gate slipped`,
+  );
+
+  // ANTI-JOIN: no name-fold fold is ALSO a public person (that fold is served by the person arm).
+  const overlap = await count(
+    `SELECT count(*) n FROM person_browse_table v
+      WHERE v.tier = 'V'
+        AND EXISTS (SELECT 1 FROM person_browse_table p
+                     WHERE p.tier = 'P' AND p.name_fold = v.name_fold)`,
+  );
+  assert.equal(
+    overlap,
+    0,
+    `${overlap} name-fold fold(s) are also a public person — the anti-join broke, so a human shows twice`,
+  );
+
+  // PRIVACY (§6 gate extends to the V arm). The name-fold arm anti-joins against ALL persons, not
+  // just public ones, so a GATED person (inactive / is_public_figure=false) — deliberately
+  // withheld — must never surface as a name-fold owner row. (The public-default floor itself is
+  // already asserted by test (1): rows(tier='P') == eligible.)
+  const leak = await count(
+    `SELECT count(*) n FROM person_browse_table v
+      WHERE v.tier = 'V' AND EXISTS (
+        SELECT 1 FROM person p
+         WHERE p.name_fold = v.name_fold
+           AND (p.status <> 'active' OR NOT p.is_public_figure))`,
+  );
+  assert.equal(
+    leak,
+    0,
+    `${leak} gated person(s) surfaced via the V arm — the anti-join must exclude ALL persons, not just public ones`,
+  );
+});

@@ -919,3 +919,41 @@ test("isdistinct with an empty value drops the predicate (never IS DISTINCT FROM
     assert.deepEqual(params, []);
   }
 });
+
+// The persons `defaultFilters` public floor (S3). The name-fold private arm (tier V) is browseable
+// only when a caller opts in via the ?sector control; an omitted or EMPTY tier filter must yield
+// the public floor (tier='P'), never leak the private arm.
+const persons = REGISTRY.persons;
+
+test("persons defaults to the public floor when tier is omitted", () => {
+  const { whereSql, params } = buildWhere(persons, {});
+  assert.match(whereSql, /tier IN \(\$\d+\)/);
+  assert.ok(params.includes("P"));
+});
+
+test("an explicit tier filter overrides the public floor", () => {
+  const { whereSql, params } = buildWhere(persons, {
+    filters: { columns: [{ id: "tier", value: ["V"] }] },
+  });
+  assert.match(whereSql, /tier IN \(\$\d+\)/);
+  assert.ok(params.includes("V") && !params.includes("P"));
+});
+
+test("tier=[P,V] expresses the 'all' population", () => {
+  const { params } = buildWhere(persons, {
+    filters: { columns: [{ id: "tier", value: ["P", "V"] }] },
+  });
+  assert.ok(params.includes("P") && params.includes("V"));
+});
+
+test("an EMPTY tier filter must NOT drop the public floor (presence != effect)", () => {
+  const { whereSql, params } = buildWhere(persons, {
+    filters: { columns: [{ id: "tier", value: [] }] },
+  });
+  assert.match(
+    whereSql,
+    /tier IN \(\$\d+\)/,
+    "empty tier:[] suppressed the defaultFilter — a raw/malformed caller would see the private arm",
+  );
+  assert.ok(params.includes("P"));
+});

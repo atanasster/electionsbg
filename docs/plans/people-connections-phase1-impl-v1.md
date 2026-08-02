@@ -240,11 +240,27 @@ mappings); the name-fold arm is present and **anti-joined** (no fold appears in 
 `?sector=public` excludes every `private_sector` row; a money-linked private owner is browseable
 under `?sector=private`. `useUrlPersonFilters.test` for `?sector` default-public + validation.
 
-**Gate/commit:** `tier1 step 3: position_type dimension + name-fold private browse arm`.
+**SHIPPED — S3a (data model, 2026-08-01):** 120 now `UNION ALL`s the name-fold private arm
+(money-linked `tr_officers` folds, broad basis, anti-joined against the public folds, **person-shape
+gated to EXACTLY 3 folded tokens** — which drops the "Заличено обстоятелство." redaction placeholder
+and the "…ЕООД, представлявано в УС от…" officer strings that would otherwise lead the money sort).
+118,502 rows (63,910 P + 54,592 V). New columns `key`/`tier`/`position_type`/`identity_confidence`;
+`key` ('slug:…'|'fold:…') is the unique paging identity (name-fold rows have NULL slug), and the
+`persons` registry keys on it + carries `defaultFilters: tier=P` so **the public population is the
+floor for any caller**. Cross-dependency handled: the S1 `person_search` P-arm now reads
+`WHERE tier='P'` (else the V rows would double into search). `person_browse.data.test.ts` re-scoped
+its per-person invariants to the public arm + a new name-fold-arm block (shape, 3-token gate,
+anti-join, public-default). Verified via `/api/db/table`: default 63,910; `tier=["V"]` 54,592;
+`tier=["P","V"]` 118,502; `position_type=magistrate` 3,065. All data tests green (27), functions 175.
+
+**DEFERRED — S3b (the UI control):** `?sector` (default public → no filter; private → `tier:["V"]`;
+all → `tier:["P","V"]`) + `?position` in `useUrlPersonFilters`; `key`/`tier`/`positionType`/
+`identityConfidence` in `personBrowseTypes`; the name-fold row rendering (NULL slug → `/person/:name`
++ "непроверена самоличност" badge, money/firms only); `PersonsAnalysisStrip` position_type option.
+
 **Risk:** medium-high — 120 is a matview DROP+CREATE re-applied by the declarations loader
-([column-type cloud-reload rule]); the union ~doubles the matview (57k→~125k) so **EXPLAIN the
-build + the worst-case filtered page** (S0) and confirm the loader's blank-label validation still
-holds for the NULL-heavy name-fold rows; `:cloud` reload is an operator step.
+([column-type cloud-reload rule]); `:cloud` reload is an operator step. `person_search` must be
+reloaded whenever 120 is (its P-arm reads it) — already documented in its header + CLAUDE.md.
 
 ---
 
