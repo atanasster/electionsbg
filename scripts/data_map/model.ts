@@ -380,20 +380,24 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
   },
   {
     id: "kzk",
-    label: { bg: "КЗК — жалби по ЗОП", en: "CPC procurement appeals" },
+    label: {
+      bg: "КЗК — жалби и решения по ЗОП",
+      en: "CPC procurement appeals & decisions",
+    },
     detail: {
-      bg: "регистър на жалбите пред КЗК",
-      en: "the procurement-appeals register",
+      bg: "регистрите на жалбите и на актовете пред КЗК",
+      en: "the appeals and decisions registers",
     },
     desc: {
-      bg: "Публичният електронен регистър на Комисията за защита на конкуренцията (reg.cpc.bg) — всяка жалба срещу обществена поръчка с нейния УНП, статус (спряно/приключено/…) и изхода на решението (уважена/отхвърлена). Свързва се точно към търга по УНП и показва „обжалвана“/„спряна“ на страницата на процедурата. Ръчно обхождане с браузър (изисква българска свързаност).",
-      en: "The Competition Protection Commission's public register (reg.cpc.bg) — every complaint against a public-procurement procedure with its УНП, status (suspended/concluded/…) and merits outcome (upheld/rejected). Joins to the tender by exact УНП and drives the “under appeal” / “suspended” markers on the procedure page. Manual headed-browser crawl (needs a Bulgarian connection).",
+      bg: "Публичните електронни регистри на Комисията за защита на конкуренцията (reg.cpc.bg). Два регистъра: този на жалбите дава всяка жалба срещу обществена поръчка с нейния УНП и статус (спряно/приключено/…), а отделният регистър на актовете дава произнасянето по същество (уважена/отхвърлена) и решението по временната мярка. Двата се свързват по жалбоподател + ответник + година; жалбата се свързва точно към търга по УНП и показва „обжалвана“/„спряна“ на страницата на процедурата, а уважената жалба влиза в индекса за корупционен риск. Ръчни обхождания с браузър (изискват българска свързаност).",
+      en: "The Competition Protection Commission's public registers (reg.cpc.bg). TWO arms: the complaints register gives every appeal against a public-procurement procedure with its УНП and status (suspended/concluded/…), and the separate decisions register gives the merits outcome (upheld/rejected) and the temporary-measure ruling. The two are joined on complainant + respondent + year; the appeal joins to the tender by exact УНП and drives the “under appeal” / “suspended” markers on the procedure page, while an upheld outcome feeds the contract corruption-risk index. Manual headed-browser crawls (need a Bulgarian connection).",
     },
     url: "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
     origin: "state",
-    members: ["kzk_appeals"],
-    // Manual, headed-Playwright ingest (scripts/procurement/kzk_appeals.ts) — NOT
-    // part of update-procurement's automated flow, so no auto-skill is mapped.
+    members: ["kzk_appeals", "kzk_decisions"],
+    // Manual, headed-Playwright ingests — scripts/procurement/kzk_appeals.ts for the
+    // intake arm and scripts/procurement/kzk_decisions.ts for the merits arm. Neither
+    // is part of update-procurement's automated flow, so no auto-skill is mapped.
     skills: [],
     tags: ["fiscal"],
   },

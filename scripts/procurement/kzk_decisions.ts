@@ -53,6 +53,7 @@ import {
   DECISION_RECORD_RE,
   REJECT_RATE_CEILING,
   firstActNo,
+  parseRegisterTotal,
   validateDecisions,
   summarizeRejections,
   type KzkDecision,
@@ -134,27 +135,8 @@ export const parseDecisionsText = (
   return out;
 };
 
-/**
- * Read the register's authoritative "Намерени са общо N" completeness target.
- *
- * ⚠️ The digit-group class must NOT include `\n`. The register groups thousands
- * with spaces ("4 407"), so the class has to allow a space — but `[\d\s]+` also
- * crosses a line break and would splice the next line's leading digits onto the
- * total ("4407\n1 акта" → 44071), silently raising the completeness target and
- * turning every crawl into a "collected N but header says M" failure.
- */
-export const parseTotal = (text: string): number | null => {
-  // \u0020 and \u00a0 explicitly: the register groups thousands with a plain space
-  // in some renderings and a NON-BREAKING one in others. Written as escapes so the
-  // NBSP is visible in source rather than an invisible lint error.
-  const m =
-    /\u041d\u0430\u043c\u0435\u0440\u0435\u043d\u0438\s+\u0441\u0430\s+\u043e\u0431\u0449\u043e\s+([\d\u0020\u00a0]+?)\s*(?:\u0436\u0430\u043b\u0431|\u0430\u043a\u0442|\u0440\u0435\u0448\u0435\u043d|\u043e\u043f\u0440\u0435\u0434\u0435\u043b\u0435\u043d|\u0431\u0440\u043e\u044f?|$)/im.exec(
-      text,
-    );
-  if (!m) return null;
-  const n = Number(m[1].replace(/[\u0020\u00a0\s]/g, ""));
-  return Number.isFinite(n) && n >= 0 ? n : null;
-};
+/** Re-exported so the crawler's tests and callers have one name for it. */
+export { parseRegisterTotal as parseTotal } from "./kzk_decisions_store";
 
 /**
  * Merge one freshly-parsed record over its stored twin WITHOUT null-clobbering.
@@ -306,7 +288,7 @@ const probe = async (page: Page, otValues: number[]): Promise<void> => {
       await page.goto(url, { waitUntil: "domcontentloaded" });
       const ready = await waitForRecords(page, 12000);
       const text = await page.locator("body").innerText();
-      const total = parseTotal(text);
+      const total = parseRegisterTotal(text);
       const recs = parseDecisionsText(text, new Date().toISOString(), url);
       const { clean, rejected } = validateDecisions(recs);
       result(`   records rendered: ${ready ? "yes" : "NO"}`);
@@ -426,7 +408,7 @@ const crawlYear = async (
     .locator("body")
     .innerText()
     .catch(() => "");
-  const expected = parseTotal(headerText);
+  const expected = parseRegisterTotal(headerText);
   if (expected == null)
     throw new Error(
       'kzk decisions: could not read the "Намерени са общо N" total from the header ' +

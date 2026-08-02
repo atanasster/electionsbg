@@ -14,6 +14,7 @@ import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
 import { regulatorRosters } from "./regulator_rosters";
 import { kzkAppeals } from "./kzk_appeals";
+import { kzkDecisions } from "./kzk_decisions";
 import { monRiRegister } from "./mon_ri_register";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
@@ -139,6 +140,7 @@ export const SOURCES: WatchSource[] = [
   eopProcurement,
   aopDebarred,
   kzkAppeals,
+  kzkDecisions,
   monRiRegister,
   isunEuFunds,
   isunEuFundsProjects,

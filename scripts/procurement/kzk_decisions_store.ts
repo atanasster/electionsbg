@@ -66,6 +66,35 @@ export const REJECT_RATE_CEILING = 0.15;
 export const DECISION_RECORD_RE =
   /^[^\S\n]*(?:\d+[^\S\n]+)?Акт[^\S\n]*№[^\S\n]*/gm;
 
+/**
+ * Read the register's authoritative "Намерени са общо N" completeness target.
+ *
+ * ⚠️ The digit-group class must NOT include `\n`. The register groups thousands
+ * with a space — plain in some renderings, NON-BREAKING in others — so the class
+ * has to allow one; but `[\d\s]+` also crosses a line break and would splice the
+ * next line's leading digits onto the total ("4407\n1 акта" → 44071), silently
+ * raising the completeness target so every crawl fails its own assertion.
+ *
+ * Lives here, not in the crawler, because the WATCH SOURCE needs the identical
+ * reading — a second copy already drifted once (it omitted the end-of-line
+ * alternative and returned null on exactly the input this guards).
+ */
+export const parseRegisterTotal = (text: string): number | null => {
+  const m =
+    /Намерени\s+са\s+общо\s+([\d\u0020\u00a0]+?)\s*(?:жалб|акт|решен|определен|броя?|<|$)/im.exec(
+      text,
+    );
+  if (!m) return null;
+  // A digitless header ("\u041d\u0430\u043c\u0435\u0440\u0435\u043d\u0438 \u0441\u0430 \u043e\u0431\u0449\u043e  \u0430\u043a\u0442\u0430") must read as UNKNOWN, not as
+  // zero: `Number("")` is 0, and a spurious 0 would satisfy the crawler's
+  // completeness assertion (`collected 0 === expected 0`) on a page that simply
+  // failed to render, turning a broken read into a successful empty year.
+  const digits = m[1].replace(/[\u0020\u00a0\s]/g, "");
+  if (!/^\d+$/.test(digits)) return null;
+  const n = Number(digits);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+};
+
 /** The first act number rendered in `text`, or null when the page has no records. */
 export const firstActNo = (text: string): string | null => {
   const parts = text.split(new RegExp(DECISION_RECORD_RE.source, "gm"));

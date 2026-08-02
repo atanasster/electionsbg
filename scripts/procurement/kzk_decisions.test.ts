@@ -225,3 +225,12 @@ describe("the sort that crashed", () => {
     ]);
   });
 });
+
+describe("parseTotal — the digitless header", () => {
+  it("reads a header with no digits as UNKNOWN, not as zero", () => {
+    // `Number("")` is 0, and a spurious 0 satisfies the crawler's completeness
+    // assertion (collected 0 === expected 0) on a page that simply failed to
+    // render — turning a broken read into a successful "empty year".
+    expect(parseTotal("Намерени са общо  акта за 2026 година.")).toBeNull();
+  });
+});
