@@ -90,7 +90,7 @@ test.skipIf(skip)(
   },
 );
 
-// Every TR bridge is LICENSED by exactly one of the two safe mechanisms, never a bare
+// Every TR bridge is LICENSED by exactly one of the three safe mechanisms, never a bare
 // name guess:
 //   Bridge A (shared company) — the EIK is one the person is genuinely linked to via a
 //     curated source (magistrate holdings / company_politicians); the match is the strong
@@ -101,14 +101,43 @@ test.skipIf(skip)(
 //     attached, matched ON THAT EXACT entity. The people-uniqueness guard + footprint cap
 //     make a handful of firms under a globally-unique 3-part name unambiguously that one
 //     person (superseding the old company-count proxy that capped a real footprint at 1).
-// A tr/ngo role satisfying NEITHER is an unlicensed attribution and must never exist.
+//   Bridge V (money-linked private owner, TIER-V) — a person-shaped fold that was NOT already
+//     a person, is money-linked (contracts ∪ subsidies ∪ funds), and holds ≤5 firms in total.
+//     These people are minted PRIVATE (is_public_figure=false) with identity_confidence
+//     ='verified', a strong but NAME-ONLY identity, and get their whole footprint attached on
+//     the exact entity — see the TIER-V block in scripts/person/resolve_persons.ts.
+// A tr/ngo role satisfying NONE of the three is an unlicensed attribution and must never exist.
 // (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
 // mechanism — so both facets carry the same licensing invariant.)
+//
+// ⚠️ Bridge V was MISSING from this gate until 2026-08-02, and the omission is instructive:
+// Tier-V is licensed by `identity_confidence='verified'` and is deliberately NOT a public
+// figure, so every one of its 125,724 roles (52,814 people) failed the `p.is_public_figure`
+// clause of Bridge B and the gate had been red — not flaky, not stale, just wrong — since
+// Tier-V shipped. A red gate nobody can fix is a gate nobody reads, which is the real danger
+// here: this is the defamation-sensitive invariant on the whole TR layer.
+//
+// Two details below are easy to get subtly wrong, and both would widen the licence:
+//   • the ≤5 cap for Bridge V counts `tr_officers`, NOT `tr_person_roles` — the resolver caps
+//     on the officer table (its `count(DISTINCT o.uic) <= 5`), and the two differ because
+//     tr_person_roles is the full-history table. Capping the wrong one admits folds the
+//     resolver would have rejected.
+//   • money-linkage is part of the licence, not a performance detail. Without it the gate
+//     would wave through the entire footprint of any private 3-part name in the registry.
 test.skipIf(skip)(
-  "every tr/ngo role is a licensed bridge (A or B)",
+  "every tr/ngo role is a licensed bridge (A, B or V)",
   async () => {
     const [r] = await allRows<{ bad: string }>(
-      `SELECT count(*) bad
+      `WITH money_eik AS (   -- the Tier-V money basis, mirroring resolve_persons.ts
+         SELECT DISTINCT eik FROM (
+           SELECT contractor_eik AS eik FROM contracts
+            WHERE contractor_eik <> '' AND tag = 'contract'
+              AND consortium_role IS DISTINCT FROM 'member' AND amount_eur IS NOT NULL
+           UNION ALL SELECT eik FROM agri_subsidies     WHERE eik IS NOT NULL AND total_eur IS NOT NULL
+           UNION ALL SELECT eik FROM fund_beneficiaries WHERE eik IS NOT NULL AND paid_eur  IS NOT NULL
+         ) x
+       )
+       SELECT count(*) bad
        FROM person_role r JOIN person p USING (person_id)
       WHERE r.source IN ('tr', 'ngo')
         AND r.ref NOT IN (   -- Bridge A: curated company link
@@ -121,6 +150,18 @@ test.skipIf(skip)(
              WHERE p2.name_fold = p.name_fold AND p2.person_id <> p.person_id)
           AND (SELECT count(DISTINCT t2.uic) FROM tr_person_roles t2
                 WHERE t2.name_fold = p.name_fold) BETWEEN 1 AND 5
+          AND EXISTS (
+            SELECT 1 FROM tr_person_roles t
+             WHERE t.uic = r.ref AND t.name_fold = p.name_fold))
+        AND NOT (            -- Bridge V: money-linked private owner, verified name-only identity
+          p.name_parts = 3 AND NOT p.is_public_figure
+          AND p.identity_confidence = 'verified'
+          AND p.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
+          AND (SELECT count(DISTINCT o.uic) FROM tr_officers o
+                WHERE o.name_fold = p.name_fold) BETWEEN 1 AND 5
+          AND EXISTS (
+            SELECT 1 FROM tr_officers o2 JOIN money_eik m ON m.eik = o2.uic
+             WHERE o2.name_fold = p.name_fold)
           AND EXISTS (
             SELECT 1 FROM tr_person_roles t
              WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,

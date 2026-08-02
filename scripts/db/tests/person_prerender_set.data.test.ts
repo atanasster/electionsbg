@@ -137,32 +137,77 @@ test.skipIf(skip || !isServingDatabase())(
 );
 
 // (1b) The EXEC prerender set stays within the officials cap (that is what holds the deploy
-// ceiling flat). Local officials (card.kind === 'local') are a deliberate, staging-measured
-// addition on top (docs/plans/local-person-links-v1.md Phase 4), so they are excluded here.
-test.skipIf(skip)(
+// ceiling flat). Local officials are a deliberate, staging-measured addition on top
+// (docs/plans/local-person-links-v1.md Phase 4), so they are excluded here.
+//
+// ⚠️ "Local" means the person HOLDS a local/official_muni role — it is NOT `card.kind ===
+// 'local'`, which is what this test used until 2026-08-02 and why it had been red since the
+// 2026-08-01 re-mint. The emitter adds a local official to `localSlugs` but only gives them a
+// local card `if (!cardBySlug.has(slug))` — so someone who is BOTH an exec and a local
+// official keeps their richer net-worth card (kind 'official') while still being excluded
+// from the cap by the emitter. Measured on the committed manifest: 5,664 entries carry an
+// 'official' card, 1,069 of them are also local officials, so the emitter's exec count is
+// 4,595 — comfortably under the cap it reports on, while this test read 5,664 and failed.
+// Two definitions of the same word, and the one in the test was the wrong one.
+//
+// SERVING DATABASE ONLY, for the same reason the continuity check above is: once "local" is
+// resolved from person_role, this check reads a Cloud-SQL-minted manifest against whichever
+// DB is connected, and the two genuinely diverge. Measured 2026-08-02 against local
+// Postgres: it holds 22,520 local officials, but 434 of them are absent from the cloud
+// manifest's prerender set altogether — so only 22,086 of the manifest's 27,115 entries match
+// locally and the exec count reads 5,029 instead of the 4,595 the emitter computed. That is a
+// false RED on a 5,000 cap that is not breached, so it is skipped rather than fudged with a
+// tolerance that would also mask a real breach. The emitter enforces this same cap exactly,
+// at write time, against the database it minted from.
+test.skipIf(skip || !isServingDatabase())(
   "the exec prerender set stays within the officials cap",
   async () => {
     const manifest = JSON.parse(
       fs.readFileSync(MANIFEST, "utf-8"),
     ) as PersonSlugEntry[];
+    // The emitter's `localSlugs`, rebuilt with its own predicate (emit_prerender_slugs.ts).
+    // Approximate in one direction only: the manifest is minted from Cloud SQL while this
+    // runs against whatever DB is reachable, so the two can disagree on who currently holds
+    // a municipal role. That is the same local-vs-serving gap the continuity check above
+    // skips outright — tolerable here because the cap has ~400 entries of headroom, and a
+    // drift big enough to close that is itself worth failing on.
+    const localSlugs = new Set(
+      (
+        await allRows<{ slug: string }>(
+          `SELECT DISTINCT p.slug
+             FROM person p
+             JOIN person_role r ON r.person_id = p.person_id
+            WHERE r.source IN ('local', 'official_muni')
+              AND p.status = 'active' AND p.is_public_figure AND p.slug IS NOT NULL`,
+        )
+      ).map((r) => r.slug),
+    );
     const execPrer = manifest.filter(
-      (e) => e.prerender && e.card?.kind !== "local",
+      (e) => e.prerender && !localSlugs.has(e.slug),
     );
     assert.ok(
       execPrer.length <= OFFICIALS_STATIC_PAGE_LIMIT,
       `${execPrer.length} exec prerendered exceeds the ${OFFICIALS_STATIC_PAGE_LIMIT} cap — the ` +
         `deploy file ceiling (§0.5) is not being held flat`,
     );
-    // Every prerender entry must carry a card, or buildPersonRoutes emits nothing for it.
-    const cardless = manifest.filter((e) => e.prerender && !e.card);
-    assert.deepEqual(
-      cardless.map((e) => e.slug).slice(0, 5),
-      [],
-      `${cardless.length} prerender entries have no card — the prerenderer skips them, so ` +
-        `the sitemap <loc> would point at a page that was not built (soft-404)`,
-    );
   },
 );
+
+// (1c) Every prerender entry carries a card. Split out of (1b) so it keeps running on a
+// non-serving database: it reads the manifest ALONE, so unlike the cap it is exact wherever
+// it runs, and skipping it with (1b) would have silently retired it for local dev.
+test.skipIf(skip)("every prerender entry carries a card", () => {
+  const manifest = JSON.parse(
+    fs.readFileSync(MANIFEST, "utf-8"),
+  ) as PersonSlugEntry[];
+  const cardless = manifest.filter((e) => e.prerender && !e.card);
+  assert.deepEqual(
+    cardless.map((e) => e.slug).slice(0, 5),
+    [],
+    `${cardless.length} prerender entries have no card — the prerenderer skips them, so ` +
+      `the sitemap <loc> would point at a page that was not built (soft-404)`,
+  );
+});
 
 // (2) Determinism: two consecutive computations produce the identical prerender set.
 // Catches a dropped ORDER BY / tiebreak, which churns the manifest silently.
