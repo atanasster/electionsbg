@@ -5,7 +5,12 @@
 // input -> output. Co-located next to the module it tests, named *.test.ts.
 // New tests should prefer Vitest's `expect` (as here) over node:assert.
 import { describe, expect, it } from "vitest";
-import { latinSkeleton, skeletonMatches } from "./translitSearch";
+import {
+  latinSkeleton,
+  latinSkeletonCached,
+  searchMatches,
+  skeletonMatches,
+} from "./translitSearch";
 
 describe("latinSkeleton", () => {
   it("transliterates Cyrillic to a Latin skeleton", () => {
@@ -36,5 +41,46 @@ describe("skeletonMatches", () => {
 
   it("treats an empty needle as a match (no filter applied)", () => {
     expect(skeletonMatches("каквото и да е", "")).toBe(true);
+  });
+});
+
+describe("latinSkeletonCached", () => {
+  it("returns the same fold as the uncached function, hit or miss", () => {
+    const s = "Хюсни Осман Адем";
+    expect(latinSkeletonCached(s)).toBe(latinSkeleton(s));
+    // Second call comes off the cache — same answer, not a stale/mutated one.
+    expect(latinSkeletonCached(s)).toBe(latinSkeleton(s));
+  });
+});
+
+describe("searchMatches", () => {
+  it("matches Cyrillic names typed in Latin (the table-filter case)", () => {
+    // What the /procurement/mps filter boxes could not do before: "iv" / "da"
+    // against a Cyrillic roster.
+    expect(searchMatches("Иван Георгиев Иванов", "iv")).toBe(true);
+    expect(searchMatches("Дарин Величков Матов", "da")).toBe(true);
+    expect(searchMatches("Златомира Карагеоргиева-Мострова", "karageorg")).toBe(
+      true,
+    );
+  });
+
+  it("still matches plain Cyrillic and plain Latin input", () => {
+    expect(searchMatches("Иван Георгиев", "георги")).toBe(true);
+    expect(searchMatches("ИНФОРМАЦИОННО ОБСЛУЖВАНЕ", "обслужв")).toBe(true);
+    expect(searchMatches("Alpha Research", "research")).toBe(true);
+  });
+
+  it("folds across the space between name parts", () => {
+    expect(searchMatches("Иван Георгиев", "ivange")).toBe(true);
+  });
+
+  it("does not match an unrelated needle", () => {
+    expect(searchMatches("Дарин Величков Матов", "iv")).toBe(false);
+  });
+
+  it("does not turn an all-punctuation needle into a match-everything", () => {
+    // Folds to "" — that means "nothing to match on" here, not "no filter":
+    // TanStack only calls this once the query is non-empty.
+    expect(searchMatches("Иван Георгиев", "!!")).toBe(false);
   });
 });

@@ -18,6 +18,7 @@ import type {
   ProcurementByNsTopMp,
   ProcurementByNsTopOfficial,
 } from "@/data/dataTypes";
+import { ProcurementSectionHeader } from "./components/procurement/ProcurementSectionHeader";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { ConfidenceBadge } from "./components/connections/ConfidenceBadge";
 
@@ -163,13 +164,8 @@ export const TopMpsScreen: FC = () => {
     [t],
   );
 
-  const windowSuffix =
-    data && (data.start || data.end) ? (
-      <span className="ml-2">
-        · {data.start ?? ""}
-        {data.end ? `…${data.end}` : ` …`}
-      </span>
-    ) : null;
+  // No window suffix on the section subtitles: the scope control above names the
+  // period once, for the whole page.
 
   return (
     <>
@@ -182,6 +178,13 @@ export const TopMpsScreen: FC = () => {
         {t("procurement_connected_people_title") ||
           "Connected MPs and officials"}
       </Title>
+      {/* The page already reads ?pscope (useProcurementRankings →
+          useScopeWindow); this puts the control that WRITES it in the same slot
+          as every other procurement sub-page, alongside the breadcrumb. */}
+      <ProcurementSectionHeader
+        current="procurement_index_connected"
+        scopeMode="toggle"
+      />
       {isLoading ? (
         <div className="min-h-[600px] my-4" aria-hidden />
       ) : !data ? (
@@ -196,7 +199,6 @@ export const TopMpsScreen: FC = () => {
               <Users className="h-4 w-4 text-amber-600" />
               {t("procurement_top_mps_subtitle") ||
                 "MPs whose declared business interests received the most procurement in the period."}
-              {windowSuffix}
             </div>
             <DataTable
               columns={columns}
@@ -210,7 +212,6 @@ export const TopMpsScreen: FC = () => {
               <Landmark className="h-4 w-4 text-teal-600" />
               {t("procurement_top_officials_subtitle") ||
                 "Public officials whose declared business interests received the most procurement in the period."}
-              {windowSuffix}
             </div>
             <DataTable
               columns={officialColumns}

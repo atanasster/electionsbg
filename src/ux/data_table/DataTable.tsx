@@ -1,5 +1,6 @@
 import {
   ExpandedState,
+  FilterFn,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
@@ -19,7 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import {
   ChevronDown,
   ChevronLeft,
@@ -36,6 +37,7 @@ import { cellRender } from "./cellRender";
 import { headerRender } from "./headerRender";
 import { exportToJSON } from "./exportToJSON";
 import { Input } from "@/components/ui/input";
+import { searchMatches } from "@/lib/translitSearch";
 import { footerRender } from "./footerRender";
 import {
   DropdownMenu,
@@ -97,6 +99,19 @@ export const DataTable = <TData, TValue>({
     const id = setTimeout(() => setDebouncedFilter(filter), 200);
     return () => clearTimeout(id);
   }, [filter]);
+  // Script-forgiving global filter, replacing TanStack's `includesString`: the
+  // tables hold Bulgarian text, so a reader typing Latin ("ivan", "stroitel" —
+  // shljokavica) matched nothing at all. Literal check first, folded fallback on
+  // a miss, so ordinary Cyrillic search keeps the cheap path.
+  const globalFilterFn = useCallback<FilterFn<TData>>(
+    (row, columnId, filterValue) => {
+      const value = row.getValue(columnId);
+      if (value == null) return false;
+      return searchMatches(String(value), String(filterValue));
+    },
+    [],
+  );
+
   const dataColumns = useMemo(() => {
     const mapColumns = (cols: DataTableColumns<TData, TValue>) =>
       cols
@@ -127,7 +142,7 @@ export const DataTable = <TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    globalFilterFn: "includesString",
+    globalFilterFn,
     onGlobalFilterChange: setFilter,
     getSubRows,
     initialState: {
