@@ -18,7 +18,6 @@ import { isDiasporaRegion } from "@/data/diaspora/diasporaFaq";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { DashboardSection } from "./DashboardSection";
 import { RegionMpsTile } from "./RegionMpsTile";
-import { MpConnectionsTile } from "./MpConnectionsTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
@@ -90,8 +89,7 @@ export const RegionGovernanceCards: FC<Props> = ({ regionCode }) => {
           subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
           icon={Briefcase}
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile regionCode={regionCode} />
+          <div className="grid gap-3 grid-cols-1">
             <CarMakesTile regionCode={regionCode} hideProvenance />
           </div>
           <MpAssetsTile regionCode={regionCode} />

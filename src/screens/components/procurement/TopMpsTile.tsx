@@ -24,8 +24,8 @@ const TOP_ROWS = 10;
 
 const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 
-// Compact row matching the dashboard convention used by MpAssetsTile /
-// MpConnectionsTile — flex row, no bordered table wrapper. The party chip
+// Compact row matching the dashboard convention used by MpAssetsTile — a
+// flex row, no bordered table wrapper. The party chip
 // uses the same colour mapping as everywhere else (PartyTag); the lookup
 // covers former MPs too (see useMpParty), so the chip should render on
 // every row unless we genuinely have no record of the MP.

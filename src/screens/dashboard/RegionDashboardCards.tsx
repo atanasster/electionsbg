@@ -22,7 +22,6 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
-import { MpConnectionsTile } from "./MpConnectionsTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
@@ -198,8 +197,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
           icon={Briefcase}
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile regionCode={regionCode} />
+          <div className="grid gap-3 grid-cols-1">
             <CarMakesTile regionCode={regionCode} hideProvenance />
           </div>
           <MpAssetsTile regionCode={regionCode} />

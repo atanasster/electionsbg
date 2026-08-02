@@ -33,7 +33,6 @@ import { BudgetPeerComparisonTile } from "@/screens/components/budget/BudgetPeer
 import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
 import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { MpConnectionsTile } from "@/screens/dashboard/MpConnectionsTile";
 import { MpAssetsTile } from "@/screens/dashboard/MpAssetsTile";
 import { OfficialsAssetsTile } from "@/screens/dashboard/OfficialsAssetsTile";
 import { MpDeclarationsProvenance } from "@/screens/dashboard/MpDeclarationsProvenance";
@@ -194,8 +193,7 @@ export const GovernanceCards: FC = () => {
           icon={Briefcase}
           articleTopic="declarations"
         >
-          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            <MpConnectionsTile hideProvenance />
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2">
             <MpAssetsTile />
             <OfficialsAssetsTile />
           </div>

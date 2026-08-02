@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useConnectionsRankings } from "./useConnectionsRankings";
 import { toScopedMpIds, useMpAssetsTopRows } from "./useAssetsRankings";
 import { useCarMakesAgg } from "./useCarMakes";
 import { useMps } from "./useMps";
@@ -10,7 +9,7 @@ import { electionToNsFolder, oblastToMir } from "./nsFolders";
 // content to show. Nationwide pages always get `true`; regional pages get
 // `true` while data is loading, then `true`/`false` once the underlying
 // rankings/cars are resolved. Lets parents hide the entire section header
-// when none of MpConnectionsTile / CarMakesTile / MpAssetsTile would render.
+// when none of CarMakesTile / MpAssetsTile would render.
 //
 // Mirrors what the tiles do — for regional scope they read the full rankings
 // files (not the top-50 slim variants), since most oblasts don't crack the
@@ -47,9 +46,6 @@ export const useRegionDeclarationsHasContent = (params: {
     return ids;
   }, [codes, selectedFolder, findMpsByRegion]);
 
-  const { rankings: connRankings } = useConnectionsRankings({
-    enabled: isRegional,
-  });
   // "Does any of this region's MPs have an assets row" — a 1-row registry probe filtered to
   // the region's mp_ids (persons-pg-retirement-v1 T2.2), instead of scanning the whole
   // assets-rankings.json. Only fires once the region's mp-id set is resolved and non-empty.
@@ -72,16 +68,15 @@ export const useRegionDeclarationsHasContent = (params: {
     if (!regionMpIds || regionMpIds.size === 0) return false;
     // Stay visible while any source is still loading so the header doesn't
     // pop in after the tiles. Once everything resolves, hide if none has a
-    // row for this region's MPs.
-    if (!connRankings || assetsLoading || carsLoading) return true;
-    const hasConn = connRankings.topMps.some((m) => regionMpIds.has(m.mpId));
+    // row for this region's MPs. (The retired connections leaderboard used to
+    // contribute a third signal here; assets + cars remain.)
+    if (assetsLoading || carsLoading) return true;
     const hasAssets = assetRows.length > 0;
     const hasCars = carMakes.length > 0;
-    return hasConn || hasAssets || hasCars;
+    return hasAssets || hasCars;
   }, [
     isRegional,
     regionMpIds,
-    connRankings,
     assetsLoading,
     assetRows,
     carsLoading,
