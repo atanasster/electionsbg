@@ -85,9 +85,26 @@ CREATE TABLE IF NOT EXISTS person (
   namesake_risk    integer NOT NULL DEFAULT 0,
   -- 'review' = aggressive-merge holding area; NEVER rendered publicly until promoted.
   status           text NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'review')),
+  -- How this person's IDENTITY was established (S4). 'resolved' = the normal cross-source
+  -- resolution (office-holders, candidates, bridged public figures). 'verified' = a Tier-V
+  -- private owner minted from the Commerce Registry by name-fold — a globally person-shaped,
+  -- ≤5-firm, money-linked owner (is_public_figure stays FALSE; the name is a strong but
+  -- name-only identity). Consumers gate/serve on it: 082 serves a 'verified' private on /person,
+  -- and 120 places it in the частен-сектор (tier V) slice, never the public default.
+  identity_confidence text NOT NULL DEFAULT 'resolved'
+                        CHECK (identity_confidence IN ('resolved', 'verified')),
   created_at       timestamptz NOT NULL DEFAULT now(),
   updated_at       timestamptz NOT NULL DEFAULT now()
 );
+-- CREATE TABLE IF NOT EXISTS won't add identity_confidence to an already-built person table, so
+-- ALTER it in (S4). Idempotent.
+ALTER TABLE person ADD COLUMN IF NOT EXISTS identity_confidence text NOT NULL DEFAULT 'resolved';
+DO $$ BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'person_identity_confidence_check') THEN
+    ALTER TABLE person ADD CONSTRAINT person_identity_confidence_check
+      CHECK (identity_confidence IN ('resolved', 'verified'));
+  END IF;
+END $$;
 CREATE INDEX IF NOT EXISTS idx_person_name_fold ON person (name_fold);
 -- The blocking key: candidates to merge/search share (given_fold, family_fold).
 CREATE INDEX IF NOT EXISTS idx_person_block ON person (given_fold, family_fold);

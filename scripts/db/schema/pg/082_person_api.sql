@@ -14,7 +14,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- §6 privacy gate: only PUBLIC figures get a public profile. A private person (e.g. a
     -- donor-only individual) is internal-only and must never be served, even by slug.
     SELECT * FROM person
-     WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
+     WHERE slug = p_slug AND status = 'active'
+       AND (is_public_figure OR identity_confidence = 'verified') LIMIT 1
   )
   SELECT jsonb_build_object(
     'slug', pick.slug,
@@ -383,7 +384,8 @@ CREATE OR REPLACE FUNCTION person_money(p_slug text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH pick AS (
     SELECT person_id FROM person
-     WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
+     WHERE slug = p_slug AND status = 'active'
+       AND (is_public_figure OR identity_confidence = 'verified') LIMIT 1
   ),
   eiks AS (
     SELECT DISTINCT r.ref AS uic

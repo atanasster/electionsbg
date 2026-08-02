@@ -315,12 +315,42 @@ cannot perform, which is why it is deferred to last and does not block the finda
 one `tr` role; (c) no Tier-V `name_fold` collides with a public person; (d) ≤5 firms per Tier-V
 person.
 
-**Gate/commit + operator note:** `/implement-plan` builds the code + unit tests and commits, but
-**cannot validate the data effect** — an operator must run `db:resolve:persons` locally
-(~hours), then `db:load:persons-browse:pg` + `db:load:person-search:pg`, then eyeball the
-частен-сектор slice and a sample of verified profiles before any `:cloud` push. Flag this at the
-step; do not mark "done" as if the data were live. **Risk:** high (identity layer, ~55k verified
-mint, multi-hour rebuild).
+**DRAFTED — S4 code, PENDING OPERATOR REBUILD (2026-08-01).** The mint + all ripple gates are
+written and **syntax-validated as forward-compatible no-ops** (they change nothing until the
+resolver mints): `081` adds `identity_confidence` (`resolved`|`verified`, ALTER for existing DBs);
+`resolve_persons.ts` gains the Tier-V pass (a `tmp_tierv` SELECT of money-linked ∩ 3-all-letter-
+token ∩ no-company-form ∩ ≤5-TOTAL-firm ∩ not-already-a-person folds — validated at **53,203**
+against live data — then INSERT `person` (is_public_figure=false, identity_confidence='verified')
++ INSERT `person_role` (source='tr', 'high') joined back through the shared fold, after the public
+COPY+setval so the public set is byte-identical); `120`'s `pub` gate admits verified privates and
+derives `tier = CASE is_public_figure` (so a verified private is tier V — excluded from
+`?sector=public` — with a REAL slug + `identity_confidence='verified'`, no "по име" badge); `082`
+`person_by_slug`/`person_by_name` serve them; the privacy data-test exempts verified from "leak".
+Rebuilt `120` locally → unchanged 117,348 (no verified yet), all data tests green (19). The
+resolver itself is **NOT run** (multi-hour; DELETEs `person`).
+
+**TWO COMPLETION REFINEMENTS the rebuild must settle (documented, not yet coded):**
+1. **`person_search` V-arm** still builds the money tier from `tr_officers` anti-joined against the
+   public folds only, so post-mint a verified private appears in SEARCH as a *name-fold* row
+   (`/person/<name>`, "name match") rather than by its new real slug. Functional (the `:name`
+   dispatcher resolves it) but inconsistent. Fix: source the search V tier's real-slug rows from
+   `person_browse` tier=V and exclude those folds from the `tr_officers` arm.
+2. **Money basis on tier V** becomes mixed: a verified private (now person arm) shows contracts-only
+   `public_money_eur`, while the name-fold V rows show broad. Align the person arm to broad money
+   for `is_public_figure=false` rows, or accept + label the split.
+
+**OPERATOR REBUILD + VALIDATION CHECKLIST** (do not `:cloud` until every box is green locally):
+- `npm run db:resolve:persons` (~hours) → summary must show `+~53k tier-V private owners minted`
+  AND the public `personRows` count UNCHANGED from the prior run.
+- `db:load:declarations:pg -- --resolve` → then `db:load:persons-browse:pg` + `db:load:person-search:pg`.
+- Validate: `SELECT tier, identity_confidence, count(*) FROM person_browse_table GROUP BY 1,2` shows
+  a `V/verified` bucket (~53k) + a smaller `V/name_fold` remainder; public P count unchanged;
+  `person.identity_confidence='verified'` rows all `is_public_figure=false`; spot-check 5 verified
+  `/person/:slug` profiles render; confirm no slug collision (the INSERT's UNIQUE would have thrown).
+- Then settle the two refinements above and re-run the affected loaders.
+
+**Risk:** high (identity layer, ~53k verified mint, multi-hour rebuild). Do not mark "done" as if
+the data were live.
 
 ---
 

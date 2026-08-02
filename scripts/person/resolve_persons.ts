@@ -1559,6 +1559,7 @@ async function main(): Promise<void> {
   }
 
   let bridgeBRoles = 0;
+  let tierVPersons = 0;
   let aliasesInserted = 0;
   await withTx(async (c) => {
     // Rebuild only the derived tables. DELETE, not TRUNCATE … CASCADE: five tables carry
@@ -1693,6 +1694,82 @@ async function main(): Promise<void> {
     await c.query(
       `SELECT setval(pg_get_serial_sequence('person','person_id'), (SELECT COALESCE(max(person_id),1) FROM person))`,
     );
+
+    // ── TIER-V: money-linked private owners (S4) ────────────────────────────────────────────
+    // Mint a person for each VERIFIED name-fold private owner — a person-shaped (exactly 3
+    // all-letter folded tokens, no company legal-form word), ≤5-firm, money-linked (contracts ∪
+    // subsidies ∪ funds) Commerce-Registry owner whose fold is NOT already a person. These are
+    // ADDITIVE and PRIVATE: is_public_figure stays FALSE (never a public /person page by default)
+    // and identity_confidence='verified' (a strong but NAME-only identity). Runs AFTER the public
+    // COPY + setval, so the sequence assigns fresh ids and the public set is byte-identical — the
+    // reconciliation summary below still counts only the public personRows. The 3-token/no-suffix
+    // gate is the SAME one 120's name-fold browse arm uses; the ≤5-firm cap is Bridge B's
+    // FOOTPRINT_CAP (a fold shared by several owners sums past 5 and is excluded, so this is a
+    // one-owner-per-fold proxy). Consumers: 120 places them in the tier-V частен-сектор slice via
+    // is_public_figure=false; 082 serves them on /person via the identity_confidence='verified'
+    // gate; person_search folds them into its V (money) tier by real slug.
+    await c.query(
+      `CREATE TEMP TABLE tmp_tierv (name_fold text PRIMARY KEY, name text) ON COMMIT DROP`,
+    );
+    await c.query(
+      `INSERT INTO tmp_tierv (name_fold, name)
+       WITH money_eik AS (
+         SELECT eik, sum(eur) AS eur FROM (
+           SELECT contractor_eik AS eik, amount_eur AS eur FROM contracts
+            WHERE contractor_eik <> '' AND tag='contract' AND consortium_role IS DISTINCT FROM 'member'
+           UNION ALL SELECT eik, total_eur FROM agri_subsidies     WHERE eik IS NOT NULL
+           UNION ALL SELECT eik, paid_eur  FROM fund_beneficiaries WHERE eik IS NOT NULL
+         ) x WHERE eur IS NOT NULL GROUP BY eik
+       )
+       -- LEFT JOIN + bool_or(money): the fold must be money-linked, but the ≤5 cap is on TOTAL
+       -- firms (matching 120's browse companies_n ≤ 5 = the verified subset), NOT just the
+       -- money-linked ones — a person with 3 money firms and 20 dormant ones is not "verified".
+       SELECT o.name_fold, min(o.name)
+         FROM tr_officers o
+         LEFT JOIN money_eik m ON m.eik = o.uic
+        WHERE o.name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
+          AND o.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
+          AND o.name_fold !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)'
+        GROUP BY o.name_fold
+       HAVING bool_or(m.eik IS NOT NULL) AND count(DISTINCT o.uic) <= 5`,
+    );
+    const tierVIns = await c.query(
+      `INSERT INTO person (display_name, given_fold, patronymic_fold, family_fold,
+                           name_parts, slug, is_public_figure, namesake_risk, status,
+                           identity_confidence)
+       SELECT name,
+              split_part(name_fold,' ',1), split_part(name_fold,' ',2), split_part(name_fold,' ',3),
+              3,
+              replace(name_fold,' ','-') || '-' || substr(md5(name_fold),1,6),
+              false, 0, 'active', 'verified'
+         FROM tmp_tierv
+       -- DEFEND THE SLUG. The slug shape (kebab(fold)+'-'+md5[:6]) is the SAME family as
+       -- officialSlug()/the public name-hash path, and NOT IN person guards the FOLD, not the
+       -- SLUG — a Tier-V fold genuinely absent from person can still land on an existing public/
+       -- official slug (different transliterator + a 6-hex coincidence, birthday-style over ~53k
+       -- mints). person.slug is UNIQUE, so without this ONE collision aborts the whole multi-hour
+       -- rebuild. DO NOTHING skips just that fold (it stays a name-fold browse row); the role
+       -- INSERT below joins on name_fold + identity_confidence='verified', so a skipped fold gets
+       -- no person and therefore no orphan role.
+       ON CONFLICT (slug) DO NOTHING`,
+    );
+    tierVPersons = tierVIns.rowCount ?? 0;
+    // Attach every company of each minted owner. Joined back through the shared fold; confidence
+    // 'high' so 120's roles CTE (confidence IN exact_id/high/manual) surfaces them. tr_person_roles
+    // is the full-history officer/owner table (same fold as tr_officers).
+    await c.query(
+      `INSERT INTO person_role (person_id, source, ref, role, confidence)
+       SELECT DISTINCT p.person_id, 'tr', t.uic, t.role, 'high'
+         FROM person p
+         JOIN tmp_tierv v ON v.name_fold = p.name_fold
+         JOIN tr_person_roles t ON t.name_fold = v.name_fold
+        WHERE p.identity_confidence = 'verified'
+       ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
+    );
+    // Re-anchor the sequence past the just-minted ids.
+    await c.query(
+      `SELECT setval(pg_get_serial_sequence('person','person_id'), (SELECT COALESCE(max(person_id),1) FROM person))`,
+    );
   });
 
   // Refresh planner statistics on the just-rebuilt tables. A TRUNCATE+COPY leaves stats
@@ -1731,6 +1808,7 @@ async function main(): Promise<void> {
     overrides.refSplits.size;
   const summary =
     `${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
+    `+${tierVPersons} tier-V private owners minted; ` +
     `${regKeyed} mention(s) keyed by the register person id (${aliased} aliased to an MP id); ` +
     `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
     `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s); ` +

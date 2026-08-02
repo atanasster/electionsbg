@@ -157,10 +157,13 @@ test.skipIf(skip)("one row per public person, no role fan-out", async () => {
 test.skipIf(skip)(
   "no review-status or non-public person is served",
   async () => {
+    // A verified private owner (S4) is is_public_figure=false but DELIBERATELY served (tier V);
+    // only a review-status or non-public-NON-verified person is a leak.
     const leaked = await count(
       `SELECT count(*) n FROM person_browse_table b
        JOIN person p ON p.slug = b.slug
-      WHERE p.status <> 'active' OR NOT p.is_public_figure`,
+      WHERE p.status <> 'active'
+         OR (NOT p.is_public_figure AND p.identity_confidence <> 'verified')`,
     );
     assert.equal(leaked, 0, `${leaked} gated person(s) reached the browser`);
   },
@@ -878,3 +881,53 @@ test.skipIf(skip)("name-fold private arm is clean and separated", async () => {
     `${leak} gated person(s) surfaced via the V arm — the anti-join must exclude ALL persons, not just public ones`,
   );
 });
+
+// (13) THE TIER-V RESOLVER PASS (S4) — the mint that PROMOTES the verified subset of the name-fold
+// arm to real /person rows. Its data effect requires the multi-hour `db:resolve:persons` rebuild
+// (which DELETEs person), so this file cannot run it; instead it pins the pass's PRESENCE and its
+// SELECTION size against live data — a data-independent proxy for the rebuild's output.
+test("resolve_persons.ts mints the Tier-V private owners", () => {
+  const src = readFileSync(
+    path.join(ROOT, "scripts/person/resolve_persons.ts"),
+    "utf8",
+  );
+  assert.match(
+    src,
+    /tmp_tierv/,
+    "the Tier-V mint block is missing from the resolver",
+  );
+  assert.match(
+    src,
+    /'active', 'verified'/,
+    "the Tier-V mint must stamp is_public_figure=false + identity_confidence='verified'",
+  );
+});
+
+test.skipIf(skip)(
+  "the Tier-V selection criteria size the mint (~53k)",
+  async () => {
+    // The EXACT criteria the resolver mints on, checked against live tr_officers/money — the
+    // rebuild has not run here, so this is the proxy: money-linked ∩ 3-letter-token ∩ no company
+    // form ∩ ≤5 TOTAL firms ∩ not-already-a-person.
+    const n = await count(
+      `WITH money_eik AS (
+         SELECT contractor_eik AS eik FROM contracts
+          WHERE contractor_eik<>'' AND tag='contract' AND consortium_role IS DISTINCT FROM 'member'
+         UNION SELECT eik FROM agri_subsidies     WHERE eik IS NOT NULL
+         UNION SELECT eik FROM fund_beneficiaries WHERE eik IS NOT NULL)
+       SELECT count(*) n FROM (
+         SELECT o.name_fold
+           FROM tr_officers o
+           LEFT JOIN money_eik m ON m.eik = o.uic
+          WHERE o.name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
+            AND o.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
+            AND o.name_fold !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)'
+          GROUP BY o.name_fold
+         HAVING bool_or(m.eik IS NOT NULL) AND count(DISTINCT o.uic) <= 5) x`,
+    );
+    assert.ok(
+      n > 30000 && n < 80000,
+      `Tier-V selection is ${n} (expected ~50k) — the mint criteria drifted from the browse arm`,
+    );
+  },
+);

@@ -129,10 +129,15 @@ $$;
 DROP MATERIALIZED VIEW IF EXISTS person_browse_table CASCADE;
 CREATE MATERIALIZED VIEW person_browse_table AS
 WITH pub AS (
-  -- The gate, once. Everything below joins through this.
-  SELECT person_id, slug, display_name, name_fold, namesake_risk
+  -- The gate, once. Everything below joins through this. It admits the public population AND the
+  -- S4 verified private owners (is_public_figure=false, identity_confidence='verified') — the
+  -- latter render as tier V частен сектор below (never in the public default), with a REAL slug.
+  -- A gated person (review status, or non-public-non-verified) is still withheld.
+  SELECT person_id, slug, display_name, name_fold, namesake_risk,
+         is_public_figure, identity_confidence
   FROM person
-  WHERE status = 'active' AND is_public_figure
+  WHERE status = 'active'
+    AND (is_public_figure OR identity_confidence = 'verified')
 ),
 roles AS (
   -- Public-safe roles only, decorated with their facet + score. This is the ONLY place
@@ -400,12 +405,14 @@ nf_owner AS (
 )
 SELECT
   'slug:' || pub.slug                                AS key,
-  'P'::char(1)                                        AS tier,
+  -- tier follows is_public_figure, NOT the arm: a verified private (S4) is in this person arm but
+  -- is_public_figure=false, so it is tier V and ?sector=public (tier=P) still excludes it.
+  CASE WHEN pub.is_public_figure THEN 'P' ELSE 'V' END::char(1)  AS tier,
   -- position_type CODE: the six governance buckets keep their facet; company/concession collapse
   -- to private_sector; every other facet keeps its own code (all 'public' for the ?sector toggle).
   CASE WHEN tr.facet IN ('company', 'concession') THEN 'private_sector'
        ELSE tr.facet END                             AS position_type,
-  'resolved'::text                                   AS identity_confidence,
+  pub.identity_confidence                            AS identity_confidence,
   pub.slug,
   pub.display_name                                   AS name,
   pub.name_fold,
