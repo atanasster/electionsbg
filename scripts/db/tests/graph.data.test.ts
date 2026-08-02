@@ -230,3 +230,26 @@ test.skipIf(skip)("officer_count equals distinct linked people", async () => {
   );
   assert.equal(drift, 0, `${drift} company nodes have a stale officer_count`);
 });
+
+// public_officer_count — the association-noise GUARD the connections serving layer (084) keys on — is
+// distinct PUBLIC-figure CO-OWNERSHIP officers, and must EQUAL the old per-request public_officer_count
+// basis (person_role source tr/ngo ∩ public ∩ active). This is the invariant that makes the graph
+// re-point behaviour-preserving; a drift silently over- or under-links the whole connections graph.
+test.skipIf(skip)(
+  "public_officer_count equals the live person_role basis",
+  async () => {
+    const drift = await count(
+      `SELECT count(*) n FROM graph_company_node cn
+       WHERE cn.public_officer_count IS DISTINCT FROM coalesce((
+         SELECT count(DISTINCT r.person_id)
+           FROM person_role r JOIN person p USING (person_id)
+          WHERE r.source IN ('tr','ngo') AND r.ref = cn.eik
+            AND p.is_public_figure AND p.status = 'active'), 0)`,
+    );
+    assert.equal(
+      drift,
+      0,
+      `${drift} company nodes' public_officer_count drifted from the person_role guard basis`,
+    );
+  },
+);

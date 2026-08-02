@@ -96,11 +96,23 @@ const main = async (): Promise<void> => {
        ON CONFLICT DO NOTHING`,
     );
 
-    // ── COMPANY NODES: one per company carrying an edge, with broad money (127) + officer_count. ────
+    // ── COMPANY NODES: one per company carrying an edge, with broad money (127) + officer_count +
+    // public_officer_count (the connections guard: distinct PUBLIC-figure CO-OWNERSHIP officers). ────
     await c.query(
-      `INSERT INTO graph_company_node (eik, name, public_money_eur, officer_count)
+      `INSERT INTO graph_company_node
+         (eik, name, public_money_eur, officer_count, public_officer_count, coowner_count)
        WITH edge_eik AS (
-         SELECT eik, count(DISTINCT person_id) AS officers FROM graph_edge GROUP BY eik
+         SELECT e.eik,
+                count(DISTINCT e.person_id)                                       AS officers,
+                count(DISTINCT e.person_id) FILTER (
+                  WHERE e.kind IN ('tr_role','tr_owner') AND pf.is_public_figure) AS pub_officers,
+                -- coowner_count = ALL co-ownership officers (public ∪ verified — the whole eligible
+                -- universe; every graph person is one or the other). The toggle guard keys on this.
+                count(DISTINCT e.person_id) FILTER (
+                  WHERE e.kind IN ('tr_role','tr_owner'))                         AS coowners
+           FROM graph_edge e
+           LEFT JOIN person pf ON pf.person_id = e.person_id
+          GROUP BY e.eik
        ),
        cname AS (
          -- Fallback name for eiks absent from tr_companies. ORDER BY makes the pick deterministic
@@ -112,7 +124,9 @@ const main = async (): Promise<void> => {
        SELECT e.eik,
               coalesce(tc.name, cn.name),
               coalesce(m.public_money_eur, 0),
-              e.officers
+              e.officers,
+              e.pub_officers,
+              e.coowners
          FROM edge_eik e
          LEFT JOIN tr_companies       tc ON tc.uic = e.eik
          LEFT JOIN cname              cn ON cn.eik = e.eik

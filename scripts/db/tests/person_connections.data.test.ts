@@ -1,22 +1,18 @@
 // Gate for person_connections (084) — the person↔person company graph behind the Connections
-// component on /person/{slug} and the personConnections AI tool.
+// component on /person/{slug}, the /api/db/person-connections + graph-ego routes, and the
+// personConnections AI tool.
 //
 //   npm run test:data
 //
-// Requires the Postgres store + `db:resolve:persons` + the tr/ngo bridge; auto-skips when
-// Postgres or the person layer is absent — like the other *.data.test.ts gates.
+// RE-POINTED ONTO graph_* (connections-engine-v1 §P3.5): the traversal reads graph_edge (co-ownership
+// kinds), the association-noise guard is the precomputed graph_company_node.public_officer_count column,
+// and company nodes now carry money. ENDPOINT ELIGIBILITY is still gated LIVE on person (status +
+// is_public_figure / verified), so the privacy contract is unchanged. The function is now 2-arg —
+// person_connections(text, boolean DEFAULT false) — the 2nd arg the Tier-V private-owner toggle.
 //
-// IT SKIPS ON THE SOURCE, NEVER ON THE TARGET. `reachable()` probes person / person_role —
-// the inputs — and the function's existence. It deliberately does NOT skip on "the graph came
-// back empty", because an empty graph is one of the states this file exists to catch.
-//
-// WHY THE PLAN TEST IS THE ONE THAT EARNS ITS PLACE — the same reason person_by_name.data.test.ts
-// gives, and the same defect class. Every behavioural case below passed against the OLD body
-// too, the one that rebuilt the whole-corpus officer-count map on every request and drove the
-// route to 8.2-10.1 s on prod, one request already over the 10 s statement_timeout
-// (docs/plans/db-route-timeouts-v1.md §9.1). Correct-but-quadratic is exactly what a
-// behavioural suite cannot see, so the last test asserts the buffer count and proves the
-// assertion still discriminates by restoring the old body in a rolled-back transaction.
+// Requires the Postgres store + the graph loader (db:load:graph:pg) + person layer; auto-skips when
+// absent — like the other *.data.test.ts gates. IT SKIPS ON THE SOURCE, NEVER ON THE TARGET: an empty
+// graph is one of the states this file exists to catch.
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
@@ -27,10 +23,10 @@ type Edge = {
   slug: string;
   name: string;
   sharedCount?: number;
-  companies?: { eik: string; name: string | null }[];
+  companies?: { eik: string; name: string | null; money?: number }[];
   partnerSlug?: string;
-  c1?: { eik: string };
-  c2?: { eik: string };
+  c1?: { eik: string; money?: number };
+  c2?: { eik: string; money?: number };
 };
 type Payload = {
   subject: { slug: string; name: string };
@@ -39,21 +35,22 @@ type Payload = {
   disclaimer: string;
 } | null;
 
-const connections = (slug: string): Promise<Payload> =>
-  allRows<{ r: Payload }>("SELECT person_connections($1) AS r", [slug]).then(
-    (x) => x[0]?.r ?? null,
-  );
+const connections = (slug: string, includePrivate = false): Promise<Payload> =>
+  allRows<{ r: Payload }>("SELECT person_connections($1, $2) AS r", [
+    slug,
+    includePrivate,
+  ]).then((x) => x[0]?.r ?? null);
 
-// SOURCE-side probe: the person layer and the tr/ngo bridge that person_connections reads.
+// SOURCE-side probe: the 2-arg function + the graph edge set it reads. Probes the function SIGNATURE
+// (text, boolean) — the 1-arg is retired — and that the co-ownership edge set is non-empty.
 const reachable = async (): Promise<boolean> => {
   try {
     const [t] = await allRows<{ ok: boolean }>(
-      "SELECT to_regprocedure('person_connections(text)') IS NOT NULL AS ok",
+      "SELECT to_regprocedure('person_connections(text,boolean)') IS NOT NULL AS ok",
     );
     if (!t?.ok) return false;
     const [c] = await allRows<{ n: string }>(
-      `SELECT count(*) n FROM person_role r JOIN person p USING (person_id)
-        WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'`,
+      "SELECT count(*) n FROM graph_edge WHERE kind IN ('tr_role','tr_owner')",
     );
     return Number(c.n) > 0;
   } catch {
@@ -64,24 +61,22 @@ const reachable = async (): Promise<boolean> => {
 const haveDb = await reachable();
 const skip = haveDb
   ? false
-  : "Postgres unreachable / person layer or tr-ngo bridge empty";
+  : "Postgres unreachable / graph or person layer absent";
 
 afterAll(async () => {
   await end();
 });
 
-// Every fixture below self-selects from the live corpus with a deterministic ORDER BY, so
-// nothing here hardcodes a slug that could later leave the data.
-// Takes params — person_role.ref is unconstrained text written by the TR/NGO bridge from
-// registry payloads, so interpolating one would break this file the day a ref carries an
-// apostrophe, and the syntax error would point at person_connections rather than at the test.
+// Every fixture self-selects from the live corpus with a deterministic ORDER BY, so nothing hardcodes
+// a slug. Takes params — person_role.ref is unconstrained text, so interpolating one would break the
+// file the day a ref carries an apostrophe.
 const pickSlug = (sql: string, params?: unknown[]): Promise<string | null> =>
   allRows<{ slug: string }>(sql, params).then((r) => r[0]?.slug ?? null);
 
 // ── Behaviour ────────────────────────────────────────────────────────────────
 
 test.skipIf(skip)(
-  "a subject with a shared company gets direct edges",
+  "a subject with a shared company gets direct edges, each bridge company carrying money",
   async () => {
     const slug = await pickSlug(`
     WITH oc AS (
@@ -115,6 +110,12 @@ test.skipIf(skip)(
         new Set((e.companies ?? []).map((c) => c.eik)).size,
         `sharedCount disagrees with the bridge-company list for ${e.slug}`,
       );
+      // P3.5 deliverable: every bridge company node carries its (broad public) money.
+      for (const c of e.companies ?? [])
+        assert.ok(
+          typeof c.money === "number",
+          `bridge company ${c.eik} for ${e.slug} carries no money field`,
+        );
     }
   },
 );
@@ -122,15 +123,13 @@ test.skipIf(skip)(
 test.skipIf(skip)(
   "the association-noise guard excludes mass-membership orgs",
   async (ctx) => {
-    // A company with > 6 public officers is a board / professional association, not a business
-    // tie. Pick the biggest one and assert it never appears as a bridge for its own members.
+    // A company with > 6 public officers is a board / professional association, not a business tie.
+    // The graph's precomputed public_officer_count is the guard's input; it equals the person_role
+    // count exactly (0 mismatches, proven), so a >6 company from either source is the same set.
     const [big] = await allRows<{ ref: string; n: string }>(`
-    SELECT r.ref, count(DISTINCT r.person_id) AS n
-      FROM person_role r JOIN person p USING (person_id)
-     WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'
-     GROUP BY r.ref ORDER BY count(DISTINCT r.person_id) DESC, r.ref LIMIT 1`);
+    SELECT eik AS ref, public_officer_count AS n
+      FROM graph_company_node ORDER BY public_officer_count DESC, eik LIMIT 1`);
     if (!big || Number(big.n) <= 6) {
-      // Stated, not silent: assert.ok(true) would report as a plain pass and print nothing.
       ctx.skip("no company exceeds 6 public officers — guard not exercisable");
       return;
     }
@@ -207,10 +206,11 @@ test.skipIf(skip)(
   },
 );
 
-test.skipIf(skip)("the privacy gate holds on both endpoints", async () => {
-  // §6: never surface a private co-owner, and never a review-status person. All local person
-  // rows may be status='active', so the non-public half is the one with a natural fixture;
-  // the status half is created in a rolled-back transaction below.
+test.skipIf(skip)("the privacy gate holds LIVE on both endpoints", async () => {
+  // §6: never surface a private co-owner, and never a review-status person. Eligibility is gated LIVE
+  // on person (not the graph snapshot), so a status flip drops someone IMMEDIATELY — the property the
+  // graph re-point had to preserve. The non-public half has a natural fixture; the status half is a
+  // rolled-back UPDATE.
   const slug = await pickSlug(`
     WITH oc AS (
       SELECT r.ref, count(DISTINCT r.person_id) AS n
@@ -227,6 +227,7 @@ test.skipIf(skip)("the privacy gate holds on both endpoints", async () => {
     (e) => e.slug,
   );
   if (reached.length) {
+    // Default (public) run must never surface a non-public / non-active person.
     const bad = await allRows<{ slug: string }>(
       `SELECT slug FROM person WHERE slug = ANY($1)
         AND (NOT is_public_figure OR status <> 'active')`,
@@ -239,7 +240,8 @@ test.skipIf(skip)("the privacy gate holds on both endpoints", async () => {
     );
   }
 
-  // A review-status subject is not servable at all.
+  // A review-status subject is not servable at all — and because the gate is LIVE, a rolled-back
+  // UPDATE proves it without a graph rebuild.
   await withClient(async (c) => {
     await c.query("BEGIN");
     try {
@@ -253,13 +255,119 @@ test.skipIf(skip)("the privacy gate holds on both endpoints", async () => {
       assert.equal(
         rows[0]?.r ?? null,
         null,
-        "a review-status subject still returned a connections payload",
+        "a review-status subject still returned a connections payload — the gate is not live",
       );
     } finally {
       await c.query("ROLLBACK").catch(() => {});
     }
   });
 });
+
+// ── Tier-V private-owner toggle (the P3.5 addition) ───────────────────────────
+
+test.skipIf(skip)(
+  "the Tier-V toggle admits verified private owners; default suppresses them",
+  async () => {
+    // A verified private owner (is_public_figure=false, identity_confidence='verified') is not
+    // servable as a subject by default, but IS with the toggle.
+    const vslug = await pickSlug(
+      `SELECT slug FROM graph_person_node
+        WHERE identity_confidence = 'verified' AND NOT is_public_figure
+        ORDER BY degree DESC, person_id LIMIT 1`,
+    );
+    if (vslug) {
+      assert.equal(
+        await connections(vslug, false),
+        null,
+        `verified private ${vslug} was served on the DEFAULT (public) path`,
+      );
+      assert.ok(
+        (await connections(vslug, true)) !== null,
+        `verified private ${vslug} was NOT served even with the toggle`,
+      );
+    }
+
+    // And on a public subject sharing a GENUINELY SMALL company (coowner_count 2-6) that also carries
+    // verified private co-owners, the toggle admits AT LEAST as many direct edges as the default — never
+    // fewer — and the default set is a subset (the toggle only ADDS verified endpoints).
+    const pslug = await pickSlug(
+      `SELECT gp.slug
+         FROM graph_person_node gp
+         JOIN graph_edge e ON e.person_id = gp.person_id AND e.kind IN ('tr_role','tr_owner')
+         JOIN graph_company_node cn ON cn.eik = e.eik AND cn.coowner_count BETWEEN 2 AND 6
+          AND cn.public_officer_count < cn.coowner_count
+        WHERE gp.is_public_figure
+        GROUP BY gp.slug ORDER BY count(*) DESC, gp.slug LIMIT 1`,
+    );
+    if (pslug) {
+      const def = await connections(pslug, false);
+      const tog = await connections(pslug, true);
+      assert.ok(def && tog, `person_connections returned null for ${pslug}`);
+      assert.ok(
+        (tog.related.length ?? 0) >= (def.related.length ?? 0),
+        `toggle gave FEWER related (${tog.related.length}) than default (${def.related.length}) for ${pslug}`,
+      );
+      const defSet = new Set(def.related.map((e) => e.slug));
+      const togSet = new Set(tog.related.map((e) => e.slug));
+      for (const s of defSet)
+        assert.ok(togSet.has(s), `default edge ${s} vanished under the toggle`);
+    }
+  },
+);
+
+// OVER-LINK GUARD (the FINDING-001 regression). The private toggle bounds TOTAL co-owners
+// (coowner_count), not just the public count — so a few-public-officer mass-ownership vehicle
+// (кооперация: 1 public + scores of verified) must NEVER bridge an edge, in EITHER toggle state. Bounds
+// the defamation-sensitive fan-out that named ~123 private individuals through one company before the fix.
+test.skipIf(skip)(
+  "the toggle does not over-link through mass-ownership companies",
+  async (ctx) => {
+    // The worst offender: many total co-owners, few public officers (passes the OLD public-only guard).
+    const [big] = await allRows<{
+      eik: string;
+      coowners: string;
+      pub: string;
+    }>(`
+      SELECT eik, coowner_count AS coowners, public_officer_count AS pub
+        FROM graph_company_node
+       WHERE coowner_count > 6 AND public_officer_count <= 6
+       ORDER BY coowner_count DESC, eik LIMIT 1`);
+    if (!big) {
+      ctx.skip(
+        "no few-public-officer mass-ownership company — over-link not exercisable",
+      );
+      return;
+    }
+    // A public member of that company, so the default path can reach it as a subject.
+    const slug = await pickSlug(
+      `SELECT p.slug FROM person p
+         JOIN graph_edge e ON e.person_id = p.person_id AND e.kind IN ('tr_role','tr_owner')
+        WHERE e.eik = $1 AND p.status = 'active' AND p.is_public_figure
+        ORDER BY p.slug LIMIT 1`,
+      [big.eik],
+    );
+    if (!slug) {
+      ctx.skip(
+        `mass-ownership company ${big.eik} has no public member to query from`,
+      );
+      return;
+    }
+    for (const priv of [false, true]) {
+      const r = await connections(slug, priv);
+      const bridges = [
+        ...(r?.related ?? []).flatMap((e) =>
+          (e.companies ?? []).map((c) => c.eik),
+        ),
+        ...(r?.indirect ?? []).flatMap((e) => [e.c1?.eik, e.c2?.eik]),
+      ].filter(Boolean);
+      assert.ok(
+        !bridges.includes(big.eik),
+        `company ${big.eik} (${big.coowners} co-owners, ${big.pub} public) bridged an edge for ` +
+          `${slug} with private=${priv} — the toggle guard does not bound total co-ownership degree`,
+      );
+    }
+  },
+);
 
 test.skipIf(skip)(
   "an unknown slug returns null, and the disclaimer is never droppable",
@@ -278,26 +386,18 @@ test.skipIf(skip)(
   },
 );
 
-// ── The plan test ────────────────────────────────────────────────────────────
+// ── The plan test — the buffer ceiling ────────────────────────────────────────
 //
-// The whole point of the fix. The old body materialized a `co` CTE — one GROUP BY over every
-// tr/ngo person_role row joined to every person — on EVERY request, independent of the
-// subject.
+// The whole point of the original fix, carried forward through the graph re-point. The pre-fix body
+// materialized a `co` CTE — one GROUP BY over every tr/ngo person_role row joined to every person — on
+// EVERY request, independent of the subject, and drove the route to 8.2-10.1 s on prod. The graph
+// version replaces that with a precomputed guard column (an O(1) PK lookup), so a subject with NO
+// companies costs almost nothing.
 //
-// The subject deliberately has no companies: that is the crawler's common case (prod traffic
-// is a bot walking /person/{slug} alphabetically) and the one where the old body's cost was
-// PURELY waste.
-//
-// CALIBRATED WITH bufferCost BELOW, not with the plan doc's numbers. Those (560 new / 7,294
-// old) are `force_generic_plan` measurements of the function BODY; this reads the shipped path
-// through the pool and gets **38 new / 6,760 old**. Mixing the two methods is how this ceiling
-// was first set to 1200 — 31× above what it measures, which still passes a TOTAL regression
-// back to the whole-corpus scan but sails past a PARTIAL one. That is the likelier failure:
-// lose just the `person_pkey` seek inside public_officer_count and the cost lands near
-// 900-3,000, silently green at 1200 while the route has regressed ~24×.
-//
-// 200 sits ~5× above the measured cost and ~34× below the control. Matches the ceiling the
-// sibling person_by_name.data.test.ts:220 chose by the same reasoning.
+// CALIBRATED WITH bufferCost BELOW, read through the pool: the graph body measures ~71 buffers for the
+// no-companies case; the pre-fix control (restored in a rolled-back tx) reads ~6,760. 200 sits ~2.8×
+// above the measured cost and ~34× below the control — comfortably discriminating a regression back to
+// a whole-corpus scan.
 const BUFFER_CEILING = 200;
 
 const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
@@ -313,14 +413,10 @@ const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
     .join("\n")
     .split("\n")
     .filter((l) => l.includes("Buffers:"));
-  // Fail loudly rather than scoring 0 if EXPLAIN's format ever changes — a silent 0 would sail
-  // under the ceiling, which is the dangerous direction.
   assert.ok(
     lines.length,
     "EXPLAIN reported no Buffers: line — parser needs updating",
   );
-  // Each counter parsed on its own: Postgres OMITS zero-valued counters, so a plan read
-  // entirely from disk prints "Buffers: shared read=4461" with no hit= at all.
   return lines
     .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
     .reduce((n, m) => n + Number(m[1]), 0);
@@ -342,29 +438,18 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
   assert.ok(
     current < BUFFER_CEILING,
     `person_connections read ${current} buffers for a subject with NO companies ` +
-      `(ceiling ${BUFFER_CEILING}). It is rebuilding the whole-corpus officer-count map ` +
-      `instead of looking up the handful of companies it needs — see ` +
-      `scripts/db/schema/pg/084_person_connections.sql and docs/plans/db-route-timeouts-v1.md §9.1.`,
+      `(ceiling ${BUFFER_CEILING}). The graph guard should be an O(1) column lookup, not a ` +
+      `whole-corpus officer-count scan — see scripts/db/schema/pg/084_person_connections.sql.`,
   );
 
-  // Control: restore the expensive half of the pre-fix body and confirm this assertion would
-  // have caught it.
-  //
-  // NOT the whole old body — it keeps `co` and its subj_co consumer and drops rel/agg/p_c1/
-  // p_co/indirect and the payload builder, so it reads ~6,760 buffers against the real old
-  // body's ~7,294. That is deliberate and conservative: it is a LOWER BOUND on what the ceiling
-  // must reject, so calibrate against 6,760, not against the plan doc's 7,294.
-  //
-  // Holds an ExclusiveLock on the person_connections object for the duration. Concurrent
-  // CALLERS are unaffected — they read the committed body without blocking — but a concurrent
-  // `apply_functions.ts 084_person_connections.sql` or `db:resolve:persons` against the same
-  // database would block on the lock. db:refresh sequences the loaders before test:data, so
-  // the collision needs a hand-run loader during a test run.
+  // Control: restore the expensive pre-fix body (the whole-corpus `co` CTE) as a 2-arg overload and
+  // confirm this assertion would have caught it. NOT the whole old body — it keeps `co` + subj_co and
+  // drops the rest, a LOWER BOUND (~6,760 buffers) on what the ceiling must reject.
   const regressed = await withClient(async (c) => {
     await c.query("BEGIN");
     try {
       await c.query(`
-        CREATE OR REPLACE FUNCTION person_connections(p_slug text)
+        CREATE OR REPLACE FUNCTION person_connections(p_slug text, p_include_private boolean DEFAULT false)
         RETURNS jsonb LANGUAGE sql STABLE AS $fn$
           WITH subj AS (
             SELECT person_id, slug, display_name FROM person
@@ -399,40 +484,55 @@ test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
   );
 });
 
-// The ceiling above cannot see this property: its subject has ZERO roles of any kind, so it
-// never exercises qual ordering at all.
-//
-// public_officer_count is only cheap because the planner evaluates `source IN ('tr','ngo')`
-// FIRST and never calls it for a non-TR role. That ordering is not written anywhere in the
-// query — order_qual_clauses() derives it from the function's COST, which 084 sets to 500 for
-// exactly this reason. Drop that COST (or reimplement the function in C, where the default is
-// 1) and every non-TR role on every subject buys a per-eik lookup, with nothing failing.
-//
-// Measured with bufferCost on the corpus's worst case for this — the person with the most
-// non-tr/ngo roles (24, of which 0 are tr/ngo): 38 buffers, identical to a person with no
-// roles at all, i.e. the function is never called. The ceiling is generous because the point
-// is to catch one lookup PER ROLE (~24× this) rather than to pin an exact number.
-const NON_TR_CEILING = 100;
+// The DEFAULT ceiling above never exercises the TOGGLE path (bufferCost binds p_include_private=false).
+// The private view admits verified co-owners, so it costs more — but the coowner_count≤6 guard bounds
+// the fan-out, so it stays FINITE. Measured ~379 on the highest-verified-degree small-company subject;
+// a regression that dropped the guard (fanning to scores of private co-owners, then indirect over their
+// companies) would blow well past this. 2000 sits ~5× above the measurement.
+const PRIVATE_BUFFER_CEILING = 2000;
 
-test.skipIf(skip)("does not pay per non-TR role", async () => {
-  const slug = await pickSlug(`
-    SELECT p.slug FROM person p JOIN person_role r USING (person_id)
-     WHERE p.status = 'active' AND p.is_public_figure
-     GROUP BY p.slug
-    HAVING count(*) FILTER (WHERE r.source IN ('tr','ngo')) = 0
-     ORDER BY count(*) DESC, p.slug LIMIT 1`);
-  assert.ok(slug, "no public person with roles but none of them tr/ngo");
-
-  const [n] = await allRows<{ roles: string }>(
-    `SELECT count(*) AS roles FROM person_role r JOIN person p USING (person_id)
-      WHERE p.slug = $1`,
+const bufferCostPrivate = async (
+  c: PoolClient,
+  slug: string,
+): Promise<number> => {
+  await c.query("SELECT person_connections($1, true)", [slug]);
+  const { rows } = await c.query<{ "QUERY PLAN": string }>(
+    "EXPLAIN (ANALYZE, BUFFERS) SELECT person_connections($1, true)",
     [slug],
   );
-  const cost = await withClient((c) => bufferCost(c, slug));
+  const lines = rows
+    .map((r) => r["QUERY PLAN"])
+    .join("\n")
+    .split("\n")
+    .filter((l) => l.includes("Buffers:"));
   assert.ok(
-    cost < NON_TR_CEILING,
-    `person_connections read ${cost} buffers for ${slug}, who has ${n.roles} roles and NONE ` +
-      `of them tr/ngo (ceiling ${NON_TR_CEILING}). public_officer_count is being evaluated ` +
-      `before the source filter — check that 084 still declares COST 500 on it.`,
+    lines.length,
+    "EXPLAIN reported no Buffers: line — parser needs updating",
   );
-});
+  return lines
+    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
+    .reduce((n, m) => n + Number(m[1]), 0);
+};
+
+test.skipIf(skip)(
+  "the toggle path stays bounded (guard limits the fan-out)",
+  async () => {
+    // The subject most likely to be expensive under the toggle: the highest verified-private-degree
+    // public figure on genuinely small (coowner_count 2-6) companies.
+    const slug = await pickSlug(`
+    SELECT gp.slug FROM graph_person_node gp
+      JOIN graph_edge e ON e.person_id = gp.person_id AND e.kind IN ('tr_role','tr_owner')
+      JOIN graph_company_node cn ON cn.eik = e.eik
+       AND cn.coowner_count BETWEEN 2 AND 6 AND cn.public_officer_count < cn.coowner_count
+     WHERE gp.is_public_figure
+     GROUP BY gp.slug ORDER BY count(*) DESC, gp.slug LIMIT 1`);
+    if (!slug) return; // no public subject on a small verified-carrying company — nothing to bound
+    const cost = await withClient((c) => bufferCostPrivate(c, slug));
+    assert.ok(
+      cost < PRIVATE_BUFFER_CEILING,
+      `person_connections(…, true) read ${cost} buffers for ${slug} (ceiling ${PRIVATE_BUFFER_CEILING}). ` +
+        `The coowner_count<=6 guard should bound the private fan-out — check subj_co/p_co still key on ` +
+        `coowner_count when p_include_private.`,
+    );
+  },
+);

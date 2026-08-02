@@ -2790,15 +2790,41 @@ const DB_ROUTES = {
     return { body: rows[0]?.r ?? [] };
   },
   // Person↔person edges (shared company, association-noise-guarded) → the Connections
-  // component (§8) + the future personConnections AI tool. Public-safe endpoints only;
-  // the payload carries its own "лид, не доказателство" disclaimer.
+  // component (§8) + the future personConnections AI tool. Reads the unified graph (128/084).
+  // Public-safe endpoints only by default; ?private=1 opts into the Tier-V verified-owner view
+  // (relaxes endpoint eligibility to identity_confidence='verified', guard unchanged). The
+  // payload carries its own "лид, не доказателство" disclaimer.
   "person-connections": async (dbRows, q) => {
     const slug = s(q, "slug");
     if (!slug) return { body: null };
-    const rows = await dbRows("SELECT person_connections($1) AS r", [
+    const includePrivate = s(q, "private") === "1";
+    const rows = await dbRows("SELECT person_connections($1, $2) AS r", [
       slug,
-    ]).catch(missingMigrationEmpty);
+      includePrivate,
+    ]).catch(missingMigration(null));
     return { body: rows[0]?.r ?? null };
+  },
+  // One person's immediate neighbourhood as company nodes + typed (co-ownership + procurement)
+  // edges with money — the graph-ego view (128/084 person_graph_ego). Same eligibility + Tier-V
+  // toggle as person-connections.
+  "graph-ego": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const includePrivate = s(q, "private") === "1";
+    const rows = await dbRows("SELECT person_graph_ego($1, $2) AS r", [
+      slug,
+      includePrivate,
+    ]).catch(missingMigration(null));
+    return { body: rows[0]?.r ?? null };
+  },
+  // The down-sampled public-figure bridge graph for the /connections OVERVIEW — top-N bridge
+  // companies by public money + their public figures + edges + the facet×facet matrix (129).
+  // One precomputed blob; degrades to empty (not 500) if the graph loader has not run.
+  "graph-global": async (dbRows) => {
+    const rows = await dbRows(
+      "SELECT payload FROM graph_payloads WHERE scope = 'global'",
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.payload ?? null };
   },
   // Global municipal-officials name index → useMunicipalOfficialsByName (ChmiFeedScreen's
   // name → /officials link resolver). Replaces the static municipal/search_index.json
