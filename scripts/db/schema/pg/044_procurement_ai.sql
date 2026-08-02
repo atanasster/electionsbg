@@ -143,7 +143,7 @@ CREATE OR REPLACE FUNCTION kzk_appeals_summary()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH base AS (
     SELECT a.complaint_date, a.match, a.outcome,
-           COALESCE(a.suspension, a.status ~* 'спрян') AS suspended,
+           kzk_effective_suspension(a.suspension, a.status) AS suspended,
            a.buyer_eik,
            -- canonical buyer name preferred (tenders corpus), else КЗК respondent.
            COALESCE(t.buyer_name, a.respondent, a.buyer_eik) AS bname

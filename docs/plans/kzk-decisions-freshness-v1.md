@@ -375,7 +375,8 @@ pages, check for the case number, then decide. Not committed to in this plan.
 | Widening the year window introduces false matches | Only unambiguous 1:1 resolutions are emitted; ambiguity counts are reported (gate D), and T2 runs against a known corpus so new matches can be spot-audited. |
 | The register no longer serves 2020 | T4's probe reports the oldest reachable act; T1.4's dump becomes the permanent record if it does not reach back. |
 | No BG egress when it matters | Unchanged from today, but now explicit: gate A fails visibly instead of the arm freezing quietly. |
-| T3's one-off NULLs a legitimately-established `false` | Scoped to `decision_act_no IS NULL` — rows no decision ever touched. Rows a decision established keep their value. |
+| T3's one-off NULLs a legitimately-established `false` | **Revised in implementation.** `decision_act_no IS NULL` turned out to be the wrong scope: the OUTCOME matcher sets that column without touching `suspension`, so 916 rows carry both and the proxy proves nothing. The guard tests the premise directly instead — it refuses if any row is suspended while its status does NOT say `спрян`, since such a value cannot have come from the intake snapshot. Measured before the run: `true` on 4 rows (all 4 `спрян`), `false` on 7,778 (none `спрян`), i.e. the column was exactly a frozen copy of the fallback expression. |
+| T3 changes a served answer after all | **It did.** `kzk_appeals_list` selected the RAW column, so releasing it took `/procurement/appeals` from 4 suspended chips to 0 while the other four consumers still showed 4. The expression was inlined five times and one copy was wrong; 042 now defines `kzk_effective_suspension()` once and all five call it, and the T3 gate asserts per-row agreement across the serving objects rather than against its own re-implementation. |
 
 ## 9. What the audit changed (2026-08-02)
 

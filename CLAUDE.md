@@ -292,6 +292,28 @@ refuses to touch. Provenance (131) is what makes the rejoin safe to re-run: `dec
 IS NOT NULL` marks a row as machine-derived and re-derivable, NULL marks it as one of the
 ~2,098 irreplaceable hand-made ones, which no writer may overwrite.
 
+**One-off, and Cloud SQL needs it by hand — `kzk_appeals.suspension`.** The column held a
+stored `false` on 7,778 of 7,886 rows, which made 042's
+`kzk_effective_suspension(suspension, status)` fallback unreachable: 1,501 appeals had
+requested a temporary measure and at most 4 could ever display as suspended. **A re-crawl
+cannot fix this** — the intake passes NULL into `COALESCE(existing, EXCLUDED)`, so the frozen
+value is immovable — and there is no `db:load:kzk:pg:cloud` to carry a fix over. Prod stays
+frozen until someone runs it there:
+
+```bash
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/db/apply_functions.ts 042_kzk_appeals.sql 044_procurement_ai.sql
+DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/procurement/kzk_unfreeze_suspension.ts --apply
+```
+
+**Order matters and the script enforces it.** 042 must land FIRST: before it,
+`kzk_appeals_list` selected the RAW column, so releasing the column takes
+`/procurement/appeals` from 4 suspended chips to 0 while every other surface still shows 4.
+The script refuses to run if `kzk_effective_suspension()` is absent. If the one-off has been
+deleted (it is scheduled to die when the определения arm lands), the equivalent is
+`UPDATE kzk_appeals SET suspension = NULL WHERE suspension IS NOT NULL;` — but only while no
+row is suspended without a `спрян` status, which is exactly what
+`kzk_suspension.data.test.ts` asserts.
+
 `contractor_rank` (migration 122) is the same first-deploy shape as `cpv_catalog`: the
 `contractor_rankings` DbDataTable resource + the `/api/db/contractor-scope-kpis` route read
 it and do NOT degrade a missing matview to an empty result, so on the FIRST cloud deploy the

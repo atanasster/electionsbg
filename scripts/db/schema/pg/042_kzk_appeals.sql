@@ -58,6 +58,30 @@ CREATE INDEX IF NOT EXISTS idx_kzk_appeals_date
   ON kzk_appeals(complaint_date DESC NULLS LAST, complaint_no DESC);
 GRANT SELECT ON kzk_appeals TO app_readonly;
 
+-- ---------------------------------------------------------------------------
+-- The ONE definition of "is this appeal suspended".
+--
+-- `suspension` is TIER-2-ONLY: it can be set authoritatively only by the
+-- Решения/Определения registers, and the определения arm has never been crawled,
+-- so intake writes NULL. The fallback reads the fresh intake status instead, and
+-- — unlike a stored bool — it updates false→true on a re-scrape.
+--
+-- ⚠️ THIS EXISTS BECAUSE THE EXPRESSION WAS INLINED FIVE TIMES AND ONE COPY WAS
+-- WRONG. `kzk_appeals_list` selected the RAW column, so /procurement/appeals (the
+-- DbDataTable resource built on that view) rendered its "suspended" chip off a
+-- value every other surface treated as merely a hint. When the frozen column was
+-- released to NULL, that page silently went from 4 chips to 0 while all four
+-- other consumers correctly showed 4. A shared function makes the next divergence
+-- impossible rather than merely unlikely.
+--
+-- IMMUTABLE so it can be used in an index or a matview predicate if ever needed.
+CREATE OR REPLACE FUNCTION kzk_effective_suspension(
+  p_suspension boolean,
+  p_status     text
+) RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
+  SELECT COALESCE(p_suspension, p_status ~* 'спрян');
+$$;
+
 -- Appeals for one procedure (by УНП; the tender page passes its unp). Ordered
 -- newest complaint first.
 DROP FUNCTION IF EXISTS tender_appeals(text);
@@ -78,7 +102,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- decisions register); intake writes NULL. Fall back to the fresh intake
     -- status (спряно производство) so a live suspension shows without waiting for
     -- tier-2 — and, unlike a stored intake bool, updates false→true on re-scrape.
-    'suspension', COALESCE(suspension, status ~* 'спрян'),
+    'suspension', kzk_effective_suspension(suspension, status),
     'sourceUrl', source_url
   ) ORDER BY complaint_date DESC NULLS LAST, complaint_no DESC), '[]'::jsonb)
   FROM kzk_appeals
@@ -104,7 +128,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
            a.outcome,
            -- effective suspended (tier-2 column OR fresh intake status) — see
            -- tender_appeals above.
-           COALESCE(a.suspension, a.status ~* 'спрян') AS suspension,
+           kzk_effective_suspension(a.suspension, a.status) AS suspension,
            (t.unp IS NOT NULL) AS "resolved"
     FROM kzk_appeals a
     LEFT JOIN tenders t ON t.unp = a.unp
@@ -129,7 +153,7 @@ CREATE VIEW tenders_list AS
 SELECT t.*,
   EXISTS (SELECT 1 FROM kzk_appeals k WHERE k.unp = t.unp) AS has_appeal,
   EXISTS (SELECT 1 FROM kzk_appeals k WHERE k.unp = t.unp
-          AND COALESCE(k.suspension, k.status ~* 'спрян')) AS appeal_suspended
+          AND kzk_effective_suspension(k.suspension, k.status)) AS appeal_suspended
 FROM tenders t;
 GRANT SELECT ON tenders_list TO app_readonly;
 
@@ -191,7 +215,10 @@ SELECT a.complaint_no,
        a.status,
        a.outcome,
        a.decision_date,
-       a.suspension,
+       -- The effective state, NOT the raw column: this view backs the
+       -- /procurement/appeals DbDataTable, whose chip and `suspension = true`
+       -- filter must agree with every other surface.
+       kzk_effective_suspension(a.suspension, a.status) AS suspension,
        a.vm_requested,
        (t.unp IS NOT NULL) AS resolved
 FROM kzk_appeals a
