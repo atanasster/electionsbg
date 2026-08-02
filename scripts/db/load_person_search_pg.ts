@@ -81,7 +81,25 @@ const main = async (): Promise<void> => {
         WHERE tier = 'P'`,
     );
 
-    // V/N arm — TR owners by folded name, with BROAD public money, anti-joined against P folds.
+    // V-real arm — the S4 VERIFIED private owners: they are real person rows (tier V in
+    // person_browse, is_public_figure=false, a durable slug), so they belong in the money (V) tier
+    // by their REAL slug — not as a name-fold row. Without this they would fall through to the
+    // tr_officers arm and route by /person/<name> with a 'name_fold' badge despite being verified.
+    await c.query(
+      `INSERT INTO person_search
+         (key, name, tier, position_type, primary_role, party, place_label, top_eik,
+          firms_count, public_money_eur, has_photo, identity_confidence, href, rank_static)
+       SELECT 'slug:' || slug, name, 'V', position_type, NULL, NULL, NULL, NULL,
+              coalesce(companies_n, 0), coalesce(public_money_eur, 0), false, 'verified',
+              '/person/' || slug,
+              500 + ln(1 + greatest(0, coalesce(public_money_eur, 0)))
+         FROM person_browse_table
+        WHERE tier = 'V' AND identity_confidence = 'verified'`,
+    );
+
+    // V/N arm — the remaining name-fold TR owners, with BROAD public money. Anti-joined against
+    // ALL persons (public P + verified V), so a fold that is now a real person — public OR
+    // verified-private — is served by a real-slug arm above, never duplicated here as name-fold.
     await c.query(
       `INSERT INTO person_search
          (key, name, tier, position_type, primary_role, party, place_label, top_eik,
@@ -127,8 +145,8 @@ const main = async (): Promise<void> => {
               (CASE WHEN o.money > 0 THEN 500 ELSE 100 END) + ln(1 + greatest(0, coalesce(o.money, 0)))
          FROM owner o
         WHERE NOT EXISTS (
-                SELECT 1 FROM person_search p
-                 WHERE p.tier = 'P' AND p.name_fold = o.name_fold)`,
+                SELECT 1 FROM person p
+                 WHERE p.name_fold = o.name_fold)`,
     );
   });
 

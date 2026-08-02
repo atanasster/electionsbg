@@ -781,20 +781,32 @@ test.skipIf(skip)("name-fold private arm is clean and separated", async () => {
   );
   assert.ok(v > 30000, `only ${v} name-fold private rows (expected ~54.6k)`);
 
-  // Shape: every V row is a private_sector, name_fold, money-linked, SLUG-LESS, 'fold:'-keyed row.
-  const bad = await count(
+  // Tier V has TWO shapes since S4: a NAME-FOLD row (private_sector, money-linked, SLUG-LESS,
+  // 'fold:'-keyed, identity_confidence='name_fold') and a VERIFIED private (a minted person:
+  // private_sector, a REAL slug, 'slug:'-keyed, identity_confidence='verified').
+  const badNameFold = await count(
     `SELECT count(*) n FROM person_browse_table
-      WHERE tier = 'V' AND (position_type <> 'private_sector'
-         OR identity_confidence <> 'name_fold'
+      WHERE tier = 'V' AND identity_confidence = 'name_fold'
+        AND (position_type <> 'private_sector'
          OR slug IS NOT NULL
          OR public_money_eur IS NULL OR public_money_eur <= 0
          OR NOT is_company
          OR key NOT LIKE 'fold:%')`,
   );
   assert.equal(
-    bad,
+    badNameFold,
     0,
-    `${bad} name-fold row(s) violate the arm's shape contract`,
+    `${badNameFold} name-fold row(s) violate the arm's shape contract`,
+  );
+  const badVerified = await count(
+    `SELECT count(*) n FROM person_browse_table
+      WHERE tier = 'V' AND identity_confidence = 'verified'
+        AND (position_type <> 'private_sector' OR slug IS NULL OR key NOT LIKE 'slug:%')`,
+  );
+  assert.equal(
+    badVerified,
+    0,
+    `${badVerified} verified private row(s) violate their shape (real slug, private_sector)`,
   );
 
   // Person-shape gate: EXACTLY 3 all-LETTER folded tokens and no company legal-form token —
@@ -864,21 +876,22 @@ test.skipIf(skip)("name-fold private arm is clean and separated", async () => {
     `${overlap} name-fold fold(s) are also a public person — the anti-join broke, so a human shows twice`,
   );
 
-  // PRIVACY (§6 gate extends to the V arm). The name-fold arm anti-joins against ALL persons, not
-  // just public ones, so a GATED person (inactive / is_public_figure=false) — deliberately
-  // withheld — must never surface as a name-fold owner row. (The public-default floor itself is
-  // already asserted by test (1): rows(tier='P') == eligible.)
+  // PRIVACY (§6 gate extends to the V arm). The NAME-FOLD arm anti-joins against ALL persons, so a
+  // GATED person (inactive, or non-public AND non-verified) must never surface as a name-fold row.
+  // A verified private (is_public_figure=false, identity='verified') is DELIBERATELY served (it is
+  // the person arm's own tier-V row), so it is exempt. (The public floor is asserted by test 1.)
   const leak = await count(
     `SELECT count(*) n FROM person_browse_table v
-      WHERE v.tier = 'V' AND EXISTS (
+      WHERE v.tier = 'V' AND v.identity_confidence = 'name_fold' AND EXISTS (
         SELECT 1 FROM person p
          WHERE p.name_fold = v.name_fold
-           AND (p.status <> 'active' OR NOT p.is_public_figure))`,
+           AND (p.status <> 'active'
+                OR (NOT p.is_public_figure AND p.identity_confidence <> 'verified')))`,
   );
   assert.equal(
     leak,
     0,
-    `${leak} gated person(s) surfaced via the V arm — the anti-join must exclude ALL persons, not just public ones`,
+    `${leak} gated person(s) surfaced via the name-fold V arm — the anti-join must exclude ALL persons`,
   );
 });
 
@@ -904,30 +917,27 @@ test("resolve_persons.ts mints the Tier-V private owners", () => {
 });
 
 test.skipIf(skip)(
-  "the Tier-V selection criteria size the mint (~53k)",
+  "the Tier-V mint produced ~53k verified private persons",
   async () => {
-    // The EXACT criteria the resolver mints on, checked against live tr_officers/money — the
-    // rebuild has not run here, so this is the proxy: money-linked ∩ 3-letter-token ∩ no company
-    // form ∩ ≤5 TOTAL firms ∩ not-already-a-person.
-    const n = await count(
-      `WITH money_eik AS (
-         SELECT contractor_eik AS eik FROM contracts
-          WHERE contractor_eik<>'' AND tag='contract' AND consortium_role IS DISTINCT FROM 'member'
-         UNION SELECT eik FROM agri_subsidies     WHERE eik IS NOT NULL
-         UNION SELECT eik FROM fund_beneficiaries WHERE eik IS NOT NULL)
-       SELECT count(*) n FROM (
-         SELECT o.name_fold
-           FROM tr_officers o
-           LEFT JOIN money_eik m ON m.eik = o.uic
-          WHERE o.name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
-            AND o.name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
-            AND o.name_fold !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)'
-          GROUP BY o.name_fold
-         HAVING bool_or(m.eik IS NOT NULL) AND count(DISTINCT o.uic) <= 5) x`,
+    // Post-rebuild the mint is LIVE, so validate its ACTUAL output: verified private owners are
+    // real person rows (identity_confidence='verified', is_public_figure=false), surfaced tier V
+    // with a real slug in the browser. (Pre-rebuild this asserted the selection query instead.)
+    const minted = await count(
+      `SELECT count(*) n FROM person
+        WHERE identity_confidence = 'verified' AND NOT is_public_figure`,
     );
     assert.ok(
-      n > 30000 && n < 80000,
-      `Tier-V selection is ${n} (expected ~50k) — the mint criteria drifted from the browse arm`,
+      minted > 30000 && minted < 80000,
+      `${minted} verified private persons (expected ~53k) — the Tier-V mint drifted or did not run`,
+    );
+    // Every one of them reaches the browser as a real-slug tier-V private (never public).
+    const inBrowse = await count(
+      `SELECT count(*) n FROM person_browse_table
+        WHERE tier = 'V' AND identity_confidence = 'verified' AND slug IS NOT NULL`,
+    );
+    assert.ok(
+      inBrowse > 30000,
+      `only ${inBrowse} verified privates reached the browser tier-V slice with a slug`,
     );
   },
 );

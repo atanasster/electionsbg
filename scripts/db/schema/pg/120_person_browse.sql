@@ -326,19 +326,31 @@ companies AS (
   SELECT person_id, ref AS uic FROM roles WHERE source = 'tr' GROUP BY 1, 2
 ),
 company_money AS (
-  -- Per (person, company) first, so a person holding several companies sums each once.
+  -- Per (person, company) first, so a person holding several companies sums each once. `eur` is
+  -- the contracts-only figure (public persons, must equal the profile's procuredEur); `broad_eur`
+  -- adds subsidies + funds and is used for VERIFIED PRIVATE owners (S4), whose money-link boundary
+  -- is broad — else a subsidy/fund-only owner shows €0 despite being selected on that money.
   SELECT c.person_id, c.uic,
          (SELECT round(sum(ct.amount_eur)::numeric, 2)
             FROM contracts ct
            WHERE ct.contractor_eik = c.uic
              AND ct.tag = 'contract'
-             AND ct.consortium_role IS DISTINCT FROM 'member') AS eur
+             AND ct.consortium_role IS DISTINCT FROM 'member') AS eur,
+         coalesce((SELECT round(sum(ct.amount_eur)::numeric, 2) FROM contracts ct
+                    WHERE ct.contractor_eik = c.uic AND ct.tag = 'contract'
+                      AND ct.consortium_role IS DISTINCT FROM 'member'), 0)
+       + coalesce((SELECT round(sum(a.total_eur)::numeric, 2)
+                     FROM agri_subsidies a WHERE a.eik = c.uic), 0)
+       + coalesce((SELECT round(sum(fb.paid_eur)::numeric, 2)
+                     FROM fund_beneficiaries fb WHERE fb.eik = c.uic), 0) AS broad_eur
   FROM companies c
 ),
 money AS (
   SELECT m.person_id,
          count(*)::smallint                       AS companies_n,
-         round(sum(m.eur)::numeric, 2)::double precision AS public_money_eur,
+         -- contracts-only for public figures (profile reconciliation); broad for verified privates.
+         round(sum(CASE WHEN pub.is_public_figure THEN m.eur ELSE m.broad_eur END)::numeric, 2)
+           ::double precision                      AS public_money_eur,
          -- bool_AND for 'declared', not bool_or: one curated company among several
          -- name-matched ones is 'mixed', which still earns the caveat. See the header.
          CASE WHEN bool_and(a.uic IS NOT NULL) THEN 'declared'
@@ -346,6 +358,7 @@ money AS (
               ELSE 'name_match' END
            AS tr_link_basis
   FROM company_money m
+  JOIN pub ON pub.person_id = m.person_id
   LEFT JOIN bridge_a a ON a.person_id = m.person_id AND a.uic = m.uic
   GROUP BY m.person_id
 ),

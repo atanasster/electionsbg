@@ -329,15 +329,21 @@ derives `tier = CASE is_public_figure` (so a verified private is tier V — excl
 Rebuilt `120` locally → unchanged 117,348 (no verified yet), all data tests green (19). The
 resolver itself is **NOT run** (multi-hour; DELETEs `person`).
 
-**TWO COMPLETION REFINEMENTS the rebuild must settle (documented, not yet coded):**
-1. **`person_search` V-arm** still builds the money tier from `tr_officers` anti-joined against the
-   public folds only, so post-mint a verified private appears in SEARCH as a *name-fold* row
-   (`/person/<name>`, "name match") rather than by its new real slug. Functional (the `:name`
-   dispatcher resolves it) but inconsistent. Fix: source the search V tier's real-slug rows from
-   `person_browse` tier=V and exclude those folds from the `tr_officers` arm.
-2. **Money basis on tier V** becomes mixed: a verified private (now person arm) shows contracts-only
-   `public_money_eur`, while the name-fold V rows show broad. Align the person arm to broad money
-   for `is_public_figure=false` rows, or accept + label the split.
+**REBUILT + VALIDATED (2026-08-01, S4b).** Operator ran `db:resolve:persons` → **+53,203 tier-V
+private owners minted, public count unchanged, 0 slug retired (no collision/abort)**; then
+declarations `--resolve` (47,983 person_id re-attached) + the browse/search loaders. Verified:
+browse P=63,910 (unchanged) / V-verified=53,203 (real slug) / V-name_fold=3,448; a verified
+private's `/person/:slug` serves via 082 (name + companies + money); public floor holds. Both
+completion refinements are now **CODED + validated**:
+1. **`person_search` V-arm** — a new arm sources verified privates from `person_browse` tier=V by
+   REAL slug (identity='verified'), and the `tr_officers` arm now anti-joins against ALL persons,
+   so a verified private appears in search by slug, not as a name-fold row. (V now 53,203 verified
+   + 11,769 name-fold.)
+2. **Money basis** — `120` computes BROAD money (contracts∪subsidies∪funds) for
+   `is_public_figure=false` verified privates while keeping contracts-only for public figures, so a
+   subsidy/fund-only owner no longer shows €0. Browse "with money" recovered 19,949 → 57,977.
+The data-test suite was updated to the post-mint reality (V's two shapes; the mint's live output;
+the verified exemption in the privacy checks) — 29 green.
 
 **OPERATOR REBUILD + VALIDATION CHECKLIST** (do not `:cloud` until every box is green locally):
 - `npm run db:resolve:persons` (~hours) → summary must show `+~53k tier-V private owners minted`

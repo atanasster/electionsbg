@@ -129,20 +129,29 @@ test.skipIf(skip)("keys and hrefs are well-formed per tier", async () => {
       WHERE tier='P' AND (key NOT LIKE 'slug:%' OR href NOT LIKE '/person/%')`,
   );
   assert.equal(badP, 0, `${badP} P rows have a malformed key/href`);
+  // V/N rows have TWO valid shapes since S4: a VERIFIED private (a real person minted from the
+  // Commerce Registry) carries a 'slug:' key + identity_confidence='verified'; a name-fold row
+  // carries a 'fold:' key + 'name_fold'. Both route to /person/…
   const badVN = await count(
     `SELECT count(*) n FROM person_search
-      WHERE tier IN ('V','N') AND (key NOT LIKE 'fold:%'
-            OR href NOT LIKE '/person/%' OR identity_confidence <> 'name_fold')`,
+      WHERE tier IN ('V','N')
+        AND (href NOT LIKE '/person/%'
+             OR identity_confidence NOT IN ('verified','name_fold')
+             OR (identity_confidence = 'verified' AND key NOT LIKE 'slug:%')
+             OR (identity_confidence = 'name_fold' AND key NOT LIKE 'fold:%'))`,
   );
   assert.equal(badVN, 0, `${badVN} V/N rows are malformed`);
 });
 
-// (2) V is money-linked, N is not — the tier boundary.
+// (2) V is money-linked, N is not — the tier boundary. The NAME-FOLD V rows are money>0 by
+// construction (money>0 ⇒ V); a VERIFIED private is money-LINKED (selected on it) but its broad
+// SUM can round to ~0, so the strict >0 invariant is asserted on the name-fold arm.
 test.skipIf(skip)("V rows carry public money, N rows do not", async () => {
   const badV = await count(
-    "SELECT count(*) n FROM person_search WHERE tier='V' AND public_money_eur <= 0",
+    `SELECT count(*) n FROM person_search
+      WHERE tier='V' AND identity_confidence='name_fold' AND public_money_eur <= 0`,
   );
-  assert.equal(badV, 0, `${badV} V rows have no public money`);
+  assert.equal(badV, 0, `${badV} name-fold V rows have no public money`);
   const badN = await count(
     "SELECT count(*) n FROM person_search WHERE tier='N' AND public_money_eur > 0",
   );
