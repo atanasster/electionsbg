@@ -12,7 +12,6 @@ import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
-import { MpConnectionsMini } from "./MpConnectionsMini";
 import { MpProfileSections } from "./MpProfileSections";
 import { MpScorecardTile } from "./MpScorecardTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
@@ -152,7 +151,6 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
         <MpAssetsSummary name={name} />
         <MpFinancialDeclarations name={name} />
         <MpManagementRoles name={name} />
-        <MpConnectionsMini name={name} />
       </div>
     );
   }

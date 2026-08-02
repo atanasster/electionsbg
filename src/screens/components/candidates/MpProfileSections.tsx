@@ -7,7 +7,6 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import type { MpIndexEntry } from "@/data/parliament/useMps";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
-import { useMpConnections } from "@/data/parliament/useMpConnections";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
@@ -15,7 +14,6 @@ import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
-import { MpConnectionsMini } from "./MpConnectionsMini";
 import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
 import { MpConnectedFundsTile } from "./MpConnectedFundsTile";
 import { MpVotingSection } from "./MpVotingSection";
@@ -38,7 +36,6 @@ export const MpProfileSections: FC<{
   const { selected } = useElectionContext();
 
   const { management, isLoading: mgmtLoading } = useMpManagement(name);
-  const { subgraph, isLoading: connectionsLoading } = useMpConnections(name);
   const { entries: connectedContracts, isLoading: contractsLoading } =
     useMpConnectedContracts(name);
   const { entries: connectedFunds, isLoading: fundsLoading } =
@@ -47,7 +44,6 @@ export const MpProfileSections: FC<{
   const { declarations, isLoading: declsLoading } = useMpDeclarations(name);
 
   const hasManagementRoles = (management?.roles?.length ?? 0) > 0;
-  const hasConnections = subgraph != null && subgraph.nodes.length > 1;
   const hasContracts = connectedContracts.length > 0;
   const hasFunds = connectedFunds.length > 0;
   const hasAssets = assetsRollup != null;
@@ -56,8 +52,7 @@ export const MpProfileSections: FC<{
   );
   // Keep the section visible while data is in flight so the tile's loading
   // skeleton can reserve space; hide it once we know there's nothing to show.
-  const showBusiness =
-    mgmtLoading || connectionsLoading || hasManagementRoles || hasConnections;
+  const showBusiness = mgmtLoading || hasManagementRoles;
   const showProcurement = contractsLoading || hasContracts;
   const showFunds = fundsLoading || hasFunds;
   const showDeclarations =
@@ -100,7 +95,6 @@ export const MpProfileSections: FC<{
           icon={Briefcase}
         >
           <MpManagementRoles name={name} />
-          <MpConnectionsMini name={name} linkSlug={linkSlug} />
         </DashboardSection>
       )}
 
