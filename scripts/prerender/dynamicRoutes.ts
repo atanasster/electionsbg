@@ -2567,7 +2567,7 @@ const SETTLEMENT_REPORTS: ReportEntry[] = [
     bgDesc:
       "Населени места с най-висок дял недействителни бюлетини на парламентарния вот.",
     bgBody:
-      "Делът на недействителните бюлетини спрямо общия брой гласове в населеното място. Високите стойности често са знак за нискa избирателна култура или нарочно объркани бюлетини.",
+      "Делът на недействителните бюлетини спрямо общия брой гласове в населеното място. Високите стойности често са знак за ниска избирателна култура или нарочно объркани бюлетини.",
   },
   {
     slug: "additional_voters",
@@ -2684,19 +2684,71 @@ const SCOPE_LABEL_BG: Record<ReportGrain, string> = {
   section: "секции",
 };
 
+/** All four Bulgarian forms of each grain's noun. The copy is written in the
+ *  settlement voice and uses every one of them, so re-voicing needs the whole
+ *  paradigm, not just the bare plural. */
+const GRAIN_FORMS: Record<
+  ReportGrain,
+  { plural: string; pluralDef: string; singular: string; singularDef: string }
+> = {
+  settlement: {
+    plural: "населени места",
+    pluralDef: "населените места",
+    singular: "населено място",
+    singularDef: "населеното място",
+  },
+  municipality: {
+    plural: "общини",
+    pluralDef: "общините",
+    singular: "община",
+    singularDef: "общината",
+  },
+  section: {
+    plural: "секции",
+    pluralDef: "секциите",
+    singular: "секция",
+    singularDef: "секцията",
+  },
+};
+
+// Alternation is LONGEST-FIRST so the definite forms win — "ите места" must be
+// tried before "и места", or "населените места" re-voices as "общинитe места".
+// The leading Н is captured rather than lowercased away so a sentence-initial
+// occurrence stays capitalised.
+const PLACE_FORMS = /([Нн])аселен(ите места|ото място|и места|о място)/g;
+
 /** The settlement-voiced copy, re-voiced for another grain. Section-only
- *  reports are already written in their own voice and skip this. */
+ *  reports are already written in their own voice and skip this.
+ *
+ *  The previous version replaced `/населен[иa] места?/` — three separate bugs
+ *  that together left "Населени места" on 26 of the 28 non-settlement pages:
+ *  the regex was case-sensitive so every sentence-initial occurrence survived;
+ *  it had no definite forms, so "населените места" and "населеното място" also
+ *  survived; and the `a` in the character class was a LATIN a (U+0061), so that
+ *  alternative could never match a Cyrillic word at all. The result was
+ *  municipality and section pages whose <title> said "по общини" while the meta
+ *  description underneath still said "Населени места …" — wrong on the page
+ *  Google actually shows, and invisible to every test. */
 const revoice = (r: ReportEntry, grain: ReportGrain): ReportEntry => {
   if (grain === "settlement") return r;
-  const plural = SCOPE_LABEL_BG[grain];
-  const singular = grain === "municipality" ? "община" : "секция";
+  const forms = GRAIN_FORMS[grain];
+  const sub = (s: string): string =>
+    s.replace(PLACE_FORMS, (_match, lead: string, tail: string) => {
+      const word =
+        tail === "ите места"
+          ? forms.pluralDef
+          : tail === "ото място"
+            ? forms.singularDef
+            : tail === "и места"
+              ? forms.plural
+              : forms.singular;
+      return lead === "Н" ? word[0].toUpperCase() + word.slice(1) : word;
+    });
   return {
     ...r,
-    bgTitle: r.bgTitle.replace("по населени места", `по ${plural}`),
-    bgDesc: r.bgDesc.replace(/населен[иa] места?/g, plural),
-    bgBody: r.bgBody
-      .replace(/населен[иa] места?/g, plural)
-      .replace(/населено място/g, singular),
+    bgTitle: sub(r.bgTitle),
+    bgDesc: sub(r.bgDesc),
+    bgBody: sub(r.bgBody),
   };
 };
 
