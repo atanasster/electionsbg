@@ -12,7 +12,15 @@
 // CLOUD STALENESS: nothing runs this on Cloud SQL. Run `npm run db:load:graph:pg:cloud` after EACH of:
 // db:resolve:persons:cloud, db:load:persons-browse:pg:cloud, db:load:tr:pg:cloud, and any
 // contracts/agri/funds reload (127's money basis) — else /connections + person_connections() serve the
-// previous vintage. Documented in CLAUDE.md next to the other person-layer cloud loaders.
+// previous vintage. Documented in CLAUDE.md next to the other person-layer cloud loaders, and wired
+// into the update-persons + update-procurement watch skills (the migrated-family reload contract) so an
+// orchestrated re-ingest re-derives the graph on prod, not just locally.
+//
+// CHANGELOG: this is a DERIVED serving layer (co-ownership ∪ procurement re-projected from tr / persons
+// / procurement), NOT a source ingest — so, exactly like person_search / contractor_search, it takes NO
+// recent_updates row (recordIngestBatch records ARRIVING source data, which this never introduces) and
+// no standalone data/data-changes.json entry: the /data/updates feed is stamped per-skill by the
+// process-watch-report orchestrator, and the source skills that trigger this reload already stamp it.
 //
 // Run: `npm run db:load:graph:pg` (local) / `:cloud` (Cloud SQL proxy).
 

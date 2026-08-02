@@ -371,23 +371,33 @@ MISSING table to empty tiers** (so it never 500s on a first deploy before this l
 **STALE** table still serves the previous vintage at a 200 — so this is the same "green locally,
 stale on prod" trap as the loaders above. `person_search.data.test.ts` fails on an absent/empty table.
 
-Last of the person-layer standalone loaders — the connections graph (migrations 127 + 128,
+Last of the person-layer standalone loaders — the connections graph (migrations 127 + 128 + 129,
 `db:load:graph:pg`), the three `graph_*` tables (`graph_edge` / `graph_company_node` /
-`graph_person_node`) behind `/connections` and re-pointed `person_connections()`. It APPLIES 127
-(`company_public_money`, the broad contracts∪subsidies∪funds money basis) + 128 and TRUNCATE+rebuilds
-the tables from `person_role` (co-ownership) ∪ `company_politicians` (procurement), so run:
+`graph_person_node`) + the down-sampled `graph_payloads` blob behind `/connections` and the re-pointed
+`person_connections()` / `person_graph_ego()`. It APPLIES 127 (`company_public_money`, the broad
+contracts∪subsidies∪funds money basis) + 128 + 129 and TRUNCATE+rebuilds the tables from `person_role`
+(co-ownership) ∪ `company_politicians` (procurement), so run:
 
 ```bash
 npm run db:load:graph:pg:cloud
 ```
 
-after **each** of `db:resolve:persons:cloud`, `db:load:persons-browse:pg:cloud`, `db:load:tr:pg:cloud`
-(the `company_politicians` procurement arm), and **any contracts/agri/funds reload** (127's money
-basis). `db:refresh` sequences the local equivalent right after `person-search`; nothing runs it on
-the cloud side. It carries its own **per-arm bridge preflight** (mp / official) that throws — inside
-the rebuild tx, so a broken `company_politicians.ref → person_id` join (a roster re-slug) rolls back
-rather than shipping a half graph. `graph.data.test.ts` fails on a stale/partial graph, a money-basis
-drift from 127, or a single broken procurement arm.
+**AFTER `db:load:persons-browse:pg:cloud`** (it reads `person_browse_table` facets for the person
+nodes) and after **each** of `db:resolve:persons:cloud`, `db:load:tr:pg:cloud` (the
+`company_politicians` procurement arm), and **any contracts/agri/funds reload** (127's money basis).
+`db:refresh` sequences the local equivalent right after `persons-browse`/`person-search`; nothing runs
+it on the cloud side, so it is wired into the `update-persons` (last step) and `update-procurement`
+(after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod. It
+carries its own **per-arm bridge preflight** (mp / official) that throws — inside the rebuild tx, so a
+broken `company_politicians.ref → person_id` join (a roster re-slug) rolls back rather than shipping a
+half graph, and a **non-empty blob guard** that rolls back rather than publishing a blank `/connections`
+overview. `graph.data.test.ts` / `graph_payloads.data.test.ts` fail on a stale/partial graph, a
+money-basis drift from 127, a broken procurement arm, or a private-facet leak into the public blob.
+
+Being a DERIVED serving layer (like `person_search` / `contractor_search`), it takes **no**
+`recent_updates` row and no standalone `data/data-changes.json` entry — the `/data/updates` feed is
+stamped per-skill by `process-watch-report`, and the source skills that trigger this reload already
+stamp it.
 
 **`--resolve` is not optional, and skipping it is invisible to a row count.** Phase 2 is what
 fills `declaration.person_id`; without it that column is NULL on every row, the table is still

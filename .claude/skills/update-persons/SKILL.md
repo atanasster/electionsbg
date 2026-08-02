@@ -212,6 +212,12 @@ npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_el
 # LAST — it folds everything above (plus place_dim + contracts) into the /persons browser
 # matview (120). Run it after any of them changes; see the two-trigger note below.
 npm run db:load:persons-browse:pg:cloud
+# THE CONNECTIONS GRAPH reads person_browse facets (above) + the tr / persons / procurement
+# layers, so it re-derives LAST. It applies 127/128/129 and rebuilds graph_* + graph_payloads
+# behind /connections + person_connections(). Stale ⇒ /connections + the /person "Свързани
+# лица" tile serve the previous vintage. Same SECOND-trigger note as persons-browse: a
+# procurement reload also moves company money on the graph's company nodes.
+npm run db:load:graph:pg:cloud
 ```
 
 ALL of these are required. The resolver rebuilds the identity/roles/connections layer;
