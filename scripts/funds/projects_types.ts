@@ -191,6 +191,98 @@ export interface FundsProjectsProgramSummary {
   }>;
 }
 
+// The structural minimum the procedure grain needs off a contract row.
+// Deliberately not ResolvedFundsProject: the standalone procedures.ts reads the
+// programme shards back off disk, and both shapes satisfy this — same reason
+// MuniAttributable exists in ./projects_share.ts.
+export interface ProcedureAttributable {
+  contractNumber: string;
+  title: string;
+  status: string;
+  programCode: string;
+  programName: string;
+  beneficiaryEik: string | null;
+  beneficiaryName: string;
+  orgType?: string;
+  totalEur: number;
+  grantEur?: number;
+  paidEur: number;
+  locationRaw?: string;
+  location?: { munis?: string[]; oblasts?: string[] } | null;
+}
+
+// Slim snapshot for a single ИСУН **procedure** — the grain between a programme
+// and a contract, derived from the contract number (see procedureCodeOf in
+// ./procedures.ts). Backs /funds/procedure/{code}.
+//
+// Built to data/funds/projects/by-procedure/{code}.json, which is a BUILD
+// artifact, not a fetchable path: the funds tree is PG-only (bucket:sync
+// excludes ^funds/.*), so the SPA reads it as fund_payloads(kind='procedure')
+// and only the prerender touches the file.
+export interface FundsProjectsProcedureSummary {
+  // e.g. "BG16RFOP002-2.089".
+  procedureCode: string;
+  // The scheme's name, when the procedure's contracts overwhelmingly share one
+  // title (the mass support schemes do). Null when no name can be honestly
+  // derived — the page then leads with the code.
+  procedureName: string | null;
+  programCode: string;
+  programName: string;
+  rollup: ProjectsRollup;
+  // Same four dashboard buckets as the programme summary.
+  statusBreakdown: Array<{ status: string; rollup: ProjectsRollup }>;
+  topBeneficiaries: Array<{
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    orgType: string;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+  topContracts: Array<{
+    contractNumber: string;
+    title: string;
+    totalEur: number;
+    paidEur: number;
+    status: string;
+    beneficiaryEik: string | null;
+    beneficiaryName: string;
+    locationRaw: string;
+    locationMunis: string[] | null;
+  }>;
+  topMunis: Array<{
+    muni: string;
+    oblast: string | null;
+    contractCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+}
+
+// Catalogue of the procedures worth their own page. A shard is written for
+// EVERY procedure so the SPA route resolves, but only those at or above
+// `minIndexableContracts` are listed here — this file is what the prerender and
+// the sitemap enumerate.
+//
+// Built to data/funds/projects/by-procedure/index.json; served as
+// fund_payloads(kind='procedure-index').
+export interface FundsProjectsProceduresIndex {
+  generatedAt: string;
+  // Total procedures with a shard — larger than `procedures.length`.
+  procedureCount: number;
+  minIndexableContracts: number;
+  procedures: Array<{
+    procedureCode: string;
+    procedureName: string | null;
+    programCode: string;
+    programName: string;
+    contractCount: number;
+    beneficiaryCount: number;
+    totalEur: number;
+    paidEur: number;
+  }>;
+}
+
 // Slim "tile-ready" snapshot for a single place (EKATTE or муни). Emitted
 // alongside the full by-ekatte/{ekatte}.json + by-muni/{id}.json so a
 // settlement / muni dashboard can render the EU-funds tile without pulling

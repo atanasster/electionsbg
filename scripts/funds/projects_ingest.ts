@@ -19,12 +19,24 @@ import { fetchProjectsExport, PROJECTS_EXPORT_URL } from "./projects_fetch";
 import { parseProjects } from "./projects_parse";
 import { applyProjectEikOverrides } from "./eik_overrides";
 import { buildResolver } from "./projects_resolve";
-import { muniShare, muniCount } from "./projects_share";
+import {
+  muniShare,
+  muniCount,
+  canonicalJson,
+  loadOblastByMuni,
+  normOblast,
+  resetDir,
+  rollupTopMunis,
+  round2,
+  statusBucket,
+  SYNTHETIC_SETTLEMENTS,
+} from "./projects_share";
 import {
   buildAll as buildTaxonomyDerivatives,
   writeAll as writeTaxonomyDerivatives,
 } from "./build_taxonomy_derivatives";
 import { buildIntegrity, writeIntegrity } from "./integrity";
+import { buildProcedures, writeProcedures } from "./procedures";
 import { buildThemes, writeThemes } from "./themes";
 import { buildAndWriteProjectChanges } from "./projects_diff";
 import type {
@@ -64,11 +76,6 @@ const MIN_ROWS = 60_000;
 // Cap on the embedded "top contracts" list in index.json. Kept small — the
 // full corpus lives in the shards.
 const TOP_N = 25;
-
-const canonicalJson = (data: unknown): string =>
-  JSON.stringify(data, null, 2) + "\n";
-
-const round2 = (n: number): number => Math.round(n * 100) / 100;
 
 const eur = (n: number): string => `€${Math.round(n).toLocaleString("en-US")}`;
 
@@ -155,14 +162,6 @@ const sortByMuniValueDesc = (
   b.totalEur * muniShare(b) - a.totalEur * muniShare(a) ||
   a.contractNumber.localeCompare(b.contractNumber, "en");
 
-// Resets a directory: removes it (if present) then recreates it. Used before
-// writing per-shard files so files for shards no longer produced are not
-// left stale.
-const resetDir = (dir: string): void => {
-  fs.rmSync(dir, { recursive: true, force: true });
-  fs.mkdirSync(dir, { recursive: true });
-};
-
 // Population / oblast lookup tables for the per-capita rank on the summary
 // shards. Loaded once per ingest from data/settlements.json plus
 // data/census_2021_settlements.json — Census 2021 is the authoritative
@@ -184,18 +183,10 @@ interface PlaceLookup {
   oblastByMuni: Map<string, string>;
 }
 
-// Synthetic Sofia settlement row — Sofia city (EKATTE 68134) is missing
-// from data/settlements.json, which models the capital via the three
-// election-MIR pseudo-oblasts S23/S24/S25. The resolver in projects_resolve.ts
-// keeps the same synthetic mapping (see SOFIA_SYNTHETIC there); we mirror it
-// here so the population walk picks up the city core under the S22 obshtina
-// pseudo-code.
-const SYNTHETIC_SETTLEMENTS: Array<{
-  ekatte: string;
-  oblast: string;
-  obshtina: string;
-}> = [{ ekatte: "68134", oblast: "S22", obshtina: "S22" }];
-
+// Sofia city (EKATTE 68134) is missing from data/settlements.json, which models
+// the capital via the three election-MIR pseudo-oblasts S23/S24/S25.
+// SYNTHETIC_SETTLEMENTS (projects_share.ts) mirrors the resolver's mapping so
+// the population walk picks the city core up under the S22 obshtina pseudo-code.
 const loadPlaceLookup = (): PlaceLookup => {
   const settlements: Array<{
     ekatte: string;
@@ -214,15 +205,13 @@ const loadPlaceLookup = (): PlaceLookup => {
   const popByEkatte = new Map<string, number>();
   const oblastByEkatte = new Map<string, string>();
   const popByMuni = new Map<string, number>();
-  const oblastByMuni = new Map<string, string>();
-
-  const norm = (o: string): string => (o === "PDV-00" ? "PDV" : o);
+  // The муни → област half comes from the shared dictionary, so the programme
+  // pages, the procedure pages and the per-capita ranking can never disagree.
+  const oblastByMuni = loadOblastByMuni();
 
   for (const s of [...settlements, ...SYNTHETIC_SETTLEMENTS]) {
     if (s.oblast === "32") continue; // foreign-country pseudo-rows
-    const oblast = norm(s.oblast);
-    oblastByEkatte.set(s.ekatte, oblast);
-    if (!oblastByMuni.has(s.obshtina)) oblastByMuni.set(s.obshtina, oblast);
+    oblastByEkatte.set(s.ekatte, normOblast(s.oblast));
     const pop = popByCensusEkatte.get(s.ekatte) ?? 0;
     if (pop > 0) {
       popByEkatte.set(s.ekatte, pop);
@@ -261,23 +250,15 @@ const toTopContract = (
 };
 
 // Collapse the raw ИСУН status strings into the four dashboard buckets
-// (Completed / In progress / Signed / Terminated). Matching predicates mirror
-// the ones used client-side in ProjectsStatusMixTile so the per-programme
-// detail page lines up with the corpus-wide tile.
-const STATUS_GROUPS: Array<{ match: (s: string) => boolean; key: string }> = [
-  { match: (s) => s.startsWith("Приключен"), key: "completed" },
-  { match: (s) => s.startsWith("В изпълнение"), key: "in-progress" },
-  { match: (s) => s === "Сключен", key: "signed" },
-  { match: (s) => s.startsWith("Прекратен"), key: "terminated" },
-];
-
+// (Completed / In progress / Signed / Terminated) via the shared bucketer, whose
+// predicates mirror the ones used client-side in ProjectsStatusMixTile so the
+// per-programme detail page lines up with the corpus-wide tile.
 const buildProgramStatusBreakdown = (
   contracts: ResolvedFundsProject[],
 ): FundsProjectsProgramSummary["statusBreakdown"] => {
   const buckets = new Map<string, ReturnType<typeof emptyRollup>>();
   for (const r of contracts) {
-    const group = STATUS_GROUPS.find((g) => g.match(r.status));
-    const key = group?.key ?? "other";
+    const key = statusBucket(r.status);
     const ag = buckets.get(key) ?? emptyRollup();
     accumulateRollup(ag, r);
     buckets.set(key, ag);
@@ -343,58 +324,16 @@ const buildProgramTopBeneficiaries = (
     .slice(0, topN);
 };
 
+// Sum across each муни named in the row's resolved location. Contracts with no
+// muni context (region / national / unresolved) are skipped. Shares the rollup
+// with the procedure grain, so the oblast comes from the муни's own dictionary
+// rather than from whichever contract created the entry.
 const buildProgramTopMunis = (
   contracts: ResolvedFundsProject[],
   topN: number,
-): FundsProjectsProgramSummary["topMunis"] => {
-  // Sum across each муни named in the row's resolved location. Contracts
-  // with no muni context (region / national / unresolved) are skipped.
-  const byMuni = new Map<
-    string,
-    {
-      muni: string;
-      oblast: string | null;
-      contractCount: number;
-      totalEur: number;
-      paidEur: number;
-      seen: Set<string>;
-    }
-  >();
-  for (const r of contracts) {
-    const munis = r.location.munis ?? [];
-    if (munis.length === 0) continue;
-    const oblast = r.location.oblasts?.[0] ?? null;
-    const share = muniShare(r);
-    for (const m of munis) {
-      const entry = byMuni.get(m) ?? {
-        muni: m,
-        oblast,
-        contractCount: 0,
-        totalEur: 0,
-        paidEur: 0,
-        seen: new Set<string>(),
-      };
-      // De-dup contract numbers — a multi-loc contract shouldn't double-count
-      // when it lists the same муни twice (defensive; the resolver de-dups).
-      if (entry.seen.has(r.contractNumber)) continue;
-      entry.seen.add(r.contractNumber);
-      entry.contractCount += 1;
-      entry.totalEur += r.totalEur * share;
-      entry.paidEur += r.paidEur * share;
-      byMuni.set(m, entry);
-    }
-  }
-  return [...byMuni.values()]
-    .map((e) => ({
-      muni: e.muni,
-      oblast: e.oblast,
-      contractCount: e.contractCount,
-      totalEur: round2(e.totalEur),
-      paidEur: round2(e.paidEur),
-    }))
-    .sort((a, b) => b.totalEur - a.totalEur)
-    .slice(0, topN);
-};
+  oblastOfMuni: (muni: string) => string | null,
+): FundsProjectsProgramSummary["topMunis"] =>
+  rollupTopMunis(contracts, topN, oblastOfMuni);
 
 const toProgramTopContract = (
   r: ResolvedFundsProject,
@@ -533,6 +472,13 @@ const main = async (args: MainArgs): Promise<void> => {
 
   // 5. Per-program shards. Programme codes are stable identifiers, ~25 of
   // them; the per-program file lists every contract in that programme.
+  // Place lookup (population + oblast). Loaded once and reused by the
+  // programme, EKATTE and муни passes — the муни → област half is what keeps a
+  // муни's oblast off whichever contract happened to name it first.
+  const places = loadPlaceLookup();
+  const oblastOfMuni = (m: string): string | null =>
+    places.oblastByMuni.get(m) ?? null;
+
   resetDir(BY_PROGRAM_DIR);
   const byProgram = new Map<string, ResolvedFundsProject[]>();
   const programNames = new Map<string, string>();
@@ -574,7 +520,7 @@ const main = async (args: MainArgs): Promise<void> => {
       byLocationKind: buildProgramLocationKindHistogram(sorted),
       topContracts: sorted.slice(0, 20).map(toProgramTopContract),
       topBeneficiaries: buildProgramTopBeneficiaries(sorted, 20),
-      topMunis: buildProgramTopMunis(sorted, 10),
+      topMunis: buildProgramTopMunis(sorted, 10, oblastOfMuni),
     };
     fs.writeFileSync(
       path.join(BY_PROGRAM_DIR, `${code}-summary.json`),
@@ -590,10 +536,6 @@ const main = async (args: MainArgs): Promise<void> => {
   console.log(
     `→ wrote ${programShards.length} per-program shard(s) + summaries`,
   );
-
-  // Place lookup (population + oblast) feeds the per-capita rank on the
-  // summary shards. Loaded once and reused for both EKATTE and муни passes.
-  const places = loadPlaceLookup();
 
   // 6. Per-EKATTE shards — single-settlement rows only. One file per EKATTE
   // (full contract list). The slim `{ekatte}-summary.json` shards were dropped
@@ -922,6 +864,17 @@ const main = async (args: MainArgs): Promise<void> => {
     `  ${rows.length} contracts · ${eur(totalsFinal.totalEur)} total · ` +
       `${eur(totalsFinal.paidEur)} paid · ${withEik} with EIK ` +
       `(${((withEik / rows.length) * 100).toFixed(1)}%)`,
+  );
+
+  // Procedure grain — the level between a programme and a contract, derived
+  // from the contract numbers. Built from `resolved` directly rather than
+  // re-reading the shards, since the corpus is already in memory here.
+  console.log(`→ building procedure shards`);
+  const procedures = buildProcedures(resolved, new Date().toISOString());
+  writeProcedures(procedures);
+  console.log(
+    `  ${procedures.shards.length} procedure(s) · ` +
+      `${procedures.index.procedures.length} indexable`,
   );
 
   // Phase-6 derivatives: programme taxonomy (period + fund family), per-period

@@ -188,6 +188,8 @@
     "agri:ingest": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/agri/ingest.ts",
     "agri:seu": "tsx ./scripts/agri/seu_fetch.ts",
     "funds:ingest-projects": "tsx ./scripts/funds/projects_ingest.ts",
+    "funds:procedures": "tsx ./scripts/funds/procedures.ts",
+    "funds:themes": "tsx ./scripts/funds/themes.ts",
     "funds:political-links": "tsx ./scripts/funds/political_links.ts",
     "tr:build-company-connections": "tsx ./scripts/declarations/tr/build_company_connections.ts",
     "tr:daily-refresh": "tsx ./scripts/declarations/tr/daily_refresh.ts && npm run db:pg:up && npm run db:load:tr:pg && npm run db:load:cr-founding:pg",
