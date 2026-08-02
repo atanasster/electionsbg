@@ -17,6 +17,7 @@ Everything below was measured against local docker Postgres and the committed
 
 | # | Finding | Severity | Tier |
 |---|---|---|---|
+| F0 | **Общ. Бяла (обл. Русе, RSE04) is absent from the 2019 and 2023 cycles.** `resolveByName` matches on município NAME only, ignoring the oblast the page carries, so both "Бяла" pages resolve to VAR05 (Варна). The collision merge keeps the first bundle's mayor/council and **discards the second's**, grafting only its kmetstva. | A whole município missing; 14 village mayors filed under the wrong oblast | **T0** |
 | F1 | Kметство **runoff winners are never ingested** → the round-1 vote leader is published as the seat holder at `confidence='high'`. **267 measured wrong village mayors** (2023: 137, 2019: 130). | Wrong named person on a public page | **T1** |
 | F2 | Correcting F1 makes flipped seats' mentions change person — and `chooseStableSlug` would hand the **new winner the loser's `/person` URL**. Verified on the Безмер locks. | Would create a worse defect than it fixes | **T1 guard** |
 | F3 | All **10,721** `village_mayor` roles carry `place_kind='obshtina'`, so every village mayor's seat renders as their община. `place_dim` already has the settlements (97.0% resolvable). | Wrong granularity, sitewide | **T2** |
@@ -27,6 +28,73 @@ Everything below was measured against local docker Postgres and the committed
 Not defects, recorded so they are not re-investigated: Русев has **no** TR company, **no** NGO board
 seat, **no** procurement/ИСУН/ДФЗ link, **no** parliamentary candidacy, **no** ЕРИК donor row, and a
 clean single-alias identity. His page is thin because his record genuinely is.
+
+---
+
+## T0 — The município-name collision (found while auditing T1; blocks T2)
+
+### Evidence
+
+[parse_local_elections.ts:170](../../scripts/parsers_local/parse_local_elections.ts:170) resolves a
+CIK page to an obshtina by **name alone**:
+
+```ts
+const match = MUNICIPALITIES.find((m) => normName(m.name) === target);
+```
+
+`parsed.oblastName` is available on the same object and is not consulted. `data/municipalities.json`
+has **three** duplicate names, and `.find()` takes the first:
+
+```
+бяла    → VAR05 (idx 37, Варна)  |  RSE04 (idx 38, Русе)   ← LIVE collision
+искър   → PVN23 (idx 95, Плевен) |  S2414 (idx 229, София-Искър)   ← latent
+средец  → BGS06 (idx 216, Бургас)|  S2401 (idx 232, София-Средец)  ← latent
+```
+
+Искър/Средец are latent only because the Sofia районни are fanned out from the `SOF` bundle and
+never arrive as their own tur1 page — a catalogue reorder would make them live.
+
+On collision, [parse_local_elections.ts:318](../../scripts/parsers_local/parse_local_elections.ts:318)
+appends `kmetstva` + `districts` to the existing bundle and **silently drops** the second bundle's
+`mayor`, `council`, `protocol` and `oikCode`.
+
+Measured, both cycles:
+
+```
+raw_data/2023_10_29_mi/html/tur1/1804.html → "Бяла | Русе": 7 mayor candidates, 8 council parties, 9 kmetstva
+data/2023_10_29_mi/municipalities/RSE04.json                → does not exist
+data/2023_10_29_mi/municipalities/VAR05.json → 12 kmetstva = 3 Варна + 9 Русе, mayor = Пеньо Ненов (Варна)
+2019: VAR05 → 6 kmetstva = 1 Варна + 5 Русе;  RSE04.json does not exist
+```
+
+RSE04 has local roles in 2007 (mayor + 17 councillors + 18 village mayors), 2015 and one chmi — and
+**none in 2019 or 2023**. 2007 is unaffected because `ingest_mi2007.ts` uses
+`resolveByOblastName(obshtinaName, oblastName)`: **the fix pattern already exists in this repo.**
+
+User-visible today: общ. Бяла (Русе) — ~9,700 residents — has no mayor race, no council and no
+councillor `/person` pages for the last two cycles, while 14 of its village mayors are published as
+office-holders in обл. Варна.
+
+### Fix
+
+1. `resolveByName` takes the oblast as a tiebreak (mirror `resolveByOblastName`); fall back to
+   name-only when the page carries no oblast, so nothing that resolves today stops resolving.
+2. Make the collision **loud**: an obshtinaCode already claimed by a different oikCode must warn
+   with both names + oblasts, not merge silently. A same-oikCode append (the legitimate
+   Plovdiv/Varna район case) stays quiet.
+3. Add a `parse_local_elections` unit test over the three duplicate names.
+4. Gate: bundle count per cycle must equal resolvable tur1 pages (2023: 265 pages → 265 non-Sofia
+   bundles, not 264).
+
+### T0 ↔ T1/T2 ordering (this is why it blocks)
+
+- **Re-splitting VAR05 changes its kmetstvo indices** (12 → 3), so every `…:VAR05:kmetstvo:<i>` ref
+  moves and the 9 Ruse seats get brand-new `…:RSE04:kmetstvo:<i>` refs. That is the one place where
+  T1's "refs are stable" does **not** hold, and those mentions need the same slug-lock purge.
+- **T2 must not ship first.** Those 9 villages are not in VAR05, so settlement resolution fails and
+  they keep the obshtina place — i.e. they would be published as seats in Бяла, **Варна** with the
+  new, more confident-looking place badge. (They are exactly 5 of the unresolvable names measured in
+  T2's coverage: Полско Косово, Лом Черковна, Босилковци, Копривец, Дряновец.)
 
 ---
 
@@ -44,8 +112,9 @@ only the кметство arm is dark.
 
 **The code to fix it already exists and works.** `mergeKmetstvoRounds`
 ([build_municipality_json.ts:100](../../scripts/parsers_local/build_municipality_json.ts:100),
-commit `4713907651`, 2026-06-30) is wired, and `parse_local_elections.ts:301` passes `tur2`. Run
-against the **cached** HTML it produces the right answer:
+commit `4713907651`, 2026-06-30) is wired, and
+[parse_local_elections.ts:312](../../scripts/parsers_local/parse_local_elections.ts:312) passes
+`tur2` into the builder. Run against the **cached** HTML it produces the right answer:
 
 ```
 raw_data/2023_10_29_mi/html/tur2/2825.html (Тунджа) → 7 kmetstva runoffs parsed
@@ -70,11 +139,29 @@ Cross-checked against a **second, independent source** for Безмер 2019 —
 (≥2 round-1 `isElected`, no `round2`), 1,248 are 2007, 451 are 2023, 441 are 2019 and **25** are
 chmi partials.
 
-### Ref stability — verified, no churn
+### Ref stability + re-parse fidelity — measured across every OIK
 
-`kmetstvoRef` keys on the array index. Re-parsing produces the **identical index order**
-(JAM25: Безмер 0, Ботево 1, Ген. Тошево 6, Дражево 9, Завой 10, Калчево 12, Маломир 18, Ханово 36 —
-stored and fresh agree). So refs are stable; only the *winner behind a ref* changes.
+`kmetstvoRef` keys on the array index, so a re-parse that reordered or re-counted entries would move
+every ref. It does not. Fresh tur1 parse compared against the stored bundle for **all 264
+non-Sofia OIKs × 2 cycles**, on kmetstvo name order, per-candidate names/votes/`isElected`, and the
+resulting winner:
+
+```
+2023_10_29_mi: oiks=264  orderMismatch=0  candidateDrift=0  winnerDrift=0  countMismatch=1 (0305)
+2019_10_27_mi: oiks=264  orderMismatch=0  candidateDrift=0  winnerDrift=0  countMismatch=1 (0305)
+```
+
+So the re-parse is a **pure addition** of `round2`/`elected`; refs are stable and only the *winner
+behind a ref* changes. The single count mismatch is not drift — it is the Бяла collision (T0), and
+it is the one município where refs **do** move.
+
+Precondition verified: both cycles have their `ТУР1/ОС` council CSV in `raw_data/`, so the section
+augmentation still runs and council vote share is not blanked by the re-parse (the 2015 all-zero
+failure mode).
+
+**The flip file must be emitted from the BUILT BUNDLES, not per OIK page.** A ref is
+`<cycle>:<obshtinaCode>:kmetstvo:<index-in-bundle>`; for a collided município the page index and the
+bundle index differ. Emitting per page would purge the wrong `person_slug_lock` rows.
 
 Do **not** switch the ref to `ekatte` (which `kmetstvoRef` supports) as part of this. The
 index key was chosen deliberately — `local_person_roles.data.test.ts` records that a name-keyed ref
@@ -139,7 +226,7 @@ but 1 in 10 will instead mint a second person for the same man. Verify his case 
 
 ### Evidence
 
-[resolve_persons.ts:940](../../scripts/person/resolve_persons.ts:940) stamps
+[resolve_persons.ts:945](../../scripts/person/resolve_persons.ts:945) stamps
 `obshtinaPlaceFor(d.obshtinaCode)` on mayor, councillor **and** village-mayor mentions alike, so the
 кметство is dropped at the source. `082_person_api.sql:60` then joins `place_dim` and prints the
 община.
@@ -192,8 +279,9 @@ strict widening, nothing regresses.
 
 ## T3 — 2007's duplicated кметства
 
-2007 does not share the HTML path; `ingest_mi2007.ts:275` **replaces** `candidates` with the round-2
-table and never sets `round2`/`elected`. Worse, the same кметство arrives from two different
+2007 does not share the HTML path;
+[ingest_mi2007.ts:278](../../scripts/parsers_local/ingest_mi2007.ts:278) **replaces** `candidates`
+with the round-2 table and never sets `round2`/`elected`. Worse, the same кметство arrives from two different
 round-1 pages:
 
 ```
@@ -264,16 +352,20 @@ and it is the only money signal that exists for a village mayor.
 
 ## Sequencing
 
-1. **T1** — re-parse 2023 + 2019 (+ chmi), diff-review, flip file, lock purge, resolve, gates.
-   Fixes 267 named people and the `/local/**` display at the same time.
-2. **T2** — the settlement place. Independent of T1 but touches the same resolve; landing it in the
-   same resolve saves one multi-hour cloud rebuild.
-3. **T4a** — the declaration copy. No data dependency; can land any time.
-4. **T3** — 2007, after its diagnosis.
-5. **T4b / T5** — research spikes, report before building.
+1. **T0** — oblast-aware resolution + a loud collision. Small, self-contained, and it must precede
+   the re-parse so VAR05/RSE04 split in the same pass that adds `round2`.
+2. **T1** — re-parse 2023 + 2019 (+ chmi), diff-review, flip file (bundle-keyed, incl. the moved
+   VAR05→RSE04 refs), lock purge, resolve, gates. Fixes 267 named people and the `/local/**`
+   display at the same time.
+3. **T2** — the settlement place. Must not precede T0 (it would publish 9 Ruse villages as Varna
+   seats with a confident badge); shares T1's resolve.
+4. **T4a** — the declaration copy. No data dependency; can land any time.
+5. **T3** — 2007, after its diagnosis.
+6. **T4b / T5** — research spikes, report before building.
 
-T1 and T2 should ship as **one** resolve. v2's **A3** should follow, not precede: it merges people,
-and merging on top of corrected winners is cheaper than merging the wrong ones first.
+T0 + T1 + T2 should ship as **one** re-parse and **one** resolve. v2's **A3** should follow, not
+precede: it merges people, and merging on top of corrected winners is cheaper than merging the wrong
+ones first.
 
 ## Cloud sequence (nothing here is automatic)
 
@@ -297,6 +389,14 @@ useful as a follow-up fix, never as the whole T2.
 ## Verification queries
 
 ```sql
+-- T0: Бяла (Русе) must have 2019 + 2023 roles again (today: rows only for 2007/2015/one chmi)
+SELECT split_part(ref,':',1) AS cycle, role, count(*)
+  FROM person_role WHERE source='local' AND ref LIKE '%:RSE04:%' GROUP BY 1,2 ORDER BY 1,2;
+
+-- T0: VAR05 must hold ONLY Бяла-Варна's seats (2023: 3 kmetstva, not 12)
+SELECT count(*) FROM person_role
+ WHERE source='local' AND role='village_mayor' AND ref LIKE '2023_10_29_mi:VAR05:%';
+
 -- T1: the case that started this — must be Росен Господинов Русев, and the SAME person_id as 2023
 SELECT r.ref, p.person_id, p.display_name, p.slug
   FROM person_role r JOIN person p USING (person_id)
@@ -329,7 +429,12 @@ SELECT count(*) FROM (
 ## Risks
 
 - **The re-parse is not surgical.** It rewrites every artifact of the cycle. Step T1.2's diff review
-  is the control; without it, an unrelated parser drift ships silently.
+  is the control. The 264-OIK fidelity audit above says today's parser reproduces the stored bundles
+  byte-for-byte on every field it was checked against, so the review is a confirmation, not a
+  gamble — but re-run it rather than trusting this note.
+- **T0 moves refs where T1 does not.** Splitting VAR05 renumbers its kmetstvo indices and mints new
+  RSE04 refs, so that município's mentions need the lock purge too, and Бяла-Варна's own three
+  village mayors change index. Everywhere else refs are stable.
 - **Every flip is a slug retirement.** The 301 machinery handles it, but the committed
   `data/person/prerender_slugs.json` must be re-minted from the **serving** database
   (`person:slugs:cloud`) — `emit_prerender_slugs.ts` refuses to write from local docker.
