@@ -253,3 +253,31 @@ test.skipIf(skip)(
     );
   },
 );
+
+// party/party_color (P4.1) = the person's LATEST electoral affiliation. Reconcile the stored column to
+// person_election_stats (newest election carrying a party); a drift would mis-colour or mis-slice the
+// /connections party×party matrix. Politicians are where it lives; assert it is actually populated.
+test.skipIf(skip)(
+  "party equals the latest person_election_stats affiliation",
+  async () => {
+    const drift = await count(
+      `SELECT count(*) n FROM graph_person_node g
+         WHERE g.party IS DISTINCT FROM (
+           SELECT party_nick FROM person_election_stats pes
+            WHERE pes.person_id = g.person_id AND pes.party_nick IS NOT NULL
+            ORDER BY election_date DESC LIMIT 1)`,
+    );
+    assert.equal(
+      drift,
+      0,
+      `${drift} graph persons' party drifted from person_election_stats`,
+    );
+    const politiciansWithParty = await count(
+      "SELECT count(*) n FROM graph_person_node WHERE facet='politician' AND party IS NOT NULL",
+    );
+    assert.ok(
+      politiciansWithParty > 100,
+      `only ${politiciansWithParty} politician nodes carry a party — the party join looks broken`,
+    );
+  },
+);

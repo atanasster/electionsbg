@@ -26,9 +26,13 @@ type Blob = {
     facet: string | null;
     money: number;
     degree: number;
+    party: string | null;
+    partyColor: string | null;
   }[];
   edges: { p: number; c: string; kind: string }[];
   matrix: { a: string; b: string; companies: number }[];
+  partyMatrix: { a: string; b: string; companies: number }[];
+  partyColors: Record<string, string>;
 };
 
 const load = async (): Promise<Blob | null> => {
@@ -187,3 +191,94 @@ test.skipIf(skip)(
     );
   },
 );
+
+// PARTY×PARTY is the politician-facet slice of the matrix (P4.1). Same shape as facet×facet but
+// narrowed to facet='politician' AND party IS NOT NULL. Reconcile every cell, and confirm the blob's
+// drawn persons carry the party where the graph node has it (so the UI can colour them).
+test.skipIf(skip)(
+  "party×party matrix cells reconcile with the graph",
+  async () => {
+    if (!blob) return;
+    const sameSql = `SELECT count(*) n FROM (
+       SELECT e.eik FROM graph_edge e
+         JOIN graph_person_node p ON p.person_id=e.person_id AND p.is_public_figure
+           AND p.facet='politician' AND p.party=$1
+         JOIN graph_company_node cn ON cn.eik=e.eik AND cn.officer_count<=6
+        GROUP BY e.eik HAVING count(DISTINCT e.person_id) >= 2) x`;
+    const crossSql = `SELECT count(*) n FROM (
+       SELECT ca.eik FROM
+         (SELECT DISTINCT e.eik FROM graph_edge e
+            JOIN graph_person_node p ON p.person_id=e.person_id AND p.is_public_figure
+              AND p.facet='politician' AND p.party=$1
+            JOIN graph_company_node cn ON cn.eik=e.eik AND cn.officer_count<=6) ca
+         JOIN
+         (SELECT DISTINCT e.eik FROM graph_edge e
+            JOIN graph_person_node p ON p.person_id=e.person_id AND p.is_public_figure
+              AND p.facet='politician' AND p.party=$2
+            JOIN graph_company_node cn ON cn.eik=e.eik AND cn.officer_count<=6) cb
+         ON cb.eik = ca.eik) y`;
+    // A corpus with party-tagged politicians co-owning companies should have a non-empty party matrix;
+    // if it is empty, there is simply nothing to reconcile (assert nothing rather than fail).
+    for (const cell of blob.partyMatrix) {
+      const [a, b] = cell.a <= cell.b ? [cell.a, cell.b] : [cell.b, cell.a];
+      const live =
+        a === b ? await count(sameSql, [a]) : await count(crossSql, [a, b]);
+      assert.equal(
+        cell.companies,
+        live,
+        `partyMatrix cell (${a},${b}) blob ${cell.companies} vs live ${live}`,
+      );
+    }
+  },
+);
+
+// The drawn persons carry party where the graph node has one — the UI colours politician nodes by it.
+test.skipIf(skip)("blob persons carry the graph node's party", async () => {
+  if (!blob) return;
+  const withParty = blob.persons
+    .filter((p) => p.party != null)
+    .map((p) => p.id);
+  // Every person the graph node tags with a party must surface it in the blob (no silent drop).
+  const ids = blob.persons.map((p) => p.id).join(",");
+  const graphParty = await count(
+    `SELECT count(*) n FROM graph_person_node WHERE person_id IN (${ids}) AND party IS NOT NULL`,
+  );
+  assert.equal(
+    withParty.length,
+    graphParty,
+    `blob surfaced ${withParty.length} party-tagged persons but the graph node has ${graphParty}`,
+  );
+  // And every partyMatrix facet is a party some drawn politician carries would be too strong (the
+  // matrix is a global aggregate, broader than the drawn set) — but every matrix party must be a real
+  // party on SOME politician graph node (never a leak from a non-politician facet).
+  for (const cell of blob.partyMatrix.slice(0, 20)) {
+    for (const p of [cell.a, cell.b]) {
+      const real = await count(
+        `SELECT count(*) n FROM graph_person_node
+          WHERE facet='politician' AND party=$1 AND is_public_figure`,
+        [p],
+      );
+      assert.ok(
+        real > 0,
+        `partyMatrix party ${p} matches no public politician node`,
+      );
+    }
+  }
+});
+
+// partyColors covers EVERY public politician party that carries a colour (a GLOBAL palette, so the UI
+// can colour a party×party axis whose party is off the drawn set). One colour per party.
+test.skipIf(skip)("partyColors is a global politician palette", async () => {
+  if (!blob) return;
+  const keys = Object.keys(blob.partyColors);
+  assert.ok(keys.length > 0, "partyColors is empty");
+  const c = await count(
+    `SELECT count(DISTINCT party) n FROM graph_person_node
+      WHERE facet='politician' AND party IS NOT NULL AND party_color IS NOT NULL`,
+  );
+  assert.equal(
+    keys.length,
+    c,
+    `partyColors has ${keys.length} entries but ${c} politician parties carry a colour`,
+  );
+});

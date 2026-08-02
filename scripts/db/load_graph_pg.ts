@@ -10,10 +10,11 @@
 // tr, and the agri/funds corpora exist (127's UNION reads all three).
 //
 // CLOUD STALENESS: nothing runs this on Cloud SQL. Run `npm run db:load:graph:pg:cloud` after EACH of:
-// db:resolve:persons:cloud, db:load:persons-browse:pg:cloud, db:load:tr:pg:cloud, and any
-// contracts/agri/funds reload (127's money basis) — else /connections + person_connections() serve the
-// previous vintage. Documented in CLAUDE.md next to the other person-layer cloud loaders, and wired
-// into the update-persons + update-procurement watch skills (the migrated-family reload contract) so an
+// db:resolve:persons:cloud, db:load:persons-browse:pg:cloud, db:load:person-elections:pg:cloud (the
+// party/party_color source, person_election_stats), db:load:tr:pg:cloud, and any contracts/agri/funds
+// reload (127's money basis) — else /connections + person_connections() serve the previous vintage.
+// Documented in CLAUDE.md next to the other person-layer cloud loaders, and wired into the
+// update-persons + update-procurement watch skills (the migrated-family reload contract) so an
 // orchestrated re-ingest re-derives the graph on prod, not just locally.
 //
 // CHANGELOG: this is a DERIVED serving layer (co-ownership ∪ procurement re-projected from tr / persons
@@ -146,7 +147,7 @@ const main = async (): Promise<void> => {
     await c.query(
       `INSERT INTO graph_person_node
          (person_id, slug, name, facet, position_type, identity_confidence,
-          is_public_figure, public_money_eur, degree)
+          is_public_figure, public_money_eur, degree, party, party_color)
        WITH edge_person AS (
          SELECT person_id, count(*) AS degree FROM graph_edge GROUP BY person_id
        ),
@@ -162,16 +163,23 @@ const main = async (): Promise<void> => {
          -- Joined on slug (not person_id) because person_browse_table exposes no person_id column.
          SELECT slug, min(primary_facet) AS facet, min(position_type) AS position_type
            FROM person_browse_table GROUP BY slug
+       ),
+       party AS (  -- the person's LATEST electoral affiliation (newest election carrying a party)
+         SELECT DISTINCT ON (person_id) person_id, party_nick, party_color
+           FROM person_election_stats WHERE party_nick IS NOT NULL
+          ORDER BY person_id, election_date DESC
        )
        SELECT ep.person_id, p.slug, p.display_name,
               pb.facet, pb.position_type, p.identity_confidence,
               p.is_public_figure,
               coalesce(pm.money, 0),
-              ep.degree
+              ep.degree,
+              pty.party_nick, pty.party_color
          FROM edge_person ep
          JOIN person p        ON p.person_id = ep.person_id
          LEFT JOIN person_money pm ON pm.person_id = ep.person_id
-         LEFT JOIN pb              ON pb.slug = p.slug`,
+         LEFT JOIN pb              ON pb.slug = p.slug
+         LEFT JOIN party           pty ON pty.person_id = ep.person_id`,
     );
 
     // BRIDGE PREFLIGHT — inside the tx so a broken bridge ROLLS BACK (the previous good tables
@@ -247,7 +255,8 @@ const main = async (): Promise<void> => {
          JOIN graph_person_node p ON p.person_id = e.person_id AND p.is_public_figure
      ),
      blob_persons AS (
-       SELECT p.person_id, p.slug, p.name, p.facet, p.public_money_eur AS money, p.degree
+       SELECT p.person_id, p.slug, p.name, p.facet, p.public_money_eur AS money, p.degree,
+              p.party, p.party_color
          FROM graph_person_node p
         WHERE p.person_id IN (SELECT person_id FROM blob_edges)
      ),
@@ -269,6 +278,31 @@ const main = async (): Promise<void> => {
          JOIN co_facet b ON b.eik = a.eik
           AND (a.facet < b.facet OR (a.facet = b.facet AND a.n >= 2))
         GROUP BY a.facet, b.facet
+     ),
+     co_party AS (  -- the party×party slice WITHIN the politician facet: per ≤6-officer company,
+       -- distinct POLITICIAN persons of each party. Same public/global-aggregate contract as co_facet,
+       -- narrowed to facet='politician' AND party IS NOT NULL (private owners / partyless carry none).
+       SELECT e.eik, p.party, count(DISTINCT e.person_id) AS n
+         FROM graph_edge e
+         JOIN graph_person_node  p  ON p.person_id = e.person_id AND p.is_public_figure
+          AND p.facet = 'politician' AND p.party IS NOT NULL
+         JOIN graph_company_node cn ON cn.eik = e.eik AND cn.officer_count <= 6
+        GROUP BY e.eik, p.party
+     ),
+     party_matrix AS (  -- companies bridging party a↔b (a<b: both present; a=b: ≥2 of that party)
+       SELECT a.party AS a, b.party AS b, count(*) AS companies
+         FROM co_party a
+         JOIN co_party b ON b.eik = a.eik
+          AND (a.party < b.party OR (a.party = b.party AND a.n >= 2))
+        GROUP BY a.party, b.party
+     ),
+     party_palette AS (  -- party → colour for EVERY public politician party (not just the drawn set),
+       -- so the party×party matrix can colour an axis whose party appears on no drawn person (the
+       -- matrix is a global aggregate, broader than the top-N persons). One colour per party.
+       SELECT DISTINCT ON (party) party, party_color
+         FROM graph_person_node
+        WHERE facet = 'politician' AND party IS NOT NULL AND party_color IS NOT NULL
+        ORDER BY party, party_color
      )
      SELECT 'global', jsonb_build_object(
        'meta', jsonb_build_object(
@@ -280,14 +314,20 @@ const main = async (): Promise<void> => {
           ORDER BY money DESC, eik) FROM top_co), '[]'::jsonb),
        'persons', coalesce((SELECT jsonb_agg(jsonb_build_object(
           'id', person_id, 'slug', slug, 'name', name, 'facet', facet,
-          'money', round(money::numeric, 2), 'degree', degree)
+          'money', round(money::numeric, 2), 'degree', degree,
+          'party', party, 'partyColor', party_color)
           ORDER BY money DESC, person_id) FROM blob_persons), '[]'::jsonb),
        'edges', coalesce((SELECT jsonb_agg(jsonb_build_object(
           'p', person_id, 'c', eik, 'kind', kind)
           ORDER BY person_id, eik, kind) FROM blob_edges), '[]'::jsonb),
        'matrix', coalesce((SELECT jsonb_agg(jsonb_build_object(
           'a', a, 'b', b, 'companies', companies)
-          ORDER BY a, b) FROM matrix), '[]'::jsonb))`,
+          ORDER BY a, b) FROM matrix), '[]'::jsonb),
+       'partyMatrix', coalesce((SELECT jsonb_agg(jsonb_build_object(
+          'a', a, 'b', b, 'companies', companies)
+          ORDER BY a, b) FROM party_matrix), '[]'::jsonb),
+       'partyColors', coalesce(
+          (SELECT jsonb_object_agg(party, party_color) FROM party_palette), '{}'::jsonb))`,
     );
 
     // Non-empty guard, INSIDE the tx so a degenerate build ROLLS BACK (the previous good blob survives)

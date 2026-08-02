@@ -76,6 +76,10 @@ CREATE INDEX IF NOT EXISTS idx_graph_company_money
 -- so `degree` slightly over-counts a "how many companies" reading — it is an edge count, used only
 -- to rank the down-sample, not displayed as a company count.
 -- is_public_figure / identity_confidence drive the default-public / private-toggle serving.
+-- `party` / `party_color` = the person's LATEST electoral affiliation (person_election_stats, newest
+-- election with a party). Populated only where it exists (mostly the politician facet — private
+-- owners have none), it drives the /connections party×party slice within the politician facet (the
+-- party-level generalization of the facet×facet bridge matrix).
 CREATE TABLE IF NOT EXISTS graph_person_node (
   person_id           bigint PRIMARY KEY,
   slug                text,
@@ -85,8 +89,13 @@ CREATE TABLE IF NOT EXISTS graph_person_node (
   identity_confidence text,
   is_public_figure    boolean NOT NULL DEFAULT false,
   public_money_eur    double precision NOT NULL DEFAULT 0,
-  degree              int NOT NULL DEFAULT 0
+  degree              int NOT NULL DEFAULT 0,
+  party               text,
+  party_color         text
 );
+-- Additive columns for DBs whose graph_person_node predates them (TRUNCATEd, not dropped). Idempotent.
+ALTER TABLE graph_person_node ADD COLUMN IF NOT EXISTS party       text;
+ALTER TABLE graph_person_node ADD COLUMN IF NOT EXISTS party_color text;
 CREATE INDEX IF NOT EXISTS idx_graph_person_slug ON graph_person_node (slug);
 -- The global down-sample ranks by money then degree; index the composite.
 CREATE INDEX IF NOT EXISTS idx_graph_person_rank

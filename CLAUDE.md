@@ -383,8 +383,10 @@ npm run db:load:graph:pg:cloud
 ```
 
 **AFTER `db:load:persons-browse:pg:cloud`** (it reads `person_browse_table` facets for the person
-nodes) and after **each** of `db:resolve:persons:cloud`, `db:load:tr:pg:cloud` (the
-`company_politicians` procurement arm), and **any contracts/agri/funds reload** (127's money basis).
+nodes) and after **each** of `db:resolve:persons:cloud`, `db:load:person-elections:pg:cloud` (the
+`party`/`party_color` source for the party×party matrix, `person_election_stats`),
+`db:load:tr:pg:cloud` (the `company_politicians` procurement arm), and **any contracts/agri/funds
+reload** (127's money basis).
 `db:refresh` sequences the local equivalent right after `persons-browse`/`person-search`; nothing runs
 it on the cloud side, so it is wired into the `update-persons` (last step) and `update-procurement`
 (after `persons-browse`) watch skills so an orchestrated re-ingest re-derives the graph on prod. It
