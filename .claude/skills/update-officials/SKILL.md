@@ -138,16 +138,15 @@ npx tsx scripts/officials/build_municipal_shards.ts
 
 ```bash
 npx tsx scripts/run-officials-links-only.ts        # company_links.json
-npx tsx scripts/run-officials-connections-only.ts  # connections.json
 ```
 
 The first builder joins every executive + municipal official to companies — via their own declared ownership stakes and via a Commerce Registry (TR) officer/owner name match against `raw_data/tr/state.sqlite` — and writes `data/officials/derived/company_links.json`. Each link carries a `confidence` flag. A declared stake is always `high`. A TR name-match is `high` **only when the name is rare on BOTH sides** — unique among officials (`namesakeCount === 1`) AND mapped to a single TR company (`trNamesakeCount === 1`); otherwise it is `low`. This two-sided test is what stops a common name (e.g. "Димитър Георгиев Димитров", which is an officer of ~30 distinct TR companies) from handing one councillor every company that shares the name — the high-only consumers (`pep_connected`, the connections graph) would otherwise surface false ties like a Горна Малина councillor "running" Софарма Трейдинг. Expect ~7,000 links with a large `low` share; a zero TR-link count means the SQLite is missing (run `/update-connections` first to build it).
 
-The second builder joins `company_links.json` against the MP companies-index (`data/parliament/companies-index.json`) to write `data/officials/derived/connections.json` — per official, which MPs and which other officials they share a company with. Edges where the official and the MP/peer have the identical normalised name are dropped: that is the same person (an official who is also an MP) or pure namesake noise, not a connection.
+(The old `run-officials-connections-only.ts` officials↔MP JSON bridge is **retired** — connections-engine-v1 §P4.3. `/connections` and the `/person` "Свързани лица" tile now read the live Postgres graph engine, which folds officials from the person layer, not this static bridge.)
 
-Re-run both after Step 1 / Step 1b so the artifacts reflect the fresh roster. Both also run automatically at the tail of the main declarations pipeline (`scripts/declarations/index.ts`).
+Re-run this builder after Step 1 / Step 1b so `company_links.json` reflects the fresh roster. It also runs automatically at the tail of the main declarations pipeline (`scripts/declarations/index.ts`), and feeds the councillor-conflicts + `company-connections/` passes there.
 
-> **After a significant officials refresh, also run `/update-connections`.** The two builders above refresh `company_links.json` + the officials `connections.json` bridge, but the MP connections **graph** (`data/parliament/connections.json`, per-MP/official subgraphs) and the per-EIK `company-connections/` both fold the officials links and only rebuild inside the declarations pipeline. If cacbg/data.egov is reachable, `/update-connections` does it; if it's network-blocked, run the offline rebuild `npx tsx scripts/run-connections-rebuild.ts` (no fetch — see `/update-connections`). Skipping this leaves the graph's officials edges stale relative to the new roster.
+> **After a significant officials refresh, re-derive the live connections graph.** `company_links.json` above is an input to the person layer. Once the officials roster is re-resolved (`db:resolve:persons` / its cloud chain), run `npm run db:load:graph:pg` (local) / `db:load:graph:pg:cloud` (prod) so the `/connections` graph + the `/person` tile pick up the new officials edges — the `update-persons` cloud chain already sequences this. There is no offline connections rebuild anymore.
 
 ## Step 1d — Reload Postgres, IN THIS ORDER
 

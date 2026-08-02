@@ -88,10 +88,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/regions\//, dataset: "elections" },
   { pattern: /^\/sections\//, dataset: "elections" },
   { pattern: /^\/problem_sections_stats/, dataset: "elections" },
-  {
-    pattern: /^\/parliament\/(connections|companies|mp-connections)/,
-    dataset: "connections",
-  },
+  { pattern: /^\/parliament\/companies/, dataset: "connections" },
   { pattern: /^\/parliament\//, dataset: "parliament" },
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
@@ -1019,10 +1016,10 @@ export const DATASETS: DatasetDef[] = [
       en: "MPs ↔ companies ↔ officials",
     },
     desc: {
-      bg: "Бизнес връзките между хора във властта и фирми — от декларациите пред Сметната палата, съединени с Търговския регистър.",
-      en: "Business ties between people in power and companies — from audit-office declarations joined with the Commerce Registry.",
+      bg: "Бизнес връзките между хора във властта и фирми — обща собственост (Търговски регистър) и обществени поръчки, изчислени на живо от графовия слой в Postgres.",
+      en: "Business ties between people in power and companies — shared ownership (Commerce Registry) and public procurement, computed live from the Postgres graph engine.",
     },
-    path: "public/parliament/connections.json",
+    path: "scripts/db/load_graph_pg.ts",
     tags: ["parliament"],
   },
   {

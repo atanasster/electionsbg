@@ -35,8 +35,8 @@
 //   tsx scripts/officials/remerge_collision_slugs.ts --apply    # move them
 //
 // index.json and assets-rankings*.json are rebuilt in place — no network, no
-// ingest run. The officials→company cross-reference and the connections graph
-// still name the old slugs afterwards; the script prints the two commands.
+// ingest run. The officials→company cross-reference still names the old slugs
+// afterwards; the script prints the commands to regenerate it + reload PG.
 
 import fs from "fs";
 import path from "path";
@@ -248,7 +248,7 @@ const cmd = command({
     console.log(
       "  STILL STALE — these name the old slugs and must be regenerated:\n" +
         "    tsx scripts/run-officials-links-only.ts   # data/officials/derived/company_links.json\n" +
-        "    tsx scripts/run-connections-rebuild.ts    # officials bridge + data/parliament/connections*.json",
+        "    …then reload Postgres (db:load:declarations) and re-derive the graph (db:load:graph:pg)",
     );
   },
 });

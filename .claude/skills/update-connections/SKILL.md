@@ -1,6 +1,6 @@
 ---
 name: update-connections
-description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the connections graph, rankings, and per-MP files under public/parliament/. Also flags unrealistic-looking declared values (cars/apartments/assets) and walks the operator through adding a typo override. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), regenerate the connections graph, rebuild the Commerce Registry SQLite, fix missing companies / management roles on candidate pages, or investigate a suspicious-looking declared value flagged by the typo checker. Also use after a fresh git clone if `public/parliament/connections.json` or `companies-index.json` is missing.
+description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the companies-index + per-MP management/declaration files under public/parliament/ (which the person-identity layer resolves into the LIVE Postgres connections graph behind /connections). Also flags unrealistic-looking declared values (cars/apartments/assets) and walks the operator through adding a typo override. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), rebuild the Commerce Registry SQLite, fix missing companies / management roles on candidate pages, or investigate a suspicious-looking declared value flagged by the typo checker. Also use after a fresh git clone if `public/parliament/companies-index.json` is missing. NOTE: the static person↔person connections graph (connections*.json / mp-connections/) is RETIRED — see the banner below.
 allowed-tools:
   - Read
   - Bash
@@ -10,7 +10,21 @@ allowed-tools:
 
 # MP business-connections data pipeline
 
-Builds the `/connections` graph and the dashboard tile from two Bulgarian government sources:
+> **⚠️ RETIREMENT NOTICE (connections-engine-v1 §P4.3).** The static person↔person MP-connections
+> graph — `build_connections_graph.ts` (declarations phase 6) + `build_officials_connections.ts` and
+> their outputs `connections*.json` / `mp-connections/` / `official-connections/` — is **RETIRED**.
+> `/connections` and the `/person` "Свързани лица" tile now read the **live Postgres graph engine**
+> (`graph_payloads` / `person_connections`, migrations 127-129 + 084 + loader `scripts/db/load_graph_pg.ts`),
+> derived from `person_role` (co-ownership) ∪ `company_politicians` (procurement). The dashboard
+> `MpConnectionsTile` was retired too. **What this skill STILL does:** refresh declarations + the
+> companies-index (incl. the `mpRoles` augmentation, now `scripts/declarations/augment_mp_roles.ts`) +
+> per-MP files — which the person-identity layer resolves. **Run `update-persons` (or its cloud chain,
+> which re-derives the graph via `db:load:graph:pg`) after this skill to publish the refreshed
+> connections.** Everything below that references `connections.json` / `connections-rankings.json` /
+> `buildConnectionsGraph` / `mp-connections` is **historical** — those files are no longer built or served.
+
+Builds the companies-index + per-MP files from two Bulgarian government sources (the person layer turns
+them into the live `/connections` graph):
 
 - **register.cacbg.bg** — annual property/interest declarations (Сметна палата). Provides MP-declared ownership stakes.
 - **data.egov.bg** dataset `2df0c2af-e769-4397-be33-fcbe269806f3` — daily Commerce Registry (TR / Търговски регистър) filings. Provides company officers, owners, status, seat, and historical role changes.

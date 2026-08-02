@@ -8,9 +8,6 @@
  * Files touched:
  *   - public/parliament/index.json                        — mps[].name
  *   - public/parliament/profiles/{id}.json                — A_ns_MPL_Name1/2/3
- *   - public/parliament/connections.json                  — nodes[].label (type=mp)
- *   - public/parliament/connections-rankings.json         — topMps[].label
- *   - public/parliament/mp-connections/{id}.json          — nodes[].label (type=mp)
  *   - public/parliament/mp-management/{id}.json           — mpName
  *
  * `normalizedName` (the canonical matching key) stays uppercase.
@@ -75,78 +72,6 @@ const updateProfiles = () => {
   console.log(`  scanned ${files.length} profile files`);
 };
 
-type Node = { type?: string; label?: string };
-type Connections = { nodes: Node[] };
-
-const updateConnectionsGraph = () => {
-  const p = path.join(PUBLIC_PARLIAMENT, "connections.json");
-  if (!fs.existsSync(p)) return;
-  const data = readJson<Connections>(p);
-  let changed = 0;
-  for (const n of data.nodes ?? []) {
-    if (n.type === "mp" && typeof n.label === "string") {
-      const nx = titleCaseBgName(n.label);
-      if (nx !== n.label) {
-        n.label = nx;
-        changed++;
-      }
-    }
-  }
-  if (changed) {
-    writeJson(p, data);
-    filesTouched++;
-    console.log(`  updated connections.json (${changed} mp nodes)`);
-  }
-};
-
-const updateRankings = () => {
-  const p = path.join(PUBLIC_PARLIAMENT, "connections-rankings.json");
-  if (!fs.existsSync(p)) return;
-  const data = readJson<{ topMps?: { label: string }[] }>(p);
-  let changed = 0;
-  for (const r of data.topMps ?? []) {
-    const nx = titleCaseBgName(r.label);
-    if (nx !== r.label) {
-      r.label = nx;
-      changed++;
-    }
-  }
-  if (changed) {
-    writeJson(p, data);
-    filesTouched++;
-    console.log(`  updated connections-rankings.json (${changed} mps)`);
-  }
-};
-
-const updateMpConnections = () => {
-  const dir = path.join(PUBLIC_PARLIAMENT, "mp-connections");
-  if (!fs.existsSync(dir)) return;
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
-  let changedFiles = 0;
-  for (const f of files) {
-    const p = path.join(dir, f);
-    const data = readJson<Connections>(p);
-    let changed = false;
-    for (const n of data.nodes ?? []) {
-      if (n.type === "mp" && typeof n.label === "string") {
-        const nx = titleCaseBgName(n.label);
-        if (nx !== n.label) {
-          n.label = nx;
-          changed = true;
-        }
-      }
-    }
-    if (changed) {
-      writeJson(p, data);
-      changedFiles++;
-    }
-  }
-  filesTouched += changedFiles;
-  console.log(
-    `  scanned ${files.length} mp-connections files (${changedFiles} changed)`,
-  );
-};
-
 const updateMpManagement = () => {
   const dir = path.join(PUBLIC_PARLIAMENT, "mp-management");
   if (!fs.existsSync(dir)) return;
@@ -174,9 +99,6 @@ const main = () => {
   console.log("[normalize-mp-name-casing] starting…");
   updateIndex();
   updateProfiles();
-  updateConnectionsGraph();
-  updateRankings();
-  updateMpConnections();
   updateMpManagement();
   console.log(
     `[normalize-mp-name-casing] done. files touched: ${filesTouched}`,

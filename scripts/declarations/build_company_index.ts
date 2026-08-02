@@ -45,14 +45,15 @@ export type CompanyIndexEntryStake = {
 };
 
 /** TR-only relationship between an MP and a company (manager, partner,
- * historical role, …). Populated for *every* index entry by the post-graph
- * pass in build_connections_graph.ts so the All Companies page can show MPs
- * connected via the Commerce Registry even when no stake was declared. */
+ * historical role, …). Populated for index entries with a TR role by
+ * augment_mp_roles.ts (augmentCompaniesIndexWithMpRoles) so the All Companies
+ * page can show MPs connected via the Commerce Registry even when no stake was
+ * declared. */
 export type CompanyIndexEntryMpRole = {
   mpId: number;
   mpName: string;
   /** TR role string — `manager`, `partner`, `tr_owner`, `procurator`, etc.
-   * Same vocabulary as `ConnectionsEdge.role`. */
+   * (the mp-management `role` vocabulary). */
   role: string;
   isCurrent: boolean;
   confidence: "high" | "medium";
@@ -74,9 +75,10 @@ export type CompanyIndexEntry = {
    * but won't be linked from any settlement page. */
   hqMatchQuality?: OfficeMatchQuality;
   stakes: CompanyIndexEntryStake[];
-  /** TR-only relationships (no declared stake). Populated for every entry
-   * by the post-graph extension so MPs whose link to this company is purely
-   * via the Commerce Registry are still visible in the All Companies page. */
+  /** MP↔company TR relationships (beyond any declared stake). Populated by
+   * augment_mp_roles.ts (from the mp-management files) so MPs whose link to
+   * this company is purely via the Commerce Registry are still visible in the
+   * All Companies page. */
   mpRoles?: CompanyIndexEntryMpRole[];
   /** Filled in by Phase 5 TR integration when the declared company name
    * matches a row in raw_data/tr/state.sqlite. */
@@ -259,10 +261,10 @@ export const enrichWithEkatteHQ = (
 };
 
 /** Re-run enrichWithEkatteHQ against the on-disk companies-index.json. Used
- * for the post-TR / post-graph second pass: by the time integrateTr +
- * buildConnectionsGraph have run, each entry's `tr.seat` is populated, so
- * the seat-fallback path inside the resolver can fill in `ekatteHQ` for
- * TR-only entries that had no declared office. Writes the file back. */
+ * for the post-TR second pass: by the time integrateTr has run, each entry's
+ * `tr.seat` is populated, so the seat-fallback path inside the resolver can
+ * fill in `ekatteHQ` for TR-only entries that had no declared office. Writes
+ * the file back. */
 export const reEnrichCompaniesIndex = ({
   publicFolder,
   stringify,

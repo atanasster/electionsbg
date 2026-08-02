@@ -1,6 +1,6 @@
 /**
  * One-shot: re-run the post-fetch build steps without touching the network.
- *   - buildConnectionsGraph (regenerates connections.json + rankings + per-MP)
+ *   - augmentCompaniesIndexWithMpRoles (re-derives companies-index `mpRoles` + TR-only companies)
  *   - buildAssetsRankings   (regenerates assets-rankings + mp-assets/*)
  *   - buildCarMakes         (regenerates car-makes.json)
  *   - buildDataProvenance   (regenerates data-provenance.json)
@@ -13,7 +13,7 @@
 
 import path from "path";
 import { fileURLToPath } from "url";
-import { buildConnectionsGraph } from "./build_connections_graph";
+import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -22,11 +22,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
 const DATA = path.join(REPO, "data");
-const RAW = path.join(REPO, "raw_data");
 
 const stringify = (o: object): string => JSON.stringify(o, null, 0);
 
-buildConnectionsGraph({ publicFolder: DATA, rawFolder: RAW, stringify });
+augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
 buildAssetsRankings({ publicFolder: DATA, stringify });
 buildCarMakes({ publicFolder: DATA, stringify });
 buildDataProvenance({ publicFolder: DATA, stringify });

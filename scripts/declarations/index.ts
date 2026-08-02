@@ -29,9 +29,8 @@ import {
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
 import { buildCompanyConnections } from "./tr/build_company_connections";
-import { buildConnectionsGraph } from "./build_connections_graph";
+import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
-import { buildOfficialsConnections } from "./build_officials_connections";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -415,22 +414,23 @@ export const parseFinancialDeclarations = async ({
   integrateTr({ publicFolder, rawFolder: dataFolder, stringify });
 
   // Officials → company cross-reference. Joins executive + municipal officials
-  // to companies (declared stakes + TR officer/owner name match). Runs before
-  // the connections graph so the graph's phase 2.5 can fold officials in as
-  // first-class nodes. No-ops if data/officials/ has not been ingested.
+  // to companies (declared stakes + TR officer/owner name match). Feeds the
+  // councillor-conflicts + company-connections passes. No-ops if data/officials/
+  // has not been ingested.
   buildOfficialsCompanyLinks({ stringify });
 
-  // Slice 4: assemble the cross-MP/company/person connections graph from the
-  // augmented companies-index + mp-management files. When raw_data/tr/state.sqlite
-  // exists, also pull every current officer/owner for the touched UICs so the
-  // graph surfaces non-MP co-officers (the "spatial" payoff). Phase 2.5 folds
-  // officials in as first-class nodes from the cross-reference above.
-  buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
+  // Augment companies-index with `mpRoles` (TR-only MP↔company relationships) + the TR-only company
+  // entries an MP manages but never declared. Re-derived from the mp-management/*.json files
+  // integrateTr just wrote — this replaces the tail step of the RETIRED static connections graph
+  // (build_connections_graph.ts), which is the SOLE writer of `mpRoles`. Must run AFTER integrateTr and
+  // BEFORE build_companies_by_{settlement,obshtina}. See docs/plans/connections-engine-v1.md §P4.3.
+  // (/connections + the /person tile now read the live PG graph engine, not this pass.)
+  augmentCompaniesIndexWithMpRoles({ publicFolder, stringify });
 
   // Phase 7: per-EIK Commerce-Registry connections to people in power,
-  // consumed by the /company/:eik page. Reads state.sqlite + the just-
-  // refreshed connections-search.json + officials indexes. Skips with a
-  // warning if state.sqlite is absent (same contract as integrateTr).
+  // consumed by the /company/:eik page. Reads state.sqlite + the parliament
+  // roster + officials indexes. Skips with a warning if state.sqlite is
+  // absent (same contract as integrateTr).
   buildCompanyConnections();
 
   // Second-pass HQ resolution — now that `tr.seat` is on every TR-enriched
@@ -459,11 +459,5 @@ export const parseFinancialDeclarations = async ({
   buildCarMakes({ publicFolder, stringify });
 
   // Per-NS provenance footnote (declaration year window + filing rate).
-  // Drives the staleness disclaimer on the connections tile.
   buildDataProvenance({ publicFolder, stringify });
-
-  // Officials ↔ MP / peer bridge — joins the cross-reference above against the
-  // MP companies-index to surface shared-company connections. Depends on the
-  // company_links.json the previous step just wrote.
-  buildOfficialsConnections({ stringify });
 };

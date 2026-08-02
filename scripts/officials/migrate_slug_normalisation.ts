@@ -471,9 +471,8 @@ const cmd = command({
       "  STILL STALE — these read the old slugs and must be regenerated:\n" +
         "    tsx scripts/officials/build_municipal_search.ts  # municipal/search_index.json (needs PG for /person links)\n" +
         "    tsx scripts/run-officials-links-only.ts        # data/officials/derived/company_links.json\n" +
-        "    tsx scripts/run-officials-connections-only.ts  # data/officials/derived/connections.json\n" +
-        "    …then the connections graph (data/parliament/connections*.json, official-connections/)\n" +
-        "    …and reload Postgres: npm run db:load:declarations (person_role.ref carries the slug)",
+        "    …and reload Postgres: npm run db:load:declarations (person_role.ref carries the slug); the\n" +
+        "    /connections graph then re-derives via npm run db:load:graph:pg",
     );
   },
 });

@@ -28,10 +28,14 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "../../..");
 
 const SQLITE_PATH = path.join(repoRoot, "raw_data/tr/state.sqlite");
-const CONNECTIONS_SEARCH = path.join(
-  repoRoot,
-  "data/parliament/connections-search.json",
-);
+// The MP roster (id / name / party) — the parliament scrape's index. Was read via the retired
+// connections-search.json (a build_connections_graph output); now sourced directly from the roster so
+// this /company-page pipeline no longer depends on the retired MP-connections generator. NOTE: this
+// admits ALL scraped MPs (NS 39-52), not just the ~940 that had a company-graph presence — a superset
+// (0 lost), so historical ex-MPs whose name uniquely maps to a company can now surface on /company/:eik.
+// Party comes straight from `currentPartyGroupShort` (null for most ex-MPs); the old CIK-candidacy
+// party-inference fallback is dropped, so more MP badges read as null.
+const PARLIAMENT_INDEX = path.join(repoRoot, "data/parliament/index.json");
 const OFFICIALS_INDEX = path.join(repoRoot, "data/officials/index.json");
 const MUNICIPAL_INDEX = path.join(
   repoRoot,
@@ -100,22 +104,21 @@ const buildPowerPeople = (): {
     counts[ref.tier === "national" ? "mp" : ref.tier]++;
   };
 
-  // MPs — from the connections search index.
-  const search = readJson<{
-    entries: Array<{
-      type: string;
-      mpId?: number;
-      label?: string;
-      partyGroupShort?: string;
+  // MPs — from the parliament roster (id / name / party).
+  const roster = readJson<{
+    mps: Array<{
+      id: number;
+      name: string;
+      currentPartyGroupShort?: string | null;
     }>;
-  }>(CONNECTIONS_SEARCH);
-  for (const e of search.entries) {
-    if (e.type !== "mp" || e.mpId == null || !e.label) continue;
-    add(e.label, {
+  }>(PARLIAMENT_INDEX);
+  for (const m of roster.mps) {
+    if (m.id == null || !m.name) continue;
+    add(m.name, {
       kind: "mp",
-      refId: String(e.mpId),
-      name: e.label,
-      party: e.partyGroupShort ?? null,
+      refId: String(m.id),
+      name: m.name,
+      party: m.currentPartyGroupShort ?? null,
       tier: "national",
       roleLabel: null,
     });
@@ -286,7 +289,7 @@ type CompanyFile = {
 
 export const buildCompanyConnections = (): void => {
   // Graceful degradation when the TR SQLite hasn't been reconstructed yet —
-  // matches the same behaviour `integrateTr` and `buildConnectionsGraph` have.
+  // matches the same behaviour `integrateTr` has.
   // Keeps `npm run data -- --declarations` working on a fresh clone.
   if (!fs.existsSync(SQLITE_PATH)) {
     console.warn(
@@ -430,8 +433,7 @@ export const buildCompanyConnections = (): void => {
 };
 
 // CLI entry point — also exported for the `--declarations` chain in
-// scripts/declarations/index.ts (Phase 7), where this is called after
-// buildConnectionsGraph has refreshed connections-search.json.
+// scripts/declarations/index.ts (Phase 7). Reads the parliament roster + officials indexes directly.
 if (import.meta.url === `file://${process.argv[1]}`) {
   buildCompanyConnections();
 }

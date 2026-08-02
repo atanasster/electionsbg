@@ -1,12 +1,12 @@
 /**
  * Full rebuild from cached XML — no network calls. Re-parses every cached
  * cacbg declaration with the current parser, then re-runs every downstream
- * builder so the knock-on changes (companies-index, connections graph,
+ * builder so the knock-on changes (companies-index + mpRoles augmentation,
  * rankings, car makes, provenance) all stay in sync.
  *
  * Use after editing parse_declaration.ts, build_company_index.ts, or
- * build_connections_graph.ts so we don't have to re-fetch every declaration
- * just to see the build effect.
+ * augment_mp_roles.ts so we don't have to re-fetch every declaration just to
+ * see the build effect.
  *
  *   npx tsx scripts/declarations/rebuild_all_from_cache.ts
  */
@@ -20,7 +20,7 @@ import {
   annotatePerMpDeclarationsWithSlugs,
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
-import { buildConnectionsGraph } from "./build_connections_graph";
+import { augmentCompaniesIndexWithMpRoles } from "./augment_mp_roles";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -104,8 +104,8 @@ const main = () => {
   console.log("[rebuild-all] phase 4 — integrateTr");
   integrateTr({ publicFolder: DATA, rawFolder: RAW, stringify });
 
-  console.log("[rebuild-all] phase 5 — buildConnectionsGraph (augments index)");
-  buildConnectionsGraph({ publicFolder: DATA, rawFolder: RAW, stringify });
+  console.log("[rebuild-all] phase 5 — augmentCompaniesIndexWithMpRoles");
+  augmentCompaniesIndexWithMpRoles({ publicFolder: DATA, stringify });
 
   console.log("[rebuild-all] phase 6 — buildAssetsRankings");
   buildAssetsRankings({ publicFolder: DATA, stringify });
