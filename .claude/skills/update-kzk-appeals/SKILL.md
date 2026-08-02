@@ -176,14 +176,34 @@ onto `kzk_appeals.outcome` via an **unambiguous** complainant + respondent + yea
 (ambiguous rows stay null — no low-confidence guesses). It also authoritatively sets
 `suspension`, which the intake can only infer from `/спрян/` in `status`.
 
-**⚠ `scripts/procurement/kzk_decisions.ts` does not exist.** The crawler is a TODO. The
-~2,098 outcome rows in PG/JSON today were produced interactively and are irreplaceable.
-Until it lands:
+**The crawler now exists** — `scripts/procurement/kzk_decisions.ts`
+(`npm run kzk:decisions`). Same two constraints as the intake arm: headed browser, BG
+egress. It writes only the JSON store; publishing is the loader plus the rejoin.
 
-- Never wipe `kzk_appeals.json` or `TRUNCATE kzk_appeals`.
-- Skip tier-2 entirely on a fresh machine — a clone gets intake-only data, and `outcome`
-  will be null everywhere.
-- Treat Step 2's assertion as a hard gate, not a formality.
+```bash
+npm run kzk:decisions -- --probe            # FIRST, on a new machine
+npm run kzk:decisions -- --year 2026 --apply
+npm run db:load:kzk-decisions:pg
+npm run kzk:rejoin -- --apply
+```
+
+**⚠ Run `--probe` before trusting a crawl on a new machine.** The decisions register's
+markup has never been read by committed code — the parser is written against the SHAPE of
+the 2026-07-04 corpus and the sibling register's conventions. `--probe` reports which labels
+it can actually find, how far back the pager reaches, and whether another `ot` value carries
+the определения (temporary-measure) register, which is the missing authoritative source for
+`suspension`.
+
+**The outcomes now have two authors**, told apart by `decision_act_no` (migration 131):
+
+- **act set** → derived by `kzk_rejoin.ts` from the `kzk_decisions` corpus. Re-derivable at
+  will; a better matcher may overwrite it.
+- **act NULL, outcome set** → one of the ~2,098 produced interactively before any of this
+  existed. Still irreplaceable, still never overwritten by any writer.
+
+So: never wipe `kzk_appeals.json` or `TRUNCATE kzk_appeals`, and treat Step 2's assertion as
+a hard gate. But a fresh machine is no longer stuck at intake-only — it can rebuild
+everything except those 2,098.
 
 ## Data-integrity contract
 
@@ -209,7 +229,8 @@ Only stamp after Step 2 passes.
 
 ## What this skill does NOT do
 
-- **Does not crawl the decisions/merits register.** That script isn't written yet.
+- **Does not crawl the decisions/merits register.** That is `npm run kzk:decisions` (T4) —
+  a separate headed crawl, run explicitly. This skill covers the intake arm.
 - **Does not run `bucket:sync`.** `procurement/` is excluded from the sync; Cloud SQL serves it.
 - **Does not run `update-procurement`.** Different source, different corpus. A `kzk_appeals`
   flip must never enqueue the full АОП re-ingest.
@@ -224,6 +245,11 @@ Only stamp after Step 2 passes.
 | `scripts/db/schema/pg/042_kzk_appeals.sql` | Table + `tender_appeals(unp)` + `kzk_recent_appeals(limit)` |
 | `scripts/db/apply_functions.ts` | Surgical idempotent DDL apply (bare filenames) |
 | `data/procurement/kzk_appeals.json` | Full complaint store — gitignored, PG-served |
-| `data/procurement/kzk_decisions.json` | Tier-2 outcomes — gitignored; **no generator in repo** |
+| `scripts/procurement/kzk_decisions.ts` | Headed decisions crawl (`--probe` / `--year` / `--backfill` / `--apply`) |
+| `scripts/procurement/kzk_decisions_store.ts` | Shared decision shape + validator (rejects column-shifted rows) |
+| `scripts/procurement/kzk_match.ts` | Pure decisions↔appeals join (multi-party split, year\|year-1 window) |
+| `scripts/procurement/kzk_rejoin.ts` | `npm run kzk:rejoin` — re-derive outcomes offline from the stored corpus |
+| `scripts/db/load_kzk_decisions_pg.ts` | `db:load:kzk-decisions:pg` — ships the corpus into `kzk_decisions` (130) |
+| `data/procurement/kzk_decisions.json` | Tier-2 decisions corpus — gitignored; written by `kzk:decisions` |
 | `data/procurement/derived/kzk_appeals_summary.json` | AI summary — **committed** |
 | `scripts/watch/sources/kzk_appeals.ts` | Watcher source — fingerprints the current-year complaint count + newest id |

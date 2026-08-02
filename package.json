@@ -175,6 +175,7 @@
     "derived:rebuild": "tsx ./scripts/parliament/derived/index.ts",
     "procurement:ingest": "tsx ./scripts/procurement/ingest.ts",
     "kzk:summary": "tsx ./scripts/procurement/build_kzk_summary.ts",
+    "kzk:decisions": "tsx ./scripts/procurement/kzk_decisions.ts",
     "kzk:rejoin": "tsx ./scripts/procurement/kzk_rejoin.ts",
     "kzk:rejoin:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run kzk:rejoin --",
     "procurement:ingest-legacy": "tsx ./scripts/procurement/ingest_legacy.ts",

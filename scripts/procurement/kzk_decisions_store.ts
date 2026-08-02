@@ -13,7 +13,14 @@
 //
 //   { "no": "F788088/26.12.2025 г. на заместник-кмета на община Пловдив… - ОБЩИНА
 //            ПЛОВДИВ; Отменя незаконосъобразното действие…",
-//     "pron": "", "ddate": "" }
+//     "pron": "", "ddate": null }
+//
+// ⚠️ `ddate` IS `null` ON THOSE ROWS, NOT `""` — measured, and the distinction has
+// already cost one crash: a sort comparator calling `.localeCompare` on it threw
+// a TypeError AFTER a multi-minute headed crawl and before the write, discarding
+// the whole run. The declared type says `string | null` for that reason, and
+// `validateDecisions` narrows to `ValidDecision` so downstream code can rely on a
+// real date without re-checking.
 //
 // A blank `ddate` means those rows can never match an appeal (the matcher keys on
 // year) and can never move the freshness gate — so they were silently inflating
@@ -35,6 +42,37 @@ export const DECISIONS_LIST_URL =
 /** Act numbers are "АКТ-<seq>-<DD.MM.YYYY>" and unique in the register. */
 export const ACT_NO_RE = /^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/;
 
+/**
+ * Above this share of rejected rows, a crawl or a load treats the damage as
+ * markup/source DRIFT rather than known history and refuses to store.
+ *
+ * ONE definition: the crawler and the Postgres loader must agree on what counts
+ * as "too broken to keep", or one of them silently accepts what the other rejects.
+ * The known-historical damage is 8.9%.
+ */
+export const REJECT_RATE_CEILING = 0.15;
+
+/**
+ * Record boundary in the rendered list: a line starting `Акт № <no>`, optionally
+ * preceded by the GridView's row ordinal.
+ *
+ * ⚠️ The gaps are `[^\S\n]` (any whitespace EXCEPT newline), not `\s`: the register
+ * separates the ordinal with NON-BREAKING spaces (U+00A0), and `\s` would also
+ * match the newline and let a record swallow the previous line.
+ *
+ * Exported because the parser, the page-turn detector and the in-page
+ * `waitForFunction` all need the same boundary — three copies is how they drift.
+ */
+export const DECISION_RECORD_RE =
+  /^[^\S\n]*(?:\d+[^\S\n]+)?Акт[^\S\n]*№[^\S\n]*/gm;
+
+/** The first act number rendered in `text`, or null when the page has no records. */
+export const firstActNo = (text: string): string | null => {
+  const parts = text.split(new RegExp(DECISION_RECORD_RE.source, "gm"));
+  const no = parts[1]?.split(/[\n\r]/)[0]?.trim();
+  return no ? no : null;
+};
+
 /** Same shape, capturing the act's own date so it can be checked against `ddate`. */
 const ACT_NO_PARTS_RE = /^АКТ-\d+-(\d{2})\.(\d{2})\.(\d{4})$/;
 
@@ -51,8 +89,14 @@ const isRealIsoDate = (s: string): boolean => {
 export type KzkDecision = {
   /** Act number — "АКТ-608-25.06.2026". Natural key. */
   no: string;
-  /** Decision date, ISO YYYY-MM-DD. */
-  ddate: string;
+  /**
+   * Decision date, ISO YYYY-MM-DD.
+   *
+   * NULLABLE, and it really is null in the wild — 429 rows of the 2026-07-04
+   * corpus carry `null` here because their columns shifted. Anything that sorts,
+   * compares or stores this must handle it; `validateDecisions` narrows it away.
+   */
+  ddate: string | null;
   /** Произнасяне — the free-text ruling. */
   pron?: string | null;
   /** КЗК case number — "КЗК/417/2026". */
@@ -87,8 +131,11 @@ export type RejectedDecision = {
   reason: string;
 };
 
+/** A decision that passed validation: date guaranteed present and well-formed. */
+export type ValidDecision = KzkDecision & { ddate: string };
+
 export type ValidationResult = {
-  clean: KzkDecision[];
+  clean: ValidDecision[];
   rejected: RejectedDecision[];
 };
 
@@ -104,7 +151,7 @@ export type ValidationResult = {
 export const validateDecisions = (
   rows: readonly KzkDecision[],
 ): ValidationResult => {
-  const clean: KzkDecision[] = [];
+  const clean: ValidDecision[] = [];
   const rejected: RejectedDecision[] = [];
   const seen = new Set<string>();
 
