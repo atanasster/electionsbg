@@ -271,6 +271,27 @@ for a derived table and a data-loss bug on this one. Note the appeals arm is the
 shape: `kzk_appeals` has no loader at all, so publishing it means re-crawling against the
 cloud URL. `kzk_decisions.data.test.ts` fails on an empty table or a malformed act.
 
+Riding immediately behind it — **the rejoin** (`npm run kzk:rejoin -- --apply`), which applies
+migration 131 and folds `kzk_decisions` into `kzk_appeals.outcome`. Nothing else applies 131,
+so without this the cloud database has no `decision_act_no` column at all:
+
+```bash
+npm run kzk:rejoin:cloud -- --apply
+```
+
+Re-run it after **every** `db:load:kzk-decisions:pg[:cloud]` and after any change to
+`scripts/procurement/kzk_match.ts` — a matcher fix ships no data by itself. `db:refresh` runs
+the local equivalent; nothing runs the cloud side, and skipping it is the "green locally,
+stale on prod" class: local serves 3,014 outcomes while prod keeps 2,098, with nothing failing.
+It refreshes every dependent through `scripts/procurement/kzk_dependents.ts` — including
+`upheld_ocids`, which feeds the contract Corruption Risk Index, so a skipped rejoin makes
+recently-appealed procedures grade cleaner than they are.
+
+`--dry-run` is read-only and reports what it would write, including the hand-seeded rows it
+refuses to touch. Provenance (131) is what makes the rejoin safe to re-run: `decision_act_no
+IS NOT NULL` marks a row as machine-derived and re-derivable, NULL marks it as one of the
+~2,098 irreplaceable hand-made ones, which no writer may overwrite.
+
 `contractor_rank` (migration 122) is the same first-deploy shape as `cpv_catalog`: the
 `contractor_rankings` DbDataTable resource + the `/api/db/contractor-scope-kpis` route read
 it and do NOT degrade a missing matview to an empty result, so on the FIRST cloud deploy the

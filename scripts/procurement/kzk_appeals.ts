@@ -16,10 +16,12 @@
 // спиране granted) lives in the Решения/Определения registers and is a tier-2
 // backfill (not done here — outcome/suspension stay null until then).
 //
-// ⚠ REPRODUCIBILITY GAP: the tier-2 decisions crawler is NOT in the repo. The
-// ~2,098 `outcome`/`decisionDate` rows currently in kzk_appeals.json + PG were
-// produced interactively and cannot be regenerated from committed code; a fresh
-// clone re-ingests complaints fine but outcomes are unrecoverable (and the next
+// ⚠ PARTIAL REPRODUCIBILITY GAP. The outcomes now have TWO authors, told apart
+// by `decisionActNo` (migration 131): rows WITH one were derived by
+// kzk_rejoin.ts from the kzk_decisions corpus and can be rebuilt at will; the
+// ~2,098 rows WITHOUT one were produced interactively before any of that existed
+// and still cannot be regenerated from committed code. A fresh
+// clone re-ingests complaints fine but those outcomes are unrecoverable (and the next
 // --apply's buyer_appeal_stats rebuild would empty the upheld-appeal grade
 // component). See process-watch-report SKILL.md step (2). TODO: commit the
 // AllResolutions crawler as scripts/procurement/kzk_decisions.ts.
@@ -598,12 +600,29 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
           WHEN EXISTS (SELECT 1 FROM tenders t WHERE t.unp = a.unp) THEN 'exact'
           ELSE 'unresolved' END`,
       );
-      // Seed PG's tier-2 columns (outcome/decision_date) FROM the JSON — the only
-      // source of these ~2,098 interactively-produced rows. On a fresh/reset DB
-      // the intake upsert leaves them null; without this, buyer_appeal_stats +
-      // upheld_ocids + the grade's upheld component rebuild to zero (FINDING-001/
-      // 007). COALESCE fills ONLY where PG is null — never overwrites a live value.
+      // Seed PG's tier-2 columns (outcome/decision_date/decision_act_no) FROM the
+      // JSON. On a fresh/reset DB the intake upsert leaves them null; without
+      // this, buyer_appeal_stats + upheld_ocids + the grade's upheld component
+      // rebuild to zero (FINDING-001/007). COALESCE fills ONLY where PG is null —
+      // never overwrites a live value.
+      //
+      // `decisionActNo` MUST be carried across: it is what distinguishes the
+      // ~2,098 irreplaceable hand-made rows (no act) from the machine-derived
+      // ones kzk_rejoin.ts can rebuild (act set). Seeding the outcome without it
+      // would launder every derived row into a permanently-protected one and
+      // silently undo migration 131.
       if (fs.existsSync(OUT_FILE)) {
+        // 131 may not be applied on this database (it is applied by kzk_rejoin.ts,
+        // not by this crawler), so probe rather than assume — an unconditional
+        // reference to the column would abort the whole load transaction with
+        // 42703 on a DB that has never rejoined.
+        const hasProvenance = await c
+          .query(
+            `SELECT 1 FROM information_schema.columns
+              WHERE table_name = 'kzk_appeals' AND column_name = 'decision_act_no'`,
+          )
+          .then((r) => (r.rowCount ?? 0) > 0);
+
         const seed = (
           (JSON.parse(fs.readFileSync(OUT_FILE, "utf8")).appeals ??
             []) as Array<Record<string, unknown>>
@@ -616,20 +635,27 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
             a.complaintNo,
             a.outcome ?? null,
             a.decisionDate ?? null,
+            a.decisionActNo ?? null,
           ]);
+        const width = hasProvenance ? 4 : 3;
         for (let i = 0; i < seed.length; i += 500) {
           const chunk = seed.slice(i, i + 500);
           const values = chunk
-            .map((_, j) => `($${j * 3 + 1},$${j * 3 + 2},$${j * 3 + 3})`)
+            .map(
+              (_, j) =>
+                `(${Array.from({ length: width }, (__, k) => `$${j * width + k + 1}`).join(",")})`,
+            )
             .join(",");
           await c.query(
             `UPDATE kzk_appeals a SET
                outcome = COALESCE(a.outcome, v.outcome),
                decision_date = COALESCE(a.decision_date, v.decision_date)
-             FROM (VALUES ${values}) AS v(complaint_no, outcome, decision_date)
+               ${hasProvenance ? ", decision_act_no = COALESCE(a.decision_act_no, v.act_no)" : ""}
+             FROM (VALUES ${values}) AS v(complaint_no, outcome, decision_date${hasProvenance ? ", act_no" : ""})
              WHERE a.complaint_no = v.complaint_no
-               AND (a.outcome IS NULL OR a.decision_date IS NULL)`,
-            chunk.flat(),
+               AND (a.outcome IS NULL OR a.decision_date IS NULL
+                    ${hasProvenance ? "OR a.decision_act_no IS NULL" : ""})`,
+            chunk.flatMap((r) => (hasProvenance ? r : r.slice(0, 3))),
           );
         }
       }
