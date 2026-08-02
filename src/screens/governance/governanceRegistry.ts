@@ -44,6 +44,17 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.azure,
       },
       {
+        // ДФ „Земеделие" CAP payments. A whole money vertical (/subsidies +
+        // /subsidies/browse + /farm/:eik) that had NO hub tile and no menu
+        // entry — reachable only from a /farm or /company record page, i.e.
+        // only once you had already found a recipient.
+        id: "subsidies",
+        titleKey: "agri_subsidies_nav",
+        descKey: "gov_hub_subsidies_desc",
+        to: "/subsidies",
+        accent: TILE_ACCENTS.moss,
+      },
+      {
         id: "sectors",
         titleKey: "sectors_hub_nav",
         descKey: "gov_hub_sectors_desc",
@@ -86,6 +97,24 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         to: "/persons",
         accent: TILE_ACCENTS.indigo,
       },
+      {
+        // The connections graph, PROMOTED to the top hub: it is built from the
+        // Commerce Registry and the procurement corpus, not from declarations,
+        // so having its only entry point behind Декларации buried the site's
+        // most distinctive asset two clicks deep under the wrong parent.
+        //
+        // The Декларации tile deliberately STAYS as a secondary path — from an
+        // MP's declared interests the graph is the obvious next question — and
+        // keeps its own narrower descKey ("Фирмите зад депутатите") because
+        // there it answers that narrower question. `to` and `titleKey` are
+        // gated equal across the two hubs in hubRegistry.test.ts; descKey is
+        // explicitly allowed to differ, unlike the `persons` pair.
+        id: "connections",
+        titleKey: "connections_link_label",
+        descKey: "gov_hub_connections_desc",
+        to: "/connections",
+        accent: TILE_ACCENTS.emerald,
+      },
     ],
   },
   {
@@ -113,7 +142,7 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         titleKey: "indicators_nav_fiscal",
         descKey: "gov_hub_ind_fiscal_desc",
         to: "/indicators/fiscal",
-        accent: TILE_ACCENTS.amber,
+        accent: TILE_ACCENTS.brass,
       },
       {
         id: "ind_budgets",
@@ -127,7 +156,7 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         titleKey: "indicators_nav_governance",
         descKey: "gov_hub_ind_governance_desc",
         to: "/indicators/governance",
-        accent: TILE_ACCENTS.indigo,
+        accent: TILE_ACCENTS.iris,
       },
       {
         id: "ind_society",
@@ -141,14 +170,14 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         titleKey: "demographics_title",
         descKey: "gov_hub_demographics_desc",
         to: "/demographics",
-        accent: TILE_ACCENTS.moss,
+        accent: TILE_ACCENTS.leaf,
       },
       {
         id: "ind_compare",
         titleKey: "indicators_nav_compare",
         descKey: "gov_hub_ind_compare_desc",
         to: "/indicators/compare",
-        accent: TILE_ACCENTS.azure,
+        accent: TILE_ACCENTS.olive,
       },
     ],
   },

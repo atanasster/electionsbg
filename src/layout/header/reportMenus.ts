@@ -151,6 +151,7 @@ export const governanceMenu: MenuItem[] = [
       { title: "budget_link_label", link: "/budget" },
       { title: "procurement_link_label", link: "/procurement" },
       { title: "funds_index_title", link: "/funds" },
+      { title: "agri_subsidies_nav", link: "/subsidies" },
       { title: "sectors_hub_nav", link: "/governance/sectors" },
       { title: "sector_schools_title", link: "/education" },
       { title: "gov_hub_parliament_title", link: "/parliament" },

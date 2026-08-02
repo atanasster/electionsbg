@@ -550,6 +550,11 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "recount",
             file: `data/${year}/reports/municipality/recount.json`,
           },
+          {
+            // Route slug is hyphenated; the pipeline's data file is not.
+            path: "wasted-votes",
+            file: `data/${year}/reports/municipality/wasted_votes.json`,
+          },
           // recount_zero_votes is section-only in the prerender
           // (MUNICIPALITY_REPORTS omits it) — keeping it here would emit a
           // sitemap URL with no prerendered page.
@@ -606,6 +611,11 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "recount",
             file: `data/${year}/reports/settlement/recount.json`,
           },
+          {
+            // Route slug is hyphenated; the pipeline's data file is not.
+            path: "wasted-votes",
+            file: `data/${year}/reports/settlement/wasted_votes.json`,
+          },
           // recount_zero_votes is section-only in the prerender
           // (SETTLEMENT_REPORTS omits it) — keeping it here would emit a
           // sitemap URL with no prerendered page.
@@ -661,6 +671,11 @@ export const routeDefs = (year: string): RouteDefs => [
           {
             path: "recount",
             file: `data/${year}/reports/section/recount.json`,
+          },
+          {
+            // Route slug is hyphenated; the pipeline's data file is not.
+            path: "wasted-votes",
+            file: `data/${year}/reports/section/wasted_votes.json`,
           },
           {
             path: "recount_zero_votes",

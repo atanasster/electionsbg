@@ -16,6 +16,11 @@ import {
 } from "@/data/dataTypes";
 import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
 import { hasCrawlableId, latestBel } from "@/data/schools/schoolBel";
+import {
+  everyReportPage,
+  REPORT_TYPE_GRAINS,
+  type ReportGrain,
+} from "@/screens/reports/common/reportsMatrix";
 import { electionYearSuffix } from "./electionYear";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
 import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
@@ -2620,26 +2625,24 @@ const SETTLEMENT_REPORTS: ReportEntry[] = [
     bgBody:
       "Секции, в които флаш-паметта на СУЕМГ устройството липсва или не е приета от РИК. Серьозен инцидент — гласовете трябва да се възстановят от хартиена разпечатка.",
   },
+  {
+    // Was MISSING from this list while being routed AND linked (from
+    // WastedVoteScreen), so all three grains shipped as an empty SPA shell with
+    // no prerendered HTML and no sitemap entry. The copy deliberately avoids a
+    // sentence-initial "Населени места" so the per-grain substitution below —
+    // which is case-sensitive — actually rewrites it on the other two grains.
+    slug: "wasted-votes",
+    bgTitle: "Изгубени гласове по населени места",
+    bgDesc:
+      "Къде най-голям дял от гласовете отиват за партии под 4% бариера и не се превръщат в мандати.",
+    bgBody:
+      "Класация по дела на гласовете, подадени за партии, останали под четирипроцентовата бариера. Тези гласове не участват в разпределянето на мандати, затова високият дял показва къде изразената воля остава без представителство в парламента.",
+  },
 ];
 
-const MUNICIPALITY_REPORTS: ReportEntry[] = SETTLEMENT_REPORTS.map((r) => ({
-  ...r,
-  bgTitle: r.bgTitle.replace("по населени места", "по общини"),
-  bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "общини"),
-  bgBody: r.bgBody
-    .replace(/населен[иa] места?/g, "общини")
-    .replace(/населено място/g, "община"),
-}));
-
-const SECTION_REPORTS: ReportEntry[] = [
-  ...SETTLEMENT_REPORTS.map((r) => ({
-    ...r,
-    bgTitle: r.bgTitle.replace("по населени места", "по секции"),
-    bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "секции"),
-    bgBody: r.bgBody
-      .replace(/населен[иa] места?/g, "секции")
-      .replace(/населено място/g, "секция"),
-  })),
+// The two section-only reports. Their copy is already written in the section
+// voice, so it is never run through the substitution below.
+const SECTION_ONLY_REPORTS: ReportEntry[] = [
   {
     slug: "recount_zero_votes",
     bgTitle: "Повторно преброяване с нулиране на гласове по секции",
@@ -2675,30 +2678,73 @@ const OG_REPORT_SLUGS = new Set([
   "missing_flash_memory",
 ]);
 
-const buildReportRoutes = (
-  scope: "settlement" | "municipality" | "section",
-  reports: ReportEntry[],
-): PrerenderRoute[] => {
-  const scopeLabelBg =
-    scope === "settlement"
-      ? "населени места"
-      : scope === "municipality"
-        ? "общини"
-        : "секции";
-  return reports.map((r) => {
-    const url = `${SITE_URL}/reports/${scope}/${r.slug}`;
-    const title = `${r.bgTitle} — Парламентарни избори | electionsbg.com`;
+const SCOPE_LABEL_BG: Record<ReportGrain, string> = {
+  settlement: "населени места",
+  municipality: "общини",
+  section: "секции",
+};
+
+/** The settlement-voiced copy, re-voiced for another grain. Section-only
+ *  reports are already written in their own voice and skip this. */
+const revoice = (r: ReportEntry, grain: ReportGrain): ReportEntry => {
+  if (grain === "settlement") return r;
+  const plural = SCOPE_LABEL_BG[grain];
+  const singular = grain === "municipality" ? "община" : "секция";
+  return {
+    ...r,
+    bgTitle: r.bgTitle.replace("по населени места", `по ${plural}`),
+    bgDesc: r.bgDesc.replace(/населен[иa] места?/g, plural),
+    bgBody: r.bgBody
+      .replace(/населен[иa] места?/g, plural)
+      .replace(/населено място/g, singular),
+  };
+};
+
+/** Every prerendered report page, ENUMERATED FROM `REPORT_TYPE_GRAINS` rather
+ *  than from a hand-kept list beside it.
+ *
+ *  This used to be three local arrays that had drifted three pages short of
+ *  `routes.tsx` — `/reports/*∕wasted-votes` were routed and linked from the UI
+ *  but had no prerendered HTML and no sitemap entry, and nothing could see it.
+ *  Driving the enumeration from the shared matrix means a new <Route> cannot
+ *  ship prerender-less; `reportsMatrix.test.ts` fails if the copy map below
+ *  ever falls behind the matrix. The per-slug BG copy stays here, because it is
+ *  genuinely prerender-only. */
+export const buildReportRoutes = (): PrerenderRoute[] => {
+  const copy = new Map<string, ReportEntry>();
+  for (const r of SETTLEMENT_REPORTS) copy.set(r.slug, r);
+  for (const r of SECTION_ONLY_REPORTS) copy.set(r.slug, r);
+
+  return everyReportPage().map(({ grain, type }) => {
+    const base = copy.get(type);
+    if (!base) throw new Error(`no prerender copy for report type '${type}'`);
+    const r = SECTION_ONLY_REPORTS.some((s) => s.slug === type)
+      ? base
+      : revoice(base, grain);
+    const url = `${SITE_URL}/reports/${grain}/${type}`;
+    // The same report at the other grains — the cross-grain links the React
+    // ReportGrainNav renders. Without them here the switcher is invisible to a
+    // crawler, which is the whole point of adding it.
+    const otherGrains = REPORT_TYPE_GRAINS[type].filter((g) => g !== grain);
+    const grainLinks = otherGrains
+      .map(
+        (g) =>
+          `<a href="${SITE_URL}/reports/${g}/${type}">по ${SCOPE_LABEL_BG[g]}</a>`,
+      )
+      .join(", ");
     return {
-      path: `reports/${scope}/${r.slug}`,
-      title,
+      path: `reports/${grain}/${type}`,
+      title: `${r.bgTitle} — Парламентарни избори | electionsbg.com`,
       description: r.bgDesc,
       ogImage:
         r.ogImage ??
-        (OG_REPORT_SLUGS.has(r.slug) ? `/og/reports-${r.slug}.png` : undefined),
+        (OG_REPORT_SLUGS.has(type) ? `/og/reports-${type}.png` : undefined),
       bodyHtml: `
 <h1>${r.bgTitle}</h1>
 <p>${r.bgBody}</p>
-<p>Всички доклади за отклонения по ${scopeLabelBg}: <a href="${SITE_URL}/reports/${scope}/concentrated">концентриран вот</a>, <a href="${SITE_URL}/reports/${scope}/turnout">избирателна активност</a>, <a href="${SITE_URL}/reports/${scope}/recount">повторно преброяване</a>, <a href="${SITE_URL}/reports/${scope}/flash_memory">машинно гласуване</a>.</p>`.trim(),
+<p>Всички доклади за отклонения по ${SCOPE_LABEL_BG[grain]}: <a href="${SITE_URL}/reports/${grain}/concentrated">концентриран вот</a>, <a href="${SITE_URL}/reports/${grain}/turnout">избирателна активност</a>, <a href="${SITE_URL}/reports/${grain}/recount">повторно преброяване</a>, <a href="${SITE_URL}/reports/${grain}/flash_memory">машинно гласуване</a>.</p>${
+        grainLinks ? `\n<p>Същият доклад на друго ниво: ${grainLinks}.</p>` : ""
+      }`.trim(),
       jsonLd: [
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
@@ -3598,9 +3644,7 @@ export const buildDynamicRoutes = async (
     ...buildPollsRoutes(publicFolder),
     ...buildVotesRoutes(projectRoot),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
-    ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
-    ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
-    ...buildReportRoutes("section", SECTION_REPORTS),
+    ...buildReportRoutes(),
     // Articles are site content (human-authored markdown + same-origin
     // images), not data — they live under /public/ rather than /data/.
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),

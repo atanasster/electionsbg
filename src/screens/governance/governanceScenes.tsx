@@ -8,6 +8,7 @@
 import { FC } from "react";
 import { SceneFrame, PAPER, Bars, TrendLine, Donut } from "@/ux/infographic";
 import { PersonsScene } from "./personsScene";
+import { ConnectionsScene } from "./connectionsScene";
 
 // Бюджет — a coin over rising spend bars.
 const Budget: FC = () => (
@@ -494,10 +495,45 @@ const Demographics: FC = () => {
   );
 };
 
+// Земеделски субсидии — furrowed field rows receding to the right, with a coin
+// dropped on the nearest one. Marks stay right-of-centre and above the baseline
+// so the tile's headline number keeps the clear bottom-left corner (README's
+// "stat overlay" rule).
+const Subsidies: FC = () => (
+  <SceneFrame>
+    <g stroke="currentColor" fill="none" strokeLinecap="round">
+      {Array.from({ length: 6 }).map((_, i) => {
+        const y = 34 + i * 13;
+        return (
+          <path
+            key={i}
+            d={`M ${118 + i * 9} ${y} Q 210 ${y - 5} ${296 - i * 4} ${y}`}
+            strokeWidth={2}
+            opacity={0.18 + 0.1 * i}
+          />
+        );
+      })}
+    </g>
+    <circle cx={246} cy={40} r={17} fill="var(--sector)" opacity=".9" />
+    <text
+      x={246}
+      y={47}
+      textAnchor="middle"
+      fontSize="18"
+      fontWeight="700"
+      fill={PAPER}
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
   persons: PersonsScene,
   demographics: Demographics,
   budget: Budget,
+  subsidies: Subsidies,
+  connections: ConnectionsScene,
   procurement: Procurement,
   funds: Funds,
   sectors: Sectors,

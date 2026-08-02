@@ -5,7 +5,7 @@ import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useTranslation } from "react-i18next";
 import { localDate } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -27,6 +27,8 @@ import { MunicipalityLink } from "@/screens/components/municipalities/Municipali
 import { SectionLink } from "@/screens/components/sections/SectionLink";
 import { RegionLink } from "@/screens/components/regions/RegionLink";
 import { Caption } from "@/ux/Caption";
+import { ReportGrainNav } from "./ReportGrainNav";
+import { hasGrainNav } from "./reportsMatrix";
 
 export type ReportColumns = DataTableColumns<
   ReportRow & {
@@ -73,6 +75,8 @@ export const ReportTemplate: FC<{
   extraColumns = [],
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname } = useLocation();
+  const grainNav = hasGrainNav(pathname);
   const { priorElections } = useElectionContext();
   const [includeAbroad, setIncludeAbroad] = useState(
     localStorage.getItem("reports_include_abroad") === "true",
@@ -342,47 +346,62 @@ export const ReportTemplate: FC<{
         {t(titleKey)}
       </Title>
 
-      <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
-        {!ruleKey && <Caption>{`${t(levelKey)}`}</Caption>}
-        {!!ruleKey && (
-          <>
-            <Label
-              htmlFor="select_threshold"
-              className="text-md md:text-lg mr-2"
-            >
-              {`${t(levelKey)}${ruleKey ? ` ${t(ruleKey)}` : ""}`}
-            </Label>
+      {/* The same report at the other grains. The reports hub deep-links ONE
+          grain per type, so for the other two this is their only inbound
+          link. */}
+      <ReportGrainNav className="pb-3" />
 
-            <Select
-              value={threshold?.toString()}
-              onValueChange={(e) => {
-                searchParams.set("threshold", e);
-                setSearchParams(searchParams, { replace: true });
-                // setThreshold(parseInt(e));
-              }}
-            >
-              <SelectTrigger
-                id="select_threshold"
-                className="w-[100px] text-lg"
+      {/* Skipped entirely when both branches would render nothing (a grain-nav
+          page with no threshold rule — i.e. most report pages), which is
+          otherwise an empty div contributing pb-4 under the nav's own pb-3. */}
+      {(!!ruleKey || !grainNav) && (
+        <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
+          {/* The grain nav's current pill already names the level, so the
+              caption would repeat it verbatim on any page with a switcher. */}
+          {!ruleKey && !grainNav && <Caption>{`${t(levelKey)}`}</Caption>}
+          {!!ruleKey && (
+            <>
+              <Label
+                htmlFor="select_threshold"
+                className="text-md md:text-lg mr-2"
               >
-                <SelectValue placeholder={threshold?.toString()} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="5">5%</SelectItem>
-                <SelectItem value="10">10%</SelectItem>
-                <SelectItem value="20">20%</SelectItem>
-                <SelectItem value="30">30%</SelectItem>
-                <SelectItem value="40">40%</SelectItem>
-                <SelectItem value="50">50%</SelectItem>
-                <SelectItem value="60">60%</SelectItem>
-                <SelectItem value="70">70%</SelectItem>
-                <SelectItem value="80">80%</SelectItem>
-                <SelectItem value="90">90%</SelectItem>
-              </SelectContent>
-            </Select>
-          </>
-        )}
-      </div>
+                {/* Same reason as the Caption above: with a grain nav present
+                  this would read "По населени места · По населени места с
+                  изборна активност над …". Drop the level, keep the rule. */}
+                {grainNav ? t(ruleKey) : `${t(levelKey)} ${t(ruleKey)}`}
+              </Label>
+
+              <Select
+                value={threshold?.toString()}
+                onValueChange={(e) => {
+                  searchParams.set("threshold", e);
+                  setSearchParams(searchParams, { replace: true });
+                  // setThreshold(parseInt(e));
+                }}
+              >
+                <SelectTrigger
+                  id="select_threshold"
+                  className="w-[100px] text-lg"
+                >
+                  <SelectValue placeholder={threshold?.toString()} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5%</SelectItem>
+                  <SelectItem value="10">10%</SelectItem>
+                  <SelectItem value="20">20%</SelectItem>
+                  <SelectItem value="30">30%</SelectItem>
+                  <SelectItem value="40">40%</SelectItem>
+                  <SelectItem value="50">50%</SelectItem>
+                  <SelectItem value="60">60%</SelectItem>
+                  <SelectItem value="70">70%</SelectItem>
+                  <SelectItem value="80">80%</SelectItem>
+                  <SelectItem value="90">90%</SelectItem>
+                </SelectContent>
+              </Select>
+            </>
+          )}
+        </div>
+      )}
 
       <DataTable
         title={t(titleKey)}

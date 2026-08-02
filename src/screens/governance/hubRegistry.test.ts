@@ -78,4 +78,44 @@ describe("the governance hub registries", () => {
     assert.equal(decl.titleKey, gov.titleKey);
     assert.equal(decl.descKey, gov.descKey);
   });
+
+  test("the connections tile is offered by both hubs and points at the same route", () => {
+    // Same duplication as `persons`, with ONE deliberate difference: the two
+    // hubs ask different questions of the same graph, so each keeps its own
+    // descKey — /governance answers "who is linked to whom", Декларации answers
+    // "which companies sit behind the MPs". Destination and title still may not
+    // drift, so those are asserted and descKey is asserted to REMAIN distinct —
+    // silently collapsing them would lose the narrower wording without anyone
+    // noticing. See the comment on the tile in governanceRegistry.ts.
+    const gov = GOV_HUB_CLUSTERS.flatMap((c) => c.tiles).find(
+      (t) => t.id === "connections",
+    );
+    const decl = DECLARATION_TILES.find((t) => t.id === "connections");
+    assert.ok(gov, "/governance lost its connections tile");
+    assert.ok(decl, "/governance/declarations lost its connections tile");
+    assert.equal(gov.to, "/connections");
+    assert.equal(decl.to, gov.to);
+    assert.equal(decl.titleKey, gov.titleKey);
+    assert.notEqual(
+      decl.descKey,
+      gov.descKey,
+      "the two connections descriptions were merged — if that is intended, update this test and the tile comment together",
+    );
+  });
+
+  test("no accent is used twice on /governance", () => {
+    // All four clusters render on ONE page, so a repeated accent reads as "these
+    // two tiles are the same kind of thing". The palette has exactly enough
+    // tokens for the 20 tiles; this keeps a new tile from silently colliding.
+    const tiles = GOV_HUB_CLUSTERS.flatMap((c) => c.tiles);
+    const byAccent = new Map<string, string[]>();
+    for (const t of tiles)
+      byAccent.set(t.accent, [...(byAccent.get(t.accent) ?? []), t.id]);
+    const collisions = [...byAccent.values()].filter((ids) => ids.length > 1);
+    assert.deepEqual(
+      collisions,
+      [],
+      `tiles sharing an accent on one page: ${collisions.map((ids) => ids.join("+")).join(", ")}`,
+    );
+  });
 });

@@ -310,7 +310,146 @@ const Flash: FC = () => (
   </SceneFrame>
 );
 
+// Разместени гласове между партии — two party bars, one losing what the other
+// gains, with the transfer drawn as an arc between them.
+const FlashMoved: FC = () => (
+  <SceneFrame>
+    <rect
+      x="186"
+      y="46"
+      width="26"
+      height="44"
+      rx="3"
+      fill="var(--sector)"
+      opacity=".7"
+    />
+    <rect
+      x="258"
+      y="66"
+      width="26"
+      height="24"
+      rx="3"
+      fill="currentColor"
+      opacity=".35"
+    />
+    <path
+      d="M214 44 Q236 22 256 60"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+    />
+    <path
+      d="M256 60 l-7 -8 M256 60 l2 -10"
+      stroke="var(--sector)"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      fill="none"
+    />
+  </SceneFrame>
+);
+
+// Добавени гласове в протоколи — a protocol sheet with a rising delta.
+const FlashAdded: FC = () => (
+  <SceneFrame>
+    <rect
+      x="190"
+      y="30"
+      width="54"
+      height="66"
+      rx="4"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="2"
+      opacity=".85"
+    />
+    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity=".5">
+      <path d="M202 46 h30 M202 58 h30 M202 70 h18" />
+    </g>
+    <path
+      d="M266 78 l0 -34 M252 58 l14 -14 14 14"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SceneFrame>
+);
+
+// Премахнати гласове в протоколи — the same sheet, delta pointing down.
+const FlashRemoved: FC = () => (
+  <SceneFrame>
+    <rect
+      x="190"
+      y="30"
+      width="54"
+      height="66"
+      rx="4"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="2"
+      opacity=".85"
+    />
+    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity=".5">
+      <path d="M202 46 h30 M202 58 h30 M202 70 h18" />
+    </g>
+    <path
+      d="M266 44 l0 34 M252 64 l14 14 14 -14"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SceneFrame>
+);
+
+// Без гласове след повторното преброяване — a bar collapsing to a zero.
+const RecountZero: FC = () => (
+  <SceneFrame>
+    <rect
+      x="188"
+      y="40"
+      width="26"
+      height="50"
+      rx="3"
+      fill="currentColor"
+      opacity=".28"
+    />
+    <path
+      d="M222 66 h22"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      opacity=".6"
+    />
+    <path
+      d="M238 60 l8 6 -8 6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      opacity=".6"
+    />
+    <ellipse
+      cx="272"
+      cy="66"
+      rx="16"
+      ry="22"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3.2"
+    />
+  </SceneFrame>
+);
+
 export const REPORT_SCENES: Record<string, FC> = {
+  flashMoved: FlashMoved,
+  flashAdded: FlashAdded,
+  flashRemoved: FlashRemoved,
+  recountZero: RecountZero,
   riskScore: RiskScore,
   problem: Problem,
   concentration: Concentration,

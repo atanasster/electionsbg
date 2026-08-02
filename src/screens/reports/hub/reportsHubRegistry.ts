@@ -131,6 +131,43 @@ export const REPORT_CLUSTERS: { labelKey: string; reports: ReportEntry[] }[] = [
         accent: TILE_ACCENTS.indigo,
         requires: "hasSuemg",
       },
+      // The four report types below had NO tile here and no link anywhere else,
+      // so all ten of their pages were unreachable — the grain switcher on the
+      // report page only offers sibling GRAINS, which rescues a type only once
+      // it has one linked grain. `everyReportTypeHasAnEntryPoint` in
+      // reportsMatrix.test.ts is what stops this recurring.
+      {
+        id: "flashMoved",
+        titleKey: "flash_memory_moved",
+        descKey: "reports_flash_memory_moved_desc",
+        to: "/reports/section/flash_memory",
+        accent: TILE_ACCENTS.azure,
+        requires: "hasSuemg",
+      },
+      {
+        id: "flashAdded",
+        titleKey: "flash_memory_added",
+        descKey: "reports_flash_memory_added_desc",
+        to: "/reports/section/flash_memory_added",
+        accent: TILE_ACCENTS.moss,
+        requires: "hasSuemg",
+      },
+      {
+        id: "flashRemoved",
+        titleKey: "flash_memory_removed",
+        descKey: "reports_flash_memory_removed_desc",
+        to: "/reports/section/flash_memory_removed",
+        accent: TILE_ACCENTS.clay,
+        requires: "hasSuemg",
+      },
+      {
+        id: "recountZero",
+        titleKey: "recount_zero_votes",
+        descKey: "reports_recount_zero_votes_desc",
+        to: "/reports/section/recount_zero_votes",
+        accent: TILE_ACCENTS.rose,
+        requires: "hasRecount",
+      },
     ],
   },
 ];

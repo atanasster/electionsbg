@@ -7,22 +7,8 @@
    lookup table of scene components, not a fast-refresh boundary. */
 import { FC } from "react";
 import { PersonsScene } from "./personsScene";
+import { ConnectionsScene } from "./connectionsScene";
 import { SceneFrame, PAPER } from "@/ux/infographic";
-
-// Връзки — a person node linked to two companies.
-const Connections: FC = () => (
-  <SceneFrame>
-    <g stroke="currentColor" strokeWidth="2" opacity=".55">
-      <path d="M150 58 L98 32 M150 58 L202 32 M150 58 L150 96" />
-    </g>
-    <circle cx={150} cy={58} r={13} fill="var(--sector)" />
-    <g fill="var(--sector)" opacity=".85">
-      <rect x={86} y={22} width={24} height={20} rx={3} />
-      <rect x={190} y={22} width={24} height={20} rx={3} />
-      <rect x={136} y={88} width={28} height={20} rx={3} />
-    </g>
-  </SceneFrame>
-);
 
 // Имущество на депутати — a house over a coin.
 const Assets: FC = () => (
@@ -91,7 +77,7 @@ export const DECLARATION_SCENES: Record<string, FC> = {
   // The same vignette the /governance hub uses — one destination, one picture, imported
   // as a COMPONENT rather than read out of that hub's lookup table (see personsScene.tsx).
   persons: PersonsScene,
-  connections: Connections,
+  connections: ConnectionsScene,
   assets: Assets,
   cars: Cars,
   companies: Companies,
