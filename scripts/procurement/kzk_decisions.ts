@@ -53,7 +53,10 @@ import {
   DECISION_RECORD_RE,
   REJECT_RATE_CEILING,
   firstActNo,
+  kindFromHeader,
   parseRegisterTotal,
+  REGISTER_VARIANTS,
+  registerUrl,
   validateDecisions,
   summarizeRejections,
   type KzkDecision,
@@ -144,15 +147,20 @@ export const parseDecisionsText = (
   // Fresh RegExp: DECISION_RECORD_RE is /g, and a shared /g regex carries
   // lastIndex between calls — reusing the object directly makes the parse
   // depend on how many times it has run.
-  const parts = text
-    .split(new RegExp(DECISION_RECORD_RE.source, "gm"))
-    .slice(1);
+  // Capturing split: the odd elements are the matched HEADERS, which is the only
+  // place the act TYPE is stated ("Решение №" / "Определение №"). Deriving `kind`
+  // from the header rather than from the fetched URL means a row mis-filed under
+  // the wrong `ot` still classifies correctly.
+  const chunks = text.split(new RegExp(`(${DECISION_RECORD_RE.source})`, "gm"));
   const out: KzkDecision[] = [];
-  for (const part of parts) {
+  for (let i = 1; i < chunks.length; i += 2) {
+    const header = chunks[i] ?? "";
+    const part = chunks[i + 1] ?? "";
     const no = part.split(/[\n\r]/)[0]?.trim();
     if (!no) continue;
     out.push({
       no,
+      kind: kindFromHeader(header),
       // The act number embeds its own date ("АКТ-608-25.06.2026"); the register
       // also prints it as a field. Prefer the field, fall back to the number —
       // validateDecisions cross-checks the two and rejects a disagreement, which
@@ -298,16 +306,57 @@ const openBrowser = async (): Promise<{
   return { browser, ctx, page };
 };
 
-/** Wait until the list has actually rendered records, not merely a <body>. */
-const waitForRecords = async (page: Page, ms = 15000): Promise<boolean> =>
-  page
-    .waitForFunction(
-      (src) => new RegExp(src, "m").test(document.body.innerText),
-      DECISION_RECORD_RE.source,
-      { timeout: ms },
-    )
-    .then(() => true)
-    .catch(() => false);
+/**
+ * Wait until the list has actually rendered records, not merely a <body>.
+ *
+ * ⚠️ POLLED FROM NODE, never `page.waitForFunction`. Two reasons, both learned the
+ * hard way on the sibling register (see project_kzk_appeals_pager_fix):
+ *
+ *  1. This crawler runs under tsx/esbuild, which rewrites function expressions
+ *     for `keepNames`. The injected `__name` helper does not exist in the browser
+ *     context, so a serialized in-page callback can throw ReferenceError — which
+ *     a `.catch(() => false)` then reports as "did not happen".
+ *  2. A year change or a page turn is a FULL ASP.NET postback that destroys the
+ *     execution context, and `waitForFunction` rejects mid-navigation even when
+ *     the condition is already true.
+ *
+ * A fresh `innerText` per tick is immune to both.
+ */
+const waitForRecords = async (page: Page, ms = 15000): Promise<boolean> => {
+  const deadline = Date.now() + ms;
+  const re = new RegExp(DECISION_RECORD_RE.source, "m");
+  while (Date.now() < deadline) {
+    const text = await page
+      .locator("body")
+      .innerText()
+      .catch(() => "");
+    if (re.test(text)) return true;
+    await page.waitForTimeout(400);
+  }
+  return false;
+};
+
+/**
+ * Wait for the list to actually TURN — the first act number changes — rather than
+ * trusting a click or a load state. Same Node-side polling, same reasons.
+ */
+const waitForTurn = async (
+  page: Page,
+  prev: string | null,
+  ms = 15000,
+): Promise<boolean> => {
+  const deadline = Date.now() + ms;
+  while (Date.now() < deadline) {
+    const text = await page
+      .locator("body")
+      .innerText()
+      .catch(() => "");
+    const no = firstActNo(text);
+    if (no && no !== prev) return true;
+    await page.waitForTimeout(400);
+  }
+  return false;
+};
 
 /**
  * Read page 1 of each register variant and report what a parser could see, plus
@@ -386,13 +435,14 @@ const probe = async (page: Page, otValues: number[]): Promise<void> => {
 /** Crawl one year (or the register default when `year` is null). */
 const crawlYear = async (
   page: Page,
+  listUrl: string,
   year: number | null,
   fetchedAt: string,
   opts: { knownActs: Set<string>; earlyExit: boolean },
 ): Promise<KzkDecision[]> => {
   for (let attempt = 1; ; attempt++) {
     try {
-      await page.goto(DECISIONS_LIST_URL, { waitUntil: "domcontentloaded" });
+      await page.goto(listUrl, { waitUntil: "domcontentloaded" });
       // Wait for actual RECORDS. `body.waitFor()` resolves the moment a <body>
       // exists, which is always — it would make this retry loop protect nothing.
       if (!(await waitForRecords(page)))
@@ -471,7 +521,7 @@ const crawlYear = async (
 
   for (let guard = 0; guard < 1000; guard++) {
     const text = await page.locator("body").innerText();
-    const recs = parseDecisionsText(text, fetchedAt, DECISIONS_LIST_URL);
+    const recs = parseDecisionsText(text, fetchedAt, listUrl);
     let newOnPage = 0;
     for (const r of recs) {
       if (!knownActs.has(r.no)) newOnPage++;
@@ -493,19 +543,7 @@ const crawlYear = async (
 
     const prev = firstActNo(text);
     if (!(await clickNext())) break;
-    const turned = await page
-      .waitForFunction(
-        ({ p, src }) => {
-          const first = document.body.innerText.split(new RegExp(src, "gm"))[1];
-          const no = first?.split(/[\n\r]/)[0]?.trim() ?? "";
-          return no.length > 0 && no !== p;
-        },
-        { p: prev, src: DECISION_RECORD_RE.source },
-        { timeout: 15000 },
-      )
-      .then(() => true)
-      .catch(() => false);
-    if (!turned) break;
+    if (!(await waitForTurn(page, prev))) break;
   }
 
   const got = [...seen.values()];
@@ -575,17 +613,27 @@ const main = async (opts: {
 
     let total = 0;
     let written = 0;
-    for (const y of years) {
-      const recs = await crawlYear(page, y, fetchedAt, {
-        knownActs,
-        earlyExit,
-      });
-      const clean = validateOrThrow(recs, String(y ?? "current"));
-      total += clean.length;
-      // PERSIST PER YEAR. A --backfill is a multi-hour headed crawl; batching the
-      // write to the end means one slow postback in year 6 discards years 1-5.
-      // mergeWrite is a union, so partial progress is always safe to keep.
-      if (opts.apply) written = mergeWrite(clean);
+    // BOTH REGISTERS. ot=2 gives the merits ruling, ot=6 the temporary-measure
+    // one — the latter verified 2026-08-02 and never crawled before. They share
+    // the table (act numbers are unique across both) and are told apart by
+    // `kind`, which keeps an определение from claiming an appeal a решение owns.
+    for (const variant of REGISTER_VARIANTS) {
+      const url = registerUrl(variant.ot);
+      for (const y of years) {
+        const recs = await crawlYear(page, url, y, fetchedAt, {
+          knownActs,
+          earlyExit,
+        });
+        const clean = validateOrThrow(
+          recs,
+          `${variant.kind} ${y ?? "current"}`,
+        );
+        total += clean.length;
+        // PERSIST PER YEAR PER REGISTER. A --backfill is a multi-hour headed
+        // crawl; batching the write to the end means one slow postback discards
+        // everything before it. mergeWrite is a union, so partial progress keeps.
+        if (opts.apply) written = mergeWrite(clean);
+      }
     }
 
     if (!opts.apply) {

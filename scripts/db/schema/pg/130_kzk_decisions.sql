@@ -27,6 +27,12 @@
 -- (scripts/procurement/kzk_match.ts), not the schema's: the register's own text
 -- is the record, and a pre-split column would bake one parse into the store.
 --
+-- TWO REGISTERS, ONE TABLE. `ot=2` publishes решения (the merits ruling) and
+-- `ot=6` определения (the temporary-measure ruling) — verified 2026-08-02; the
+-- latter is the only authoritative source for `kzk_appeals.suspension` and had
+-- never been crawled. Act numbers are unique across both, so they share the
+-- table and the `kind` column keeps them apart where it matters.
+--
 -- ⚠️ Populated by scripts/db/load_kzk_decisions_pg.ts
 -- (`npm run db:load:kzk-decisions:pg` / `:cloud`) from the JSON corpus, and by
 -- scripts/procurement/kzk_decisions.ts --apply on a live crawl. There is no
@@ -47,8 +53,20 @@ CREATE TABLE IF NOT EXISTS kzk_decisions (
   initiators    text,               -- жалбоподател(и), ';'-joined AS PRINTED
   respondent    text,               -- ответник (buyer, as printed by КЗК)
   source_url    text NOT NULL,
-  fetched_at    text NOT NULL
+  fetched_at    text NOT NULL,
+  -- Which register the act came from: 'решения' (the merits ruling) or
+  -- 'определения' (the temporary-measure ruling). NULL on the 2026-07-04 corpus,
+  -- which predates the ot-parameter enumeration.
+  --
+  -- ⚠️ ONLY 'определения' IS EXCLUDED FROM MERITS MATCHING — a NULL kind counts as
+  -- eligible. Those legacy rows are the source of every outcome served today, so
+  -- treating unknown as ineligible would silently drop ~2,860 matches. See
+  -- setsMeritsOutcome() in scripts/procurement/kzk_decisions_store.ts.
+  kind          text
 );
+
+-- Idempotent for a database created before the column existed.
+ALTER TABLE kzk_decisions ADD COLUMN IF NOT EXISTS kind text;
 
 -- The gate reads max(decision_date); the matcher scans by year. Both want this.
 CREATE INDEX IF NOT EXISTS idx_kzk_decisions_date
@@ -56,6 +74,9 @@ CREATE INDEX IF NOT EXISTS idx_kzk_decisions_date
 -- Reserved for the exact-join spike (T8) and for auditing a match by case number.
 CREATE INDEX IF NOT EXISTS idx_kzk_decisions_case
   ON kzk_decisions(kzk_case_no) WHERE kzk_case_no IS NOT NULL;
+-- The matcher scans the merits-eligible subset on every rejoin.
+CREATE INDEX IF NOT EXISTS idx_kzk_decisions_kind
+  ON kzk_decisions(kind) WHERE kind IS DISTINCT FROM 'решения';
 
 DO $$ BEGIN
   IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'app_readonly') THEN

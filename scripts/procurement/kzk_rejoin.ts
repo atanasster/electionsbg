@@ -101,10 +101,22 @@ const main = async (apply: boolean): Promise<void> => {
             decision_act_no AS "decisionActNo"
        FROM kzk_appeals`,
   );
+  // ⚠️ MERITS-ELIGIBLE ACTS ONLY. `ot=6` publishes определения — rulings on the
+  // temporary measure, not on the complaint. classifyOutcome already returns null
+  // for every one of their phrasings (they lack the word `жалбата`), but that is
+  // not enough: a match also stamps `decision_date` and `decision_act_no`, which
+  // would make those columns mean "some act" rather than "the merits ruling" —
+  // and it would CLAIM the appeal, so the решение that later decides the same
+  // case reads as a second claimant and the appeal is dropped as ambiguous.
+  //
+  // `IS DISTINCT FROM` (not `<>`) because NULL is the legacy corpus, which is
+  // where every outcome served today comes from. Excluding unknown would silently
+  // drop ~2,860 matches.
   const decisions = await allRows<MatchableDecision>(
     `SELECT act_no AS no, decision_date AS ddate, pronouncement AS pron,
             initiators AS init, respondent AS resp
-       FROM kzk_decisions`,
+       FROM kzk_decisions
+      WHERE kind IS DISTINCT FROM 'определения'`,
   );
   if (decisions.length === 0) {
     throw new Error(

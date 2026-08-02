@@ -55,24 +55,27 @@ export const REJECT_RATE_CEILING = 0.15;
 /**
  * Record boundary in the rendered list.
  *
- * ⚠️ VERIFIED AGAINST THE LIVE REGISTER 2026-08-02, and it is NOT what the first
- * draft assumed. The header is the ACT TYPE, not the word "Акт":
+ * ⚠️ VERIFIED AGAINST `page.locator("body").innerText()` — the string the crawler
+ * ACTUALLY reads — on 2026-08-02. That distinction cost a failed crawl: an
+ * earlier fix was verified against a curl fetch rendered by replacing `</td>`
+ * with newlines, which splits the row into one field per line. Playwright does
+ * not:
  *
- *     1
- *     Решение № АКТ-734-23.07.2026        (ot=2, решения)
- *     Определение № АКТ-741-23.07.2026    (ot=6, определения)
+ *   curl render   →  "1\nРешение № АКТ-734-23.07.2026"
+ *   innerText     →  "1     Решение № АКТ-734-23.07.2026"   ← ordinal INLINE
  *
- * Two consequences. The alternation must cover both types — a `Акт №` boundary
- * parses ZERO records off either register. And the GridView's row ordinal sits on
- * its OWN LINE above the header, not inline as in the sibling complaints register,
- * so the boundary anchors on the header alone and the stray ordinal simply trails
- * the previous record (harmless — the act number is the header line's first token).
+ * So the optional leading ordinal is load-bearing; without it the boundary
+ * matches nothing and the crawl dies at "no records rendered within 15s".
  *
- * The gaps stay `[^\S\n]` (any whitespace EXCEPT newline) rather than `\s`, so a
- * non-breaking space is matched but a record cannot swallow the line above.
+ * The header word is the ACT TYPE, not "Акт" — `Решение №` (ot=2, решения) and
+ * `Определение №` (ot=6, определения) — so both must be in the alternation.
+ *
+ * The gaps stay `[^\S\n]` (any whitespace EXCEPT newline): it matches the
+ * non-breaking spaces the ordinal is padded with, but a record cannot swallow the
+ * line above it.
  */
 export const DECISION_RECORD_RE =
-  /^[^\S\n]*(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*/gm;
+  /^[^\S\n]*(?:\d+[^\S\n]+)?(?:Решение|Определение|Акт)[^\S\n]*№[^\S\n]*/gm;
 
 /** The first act number rendered in `text`, or null when the page has no records. */
 export const firstActNo = (text: string): string | null => {
@@ -94,6 +97,47 @@ export const REGISTER_VARIANTS = [
   { ot: 2, kind: "решения" as const },
   { ot: 6, kind: "определения" as const },
 ];
+
+/** Which register an act came from. */
+export type DecisionKind = (typeof REGISTER_VARIANTS)[number]["kind"];
+
+/**
+ * Derive the kind from the record's own header word, not from the URL that was
+ * fetched.
+ *
+ * The header is the register's own statement of what the act IS ("Решение № …" /
+ * "Определение № …"), so a row mis-filed under the wrong `ot` still classifies
+ * correctly, and a re-crawl cannot relabel history by changing a constant.
+ */
+export const kindFromHeader = (header: string): DecisionKind | null =>
+  // NOT anchored with `^`: the captured header carries the GridView's row
+  // ordinal ("1     Решение № "), so an anchored test silently returns null on
+  // every record and the whole corpus loads with no kind. "Определение" contains
+  // no "Решение" substring, so the order of these two tests is not load-bearing.
+  /Определение/.test(header)
+    ? "определения"
+    : /Решение/.test(header)
+      ? "решения"
+      : null;
+
+/**
+ * May an act of this kind set a MERITS outcome?
+ *
+ * ⚠️ `null` (legacy) counts as eligible. The 4,407 rows of the 2026-07-04 corpus
+ * predate this column and are the source of every outcome served today; treating
+ * an unknown kind as ineligible would silently drop 2,860 matches. Only an act
+ * KNOWN to be an определение is excluded.
+ *
+ * Why exclude them at all, when classifyOutcome already returns null for every
+ * temporary-measure phrasing (verified — they lack the word `жалбата`)? Because
+ * `outcome` is not the only thing a match writes. An определение would still
+ * stamp `decision_date` and `decision_act_no`, making those columns mean "some
+ * act" rather than "the merits ruling" — and it would CLAIM the appeal, so the
+ * решение that later decides the same case reads as a second claimant and the
+ * whole appeal is dropped as ambiguous.
+ */
+export const setsMeritsOutcome = (kind: string | null | undefined): boolean =>
+  kind !== "определения";
 
 /**
  * Read the register's authoritative "Намерени са общо N …" completeness target.
@@ -162,6 +206,14 @@ export type KzkDecision = {
   init?: string | null;
   /** Ответник (buyer, as printed by КЗК). */
   resp?: string | null;
+  /**
+   * Which register this act came from — "решения" or "определения".
+   *
+   * NULL on the 2026-07-04 corpus, which predates the `ot` enumeration. See
+   * setsMeritsOutcome(): a null kind is treated as eligible, because those rows
+   * are where today's outcomes come from.
+   */
+  kind?: DecisionKind | null;
   /** Present on rows written by the crawler; absent on the 2026-07-04 corpus. */
   fetchedAt?: string | null;
   /**

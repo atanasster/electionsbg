@@ -98,6 +98,7 @@ const SPEC: StageMergeSpec = {
     "respondent",
     "source_url",
     "fetched_at",
+    "kind",
   ],
 };
 
@@ -207,6 +208,9 @@ const main = async (): Promise<void> => {
         // carry their own URL and must not be stamped with this one.
         nullIfBlank(d.sourceUrl) ?? DECISIONS_LIST_URL,
         d.fetchedAt ?? fallbackFetchedAt,
+        // NULL on the 2026-07-04 corpus; only a KNOWN 'определения' is excluded
+        // from merits matching (see setsMeritsOutcome).
+        d.kind ?? null,
       ]),
     );
     await addStagePrimaryKey(c, SPEC);
