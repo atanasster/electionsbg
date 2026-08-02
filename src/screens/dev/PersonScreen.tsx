@@ -35,6 +35,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScopeControl } from "@/screens/components/ScopeControl";
+import { useNoindex } from "@/lib/useNoindex";
 import { useScope } from "@/data/scope/useScope";
 import { scopeRange } from "@/data/scope/scopeRange";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -159,6 +160,10 @@ export const PersonScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const person = decodeURIComponent(name);
+  // NOINDEX (S5): the name-keyed portfolio is a NAME match, not a canonical identity (it folds
+  // every TR officer sharing the name — the person_namesake_disclosure below says so), it is never
+  // prerendered and carries no sitemap <loc>. Keep the JS crawler off it too.
+  useNoindex();
 
   const [roles, setRoles] = useState<RoleRow[]>([]);
   const [politicians, setPoliticians] = useState<PoliticianRow[]>([]);

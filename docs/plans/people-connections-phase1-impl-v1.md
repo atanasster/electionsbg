@@ -360,19 +360,29 @@ the data were live.
 
 ---
 
-## Step 5 — prerender/sitemap + namesake chooser (SEO + disambiguation polish)
+## Step 5 — prerender/sitemap gate + namesake disambiguation — SHIPPED (2026-08-01)
 
-**Goal:** verified private profiles above the S0 €-threshold get prerendered + indexed; the rest
-`noindex`; name-fold hits get a chooser instead of a silent merge.
+**The €-threshold prerender was the WRONG call and was NOT built.** `emit_prerender_slugs.ts` is
+already at the Firebase deploy ceiling (a ~5,000 net-neutral cap, with an explicit "widening blows
+the deploy" guard) and cannot absorb even a threshold slice of the 53,203 verified privates without
+a cloud staging measurement; and 53k thin, name-only-identity owner pages are weak SEO regardless.
+So the ceiling-honest gate is: **verified privates are servable but NOINDEX, never prerendered.**
 
-**Files:** the person prerender manifest (`emit_prerender_slugs.ts` / `person:slugs`) + sitemap
-`enumeratePersons` gated to `is_public_figure OR (identity_confidence='verified' AND
-public_money_eur >= threshold)`; the `/person/:name` dispatcher (`PersonProfileScreen.tsx`) shows
-a **namesake chooser** (reuse the candidate page's) when a fold maps to >1 owner-cluster.
+**SHIPPED:**
+- The manifest already excludes them — it queries `WHERE is_public_figure` (verified privates are
+  `is_public_figure=false`), so no `<loc>`, no static file, ceiling untouched. Added a guard comment
+  in `computePersonSlugs` so a future implementer doesn't widen it and blow the deploy.
+- Runtime `noindex`: `PersonDashboard` calls `useNoindex(!p.isPublicFigure)` (verified privates +
+  any served non-public person); the legacy name-keyed portfolio `PersonScreen` calls `useNoindex()`
+  (a name match is never canonical). Verified on a live verified-private page: `robots="noindex, follow"`.
+- **Namesake "chooser":** with no owner-cluster data (the resolver punts on it by design), a true
+  chooser cannot be built — the honest disambiguation is the NAME-MATCH WARNING, which already
+  exists: `person_namesake_disclosure` on the portfolio page + the "по име / name match" badge on
+  every name-fold row in search (S2) and browse (S3b). No silent merge remains.
 
-**Gate/commit:** `tier1 step 5: verified-private prerender gate + namesake chooser`.
-**Risk:** medium — touches SEO ([feedback_static_seo], [project_sitemap_validity_audit]); the
-manifest is minted from the SERVING DB (operator/cloud step per CLAUDE.md).
+**Risk:** low — no SEO manifest change (the gate is exclusion-by-construction + runtime noindex).
+The person prerender manifest itself is still minted from the SERVING DB (`person:slugs:cloud`,
+operator step) when the person layer is pushed to cloud — unchanged by S5.
 
 ---
 

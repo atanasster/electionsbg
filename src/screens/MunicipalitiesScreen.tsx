@@ -7,6 +7,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionDashboardCards } from "./dashboard/RegionDashboardCards";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { NotFound } from "@/screens/NotFound";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -38,6 +39,23 @@ export const MunicipalitiesScreen = () => {
   }
 
   const info = findRegion(region);
+  // `/municipality/:id` takes an OBLAST code (SHU), but an obshtina code shares
+  // its prefix (SHU11 = Хитрино), so stale bookmarks and hand-typed URLs land
+  // here with a município. Without this the screen rendered a titleless region
+  // dashboard that fetched `/regions/SHU11_stats.json` — a console 404 and a
+  // soft-404 for crawlers — instead of the real page one route over. regions.json
+  // is bundled, so `info` is decidable on the first render; municipalities.json
+  // is fetched, so hold the 404 until it has arrived rather than flashing it.
+  if (!info) {
+    if (!municipalities) {
+      return null;
+    }
+    return municipalities.some((m) => m.obshtina === region) ? (
+      <Navigate replace to={{ pathname: `/settlement/${region}`, search }} />
+    ) : (
+      <NotFound />
+    );
+  }
   const title =
     (lang === "bg"
       ? info?.long_name || info?.name

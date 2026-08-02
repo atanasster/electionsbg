@@ -51,6 +51,7 @@ import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { isOfficialSource } from "@/lib/officialSources";
+import { useNoindex } from "@/lib/useNoindex";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -63,6 +64,13 @@ const fmtElection = (d: string): string => {
 // entry routes can share it.
 export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   const { t, i18n } = useTranslation();
+
+  // NOINDEX the non-public served pages (S5). A verified private owner (is_public_figure=false,
+  // minted from the Commerce Registry by name-fold — S4) has a SERVABLE /person page but a thin,
+  // name-only-identity body: it is deliberately NOT prerendered and carries no sitemap <loc> (the
+  // manifest is is_public_figure-gated, holding the Firebase deploy ceiling), so mark it noindex
+  // for the JS-executing crawler too. Public figures keep index,follow.
+  useNoindex(!p.isPublicFigure);
 
   // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
   // §8 Connections surface. Loaded lazily; absent for most people.

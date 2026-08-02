@@ -174,6 +174,13 @@ export const computePersonSlugs = async (): Promise<
     return null;
   }
 
+  // `is_public_figure` here also draws the line for the S4 VERIFIED PRIVATE owners: they are
+  // is_public_figure=FALSE, so they are DELIBERATELY absent from this manifest — no <loc>, no
+  // prerendered file. That is the S5 gate, and it is the ceiling-honest one: 53k+ name-only-
+  // identity owner pages would blow the deploy ceiling this whole file exists to hold (and are
+  // thin SEO), so they stay SPA/DB-served with a runtime `noindex` (PersonDashboard's
+  // useNoindex(!isPublicFigure)). Do NOT widen this to `OR identity_confidence='verified'` without
+  // a staging ceiling measurement first — that is the exact footgun the header's cap guards.
   const rows = await allRows<{ slug: string; indexable: boolean }>(
     `SELECT p.slug, ${FLOOR_PREDICATE} AS indexable
        FROM person p
