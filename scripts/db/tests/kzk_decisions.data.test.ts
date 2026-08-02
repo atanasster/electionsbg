@@ -219,3 +219,46 @@ test.skipIf(anchorSkip)(
     });
   },
 );
+
+// ── 042 must be self-sufficient ─────────────────────────────────────────────
+//
+// `kzk_appeals_list` SELECTs `decision_act_no`, whose documented home is
+// migration 131 — and 131 is applied ONLY by kzk_rejoin.ts, which every path that
+// applies 042 runs BEFORE (db:refresh orders db:load:tenders:pg ahead of
+// kzk:rejoin; load_tenders_pg and apply_functions never touch 131). So on any
+// database that has not yet rejoined, 042's view creation would raise 42703 —
+// and since exec() sends the file as ONE implicit transaction, the whole
+// migration rolls back and the loader aborts.
+//
+// It was invisible locally because this machine already had the column. 042 now
+// carries an idempotent ALTER; this asserts it stays there.
+
+test.skipIf(skip)(
+  "042 creates the provenance column itself, so it applies without 131",
+  async () => {
+    const sql = readFileSync(
+      path.join(
+        path.dirname(fileURLToPath(import.meta.url)),
+        "..",
+        "schema",
+        "pg",
+        "042_kzk_appeals.sql",
+      ),
+      "utf8",
+    );
+    const alterAt = sql.search(
+      /ALTER\s+TABLE\s+kzk_appeals\s+ADD\s+COLUMN\s+IF\s+NOT\s+EXISTS\s+decision_act_no/i,
+    );
+    const viewAt = sql.indexOf("CREATE VIEW kzk_appeals_list");
+    assert.ok(
+      alterAt >= 0,
+      "042 SELECTs decision_act_no but no longer adds it — applying this file to a " +
+        "database that has not run kzk:rejoin will fail with 42703 and roll back " +
+        "the entire migration.",
+    );
+    assert.ok(
+      viewAt < 0 || alterAt < viewAt,
+      "the ADD COLUMN must come BEFORE the view that reads it",
+    );
+  },
+);

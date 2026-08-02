@@ -45,6 +45,16 @@ CREATE TABLE IF NOT EXISTS kzk_appeals (
   source_url      text NOT NULL,
   fetched_at      text NOT NULL
 );
+-- ⚠️ ORDERING, not decoration. `kzk_appeals_list` (below) SELECTs
+-- `decision_act_no`, whose home is migration 131 — and 131 is applied ONLY by
+-- kzk_rejoin.ts, which every path that applies THIS file runs before
+-- (db:refresh orders db:load:tenders:pg ahead of kzk:rejoin; load_tenders_pg and
+-- apply_functions never touch 131). Without this line, applying 042 to a database
+-- that has not yet rejoined raises 42703 on the view — and since exec() sends the
+-- file as ONE implicit transaction, the whole migration rolls back and the loader
+-- aborts. Idempotent, so 131 remains the column's documented owner.
+ALTER TABLE kzk_appeals ADD COLUMN IF NOT EXISTS decision_act_no text;
+
 CREATE INDEX IF NOT EXISTS idx_kzk_appeals_unp    ON kzk_appeals(unp);
 CREATE INDEX IF NOT EXISTS idx_kzk_appeals_buyer  ON kzk_appeals(buyer_eik);
 -- Match the serving sorts (tender_appeals / kzk_recent_appeals order by
@@ -196,8 +206,9 @@ SELECT rebuild_contracts_list();
 -- text `complaint_date` (ISO YYYY-MM-DD, so lexical order == chronological)
 -- drives the section-scope window filter (?pscope), mirroring the tenders
 -- browser's publication_date range. DROP-first for the same `SELECT`-shape
--- reapply-safety as tenders_list above.
-DROP VIEW IF EXISTS kzk_appeals_list;
+-- reapply-safety as tenders_list above; CASCADE because a dependent view would
+-- otherwise turn a reapply into a 2BP01 that rolls the whole file back.
+DROP VIEW IF EXISTS kzk_appeals_list CASCADE;
 CREATE VIEW kzk_appeals_list AS
 SELECT a.complaint_no,
        a.complaint_date,
@@ -215,6 +226,12 @@ SELECT a.complaint_no,
        a.status,
        a.outcome,
        a.decision_date,
+       -- WHICH act produced that outcome (131). Exposed so a classification can be
+       -- traced back to its ruling from /procurement/appeals rather than only from
+       -- psql — and so the two provenances are distinguishable in the UI: a NULL
+       -- here marks one of the ~2,098 interactively-produced rows that no writer
+       -- may overwrite.
+       a.decision_act_no,
        -- The effective state, NOT the raw column: this view backs the
        -- /procurement/appeals DbDataTable, whose chip and `suspension = true`
        -- filter must agree with every other surface.

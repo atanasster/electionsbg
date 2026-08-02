@@ -42,6 +42,9 @@ interface AppealRow {
   status: string | null;
   outcome: string | null;
   decisionDate: string | null;
+  /** The КЗК act that produced the outcome (migration 131). NULL on the ~2,098
+   *  interactively-produced rows, which no writer may overwrite. */
+  decisionActNo: string | null;
   suspension: boolean | null;
   vmRequested: boolean | null;
   resolved: boolean;
@@ -177,6 +180,21 @@ export const AppealsBrowserDbScreen: FC = () => {
               ) : (
                 <span className="text-xs text-muted-foreground">—</span>
               )}
+              {/* Which ruling produced this outcome. Without it a classification
+                  is only auditable from psql, and the two provenances are
+                  indistinguishable: an act number means the matcher derived it
+                  and it can be re-derived; its absence means a hand-made row. */}
+              {row.original.decisionActNo ? (
+                <span
+                  className="text-[11px] tabular-nums text-muted-foreground"
+                  title={
+                    t("appeals_decision_act_hint") ||
+                    "Актът на КЗК, от който е изведен изходът"
+                  }
+                >
+                  {row.original.decisionActNo}
+                </span>
+              ) : null}
             </div>
           );
         },

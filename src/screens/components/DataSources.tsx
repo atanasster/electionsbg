@@ -544,6 +544,13 @@ export const DataSources = () => {
                   "КЗК — public register of public-procurement appeals (reg.cpc.bg)"
                 }
               />
+              <SourceItem
+                href="https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2"
+                label={
+                  t("procurement_kzk_decisions_source") ||
+                  "КЗК — public register of decisions and rulings on appeals (reg.cpc.bg)"
+                }
+              />
             </ul>
             <p className="mt-3 text-xs text-muted-foreground">
               {t("about_procurement_by_settlement_note") ||

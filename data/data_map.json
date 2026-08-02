@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-02T20:24:30.737Z",
+  "generatedAt": "2026-08-02T21:19:51.654Z",
   "nodes": [
     {
       "id": "src:water",
@@ -587,7 +587,9 @@
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-29T11:45:08.536Z",
-      "skills": [],
+      "skills": [
+        "update-kzk-appeals"
+      ],
       "sources": [
         {
           "id": "kzk_appeals",

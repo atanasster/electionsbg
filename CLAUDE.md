@@ -292,6 +292,16 @@ refuses to touch. Provenance (131) is what makes the rejoin safe to re-run: `dec
 IS NOT NULL` marks a row as machine-derived and re-derivable, NULL marks it as one of the
 ~2,098 irreplaceable hand-made ones, which no writer may overwrite.
 
+**Migration ordering, 042 → 131.** `kzk_appeals_list` (042) SELECTs `decision_act_no`, whose
+home is 131 — and 131 is applied ONLY by `kzk:rejoin`, which every path that applies 042 runs
+*before* (`db:refresh` orders `db:load:tenders:pg` ahead of `kzk:rejoin`; `load_tenders_pg`
+and `apply_functions` never touch 131). 042 therefore carries an idempotent
+`ADD COLUMN IF NOT EXISTS` for it. **Do not remove that line** thinking 131 owns the column:
+`exec()` sends a migration as one implicit transaction, so a 42703 there rolls the whole file
+back and aborts the tenders loader on any database that has not yet rejoined. It is invisible
+on a machine that already has the column, which is exactly how it shipped once;
+`kzk_decisions.data.test.ts` now asserts the ALTER is present and precedes the view.
+
 **One-off, and Cloud SQL needs it by hand — `kzk_appeals.suspension`.** The column held a
 stored `false` on 7,778 of 7,886 rows, which made 042's
 `kzk_effective_suspension(suspension, status)` fallback unreachable: 1,501 appeals had

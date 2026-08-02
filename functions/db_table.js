@@ -496,6 +496,9 @@ const REGISTRY = {
   // is applied as a complaint_date range filter, same as the tenders browser's
   // publication_date. ⚠ Hard dep on migration 042 reaching Cloud SQL (via
   // db:load:tenders:pg:cloud or apply_functions.ts) BEFORE functions:db.
+  // 042 also carries an idempotent ALTER for `decision_act_no` (whose home is 131),
+  // so it is self-sufficient here — but the column stays NULL everywhere until
+  // `kzk:rejoin:cloud -- --apply` has run, and the browse simply shows no act.
   kzk_appeals: {
     base: "kzk_appeals_list",
     scopeCols: [],
@@ -514,6 +517,10 @@ const REGISTRY = {
       status: { type: "text", filter: "in" },
       outcome: { type: "text", filter: "in" },
       decision_date: { type: "text" },
+      // Provenance (131): the act that produced the outcome. NULL marks a
+      // hand-seeded row. `filter: "eq"` so an auditor can pull every complaint one
+      // act resolved — КЗК consolidates several into one ruling.
+      decision_act_no: { type: "text", filter: "eq" },
       suspension: { type: "bool", filter: "eq" },
       vm_requested: { type: "bool", filter: "eq" },
       resolved: { type: "bool", filter: "eq" },
@@ -529,6 +536,7 @@ const REGISTRY = {
       "status",
       "outcome",
       "decision_date",
+      "decision_act_no",
       "suspension",
       "vm_requested",
       "resolved",

@@ -392,13 +392,19 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       bg: "Публичните електронни регистри на Комисията за защита на конкуренцията (reg.cpc.bg). Два регистъра: този на жалбите дава всяка жалба срещу обществена поръчка с нейния УНП и статус (спряно/приключено/…), а отделният регистър на актовете дава произнасянето по същество (уважена/отхвърлена) и решението по временната мярка. Двата се свързват по жалбоподател + ответник + година; жалбата се свързва точно към търга по УНП и показва „обжалвана“/„спряна“ на страницата на процедурата, а уважената жалба влиза в индекса за корупционен риск. Ръчни обхождания с браузър (изискват българска свързаност).",
       en: "The Competition Protection Commission's public registers (reg.cpc.bg). TWO arms: the complaints register gives every appeal against a public-procurement procedure with its УНП and status (suspended/concluded/…), and the separate decisions register gives the merits outcome (upheld/rejected) and the temporary-measure ruling. The two are joined on complainant + respondent + year; the appeal joins to the tender by exact УНП and drives the “under appeal” / “suspended” markers on the procedure page, while an upheld outcome feeds the contract corruption-risk index. Manual headed-browser crawls (need a Bulgarian connection).",
     },
+    // The group covers TWO registers; `url` takes one, so it points at the intake
+    // arm. The decisions register is
+    // https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2 — linked in full on
+    // /data/sources (DataSources.tsx, `procurement_kzk_decisions_source`), whose
+    // copy is the long-form twin of the `desc` above. Edit them together.
     url: "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
     origin: "state",
     members: ["kzk_appeals", "kzk_decisions"],
     // Manual, headed-Playwright ingests — scripts/procurement/kzk_appeals.ts for the
-    // intake arm and scripts/procurement/kzk_decisions.ts for the merits arm. Neither
-    // is part of update-procurement's automated flow, so no auto-skill is mapped.
-    skills: [],
+    // intake arm (Step 1) and scripts/procurement/kzk_decisions.ts for the merits arm
+    // (Step 1b). Not part of update-procurement's automated flow, but both arms are
+    // owned by one skill, which the orchestrator invokes on either watcher flip.
+    skills: ["update-kzk-appeals"],
     tags: ["fiscal"],
   },
   {
