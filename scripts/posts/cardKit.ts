@@ -350,7 +350,10 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
     ctx.fillText(row.label, 80 + GUTTER, by);
 
     ctx.fillStyle = up ? pal.accent : pal.cool;
-    roundRect(ctx, X0, by - barH / 2, w, barH, barH / 2);
+    // Radius must not exceed HALF THE SHORTER SIDE. A bar far below the peak is
+    // narrower than it is tall, and a barH/2 radius on it makes arcTo double
+    // back — the stub renders as an S-squiggle, not a short bar.
+    roundRect(ctx, X0, by - barH / 2, w, barH, Math.min(barH, w) / 2);
     ctx.fill();
 
     ctx.textAlign = "left";

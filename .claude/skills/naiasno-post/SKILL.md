@@ -158,6 +158,12 @@ and tell the user — do not draft an unverifiable claim.
 
 ### Card spec — prefer the infographic
 
+**Stick to characters the card font actually has.** The renderer draws with
+@napi-rs/canvas and a missing glyph comes out as a tofu box in the published
+PNG — silently, since nothing throws. Arrows (`→`, `⟶`) are NOT available; write
+"от X на Y" or use an em dash `—` (which is). Always Read the rendered PNG
+before showing it to the operator, and look for boxes.
+
 **Default to the infographic (bar) card.** Whenever the story has more than one
 comparable value — a ranking, a breakdown, EU peers side by side, top gainers/
 losers, before/after, a few categories — render the `renderBarCard` infographic

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { resolve } from "node:path";
 import {
   loadBulgariaGeo,
+  renderBarCard,
   renderMapCard,
   renderTableCard,
   type GeoFeature,
@@ -56,6 +57,26 @@ describe("renderMapCard", () => {
         footnote: "Дълга методологическа бележка ".repeat(20),
       }),
     ).toThrow(/map area/);
+  });
+});
+
+describe("renderBarCard", () => {
+  it("renders a bar far below the peak without a degenerate corner radius", () => {
+    // −4.4 against a −89.9 peak is ~25px wide but ~33px tall. A barH/2 radius
+    // on that makes arcTo double back and the stub draws as an S-squiggle.
+    const buf = renderBarCard({
+      title: "Колко от гласовете си губи ДПС по общини",
+      bars: [
+        { label: "Самуил", value: -89.9 },
+        { label: "медиана", value: -26.7 },
+        { label: "Джебел", value: -4.4 },
+      ],
+      sort: "asc",
+      decimals: 0,
+      source: "Източник: ЦИК",
+    });
+    expect(buf.subarray(1, 4).toString()).toBe("PNG");
+    expect(buf.readUInt32BE(16)).toBe(1080);
   });
 });
 
