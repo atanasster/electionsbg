@@ -9,6 +9,7 @@ import {
   latinSkeleton,
   latinSkeletonCached,
   searchMatches,
+  skeletonCacheSize,
   skeletonMatches,
 } from "./translitSearch";
 
@@ -51,6 +52,20 @@ describe("latinSkeletonCached", () => {
     // Second call comes off the cache — same answer, not a stale/mutated one.
     expect(latinSkeletonCached(s)).toBe(latinSkeleton(s));
   });
+
+  it("actually memoizes — the second call is a hit, not a re-fold", () => {
+    // A cache that stored nothing would return the right value forever while
+    // costing the full fold on every keystroke, which is invisible to the
+    // assertion above. Growth-by-one-then-flat is what "hit" looks like from
+    // outside. A fresh string each run keeps this independent of test order.
+    const s = "Каргеоргиева-Мострова № 7";
+    const before = skeletonCacheSize();
+    latinSkeletonCached(s);
+    const afterMiss = skeletonCacheSize();
+    latinSkeletonCached(s);
+    expect(afterMiss).toBe(before + 1);
+    expect(skeletonCacheSize()).toBe(afterMiss);
+  });
 });
 
 describe("searchMatches", () => {
@@ -82,5 +97,31 @@ describe("searchMatches", () => {
     // Folds to "" — that means "nothing to match on" here, not "no filter":
     // TanStack only calls this once the query is non-empty.
     expect(searchMatches("Иван Георгиев", "!!")).toBe(false);
+  });
+
+  it("keeps the folds that pay off WITHIN Latin text", () => {
+    // The cheap way to make this fast is "only fold when a side has Cyrillic",
+    // which silently drops these two. The skeletal guard keeps them: either side
+    // being fold-able takes the folded path.
+    expect(searchMatches("Ivanov-Petrov", "ivanovpetrov")).toBe(true);
+    expect(searchMatches("Church Street", "hur")).toBe(true);
+  });
+
+  it("does not fold when folding cannot change the answer", () => {
+    // THE PERF CONTRACT. A miss between two already-skeletal strings — the shape
+    // of every numeric cell in a wide table, which is most of the cells — must
+    // cost the literal check alone. Nothing enters the fold memo.
+    const before = skeletonCacheSize();
+    expect(searchMatches("987654321", "iv")).toBe(false);
+    expect(searchMatches("sofiya2024", "plovdiv")).toBe(false);
+    expect(skeletonCacheSize()).toBe(before);
+  });
+
+  it("does fold when either side can be changed by folding", () => {
+    // The guard must not over-trigger: a Cyrillic haystack, or a needle carrying
+    // punctuation/`ch`, still has to take the folded path.
+    const before = skeletonCacheSize();
+    expect(searchMatches("Пловдив-център", "plovdiv")).toBe(true);
+    expect(skeletonCacheSize()).toBeGreaterThan(before);
   });
 });

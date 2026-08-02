@@ -164,9 +164,6 @@ export const TopMpsScreen: FC = () => {
     [t],
   );
 
-  // No window suffix on the section subtitles: the scope control above names the
-  // period once, for the whole page.
-
   return (
     <>
       <Title
@@ -180,7 +177,9 @@ export const TopMpsScreen: FC = () => {
       </Title>
       {/* The page already reads ?pscope (useProcurementRankings →
           useScopeWindow); this puts the control that WRITES it in the same slot
-          as every other procurement sub-page, alongside the breadcrumb. */}
+          as every other procurement sub-page, alongside the breadcrumb. It also
+          names the period, so the section subtitles below carry no window
+          suffix — one statement of the scope per page, not three. */}
       <ProcurementSectionHeader
         current="procurement_index_connected"
         scopeMode="toggle"

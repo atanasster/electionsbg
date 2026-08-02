@@ -101,8 +101,13 @@ export const DataTable = <TData, TValue>({
   }, [filter]);
   // Script-forgiving global filter, replacing TanStack's `includesString`: the
   // tables hold Bulgarian text, so a reader typing Latin ("ivan", "stroitel" —
-  // shljokavica) matched nothing at all. Literal check first, folded fallback on
-  // a miss, so ordinary Cyrillic search keeps the cheap path.
+  // shljokavica) matched nothing at all.
+  //
+  // Cost is paid per CELL, not per row: TanStack runs this for every column whose
+  // values are strings or numbers, and only short-circuits on one that MATCHES —
+  // so a filter, whose whole job is to produce non-matching rows, evaluates
+  // nearly all of them (a 12.7k-row report table is ~178k calls, not 12.7k).
+  // `searchMatches` is written for that; see its ordering contract.
   const globalFilterFn = useCallback<FilterFn<TData>>(
     (row, columnId, filterValue) => {
       const value = row.getValue(columnId);

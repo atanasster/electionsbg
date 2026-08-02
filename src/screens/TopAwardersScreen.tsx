@@ -10,6 +10,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { Title } from "@/ux/Title";
 import { useProcurementRankings } from "@/data/procurement/useProcurementRankings";
+import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { FollowStar } from "@/screens/components/procurement/FollowStar";
 import type { ProcurementByNsTopAwarder } from "@/data/dataTypes";
 
@@ -76,17 +77,19 @@ export const TopAwardersScreen: FC = () => {
       <Title description="Top procurement awarders for the selected parliament">
         {t("procurement_top_awarders") || "Top awarders"}
       </Title>
+      {/* Same slot, same reason, as /procurement/mps: the page already reads
+          ?pscope via useProcurementRankings but had nothing to write it, so the
+          window was reachable only by hand-editing the URL. The control names
+          the period, so the subtitle below carries no window suffix. */}
+      <ProcurementSectionHeader
+        current="procurement_index_awarders"
+        scopeMode="toggle"
+      />
       <section aria-label="top-awarders" className="my-4">
         <div className="flex items-center gap-2 mb-2 text-sm text-muted-foreground">
           <Building2 className="h-4 w-4" />
           {t("procurement_top_awarders_subtitle") ||
             "State buyers ranked by total contract value (EUR-converted)."}
-          {data && (data.start || data.end) ? (
-            <span className="ml-2">
-              · {data.start ?? ""}
-              {data.end ? `…${data.end}` : ` …`}
-            </span>
-          ) : null}
         </div>
         {isLoading ? (
           <div className="min-h-[600px]" aria-hidden />

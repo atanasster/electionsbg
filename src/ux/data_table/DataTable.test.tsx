@@ -1,4 +1,5 @@
-// DataTable — the global filter box is script-forgiving.
+// DataTable — the global filter box is script-forgiving, and narrows to EXACTLY
+// the matching rows.
 //
 // WHAT THIS PINS. Every client-side table on the site holds Bulgarian text, and
 // the filter box ran TanStack's `includesString` — a literal substring test — so
@@ -7,6 +8,11 @@
 // contains those people. The fix lives in the shared component, not per screen,
 // so it gets a test here: a swap back to `includesString` still type-checks and
 // still passes every other test in the repo.
+//
+// Assertions count VISIBLE ROWS rather than asserting one row is present. The
+// likelier future regression is the filter becoming too PERMISSIVE — a fold that
+// collapses more letters, or a dropped empty-needle guard — and presence-only
+// assertions cannot fail on that: the row you looked for is still there.
 
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -28,6 +34,10 @@ const columns = [
 
 const renderTable = () => render(<DataTable columns={columns} data={rows} />);
 
+/** Names currently rendered — the row count, not "is my row there". */
+const visibleNames = () =>
+  rows.filter((r) => screen.queryByText(r.name) !== null).map((r) => r.name);
+
 // The box debounces at 200ms before the filter is applied.
 const typeFilter = async (text: string) => {
   const user = userEvent.setup();
@@ -35,47 +45,66 @@ const typeFilter = async (text: string) => {
 };
 
 describe("DataTable global filter", () => {
-  it("matches Cyrillic rows from a Latin query", async () => {
+  it("narrows to exactly the Cyrillic rows a Latin query matches", async () => {
     renderTable();
     await typeFilter("iv");
     await waitFor(() =>
-      expect(screen.queryByText("Дарин Величков Матов")).toBeNull(),
+      expect(visibleNames()).toEqual(["Иван Георгиев Иванов"]),
     );
-    expect(screen.getByText("Иван Георгиев Иванов")).toBeInTheDocument();
   });
 
   it("matches a Latin query against a Cyrillic company name", async () => {
     renderTable();
     await typeFilter("poshti");
     await waitFor(() =>
-      expect(screen.queryByText("Иван Георгиев Иванов")).toBeNull(),
+      expect(visibleNames()).toEqual(["Дарин Величков Матов"]),
     );
-    expect(screen.getByText("Дарин Величков Матов")).toBeInTheDocument();
   });
 
   it("keeps working for plain Cyrillic and plain Latin queries", async () => {
     const { unmount } = renderTable();
     await typeFilter("Величков");
     await waitFor(() =>
-      expect(screen.queryByText("Иван Георгиев Иванов")).toBeNull(),
+      expect(visibleNames()).toEqual(["Дарин Величков Матов"]),
     );
-    expect(screen.getByText("Дарин Величков Матов")).toBeInTheDocument();
     unmount();
 
     renderTable();
     await typeFilter("research");
-    await waitFor(() =>
-      expect(screen.queryByText("Дарин Величков Матов")).toBeNull(),
-    );
-    expect(screen.getByText("Alpha Research")).toBeInTheDocument();
+    await waitFor(() => expect(visibleNames()).toEqual(["Alpha Research"]));
   });
 
   it("shows the empty state for a genuine non-match", async () => {
     renderTable();
     await typeFilter("zzzz");
-    await waitFor(() =>
-      expect(screen.queryByText("Иван Георгиев Иванов")).toBeNull(),
+    await waitFor(() => expect(visibleNames()).toEqual([]));
+  });
+
+  it("restores every row when the box is cleared", async () => {
+    renderTable();
+    await typeFilter("zzzz");
+    await waitFor(() => expect(visibleNames()).toEqual([]));
+    await userEvent.setup().clear(screen.getByRole("searchbox"));
+    await waitFor(() => expect(visibleNames()).toHaveLength(rows.length));
+  });
+
+  it("filters on a numeric column and tolerates a null cell", async () => {
+    // Both paths are in the filter fn and neither is exercised above: the
+    // `String(value)` coercion, and the `value == null` bail (a null cell must
+    // be a non-match, not a crash).
+    render(
+      <DataTable
+        columns={[...columns, { accessorKey: "total", header: "total" }]}
+        data={[
+          { ...rows[0], total: 1234 },
+          { ...rows[1], total: null },
+        ]}
+      />,
     );
-    expect(screen.queryByText("Alpha Research")).toBeNull();
+    await typeFilter("1234");
+    await waitFor(() =>
+      expect(screen.queryByText("Дарин Величков Матов")).toBeNull(),
+    );
+    expect(screen.getByText("Иван Георгиев Иванов")).toBeInTheDocument();
   });
 });

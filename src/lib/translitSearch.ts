@@ -47,17 +47,25 @@ export const latinSkeleton = (s: string): string => {
   return out.replace(/ch/g, "h").replace(/[^a-z0-9]/g, "");
 };
 
-/** True when `needle` (folded) is a substring of `haystack` (folded). */
+/** True when `needle` (folded) is a substring of `haystack` (folded). Folds
+ *  unconditionally. See also `searchMatches`, which differs ONLY in the
+ *  empty-needle case (match-none there, match-all here) and tries a literal
+ *  check first. */
 export const skeletonMatches = (haystack: string, needle: string): boolean => {
   const n = latinSkeleton(needle);
   return n === "" || latinSkeleton(haystack).includes(n);
 };
 
-// Folding is ~13x the cost of a plain lowercase `includes` (measured: 390ms vs
-// 30ms over 300k strings), and a table filter re-folds the SAME cell values on
-// every keystroke. Memoize so only the first pass over a given value pays —
-// bounded, and cleared wholesale rather than LRU-evicted (the working set is one
-// table's cells, so a clear costs one more full pass, not a leak).
+// Folding is ~9x the cost of a plain lowercase `includes` on a table filter, and
+// a filter re-folds the SAME cell values on every keystroke, so memoize.
+//
+// EVICT, don't wipe. The working set is one table's DISTINCT CELL VALUES, which
+// is far bigger than its row count: a section-grain /reports table is ~12.7k rows
+// x 14 filterable columns, and its high-cardinality numeric columns alone carry
+// ~100k distinct values. A wholesale clear() at the cap therefore fired 2-3x
+// WITHIN a single pass and retained nothing for the next one — measured 50ms on
+// EVERY pass against a 5.6ms literal-only baseline. Dropping the oldest half
+// costs one partial re-fold instead.
 const SKELETON_CACHE_LIMIT = 50_000;
 const skeletonCache = new Map<string, string>();
 
@@ -67,17 +75,49 @@ export const latinSkeletonCached = (s: string): string => {
   const hit = skeletonCache.get(s);
   if (hit !== undefined) return hit;
   const folded = latinSkeleton(s);
-  if (skeletonCache.size >= SKELETON_CACHE_LIMIT) skeletonCache.clear();
+  if (skeletonCache.size >= SKELETON_CACHE_LIMIT) {
+    const half = SKELETON_CACHE_LIMIT >> 1;
+    let i = 0;
+    for (const k of skeletonCache.keys()) {
+      if (i++ >= half) break;
+      skeletonCache.delete(k);
+    }
+  }
   skeletonCache.set(s, folded);
   return folded;
 };
 
-/** Script-forgiving substring test for a table's global text filter: the cheap
- *  literal check first, the folded one only on a miss. An all-punctuation needle
- *  folds to "" — there it means "nothing to match on", NOT "match everything"
- *  (the caller's empty-query case never reaches here). */
+/** Entry count of the fold memo. Exported as a test seam only — it is what lets
+ *  `searchMatches`'s "don't fold when you don't have to" contract be asserted at
+ *  all, since folding is otherwise invisible from the outside. */
+export const skeletonCacheSize = (): number => skeletonCache.size;
+
+// A string is "skeletal" when folding it is the identity: nothing for the
+// `[^a-z0-9]` strip to remove, and no `ch` for the digraph collapse to rewrite.
+// Numeric and ASCII-identifier cells — the bulk of a wide table's cells — are.
+const NON_SKELETAL = /[^a-z0-9]/;
+const isSkeletal = (lower: string): boolean =>
+  !NON_SKELETAL.test(lower) && !lower.includes("ch");
+
+/** Script-forgiving substring test for a table's global text filter.
+ *
+ *  An all-punctuation needle folds to "" — here that means "nothing to match
+ *  on", NOT "match everything" (see `skeletonMatches`, which is the opposite;
+ *  the caller's empty-query case never reaches either).
+ *
+ *  ORDERING IS THE PERF CONTRACT, and it is not the literal check that carries
+ *  it: a filter's common outcome is a MISS, so the literal check exits early
+ *  only for the matching minority. The skeletal guard is what keeps the cost
+ *  down — when neither side can be changed by folding, the literal check above
+ *  was already decisive, so the fold is provably redundant rather than merely
+ *  unlikely to help. That is exact: no match is lost, including the ones folding
+ *  wins WITHIN Latin text ("Ivanov-Petrov" ~ "ivanovpetrov", "Church" ~ "hur"),
+ *  since either side being non-skeletal takes the folded path. */
 export const searchMatches = (haystack: string, needle: string): boolean => {
-  if (haystack.toLowerCase().includes(needle.toLowerCase())) return true;
+  const lowerHaystack = haystack.toLowerCase();
+  const lowerNeedle = needle.toLowerCase();
+  if (lowerHaystack.includes(lowerNeedle)) return true;
+  if (isSkeletal(lowerHaystack) && isSkeletal(lowerNeedle)) return false;
   const n = latinSkeletonCached(needle);
   return n !== "" && latinSkeletonCached(haystack).includes(n);
 };
