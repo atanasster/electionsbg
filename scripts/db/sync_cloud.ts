@@ -42,6 +42,11 @@ const CRITICAL_TABLES = [
   "price_facts",
   "person",
   "person_role",
+  // Small (~4.4k rows), so it does not qualify on size — but it qualifies on the
+  // other axis this list is about: until T4's backfill is proven it has NO
+  // committed generator and its source file is gitignored, so losing it in a
+  // restore is unrecoverable and would look like a green sync.
+  "kzk_decisions",
 ];
 
 export interface TableCount {

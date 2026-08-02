@@ -146,8 +146,25 @@ into a local invocation (Step 0).
 > point; never instead of them. (It was called `db:dump` until 2026-07-10 — that name kept
 > getting copied into deploy checklists as a no-op.)
 
-There is no `db:load:kzk:pg:cloud` wrapper — the crawl *is* the loader, which is why
-publishing means re-crawling against the cloud URL. The alternative is the destructive
+There is no `db:load:kzk:pg:cloud` wrapper **for the intake arm** — the crawl *is* the
+loader, which is why publishing means re-crawling against the cloud URL.
+
+**The tier-2 decisions arm is different**, and this is the one place the two arms do not
+behave alike. `kzk_decisions` (migration 130) has a real loader, so its corpus ships
+without a re-crawl:
+
+```bash
+npm run db:load:kzk-decisions:pg:cloud
+```
+
+Run it after any `kzk_decisions.ts --apply` crawl, and on a first deploy **before**
+anything reads the table (`kzk_decisions.data.test.ts`, and the T2 rejoin). It applies
+005 + 130 itself, so it works on a cold database. Step 0's local-DB pinning hazard applies
+to it identically — an ambient `:cloud` `DATABASE_URL` in the shell will send a *local*
+invocation at Cloud SQL. `db:refresh` runs the local equivalent; nothing runs the cloud
+side automatically.
+
+The alternative is the destructive
 whole-DB `npm run db:sync:cloud -- --yes`, which requires local to be source of truth
 first — including these unregenerable outcome rows.
 

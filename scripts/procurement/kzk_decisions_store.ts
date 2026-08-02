@@ -1,0 +1,175 @@
+// The КЗК decisions (Решения/Определения) corpus — shared store + validator.
+//
+// Sits between the crawler (kzk_decisions.ts, which WRITES it), the Postgres
+// loader (scripts/db/load_kzk_decisions_pg.ts, which SHIPS it) and the matcher
+// (kzk_match.ts, which JOINS it onto the appeals). All three must agree on what
+// a well-formed decision row is, so the shape and the validator live here rather
+// than being re-implemented per consumer.
+//
+// ⚠️ THE VALIDATOR IS NOT DEFENSIVE BOILERPLATE. The corpus produced
+// interactively on 2026-07-04 contains 429 of 4,836 rows (8.9%) that are
+// COLUMN-SHIFTED — the act description landed in the act-number field, and
+// `pron` / `ddate` came out empty:
+//
+//   { "no": "F788088/26.12.2025 г. на заместник-кмета на община Пловдив… - ОБЩИНА
+//            ПЛОВДИВ; Отменя незаконосъобразното действие…",
+//     "pron": "", "ddate": "" }
+//
+// A blank `ddate` means those rows can never match an appeal (the matcher keys on
+// year) and can never move the freshness gate — so they were silently inflating
+// the "unmatched" count while contributing nothing. They are rejected at the
+// door, COUNTED, and reported. The same validator runs inside the crawler, which
+// is what stops the defect recurring at the source.
+//
+// THE ON-DISK SHAPE IS THE REGISTER'S, NOT OURS. `no/ddate/pron/kzk/init/resp`
+// are the compact keys the existing corpus uses; they are kept so the committed
+// generator and the hand-made file describe the same thing. `initiators` in
+// particular is stored AS PRINTED — a ';'-joined party list, because КЗК
+// consolidates several complaints against one procedure into a single act.
+// Splitting it is the matcher's job, not the store's.
+
+/** The register's list page. Shared with the crawler and the watch source. */
+export const DECISIONS_LIST_URL =
+  "https://reg.cpc.bg/AllResolutions.aspx?dt=2&ot=2";
+
+/** Act numbers are "АКТ-<seq>-<DD.MM.YYYY>" and unique in the register. */
+export const ACT_NO_RE = /^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/;
+
+/** Same shape, capturing the act's own date so it can be checked against `ddate`. */
+const ACT_NO_PARTS_RE = /^АКТ-\d+-(\d{2})\.(\d{2})\.(\d{4})$/;
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** True for a string that is both ISO-shaped AND a date that exists (rejects 2026-13-45). */
+const isRealIsoDate = (s: string): boolean => {
+  if (!ISO_DATE_RE.test(s)) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+};
+
+/** One decision, in the compact on-disk shape. */
+export type KzkDecision = {
+  /** Act number — "АКТ-608-25.06.2026". Natural key. */
+  no: string;
+  /** Decision date, ISO YYYY-MM-DD. */
+  ddate: string;
+  /** Произнасяне — the free-text ruling. */
+  pron?: string | null;
+  /** КЗК case number — "КЗК/417/2026". */
+  kzk?: string | null;
+  /** Жалбоподател(и), ';'-joined AS PRINTED. */
+  init?: string | null;
+  /** Ответник (buyer, as printed by КЗК). */
+  resp?: string | null;
+  /** Present on rows written by the crawler; absent on the 2026-07-04 corpus. */
+  fetchedAt?: string | null;
+  /**
+   * The register page this act was read from. Absent on the 2026-07-04 corpus,
+   * which predates the `ot`-parameter enumeration — falls back to
+   * DECISIONS_LIST_URL on load.
+   *
+   * Carried per-row rather than assumed constant because §3c of the plan expects
+   * a SECOND register (определения, a different `ot` value) to land here. Stamping
+   * those with the решения URL would make `source_url` mean "the register we
+   * happened to hardcode" instead of provenance, and a column that lies is worse
+   * than one that is absent.
+   */
+  sourceUrl?: string | null;
+};
+
+export type DecisionsFile = {
+  generatedAt: string;
+  decisions: KzkDecision[];
+};
+
+export type RejectedDecision = {
+  row: KzkDecision;
+  reason: string;
+};
+
+export type ValidationResult = {
+  clean: KzkDecision[];
+  rejected: RejectedDecision[];
+};
+
+/**
+ * Split a corpus into rows safe to store and rows that are structurally broken.
+ *
+ * Returns rather than throws: a crawl or a load should report the damage and
+ * carry on with what is sound, not lose a good 4,407 rows over a bad 429. The
+ * CALLER decides whether a rejection rate is tolerable — the crawler treats a
+ * spike as markup drift and fails; the loader reports and proceeds, because the
+ * damage it is looking at is historical and already known.
+ */
+export const validateDecisions = (
+  rows: readonly KzkDecision[],
+): ValidationResult => {
+  const clean: KzkDecision[] = [];
+  const rejected: RejectedDecision[] = [];
+  const seen = new Set<string>();
+
+  for (const row of rows) {
+    const no = (row?.no ?? "").trim();
+    const ddate = (row?.ddate ?? "").trim();
+
+    if (!no) {
+      rejected.push({ row, reason: "empty act number" });
+      continue;
+    }
+    const parts = ACT_NO_PARTS_RE.exec(no);
+    if (!parts) {
+      // The column-shift signature: the act DESCRIPTION in the act-number field.
+      rejected.push({
+        row,
+        reason: `act number not "АКТ-<n>-<DD.MM.YYYY>" (column shift?)`,
+      });
+      continue;
+    }
+    if (!isRealIsoDate(ddate)) {
+      rejected.push({
+        row,
+        reason: "decision date missing, not ISO, or unreal",
+      });
+      continue;
+    }
+    // CROSS-CHECK the two dates the register prints for the same act. Today's
+    // column shift happens to blank `ddate`, so the check above catches it — but a
+    // shift by a different number of columns, or one landing a NEIGHBOURING act's
+    // date here, yields a row that passes every shape test and enters the corpus
+    // with a wrong date. That is worse than a blank: the matcher keys on year (so
+    // it joins the wrong appeal) and the freshness gate reads max(decision_date)
+    // (so it moves to a date the register never published). Measured on the
+    // 2026-07-04 corpus: 0 disagreements, so the rule costs nothing today and is
+    // purely a tripwire for the drift that has already happened once.
+    const [, dd, mm, yyyy] = parts;
+    if (`${yyyy}-${mm}-${dd}` !== ddate) {
+      rejected.push({
+        row,
+        reason: "decision date disagrees with the act number's own date",
+      });
+      continue;
+    }
+    if (seen.has(no)) {
+      // The act number is the primary key; a duplicate would abort the COPY at
+      // the very end of a long load. Catch it here, name it, and keep the first.
+      rejected.push({ row, reason: "duplicate act number" });
+      continue;
+    }
+
+    seen.add(no);
+    clean.push({ ...row, no, ddate });
+  }
+
+  return { clean, rejected };
+};
+
+/** Group rejections by reason for a one-line-per-cause report. */
+export const summarizeRejections = (
+  rejected: readonly RejectedDecision[],
+): Array<{ reason: string; count: number }> => {
+  const by = new Map<string, number>();
+  for (const r of rejected) by.set(r.reason, (by.get(r.reason) ?? 0) + 1);
+  return [...by.entries()]
+    .map(([reason, count]) => ({ reason, count }))
+    .sort((a, b) => b.count - a.count);
+};

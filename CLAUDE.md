@@ -249,6 +249,28 @@ reading it, because that route no longer degrades a missing table to an empty ar
 picker served with a 200 is exactly the failure it was created to end). `cpv_catalog.data.test.ts`
 fails on an empty or stale table.
 
+`kzk_decisions` (migration 130, `db:load:kzk-decisions:pg`) is the КЗК merits-outcome corpus —
+the tier-2 half of the appeals pack, and the loader whose absence let that arm freeze for five
+weeks unnoticed. It has **no automatic cloud path**:
+
+```bash
+npm run db:load:kzk-decisions:pg:cloud
+```
+
+Re-run it after every `scripts/procurement/kzk_decisions.ts --apply` crawl, and on a first
+deploy before anything reads the table. It applies 005 + 130 itself, so it works on a cold
+database. `db:refresh` runs the local equivalent; nothing runs the cloud side.
+
+Two things make this loader unlike the rest of the list, both because — until the crawler's
+`--backfill` is proven to re-derive it — **this table plus the gitignored
+`data/procurement/kzk_decisions.json` are the only copies of a corpus with no committed
+generator**. It is in `sync_cloud.ts`'s `CRITICAL_TABLES` despite being small, and its merge
+refuses to run when the build would shrink the table by >5% (`--allow-shrink` to override) or
+when more than 15% of source rows fail validation — an anti-join DELETE is the correct shape
+for a derived table and a data-loss bug on this one. Note the appeals arm is the OPPOSITE
+shape: `kzk_appeals` has no loader at all, so publishing it means re-crawling against the
+cloud URL. `kzk_decisions.data.test.ts` fails on an empty table or a malformed act.
+
 `contractor_rank` (migration 122) is the same first-deploy shape as `cpv_catalog`: the
 `contractor_rankings` DbDataTable resource + the `/api/db/contractor-scope-kpis` route read
 it and do NOT degrade a missing matview to an empty result, so on the FIRST cloud deploy the
