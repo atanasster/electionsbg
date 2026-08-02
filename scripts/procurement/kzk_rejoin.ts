@@ -226,7 +226,24 @@ const main = async (apply: boolean): Promise<void> => {
 
   console.log("→ refreshing appeal dependents…");
   await refreshAppealDependents();
-  await writeBackJson();
+
+  // ⚠️ NEVER MIRROR A SERVING DATABASE INTO THE LOCAL JSON. That file is the
+  // LOCAL store — the crawler's merge target and the summary's input — so
+  // writing Cloud SQL's state into it corrupts local with prod's.
+  //
+  // This is not hypothetical: running this script against the proxy once wrote
+  // back a row whose outcome cloud had but whose `decision_act_no` it did not,
+  // producing exactly the laundering the header warns about — a machine-derived
+  // outcome re-labelled as one of the ~2,098 permanently-protected hand-made
+  // ones, which a later reseed would then make immovable.
+  if (isServingDatabase()) {
+    console.log(
+      "→ JSON write-back SKIPPED (serving database). The JSON mirrors LOCAL; " +
+        "re-run this against local Postgres to refresh it.",
+    );
+  } else {
+    await writeBackJson();
+  }
 
   const [after] = await allRows<{ n: string; d: string | null; hand: string }>(
     `SELECT count(outcome) n, max(decision_date) d,
