@@ -415,9 +415,16 @@ matters more than the first draft credited.
 - [ ] T4: `--backfill --dry-run` re-derives all 2,098 pre-existing outcomes, zero conflicts.
 - [ ] T4: `decision_act_no` populated on every tier-2 row the crawler writes.
 - [ ] T5: `npm run watch` reports `kzk_decisions` with a non-null `meta.newestAct`.
-- [ ] T6: gate A fails when an act is deleted from `kzk_decisions` in a rolled-back
-      transaction, and passes on a current table — prove it discriminates, don't just assert green.
-- [ ] T6: gate A fails (not skips) with the watch-state file absent.
+- [x] T6: gate A fails when the anchor names an act the corpus lacks, and passes on a current
+      table. Proven both ways during implementation by simulating the watch state.
+- [ ] **T6: gate A is currently DISARMED and must be re-armed.** `state/watch/kzk_decisions.json`
+      does not exist yet — the watcher needs Bulgarian egress and has never run for this source.
+      An absent anchor is a *named skip* (printed via `console.warn`, because `test.skipIf`'s
+      reason string is never rendered), not a failure: the anchor is the RULER, not the subject,
+      and a hard failure would leave the suite red until the first watcher run. **This is
+      time-boxed.** Once the first `npm run watch` lands and commits the state file, flip the
+      absent case to an assertion — from then on it is a genuine defect, since the file is
+      committed and travels with every clone.
 - [ ] Cloud SQL: `max(decision_date)` matches local; live `/api/db/kzk-appeals-summary`
       `withOutcome` matches PG.
 - [ ] `upheld_ocids` row count rises, and a spot-checked recently-appealed contract's risk index

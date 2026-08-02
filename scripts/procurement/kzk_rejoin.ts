@@ -35,12 +35,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { command, flag, run } from "cmd-ts";
-import { allRows, exec, withTx, end } from "../db/lib/pg";
+import { allRows, exec, isServingDatabase, withTx, end } from "../db/lib/pg";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
 import { matchDecisions } from "./kzk_match";
 import type { MatchableDecision } from "./kzk_match";
 import { refreshAppealDependents } from "./kzk_dependents";
 import { partitionByProvenance, type ProvenanceRow } from "./kzk_provenance";
+import { recordBaselines } from "./kzk_baselines";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..", "..");
@@ -215,12 +216,38 @@ const main = async (apply: boolean): Promise<void> => {
   await refreshAppealDependents();
   await writeBackJson();
 
-  const [after] = await allRows<{ n: string; d: string | null }>(
-    "SELECT count(outcome) n, max(decision_date) d FROM kzk_appeals",
+  const [after] = await allRows<{ n: string; d: string | null; hand: string }>(
+    `SELECT count(outcome) n, max(decision_date) d,
+            count(*) FILTER (WHERE decision_act_no IS NULL AND outcome IS NOT NULL) hand
+       FROM kzk_appeals`,
   );
   console.log(
     `✓ kzk_appeals: ${after.n} outcomes, tier-2 through ${after.d ?? "—"}.`,
   );
+
+  // Gates C + D: raise the coverage ratchet. Monotonic — a run that achieved
+  // less than the recorded best leaves the bar where it is, and the data gate
+  // then fails, which is the point. See kzk_baselines.ts.
+  // ⚠️ ONLY FROM A LOCAL DATABASE. The ratchet is a COMMITTED file asserted by
+  // test:data, which runs against local Postgres. Minting it from Cloud SQL
+  // (kzk:rejoin:cloud exists) would record a number local cannot reach, turning
+  // every local run red with a message that forbids the only available fix.
+  if (isServingDatabase()) {
+    console.log(
+      `→ ratchet not updated (serving database). Observed ${after.n} outcomes / ` +
+        `${report.matches.length} matched; raise the ratchet from a LOCAL run.`,
+    );
+  } else {
+    const raised = recordBaselines(
+      { outcomes: Number(after.n), matched: report.matches.length },
+      new Date().toISOString().slice(0, 10),
+    );
+    if (raised.length)
+      console.log(
+        `→ raised the coverage ratchet (${raised.join(", ")}) — commit ` +
+          "data/procurement/derived/kzk_baselines.json",
+      );
+  }
   await end();
 };
 

@@ -14,7 +14,10 @@
 // respondent/buyer, appealed act, УНП, date, status, ВМ-requested, subject) —
 // no PDF scraping needed for it. The merits OUTCOME (уважена/отхвърлена,
 // спиране granted) lives in the Решения/Определения registers and is a tier-2
-// backfill (not done here — outcome/suspension stay null until then).
+// backfill — NOT done here. That arm is scripts/procurement/kzk_decisions.ts
+// (`npm run kzk:decisions`), a separate headed crawl; this crawler writes NULL
+// for outcome/suspension and its COALESCE upserts can never fill them, which is
+// why an apply here reports the tier-2 watermark and warns when it falls behind.
 //
 // ⚠ PARTIAL REPRODUCIBILITY GAP. The outcomes now have TWO authors, told apart
 // by `decisionActNo` (migration 131): rows WITH one were derived by
@@ -23,8 +26,7 @@
 // and still cannot be regenerated from committed code. A fresh
 // clone re-ingests complaints fine but those outcomes are unrecoverable (and the next
 // --apply's buyer_appeal_stats rebuild would empty the upheld-appeal grade
-// component). See process-watch-report SKILL.md step (2). TODO: commit the
-// AllResolutions crawler as scripts/procurement/kzk_decisions.ts.
+// component). See process-watch-report SKILL.md step (2).
 //
 // CLI:
 //   tsx scripts/procurement/kzk_appeals.ts [--year 2026] [--backfill] [--apply] [--dry-run] [--full]
@@ -795,6 +797,70 @@ const applyPg = async (records: KzkAppeal[]): Promise<void> => {
   }
 };
 
+/**
+ * GATE B — tell the operator when the OTHER arm is behind.
+ *
+ * This is the crawler that runs when the orchestrator sees a `kzk_appeals` flip,
+ * and its COALESCE upserts structurally cannot write an outcome — so the one
+ * routine that reliably runs is the one that cannot fix a stale merits arm. That
+ * asymmetry is most of why five weeks went by. The least this run can do is say so.
+ *
+ * Reports the tier-2 watermark on every apply (a frozen DATE is visible in a log
+ * where a frozen COUNT is not — "2,098 outcomes preserved" read as success for
+ * five weeks), and warns loudly past DRIFT_WARN_DAYS.
+ */
+const DRIFT_WARN_DAYS = 45;
+
+const reportTierTwoDrift = async (): Promise<void> => {
+  try {
+    const { allRows } = await import("../db/lib/pg");
+    // ⚠️ The decisions watermark comes from `kzk_decisions`, NOT from
+    // `kzk_appeals.decision_date`. 1,838 of 4,836 acts match no appeal, so the
+    // joined column legitimately lags the corpus and would report drift that
+    // isn't there. (They happen to agree today, which is exactly why reading the
+    // wrong one would go unnoticed.) Falls back to the joined column only when
+    // 130 has never been applied on this database.
+    const [r] = await allRows<{
+      complaints: string | null;
+      decisions: string | null;
+      outcomes: string;
+    }>(
+      `SELECT max(a.complaint_date) complaints,
+              COALESCE(
+                (SELECT max(d.decision_date) FROM kzk_decisions d),
+                max(a.decision_date)
+              ) decisions,
+              count(a.outcome)::text outcomes
+         FROM kzk_appeals a`,
+    );
+    if (!r?.complaints || !r?.decisions) return;
+    const days = Math.round(
+      (Date.parse(`${r.complaints}T00:00:00Z`) -
+        Date.parse(`${r.decisions}T00:00:00Z`)) /
+        86_400_000,
+    );
+    console.log(
+      `Tier-2: ${r.outcomes} outcomes, decisions through ${r.decisions} ` +
+        `(intake through ${r.complaints}, ${days}d behind).`,
+    );
+    if (days > DRIFT_WARN_DAYS)
+      console.warn(
+        `\n⚠ THE MERITS ARM IS ${days} DAYS BEHIND THE INTAKE ARM.\n` +
+          "  This crawl CANNOT fix that — its upserts are COALESCE(existing, EXCLUDED)\n" +
+          "  on `outcome`, so it never writes one. Run the decisions arm:\n" +
+          "      npm run kzk:decisions -- --year <YYYY> --apply\n" +
+          "      npm run db:load:kzk-decisions:pg\n" +
+          "      npm run kzk:rejoin -- --apply\n" +
+          "  Stale outcomes are not cosmetic: upheld_ocids feeds the contract\n" +
+          "  Corruption Risk Index, so recently-appealed procedures grade CLEANER\n" +
+          "  than they are.",
+      );
+  } catch {
+    // Never fail an otherwise-good intake run over a diagnostic. A DB without the
+    // decisions arm (or without 131) simply has nothing to report.
+  }
+};
+
 // Complaint numbers we already store, for the incremental early-exit. Lenient by
 // design: any read problem returns an empty set → a full crawl (safe — the strict
 // completeness assert then applies). The heavier corrupt/wrong-shape guards live
@@ -938,6 +1004,7 @@ const cmd = command({
         console.log(
           `Upserted ${all.length} into kzk_appeals + resolved buyer_eik.`,
         );
+        await reportTierTwoDrift();
       }
     } finally {
       const { end } = await import("../db/lib/pg");

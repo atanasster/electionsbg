@@ -16,9 +16,20 @@
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, dbReachable, end } from "../lib/pg";
+import {
+  readBaselines,
+  HAND_SEEDED_FLOOR,
+} from "../../procurement/kzk_baselines";
+import { matchDecisions } from "../../procurement/kzk_match";
+import type { MatchableDecision } from "../../procurement/kzk_match";
 
-/** The floor. Measured 2026-08-02; may only ever grow. */
-const HAND_SEEDED_FLOOR = 2098;
+// Gates C + D. NOT a hardcoded constant: the skill's original `>= 2098` floor
+// protected the irreplaceable rows and also passed forever — it would have stayed
+// green through the entire five-week freeze, because a floor that never moves
+// cannot tell healthy from frozen. The ratchet is raised by every successful
+// `kzk:rejoin --apply` and only ever upward, so coverage is monotonic by
+// construction and a matcher change that silently loses outcomes fails here.
+const baselines = readBaselines();
 
 const haveDb = await dbReachable();
 const appealsLoaded =
@@ -67,6 +78,20 @@ test.skipIf(skip)("the hand-seeded outcomes have not regressed", async () => {
   );
 });
 
+test.skipIf(skip)("Gate C — outcome coverage has not regressed", async () => {
+  const [r] = await allRows<{ n: string }>(
+    "SELECT count(outcome) n FROM kzk_appeals",
+  );
+  assert.ok(
+    Number(r.n) >= baselines.outcomes,
+    `${r.n} outcomes, below the ratchet's ${baselines.outcomes} (set ${baselines.updatedAt}). ` +
+      "Coverage went DOWN. Either the matcher lost ground (check " +
+      "scripts/procurement/kzk_match.ts against its unit tests) or the decisions " +
+      "corpus shrank (check the loader's anti-shrink guard). Do not lower the " +
+      "ratchet to make this pass — it only moves upward by design.",
+  );
+});
+
 test.skipIf(skip)(
   "every machine-derived outcome cites an act that really exists",
   async () => {
@@ -89,6 +114,44 @@ test.skipIf(skip)(
         `e.g. ${orphans[0]?.complaint_no} → ${orphans[0]?.act}. The provenance link is ` +
         "the audit trail for an outcome; a dangling one means the corpus shrank " +
         "underneath it (see the loader's shrink guard).",
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "Gate D — the matcher still resolves at least as many appeals",
+  async () => {
+    // ⚠️ Gate C CANNOT cover this. `outcome` is only ever written, never cleared,
+    // so `count(outcome)` is non-decreasing BY CONSTRUCTION and would stay green
+    // through a matcher that got strictly worse. The only way to detect that is
+    // to re-run the matcher and compare — which is cheap, because it is pure.
+    const hasDecisions = await allRows<{ ok: string }>(
+      "SELECT to_regclass('public.kzk_decisions') AS ok",
+    ).then((r) => r[0]?.ok != null);
+    if (!hasDecisions) return; // kzk_decisions.data.test.ts owns that state
+
+    const appeals = await allRows<{
+      complaintNo: string;
+      complainant: string | null;
+      respondent: string | null;
+      complaintDate: string | null;
+    }>(
+      `SELECT complaint_no AS "complaintNo", complainant, respondent,
+              complaint_date AS "complaintDate" FROM kzk_appeals`,
+    );
+    const decisions = await allRows<MatchableDecision>(
+      `SELECT act_no AS no, decision_date AS ddate, pronouncement AS pron,
+              initiators AS init, respondent AS resp FROM kzk_decisions`,
+    );
+    if (decisions.length === 0) return;
+
+    const report = matchDecisions(appeals, decisions);
+    assert.ok(
+      report.matches.length >= baselines.matched,
+      `the matcher now resolves ${report.matches.length} appeals, below the ratchet's ` +
+        `${baselines.matched} (set ${baselines.updatedAt}). Match quality REGRESSED — ` +
+        "check scripts/procurement/kzk_match.ts against kzk_match.test.ts. Do not lower " +
+        "the ratchet to make this pass; it only moves upward by design.",
     );
   },
 );
