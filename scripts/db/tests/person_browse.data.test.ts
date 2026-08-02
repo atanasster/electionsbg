@@ -794,18 +794,58 @@ test.skipIf(skip)("name-fold private arm is clean and separated", async () => {
     `${bad} name-fold row(s) violate the arm's shape contract`,
   );
 
-  // Person-shape gate: EXACTLY 3 folded tokens — drops the "Заличено обстоятелство." redaction
-  // placeholder (2,986 companies, €2.85bn) and the "…ЕООД, представлявано в УС от…" officer
-  // strings that would otherwise lead the money-sorted browse.
-  const notThree = await count(
+  // Person-shape gate: EXACTLY 3 all-LETTER folded tokens and no company legal-form token —
+  // drops the "Заличено обстоятелство." placeholder, the "…ЕООД, представлявано в УС от…" strings,
+  // digit/quote company names ("„17 Инвестмънтс" ЕООД), and legal entities that are themselves
+  // owners ("Х Y ЕООД"), all of which otherwise lead the money/name sort.
+  const notPersonShape = await count(
     `SELECT count(*) n FROM person_browse_table
-      WHERE tier = 'V'
-        AND array_length(regexp_split_to_array(btrim(name_fold), '\\s+'), 1) <> 3`,
+      WHERE tier = 'V' AND name_fold !~ '^[a-z]+ [a-z]+ [a-z]+$'`,
   );
   assert.equal(
-    notThree,
+    notPersonShape,
     0,
-    `${notThree} name-fold row(s) are not 3-token personal names — the person-shape gate slipped`,
+    `${notPersonShape} name-fold row(s) are not 3 all-letter tokens — a digit/quote company name slipped the gate`,
+  );
+  const companyForm = await count(
+    `SELECT count(*) n FROM person_browse_table
+      WHERE tier = 'V'
+        AND name_fold ~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)'`,
+  );
+  assert.equal(
+    companyForm,
+    0,
+    `${companyForm} name-fold row(s) carry a company legal-form token (ЕООД/ООД/АД…) — a legal-entity owner slipped the gate`,
+  );
+
+  // The counts above prove SURVIVING rows are clean, not that the gate dropped nothing real. Pin
+  // the gate's two predicates directly (data-independent) so an over-broadened exclusion list —
+  // which would silently drop genuine people — is caught: a plausible real name must PASS, and the
+  // company shapes it targets must FAIL.
+  const [gate] = await allRows<{
+    real: boolean;
+    digit: boolean;
+    suffix: boolean;
+  }>(
+    `SELECT ('ivan petrov ivanov' ~ '^[a-z]+ [a-z]+ [a-z]+$'
+             AND 'ivan petrov ivanov' !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)') AS real,
+            ('17 investmants eood' ~ '^[a-z]+ [a-z]+ [a-z]+$')                                    AS digit,
+            ('stroy invest eood' !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)')      AS suffix`,
+  );
+  assert.equal(
+    gate.real,
+    true,
+    "the gate rejected a plausible real 3-token name",
+  );
+  assert.equal(
+    gate.digit,
+    false,
+    "a digit company name passed the letters-only shape",
+  );
+  assert.equal(
+    gate.suffix,
+    false,
+    "a legal-form-suffix name passed the company exclusion",
   );
 
   // ANTI-JOIN: no name-fold fold is ALSO a public person (that fold is served by the person arm).

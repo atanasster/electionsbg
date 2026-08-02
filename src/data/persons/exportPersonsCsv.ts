@@ -21,6 +21,11 @@ const PAGE = 50;
 const CSV_COLUMNS: { key: keyof PersonBrowseRow; header: string }[] = [
   { key: "slug", header: "slug" },
   { key: "name", header: "name" },
+  // A name-fold private (tier V) row has a blank slug and a NAME-match identity — without these
+  // two columns a downloaded V row reads as a verified person. 'name_fold' vs 'resolved' is the
+  // caveat the table renders as the "по име" badge; it must survive the export.
+  { key: "tier", header: "tier" },
+  { key: "identityConfidence", header: "identity_confidence" },
   { key: "primaryRole", header: "primary_role" },
   { key: "primaryFacet", header: "primary_facet" },
   { key: "rolesN", header: "roles_n" },

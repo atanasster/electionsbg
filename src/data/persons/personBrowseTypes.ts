@@ -7,7 +7,17 @@
 // notes below and §9 of docs/plans/persons-browser-v1.md).
 
 export interface PersonBrowseRow {
-  slug: string;
+  /** Stable paging identity, unique across both arms: 'slug:<slug>' (public) | 'fold:<name_fold>'
+   *  (name-fold private). Use it for React keys, never `slug` (NULL on name-fold rows). */
+  key: string;
+  /** 'P' = public/resolved person, 'V' = name-fold private owner (частен сектор). */
+  tier: "P" | "V";
+  /** NULL on name-fold (V) rows — they route by NAME (`/person/<name>`), not a slug. */
+  slug: string | null;
+  /** position_type CODE (politician/executive/…/private_sector). */
+  positionType: string | null;
+  /** 'resolved' (public) | 'name_fold' (a NAME match, not a verified identity — badge it). */
+  identityConfidence: "resolved" | "name_fold";
   name: string;
   /** Only ~4% of the corpus has a face (2,120 MPs + ≤192 officials). */
   photoUrl: string | null;

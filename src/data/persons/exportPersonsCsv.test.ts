@@ -37,7 +37,9 @@ describe("rowsToCsv", () => {
   test("emits a header and one line per row", () => {
     const csv = rowsToCsv([row(), row({ slug: "b", name: "Петър Петров" })]);
     const lines = csv.split("\n");
-    expect(lines[0]).toMatch(/^slug,name,primary_role/);
+    expect(lines[0]).toMatch(
+      /^slug,name,tier,identity_confidence,primary_role/,
+    );
     expect(lines).toHaveLength(3);
     expect(lines[1]).toContain("Иван Иванов");
   });

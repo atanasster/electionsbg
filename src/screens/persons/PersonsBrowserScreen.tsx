@@ -51,6 +51,13 @@ import {
   groupByKey,
 } from "@/data/persons/personGroups";
 import { PersonFilterSelect } from "./PersonFilterSelect";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { PersonsAnalysisStrip } from "./PersonsAnalysisStrip";
 import { PersonNetWorthCell, PersonMoneyCell } from "./PersonMoneyCells";
 import { oblastName } from "@/lib/regionalOblast";
@@ -69,6 +76,8 @@ export const PersonsBrowserScreen: FC = () => {
   const [params] = useSearchParams();
 
   const {
+    sector,
+    position,
     facet,
     primaryFacet,
     role,
@@ -78,6 +87,7 @@ export const PersonsBrowserScreen: FC = () => {
     declaredOnly,
     heldOfficeOnly,
     obshtina,
+    setSector,
     setFacet,
     setPrimaryFacet,
     setRole,
@@ -153,39 +163,71 @@ export const PersonsBrowserScreen: FC = () => {
     if (heldOfficeOnly) f.push({ id: "held_office", value: true });
     return f;
   }, [declaredOnly, heldOfficeOnly]);
+  // The public⇄private scope (?sector) maps to the matview `tier`: public OMITS the filter so the
+  // registry's tier=P floor applies, private is ['V'], all is ['P','V']. `?position` filters
+  // position_type — it has NO picker (deep-link / cross-link target only, like ?obshtina); the
+  // setter exists for a future control. Both are GLOBAL (not a facet dimension), so they scope
+  // every facet + the table.
+  const scopeF = useMemo<DbColumnFilter[]>(() => {
+    const f: DbColumnFilter[] = [];
+    if (sector === "private") f.push({ id: "tier", value: ["V"] });
+    else if (sector === "all") f.push({ id: "tier", value: ["P", "V"] });
+    if (position !== PERSON_FILTER_ALL)
+      f.push({ id: "position_type", value: [position] });
+    return f;
+  }, [sector, position]);
 
   const extraFilters = useMemo<DbColumnFilter[]>(
-    () => [...groupF, ...primaryF, ...roleF, ...partyF, ...placeF, ...toggleF],
-    [groupF, primaryF, roleF, partyF, placeF, toggleF],
+    () => [
+      ...scopeF,
+      ...groupF,
+      ...primaryF,
+      ...roleF,
+      ...partyF,
+      ...placeF,
+      ...toggleF,
+    ],
+    [scopeF, groupF, primaryF, roleF, partyF, placeF, toggleF],
   );
 
   // Dropdown vocabularies. Each EXCLUDES its own dimension so the control it feeds never
   // collapses to the one option already chosen, and none is scoped by the free-text search
-  // — the dropdowns describe the corpus, the table describes the query.
+  // — the dropdowns describe the CURRENT SECTOR (scopeF is threaded into every one), so under
+  // ?sector=private the governance dropdowns collapse to what the name-fold arm actually has
+  // (only "Бизнес") rather than advertising public options that would return zero rows.
   const facets = usePersonFacets(
     useMemo(
       () => ({
-        // The group counts are EXACT: the boolean columns counted here are the same ones
-        // the filter applies. That is not true of role/party below, which is why those
-        // carry no counts.
+        // The group counts are EXACT: the boolean columns counted here are the same ones the
+        // filter applies, AND scopeF matches the table's sector — so the "Бизнес" count equals
+        // what clicking returns under ?sector=all (without scopeF here it counted only the
+        // public company-linked people while the click returned P+V). role/party below carry no
+        // counts for a different reason (facet on the seat, filter on the code set).
         groups: {
           columns: GROUP_COLUMNS,
-          filters: [...roleF, ...partyF, ...placeF, ...toggleF],
+          filters: [...scopeF, ...roleF, ...partyF, ...placeF, ...toggleF],
         },
         roles: {
           columns: ["primary_role"],
-          filters: [...groupF, ...partyF, ...placeF, ...toggleF],
+          filters: [...scopeF, ...groupF, ...partyF, ...placeF, ...toggleF],
         },
         parties: {
           columns: ["party_primary"],
-          filters: [...groupF, ...roleF, ...placeF, ...toggleF],
+          filters: [...scopeF, ...groupF, ...roleF, ...placeF, ...toggleF],
         },
         // oblast_code is `facet: true` but NOT filterable — it is the representative seat,
         // the only place the oblast vocabulary lives, while the FILTER matches oblast_codes
         // (every seat). Same reason its options carry no counts.
         oblasts: {
           columns: ["oblast_code"],
-          filters: [...groupF, ...roleF, ...partyF, ...courtF, ...toggleF],
+          filters: [
+            ...scopeF,
+            ...groupF,
+            ...roleF,
+            ...partyF,
+            ...courtF,
+            ...toggleF,
+          ],
         },
         // COURTS ONLY. `institution` spans 1,246 values corpus-wide — courts, ministries,
         // hospitals, schools — which no dropdown can hold and which the facet cap would
@@ -196,6 +238,7 @@ export const PersonsBrowserScreen: FC = () => {
         courts: {
           columns: ["institution"],
           filters: [
+            ...scopeF,
             ...groupF,
             ...roleF,
             ...partyF,
@@ -208,13 +251,21 @@ export const PersonsBrowserScreen: FC = () => {
         // so selecting a segment does not collapse the bar to that one segment.
         primary: {
           columns: ["primary_facet"],
-          filters: [...groupF, ...roleF, ...partyF, ...placeF, ...toggleF],
+          filters: [
+            ...scopeF,
+            ...groupF,
+            ...roleF,
+            ...partyF,
+            ...placeF,
+            ...toggleF,
+          ],
         },
         // The KPI denominators. has_declaration / is_company are bool facets over the FULL
         // active filter set, so the percentages describe exactly the rows on screen.
         kpis: {
           columns: ["has_declaration", "is_company", "obshtina_code"],
           filters: [
+            ...scopeF,
             ...groupF,
             ...primaryF,
             ...roleF,
@@ -224,7 +275,17 @@ export const PersonsBrowserScreen: FC = () => {
           ],
         },
       }),
-      [groupF, primaryF, roleF, partyF, oblastF, courtF, placeF, toggleF],
+      [
+        scopeF,
+        groupF,
+        primaryF,
+        roleF,
+        partyF,
+        oblastF,
+        courtF,
+        placeF,
+        toggleF,
+      ],
     ),
   );
 
@@ -360,11 +421,12 @@ export const PersonsBrowserScreen: FC = () => {
         header: t("persons_col_name", { defaultValue: "Име" }),
         cell: ({ row }) => {
           const p = row.original;
+          // Name-fold (V) rows carry NO slug — they route by name to the name-keyed portfolio.
+          const to = p.slug
+            ? `/person/${p.slug}`
+            : `/person/${encodeURIComponent(p.name)}`;
           return (
-            <Link
-              to={`/person/${p.slug}`}
-              className="flex items-center gap-2 hover:underline"
-            >
+            <Link to={to} className="flex items-center gap-2 hover:underline">
               <MpAvatarView
                 // RESOLVED through the dataUrl seam, not passed raw. The matview stores the
                 // relative path the scraper wrote ("/parliament/photos/3.webp"), but the
@@ -380,6 +442,18 @@ export const PersonsBrowserScreen: FC = () => {
                 className="h-7 w-7 shrink-0"
               />
               <span className="text-sm font-medium">{p.name}</span>
+              {p.identityConfidence === "name_fold" ? (
+                <span
+                  className="whitespace-nowrap rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+                  title={
+                    isBg
+                      ? "Самоличността е по съвпадение на име, не е потвърдена"
+                      : "Identity is a name match, not verified"
+                  }
+                >
+                  {isBg ? "по име" : "name match"}
+                </span>
+              ) : null}
             </Link>
           );
         },
@@ -622,6 +696,28 @@ export const PersonsBrowserScreen: FC = () => {
           )}
           toolbar={
             <>
+              {/* Public⇄private scope. Default "public" (people in power); "private" reveals the
+                  name-fold частен-сектор owners; "all" merges both. */}
+              <Select
+                value={sector}
+                onValueChange={(v) => setSector(v as typeof sector)}
+              >
+                <SelectTrigger
+                  className="h-9 w-auto max-w-[220px]"
+                  aria-label={isBg ? "Сектор" : "Sector"}
+                >
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="public">
+                    {isBg ? "Във властта" : "In power"}
+                  </SelectItem>
+                  <SelectItem value="private">
+                    {isBg ? "Частен сектор" : "Private sector"}
+                  </SelectItem>
+                  <SelectItem value="all">{isBg ? "Всички" : "All"}</SelectItem>
+                </SelectContent>
+              </Select>
               <PersonFilterSelect
                 value={facet}
                 onChange={setFacet}

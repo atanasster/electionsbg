@@ -60,6 +60,18 @@ export const isInstitutionName = (v: string): boolean => NAME.test(v);
 const readName = (v: string | null): string =>
   v && NAME.test(v) ? v : PERSON_FILTER_ALL;
 
+/** The public⇄private toggle. `public` (the default) shows only people in power; `private` shows
+ *  the name-fold частен-сектор owners; `all` shows both. Maps to the matview `tier` column in the
+ *  screen (public→omit so the registry's tier=P floor applies · private→['V'] · all→['P','V']). */
+export const PERSON_SECTORS = ["public", "private", "all"] as const;
+export type PersonSector = (typeof PERSON_SECTORS)[number];
+/** Exported for its test: an absent/invalid ?sector must default to `public` (the floor), and
+ *  only the three known values pass — a regression here silently reveals the private arm. */
+export const readSector = (v: string | null): PersonSector =>
+  (PERSON_SECTORS as readonly string[]).includes(v ?? "")
+    ? (v as PersonSector)
+    : "public";
+
 /** Escape LIKE metacharacters before a value goes into a `% code %` containment match.
  *
  *  `_` is a LIKE single-character wildcard and these codes are FULL of it (`p_16`,
@@ -76,6 +88,8 @@ export const escapeLike = (v: string): string =>
 export const codeSetMatch = (code: string): string => ` ${escapeLike(code)} `;
 
 export interface UrlPersonFilters {
+  sector: PersonSector;
+  position: string;
   facet: string;
   primaryFacet: string;
   role: string;
@@ -92,6 +106,8 @@ export interface UrlPersonFilters {
   setOblast: (v: string) => void;
   setObshtina: (v: string) => void;
   setCourt: (v: string) => void;
+  setSector: (v: PersonSector) => void;
+  setPosition: (v: string) => void;
   setDeclaredOnly: (v: boolean) => void;
   setHeldOfficeOnly: (v: boolean) => void;
   /** True when any managed filter is active (drives the "clear" button). */
@@ -101,6 +117,8 @@ export interface UrlPersonFilters {
 }
 
 const PARAMS = [
+  "sector",
+  "position",
   "facet",
   "pfacet",
   "role",
@@ -115,6 +133,8 @@ const PARAMS = [
 export const useUrlPersonFilters = (): UrlPersonFilters => {
   const [params, setParams] = useSearchParams();
 
+  const sector = readSector(params.get("sector"));
+  const position = readCode(params.get("position"));
   const facet = readCode(params.get("facet"));
   const primaryFacet = readCode(params.get("pfacet"));
   const role = readCode(params.get("role"));
@@ -152,6 +172,11 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
       setOblast: (v: string) => write("oblast", v),
       setObshtina: (v: string) => write("obshtina", v),
       setCourt: (v: string) => write("court", v),
+      // `public` is the default, so it is stored as an ABSENT param (write() deletes on the
+      // sentinel) — a clean URL for the common view, and the registry's tier=P floor covers it.
+      setSector: (v: PersonSector) =>
+        write("sector", v === "public" ? null : v),
+      setPosition: (v: string) => write("position", v),
       setDeclaredOnly: (v: boolean) => write("decl", v ? "1" : null),
       setHeldOfficeOnly: (v: boolean) => write("held", v ? "1" : null),
     }),
@@ -159,6 +184,8 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   );
 
   const hasActiveFilters =
+    sector !== "public" ||
+    position !== PERSON_FILTER_ALL ||
     facet !== PERSON_FILTER_ALL ||
     primaryFacet !== PERSON_FILTER_ALL ||
     role !== PERSON_FILTER_ALL ||
@@ -181,6 +208,8 @@ export const useUrlPersonFilters = (): UrlPersonFilters => {
   }, [setParams]);
 
   return {
+    sector,
+    position,
     facet,
     primaryFacet,
     role,

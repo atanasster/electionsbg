@@ -383,13 +383,18 @@ nf_owner AS (
   -- name-fold arm this way. (Name-fold identity is a NAME match, so this cannot be perfect — a
   -- genuine namesake of a gated person is also dropped — but it never LEAKS a gated person.)
   WHERE name_fold NOT IN (SELECT name_fold FROM person WHERE name_fold IS NOT NULL)
-    -- Person-shape gate: EXACTLY 3 folded tokens (a Bulgarian first-patronymic-family name). This
-    -- is what keeps the money-sorted browse clean — it drops the 2-token TR redaction placeholder
-    -- "Заличено обстоятелство." (2,986 companies, €2.85bn of noise leading the sort) and the
-    -- many-token "…ЕООД, представлявано в УС от …" officer strings. Mirrors the Tier-V verified
-    -- rule minus the uniqueness/≤5-firm cap (these are the BROWSE aggregates, badged name_fold).
-    -- (Search — person_search N/V — deliberately stays broader; browse is where a junk row leads.)
-    AND array_length(regexp_split_to_array(btrim(name_fold), '\s+'), 1) = 3
+    -- Person-shape gate: EXACTLY 3 all-LETTER folded tokens (a Bulgarian first-patronymic-family
+    -- name), and no company legal-form token. translit_bg_latin lowercases + maps Cyrillic to a-z
+    -- and collapses hyphens/whitespace, so the fold is over [a-z ]. In order of how badly each led
+    -- the money/name sort, this drops: the 2-token redaction placeholder "Заличено обстоятелство."
+    -- (2,986 companies, €2.85bn); the many-token "…ЕООД, представлявано в УС от …" officer strings;
+    -- digit/quote company names like „17 Инвестмънтс" ЕООД (non-letter chars fail [a-z ]); and
+    -- legal entities that are THEMSELVES owners, "Х Y ЕООД" (3 letter tokens but a company form).
+    -- A 3-token company with no legal-form word still slips through — badged name_fold like the
+    -- rest. Mirrors the Tier-V verified rule minus the uniqueness/≤5-firm cap. (Search —
+    -- person_search N/V — deliberately stays broader; browse is where a junk row leads a sort.)
+    AND name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'
+    AND name_fold !~ '(^| )(eood|ood|ad|ead|et|dzzd|kd|sd|zad|ndp|zzd)( |$)'
   GROUP BY name_fold
   HAVING sum(eur) > 0
 )

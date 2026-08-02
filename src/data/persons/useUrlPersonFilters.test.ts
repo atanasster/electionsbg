@@ -12,9 +12,27 @@ import {
   escapeLike,
   codeSetMatch,
   isInstitutionName,
+  readSector,
+  PERSON_SECTORS,
   PERSON_FILTER_ALL,
 } from "./useUrlPersonFilters";
 import { PERSON_GROUPS, groupByKey } from "./personGroups";
+
+describe("readSector — the ?sector public floor guard", () => {
+  test("an absent ?sector defaults to public (never reveals the private arm)", () => {
+    assert.equal(readSector(null), "public");
+    assert.equal(readSector(""), "public");
+  });
+  test("an unknown value falls back to public, not through to the engine", () => {
+    // 'company' is a real position_type but NOT a sector — a wrong param must not widen the view.
+    assert.equal(readSector("company"), "public");
+    assert.equal(readSector("V"), "public");
+    assert.equal(readSector("../etc"), "public");
+  });
+  test("the three known sectors pass unchanged", () => {
+    for (const s of PERSON_SECTORS) assert.equal(readSector(s), s);
+  });
+});
 
 describe("escapeLike", () => {
   test("escapes the underscore wildcard that these codes are full of", () => {

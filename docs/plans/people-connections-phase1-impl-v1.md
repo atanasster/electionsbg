@@ -253,10 +253,18 @@ its per-person invariants to the public arm + a new name-fold-arm block (shape, 
 anti-join, public-default). Verified via `/api/db/table`: default 63,910; `tier=["V"]` 54,592;
 `tier=["P","V"]` 118,502; `position_type=magistrate` 3,065. All data tests green (27), functions 175.
 
-**DEFERRED — S3b (the UI control):** `?sector` (default public → no filter; private → `tier:["V"]`;
-all → `tier:["P","V"]`) + `?position` in `useUrlPersonFilters`; `key`/`tier`/`positionType`/
-`identityConfidence` in `personBrowseTypes`; the name-fold row rendering (NULL slug → `/person/:name`
-+ "непроверена самоличност" badge, money/firms only); `PersonsAnalysisStrip` position_type option.
+**SHIPPED — S3b (the UI control, 2026-08-01):** `?sector` (public default → omit; private →
+`tier:["V"]`; all → `tier:["P","V"]`) + `?position` in `useUrlPersonFilters`, validated on read;
+`key`/`tier`/`positionType`/`identityConfidence` on `PersonBrowseRow`; a shared-Radix `Select`
+scope control in the browser toolbar; name-fold rows (NULL slug) route to `/person/:name` with a
+"по име" name-match badge; `scopeF` threads the tier/position filter through the table **and** the
+mix-bar + KPI facets. `PersonsAnalysisStrip` needed no change — it already maps the `company` facet
+to "Бизнес". Verified live: `?sector=private` → Лица **53,438**, С декларация 0%, С фирми в ТР 100%,
+mix bar "Бизнес 100%", real person names lead (Борис Анчев Борисов €2.4bn), name-match badges, name
+routing. **Gate strengthened during S3b:** the UI surfaced that 3-token COMPANY names (`„17
+Инвестмънтс" ЕООД`, `Х Y ЕООД`) were leaking, so the person-shape gate tightened from
+`array_length=3` to `name_fold ~ '^[a-z]+ [a-z]+ [a-z]+$'` + a company-legal-form exclusion (−1,150
+rows), pinned by the data test.
 
 **Risk:** medium-high — 120 is a matview DROP+CREATE re-applied by the declarations loader
 ([column-type cloud-reload rule]); `:cloud` reload is an operator step. `person_search` must be
