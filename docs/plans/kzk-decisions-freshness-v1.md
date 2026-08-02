@@ -1,7 +1,11 @@
 # КЗК decisions: close the tier-2 gap and make staleness impossible — v1
 
 **Status:** plan only, nothing implemented.
-**Date:** 2026-08-02.
+**Date:** 2026-08-02. **Revised 2026-08-02** after a full audit against the live system —
+see §9 for what the audit changed. The first draft's freshness gate was unworkable and its
+scope missed three live defects; both are corrected below. `git log -p` on this file has the
+superseded version.
+
 **Owner surface:** `/tenders/:unp` appeals tile, the `/procurement` "Recent appeals (КЗК)"
 tile, `/procurement/appeals`, the `procurementAppeals` AI tool, and — indirectly but most
 importantly — the contract **Corruption Risk Index**.
@@ -41,51 +45,90 @@ Recent months: June 2/118, July 0/115.
 from `outcome = 'уважена'`, and that matview feeds the `procedureAppealUpheld` component of
 the contract Corruption Risk Index. A frozen tier-2 arm does not merely blank a UI field —
 it makes every recently-appealed procedure grade *cleaner than it is*, with nothing red
-anywhere. This is the reason the work is worth doing properly rather than re-running a
-hand crawl.
+anywhere. This is why the work is worth doing properly rather than re-running a hand crawl.
 
 ---
 
-## 2. Why nothing caught it — five independent blind spots
+## 2. Why nothing caught it — five blind spots
 
-Each of these must be closed, or the arm re-freezes the next time someone stops running it
-by hand.
+Each must be closed, or the arm re-freezes the next time someone stops running it by hand.
 
 1. **The watcher is structurally blind to it.** `scripts/watch/sources/kzk_appeals.ts`
    fingerprints only the intake page (`Намерени са общо N жалби` + the newest
-   `Complaint.aspx?ID=` anchors). `AllResolutions.aspx` is not a watch source at all, so the
-   orchestrator cannot ever flag a decisions gap.
-
-2. **The mandatory gate is a floor, not a freshness check.** The skill's Step 2 asserts
-   `count(outcome) >= 2098`. That passes forever even if no new outcome ever lands again.
-
-3. **The success line reads as health.** The ingest marker says
-   `"2,098 outcomes preserved"` — a frozen number reported as a positive.
-
-4. **The one thing the orchestrator does run cannot fix it.** On a `kzk_appeals` flip it
-   runs the intake crawl, whose upserts are `COALESCE(existing, EXCLUDED)` on
-   `outcome`/`suspension` ([kzk_appeals.ts:551](../../scripts/procurement/kzk_appeals.ts:551)).
-   By construction it never writes an outcome. Every successful refresh *reinforces* the
-   staleness.
-
+   `Complaint.aspx?ID=` anchors). `AllResolutions.aspx` is not a watch source at all.
+2. **The mandatory gate is a floor, not a freshness check.** Step 2 asserts
+   `count(outcome) >= 2098` — which passes forever even if no new outcome ever lands.
+3. **The success line reads as health.** The ingest marker says `"2,098 outcomes preserved"`
+   — a frozen number reported as a positive.
+4. **The one thing the orchestrator runs cannot fix it.** On a `kzk_appeals` flip it runs the
+   intake crawl, whose upserts are `COALESCE(existing, EXCLUDED)` on `outcome`/`suspension`
+   ([kzk_appeals.ts:551](../../scripts/procurement/kzk_appeals.ts:551)). By construction it
+   never writes an outcome. Every successful refresh *reinforces* the staleness.
 5. **The vintage is invisible to git.** `kzk_decisions.json` is gitignored, so its July 4
    `generatedAt` never appears in `git status` or a diff.
 
 ---
 
-## 3. A second, separate defect: the join itself is lossy
+## 3. Three further defects the audit found
 
-Independent of freshness, the complainant+respondent+year 1:1 match only lands **26.6%** of
-appeals. Measured against the *existing* July 4 file, three concrete causes:
+These are **live today**, independent of freshness, and in scope because the same tiers touch
+them.
+
+### 3a. `suspension` is frozen `false` on 7,778 of 7,886 rows — and that kills a documented fallback
+
+```
+suspension: false 7,778 | true 4 | null 104        vm_requested true: 1,501
+status ~* 'спрян': 4
+```
+
+Intake writes NULL ([kzk_appeals.ts:582](../../scripts/procurement/kzk_appeals.ts:582)), but
+the stored value is `false`, and the upsert is `COALESCE(existing, EXCLUDED)` — so it can
+never move. That makes 042's serving expression dead for those rows:
+
+```sql
+'suspension', COALESCE(suspension, status ~* 'спрян')   -- always false, never falls through
+```
+
+042's own comment states the intent — *"updates false→true on re-scrape"* — which the stored
+`false` defeats. 1,501 appeals requested a temporary measure; the site can show at most the 4
+whose `suspension` happens to be true or null. **Independently shippable (T3); does not need
+the crawler.**
+
+### 3b. 8.9% of the decisions corpus is column-shifted
+
+429 of 4,836 rows have the act description in `no`, with `pron` and `ddate` blank:
+
+```json
+{"no": "F788088/26.12.2025 г. на заместник-кмета на община Пловдив… - ОБЩИНА ПЛОВДИВ; Отменя…",
+ "pron": "", "ddate": ""}
+```
+
+Only 4,407 are well-formed `АКТ-`. A blank `ddate` means those rows can never match, and they
+are silently part of the 1,838 "unmatched" counted in §4. The first draft used this file as
+both the matcher's input and the backfill's validation corpus, assuming it was clean.
+
+### 3c. The определения (temporary-measure) register is probably not crawled at all
+
+Every well-formed act is `АКТ-`, and only 37 of 4,836 pronouncements mention
+временна мярка/спиране — against 1,501 `vm_requested`. 042's comment says outcomes come from
+"the Решения/Определения register**s**" (plural); `ot=2` is likely one act type. Tier-2 may be
+missing a whole sub-source, which is also the only authoritative source for 3a's fix.
+
+---
+
+## 4. A fourth defect: the join itself is lossy
+
+Independent of freshness, the complainant+respondent+year 1:1 match lands only **26.6%** of
+appeals. Measured against the existing July 4 file:
 
 | Cause | Evidence | Rows |
 |---|---|---|
-| **Multi-party decisions are matched whole-string.** КЗК consolidates several complaints against one procedure into one АКТ, so `init` is a `;`-joined list — e.g. `"ПАРСЕК ГРУП" ЕООД; ДЗЗД "ПЪТ ДИМИТРОВГРАД"`. The matcher compares the whole field against a single-complainant appeal row and misses every one. | 1,838 decision rows have a key with no appeal at all | large |
-| **Year-boundary.** The key includes the year, but a complaint filed in December is decided in January. | decision rows matching only against the previous complaint year | 534 |
+| **Multi-party decisions matched whole-string.** КЗК consolidates several complaints against one procedure into one act, so `init` is a `;`-joined list — `"ПАРСЕК ГРУП" ЕООД; ДЗЗД "ПЪТ ДИМИТРОВГРАД"`. Compared whole against a single-complainant appeal row, it misses every one. | decision rows whose key matches no appeal | 1,838 (incl. the 429 from §3b) |
+| **Year-boundary.** The key includes the year, but a December filing is decided in January. | rows matching only against the previous complaint year | 534 |
 | **Ambiguity dropped silently.** Keys non-unique on either side are discarded with no counter. | keys present on both sides but ambiguous | 493 |
 
-**Measured fix, no new crawl required.** Splitting `init` on `;` and widening the year
-window to `year | year-1`, on the same July 4 file:
+**Measured fix, no new crawl.** Splitting `init` on `;` and widening the year window to
+`year | year-1`, on the same July 4 file:
 
 ```
 matched appeals: 2,908  (unambiguous: 2,865)
@@ -94,181 +137,287 @@ gain:            +767   (+37%)
 coverage:        26.6% → 36.3%
 ```
 
-That is a free +767 outcomes available before any crawler is written, which makes it the
-right first tier — it also validates the matcher against a known corpus before that matcher
-starts consuming live crawl output.
+Free before any crawler exists — and it validates the matcher against a known corpus before
+that matcher starts consuming live crawl output.
 
 ---
 
-## 4. Design principles
+## 5. Design principles
 
-- **Freshness is asserted against the source, not the calendar.** A "max(decision_date) is
-  within N days" rule is wrong: КЗК has August and Christmas recesses, so it would be flaky
-  in exactly the months it fires. Instead the watcher records the register's own newest act
-  in `state/watch/kzk_decisions.json` (committed), and the gate asserts **our max equals the
-  register's newest**. That is exact, recess-proof, and needs no network at test time.
-- **Every irreplaceable artifact gets a committed generator.** The whole failure class is
-  "an interactive artifact with no code behind it". No tier of this plan ends with another one.
-- **Never regress the 2,098.** Those rows stay protected. New tiers add, they do not replace,
-  until a full re-derivation is proven to reproduce them.
-- **The matcher is a pure, tested function.** Separating "fetch" from "join" is what lets
-  Tier 0 run offline against the existing file and lets the join be unit-tested without BG
-  egress or a headed browser.
+- **Freshness is asserted against the source, not the calendar.** A "max date within N days"
+  rule is wrong here: КЗК has August and Christmas recesses, so it would be flaky exactly when
+  it fires. The watcher records the register's own newest act in committed watch state, and
+  the gate asserts our corpus contains it.
+- **The gate anchors on the decisions corpus, never on the joined column.** 1,838 decisions
+  match no appeal, so `max(kzk_appeals.decision_date)` can legitimately lag the register's
+  newest act. Anchoring there would fail spuriously on a current table. *(This is the audit's
+  correction to the first draft.)*
+- **Every irreplaceable artifact gets a committed generator and a table.** The whole failure
+  class is "an interactive artifact with no code behind it". No tier may end with another one.
+- **Provenance decides what may be overwritten.** Fill-only `COALESCE` protects hand-made rows
+  but makes a *wrong* machine value permanent. `decision_act_no IS NOT NULL` marks a row as
+  machine-derived and therefore re-derivable; NULL marks it hand-seeded and protected.
+- **Never regress the 2,098** until a full re-derivation is proven to reproduce them.
+- **The matcher is a pure, tested function.** Separating fetch from join is what lets T2 run
+  offline and lets the join be unit-tested without BG egress or a headed browser.
 
 ---
 
-## 5. The plan
+## 6. The plan
 
-### Tier 0 — Fix the matcher, recover +767 outcomes offline *(no crawl, no network)*
+Dependency graph — **T1, T3 and T5 are independent and can land in any order**; only T4 needs
+the probe, and only T6 needs both a corpus and a watcher.
 
-1. Extract the join into a new pure module `scripts/procurement/kzk_match.ts`:
-   `matchDecisions(appeals, decisions) → Array<{complaintNo, outcome, decisionDate, suspension, actNo}>`.
-   - Split `init` on `;` and match each party independently.
+```
+T1 (decisions table) ──► T2 (matcher +767) ──┐
+T3 (suspension fix)  ─────────────────────────┼──► T6 (gates) ──► T7 (skill/docs/UI)
+T5 (watch source)    ─────────────────────────┘
+                          T4 (crawler) ──────► T6
+                                               T8 (spike, gated)
+```
+
+Rough sizing: T1 ~M, T2 ~M, T3 ~S, T4 ~L, T5 ~S, T6 ~M, T7 ~S, T8 spike-only.
+
+---
+
+### T1 — Give the decisions corpus a home *(closes G2, G3, G8)*
+
+The corpus is currently 4,836 rows in a gitignored file on one machine, with no table, no
+changelog and no gate. That is the same failure class this plan exists to end.
+
+1. New migration `scripts/db/schema/pg/130_kzk_decisions.sql`:
+   `kzk_decisions(act_no text PK, decision_date text, pronouncement text, kzk_case_no text,
+   initiators text, respondent text, source_url text, fetched_at text)`, indexed on
+   `decision_date DESC` and `kzk_case_no`. `GRANT SELECT TO app_readonly`.
+2. Loader `scripts/db/load_kzk_decisions_pg.ts` (`db:load:kzk-decisions:pg[:cloud]`) —
+   loads the existing JSON, stage-merged (the table will be on a serving path once T6's gate
+   and T8 read it), with `recordIngestBatch` under source `kzk_decisions` per
+   [[feedback_pg_changelog_required]].
+3. **Quality gate on load.** Assert `act_no` matches `/^АКТ-\d+-\d{2}\.\d{2}\.\d{4}$/` and
+   `decision_date` is non-empty. Reject the 429 malformed rows into a reported bucket rather
+   than loading them — and count them, so T4's crawler is measured against a clean baseline.
+4. **Backup.** Until T4's backfill is proven to reproduce the corpus, the recoverable copy is
+   a `db:dump` restore point taken immediately after this load, referenced in the skill. State
+   this explicitly — "never regress the 2,098" is not a recovery plan.
+
+---
+
+### T2 — Fix the matcher, recover +767 outcomes offline *(closes G6, G9)*
+
+1. Extract the join into a pure module `scripts/procurement/kzk_match.ts`:
+   `matchDecisions(appeals, decisions) → {matches, ambiguous, unmatched}`.
+   - Split `init` on `;`, match each party independently.
    - Normalise: uppercase, strip `" ' „ “ « » . ,`, collapse whitespace.
    - Year window `decisionYear | decisionYear - 1`.
-   - Emit only unambiguous 1:1 resolutions; **return the ambiguous and unmatched counts as
-     data**, so the caller can report them rather than dropping them silently.
-   - Map `pron` → `outcome` over the measured vocabulary:
-     `оставя жалбата без уважение` → `отхвърлена` (2,860);
-     `отменя незаконосъобразно решение и връща` (1,173) and
+   - Emit only unambiguous 1:1 resolutions; **return ambiguity and miss counts as data** so
+     the caller reports them rather than dropping them silently.
+   - Map `pron` → `outcome` over the measured vocabulary: `оставя жалбата без уважение` →
+     `отхвърлена` (2,860); `отменя незаконосъобразно решение и връща` (1,173) and
      `отменя незаконосъобразно решение за откриване на процедура` (270) → `уважена`;
-     `оставя жалбата без разглеждане` (11) → `прекратена`; the ~429 blank and 32 `друго`
-     rows stay NULL rather than guessing.
-2. Unit-test it (`kzk_match.test.ts`) with fixtures covering: a multi-party `;` decision, a
-   December→January case, an ambiguous pair, and an unmappable `pron`.
-3. Add `npx tsx scripts/procurement/kzk_rejoin.ts --apply` — re-runs the matcher over the
-   existing `kzk_decisions.json` + `kzk_appeals.json`, writes back to the JSON store and
-   upserts PG with `COALESCE(a.outcome, v.outcome)` (fill-only, same as today).
-4. Verify: outcome count rises 2,098 → ~2,865; no existing row's `outcome` changes value.
-
-**Exit:** +767 outcomes on local and Cloud SQL, matcher proven against a 4,836-row corpus.
+     `оставя жалбата без разглеждане` (11) → `прекратена`. The 32 `друго` rows stay NULL
+     rather than guessing. (The 429 blanks are gone at T1.)
+2. Unit-test (`kzk_match.test.ts`): a multi-party `;` decision, a December→January case, an
+   ambiguous pair, an unmappable `pron`, and a malformed row.
+3. **Provenance column.** `ALTER TABLE kzk_appeals ADD COLUMN IF NOT EXISTS decision_act_no
+   text` (042 is idempotent `CREATE TABLE IF NOT EXISTS`, so the column needs its own ALTER).
+   Write semantics:
+   - `decision_act_no IS NULL` → hand-seeded, **fill-only** `COALESCE(existing, new)`.
+   - `decision_act_no IS NOT NULL` → machine-derived, **overwrite allowed**, so a matcher fix
+     can correct a bad value. Without this, the first wrong outcome is permanent.
+4. `npx tsx scripts/procurement/kzk_rejoin.ts --apply` re-runs the matcher over the stored
+   corpus, writes back to `kzk_appeals.json` and upserts PG under the rules above. Same local-DB
+   pinning hazard as every other writer here (Step 0 of the skill).
+5. **Rebuild and commit the derived artifacts** — `npm run kzk:summary` (the committed
+   `derived/kzk_appeals_summary.json`, whose `withOutcome` jumps 2,098 → ~2,865), refresh
+   `upheld_ocids` / `appealed_ocids` / `buyer_appeal_stats` / `kzk_appeals_summary_cache`, and
+   stamp `/data/updates` via `append-data-change`.
+6. Verify: outcome count 2,098 → ~2,865; no hand-seeded row's value changes.
 
 ---
 
-### Tier 1 — Write the missing crawler `scripts/procurement/kzk_decisions.ts`
+### T3 — Unfreeze `suspension` *(closes G4 — independently shippable)*
+
+1. One-off correction: `UPDATE kzk_appeals SET suspension = NULL WHERE suspension IS FALSE
+   AND decision_act_no IS NULL` — i.e. every row whose `false` was never established by a
+   decision. That restores 042's `COALESCE(suspension, status ~* 'спрян')` fallback, which is
+   what makes a live suspension visible without waiting for tier-2.
+2. Behind `--backfill`-style opt-in per [[feedback_one_off_backfills]], not an automatic step.
+3. Keep the intake writing NULL (it already does, correctly).
+4. Regression test: a row with `status = 'спряно производство'` and `suspension IS NULL` must
+   serve `suspension: true` from `tender_appeals()`; the same row with a stored `false` must
+   not — proving the gate discriminates.
+5. Only T4's определения arm (§3c) can set `suspension = true` authoritatively. Until then the
+   status fallback is the honest answer, and this tier is what re-enables it.
+
+---
+
+### T4 — Write the missing crawler `scripts/procurement/kzk_decisions.ts` *(closes G5, G13)*
 
 Model it on `kzk_appeals.ts`, which already solves every hard part.
 
-- **Probe first.** `AllResolutions.aspx?dt=2&ot=2` markup is unverified from here
-  (reg.cpc.bg 403s non-BG egress). Step 1 is a `--dry-run` probe from a BG connection that
-  dumps page 1 and confirms the pager shape, the `Намерени са общо N` header, and the six
-  fields the existing JSON carries (`no`, `ddate`, `pron`, `kzk`, `init`, `resp`).
+- **Probe first, and probe the `ot` parameter space.** `AllResolutions.aspx` markup is
+  unverified from here (reg.cpc.bg 403s non-BG egress). Step 1 is a `--dry-run` probe from a BG
+  connection that: dumps page 1; confirms the pager shape and the `Намерени са общо N` header;
+  confirms the six fields; and **enumerates `ot` values to find the определения register**
+  (§3c). Scope the rest of this tier only after the probe reports.
 - Reuse from the intake crawler: headed Playwright launch, `UA` / `BLOCK_HOSTS`,
   `atomicWrite`, `mergeWrite`, the header-total assertion (parsed count vs
-  `Намерени са общо N`), and the **incremental early-exit** (stop at the first page whose
-  acts are all already stored — the register is newest-first, so a daily run walks 1–2 pages).
+  `Намерени са общо N`), and the **incremental early-exit** (stop at the first page whose acts
+  are all stored — the register is newest-first, so a daily run walks 1–2 pages).
+- **Add a column-alignment assertion** so §3b's failure cannot recur: every parsed row must
+  satisfy T1's `act_no` and `decision_date` shape, and the run fails loud on drift rather than
+  storing shifted rows.
 - Flags mirroring the intake crawler exactly: `--year` / `--backfill` / `--apply` /
-  `--dry-run` / `--full`, with the same mutual-exclusion guards and the same Step-0 local-DB
-  pinning hazard.
-- On `--apply`: merge into `kzk_decisions.json`, then call the Tier 0 matcher and upsert
-  `kzk_appeals.outcome` / `decision_date` / `suspension` fill-only; refresh `upheld_ocids`,
-  `appealed_ocids`, `buyer_appeal_stats` and `kzk_appeals_summary_cache`; `recordIngestBatch`
-  under source `kzk_decisions`.
-- **Store the act number.** Add `decision_act_no text` to `kzk_appeals` (migration 042 is
-  idempotent `CREATE TABLE IF NOT EXISTS`, so this needs an `ALTER TABLE … ADD COLUMN IF NOT
-  EXISTS`). Without it there is no way to tell a re-derived outcome from a hand-seeded one,
-  and no way to audit a match after the fact.
+  `--dry-run` / `--full`, with the same mutual-exclusion guards.
+- On `--apply`: merge into `kzk_decisions.json` **and** the T1 table, then call T2's matcher and
+  upsert `kzk_appeals` under T2's provenance rules; refresh the four dependents;
+  `recordIngestBatch`.
 - **Prove the backfill reproduces the hand-made rows** before trusting it: a full
   `--backfill --dry-run` must re-derive all 2,098 existing outcomes with no value conflicts.
   Any conflict is a matcher bug, investigated before `--apply`.
+- **Retention risk.** If the register no longer paginates back to 2020, `--backfill` cannot
+  rebuild the corpus and T1's dump becomes the permanent record. The probe must report the
+  oldest reachable act, and that number decides whether the backup in T1.4 is temporary or
+  permanent.
 
 ---
 
-### Tier 2 — Make it watchable
+### T5 — Make it watchable
 
 1. New watch source `scripts/watch/sources/kzk_decisions.ts`, registered in
    `scripts/watch/sources/index.ts`:
-   - `id: "kzk_decisions"`, `cadence: "weekly"` (matching the intake source; decisions land
-     ~37–47/month).
-   - Fingerprint = `Намерени са общо N` for the current year + a hash of the newest act
-     numbers on page 1.
-   - **`meta` must carry `newestAct` and `newestDate`** — Tier 3's gate reads them.
+   - `id: "kzk_decisions"`, `cadence: "weekly"` (decisions land ~37–47/month).
+   - Fingerprint = `Намерени са общо N` for the current year + a hash of the newest act numbers
+     on page 1.
+   - **`meta` must carry `newestAct` and `newestDate`** — T6's gate reads them, and
+     `state/watch/*.json` is committed, so the gate needs no network.
    - Same BG-egress note as the intake source.
-2. Map it in `process-watch-report/SKILL.md` (both the source table at line ~41 and the
-   marker table at line ~395) → `update-kzk-appeals`, stamping `state/ingest/kzk_decisions.json`.
-   The two arms are separate markers so one can go stale without the other reporting green.
+2. Map it in `process-watch-report/SKILL.md` (the source table at ~line 41 and the marker table
+   at ~line 395) → `update-kzk-appeals`, stamping `state/ingest/kzk_decisions.json`. **Separate
+   markers per arm**, so one can go stale without the other reporting green.
 
 ---
 
-### Tier 3 — Gates that make silent staleness impossible
-
-This is the tier that actually answers "ensure we don't run stale in the future". Three
-gates, each catching a different failure.
+### T6 — Gates that make silent staleness impossible *(closes G1, G7)*
 
 | Gate | Where | Catches |
 |---|---|---|
-| **A. Source-truth freshness** — `max(kzk_appeals.decision_date)` must equal `state/watch/kzk_decisions.json → meta.newestDate`, and `max(decision_act_no)` must equal `meta.newestAct`. | new `scripts/db/tests/kzk_decisions.data.test.ts` (PG gate, auto-skips when PG is down) | The exact failure of today: the register moved, we did not. Recess-proof, offline, no network. |
-| **B. Ingest-time drift warning** — the intake crawler prints a loud warning when `max(decision_date)` trails `max(complaint_date)` by more than 45 days. | `kzk_appeals.ts` post-commit block | The operator running the *intake* skill is told the *decisions* arm is behind — closing blind spot #4, where the only routine that runs is the one that cannot fix it. |
-| **C. Coverage floor with a moving baseline** — assert `count(outcome) >= <baseline>` where the baseline is a committed constant bumped by each successful decisions load, not a frozen 2,098. | `update-kzk-appeals` Step 2 + the same data test | Keeps today's regression protection while removing the "passes forever" property. |
+| **A. Source-truth freshness** — `state/watch/kzk_decisions.json → meta.newestAct` must exist in **`kzk_decisions`** (T1's table), and `max(kzk_decisions.decision_date)` must equal `meta.newestDate`. | new `scripts/db/tests/kzk_decisions.data.test.ts` | Exactly today's failure: the register moved, we did not. Recess-proof, offline. |
+| **B. Ingest-time drift warning** — the *intake* crawler warns loudly when `max(kzk_decisions.decision_date)` trails `max(kzk_appeals.complaint_date)` by more than 45 days. | `kzk_appeals.ts` post-commit block | Blind spot #4: the operator running the arm that *can't* fix this is told the other arm is behind. |
+| **C. Coverage floor with a moving baseline** — `count(outcome) >= <committed constant>`, bumped by each successful decisions load. | skill Step 2 + the same data test | Keeps today's regression protection while removing the "passes forever" property. |
+| **D. Match-quality floor** — the matcher's ambiguous + unmatched counts must not rise between runs on an unchanged corpus. | `kzk_match.test.ts` + the rejoin script's report | A future matcher edit that silently loses coverage. |
 
-Gate A is the load-bearing one. Deliberately **not** a calendar rule: it does not fire during
-a genuine КЗК recess and it does fire the moment a single act is missed.
+**Gate A anchors on the decisions corpus, not on `kzk_appeals.decision_date`.** 1,838
+decisions match no appeal, so the joined column legitimately lags the register — anchoring
+there would fail on a perfectly current table. This is the audit's correction to the first
+draft, and it is the reason T1 must exist.
 
-Also change the ingest summary line from `"2,098 outcomes preserved"` to
+**Missing-state behaviour is an assertion, not a skip.** If `state/watch/kzk_decisions.json`
+is absent, or `kzk_decisions` is empty, the test **fails** — following the
+`procurement_payloads.data.test.ts` precedent in CLAUDE.md, where the absent and unpopulated
+states are the two things the gate exists to catch. It auto-skips only when Postgres itself is
+down, like every other `.data.test.ts`.
+
+Also change the ingest summary from `"2,098 outcomes preserved"` to
 `"outcomes: N (tier-2 through <max decision_date>)"` — a frozen date is visible in the
 changelog feed where a frozen count is not.
 
 ---
 
-### Tier 4 — Rewire the skill and the docs
+### T7 — Rewire the skill, docs and UI surfaces *(closes G10, G11)*
 
-- `update-kzk-appeals/SKILL.md`: add the decisions crawl as **Step 1b**, replace the
-  tier-2-gap section (which currently says the crawler does not exist), rewrite Step 2 around
-  gates A/C, and add the cloud publish for the decisions arm to Step 4 — same
-  re-crawl-against-the-proxy shape as the intake arm, since there is no
-  `db:load:kzk:pg:cloud` wrapper.
-- `CLAUDE.md`: no new section needed; this dataset publishes by re-running its writer, which
-  is already documented.
-- Memory: update `project_kzk_appeals_pager_fix` or add a note that the tier-2 arm now has a
-  committed generator and a source-truth gate.
+- `update-kzk-appeals/SKILL.md`: add the decisions crawl as **Step 1b**; replace the tier-2-gap
+  section (which currently says the crawler does not exist); rewrite Step 2 around gates A/C/D;
+  add the decisions arm to Step 4's cloud publish — same re-crawl-against-the-proxy shape as
+  the intake arm, since there is no `db:load:kzk:pg:cloud` wrapper, plus the new
+  `db:load:kzk-decisions:pg:cloud`; and record T1.4's restore point.
+- `042_kzk_appeals.sql`: expose `decision_act_no` on `kzk_appeals_list` (the view is DROP-first,
+  so this is reapply-safe) and add it to the `kzk_appeals` DbDataTable resource, so a match is
+  auditable from `/procurement/appeals` rather than only from psql.
+- [DataSources.tsx:541](../../src/screens/components/DataSources.tsx:541): the КЗК group lists
+  only `AllComplaints.aspx`. Add the decisions register — it is a distinct source behind a
+  published field.
+- Memory: note that the tier-2 arm now has a committed generator, a table and a source-truth
+  gate.
 
 ---
 
-### Tier 5 — *Investigate only:* an exact join to replace the name match
+### T8 — *Investigate only:* an exact join to replace the name match
 
-Even fixed, the name matcher tops out around 36%. The register exposes a per-complaint
-detail page (`Complaint.aspx?ID=<id>`) that the crawler currently records as `sourceUrl` but
-never fetches. If that page carries the КЗК case number (`КЗК/417/2026`, which the decisions
-side already has in its `kzk` field), the join becomes **exact** and coverage could approach
-the true ceiling.
+Even fixed, the name matcher tops out near 36%. The register exposes a per-complaint detail
+page (`Complaint.aspx?ID=<id>`) that the crawler records as `sourceUrl` but never fetches. If
+it carries the КЗК case number (`КЗК/417/2026` — which the decisions side already has in
+`kzk_case_no`), the join becomes **exact**.
 
 Cost: one detail fetch per complaint. Prohibitive as a backfill (7,886 geo-gated headed
-fetches), cheap incrementally (~115/month). Scope this as a **spike with a decision gate**:
-fetch 20 detail pages, check for the case number, and only then decide. Do not commit to it
-in this plan.
+fetches), cheap incrementally (~115/month). **Spike with a decision gate:** fetch 20 detail
+pages, check for the case number, then decide. Not committed to in this plan.
 
 ---
 
-## 6. Non-goals
+## 7. Non-goals
 
 - Not re-running `update-procurement`. Different source, different corpus.
-- Not `bucket:sync` and not `db:dump` — `procurement/` is Cloud-SQL-served; `db:dump` only
-  snapshots outward to GCS.
+- Not `bucket:sync` and not `db:dump` as a *publish* — `procurement/` is Cloud-SQL-served, and
+  `db:dump` only snapshots outward to GCS. (T1.4 uses it as a restore point, which is its
+  actual job.)
 - Not a CI step, ever. Headed browser plus BG egress.
 - Not touching the intake arm's crawl logic, which is healthy.
-- Not backfilling coverage beyond what the decisions corpus supports — 7,886 appeals against
-  4,836 decisions means a large share of complaints legitimately have no act (withdrawn,
-  consolidated into another party's act, still pending). 100% is not the target.
+- Not chasing 100% coverage. 7,886 appeals against 4,407 clean decisions means many complaints
+  legitimately have no act — withdrawn, consolidated into another party's act, or still pending.
 
-## 7. Risks
+## 8. Risks
 
 | Risk | Mitigation |
 |---|---|
-| `AllResolutions.aspx` markup differs from the assumed shape | Tier 1 starts with a `--dry-run` probe; the header-total assertion fails loud rather than returning a short list. |
-| A matcher bug overwrites a good hand-made outcome | Every write stays `COALESCE(existing, EXCLUDED)` fill-only, and Tier 1's backfill must reproduce all 2,098 in `--dry-run` before any `--apply`. |
-| Widening the year window introduces false matches | Only unambiguous 1:1 resolutions are emitted; ambiguity counts are reported, not dropped. Tier 0 runs against a known corpus so any new match can be spot-audited. |
-| No BG egress available when it matters | Unchanged from today, and now explicit: gate A fails visibly instead of the arm freezing quietly. |
+| `AllResolutions.aspx` markup differs from the assumed shape | T4 opens with a probe; the header-total and column-alignment assertions fail loud rather than storing shifted rows (§3b is precisely this failure, unguarded). |
+| A matcher bug overwrites a good hand-made outcome | Provenance (T2.3): hand-seeded rows stay fill-only. Machine rows are overwritable *by design*, so a fix is possible. |
+| Widening the year window introduces false matches | Only unambiguous 1:1 resolutions are emitted; ambiguity counts are reported (gate D), and T2 runs against a known corpus so new matches can be spot-audited. |
+| The register no longer serves 2020 | T4's probe reports the oldest reachable act; T1.4's dump becomes the permanent record if it does not reach back. |
+| No BG egress when it matters | Unchanged from today, but now explicit: gate A fails visibly instead of the arm freezing quietly. |
+| T3's one-off NULLs a legitimately-established `false` | Scoped to `decision_act_no IS NULL` — rows no decision ever touched. Rows a decision established keep their value. |
 
-## 8. Verification checklist
+## 9. What the audit changed (2026-08-02)
 
-- [ ] T0: `count(outcome)` 2,098 → ~2,865; zero existing values changed.
-- [ ] T0: `kzk_match.test.ts` green on all four fixture classes.
-- [ ] T1: `--backfill --dry-run` re-derives all 2,098 pre-existing outcomes, zero conflicts.
-- [ ] T1: `decision_act_no` populated on every tier-2 row written by the crawler.
-- [ ] T2: `npm run watch` reports `kzk_decisions` with a non-null `meta.newestAct`.
-- [ ] T3: gate A fails when `decision_date` is manually rolled back in a transaction, and
-      passes on a current table (prove it discriminates — do not just assert it is green).
-- [ ] Cloud SQL: `max(decision_date)` matches local after the publish; live
-      `/api/db/kzk-appeals-summary` `withOutcome` matches PG.
-- [ ] `upheld_ocids` row count rises, and a spot-checked recently-appealed contract's risk
-      index reflects the newly-known upheld appeal.
+Thirteen gaps, folded in above.
+
+| # | Gap | Landed in |
+|---|---|---|
+| G1 | Gate A anchored on `kzk_appeals.decision_date`, which legitimately lags the register — the gate would fail on a current table | §5, T6 |
+| G2 | Decisions never got a PG table — the plan reproduced the failure class it exists to end | T1 |
+| G3 | 429 of 4,836 corpus rows are column-shifted; the plan treated the file as clean | §3b, T1.3, T4 |
+| G4 | `suspension` frozen `false` on 7,778 rows, killing 042's documented fallback | §3a, T3 |
+| G5 | The определения register is likely uncrawled — a whole missing sub-source | §3c, T4 |
+| G6 | Fill-only COALESCE makes a *wrong* value permanent; no correction path | T2.3 |
+| G7 | Undefined behaviour when the watch-state file is missing | T6 |
+| G8 | No recovery story for the irreplaceable rows | T1.4 |
+| G9 | T0 never rebuilt the committed summary or stamped `/data/updates` | T2.5 |
+| G10 | `DataSources.tsx` omits the decisions register | T7 |
+| G11 | `decision_act_no` not exposed, so matches aren't auditable from the UI | T7 |
+| G12 | No sequencing or sizing; T1/T3/T5 are independent and were presented as serial | §6 |
+| G13 | No answer for a register that no longer serves 2020 | T4, §8 |
+
+What survived unchanged: the §4 measurement (+767, 26.6% → 36.3%), the source-truth-over-calendar
+principle, and the tier ordering — G3 and G5 reinforce it, since probing before crawling
+matters more than the first draft credited.
+
+## 10. Verification checklist
+
+- [ ] T1: `kzk_decisions` loaded; the 429 malformed rows rejected and **counted**, not loaded.
+- [ ] T1: restore point taken and referenced in the skill.
+- [ ] T2: `count(outcome)` 2,098 → ~2,865; zero hand-seeded values changed.
+- [ ] T2: `kzk_match.test.ts` green on all five fixture classes.
+- [ ] T2: committed `kzk_appeals_summary.json` rebuilt; `/data/updates` stamped.
+- [ ] T3: a `спряно производство` row serves `suspension: true`; the same row with a stored
+      `false` does not — proving the fix discriminates.
+- [ ] T4: probe reports the `ot` parameter space and the oldest reachable act.
+- [ ] T4: `--backfill --dry-run` re-derives all 2,098 pre-existing outcomes, zero conflicts.
+- [ ] T4: `decision_act_no` populated on every tier-2 row the crawler writes.
+- [ ] T5: `npm run watch` reports `kzk_decisions` with a non-null `meta.newestAct`.
+- [ ] T6: gate A fails when an act is deleted from `kzk_decisions` in a rolled-back
+      transaction, and passes on a current table — prove it discriminates, don't just assert green.
+- [ ] T6: gate A fails (not skips) with the watch-state file absent.
+- [ ] Cloud SQL: `max(decision_date)` matches local; live `/api/db/kzk-appeals-summary`
+      `withOutcome` matches PG.
+- [ ] `upheld_ocids` row count rises, and a spot-checked recently-appealed contract's risk index
+      reflects the newly-known upheld appeal.
