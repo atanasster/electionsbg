@@ -376,9 +376,12 @@ So the ceiling-honest gate is: **verified privates are servable but NOINDEX, nev
   any served non-public person); the legacy name-keyed portfolio `PersonScreen` calls `useNoindex()`
   (a name match is never canonical). Verified on a live verified-private page: `robots="noindex, follow"`.
 - **Namesake "chooser":** with no owner-cluster data (the resolver punts on it by design), a true
-  chooser cannot be built — the honest disambiguation is the NAME-MATCH WARNING, which already
-  exists: `person_namesake_disclosure` on the portfolio page + the "по име / name match" badge on
-  every name-fold row in search (S2) and browse (S3b). No silent merge remains.
+  chooser cannot be built — the honest disambiguation is the NAME-MATCH WARNING, present at every
+  surface: the "по име / name match" badge on name-fold rows in search (S2) + browse (S3b), the
+  `person_namesake_disclosure` on the legacy portfolio, and — added in S5 — a caveat card on the
+  CANONICAL verified-private `/person/:slug` page itself (gated `p.isPublicFigure === false`), since
+  that page can be reached directly (a connections edge, a pasted link) with no entry-point badge.
+  No silent merge remains on any path.
 
 **Risk:** low — no SEO manifest change (the gate is exclusion-by-construction + runtime noindex).
 The person prerender manifest itself is still minted from the SERVING DB (`person:slugs:cloud`,

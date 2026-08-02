@@ -37,6 +37,7 @@ import {
   ExternalLink,
   FileWarning,
   HeartHandshake,
+  Info,
   Landmark,
   Scale,
   ShieldAlert,
@@ -70,7 +71,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   // name-only-identity body: it is deliberately NOT prerendered and carries no sitemap <loc> (the
   // manifest is is_public_figure-gated, holding the Firebase deploy ceiling), so mark it noindex
   // for the JS-executing crawler too. Public figures keep index,follow.
-  useNoindex(!p.isPublicFigure);
+  // `=== false`, not `!`: fail-OPEN. If a serving DB's 082 predates the isPublicFigure key the
+  // field is undefined, and `!undefined` would noindex EVERY person page — a silent SEO outage.
+  // Only an EXPLICIT false (a verified private) noindexes.
+  useNoindex(p.isPublicFigure === false);
 
   // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
   // §8 Connections surface. Loaded lazily; absent for most people.
@@ -272,6 +276,23 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
             </StatCard>
           ))}
         </div>
+      )}
+
+      {/* NAME-MATCH CAVEAT (S5). A verified private owner (is_public_figure=false) is identified by
+          NAME only — this canonical page can be reached directly (a connections edge, a pasted
+          link), so the caveat must live HERE too, not only on the legacy name-keyed portfolio.
+          Public figures (cross-source resolved identity) never show it. */}
+      {p.isPublicFigure === false && (
+        <Card className="border-amber-500/40 bg-amber-500/5">
+          <CardContent className="flex items-start gap-2 py-3 text-sm text-amber-800 dark:text-amber-300">
+            <Info className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>
+              {i18n.language === "bg"
+                ? "Самоличността е по съвпадение на име и не е потвърдена. Данните обединяват фирмите, регистрирани на това име, и може да обхващат повече от един човек."
+                : "Identity is a name match, not verified. The data aggregates the companies registered under this name and may span more than one person."}
+            </span>
+          </CardContent>
+        </Card>
       )}
 
       {/* Sanctions — a prominent, CITED badge (official government finding, not our claim) */}
