@@ -375,8 +375,11 @@ Last of the person-layer standalone loaders — the connections graph (migration
 `db:load:graph:pg`), the three `graph_*` tables (`graph_edge` / `graph_company_node` /
 `graph_person_node`) + the down-sampled `graph_payloads` blob behind `/connections` and the re-pointed
 `person_connections()` / `person_graph_ego()`. It APPLIES 127 (`company_public_money`, the broad
-contracts∪subsidies∪funds money basis) + 128 + 129 and TRUNCATE+rebuilds the tables from `person_role`
-(co-ownership) ∪ `company_politicians` (procurement), so run:
+contracts∪subsidies∪funds money basis) + 128 + 129 and rebuilds the tables from `person_role`
+(co-ownership) ∪ `company_politicians` (procurement) via a **stage merge** — all four are on a serving
+path (084's `person_connections()` / `person_graph_ego()`, and `/api/db/connections-graph` for the
+blob), so a `TRUNCATE`-and-rebuild would hold an AccessExclusiveLock for the whole load and 500 those
+routes at the pool's `lock_timeout` (`person_reload_locks.data.test.ts` is the gate). Run:
 
 ```bash
 npm run db:load:graph:pg:cloud

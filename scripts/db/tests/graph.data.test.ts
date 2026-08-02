@@ -281,3 +281,21 @@ test.skipIf(skip)(
     );
   },
 );
+
+// The loader builds into UNLOGGED stage twins and merges (scripts/db/lib/stage_merge.ts) rather than
+// TRUNCATEing tables /api/db/person-connections, person-graph-ego and connections-graph read — see
+// person_reload_locks.data.test.ts. The twins must not outlive the load: they are unlogged scratch,
+// and one left behind reaches pg_dump and db:sync:cloud.
+test.skipIf(skip)("no graph stage twin outlived the load", async () => {
+  const leftover = await count(
+    `SELECT count(*) n FROM pg_class
+      WHERE relkind = 'r'
+        AND relname IN ('graph_edge_stage','graph_company_node_stage',
+                        'graph_person_node_stage','graph_payloads_stage')`,
+  );
+  assert.equal(
+    leftover,
+    0,
+    "a graph stage twin outlived the load — it would reach pg_dump and db:sync:cloud",
+  );
+});

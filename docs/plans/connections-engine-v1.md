@@ -55,8 +55,11 @@ loader (and, later, anything else) reads:
 - **Gate/commit:** `p3 step 2: graph_* schema (nodes + edges)`.
 
 ### P3.3 — the loader (`load_graph_pg.ts`)
-- **New** `scripts/db/load_graph_pg.ts` (mirrors `load_persons_browse_pg.ts` shape): TRUNCATE +
-  rebuild the three tables in one tx.
+- **New** `scripts/db/load_graph_pg.ts` (mirrors `load_persons_browse_pg.ts` shape): rebuild the three
+  tables + the blob into UNLOGGED stage twins, then merge all four in one tx
+  (`scripts/db/lib/stage_merge.ts`). Shipped as TRUNCATE+rebuild-in-one-tx, which
+  `person_reload_locks.data.test.ts` correctly flagged: all four are served (084 + `/connections`), so
+  the AccessExclusiveLock TRUNCATE holds until COMMIT would 500 those routes for the whole load.
   - `graph_edge`: co-ownership edges from `person_role WHERE source IN ('tr','ngo')`
     (kind `tr_role`/`tr_owner` by role) **∪** procurement edges from `company_politicians` joined
     to the person layer (`ref` → `person_id` via `person_role` source mp/official, kind `procurement`).
