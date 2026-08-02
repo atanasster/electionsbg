@@ -31,6 +31,11 @@ const MONEY = path.join(
   "scripts/db/schema/pg/127_company_public_money.sql",
 );
 const GRAPH = path.join(ROOT, "scripts/db/schema/pg/128_graph.sql");
+const PAYLOADS = path.join(ROOT, "scripts/db/schema/pg/129_graph_payloads.sql");
+
+// The global /connections overview ships the TOP-N bridge companies by public money (see 129). N is
+// bounded so the blob stays small and drawable; ~1.8k bridge companies exist, we sample the richest.
+const GLOBAL_COMPANY_CAP = 150;
 
 // Companies with more linked people than this are mass-membership orgs (chambers, umbrella NGOs,
 // the state as "owner"), not real business ties — the same signal as 084's MAX_CO_OFFICERS. The
@@ -44,6 +49,7 @@ const main = async (): Promise<void> => {
   // EXISTS. Statement-by-statement (execEach) so no lock spans the file.
   await execEach(readFileSync(MONEY, "utf8"));
   await execEach(readFileSync(GRAPH, "utf8"));
+  await execEach(readFileSync(PAYLOADS, "utf8"));
 
   await withTx(async (c) => {
     await c.query("TRUNCATE graph_edge, graph_company_node, graph_person_node");
@@ -187,6 +193,99 @@ const main = async (): Promise<void> => {
   // Fresh tables have no stats; the ego/global serving queries pick bad plans otherwise.
   await exec("ANALYZE graph_edge, graph_company_node, graph_person_node");
 
+  // ── GLOBAL BLOB (129): the down-sampled PUBLIC-figure bridge graph for /connections' overview.
+  // Nodes = top-N bridge companies by public money (companies linking ≥2 public figures via a real,
+  // ≤6-officer tie) + every public figure on them + the edges between. The facet×facet matrix is a
+  // GLOBAL public aggregate — how many ≤6-officer companies bridge each facet pair across ALL public
+  // bridges (same-facet needs ≥2 people), deliberately BROADER than the drawn top-N node set (you can
+  // draw 150 companies but summarise 1,827). It is public-ONLY, same as the nodes (co_facet filters
+  // is_public_figure) — the one population it must never mix in is the private Tier-V owners. A plain
+  // SELECT over the just-built tables, so it inherits their money basis and mass-membership guard.
+  await withTx(async (c) => {
+    await c.query("TRUNCATE graph_payloads");
+    await c.query(
+      `INSERT INTO graph_payloads (scope, payload)
+     WITH bridge AS (
+       SELECT e.eik
+         FROM graph_edge e
+         JOIN graph_person_node  p  ON p.person_id = e.person_id AND p.is_public_figure
+         JOIN graph_company_node cn ON cn.eik = e.eik AND cn.officer_count <= 6
+        GROUP BY e.eik HAVING count(DISTINCT e.person_id) >= 2
+     ),
+     top_co AS (
+       SELECT cn.eik, cn.name, cn.public_money_eur AS money, cn.officer_count AS officers
+         FROM bridge b JOIN graph_company_node cn ON cn.eik = b.eik
+        ORDER BY cn.public_money_eur DESC, cn.eik
+        LIMIT ${GLOBAL_COMPANY_CAP}
+     ),
+     blob_edges AS (
+       SELECT DISTINCT e.person_id, e.eik, e.kind
+         FROM graph_edge e
+         JOIN top_co t ON t.eik = e.eik
+         JOIN graph_person_node p ON p.person_id = e.person_id AND p.is_public_figure
+     ),
+     blob_persons AS (
+       SELECT p.person_id, p.slug, p.name, p.facet, p.public_money_eur AS money, p.degree
+         FROM graph_person_node p
+        WHERE p.person_id IN (SELECT person_id FROM blob_edges)
+     ),
+     co_facet AS (  -- per ≤6-officer company, distinct PUBLIC people of each facet
+       -- is_public_figure is MANDATORY here — same as bridge/blob_edges. Without it the matrix pulls in
+       -- the private-only 'company' facet (the 53k Tier-V owners), which the node set excludes and
+       -- meta.audience='public' promises: the matrix would then count a population the drawn graph
+       -- never shows ("one window, count another"). The facet subset test pins this.
+       SELECT e.eik, p.facet, count(DISTINCT e.person_id) AS n
+         FROM graph_edge e
+         JOIN graph_person_node  p  ON p.person_id = e.person_id AND p.is_public_figure
+         JOIN graph_company_node cn ON cn.eik = e.eik AND cn.officer_count <= 6
+        WHERE p.facet IS NOT NULL
+        GROUP BY e.eik, p.facet
+     ),
+     matrix AS (  -- companies bridging facet a↔b (a<b: both present; a=b: ≥2 of that facet)
+       SELECT a.facet AS a, b.facet AS b, count(*) AS companies
+         FROM co_facet a
+         JOIN co_facet b ON b.eik = a.eik
+          AND (a.facet < b.facet OR (a.facet = b.facet AND a.n >= 2))
+        GROUP BY a.facet, b.facet
+     )
+     SELECT 'global', jsonb_build_object(
+       'meta', jsonb_build_object(
+          'audience', 'public',
+          'companyCap', ${GLOBAL_COMPANY_CAP},
+          'bridgeCompaniesTotal', (SELECT count(*) FROM bridge)),
+       'companies', coalesce((SELECT jsonb_agg(jsonb_build_object(
+          'eik', eik, 'name', name, 'money', round(money::numeric, 2), 'officers', officers)
+          ORDER BY money DESC, eik) FROM top_co), '[]'::jsonb),
+       'persons', coalesce((SELECT jsonb_agg(jsonb_build_object(
+          'id', person_id, 'slug', slug, 'name', name, 'facet', facet,
+          'money', round(money::numeric, 2), 'degree', degree)
+          ORDER BY money DESC, person_id) FROM blob_persons), '[]'::jsonb),
+       'edges', coalesce((SELECT jsonb_agg(jsonb_build_object(
+          'p', person_id, 'c', eik, 'kind', kind)
+          ORDER BY person_id, eik, kind) FROM blob_edges), '[]'::jsonb),
+       'matrix', coalesce((SELECT jsonb_agg(jsonb_build_object(
+          'a', a, 'b', b, 'companies', companies)
+          ORDER BY a, b) FROM matrix), '[]'::jsonb))`,
+    );
+
+    // Non-empty guard, INSIDE the tx so a degenerate build ROLLS BACK (the previous good blob survives)
+    // rather than shipping a blank /connections overview. Nothing runs this loader on Cloud SQL, so an
+    // empty blob from a half-built upstream (graph_person_node unpopulated, or is_public_figure all
+    // false after a bad persons-browse) would otherwise publish silently at exit 0. Mirrors the bridge
+    // preflight above.
+    const { rows: gr } = await c.query<{ companies: string; persons: string }>(
+      `SELECT jsonb_array_length(payload->'companies') AS companies,
+              jsonb_array_length(payload->'persons')   AS persons
+         FROM graph_payloads WHERE scope='global'`,
+    );
+    if (Number(gr[0].companies) === 0 || Number(gr[0].persons) === 0)
+      throw new Error(
+        `graph_payloads[global]: empty blob (${gr[0].companies} companies, ${gr[0].persons} ` +
+          `persons) — graph_person_node/is_public_figure may be unbuilt. ` +
+          `Refusing to ship a blank overview. Rolled back.`,
+      );
+  });
+
   const [s] = await allRows<{
     edges: string;
     owner: string;
@@ -204,10 +303,24 @@ const main = async (): Promise<void> => {
             (SELECT count(*) FROM graph_person_node)                              AS persons,
             (SELECT count(*) FROM graph_company_node WHERE officer_count > ${MASS_MEMBERSHIP_OFFICERS}) AS mass`,
   );
+  const [g] = await allRows<{
+    companies: string;
+    persons: string;
+    edges: string;
+  }>(
+    `SELECT jsonb_array_length(payload->'companies') AS companies,
+            jsonb_array_length(payload->'persons')   AS persons,
+            jsonb_array_length(payload->'edges')      AS edges
+       FROM graph_payloads WHERE scope='global'`,
+  );
   console.log(
     `graph: ${s.edges} edges (${s.owner} owner, ${s.tr} tr_role, ${s.procurement} procurement) · ` +
       `${s.companies} companies (${s.mass} mass-membership >${MASS_MEMBERSHIP_OFFICERS}) · ` +
       `${s.persons} persons`,
+  );
+  console.log(
+    `graph_payloads[global]: ${g.companies} bridge companies · ${g.persons} public figures · ` +
+      `${g.edges} edges`,
   );
 };
 
