@@ -199,10 +199,12 @@ includes the notice PDFs and the whole requirements tree on top.)*
 | 100 MB | 1,892 GB | 89% | 63% |
 | none | 2,981 GB | 100% | 100% |
 
-A `--max-bytes` cap is therefore the single most useful knob in the crawler, and the tail is
-construction project documentation (drawings/CAD/scans) — the worst text yield per byte in the
-corpus. **Caveat: n=44, and the top 1 file is 30% of the sampled bytes, so the tail estimate
-has wide error bars.** Re-measure on the first 2,000 tenders before committing storage.
+The tail is construction project documentation (drawings/CAD/scans) — the worst text yield per
+byte in the corpus. **Caveat: n=44, and the top 1 file is 30% of the sampled bytes, so the
+tail estimate has wide error bars.**
+
+**A per-tender cap does NOT solve the storage problem — see §12. Nothing is stored.** The cap
+survives only as a *bandwidth/time* knob.
 
 ### 2.4 Incremental cadence
 
@@ -212,29 +214,37 @@ the whole cost.
 ## 3. Scope — settled
 
 Ingest everything reachable: all 12 anonymous methods, all export ZIPs, all announcement
-documents, all buyer profiles. Store bytes, extract text where a toolchain exists, decide
-display later. Two constraints survive because they are not display choices:
+documents, all buyer profiles. Extract text, decide display later.
+
+**Revised 2026-08-03 (§12): "ingest everything" no longer means "store the bytes".** The
+local disk has 25 GB free against a 3.65 TB blob corpus, so documents are streamed —
+fetched, extracted, and discarded — and only text + metadata is retained. Coverage is
+unchanged; retention is not. Three constraints survive because they are not display choices:
 
 - **The raw store is gitignored and never uploaded**, like `raw_data/tr/cr_deeds.sqlite`.
 - **Do not re-host file bytes to end users.** Serving is a signed-URL redirect (§4).
-  Ingesting a 3.7 TB corpus for analysis is a different act from becoming its public mirror,
-  and only the first was decided.
+  Ingesting a corpus for analysis is a different act from becoming its public mirror, and
+  only the first was decided. (This is also why discarding the bytes costs nothing on the
+  serving side — the plan never intended to serve them.)
+- **Every document keeps full re-fetch coordinates** (`document_id`, `md5`, `size`,
+  `container`, `cloud_name`). Discarding bytes must never mean losing the ability to get
+  them back: a signed URL is mintable at any time, so any single document is one call away.
 
 ## 4. Architecture
 
-Two stores, because one does not fit both shapes:
+**One store. Documents are streamed, never stored** (§12):
 
 ```
-raw_data/procurement/eop_dossier.sqlite            JSON store (~5 GB gz): per-tender
-                                                   details/announcements/contracts/lots/
-                                                   exports + fetch state. Gitignored.
-raw_data/procurement/eop_blobs/<md5[0:2]>/<md5>    content-addressed blobs (0.4–3.7 TB
-                                                   depending on cap) + a `blob` table.
+raw_data/procurement/eop_dossier.sqlite   ~5 GB gz  per-tender details / announcements /
+                                                    contracts / lots / exports + fetch state
+   + extracted document TEXT               ~3 GB gz  (§12.2 — measured per-document)
+                                                    Gitignored, never uploaded.
         │
-        ├─ ingest_eop_dossier.ts    JSON crawl   --probe --backfill --refresh-open --apply
-        ├─ ingest_eop_blobs.ts      blob crawl   --kinds exports,announcements --max-bytes
-        ├─ enumerate_eop_ids.ts     tenderId walk (§9.3) — completeness audit + gap-fill
-        └─ extract_eop_text.ts      offline text extraction (+ OCR queue)
+        ├─ ingest_eop_dossier.ts   JSON crawl   --probe --backfill --refresh-open --apply
+        ├─ enumerate_eop_ids.ts    tenderId walk (§9.3) — completeness audit + gap-fill
+        └─ ingest_eop_text.ts      STREAMING doc pass: sign → fetch → extract → store text
+                                    → DISCARD bytes. Peak disk = concurrency × one file.
+                                    --kinds exports,announcements --max-bytes --ocr
                 │
      normalize_eop_dossier.ts ─ parse_notice_bt.ts (2024+) │ parse_notice_legacy.ts (2020–23)
                 │
@@ -244,12 +254,20 @@ raw_data/procurement/eop_blobs/<md5[0:2]>/<md5>    content-addressed blobs (0.4�
   tender_contract_item · tender_buyer_profile · tender_document_text
 ```
 
+`tender_document` holds the manifest (`document_id`, `name`, `ext`, `mime`, `size_bytes`,
+`md5`, `container`, `cloud_name`) — enough to re-fetch any single file on demand and to
+answer "was a technical specification published?" without ever having held the bytes.
+
 Constraints, each a bug if forgotten:
 
 - **Never persist a signed URL** (`X-Amz-Expires=1800`). Store `(document_id, container,
   cloud_name)`, re-mint at serve time.
-- **Key blobs on content (MD5), not on tender.** Announcement documents sit in a different
-  container from the tender's attachments.
+- **Key document text on content (MD5), not on tender.** Announcement documents sit in a
+  different container from the tender's attachments, and the same bytes can appear under
+  two ids (§9.1). MD5 also lets a re-crawl skip re-extraction of unchanged files.
+- **The streaming pass must be crash-safe per document, not per tender.** A 3.65 TB crawl
+  will be interrupted; resume granularity is one document, and a partially-written text row
+  must never be committed as complete.
 - **ZIP entries do not carry the live `documentId`.** The export bundles the same *bytes*
   under *different* ids (verified: sizes matched exactly, ids did not). **Map ZIP entries to
   the manifest by MD5/size, never by the id embedded in the filename.**
@@ -284,8 +302,9 @@ retries, `--probe` first.
 **T3 — tenderId enumeration** (`enumerate_eop_ids.ts`, §9.3) — completeness audit and gap-fill;
 also the permanent answer to "are we complete?"
 
-**T4 — blob store + crawler**, content-addressed, resumable, `--max-bytes` capped, `--kinds`
-gated so the 100 MB+ construction tail can be deferred without a code change.
+**T4 — the streaming document pass** (`ingest_eop_text.ts`): sign → fetch → extract → store
+text → discard. Resumable per document, `--kinds` gated, `--max-bytes` as a *bandwidth* knob
+(§12.3), hard skip above a ceiling so one 313 MB archive cannot blow the temp dir.
 
 **T5 — the two notice parsers** + a measured BT-coverage gate so the eForms/legacy split cannot
 silently regress.
@@ -483,3 +502,88 @@ loaders now re-derive after the resolver.
 **Still worth doing (not done):** a guard in `ingest_tenders` that fails loudly on a
 contiguous missing-day run rather than silently rebuilding from a holed cache. That absence
 is why this went unnoticed for ~2.5 years, and why the *next* hole would too.
+
+## 12. ⚠️ Storage constraint — the blob tier does not exist (2026-08-03)
+
+### 12.1 The measurement
+
+`/System/Volumes/Data`: **460 GB, 94% full, 25 GB free.** `raw_data/` is already 28 GB.
+The plan's blob corpus is **3.65 TB** (2,981 GB export ZIPs + 668 GB announcement documents).
+
+**Capping does not rescue it.** Announcement documents alone, per-file cap:
+
+| skip files > | files kept | bytes kept | corpus |
+|---|---|---|---|
+| 1 MB | 72% | 12% | **81 GB** |
+| 2 MB | 82% | 21% | 139 GB |
+| 5 MB | 90% | 37% | 248 GB |
+| 10 MB | 96% | 63% | 419 GB |
+
+The gentlest useful cap is still 3× the free disk, for one of the two document tiers. There
+is no cap that both fits and retains a usable corpus. **The byte-retention design is dead,
+not shrinkable.**
+
+### 12.2 What replaces it — stream, extract, discard
+
+Documents are fetched, text-extracted, and deleted. Only text + manifest metadata persists.
+
+Measured per document (`pdftotext` / `textutil`, gzipped):
+
+| Tier | Docs | Mean text.gz | Corpus |
+|---|---|---|---|
+| Tender documentation | ~521,000 | 5.1 KB | **2.5 GB** |
+| Announcement documents | ~407,000 | 1.4 KB | **0.55 GB** |
+| **Total extracted text** | ~928,000 | | **≈3.1 GB** |
+
+Plus the ~5 GB of gzipped details JSON = **≈8 GB**, which fits in 25 GB with room to work.
+
+⚠️ **An earlier revision of this section said ~24 GB. That was wrong** — it extrapolated a
+text/source *byte ratio* (0.67%) measured on small text-bearing files across a corpus whose
+bytes are dominated by CAD, scans and archives that yield almost no text. The per-document
+figures above are the defensible method; the ratio method over-counts by ~8×.
+
+Peak disk during the crawl is `concurrency × largest in-flight file`, not the corpus — a few
+GB with a hard skip ceiling.
+
+### 12.3 What this costs, honestly
+
+- **Bandwidth is now the binding constraint, and it did not shrink.** All 3.65 TB still has
+  to cross the wire to be extracted; only retention changed. At a sustained 100 Mbit that is
+  **~3.4 days** of continuous transfer, ~17 h at 500 Mbit. `--max-bytes` survives purely as
+  a knob on *this* — skipping the 100 MB+ construction tail cuts days off the crawl for
+  almost no text.
+- **Re-extraction means re-crawling.** With no bytes on disk, any later improvement to the
+  extractor (a better PDF backend, OCR, table parsing) costs another full pass. This is the
+  real price of the design, and it is why §12.4 matters.
+- **Per-document re-fetch stays cheap.** The manifest keeps `(document_id, container,
+  cloud_name, md5)`, so any *individual* file is one `GetSignedUrlByDocumentId` away. It is
+  only the *bulk* re-read that is expensive.
+
+### 12.4 The OCR decision — now forced, and it was optional before
+
+**~50% of протоколи are scans with no text layer** (§10.3, n=8). While bytes were being kept,
+OCR could be deferred and run later off local files. It cannot be now: a scanned document
+that is streamed, yields no text, and is discarded is **permanently absent until a re-crawl**.
+
+Three options, in preference order:
+
+1. **OCR inline during the streaming pass.** One crawl, complete corpus. Costs CPU/time on
+   ~200k scanned PDFs (unmeasured — §6) and slows the pass, but never needs repeating.
+2. **Retain scan bytes only, to GCS** (not local disk) and OCR later. The scanned subset is
+   the *large* half, so expect a few hundred GB at ~$4–20/TB/month depending on storage
+   class, plus egress to read it back.
+3. **Skip OCR, accept the loss.** Text-bearing протоколи (~50%) are still captured; the
+   scanned half yields a manifest row and no content, and the `/tenders/:unp` page links out
+   to the register for those. Cheapest, and reversible only by re-crawling.
+
+**Recommendation: (1) for announcement documents** — they are the accountability payload and
+the only public route to bid evaluation (§1.1) — **and (3) for tender documentation**, where
+the text-layer rate is 15/15 and OCR would be near-pure waste.
+
+### 12.5 Decision needed
+
+- **OCR strategy** (§12.4) — this is the one that cannot be deferred, because the streaming
+  design makes it irreversible.
+- **Whether to keep any bytes at all, on GCS.** Default is no.
+- **`--max-bytes` for the first pass** — a bandwidth/time choice, not a storage one, and
+  freely revisable later since it only changes which files get re-fetched.
