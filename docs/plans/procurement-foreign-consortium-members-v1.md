@@ -1,14 +1,16 @@
-# Foreign consortium members are dropped from the contracts corpus — v1
+# Supplier-identity defects in the contracts corpus — v1
 
 **Status:** plan only, nothing implemented.
 **Found:** 2026-08-03, while tracing the НПВУ 4th-payment projects (Alstom trains).
+**Revised:** 2026-08-03, after measuring against the real `canonicalEik` semantics. The first draft
+of this plan got two things wrong; §2 records what and why, because both mistakes are the kind that
+recur.
 
-## 1. The defect
+## 1. What started it
 
-A joint award (обединение / ДЗЗД / консорциум) is published by ЦАИС ЕОП as ONE record whose
-supplier fields are semicolon-joined lists. On the biggest RRF rolling-stock contract
-(УНП `00042-2024-0005`, МТС, €451.5m, `raw_data/procurement/eop/2025-05-02.json.gz`,
-noticeId 686114) the source says:
+A joint award is published by ЦАИС ЕОП as ONE record whose supplier fields are semicolon-joined
+lists. On the biggest RRF rolling-stock contract (УНП `00042-2024-0005`, МТС, €451.5m,
+`raw_data/procurement/eop/2025-05-02.json.gz`, noticeId 686114) the source says:
 
 ```
 supplierRegisterNumber = 181339162; RO6640696; IT02791070044; 207661045
@@ -16,161 +18,161 @@ supplierName           = КОНСОРЦИУМ БУЛЕМУ; ALSTOM TRANSPORT SA;
 supplierNutsCode       = BG411; RO321; ITC16; BG411
 ```
 
-Our corpus holds **two** of those four. Both Alstom entities — the actual manufacturers — are
-gone. Searching the corpus for "Alstom" returns nothing on the contract that bought Alstom
-trains.
+Our corpus holds two of the four. Both Alstom entities — the manufacturers — are gone, so searching
+the corpus for "Alstom" returns nothing on the contract that bought Alstom trains.
 
-Two independent code sites cause it:
+Pulling that thread surfaced three distinct defects with different severities. The
+foreign-member drop turned out to be the least urgent of them.
 
-| Path | Site | Behaviour |
-|---|---|---|
-| ЦАИС ЕОП flat договори | [normalize_eop.ts:381](../../scripts/procurement/normalize_eop.ts:381) | Non-BG member of a **mixed** consortium is dropped. Foreign suppliers survive only when a contract has **no** BG supplier at all (`recoverForeign = bgCount === 0`). |
-| АОП OCDS export | [normalize.ts:196](../../scripts/procurement/normalize.ts:196) | `contractorFields()` returns `null` for any id failing `isValidEik`. **No foreign path at all** — strictly worse than the flat feed. |
+## 2. Two corrections to the first draft
 
-The flat-feed behaviour is deliberate and documented ("historical behaviour: dropped"); the OCDS
-path simply never got the foreign-vendor recovery that `resolveSupplierEik` added to the flat one.
+**(a) Foreign numeric ids are not dropped — they are minted into Bulgarian EIK space.**
+[canonicalEik](../../scripts/procurement/eik.ts) pads any 5–8 digit numeric id to nine digits
+("some sources publish 9-digit EIKs with a leading zero stripped") and passes 10–12 digit ids
+through unchanged. A foreign registry number therefore becomes a syntactically valid BG EIK:
+
+| Source id       | Country                    | Becomes     | Serves as                      |
+| --------------- | -------------------------- | ----------- | ------------------------------ |
+| `50919679`      | NL (ХИЛ Интернешънал Н.В.) | `050919679` | a BG EIK carrying €11.7m       |
+| `13092995`      | RO (ХАБАУ С.Р.Л.)          | `013092995` | a BG EIK                       |
+| `0018683136487` | HR                         | `001868313` | 13-digit branch rule slices it |
+| `1027809198339` | RU (OGRN)                  | `102780919` | same                           |
+| `0000340505`    | PL (Kapsch)                | unchanged   | a 10-digit "BG EIK"            |
+
+**336 rows / 176 distinct fabricated EIKs.** Only ids containing letters or punctuation
+(`RO6640696`, `IT02791070044`, `FN278233T`) actually fail `isValidEik` and get dropped — that is
+the Alstom class, **311 rows / 199 distinct**. The first draft measured "foreign" with a
+plain 9-or-13-digit test and so counted the padded ones as dropped. Anything reasoning about this
+corpus must run ids through the real `canonicalEik`, not a lookalike.
+
+**(b) `supplierNutsCode` cannot be used as the discriminator.** The obvious fix for (a) is "trust
+the country code the feed already gives us". It does not survive contact with the data:
+
+- 16,088 records carry **no** `supplierNutsCode` at all.
+- The list is misaligned often enough to be dangerous. `111551276` / `827139847` / `831076655` all
+  carry a `BE` nuts code and are all **real Bulgarian companies** (СТРОЙКО - 2002 ЕООД, ППК Труд,
+  ЖИВАС ООД — confirmed present in `tr_companies`). Namespacing on the nuts code would have
+  re-keyed three genuine BG firms as Belgian.
+
+So defect (a) has **no reliable signal available offline** and is deferred (§5, T4) rather than
+guessed at. That is a deliberate non-fix, not an oversight.
+
+## 3. The three defects, by severity
+
+### D-1 — ЕГН published as contractor identity (LIVE, personal data)
+
+`contracts.contractor_eik` holds **98 distinct values that pass a full ЕГН validation** (YYMMDD with
+the +20/+40 month conventions, plus the mod-11 weighted checksum), each attached to a natural
+person's full name and a paid contract amount: 148 rows, €2.4m. Examples:
+`6207316703` / Венцеслав Георгиев Делов (`00258-2022-0003`), `7102238334` / Антоанета Николаева
+Генева, `8408115788` / Димитър Петков Русев.
+
+They arrive because a 10-digit id passes `canonicalEik` untouched and `isValidEik` accepts
+9–13 digits — no code anywhere asks whether an id is a _personal_ number.
+
+**The checksum test is safe to act on: zero of the 98 matches a company in `tr_companies`**, so
+there are no false positives to weigh. This is served data — the contracts DbDataTable and the
+company API expose it, and it mirrors to Cloud SQL through the ordinary loaders.
+
+Alongside them, placeholder ids **pool unrelated people into one identity**: `1234567899` is shared
+by 20 different natural persons in `02023-2023-0012`, plus `1111111111`, `1111111122`,
+`0000000000`.
+
+### D-2 — foreign consortium members dropped (the Alstom class)
+
+| Path                   | Site                                                                   | Behaviour                                                                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ЦАИС ЕОП flat договори | [normalize_eop.ts:381](../../scripts/procurement/normalize_eop.ts:381) | Non-BG member of a **mixed** consortium dropped; foreign suppliers survive only when a contract has **no** BG supplier (`recoverForeign = bgCount === 0`). |
+| АОП OCDS export        | [normalize.ts:196](../../scripts/procurement/normalize.ts:196)         | `contractorFields()` returns `null` for any id failing `isValidEik`. **No foreign path at all.**                                                           |
 
 **They must be fixed together.** `contentKeys()` in
 [content_key.ts](../../scripts/procurement/content_key.ts) embeds `contractorEik` and the rounded
 `amountEur`. If one path emits 4 rows at value/4 and the other 2 rows at value/2, no content key
-collides, cross-source dedup stops matching, and the same logical contract survives from both
-feeds — a double count. Fixing one path alone is worse than fixing neither.
+collides, cross-source dedup stops matching, and the same contract survives from both feeds as a
+double count. Fixing one path alone is worse than fixing neither.
 
-## 2. Measured blast radius
+### D-3 — foreign numeric ids occupying BG EIK space
 
-Full scan of all 2,405 ЦАИС bundles (script in §6):
+§2(a). Deferred for want of a signal.
 
-- 4,647 multi-supplier awards in the corpus.
-- **211** have at least one genuinely foreign member currently dropped, after excluding
-  anonymised natural persons (`не се публикува` and friends, which are already handled as
-  identity-less by `UNPUBLISHED_SUPPLIER`).
+## 4. Blast radius of D-2
 
-What happens to each depends on whether `rebuild_consortium()`
-([087_procurement_consortium.sql](../../scripts/db/schema/pg/087_procurement_consortium.sql))
-finds a named carrier, because that post-pass moves the full value onto one carrier row and zeroes
-the members regardless of how many members there are:
+Full scan of all 2,405 ЦАИС bundles. What happens to a mixed award depends on whether
+`rebuild_consortium()`
+([087_procurement_consortium.sql](../../scripts/db/schema/pg/087_procurement_consortium.sql)) finds
+a named carrier, because that post-pass moves the full value onto one carrier row and zeroes the
+members regardless of member count:
 
-| Bucket | Awards | Contract value | Effect of the fix |
-|---|---|---|---|
-| **SAFE** — a named ДЗЗД / Консорциум / Обединение member exists (`is_consortium_name`) | 90 | €1,320m | Value stays on that carrier. The fix only ADDS zero-value participation rows. **Corpus totals unchanged.** Includes the €451.5m Alstom contract. |
-| **ATTRIBUTION MOVES** — no named carrier | 47 | €493m | `rebuild_consortium()` mints a synthetic `obed-<md5>` entity holding the full value and zeroes the BG members that carry the money **today**. |
+| Bucket                                                          | Awards | Contract value | Effect                                                                                                                                           |
+| --------------------------------------------------------------- | ------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **SAFE** — a named ДЗЗД / Консорциум / Обединение member exists | 90     | €1,320m        | Value stays on that carrier; the fix only ADDS zero-value participation rows. **Corpus totals unchanged.** Includes the €451.5m Alstom contract. |
+| **ATTRIBUTION MOVES** — no named carrier                        | 47     | €493m          | `rebuild_consortium()` mints a synthetic `obed-<md5>` entity holding the full value and zeroes the BG members that carry the money today.        |
 
-The second bucket is the whole risk. Largest cases:
-
-| УНП | Value | BG firms credited today | Foreign member added |
-|---|---|---|---|
-| `01351-2024-0020` (Булгартрансгаз) | €180.6m + €67.4m | 5 | ХИЛ Интернешънал Н.В. |
-| `01351-2024-0020` | €51.1m | 2 | ХАБАУ С.Р.Л. (RO), ДИВИКОМ ИНК. (US) |
-| `00004-2024-0025` (ВиК) | €41.6m | 1 | ОРИОН КЪНСТРАКШЪН с.р.о. |
-| `00203-2025-0026` | €19.9m + €11.8m | 2 | Хайгър Бус Кампъни |
-| `00233-2024-0091` (НКЖИ) | €13.3m | 1 | Hitachi Rail GTS Austria |
-| `00044-2023-0030` (АПИ) | €17.9m | 2 | two HU entities |
-
-Moving that money is *more correct* — we genuinely do not know each member's share, which is
-exactly the reasoning in 087's header comment — but it silently rewrites 47 companies'
-public-money totals and cascades into `/company/:eik`, `contractor_rank` (122),
-`company_public_money` (127), the connections graph, `person_search`, and every person-linked
-money figure. That has to be a decision, not a side effect.
-
-## 3. Three guards the classifier does not have yet
-
-All three are present in the real data and would ship bad keys the moment foreign members are kept.
-
-**G1 — personal identity numbers.** `00258-2022-0003` lists
-`Венцеслав Георгиев Делов [6207316703]` — a 10-digit personal number in the supplier-id field, not
-a company id. Keeping it writes an ЕГН into a served table and into a public URL
-`/company/6207316703`. This is the one guard that is not merely a data-quality issue.
-`resolveSupplierEik` currently has no notion of a personal id: a 10-digit token fails the 9/13
-length test, falls through to the "genuine foreign vendor" branch, and becomes a contractor key.
-
-**G2 — junk ids.** `Лантания АД [0000]` and `сдружение "ВОДОПРОВОДНА МРЕЖА…" [0]` normalize to
-keys `0000` and `0`, pooling unrelated firms into one phantom entity. Needs a minimum-entropy
-rule (reject all-zero / <4 significant characters).
-
-**G3 — foreign 9-digit ids masquerading as BG EIKs.** Already live and already wrong:
-Шкода Вагонка а.с. is keyed `025870637` and Шкода Транспортейшън а.с. `062623753` — Czech
-registry numbers that pass `isValidEik` (9 digits) and are now indistinguishable from Bulgarian
-EIKs. Neither is in `tr_companies`. A Bulgarian company on a colliding EIK would merge with
-Škoda. `supplierNutsCode` (`BG411; RO321; ITC16; BG411`) is the discriminator the feed already
-gives us and the normalizer ignores.
-
-G3 has a cost the other two don't: re-keying Škoda and Stadler changes `contractor_eik` values
-that are live in URLs, so it needs either a retirement map or a conscious decision to break them.
-
-## 4. Decisions needed before coding
-
-- **D1 — the 47 attribution-moving awards.** Accept the move to synthetic `obed-` entities in
-  v1 (correct, but rewrites €493m of company-level attribution), or restrict v1 to the SAFE
-  bucket and handle no-named-carrier groups separately? *Recommendation: accept it.* Splitting
-  the fix leaves the corpus in two different attribution regimes depending on whether a
-  consortium bothered to register a name, which is harder to explain than either end state.
-- **D2 — country namespacing (G3).** Namespace all foreign keys as `<CC>-<id>` from
-  `supplierNutsCode`, re-keying the existing Škoda/Stadler/Leonardo rows? Or namespace only
-  newly-kept members and leave the live keys alone? *Recommendation: namespace everything*, since
-  leaving them creates a permanent silent-collision class, and these pages have negligible
-  inbound traffic compared with the risk.
-- **D3 — do foreign members get a `/company/:eik` page?** They have no TR record, no ГФО, no
-  founding date. Checked: [011_company_api.sql:60](../../scripts/db/schema/pg/011_company_api.sql:60)
-  already sums `consortium_full_eur` for `consortium_role = 'member'` into `consortium_eur`, so
-  participation-only companies are an existing, handled shape. Leaning: yes, no new UI work,
-  but confirm the page reads sensibly with every enrichment table empty.
+Largest movers: `01351-2024-0020` (Булгартрансгаз, €180.6m + €67.4m, 5 BG firms), `00004-2024-0025`
+(€41.6m, 1 BG firm), `00203-2025-0026` (€31.7m), `00233-2024-0091` (НКЖИ, €13.3m).
 
 ## 5. Tiers
 
-**T1 — classifier, pure function, no corpus change.**
-Extend `resolveSupplierEik` to return a `kind: 'bg' | 'foreign' | 'person' | 'anonymous' | 'junk'`
-alongside `{eik, foreign}`, add the G1/G2/G3 rules, and thread `supplierNutsCode` in for the
-country prefix. Unit tests in
-[normalize_eop.test.ts](../../scripts/procurement/normalize_eop.test.ts) seeded from the real
-records above: Alstom `RO6640696` / `IT02791070044`, Hitachi `FN278233T`, Higer
-`91320594714112290N`, HABAU `13092995`, the ЕГН row, both `[0]` rows, and Škoda `025870637`
-(which must now classify as foreign despite passing `isValidEik`). This tier is fully testable
-with no reload.
+**T0 — D-1: encode personal ids, never ship an ЕГН.**
+A natural-person supplier keeps a stable identity, but the key is derived from the
+**already-public contractor name**, not from the ЕГН: `np-<md5(normalised name):12>`, the same shape
+as the existing `obed-<md5:12>` synthetic carriers.
 
-**T2 — wire both normalizers.**
-`normalize_eop.ts`: delete the `recoverForeign` gate; keep every non-person, non-junk supplier and
-split across the surviving keys. `normalize.ts`: give `contractorFields()` the same resolver.
-Extend the ingest stats to `rowsForeignKept` / `rowsDroppedPersonalId` / `rowsDroppedJunkId` so the
-log line at [ingest.ts:374](../../scripts/procurement/ingest.ts:374) shows what the classifier
-actually did rather than one undifferentiated drop count.
+Why name-derived rather than a hash of the ЕГН: an unsalted hash of a 10-digit number is
+brute-forceable over a 10¹⁰ space in milliseconds, so it would still _be_ the ЕГН; and a genuinely
+secret salt would make keys irreproducible across machines, breaking the determinism the content
+keys and data gates depend on. The name is already published in `contractor_name`, so a
+name-derived key leaks nothing new. Same-name collisions are acceptable and strictly better than
+today, where `1234567899` pools 20 people.
 
-**T3 — re-ingest and verify attribution.**
-`rebuild_consortium()` should need **no change** for the SAFE bucket — the equal-split signature
-(`count(DISTINCT round(amount_eur::numeric,2)) = 1`) still holds at value/4, and the named carrier
-still absorbs the total. Verify that on a real local reload rather than assuming it. Whatever D1
-decides applies here. Then, in order: `load_pg` (calls `rebuild_consortium()` after the MERGE) →
-the six scoped matviews via `db:load:procurement-scopes:pg` → `contractor_search` →
-`contractor_rank` → 127 `company_public_money` → `db:load:graph:pg` → `db:load:person-search:pg`.
+Covers both ЕГН-shaped ids and the placeholder ids, which are equally not identities.
+Ships alone, independent of D-2 — and should, since it is the only tier fixing a live exposure.
+Needs a corpus scrub for existing rows plus a standing gate.
 
-**T4 — gates.**
+**T1 — D-2: keep letter-bearing foreign members, both paths.**
+`normalize_eop.ts`: drop the `recoverForeign` gate. `normalize.ts`: give `contractorFields()` the
+same resolver. Extend the ingest stats so the log distinguishes foreign-kept from
+personal-id-encoded from junk, rather than one undifferentiated drop count
+([ingest.ts:374](../../scripts/procurement/ingest.ts:374)).
+
+**T2 — re-ingest and verify attribution.**
+`rebuild_consortium()` should need no change for the SAFE bucket — the equal-split signature
+(`count(DISTINCT round(amount_eur::numeric,2)) = 1`) still holds at value/4 and the named carrier
+still absorbs the total. Verify on a real local reload rather than assuming. Then in order:
+`load_pg` → `db:load:procurement-scopes:pg` → `contractor_search` → `contractor_rank` →
+127 `company_public_money` → `db:load:graph:pg` → `db:load:person-search:pg`.
+
+**T3 — gates.**
+
 - [invariants_pg.data.test.ts:141](../../scripts/db/tests/invariants_pg.data.test.ts:141) already
-  asserts exactly one carrier per group, all members at €0, and carrier `amount_eur ==
-  consortium_full_eur`. It must stay green untouched — that is the primary safety net.
-- New `.data.test.ts`: `00042-2024-0005` carries 4 member EIKs including both Alstom entities,
-  the carrier holds €451.5m, every member row is €0.
-- New standing privacy gate: **no** `contracts.contractor_eik` matches the ЕГН shape. This one is
-  worth having regardless of the rest of the plan.
-- Corpus-total parity: `SUM(amount_eur)` over the SAFE bucket must be byte-identical before and
-  after. For the 47 moving awards, assert the *group* total is preserved even though the per-firm
-  split changes.
+  asserts one carrier per group, members at €0, carrier `amount_eur == consortium_full_eur`. Must
+  stay green untouched.
+- Standing privacy gate: no `contracts.contractor_eik` passes ЕГН validation. Worth having
+  regardless of everything else here.
+- `00042-2024-0005` carries 4 members including both Alstom entities, carrier at €451.5m, members
+  at €0.
+- Corpus-total parity across the SAFE bucket.
 
-**T5 — cloud.**
-A full contracts reload is ~68 min and CPU-bound on `db-g1-small`
-([reference](../../CLAUDE.md)). Sequence it as in T3; nothing in this chain runs itself on the
-cloud side.
+**T4 — D-3, deferred.** Needs a signal we do not have offline. Options worth costing later: a TR
+existence check (`tr_companies`) to distinguish a padded foreign id from a real zero-stripped BG
+EIK; or using the nuts code _only_ where the lists align and length agrees. Not attempted in v1.
 
-## 6. Reproducing the measurement
+**T5 — cloud.** A full contracts reload is ~68 min and CPU-bound on `db-g1-small`. Sequence as in
+T2. Nothing in this chain runs itself on the cloud side. **T0 needs to reach production
+separately and sooner than the rest** — it is the tier that stops shipping personal data.
 
-The numbers in §2 come from a full scan of `raw_data/procurement/eop/*.json.gz` classifying each
-multi-supplier award's ids into BG-recoverable / foreign / anonymised and bucketing by whether any
-supplier name matches `is_consortium_name`'s regex. It runs in about 30 s over the 58 MB of
-bundles. Worth committing as a one-off under `scripts/procurement/` behind a flag when T1 lands,
-so the before/after counts are checkable rather than quoted from this document.
+## 6. Reproducing the measurements
+
+Every number above comes from scanning `raw_data/procurement/eop/*.json.gz` (58 MB, ~30 s) while
+replicating `canonicalEik`/`isValidEik` exactly, plus queries against local Postgres for the served
+state. Commit the scanner as a one-off under `scripts/procurement/` when T0 lands, importing the
+real `eik.ts` helpers rather than reimplementing them — the first draft's error came from a
+lookalike implementation, and a committed scanner that imports the real thing cannot drift.
 
 ## 7. Explicit non-goals
 
 - **No per-member share derivation.** The source does not publish who collected what; the carrier
   collapse is the honest answer and 087 already implements it.
-- **No special case for this contract.** The fix is the classifier and the two call sites.
-- **No re-crawl.** Everything needed is already in the raw cache — this is a re-parse, which is
-  why the measurement above could be taken at all.
+- **No special case for the Alstom contract.** The fix is the resolver and its two call sites.
+- **No re-crawl.** Everything needed is in the raw cache — this is a re-parse.
+- **No nuts-code namespacing.** Proven unreliable in §2(b).
