@@ -34,7 +34,18 @@ const INDEPENDENT_PREFIX_RE = /^\s*инициативен\s+комитет/i;
 // Coalition prefix strings that should be stripped before splitting.
 // "Местна коалиция " / "Коалиция " / "МК " / "КП " / "ПП " label parts but
 // aren't part of the party identity.
-const COALITION_PREFIX_RE = /^(местна\s+коалиция|коалиция|мк|кп|пп)\s+/i;
+//
+// CIK writes the abbreviated forms inconsistently across cycles, and each
+// variant is a silent `primaryCanonicalId: null` at ingest time:
+//   - dotted   — "п.п. Партия на ЗЕЛЕНИТЕ" (2026_06_14_chmi) vs the plain
+//                "Партия на ЗЕЛЕНИТЕ" the same party carried in 2024, which
+//                resolved fine
+//   - unspaced — 'ПП"ДПС"', where a quote sits directly against the prefix
+// So each letter may carry a trailing dot, and the separator may be
+// whitespace OR a quote. The quote is matched by lookahead, not consumed —
+// `stripPrefixes` strips it in the next step.
+const COALITION_PREFIX_RE =
+  /^(местна\s+коалиция|коалиция|м\.?к\.?|к\.?п\.?|п\.?п\.?)(\s+|(?=[„“"]))/i;
 
 // Separators between member parties inside a coalition name. The Bulgarian
 // dash variants are common; we also split on `/` / `(` / `)` so wrapper

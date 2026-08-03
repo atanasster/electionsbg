@@ -93,6 +93,25 @@ const reapplyToMayorList = (
   return dirty;
 };
 
+// `elected` is a SEPARATE object from the matching `candidates` row, not a
+// reference into it, so re-resolving the list leaves the winner on its old
+// ids. Every consumer that shows a single winner — the chmi feed, the mayor
+// timeline, the winner tiles — reads `elected`, so missing one of these is
+// the shape where a canonical fix lands in the bundle and never reaches the
+// page.
+const reapplyToOptionalRow = (
+  row: LocalMayorResult | null | undefined,
+  byNickNameLower: Map<string, string>,
+  unmatched: Record<string, string[]>,
+): boolean => {
+  if (!row) return false;
+  const { changed, resolution } = reapplyToRow(row, byNickNameLower);
+  if (resolution.unmatchedFragments.length > 0) {
+    unmatched[row.localPartyName] = resolution.unmatchedFragments;
+  }
+  return changed;
+};
+
 const reapplyToBundle = (
   bundle: LocalMunicipalityBundle,
   byNickNameLower: Map<string, string>,
@@ -104,25 +123,22 @@ const reapplyToBundle = (
     dirty = true;
   if (reapplyToMayorList(bundle.mayor.round2, byNickNameLower, unmatched))
     dirty = true;
-  if (bundle.mayor.elected) {
-    const { changed, resolution } = reapplyToRow(
-      bundle.mayor.elected,
-      byNickNameLower,
-    );
-    if (changed) dirty = true;
-    if (resolution.unmatchedFragments.length > 0) {
-      unmatched[bundle.mayor.elected.localPartyName] =
-        resolution.unmatchedFragments;
-    }
-  }
-  // kmetstva
+  if (reapplyToOptionalRow(bundle.mayor.elected, byNickNameLower, unmatched))
+    dirty = true;
+  // kmetstva — round 1, the runoff table, and the resolved winner
   for (const k of bundle.kmetstva as LocalKmetstvoResult[]) {
     if (reapplyToMayorList(k.candidates, byNickNameLower, unmatched))
       dirty = true;
+    if (reapplyToMayorList(k.round2, byNickNameLower, unmatched)) dirty = true;
+    if (reapplyToOptionalRow(k.elected, byNickNameLower, unmatched))
+      dirty = true;
   }
-  // districts (Sofia/Plovdiv/Varna)
+  // districts (Sofia/Plovdiv/Varna) — same three
   for (const d of bundle.districts as LocalDistrictMayorResult[]) {
     if (reapplyToMayorList(d.candidates, byNickNameLower, unmatched))
+      dirty = true;
+    if (reapplyToMayorList(d.round2, byNickNameLower, unmatched)) dirty = true;
+    if (reapplyToOptionalRow(d.elected, byNickNameLower, unmatched))
       dirty = true;
   }
   // council parties
