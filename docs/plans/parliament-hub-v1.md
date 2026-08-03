@@ -485,6 +485,10 @@ catch — caught in speccing rather than in review this time. It stays a band-2 
 needs no destination of its own, and it returns as a tile if a `/parliament/dissents` page is
 ever built.
 
+(The pair tile is still worth having as a hub destination — but note the route is **not** orphaned
+without it: `ParliamentVotingTile` also renders on `/votes` and via `GovernanceCards`, so the
+links survive phase 1. See §10.3.)
+
 **Two of the remaining three have no STATIC destination** (§2.4), and writing
 `to: "/parliament/similarity/:mpId"` would pass the "absolute `to`" gate vacuously while linking
 nowhere. Both resolve from the blob:
@@ -616,8 +620,28 @@ Two hooks, mirroring `useProcurementHubStats` — `useParliamentHubStats()` and
 `useParliamentHubFeed()`. Both read the selected election's NS and return `undefined` for an
 uncovered one, which is what drives the honest empty state rather than a zeroed tile.
 
-The six existing mini-tiles keep their own fetches **on their own sub-pages**, where the full
-artifact is what the page is for. The hub simply stops using them.
+### 4.3 Six of the seven mini-tiles are hub-only — phase 1 DELETES them
+
+The draft said the existing mini-tiles "keep their own fetches on their own sub-pages, where the
+full artifact is what the page is for". **That is false.** Measured — consumers of each, excluding
+its own definition:
+
+| Component | Rendered by | After phase 1 |
+|---|---|---|
+| `ParliamentSessionsTile` | hub only | **dead** |
+| `ParliamentCohesionMiniTile` | hub only | **dead** |
+| `ParliamentMostPresentMiniTile` | hub only | **dead** |
+| `ParliamentMostAbsentMiniTile` | hub only | **dead** |
+| `ParliamentSimilarityMiniTile` | hub only | **dead** |
+| `ParliamentEmbeddingMiniTile` | hub only | **dead** |
+| `ParliamentVotingTile` | hub **+ `/votes` (`SessionsIndexScreen:165`) + `GovernanceCards` → `ParliamentSection:31`** | survives |
+
+So phase 1 does not "stop using" six components — it **orphans** them. They must be deleted in
+the same commit, together with any hook whose only remaining caller they were. Leaving them is how
+a codebase accumulates a second, unreachable rendering of the same numbers that later drifts from
+the live one.
+
+`ParliamentVotingTile` is the exception and stays exactly as it is on its two other screens.
 
 ### 4.2 Publishing — the step the draft omitted
 
@@ -675,13 +699,18 @@ comparable has already shipped.
 | — recess honesty | `inRecessDays > 10` ⇒ every feed item carries an explicit event date and no relative-time kicker (**not** an empty feed — see §3 band 0) | §3 band 0 |
 | **upload manifest** | every file `rebuildDerived` writes appears in its `--upload` branch | §4.2 — generic, covers the eight existing artifacts |
 | prerender | `/parliament` emits a body linking every sub-page; JSON-LD ladder includes `/parliament`; present in `scripts/sitemap/route_defs.ts` | `project_seo_discovery_gap` |
+| — **body carries facts** | the `/parliament` body states ≥3 figures, each with its basis in the same sentence; each `/votes/<date>` body names ≥1 item with its tally (§7.1) | new — 613 stubs today |
+| — **JSON-LD depth** | `/parliament` emits `Dataset` + `ItemList` + `FAQPage`, not just `WebPage` + `BreadcrumbList` (§7.2) | `/votes/<date>` already does |
+| **`llms.txt` truth** | every `KEY_URLS` entry in `scripts/llms/buildIndex.ts` resolves to a routed path, AND every prerendered `NAV_HUBS` entry appears in `KEY_URLS` (§7.3) | new — nothing gates it today, which is how `/parliament` came to be described as a page that does not exist |
+| **OG capture** | the `parliament` entry in `scripts/og/capture-screens.ts` selects on `[data-og="parliament-hub"]`, and the rebuilt screen carries that attribute (§7.4) | new — the current selector breaks on phase 1 |
+| — no dead mini-tiles | none of the six hub-only components in §4.3 remains in `src/` after phase 1 | new |
 
 The payload gate is the one worth stating plainly: **without it the hub silently regrows to
 1.65 MB the first time someone adds a tile that reads `cohesion.json` directly.**
 
 ---
 
-## 7. Prerender / SEO
+## 7. Prerender · SEO · AIO/GEO · OG
 
 `/parliament` already has a prerendered landing (it is in the safe `NAV_HUBS` list) with a body
 linking four sub-pages. The real gap is one level down, and it is larger than the draft thought.
@@ -716,6 +745,118 @@ So this phase is:
   stale between deploys, and Google should index the durable grid;
 - the D1 rename applied to the hardcoded prerender copy (§2.5).
 
+### 7.1 The bodies carry links but no FACTS — the AIO/GEO gap
+
+Everything above is about **crawl paths**. Answer engines need something else: extractable
+claims. Measured on the live prerender:
+
+```
+/votes/2026-07-30   <h1>Поименно гласуване · 30 юли 2026 г.</h1>
+                    <p>161 точки в дневния ред на това заседание.
+                       Кликнете върху точка, за да видите как е гласувал всеки депутат…</p>
+/parliament         <h1>Парламент — анализ на гласуванията</h1>
+                    …prose + a <ul> of four links.  ZERO numbers.
+```
+
+That is **613 near-identical stubs carrying one integer each**, plus a UI instruction
+("кликнете върху точка") that is worthless in an answer and actively bad as a quoted snippet. A
+model asked *"как гласува НС на 30 юли 2026"* can extract the date and the item count and nothing
+else — from a page that holds every MP's vote.
+
+**The fix is not more prose. It is putting the facts we already have into the body:**
+
+| Page | Add to the prerendered body |
+|---|---|
+| `/votes/<date>` | the 3–5 highest-`score` items **by name**, each with its tally and outcome (`„ЗИД на Изборния кодекс — второ гласуване: 137 за, 25 против, приет"`); the per-group split for the top item; prev/next session dates |
+| `/parliament` | the band-3 figures as sentences with their bases (§3.3), the NS and its covered span (§2.3), and the count of sessions/items — the page currently states no number at all |
+| `/parliament/cohesion` · `/attendance` | the headline figure and the extreme group/MP, named |
+
+All of it is already computed — `important_votes/<ns>.json` for the item names and tallies,
+`hub_stats.json` for the rest. This is a body-builder change, not new data.
+
+**Two rules, both from the editorial constraints already in the module plan (§7 there):**
+
+1. **Every stated figure carries its basis and its window in the same sentence.** An answer engine
+   quotes a sentence, not a page — a number that is only correct because of a caption three
+   paragraphs up will be quoted wrong. This is §3.3's declared-basis rule applied to prose.
+2. **Named MPs appear only in factual constructions** — *„X гласува против при 137 за"* — never in
+   an evaluative one. The `/votes` corpus is roll-call fact; the derived characterisations
+   (twins, dissenters, outliers) stay on pages that carry their methodology.
+
+### 7.2 JSON-LD — `/parliament` is the thinnest page in the module
+
+Measured on the live pages:
+
+| Page | Emits |
+|---|---|
+| `/votes/<date>` | `WebPage` · `BreadcrumbList` · **`Dataset`** · `DataDownload` · `Organization` · `Place` |
+| `/parliament` | `WebPage` · `BreadcrumbList` — **nothing else** |
+
+The hub — the page the whole module hangs off — describes itself less than any record page under
+it. Add, using builders that already exist in `scripts/prerender/jsonLd.ts`:
+
+- **`Dataset`** (`buildDatasetLd`), pointing `distribution` at the roll-call artifacts, with
+  `temporalCoverage` set from the NS span (§2.3). This is the single highest-value addition: it
+  is what makes the corpus citable rather than merely readable, and every `/votes/<date>` already
+  proves the shape works.
+- **`ItemList`** of the band-3/4 destinations, so the hub's structure is machine-readable rather
+  than inferred from a `<ul>`.
+- **`FAQPage`** (`buildFaqLd`, already used on candidate pages) for the three questions this
+  module actually answers: *колко гласувания има за N-то НС · кой е най-дисциплинираният състав ·
+  откъде идват данните*. FAQ entities are disproportionately quoted by answer engines.
+
+### 7.3 `llms.txt` is wrong about this module
+
+`llms.txt` and `llms-full.txt` both serve 200, and `robots.txt` explicitly allows **18** AI
+crawlers (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Google-Extended, CCBot, Applebot-
+Extended, Bytespider, cohere-ai …). **That infrastructure is good and needs no work.** What is on
+it is the problem:
+
+- **`/parliament` is described as *"MP roster, party seats, per-MP profiles"*** — a page that does
+  not exist. §2.6 established there IS no MP roster page. An assistant asked what is at
+  `/parliament` currently answers wrongly, from our own file.
+- **`/votes` is absent entirely.** 613 prerendered pages, the module's best-performing half
+  (§2.7), and the LLM-facing index does not mention the prefix at all. Nor
+  `/parliament/attendance`, nor `/parliament/similarity/{mpId}`.
+- `KEY_URLS` in `scripts/llms/buildIndex.ts` is a **hardcoded literal with no gate** — nothing
+  checks it against the router, the prerender route list or the sitemap, which is why both defects
+  above went unnoticed.
+
+Phase 3 rewrites the three parliament entries, adds `/votes` + `/votes/{date}` with the URL
+pattern spelled out (answer engines follow patterns), applies the D1 name, and adds the gate in §6.
+
+### 7.4 The OG image is stale, cropped, and about to break
+
+`public/og/parliament.png` was captured **13 May 2026** — it predates the current hub. Four
+problems, in ascending order of severity:
+
+1. **It is a crop taken mid-card.** Text truncates at the right edge (*„Виж де…"*,
+   *„парламентарн…"*), and cards are cut off at top and bottom. It reads as a screenshot fragment,
+   not a card.
+2. **It leads with six named MPs** under „Гласови близнаци" with **no headline saying what the
+   claim is**. MPs are public figures, so this clears rule 4 of the module plan's editorial
+   constraints — but an unlabelled crop asserting *voting twins* about named people, shared into a
+   feed stripped of the page's methodology, is the wrong first impression of the module.
+3. **Its comment is already stale** — `capture-screens.ts:262` says *"Hub has four tiles"*; it has
+   seven.
+4. **The capture BREAKS on phase 1.** The entry waits for `div[title*="↔"]` — a party-correlation
+   heatmap cell inside `ParliamentVotingTile`, which the rebuilt hub stops rendering. Playwright
+   waits 60 s and the capture fails.
+
+So the OG work is **phase 0, not a follow-up**:
+
+- add `data-og="parliament-hub"` to the rebuilt screen, as every other hub has
+  (`GovernanceScreen.tsx:67`, `ProcurementScreen.tsx:212`);
+- repoint the capture at it — `waitFor: '[data-og="parliament-hub"] a'`,
+  `anchor: '[data-og="parliament-hub"]'`, `leftAlign: true`, mirroring the procurement entry,
+  so the card leads with the **tile grid and its headline numbers** rather than a cropped card;
+- recapture: `npx tsx scripts/og/capture-screens.ts` against a running dev server;
+- **`/votes` keeps its own capture** (`votes/2026-05-07`, the hemicycle) — it is unaffected and
+  still the right image for that page.
+
+The `parliament-cohesion` and `parliament-embedding` captures anchor on `.recharts-surface` on
+their own screens and are unaffected by the hub rebuild.
+
 ---
 
 ## 8. Phases
@@ -742,9 +883,9 @@ it at all. Optimising a page nobody can find is the wrong thing to do first, how
 
 | Phase | Ships | Scope | Gate before merge |
 |---|---|---|---|
-| **0** | 1st | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + **11 bespoke scenes** (§3.5) + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5 + the **v1 session strip** (§3.1.1). No `hub_stats`, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here**, before anything is deleted. | registry test: scenes, unique ids, absolute `to`, **seeded-`to` has a `seed`**, accent uniqueness, reachability, cross-hub tile |
-| **3** | **2nd** | `/parliament` body links every sub-page; JSON-LD ladder through `/parliament`; prev/next + back-to-hub on all 613 `/votes/<date>` bodies. **Promoted — §2.7 shows the record pages earn the engagement and ~92% of them are unreached.** | prerender + sitemap gates |
-| **1** | 3rd | `hub_stats.ts` + `useParliamentHubStats` + stock·flow·change on band 3 + the §2.3 three-state coverage. **Drops all six mini-tile fetches from the hub** — 1.65 MB → ≤10 KB. | payload, declared-basis, law-derivation, coverage-honesty, upload-manifest gates; reachability re-run on THIS state (`/votes/between/:pair` loses its only link here — §2.4); measure before/after in the PR |
+| **0** | 1st | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + **11 bespoke scenes** (§3.5) + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5 + the **v1 session strip** (§3.1.1). No `hub_stats`, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here.** Adds `data-og="parliament-hub"`, repoints the OG capture at it and **recaptures** — the current selector targets a tile this phase removes (§7.4). | registry test: scenes, unique ids, absolute `to`, **seeded-`to` has a `seed`**, accent uniqueness, reachability, cross-hub tile, **OG-capture selector** |
+| **3** | **2nd** | Two halves. **Crawl paths:** `/parliament` body links every sub-page; JSON-LD ladder through `/parliament`; prev/next + back-to-hub on all 613 `/votes/<date>` bodies. **Answerability (§7.1–7.3):** facts into the bodies (named items + tallies), `Dataset` + `ItemList` + `FAQPage` on the hub, and the three wrong/missing `llms.txt` entries fixed. **Promoted — §2.7 shows the record pages earn the engagement and ~92% of them are unreached.** | prerender + sitemap gates, **body-carries-facts**, **JSON-LD depth**, **`llms.txt` truth** |
+| **1** | 3rd | `hub_stats.ts` + `useParliamentHubStats` + stock·flow·change on band 3 + the §2.3 three-state coverage. **Drops all six mini-tile fetches from the hub** — 1.65 MB → ≤10 KB. | payload, declared-basis, law-derivation, coverage-honesty, upload-manifest gates; reachability re-run on THIS state; **delete the six orphaned mini-tiles (§4.3)**; measure before/after in the PR |
 | **2** | 4th | Bands 0–2: wire, lead, `NewsRail` + `NewsCard` + `LeadCard` built generic; `hub_feed/<ns>.json` with sessions + bills (**A**), then dissents + absences (**B** slices). | recess-honesty gate; per-shard payload gate |
 
 Phase 0 still goes first — it is the registry every later phase sits on, and it removes the last
@@ -794,7 +935,7 @@ Kept for the next reader, so the corrections are not silently absorbed:
 | Lead = highest-scoring final-adoption item in `important_votes` | Unrunnable — 15-row shard, no stage field; **0 candidates for NS 48 and 51** |
 | „Приети закони: N окончателни · N отхвърлени" | **No such record exists.** 754 second-reading items in NS 52 are per-article; stem grouping gives 33 bills; pass/fail not derivable |
 | Band-3 figures (613 · 240 · 8 · 87% · 0.94) | **Six of six wrong**, each with an undeclared basis. Measured: 39 · 2 120/240 · 6 · 73.2% · 0.970 (0.934 is the min, not the mean) |
-| Phase 1 drops six mini-tiles | `ParliamentVotingTile` is the **only** link to `/votes/between/:pair` in the app — Phase 1 as drafted orphans it |
+| Phase 1 drops six mini-tiles | Six of the seven have **no consumer but the hub**, so phase 1 orphans them as dead code and must delete them (§4.3). *Superseded in part — see §10.3, the pair-route orphan claim was wrong* |
 | Band 4 `to: /parliament/similarity/:mpId` | Parameterised; passes the "absolute `to`" gate vacuously. Resolved from blob seeds instead |
 | One 40 KB `hub_stats.json` | Feed titles blow the budget; split into all-NS stats + per-NS feed shards |
 | Coverage is present/absent | **NS 44 is partial** (5 months of a 4-year term) and renders as if complete |
@@ -824,3 +965,15 @@ Two more, found while writing the tile inventory (§3.5) rather than in review:
 |---|---|
 | Разцепления is a band-4 tile | **No route exists.** `grep dissent src/routes.tsx` is empty — the only surface is `MpDissentsSection` on a candidate page. Cut to 3 tiles; it stays a band-2 card. This is the orphan-by-assumption the §6 reachability gate is for, caught one step earlier |
 | The session strip shows за/против/въздържал per day | **`index.json` carries no tallies** — `RollcallIndexEntry` is `{date, stenogramId, items, file, ns}`. Outcome lives only in the 290 MB of session files. v1 encodes **items per day**; stacked outcome waits for `hub_feed` (§3.1.1) |
+
+### 10.3 The SEO/AIO/OG audit, and one correction to §10
+
+| Position | Finding |
+|---|---|
+| §4: "the mini-tiles keep their fetches on their own sub-pages" | **False.** Six of seven render **only** on the hub; phase 1 orphans them (§4.3) |
+| §10: "`ParliamentVotingTile` is the ONLY link to `/votes/between/:pair`" | **I got this wrong.** The *component* is the only source of those links, but it renders on three screens — the hub, `/votes` (`SessionsIndexScreen:165`) and `GovernanceCards` → `ParliamentSection:31`. Two survive phase 1, so **the route is not orphaned**. The band-4 pair tile is still worth having; the urgency was not |
+| §7 covers SEO | It covered **crawl paths only**. The bodies carry no extractable facts — `/votes/<date>` is one integer plus a UI instruction, `/parliament` states no number at all (§7.1) |
+| (not stated) | `/parliament` emits only `WebPage` + `BreadcrumbList`; every record page under it emits `Dataset` too (§7.2) |
+| (not stated) | **`llms.txt` describes `/parliament` as "MP roster, party seats, per-MP profiles"** — a page that does not exist — and omits `/votes` entirely. `KEY_URLS` is hardcoded with no gate (§7.3) |
+| (not stated) | The OG image is a **13 May** crop, truncated mid-card, leading with six named MPs and no headline — and its capture selector targets a tile phase 1 deletes, so it breaks silently (§7.4) |
+| (not stated, and a strength) | `robots.txt` already allows **18** AI crawlers explicitly and both `llms.txt` and `llms-full.txt` serve 200. The AIO infrastructure is sound; only its **content** is wrong |
