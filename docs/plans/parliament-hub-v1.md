@@ -708,8 +708,12 @@ Stated so scope creep is visible:
   payload than this plan's 1.65 MB and it is paid by the readers who actually arrive. The split is
   ordering: the hub ships first because it needs no schema, and the migration replaces the
   generator's SOURCE without touching the hub's fetch (§8);
-- **no trailing-slash / canonical fix** (§2.8) — real, site-wide across ~248k URLs, found here
-  but far too large a blast radius to ride along with a hub rebuild. Needs its own work item.
+- ~~no trailing-slash / canonical fix (§2.8)~~ — **done, 2026-08-03, `0adc97b6dd`.** It was
+  correctly kept out of this plan's scope and taken as its own work item; `"trailingSlash": false`
+  shipped with a `tests/seo.spec.ts` gate asserting no declared canonical / `og:url` / `hreflang`
+  redirects. See §2.8's RESOLVED note for why option 2 beat option 1 (350 hand-written links and
+  294 router paths already used the no-slash form; Firebase's default was the only component
+  disagreeing).
 
 ---
 
@@ -1017,7 +1021,7 @@ The audit above was source-only. GA4 + GSC (§2.7, §2.8) then moved four more t
 | Присъствие + Единство in band 3, Карта in band 4 | **Присъствие is 2 views / 9s**; Карта is **21 / 1m 01s** from the LAST tile slot. Swapped (§3.4) |
 | „Законопроекти на второ четене" as its own band-3 tile at `to: "/votes"` | **Duplicate React key** — `TileHubGrid` uses `key={tile.to}` and Гласувания already owns `/votes`. Demoted to a flow number |
 | Phases ship 0 → 1 → 2 → 3 | **0 → 3 → 1 → 2.** ~92% of record pages unreached in 7 months by 33 users; the payload phase optimises a page nobody can find |
-| (not stated) | **Every URL on the site canonicalises to a redirect** (§2.8), ~248k pages. Not the cause of the impression gap (`/sofia` has the same shape and ranks) — but it splits every GA row in two, so §2.7's pairs must be summed |
+| (not stated) | **Every URL on the site canonicalises to a redirect** (§2.8), ~248k pages. Not the cause of the impression gap (`/sofia` has the same shape and ranks) — but it splits every GA row in two, so §2.7's pairs must be summed. **Fixed same day (`0adc97b6dd`); §2.7's pairs must be summed on the before side only** |
 
 ### 10.2 What speccing the UI changed
 
