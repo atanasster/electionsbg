@@ -17,7 +17,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { exec, getPool, withClient, end } from "./lib/pg";
+import { exec, getPool, withClient, end, isServingDatabase } from "./lib/pg";
 import { recordIngestBatch } from "./lib/ingest_changelog";
 import {
   createStageTable,
@@ -501,6 +501,32 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
     process.exit(1);
   }
   const payloadsOnly = process.argv.includes("--payloads-only");
+  // On Cloud SQL, refuse to GUESS the scope.
+  //
+  // A full load TRUNCATEs fund_beneficiaries and fund_projects inside one
+  // transaction — 273 s of AccessExclusiveLock measured on prod — and both are
+  // served, so every reader in that window gets a 55P03 and a 500. Defaulting
+  // to it is how an unnoticed flag becomes an outage: `npm run
+  // db:load:funds:pg:cloud -- --payloads-only` used to nest a second `npm run`,
+  // which swallows `--` args, so the flag vanished and the full load ran
+  // anyway. The script now demands the intent in writing.
+  if (
+    isServingDatabase() &&
+    !payloadsOnly &&
+    !process.argv.includes("--full")
+  ) {
+    console.error(
+      "Refusing to guess the scope of a Cloud SQL load.\n\n" +
+        "  --payloads-only   rebuild fund_payloads only (stage-merged, seconds,\n" +
+        "                    never blocks a reader). Correct when only precomputed\n" +
+        "                    page payloads changed.\n" +
+        "  --full            also reload fund_beneficiaries + fund_projects. ~4.5\n" +
+        "                    minutes during which /api/db/fund-contract and\n" +
+        "                    /api/db/fund-beneficiary return 500. Required after an\n" +
+        "                    ИСУН re-ingest, when those tables actually moved.",
+    );
+    process.exit(1);
+  }
   const t0 = Date.now();
   loadFundsPg(payloadsOnly)
     .then(async ({ rows, projects, payloads }) => {
