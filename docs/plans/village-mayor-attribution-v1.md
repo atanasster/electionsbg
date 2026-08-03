@@ -32,16 +32,18 @@ people disappear entirely — Мариян Георгиев (lost Босилко
 Копривец 242–251) — because we had published each as кмет on the strength of a round-1 lead
 they lost. Their `/person` URLs 404; a redirect would name a different human.
 
-T4a landed as `8edb344c6b`. **T3 is diagnosed but deliberately unfixed** — the 2007 archive
-publishes two page families that disagree on the winner in 54% of кметства, and choosing
-between them is a data-authority decision, not an implementation (see §T3).
+T4a landed as `8edb344c6b`. **T3 is diagnosed AND adjudicated, not yet implemented** — the
+2007 archive publishes two page families that disagree on the winner in 54% of кметства, and
+the ОИК's own decision pages settle it 883 to 2 in favour of the EKATTE-keyed one. The merge
+rule is now specified (see §T3); the re-ingest has not been run.
 
 **T5 is answered**: ЕРИК does expose МИ 2023, at `electionId=76` — 2,067+ participants
 including 104 инициативни комитета, the vehicle Русев was elected under. It is a config
 addition, not new plumbing (see §T5). **T4b was not run** — the one municipal site probe was
 declined, so its sizing is still an estimate.
 
-Still open: **T3's decision**, **T4b's go-ahead**, building **T5**, and v2's **A3**.
+Still open: **T3's re-ingest** (rule specified, ~2,300 phantom roles to drop), **T4b's
+go-ahead**, building **T5**, and v2's **A3**.
 
 ## 0. Findings, mapped to tiers
 
@@ -351,16 +353,47 @@ places with both families: 2,354   same elected winner: 1,087   DIFFERENT winner
 The last row is the informative one: the same man under two spellings with two vote counts,
 which reads like two STAGES of one contest rather than two contests.
 
-**T3 stops here, deliberately.** Which family is authoritative decides who this site names as
-кмет на кметство for ~2,354 places in 2007, and the two disagree in more than half of them.
-"Окончателни резултати по решение на ОИК" is the more authoritative-sounding wording; family
-B is the only one carrying a ІІ тур, so it is the only one that can express a runoff. Neither
-observation settles it, and choosing wrong would republish ~2,300 named people incorrectly —
-the exact failure this plan exists to end.
+### Adjudicated (2026-08-03) — family B wins, 883 to 2
 
-Needed before the merge is written: what "по решение на ОИК" denoted in ЦИК's 2007 publication
-model, or an external cross-check of a few 2007 village mayors. Until then the duplication
-stands, which is the safe state — it over-reports rather than asserting a wrong single winner.
+A web search for one of the disputed villages surfaced `mi2007.cik.bg/results1/07/dec_os_0712.html`
+— *"Решение на общинската избирателна комисия за избиране на кмет…"*. The 2007 archive publishes
+the commission's OWN DECISIONS as `dec_*.html`, and **we already hold 2,906 of them** in
+`results_1/*/dec_kk_*.html`. They state the outcome in words, so they settle it outright:
+
+```
+dec_kk_20402573.html  (кметство Банево, община Бургас)
+  "Общинската избирателна комисия … РЕШИ: Допуска до участие във втори тур:
+   Ваньо Янев Иванов … Манчо Танев Дончев"
+
+family B (20402573) elected pair: Иванов + Дончев   ✅ matches the decision
+family A (20400002) elected pair: Господинова + Иванов   ❌
+```
+
+Two independent adjudications across the whole corpus agree:
+
+| adjudicator | family A ("по решение на ОИК") | family B (EKATTE, tabbed) |
+|---|---:|---:|
+| **ОИК decision text** (998 places carrying both + a decision) | **2** | **883** (106 agree, 7 neither) |
+| **Round-2 pairing** (1,007 places with a runoff page) | **1** | **897** (109 both/neither) |
+
+Whoever actually contested the runoff must be the two the round-1 page flagged as advancing, and
+the commission's decision names them. Family B is right on both counts.
+
+**So the merge rule is now specified, and it is not "drop family A":**
+
+```
+кметство places: 3,013   both families: 2,354   B only: 552   A only: 107
+```
+
+Prefer family B wherever it exists; fall back to family A **only** for the 107 places B does not
+cover. Never emit both — that is the duplication. Expect ~2,300 phantom roles to disappear and
+the ~1,267 disagreements to resolve to B's winner.
+
+What family A actually is remains unidentified — its pages carry their own protocol code
+(`oik_kk_020400002` vs `oik_kk_020402573`) and a different candidate set (5 names vs 10 for
+Банево), so it is not an amended view of the same race. It does not need identifying to apply
+the rule, but it does mean the 107 A-only places should be spot-checked against their own
+decision pages before they are trusted.
 
 Steps: diagnose the two page families → merge to one entry per (obshtina, place) carrying
 `round1` + `round2` + `elected` → re-run `--local-ingest mi2007` (the raw ZIPs are already extracted,
