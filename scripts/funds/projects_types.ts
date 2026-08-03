@@ -151,6 +151,10 @@ export interface FundsProjectsIndex {
 export interface FundsProjectsProgramSummary {
   programCode: string;
   programName: string;
+  // The programme's official English name, or null when none is published —
+  // see ./programme_names_en.ts. Null makes the /en page a canonicalised
+  // duplicate rather than an indexable near-copy of the Bulgarian one.
+  programNameEn?: string | null;
   rollup: ProjectsRollup;
   // 4-bucket status mix collapsed from raw ИСУН status strings — same
   // taxonomy as the /funds tile.

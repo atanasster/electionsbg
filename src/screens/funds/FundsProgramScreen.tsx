@@ -14,6 +14,7 @@ import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb"
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useFundsProgramSummary } from "@/data/funds/useFundsProgramSummary";
 import { useFundsProgramProcedures } from "@/data/funds/useFundsProgramProcedures";
+import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
   HeaderKpis,
   StatusBreakdown,
@@ -87,7 +88,7 @@ const ProgrammeProcedures: FC<{ programCode: string }> = ({ programCode }) => {
 
 export const FundsProgramScreen: FC = () => {
   const { code } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data, isLoading } = useFundsProgramSummary(code);
 
   if (isLoading) {
@@ -112,21 +113,30 @@ export const FundsProgramScreen: FC = () => {
     );
   }
 
+  // The name Google actually scraped its snippet from. Fixing only the
+  // prerendered <title> would have left the rendered DOM Bulgarian on an
+  // English page — which is the half of the duplication the SERP evidence was
+  // about. Falls back to the Bulgarian name for the programmes with no
+  // published English one; those pages canonicalise to BG anyway.
+  const displayName =
+    (i18n.language === "en" ? programmeNameEn(data.programCode) : null) ??
+    data.programName;
+
   return (
     <>
-      <Title description={data.programName}>
+      <Title title={displayName} description={displayName}>
         <span className="flex items-center gap-2 flex-wrap">
           <Layers className="h-5 w-5 text-amber-600" aria-hidden />
-          <span>{data.programName}</span>
+          <span>{displayName}</span>
         </span>
       </Title>
       <GovernanceBreadcrumb
         sectionKey="funds_index_title"
         sectionTo="/funds"
-        current={data.programName}
+        current={displayName}
         className="mt-5"
       />
-      <section aria-label={data.programName} className="my-4 space-y-4">
+      <section aria-label={displayName} className="my-4 space-y-4">
         <div className="flex items-baseline justify-end">
           <span className="text-xs text-muted-foreground tabular-nums">
             {data.programCode}

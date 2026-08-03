@@ -37,6 +37,7 @@ import {
 } from "./build_taxonomy_derivatives";
 import { buildIntegrity, writeIntegrity } from "./integrity";
 import { buildProcedures, writeProcedures } from "./procedures";
+import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import { buildThemes, writeThemes } from "./themes";
 import { buildAndWriteProjectChanges } from "./projects_diff";
 import type {
@@ -515,6 +516,10 @@ const main = async (args: MainArgs): Promise<void> => {
     const summary: FundsProjectsProgramSummary = {
       programCode: code,
       programName: programNames.get(code)!,
+      // Null for a programme with no published English name — the /en page then
+      // canonicalises at the Bulgarian URL rather than shipping a near-duplicate
+      // with a Bulgarian <h1>.
+      programNameEn: programmeNameEn(code),
       rollup: rollupFinal,
       statusBreakdown: buildProgramStatusBreakdown(sorted),
       byLocationKind: buildProgramLocationKindHistogram(sorted),

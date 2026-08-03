@@ -11,6 +11,7 @@ import {
   readIndexableProcedures,
   PROCEDURES_INDEX_FILE,
 } from "../funds/procedures_index";
+import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import { isCrawlableSchool } from "@/data/schools/schoolBel";
 import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 import type { PersonSlugEntry } from "../person/emit_prerender_slugs";
@@ -542,7 +543,12 @@ const enumerateFundsProgrammes = (rootUrl: string, routes: string[]) => {
     const code = f.replace(/-summary\.json$/, "");
     const lastmod = safeFileMod(path.join(dir, f));
     pushUrl(`${rootUrl}/${routes[0]}${code}`, lastmod);
-    pushUrl(`/en${rootUrl}/${routes[0]}${code}`, lastmod);
+    // The English mirror is listed ONLY when the programme has a published
+    // English name. Without one it carries the Bulgarian name in its <h1> and
+    // <title> and canonicalises back here, and listing a canonicalised
+    // duplicate asks Google to index a page that points somewhere else.
+    if (programmeNameEn(code))
+      pushUrl(`/en${rootUrl}/${routes[0]}${code}`, lastmod);
   }
 };
 

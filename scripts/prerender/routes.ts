@@ -62,6 +62,7 @@ import { electionYearSuffix } from "./electionYear";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import { readIndexableProcedures } from "../funds/procedures_index";
+import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
   buildFundsTables,
   loadMuniNames,
@@ -4638,7 +4639,11 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
     if (!summary?.programCode) continue;
     const code = summary.programCode;
     const nameBg = summary.programName || code;
-    const nameEn = summary.programNameEn || nameBg;
+    // The curated map is the ONLY source. Falling back to the shard's copy
+    // would mean REMOVING a wrong name had no effect until the next full
+    // re-ingest, while the sitemap — which keys on the map alone — had already
+    // dropped the page. One source, three consumers, no drift.
+    const nameEn = programmeNameEn(code);
     const fundLabel = summary.fundLabel || "";
     const contracts = summary.rollup?.contractCount ?? 0;
     const beneficiaries = summary.rollup?.beneficiaryCount ?? 0;
@@ -4692,15 +4697,24 @@ ${stats ? `<p>${stats}.</p>` : ""}
 ${tablesBg}
 <p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a>, <a href="${SITE_URL}/funds/political">политическата икономия</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
         english: {
-          title: `${nameEn} (${code}) — EU funding | electionsbg.com`,
+          // With no published English name the page carries the Bulgarian one,
+          // so it is a near-duplicate of the Bulgarian page — same <h1>, same
+          // figures, only boilerplate differing. Google served exactly that
+          // pairing: the Bulgarian title with an English snippet. It stays
+          // navigable for a reader on the English UI but canonicalises at the
+          // Bulgarian URL rather than competing with it.
+          title: `${nameEn ?? nameBg} (${code}) — EU funding | electionsbg.com`,
           description:
-            `${nameEn} — operational programme from ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${statsEn}`.trim(),
-          breadcrumbName: nameEn,
+            `${nameEn ?? nameBg} — operational programme from ИСУН 2020${fundLabel ? ` (${fundLabel})` : ""}. ${statsEn}`.trim(),
+          breadcrumbName: nameEn ?? nameBg,
+          ...(nameEn
+            ? {}
+            : { canonicalUrl: `${SITE_URL}/funds/programme/${code}` }),
           bodyHtml: `
-<h1>${nameEn}</h1>
+<h1>${nameEn ?? nameBg}</h1>
 <p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
 ${statsEn ? `<p>${statsEn}.</p>` : ""}
-<p>Top contracts, beneficiaries and municipalities for operational programme ${nameEn}, extracted from the ИСУН 2020 corpus.</p>
+<p>Top contracts, beneficiaries and municipalities for operational programme ${nameEn ?? nameBg}, extracted from the ИСУН 2020 corpus.</p>
 ${tablesEn}
 <p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a>, <a href="${SITE_URL}/en/funds/political">political-economy view</a>, or <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
         },
