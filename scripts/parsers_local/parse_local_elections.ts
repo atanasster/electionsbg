@@ -42,6 +42,7 @@ import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
 import { LATEST_LOCAL_CYCLE } from "@/data/local/useLatestLocalCycle";
 import { LocalMunicipalityBundle } from "./types";
+import { normPlaceName, pickByOblast } from "./oblastNames";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,14 +55,11 @@ type MunicipalityRef = {
 };
 const MUNICIPALITIES = municipalitiesData as MunicipalityRef[];
 
-// Normalise for the name → obshtinaCode lookup (case-insensitive, strip
-// "(столица)" etc.).
-const normName = (s: string): string =>
-  s
-    .toLocaleLowerCase("bg")
-    .replace(/\(.*?\)/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+// Normalise for the name → obshtinaCode lookup (case-insensitive, strip "(столица)" etc.).
+// Imported rather than re-declared: the gate that computes "which catalogue names are
+// duplicated" must fold names exactly the way this resolver matches them, or it can stay
+// green while production drifts.
+const normName = normPlaceName;
 
 // CIK município names don't always match data/municipalities.json verbatim.
 // Curated aliases — extend as more cycles surface mismatches.
@@ -137,11 +135,75 @@ const fanOutSofiaRayons = (
   return rayonShards;
 };
 
+/**
+ * Add a freshly-built bundle to the accumulator, or fold it into the one already holding its
+ * obshtinaCode. Returns a description of the collision when the fold LOSES data, else null.
+ *
+ * There is only one way two bundles can claim one obshtinaCode here: `htmlOiks` is derived
+ * from `^(\d{4})\.html$` filenames, one entry per file, so no OIK repeats in this loop and
+ * any clash is two DIFFERENT municipalities that collided on the name lookup. (The
+ * legitimate append — a município's районни arriving as `NNNN_NNNNNr.html` siblings — is a
+ * separate loop further down, keyed on the PARENT oik, and never reaches here.)
+ *
+ * The fold carries over only `kmetstva` and `districts`, so the second município's mayor,
+ * council, protocol and oikCode are DISCARDED. That is what erased общ. Бяла (обл. Русе)
+ * from the 2019 and 2023 cycles while filing 14 of its village mayors under обл. Варна
+ * (plan §T0). It stays a fold rather than a throw because the caller gates the whole cycle
+ * on the bundle count — but it must never be silent: every count still reconciles, the
+ * bundle just belongs to somebody else.
+ *
+ * Exported for the unit test; the orchestration around it needs a filesystem and a CSV
+ * bundle, which is why this decision went untested for two cycles.
+ */
+export const mergeOrCollide = (
+  bundles: LocalMunicipalityBundle[],
+  bundle: LocalMunicipalityBundle,
+  pageOblastName?: string | null,
+): string | null => {
+  const existing = bundles.find((b) => b.obshtinaCode === bundle.obshtinaCode);
+  if (!existing) {
+    bundles.push(bundle);
+    return null;
+  }
+  existing.kmetstva.push(...bundle.kmetstva);
+  existing.districts.push(...bundle.districts);
+  return (
+    `${bundle.obshtinaCode}: OIK ${existing.oikCode} "${existing.obshtinaName}" (обл. ${existing.oblastName}) ` +
+    `vs OIK ${bundle.oikCode} "${bundle.obshtinaName}" (обл. ${pageOblastName || bundle.oblastName || "?"}) ` +
+    `— the latter's mayor+council are being dropped`
+  );
+};
+
+/** A resolution plus the two quality signals the caller reports on. Both are absent when the
+ *  alias table decided — no name match was needed, so neither question arises. */
+type HtmlResolution = ObshtinaResolution & {
+  ambiguous?: boolean;
+  oblastMismatch?: boolean;
+};
+
 // HTML-mode resolution: município name from page header → obshtinaCode.
-const resolveByName = (
+//
+// The oblast in the page header is a REQUIRED discriminator, not a nicety: three catalogue
+// names are not unique (бяла / искър / средец) and a name-only match takes whichever comes
+// first in data/municipalities.json. That silently routed BOTH "Бяла" pages to VAR05
+// (Варна), and the collision merge below then dropped Бяла-Русе's mayor and council
+// wholesale — see scripts/parsers_local/oblastNames.ts and the plan's §T0. The legacy-chmi
+// and 2007 ingests always did this (`resolveByOblastName`), which is why 2007 still has an
+// RSE04 bundle and 2019/2023 do not.
+//
+// The heading is not enough on its own: 2011 and 2015 pages carry NO oblast at all (264/264
+// and 265/265 of the cached pages), which is why those cycles still collide Бяла onto VAR05
+// today. So the OIK code — present on every page of every cycle — is passed as the fallback
+// discriminator. See oblastNames.ts.
+//
+// `ambiguous` means neither could narrow a multi-way match, so catalogue order decided;
+// `oblastMismatch` means a UNIQUE name match contradicts the oblast we know (the 2011
+// Добрич shape, where a wrong resolution raises no ambiguity at all). Both are reported by
+// the caller rather than silently absorbed.
+export const resolveByName = (
   oikCode: string,
   parsed: ParsedRezultatiPage,
-): ObshtinaResolution | null => {
+): HtmlResolution | null => {
   const target = normName(parsed.municipalityName);
   if (!target) return null;
   // Alias table wins so we can route CIK names (Добричка, Столична) that
@@ -167,13 +229,20 @@ const resolveByName = (
       };
     }
   }
-  const match = MUNICIPALITIES.find((m) => normName(m.name) === target);
-  if (!match) return null;
+  const matches = MUNICIPALITIES.filter((m) => normName(m.name) === target);
+  const { pick, ambiguous, oblastMismatch } = pickByOblast(
+    matches,
+    parsed.oblastName,
+    oikCode,
+  );
+  if (!pick) return null;
   return {
     oikCode,
-    obshtinaCode: match.obshtina,
-    obshtinaName: match.name,
-    oblastName: match.oblast || parsed.oblastName,
+    obshtinaCode: pick.obshtina,
+    obshtinaName: pick.name,
+    oblastName: pick.oblast || parsed.oblastName,
+    ambiguous,
+    oblastMismatch,
   };
 };
 
@@ -284,6 +353,13 @@ export const parseLocalElection = async (opts: {
   const bundles: LocalMunicipalityBundle[] = [];
   const unresolvedOiks: string[] = [];
   const missingHtml: string[] = [];
+  // Name matches the oblast could not narrow, and obshtinaCodes claimed by two different
+  // OIKs. Both are reported at the end of the run rather than thrown: a cycle that ingests
+  // 264 of 265 municipalities is still worth writing, but the operator has to be told which
+  // one is wrong.
+  const ambiguousResolutions: string[] = [];
+  const oblastMismatches: string[] = [];
+  const collidedObshtini: string[] = [];
 
   for (const oikCode of htmlOiks) {
     const t1Html = readHtmlIfExists(path.join(htmlT1, `${oikCode}.html`));
@@ -305,6 +381,20 @@ export const parseLocalElection = async (opts: {
       unresolvedOiks.push(`${oikCode}(${tur1.municipalityName || "?"})`);
       continue;
     }
+    // The oblast could not narrow a multi-way name match, so the catalogue order decided.
+    // Report it: the resolution may be right, but nothing downstream can tell.
+    if (resolution.ambiguous)
+      ambiguousResolutions.push(
+        `${oikCode} "${tur1.municipalityName}" (обл. ${tur1.oblastName || "?"}) → ${resolution.obshtinaCode}`,
+      );
+    // A UNIQUE name match whose catalogue oblast contradicts the page's. Not a tie, so the
+    // ambiguity signal above cannot see it — this is the 2011 "Добрич" shape, where the
+    // rural OIK's label matches the CITY's catalogue row outright and the real city page is
+    // then discarded as a collision.
+    if (resolution.oblastMismatch)
+      oblastMismatches.push(
+        `${oikCode} "${tur1.municipalityName}" (обл. ${tur1.oblastName || "?"}) → ${resolution.obshtinaCode} (обл. ${resolution.oblastName}) — the catalogue disagrees with the page`,
+      );
     const bundle = buildMunicipalityBundle({
       cycle,
       resolution,
@@ -315,15 +405,54 @@ export const parseLocalElection = async (opts: {
       councilProtocols: [],
     });
     if (!bundle) continue;
-    const existing = bundles.find(
-      (b) => b.obshtinaCode === bundle.obshtinaCode,
+    const collision = mergeOrCollide(bundles, bundle, tur1.oblastName);
+    if (collision) collidedObshtini.push(collision);
+  }
+
+  // Resolution quality, reported BEFORE anything is written — and then gated on. Placed
+  // here rather than with the other end-of-run warnings because the gate below throws, and
+  // a diagnosis printed after the throw is a diagnosis nobody reads.
+  //
+  // Printed in full, not truncated: there are at most three non-unique município names in
+  // the whole catalogue, so a long list means the catalogue changed, not that the output is
+  // noisy.
+  if (ambiguousResolutions.length) {
+    console.warn(
+      `[parsers_local] ${cycle}: ${ambiguousResolutions.length} município name(s) neither the page oblast nor the OIK could disambiguate — catalogue order decided:\n  ${ambiguousResolutions.join("\n  ")}`,
     );
-    if (existing) {
-      existing.kmetstva.push(...bundle.kmetstva);
-      existing.districts.push(...bundle.districts);
-    } else {
-      bundles.push(bundle);
-    }
+  }
+  if (oblastMismatches.length) {
+    console.warn(
+      `[parsers_local] ${cycle}: ${oblastMismatches.length} município name(s) resolved to a catalogue row in a DIFFERENT oblast:\n  ${oblastMismatches.join("\n  ")}`,
+    );
+  }
+  if (collidedObshtini.length) {
+    console.warn(
+      `[parsers_local] ${cycle}: ${collidedObshtini.length} obshtinaCode(s) claimed by two different OIKs — DATA LOSS, one município's mayor+council were dropped:\n  ${collidedObshtini.join("\n  ")}`,
+    );
+  }
+  // The plan's acceptance criterion (§T0 fix item 4), as a hard gate rather than a printed
+  // number. Every resolvable tur1 page must become its own bundle; a shortfall means a
+  // collision folded two municipalities into one and dropped a mayor + council.
+  //
+  // THROWS, and throws HERE — before the first `writeFileSync`. The alternative is writing a
+  // cycle that is knowingly missing a município, which is the exact state that survived two
+  // election cycles unnoticed. Worse, `municipalities/` is never cleared before writing, so
+  // a short re-parse leaves a STALE file for the lost município on disk while `index.json`
+  // is rebuilt without it — half-present, and nothing reconciles it.
+  //
+  // Sofia's 24 район shards are excluded: they are fanned out of the single SOF bundle
+  // further down, not parsed from a page of their own.
+  const resolvablePages =
+    htmlOiks.length - missingHtml.length - unresolvedOiks.length;
+  const nonSofiaBundles = bundles.filter(
+    (b) => !/^S2\d{3}$/.test(b.obshtinaCode),
+  ).length;
+  if (nonSofiaBundles !== resolvablePages) {
+    throw new Error(
+      `[parsers_local] ${cycle}: ${resolvablePages} resolvable tur1 page(s) produced only ${nonSofiaBundles} bundle(s) — ` +
+        `${collidedObshtini.length} collision(s) dropped a município. See the DATA LOSS warning above.`,
+    );
   }
 
   // Section-level CSV augmentation. When the extracted bundle's ОС (council)

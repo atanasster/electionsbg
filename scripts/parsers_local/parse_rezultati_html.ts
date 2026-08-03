@@ -418,6 +418,11 @@ const MUNI_OBLAST_RE = /(?:Община\s+)?(.+?),\s*област\s+(.+?)(?:\s+\
 // Pre-2019 cycles publish the município name as "Резултати за община NAME"
 // in a breadcrumb (2015) or H2 (2011), with the oblast missing — the
 // orchestrator backfills oblast from MUNICIPALITIES via resolveByName.
+//
+// That backfill is NAME-ONLY, so it cannot disambiguate the three non-unique catalogue names
+// (бяла / искър / средец): the resolver is the thing that needs an oblast, not a source of
+// one. On these cycles resolveByName therefore falls back to the OIK code's oblast prefix,
+// and reports `ambiguous` if even that cannot decide. See ./oblastNames.ts.
 const MUNI_ONLY_RE = /Резултати за община\s+([^,|]+?)(?:\s*[|<]|$)/i;
 
 const extractNames = (

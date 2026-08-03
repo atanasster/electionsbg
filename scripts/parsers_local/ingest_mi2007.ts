@@ -229,6 +229,9 @@ export const ingestMi2007 = async (opts: {
   const bundles = new Map<string, LocalMunicipalityBundle>();
   let testPages = 0;
   let unresolved = 0;
+  // A Set, not a list: 2007 emits one page per PLACE, so the same município breadcrumb
+  // recurs hundreds of times and a per-page list would bury the handful of real cases.
+  const ambiguousNames = new Set<string>();
 
   const readPage = (dir: string, rel: string, round: 1 | 2) => {
     const file = path.join(dir, rel);
@@ -257,6 +260,12 @@ export const ingestMi2007 = async (opts: {
         console.warn(`[mi2007] unresolved obshtina: ${bc.obshtinaName}`);
       continue;
     }
+    // A breadcrumb whose oblast could not narrow a duplicate name (бяла/искър/средец) —
+    // catalogue order decided. Collected rather than swallowed; the HTML path does the same.
+    if (res.ambiguous)
+      ambiguousNames.add(
+        `${bc.obshtinaName} (обл. ${bc.oblastName || "?"}) → ${res.obshtinaCode}`,
+      );
     const b = ensureBundle(
       bundles,
       res.obshtinaCode,
@@ -350,6 +359,10 @@ export const ingestMi2007 = async (opts: {
   // Keep the cross-cycle chmi history fresh (cheap, idempotent).
   buildChmiHistory({ stringify });
 
+  if (ambiguousNames.size)
+    console.warn(
+      `[mi2007] ${ambiguousNames.size} município name(s) the oblast could not disambiguate — catalogue order decided:\n  ${[...ambiguousNames].join("\n  ")}`,
+    );
   console.log(
     `[mi2007] wrote ${bundleList.length} obshtina bundle(s)` +
       ` (skipped ${testPages} test page(s), ${unresolved} unresolved)`,

@@ -20,6 +20,7 @@ import { parseLegacyChmiPage, LegacyChmiResult } from "./parse_legacy_chmi";
 import { pickElectedMayor } from "./build_municipality_json";
 import { buildChmiHistory } from "./build_chmi_history";
 import municipalitiesData from "../../data/municipalities.json";
+import { pickByOblast } from "./oblastNames";
 import {
   LocalMunicipalityBundle,
   LocalMayorResult,
@@ -94,45 +95,18 @@ const buildOikMap = (): Map<
 };
 let oikMapCache: ReturnType<typeof buildOikMap> | null = null;
 
-// municipalities.json stores oblast as a CODE (e.g. "RSE") but the legacy
-// heading gives the oblast NAME (e.g. "Русе"). The 28 oblasts are stable, so
-// map the normalised name → code directly — needed to disambiguate the 3
-// non-unique município names (Бяла → VAR05/RSE04, Искър, Средец).
-const OBLAST_NAME_TO_CODE: Record<string, string> = {
-  благоевград: "BLG",
-  бургас: "BGS",
-  варна: "VAR",
-  "велико търново": "VTR",
-  видин: "VID",
-  враца: "VRC",
-  габрово: "GAB",
-  добрич: "DOB",
-  кърджали: "KRZ",
-  кюстендил: "KNL",
-  ловеч: "LOV",
-  монтана: "MON",
-  пазарджик: "PAZ",
-  перник: "PER",
-  плевен: "PVN",
-  пловдив: "PDV",
-  разград: "RAZ",
-  русе: "RSE",
-  силистра: "SLS",
-  сливен: "SLV",
-  смолян: "SML",
-  софия: "SFO", // Sofia province (city is routed via NAME_ALIASES → SOF)
-  "софия област": "SFO",
-  "стара загора": "SZR",
-  търговище: "TGV",
-  хасково: "HKV",
-  шумен: "SHU",
-  ямбол: "JAM",
-};
+// The oblast NAME → CODE dictionary and the name+oblast tiebreak now live in
+// ./oblastNames, shared with the modern HTML path (parse_local_elections.ts).
+// It used to be a private copy here, which is exactly why the HTML path never
+// had one — see that module's header and the plan's §T0.
 
+// `ambiguous` rides along so the callers can report a coin-flip instead of absorbing it, the
+// way the HTML path does. A legacy/2007 breadcrumb with no oblast lands on the first
+// catalogue match, and there are three names where that is a 50/50 guess.
 export const resolveByOblastName = (
   obshtinaName: string,
   oblastName: string | null,
-): Resolution | null => {
+): (Resolution & { ambiguous?: boolean }) | null => {
   const target = normName(obshtinaName);
   const alias = NAME_ALIASES[target];
   if (alias) {
@@ -143,20 +117,16 @@ export const resolveByOblastName = (
       oblastName: m?.oblast ?? oblastName ?? "",
     };
   }
-  // Resolve the heading oblast NAME to its CODE before matching.
-  const oblastCode = oblastName
-    ? OBLAST_NAME_TO_CODE[normName(oblastName)]
-    : null;
   // Prefer a name+oblast match (disambiguates same-named municipalities),
-  // fall back to name-only.
+  // fall back to name-only. Shared with the HTML path so the two cannot drift.
   const matches = MUNICIPALITIES.filter((m) => normName(m.name) === target);
-  const pick =
-    (oblastCode && matches.find((m) => m.oblast === oblastCode)) || matches[0];
+  const { pick, ambiguous } = pickByOblast(matches, oblastName);
   if (!pick) return null;
   return {
     obshtinaCode: pick.obshtina,
     obshtinaName: pick.name,
     oblastName: pick.oblast,
+    ambiguous,
   };
 };
 
