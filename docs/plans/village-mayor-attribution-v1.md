@@ -34,8 +34,14 @@ they lost. Their `/person` URLs 404; a redirect would name a different human.
 
 T4a landed as `8edb344c6b`. **T3 is diagnosed but deliberately unfixed** — the 2007 archive
 publishes two page families that disagree on the winner in 54% of кметства, and choosing
-between them is a data-authority decision, not an implementation (see §T3). Still open:
-**T3's decision**, **T4b**, **T5**, and v2's **A3**.
+between them is a data-authority decision, not an implementation (see §T3).
+
+**T5 is answered**: ЕРИК does expose МИ 2023, at `electionId=76` — 2,067+ participants
+including 104 инициативни комитета, the vehicle Русев was elected under. It is a config
+addition, not new plumbing (see §T5). **T4b was not run** — the one municipal site probe was
+declined, so its sizing is still an estimate.
+
+Still open: **T3's decision**, **T4b's go-ahead**, building **T5**, and v2's **A3**.
 
 ## 0. Findings, mapped to tiers
 
@@ -395,6 +401,12 @@ no register API, no `data.egov.bg` dataset, values often in scanned PDFs. Probe 
 coverage and whether values are machine-readable **before** committing to anything. Do not start a
 crawler on the strength of one site.
 
+**NOT RUN.** A fetch of `tundzha.bg/zpkonpi/registri-i-deklaratsii-po-zpkonpi/` was declined
+when this plan was being written, so no municipal site has been probed and the sizing above
+remains an estimate. T4a makes the gap honest on the page in the meantime, which is what makes
+this a research task rather than a blocker. Needs a go-ahead on fetching the municipal sites
+before it can start.
+
 ---
 
 ## T5 (optional) — ЕРИК for local elections
@@ -404,9 +416,32 @@ three parliamentary elections** (2026_04_19, 2024_10_27, 2024_06_09) — matchin
 roles, split 791/252/240. Русев won Безмер twice as an **инициативен комитет**, and ИК campaign
 financing is exactly what ЕРИК holds.
 
-**Unverified:** whether ЕРИК exposes an `electionId` for МИ 2023 at all. One probe of
-`/Reports?electionId=<id>` answers it. If yes, this is a config addition plus a donor-parser run —
-and it is the only money signal that exists for a village mayor.
+### Probe result (2026-08-03) — YES, and it is `electionId=76`
+
+Confirmed against the live register through the repo's own `erik_client`:
+
+```
+/Reports/GetParticipantsByElectionId  electionId=76
+  commissionType 1 →    67 participants, registered 05.09.2023 … 13.09.2023
+  commissionType 3 → 2000+ participants, registered 10.09.2023 … 25.09.2023   (hit my page cap)
+  kinds: Партия 1,510 · Коалиция 412 · ИНИЦИАТИВЕН КОМИТЕТ 104 · Местна коалиция 41
+```
+
+Registration numbers carry the election code directly — `2219-МИ/05.09.2023` for 76, against
+`4520-НС/02.03.2026` for the known id 93 — so the МИ/НС/ЕП family is unambiguous. Neighbours
+worth having: **77** (`2961-МИ/02.02.2024`) and **78** (`2941-МИ/18.01.2024`) are МИ partials,
+**79** (`3121-ЕП/19.04.2024`) is the European Parliament.
+
+So this is what §T5 hoped: a config addition to `ERIK_ELECTIONS` plus a scraper run, not new
+plumbing. And it is the money signal for exactly the population this plan is about — **104
+инициативни комитета** stood in МИ 2023, which is the vehicle Росен Русев was elected under
+both times.
+
+Two practical notes for whoever picks it up. The WAF 403s a cold deep link and throttles
+bursts, so warm `/` (and the `/Reports?electionId=<id>` page) first and pace the calls — a 403
+means rate-limited, NOT "no such election"; id 80, which is known-good, 403'd mid-sweep. And
+`ERIK_ELECTIONS` maps an id to an election FOLDER name, so an МИ cycle needs a folder
+convention (`2023_10_29_mi`) that the parliamentary-shaped scraper does not currently assume.
 
 ---
 
