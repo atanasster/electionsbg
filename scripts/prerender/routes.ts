@@ -64,6 +64,7 @@ import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import { readIndexableProcedures } from "../funds/procedures_index";
 import { programmeNameEn } from "@/data/funds/programmeNamesEn";
 import {
+  beneficiaryItemList,
   buildFundsTables,
   buildFundsDescription,
   compactEur,
@@ -423,6 +424,11 @@ type StaticPageOpts = {
   // Extra JSON-LD appended after the WebPage + BreadcrumbList nodes (e.g. a
   // DataCatalog on /data).
   extraJsonLd?: object[];
+  // An intermediate breadcrumb level between Начало and this page. Without it
+  // a programme's trail reads Начало → Иновации и конкурентоспособност, with
+  // no /funds in between — so the crumb Google renders under the result skips
+  // the section the page actually belongs to.
+  breadcrumbParent?: { name: string; nameEn?: string; path: string };
   english?: {
     title: string;
     description: string;
@@ -451,6 +457,14 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
       }),
       buildBreadcrumbLd([
         { name: "Начало", url: `${SITE_URL}/` },
+        ...(opts.breadcrumbParent
+          ? [
+              {
+                name: opts.breadcrumbParent.name,
+                url: `${SITE_URL}/${opts.breadcrumbParent.path}`,
+              },
+            ]
+          : []),
         { name: opts.breadcrumbName, url },
       ]),
       ...(opts.extraJsonLd ?? []),
@@ -472,6 +486,16 @@ const staticPage = (opts: StaticPageOpts): PrerenderRoute => {
               }),
               buildBreadcrumbLd([
                 { name: "Home", url: `${SITE_URL}/en/` },
+                ...(opts.breadcrumbParent
+                  ? [
+                      {
+                        name:
+                          opts.breadcrumbParent.nameEn ??
+                          opts.breadcrumbParent.name,
+                        url: `${SITE_URL}/en/${opts.breadcrumbParent.path}`,
+                      },
+                    ]
+                  : []),
                 { name: opts.english.breadcrumbName, url: enUrl },
               ]),
               ...(opts.english.extraJsonLd ?? []),
@@ -4660,6 +4684,14 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
       contracts > 0
         ? `${numFmtEn.format(contracts)} contracts · ${numFmtEn.format(beneficiaries)} beneficiaries · ${eurFmt.format(totalEur)} contracted · ${eurFmt.format(paidEur)} paid`
         : "";
+    // Google drops a Dataset whose description is under 50 characters, and
+    // buildDatasetLd throws rather than let that reach Search Console — so this
+    // is built to be substantive, not reused from the meta tag.
+    const datasetDescriptionBg =
+      `Всички ${numFmtBg.format(contracts)} договора по оперативна програма ${nameBg} (${code}) от регистъра ИСУН 2020: бенефициент, стойност, изплатена сума, статус и община на изпълнение. ${compactEur(totalEur, "bg")} договорени и ${compactEur(paidEur, "bg")} изплатени на ${numFmtBg.format(beneficiaries)} бенефициенти.`.trim();
+    const datasetDescriptionEn =
+      `All ${numFmtEn.format(contracts)} contracts under operational programme ${nameEn ?? nameBg} (${code}) from the ИСУН 2020 register: beneficiary, value, amount paid, status and municipality of implementation. ${compactEur(totalEur, "en")} contracted and ${compactEur(paidEur, "en")} paid across ${numFmtEn.format(beneficiaries)} beneficiaries.`.trim();
+
     // The shard is already open — putting its ranked lists in the HTML is the
     // cheapest AIO win available (~4 KB/page).
     const tablesBg = buildFundsTables(
@@ -4699,7 +4731,36 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
           names: topBeneficiaryNames(summary, 3),
         }),
         breadcrumbName: nameBg,
+        breadcrumbParent: {
+          name: "Европейски средства",
+          nameEn: "EU funds",
+          path: "funds",
+        },
         ogImage: "/og/funds.png",
+        // A programme page IS a dataset view, and Dataset is the rich result
+        // built for exactly this query shape — a code like 2014BG16RFOP002 is
+        // what Google Dataset Search indexes on. ItemList states the ranking
+        // the body already renders, so the leaders are machine-readable rather
+        // than only visible.
+        extraJsonLd: [
+          buildDatasetLd({
+            name: `${nameBg} (${code}) — договори по ИСУН 2020`,
+            description: datasetDescriptionBg,
+            url: `${SITE_URL}/funds/programme/${code}`,
+            spatialCoverage: "България",
+            keywords: [
+              code,
+              nameBg,
+              "европейски средства",
+              "ИСУН 2020",
+              "оперативна програма",
+            ],
+          }),
+          ...beneficiaryItemList(
+            summary,
+            `${SITE_URL}/funds/programme/${code}`,
+          ),
+        ],
         bodyHtml: `
 <h1>${nameBg}</h1>
 <p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
@@ -4727,6 +4788,26 @@ ${tablesBg}
           ...(nameEn
             ? {}
             : { canonicalUrl: `${SITE_URL}/funds/programme/${code}` }),
+          extraJsonLd: [
+            buildDatasetLd({
+              name: `${nameEn ?? nameBg} (${code}) — contracts from ИСУН 2020`,
+              description: datasetDescriptionEn,
+              url: `${SITE_URL}/en/funds/programme/${code}`,
+              spatialCoverage: "Bulgaria",
+              keywords: [
+                code,
+                nameEn ?? nameBg,
+                "EU funds",
+                "ИСУН 2020",
+                "operational programme",
+              ],
+            }),
+            ...beneficiaryItemList(
+              summary,
+              `${SITE_URL}/en/funds/programme/${code}`,
+              "en",
+            ),
+          ],
           bodyHtml: `
 <h1>${nameEn ?? nameBg}</h1>
 <p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
@@ -4811,14 +4892,22 @@ if (PROCEDURES.length > 0) {
     );
     const named = p.procedureName?.trim();
     const heading = named || code;
+    // A crumb Google renders under the result, not a headline — the COVID
+    // scheme names run past 120 characters.
+    const crumb = named ? truncateAtWord(named, 45) : code;
     const statsBg = `${numFmtBg.format(p.contractCount)} ${p.contractCount === 1 ? "договор" : "договора"} · ${numFmtBg.format(p.beneficiaryCount)} ${p.beneficiaryCount === 1 ? "бенефициент" : "бенефициенти"} · ${eurFmt.format(p.totalEur)} договорени · ${eurFmt.format(p.paidEur)} изплатени`;
     const statsEn = `${numFmtEn.format(p.contractCount)} ${p.contractCount === 1 ? "contract" : "contracts"} · ${numFmtEn.format(p.beneficiaryCount)} ${p.beneficiaryCount === 1 ? "beneficiary" : "beneficiaries"} · ${eurFmt.format(p.totalEur)} contracted · ${eurFmt.format(p.paidEur)} paid`;
     // `${code} — ${heading}` reads as the code twice on the 963 unnamed ones.
     // Scheme names run to 300+ chars (the COVID ones spell out the whole
     // eligibility rule), so the named lead is cut at a word boundary — Google
     // truncates around 60 anyway, and a 340-char <title> is not a title.
-    const titleLead = named ? `${code} — ${truncateAtWord(named, 90)}` : code;
+    const titleLead = named ? `${code} — ${truncateAtWord(named, 70)}` : code;
     const url = `${SITE_URL}/funds/procedure/${code}`;
+    // >=50 chars or buildDatasetLd throws — Google drops a shorter one.
+    const procDatasetBg =
+      `Всички ${numFmtBg.format(p.contractCount)} договора по процедура ${code}${named ? ` „${named}“` : ""} на ${p.programName} от регистъра ИСУН 2020: бенефициент, стойност, изплатена сума, статус и община. ${compactEur(p.totalEur, "bg")} договорени на ${numFmtBg.format(p.beneficiaryCount)} бенефициенти.`.trim();
+    const procDatasetEn =
+      `All ${numFmtEn.format(p.contractCount)} contracts under procedure ${code}${named ? ` "${named}"` : ""} of ${p.programName} from the ИСУН 2020 register: beneficiary, value, amount paid, status and municipality. ${compactEur(p.totalEur, "en")} contracted across ${numFmtEn.format(p.beneficiaryCount)} beneficiaries.`.trim();
     prerenderRoutes.push(
       staticPage({
         path: `funds/procedure/${code}`,
@@ -4835,8 +4924,30 @@ if (PROCEDURES.length > 0) {
           paidEur: p.paidEur,
           names: topBeneficiaryNames(shard, 3),
         }),
-        breadcrumbName: heading,
+        breadcrumbName: crumb,
+        breadcrumbParent: {
+          name: "Европейски средства",
+          nameEn: "EU funds",
+          path: "funds",
+        },
         ogImage: "/og/funds.png",
+        extraJsonLd: [
+          buildDatasetLd({
+            name: `${code} — договори по процедурата (ИСУН 2020)`,
+            description: procDatasetBg,
+            url: `${SITE_URL}/funds/procedure/${code}`,
+            spatialCoverage: "България",
+            keywords: [
+              code,
+              p.programName,
+              ...(named ? [named] : []),
+              "европейски средства",
+              "ИСУН 2020",
+              "процедура",
+            ],
+          }),
+          ...beneficiaryItemList(shard, `${SITE_URL}/funds/procedure/${code}`),
+        ],
         bodyHtml: `
 <h1>${heading}</h1>
 <p><strong>${code}</strong> · <a href="${SITE_URL}/funds/programme/${p.programCode}">${p.programName}</a></p>
@@ -4865,6 +4976,22 @@ ${procTablesBg}
           // near-duplicate. Same failure this plan documents for programmes
           // (F3), not repeated 987 times here.
           canonicalUrl: url,
+          extraJsonLd: [
+            buildDatasetLd({
+              name: `${code} — contracts under the procedure (ИСУН 2020)`,
+              description: procDatasetEn,
+              url,
+              spatialCoverage: "Bulgaria",
+              keywords: [
+                code,
+                p.programName,
+                ...(named ? [named] : []),
+                "EU funds",
+                "ИСУН 2020",
+                "procedure",
+              ],
+            }),
+          ],
           bodyHtml: `
 <h1>${heading}</h1>
 <p><strong>${code}</strong> · <a href="${SITE_URL}/en/funds/programme/${p.programCode}">${p.programName}</a></p>

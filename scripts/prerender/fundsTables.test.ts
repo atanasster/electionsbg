@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  beneficiaryItemList,
   buildFundsTables,
   buildFundsDescription,
   compactEur,
@@ -278,5 +279,55 @@ describe("buildFundsDescription", () => {
       beneficiaries: 1,
     });
     expect(en).toContain("1 contract across 1 beneficiary,");
+  });
+});
+
+describe("beneficiaryItemList", () => {
+  const mk = (amounts: number[]) => ({
+    topBeneficiaries: amounts.map((totalEur, i) => ({
+      beneficiaryEik: String(100000000 + i),
+      beneficiaryName: `Ф${i}`,
+      contractCount: 1,
+      totalEur,
+      paidEur: totalEur,
+    })),
+  });
+  const URL = "https://electionsbg.com/funds/programme/X";
+
+  it("states the ranking as Organizations with their EIK", () => {
+    const [list] = beneficiaryItemList(mk([900, 500, 100]), URL) as [
+      {
+        numberOfItems: number;
+        itemListOrder: string;
+        itemListElement: Array<{
+          position: number;
+          item: { name: string; identifier?: string; url?: string };
+        }>;
+      },
+    ];
+    expect(list.numberOfItems).toBe(3);
+    expect(list.itemListOrder).toContain("Descending");
+    expect(list.itemListElement[0].position).toBe(1);
+    expect(list.itemListElement[0].item.name).toBe("Ф0");
+    expect(list.itemListElement[0].item.identifier).toBe("100000000");
+  });
+
+  it("emits nothing for a flat scheme", () => {
+    // A structured ItemList asserting a "position" over four identical amounts
+    // is a STRONGER claim than the prose version, not a weaker one.
+    expect(beneficiaryItemList(mk([25520, 25520, 25520, 25520]), URL)).toEqual(
+      [],
+    );
+  });
+
+  it("emits nothing when there are no beneficiaries", () => {
+    expect(beneficiaryItemList({}, URL)).toEqual([]);
+  });
+
+  it("points at /en/company for the English page", () => {
+    const [list] = beneficiaryItemList(mk([900, 500, 100]), URL, "en") as [
+      { itemListElement: Array<{ item: { url?: string } }> },
+    ];
+    expect(list.itemListElement[0].item.url).toBe("/en/company/100000000");
   });
 });

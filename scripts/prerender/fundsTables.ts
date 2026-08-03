@@ -328,3 +328,47 @@ export const buildFundsDescription = (
   );
   return parts.join(" ");
 };
+
+/**
+ * An ItemList of the ranked beneficiaries, so the leaders the body renders are
+ * machine-readable rather than only visible.
+ *
+ * Returns [] when there is nothing honest to rank — the same flat-scheme rule
+ * `topBeneficiaryNames` applies, because a structured ItemList asserting a
+ * "position" over four identical amounts is a stronger claim than the prose
+ * version, not a weaker one.
+ */
+export const beneficiaryItemList = (
+  data: FundsTableRows,
+  url: string,
+  lang: "bg" | "en" = "bg",
+): object[] => {
+  const rows = (data.topBeneficiaries ?? [])
+    .filter((b) => b?.beneficiaryName)
+    .slice(0, 10);
+  if (rows.length === 0 || topBeneficiaryNames(data, 3).length === 0) return [];
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: lang === "bg" ? "Най-големи получатели" : "Largest recipients",
+      url,
+      numberOfItems: rows.length,
+      itemListOrder: "https://schema.org/ItemListOrderDescending",
+      itemListElement: rows.map((b, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Organization",
+          name: b.beneficiaryName,
+          ...(b.beneficiaryEik
+            ? {
+                identifier: b.beneficiaryEik,
+                url: `${lang === "bg" ? "" : "/en"}/company/${b.beneficiaryEik}`,
+              }
+            : {}),
+        },
+      })),
+    },
+  ];
+};
