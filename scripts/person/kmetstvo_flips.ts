@@ -72,6 +72,10 @@ type Seat = {
 
 type Flip = Seat & { fromSlug: string; fromName: string };
 type Move = { fromRef: string; toRef: string; slug: string; winner: string };
+/** A ref that vanished whose holder turns up nowhere else — no lock action is possible, and
+ *  none is wanted. Reported so the resolver's "dead slug with no redirect" warning has a
+ *  written cause. */
+type Orphan = { ref: string; slug: string; name: string };
 
 /** The person currently holding a ref, with every spelling they are known by. */
 export type Held = {
@@ -90,6 +94,9 @@ export type FlipFile = {
   flips: Flip[];
   /** Seat kept its holder but changed address: the lock is REKEYED so the URL survives. */
   moves: Move[];
+  /** Seat vanished AND changed hands, so it is neither: no surviving ref to purge, and no
+   *  destination to rekey to. Recorded, not acted on. */
+  orphans: Orphan[];
 };
 
 /**
@@ -204,7 +211,7 @@ export const diffSeats = (
   held: ReadonlyMap<string, Held>,
   lockedRefs: ReadonlySet<string>,
   fold: (name: string) => string,
-): { flips: Flip[]; moves: Move[] } => {
+): { flips: Flip[]; moves: Move[]; orphans: Orphan[] } => {
   // Is the bundle's winner the SAME HUMAN as the person currently holding the ref?
   //
   // Not `display_name` equality. A cluster's display name is the resolver's pick across every
@@ -235,16 +242,26 @@ export const diffSeats = (
   // person, under a ref no previous holder had. That is a município re-split, not a change of
   // office.
   const moves: Move[] = [];
-  const takenRefs = new Set(held.keys());
+  const orphans: Orphan[] = [];
   const byKey = new Map<string, Seat[]>();
-  for (const s of seats)
-    if (!takenRefs.has(s.ref)) {
-      // Keyed on ROLE too: a man who was a councillor and is now his village's mayor is not
-      // one seat that moved, and rekeying across office kinds would silently re-address the
-      // wrong lock.
-      const k = `${s.cycle}\t${s.role}\t${fold(s.winner)}`;
-      byKey.set(k, [...(byKey.get(k) ?? []), s]);
-    }
+  for (const s of seats) {
+    // A destination is any seat NOT already held by a DIFFERENT person — not merely one on a
+    // brand-new ref. A T0-style renumber can shift a person onto a ref somebody else used to
+    // hold, and indexing only new refs would find no destination and label them an ORPHAN:
+    // "no longer holds any seat", about a person who plainly does. That survived the 2026-08
+    // run only because VAR05's three surviving villages kept indices 0–2.
+    //
+    // A ref that is currently someone ELSE's is still indexed: "this person now sits there"
+    // is the true statement, and the apply step declines to clobber an occupied mention (the
+    // ON CONFLICT guard, which logs a skip). Reporting a move that is then skipped is more
+    // accurate than reporting an orphan who is not one.
+    //
+    // Keyed on ROLE too: a man who was a councillor and is now his village's mayor is not
+    // one seat that moved, and rekeying across office kinds would silently re-address the
+    // wrong lock.
+    const k = `${s.cycle}\t${s.role}\t${fold(s.winner)}`;
+    byKey.set(k, [...(byKey.get(k) ?? []), s]);
+  }
   for (const [ref, prev] of held) {
     if (seatByRef.has(ref)) continue; // the ref survived — not a move
     if (!lockedRefs.has(ref)) continue;
@@ -255,7 +272,23 @@ export const diffSeats = (
       (f) => byKey.get(`${cycle}\t${prev.role}\t${f}`) ?? [],
     );
     const unique = [...new Set(candidates.map((c) => c.ref))];
-    // Exactly one destination, or we cannot say which seat this person's URL belongs to.
+    // NO destination: this seat both moved AND changed hands, so its old holder turns up
+    // nowhere in the new bundles. Nothing to purge (the ref is gone) and nothing to rekey
+    // (there is no successor seat that is theirs) — but if that person held no other role
+    // they vanish, and `resolve_persons` then warns about a dead slug with no redirect.
+    //
+    // 404 is the right answer and a redirect would be a lie: we published them as кмет on
+    // the strength of a round-1 lead they lost. Both real cases in the 2026-08 run are that
+    // — Мариян Георгиев lost Босилковци 164–167 and Емил Георгиев lost Копривец 242–251,
+    // and their VAR05 refs also moved to RSE04 in the same pass.
+    //
+    // Recorded so that warning has a written cause: its own text suggests an officials
+    // re-slug map, which would be the wrong remedy here.
+    if (unique.length === 0) {
+      orphans.push({ ref, slug: prev.slug, name: prev.name });
+      continue;
+    }
+    // More than one destination and we cannot say which seat this person's URL belongs to.
     if (unique.length !== 1) continue;
     moves.push({
       fromRef: ref,
@@ -268,7 +301,8 @@ export const diffSeats = (
   // against it, so an unstable order would produce spurious mismatches.
   flips.sort((a, b) => a.ref.localeCompare(b.ref));
   moves.sort((a, b) => a.fromRef.localeCompare(b.fromRef));
-  return { flips, moves };
+  orphans.sort((a, b) => a.ref.localeCompare(b.ref));
+  return { flips, moves, orphans };
 };
 
 const loadState = async (
@@ -342,7 +376,7 @@ const loadState = async (
 };
 
 const summarise = (f: FlipFile): string =>
-  `${f.flips.length} flip(s), ${f.moves.length} move(s)`;
+  `${f.flips.length} flip(s), ${f.moves.length} move(s), ${f.orphans?.length ?? 0} orphan(s)`;
 
 const app = command({
   name: "kmetstvo-flips",
@@ -386,11 +420,12 @@ const app = command({
     const { held, lockedRefs, fold } = await loadState(
       seats.map((s) => s.winner),
     );
-    const { flips, moves } = diffSeats(seats, held, lockedRefs, fold);
+    const { flips, moves, orphans } = diffSeats(seats, held, lockedRefs, fold);
     const current: FlipFile = {
       generatedAt: new Date().toISOString(),
       flips,
       moves,
+      orphans,
     };
     console.log(
       `[flips] ${seats.length} elected seat(s) on disk, ${held.size} in person_role, ${lockedRefs.size} locked → ${summarise(current)}`,
@@ -427,6 +462,10 @@ const app = command({
     for (const m of moves.slice(0, 10))
       console.log(`  MOVE ${m.fromRef} → ${m.toRef}  ${m.winner} [${m.slug}]`);
     if (moves.length > 10) console.log(`  … and ${moves.length - 10} more`);
+    for (const o of orphans)
+      console.log(
+        `  ORPHAN ${o.ref} ${o.name} [${o.slug}] — seat moved AND changed hands; no lock action, /person 404s`,
+      );
 
     if (emit) {
       fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -498,12 +537,24 @@ const app = command({
             );
           }
         }
+        // Orphan locks are purged alongside the flips. The person is gone and their slug dies
+        // with no redirect — correct, since redirecting would name a different human and
+        // `person_slug_retired.target_slug` is NOT NULL — but the LOCK row must not survive
+        // that: its mention id no longer exists, so it can only ever mis-fire if a future
+        // re-parse mints that ref again (the hazard `staleOnNew` warns about), and
+        // `person_slug_retired.data.test.ts` fails on a lock pointing at a slug that is
+        // neither live nor retired.
         const purged = await c.query(
           `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
-          [flips.map((f) => `local:${f.ref}`)],
+          [
+            [
+              ...flips.map((f) => `local:${f.ref}`),
+              ...orphans.map((o) => `local:${o.ref}`),
+            ],
+          ],
         );
         console.log(
-          `[flips] rekeyed ${rekeyed}/${moves.length} lock(s), purged ${purged.rowCount} lock(s)`,
+          `[flips] rekeyed ${rekeyed}/${moves.length} lock(s), purged ${purged.rowCount} lock(s) (${flips.length} flip + ${orphans.length} orphan)`,
         );
       });
       console.log(

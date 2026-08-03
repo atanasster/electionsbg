@@ -400,6 +400,35 @@ test.skipIf(skip)(
 // a whole-corpus scan.
 const BUFFER_CEILING = 200;
 
+/** Sum the EXECUTION buffers of an EXPLAIN (ANALYZE, BUFFERS) plan.
+ *
+ * EXECUTION only. EXPLAIN ends with a `Planning:` section carrying its own `Buffers:` line,
+ * and that one counts catalog reads for BUILDING the plan — hundreds of buffers that scale
+ * with the schema, not with the function under test. The warm-up in each caller exists to
+ * drive it to ~0, but that only holds while the warm-up and the EXPLAIN run on the SAME
+ * backend: in a full `test:data` run the pool hands out a different client, the plan is built
+ * afresh, and ~458 planning buffers land on top of an execution cost of ~73 — failing a
+ * 200-buffer ceiling the function is nowhere near. Counting only the execution section
+ * measures the thing the ceiling is about, in isolation and under load alike.
+ */
+const sumExecutionBuffers = (rows: { "QUERY PLAN": string }[]): number => {
+  const all = rows
+    .map((r) => r["QUERY PLAN"])
+    .join("\n")
+    .split("\n");
+  const planningAt = all.findIndex((l) => /^\s*Planning:/.test(l));
+  const lines = (planningAt === -1 ? all : all.slice(0, planningAt)).filter(
+    (l) => l.includes("Buffers:"),
+  );
+  assert.ok(
+    lines.length,
+    "EXPLAIN reported no execution Buffers: line — parser needs updating",
+  );
+  return lines
+    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
+    .reduce((n, m) => n + Number(m[1]), 0);
+};
+
 const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
   // Warm this backend's catalog/syscache first — the first call on a fresh connection carries
   // one-time planning warm-up that scales with the schema, not with how this function plans.
@@ -408,18 +437,7 @@ const bufferCost = async (c: PoolClient, slug: string): Promise<number> => {
     "EXPLAIN (ANALYZE, BUFFERS) SELECT person_connections($1)",
     [slug],
   );
-  const lines = rows
-    .map((r) => r["QUERY PLAN"])
-    .join("\n")
-    .split("\n")
-    .filter((l) => l.includes("Buffers:"));
-  assert.ok(
-    lines.length,
-    "EXPLAIN reported no Buffers: line — parser needs updating",
-  );
-  return lines
-    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
-    .reduce((n, m) => n + Number(m[1]), 0);
+  return sumExecutionBuffers(rows);
 };
 
 test.skipIf(skip)("costs nothing for a subject with no companies", async () => {
@@ -500,18 +518,7 @@ const bufferCostPrivate = async (
     "EXPLAIN (ANALYZE, BUFFERS) SELECT person_connections($1, true)",
     [slug],
   );
-  const lines = rows
-    .map((r) => r["QUERY PLAN"])
-    .join("\n")
-    .split("\n")
-    .filter((l) => l.includes("Buffers:"));
-  assert.ok(
-    lines.length,
-    "EXPLAIN reported no Buffers: line — parser needs updating",
-  );
-  return lines
-    .flatMap((l) => [...l.matchAll(/shared (?:hit|read)=(\d+)/g)])
-    .reduce((n, m) => n + Number(m[1]), 0);
+  return sumExecutionBuffers(rows);
 };
 
 test.skipIf(skip)(

@@ -13,6 +13,27 @@ Everything below was measured against local docker Postgres and the committed
 
 ---
 
+## Status — T0, T1 and T2 are DONE locally (2026-08-03)
+
+Landed as `2e2a8d7314` (T0), `0b23cccc19` (T1 tooling), `4554cf2235` (T2), and the data run.
+Measured after the run, on local Postgres only — **Cloud SQL is untouched**, and the sequence
+at the end of this file is what carries it there.
+
+| | before | after |
+|---|---|---|
+| Бяла (обл. Русе) office-holders, 2019 + 2023 | 0 | **40** (2 mayors, 34 councillors, 14 village mayors) |
+| VAR05 village mayors, 2023 | 12 (3 Varna + 9 Ruse) | 3 |
+| kmetstva carrying a runoff result | 2 | **892** (451 + 441) |
+| village mayors placed in their own village | 0 | **10,552 / 10,721** (98.4%) |
+| Росен Русев | one term, "Тунджа" | two terms, "с. Безмер", same slug |
+
+265 slug locks purged and 12 rekeyed (`raw_data/person/kmetstvo_flips_2026_08.json`). Two
+people disappear entirely — Мариян Георгиев (lost Босилковци 164–167) and Емил Георгиев (lost
+Копривец 242–251) — because we had published each as кмет on the strength of a round-1 lead
+they lost. Their `/person` URLs 404; a redirect would name a different human.
+
+Still open: **T3** (2007), **T4a/T4b**, **T5**, and v2's **A3**.
+
 ## 0. Findings, mapped to tiers
 
 | # | Finding | Severity | Tier |
@@ -370,14 +391,28 @@ ones first.
 ## Cloud sequence (nothing here is automatic)
 
 ```bash
+npm run person:kmetstvo-flips:cloud -- --emit   # review the diff BEFORE the resolve…
+npm run person:kmetstvo-flips:cloud -- --apply  # …then rekey/purge the locks
 npm run db:resolve:persons:cloud              # applies 115 (widened CHECK) + 082, rebuilds person_role
 npm run db:load:declarations:pg:cloud -- --resolve
 npm run db:load:official-candidate-links:pg:cloud
 npm run db:load:person-elections:pg:cloud     # person_id is re-minted every resolve (v2 A1)
 npm run db:load:persons-browse:pg:cloud       # applies 120 (settlement arm + label)
 npm run db:load:person-search:pg:cloud        # place_label rides person_browse_table
+npm run db:load:graph:pg:cloud                # ← DO NOT SKIP: see below
 npm run person:slugs:cloud                    # re-mint the committed prerender manifest
 ```
+
+**`db:load:graph:pg` is the one this plan originally left out, and it is the most damaging
+omission of the set.** The three `graph_*` tables persist a `person_id`, which
+`resolve_persons` re-mints on every run (v2 §A1's class), so a resolve without it leaves the
+graph naming the WRONG PEOPLE — measured on this very run before it was caught: **67,890 of
+68,891** `graph_person_node` rows disagreed with `person` for the same id, i.e. 98.5% of
+`/connections` was mis-attributed while every count still reconciled. `graph.data.test.ts`
+catches it; nothing else does.
+
+The flips step is FIRST on purpose. It compares the fresh bundles against the still-old
+`person_role`, which only exists in the window between the re-parse and the resolve.
 
 The 082 label change alone can ship without a resolve:
 ```bash
