@@ -32,7 +32,9 @@ const PREREQ_DATA_PRESENT = (() => {
   return fs
     .readdirSync(DATA_DIR)
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
-    .some((d) => fs.existsSync(path.join(DATA_DIR, d, "national_summary.json")));
+    .some((d) =>
+      fs.existsSync(path.join(DATA_DIR, d, "national_summary.json")),
+    );
 })();
 const SKIP_REASON =
   "prerender data not generated (no data/<date>/national_summary.json) — run `npm run data` first";
@@ -117,14 +119,15 @@ const ROUTES: RouteCheck[] = [
     expectedCanonical: "/compare",
     hasEnglishMirror: true,
   },
-  {
-    path: "/timeline",
-    titleIncludes: "Възход и падение",
-    h1Includes: "Възход и падение",
-    minBodyChars: 500,
-    expectedCanonical: "/timeline",
-    hasEnglishMirror: true,
-  },
+  // NOT here, and deliberately: /timeline and /sofia/timeline. The seven
+  // standalone timeline screens were retired in f53cea0a93 (2026-05-18), which
+  // replaced them with the inline "Консолидирани данни" toggle on every
+  // HistoricalTrendsTile and deleted their routes, screens, menu item, sitemap
+  // and prerender entries. That commit missed the two RouteCheck entries here,
+  // and the skip fixed in fe6f6b63be hid the resulting failures until
+  // 2026-08-03. Both URLs now hit the `path="*"` catch-all in src/routes.tsx
+  // and render <NotFound />, so prerendering them would ship indexable HTML for
+  // a page that 404s on hydration — do not re-add without restoring the routes.
 
   // Top-level list pages — previously fell through to home.
   {
@@ -194,13 +197,7 @@ const ROUTES: RouteCheck[] = [
     expectedCanonical: "/sofia/recount",
     hasEnglishMirror: true,
   },
-  {
-    path: "/sofia/timeline",
-    titleIncludes: "София — времева линия",
-    minBodyChars: 500,
-    expectedCanonical: "/sofia/timeline",
-    hasEnglishMirror: true,
-  },
+  // /sofia/timeline is absent for the same reason as /timeline — see above.
 
   // /reports/{scope}/{report} pages — were 404→home before this commit.
   {
