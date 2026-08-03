@@ -105,20 +105,45 @@ const writeFile = (file: string, contents: string | Uint8Array): void => {
 
 const client = createErikClient();
 
+/** One page of a DataTables endpoint. 1,000 is what ЕРИК has always been asked for and
+ *  answers without complaint. */
+const PAGE = 1000;
+
 const fetchParticipants = async (el: ErikElection): Promise<Participant[]> => {
   const out: Participant[] = [];
   for (const commissionType of [1, 2, 3]) {
-    const res = await client.postJson<DataTable<Participant>>(
-      "/Reports/GetParticipantsByElectionId",
-      {
-        electionId: el.electionId,
-        electionCommissionType: commissionType,
-        draw: 1,
-        start: 0,
-        length: 1000,
-      },
-    );
-    for (const r of res.data) out.push({ ...r, commissionType });
+    // PAGED, and it has to be. This asked for one page of 1,000 and kept whatever came back,
+    // which is exact for a parliamentary cycle — the biggest is 67 participants — and silently
+    // wrong for anything larger. Measured on МИ 2023 (electionId 76): commissionType 3 reports
+    // `recordsTotal` 30,177, so a single page captured 3.3% of the register and every count
+    // downstream would have looked complete. `recordsTotal` was already on the response type
+    // and simply never read.
+    let start = 0;
+    for (;;) {
+      const res = await client.postJson<DataTable<Participant>>(
+        "/Reports/GetParticipantsByElectionId",
+        {
+          electionId: el.electionId,
+          electionCommissionType: commissionType,
+          draw: 1,
+          start,
+          length: PAGE,
+        },
+      );
+      for (const r of res.data) out.push({ ...r, commissionType });
+      start += res.data.length;
+      // Stop on a short page as well as on the count: a server that ignores `start` would
+      // otherwise loop for ever re-reading page one.
+      if (!res.data.length || start >= res.recordsTotal) {
+        if (start < res.recordsTotal)
+          throw new Error(
+            `ЕРИК participants (electionId=${el.electionId}, type=${commissionType}): ` +
+              `paging stalled at ${start} of ${res.recordsTotal} — a short page before the end ` +
+              `means the register truncated the result, and continuing would write a partial corpus as if it were whole.`,
+          );
+        break;
+      }
+    }
   }
   return out;
 };

@@ -444,10 +444,11 @@ before it can start.
 
 ## T5 (optional) — ЕРИК for local elections
 
-`ERIK_ELECTIONS` ([erik_config.ts:39](../../scripts/smetna_palata/erik_config.ts:39)) holds **only
-three parliamentary elections** (2026_04_19, 2024_10_27, 2024_06_09) — matching the 1,283 `donor`
-roles, split 791/252/240. Русев won Безмер twice as an **инициативен комитет**, and ИК campaign
-financing is exactly what ЕРИК holds.
+`ERIK_ELECTIONS` ([erik_config.ts](../../scripts/smetna_palata/erik_config.ts)) held **only three
+parliamentary elections** (2026_04_19, 2024_10_27, 2024_06_09) — matching the 1,283 `donor`
+roles, split 791/252/240 — when this was written. МИ 2023 was added in this pass, as the fourth
+and last entry. Русев won Безмер twice as an **инициативен комитет**, and ИК campaign financing
+is exactly what ЕРИК holds.
 
 ### Probe result (2026-08-03) — YES, and it is `electionId=76`
 
@@ -465,10 +466,24 @@ Registration numbers carry the election code directly — `2219-МИ/05.09.2023`
 worth having: **77** (`2961-МИ/02.02.2024`) and **78** (`2941-МИ/18.01.2024`) are МИ partials,
 **79** (`3121-ЕП/19.04.2024`) is the European Parliament.
 
-So this is what §T5 hoped: a config addition to `ERIK_ELECTIONS` plus a scraper run, not new
-plumbing. And it is the money signal for exactly the population this plan is about — **104
-инициативни комитета** stood in МИ 2023, which is the vehicle Росен Русев was elected under
-both times.
+### Wired as far as it honestly goes (2026-08-03)
+
+`electionId: 76` is now in `ERIK_ELECTIONS` as `2023_10_29_mi`, `isOldSystem: true`. The
+INGEST is not built, and the earlier "config addition plus a scraper run" estimate was wrong —
+two measured facts separate a local cycle from a parliamentary one:
+
+- **Scale.** `electionCommissionType` 1 returns 67 national registrations (58 партии, 9
+  коалиции), which is parliamentary-sized. Type 3 — the ОИК level, where the инициативни
+  комитети live — returns **30,177**. The scraper fetches per-participant sub-pages on top of
+  that, against a WAF that 403s bursts.
+- **Keying.** `scrape_erik` reconciles participants against `data/<election>/cik_parties.json`,
+  a parliamentary artifact of ~28 nationally numbered parties. A local cycle has no such file,
+  and a местна коалиция registered in one община is a different registration from the
+  same-named one next door — the party list it needs is per-ОИК, a key the scraper lacks.
+
+What makes it worth building anyway: ЕРИК records each инициативен комитет under the
+CANDIDATE'S OWN NAME (`8-МИ/10.09.2023 — Димитър Венков Стефанов`), which is the vehicle Росен
+Русев was elected under both times and the only money signal that exists for a village mayor.
 
 Two practical notes for whoever picks it up. The WAF 403s a cold deep link and throttles
 bursts, so warm `/` (and the `/Reports?electionId=<id>` page) first and pace the calls — a 403

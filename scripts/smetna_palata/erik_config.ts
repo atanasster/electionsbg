@@ -28,9 +28,13 @@ export type ErikElection = {
   election: string;
   // Human label for logs / the watcher detail line
   label: string;
-  // ЕРИК flips its data model between the "old" and "new" register. New-system
-  // elections (2024-06 onward) use `isOldSystemElection=false` in the DataTables
-  // payloads; older ones use `true`. Wrong value silently returns zero rows.
+  // ЕРИК flips its data model between the "old" and "new" register: the DataTables payloads
+  // carry `isOldSystemElection`. Set it per election by TESTING the endpoint, not from a date
+  // rule — the obvious one ("2024-06 onward is new") is contradicted by this file's own
+  // `2024_06_09` entry, which has been `true` since it was written. On МИ 2023 (id 76) the
+  // flag turned out to be inert: `true` and `false` return the same 1,160 donors and 1,860
+  // candidate declarations. Elsewhere a wrong value can silently return zero rows, which is
+  // why it stays explicit per entry.
   isOldSystem: boolean;
 };
 
@@ -53,6 +57,42 @@ export const ERIK_ELECTIONS: ErikElection[] = [
     electionId: 80,
     election: "2024_06_09",
     label: "Народно събрание — 9 юни 2024 г.",
+    isOldSystem: true,
+  },
+  // The only LOCAL cycle here, and the oldest entry — hence LAST, which is what keeps index 0
+  // the newest parliamentary one that the watcher fingerprints and the scraper defaults to.
+  //
+  // Why it is worth having: an инициативен комитет is how a кмет на кметство without a party
+  // gets on the ballot at all, and ЕРИК files each one under the CANDIDATE'S OWN NAME —
+  // "8-МИ/10.09.2023 — Димитър Венков Стефанов". That is the only campaign-money signal that
+  // exists for a village mayor. docs/plans/village-mayor-attribution-v1.md §T5.
+  //
+  // The id was confirmed against the live register rather than guessed: its participants'
+  // registry numbers carry the election code, `2219-МИ/05.09.2023` against `4520-НС/02.03.2026`
+  // for id 93. So were its neighbours — 77 and 78 are МИ partials (Feb / Jan 2024), 79 is the
+  // European Parliament.
+  //
+  // NOT YET INGESTABLE, and listed anyway so the id is written down where the next person
+  // looks. Two measured things separate it from a parliamentary cycle:
+  //
+  //   SCALE.  `electionCommissionType` 1 returns 67 national registrations (58 партии,
+  //           9 коалиции) — parliamentary-sized. Type 3, the ОИК level where the инициативни
+  //           комитети live, reports `recordsTotal` 30,177. `fetchParticipants` now pages
+  //           (it used to take one page of 1,000 and stop, which was exact for a
+  //           parliamentary cycle and would have written 3.3% of this one as if it were
+  //           whole), so the cost is a real crawl against a WAF that 403s bursts.
+  //   KEYING. `scrape_erik` reconciles participants against `data/<election>/cik_parties.json`
+  //           — a parliamentary artifact of ~28 nationally numbered parties. A local cycle has
+  //           no such file, and a местна коалиция registered in one община is a DIFFERENT
+  //           registration from the same-named one next door, so the list it needs is per-ОИК.
+  //           That key does not exist in this scraper, and `loadCikParties` throwing on the
+  //           missing file is what stops a run today.
+  //
+  // So this entry buys the id and the flags; the ingest is a feature.
+  {
+    electionId: 76,
+    election: "2023_10_29_mi",
+    label: "Местни избори — 29 октомври 2023 г.",
     isOldSystem: true,
   },
 ];
