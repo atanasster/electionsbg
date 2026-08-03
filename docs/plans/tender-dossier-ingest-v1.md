@@ -449,7 +449,7 @@ independently-measured 2.9% day-cache hole (§11) almost exactly. The two method
 6×, so the profile counter measures something broader (lots, child tenders, or non-procedure
 records) and **must not be used as a canary**. Use the id walk.
 
-## 11. ⚠️ Independent finding — the existing tenders corpus has a 69-day hole
+## 11. ✅ FIXED 2026-08-03 — the existing tenders corpus had a 69-day hole
 
 Not part of this plan; found while calibrating the canary, and cheap to fix.
 
@@ -466,7 +466,20 @@ the 3.4% missing-procedure rate.
 npx tsx scripts/procurement/ingest_tenders.ts --backfill --from 2023-10-24 --to 2023-12-31 --apply
 ```
 
-Then reload and re-derive downstream (`db:load:tenders:pg`, which also rebuilds
-`cpv_catalog`). Expect roughly 3–4k recovered procedures. Worth a guard in the ingest that
-fails loudly on a contiguous missing-day run rather than silently rebuilding from a holed
-cache — that is why this went unnoticed for ~2.5 years.
+**Done (commit `023383cdc0`).** Actual outcome: **232,726 → 236,855 procedures (+4,129)**,
+195,189 → 200,372 lots, cache now 2,405/2,405 days complete. All three named УНП verified
+present. Full sequence run: `ingest_tenders --backfill --apply` → `db:load:tenders:pg` →
+`refreshAppealDependents()` (`appealed_ocids` / `upheld_ocids` read `tenders`) →
+`backfill_unp --apply`.
+
+**It also exposed a latent `cais_id` bug, now fixed in the same commit.** `contracts.cais_id`
+is derived from `(unp, ocid)`, but `load_pg.ts` derived it *before* its own
+`resolve_contract_unp()` call and `load_tenders_pg.ts` never derived it at all — so any unp
+the resolver newly fills leaves a `cais_id` computed from the null it replaced. Dormant for
+as long as the resolver had nothing left to fill; the 4,129 recovered tenders let it resolve
+182 contracts and `procurement_ingestion_regression` failed on exactly those 182. Both
+loaders now re-derive after the resolver.
+
+**Still worth doing (not done):** a guard in `ingest_tenders` that fails loudly on a
+contiguous missing-day run rather than silently rebuilding from a holed cache. That absence
+is why this went unnoticed for ~2.5 years, and why the *next* hole would too.
