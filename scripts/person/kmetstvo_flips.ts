@@ -391,6 +391,12 @@ const app = command({
       long: "apply",
       description: "rekey moved locks + delete flipped ones",
     }),
+    pruneDead: flag({
+      type: boolean,
+      long: "prune-dead",
+      description:
+        "delete local locks whose mention is gone AND whose slug is dead (run after the resolve)",
+    }),
     file: option({
       type: string,
       long: "file",
@@ -398,7 +404,50 @@ const app = command({
       description: "audit file path",
     }),
   },
-  handler: async ({ emit, apply, file }) => {
+  handler: async ({ emit, apply, pruneDead, file }) => {
+    // A separate, later step: it reads the state the RESOLVE leaves behind, so it cannot be
+    // folded into --apply (which runs before it).
+    //
+    // A re-ingest that removes seats removes people — the 2007 de-duplication dropped 2,420
+    // phantom кметство entries, and 147 of their holders had no other mention, so they cease
+    // to exist. Their slug is correctly dead: there is no successor to redirect to, and
+    // `person_slug_retired.target_slug` is NOT NULL so a redirect cannot even be written. But
+    // the LOCK row survives, pointing at a slug that is neither live nor retired — which
+    // `person_slug_retired.data.test.ts` fails on, and which would hand that dead slug to
+    // whoever a future re-parse puts on that mention id.
+    //
+    // Scoped to `local:` mentions that no longer exist AND whose slug is dead, so it can
+    // never touch a lock that is doing its job.
+    if (pruneDead) {
+      const dead = await allRows<{ mention_id: string; slug: string }>(
+        `SELECT l.mention_id, l.slug
+           FROM person_slug_lock l
+          WHERE l.mention_id LIKE 'local:%'
+            AND NOT EXISTS (
+              SELECT 1 FROM person_role r
+               WHERE r.source = 'local' AND 'local:' || r.ref = l.mention_id
+            )
+            AND NOT EXISTS (SELECT 1 FROM person p WHERE p.slug = l.slug)
+            AND NOT EXISTS (
+              SELECT 1 FROM person_slug_retired s WHERE s.slug = l.slug
+            )`,
+      );
+      console.log(
+        `[flips] ${dead.length} dead lock(s) — mention gone and slug neither live nor retired`,
+      );
+      for (const d of dead.slice(0, 10))
+        console.log(`   ${d.mention_id} → ${d.slug}`);
+      if (dead.length > 10) console.log(`   … and ${dead.length - 10} more`);
+      if (dead.length)
+        await withTx(async (c) => {
+          const r = await c.query(
+            `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
+            [dead.map((d) => d.mention_id)],
+          );
+          console.log(`[flips] pruned ${r.rowCount} dead lock(s)`);
+        });
+      return;
+    }
     if (!emit && !apply) {
       console.error(
         "[flips] nothing to do — pass --emit (read-only) or --apply. See the header.",
@@ -507,9 +556,22 @@ const app = command({
         return;
       }
       await withTx(async (c) => {
+        // PURGE FIRST, then rekey. A flip's ref keeps existing — it just changes hands — so
+        // its stale lock occupies a mention id that a MOVE may need as its destination. On a
+        // wholesale renumber (2007: 5,367 entries folding to 2,947) every destination is
+        // occupied by the previous holder of that index, so rekeying first skipped all 2,367
+        // moves and left every one of those people to inherit a stranger's slug. Purging
+        // first frees exactly the ids the moves are entitled to.
+        const purged = await c.query(
+          `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
+          [
+            [
+              ...flips.map((f) => `local:${f.ref}`),
+              ...orphans.map((o) => `local:${o.ref}`),
+            ],
+          ],
+        );
         let rekeyed = 0;
-        // Rekey first, so a move's destination is settled before anything else reads it.
-        //
         // `first_seen` IS COPIED, and that is the whole point of a move. It is
         // `chooseStableSlug`'s primary sort key (oldest member mention wins the anchor), and
         // 99% of this table shares one seeding timestamp — so a row re-stamped with now()
@@ -524,9 +586,9 @@ const app = command({
           );
           if (ins.rowCount) {
             rekeyed++;
-            // Deleted ONLY on a successful insert. A destination that was already locked
-            // means someone else owns that mention; dropping the source anyway would destroy
-            // a lock and mint this person a new URL for nothing.
+            // Deleted ONLY on a successful insert. A destination still locked after the purge
+            // belongs to somebody the diff did not touch; dropping the source anyway would
+            // destroy a lock and mint this person a new URL for nothing.
             await c.query(
               `DELETE FROM person_slug_lock WHERE mention_id = $1`,
               [`local:${m.fromRef}`],
@@ -537,24 +599,8 @@ const app = command({
             );
           }
         }
-        // Orphan locks are purged alongside the flips. The person is gone and their slug dies
-        // with no redirect — correct, since redirecting would name a different human and
-        // `person_slug_retired.target_slug` is NOT NULL — but the LOCK row must not survive
-        // that: its mention id no longer exists, so it can only ever mis-fire if a future
-        // re-parse mints that ref again (the hazard `staleOnNew` warns about), and
-        // `person_slug_retired.data.test.ts` fails on a lock pointing at a slug that is
-        // neither live nor retired.
-        const purged = await c.query(
-          `DELETE FROM person_slug_lock WHERE mention_id = ANY($1::text[])`,
-          [
-            [
-              ...flips.map((f) => `local:${f.ref}`),
-              ...orphans.map((o) => `local:${o.ref}`),
-            ],
-          ],
-        );
         console.log(
-          `[flips] rekeyed ${rekeyed}/${moves.length} lock(s), purged ${purged.rowCount} lock(s) (${flips.length} flip + ${orphans.length} orphan)`,
+          `[flips] purged ${purged.rowCount} lock(s) (${flips.length} flip + ${orphans.length} orphan), rekeyed ${rekeyed}/${moves.length}`,
         );
       });
       console.log(

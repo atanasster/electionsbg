@@ -263,6 +263,19 @@ export const loadTendersPg = async (): Promise<{
     console.log(
       `resolved unp for ${res[0].resolve_contract_unp} ocds contracts`,
     );
+
+    // cais_id is DERIVED from (unp, ocid), so a resolver that just filled a unp
+    // has invalidated it — re-derive here, in the same guard, or the row keeps a
+    // cais_id computed from the null unp it had a moment ago. That is not
+    // hypothetical: the 2026-08-03 tenders backfill (69 recovered days) let the
+    // resolver fill 182 contracts, and `procurement_ingestion_regression`'s
+    // "cais_id must equal unp when unp is present" failed on exactly those 182.
+    // load_pg.ts derives cais_id BEFORE its own resolve_contract_unp() call, so
+    // it has the same hole and carries the same re-derivation.
+    await getPool().query(
+      `UPDATE contracts SET cais_id = contract_cais_ref(unp, ocid)
+       WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid)`,
+    );
   }
 
   // Recover contracts.lot_name from the now-fresh tenders (fuller per-lot text

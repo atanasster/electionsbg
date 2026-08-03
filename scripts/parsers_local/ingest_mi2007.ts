@@ -202,9 +202,9 @@ export const kmetstvoPageFamily = (rawHtml: string): KmetstvoPageFamily =>
  * Pick the page that should represent a seat, given one already chosen and a newcomer.
  *
  * `results` always wins. `decision` is kept ONLY where it is all there is, so dropping the
- * family outright would lose those seats rather than de-duplicate them. Measured on the
- * archive with this function's own key — (obshtinaCode, `foldKmetstvoName`) — 2,378 seats
- * carry both families, 528 only `results`, and 83 only `decision`.
+ * family outright would lose those seats rather than de-duplicate them. Measured by the run
+ * itself: 5,367 pages fold to 2,947 seats — 2,906 taken from a `results` page and 41 from a
+ * `decision` page with no `results` counterpart.
  */
 /** The winning ROW of a кметство contest, resolved through the shared `pickLocalWinner` rule.
  *

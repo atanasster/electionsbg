@@ -422,6 +422,16 @@ export const loadPg = async (): Promise<{
     `resolved unp for ${unpRes[0].resolve_contract_unp} ocds contracts`,
   );
 
+  // Re-derive cais_id: the block above set it from (unp, ocid) BEFORE this
+  // resolver ran, so every unp it just filled leaves a cais_id derived from the
+  // null it replaced. The IS DISTINCT guard makes this a no-op in the common
+  // case where the resolver filled nothing. Same re-derivation lives in
+  // load_tenders_pg.ts, which calls the same resolver. (079_contracts_cais_id)
+  await getPool().query(
+    `UPDATE contracts SET cais_id = contract_cais_ref(unp, ocid)
+     WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid)`,
+  );
+
   // Recover each contract's fuller per-lot description from its УНП-matched
   // tender (contracts.lot_name) — АОП truncates the lot tail in contracts.title.
   // Runs after unp resolution (its join key) and is a no-op if tenders are not
