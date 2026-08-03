@@ -24,7 +24,8 @@ export const eurostatFoodPli: WatchSource = {
   label: "Eurostat price levels (BG): PPP price level indices (prc_ppp_ind_1)",
   url: "https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1",
   cadence: "monthly",
-
+  // prc_ppp_ind_1 is an annual table.
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL_);
     if (!data) throw new Error("empty Eurostat response for prc_ppp_ind_1");

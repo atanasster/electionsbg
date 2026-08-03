@@ -156,6 +156,21 @@ const MONTHLY_LATEST_SPECS: MonthlyLatestSpec[] = [
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
   },
+  {
+    // HICP headline, monthly. The `inflation` series above is a quarterly MEAN
+    // of these months, and a quarter only lands once all three months are in —
+    // so on 2026-08-03 the freshest published figure was July (4.1%) while the
+    // series still ended at Q2 (5.83%), and would keep ending there until the
+    // September release in mid-October. That is a ~2.5-month lag on the single
+    // number people come to the page for, entirely separate from the watcher
+    // cadence bug. Carrying the latest month alongside the quarters closes it.
+    key: "inflation",
+    dataset: "prc_hicp_minr",
+    query: { geo: "BG", unit: "RCH_A", coicop18: "TOTAL", freq: "M" },
+    seasonallyAdjusted: false, // HICP YoY rates are published unadjusted
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+  },
 ];
 
 // The latest monthly reading we attach per series key.
@@ -1647,6 +1662,10 @@ const main = async () => {
   const series: Record<string, MacroPoint[]> = {};
   const meta: Record<string, IndicatorMeta> = {};
   const prior = readPriorSeries();
+  // Keys served from the previously-committed vintage because their upstream
+  // was unreachable this run. Surfaced in the payload (not just on stdout) so
+  // the staleness is inspectable after an unattended run.
+  const degraded: string[] = [];
 
   const all: Indicator[] = [
     ...EUROSTAT_INDICATORS,
@@ -1659,8 +1678,41 @@ const main = async () => {
     try {
       let data: MacroPoint[];
       if (ind.source === "eurostat") data = await fetchEurostat(ind);
-      else if (ind.source === "worldbank") data = await fetchWorldBank(ind);
-      else data = ind.series;
+      else if (ind.source === "worldbank") {
+        // The World Bank indicator API is the one upstream here that goes down
+        // as a unit (observed 2026-08-03: every /indicator/ path 502'd while
+        // /country/ served 200). Aborting the run on it meant an unrelated
+        // outage blocked the whole macro refresh — all 30+ Eurostat series,
+        // including HICP — and nothing landed at all.
+        //
+        // WGI is ANNUAL and lags by ~a year, so last run's vintage is the same
+        // data, not a guess. Carry it forward loudly rather than lose the run.
+        // Only when we actually HAVE a prior: with nothing to fall back on
+        // there is no series to serve, so that still fails.
+        try {
+          data = await fetchWorldBank(ind);
+        } catch (err) {
+          const carried = prior?.[ind.key];
+          if (!carried?.length) throw err;
+          console.warn(
+            `\n  WARN ${ind.key}: upstream unreachable (${(err as Error).message}). ` +
+              `Serving the previously-committed ${carried.length}-point series unchanged.`,
+          );
+          degraded.push(ind.key);
+          series[ind.key] = carried;
+          meta[ind.key] = {
+            titleEn: ind.titleEn,
+            titleBg: ind.titleBg,
+            unitLabelEn: ind.unitLabelEn,
+            unitLabelBg: ind.unitLabelBg,
+            cadence: ind.cadence,
+            source: ind.source,
+            sourceUrl: ind.sourceUrl,
+          };
+          console.log(`${carried.length} points (carried forward)`);
+          continue;
+        }
+      } else data = ind.series;
 
       // Absolute-floor check (Eurostat / WorldBank only — curated series
       // are inline constants and self-validating). Catches "upstream query
@@ -1761,11 +1813,20 @@ const main = async () => {
     indicators: meta,
     series,
     latestMonthly,
+    // Empty on a healthy run. Non-empty means those keys are last run's data.
+    ...(degraded.length ? { degraded } : {}),
   };
 
   // Minified — ships to /public/ and is fetched client-side.
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload));
   console.log(`\nWrote ${OUT_FILE}`);
+  if (degraded.length) {
+    // Last line of stdout, so it survives an unattended run's tail-N capture.
+    console.warn(
+      `DEGRADED: ${degraded.join(", ")} carried forward from the previous ` +
+        `vintage (upstream unreachable). Re-run once it recovers.`,
+    );
+  }
 };
 
 main().catch((err) => {

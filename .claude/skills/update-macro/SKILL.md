@@ -57,6 +57,25 @@ Wrote /Users/.../data/macro.json
 
 The script auto-fails on a count regression — see "Data-integrity contract" below — so if you see "safety check: <key> dropped from N → M points (X% < -10%)", treat as a regression and investigate before re-running.
 
+**`DEGRADED: <keys> carried forward …` on the last line is NOT a failure.** The
+World Bank indicator API goes down as a unit (2026-08-03: every `/indicator/`
+path 5xx'd for hours while `/country/` served 200). It used to abort the whole
+run, so an outage in an annual governance index threw away the entire Eurostat
+refresh — HICP included — and wrote nothing. Both fetchers now keep the
+previously-committed WGI block instead, record the affected keys in the
+payload's `degraded` array, and carry on.
+
+The data is not wrong — WGI is annual and lags ~a year, so last run's vintage is
+the same data — but it IS last run's. **Re-run the step once the World Bank API
+recovers**, and check `degraded` is gone:
+
+```bash
+python3 -c "import json;print(json.load(open('data/macro.json')).get('degraded'))"
+```
+
+A `degraded` that persists across several runs means the outage is not transient
+(an indicator code was retired, say) and needs investigating, not another re-run.
+
 ## Step 2 — Verify
 
 Quick sanity check on the new file:

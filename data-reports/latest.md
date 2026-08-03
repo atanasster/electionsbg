@@ -1,10 +1,10 @@
-# Watch report — 2026-08-03 (03.08.2026 г., 09:09 Europe/Sofia)
+# Watch report — 2026-08-03 (03.08.2026 г., 15:33 Europe/Sofia)
 
 ## Changed
-_(no changes — all upstreams stable)_
+- **Eurostat macro (BG): 26 datasets**: new release · ei_bssi_m_r2 2026-07-30T11:00:00+0200, gov_10a_exp 2026-07-21T11:00:00+0200, gov_10a_main 2026-07-21T11:00:00+0200, gov_10q_ggdebt 2026-07-21T11:00:00+0200, gov_10q_ggnfa 2026-07-21T11:00:00+0200, lfsi_emp_q 2026-06-11T23:00:00+0200, lfsi_sla_a 2026-06-11T23:00:00+0200, nama_10_gdp 2026-07-30T11:00:00+0200, namq_10_a10 2026-07-30T23:00:00+0200, namq_10_gdp 2026-07-30T23:00:00+0200, prc_hicp_minr 2026-07-31T11:00:00+0200, sts_inpr_q 2026-08-01T11:00:00+0200, sts_trtu_m 2026-08-03T11:00:00+0200, une_rt_m 2026-07-31T11:00:00+0200
 
 ## Unchanged
-_(none)_
+- Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw): unchanged (tour_occ_nim:2026-07-02T23:00:00+0200 · tour_occ_ninraw:2026-07-02T23:00:00+0200)
 
 ## Skipped (off-cadence)
 - Parliament roll-call votes (daily): no new sessions (max id 11159, 2026-07-31) · next check 2026-08-03
@@ -51,10 +51,8 @@ _(none)_
 - ДВ — обнародвани бюджетни закони (ЗДБРБ / ЗБДОО / ЗБНЗОК) (daily): бр. 69 от 2026-07-31 · 7 акт(а) в официалния раздел · 3 бюджетен(ни) закон(а) проследени · next check 2026-08-03
 - Общински капиталови програми (per-municipality capital lists) (weekly): 54 programme(s) tracked across 5 year(s) · latest 2026 (1 муни) · 3 manual (2022/vidin, 2023/vidin, 2025/vidin) · hash 3a9610ddc04b5ecc · next check 2026-08-04
 - МРРБ — ИПОП (Инвестиционна програма за общински проекти) изпълнение (daily): IPOP CSV sample 32768B · hash 52062e83df4ce50f · next check 2026-08-03
-- Eurostat macro (BG): 26 datasets (monthly): 23 datasets · latest update 2026-07-15T11:00:00+0200 · next check 2026-08-14
 - Eurostat policy-baseline (BG): consumption + tax aggregates (monthly): 5 datasets · latest update 2026-07-08T11:00:00+0200 · next check 2026-08-08
 - Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202) (monthly): nrg_pc_204:2026-05-19T23:00:00+0200 · next check 2026-08-12
-- Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw) (monthly): tour_occ_nim:2026-07-02T23:00:00+0200 · tour_occ_ninraw:2026-07-02T23:00:00+0200 · next check 2026-08-13
 - Ember Yearly Electricity Data (generation mix, CC BY 4.0) (monthly): Ember CSV Tue, 23 Jun 2026 10:58:24 GMT (49079981 bytes) · next check 2026-08-12
 - НОИ STATB пенсии + НСИ заплати (policy-baseline) (weekly): STATB2/2026 current · next quarter not yet · НСИ wages updated 2025-11-28T11:00:00 · next check 2026-08-07
 - PwC tax summaries — EU comparator rates (monthly): VAT 27(HU)/24(EE) · CIT 9(HU) · PIT 22(EE) · 8044c4a74da0d043 · next check 2026-08-09
@@ -121,4 +119,4 @@ _(none)_
 _(none)_
 
 ---
-_Watcher run at 2026-08-03T06:09:25.660Z UTC._
+_Watcher run at 2026-08-03T12:33:07.645Z UTC._

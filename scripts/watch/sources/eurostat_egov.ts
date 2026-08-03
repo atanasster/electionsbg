@@ -27,7 +27,8 @@ export const eurostatEgov: WatchSource = {
   label: "Eurostat e-government (isoc_ciegi_ac)",
   url: "https://ec.europa.eu/eurostat/databrowser/view/isoc_ciegi_ac/default/table",
   cadence: "monthly",
-
+  // isoc_ciegi_ac is an annual table.
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL);
     const updated = data?.updated ?? data?.extension?.updated ?? "";

@@ -24,7 +24,8 @@ export const eurostatRoadSafety: WatchSource = {
   label: "Eurostat road safety (BG): пътни жертви (sdg_11_40)",
   url: `https://ec.europa.eu/eurostat/databrowser/view/${DATASET}/default/table`,
   cadence: "monthly",
-
+  // sdg_11_40 is an annual table.
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL);
     if (!data) return { value: "missing", detail: "fetch failed" };

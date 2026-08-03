@@ -199,17 +199,34 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 26 datasets",
+  label: `Eurostat macro (BG): ${DATASETS.length} datasets`,
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",
-  cadence: "monthly",
+  // DAILY, not monthly, and the bundle's mixed frequencies are exactly why.
+  // Most members are quarterly or annual, but four publish MONTHLY
+  // (prc_hicp_minr, une_rt_m, sts_trtu_m, ei_bssi_m_r2) and one fingerprint
+  // covers all 26 — so the probe has to keep up with the FASTEST member or the
+  // fast ones are sampled at the slow ones' rate. Under the old "monthly" this
+  // bundle missed the July 2026 HICP release for a fortnight (see ../cadence).
+  // The cost objection that motivated "monthly" is gone: the 26 probes now run
+  // concurrently, ~3s rather than ~23s.
+  cadence: "daily",
+  publishes: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
+    // Bounded concurrency: 26 metadata requests, but don't open 26 sockets to
+    // Eurostat at once — this runs unattended every day.
     const entries: Record<string, string> = {};
-    for (const d of DATASETS) {
-      entries[d.code] = await fetchUpdated(d.code, d.query);
-    }
+    const queue = [...DATASETS];
+    const worker = async (): Promise<void> => {
+      for (let d = queue.shift(); d; d = queue.shift()) {
+        entries[d.code] = await fetchUpdated(d.code, d.query);
+      }
+    };
+    await Promise.all(
+      Array.from({ length: Math.min(6, DATASETS.length) }, worker),
+    );
     // Stable serialisation so ordering doesn't affect the hash.
     const serialised = Object.keys(entries)
       .sort()
@@ -228,13 +245,21 @@ export const eurostat: WatchSource = {
     if (!prev) return curr.detail;
     const prevDatasets = (prev.meta?.datasets ?? {}) as Record<string, string>;
     const currDatasets = (curr.meta?.datasets ?? {}) as Record<string, string>;
-    const changed: string[] = [];
+    // A code absent from the previous state was ADDED to DATASETS since the
+    // last probe — it is new to the watch list, not newly published upstream.
+    // Reporting it as a release sends the operator looking for data that did
+    // not move (three showed up that way on the 2026-08-03 run).
+    const released: string[] = [];
+    const added: string[] = [];
     for (const code of Object.keys(currDatasets).sort()) {
-      if (prevDatasets[code] !== currDatasets[code]) {
-        changed.push(`${code} ${currDatasets[code]}`);
+      if (!(code in prevDatasets)) added.push(code);
+      else if (prevDatasets[code] !== currDatasets[code]) {
+        released.push(`${code} ${currDatasets[code]}`);
       }
     }
-    if (changed.length === 0) return curr.detail;
-    return `new release · ${changed.join(", ")}`;
+    const parts: string[] = [];
+    if (released.length) parts.push(`new release · ${released.join(", ")}`);
+    if (added.length) parts.push(`now watching · ${added.join(", ")}`);
+    return parts.length ? parts.join(" | ") : curr.detail;
   },
 };

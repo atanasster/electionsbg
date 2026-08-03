@@ -51,7 +51,8 @@ export const eurostatRegional: WatchSource = {
   // sources together, so we accept the small extra cost. The fingerprint
   // is stable between releases so consecutive runs are no-ops.
   cadence: "monthly",
-
+  // all five NUTS3 tables are annual (freq=A).
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const entries: Record<string, string> = {};
     for (const d of DATASETS) {

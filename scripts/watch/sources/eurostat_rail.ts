@@ -27,7 +27,8 @@ export const eurostatRail: WatchSource = {
   label: "Eurostat rail (BG): жп пътници (rail_pa_total)",
   url: `https://ec.europa.eu/eurostat/databrowser/view/${DATASET}/default/table`,
   cadence: "monthly",
-
+  // rail_pa_total is an annual table (time keys 2023/2024/2025).
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL);
     if (!data) return { value: "missing", detail: "fetch failed" };

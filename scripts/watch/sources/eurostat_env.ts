@@ -27,7 +27,8 @@ export const eurostatEnv: WatchSource = {
   label: "Eurostat environment (BG): рециклиране на отпадъци (cei_wm011)",
   url: `https://ec.europa.eu/eurostat/databrowser/view/${DATASET}/default/table`,
   cadence: "monthly",
-
+  // cei_wm011 is an annual table.
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL);
     if (!data) return { value: "missing", detail: "fetch failed" };

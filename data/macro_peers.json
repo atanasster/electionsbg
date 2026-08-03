@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-21T17:44:28.881Z",
+  "fetchedAt": "2026-08-03T12:58:46.954Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -5406,6 +5406,12 @@
             "quarter": 1,
             "period": "2026-Q1",
             "value": 0.8
+          },
+          {
+            "year": 2026,
+            "quarter": 2,
+            "period": "2026-Q2",
+            "value": 1.2
           }
         ],
         "RO": [
@@ -6719,7 +6725,7 @@
             "year": 2016,
             "quarter": 4,
             "period": "2016-Q4",
-            "value": 2.5
+            "value": 2.4
           },
           {
             "year": 2017,
@@ -6935,13 +6941,19 @@
             "year": 2025,
             "quarter": 4,
             "period": "2025-Q4",
-            "value": 0.7
+            "value": 0.8
           },
           {
             "year": 2026,
             "quarter": 1,
             "period": "2026-Q1",
             "value": 1.7
+          },
+          {
+            "year": 2026,
+            "quarter": 2,
+            "period": "2026-Q2",
+            "value": 1.6
           }
         ],
         "HR": [
@@ -35525,6 +35537,9 @@
       }
     }
   },
+  "degraded": [
+    "wgi"
+  ],
   "pricePli": {
     "source": "Eurostat prc_ppp_ind_1 (PPP programme, EU27=100)",
     "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1",

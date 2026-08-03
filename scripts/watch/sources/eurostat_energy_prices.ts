@@ -43,7 +43,8 @@ export const eurostatEnergyPrices: WatchSource = {
     "Eurostat energy prices (BG): household electricity (nrg_pc_204) + gas (nrg_pc_202)",
   url: "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
   cadence: "monthly",
-
+  // nrg_pc_204/202 publish per half-year (2025-S1, 2025-S2).
+  publishes: "semiannual",
   async fingerprint(): Promise<Fingerprint> {
     const parts: string[] = [];
     for (const d of DATASETS) {

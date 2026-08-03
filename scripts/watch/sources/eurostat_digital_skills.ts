@@ -27,7 +27,8 @@ export const eurostatDigitalSkills: WatchSource = {
   label: "Eurostat digital skills (isoc_sk_dskl_i21)",
   url: "https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table",
   cadence: "monthly",
-
+  // isoc_sk_dskl_i21 is an annual table.
+  publishes: "annual",
   async fingerprint(): Promise<Fingerprint> {
     const data = await fetchJson<EurostatResponse>(URL);
     const updated = data?.updated ?? data?.extension?.updated ?? "";

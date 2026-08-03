@@ -34,7 +34,11 @@ export const eurostatTourism: WatchSource = {
   label:
     "Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw)",
   url: "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table",
-  cadence: "monthly",
+  // Weekly, not monthly: tour_occ_nim is a monthly release, so a monthly probe
+  // could sit a full release behind (see ../cadence). Weekly is enough here —
+  // unlike the HICP bundle, nothing downstream is time-critical.
+  cadence: "weekly",
+  publishes: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
     const parts: string[] = [];

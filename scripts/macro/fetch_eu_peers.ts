@@ -1072,6 +1072,20 @@ interface WgiPayload {
   >;
 }
 
+/** The WGI block from the committed file, for carry-forward when the World
+ *  Bank API is down. Returns null when there is nothing to carry. */
+const readPriorWgi = (): WgiPayload | null => {
+  if (!fs.existsSync(OUT_FILE)) return null;
+  try {
+    const raw = JSON.parse(fs.readFileSync(OUT_FILE, "utf8")) as {
+      wgi?: WgiPayload;
+    };
+    return raw.wgi && Object.keys(raw.wgi.series ?? {}).length ? raw.wgi : null;
+  } catch {
+    return null;
+  }
+};
+
 const fetchWgi = async (): Promise<WgiPayload> => {
   const series: Partial<
     Record<WgiDim, Partial<Record<Geo | "EU27_2020", WgiSnapshot[]>>>
@@ -1318,8 +1332,26 @@ const main = async () => {
   }
 
   // ----- Pass 4: World Bank WGI per-peer ------------------------------------
+  // Non-fatal, for the same reason as in fetch_eurostat.ts: the World Bank
+  // indicator API fails as a unit (observed 2026-08-03, every /indicator/ path
+  // 5xx), and it is the LAST pass — so an outage there threw away all four
+  // passes of completed Eurostat work and wrote nothing at all. WGI is annual
+  // and lags ~a year, so the previous vintage is the same data.
   console.log("Fetching World Bank WGI (6 dimensions × 27 members)…");
-  const wgi = await fetchWgi();
+  let wgi: Awaited<ReturnType<typeof fetchWgi>>;
+  let wgiDegraded = false;
+  try {
+    wgi = await fetchWgi();
+  } catch (err) {
+    const carried = readPriorWgi();
+    if (!carried) throw err;
+    console.warn(
+      `  WARN wgi: upstream unreachable (${(err as Error).message}). ` +
+        `Serving the previously-committed WGI block unchanged.`,
+    );
+    wgi = carried;
+    wgiDegraded = true;
+  }
 
   // ----- Combined payload ---------------------------------------------------
   const payload = {
@@ -1340,12 +1372,21 @@ const main = async () => {
     indicators,
     indicatorsAnnual,
     wgi,
+    // Absent on a healthy run; ["wgi"] when that block is last run's vintage.
+    ...(wgiDegraded ? { degraded: ["wgi"] } : {}),
   };
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
   console.log(
     `\nWrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} legacy metrics + ${Object.keys(indicators).length} quarterly + ${Object.keys(indicatorsAnnual).length} annual + WGI(${Object.keys(wgi.series).length}d × ${Object.values(wgi.series)[0] ? Object.keys(Object.values(wgi.series)[0]!).length : 0}g @${wgi.latestYear}), latest legacy year ${legacyLatestYear}`,
   );
+  if (wgiDegraded) {
+    // Last line of stdout, so an unattended run's tail-N capture keeps it.
+    console.warn(
+      `DEGRADED: wgi carried forward from the previous vintage ` +
+        `(upstream unreachable). Re-run once it recovers.`,
+    );
+  }
 };
 
 main().catch((err) => {
