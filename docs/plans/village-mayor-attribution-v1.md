@@ -32,7 +32,10 @@ people disappear entirely — Мариян Георгиев (lost Босилко
 Копривец 242–251) — because we had published each as кмет on the strength of a round-1 lead
 they lost. Their `/person` URLs 404; a redirect would name a different human.
 
-Still open: **T3** (2007), **T4a/T4b**, **T5**, and v2's **A3**.
+T4a landed as `8edb344c6b`. **T3 is diagnosed but deliberately unfixed** — the 2007 archive
+publishes two page families that disagree on the winner in 54% of кметства, and choosing
+between them is a data-authority decision, not an implementation (see §T3). Still open:
+**T3's decision**, **T4b**, **T5**, and v2's **A3**.
 
 ## 0. Findings, mapped to tiers
 
@@ -314,8 +317,44 @@ BGS04 "Банево" ← results_1/02/20400002.html (5 rows, no r2)
 
 So one village yields **two** `village_mayor` roles — the round-1 leader *and* the round-2 winner —
 plus the round-1/round-2 vote totals disagree in a way page-duplication alone does not explain
-(Банево R1 188/174 vs R2 310/390). **Root cause is not established**; the page-family difference
-(`20400002` vs `20402573` = obshtina+EKATTE) must be diagnosed before any fix.
+(Банево R1 188/174 vs R2 310/390).
+
+### Diagnosis (2026-08-03) — DONE, and it turns T3 into a decision
+
+The 2007 archive publishes each кметство under **two page families**, and the ingest walks both:
+
+| | file key | heading | round tabs | pages |
+|---|---|---|---|---|
+| **A** | `<oik><sequence>` (`20400002`) | "Окончателни резултати **по решение на ОИК**" | no | 2,465 |
+| **B** | `<oik><EKATTE>` (`20402573`) | "Окончателни резултати" | **І тур / ІІ тур** | 2,906 |
+
+Both breadcrumbs read "Община Бургас, кметство Банево" and both parse to the same
+`(obshtinaName, placeName)`, so `ensureBundle` files them as two entries of one município —
+that is the duplication. 2,354 of 3,013 кметства carry one of each.
+
+**They are not two views of one result.** Measured across every 2007 page:
+
+```
+places with both families: 2,354   same elected winner: 1,087   DIFFERENT winner: 1,267 (54%)
+
+Банско|Филипово   ОИК=Кезим Мустафа Ходжа (183)   vs  plain=Ариф Кадри Туталъ (173)
+Белица|Дагоново   ОИК=Али Хюсеин Барабунов (219)  vs  plain=Страхил Атанасов Барабунов (448)
+Белица|Черешово   ОИК=Алиш Исмаил Куньов (104)    vs  plain=Алиш Исмаилов Куньов (126)
+```
+
+The last row is the informative one: the same man under two spellings with two vote counts,
+which reads like two STAGES of one contest rather than two contests.
+
+**T3 stops here, deliberately.** Which family is authoritative decides who this site names as
+кмет на кметство for ~2,354 places in 2007, and the two disagree in more than half of them.
+"Окончателни резултати по решение на ОИК" is the more authoritative-sounding wording; family
+B is the only one carrying a ІІ тур, so it is the only one that can express a runoff. Neither
+observation settles it, and choosing wrong would republish ~2,300 named people incorrectly —
+the exact failure this plan exists to end.
+
+Needed before the merge is written: what "по решение на ОИК" denoted in ЦИК's 2007 publication
+model, or an external cross-check of a few 2007 village mayors. Until then the duplication
+stands, which is the safe state — it over-reports rather than asserting a wrong single winner.
 
 Steps: diagnose the two page families → merge to one entry per (obshtina, place) carrying
 `round1` + `round2` + `elected` → re-run `--local-ingest mi2007` (the raw ZIPs are already extracted,
