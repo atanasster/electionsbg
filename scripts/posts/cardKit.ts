@@ -417,6 +417,385 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   return canvas.toBuffer("image/png");
 };
 
+/**
+ * Categorical line-series colours, validated against each theme's surface with
+ * the data-viz six-checks (lightness band, chroma floor, CVD separation,
+ * normal-vision floor, contrast). Slot 0 is the subject series.
+ *
+ * Both themes sit in the 6-8 CVD floor band on the coral/green pair, which is
+ * legal ONLY with secondary encoding — hence `DASH` below and the end labels:
+ * every line is identifiable without colour. Do not add a 5th slot by eye; a
+ * 5th series should fold into "other" or become a second card.
+ *
+ * Light slot 0 is a DARKER coral than `pal.accent` on purpose — the brand
+ * accent scores 2.82:1 on the cream surface, under the 3:1 floor.
+ */
+const LINE_SERIES: Record<Theme, string[]> = {
+  dark: ["#df6b43", "#1baf7a", "#9085e9"],
+  light: ["#c9552d", "#12805a", "#5243bb"],
+};
+/** Dash pattern per slot — the secondary encoding that carries identity in greyscale. */
+const LINE_DASH: number[][] = [[], [18, 10], [4, 9], [26, 12]];
+
+/** Y-axis tick count. Exported alongside `niceAxisStep` so callers can predict the axis. */
+export const LINE_TICKS = 5;
+
+/**
+ * Snap an axis span to a round tick step (1, 2, 2.5, 5, 10 × 10^k).
+ *
+ * Exists because an unsnapped top forces the tick LABELS to be rounded to fit,
+ * so they name values the gridlines are not at — a 12-top over 5 ticks draws
+ * 2.4/4.8/7.2/9.6 and labels them 2/5/7/10. On a published card that is a chart
+ * that lies about its own scale, so the step is chosen first and the top is
+ * derived from it.
+ */
+export const niceAxisStep = (span: number): number => {
+  const rough = span / LINE_TICKS;
+  const mag = Math.pow(10, Math.floor(Math.log10(rough)));
+  const norm = rough / mag;
+  const snapped =
+    norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 2.5 ? 2.5 : norm <= 5 ? 5 : 10;
+  return snapped * mag;
+};
+
+export type LineSeries = {
+  label: string;
+  /**
+   * One value per `labels` entry. `null` = not published — the line BREAKS
+   * there rather than interpolating, so an unpublished month cannot read as a
+   * real reading. Length must equal `labels.length` or the render throws.
+   */
+  values: (number | null)[];
+  /** Thicker stroke + bold end label. Set on the subject series. Default false. */
+  emphasis?: boolean;
+};
+
+export type LineCardSpec = {
+  kicker?: string; // small label above the headline
+  title: string; // the claim, 1-2 lines (auto-wrapped)
+  labels: string[]; // x tick labels, one per point
+  series: LineSeries[]; // 2-4; the 4th renders in muted ink as a reference series
+  unit?: string; // appended to end labels + y ticks, default "%"
+  /** Vertical annotated rule at this point index (e.g. a policy date). */
+  marker?: { at: number; label: string };
+  /** Y-axis top. Default: data max rounded up, with headroom. Always starts at 0. */
+  yMax?: number;
+  decimals?: number; // end-label / tick precision, default 1
+  footnote?: string;
+  source: string;
+  cta?: string;
+  theme?: Theme;
+};
+
+/**
+ * 1080×1080 multi-series time-series card. Identity is carried three ways —
+ * colour, dash pattern, and a direct end label — so the chart survives
+ * greyscale, colour-blindness and thumbnail size.
+ */
+export const renderLineCard = (spec: LineCardSpec): Buffer => {
+  const S = 1080;
+  const theme = spec.theme ?? "dark";
+  const pal = THEME[theme];
+  const unit = spec.unit ?? "%";
+  const dec = spec.decimals ?? 1;
+  const N = spec.labels.length;
+
+  if (spec.series.length < 2 || spec.series.length > 4)
+    throw new Error(
+      `renderLineCard: ${spec.series.length} series — expected 2-4 (fold extras into "other" or split the card)`,
+    );
+  if (N < 2) throw new Error("renderLineCard: need >= 2 x labels");
+  for (const s of spec.series) {
+    // A short row would silently render as a series that stops early — read as
+    // "stopped reporting" when it is really a caller bug.
+    if (s.values.length !== N)
+      throw new Error(
+        `renderLineCard: series "${s.label}" has ${s.values.length} values but there are ${N} labels`,
+      );
+    if (!s.values.some((v) => v != null))
+      throw new Error(`renderLineCard: series "${s.label}" is entirely null`);
+  }
+
+  const canvas = createCanvas(S, S);
+  const ctx = canvas.getContext("2d") as unknown as Ctx;
+
+  const g = ctx.createLinearGradient(0, 0, 0, S);
+  g.addColorStop(0, pal.bg2);
+  g.addColorStop(1, pal.bg);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, S, S);
+
+  drawWordmark(ctx, 80, 120, 52, pal);
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  let y = 210;
+  if (spec.kicker) {
+    ctx.fillStyle = pal.accent;
+    ctx.font = `700 30px ${FONT}`;
+    ctx.fillText(spec.kicker.toUpperCase(), 80, y);
+    y += 58;
+  }
+
+  let tSize = 60;
+  let tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  while (tLines.length > 2 && tSize > 40) {
+    tSize -= 4;
+    tLines = wrapText(ctx, spec.title, 800, tSize, S - 160);
+  }
+  ctx.fillStyle = pal.text;
+  for (const line of tLines) {
+    ctx.font = `800 ${tSize}px ${FONT}`;
+    ctx.fillText(line, 80, y);
+    y += tSize * 1.2;
+  }
+
+  // The 4th slot is a reference series (an average / benchmark), drawn in muted
+  // ink so it reads as context rather than as a competitor.
+  const colourOf = (i: number) =>
+    i < LINE_SERIES[theme].length ? LINE_SERIES[theme][i] : pal.muted;
+
+  // ---- legend: dash sample + name, wrapping to a second row if needed ----
+  y += 20;
+  ctx.font = `600 27px ${FONT}`;
+  const SAMPLE_W = 40;
+  let lx = 80;
+  for (const [i, s] of spec.series.entries()) {
+    const w = SAMPLE_W + 14 + ctx.measureText(s.label).width;
+    if (lx + w > S - 80) {
+      lx = 80;
+      y += 44;
+    }
+    ctx.save();
+    ctx.strokeStyle = colourOf(i);
+    ctx.lineWidth = s.emphasis ? 6 : 4;
+    ctx.lineCap = "butt";
+    ctx.setLineDash(LINE_DASH[i] ?? []);
+    ctx.beginPath();
+    ctx.moveTo(lx, y - 9);
+    ctx.lineTo(lx + SAMPLE_W, y - 9);
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = pal.muted;
+    ctx.font = `600 27px ${FONT}`;
+    ctx.fillText(s.label, lx + SAMPLE_W + 14, y);
+    lx += w + 40;
+  }
+  y += 16;
+
+  // Footer laid out bottom-up, same contract as renderBarCard.
+  const SOURCE_Y = 1030;
+  const FOOT_LINE_H = 34;
+  const footLines = spec.footnote
+    ? wrapText(ctx, spec.footnote, 500, 26, S - 160)
+    : [];
+  const footBottom = SOURCE_Y - 44;
+  const footTop = footBottom - (footLines.length - 1) * FOOT_LINE_H;
+  const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
+
+  // ---- plot geometry ----
+  // Right gutter holds the end labels; size it to the widest one actually drawn.
+  ctx.font = `700 30px ${FONT}`;
+  const END_W =
+    18 +
+    Math.max(
+      ...spec.series.map((s) => {
+        const last = [...s.values].reverse().find((v) => v != null) as number;
+        return ctx.measureText(`${last.toFixed(dec).replace(".", ",")}${unit}`)
+          .width;
+      }),
+    );
+  const PLOT_L = 80 + 92; // y tick labels live in this left gutter
+  const PLOT_R = S - 80 - END_W;
+  const PLOT_T = y + 34;
+  const PLOT_B = ruleY - 34 - 42; // 42px for the x tick label row
+  const plotH = PLOT_B - PLOT_T;
+  if (plotH < 260)
+    throw new Error(
+      `renderLineCard: plot area ${plotH.toFixed(0)}px tall (need >= 260) — shorten the title/footnote or drop a legend row`,
+    );
+
+  const allVals = spec.series.flatMap((s) =>
+    s.values.filter((v): v is number => v != null),
+  );
+  const rawMax = Math.max(...allVals);
+  // Step first, top derived from it — see `niceAxisStep`. An explicit yMax is
+  // the caller's business, so it is divided evenly and trusted.
+  const step = spec.yMax ? spec.yMax / LINE_TICKS : niceAxisStep(rawMax * 1.05);
+  const yMax = spec.yMax ?? Math.ceil((rawMax * 1.02) / step) * step;
+  // A step of 2.5 needs one decimal on the tick label; 2 needs none.
+  const tickDec = Math.max(0, -Math.floor(Math.log10(step % 1 || 1)));
+  const xAt = (i: number) => PLOT_L + (i / (N - 1)) * (PLOT_R - PLOT_L);
+  const yAt = (v: number) => PLOT_B - (v / yMax) * plotH;
+
+  // ---- gridlines + y ticks (horizontal only; none vertical on a time axis) ----
+  ctx.textBaseline = "middle";
+  for (let v = 0; v <= yMax + 1e-9; v += step) {
+    const gy = yAt(v);
+    ctx.strokeStyle = pal.rule;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(PLOT_L, gy);
+    ctx.lineTo(PLOT_R, gy);
+    ctx.stroke();
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 26px ${FONT}`;
+    ctx.textAlign = "right";
+    ctx.fillText(
+      `${v.toFixed(tickDec).replace(".", ",")}${unit}`,
+      PLOT_L - 20,
+      gy,
+    );
+  }
+
+  // ---- optional vertical marker ----
+  if (spec.marker && spec.marker.at >= 0 && spec.marker.at < N) {
+    const mx = xAt(spec.marker.at);
+    ctx.save();
+    ctx.strokeStyle = pal.muted;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(mx, PLOT_T - 12);
+    ctx.lineTo(mx, PLOT_B);
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = pal.muted;
+    ctx.font = `600 24px ${FONT}`;
+    ctx.textBaseline = "alphabetic";
+    // Keep the label inside the frame at either edge.
+    const mw = ctx.measureText(spec.marker.label).width;
+    ctx.textAlign =
+      mx + mw / 2 > PLOT_R ? "right" : mx - mw / 2 < 80 ? "left" : "center";
+    ctx.fillText(spec.marker.label, mx, PLOT_T - 22);
+    ctx.textBaseline = "middle";
+  }
+
+  // ---- x tick labels ----
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 25px ${FONT}`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  for (const [i, lab] of spec.labels.entries()) {
+    ctx.fillText(lab, xAt(i), PLOT_B + 40);
+  }
+
+  // ---- series: break at null, never interpolate across a gap ----
+  const ends: {
+    yPix: number;
+    text: string;
+    colour: string;
+    x: number;
+    bold: boolean;
+  }[] = [];
+  for (const [i, s] of spec.series.entries()) {
+    const colour = colourOf(i);
+    ctx.save();
+    ctx.strokeStyle = colour;
+    ctx.lineWidth = s.emphasis ? 7 : 4.5;
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.setLineDash(LINE_DASH[i] ?? []);
+    let pen = false;
+    ctx.beginPath();
+    for (let p = 0; p < N; p++) {
+      const v = s.values[p];
+      if (v == null) {
+        pen = false;
+        continue;
+      }
+      if (!pen) {
+        ctx.moveTo(xAt(p), yAt(v));
+        pen = true;
+      } else {
+        ctx.lineTo(xAt(p), yAt(v));
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    let lastIdx = -1;
+    for (let p = N - 1; p >= 0; p--)
+      if (s.values[p] != null) {
+        lastIdx = p;
+        break;
+      }
+    const lastVal = s.values[lastIdx] as number;
+    const ex = xAt(lastIdx);
+    const ey = yAt(lastVal);
+    // End dot with a surface-colour ring, so overlapping marks stay separable.
+    ctx.beginPath();
+    ctx.arc(ex, ey, 11, 0, Math.PI * 2);
+    ctx.fillStyle = pal.bg;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(ex, ey, 8, 0, Math.PI * 2);
+    ctx.fillStyle = colour;
+    ctx.fill();
+    ends.push({
+      yPix: ey,
+      text: `${lastVal.toFixed(dec).replace(".", ",")}${unit}`,
+      colour,
+      x: ex,
+      bold: !!s.emphasis,
+    });
+  }
+
+  // ---- end labels, nudged apart so two close finishes stay legible ----
+  const MIN_GAP = 38;
+  ends.sort((a, b) => a.yPix - b.yPix);
+  for (let i = 1; i < ends.length; i++) {
+    if (ends[i].yPix - ends[i - 1].yPix < MIN_GAP)
+      ends[i].yPix = ends[i - 1].yPix + MIN_GAP;
+  }
+  ctx.textAlign = "left";
+  ctx.textBaseline = "middle";
+  for (const e of ends) {
+    // Values wear text ink; the line and dot arriving at them carry identity.
+    ctx.fillStyle = pal.text;
+    ctx.font = `${e.bold ? 800 : 700} 30px ${FONT}`;
+    ctx.fillText(e.text, e.x + 20, e.yPix);
+  }
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  if (footLines.length) {
+    ctx.strokeStyle = pal.rule;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(80, ruleY);
+    ctx.lineTo(S - 80, ruleY);
+    ctx.stroke();
+
+    ctx.fillStyle = pal.muted;
+    ctx.font = `500 26px ${FONT}`;
+    let fy = footTop;
+    for (const line of footLines) {
+      ctx.fillText(line, 80, fy);
+      fy += FOOT_LINE_H;
+    }
+  }
+
+  ctx.fillStyle = pal.muted;
+  ctx.font = `500 28px ${FONT}`;
+  ctx.fillText(spec.source, 80, SOURCE_Y);
+
+  ctx.fillStyle = pal.accent;
+  ctx.textAlign = "right";
+  ctx.font = `600 28px ${FONT}`;
+  ctx.fillText(spec.cta ?? "виж разбивката", S - 108, 1030);
+  ctx.beginPath();
+  ctx.moveTo(S - 94, 1014);
+  ctx.lineTo(S - 74, 1027);
+  ctx.lineTo(S - 94, 1040);
+  ctx.closePath();
+  ctx.fill();
+
+  return canvas.toBuffer("image/png");
+};
+
 export type TableCell = {
   /** Primary text, e.g. "10,6%". */
   value: string;

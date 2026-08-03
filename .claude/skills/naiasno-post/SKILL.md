@@ -175,8 +175,8 @@ party, by region, vs a benchmark), pull out 3–6 components and make it an
 infographic instead.
 
 The tool picks the renderer from the spec shape: a card with `bars` →
-infographic; otherwise stat-card (data) / announce-card (feature/dataset). Pick
-the shape deliberately per the rule above.
+infographic, `series` → line chart, `rows` → table; otherwise stat-card (data) /
+announce-card (feature/dataset). Pick the shape deliberately per the rule above.
 
 - **Infographic card (preferred) — `bars`:** `title` (the claim, 1–2 lines,
   auto-wrapped), `bars` (3–6 rows of `{ label, value, note? }` where `value` is
@@ -207,6 +207,25 @@ the shape deliberately per the rule above.
   reads as ГЕРБ's 27,7%, when in fact it was ДПС's. Write "ДПС 28%" / "ГЕРБ 35%"
   so neither line can be read onto the other party. That costs width, so budget
   ~4 data columns for two-part labels rather than the 6 the renderer allows.
+- **Line card — `series` + `labels`:** for a claim that is a TREND — a few
+  entities tracked month by month (or year by year), where the shape of the
+  movement, not the endpoint, is the story. Use it when "when did it change?"
+  matters; a bar card can only show one moment. `labels` (x tick labels),
+  `series` (2–4 of `{ label, values, emphasis? }` where `values` has exactly one
+  entry per label), plus `unit` (default `"%"`), `marker` (`{ at, label }` — a
+  vertical dashed rule at a point index, e.g. a policy date), `yMax`,
+  `decimals`, `kicker`, `footnote`, `source`, `cta`, `theme`. Set `emphasis` on
+  the subject series (thicker line, bold end label). Identity is carried three
+  ways — colour, dash pattern and a direct end label — so it survives greyscale
+  and colour-blindness; the 4th series renders in muted ink, which is the slot
+  for a benchmark like an EU average.
+  **Use `null` for a period that has not been published** — the line breaks
+  there instead of interpolating, so a missing month cannot read as a real
+  reading. A `0` would draw a dive to the axis. The renderer throws if a series'
+  length doesn't match `labels`, if a series is entirely null, if there are
+  fewer than 2 or more than 4 series, or if the title/footnote squeeze the plot
+  below 260px. The y-axis snaps to a round step (`niceAxisStep`) so tick labels
+  always land on the gridlines they name.
 - **Single-number stat card (only when there's nothing to compare):** `value`
   (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
   separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default

@@ -3,6 +3,9 @@ import { resolve } from "node:path";
 import {
   loadBulgariaGeo,
   renderBarCard,
+  renderLineCard,
+  niceAxisStep,
+  LINE_TICKS,
   renderMapCard,
   renderTableCard,
   type GeoFeature,
@@ -199,5 +202,121 @@ describe("loadBulgariaGeo", () => {
     );
     expect(Math.min(...lons)).toBeGreaterThan(21);
     expect(Math.max(...lons)).toBeLessThan(29);
+  });
+});
+
+describe("renderLineCard", () => {
+  const base = {
+    title: "Най-високата инфлация в ЕС? Не е нашата.",
+    labels: ["яну.", "фев.", "март", "апр.", "май", "юни", "юли"],
+    series: [
+      {
+        label: "България",
+        emphasis: true,
+        values: [2.3, 2.1, 2.8, 6.0, 6.3, 5.2, 4.1],
+      },
+      { label: "Румъния", values: [8.5, 8.3, 9.0, 9.5, 9.7, 9.2, null] },
+    ],
+    source: "Източник: Евростат",
+  };
+
+  it("renders a 1080×1080 PNG", () => {
+    const buf = renderLineCard(base);
+    expect(buf.subarray(1, 4).toString()).toBe("PNG");
+    expect(buf.readUInt32BE(16)).toBe(1080);
+    expect(buf.readUInt32BE(20)).toBe(1080);
+  });
+
+  it("renders both themes", () => {
+    expect(
+      renderLineCard({ ...base, theme: "light" })
+        .subarray(1, 4)
+        .toString(),
+    ).toBe("PNG");
+  });
+
+  // A trailing null is an unpublished period, not a zero. If it were plotted the
+  // line would dive to the axis and read as "inflation collapsed".
+  it("breaks the line at a null instead of interpolating or zeroing", () => {
+    const withGap = renderLineCard(base);
+    const asZero = renderLineCard({
+      ...base,
+      series: [
+        base.series[0],
+        { label: "Румъния", values: [8.5, 8.3, 9.0, 9.5, 9.7, 9.2, 0] },
+      ],
+    });
+    expect(withGap.equals(asZero)).toBe(false);
+  });
+
+  // Regression: an unsnapped top drew gridlines at 2.4/4.8/7.2/9.6 and rounded
+  // their LABELS to 2/5/7/10 — an axis that misstates where its own lines are.
+  // Assert the math directly: every step must be a round number, so no tick
+  // label ever needs rounding to be drawn.
+  it("snaps the axis to a round step so ticks land where they say", () => {
+    for (const span of [0.4, 1, 3.7, 9.7, 10.185, 47, 380, 1234]) {
+      const step = niceAxisStep(span);
+      const mantissa = step / Math.pow(10, Math.floor(Math.log10(step)));
+      expect([1, 2, 2.5, 5, 10]).toContain(Number(mantissa.toFixed(10)));
+      // Enough ticks to cover the span without an absurd number of gridlines.
+      expect(step * LINE_TICKS).toBeGreaterThanOrEqual(span * 0.999);
+    }
+  });
+
+  it("covers the data with the snapped top", () => {
+    // Peak 9.7 → step 2.5 → top 10, not the old arbitrary 12.
+    const step = niceAxisStep(9.7 * 1.05);
+    expect(Math.ceil((9.7 * 1.02) / step) * step).toBe(10);
+  });
+
+  it("rejects a series whose length does not match the labels", () => {
+    expect(() =>
+      renderLineCard({
+        ...base,
+        series: [base.series[0], { label: "Къс", values: [1, 2, 3] }],
+      }),
+    ).toThrow(/3 values but there are 7 labels/);
+  });
+
+  it("rejects an entirely null series", () => {
+    expect(() =>
+      renderLineCard({
+        ...base,
+        series: [
+          base.series[0],
+          {
+            label: "Празен",
+            values: [null, null, null, null, null, null, null],
+          },
+        ],
+      }),
+    ).toThrow(/entirely null/);
+  });
+
+  it("rejects a series count outside 2-4", () => {
+    expect(() => renderLineCard({ ...base, series: [base.series[0]] })).toThrow(
+      /expected 2-4/,
+    );
+    expect(() =>
+      renderLineCard({
+        ...base,
+        series: Array.from({ length: 5 }, (_, i) => ({
+          label: `с${i}`,
+          values: base.series[0].values,
+        })),
+      }),
+    ).toThrow(/expected 2-4/);
+  });
+
+  it("refuses to publish when the plot area is squeezed out", () => {
+    expect(() =>
+      renderLineCard({
+        ...base,
+        kicker: "кикер",
+        title:
+          "Много дълго заглавие, което се пренася на два реда и яде мястото",
+        footnote: "Дълга методологическа бележка. ".repeat(14),
+      }),
+    ).toThrow(/plot area/);
   });
 });
