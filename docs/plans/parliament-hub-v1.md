@@ -157,9 +157,98 @@ carry `ref = mpId` and no term column, so the destination shows **2,122 roles / 
 people** — every MP since the 44th, not the 240 currently seated. The tile must state the
 destination's basis, not the chamber's (§3 band 3).
 
+### 2.7 Measured traffic — the ordering hypothesis, tested
+
+[module-front-pages-v1 §5.1](module-front-pages-v1.md) says outright: *"There is no analytics
+export in the repo, so any ordering I give is a hypothesis."* There is now data. GA4,
+**Jan 1 – Aug 3 2026** (7 months), `page path` contains `/parliamen` and `/votes`:
+
+| Prefix | distinct paths with traffic | views | active users | avg engagement | vs site avg |
+|---|---|---|---|---|---|
+| `/votes*` | **51** | **107** | 33 | **1m 27s** | **+15.6%** |
+| `/parliament*` | 14 | 97¹ | 33 | 56s | **−24.8%** |
+
+¹ includes 9 views on `/parliamentary/analysis*`, a different module — so this module is ~88.
+Whole module ≈ **195 views, ~0.3% of site traffic, over seven months**.
+
+Broken down, and with the two slash variants of each path summed (§2.8 — the redirect splits
+every page across two GA rows, so an unsummed reading systematically under-counts):
+
+| Destination | views | users | avg engagement |
+|---|---|---|---|
+| `/votes` index | 32 | 12 | 1m 22s |
+| `/votes/<date>` + `/votes/<date>/<slug>` — **~49 record pages** | **~75** | — | up to **3m 22s** |
+| `/parliament` hub | 47 | 22 | 36s |
+| `/parliament/embedding` | **21** | 13 | **1m 01s** |
+| `/parliament/cohesion` | 12 | 6 | 27s |
+| `/parliament/attendance` | **2** | 1 | **9s** |
+| `/parliament/similarity/:mpId` | 2 | 1 | 9s |
+
+**Three findings, and the first two change this plan.**
+
+1. **The records beat the analytics, decisively.** `/votes*` out-earns the whole analytical half
+   on views, on distinct pages reached, and on engagement — it is the only half of the module
+   that is *above* the site's average engagement, while `/parliament*` is a quarter below it. The
+   single best-engaging page in the module is a **2020** item page
+   (`/votes/2020-11-06/item-5-zid-na-zakona-za-merkite…`, **3m 22s**) — an NS 44 record, from the
+   partial parliament §2.3 warns about. Record pages have durable long-tail value; dashboards do
+   not. This is `module-front-pages-v1 §5.2`'s "look-up beats read" principle **confirmed**, but
+   pointing at `/votes/:date`, not at attendance and cohesion.
+
+2. **`/parliament/embedding` outperforms cohesion and attendance combined** — 21 views at 1m 01s
+   against 12 and **2** — and it does that from the **last** tile position on the current hub.
+   The draft put attendance and cohesion in band 3 (core) and embedding in band 4 (Още). That is
+   the one band-3 choice with evidence against it. Band 3 is reordered accordingly (§3.4).
+
+3. **Discovery, not demand, is the constraint — quantified.** ~49 of 613+ `/votes` record pages
+   were reached at all in seven months (**~8%**), by 33 people, with **zero search impressions**
+   on the prefix (`project_seo_discovery_gap`). That is what a page nobody can find looks like,
+   and it re-orders the phases (§8).
+
+**How much weight to put on this.** Not much per-tile: n = 33 users, and the distribution is
+**endogenous** — it measures what the current seven-tile hub links to, not what people want.
+Embedding outperforming *from last position* is the one signal that survives that objection, and
+the `/votes`-beats-`/parliament` split is the other (different prefixes, no shared tile order).
+Everything finer than those two is noise, and the plan should not pretend otherwise.
+
+### 2.8 Every URL on the site canonicalises to a redirect
+
+Found while checking why GSC reported `/parliament` as *"Page is not indexed: Page with
+redirect"*. **That report is not a defect** — `/parliament` 301s to `/parliament/`, so
+"page with redirect" is the correct answer for the variant that was inspected. The real finding
+is underneath it, and it is **site-wide, not parliamentary**:
+
+```
+GET /parliament   →  301  location: /parliament/
+GET /parliament/  →  200  <link rel="canonical" href="https://electionsbg.com/parliament" />
+```
+
+`bgUrlFor` / `enUrlFor` (`scripts/prerender/index.ts:145`) and the sitemap builder emit every URL
+**without** a trailing slash, while the prerender writes `dist/<path>/index.html`, so Firebase
+adds one on serve. Every `<link rel="canonical">`, every `hreflang` alternate, every `og:url` and
+every sitemap `<loc>` therefore points one 301 away from the page that actually serves —
+across **~248k prerendered URLs**.
+
+**Do not attribute the zero-impression gap to this.** Measured control: `/sofia`, `/governance`
+and `/votes` have the identical shape, and `/sofia` is one of the five prefixes that *does* earn
+impressions. It is hygiene — wasted crawl budget, weakened hreflang, an extra hop on every social
+unfurl — not the cause.
+
+It also **contaminates the GA numbers in §2.7**: `/parliament` and `/parliament/` are two rows
+(36 + 10 views), `/votes` and `/votes/` are two rows (29 + 3), and the slash variants read **0s
+and 4s engagement** because they are redirect landings. Any future ordering decision taken from
+GA must sum the pairs.
+
+Two candidate fixes, the second a one-liner: add the trailing slash in `bgUrlFor`/`enUrlFor` **and**
+the sitemap builder, or set `"trailingSlash": false` in `firebase.json` so the no-slash form
+serves 200 directly and matches what the code already believes. **This is not in this plan's
+scope** — 248k URLs is too large a blast radius to ride along with a hub rebuild, it interacts
+with `cleanUrls`, and it needs a staging verification. It wants its own work item; recorded here
+because this is where it was found.
+
 ---
 
-## 3. The hub — five bands
+## 3. The hub — seven bands (0–6)
 
 Band order is fixed; bands are individually optional.
 
@@ -294,32 +383,42 @@ Measured on NS 52 (2026-04-30 → 2026-07-31):
 | Отсъствия от последното заседание | `attendance.json` → slice | **B** |
 | Предстоящи законопроекти | **not ingested** — a new parliament.bg crawl | **C, out of scope** |
 
-### Band 3 — Разгледай (core, 5)
+### 3.4 Band 3 — Разгледай (core, 4)
 
-Ordered by the template's rule — **look-up beats read**. Today's hub opens with cohesion and
-embedding, the two most analytical things on it.
+Ordered by the template's rule — **look-up beats read** — which §2.7 now confirms with data
+rather than assuming. Today's hub opens with cohesion and embedding, the two most analytical
+things on it.
 
-| Tile | To | stock · flow · change (NS 52, measured) |
-|---|---|---|
-| Гласувания | `/votes` | `39` заседания · `1 198` точки за гласуване · `+N` от последното заседание |
-| Депутати | `/persons?role=mp` | `2 120` депутати от 44-то НС насам · `240` в текущото |
-| Присъствие | `/parliament/attendance` | `73%` присъствие (претеглено) · `−N` пр.п. спрямо предх. НС |
-| Единство на групите | `/parliament/cohesion` | `0,97` средна кохезия · най-разединена: ГЕРБ - СДС (0,93) |
-| Законопроекти на второ четене | `/votes` | `33` законопроекта · `754` гласувания по текстове |
+| Tile | To | stock · flow · change (NS 52, measured) | traffic (§2.7) |
+|---|---|---|---|
+| Гласувания | `/votes` | `39` заседания · `1 198` точки · `33` законопроекта на второ четене | **107** views, +15.6% engagement |
+| Карта на гласуването | `/parliament/embedding` | `270` депутати проектирани · `6` групи | **21** views, 1m 01s |
+| Единство на групите | `/parliament/cohesion` | `0,97` средна кохезия · най-разединена: ГЕРБ - СДС (0,93) | 12 views |
+| Депутати | `/persons?role=mp` | `2 120` депутати от 44-то НС насам · `240` в текущото | no history (new destination) |
+
+**Three changes from the draft, all forced by §2.7:**
+
+- **Присъствие moves to band 4.** 2 views and 9s over seven months, against embedding's 21 and
+  1m 01s. It stays a destination; it is not a core one.
+- **Карта на гласуването moves up from band 4.** It is the best-performing analytical page in the
+  module and it earned that from the *last* tile position, which is the one traffic signal here
+  that survives the endogeneity objection.
+- **Законопроекти на второ четене stops being a tile** and becomes the *flow* number on
+  Гласувания. Two reasons, and the first is a bug: the draft gave it `to: "/votes"` — the **same
+  destination as Гласувания** — and `TileHubGrid` renders tiles with `key={tile.to}`, so two
+  tiles sharing a `to` is a **duplicate React key**, not merely a duplicate link. Second, §3.2's
+  derivation has no distinct destination to offer until a bills view exists (the `?topic=`
+  vocabulary is the 8-value `VoteTopic` taxonomy and contains nothing meaning "second reading"),
+  so a tile would be pointing at a page that cannot show what it counts.
 
 Note the **Депутати** tile leads with the destination's number and carries the chamber's as the
 secondary. Leading with `240` and landing on a 2,120-row page is the "show one window and count
 another" failure CLAUDE.md names for `?pscope`.
 
-Note also **Законопроекти на второ четене** points at plain `/votes`, not `/votes?topic=…`. The
-`?topic=` param is real (`SessionsIndexScreen:35`) but its vocabulary is the 8-value
-`VoteTopic` taxonomy — there is no topic meaning "final adoption", so a `?topic=` deep link here
-would filter by something other than what the tile counts.
-
 ### Band 4 — Още (4)
 
-Сходство между депутати · Карта на гласуването (`/parliament/embedding`) · Двама депутати един
-срещу друг · Разцепления.
+Присъствие (`/parliament/attendance`) · Сходство между депутати · Двама депутати един срещу
+друг · Разцепления.
 
 **Two of these have no static destination** (§2.4), and writing `to: "/parliament/similarity/:mpId"`
 would pass the "absolute `to`" gate vacuously while linking nowhere. Both resolve from the blob:
@@ -445,7 +544,9 @@ Stated so scope creep is visible:
   from "what happened" into "what is coming");
 - no top-level nav (D2); no `/votes` relocation (§2.4); no new MP roster page (§2.6);
 - no changes to the six sub-pages beyond breadcrumbs;
-- no Postgres migration — see [parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md).
+- no Postgres migration — see [parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md);
+- **no trailing-slash / canonical fix** (§2.8) — real, site-wide across ~248k URLs, found here
+  but far too large a blast radius to ride along with a hub rebuild. Needs its own work item.
 
 ---
 
@@ -458,7 +559,7 @@ comparable has already shipped.
 | Gate | Asserts | Precedent |
 |---|---|---|
 | `parliamentHubRegistry.test.ts` | every tile `id` resolves to a scene; ids unique; every `to` absolute | `hubRegistry.test.ts` |
-| — accent uniqueness | no accent used twice on one page (20 tokens available, 13 tiles) | added for `/governance` this week |
+| — accent uniqueness | no accent used twice on one page (20 tokens available, 12 tiles across bands 3–5) | added for `/governance` this week |
 | — **reachability** | every routed `/parliament/*` and `/votes*` page is linked from the hub, or from a page the hub links | the 31-orphan reports gap |
 | — **reachability, at every phase** | the assertion runs against the **post-Phase-1 registry**, not only the final one — §8's B4 case is only catchable on the intermediate state | new |
 | — **resolved seeds** | band-4 hrefs from `seeds` match a routed pattern AND carry a non-empty parameter | §3 band 4 |
@@ -491,7 +592,14 @@ linking four sub-pages. The real gap is one level down, and it is larger than th
 - their JSON-LD breadcrumb ladder is `Начало → Поименни гласувания → <date>`, **skipping
   `/parliament` entirely** — so the crawler never sees the module the SPA shows.
 
-So Phase 3 is:
+**§2.7 promotes this from a tidy-up to the module's main event.** `/votes*` out-earns the whole
+analytical half — 107 views across **51** distinct paths, at engagement **+15.6% above** the site
+average, with the single best-engaging page in the module being a 2020 record page at **3m 22s**.
+And only ~49 of 613+ record pages were reached at all in seven months (**~8%**), by 33 people,
+with zero search impressions. The pages that earn attention are precisely the pages nothing links
+to. That is why this work moves ahead of the payload work in §8.
+
+So this phase is:
 
 - extend the JSON-LD ladder to `Начало → Народно събрание → Поименни гласувания → <date>` on
   both `/votes` and all 613 `/votes/<date>` pages;
@@ -520,14 +628,28 @@ That reverses module-front-pages §9, which designates `/procurement` as the tem
 path in that plan's §8.2 goes unexercised until `/procurement` follows — which must therefore
 follow, not be skipped.
 
-| Phase | Scope | Gate before merge |
-|---|---|---|
-| **0** | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + scenes + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5, no stats, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here**, before anything is deleted. | registry test: scenes, unique ids, absolute `to`, accent uniqueness, reachability, cross-hub tile |
-| **1** | `hub_stats.ts` + `useParliamentHubStats` + stock·flow·change on band 3 + the §2.3 three-state coverage. **Drops all six mini-tile fetches from the hub** — 1.65 MB → ≤10 KB. | payload, declared-basis, law-derivation, coverage-honesty, upload-manifest gates; reachability re-run on THIS state (`/votes/between/:pair` loses its only link here — §2.4); measure before/after in the PR |
-| **2** | Bands 0–2: wire, lead, `NewsRail` + `NewsCard` + `LeadCard` built generic; `hub_feed/<ns>.json` with sessions + bills (**A**), then dissents + absences (**B** slices). | recess-honesty gate; per-shard payload gate |
-| **3** | `/parliament` body links every sub-page; JSON-LD ladder through `/parliament`; prev/next + back-to-hub on all 613 `/votes/<date>` bodies. | prerender + sitemap gates |
+**The order is 0 → 1 → 2 → 3 by number, but they SHIP 0 → 3 → 1 → 2.** The numbers are kept so
+earlier references stay valid; the ship order is what to follow.
 
-Phase 0 ships on its own and removes the last hardcoded hub. Phase 1 is the user-visible win.
+§2.7 is the reason. The payload phase makes a page faster for the **33 people** who reached this
+module in seven months; the linking phase is the only one that can change whether anyone reaches
+it at all. Optimising a page nobody can find is the wrong thing to do first, however real the
+1.65 MB is.
+
+| Phase | Ships | Scope | Gate before merge |
+|---|---|---|---|
+| **0** | 1st | D1 rename (2 locale values → 9 call sites, **plus the hardcoded prerender copy, §2.5**). Registry + scenes + `ParliamentHubScreen` rebuilt on `TileHubGrid`; bands 3–5, no stats, no rail. Deletes the hardcoded JSX. **Band 4's pair tile ships here**, before anything is deleted. | registry test: scenes, unique ids, absolute `to`, accent uniqueness, reachability, cross-hub tile |
+| **3** | **2nd** | `/parliament` body links every sub-page; JSON-LD ladder through `/parliament`; prev/next + back-to-hub on all 613 `/votes/<date>` bodies. **Promoted — §2.7 shows the record pages earn the engagement and ~92% of them are unreached.** | prerender + sitemap gates |
+| **1** | 3rd | `hub_stats.ts` + `useParliamentHubStats` + stock·flow·change on band 3 + the §2.3 three-state coverage. **Drops all six mini-tile fetches from the hub** — 1.65 MB → ≤10 KB. | payload, declared-basis, law-derivation, coverage-honesty, upload-manifest gates; reachability re-run on THIS state (`/votes/between/:pair` loses its only link here — §2.4); measure before/after in the PR |
+| **2** | 4th | Bands 0–2: wire, lead, `NewsRail` + `NewsCard` + `LeadCard` built generic; `hub_feed/<ns>.json` with sessions + bills (**A**), then dissents + absences (**B** slices). | recess-honesty gate; per-shard payload gate |
+
+Phase 0 still goes first — it is the registry every later phase sits on, and it removes the last
+hardcoded hub. Phase 3 is now the one with a plausible traffic effect; phase 1 remains the
+engineering win and is worth doing regardless, just not first.
+
+**Re-measure after phase 3 before committing to the band-3 order.** §2.7's distribution is
+endogenous to the current hub's links, so the first honest read of demand is the one taken after
+the link structure changes.
 
 ---
 
@@ -562,3 +684,15 @@ Kept for the next reader, so the corrections are not silently absorbed:
 | D1 = 2 locale lines | Plus hardcoded prerender copy at `routes.ts` 2230/4261/4264/4267 + EN mirrors |
 | Blob generated by re-reading artifacts | Compute in-memory at the end of `rebuildDerived` — no 31 MB re-parse, no drift |
 | (not stated) | Publishing: `--upload` branch + `bucket:sync:paths` were both missing |
+
+### 10.1 What the 2026-08-03 traffic data changed
+
+The audit above was source-only. GA4 + GSC (§2.7, §2.8) then moved four more things:
+
+| Draft position | Finding |
+|---|---|
+| Ordering is "a hypothesis, no analytics exist" (module-front-pages §5.1) | **Measured.** `/votes*` 107 views / 51 paths / **+15.6%** engagement vs `/parliament*` 97 / 14 / **−24.8%**. Look-up beats read — confirmed, and pointing at the record pages |
+| Присъствие + Единство in band 3, Карта in band 4 | **Присъствие is 2 views / 9s**; Карта is **21 / 1m 01s** from the LAST tile slot. Swapped (§3.4) |
+| „Законопроекти на второ четене" as its own band-3 tile at `to: "/votes"` | **Duplicate React key** — `TileHubGrid` uses `key={tile.to}` and Гласувания already owns `/votes`. Demoted to a flow number |
+| Phases ship 0 → 1 → 2 → 3 | **0 → 3 → 1 → 2.** ~92% of record pages unreached in 7 months by 33 users; the payload phase optimises a page nobody can find |
+| (not stated) | **Every URL on the site canonicalises to a redirect** (§2.8), ~248k pages. Not the cause of the impression gap (`/sofia` has the same shape and ranks) — but it splits every GA row in two, so §2.7's pairs must be summed |
