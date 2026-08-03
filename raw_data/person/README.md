@@ -57,3 +57,44 @@ raw_data/person/officials_reslug_2026_07_29.json`.
 `--redirects` at the time of the rename rather than reconstructed afterwards, and wired into
 `db:refresh` next to the existing ones. The resolver warns when orphaned dead slugs appear,
 which is the signal that one is missing.
+
+## `kmetstvo_flips_2026_08.json`
+
+`{ generatedAt, flips[], moves[] }` — the local-elections re-parse's effect on
+`person_slug_lock`, produced by `scripts/person/kmetstvo_flips.ts --emit`.
+
+**What it is.** A different shape of problem from the re-slug maps above, and it needs an
+artifact for the same reason: a decision that is easy to make wrong and impossible to review
+after the fact. `person_slug_lock` keys on a MENTION — `local:<cycle>:<obshtina>:<kind>:<key>`
+— which names a SEAT, not a person. That is safe until a seat changes hands, and
+`docs/plans/village-mayor-attribution-v1.md` changes 267 of them at once by ingesting the
+кметство runoffs (§T1) plus a município's worth of refs by splitting общ. Бяла out of VAR05
+(§T0).
+
+Left alone, `chooseStableSlug` hands the NEW winner the LOSER's slug: every village/район lock
+was seeded in one batch and therefore shares a `first_seen`, so the tie breaks alphabetically.
+On the seat that prompted this work, `ivan-stoyanov-1xhzvh` < `rosen-rusev-a0a8lm` — Росен
+Русев would have been served at the URL of the man he beat.
+
+Two entry kinds, and they are not interchangeable:
+
+- **`flips`** — same ref, different person. The lock is DELETED, so the new winner derives
+  their own slug and the loser's orphans into the existing retirement machinery.
+- **`moves`** — same person, different ref (the §T0 re-split). The lock is REKEYED, carrying
+  `first_seen` with it: that column is `chooseStableSlug`'s primary sort key, so a row
+  re-stamped `now()` would sort last and never win the anchor again — silently undoing the URL
+  preservation the move exists for.
+
+**Why it is committed.** It is the review gate. `--emit` is read-only and `--apply` refuses to
+act on anything the file does not already contain, so what a human read is what runs. It is
+also the only record of which URLs moved and why, on a change that renames pages for named
+people.
+
+**Who reads it.** `scripts/person/kmetstvo_flips.ts --apply` (`npm run person:kmetstvo-flips`,
+`:cloud` for Cloud SQL). Run it AFTER the re-parse and BEFORE `db:resolve:persons` — it
+compares the fresh bundles against the still-old `person_role`, which is the only window in
+which both states exist.
+
+**Adding another.** A future re-parse that moves seats needs its own dated file; do not
+overwrite this one, since it documents which URLs changed in this pass. `--apply` says so when
+it finds an entry the reviewed file has not seen.
