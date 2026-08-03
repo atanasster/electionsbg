@@ -38,25 +38,73 @@
         "procurement/**/*.json"
       ],
       "redirects": [
-        { "source": "/index", "destination": "/", "type": 301 },
-        { "source": "/en/index", "destination": "/en", "type": 301 }
+        {
+          "source": "/index",
+          "destination": "/",
+          "type": 301
+        },
+        {
+          "source": "/en/index",
+          "destination": "/en",
+          "type": 301
+        }
       ],
       "rewrites": [
         {
           "source": "/api/scenarios",
-          "function": { "functionId": "scenarios", "region": "us-central1" }
+          "function": {
+            "functionId": "scenarios",
+            "region": "us-central1"
+          }
         },
         {
           "source": "/api/scenarios/**",
-          "function": { "functionId": "scenarios", "region": "us-central1" }
+          "function": {
+            "functionId": "scenarios",
+            "region": "us-central1"
+          }
         },
         {
           "source": "/api/db/**",
-          "function": { "functionId": "db", "region": "europe-west3" }
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
         },
         {
           "source": "/api/sql/**",
-          "function": { "functionId": "sql", "region": "europe-west3" }
+          "function": {
+            "functionId": "sql",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/funds/contract/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/en/funds/contract/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/company/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
+        },
+        {
+          "source": "/en/company/**",
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
         },
         {
           "source": "/officials/assets",
@@ -76,11 +124,17 @@
         },
         {
           "source": "/officials/*",
-          "function": { "functionId": "db", "region": "europe-west3" }
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
         },
         {
           "source": "/en/officials/*",
-          "function": { "functionId": "db", "region": "europe-west3" }
+          "function": {
+            "functionId": "db",
+            "region": "europe-west3"
+          }
         },
         {
           "source": "/en/**",
@@ -126,13 +180,19 @@
         {
           "source": "**/*.@(svg|png|jpg|jpeg|webp|woff2|ttf|ico)",
           "headers": [
-            { "key": "Cache-Control", "value": "public, max-age=2592000" }
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=2592000"
+            }
           ]
         },
         {
           "source": "**/*.md",
           "headers": [
-            { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
+            {
+              "key": "Content-Type",
+              "value": "text/markdown; charset=utf-8"
+            },
             {
               "key": "Cache-Control",
               "value": "public, max-age=86400, stale-while-revalidate=604800"
@@ -142,10 +202,49 @@
         {
           "source": "**/llms*.txt",
           "headers": [
-            { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+            {
+              "key": "Content-Type",
+              "value": "text/plain; charset=utf-8"
+            },
             {
               "key": "Cache-Control",
               "value": "public, max-age=86400, stale-while-revalidate=604800"
+            }
+          ]
+        },
+        {
+          "source": "/funds/contract/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/en/funds/contract/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/company/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+            }
+          ]
+        },
+        {
+          "source": "/en/company/**",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
             }
           ]
         },
@@ -196,11 +295,23 @@
       "rewrites": [
         {
           "source": "/api/llm",
-          "function": { "functionId": "llm", "region": "us-central1" }
+          "function": {
+            "functionId": "llm",
+            "region": "us-central1"
+          }
         },
-        { "source": "/evals", "destination": "/evals.html" },
-        { "source": "/tools", "destination": "/tools.html" },
-        { "source": "**", "destination": "/index.html" }
+        {
+          "source": "/evals",
+          "destination": "/evals.html"
+        },
+        {
+          "source": "/tools",
+          "destination": "/tools.html"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
       ],
       "headers": [
         {
@@ -224,7 +335,10 @@
         {
           "source": "**/*.@(svg|png|ico|woff2|webmanifest)",
           "headers": [
-            { "key": "Cache-Control", "value": "public, max-age=2592000" }
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=2592000"
+            }
           ]
         }
       ],

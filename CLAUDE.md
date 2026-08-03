@@ -32,7 +32,8 @@ npm run db:refresh   # Full reload: schema + every loader + resolve + test:data
 
 # Deployment
 npm run deploy       # Deploy to Firebase (elections-bg project) — HOSTING ONLY
-npm run deploy:db    # Deploy the `db` Cloud Function (/api/db + the /officials 301)
+npm run deploy:db    # Deploy the `db` Cloud Function (/api/db, the /officials 301,
+                     # and the server-rendered /funds/contract + /company pages)
 npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 ```
 
@@ -44,6 +45,25 @@ npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 3. `npm run deploy`.
 
 Hosting first means the rewrite is live against a function that cannot serve it yet.
+
+**`/funds/contract/**` and `/company/**` are page URLs served by that function**
+(`functions/spa_page.js`), not static files. They exist because both families were serving
+the SPA shell — i.e. the HOMEPAGE's `<title>`, description and canonical — so to a crawler
+all 81,910 contract URLs were duplicates of the homepage. Prerendering them is not an
+option: `dist/` already holds ~248k files and Firebase's ceiling is on file COUNT
+(a 453k-file dist has failed to deploy), while these two families are ~256k more.
+
+Deploying the hosting rewrite BEFORE the function is the one ordering that breaks a page
+that works today: the rewrite would route every contract and company URL to a function
+with no handler for it. `deploy:db` first, then `deploy`.
+
+The function fetches the SPA shell from `https://electionsbg.com/` once per instance and
+swaps the prerender's `<!-- SEO -->` / `<!-- BODY -->` marker blocks, so the hashed asset
+script tags always match what hosting is actually serving and nothing needs re-deploying
+when the bundle hash changes. Two consequences worth knowing: a cold instance makes one
+extra outbound request, and if that fetch fails the page still serves correct head tags
+without the SPA bundle (`FALLBACK_SHELL`) — complete for a crawler, degraded for a human,
+which is the right way round for a failure nobody is watching.
 
 The same migration-before-writer rule applies to the hand-run ingests that have no
 `db:load:*:cloud` wrapper. `company_founded` writes `http_status`/`attempts`, so

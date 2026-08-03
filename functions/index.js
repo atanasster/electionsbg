@@ -24,6 +24,11 @@ const { defineSecret } = require("firebase-functions/params");
 const { runDbTable, runDbFacets } = require("./db_table.js");
 const { sendJson } = require("./send_json.js");
 const { handleOfficialsRequest } = require("./officials_redirect.js");
+const {
+  handleSpaPageRequest,
+  contractPage,
+  companyPage,
+} = require("./spa_page.js");
 
 // Only these (cheap, Bulgarian-capable) models may be requested. Keep in sync
 // with the cloud entries in ai/llm/models.ts.
@@ -462,6 +467,45 @@ const dbRateLimited = (ip) => {
   return false;
 };
 
+// The SPA shell, fetched once per instance from hosting and reused.
+//
+// The function has no dist/, and the shell's <script> tags carry content-hashed
+// filenames that change every build — so baking a copy in would couple
+// `deploy:db` to `npm run build` and go stale silently the first time someone
+// forgot. Fetching whatever hosting is actually serving cannot drift. One
+// request per cold instance; a failure degrades to a bundle-less page rather
+// than a 500 (see spa_page.js).
+// The TTL is load-bearing, not a micro-optimisation. `npm run deploy` ships
+// HOSTING ONLY and does not restart this function, so aever-lived cache would keep
+// a `minInstances: 1` prod container serving a shell whose
+// /assets/index-<hash>.js no longer exists — a blank page on every contract and
+// company URL until the next unrelated `deploy:db`. Ten minutes bounds that to
+// one deploy's worth of stale hashes and costs one extra request per instance
+// per ten minutes.
+const SPA_SHELL_TTL_MS = 10 * 60 * 1000;
+let spaShellCache = null;
+let spaShellCachedAt = 0;
+const loadSpaShell = async () => {
+  if (spaShellCache && Date.now() - spaShellCachedAt < SPA_SHELL_TTL_MS)
+    return spaShellCache;
+  const r = await fetch("https://electionsbg.com/", {
+    headers: { "User-Agent": "naiasno-spa-shell" },
+    // Never let a CDN hand us the very stale copy the TTL exists to escape.
+    cache: "no-store",
+  });
+  if (!r.ok) throw new Error(`shell fetch ${r.status}`);
+  const text = await r.text();
+  // Keep serving the last good shell if hosting starts returning something
+  // unusable, rather than replacing it with a page we cannot render into.
+  if (!text.includes("<!-- SEO -->") || !text.includes("<!-- BODY -->")) {
+    if (spaShellCache) return spaShellCache;
+    throw new Error("shell has no marker blocks");
+  }
+  spaShellCache = text;
+  spaShellCachedAt = Date.now();
+  return spaShellCache;
+};
+
 /** One indexed lookup: the officials slug -> the /person slug that replaced it, or null.
  *  Shared shape with vite/db-api.ts's dev stand-in so the two cannot answer differently. */
 const resolveOfficialsTarget = async (pool, slug) => {
@@ -519,6 +563,61 @@ const makeDb = () => {
       } catch (e) {
         console.error("officials redirect error", e);
         return res.status(500).type("text/plain").send("redirect error");
+      }
+
+      // ---- /funds/contract/<n> and /company/<eik>: server-rendered head + body -----
+      //
+      // Ahead of the API gates for the same reason as the /officials 301 above:
+      // these are PAGE urls, and an origin allowlist / GET-only / per-IP limit
+      // written for an XHR API is wrong for a browser navigation and worse for
+      // a crawler. Returns false for anything it does not own, so the request
+      // falls through untouched.
+      try {
+        const handled = await handleSpaPageRequest(req, res, {
+          loadShell: () => loadSpaShell(),
+          loadContract: async (key, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const { rows } = await p.query(
+              "SELECT fund_contract_detail($1) AS r",
+              [key],
+            );
+            return rows[0]?.r ? contractPage(rows[0].r, lang, selfUrl) : null;
+          },
+          loadCompany: async (eik, lang, selfUrl) => {
+            const p = await getDbPool(DB_PASSWORD.value());
+            const [co, money] = await Promise.all([
+              p.query(
+                "SELECT uic, name, legal_form, seat, status FROM tr_companies WHERE uic = $1",
+                [eik],
+              ),
+              p.query(
+                `SELECT (SELECT count(*)::int FROM contracts WHERE contractor_eik = $1) AS contracts,
+                        (SELECT coalesce(sum(amount_eur) FILTER (WHERE tag = 'contract'), 0)
+                           FROM contracts WHERE contractor_eik = $1) AS contracts_eur,
+                        (SELECT coalesce(sum(total_eur), 0) FROM fund_projects
+                          WHERE beneficiary_eik = $1) AS funds_eur`,
+                [eik],
+              ),
+            ]);
+            if (!co.rows[0]) return null;
+            const m = money.rows[0] || {};
+            return companyPage(
+              co.rows[0],
+              {
+                contracts: Number(m.contracts) || 0,
+                contractsEur: Number(m.contracts_eur) || 0,
+                fundsEur: Number(m.funds_eur) || 0,
+              },
+              lang,
+              selfUrl,
+            );
+          },
+        });
+        if (handled) return;
+      } catch (e) {
+        console.error("spa page error", e);
+        // Never 500 a page URL over a head-injection failure — falling through
+        // serves the SPA, which is exactly today's behaviour.
       }
 
       // ---- /api/db/<route> ---------------------------------------------------------
