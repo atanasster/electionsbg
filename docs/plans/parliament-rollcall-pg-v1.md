@@ -12,14 +12,20 @@ parliament, and dropped. Where a figure is an extrapolation to Cloud SQL it says
 
 ## 1. Verdict
 
-**Migrate the facts; keep the analytics offline.** The roll-call corpus is a textbook Postgres
-case — a 4M-row fact table with two dimensions, currently shipped as **390 MB of committed JSON**
-including a **31 MB** and an **11.7 MB** artifact that individual page loads download whole. But
-the expensive derivations (all-pairs similarity, UMAP embedding) are not request-shaped and
-must not become live queries.
+**Migrate the facts, keep the analytics offline, and retire the JSON.** The roll-call corpus is a
+textbook Postgres case — a 4M-row fact table with two dimensions, currently shipped as **389 MB
+across 2,964 bucket-served JSON files**, of which **2,948 files and 383 MB retire** (§6). Three of
+them are downloaded whole by individual page loads: a 31 MB artifact, an 11.7 MB one, and the
+288 MB `sessions/` tree that costs `/votes/<date>` **482 KB on an average day and 4.97 MB on the
+worst**. But the expensive derivations (all-pairs similarity, UMAP embedding) are not
+request-shaped and must not become live queries.
 
-The recommendation in one line: **`vote_item` + `vote_cast` as loaded tables; four precomputes
-as matviews; two of the eight current artifacts stay in TypeScript; `embedding.json` never moves.**
+**Retirement is the deliverable, not a side effect.** A migration that stands up tables and leaves
+the files in place has doubled the number of places the truth lives. §6 is therefore a
+file-by-file ledger with a phase against every row, a deletion protocol, and three gates.
+
+The recommendation in one line: **`vote_item` + `vote_cast` as loaded tables; four precomputes as
+matviews; 16 of the 2,964 files survive as deliberate keeps; `embedding.json` never moves.**
 
 The strongest single argument is not performance. It is that **loading the corpus into a table
 with a primary key immediately surfaced two latent defects the JSON pipeline has been absorbing
@@ -31,9 +37,9 @@ silently for months** (§3.1, §3.2). Constraints catch what a JSON writer canno
 
 | | |
 |---|---|
-| session files | **616**, `data/parliament/votes/sessions/*.json`, **290 MB** |
+| session files | **613**, `data/parliament/votes/sessions/*.json`, **288 MB** — avg **482 KB**, largest **4.97 MB** |
 | derived artifacts | **99 MB**, of which `per-mp/` is **43 MB** across **2,330 shards** |
-| **total committed JSON** | **~390 MB** |
+| **total** | **389 MB across 2,964 JSON files**, all bucket-served, no `bucket_sync_paths` guard |
 | vote items | **16,741** (raw; `dedupeRevotes` collapses re-votes for the derived metrics) |
 | vote casts | **4,017,603** |
 | distinct `(ns, mp_id)` seats | **2,366** |
@@ -56,6 +62,18 @@ Per-artifact sizes (bytes on disk; the bucket serves identity encoding, so these
 | `embedding.json` | 211 KB | `/parliament/embedding` + 3 tiles |
 | `important_votes/<ns>.json` | 47 KB × 9 | — |
 | `similarity_headline.json` | 4.3 KB | the hub tile |
+| **`sessions/<date>.json`** | **482 KB avg · 4.97 MB max** | **`useRollcallSession` → every `/votes/<date>` page load** |
+
+**That last row is the biggest serving payload in the module and the first draft of this plan
+omitted it entirely.** `/votes/<date>` fetches the whole day file to render one sitting — half a
+megabyte typically, five megabytes on 2025-06-19 — and those are the pages
+[parliament-hub-v1 §2.7](parliament-hub-v1.md) measures as the module's *best-performing* half
+(107 views across ~49 distinct record pages, engagement 15.6% above the site average). The hub's
+1.65 MB is the louder number; this is the one paid by the people who actually arrive.
+
+In Postgres it is the Q6 query in §5 — **15 ms over 1,023 buffers** on the index plan — i.e. a
+sub-2 KB response. It is the single strongest user-facing argument in this document and it now
+has its own phase (§8).
 
 ---
 
@@ -308,22 +326,76 @@ has already burned the budget and the live fallback cannot finish either), log
 
 ---
 
-## 6. What does NOT migrate
+## 6. The retirement ledger — every one of the 2,964 files
 
-Stated explicitly, because "move the whole directory" is the tempting version of this plan.
+The point of the migration is not that Postgres is nicer. It is that **389 MB across 2,964
+bucket-served JSON files stops existing.** So the ledger is the deliverable, and every row states
+which phase retires it and what replaces it.
 
-| Artifact | Stays | Why |
-|---|---|---|
-| `embedding.json` (211 KB) | **TypeScript, forever** | UMAP is a stochastic iterative projection. It is not a SQL workload, it is 211 KB, and reimplementing it in PL/pgSQL would be a second definition of the map with nothing testing that the two agree. |
-| `important_votes/<ns>.json` (47 KB × 9) | **TypeScript** | The `score` is an editorial weighting, exactly the `BRAND_ALIASES` argument in `104_mp_roster.sql` — the TS builder stays the single definition, and the loader can store its output in `vote_item.score` if a query ever needs it. |
-| `search_index.json` | as-is | Offline harness only; no page reads it. |
-| `per-mp/` shards (43 MB, 2,330 files) | **DELETED** | They exist solely to avoid the 31 MB fallback (§3.1). Postgres removes the reason they exist. This is 43 MB and 2,330 files off the bucket. |
-| `similarity_headline.json` (4.3 KB) | **kept** | Feeds the hub tile and the band-4 seed. Cheaper than a round trip; regenerate it from `mp_similarity` once that exists. |
+| Artifact | Files | Size | Fate | Phase |
+|---|---|---|---|---|
+| `sessions/<date>.json` | **613** | **288 MB** | **RETIRED** → `/api/db/session?date=` (15 ms). Kept on disk as a **PG load source only** | 3 |
+| `per-mp/<ns>/<id>.json` | **2,330** | 43 MB | **DELETED** — they exist only to dodge the 31 MB fallback (§3.1); PG removes the reason | 1 |
+| `dissents.json` | 1 | **31 MB** | **DELETED** → `mp_dissent` matview (105k rows, 1.56 s build) | 1 |
+| `similarity.json` | 1 | **11.7 MB** | **DELETED** → `mp_similarity` matview (297k rows, 37.5 s) | 1 |
+| `topic_index.json` | 1 | **8 MB** | **DELETED** → `vote_item (ns, topic)` index (20 ms) | 4 |
+| `attendance.json` | 1 | 500 KB | **DELETED** → `mp_attendance` matview | 2 |
+| `cohesion.json` | 1 | 639 KB | **DELETED** → `party_cohesion` matview | 2 |
+| `party_pair_breaks.json` | 1 | 2.6 MB | **deferred** — derivable, but small; moving it buys little | — |
+| `loyalty.json` | 1 | 413 KB | **deferred** — same, and it is `per_mp_shards`' roster authority | — |
+| `index.json` | 1 | 303 KB | **kept** — the hub + `buildVotesRoutes` + the sitemap all read it; a 303 KB static file beats an API call for a prerender input | — |
+| `embedding.json` | 1 | 211 KB | **kept, forever** — UMAP is a stochastic iterative projection, not a SQL workload. Re-implementing it in PL/pgSQL would give two definitions of the map with nothing testing that they agree | — |
+| `important_votes/<ns>.json` | 9 | 47 KB ea | **kept** — `score` is an editorial weighting, the same argument `104_mp_roster.sql` gives for keeping `BRAND_ALIASES` out of SQL | — |
+| `similarity_headline.json` | 1 | 4.3 KB | **kept** — feeds the hub tile + the band-4 seed; cheaper than a round trip. Regenerate it **from `mp_similarity`** once that exists | — |
+| `search_index.json` | 1 | 758 KB | **kept** — offline harness only, no page reads it | — |
 
-`party_pair_breaks.json` (2.6 MB) and `loyalty.json` (413 KB) are judgement calls: both are
-derivable from `vote_cast` and both are small enough that migrating them buys little. Recommend
-**deferring** — a v1 that moves six artifacts and leaves two is a cleaner test than one that
-moves everything.
+**Net: 2,948 of 2,964 files and 383 of 389 MB retire.** What is left is 16 files totalling ~6 MB,
+every one of them a deliberate keep with a stated reason.
+
+### 6.1 `sessions/` is the row the first draft missed, and it is the largest
+
+`useRollcallSession` fetches the whole day file for `/votes/<date>` (§2). Two things make its
+retirement different from the others:
+
+- **It cannot simply be deleted** — it is the loader's input. It becomes a **PG load source**,
+  exactly like `parliament/index.json` and `parliament/profiles/` already are: present on disk,
+  never uploaded, served from Cloud SQL.
+- **`SessionScreen` must move first.** The route needs two calls, not one: the item list + tallies
+  for the day (Q6, 15 ms), then per-item per-MP votes **lazily**, when a reader expands an item to
+  see the hemicycle. Today's single fetch is 482 KB average because it eagerly ships every MP's
+  vote on all ~160 items; nobody expands 160 items.
+
+### 6.2 Deletion protocol — three steps, in this order
+
+Getting this wrong loses data with no fallback, so it is a sequence and not a cleanup:
+
+1. **Routes live and verified on prod.** Not "deployed" — verified, because the degrade contract
+   (§5) means a broken read serves an empty result at a 200 rather than erroring.
+2. **Remove the client fetches**, then the local files.
+3. **Then the bucket**, which is a separate and irreversible act — see 6.3.
+
+### 6.3 `bucket_sync_paths.ts` must be updated in the same commit, or the files come back
+
+`grep votes scripts/bucket_sync_paths.ts` returns **nothing**: `parliament/votes/**` is fully
+bucket-served today with no guard. So a retired tree needs BOTH halves of the pattern the file
+already uses for `parliament/profiles`:
+
+- an `isExcluded` refusal (`"parliament/votes/sessions/ is a PG load source, served from Cloud
+  SQL — never upload it"`), so a direct scoped push is refused; **and**
+- a `CHILD_EXCLUDES` entry, because `isExcluded` only guards the top-level argument — the natural
+  `bucket:sync:paths -- parliament` would otherwise recursively re-upload all 613 files. The file's
+  own comments record that exact failure happening once already, with `company-connections/`.
+
+And the bucket copies must be removed explicitly. `bucket:sync` **has never passed `-d`**, so
+deleted files linger and are served forever — the file documents three prices shards still being
+served a month after they left the corpus. Sequence:
+
+```bash
+npm run bucket:sync:paths -- parliament/votes/sessions --delete --dry-run   # read every "Would remove"
+npm run bucket:sync:paths -- parliament/votes/sessions --delete
+```
+
+Irreversible. Do it after step 1, never before.
 
 ---
 
@@ -356,15 +428,27 @@ Following the repo's own scar tissue:
 
 ## 8. Phasing
 
-| Phase | Scope | Ships |
-|---|---|---|
-| **0** | `132_rollcall.sql` + `db:load:rollcall:pg`. **No route reads it.** Run the dedupe (§3.3) and the `(ns, mp_id)` audit (§3.2) as loader preflights that report rather than throw. | a table, and the two defects quantified against every NS |
-| **1** | `133` + the four matviews + `db:load:rollcall-derived:pg`. Point `useMpDissents` / `useMpSimilarity` at `/api/db` routes. **Delete `per-mp/`, `dissents.json`, `similarity.json`.** | **−43 MB of shards, −31 MB, −11.7 MB**; the §3.1 fallback stops existing |
-| **2** | `attendance` / `cohesion` routes; retire those two artifacts. Regenerate `similarity_headline.json` from `mp_similarity`. | −1.1 MB, and the hub's stats generator can read PG |
-| **3** | `134_bill.sql` + the bill resolver. Unlocks parliament-hub-v1 §3.2's cut law count and a `/parliament/bill/:slug` record page. | the product win |
-| **4** | `topic_index.json` (8 MB) → a `vote_item (ns, topic)` index. | −8 MB; `/votes` stops downloading 8 MB to draw chips |
+| Phase | Scope | Retires | Ships |
+|---|---|---|---|
+| **0** | `132_rollcall.sql` + `db:load:rollcall:pg`. **No route reads it.** Dedupe (§3.3) and the `(ns, mp_id)` audit (§3.2) run as loader preflights that report rather than throw. | — | a table, and the two defects quantified against every NS |
+| **1** | `133` + the four matviews + `db:load:rollcall-derived:pg`. Point `useMpDissents` / `useMpSimilarity` at `/api/db`. | **`per-mp/` (2,330 files, 43 MB) · `dissents.json` 31 MB · `similarity.json` 11.7 MB** | the §3.1 fallback stops existing |
+| **2** | `attendance` / `cohesion` routes. Regenerate `similarity_headline.json` **from `mp_similarity`**. | `attendance.json` · `cohesion.json` (1.1 MB) | the hub's stats generator can read PG |
+| **3** | **`SessionScreen` → two calls: day items (Q6, 15 ms) + lazy per-item MP votes.** `sessions/` becomes a load source (§6.1). | **`sessions/` — 613 files, 288 MB, off the bucket** | **the biggest user-facing win in the plan** — `/votes/<date>` goes from 482 KB avg (4.97 MB worst) to <2 KB |
+| **4** | `134_bill.sql` + the bill resolver. | — | unlocks parliament-hub-v1 §3.2's cut law count and a `/parliament/bill/:slug` record page |
+| **5** | `topic_index.json` → a `vote_item (ns, topic)` index (20 ms). | `topic_index.json` 8 MB | `/votes` stops downloading 8 MB to draw chips |
 
-Phase 1 is the whole performance case. Phases 0 and 1 are worth doing even if 2–4 never happen.
+Phase 1 removes the silent 31 MB fallback; **phase 3 is the one readers feel**, because it is the
+only phase that touches the pages §2.7 shows they actually reach. Phases 0–1 are worth doing even
+if the rest never happens; phase 3 is worth doing even if 4–5 never do.
+
+**Ordering against the hub plan.** [parliament-hub-v1.md](parliament-hub-v1.md) ships
+0 → 3 → 1 → 2 on the JSON layer and does not wait for any of this. The one hand-off: hub phase 1
+writes `scripts/parliament/derived/hub_stats.ts`, computing from in-memory artifacts. PG phase 2
+rewrites that generator to read SQL — and **`hub_stats.json` stays a committed static artifact
+either way**. That is not a compromise: it is what `scripts/db/gen_procurement/hub_stats.ts`
+already does (PG-sourced, statically served), and a 6 KB static blob beats an API call on the page
+most likely to be hit cold by a crawler — no connection, no 10 s `statement_timeout`, no degrade
+path to reason about. The migration changes the generator's **source**, never the hub's fetch.
 
 **Cloud ordering, stated because nothing infers it:** `db:load:rollcall:pg:cloud` before
 `db:load:rollcall-derived:pg:cloud`, and both before the `deploy:db` that ships the routes —
@@ -388,6 +472,9 @@ there, or prod loses the data with no fallback.
 | **buffer ceiling** | each live-served query stays under 2,000 buffers on the worst NS, per §5's Cloud SQL rule. Same shape as `person_connections.data.test.ts`, which holds a ceiling and proves it still discriminates by restoring the old body in a rolled-back transaction |
 | **plan shape** | the `/votes/:date` query uses a nested loop, not a seq scan (§5's 21× trap) |
 | **upload/watch wiring** | both `:cloud` loaders appear in the `update-rollcall` skill |
+| **retirement — no dangling fetch** | after each phase, `grep` finds no `src/` fetch of an artifact that phase retired. A live route reading a deleted file is a 404 the degrade path turns into a silent empty state |
+| **retirement — bucket guard** | every retired tree has BOTH an `isExcluded` refusal and a `CHILD_EXCLUDES` entry in `bucket_sync_paths.ts` (§6.3). One without the other lets `bucket:sync:paths -- parliament` re-upload it |
+| **retirement — ledger is exhaustive** | every file under `data/parliament/votes/` is either in §6's ledger or fails the test. A new artifact must be classified when it is added, not discovered later |
 
 ---
 

@@ -11,10 +11,11 @@ to its first module, and the hub conventions the repo already enforces
 **Scope of v1: the dashboard hub only.** No new top-level nav — `/parliament` keeps its
 existing entry points (the Управление hub tile and the Управление menu), both relabelled.
 
-**Serving layer:** v1 reads committed JSON, as the rest of `/parliament` does today. The
-roll-call corpus is a strong Postgres candidate and that is analysed separately in
-[parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md); this hub is deliberately built
-so the migration replaces its generator without touching its components.
+**Serving layer:** v1 reads committed JSON, as the rest of `/parliament` does today — but that is
+a **sequencing decision, not the end state**. The roll-call corpus is a 389 MB / 2,964-file
+bucket-served tree of which **2,948 files and 383 MB retire**, and the plan for that is
+[parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md) — a sibling, not an appendix. Read
+the two together; §8 here carries the merged sequence and the single hand-off between them.
 
 ---
 
@@ -699,7 +700,14 @@ Stated so scope creep is visible:
   from "what happened" into "what is coming");
 - no top-level nav (D2); no `/votes` relocation (§2.4); no new MP roster page (§2.6);
 - no changes to the six sub-pages beyond breadcrumbs;
-- no Postgres migration — see [parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md);
+- **no Postgres migration IN THIS PLAN** — but it is not deferred indefinitely and it is not
+  optional. [parliament-rollcall-pg-v1.md](parliament-rollcall-pg-v1.md) retires **2,948 of the
+  2,964** JSON files this module ships (383 of 389 MB), including the 288 MB `sessions/` tree
+  behind `/votes/<date>` — the pages §2.7 measures as the module's best-performing half, each
+  currently costing **482 KB on average and 4.97 MB at worst**. That is a larger user-facing
+  payload than this plan's 1.65 MB and it is paid by the readers who actually arrive. The split is
+  ordering: the hub ships first because it needs no schema, and the migration replaces the
+  generator's SOURCE without touching the hub's fetch (§8);
 - **no trailing-slash / canonical fix** (§2.8) — real, site-wide across ~248k URLs, found here
   but far too large a blast radius to ride along with a hub rebuild. Needs its own work item.
 
@@ -933,6 +941,33 @@ So phase 0 is already a 5× cut and phase 1 finishes the job. The §6 payload ga
 phase 1, when `hub_stats.json` exists to measure; until then the gate asserts only that the hub
 imports none of the four artifacts it may never touch (`dissents`, `similarity`, `topic_index`,
 `party_pair_breaks`).
+
+### 8.1 Merged sequence with the Postgres migration
+
+The two plans interleave at exactly one point, and it is worth stating so neither blocks on the
+other by accident.
+
+| # | Plan | Phase | Why here |
+|---|---|---|---|
+| 1 | hub | **0** — registry, 11 scenes, strip, OG recapture | Needs no schema. Removes the last hardcoded hub |
+| 2 | hub | **3** — crawl paths + answerability + `llms.txt` | §2.7: the only work with a plausible traffic effect |
+| 3 | pg | **0–1** — tables, matviews, `/api/db` reads | Retires **2,374 files / 86 MB** and kills the silent 31 MB fallback. Independent of the hub |
+| 4 | hub | **1** — `hub_stats.ts`, band-3 stats, 1.65 MB → ≤10 KB | — |
+| 5 | pg | **2** — attendance/cohesion routes | **The hand-off.** Rewrites the hub's generator to read SQL |
+| 6 | pg | **3** — `SessionScreen` + retire `sessions/` (288 MB) | The biggest reader-facing win; independent of the hub |
+| 7 | hub | **2** — wire, lead, `NewsRail` | Last, because it is the only band with no measured demand behind it |
+| 8 | pg | **4–5** — bill dimension, topic index | Unlocks the law count §3.2 cut |
+
+**The single hand-off is step 5, and it is smaller than it looks.** Hub phase 1 writes
+`scripts/parliament/derived/hub_stats.ts`, computing from in-memory artifacts inside
+`rebuildDerived` (§4). PG phase 2 rewrites that generator to query SQL instead — and
+**`hub_stats.json` remains a committed static artifact either way.** That is deliberate, and it
+is the shape `scripts/db/gen_procurement/hub_stats.ts` already uses: PG-sourced, statically
+served. A 6 KB static blob beats an API call on the page most likely to be hit cold by a crawler
+— no connection, no 10 s `statement_timeout`, no degrade path to reason about.
+
+So nothing in this plan needs rewriting when the migration lands. `useParliamentHubStats` fetches
+the same URL before and after; only what fills the file changes.
 
 **Re-measure after phase 3 before committing to the band-3 order.** §2.7's distribution is
 endogenous to the current hub's links, so the first honest read of demand is the one taken after
