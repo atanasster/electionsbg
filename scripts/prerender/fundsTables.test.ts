@@ -328,6 +328,9 @@ describe("beneficiaryItemList", () => {
     const [list] = beneficiaryItemList(mk([900, 500, 100]), URL, "en") as [
       { itemListElement: Array<{ item: { url?: string } }> },
     ];
-    expect(list.itemListElement[0].item.url).toBe("/en/company/100000000");
+    // Absolute: a JSON-LD consumer reading the script block has no base IRI.
+    expect(list.itemListElement[0].item.url).toBe(
+      "https://electionsbg.com/en/company/100000000",
+    );
   });
 });

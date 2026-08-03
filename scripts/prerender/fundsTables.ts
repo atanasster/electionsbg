@@ -342,6 +342,7 @@ export const beneficiaryItemList = (
   data: FundsTableRows,
   url: string,
   lang: "bg" | "en" = "bg",
+  siteUrl = "https://electionsbg.com",
 ): object[] => {
   const rows = (data.topBeneficiaries ?? [])
     .filter((b) => b?.beneficiaryName)
@@ -364,7 +365,10 @@ export const beneficiaryItemList = (
           ...(b.beneficiaryEik
             ? {
                 identifier: b.beneficiaryEik,
-                url: `${lang === "bg" ? "" : "/en"}/company/${b.beneficiaryEik}`,
+                // Absolute: a JSON-LD consumer reading this script block has
+                // no base IRI, and the HTML table above emits the same link
+                // absolute.
+                url: `${siteUrl}${lang === "bg" ? "" : "/en"}/company/${b.beneficiaryEik}`,
               }
             : {}),
         },

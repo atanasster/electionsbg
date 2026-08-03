@@ -4624,6 +4624,18 @@ ${th.summaryEn ? `<p>${th.summaryEn}</p>` : ""}
 
 const MUNI_NAME = loadMuniNames();
 
+// The funding period a programme code declares. Asserting the election corpus's
+// "2005-06-25/.." on a 2021-2027 programme is a false claim in a machine-read
+// field, and a code with no period prefix (the EEA-Grants and national
+// instruments) says nothing rather than guess.
+const fundsTemporalCoverage = (code: string): string | undefined => {
+  if (/^2014/.test(code)) return "2014-01-01/2023-12-31";
+  if (/^2015/.test(code)) return "2014-01-01/2023-12-31";
+  if (/^2021/.test(code)) return "2021-01-01/2029-12-31";
+  if (/^2023/.test(code)) return "2023-01-01/2029-12-31";
+  return undefined;
+};
+
 // Per-programme detail pages /funds/programme/<code>. One staticPage per
 // operational-programme summary shard. Crawlers without JS see the
 // programme name, fund, contract count and €-volumes as indexable content
@@ -4748,6 +4760,7 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
             description: datasetDescriptionBg,
             url: `${SITE_URL}/funds/programme/${code}`,
             spatialCoverage: "България",
+            temporalCoverage: fundsTemporalCoverage(code),
             keywords: [
               code,
               nameBg,
@@ -4794,6 +4807,7 @@ ${tablesBg}
               description: datasetDescriptionEn,
               url: `${SITE_URL}/en/funds/programme/${code}`,
               spatialCoverage: "Bulgaria",
+              temporalCoverage: fundsTemporalCoverage(code),
               keywords: [
                 code,
                 nameEn ?? nameBg,
@@ -4937,6 +4951,7 @@ if (PROCEDURES.length > 0) {
             description: procDatasetBg,
             url: `${SITE_URL}/funds/procedure/${code}`,
             spatialCoverage: "България",
+            temporalCoverage: fundsTemporalCoverage(p.programCode),
             keywords: [
               code,
               p.programName,
@@ -4982,6 +4997,7 @@ ${procTablesBg}
               description: procDatasetEn,
               url,
               spatialCoverage: "Bulgaria",
+              temporalCoverage: fundsTemporalCoverage(p.programCode),
               keywords: [
                 code,
                 p.programName,
@@ -4991,6 +5007,7 @@ ${procTablesBg}
                 "procedure",
               ],
             }),
+            ...beneficiaryItemList(shard, url, "en"),
           ],
           bodyHtml: `
 <h1>${heading}</h1>

@@ -59,6 +59,10 @@ export const buildDatasetLd = (params: {
   url: string;
   spatialCoverage?: string;
   keywords?: string[];
+  // ISO 8601 interval. Defaults to the election corpus's span, which is what
+  // most callers describe; a funds programme covers 2014-2020 or 2021-2027 and
+  // must say so rather than inherit a claim about 2005.
+  temporalCoverage?: string;
   distribution?: Array<{ url: string; format?: string; name?: string }>;
 }) => {
   // Google's Dataset rich-result spec requires `description` to be 50–5000
@@ -82,7 +86,7 @@ export const buildDatasetLd = (params: {
     isAccessibleForFree: true,
     license: "https://creativecommons.org/licenses/by/4.0/",
     inLanguage: ["bg", "en"],
-    temporalCoverage: "2005-06-25/..",
+    temporalCoverage: params.temporalCoverage ?? "2005-06-25/..",
     ...(params.spatialCoverage
       ? {
           spatialCoverage: {
