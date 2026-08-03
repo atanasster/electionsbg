@@ -3,6 +3,7 @@ import path from "path";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { DIASPORA_FAQ } from "@/data/diaspora/diasporaFaq";
 import { SITE_URL } from "./routes";
+import { escapeHtml, escapeAttr, fmtInt, fmtIntEn } from "./html";
 
 // ── Site-wide section navigation ──────────────────────────────────────────
 // A crawlable link block appended to the (hidden) #ssg-content body of EVERY
@@ -119,21 +120,6 @@ const buildLatestAnalysisNav = (
   )}</h2><ul>${items}</ul></nav>`;
 };
 
-const escapeHtml = (s: string): string =>
-  String(s)
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-
-const escapeAttr = escapeHtml;
-
-const fmtInt = (n: number): string =>
-  Math.round(n)
-    .toLocaleString("bg-BG")
-    .replace(/\u00A0/g, " ");
-
 const fmtPct = (n: number, digits = 2): string =>
   `${n.toFixed(digits).replace(".", ",")}%`;
 
@@ -190,8 +176,6 @@ export const formatElectionDateEn = (folder: string): string => {
   const day = parseInt(m[3], 10);
   return `${day} ${EN_MONTHS[month - 1]} ${year}`;
 };
-
-const fmtIntEn = (n: number): string => Math.round(n).toLocaleString("en-US");
 
 const fmtPctEn = (n: number, digits = 2): string => `${n.toFixed(digits)}%`;
 
@@ -1379,6 +1363,10 @@ export type FundsThemeInput = {
 export const buildFundsThemeBody = (
   lang: "bg" | "en",
   input: FundsThemeInput,
+  // The theme's ranked lists, when the shard is available. Same reason as the
+  // programme and procedure pages: without them a crawler that cannot run JS
+  // sees three sentences about a multi-billion-euro slice of the corpus.
+  tables?: string,
 ): string => {
   const en = lang === "en";
   const base = en ? `${SITE_URL}/en` : SITE_URL;
@@ -1396,5 +1384,6 @@ export const buildFundsThemeBody = (
       ? `<p>Contracts, beneficiaries, programmes and the municipalities where the money landed for this theme — drawn from the ИСУН 2020 EU-funds register. <a href="${base}/funds">Back to EU funds</a>.</p>`
       : `<p>Поръчки, бенефициенти, програми и общините, в които са достигнали средствата по тази тема — по данни от регистъра на ИСУН 2020. <a href="${base}/funds">Към европейските средства</a>.</p>`,
   );
+  if (tables) parts.push(tables);
   return parts.join("\n");
 };

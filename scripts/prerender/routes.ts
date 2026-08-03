@@ -62,6 +62,11 @@ import { electionYearSuffix } from "./electionYear";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 import { readIndexableProcedures } from "../funds/procedures_index";
+import {
+  buildFundsTables,
+  loadMuniNames,
+  type FundsTableRows,
+} from "./fundsTables";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -4589,11 +4594,13 @@ ${th.summaryEn ? `<p>${th.summaryEn}</p>` : ""}
   }
 }
 
+const MUNI_NAME = loadMuniNames();
+
 // Per-programme detail pages /funds/programme/<code>. One staticPage per
 // operational-programme summary shard. Crawlers without JS see the
 // programme name, fund, contract count and €-volumes as indexable content
 // instead of an empty SPA shell.
-type FundsProgrammeSummary = {
+type FundsProgrammeSummary = FundsTableRows & {
   programCode: string;
   programName?: string;
   programNameEn?: string;
@@ -4645,6 +4652,30 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
       contracts > 0
         ? `${numFmtEn.format(contracts)} contracts · ${numFmtEn.format(beneficiaries)} beneficiaries · ${eurFmt.format(totalEur)} contracted · ${eurFmt.format(paidEur)} paid`
         : "";
+    // The shard is already open — putting its ranked lists in the HTML is the
+    // cheapest AIO win available (~4 KB/page).
+    const tablesBg = buildFundsTables(
+      summary,
+      "bg",
+      SITE_URL,
+      MUNI_NAME("bg"),
+      {
+        beneficiaries: 20,
+        contracts: 20,
+        munis: 10,
+      },
+    );
+    const tablesEn = buildFundsTables(
+      summary,
+      "en",
+      SITE_URL,
+      MUNI_NAME("en"),
+      {
+        beneficiaries: 20,
+        contracts: 20,
+        munis: 10,
+      },
+    );
     prerenderRoutes.push(
       staticPage({
         path: `funds/programme/${code}`,
@@ -4658,6 +4689,7 @@ if (fs.existsSync(FUNDS_BY_PROGRAM_DIR)) {
 <p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
 ${stats ? `<p>${stats}.</p>` : ""}
 <p>Топ договори, бенефициенти и общини за оперативна програма ${nameBg}, извлечени от корпуса на ИСУН 2020.</p>
+${tablesBg}
 <p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a>, <a href="${SITE_URL}/funds/political">политическата икономия</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
         english: {
           title: `${nameEn} (${code}) — EU funding | electionsbg.com`,
@@ -4669,6 +4701,7 @@ ${stats ? `<p>${stats}.</p>` : ""}
 <p><strong>${code}</strong>${fundLabel ? ` · ${fundLabel}` : ""}</p>
 ${statsEn ? `<p>${statsEn}.</p>` : ""}
 <p>Top contracts, beneficiaries and municipalities for operational programme ${nameEn}, extracted from the ИСУН 2020 corpus.</p>
+${tablesEn}
 <p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a>, <a href="${SITE_URL}/en/funds/political">political-economy view</a>, or <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
         },
       }),
@@ -4705,8 +4738,46 @@ if (PROCEDURES.length > 0) {
   });
   const numFmtBg = new Intl.NumberFormat("bg-BG");
   const numFmtEn = new Intl.NumberFormat("en-US");
+  const PROCEDURE_SHARD_DIR = path.join(
+    PROJECT_ROOT,
+    "data/funds/projects/by-procedure",
+  );
   for (const p of PROCEDURES) {
     const code = p.procedureCode.trim();
+    // The catalogue carries only the headline figures; the ranked lists — which
+    // are the whole point for an answer engine — live in the per-procedure
+    // shard. A missing shard degrades to prose rather than skipping the page.
+    let shard: FundsTableRows = {};
+    try {
+      shard = JSON.parse(
+        fs.readFileSync(path.join(PROCEDURE_SHARD_DIR, `${code}.json`), "utf8"),
+      );
+    } catch (err) {
+      // Silence would degrade all 985 pages back to prose — the very state
+      // this step exists to end — with nothing to notice it by.
+      console.warn(
+        `prerender: no shard for procedure ${code}, page falls back to prose (${String(err)})`,
+      );
+      shard = {};
+    }
+    // 100 named companies is the point of the page: on BG16RFOP002-2.089 each
+    // is a long-tail query, and each mandated-publicity page that outranks us
+    // carries exactly one of them.
+    const caps = { beneficiaries: 100, contracts: 25, munis: 15 };
+    const procTablesBg = buildFundsTables(
+      shard,
+      "bg",
+      SITE_URL,
+      MUNI_NAME("bg"),
+      caps,
+    );
+    const procTablesEn = buildFundsTables(
+      shard,
+      "en",
+      SITE_URL,
+      MUNI_NAME("en"),
+      caps,
+    );
     const named = p.procedureName?.trim();
     const heading = named || code;
     const statsBg = `${numFmtBg.format(p.contractCount)} ${p.contractCount === 1 ? "договор" : "договора"} · ${numFmtBg.format(p.beneficiaryCount)} ${p.beneficiaryCount === 1 ? "бенефициент" : "бенефициенти"} · ${eurFmt.format(p.totalEur)} договорени · ${eurFmt.format(p.paidEur)} изплатени`;
@@ -4730,6 +4801,7 @@ if (PROCEDURES.length > 0) {
 <p><strong>${code}</strong> · <a href="${SITE_URL}/funds/programme/${p.programCode}">${p.programName}</a></p>
 <p>${statsBg}.</p>
 <p>Процедурата е изведена от номерата на договорите в регистъра на ИСУН 2020: всеки договор по нея носи номер, който започва с <strong>${code}</strong>.</p>
+${procTablesBg}
 <p>Виж и <a href="${SITE_URL}/funds">общия преглед на ЕС-средствата</a> или <a href="${SITE_URL}/funds/integrity">сигналите за почтеност</a>.</p>`.trim(),
         english: {
           title: `${titleLead} | ${p.programName}`,
@@ -4749,6 +4821,7 @@ if (PROCEDURES.length > 0) {
 <p><strong>${code}</strong> · <a href="${SITE_URL}/en/funds/programme/${p.programCode}">${p.programName}</a></p>
 <p>${statsEn}.</p>
 <p>The procedure is derived from the contract numbers in the ИСУН 2020 register: every contract under it carries a number beginning <strong>${code}</strong>.</p>
+${procTablesEn}
 <p>See also the <a href="${SITE_URL}/en/funds">EU-funds overview</a> or the <a href="${SITE_URL}/en/funds/integrity">integrity signals</a>.</p>`.trim(),
         },
       }),

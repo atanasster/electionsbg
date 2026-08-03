@@ -9,6 +9,7 @@ import {
 } from "./routes";
 import { buildDynamicRoutes } from "./dynamicRoutes";
 import { buildSiteNav } from "./bodyBuilders";
+import { escapeHtml } from "./html";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,13 +19,6 @@ const PUBLIC_ASSETS = path.join(PROJECT_ROOT, "public");
 
 const SEO_BLOCK_RE = /<!-- SEO -->([\s\S]*?)<!-- \/SEO -->/;
 const BODY_BLOCK_RE = /<!-- BODY -->([\s\S]*?)<!-- \/BODY -->/;
-
-const escapeHtml = (s: string) =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 
 // Inline JSON-LD must escape "</" so a payload string can't break out of the
 // <script> tag. https://html.spec.whatwg.org/multipage/scripting.html#restrictions-for-contents-of-script-elements

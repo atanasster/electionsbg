@@ -1,5 +1,10 @@
 import fs from "fs";
 import path from "path";
+import {
+  buildFundsTables,
+  fundsThemeTableRows,
+  loadMuniNames,
+} from "./fundsTables";
 import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
 import type {
   PersonSlugEntry,
@@ -840,10 +845,31 @@ export const buildFundsThemeRoutes = (
   }
   const themes = payload.themes ?? [];
   const result: PrerenderRoute[] = [];
+  const muniName = loadMuniNames();
   for (const th of themes) {
     if (!th.slug) continue;
     if (typeof th.contractCount === "number" && th.contractCount === 0)
       continue;
+    // The theme's ranked lists live in its derived shard; without them the page
+    // is three sentences about a multi-billion-euro slice of the corpus, which
+    // is nothing for an answer engine to cite.
+    let shard: Parameters<typeof fundsThemeTableRows>[0] = {};
+    try {
+      shard = JSON.parse(
+        fs.readFileSync(
+          path.join(
+            projectRoot,
+            "data/funds/derived/themes",
+            `${th.slug}.json`,
+          ),
+          "utf-8",
+        ),
+      );
+    } catch {
+      shard = {};
+    }
+    const themeRows = fundsThemeTableRows(shard);
+    const caps = { beneficiaries: 15, contracts: 10, munis: 15 };
     const url = `${SITE_URL}/funds/focus/${th.slug}`;
     const enUrl = `${SITE_URL}/en/funds/focus/${th.slug}`;
     const title = `Европейски средства — ${th.labelBg} | electionsbg.com`;
@@ -858,7 +884,11 @@ export const buildFundsThemeRoutes = (
       path: `funds/focus/${th.slug}`,
       title,
       description,
-      bodyHtml: buildFundsThemeBody("bg", th),
+      bodyHtml: buildFundsThemeBody(
+        "bg",
+        th,
+        buildFundsTables(themeRows, "bg", SITE_URL, muniName("bg"), caps),
+      ),
       jsonLd: [
         buildWebPageLd({ title, description, url }),
         buildBreadcrumbLd([
@@ -870,7 +900,11 @@ export const buildFundsThemeRoutes = (
       english: {
         title: titleEn,
         description: descriptionEn,
-        bodyHtml: buildFundsThemeBody("en", th),
+        bodyHtml: buildFundsThemeBody(
+          "en",
+          th,
+          buildFundsTables(themeRows, "en", SITE_URL, muniName("en"), caps),
+        ),
         jsonLd: [
           buildWebPageLd({
             title: titleEn,
