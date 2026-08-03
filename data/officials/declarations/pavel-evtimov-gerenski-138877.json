@@ -232,6 +232,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%  (до 10.01.2014)",
         "companyName": "\"Енпро М\" ЕООД",
@@ -243,6 +244,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител (до 10.01.2014)",
         "companyName": "\"Енпро М\" ЕООД",

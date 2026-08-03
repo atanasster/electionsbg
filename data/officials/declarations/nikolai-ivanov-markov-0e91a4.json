@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. цел",
@@ -26,6 +27,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Футболен клуб Спартак- Сандански-юридическо лице с нестоп. Цел",
@@ -41,7 +43,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към към\nбанки",
         "detail": "Николай Иванов Марков и Вера Йораднова Маркова",
         "location": null,
         "municipality": null,

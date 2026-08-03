@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "5000",
         "companyName": "Стантекст ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Стантекст ЕООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "5000",
         "companyName": "Стантекст ЕООД",
@@ -67,6 +70,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествен дял",
         "shareSize": "100%",
         "companyName": "Стантекст ЕООД",

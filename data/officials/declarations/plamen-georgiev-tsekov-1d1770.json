@@ -604,7 +604,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "заем",
+        "description": "заем към банка",
         "detail": "Пламен Георгиев Цеков",
         "location": null,
         "municipality": null,
@@ -856,6 +856,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "НЯМАМ УЧАСТИЕ-УПРАВИТЕЛ",
         "companyName": "ЗК НАДЕЖДА",
@@ -867,6 +868,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "ПЛАГОСА КОМЕРС ЕООД",

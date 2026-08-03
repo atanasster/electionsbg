@@ -65,6 +65,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "нямам участие",
         "companyName": "Дивайн Стайл ЕООД",
@@ -76,6 +77,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "не съм управител",
         "companyName": "Инвестиции и мениджмънт България ЕООД",
@@ -106,6 +108,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Икономикс и юрекс консулт ЕООД",
@@ -117,6 +120,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Дивайн Стайл ЕООД",

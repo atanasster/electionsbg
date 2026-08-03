@@ -603,6 +603,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "\"ЕВРОЕКОЕЛ\" АД",
@@ -614,6 +615,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Изпълнителен директор",
         "companyName": "\"ЕВРОЕКОЕЛ\" АД",
@@ -625,6 +627,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "\"ЕВРОЕКОЕЛ\" АД",
@@ -636,6 +639,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Изпълнителн директор",
         "companyName": "\"ЕВРОЕКОЕЛ\" АД",

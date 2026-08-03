@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялово участие",
         "shareSize": "50%",
         "companyName": "ЕКСТРАВАГАНЦА ООД - прекратена дейност през 2009г.",
@@ -211,7 +212,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит към ДСК",
         "detail": "Светлозар Захариев Мерджанов",
         "location": null,
         "municipality": null,
@@ -223,7 +224,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит към ДСК",
         "detail": "Светлозар Захариев Мерджанов",
         "location": null,
         "municipality": null,
@@ -251,6 +252,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "не знам",
         "shareSize": "не знам",
         "companyName": "Екстраваганца ООД- прекратена дейност през 2009г.",
@@ -391,6 +393,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "нямам информация",
         "shareSize": "не знам",
         "companyName": "Екстраваганца ООД-преустановена дейност през 2009г.",

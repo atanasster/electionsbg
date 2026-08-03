@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към ОББ",
         "detail": "Стоил Георгиев Апостолов",
         "location": null,
         "municipality": null,
@@ -643,6 +643,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Диагностично консултативен център Бургасмед ЕООД",
@@ -654,6 +655,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Диагностично консултативен център Хипократ ЕООД",
@@ -665,6 +667,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Многопрофилна болница за активно лечение Бургасмед ЕООД",

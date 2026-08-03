@@ -488,6 +488,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествен дял",
         "shareSize": "26",
         "companyName": "МЦ Сидереус",
@@ -499,6 +500,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дружествен дял",
         "shareSize": "26",
         "companyName": "МЦ Сидереус",
@@ -941,6 +943,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Директор",
         "companyName": "Фондация в обществена полза \"Мъжко здраве\"",
@@ -971,6 +974,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествен дял",
         "shareSize": "26",
         "companyName": "МЦ Сидереус",

@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "\"Маген\"ЕООД",
@@ -480,6 +481,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "\"Маген\"ЕООД",
@@ -1619,6 +1621,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател на СД",
         "companyName": "\"АЕЦ КОЗЛОДУЙ\" ЕАД",
@@ -1630,6 +1633,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Зам. председател на СД",
         "companyName": "\"ЮЖЕН ПОТОК\" АД",

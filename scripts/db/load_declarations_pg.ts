@@ -316,6 +316,12 @@ const STAKE_COLS = [
   "declaration_id",
   "seq",
   "table_num",
+  // WHAT the row is (share / role / sole_trader) and the register's label for it.
+  // table_num says WHEN — held or not held — so without these a declared
+  // DIRECTORSHIP is indistinguishable from a shareholding in the serving
+  // database, and 096 publishes it under an ownership heading.
+  "stake_kind",
+  "item_type",
   "company_name",
   "uic",
   "holder_name",
@@ -519,6 +525,10 @@ const load = async () => {
             id,
             seq,
             s.table,
+            // Missing only on a shard written before the интереси forms were
+            // parsed; every one of those is an asset-form shareholding.
+            (s as { stakeKind?: string }).stakeKind ?? "share",
+            s.itemType ?? null,
             s.companyName ?? null,
             (s as { uic?: string }).uic ?? null,
             s.holderName ?? null,

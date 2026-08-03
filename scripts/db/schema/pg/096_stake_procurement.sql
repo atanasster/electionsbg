@@ -89,6 +89,12 @@ WITH stake AS (
          s.seq,
          s.company_name,
          s.share_size,
+         -- WHAT the declarant claimed. A 'role' row is a board seat, not a
+         -- holding, and 54% of the интереси rows feeding this matview are roles
+         -- — so this must reach the payload or the tile asserts ownership the
+         -- filing does not support. See declaration_stake in 089.
+         COALESCE(s.stake_kind, 'share') AS stake_kind,
+         s.item_type,
          s.value_eur,
          d.person_id,
          -- The period the filing covers. declaration_year = fiscal_year + 1 for an annual
@@ -126,6 +132,8 @@ SELECT st.declaration_id,
        un.uic,
        st.company_name,
        st.share_size,
+       st.stake_kind,
+       st.item_type,
        st.value_eur,
        st.stake_year
   FROM stake st
@@ -169,7 +177,15 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
            (array_agg(sc.company_name ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
              AS declared_name,
            (array_agg(sc.share_size ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
-             AS share_size
+             AS share_size,
+           -- Same "most recently declared" rule as the share size. A person who
+           -- declared a shareholding and later a board seat in one company is
+           -- described by the LATEST thing they said, not by an aggregate of
+           -- both — and never by max(), for the reason above.
+           (array_agg(sc.stake_kind ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+             AS stake_kind,
+           (array_agg(sc.item_type ORDER BY sc.stake_year DESC, sc.declaration_id DESC))[1]
+             AS item_type
       FROM declaration_stake_company sc
       JOIN pick ON pick.person_id = sc.person_id
      GROUP BY sc.uic
@@ -225,6 +241,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'companyName', (SELECT name FROM tr_companies WHERE uic = h.uic),
       'declaredName', h.declared_name,
       'shareSize', h.share_size,
+      -- The tile renders an ownership claim, so it MUST be able to say when a
+      -- row is a directorship instead. Sent as the machine value; the label is
+      -- the client's, so it can be translated.
+      'stakeKind', h.stake_kind,
+      'itemType', h.item_type,
       'firstYear', h.first_year,
       'lastYear', h.last_year,
       'contractCount', w.contract_count,

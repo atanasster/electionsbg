@@ -246,6 +246,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "20",
         "companyName": "Активи ММ ЕООД",
@@ -257,6 +258,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "5000",
         "companyName": "Активи Специализирано счетоводно предприятие ЕООД",
@@ -554,6 +556,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове от капитала",
         "shareSize": "20",
         "companyName": "АКТИВИ-ММ ЕООД",
@@ -565,6 +568,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове от капитала",
         "shareSize": "100",
         "companyName": "Активи-Специализирано счетоводно предприятие ЕООД",

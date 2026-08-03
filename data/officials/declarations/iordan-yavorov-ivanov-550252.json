@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "95%",
         "companyName": "ИСИТ ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100%",
         "companyName": "Йордан Иванов Еднолично Адвокатско Дружество",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "95%",
         "companyName": "ИСИТ ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "Бъдеще за поколенията на България СНЦ",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "собственик на дялове и управител",
         "companyName": "Йордан Иванов еднолично адвокатско дружество",
@@ -89,6 +94,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "95%",
         "companyName": "ИСИТ ООД",
@@ -100,6 +106,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Йордан Иванов Еднолично Адвокатско Дружество",
@@ -329,6 +336,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "95%",
         "companyName": "ИСИТ ООД",
@@ -340,6 +348,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Йордан Иванов Еднолично Адвокатско дружество",

@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "6",
         "companyName": "Консида Трейд ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "33",
         "companyName": "Варна Хоспитал ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "акции",
         "shareSize": "55",
         "companyName": "Билдинг Хоспитал Варна Ад",
@@ -508,6 +511,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "6",
         "companyName": "Консида Трейд",
@@ -519,6 +523,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "акции",
         "shareSize": "55",
         "companyName": "Билдинг Хоспитал Варна",

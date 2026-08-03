@@ -123,3 +123,70 @@ test.skipIf(skip)(
     assert.equal(col?.nullable, "YES");
   },
 );
+
+// ---------------------------------------------------------------------------
+// The root-element discriminator must stay EXHAUSTIVE.
+//
+// `ROOT_TO_KIND` (scripts/declarations/parse_declaration.ts) is a closed map over a
+// register that has already added forms once, and the failure is silent BY DESIGN: an
+// unrecognised root parses no tables, so the filing still publishes its year, institution
+// and source link while losing all its content. Every row count reconciles. That is the
+// exact signature of the Dekl2 failure — 4,331 filings publishing nothing for two years
+// with nothing red anywhere.
+//
+// This pins the DISCRIMINATOR against the raw cache rather than a downstream row count.
+// A count-based gate ("filings with zero rows of every kind must not jump") needs a
+// hard-coded baseline — 3,601 of 47,983 today — that drifts with every ingest and that a
+// genuinely blank filing moves legitimately. The set of root elements does not drift: it
+// changes only when the register introduces a form, which is the event worth failing on.
+//
+// Reads raw_data/, which is gitignored, so it self-skips on a machine without the cache
+// (CI) exactly like the Postgres gates skip without a database.
+const RAW_DIRS = ["raw_data/officials", "raw_data/declarations"];
+const KNOWN_ROOTS = ["PublicPerson", "PublicPersonDekl2", "PublicPersonDekl3"];
+
+test("every declaration root in the raw cache is one the parser knows", async () => {
+  const fs = await import("node:fs");
+  const path = await import("node:path");
+  const dirs = RAW_DIRS.filter((d) => fs.existsSync(d));
+  if (dirs.length === 0) return; // no raw cache on this machine — nothing to check
+
+  const seen = new Map<string, { count: number; sample: string }>();
+  const walk = (dir: string): void => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) {
+        walk(p);
+      } else if (e.name.endsWith(".xml")) {
+        // The root is within the first few hundred bytes, after the prolog and the
+        // stylesheet PI. Read a slice rather than the whole 48k-file corpus.
+        const fd = fs.openSync(p, "r");
+        const buf = Buffer.alloc(512);
+        const n = fs.readSync(fd, buf, 0, 512, 0);
+        fs.closeSync(fd);
+        const m = /<(PublicPerson\w*)[\s>]/.exec(
+          buf.subarray(0, n).toString("utf-8"),
+        );
+        const root = m ? m[1] : "(none)";
+        const prior = seen.get(root);
+        if (prior) prior.count++;
+        else seen.set(root, { count: 1, sample: p });
+      }
+    }
+  };
+  for (const d of dirs) walk(d);
+
+  assert.ok(seen.size > 0, "raw cache present but no declaration XML found");
+  const unknown = [...seen.entries()].filter(([r]) => !KNOWN_ROOTS.includes(r));
+  assert.deepEqual(
+    unknown,
+    [],
+    `the register publishes a form the parser does not know, and it is parsing NO tables ` +
+      `for it: ${unknown
+        .map(([r, v]) => `<${r}> ×${v.count} (e.g. ${v.sample})`)
+        .join(
+          ", ",
+        )}. Add it to ROOT_TO_KIND and write its table map — do NOT let it fall ` +
+      `through to another form's numbering, which is the bug this whole layer exists for.`,
+  );
+});

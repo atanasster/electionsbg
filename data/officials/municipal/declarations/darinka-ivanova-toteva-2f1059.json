@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Фирма",
         "shareSize": "1/2",
         "companyName": "Силвена 99 ООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Организация",
         "shareSize": "200",
         "companyName": "Организация на производители \"Натурален мед\" ООД",
@@ -307,6 +309,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "Силвена ООД",
@@ -318,6 +321,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на управителния съвет",
         "companyName": "ППЗК \"Бъдеще\"- Обретеник с. Обретеник",

@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Кепитал Адвайзърс ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Кепитал Адвайзърс ЕООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Инфинити Солюшън България ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Кепитал Адвайзърс ЕООД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10%",
         "companyName": "БИОЕН-2015 ЕООД",
@@ -70,6 +75,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Кепитал Адвайзърс ЕООД",
@@ -81,6 +87,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Инфинити Солюшън България ЕООД",
@@ -111,6 +118,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "Ейч Ар Ви Логистикс ЕООД",
@@ -862,6 +870,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100 лв.",
         "companyName": "БИОЕН-2015 ООД",

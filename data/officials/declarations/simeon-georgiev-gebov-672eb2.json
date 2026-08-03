@@ -113,6 +113,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "2000 ЛВ.-100%",
         "companyName": "СИК 25 ЕООД",
@@ -124,6 +125,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1000ЛВ.-50%",
         "companyName": "СИК 21 ИГ ООД",
@@ -135,6 +137,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10ЛВ.-100%",
         "companyName": "ГЕБОВ ЕООД",
@@ -146,6 +149,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ДА",
         "companyName": "СИК 25 ЕООД",
@@ -157,6 +161,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ДА",
         "companyName": "СИК 21 ИГ ООД",
@@ -168,6 +173,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ДА",
         "companyName": "ГЕБОВ ЕООД",

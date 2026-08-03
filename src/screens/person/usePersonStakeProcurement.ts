@@ -19,6 +19,12 @@ export type StakeProcurementRow = {
   companyName: string | null;
   /** The declarant's own spelling, shown alongside so the two can be compared. */
   declaredName: string | null;
+  /** WHAT was declared: a shareholding, a management/board role, or a sole-tradership.
+   *  Not cosmetic — this tile renders an ownership claim, so a `role` row must say so
+   *  or it asserts something the filing does not. See declaration_stake (089). */
+  stakeKind: "share" | "role" | "sole_trader" | null;
+  /** The register's own heading for the row, for display beside the chip. */
+  itemType: string | null;
   shareSize: string | null;
   /** First / last period the person declared holding this stake. The aligned figures below
    *  cover this span contiguously, so the rendered range and the arithmetic agree. */

@@ -63,6 +63,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "95 %",
         "companyName": "Ритейл  № 8 ООД",
@@ -74,6 +75,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител - 07.02.2025 г.",
         "companyName": "Ритейл № 8 ООД",

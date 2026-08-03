@@ -12,6 +12,8 @@ import { load } from "cheerio";
 import {
   detectFormKind,
   detectFormVersion,
+  resetUnknownRootTally,
+  unknownRootTally,
   parseDeclarationXml,
   pickEurValue,
   resolveDeclarationYear,
@@ -983,6 +985,85 @@ describe("parseInterestTables — the two interests forms", () => {
     expect(d.assets).toEqual([]);
     expect(d.events).toEqual([]);
     expect(warn).toHaveBeenCalled();
+  });
+
+  // Dropping the `PublicPerson >` ancestor makes `Personal > Name` match the
+  // FIRST <Personal> anywhere in the document. Verified across all 43,167 asset
+  // filings that this changes nothing today (0 differences), but "today" is not
+  // an invariant: a future form nesting a <Personal> block for a spouse would
+  // re-attribute a whole filing to the wrong human, which is the most damaging
+  // thing this parser can do. `.first()` in document order is what makes the
+  // declarant win, so pin it.
+  it("reads the DECLARANT's name, not a nested Personal block", () => {
+    const d = parse(
+      `<?xml version="1.0" encoding="utf-8"?>
+<PublicPerson>
+  <Personal><Name>Гергана Димитрова Орманлиева</Name></Personal>
+  <Related><Personal><Name>Иван Ангелов Орманлиев</Name></Personal></Related>
+  <DeclarationData>
+    <DeclarationType>Annualy</DeclarationType><Year>2024</Year>
+  </DeclarationData>
+  <Tables />
+</PublicPerson>`,
+    );
+    expect(d.declarantName).toBe("Гергана Димитрова Орманлиева");
+  });
+
+  it("labels each interests holding with a machine kind, not just a label", () => {
+    const d = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("1", { 2: "АЛФА ЕООД", 3: "100%" }) +
+          table("2", { 2: "БЕТА АД", 3: "управител" }) +
+          table("3", { 2: "ЕТ ГАМА", 3: "търговия" }),
+      ),
+    );
+    // A directorship is NOT a holding, and `table` cannot say so — it encodes
+    // WHEN. Anything presenting a row as ownership filters on stakeKind.
+    expect(d.ownershipStakes.map((s) => s.stakeKind)).toEqual([
+      "share",
+      "role",
+      "sole_trader",
+    ]);
+  });
+
+  it("names the creditor on an early repayment, but not a bare да/не", () => {
+    const named = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("9", { 2: "ипотечен кредит", 3: "1000", 4: "BGN", 8: "ОББ" }),
+      ),
+    );
+    expect(named.events![0].description).toBe("ипотечен кредит към ОББ");
+    // 45 of the 320 declared rows tick the column with a bare "да", which only
+    // restates which column was filled. "потребителски кредит към да" is noise.
+    const ticked = parse(
+      interestsXml(
+        "PublicPersonDekl3",
+        table("9", {
+          2: "потребителски кредит",
+          3: "7000",
+          4: "BGN",
+          8: "да",
+          9: "не",
+        }),
+      ),
+    );
+    expect(ticked.events![0].description).toBe("потребителски кредит");
+  });
+
+  it("tallies unrecognised roots for the ingest to report", () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    resetUnknownRootTally();
+    parse(interestsXml("PublicPersonDekl4", ""));
+    parse(interestsXml("PublicPersonDekl4", ""));
+    parse(interestsXml("PublicPersonDekl5", ""));
+    // A per-file warn inside a 48k-file run is scrollback, not a signal.
+    expect(unknownRootTally()).toEqual([
+      ["PublicPersonDekl4", 2],
+      ["PublicPersonDekl5", 1],
+    ]);
+    resetUnknownRootTally();
   });
 
   it("detects each form from its root element", () => {

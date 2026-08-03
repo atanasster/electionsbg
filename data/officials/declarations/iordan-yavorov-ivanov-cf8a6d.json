@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове в ТД",
         "shareSize": "9500 лв.",
         "companyName": "ИСИТ ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове в ТД",
         "shareSize": "6 лв.",
         "companyName": "ИСИТ ДОКУМЕНТИ ООД",
@@ -799,6 +801,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "95%",
         "companyName": "ИСИТ ООД",

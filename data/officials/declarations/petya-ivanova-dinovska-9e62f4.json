@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1 лв",
         "companyName": "Вестител Панагюрски ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Изпълнителен Директор",
         "companyName": "Специализирана болница за активно лечение по кардиология ВеликоТърново ЕАД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на съвета на директорите",
         "companyName": "Специализирана болница за активно лечение по кардиология Варна ЕАД",
@@ -52,7 +55,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Лизинг",
+        "description": "Лизинг към ОББ интерлойз",
         "detail": "Петя Иванова Диновска",
         "location": null,
         "municipality": null,

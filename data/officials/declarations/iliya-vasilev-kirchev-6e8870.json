@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "2.5%",
         "companyName": "Now Certs LLC",
@@ -26,6 +27,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "0,77%",
         "companyName": "Хуманита ООД",
@@ -179,6 +181,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествен дял в ЕООД",
         "shareSize": "100%",
         "companyName": "Регатон ЕООД",
@@ -190,6 +193,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове в ООД",
         "shareSize": "0,77%",
         "companyName": "Хуманита ООД",
@@ -473,6 +477,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествен дял в ЕООД",
         "shareSize": "100%",
         "companyName": "Регатон ЕООД",

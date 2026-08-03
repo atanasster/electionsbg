@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "30",
         "companyName": "Реформс ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "5",
         "companyName": "Пакси ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "3.75",
         "companyName": "Апипакс ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "16.07",
         "companyName": "Айрис Солюшънс оод",
@@ -446,6 +450,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "256917",
         "companyName": "СИРМА БИЗНЕС КОНСУЛТИНГ АД",
@@ -457,6 +462,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "3672",
         "companyName": "АЙРИС СОЛЮШЪНС ООД",
@@ -468,6 +474,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "2400",
         "companyName": "ПЕЙСЕРА",
@@ -479,6 +486,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "250",
         "companyName": "АПИПАКС",
@@ -490,6 +498,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "25",
         "companyName": "ПАКСИ",
@@ -501,6 +510,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "15",
         "companyName": "РЕФОРМС",
@@ -531,6 +541,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Сирма Бизнес Консултинг",
         "shareSize": "11.21 %",
         "companyName": "АД",
@@ -542,6 +553,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Айрис Солюшънс",
         "shareSize": "16.07 %",
         "companyName": "ООД",
@@ -553,6 +565,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Пейсера",
         "shareSize": "5.38 %",
         "companyName": "ООД",
@@ -564,6 +577,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Апипакс",
         "shareSize": "3.75 %",
         "companyName": "ООД",
@@ -575,6 +589,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Пакси",
         "shareSize": "5 %",
         "companyName": "ООД",
@@ -586,6 +601,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Реформс",
         "shareSize": "5 %",
         "companyName": "ООД",

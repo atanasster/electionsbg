@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "75%",
         "companyName": "Еконт Експрес ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "40%",
         "companyName": "Фрий ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "99%",
         "companyName": "Еконт Експрес БЛ ООД",

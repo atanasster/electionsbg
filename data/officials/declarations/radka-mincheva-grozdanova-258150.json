@@ -101,6 +101,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"ДАР МиР\"",
@@ -376,6 +377,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "МЦ \"медикеар Плюс\" ООД",

@@ -418,6 +418,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "СОФИЯ ВИЖЪН ПРЕМИУМ ЕООД",
@@ -429,6 +430,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "СОФИЯ ВИЖЪН ПРЕМИУМ ЕООД",
@@ -440,6 +442,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "СОФИЯ ВИЖЪН ПРЕМИУМ ЕООД",
@@ -451,6 +454,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "СОФИЯ ВИЖЪН ПРЕМИУМ ЕООД",

@@ -358,6 +358,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове - продадени",
         "shareSize": "4/5",
         "companyName": "МБАЛ \"Света Богородица\" ООД",
@@ -369,6 +370,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове - продадени",
         "shareSize": "1/5",
         "companyName": "МБАЛ \"Света Богородица\" ООД",
@@ -380,6 +382,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествените дялове са купени",
         "shareSize": "5/5",
         "companyName": "МБАЛ Света Богородица ЕООД",
@@ -717,6 +720,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "4/5",
         "companyName": "МБАЛ \"Света Богородица\"",
@@ -728,6 +732,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "1/5",
         "companyName": "мБАЛ \"Света Богородица\"",
@@ -993,6 +998,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "4/5 или 4000 лева",
         "companyName": "МБАЛ \"Света Богородица\" - управител",
@@ -1004,6 +1010,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "4/5 или 4000",
         "companyName": "МБАЛ \"Света Богородица\" - управител",
@@ -1015,6 +1022,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "0",
         "companyName": "Национално сдружение на частните болници - председател на УС",
@@ -1026,6 +1034,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "4000",
         "companyName": "МБАЛ \"Света Богородица\" - управител",
@@ -1037,6 +1046,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "0",
         "companyName": "Национално сдружение на частните болници - председател",

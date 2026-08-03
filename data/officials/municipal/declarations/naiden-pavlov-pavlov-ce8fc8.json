@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "100%",
         "companyName": "МОМЕНТ ЕООД",
@@ -153,6 +154,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100% = 100 лв",
         "companyName": "МОМЕНТ ЕООД",
@@ -164,6 +166,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100%",
         "companyName": "МОМЕНТ ЕООД",
@@ -179,7 +182,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Банков кредит",
+        "description": "Банков кредит към Уникредит Булбанк АД",
         "detail": "Златка Стоянова Павлова",
         "location": null,
         "municipality": null,

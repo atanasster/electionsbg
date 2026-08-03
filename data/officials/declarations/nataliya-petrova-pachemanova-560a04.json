@@ -595,6 +595,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "АНТАЛИ КОНСУЛТИНГ ЕООД",
@@ -606,6 +607,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "МАЛЕГА-М ЕООД",
@@ -621,7 +623,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "БАНКОВ КРЕДИТ",
+        "description": "БАНКОВ КРЕДИТ към ПИБ",
         "detail": "АНГЕЛ КОСТАДИНОВ ПАЧЕМАНОВ",
         "location": null,
         "municipality": null,
@@ -649,6 +651,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "ЗАЛИЧАВАНЕ НА КРЕДИТ №322-0148/25.07.2008",
         "shareSize": "100",
         "companyName": "АНТАЛИ КОНСУЛТИНГ ЕООД",

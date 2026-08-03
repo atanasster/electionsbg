@@ -205,6 +205,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "акц.дялове",
         "shareSize": "95",
         "companyName": "Стоун Филс ООД",
@@ -447,6 +448,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "акц.дялове",
         "shareSize": "95",
         "companyName": "Стоун Филс ООД",
@@ -599,6 +601,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "90%",
         "companyName": "Стоун Филс ООД",
@@ -610,6 +613,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "40%",
         "companyName": "Фемили Филибев - сие ООД",

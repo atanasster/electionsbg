@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МАКДОК ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ЧЛЕН НА УС",
         "companyName": "ГРАЖДАНСКО СДРУЖЕНИЕ ЕКСПЕРТЕН СЪВЕТ ЗА АНАЛИЗ НА РИСКА - ЕСАР",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МАКДОК ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ЧЛЕН НА УС",
         "companyName": "ГРАЖДАНСКО СДРУЖЕНИЕ ЕКСПЕРТЕН СЪВЕТ ЗА АНАЛИЗ НА РИСКА - ЕСАР",
@@ -78,6 +82,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "язовир",
         "shareSize": "1",
         "companyName": "МАКДОК ЕООД",
@@ -302,6 +307,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "язовир",
         "shareSize": "1",
         "companyName": "МАКДОК ЕООД",

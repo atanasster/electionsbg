@@ -367,6 +367,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10 лв.",
         "companyName": "МИЛК САКАР - 63 ЕООД",
@@ -378,6 +379,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "собственик",
         "companyName": "управител",
@@ -389,6 +391,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10 лв.",
         "companyName": "МИЛК САКАР - 63 ЕООД",

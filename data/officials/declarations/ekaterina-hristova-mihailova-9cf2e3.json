@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към Алианц Банк\nБългария",
         "detail": "Екатерина Христова Михайлова",
         "location": null,
         "municipality": null,
@@ -64,6 +64,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50",
         "companyName": "\"МК Ойл 12\" ООД",

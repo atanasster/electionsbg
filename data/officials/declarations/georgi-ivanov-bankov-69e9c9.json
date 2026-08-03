@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "\"ДЖИ ВИ ПАБЛИК ПАРТНЕРС\" ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на съвета на дирекоторите",
         "companyName": "\"СОФИЙСКА ВОДА\" АД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на съвета на дирекоторите",
         "companyName": "\"ЕЛ БИ БУЛГАРИКУМ\" ЕАД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на съвета на дирекоторите",
         "companyName": "\"СОФИЙСКА ВОДА\" АД",
@@ -78,6 +82,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"ДЖИ ВИ ПАБЛИК ПАРТНЕРС\" ЕООД",

@@ -125,6 +125,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Валис-Инвест ЕООД",
@@ -136,6 +137,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "консултантски услуги",
         "companyName": "ЕТ Алекс-Митко Александров",
@@ -147,6 +149,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Валис-Инвест ЕООД",
@@ -158,6 +161,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "консултантски услуги",
         "companyName": "ЕТ Алекс-Митко Александров",
@@ -188,6 +192,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Парична вноска",
         "shareSize": "100%",
         "companyName": "Валис-Инвест ЕООД",

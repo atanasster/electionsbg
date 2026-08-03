@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "40",
         "companyName": "ПАРАДАЙС ТИЙМ ЕСТЕЙТС",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100",
         "companyName": "ПИЙК СОЛЮШЪН ЕООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100",
         "companyName": "СЕЛЪРИСТ ЕООД",
@@ -320,6 +323,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100",
         "companyName": "ПИЙК СОЛЮШЪН ЕООД",
@@ -331,6 +335,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100",
         "companyName": "ПИЙК СОЛЮШЪН ЕООД",
@@ -343,6 +348,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "25",
         "companyName": "ТРЕЙД ВЕНЧЪР ООД",

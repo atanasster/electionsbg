@@ -254,7 +254,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "кредит",
+        "description": "кредит към Уникредит",
         "detail": "Деница С. Славкова",
         "location": null,
         "municipality": null,
@@ -453,6 +453,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "34",
         "companyName": "\"Дълги дел\" ООД",
@@ -581,6 +582,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "34",
         "companyName": "\"Дълги дел\" ООД",
@@ -715,6 +717,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "Сдружение \"АДАНО - Монтана\", ЕИК:176978240",
@@ -726,6 +729,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "34 дяла, унаследени през април 2017 г.",
         "companyName": "\"Дълги дел\" ООД, ЕИК:111558840",
@@ -756,6 +760,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "34",
         "companyName": "\"Дълги дел\" ООД",

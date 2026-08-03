@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Фондация \"Възраждане\"",
@@ -26,6 +27,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Фондация \"Възраждане\"",
@@ -41,7 +43,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "лизинг",
+        "description": "лизинг към ОББ Интерлийз ЕАД",
         "detail": "Велина Денчева Костадинова",
         "location": null,
         "municipality": null,
@@ -69,6 +71,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100%",
         "companyName": "Дарба Бъдеще",
@@ -261,7 +264,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към Обединена българска банка АД",
         "detail": "Костадин Тодоров Костадинов",
         "location": null,
         "municipality": null,
@@ -289,6 +292,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100%",
         "companyName": "Дарба Бъдеще",
@@ -505,7 +509,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към Кей Би Си банк България ЕАД",
         "detail": "Костадин Тодоров Костадинов",
         "location": null,
         "municipality": null,
@@ -533,6 +537,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100%",
         "companyName": "Дарба Бъдеще",
@@ -752,6 +757,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Сдружение \"Училищно настоятелство на детска градина №39 Приказка\"",
@@ -767,7 +773,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "частично погасен ипотечен кредит",
+        "description": "частично погасен ипотечен кредит към Райфайзенбанк",
         "detail": "Костадин Тодоров Костадинов",
         "location": null,
         "municipality": null,
@@ -795,6 +801,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Сдружение \"Училищно настоятелство на детска градина №39 Приказка\"",
@@ -810,7 +817,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "частично погасен ипотечен кредит",
+        "description": "частично погасен ипотечен кредит към Райфайзенбанк",
         "detail": "Костадин Тодоров Костадинов",
         "location": null,
         "municipality": null,
@@ -838,6 +845,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Сдружение \"Училищно настоятелство на детска градина №39 Приказка\"",
@@ -853,7 +861,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "напълно погасен потребителски кредит",
+        "description": "напълно погасен потребителски кредит към ЦКБ",
         "detail": "Велина Денчева Костадинова",
         "location": null,
         "municipality": null,
@@ -881,6 +889,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Сдружение \"Училищно настоятелство на детска градина №39 Приказка\"",
@@ -896,7 +905,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "частично погасен ипотечен кредит",
+        "description": "частично погасен ипотечен кредит към Райфайзенбанк",
         "detail": "Костадин Тодоров Костадинов",
         "location": null,
         "municipality": null,

@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Договор за кредит",
+        "description": "Договор за кредит към Банка ДСК АД",
         "detail": "РУМЕН ДИМИТРОВ МЛАДЕНОВ",
         "location": null,
         "municipality": null,
@@ -30,7 +30,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Договор за кредит",
+        "description": "Договор за кредит към Банка ДСК АД",
         "detail": "ПЕНКА СТОЯНОВА МЛАДЕНОВА",
         "location": null,
         "municipality": null,
@@ -371,7 +371,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Договор за кредит",
+        "description": "Договор за кредит към ДСК",
         "detail": "Румен Димитров Младенов",
         "location": null,
         "municipality": null,
@@ -716,6 +716,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член, считано от 07.07.2020 г.",
         "companyName": "Сдружение на Съвета на ректорите на висшите училища в Република България",
@@ -983,6 +984,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член",
         "companyName": "Съвет на ректорите на Република България - Сдружение",

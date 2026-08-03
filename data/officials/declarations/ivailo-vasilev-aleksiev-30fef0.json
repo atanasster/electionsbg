@@ -815,7 +815,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит към \"Юробанк България\" АД",
         "detail": "Ивайло Василев Алексиев",
         "location": null,
         "municipality": null,
@@ -1035,6 +1035,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еднолично дружество",
         "shareSize": "100",
         "companyName": "\"Лема Консулт Добрич\" ЕООД",
@@ -1264,6 +1265,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еднолично дружество",
         "shareSize": "100",
         "companyName": "\"Лема Консулт Добрич\" ЕООД",

@@ -376,6 +376,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Айф Фарма ЕООД",
@@ -387,6 +388,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "СТМ Св. Панталеймон ООД",
@@ -398,6 +400,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Айф Фарма ЕООД",
@@ -409,6 +412,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "СТМ Св. Панталеймон ООД",

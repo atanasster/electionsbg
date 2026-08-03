@@ -59,6 +59,18 @@ export const PersonStakeProcurement: FC<{ slug: string }> = ({ slug }) => {
                 >
                   {r.companyName ?? r.declaredName}
                 </Link>
+                {/* WHAT was declared. A board seat is not a shareholding, and once the
+                    интереси forms are parsed 54% of the rows reaching this tile are
+                    roles — with the role text hidden by the percentage filter below, a
+                    reader would otherwise see a company, a year range and a contract
+                    total under an ownership heading and nothing to say the person only
+                    sat on its board. Ownership is the unmarked case, so only the two
+                    non-ownership kinds take a chip. */}
+                {r.stakeKind && r.stakeKind !== "share" && (
+                  <span className="ml-1.5 whitespace-nowrap rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+                    {t(`pp_stake_kind_${r.stakeKind}`)}
+                  </span>
+                )}
                 {/* The declarant's own spelling, when it differs — the cheapest way for a
                     reader to sanity-check the match themselves. */}
                 {r.companyName &&
@@ -80,13 +92,21 @@ export const PersonStakeProcurement: FC<{ slug: string }> = ({ slug }) => {
                         : `${r.firstYear}–${r.lastYear}`}
                     </>
                   )}
-                  {/* Only render a share we can actually label. declaration_stake.share_size
-                      is free text and holds percentages ("50 %"), share counts ("405"),
-                      fractions ("1/2") and capital amounts ("5000") indistinguishably — a
-                      bare "5000" next to a percentage reads as nonsense. */}
-                  {r.shareSize && /^\s*\d+([.,]\d+)?\s*%\s*$/.test(r.shareSize)
-                    ? ` · ${r.shareSize.replace(/\s+/g, "")}`
-                    : ""}
+                  {/* On a SHARE row, only render a share we can actually label:
+                      declaration_stake.share_size is free text and holds percentages
+                      ("50 %"), share counts ("405"), fractions ("1/2") and capital
+                      amounts ("5000") indistinguishably — a bare "5000" next to a
+                      percentage reads as nonsense.
+
+                      On a ROLE row the same column holds the role itself ("Управител",
+                      "Член на съвета на директорите"), which is always meaningful and
+                      is more specific than the chip above — so show it verbatim. */}
+                  {r.shareSize &&
+                    (r.stakeKind && r.stakeKind !== "share"
+                      ? ` · ${r.shareSize}`
+                      : /^\s*\d+([.,]\d+)?\s*%\s*$/.test(r.shareSize)
+                        ? ` · ${r.shareSize.replace(/\s+/g, "")}`
+                        : "")}
                   {` · ${t("pp_stake_proc_contracts", { count: r.contractCount })}`}
                 </div>
               </div>

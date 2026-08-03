@@ -425,6 +425,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'stakes', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'tableNum', s.table_num, 'companyName', s.company_name,
+        -- WHAT the row is. The block that renders these is headed "Дялове в
+        -- дружества", so a role row needs to say so on its own face.
+        'stakeKind', COALESCE(s.stake_kind, 'share'), 'itemType', s.item_type,
         'companySlug', s.company_slug, 'holderName', s.holder_name,
         'transfereeName', s.transferee_name, 'shareSize', s.share_size,
         'valueEur', round(s.value_eur), 'registeredOffice', s.registered_office

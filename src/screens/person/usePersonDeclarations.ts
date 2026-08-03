@@ -97,6 +97,10 @@ export type DeclarationDetail = {
     companySlug: string | null;
     holderName: string | null;
     transfereeName: string | null;
+    /** WHAT the row is — a shareholding, a management/board role, or a sole-tradership.
+     *  The block is headed "Дялове в дружества", so a role row must be marked. */
+    stakeKind: "share" | "role" | "sole_trader" | null;
+    itemType: string | null;
     shareSize: string | null;
     valueEur: number | null;
     registeredOffice: string | null;

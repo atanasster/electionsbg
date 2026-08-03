@@ -163,6 +163,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "50%",
         "companyName": "Данини Цвет ООД",
@@ -341,6 +342,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "Данини цвет ООД \\със спряна дейност\\",
@@ -352,6 +354,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "Данини цвет ООД",

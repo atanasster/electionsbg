@@ -581,6 +581,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50",
         "companyName": "\"БИАП\" ООД",
@@ -593,6 +594,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100",
         "companyName": "\"СЛАБАКОФФИЛМ\" ЕООД",
@@ -605,6 +607,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100",
         "companyName": "\"А.С.ФИЛМ\" ЕООД",

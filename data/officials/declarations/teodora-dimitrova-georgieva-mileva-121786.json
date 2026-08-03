@@ -1049,6 +1049,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Изпълнителен Директор",
         "companyName": "Набуко Пайплайн България",
@@ -1575,6 +1576,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове в ЕООД",
         "shareSize": "100",
         "companyName": "Джи Пи Ем Ти ЕООД",
@@ -1586,6 +1588,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове в ЕООД",
         "shareSize": "100",
         "companyName": "Пи М Солюшънс ЕООД",

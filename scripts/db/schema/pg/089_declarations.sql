@@ -160,17 +160,40 @@ CREATE TABLE IF NOT EXISTS declaration_stake (
   declaration_id    bigint NOT NULL REFERENCES declaration (declaration_id) ON DELETE CASCADE,
   seq               int NOT NULL,
   table_num         text NOT NULL CHECK (table_num IN ('10', '11')),  -- held | transferred
+  -- WHAT the row is, as opposed to WHEN (table_num). Since the две интереси forms
+  -- are parsed this table holds three different things, and only this column tells
+  -- them apart: a shareholding, a MANAGEMENT ROLE ("Съм управител или член на орган
+  -- на управление или контрол" — explicitly not a holding) and a sole-tradership.
+  -- ANY consumer presenting a row as ownership must filter on it. NULL only on rows
+  -- loaded before the column existed; those are all asset-form shareholdings.
+  stake_kind        text CHECK (stake_kind IN ('share', 'role', 'sole_trader')),
+  -- The register's own heading for the row, for DISPLAY. Never branch on it: it is
+  -- free text on the asset form and a Bulgarian sentence on the интереси ones, so a
+  -- SQL predicate matching it breaks the day the phrasing is improved.
+  item_type         text,
   company_name      text,
   uic               text,              -- RESERVED: EIK, resolved in a later step
   holder_name       text,              -- who holds it (table 10)
   transferee_name   text,              -- who it was transferred TO (table 11) — the
                                        --   substance of a disposal row; feeds T3.4/T3.8
-  share_size        text,              -- raw ("100%", a numeric quantity)
+  share_size        text,              -- raw ("100%", a numeric quantity). On a ROLE
+                                       --   row this is the role itself ("Управител"),
+                                       --   which is why stake_kind and not a regex
+                                       --   over this column is the discriminator.
   value_eur         numeric,
   registered_office text,
   company_slug      text,
   PRIMARY KEY (declaration_id, seq)
 );
+-- Same reason as the declaration_event CHECK below: CREATE TABLE IF NOT EXISTS is a
+-- no-op on a database that already has the table, so neither new column would ever
+-- reach one — and the loader's COPY, which names them, fails with 42703. Restating
+-- them is the idempotent form.
+ALTER TABLE declaration_stake ADD COLUMN IF NOT EXISTS stake_kind text;
+ALTER TABLE declaration_stake ADD COLUMN IF NOT EXISTS item_type  text;
+ALTER TABLE declaration_stake DROP CONSTRAINT IF EXISTS declaration_stake_stake_kind_check;
+ALTER TABLE declaration_stake ADD CONSTRAINT declaration_stake_stake_kind_check
+  CHECK (stake_kind IN ('share', 'role', 'sole_trader'));
 -- Forward declaration for the T3.8 company join — empty until uic is resolved.
 CREATE INDEX IF NOT EXISTS idx_declaration_stake_uic
   ON declaration_stake (uic) WHERE uic IS NOT NULL;
@@ -197,6 +220,13 @@ CREATE TABLE IF NOT EXISTS declaration_event (
   built_area_sqm numeric,
   currency       text,
   value_eur      numeric,
+  -- MEANS TWO THINGS, by kind. On the four asset-form kinds it is the правно
+  -- основание ("възмездно", "дарение", …). On `early_repayment` it is cell 10,
+  -- ПРОИЗХОД НА СРЕДСТВАТА — where the money to settle the debt came from, which
+  -- is the only reason that table exists. That row's actual правно основание
+  -- (cell 7) is free text and deliberately never read: a declarant typing their
+  -- loan CONTRACT NUMBER into it is what the old misparse published as a €3.58bn
+  -- holding. So do not label this column "правно основание" in a payload.
   legal_basis    text,
   PRIMARY KEY (declaration_id, seq)
 );

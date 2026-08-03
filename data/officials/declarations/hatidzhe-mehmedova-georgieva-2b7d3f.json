@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на Управителен съвет",
         "companyName": "МИГ Котел - Сунгурларе - Върбица",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Ззместник  председател на управителен съвет",
         "companyName": "Общински спортен клуб по лека атлетика \"Шампион\" - Сунгурларе",
@@ -41,7 +43,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към ДСК ЕАД",
         "detail": "Хатидже Мехмедова Георгиева",
         "location": null,
         "municipality": null,
@@ -53,7 +55,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към ДСК ЕАД",
         "detail": "Хатидже Мехмедова Георгиева",
         "location": null,
         "municipality": null,

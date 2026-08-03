@@ -21,7 +21,7 @@ import path from "path";
 import { load } from "cheerio";
 import { Agent } from "undici";
 import type { MpDeclaration } from "../../src/data/dataTypes";
-import { parseDeclarationXml } from "./parse_declaration";
+import { parseDeclarationXml, unknownRootTally } from "./parse_declaration";
 import {
   buildCompanyIndex,
   annotatePerMpDeclarationsWithSlugs,
@@ -327,6 +327,15 @@ export const parseFinancialDeclarations = async ({
       processed++;
       // Politeness — only when we actually hit the network.
       if (!fromCache) await sleep(150);
+    }
+
+    // Forms the register has added since ROOT_TO_KIND was written. Fail-closed
+    // (they parse no tables) — so the ONLY way anyone learns is this line.
+    for (const [root, n] of unknownRootTally()) {
+      console.warn(
+        `[declarations]   ${n} filing(s) with an unrecognised root <${root}> — parsed ` +
+          `no tables. Add it to ROOT_TO_KIND in scripts/declarations/parse_declaration.ts.`,
+      );
     }
 
     if (parseFailures > 0) {

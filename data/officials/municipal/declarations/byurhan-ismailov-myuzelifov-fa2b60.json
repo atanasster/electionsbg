@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялово участие",
         "shareSize": "1/2",
         "companyName": "Бимекс ООД",
@@ -261,6 +262,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "29,6%",
         "companyName": "Динамика-Инвест АД",
@@ -276,7 +278,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Паричен заем",
+        "description": "Паричен заем към Динамика-Инвест АД",
         "detail": "Бюрхан Исмаилов Мюзелифов",
         "location": null,
         "municipality": null,

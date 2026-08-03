@@ -377,6 +377,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "32400",
         "companyName": "ПИК АГРО 62 ЕООД",
@@ -579,6 +580,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "СДРУЖЕНИЕ \"МЕСТНА ИНИЦИАТИВНА ГРУПА-КРИВОДОЛ-ХАЙРЕДИН\"",
@@ -590,6 +592,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "СДРУЖЕНИЕ \"МЕСТНА ИНИЦИАТИВНА ГРУПА-КРИВОДОЛ-ХАЙРЕДИН\"",

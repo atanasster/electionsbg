@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
         "companyName": "Мери 84 ЕООД",
@@ -96,6 +97,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "Мери 84 ЕООД",
@@ -107,6 +109,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100",
         "companyName": "Мери 84  ЕООД",
@@ -118,6 +121,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "Мери 84 ЕООД",

@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
         "shareSize": "100%",
         "companyName": "\"ТРАНСПОМЕД  - 2\" ЕООД",
@@ -211,6 +212,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени  дялове",
         "shareSize": "100%",
         "companyName": "Медицински център АРГРО - Доспат ЕООД",
@@ -369,6 +371,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "5000",
         "companyName": "ДРАГСТОР ЕООД",
@@ -663,6 +666,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "учредител и представляващ",
         "companyName": "Фондация ЗДРАВЕ И БЪДЕЩЕ ЗА ВСЕКИ, ЕИК 205041775",
@@ -860,6 +864,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еоод",
         "shareSize": "100",
         "companyName": "транспомед еоод",
@@ -871,6 +876,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еоод",
         "shareSize": "100",
         "companyName": "мц артро",
@@ -882,6 +888,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еоод",
         "shareSize": "100",
         "companyName": "драгстор",
@@ -893,6 +900,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "еоод",
         "shareSize": "100",
         "companyName": "транспомед 2",
@@ -904,6 +912,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ет",
         "shareSize": "100",
         "companyName": "ет ангел попов",
@@ -1025,6 +1034,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%, 5000лв",
         "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
@@ -1036,6 +1046,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%, 5000 лв.",
         "companyName": "\"ТРАНСПОМЕД - 2\" ЕООД, ЕИК 101790979",
@@ -1047,6 +1058,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
@@ -1058,6 +1070,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "\"ТРАСПОМЕД - 2\" ЕООД, ЕИК 101790979",
@@ -1069,6 +1082,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "индивидуална практика за специализирана медицинска помощ по ортопедия и травматология",
         "companyName": "ЕТ \"Доктор Ангел Попов - ИПСМПОТ\", ЕИК 101716523",
@@ -1080,6 +1094,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%, 5000лв",
         "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
@@ -1091,6 +1106,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%, 5000лв",
         "companyName": "\"ТРАНСПОМЕД - 2\" ЕООД, ЕИК 101790979",
@@ -1102,6 +1118,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "\"ТРАНСПОМЕД\" ЕООД, ЕИК 101677351",
@@ -1113,6 +1130,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "\"ТРАСПОМЕД - 2\" ЕООД, ЕИК 101790979",
@@ -1124,6 +1142,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "индивидуална практика за специализирана медицинска помощ по ортопедия и травматология",
         "companyName": "ЕТ \"Доктор Ангел Попов - ИПСМПОТ\", ЕИК 101716523",

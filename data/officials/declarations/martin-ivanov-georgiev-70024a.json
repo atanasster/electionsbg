@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "1",
         "companyName": "МГ Пропърти ЕООД",
@@ -712,6 +713,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "1",
         "companyName": "МГ Пропърти ЕООД",
@@ -942,6 +944,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "\"МГ пропърти\" ЕООД",
@@ -953,6 +956,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"МГ пропърти\" ЕООД",
@@ -1273,6 +1277,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ЧЛЕН НА СЪВЕТ НА ДИРЕКТОРИТЕ",
         "companyName": "КонтурГлобал Марица Изток 3 АД",

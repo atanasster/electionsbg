@@ -117,6 +117,23 @@ const ROOT_TO_KIND: Record<string, FormKind> = {
   PublicPersonDekl3: "interests_change",
 };
 
+/** Unrecognised roots seen since the last reset, by tag.
+ *
+ *  The fail-closed branch below is right, but a per-file `console.warn` inside
+ *  a run that parses 48,073 files is not a signal — a new `PublicPersonDekl4`
+ *  would publish silently-empty filings behind scrollback, which is the exact
+ *  signature of the Dekl2 failure this module exists to fix. So the ingests ask
+ *  for the tally at the end and print ONE line, the way the loaders already
+ *  summarise their `person_id` NULL residue. */
+const unknownRoots = new Map<string, number>();
+
+/** `[tag, count]` for every unrecognised root seen, commonest first. Empty on a
+ *  healthy corpus. */
+export const unknownRootTally = (): Array<[string, number]> =>
+  [...unknownRoots.entries()].sort((a, b) => b[1] - a[1]);
+
+export const resetUnknownRootTally = (): void => unknownRoots.clear();
+
 export const detectFormKind = ($: CheerioAPI): FormKind => {
   const root = $.root().children().first();
   const tag = (root.get(0) as { name?: string } | undefined)?.name ?? "";
@@ -127,8 +144,10 @@ export const detectFormKind = ($: CheerioAPI): FormKind => {
   // institution, source link) and simply carries no rows until someone writes
   // its map. A missing row is a gap; a row read against the wrong map is a
   // false statement about a named person.
+  const seen = tag || "?";
+  unknownRoots.set(seen, (unknownRoots.get(seen) ?? 0) + 1);
   console.warn(
-    `[parse] unknown declaration root <${tag || "?"}> — parsing no tables`,
+    `[parse] unknown declaration root <${seen}> — parsing no tables`,
   );
   return "unknown";
 };
@@ -329,6 +348,10 @@ const parseTable10Row = (
   col: ColumnResolver,
 ): MpOwnershipStake => ({
   table: "10",
+  // Table 10 is "Дялове в дружества с ограничена отговорност и командитни
+  // дружества" — a holding by definition. The asset form has no roles table at
+  // all (a sitting MP cannot hold one), so every asset-form stake is a share.
+  stakeKind: "share",
   itemType: cellByNum(row, col(2)),
   shareSize: cellByNum(row, col(3)),
   companyName: cellByNum(row, col(4)),
@@ -345,6 +368,7 @@ const parseTable11Row = (
   col: ColumnResolver,
 ): MpOwnershipStake => ({
   table: "11",
+  stakeKind: "share",
   itemType: cellByNum(row, col(2)),
   shareSize: cellByNum(row, col(3)),
   companyName: cellByNum(row, col(4)),
@@ -1343,16 +1367,50 @@ const INTEREST_TABLE_NUMS: Record<
   },
 };
 
-/** How each interests holding is labelled on the stake row it becomes.
- *  Verbatim from the form's own table heading, so the label is the register's
- *  wording rather than ours. */
-const INTEREST_STAKE_LABEL: Record<string, string> = {
-  sharesNow: "Участие в търговско дружество",
-  rolesNow: "Управител или член на орган на управление",
-  soleTraderNow: "Едноличен търговец",
-  sharesPrior: "Участие в търговско дружество",
-  rolesPrior: "Управител или член на орган на управление",
-  soleTraderPrior: "Едноличен търговец",
+/** WHAT each interests table declares, and how to label it.
+ *
+ *  `kind` is the machine discriminator every consumer must filter on — a
+ *  directorship is NOT a holding, and the two are indistinguishable once the
+ *  row is in `declaration_stake` unless this travels with it. `label` is the
+ *  register's own wording for display, and is deliberately NOT what anything
+ *  branches on: matching a Bulgarian sentence in SQL breaks silently the day
+ *  somebody improves the phrasing. */
+const INTEREST_STAKE_KIND: Record<
+  string,
+  { kind: "share" | "role" | "sole_trader"; label: string }
+> = {
+  sharesNow: { kind: "share", label: "Участие в търговско дружество" },
+  rolesNow: {
+    kind: "role",
+    label: "Управител или член на орган на управление",
+  },
+  soleTraderNow: { kind: "sole_trader", label: "Едноличен търговец" },
+  sharesPrior: { kind: "share", label: "Участие в търговско дружество" },
+  rolesPrior: {
+    kind: "role",
+    label: "Управител или член на орган на управление",
+  },
+  soleTraderPrior: { kind: "sole_trader", label: "Едноличен търговец" },
+};
+
+/** Who an early-repaid debt was owed to, from cells 8 and 9 ("Към банки" /
+ *  "Към физически и юридически лица").
+ *
+ *  Declarants use these two columns in one of two ways: they name the creditor
+ *  (ОББ ×30, ДСК ×26, Банка ДСК ×12, ЦКБ ×11, Уникредит Булбанк ×11 across the
+ *  320 declared rows) or they tick the column with a bare да/не, which only
+ *  restates which of the two columns they filled and adds nothing. So keep a
+ *  name and drop a token: "потребителски кредит към ОББ" is worth reading,
+ *  "потребителски кредит към да" is noise. Banks first, since that is the
+ *  column declarants actually name. */
+const YES_NO_CELL = /^(да|не)$/i;
+
+const creditorOf = (row: ReturnType<CheerioAPI>): string | null => {
+  for (const n of [8, 9]) {
+    const v = cellByNum(row, n);
+    if (v && !YES_NO_CELL.test(v)) return v;
+  }
+  return null;
 };
 
 const interestRows = (
@@ -1400,9 +1458,11 @@ const parseInterestTables = (
   ] as const) {
     const held = logical.endsWith("Now");
     for (const row of interestRows($, kind, logical)) {
+      const what = INTEREST_STAKE_KIND[logical];
       stakes.push({
         table: held ? "10" : "11",
-        itemType: INTEREST_STAKE_LABEL[logical],
+        stakeKind: what.kind,
+        itemType: what.label,
         // Cell 3 is "Размер на дяловото участие" / "Участие" / "Предмет на
         // дейност" depending on the table — all raw text, all the same slot.
         shareSize: cellByNum(row, 3),
@@ -1449,9 +1509,14 @@ const parseInterestTables = (
   for (const row of interestRows($, kind, "earlyRepayment")) {
     const amount = toNumber(cellByNum(row, 3));
     const currency = cellByNum(row, 4);
+    const kindOfDebt = cellByNum(row, 2);
+    const creditor = creditorOf(row);
     events.push({
       kind: "early_repayment",
-      description: cellByNum(row, 2), // "потребителски кредит", "ипотечен кредит"
+      // "потребителски кредит", "ипотечен кредит" — plus who it was owed to
+      // where the declarant named them.
+      description:
+        kindOfDebt && creditor ? `${kindOfDebt} към ${creditor}` : kindOfDebt,
       detail: cellByNum(row, 6), // титуляр на задължението
       location: null,
       municipality: null,
@@ -1492,11 +1557,11 @@ export const parseDeclarationXml = ({
   sourceUrl,
 }: ParseInput): MpDeclaration => {
   const $ = load(xml, { xmlMode: true });
-  // WHICH FORM, then — for the asset form only — which of its two numberings.
-  // detectFormVersion reads asset-form table descriptions, so running it on an
-  // interests filing only produces a spurious warning; skip it there.
+  // WHICH FORM. Which NUMBERING is resolved only on the asset path below, past
+  // the interests early return: detectFormVersion reads asset-form table
+  // descriptions, so on an интереси filing it would both warn spuriously and
+  // yield a form version that filing does not have.
   const formKind = detectFormKind($);
-  const version = formKind === "assets" ? detectFormVersion($) : "v2";
 
   // NOT `PublicPerson > Personal > Name`: that ancestor selector matches only
   // the asset form, so every one of the 4,906 interests filings parsed to
@@ -1569,6 +1634,7 @@ export const parseDeclarationXml = ({
     };
   }
 
+  const version = detectFormVersion($);
   const sharesCol = columnResolver(version, "shares");
   for (const row of rowsOfTable($, version, "shares")) {
     const stake = parseTable10Row(row, sharesCol);

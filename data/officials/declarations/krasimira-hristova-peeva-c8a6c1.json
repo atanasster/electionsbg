@@ -88,6 +88,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на СД",
         "companyName": "Профилактика, рехабилитация и отдих ЕАД",
@@ -103,7 +104,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "кредит",
+        "description": "кредит към КБС Банк",
         "detail": "Красимира Христова Пеева",
         "location": null,
         "municipality": null,

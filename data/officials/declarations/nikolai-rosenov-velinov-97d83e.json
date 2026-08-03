@@ -897,6 +897,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "акции",
         "shareSize": "333",
         "companyName": "Нитекс 96 АД",
@@ -1216,6 +1217,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "333 броя поименни акции",
         "companyName": "\" Нитекс 96 \" АД",
@@ -1227,6 +1229,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "333 бр. поименни акции",
         "companyName": "\" Нитекс 96 \" АД",

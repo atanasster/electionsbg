@@ -482,7 +482,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към Банка ДСК ЕАД",
         "detail": "Нели Рускова Петрова и Красимра Пенева Анастасова",
         "location": null,
         "municipality": null,
@@ -510,6 +510,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "100%",
         "companyName": "\"АИППМП-ДЕА-63-д-р Анастасов\" ЕООД",

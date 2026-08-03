@@ -429,6 +429,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Сдружение \"Ред и сигурност\"",
@@ -444,7 +445,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "кредит",
+        "description": "кредит към Райфайзен банк",
         "detail": "Румен Георгиев Русев",
         "location": null,
         "municipality": null,
@@ -456,7 +457,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "кредит",
+        "description": "кредит към ЦКБ",
         "detail": "Катерина Руменова Русева",
         "location": null,
         "municipality": null,
@@ -630,6 +631,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "Сдружение с нестопанска цел Ред и сигурност",
@@ -641,6 +643,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "Сдружение с нестопанска цел Ред и сигурност",
@@ -758,6 +761,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "сдружение \"Ред и сигурност\"",
@@ -769,6 +773,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "сдружение \"Ред и сигурност\"",

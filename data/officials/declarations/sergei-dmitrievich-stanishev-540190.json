@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Актив груп ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Интерактив комюникейшънс ЕООД",
@@ -2138,6 +2140,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Призма Къмпани ЕООД",
@@ -2526,6 +2529,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "Фондация за европейски и прогресивни изследвания",
@@ -2537,6 +2541,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "учредител и председател на Управителния съвет",
         "companyName": "Академия за леви европейски политики - 2015 г.",
@@ -2548,6 +2553,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на Управителния съвет",
         "companyName": "Фондация за европейски и прогресивни изследвания",

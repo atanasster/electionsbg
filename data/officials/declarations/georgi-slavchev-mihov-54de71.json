@@ -83,6 +83,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествен дял",
         "shareSize": "20%",
         "companyName": "СЕТА - 7 ООД",
@@ -222,6 +223,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "20%",
         "companyName": "СЕТА - 7 ООД",
@@ -233,6 +235,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "СЕТА - 7 ООД",
@@ -244,6 +247,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "20%",
         "companyName": "СЕТА - 7 ООД",
@@ -255,6 +259,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "СЕТА - 7 ООД",

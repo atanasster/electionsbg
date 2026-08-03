@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове от капитал",
         "shareSize": "100%",
         "companyName": "\"Ателие Дуо\" ЕООД",
@@ -154,6 +155,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1000",
         "companyName": "\"Ателие Дуо\" ЕООД с  ЕИК 202462274",
@@ -165,6 +167,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"Ателие Дуо\" ЕООД с ЕИК 202462274",

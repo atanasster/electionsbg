@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "МАВРОВСКИ ВЕТ ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "МАВРОВСКИ ВЕТ ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "МАВРОВСКИ ВЕТ ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "МАВРОВСКИ ВЕТ ООД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на управителен съвет",
         "companyName": "БАВЛПЖ - асоциация",
@@ -70,6 +75,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Сдружение гражданско обединение срещу беззаконието в гр. Плевен",
@@ -113,6 +119,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "търговско дружество",
         "shareSize": "100%",
         "companyName": "Мавровски ВЕТ ЕООД",

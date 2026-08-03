@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "20 дружествени дяла",
         "shareSize": "100 %",
         "companyName": "\"Мак Фюжън\" ЕООД",
@@ -154,6 +155,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "заличено, считано от 05.02.2025 г.",
         "companyName": "Фондация \"Аркадия Фюжън Арт\"",
@@ -165,6 +167,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател на Управителния съвет",
         "companyName": "Фондация \"Аркадия Фюжън Арт\"",

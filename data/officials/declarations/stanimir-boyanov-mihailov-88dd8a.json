@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "50бр/100%",
         "companyName": "БУЛЛУЗО ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "2бр/100%",
         "companyName": "МЕДИТЕРАНЕО1 ЕООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "34бр/6,25%",
         "companyName": "ВИТА ДЕНТ 20 ООД",
@@ -320,6 +323,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100%",
         "companyName": "БУЛЛУЗО ЕООД",
@@ -331,6 +335,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100%",
         "companyName": "МЕДИТЕРАНЕО 1 ЕООД",
@@ -342,6 +347,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "6,25%",
         "companyName": "ВИТА ДЕНТ 20 ООД",
@@ -482,6 +488,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "50 бр/100%",
         "companyName": "Буллузо ЕООД",
@@ -493,6 +500,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "2 бр/100%",
         "companyName": "Медитеранео 1 ЕООД",
@@ -504,6 +512,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "34 бр./ 6,25%",
         "companyName": "Вита Дент 20 ООД",
@@ -772,7 +781,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към Токуда Банк",
         "detail": "Станимир Боянов Михайлов",
         "location": null,
         "municipality": null,
@@ -800,6 +809,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "100%50 бр",
         "companyName": "Буллузо ЕООД",
@@ -811,6 +821,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "100%2 бр",
         "companyName": "Медитеранео 1 ЕООД",
@@ -822,6 +833,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "6,25% 34 бр",
         "companyName": "Вита дент 20  ООД",
@@ -833,6 +845,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "2% 1 бр",
         "companyName": "Фертапер ООД",

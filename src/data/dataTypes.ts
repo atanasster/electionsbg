@@ -454,9 +454,25 @@ export type DonorSummary = {
 };
 
 // MP property/interest declarations from register.cacbg.bg.
-// Sitting MPs cannot legally hold management roles (ЗПК Art. 35), so the
-// declaration only covers ownership stakes — management roles must come from
-// the Commerce Registry instead.
+//
+// Since the две интереси forms are parsed (see detectFormKind in
+// scripts/declarations/parse_declaration.ts) this type holds THREE different
+// things, and `table` does NOT distinguish them — it says WHEN, not WHAT:
+//
+//   share       — a shareholding. Asset-form tables 10/11, интереси 1/4 (Dekl3)
+//                 and 15/18 (Dekl2).
+//   role        — a directorship: "Съм управител или член на орган на
+//                 управление или контрол". NOT a holding. интереси 2/5, 16/19.
+//   sole_trader — activity as an едноличен търговец. интереси 3/6, 17/20.
+//
+// ANY consumer that presents a row as OWNERSHIP must filter on `stakeKind`.
+// Publishing a directorship as a shareholding is a false statement about a
+// named person, and it is what happened when the роли arrived here unlabelled.
+//
+// (The older note here said declarations carry no management roles because a
+// sitting MP cannot legally hold one — ЗПК чл. 35. That is still true of MPs
+// and of the ASSET form, but the интереси forms are filed by executive and
+// municipal officials too, and 3,306 declared roles now land in this type.)
 export type MpOwnershipStake = {
   // 10 = held now, 11 = no longer held. These are LOGICAL ids — the 2018+ asset
   // form's numbers — not a citation of the source XML: in a pre-2018 filing the
@@ -464,7 +480,17 @@ export type MpOwnershipStake = {
   // sits in tables 1-3/4-6 (Dekl3) or 15-17/18-20 (Dekl2), where "11" means
   // "held in the twelve months before appointment, not since".
   table: "10" | "11";
-  itemType: string | null; // raw "Вид на имуществото" cell
+  /** WHAT the row is — see the note above. The machine discriminator: it is a
+   *  closed set written by the parser, unlike `itemType`, which is free text a
+   *  declarant typed on the asset form. Filter on this, never on the label.
+   *  Optional for backward compatibility — a file written before the интереси
+   *  forms were parsed has no such field, and those are all asset-form
+   *  shareholdings, so treat a missing value as "share". */
+  stakeKind?: "share" | "role" | "sole_trader";
+  /** Asset form: the raw "Вид на имуществото" cell, free text. Интереси forms:
+   *  the register's own heading for the table the row came from. Display only —
+   *  `stakeKind` is what logic keys on. */
+  itemType: string | null;
   shareSize: string | null; // raw text, may be "100%" or a numeric quantity
   companyName: string | null;
   registeredOffice: string | null;

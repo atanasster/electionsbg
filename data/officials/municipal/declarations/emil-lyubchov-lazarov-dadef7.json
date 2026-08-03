@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100%",
         "companyName": "АЯКС 81 ЕООД",
@@ -252,7 +253,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "кредит",
+        "description": "кредит към Юробанк България АД",
         "detail": "Женя Бойчева Стойкова-Лазарова",
         "location": null,
         "municipality": null,

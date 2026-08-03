@@ -116,7 +116,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към ЦКБ АД",
         "detail": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ И ЕЛЕНА ВЕНКОВА ПЕТРОВА",
         "location": null,
         "municipality": null,
@@ -260,6 +260,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "33.3%",
         "companyName": "АДВ.ДРУЖЕСТВО ЙОСИФОВА ИВАНОВ И ПЕТРОВ",
@@ -536,6 +537,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "33%",
         "companyName": "ЛЕКС СОФИЯ ООД",

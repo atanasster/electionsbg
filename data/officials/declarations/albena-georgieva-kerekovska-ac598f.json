@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "30%",
         "companyName": "ДКЦ \"Еквита\" ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "\"Камея\" ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "95%",
         "companyName": "\"Хосоис Про Вита\" ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "АСИМП-МЦ-Сириус С.В.",
@@ -244,7 +248,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Жилищен ипотечен кредит",
+        "description": "Жилищен ипотечен кредит към ДСК",
         "detail": "Албена Георгиева Керековска",
         "location": null,
         "municipality": null,
@@ -256,7 +260,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Жилищен ипотечен кредит",
+        "description": "Жилищен ипотечен кредит към ДСК",
         "detail": "Юрий Върбанов Керековски",
         "location": null,
         "municipality": null,
@@ -302,6 +306,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "30%",
         "companyName": "ДКЦ \"Еквита\" ООД",
@@ -313,6 +318,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "\"Камея\" ООД",
@@ -324,6 +330,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "95%",
         "companyName": "\"Хоспис Про Вита\" ООД",
@@ -335,6 +342,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "АСИМП-МЦ Сириус С.В.",
@@ -618,6 +626,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "30%",
         "companyName": "ДКЦ \"Еквита\" ООД",
@@ -629,6 +638,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "\"Камея\" ООД",
@@ -640,6 +650,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "95%",
         "companyName": "Хоспис Про Вита\" ООД",
@@ -651,6 +662,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "50%",
         "companyName": "АСИМП-МЦ Сириус С.В.",

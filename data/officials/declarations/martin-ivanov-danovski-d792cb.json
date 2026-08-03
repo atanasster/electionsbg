@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "20 %",
         "companyName": "\"Бизнес институт\" ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "\"Ленд мениджмънт\" ЕООД",
@@ -381,6 +383,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "20%",
         "companyName": "\"БИЗНЕС ИНСТИТУТ\" ООД",
@@ -392,6 +395,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "\"ЛЕНД МЕНИДЖМЪНТ\" ЕООД",

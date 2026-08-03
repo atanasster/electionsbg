@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "40 ДЯЛА",
         "companyName": "УНИВЕРСУМ ГРУП ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "55 ДЯЛА",
         "companyName": "МАГУС ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100 ДЯЛА",
         "companyName": "ТРЕЮНИОН ГРУП ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "5 ДЯЛА",
         "companyName": "ЛУЧЕ ДЕЛ СОЛЕ ООД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100ДЯЛА",
         "companyName": "МИКРОСТОП ГЛОБАЛ ЕООД",
@@ -70,6 +75,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "4 АКЦИИ",
         "companyName": "ПРОСУИТ АД",
@@ -81,6 +87,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "34 ДЯЛА",
         "companyName": "Адвокатско дружество Христо Моллов, Тенев, Семчева  и партньори",
@@ -92,6 +99,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "НЯМАМ ДЯЛОВО УЧАСТИЕ",
         "companyName": "ТЕЖКО МАШИНОСТРОЕНЕ АД В ЛИКВИДАЦИЯ",
@@ -103,6 +111,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "НЯМАМ ДЯЛОВО УЧАСТИЕ",
         "companyName": "КОНСОЛИД КОМЕРС ЕАД В ЛИКВИДАЦИЯ",
@@ -114,6 +123,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "НЯМАМ ДЯЛОВО УЧАСТИЕ",
         "companyName": "СТОПАНСКИ ТЪРГОВСКИ КОМПЛЕКС ЕООД В ЛИКВИДАЦИЯ",
@@ -125,6 +135,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "НЯМАМ ДЯЛОВО УЧАСТИЕ",
         "companyName": "РИБАРСКА КЪЩА ЗЛАТНА РИБКА В ЛИКВИДАЦИЯ",
@@ -136,6 +147,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "НЯМАМ ДЯЛОВО УЧАСТИЕ",
         "companyName": "ЛИБРА 4 ООД В НЕСЪСТОЯТЕЛНОСТ",
@@ -147,6 +159,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Не съм управител или член на орган на управление или контрол",
         "companyName": "УНИВЕРСУМ ГРУП ООД",
@@ -158,6 +171,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съм Управител",
         "companyName": "МАГУС ООД",
@@ -169,6 +183,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съм Управител",
         "companyName": "ТРЕЮНИОН ГРУП ЕООД",
@@ -180,6 +195,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съм Управител",
         "companyName": "ЛУЧЕ ДЕЛ СОЛЕ ООД",
@@ -191,6 +207,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съм Управител",
         "companyName": "МИКРОСТОП ГЛОБАЛ ЕООД",
@@ -202,6 +219,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Не съм управител или член на орган на управление или контрол",
         "companyName": "ПРОСУИТ АД",
@@ -213,6 +231,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съм Управител",
         "companyName": "Адвокатско дружество Христо Моллов, Тенев, Семчева  и партньори",
@@ -224,6 +243,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "СЪМ ЛИКВИДАТОР",
         "companyName": "ТЕЖКО МАШИНОСТРОЕНЕ АД В ЛИКВИДАЦИЯ",
@@ -235,6 +255,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "СЪМ ЛИКВИДАТОР",
         "companyName": "КОНСОЛИД КОМЕРС ЕАД В ЛИКВИДАЦИЯ",
@@ -246,6 +267,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "СЪМ ЛИКВИДАТОР",
         "companyName": "СТОПАНСКИ ТЪРГОВСКИ КОМПЛЕКС ЕООД В ЛИКВИДАЦИЯ",
@@ -257,6 +279,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "СЪМ ЛИКВИДАТОР",
         "companyName": "РИБАРСКА КЪЩА ЗЛАТНА РИБКА В ЛИКВИДАЦИЯ",
@@ -268,6 +291,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "СЪМ СИНДИК",
         "companyName": "ЛИБРА 4 ООД В НЕСЪСТОЯТЕЛНОСТ",
@@ -283,7 +307,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит към УникредитБулбанк",
         "detail": "ХРИСТО БОРИСОВ МОЛЛОВ",
         "location": null,
         "municipality": null,
@@ -311,6 +335,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "40%",
         "companyName": "УНИВЕРСУМ ГРУП ООД",
@@ -322,6 +347,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "55%",
         "companyName": "МАГУС ООД",
@@ -333,6 +359,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "ТРЕЮНИОН ГРУП ЕООД",
@@ -344,6 +371,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "ЛУЧЕ ДЕЛ СОЛЕ ООД",
@@ -355,6 +383,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "МикроСтоп Глобял",
@@ -777,6 +806,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "40%",
         "companyName": "УНИВЕРСУМ ГРУП ООД",
@@ -788,6 +818,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "55%",
         "companyName": "МАГУС ООД",
@@ -799,6 +830,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "100%",
         "companyName": "ТРЕЮНИОНГРУП ЕООД",
@@ -810,6 +842,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "50%",
         "companyName": "ЛУЧЕ ДЕЛ СОЛЕ ООД",

@@ -29,6 +29,8 @@ const row = (o: Partial<StakeProcurementRow> = {}): StakeProcurementRow => ({
   eik: "112028994",
   companyName: "РАДИО СОТ",
   declaredName: "РАДИО СОТ ООД",
+  stakeKind: "share",
+  itemType: null,
   shareSize: "1",
   firstYear: 2020,
   lastYear: 2021,

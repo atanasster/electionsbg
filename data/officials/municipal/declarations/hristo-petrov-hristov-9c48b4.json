@@ -231,6 +231,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС, 08.09.21г./декларирано в миналогодишни декларации/",
         "companyName": "Електроразпределение Север АД, ЕИК 104518621",
@@ -246,7 +247,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "потребителски кредит",
+        "description": "потребителски кредит към банка ОББ",
         "detail": "Христо Петров Христов",
         "location": null,
         "municipality": null,
@@ -258,7 +259,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит/внесени 07.05.25г.",
+        "description": "ипотечен кредит/внесени 07.05.25г. към банка ОББ",
         "detail": "Христо Петров Христов",
         "location": null,
         "municipality": null,

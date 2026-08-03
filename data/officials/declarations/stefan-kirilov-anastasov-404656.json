@@ -585,6 +585,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"Д-р Стефан Анастасов- ИПСМП\" ЕООД",
@@ -596,6 +597,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Търговия",
         "companyName": "ЕТ \"ФЪНЦ\" Стефан Анастасов",
@@ -607,6 +609,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"Д-р Стефан Анастасов- ИПСМП\" ЕООД",
@@ -618,6 +621,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Търговия",
         "companyName": "ЕТ \" Фънц\" Стефан Анастасов",

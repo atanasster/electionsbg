@@ -149,7 +149,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Банков  кредит",
+        "description": "Банков  кредит към ДСК",
         "detail": "Силвия Кирова Мехремова",
         "location": null,
         "municipality": null,
@@ -227,6 +227,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "делове",
         "shareSize": "50",
         "companyName": "Мел Шипинг енд Форуординг ЕООД",

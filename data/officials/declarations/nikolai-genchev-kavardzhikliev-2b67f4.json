@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "независим член на Надзорен съвет",
         "companyName": "Уника АД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "контрольор",
         "companyName": "Асоциация за Гражданско управление на кризи",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "К.С.Реал ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "15%",
         "companyName": "Ларжит АД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "независим член на Надзорен съвет",
         "companyName": "Уника АД",
@@ -70,6 +75,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "контрольор",
         "companyName": "Асоциация за Гражданско управление на кризи",
@@ -81,6 +87,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "К.С.Реал ЕООД",
@@ -111,6 +118,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дчлове",
         "shareSize": "100%",
         "companyName": "К.Ц.Реал ЕООД",
@@ -122,6 +130,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дчлове",
         "shareSize": "50%",
         "companyName": "Адаптив ООД",

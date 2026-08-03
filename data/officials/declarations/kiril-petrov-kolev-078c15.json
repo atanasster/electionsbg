@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Топ Консулт 2016",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Хънтинг Експерт",
@@ -244,6 +246,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Топ Консулт 2016",
@@ -255,6 +258,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Хънтинг Експерт",
@@ -843,7 +847,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "банков кредит недв.имот с ипотека",
+        "description": "банков кредит недв.имот с ипотека към 29224",
         "detail": "Антоанета Петрова Исакова",
         "location": null,
         "municipality": null,

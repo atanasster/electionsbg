@@ -739,6 +739,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "6 лв.",
         "companyName": "\"ТЕПАВА\"ЕООД, ЕИК202326363",
@@ -750,6 +751,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"ТЕПАВА\"ЕООД,ЕИК202326363",

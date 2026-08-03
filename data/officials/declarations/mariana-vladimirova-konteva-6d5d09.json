@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "7.5%",
         "companyName": "АСК СБАЛК БУРГАС ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "АСК  МЦ БУРГАС ООД",
@@ -701,6 +703,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "7,5%",
         "companyName": "АСК СБАЛК БУРГАС ООД",

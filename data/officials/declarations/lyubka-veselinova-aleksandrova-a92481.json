@@ -148,7 +148,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към ОББ",
         "detail": "Любка Веселинова Александрова",
         "location": null,
         "municipality": null,
@@ -298,6 +298,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "93",
         "companyName": "\"Златно зърно Левски\"",

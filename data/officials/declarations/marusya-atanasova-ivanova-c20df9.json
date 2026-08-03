@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "250 дяла за 28500 лева",
         "companyName": "МиМ 2023 ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "МиМ 2023 ООД",
@@ -56,6 +58,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "50%",
         "companyName": "МиМ 2023 ООД",
@@ -178,6 +181,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "50%",
         "companyName": "МиМ 2023 ООД",

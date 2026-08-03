@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Собственик",
         "shareSize": "1",
         "companyName": "Костела Консулт ЕООД",
@@ -191,6 +192,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на управителен съвет",
         "companyName": "СККК Актив, Сдружение, София, кв. Бъкстон, бл.38,вх.В, ет.4",
@@ -221,6 +223,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Собственик",
         "shareSize": "1",
         "companyName": "Костела Консулт ЕООД",

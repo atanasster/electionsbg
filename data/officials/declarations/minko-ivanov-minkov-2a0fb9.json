@@ -245,6 +245,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "20",
         "companyName": "МБР- ГРАНД ООД",
@@ -256,6 +257,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Представляващ",
         "companyName": "СДРУЖЕНИЕ НА СОБСТВЕНИЦИТЕ НА ОБЕКТИ В ТАЦ ГРАНД",
@@ -267,6 +269,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "МБР- ГРАНД ООД",

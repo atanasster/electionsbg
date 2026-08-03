@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "ПИС - консулт ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1%",
         "companyName": "ИЗОТСЕРВИЗ АД - София",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на управителния съвет",
         "companyName": "\" Сдружение Български шнауцер клуб\" - Сдружение",
@@ -48,6 +51,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член",
         "companyName": "Народно читалище \" Димитър Пешев\"",

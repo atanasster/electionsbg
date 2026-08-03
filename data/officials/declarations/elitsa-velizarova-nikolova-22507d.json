@@ -614,7 +614,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "предсрочно погасен кредит",
+        "description": "предсрочно погасен кредит към в страната",
         "detail": "Елица Велизарова Николова",
         "location": null,
         "municipality": null,
@@ -1034,7 +1034,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към Райфайзенбанк България",
         "detail": "Елица Велизарова Николова",
         "location": null,
         "municipality": null,
@@ -1062,6 +1062,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Модерни технологии ЕООД",
@@ -1073,6 +1074,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Виссер-Опора ЕООД",
@@ -1084,6 +1086,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "20%",
         "companyName": "Опора ООД",
@@ -1095,6 +1098,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "18%",
         "companyName": "Опора Заден България ООД",
@@ -1289,6 +1293,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "1/5",
         "companyName": "Опора ООД",
@@ -1300,6 +1305,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "1/5",
         "companyName": "Виссер-Опора ООД",
@@ -1311,6 +1317,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "1/10",
         "companyName": "Опора Заден ООД",

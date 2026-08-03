@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ВЕЦ",
         "shareSize": "8,33%",
         "companyName": "ВЕЦ ХРИСТО ЛУЛЕВ ООД",
@@ -233,6 +234,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ВЕЦ",
         "shareSize": "8,33%",
         "companyName": "ВЕЦ ХРИСТО ЛУЛЕВ ООД",
@@ -836,6 +838,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МБАЛ - ПАВЛИКЕНИ ЕООД",
@@ -847,6 +850,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МБАЛ - ПАВЛИКЕНИ ЕООД",

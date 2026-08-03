@@ -976,6 +976,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "Сдружение Български Червен кръст",
@@ -987,6 +988,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател",
         "companyName": "Сдружение Български Червен кръст",
@@ -1017,6 +1019,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Еднолично дружество с ограничена отговорност",
         "shareSize": "100",
         "companyName": "\"МЕДАБИК\"ЕООД",
@@ -1028,6 +1031,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Еднолично дружество с ограничена отговорност",
         "shareSize": "100",
         "companyName": "\"Григоров и син\"ЕООД",

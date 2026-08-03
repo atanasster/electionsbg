@@ -69,6 +69,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "3 лв.",
         "companyName": "\"Ембърстон\" ООД",
@@ -80,6 +81,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"Ембърстон\" ООД",
@@ -91,6 +93,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "3 лв.",
         "companyName": "\"Ембърстон\" ООД",

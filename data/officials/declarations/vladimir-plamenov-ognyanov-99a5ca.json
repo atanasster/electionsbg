@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "15 %",
         "companyName": "ЦНТС ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател на читалищно настоятелство",
         "companyName": "Народно читалище \"Цар Симеон I\"",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "15 %",
         "companyName": "ЦНТС ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател на читалищно настоятелство",
         "companyName": "Народно читалище \"Цар Симеон I\"",
@@ -78,6 +82,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружество",
         "shareSize": "15%",
         "companyName": "ЦНТС ООД",

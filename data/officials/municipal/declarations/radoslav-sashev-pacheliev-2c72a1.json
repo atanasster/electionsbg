@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "2 дяла х 5 лв.",
         "companyName": "Сава енерджи ЕООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Момина сълза 2009 ООД",
@@ -36,6 +38,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "2 дяла х 5 лв.",
         "companyName": "Сава енерджи ЕООД",
@@ -47,6 +50,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Момина сълза 2009 ООД",
@@ -76,6 +80,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "2 дяла х 5 лв.",
         "companyName": "Сава енерджи ЕООД",

@@ -117,6 +117,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50% дялово участие - размер на капитала 1000 лв.",
         "companyName": "Комваст ООД",
@@ -128,6 +129,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "не съм управител",
         "companyName": "Комваст ООД",

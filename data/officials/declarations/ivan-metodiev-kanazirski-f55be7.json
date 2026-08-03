@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Овърдрафт - договорен лихвен процент 1.35%",
+        "description": "Овърдрафт - договорен лихвен процент 1.35% към Банка \"ДСК\" ЕАД",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -30,7 +30,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Овърдрафт - договорен лихвен процент 8.84%",
+        "description": "Овърдрафт - договорен лихвен процент 8.84% към БАКБ",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -42,7 +42,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Кредитна карта - договорен лихвен процент 14.95 %",
+        "description": "Кредитна карта - договорен лихвен процент 14.95 % към Банка \"ДСК\" ЕАД",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -54,7 +54,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит - договорен лихвен процент 5.91 %",
+        "description": "Потребителски кредит - договорен лихвен процент 5.91 % към \"БНП Париба\"",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -585,7 +585,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит - договорен лихвен процент 5.91 %",
+        "description": "Потребителски кредит - договорен лихвен процент 5.91 % към \"БНП Париба\"",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -613,6 +613,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "0",
         "companyName": "Международна полицейска асоциация и Национална асоциация \"Сигурност\"",
@@ -1128,7 +1129,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Стоков кредит",
+        "description": "Стоков кредит към Банка \"ДСК\" ЕАД",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -1140,7 +1141,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Овърдрафт",
+        "description": "Овърдрафт към Банка \"ДСК\" ЕАД",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,
@@ -1152,7 +1153,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Заем от физическо лице",
+        "description": "Заем от физическо лице към Към физическо лице",
         "detail": "Иван Методиев Каназирски",
         "location": null,
         "municipality": null,

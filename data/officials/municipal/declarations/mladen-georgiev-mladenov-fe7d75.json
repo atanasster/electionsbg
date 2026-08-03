@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 %",
         "companyName": "СФ Медика ООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "СФ Медика ООД",
@@ -36,6 +38,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "СФ Медика ООД",
@@ -47,6 +50,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "СФ Медика ООД",
@@ -89,6 +93,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "100",
         "companyName": "СФ Медика ЕООД",
@@ -312,6 +317,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "МГМ ИНВЕСТ ЕООД",
@@ -323,6 +329,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МГМ ИНВЕСТ ЕООД",
@@ -334,6 +341,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "МГМ ИНВЕСТ ЕООД",
@@ -345,6 +353,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "МГМ ИНВЕСТ ЕООД",

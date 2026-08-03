@@ -738,6 +738,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Изпълнителен Директор",
         "companyName": "СБР \"ЗДРАВЕ\" ЕАД",
@@ -749,6 +750,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Дейност на лекари и специалисти",
         "companyName": "ЕТ \"АИПСМПВБ-Д-Р ВИОЛЕТА КОСТАДИНОВА\"",

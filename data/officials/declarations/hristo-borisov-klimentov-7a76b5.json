@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Парична вноска",
         "shareSize": "6000",
         "companyName": "Глобал Хостинг ООД",
@@ -95,6 +96,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Балкан Пъблишинг",
@@ -106,6 +108,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Монти Сървиз",
@@ -117,6 +120,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "ФАКТУРНИК.БГ",
@@ -128,6 +132,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "ПР КЪРНЕЛ",
@@ -139,6 +144,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "МЕДИАПОЙНТ",
@@ -150,6 +156,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "МЕДИАПОЙНТ",
@@ -161,6 +168,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Монти Сървиз",
@@ -172,6 +180,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Балкан Пъблишинг",
@@ -183,6 +192,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ПР КЪРНЕЛ",
@@ -194,6 +204,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ФАКТУРНИК.БГ",
@@ -205,6 +216,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Балкан Пъблишинг",
@@ -216,6 +228,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Монти Сървиз",
@@ -227,6 +240,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "ФАКТУРНИК.БГ",
@@ -238,6 +252,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "ПР КЪРНЕЛ",
@@ -249,6 +264,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "МЕДИАПОЙНТ",
@@ -260,6 +276,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "МЕДИАПОЙНТ",
@@ -271,6 +288,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Монти Сървиз",
@@ -282,6 +300,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Балкан Пъблишинг",
@@ -293,6 +312,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ПР КЪРНЕЛ",
@@ -304,6 +324,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ФАКТУРНИК.БГ",
@@ -334,6 +355,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Еднолично дружество с ограничена отговорност",
         "shareSize": "100%",
         "companyName": "Медиапойнт",
@@ -345,6 +367,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Еднолично дружество с ограничена отговорност",
         "shareSize": "100%",
         "companyName": "ФАКТУРНИК.БГ",
@@ -356,6 +379,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружество с ограничена отговорност",
         "shareSize": "50%",
         "companyName": "ПР КЪРНЕЛ",
@@ -367,6 +391,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружество с ограничена отговорност",
         "shareSize": "50%",
         "companyName": "Монти Сървиз",
@@ -378,6 +403,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружество с ограничена отговорност",
         "shareSize": "50%",
         "companyName": "Балкан Пъблишинг",

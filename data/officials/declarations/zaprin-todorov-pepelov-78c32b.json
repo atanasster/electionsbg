@@ -125,6 +125,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Дейност на общопрактикуващи лекари",
         "companyName": "\"Д-р Заприн Пепелов АИМППМП\" ЕТ",
@@ -136,6 +137,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 %",
         "companyName": "\"Агроиндъстрис\" ООД",
@@ -147,6 +149,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 %",
         "companyName": "\"Образцов дом - Тракия\" ООД",
@@ -158,6 +161,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Дейност на общопрактикуващи лекари",
         "companyName": "\"Д-р Заприн Пепелов АИМППМП\" ЕТ",

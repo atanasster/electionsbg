@@ -815,6 +815,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "МБАЛ \"Живот +\" ЕООД град Крумовград",
@@ -826,6 +827,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "лекарски кабинет",
         "companyName": "ЕТ \"Мария Иванова\"",
@@ -837,6 +839,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "лекарски кабинет",
         "companyName": "ЕТ \" Мария Иванова \"",

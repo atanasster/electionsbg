@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествен дял",
         "shareSize": "50 %",
         "companyName": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
@@ -75,6 +76,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1 дял на номинална стойност 1 лев, 50% от капитала",
         "companyName": "\"ИВ ЛОУ КОНСУЛТ\" ООД",
@@ -86,6 +88,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"ИВ ЛОУ КОНСУЛТ\" ООД",

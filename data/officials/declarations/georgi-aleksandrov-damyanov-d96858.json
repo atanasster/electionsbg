@@ -517,6 +517,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "25",
         "companyName": "\"Център за развитие и успех\" ООД, ЕИК 175341646, старо наименование \"Ивентс Криейтърс\" ООД",
@@ -1685,6 +1686,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "25",
         "companyName": "\"Ивентс Криейтърс\" ООД",
@@ -2004,6 +2006,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "25",
         "companyName": "\"Ивентс Криейтърс\" ООД",
@@ -2015,6 +2018,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"Ивентс Криейтърс\" ООД",
@@ -2026,6 +2030,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "25",
         "companyName": "\"Ивентс Криейтърс\" ООД",
@@ -2037,6 +2042,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"Ивентс Криейтърс\" ООД",

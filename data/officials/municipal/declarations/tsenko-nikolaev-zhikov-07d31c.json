@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50",
         "companyName": "КОНСУЛТ ИНВЕСТ СТАНДАРТ ООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "двлове",
         "shareSize": "50",
         "companyName": "ИЗГРЕВ КЖМ ООД",
@@ -397,6 +399,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "0",
         "companyName": "\"Заедно за Созопол\" Сдружение",
@@ -408,6 +411,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "0",
         "companyName": "\"Фарът на Аполония\" Сдружение",
@@ -419,6 +423,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100",
         "companyName": "\"ДЖЕЙ ПРОДЖЕКТ\" ЕООД",
@@ -430,6 +435,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100",
         "companyName": "\"ДЖЕЙ ХАУСЕС РАВАДИНОВО\" ЕООД",

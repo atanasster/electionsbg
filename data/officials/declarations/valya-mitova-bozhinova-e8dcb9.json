@@ -896,6 +896,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "100%",
         "companyName": "ССП ЕООД",
@@ -907,6 +908,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов каритал",
         "shareSize": "25%",
         "companyName": "Бултехностандарт ООД",
@@ -918,6 +920,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "100%",
         "companyName": "Норд-Уест Комерс ЕООД",
@@ -1309,6 +1312,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "МДЛ Хема Медикъл ООД",
@@ -1320,6 +1324,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "специализирана медицинска помощ",
         "companyName": "ЕТ д-р Василовска-Валя Митова",
@@ -1331,6 +1336,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "МДЛ Хема Медикъл ООД",
@@ -1342,6 +1348,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "специализирана медицинска помощ",
         "companyName": "ЕТ д-р Василовска-Валя Митова",

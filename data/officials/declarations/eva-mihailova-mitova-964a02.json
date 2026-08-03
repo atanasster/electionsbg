@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "потребителски кредит",
+        "description": "потребителски кредит към банка",
         "detail": "Ева Михайлова Митова",
         "location": null,
         "municipality": null,
@@ -30,7 +30,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "овърдрафт",
+        "description": "овърдрафт към банка",
         "detail": "Ева Михайлова Митова",
         "location": null,
         "municipality": null,
@@ -42,7 +42,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "кредитна карта",
+        "description": "кредитна карта към банка",
         "detail": "Ева Михайлова Митова",
         "location": null,
         "municipality": null,
@@ -425,6 +425,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100 %",
         "companyName": "\"КИТО\" ЕООД - в несъстоятелност",

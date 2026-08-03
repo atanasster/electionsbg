@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 % /2500 лв./",
         "companyName": "Йори ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100 % /1500 лв./",
         "companyName": "Конструкшън енд енерджи консултинг ЕООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител, 0% дялово участие",
         "companyName": "Проектантско дружество СТАС ЕООД",
@@ -80,6 +83,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дял",
         "shareSize": "50%",
         "companyName": "Йори ООД",
@@ -91,6 +95,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дял",
         "shareSize": "100%",
         "companyName": "Конструкшън енд енерджи консултинг ЕООД",

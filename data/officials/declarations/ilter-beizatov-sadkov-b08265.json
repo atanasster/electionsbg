@@ -215,6 +215,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на Управителен съвет",
         "companyName": "Сдружение \"Ловно-рибарско дружество Паламара\"",
@@ -245,6 +246,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "\"Сибер-82\" ЕООД",
@@ -256,6 +258,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "\"МР Осенец\" ООД",

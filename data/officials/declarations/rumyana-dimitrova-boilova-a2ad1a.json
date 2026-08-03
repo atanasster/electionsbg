@@ -836,6 +836,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "100%",
         "companyName": "Агродоминатор ЕООД",
@@ -847,6 +848,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "100%",
         "companyName": "Агродоминатор 2 ЕООД",
@@ -858,6 +860,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "10%",
         "companyName": "Агрострой 07 ООД",
@@ -2941,6 +2944,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"MЦ I - Първомай\" ЕООД",
@@ -2952,6 +2956,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"МЦ I - Първомай\" ЕООД",

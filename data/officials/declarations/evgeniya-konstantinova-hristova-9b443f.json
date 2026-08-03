@@ -1081,6 +1081,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "50",
         "companyName": "\"МоНиЛес\" ЕООД",
@@ -1549,6 +1550,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
         "companyName": "СДРУЖЕНИЕ ЛОВНО-РИБАРСКО ДРУЖЕСТВО\"МЕЗДРА-РОМАН\"",

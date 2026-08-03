@@ -34,7 +34,10 @@ import type {
   MunicipalOfficialRole,
   OfficialDeclaration,
 } from "../../src/data/dataTypes";
-import { parseDeclarationXml } from "../declarations/parse_declaration";
+import {
+  parseDeclarationXml,
+  unknownRootTally,
+} from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
 import {
   ROOT,
@@ -313,6 +316,14 @@ const cmd = command({
       );
       throw new Error(
         `${parseFailures.length}/${processed} declarations failed to parse — likely an upstream schema change, not isolated bad records`,
+      );
+    }
+    // Forms the register has added since ROOT_TO_KIND was written. Fail-closed
+    // (they parse no tables) — so the ONLY way anyone learns is this line.
+    for (const [root, n] of unknownRootTally()) {
+      console.warn(
+        `  ${n} filing(s) with an unrecognised root <${root}> — parsed no tables. ` +
+          `Add it to ROOT_TO_KIND in scripts/declarations/parse_declaration.ts.`,
       );
     }
     if (parseFailures.length > 0) {

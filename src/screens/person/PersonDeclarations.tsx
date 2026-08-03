@@ -274,6 +274,16 @@ const FilingDetail: FC<{ id: number; locale: string }> = ({ id, locale }) => {
             <div key={i} className="flex justify-between gap-2 py-0.5">
               <span className="truncate">
                 {s.companyName} {s.shareSize ? `· ${s.shareSize}` : ""}
+                {/* The heading above says "Дялове в дружества". Since the интереси
+                    forms are parsed, a row here can also be a DIRECTORSHIP or a
+                    sole-tradership — "БЕТА АД · управител" under a stakes heading
+                    asserts ownership the row does not support. Ownership is the
+                    unmarked case; the other two are marked. */}
+                {s.stakeKind && s.stakeKind !== "share" && (
+                  <span className="ml-1 rounded bg-muted px-1 text-[10px] text-muted-foreground">
+                    {t(`pp_stake_kind_${s.stakeKind}`)}
+                  </span>
+                )}
               </span>
               <span className="shrink-0 tabular-nums text-muted-foreground">
                 {s.valueEur != null ? formatEur(s.valueEur, locale) : "—"}

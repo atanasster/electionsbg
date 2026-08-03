@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "90%",
         "companyName": "Прокон ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "95%",
         "companyName": "Ентарк ООД",
@@ -995,6 +997,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Подадено заявление за заличаване - нотариално заверено, 08.06.2023 г.",
         "companyName": "Съюз на офицерите от резерва \"Атлантик\" - УС",
@@ -1025,6 +1028,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "90%",
         "companyName": "Прокон ООД",
@@ -1036,6 +1040,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "95%",
         "companyName": "Ентарк ООД",

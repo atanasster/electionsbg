@@ -1193,6 +1193,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "12",
         "companyName": "Димитър Даракчиев ООД",
@@ -1674,6 +1675,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "12 дяла по 100 лв.",
         "companyName": "Димитър Даракчиев ООД",
@@ -1685,6 +1687,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "12 дяла по 100 лв.",
         "companyName": "Димитър Даракчиев ООД",
@@ -1696,6 +1699,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на съвета на директорите-изпълнителен директор",
         "companyName": "МБАЛ\"д-р Братан Шукеров\"АД",

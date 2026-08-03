@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "10 дяла по 50 лв.",
         "companyName": "Ремонт Корект ЕООД",
@@ -110,7 +111,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "потребителски кредит",
+        "description": "потребителски кредит към ДСК банк",
         "detail": "Камелия Иванова Виденова",
         "location": null,
         "municipality": null,
@@ -226,6 +227,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "10 дяла по 50 лв.",
         "companyName": "Ремонт Корект ЕООД",
@@ -439,6 +441,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "парични средства",
         "shareSize": "10 дяла по 50 лв.",
         "companyName": "Ремонт Корект ЕООД",

@@ -484,6 +484,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100 лв.",
         "companyName": "Сивилекс ЕООД",
@@ -495,6 +496,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100 лв.",
         "companyName": "Сивилекс ЕООД",
@@ -525,6 +527,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дружествени дярове",
         "shareSize": "100",
         "companyName": "Сивилекс ЕООД",
@@ -774,6 +777,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100",
         "companyName": "Сивилекс ЕООД",

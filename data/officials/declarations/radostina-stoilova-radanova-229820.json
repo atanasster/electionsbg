@@ -196,6 +196,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "500",
         "companyName": "Фаб-40 ЕООД",
@@ -207,6 +208,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Собственик",
         "companyName": "Фаб-40 ЕООД",
@@ -218,6 +220,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член",
         "companyName": "Фондация \"Приложно образование\"",
@@ -229,6 +232,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "500",
         "companyName": "Фаб-40 ЕООД",
@@ -240,6 +244,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Собственик",
         "companyName": "Фаб-40 ЕООД",
@@ -251,6 +256,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член",
         "companyName": "Фондация \"Приложно образование\"",

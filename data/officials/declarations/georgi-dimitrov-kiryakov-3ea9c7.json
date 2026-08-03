@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "\"Училищно настоятелство \"Възраждане\" при ОУ Добри Чинтулов\" Сдружение",
@@ -172,6 +173,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "капитал",
         "shareSize": "100%",
         "companyName": "Белева 2 ЕООД",
@@ -183,6 +185,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "капитал",
         "shareSize": "100%",
         "companyName": "Фреди 2 ЕООД",
@@ -194,6 +197,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "капитал",
         "shareSize": "50%",
         "companyName": "Ка Ди Енерджи 2 ООД",

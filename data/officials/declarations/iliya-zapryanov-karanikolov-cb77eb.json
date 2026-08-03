@@ -580,6 +580,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "ИнтелАрт ООД",
@@ -591,6 +592,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "49",
         "companyName": "ИнтелАрт ООД",
@@ -602,6 +604,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ИнетелАрт ООД",
@@ -632,6 +635,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялово участие",
         "shareSize": "100",
         "companyName": "ИнтелАрт ООД",

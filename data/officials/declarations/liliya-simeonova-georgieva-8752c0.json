@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "собственик",
         "companyName": "\"И-ПРИМ\" ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Институт за правосъдие, равноправие, информираност и медиация",
@@ -37,6 +39,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "съдружник",
         "companyName": "И-ПРИМ ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "председател",
         "companyName": "Институт за правосъдие, равноправие,информираност и медиация",
@@ -63,7 +67,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "ипотечен кредит",
+        "description": "ипотечен кредит към Пощенска банка",
         "detail": "Лилия Симеонова Георгиева",
         "location": null,
         "municipality": null,

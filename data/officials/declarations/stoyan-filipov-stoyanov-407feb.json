@@ -570,6 +570,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10%",
         "companyName": "\"ФЕЛИКС-92\" ООД",
@@ -581,6 +582,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100%",
         "companyName": "\"КОНДИЦИЯ\" ЕООД",

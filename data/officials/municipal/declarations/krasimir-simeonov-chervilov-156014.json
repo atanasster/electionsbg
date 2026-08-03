@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "50",
         "companyName": "Д.К.С. Инвестмънт ООД",
@@ -75,6 +76,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Д.К.С. Инвестмънт ООД",
@@ -86,6 +88,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на управителния съвет",
         "companyName": "Фондация \"Фондация ВМРО\"",

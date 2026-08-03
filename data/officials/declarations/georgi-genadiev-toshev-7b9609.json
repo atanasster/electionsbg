@@ -175,6 +175,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Дамира ООД",
@@ -186,6 +187,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Лозенец инвест ЕООД",
@@ -197,6 +199,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател (подадена молба за освобождаване)",
         "companyName": "Ловно-рибарско дружество София-Изток",
@@ -208,6 +211,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50%",
         "companyName": "Дамира ООД, ЕИК: 200366944",
@@ -219,6 +223,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "Лозенец инвест ЕООД, ЕИК: 102845631",
@@ -230,6 +235,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател (подадена молаба за освобождаване)",
         "companyName": "Ловно-рибарско дружество Сифия-Изток",
@@ -285,6 +291,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Дамира ООД",
@@ -296,6 +303,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Лозенец инвест ЕООД",
@@ -307,6 +315,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Дамира ООД",
@@ -318,6 +327,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Агро Лозенец ООД",

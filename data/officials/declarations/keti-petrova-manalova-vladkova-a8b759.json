@@ -1616,6 +1616,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "50%",
         "companyName": "Хранмеханика ООД",
@@ -1931,6 +1932,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "МБАЛ Д-р Хр.Стамболски ЕООД",
@@ -1942,6 +1944,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "извънболнична медицинска помощ",
         "companyName": "ЕТ ИПСМП Д-р Кети Маналова-Владкова",
@@ -1953,6 +1956,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "МБАЛ Д-р Христо Стамболски ЕООД",
@@ -1964,6 +1968,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "извънболнична медицинска помощ",
         "companyName": "ЕТ ИПСМП д-р Кети Маналова- Владкова",

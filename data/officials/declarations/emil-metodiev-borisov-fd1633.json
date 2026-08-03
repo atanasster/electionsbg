@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Съдружник",
         "shareSize": "50%",
         "companyName": "Аква Пуулс ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Съдружник",
         "shareSize": "30%",
         "companyName": "Темена Пулс ООД",
@@ -240,7 +242,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към ОББ-АД",
         "detail": "Емил Методиев Борисов",
         "location": null,
         "municipality": null,

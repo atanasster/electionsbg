@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -496,6 +497,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -545,6 +547,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -607,6 +610,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -618,6 +622,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -633,7 +638,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "кредит, обезпечен с недвижими имоти",
+        "description": "кредит, обезпечен с недвижими имоти към 33600",
         "detail": "димитър Колев Помаков",
         "location": null,
         "municipality": null,
@@ -661,6 +666,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -753,6 +759,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -1326,6 +1333,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "100%",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -1807,6 +1815,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "едноличен собственик",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -1818,6 +1827,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -1829,6 +1839,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "едноличен собственик",
         "companyName": "\"Дипоникс\" ЕООД",
@@ -1840,6 +1851,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"Дипоникс\" ЕООД",

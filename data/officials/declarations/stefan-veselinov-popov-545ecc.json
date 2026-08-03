@@ -142,6 +142,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "33 %",
         "companyName": "Екостарт Консулт ООД",
@@ -153,6 +154,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Председател на настоятелството",
         "companyName": "Фондация \"ЕкоОбщност\"",

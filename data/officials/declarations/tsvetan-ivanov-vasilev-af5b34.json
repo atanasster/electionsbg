@@ -470,6 +470,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дял",
         "shareSize": "1/2",
         "companyName": "ГП СМП ДБ Детско здраве ООД",
@@ -825,6 +826,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "ГП СМП ДБ Детско Здраве",
@@ -836,6 +838,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "0",
         "companyName": "МЦ Света Петка ЕООД",
@@ -847,6 +850,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1/2",
         "companyName": "ГП СМП ДБ Детско Здраве",

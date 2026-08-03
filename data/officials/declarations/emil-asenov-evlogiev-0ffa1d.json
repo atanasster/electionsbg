@@ -642,6 +642,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дялове в ЕООД",
         "shareSize": "100 процента",
         "companyName": "Ивас Сървисиз ЕООД",
@@ -1699,6 +1700,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "99",
         "companyName": "Ивас Сървисис ЕООД",
@@ -2393,6 +2395,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "48",
         "companyName": "Ивас Консулт ЕООД",
@@ -2404,6 +2407,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "48",
         "companyName": "Ивас Консулт ЕООД",

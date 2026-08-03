@@ -352,6 +352,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "БИЛД ПРОПЪРТИ ЕООД",
@@ -363,6 +364,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "КВАДРАТЕН МЕТЪР.БГ ЕООД",
@@ -374,6 +376,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "БИЛД ПРОПЪРТИ ЕООД",
@@ -385,6 +388,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "КВАДРАТЕН МЕТЪР.БГ ЕООД",
@@ -396,6 +400,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "БИЛД ПРОПЪРТИ ЕООД",
@@ -407,6 +412,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "ГОЛДЪН КОРН ЕООД",
@@ -418,6 +424,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "16%",
         "companyName": "ТЕРРА ХОЛДИНГ ООД",
@@ -429,6 +436,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "БИЛД ПРОПЪРТИ ЕООД",
@@ -459,6 +467,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДЯЛОВЕ",
         "shareSize": "100%",
         "companyName": "КВАДРАТЕН МЕТЪР.БГ ЕООД",
@@ -470,6 +479,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "16%",
         "companyName": "Терра холдинг ООД",
@@ -482,6 +492,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "дружествени дялова",
         "shareSize": "100%",
         "companyName": "Голдън корн ЕООД",

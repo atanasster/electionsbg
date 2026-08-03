@@ -376,6 +376,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Дейност на общопрактикуващи лекари",
         "companyName": "ЕТ \"Д-р Мирослав Паньов\"",
@@ -387,6 +388,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Дейност на общопрактикуващи лекари",
         "companyName": "ЕТ \"Д-р Мирослав Паньов\"",
@@ -402,7 +404,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Кредитна карта",
+        "description": "Кредитна карта към ОББ АД",
         "detail": "Венелина Димитрова Паньова",
         "location": null,
         "municipality": null,

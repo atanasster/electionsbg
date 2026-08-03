@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "1/1",
         "companyName": "Аргументи Нюз ЕООД",
@@ -100,6 +101,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялове",
         "shareSize": "1/1",
         "companyName": "Аргументи Нюз ЕООД",
@@ -180,6 +182,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "Едноличен собственик на капитала",
         "companyName": "АРГУМЕНТИ НЮЗ ЕООД",
@@ -191,6 +194,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "АРГУМЕНТИ НЮЗ ЕООД",

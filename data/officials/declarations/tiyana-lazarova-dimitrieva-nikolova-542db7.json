@@ -595,6 +595,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялаве от капитала на ТД",
         "shareSize": "5",
         "companyName": "Бел епок инвестмънтс",
@@ -693,6 +694,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "270 дяла",
         "companyName": "\"СБАЛ Свети Лазар\" ООД",
@@ -704,6 +706,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "350 дяла",
         "companyName": "\"ВСН\" ЕООД",
@@ -1329,6 +1332,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "342900 лв.",
         "companyName": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ЛАЗАР\" ООД",
@@ -1340,6 +1344,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "\"СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ЛАЗАР\" ООД",
@@ -1351,6 +1356,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Ликвидатор",
         "companyName": "\"МЕДИЦИНСКИ ЦЕНТЪР РЕГЕНЕРАТИВНА МЕДИЦИНА\" ЕООД - в ликвидация",

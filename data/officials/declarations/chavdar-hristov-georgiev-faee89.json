@@ -552,6 +552,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "\"Георгиев Дизайн Студио\" ЕООД",
@@ -563,6 +564,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "60%",
         "companyName": "\"Осогово Солар\" ООД",
@@ -574,6 +576,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "\"Георгиев Дизайн Студио\" ЕООД",

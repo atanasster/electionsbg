@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "микробиологична лаборатория",
         "shareSize": "1/2",
         "companyName": "СМДЛ \"Ландалаб\" ООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "60%",
         "companyName": "Нидек ООД",
@@ -36,6 +38,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Доди ЕООД",

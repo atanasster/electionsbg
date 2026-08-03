@@ -2034,6 +2034,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "100%",
         "companyName": "Вихтун ЕООД",
@@ -2045,6 +2046,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "33%",
         "companyName": "НАР - 8 ООД",
@@ -2472,6 +2474,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100 %",
         "companyName": "Вихтун - ЕООД",
@@ -2483,6 +2486,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "33%",
         "companyName": "НАР 8 - ООД",
@@ -2494,6 +2498,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "управител",
         "companyName": "Вихтун ЕООД",

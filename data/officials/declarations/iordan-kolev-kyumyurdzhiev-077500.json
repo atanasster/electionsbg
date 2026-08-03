@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялов капитал",
         "shareSize": "50%",
         "companyName": "Арсиком ООД",
@@ -280,6 +281,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител клонПловдив",
         "companyName": "СНЦ ГЕРБ",
@@ -291,6 +293,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "СНЦ Предприемачи от ЮЦБ за европейско развитие",
@@ -302,6 +305,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител клонПловдив",
         "companyName": "СНЦ ГЕРБ",
@@ -313,6 +317,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на УС",
         "companyName": "СНЦ Предприемачи от ЮЦБ за европейско развитие",
@@ -343,6 +348,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялов капитал",
         "shareSize": "50%",
         "companyName": "Арсиком ООД",

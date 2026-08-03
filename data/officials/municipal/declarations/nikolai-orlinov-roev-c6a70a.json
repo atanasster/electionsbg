@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Едноличен собственик на капитал",
         "shareSize": "100",
         "companyName": "ЕР БИЛД ИНЖЕНЕРИНГ ЕООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Съсобственик на капитал",
         "shareSize": "50",
         "companyName": "ФРИКС ООД",
@@ -36,6 +38,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Съсобственик на капитал",
         "shareSize": "50",
         "companyName": "СОТИРА ИНВЕСТ ООД",

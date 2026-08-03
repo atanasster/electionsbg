@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 %",
         "companyName": "ЕКУИЪС ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50 %",
         "companyName": "НЮ ХАЙ ТЕК ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ЕКУИЪС ООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "НЮ ХАЙ ТЕК ООД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50",
         "companyName": "ЕКУИЪС ООД",
@@ -70,6 +75,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50",
         "companyName": "НЮ ХАЙ ТЕК ООД",
@@ -81,6 +87,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "ЕКУИЪС ООД",
@@ -92,6 +99,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "НЮ ХАЙ ТЕК ООД",
@@ -103,6 +111,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член",
         "companyName": "НПО ИКОНОМИКС",
@@ -133,6 +142,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "50",
         "companyName": "ЕКУИЪС ООД",
@@ -144,6 +154,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "50",
         "companyName": "НЮ ХАЙ ТЕК ООД",

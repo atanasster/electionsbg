@@ -342,6 +342,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "0",
         "companyName": "НПО - СЗД \"Захари Стоянов\"",
@@ -357,7 +358,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Заем",
+        "description": "Заем към Д Банк",
         "detail": "Васислав Петрониев Петров",
         "location": null,
         "municipality": null,

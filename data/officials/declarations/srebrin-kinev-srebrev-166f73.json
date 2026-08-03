@@ -125,6 +125,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ООД",
         "shareSize": "200",
         "companyName": "ВиеС Прогрес",
@@ -136,6 +137,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "5000",
         "companyName": "Ситимикс",

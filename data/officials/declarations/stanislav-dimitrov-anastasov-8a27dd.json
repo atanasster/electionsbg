@@ -153,7 +153,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен кредит",
+        "description": "Ипотечен кредит към ПИБ",
         "detail": "Сирма Бойкова Анастасова",
         "location": null,
         "municipality": null,
@@ -165,7 +165,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Потребителски кредит",
+        "description": "Потребителски кредит към ПИБ",
         "detail": "Сирма Бойкова Анастасова",
         "location": null,
         "municipality": null,
@@ -193,6 +193,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дялово участие",
         "shareSize": "50%",
         "companyName": "Карадениз Минералс ООД",
@@ -530,6 +531,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дялово участие",
         "shareSize": "50%",
         "companyName": "Карадениз Минералс ООД",

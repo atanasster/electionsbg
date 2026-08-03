@@ -14,6 +14,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Уставен капитал",
         "shareSize": "100%",
         "companyName": "\"СИТИПРОЕКТ\" ЕООД",
@@ -25,6 +26,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Уставен капитал",
         "shareSize": "50%",
         "companyName": "\"БИ ЕС КОНСУЛТИНГ\" ООД",
@@ -36,6 +38,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Едноличен собственик",
         "shareSize": "100%",
         "companyName": "ЕТ \"СИТИИНЖЕНЕРИНГ\"",

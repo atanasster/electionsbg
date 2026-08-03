@@ -495,6 +495,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "5000-100%",
         "companyName": "\"Босна-Леспром\" ЕООД",
@@ -506,6 +507,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "5000-100%",
         "companyName": "\"Есджи-корект\" ЕООД",
@@ -517,6 +519,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител-1",
         "companyName": "\"Босна-Леспром\" ЕООД",
@@ -528,6 +531,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител-1",
         "companyName": "\"Есджи-корект\" ЕООД",

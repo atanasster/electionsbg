@@ -178,3 +178,82 @@ test.skipIf(skip)(
     );
   },
 );
+
+// THE STAKE ARM, which is the larger half of the same fix and the half that feeds 096 and
+// the /connections graph. The events gate above covers 837 rows; this covers ~14k. A
+// regression that dropped only the stake arm — a wrong INTEREST_TABLE_NUMS entry, a
+// `Declared` attribute the register renames — would pass every other gate in this suite.
+//
+// Keyed on stake_kind, NOT on "has stakes but no assets and no income": that heuristic
+// looks like an интереси discriminator and is not one. 33 rows satisfy it from genuine
+// <PublicPerson> asset filings where the declarant filed a share and nothing else, so a
+// companion "no interests stake carries a value" assertion written that way fails against
+// perfectly correct data.
+test.skipIf(skip)(
+  "the interests forms contribute stakes, not just events",
+  async () => {
+    const rows = await allRows<{
+      stake_kind: string;
+      n: string;
+      valued: string;
+    }>(
+      `SELECT stake_kind, count(*) n, count(value_eur) valued
+       FROM declaration_stake GROUP BY stake_kind`,
+    );
+    const byKind = new Map(rows.map((r) => [r.stake_kind, r]));
+    // Roles and sole-traderships exist ONLY on the интереси forms — the asset form has no
+    // such table — so a non-zero count here is proof the stake arm is being read.
+    for (const kind of ["role", "sole_trader"]) {
+      assert.ok(
+        Number(byKind.get(kind)?.n ?? 0) > 0,
+        `no ${kind} stakes — the интереси stake arm is being dropped`,
+      );
+    }
+    // The интереси form asks WHETHER, never how much: it has no money column at all. A value
+    // on one of these rows is a cell misread, the same class as the €3.58bn artifact.
+    for (const kind of ["role", "sole_trader"]) {
+      assert.equal(
+        Number(byKind.get(kind)!.valued),
+        0,
+        `${kind} stakes carry a declared value; the интереси form has no money column`,
+      );
+    }
+    // Every row must be labelled, or a consumer cannot tell a directorship from a holding.
+    const [{ n }] = await allRows<{ n: string }>(
+      "SELECT count(*) n FROM declaration_stake WHERE stake_kind IS NULL",
+    );
+    assert.equal(Number(n), 0, `${n} stake rows carry no stake_kind`);
+  },
+);
+
+// A DIRECTORSHIP MUST NOT BE PUBLISHED AS A SHAREHOLDING. person_stake_procurement is the
+// profile's one conflict-of-interest surface and its heading is an ownership claim; 221 of
+// the 1,414 rows it can serve are board seats. The label has to survive every hop —
+// declaration_stake → declaration_stake_company → the payload — and it is the LAST one
+// that silently dropped it before.
+test.skipIf(skip)("the stake payload says when a row is a role", async () => {
+  // The company must actually HOLD contracts: person_stake_procurement inner-joins its
+  // `won` aggregate, so a role in a company with no procurement record yields an empty
+  // payload and would fail this for the wrong reason. Same filters the function applies.
+  const [{ slug }] = await allRows<{ slug: string }>(
+    `SELECT p.slug FROM person p
+       JOIN declaration_stake_company sc ON sc.person_id = p.person_id
+      WHERE sc.stake_kind = 'role' AND p.status = 'active' AND p.is_public_figure
+        AND EXISTS (SELECT 1 FROM contracts c
+                     WHERE c.contractor_eik = sc.uic AND c.tag = 'contract'
+                       AND c.consortium_role IS DISTINCT FROM 'member')
+      ORDER BY p.slug LIMIT 1`,
+  );
+  const [{ r }] = await allRows<{
+    r: { stakeKind: string | null; itemType: string | null }[];
+  }>("SELECT person_stake_procurement($1) AS r", [slug]);
+  assert.ok(r.length > 0, `expected stake rows for ${slug}`);
+  assert.ok(
+    r.every((x) => x.stakeKind != null),
+    "a stake row reached the payload with no stakeKind — the tile cannot label it",
+  );
+  assert.ok(
+    r.some((x) => x.stakeKind === "role"),
+    `${slug} holds a declared role in declaration_stake_company but the payload shows none`,
+  );
+});

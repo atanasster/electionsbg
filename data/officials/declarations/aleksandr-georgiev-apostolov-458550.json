@@ -897,6 +897,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член",
         "companyName": "ЮЛНЦ - ловно-рибарски съюз",
@@ -908,6 +909,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член",
         "companyName": "ЮЛНЦ КГСГ - клуб на гълъбовъдите",
@@ -919,6 +921,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "член",
         "companyName": "ЮЛНЦ  ловно-рибарски съюз",
@@ -930,6 +933,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "член",
         "companyName": "ЮЛНЦ КТСТ - клуб на гълъбовъдите",

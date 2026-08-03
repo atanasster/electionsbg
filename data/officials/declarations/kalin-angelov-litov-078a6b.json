@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "33",
         "companyName": "Термо-ДизайнПРО ООД",
@@ -369,7 +370,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Договор за лизинг",
+        "description": "Договор за лизинг към Порше лизинг БГ ЕООД",
         "detail": "Калин Ангелов Литов",
         "location": null,
         "municipality": null,

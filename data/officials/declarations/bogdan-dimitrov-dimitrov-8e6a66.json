@@ -393,6 +393,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествен дял",
         "shareSize": "10%",
         "companyName": "Медина Био ООД",
@@ -622,6 +623,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10%",
         "companyName": "МЕДИНА БИО ООД",
@@ -633,6 +635,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "СТОМАТОЛОГИЯ",
         "companyName": "ЕТ  ИППМДП-Д-Р БОГДАН ДИМИТРОВ",
@@ -644,6 +647,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "10%",
         "companyName": "МЕДИНА БИО ООД",
@@ -655,6 +659,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "СТОМАТОЛОГИЯ",
         "companyName": "ЕТ ИППМДП -Д-Р БОГДАН ДИМИТРОВ",

@@ -18,7 +18,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Ипотечен заем",
+        "description": "Ипотечен заем към Х",
         "detail": "Дончо Петров Барбалов",
         "location": null,
         "municipality": null,
@@ -46,6 +46,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "ВИП Консулт компани ЕООД",
@@ -57,6 +58,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Барбалова консулт ЕООД",
@@ -68,6 +70,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "ВИПИ органика ЕООД",
@@ -79,6 +82,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "33,33%",
         "companyName": "Киравас стил ООД",
@@ -90,6 +94,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "4,35%",
         "companyName": "Тинузавър ООД",
@@ -393,6 +398,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "ВИП Консулт компани ЕООД",
@@ -404,6 +410,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "Барбалова консулт ЕООД",
@@ -415,6 +422,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "100%",
         "companyName": "ВИПИ органика ЕООД",
@@ -426,6 +434,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "33,33%",
         "companyName": "Киравас стил ООД",
@@ -437,6 +446,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове",
         "shareSize": "4,35%",
         "companyName": "Тинузавър ООД",

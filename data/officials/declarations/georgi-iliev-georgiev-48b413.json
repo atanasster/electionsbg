@@ -412,6 +412,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Член на Съвета на директорите",
         "companyName": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
@@ -423,6 +424,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Съвет на директорите - Член",
         "companyName": "Водоснабдяване и канализация ЕАД, ЕИК 812115210",
@@ -438,7 +440,7 @@
     "events": [
       {
         "kind": "early_repayment",
-        "description": "Кредит",
+        "description": "Кредит към ПиБ",
         "detail": "Елена Костадинова Георгиева",
         "location": null,
         "municipality": null,
@@ -450,7 +452,7 @@
       },
       {
         "kind": "early_repayment",
-        "description": "Кредит",
+        "description": "Кредит към ПиБ",
         "detail": "Георги Илиев Георгиев",
         "location": null,
         "municipality": null,

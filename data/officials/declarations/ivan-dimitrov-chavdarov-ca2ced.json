@@ -299,6 +299,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "1,9333",
         "companyName": "Победа ООД",
@@ -310,6 +311,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "100%",
         "companyName": "СК ЕЗИ Консулт ЕООД",
@@ -852,6 +854,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1,9333",
         "companyName": "\"Победа\" ООД",
@@ -863,6 +866,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на Управителен съвет",
         "companyName": "Асоциация по Физикална Медицина и Рехабилитация",
@@ -874,6 +878,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "свободна професия, лекарски кабинет",
         "companyName": "АИПСМ-ФРМ-ВСД",
@@ -885,6 +890,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "1,9333",
         "companyName": "\"Победа\" ООД",
@@ -896,6 +902,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на Управителен съвет",
         "companyName": "Асоциация по Физикална Медицина и Рехабилитация",
@@ -907,6 +914,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "свободна професия, лекарски кабинет",
         "companyName": "АИПСМ-ФМР-ВСД",
@@ -937,6 +945,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "1,9333",
         "companyName": "Победа ООД",
@@ -948,6 +957,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял",
         "shareSize": "100%",
         "companyName": "СК Ези консулт ЕООД",

@@ -417,6 +417,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "АИПСМП КАРДИОХЕЛП ЕООД",
@@ -428,6 +429,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "АИПСМП КАРДИОХЕЛП ЕООД",
@@ -439,6 +441,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "АИПСМП КАРДИОХЕЛП ЕООД",
@@ -450,6 +453,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "УПРАВИТЕЛ",
         "companyName": "АИПСМП КАРДИОХЕЛП ЕООД",
@@ -480,6 +484,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
         "shareSize": "100%",
         "companyName": "АИПСМП КАРДИОХЕЛП ЕООД",
@@ -491,6 +496,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
         "shareSize": "20%",
         "companyName": "ГППДП МАТЕВИ ООД",

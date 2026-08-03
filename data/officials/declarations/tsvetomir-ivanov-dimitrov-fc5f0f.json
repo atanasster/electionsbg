@@ -173,6 +173,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
         "companyName": "КОМ 555 ЕООД",
@@ -184,6 +185,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
         "companyName": "КОМ-ТРЕЙД 71 ЕООД",
@@ -195,6 +197,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕООД",
         "shareSize": "100",
         "companyName": "МЦ ВИСТАМЕД ЗА СИП ЕООД",
@@ -738,6 +741,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "член на Управителния съвет",
         "companyName": "Тенис клуб към Национална спортна академия",

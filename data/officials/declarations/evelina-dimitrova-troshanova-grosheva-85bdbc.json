@@ -422,6 +422,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "ИПСМП",
         "companyName": "ЕТ ИПСМП",
@@ -433,6 +434,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "ИПСМП",
         "companyName": "ЕТ ИПСМП",
@@ -463,6 +465,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "ЕТ ИПСМП",
         "shareSize": "100",
         "companyName": "ЕТ ИПСМП",

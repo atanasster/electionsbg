@@ -135,6 +135,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100%",
         "companyName": "\"Ексим Про\" ЕООД",
@@ -146,6 +147,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "300лв.",
         "companyName": "\"Ексим Про\" ЕООД",
@@ -157,6 +159,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "sole_trader",
         "itemType": "Едноличен търговец",
         "shareSize": "Онлайн търговия",
         "companyName": "\"Ексим Про\" ЕООД",

@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "50%",
         "companyName": "Строево Солар ООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дружествени дялове",
         "shareSize": "33,33%",
         "companyName": "Сън Енерджи Правище ООД",
@@ -185,6 +187,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Дружествени дялове",
         "shareSize": "100%",
         "companyName": "Сън Енерджи ЕООД",

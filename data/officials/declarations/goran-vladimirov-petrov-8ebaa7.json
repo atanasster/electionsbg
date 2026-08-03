@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "Джи Пи Трейд Груп ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50",
         "companyName": "Електрик аутос ООД",
@@ -37,6 +39,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Джи Пи Трейд Груп ЕООД",
@@ -48,6 +51,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "100",
         "companyName": "Джи Пи Трейд Груп ЕООД",
@@ -59,6 +63,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Участие в търговско дружество",
         "shareSize": "50",
         "companyName": "Електрик аутос ООД",
@@ -70,6 +75,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "Управител",
         "companyName": "Джи Пи Трейд Груп ЕООД",
@@ -100,6 +106,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял в ООД",
         "shareSize": "50%",
         "companyName": "Електрик Аутос",
@@ -111,6 +118,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дял в ЕООД",
         "shareSize": "100%",
         "companyName": "ДЖИ ПИ ТРЕЙД ГРУП",

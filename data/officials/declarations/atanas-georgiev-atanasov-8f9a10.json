@@ -235,6 +235,7 @@
     "ownershipStakes": [
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Дружество с ограничена отговорност",
         "shareSize": "1/2",
         "companyName": "МайкроСтат Аналитикс ООД",
@@ -247,6 +248,7 @@
       },
       {
         "table": "11",
+        "stakeKind": "share",
         "itemType": "Еднолично дружество с ограничена отговорност",
         "shareSize": "1/1",
         "companyName": "Иконометрика ЕООД",

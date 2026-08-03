@@ -15,6 +15,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "не съм управител",
         "companyName": "Ситивет 1 ЕООД",
@@ -26,6 +27,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "role",
         "itemType": "Управител или член на орган на управление",
         "shareSize": "не съм управител",
         "companyName": "Ситивет ЕООД",
@@ -160,6 +162,7 @@
     "ownershipStakes": [
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове в дружество",
         "shareSize": "50%",
         "companyName": "Ситивет ООД",
@@ -171,6 +174,7 @@
       },
       {
         "table": "10",
+        "stakeKind": "share",
         "itemType": "дялове в дружество",
         "shareSize": "50%",
         "companyName": "Ситивет 1 ООД",
