@@ -1,70 +1,56 @@
 {
   "obshtina": "SLV16",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.010-0080",
-      "title": "„Реформиране на Дом за стари хора „Света Петка“, с. Баня, общ. Нова Загора”",
+      "contractNumber": "BG-RRP-4.023-1404",
+      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Нова Загора, ул. \"Проф. Минко Балкански\" № 1",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1107637.48,
-      "totalEur": 1107637.48,
-      "paidEur": 1039839.99,
+      "prevTotalEur": 450661.13,
+      "totalEur": 450661.13,
+      "paidEur": 450570.34,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Нова Загора",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0102",
-      "title": "Топъл обяд в Община Нова Загора",
+      "contractNumber": "BG-RRP-13.009-0155",
+      "title": "\"Инсталиране на фотоволтаична система (ФЕЦ) и закупуване на електрическо превозно средство, включително свързана зарядна станция за нуждите на Дом за стари хора „Света Петка“, с. Баня, общ. Нова Загора\".",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 473062.11,
-      "totalEur": 473062.11,
-      "paidEur": 344856.57,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Нова загора",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-0406",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Спринт 2007 ЕООД.",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 98845.24,
-      "totalEur": 98845.24,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Спринт 2007 ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0969",
-      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище - \"Пробуда-1928\" , село Новоселец, община Нова Загора , област Сливен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 11692.99,
-      "totalEur": 11692.99,
-      "paidEur": 10476.94,
+      "prevTotalEur": 107887.7,
+      "totalEur": 107887.7,
+      "paidEur": 107061.78,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище - \"Пробуда-1928\" , село Новоселец, община Нова Загора , област Сливен",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Община Нова Загора",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.004-0761",
+      "title": "Подкрепа и подпомагане на Трон - 11 ЕООД в процеса към реализиране на икономически преход.",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 251548.45,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Трон - 11 ЕООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

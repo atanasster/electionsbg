@@ -1,58 +1,38 @@
 {
   "obshtina": "SFO25",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-2.004-0153",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в Ава инженеринг 2018 ООД.",
+      "contractNumber": "BG05SFPR002-2.012-0107",
+      "title": "Иновативни здравно-социални услуги в община Костенец",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 98845.24,
-      "totalEur": 98845.24,
-      "paidEur": 0,
+      "prevTotalEur": 239875.05,
+      "totalEur": 239875.05,
+      "paidEur": 176231.83,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "АВА Инженеринг 2018 ООД",
-      "detectedAt": "2026-07-27"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Костенец",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.015-2247",
-      "title": "„Училищна STEM среда\"",
+      "contractNumber": "BG-RRP-1.024-1365",
+      "title": "„Изграждане на дигитален клуб в град Момин проход\"",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 92902.72,
-      "totalEur": 92730.47,
-      "paidEur": 92730.48,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 16847.63,
+      "totalEur": 16847.63,
+      "paidEur": 15045.3,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Христо Смирненски\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0019",
-      "title": "Срещи в спомените",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 71209.91,
-      "totalEur": 71049.07,
-      "paidEur": 32753.59,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Фолклорен ансамбъл \"Вихрен Сдружение",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище \"ГЕО Милев - 1954\"",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

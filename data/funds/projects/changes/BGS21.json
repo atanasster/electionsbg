@@ -1,50 +1,25 @@
 {
   "obshtina": "BGS21",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0454",
-      "title": "Автоматизация на процесите в БАМБУА ЕООД чрез въвеждане на технологии от Индустрия 4.0",
-      "type": "new",
-      "totalEur": 348701.07,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
+      "contractNumber": "BG16RFPR001-1.004-2854",
+      "title": "Подобряване на производствения капацитет на \"Бейс-2005\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 94540.03,
+      "totalEur": 92700,
+      "paidEur": 69525,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Бамбуа ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1967",
-      "title": "Изграждане на училищна STEM среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92952.86,
-      "totalEur": 92952.86,
-      "paidEur": 92004.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Христо Ботев\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0794",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"АНГЕЛ ВЕЛИЧКОВ 1902\"с.Росен в с. Росен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 16408.35,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Ангел Величков 1902\"с.Росен",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "БЕЙС-2005 ЕООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

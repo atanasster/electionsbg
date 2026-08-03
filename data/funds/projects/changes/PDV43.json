@@ -1,41 +1,22 @@
 {
   "obshtina": "PDV43",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0025",
-      "title": "Топъл обяд в Община Сопот",
+      "contractNumber": "BG-RRP-4.023-1649",
+      "title": "Устойчиво енергийно обновяване на жилищен сграден фонд етап I на сграда с адрес общ. Сопот, гр. Сопот, ул. Любен Каравелов №1",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 149820.43,
-      "totalEur": 149449.63,
-      "paidEur": 125092.34,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Сопот",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0125",
-      "title": "Подобряване на енергийната ефективност на сграда на Хотел Щерев гр. Сопот",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 104482.5,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
+      "prevTotalEur": 149805.08,
+      "totalEur": 149805.08,
+      "paidEur": 149440.17,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Щерев ТУР АД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Община Сопот",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

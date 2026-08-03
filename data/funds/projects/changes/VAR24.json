@@ -1,139 +1,39 @@
 {
   "obshtina": "VAR24",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0061",
-      "title": "Създаване на нови социални услуги на територията на община Провадия",
+      "contractNumber": "BG-RRP-3.008-0657",
+      "title": "Подкрепа за прехода към кръгова икономика",
       "type": "modified",
       "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 3027552.49,
-      "totalEur": 3027552.49,
-      "paidEur": 671162.33,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Провадия",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16FFPR002-2.003-0013",
-      "title": "„Изграждане на система за разделно събиране и оползотворяване на зелени и биоразградими отпадъци за РСУО Провадия на територията на общините Долни Чифлик, Провадия, Дългопол и Аврен“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 2700149.11,
-      "totalEur": 2469970.17,
-      "paidEur": 494684.52,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Долни чифлик",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2986",
-      "title": "„Въвеждане на мерки за подобряване на енергийната ефективност на жилищния сектор в град Провадия, кв. Север - блок 10\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1285816.36,
-      "totalEur": 1285816.36,
-      "paidEur": 1270873.77,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Провадия",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0003",
-      "title": "Топъл обяд в община Провадия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 322461.71,
-      "totalEur": 322461.71,
-      "paidEur": 224267.36,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Провадия",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-0561",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 92952.84,
-      "totalEur": 92451.42,
-      "paidEur": 92451.44,
+      "prevTotalEur": 562421.07,
+      "totalEur": 562421.07,
+      "paidEur": 281210.53,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Васил Левски\"",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Епос груп ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0024",
-      "title": "Изграждане на дигитални клубове за Народно читалище П.Р.Славейков -1929 с. Храброво общ. Провадия",
+      "contractNumber": "BG-RRP-1.024-0509",
+      "title": "Изграждане на дигитален клуб в НЧ „Алеко Константинов 1884“ гр. Провадия",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 12127.44,
+      "prevTotalEur": 20614.27,
+      "totalEur": 20614.27,
+      "paidEur": 20180.68,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище П.Р.Славейков -1929",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1029",
-      "title": "Изграждане на дигитален клуб в НЧ ПРОБУДА-1899 г. в с. Кривня",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 12394,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище ПРОБУДА-1899 г.",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0053",
-      "title": "\"Възвишение\" и ролята на художник костюми",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9026.35,
-      "totalEur": 8968.56,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Майори ЕООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище \"Алеко Константинов 1884\"",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

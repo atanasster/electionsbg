@@ -1,62 +1,42 @@
 {
   "obshtina": "PAZ08",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0024",
-      "title": "Топъл обяд в община Велинград",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 339511.37,
-      "totalEur": 367058.1,
-      "paidEur": 294813.28,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Велинград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0292",
-      "title": "Изпълняване на мерки за подобряване на енергийната ефективност в \"Гранд хотел Велинград\"",
+      "contractNumber": "BG05SFPR001-2.003-0002",
+      "title": "В подкрепа на младите таланти на община Велинград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 320971.77,
-      "totalEur": 320971.77,
-      "paidEur": 180900.85,
+      "prevTotalEur": 157444.13,
+      "totalEur": 157444.13,
+      "paidEur": 31488.83,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Етон АД",
-      "detectedAt": "2026-07-27"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "община Велинград",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1015",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи СУ \"Васил Левски\" Велинград",
+      "contractNumber": "BG05SFPR002-1.013-0130",
+      "title": "Насърчаване на социалната икономика чрез заетост на хора с трайни увреждания",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 139351.9,
-      "totalEur": 137701.73,
-      "paidEur": 137701.72,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 145866.28,
+      "totalEur": 145866.28,
+      "paidEur": 29000,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "\"Сафари адвенчър велинград\" ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2035",
-      "title": "Подобряване на производствения капацитет в ОТО МЕБЕЛ ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-1713",
+      "title": "Подобряване на производствения капацитет в „ТОП ТЕЙБЪЛ-К“ ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -64,102 +44,14 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 102232.81,
-      "totalEur": 102181.68,
-      "paidEur": 76636.26,
+      "prevTotalEur": 98116.91,
+      "totalEur": 98014.65,
+      "paidEur": 73510.98,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ОТО Мебел ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1773",
-      "title": "Подкрепа за повишаване на производствения капацитет и разширяване на аудиторията на вестник \"Велинградски Темпо новини\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 20451.68,
-      "totalEur": 19423.98,
-      "paidEur": 14567.99,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Вестник \"Темпо\" ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1154",
-      "title": "Изграждане на дигитален клуб в с. Пашови",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.16,
-      "totalEur": 14316.16,
-      "paidEur": 12367.19,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Пробуда - 1951 г.\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0010",
-      "title": "Изкуство и диалог - \"Отговор на всички въпроси\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9075.94,
-      "totalEur": 9040.75,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Контраплан ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0065",
-      "title": "\"В областта на сърцето\" – диалог и рефлексия",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9054.98,
-      "totalEur": 8929.3,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "АРТ Билет ООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0021",
-      "title": "На фокус: \"Жълт олеандър\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9077.99,
-      "totalEur": 8916.93,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Док Студиос ЕООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "ТОП ТЕЙБЪЛ-К ЕООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

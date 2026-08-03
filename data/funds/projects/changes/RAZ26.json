@@ -1,202 +1,58 @@
 {
   "obshtina": "RAZ26",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0728",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в предприятие ЕЛЕКТРОРЕСУРС ЕООД",
-      "type": "new",
-      "totalEur": 188864,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Електроресурс ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.008-0664",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в БелКлауд ЕООД",
-      "type": "new",
-      "totalEur": 184065.08,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "БелКлауд ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.010-0027",
-      "title": "Реформиране на материалната база на Дом за стари хора гр. Разград за осигуряване на подходящи и устойчиви условия за живот",
+      "contractNumber": "BG-RRP-1.008-0007",
+      "title": "Заедно и по-успешни с Младежки център Разград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2053951.81,
-      "totalEur": 2053951.81,
-      "paidEur": 2265352.53,
+      "prevTotalEur": 2139063.18,
+      "totalEur": 2139063.18,
+      "paidEur": 1505287.8,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Разград",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.014-0001",
-      "title": "Изграждане на център за високи постижения в професионалното образование и обучение в Национална професионална техническа гимназия \" Шандор Петьофи\" гр.Разград",
+      "contractNumber": "BG-RRP-13.009-0031",
+      "title": "\"Инсталиране на фотоволтаични системи (ФЕЦ) в шест социални услуги на територията на община Разград, делегирана от държавата дейност и закупуване на електрически автомобил, включително и зарядна станция за една социална услуга от държавата дейност.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1770091.72,
-      "totalEur": 1770091.72,
-      "paidEur": 1757923.64,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Национална професионална Техническа гимназия \"Шандор петьофи\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0197",
-      "title": "Предоставяне на \"Топъл обяд в община Разград\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur"
-      ],
-      "prevTotalEur": 752584.23,
-      "totalEur": 756952.46,
-      "paidEur": 595555.8,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Разград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0677",
-      "title": "Изграждане на мрежа от 14 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 348179.62,
-      "totalEur": 348179.62,
-      "paidEur": 318480.34,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Сдружение \"България лейбър райтс УОЧ\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0539",
-      "title": "„По - здравословна и адаптирана към предизвикателствата на климатичния преход работна среда в „МОНТАЖСТРОЙ 91“ ЕООД“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 150935.01,
-      "totalEur": 150935.01,
-      "paidEur": 140797.73,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "„Монтажстрой 91“ ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1775",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 129067.81,
-      "totalEur": 126268.64,
-      "paidEur": 126268.65,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Иван с. Тургенев\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2008",
-      "title": "Изграждане на училищна STEM среда в ОУ \"Елин Пелин\",с.Стажец, общ.Разград, област Разград",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 92886.24,
-      "totalEur": 85626.99,
-      "paidEur": 85626.99,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Елин Пелин\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-2.004-1233",
-      "title": "Енергийна ефективност и използване на енергия от възобновяеми източници в \"Разград - Полиграф\" ООД",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 69719,
-      "totalEur": 69719,
-      "paidEur": 34859.5,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Разград - полиграф\" ООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-13.011-0009",
-      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станции за нуждите на социалните услуги на територията на община Разград.\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 58082.76,
-      "totalEur": 58082.76,
-      "paidEur": 46538.28,
+      "prevTotalEur": 295237.83,
+      "totalEur": 295237.83,
+      "paidEur": 234950.4,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Разград",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-11.024-0070",
-      "title": "„Европейско кино за младите“ - Представяне на съвременни европейски филм пред млади хора и насърчаването им да се занимават с изкуство",
+      "contractNumber": "BG-RRP-4.023-2824",
+      "title": "Обновяване на жилищния сграден фонд и подобряване условията на живот чрез въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес гр. Разград, ул. „Любен Каравелов“ № 5",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 43131.97,
-      "totalEur": 43131.95,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 227602.34,
+      "totalEur": 227602.34,
+      "paidEur": 220217.1,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Инкандесънт Дистрибюшън Еоод",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Община Разград",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0141",
-      "title": "Подкрепа за \"ШУШНЕВ\" ЕООД",
+      "contractNumber": "BG16RFPR001-1.004-2019",
+      "title": "Подобряване на производствения капацитет на \"ГАЗМОНТАЖ ИНЖЕНЕРИНГ РЗ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -204,46 +60,52 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 35553.19,
-      "totalEur": 34927.84,
-      "paidEur": 26195.88,
+      "prevTotalEur": 130865.16,
+      "totalEur": 125483.81,
+      "paidEur": 73533.51,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Шушнев ЕООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Газмонтаж инженеринг Рз ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0285",
-      "title": "Изграждане на дигитален клуб в Разград",
+      "contractNumber": "BG16RFPR001-1.004-1228",
+      "title": "Подобряване на производствения капацитет на \"Ситона Груп\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 23519.43,
-      "totalEur": 23519.43,
-      "paidEur": 21009.8,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \" Развитие 1869\"",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 50670.41,
+      "totalEur": 46881.22,
+      "paidEur": 35160.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Ситона груп ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0043",
-      "title": "Изграждане на дигитален клуб в град Разград, площад Напредък",
+      "contractNumber": "BG16RFPR001-1.004-0237",
+      "title": "Подобряване на производствения капацитет на \"АЛБЕДО\" ЕООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 23519.43,
-      "totalEur": 23519.43,
-      "paidEur": 20084.75,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Напредък 1901\" град Разград",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 23979.59,
+      "totalEur": 19872.73,
+      "paidEur": 14904.56,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Албедо ЕООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

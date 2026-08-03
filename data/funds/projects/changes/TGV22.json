@@ -1,24 +1,70 @@
 {
   "obshtina": "TGV22",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1499",
-      "title": "Изграждане на училищна STEM среда и ВОСКС",
+      "contractNumber": "BG-RRP-4.023-1979",
+      "title": "„Енергийно обновяване на многофамилна жилищна сграда с административен адрес: обл. Търговище, общ. Омуртаг, ул. Цар Освободител № 4“",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 129096.3,
-      "totalEur": 128946.93,
-      "paidEur": 128946.93,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 570780.33,
+      "totalEur": 570780.33,
+      "paidEur": 569492.28,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Профилирана гимназия \"Симеон Велчев\"",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Община Омуртаг",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0544",
+      "title": "Изграждане на дигитален клуб в село Обител",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12847.03,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Култура 1940\"",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0584",
+      "title": "Изграждане на дигитален клуб в село Зелена Морава",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 9384.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Светлина - 1927",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0555",
+      "title": "Изграждане на дигитален клуб в село Врани кон",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13588.67,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Народно читалище \"ТРУД-1950\"-С.ВРАНИ КОН\"",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

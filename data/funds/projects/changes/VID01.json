@@ -1,19 +1,7 @@
 {
   "obshtina": "VID01",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
-    {
-      "contractNumber": "BG05SFPR001-1.010-0227",
-      "title": "Без тормоз",
-      "type": "new",
-      "totalEur": 70174.44,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Начално Училище \"Васил Левски\"",
-      "detectedAt": "2026-07-27"
-    },
     {
       "contractNumber": "BG-RRP-11.018-0052",
       "title": "Деинституционализация на дългосрочната грижа за пълнолетни лица и лица с увреждания в община Белоградчик",
@@ -23,117 +11,28 @@
       ],
       "prevTotalEur": 3187239.14,
       "totalEur": 3187239.14,
-      "paidEur": 1955083.19,
+      "paidEur": 2151201.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Белоградчик",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0190",
-      "title": "Топъл обяд в Община Белоградчик",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 188599.04,
-      "totalEur": 237827.46,
-      "paidEur": 148934.57,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Белоградчик",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0142",
-      "title": "Повишаване на енергийната ефективност на социалните услуги в община Белоградчик чрез инсталиране на фотоволтаични системи и закупуване на електрическо превозно средство",
+      "contractNumber": "BG05SFPR002-2.012-0179",
+      "title": "Иновативни здравно-социални услуги в община Белоградчик",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 184013.95,
-      "totalEur": 184013.95,
-      "paidEur": 181408.55,
+      "prevTotalEur": 90407.87,
+      "totalEur": 90407.87,
+      "paidEur": 63656.57,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "beneficiaryName": "Община Белоградчик",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2066",
-      "title": "Повишаване на конкурентоспособността на „Архика“ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 71371.49,
-      "totalEur": 71331.11,
-      "paidEur": 53498.33,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"АрхиКа\" ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0120",
-      "title": "Изкуството на процеса",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 9026.86,
-      "totalEur": 9026.86,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Давид Ангелов Йошков",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0022",
-      "title": "\"Прашка\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 9077.48,
-      "totalEur": 8951.59,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Арт Офис Фондация",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0076",
-      "title": "ПОРТРЕТИ НА СВОБОДАТА - Поредица прожекции на късометражни документални филми с последващи дискусии",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 8485.25,
-      "totalEur": 8238.5,
-      "paidEur": 2291.02,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Тануки Филмс ООД",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     }
   ]
 }

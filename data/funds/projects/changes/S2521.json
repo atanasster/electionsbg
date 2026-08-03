@@ -1,58 +1,24 @@
 {
   "obshtina": "S2521",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1140",
-      "title": "Изграждане на дигитален клуб в град Нови Искър",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 20441.45,
-      "totalEur": 20441.45,
-      "paidEur": 18691.19,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Отец ПАИСИЙ\"-ГРАД нови ИСКЪР-1936",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0199",
-      "title": "Внедряване на иновации от ЗЕБРА АД",
+      "contractNumber": "BG16RFPR001-1.012-0596",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 1092119.46,
+      "prevTotalEur": 31727.71,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Зебра АД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.003-0196",
-      "title": "Внедряване на иновации в Магналабс ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 634001.93,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Магналабс ЕООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Проинстал ООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

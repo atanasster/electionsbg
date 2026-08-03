@@ -1,54 +1,58 @@
 {
   "obshtina": "DOB17",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-11.018-0051",
-      "title": "Изграждане и оборудване на нови социални и интегрирани здравно-социални услуги за резидентна грижа и специализирани социални услуги за лица с увреждания на територията на община Каварна",
+      "contractNumber": "BG16RFPR001-1.004-0263",
+      "title": "\"Подобряване на производствения капацитет на семейно предприятие - ДИГ - 77 ЕООД\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 4521308.86,
-      "totalEur": 4521308.86,
-      "paidEur": 3263294.1,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Каварна",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 24907.07,
+      "totalEur": 24902,
+      "paidEur": 18676.52,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ДИГ - 77 ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1030",
-      "title": "Изграждане на дигитален клуб в Народно Читалище СЪГЛАСИЕ - 1890 в гр. Каварна",
+      "contractNumber": "BG14MFPR001-1.003-0008",
+      "title": "Окончателно преустановяване на риболовни дейности на плавателен съд с регистрационен номер ЦР154",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 20451.67,
-      "totalEur": 20451.67,
-      "paidEur": 19245.93,
+      "prevTotalEur": 16217.75,
+      "totalEur": 16217.74,
+      "paidEur": 16217.74,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Съгласие - 1890",
-      "detectedAt": "2026-07-27"
+      "programCode": "2021BG14MFPR001",
+      "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
+      "beneficiaryName": "Джей ПИ сълюшан ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1306",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"НАРОДЕН БУДИТЕЛ - 1940\" в с. Българево",
+      "contractNumber": "BG-RRP-1.024-0846",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СВЕТЛИНА 1942\" в с. Белгун",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 6288.06,
+      "paidEur": 9563.26,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Народен будител - 1940\"",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно Читалище \"Светлина 1942\"",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

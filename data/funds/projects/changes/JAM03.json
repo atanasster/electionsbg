@@ -1,6 +1,6 @@
 {
   "obshtina": "JAM03",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-11.018-0045",
@@ -11,12 +11,46 @@
       ],
       "prevTotalEur": 6129414.51,
       "totalEur": 6129414.51,
-      "paidEur": 1982541.29,
+      "paidEur": 2213640.61,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Болярово",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0009",
+      "title": "Иновативни здравно-социални услуги в община Болярово.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 107735.55,
+      "totalEur": 107735.55,
+      "paidEur": 78062.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Болярово",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-1957",
+      "title": "Закупуване на земеделска техника",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 144823.43,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Прунус агро ЕООД",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

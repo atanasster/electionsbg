@@ -1,22 +1,38 @@
 {
   "obshtina": "SFO24",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.011-0038",
-      "title": "Основен ремонт и въвеждане на мерки за енергийна ефективност на общежитие към СУ \"Любен Каравелов\" - гр. Копривщица",
+      "contractNumber": "BG05SFPR001-2.003-0078",
+      "title": "Академия за млади таланти - Копривщица",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1506076.05,
-      "totalEur": 1506076.05,
-      "paidEur": 1488880.27,
+      "prevTotalEur": 352280.53,
+      "totalEur": 352280.53,
+      "paidEur": 70456.11,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
       "beneficiaryName": "Община Копривщица",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0049",
+      "title": "„Изграждане на сигурна, подкрепяща и приобщаваща училищна среда в СУ „Любен Каравелов“ – Копривщица чрез превенция на агресията, насилието и тормоза и развитие на култура на толерантност, уважение и сътрудничество между ученици, учители и родители“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 176135.81,
+      "totalEur": 176135.81,
+      "paidEur": 35227.16,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"Любен Каравелов\"",
+      "detectedAt": "2026-08-03"
     },
     {
       "contractNumber": "BG-RRP-13.009-0172",
@@ -27,30 +43,12 @@
       ],
       "prevTotalEur": 58082.76,
       "totalEur": 58082.76,
-      "paidEur": 36900,
+      "paidEur": 40844.04,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Копривщица",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0008",
-      "title": "БАЛКОНЪТ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 6037.67,
-      "totalEur": 5890.77,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дуенде 14 ООД",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     }
   ]
 }

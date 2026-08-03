@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T19:24:39.828Z",
+  "generatedAt": "2026-08-03T00:22:49.264Z",
   "byPeriod": {
     "2007-13": {
       "contractedEur": 0,
@@ -8,29 +8,29 @@
       "contractCount": 0
     },
     "2014-20": {
-      "contractedEur": 14233874753.52,
+      "contractedEur": 14252896294.61,
       "paidEur": 10864700948.48,
-      "absorptionPct": 76.33,
-      "contractCount": 56581
+      "absorptionPct": 76.23,
+      "contractCount": 56594
     },
     "2021-27": {
-      "contractedEur": 12039268959.38,
-      "paidEur": 3378996593.01,
-      "absorptionPct": 28.07,
-      "contractCount": 11149
+      "contractedEur": 12076235948.95,
+      "paidEur": 3489226197.1,
+      "absorptionPct": 28.89,
+      "contractCount": 11237
     },
     "RRP": {
-      "contractedEur": 17749226208.95,
-      "paidEur": 3651538526.89,
-      "absorptionPct": 20.57,
+      "contractedEur": 17743802406.54,
+      "paidEur": 3751799284.65,
+      "absorptionPct": 21.14,
       "contractCount": 14180
     }
   },
   "byFundType": {
     "RRP": {
-      "contractedEur": 17749226208.95,
-      "paidEur": 3651538526.89,
-      "absorptionPct": 20.57,
+      "contractedEur": 17743802406.54,
+      "paidEur": 3751799284.65,
+      "absorptionPct": 21.14,
       "contractCount": 14180
     },
     "CF": {
@@ -40,10 +40,10 @@
       "contractCount": 471
     },
     "ERDF": {
-      "contractedEur": 12759907952.9,
-      "paidEur": 5145888481.43,
-      "absorptionPct": 40.33,
-      "contractCount": 44001
+      "contractedEur": 12794649317.62,
+      "paidEur": 5238973071.21,
+      "absorptionPct": 40.95,
+      "contractCount": 44082
     },
     "EAFRD": {
       "contractedEur": 2072502758.27,
@@ -52,21 +52,21 @@
       "contractCount": 12151
     },
     "ESF": {
-      "contractedEur": 3835768352.11,
-      "paidEur": 2589591735.43,
-      "absorptionPct": 67.51,
-      "contractCount": 7247
+      "contractedEur": 3838560990.73,
+      "paidEur": 2602082834.08,
+      "absorptionPct": 67.79,
+      "contractCount": 7254
     },
     "Other": {
-      "contractedEur": 2346687559.53,
-      "paidEur": 1731599684.9,
-      "absorptionPct": 73.79,
-      "contractCount": 2574
+      "contractedEur": 2365709100.72,
+      "paidEur": 1735942731.03,
+      "absorptionPct": 73.38,
+      "contractCount": 2587
     },
     "EMFF": {
-      "contractedEur": 227211531.39,
-      "paidEur": 111216624.73,
-      "absorptionPct": 48.95,
+      "contractedEur": 226644517.52,
+      "paidEur": 111527494.26,
+      "absorptionPct": 49.21,
       "contractCount": 1286
     }
   },
@@ -75,19 +75,19 @@
       "bucket": "RRP (ПВУ) RRP",
       "period": "RRP",
       "fundType": "RRP",
-      "contractedEur": 17749226208.95,
-      "paidEur": 3651538526.89,
-      "absorptionPct": 20.57,
+      "contractedEur": 17743802406.54,
+      "paidEur": 3751799284.65,
+      "absorptionPct": 21.14,
       "contractCount": 14180
     },
     {
       "bucket": "ERDF 2021-27",
       "period": "2021-27",
       "fundType": "ERDF",
-      "contractedEur": 8917018229.11,
-      "paidEur": 1934003014.03,
-      "absorptionPct": 21.69,
-      "contractCount": 7845
+      "contractedEur": 8951759593.83,
+      "paidEur": 2027087603.81,
+      "absorptionPct": 22.64,
+      "contractCount": 7926
     },
     {
       "bucket": "CF 2014-20",
@@ -111,10 +111,10 @@
       "bucket": "ESF 2021-27",
       "period": "2021-27",
       "fundType": "ESF",
-      "contractedEur": 2361266555.69,
-      "paidEur": 1213759857.24,
-      "absorptionPct": 51.4,
-      "contractCount": 2844
+      "contractedEur": 2364059194.31,
+      "paidEur": 1226250955.89,
+      "absorptionPct": 51.87,
+      "contractCount": 2851
     },
     {
       "bucket": "EAFRD 2014-20",
@@ -129,10 +129,10 @@
       "bucket": "Other 2014-20",
       "period": "2014-20",
       "fundType": "Other",
-      "contractedEur": 1667353211.06,
+      "contractedEur": 1686374752.15,
       "paidEur": 1518732420.32,
-      "absorptionPct": 91.09,
-      "contractCount": 2257
+      "absorptionPct": 90.06,
+      "contractCount": 2270
     },
     {
       "bucket": "ESF 2014-20",
@@ -147,9 +147,9 @@
       "bucket": "Other 2021-27",
       "period": "2021-27",
       "fundType": "Other",
-      "contractedEur": 679334348.47,
-      "paidEur": 212867264.58,
-      "absorptionPct": 31.33,
+      "contractedEur": 679334348.57,
+      "paidEur": 217210310.71,
+      "absorptionPct": 31.97,
       "contractCount": 317
     },
     {
@@ -165,9 +165,9 @@
       "bucket": "EMFF 2021-27",
       "period": "2021-27",
       "fundType": "EMFF",
-      "contractedEur": 81649826.11,
-      "paidEur": 18366457.16,
-      "absorptionPct": 22.49,
+      "contractedEur": 81082812.24,
+      "paidEur": 18677326.69,
+      "absorptionPct": 23.03,
       "contractCount": 143
     }
   ],
@@ -177,9 +177,9 @@
       "programName": "Национален план за възстановяване и устойчивост",
       "period": "RRP",
       "fundType": "RRP",
-      "contractedEur": 17749226208.95,
-      "paidEur": 3651538526.89,
-      "absorptionPct": 20.57,
+      "contractedEur": 17743802406.54,
+      "paidEur": 3751799284.65,
+      "absorptionPct": 21.14,
       "contractCount": 14180
     },
     {
@@ -198,8 +198,8 @@
       "period": "2021-27",
       "fundType": "ERDF",
       "contractedEur": 2699569212.95,
-      "paidEur": 539453928.26,
-      "absorptionPct": 19.98,
+      "paidEur": 615025358.63,
+      "absorptionPct": 22.78,
       "contractCount": 46
     },
     {
@@ -207,10 +207,10 @@
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "period": "2021-27",
       "fundType": "ERDF",
-      "contractedEur": 2493270169.39,
-      "paidEur": 498835278.52,
-      "absorptionPct": 20.01,
-      "contractCount": 677
+      "contractedEur": 2487785906.44,
+      "paidEur": 513357193.73,
+      "absorptionPct": 20.64,
+      "contractCount": 679
     },
     {
       "programCode": "2014BG16RFOP002",
@@ -237,10 +237,10 @@
       "programName": "Програма \"Околна среда\" 2021-2027",
       "period": "2021-27",
       "fundType": "ERDF",
-      "contractedEur": 1763310995.23,
+      "contractedEur": 1765061379.82,
       "paidEur": 319373768.84,
-      "absorptionPct": 18.11,
-      "contractCount": 188
+      "absorptionPct": 18.09,
+      "contractCount": 190
     },
     {
       "programCode": "2014BG16M1OP002",
@@ -263,6 +263,16 @@
       "contractCount": 824
     },
     {
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "period": "2021-27",
+      "fundType": "ERDF",
+      "contractedEur": 1485246023.16,
+      "paidEur": 393523620.52,
+      "absorptionPct": 26.5,
+      "contractCount": 6828
+    },
+    {
       "programCode": "2014BG05M9OP001",
       "programName": "Развитие на човешките ресурси",
       "period": "2014-20",
@@ -273,23 +283,13 @@
       "contractCount": 4403
     },
     {
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "period": "2021-27",
-      "fundType": "ERDF",
-      "contractedEur": 1446770780.08,
-      "paidEur": 390630552.82,
-      "absorptionPct": 27,
-      "contractCount": 6751
-    },
-    {
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "contractedEur": 1348269800.33,
-      "paidEur": 746972761.9,
-      "absorptionPct": 55.4,
+      "contractedEur": 1348443831.84,
+      "paidEur": 758306888.54,
+      "absorptionPct": 56.24,
       "contractCount": 2025
     },
     {
@@ -297,10 +297,10 @@
       "programName": "Програма \"Образование\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "contractedEur": 767645914.45,
-      "paidEur": 292483724.54,
-      "absorptionPct": 38.1,
-      "contractCount": 568
+      "contractedEur": 769753450.22,
+      "paidEur": 293640696.55,
+      "absorptionPct": 38.15,
+      "contractCount": 575
     },
     {
       "programCode": "2014BG05M2OP001",
@@ -318,8 +318,8 @@
       "period": "2021-27",
       "fundType": "ERDF",
       "contractedEur": 514097071.46,
-      "paidEur": 185709485.59,
-      "absorptionPct": 36.12,
+      "paidEur": 185807662.09,
+      "absorptionPct": 36.14,
       "contractCount": 183
     },
     {
@@ -327,9 +327,9 @@
       "programName": "Програма на Република България по Инструмента за финансова подкрепа за управлението на границите и визовата политика",
       "period": "2021-27",
       "fundType": "Other",
-      "contractedEur": 377494479.64,
-      "paidEur": 124147247.18,
-      "absorptionPct": 32.89,
+      "contractedEur": 377494479.68,
+      "paidEur": 128371950.25,
+      "absorptionPct": 34.01,
       "contractCount": 63
     },
     {
@@ -347,9 +347,9 @@
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "period": "2021-27",
       "fundType": "ESF",
-      "contractedEur": 245350840.91,
+      "contractedEur": 245861912.25,
       "paidEur": 174303370.8,
-      "absorptionPct": 71.04,
+      "absorptionPct": 70.89,
       "contractCount": 251
     },
     {
@@ -407,9 +407,9 @@
       "programName": "Програма на Република България по фонд „Убежище, миграция и интеграция“",
       "period": "2021-27",
       "fundType": "Other",
-      "contractedEur": 87757834.22,
-      "paidEur": 28816743.14,
-      "absorptionPct": 32.84,
+      "contractedEur": 87757834.27,
+      "paidEur": 28831458.21,
+      "absorptionPct": 32.85,
       "contractCount": 42
     },
     {
@@ -417,9 +417,9 @@
       "programName": "Програма за морско дело, рибарство и аквакултури 2021-2027 г.",
       "period": "2021-27",
       "fundType": "EMFF",
-      "contractedEur": 81649826.11,
-      "paidEur": 18366457.16,
-      "absorptionPct": 22.49,
+      "contractedEur": 81082812.24,
+      "paidEur": 18677326.69,
+      "absorptionPct": 23.03,
       "contractCount": 143
     },
     {
@@ -447,9 +447,9 @@
       "programName": "Програма на Република България по фонд „Вътрешна сигурност“",
       "period": "2021-27",
       "fundType": "Other",
-      "contractedEur": 37144977.67,
-      "paidEur": 13557746.61,
-      "absorptionPct": 36.5,
+      "contractedEur": 37144977.68,
+      "paidEur": 13661374.6,
+      "absorptionPct": 36.78,
       "contractCount": 29
     },
     {
@@ -491,6 +491,16 @@
       "paidEur": 19980631.06,
       "absorptionPct": 97.28,
       "contractCount": 59
+    },
+    {
+      "programCode": "PROPARK",
+      "programName": "Инфраструктура за посетители и устойчиво използване на национални парковe (\"ProPark\")",
+      "period": "2014-20",
+      "fundType": "Other",
+      "contractedEur": 18767420.09,
+      "paidEur": 0,
+      "absorptionPct": 0,
+      "contractCount": 2
     },
     {
       "programCode": "MODAIRN",
@@ -617,10 +627,10 @@
       "programName": "Фонд Научни Изследвания",
       "period": "2014-20",
       "fundType": "Other",
-      "contractedEur": 806196.38,
+      "contractedEur": 1060317.38,
       "paidEur": 0,
       "absorptionPct": 0,
-      "contractCount": 105
+      "contractCount": 116
     },
     {
       "programCode": "NIF",

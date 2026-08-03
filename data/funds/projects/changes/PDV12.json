@@ -1,24 +1,71 @@
 {
   "obshtina": "PDV12",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0223",
-      "title": "Топъл обяд в община Калояново",
+      "contractNumber": "BG16RFPR001-1.008-0449",
+      "title": "„Въвеждане на технологии от областта на Индустрия 4.0 във „ВОДСТРОЙ ПЛОВДИВ“ АД“",
+      "type": "new",
+      "totalEur": 650000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "„Водстрой пловдив“ АД",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0090",
+      "title": "Един до друг",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 250690.51,
+      "totalEur": 250690.51,
+      "paidEur": 50138.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Калояново",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2333",
+      "title": "Подобряване на производствения капацитет в АКТИВ ДЕКОР ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 257921.07,
-      "totalEur": 326402.81,
-      "paidEur": 220856.47,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Калояново",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 86919.62,
+      "totalEur": 86740.67,
+      "paidEur": 65055.51,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Актив декор ЕООД",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-6.004-4231",
+      "title": "Технологична и екологична модернизация на производствените процеси в животновъдно стопанство в с. Дълго Поле",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 340405.26,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Донка",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

@@ -1,34 +1,90 @@
 {
   "obshtina": "BLG03",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0231",
-      "title": "Глориър: Интегрирана интелигентна логистична екосистема от ново поколение",
+      "contractNumber": "PROPARK-1.001-0001",
+      "title": "„Инфраструктура за посетители и устойчиво използване на национален парк“ (ПроПарк) по: Програмен компонент № 1: Превръщане на посетителски център „Паничище“ в пример за модерен център; Компонент № 2: Преустройство на една идентифицирана хижа и Компонент № 3: Рехабилитация на сгради № 1 и № 2 в комплекс „Саръгьол“",
       "type": "new",
-      "totalEur": 440817.97,
+      "totalEur": 17977342.69,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "PROPARK",
+      "programName": "Инфраструктура за посетители и устойчиво използване на национални парковe (\"ProPark\")",
+      "beneficiaryName": "Дирекция „Национален парк Рила“",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.008-0562",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 във \"ФЕШЪН СЪПЛАЙ\" ЕАД",
+      "type": "new",
+      "totalEur": 460162.69,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Глориър ООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Фешън съплай ЕАД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG16FFPR003-1.001-0035",
-      "title": "Обновяване и облагородяване на дворните пространства на общински училища в Благоевград и вътрешен ремонт на сградата на бившия Междуучилищен център за трудово-политехническо обучение (МУЦТПО)",
+      "contractNumber": "BG16RFPR001-1.008-0320",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в ЕТ \"АНЖЕЛА ЛАЗОВА - ВИСОТА\"",
+      "type": "new",
+      "totalEur": 174550.18,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕТ \"Анжела Лазова - висота\"",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG16FFPR003-1.001-0004",
+      "title": "Реконструкция и обновяване на парк „Ловен дом“ и Ботаническа градина и разработване на туристическа маркетингова стратегия",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 4077803.29,
-      "totalEur": 4077803.29,
-      "paidEur": 1506864.46,
+      "prevTotalEur": 3295514.44,
+      "totalEur": 3295514.44,
+      "paidEur": 1222055.83,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16FFPR003",
       "programName": "Програма \"Развитие на регионите\" 2021-2027",
       "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0065",
+      "title": "Реформиране на Дом за стари хора в Община Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 2828271.88,
+      "totalEur": 2828271.88,
+      "paidEur": 1392362.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.008-0010",
+      "title": "Изграждане на младежки център Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2186617.65,
+      "totalEur": 2186617.65,
+      "paidEur": 1514149.79,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-08-03"
     },
     {
       "contractNumber": "BG-RRP-4.020-0253",
@@ -39,270 +95,117 @@
       ],
       "prevTotalEur": 1845557.56,
       "totalEur": 1845557.56,
-      "paidEur": 1179545.54,
+      "paidEur": 1550890.92,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-4.023-0369",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, бул. \"Кирил и Методий\" № 25, вх. А, Б, В, Г, Д, Е",
+      "contractNumber": "BG-RRP-4.020-0233",
+      "title": "Устойчиво енергийно обновяване на сградата на Закрит плувен басейн в ж.к. \"Еленово-1\", гр. Благоевград",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1517193.48,
+      "totalEur": 1517193.48,
+      "paidEur": 1226181.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0765",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Катина и Никола Хайдукови\" №72, вх. А и Б",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 477627.27,
+      "totalEur": 477627.27,
+      "paidEur": 477503.69,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-0118",
+      "title": "Устойчиво енергийно обновяване на жилищна сграда с административен адрес: гр. Благоевград, ул. \"Д-р Христо Татарчев\" №22",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "durationMonths"
       ],
-      "prevTotalEur": 1337240.9,
-      "totalEur": 1275884.9,
-      "paidEur": 17977.02,
+      "prevTotalEur": 219010.28,
+      "totalEur": 216088.43,
+      "paidEur": 3723.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0529",
-      "title": "Изграждане на мрежа от 13 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 325382.43,
-      "totalEur": 325382.43,
-      "paidEur": 295434.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежки форум 21 век",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0455",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Владо Черноземски\" №10, вх. А и вх. Б",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 276495.99,
-      "totalEur": 276495.99,
-      "paidEur": 276369.08,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0933",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес гр. Благоевград, ж.к. \"Запад\", бл. 5",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 265140.15,
-      "totalEur": 265140.15,
-      "paidEur": 251107.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0297",
-      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Цанко Церковски\" № 5",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 246953.1,
-      "totalEur": 246953.1,
-      "paidEur": 246829.09,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Благоевград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1470",
-      "title": "Изграждане на училищна STEM среда в БПГ „Ичко Бойчев“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 128814.92,
-      "totalEur": 128814.92,
-      "paidEur": 126645.63,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Благоевградска професионална гимназия \"Ичко Бойчев\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1808",
-      "title": "Проектно предложение за изграждане на училищна STEM център",
+      "contractNumber": "BG-RRP-1.024-0985",
+      "title": "Изграждане на дигитален клуб в Търговско-промишлена палата - Благоевград",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 128669.8,
-      "totalEur": 127696.63,
-      "paidEur": 127696.64,
+      "prevTotalEur": 24438.52,
+      "totalEur": 42060.04,
+      "paidEur": 21030.02,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Единадесето основно училище \"Христо Ботев\"",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Търговско - промишлена палата - Благоевград",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1918",
-      "title": "Изграждане на училищна STEM среда и ВОСКС в ДЕВЕТО ОСНОВНО УЧИЛИЩЕ \"ПЕЙО ЯВОРОВ\", гр. Благоевград",
+      "contractNumber": "BG16RFPR001-1.004-1718",
+      "title": "Подобряване на производствения капацитет в \"ЕМИЛИ-ПРОЕКТ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 92881.25,
-      "totalEur": 92476.25,
-      "paidEur": 92476.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Девето основно училище \"Пейо Яворов\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0023",
-      "title": "Музикално - танцов спектакъл \"Изгрев от Айдара\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 69535.7,
-      "totalEur": 69190.38,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Арсени Костенцев 1980 НЧ",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.020-0213",
-      "title": "Меджик Лазер Шоу",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 62791.01,
-      "totalEur": 62436.43,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Дани лазер ШОУ ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0069",
-      "title": "Представяне пред българската публика на съвременни европейски продукции от детска телевизия Реално и вълшебно ТВ",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 59850.81,
-      "totalEur": 59849.71,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Реално и вълшебно ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0081",
-      "title": "Представяне на награждаваната постановка „Скитникът“, последвано от мастърклас – лекция на автора Давид Зуазола в два български града",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 59796.1,
-      "totalEur": 59795.41,
-      "paidEur": 16137.77,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Фондация Иновации в културата Фондация",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1996",
-      "title": "Подобряване на производствения капацитет на фирма САЙБЕРИЯ ООД",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 56293.24,
-      "totalEur": 56293.24,
-      "paidEur": 42219.93,
+      "prevTotalEur": 14269.13,
+      "totalEur": 14242.03,
+      "paidEur": 10681.52,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сайберия ООД",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "ЕМИЛИ-ПРОЕКТ ЕООД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-11.020-0070",
-      "title": "„СЦЕНИ НА СТРУМА”",
+      "contractNumber": "BG-RRP-4.024-0245",
+      "title": "Устойчиво енергийно обновяване на многофамилна жилищна сграда с административен адрес: гр. Благоевград, ул. \"Мара Бунева\" № 11, вх. А и Б",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 46154.83,
-      "totalEur": 45956.84,
+      "prevTotalEur": 202749.85,
+      "totalEur": 0,
       "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище братство 1869 НЧ",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0053",
-      "title": "\"Светлина в мъглата\" — фотографски изложби на Филипо Джани в България",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 32606.11,
-      "totalEur": 32606.07,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Йордан",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Община Благоевград",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

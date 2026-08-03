@@ -1,73 +1,52 @@
 {
   "obshtina": "HKV28",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR003-2.006-0114",
-      "title": "Преодоляване на неравенствата в ЮЦР в периферни общини по направление Хасково-Харманли-Свиленград за преход към въглеродно неутрални, климатично устойчиви и социално-приобщаващи градове",
+      "contractNumber": "BG16RFPR001-1.008-0101",
+      "title": "Повишаване нивото на дигитализация на СЕРПАКТ ЕООД чрез въвеждане на технологии от областта на Индустрия 4.0.",
+      "type": "new",
+      "totalEur": 178952.16,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "\"Серпакт\" ЕООД",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.035-0006",
+      "title": "Повишаване на готовността на област Хасково за предотвратяване и овладяване на бедствия, пожари и извънредни ситуации",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 8474521.12,
-      "totalEur": 8474521.12,
-      "paidEur": 3059394.69,
+      "prevTotalEur": 211398.41,
+      "totalEur": 211398.41,
+      "paidEur": 67075.62,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR003",
-      "programName": "Програма \"Развитие на регионите\" 2021-2027",
-      "beneficiaryName": "Община Свиленград",
-      "detectedAt": "2026-07-27"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Регионална дирекция \"Пожарна безопасност и защита на населението\" - Хасково",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0241",
-      "title": "\"Топъл обяд в община Свиленград\"",
+      "contractNumber": "BG-RRP-6.004-2351",
+      "title": "Инвестиции в технологична и екологична модернизация за подобряване на цялостната дейност в земеделското стопанство",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 819897.79,
-      "totalEur": 1041438.48,
-      "paidEur": 701534.94,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Свиленград",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG06RDNP001-4.017-0155",
-      "title": "Инвестиция в напоителни системи",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 319046.13,
-      "totalEur": 319046.14,
-      "paidEur": 159523.07,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "Холдинг сакарци АД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0074",
-      "title": "Иновативни здравно-социални услуги в община Свиленград",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 257579.75,
-      "totalEur": 257579.75,
-      "paidEur": 190243.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Община Свиленград",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 236881,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Симеон",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

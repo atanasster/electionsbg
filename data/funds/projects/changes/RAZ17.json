@@ -1,56 +1,54 @@
 {
   "obshtina": "RAZ17",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0023",
-      "title": "Предоставяне на топъл обяд в община Лозница",
+      "contractNumber": "BG-RRP-1.024-0215",
+      "title": "Изграждане на дигитален клуб в град Лозница",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 796692.31,
-      "totalEur": 993656.95,
-      "paidEur": 691520.46,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Лозница",
-      "detectedAt": "2026-07-27"
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 12457.53,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Народно читалище \"Пробуда -1912\"",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0146",
-      "title": "Изграждане на дигитален клуб в село Ловско",
+      "contractNumber": "BG-RRP-1.024-0153",
+      "title": "Изграждане на дигитален клуб в село с.Синя Вода",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 13604.1,
+      "paidEur": 13488.41,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Димо Арсов - 1926\" Г.",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище Сила - 1928 Г.",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0176",
-      "title": "Изграждане на дигитален клуб в село Сейдол",
+      "contractNumber": "BG-RRP-1.024-0156",
+      "title": "Изграждане на дигитален клуб в село Веселина",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 12348.53,
+      "paidEur": 12981.87,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Развитие - 1906\" Г.",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище\"ХРИСТО БОТЕВ-1931 Г.",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

@@ -1,155 +1,10 @@
 {
   "obshtina": "LOV18",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.013-0131",
-      "title": "Насърчаване на социалната икономика в Тъндър Дизайн ЕООД",
-      "type": "new",
-      "totalEur": 118704.28,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Тъндър дизайн ЕООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.014-0028",
-      "title": "„Изграждане на Център за високи постижения в професионалното образование и обучение в НПГВМ „Проф. д-р Димитър Димов“ гр. Ловеч“.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1721410.14,
-      "totalEur": 1721410.14,
-      "paidEur": 1711597.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Национална професионална гимназия по ветеринарна Медицина \"Проф. Д-Р димитър Димов\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.007-0031",
-      "title": "Модернизация на образователната среда в гр. Ловеч - прилагане на мерки за енергийна ефективност, основен ремонт и реконструкция на СУ \"Тодор Кирков\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 1269478.9,
-      "totalEur": 1269478.9,
-      "paidEur": 1167897.28,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Ловеч",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-0521",
-      "title": "Прилагане на мерки за енергийна ефективност на жилищна сграда с адрес гр. Ловеч, бул. България № 68, блок Средна гора",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 489070.26,
-      "totalEur": 489070.26,
-      "paidEur": 253532.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Ловеч",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0529",
-      "title": "Изграждане на мрежа от 13 дигитални клуба",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 325382.43,
-      "totalEur": 325382.43,
-      "paidEur": 295434.86,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Младежки форум 21 век",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1855",
-      "title": "Надграждане и обновяване на STEM център \"Наука и откривателство\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 139402.22,
-      "totalEur": 139139.22,
-      "paidEur": 139139.24,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Профилирана ПРИРОДО-МАТЕМАТИЧЕСКА гимназия - ловеч",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0388",
-      "title": "Постигане на устойчиви условия на труд в \"3М-Автосервиз“ ООД чрез изграждане на екологосъобразна фирмена култура и подобряване на здравословната и безопасна работна среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 133242.78,
-      "totalEur": 133242.78,
-      "paidEur": 132842.08,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "3М-АВТОСЕРВИЗ ООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1121",
-      "title": "Изграждане на училищна STEM среда в ОУ \"Панайот Пипков\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 92950.34,
-      "totalEur": 90499.8,
-      "paidEur": 90499.83,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище панайот Пипков",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0062",
-      "title": "„Форум за съвременно европейско кино: Три филма с послание“",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "status"
-      ],
-      "prevTotalEur": 67672.21,
-      "totalEur": 67672.18,
-      "paidEur": 18145.62,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Рубекула ООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0552",
-      "title": "Развитие на капацитета на 5Б консулт чрез инвестиции в модерно оборудване",
+      "contractNumber": "BG-RRP-3.007-0009",
+      "title": "Развитие на Индустриален парк \"Балкан\" - гр. Ловеч за привличане на инвестиции",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -157,82 +12,110 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 63501.62,
-      "totalEur": 63482.51,
-      "paidEur": 47611.88,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "5б консулт ООД",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.024-0011",
-      "title": "Мостове на културата: България – Румъния чрез танц и музика",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 59084.89,
-      "totalEur": 59084.65,
-      "paidEur": 0,
+      "prevTotalEur": 14905029.09,
+      "totalEur": 14025857.51,
+      "paidEur": 11220686.02,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище зорница 2010 - нено Щрегарски",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Балкан АД",
+      "detectedAt": "2026-08-03"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0111",
-      "title": "Изграждане на догитален клуб в Народно читалище „Васил Левски – 1929 г.“ - с. Умаревци",
+      "contractNumber": "BG-RRP-4.020-0099",
+      "title": "„Устойчиво енергийно обновяване на Административна сграда на Областна администрация Ловеч“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1803042.85,
+      "totalEur": 1803042.85,
+      "paidEur": 1584134.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Областна администрация ловеч",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0048",
+      "title": "Извършване на основен ремонт, преустройство и прилагане на мерки за енергийна ефективност и доставка на оборудване и обзавеждане с цел реформиране на съществуващ дом за стари хора в гр. Ловеч",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 1077361.28,
+      "totalEur": 1077361.28,
+      "paidEur": 384595.7,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR002-2.012-0054",
+      "title": "Иновативни здравно-социални услуги в община Ловеч",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 444824.02,
+      "totalEur": 444824.02,
+      "paidEur": 349937.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Община Ловеч",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.004-0497",
+      "title": "Адаптирана работна среда 2023",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 34097.92,
+      "totalEur": 34097.92,
+      "paidEur": 34097.9,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Осъм инженеринг АД",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1242",
+      "title": "Създаване на дигитален клуб към Търговско промишлена и земеделска палата -Ловеч- достъп, умения и възможности",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23504.09,
+      "totalEur": 23504.09,
+      "paidEur": 21334.59,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Търговско промишлена и Земеделска палата",
+      "detectedAt": "2026-08-03"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0294",
+      "title": "Изграждане на дигитален клуб в читалище СВЕТЛИНА - 1927 г.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 14035.38,
+      "paidEur": 14106.83,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище „Васил Левски – 1929 г.“ - с. Умаревци",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0241",
-      "title": "Изграждане на дигитален клуб НЧ \"Просвета – 1906г.\" с.Дойренци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 11191.46,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"Просвета – 1906г.\" с.Дойренци",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-11.025-0091",
-      "title": "Представяне на аудиовизуален концерт \"Призрачни села\" в български села",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 6812.45,
-      "totalEur": 6544.52,
-      "paidEur": 0,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Мирян Иванов Колев",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище Светлина - 1927 г.",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

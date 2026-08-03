@@ -1,156 +1,22 @@
 {
   "obshtina": "VRC08",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0118",
-      "title": "Топъл обяд в Община Бяла Слатина",
+      "contractNumber": "BG05SFPR001-1.004-0006",
+      "title": "\"Да се научим да живеем заедно\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2695694.67,
-      "totalEur": 2695694.67,
-      "paidEur": 1864819.35,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Бяла Слатина",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.007-0139",
-      "title": "Модернизация на СУ „Васил Левски“ гр. Бяла Слатина",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 1631190.3,
-      "totalEur": 1630426.2,
-      "paidEur": 1630426.18,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бяла Слатина",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-13.009-0129",
-      "title": "Инсталиране на фотоволтаични системи и закупуване на електрическо превозно средство за социалните услуги, делегирани от държавата дейност в Община Бяла Слатина",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 240754.34,
-      "totalEur": 240754.34,
-      "paidEur": 235270.09,
+      "prevTotalEur": 160773.47,
+      "totalEur": 160773.47,
+      "paidEur": 76378.91,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Бяла Слатина",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1039",
-      "title": "Изграждане на училищна STEM среда и ВОСКС в ПРОФЕСИОНАЛНА АГРОТЕХНИЧЕСКА ГИМНАЗИЯ \"Н.Й.ВАПЦАРОВ\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 139187.84,
-      "totalEur": 138686.44,
-      "paidEur": 138686.43,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална Агротехническа гимназия \"Н.Й.ВАПЦАРОВ\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2224",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 69547.16,
-      "totalEur": 69207.06,
-      "paidEur": 69207.04,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Начално училище \"Цани Гинчев\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0335",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ НАПРЕДЪК-1898",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 16572.91,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище НАПРЕДЪК-1898",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0167",
-      "title": "Изграждане на дигитален клуб в село Габаре",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 14086.78,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Зора 1904\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0194",
-      "title": "Изграждане на дигитален клуб в село Соколаре",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 7930.14,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Н.Й.Вапцаров - 1920",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0446",
-      "title": "изграждане на дигитален клуб в Народни читалище Напредък 1897 - с.Попица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 14095.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Напредък 1897 - с.Попица",
-      "detectedAt": "2026-07-27"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Сдружение \"У.Т.Р.Е. - уважение, толератност, разбирателство , единство\"",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

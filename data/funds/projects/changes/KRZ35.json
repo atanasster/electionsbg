@@ -1,42 +1,22 @@
 {
   "obshtina": "KRZ35",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1713",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "contractNumber": "BG-RRP-1.024-1111",
+      "title": "\"Изграждане на дигитален клуб в НЧ „Пробуда 1952“, село Черноочене\"",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
-      "prevTotalEur": 30799.82,
-      "totalEur": 30749,
-      "paidEur": 30749,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13900.54,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Христо Ботев\"",
-      "detectedAt": "2026-07-27"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-2081",
-      "title": "Изграждане на училищна STEM среда в Основно училище \"Никола Йонков Вапцаров\", с. Лясково, общ. Черноочене",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 30403.02,
-      "totalEur": 30352.85,
-      "paidEur": 30352.85,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Никола й. Вапцаров\"",
-      "detectedAt": "2026-07-27"
+      "beneficiaryName": "Народно читалище „Пробуда 1952“",
+      "detectedAt": "2026-08-03"
     }
   ]
 }

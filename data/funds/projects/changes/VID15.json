@@ -1,22 +1,24 @@
 {
   "obshtina": "VID15",
-  "generatedAt": "2026-07-27T19:24:07.772Z",
+  "generatedAt": "2026-08-03T00:22:18.465Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR001-2.003-0013",
-      "title": "Развитие и изява на ученици с таланти в община Грамада",
+      "contractNumber": "BG05SFPR003-1.001-0085",
+      "title": "Топъл обяд в Община Грамада",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 235889.58,
-      "totalEur": 235889.58,
-      "paidEur": 47177.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
+      "prevTotalEur": 139817.2,
+      "totalEur": 174286.02,
+      "paidEur": 121412.14,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Грамада",
-      "detectedAt": "2026-07-27"
+      "detectedAt": "2026-08-03"
     }
   ]
 }
